@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="backgd">#222A2A</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="dialog_color">#00000000</color>
+    <declare-styleable name="CircleImageView"><attr format="dimension" name="border_width"/><attr format="color" name="border_color"/></declare-styleable>
+    <declare-styleable name="DashboardView"><attr format="dimension" name="radius"/><attr format="integer" name="startAngle"/><attr format="integer" name="sweepAngle"/><attr format="integer" name="bigSliceCount"/><attr format="integer" name="sliceCountInOneBigSlice"/><attr format="color" name="arcColor"/><attr format="dimension" name="measureTextSize"/><attr format="color" name="textColor"/><attr format="string" name="headerTitle"/><attr format="string" name="headerTextSize"/><attr format="dimension" name="headerRadius"/><attr format="dimension" name="pointerRadius"/><attr format="dimension" name="circleRadius"/><attr format="integer" name="minValue"/><attr format="integer" name="maxValue"/><attr format="float" name="realTimeValue"/><attr format="dimension" name="stripeWidth"/><attr name="stripeMode"><enum name="normal" value="0"/><enum name="inner" value="1"/><enum name="outer" value="2"/></attr><attr format="color" name="bgColor"/></declare-styleable>
+    <declare-styleable name="JazzyViewPager"><attr name="style"><enum name="standard" value="0"/><enum name="tablet" value="1"/><enum name="cubein" value="2"/><enum name="cubeout" value="3"/><enum name="flipvertical" value="4"/><enum name="fliphorizontal" value="5"/><enum name="stack" value="6"/><enum name="zoomin" value="7"/><enum name="zoomout" value="8"/><enum name="rotateup" value="9"/><enum name="rotatedown" value="10"/><enum name="accordion" value="11"/></attr><attr format="boolean" name="fadeEnabled"/><attr format="boolean" name="outlineEnabled"/><attr format="color|reference" name="outlineColor"/></declare-styleable>
+    <declare-styleable name="PagerSlidingTabStrip"><attr format="color" name="pstsIndicatorColor"/><attr format="color" name="pstsUnderlineColor"/><attr format="color" name="pstsDividerColor"/><attr format="dimension" name="pstsIndicatorHeight"/><attr format="dimension" name="pstsUnderlineHeight"/><attr format="dimension" name="pstsDividerPadding"/><attr format="dimension" name="pstsTabPaddingLeftRight"/><attr format="dimension" name="pstsScrollOffset"/><attr format="reference" name="pstsTabBackground"/><attr format="boolean" name="pstsShouldExpand"/><attr format="boolean" name="pstsTextAllCaps"/></declare-styleable>
+    <declare-styleable name="ViewPagerIndicator"><attr format="reference" name="vpiCirclePageIndicatorStyle"/><attr format="reference" name="vpiIconPageIndicatorStyle"/><attr format="reference" name="vpiLinePageIndicatorStyle"/><attr format="reference" name="vpiTitlePageIndicatorStyle"/><attr format="reference" name="vpiTabPageIndicatorStyle"/><attr format="reference" name="vpiUnderlinePageIndicatorStyle"/></declare-styleable>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_title_hight">70dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="button_size">14dp</dimen>
+    <dimen name="editItem_textSzie0">20sp</dimen>
+    <dimen name="editItem_textSzie1">18sp</dimen>
+    <dimen name="editItem_textSzie2">16sp</dimen>
+    <dimen name="editItem_textSzie3">14sp</dimen>
+    <dimen name="editItem_textSzie4">12sp</dimen>
+    <dimen name="input_marginLeft">26dp</dimen>
+    <dimen name="input_marginRight">26dp</dimen>
+    <dimen name="input_marginTop">20dp</dimen>
+    <dimen name="load_text_width">120dp</dimen>
+    <dimen name="marginLeft">24dp</dimen>
+    <dimen name="marginRight">24dp</dimen>
+    <dimen name="message_marginTop">10dp</dimen>
+    <dimen name="text_size">14sp</dimen>
+    <dimen name="title_size">16dp</dimen>
+    <string name="app_name">FaceppIDCardUI</string>
+    <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
+
+        <item name="android:textSize">50sp</item>
+
+    </style>
+</resources>

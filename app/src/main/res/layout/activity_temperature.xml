@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/test_temperature">
+
+
+    <ImageView
+        android:id="@+id/temperature_video"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/temperature_video"
+        android:clickable="true" />
+
+    <TextView
+        android:id="@+id/text_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="280dp"
+        android:text="36.5"
+        android:textSize="50sp" />
+
+    <ImageView
+        android:id="@+id/test_2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="200dp"
+        android:clickable="true"
+        android:src="@drawable/test" />
+
+
+    <!-- <com.linheimx.app.library.charts.LineChart
+         android:id="@+id/temperature_chart"
+         android:layout_width="600dp"
+         android:layout_height="400dp"
+         android:layout_centerHorizontal="true"
+         android:layout_marginLeft="30dp"
+         android:layout_marginTop="520dp">
+
+     </com.linheimx.app.library.charts.LineChart>
+
+
+     <TextView
+         android:id="@+id/show"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/temperature_chart"
+         android:layout_marginLeft="350dp"
+         android:layout_marginTop="10dp"
+         android:gravity="center_horizontal"
+         android:text="显示数据"
+         android:textColor="@android:color/black"
+         android:textSize="20sp" />
+
+     <CheckBox
+         android:id="@+id/temperature_cb"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/temperature_chart"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="8dp"
+         android:layout_toRightOf="@+id/show"
+         android:checked="true" />
+
+     <TextView
+         android:id="@+id/bgs"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/temperature_chart"
+         android:layout_marginLeft="20dp"
+         android:layout_marginTop="10dp"
+         android:layout_toRightOf="@+id/temperature_cb"
+         android:text="折线阴影"
+         android:textColor="@android:color/black"
+         android:textSize="20sp" />
+
+     <CheckBox
+         android:id="@+id/cb_fill_temperature"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/temperature_chart"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="8dp"
+         android:layout_toRightOf="@+id/bgs"
+         android:checked="false" />-->
+
+
+</RelativeLayout>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/per_info"
+    tools:context="com.megvii.faceppidcardui.RegisterActivity">
+
+    <com.megvii.faceppidcardui.imageview.CircleImageView
+        android:id="@+id/register_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/person_image">
+
+    </com.megvii.faceppidcardui.imageview.CircleImageView>
+
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_image"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="5dp"
+        android:text="姓名：张三"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="性别：女"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/register_image"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="5dp"
+        android:text="年龄：56"
+        android:textSize="40sp" />
+
+
+    <TextView
+        android:id="@+id/text_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:text="签约医生:"
+        android:textSize="40sp" />
+
+    <EditText
+        android:id="@+id/doctor_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/text_doctor"
+        android:hint="例如123"
+        android:maxLength="4"
+        android:inputType="number"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/text_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/doctor_id"
+        android:text="联系电话:"
+        android:textSize="40sp" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/text_phone"
+        android:hint="例如123"
+        android:inputType="number"
+        android:maxLength="11"
+        android:textSize="40sp" />
+
+
+    <TextView
+        android:id="@+id/text_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_doctor"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:text="通讯地址:"
+        android:textSize="40sp" />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_doctor"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/text_address"
+        android:hint="浙江省杭州市萧山区建设二路957号"
+        android:maxLength="38"
+        android:textSize="40sp" />
+
+
+    <ImageView
+        android:id="@+id/submit"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:src="@drawable/submit" />
+
+</RelativeLayout>

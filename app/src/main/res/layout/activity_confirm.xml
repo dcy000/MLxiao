@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgs"
+    android:orientation="vertical"
+    tools:context=".login.ConfirmActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/logo2" />
+
+    <EditText
+        android:id="@+id/keys"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/key"
+        android:hint="请输入密码" />
+
+    <EditText
+        android:id="@+id/keyagain"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/key"
+        android:hint="请再次输入密码" />
+
+    <Button
+        android:enabled="false"
+        android:layout_gravity="center"
+        android:id="@+id/confirm"
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape1btn"
+        android:text="确 定"
+        android:textSize="23sp" />
+
+
+</LinearLayout>
