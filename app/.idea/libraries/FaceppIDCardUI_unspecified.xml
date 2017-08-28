@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="FaceppIDCardUI-unspecified">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/MLxiao/FaceppIDCardUI/unspecified/res" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/MLxiao/FaceppIDCardUI/unspecified/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/MLxiao/FaceppIDCardUI/unspecified/jars/libs/android-async-http-1.4.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/MLxiao/FaceppIDCardUI/unspecified/jars/libs/megvii-idcard-0.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

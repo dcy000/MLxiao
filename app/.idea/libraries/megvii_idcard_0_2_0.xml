@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="megvii-idcard-0.2.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FaceppIDCardUI/libs/megvii-idcard-0.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
