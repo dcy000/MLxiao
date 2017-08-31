@@ -23,17 +23,22 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
         mAdapter = new DiseaseShowAdapter(mContext);
         mGridView.setAdapter(mAdapter);
         findViewById(R.id.tv_next).setOnClickListener(this);
+        findViewById(R.id.iv_back).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.iv_back:
+                finish();
+                break;
             case R.id.tv_next:
                 showLoadingDialog(getString(R.string.do_uploading));
                 NetworkApi.setUserMh(mAdapter.getMh(), new NetworkManager.SuccessCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
                         hideLoadingDialog();
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
