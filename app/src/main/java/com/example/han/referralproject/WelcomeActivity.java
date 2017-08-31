@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;
+
+import com.example.han.referralproject.activity.LoginActivity;
+import com.example.han.referralproject.application.MyApplication;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -29,10 +33,15 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onChronometerTick(Chronometer ch) {
                 // 如果从开始计时到现在超过了60s
-                if (SystemClock.elapsedRealtime() - ch.getBase() > 3 * 1000) {
+                if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                     ch.stop();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)){
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
                     finish();
                 }
             }

@@ -53,6 +53,21 @@
             android:name=".temperature.TemperatureActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activity.AgreementActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.PreviousHistoryActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
             android:screenOrientation="landscape" />
