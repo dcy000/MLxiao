@@ -57,6 +57,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                         LocalShared.getInstance(mContext).setUserInfo(response);
                         hideLoadingDialog();
                     }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        hideLoadingDialog();
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                    }
                 });
                 break;
             case R.id.tv_register:

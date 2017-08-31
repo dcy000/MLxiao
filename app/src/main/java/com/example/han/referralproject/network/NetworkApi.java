@@ -15,11 +15,11 @@ public class NetworkApi {
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
 
-    public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener){
+    public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback){
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("username", phoneNum);
         paramsMap.put("password", pwd);
-        NetworkManager.getInstance().postResultString(LoginUrl, paramsMap, listener);
+        NetworkManager.getInstance().postResultClass(LoginUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
     public static void registerUser(String name, String sex, String address, String telephone, String pwd,
