@@ -44,8 +44,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" >
-
+            android:screenOrientation="landscape">
 
 
         </activity>
@@ -74,12 +73,10 @@
             android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.RecordActivity"
-            android:screenOrientation="landscape" >
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.MessageActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -107,10 +104,12 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -133,12 +132,11 @@
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
         <activity android:name=".facerecognition.RegisterVideoActivity" />
-        <activity android:name=".recyclerview.RecoDocActivity" />
+        <activity android:name=".recyclerview.RecoDocActivity"></activity>
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity"></activity>
         <activity android:name=".personal.PersonActivity">
-
 
 
         </activity>

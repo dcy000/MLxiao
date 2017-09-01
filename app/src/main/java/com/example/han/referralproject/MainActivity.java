@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.conversation:
-                intent.setClass(getApplicationContext(), VideoDemo.class);
+                intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
                 startActivity(intent);
                 break;
             case R.id.shopping:

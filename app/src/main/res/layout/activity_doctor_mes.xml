@@ -24,7 +24,7 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <com.example.han.fuzzysearchactivity.recyclerview.CircleImageView
+    <com.example.han.referralproject.imageview.CircleImageView
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_below="@+id/toolbar"

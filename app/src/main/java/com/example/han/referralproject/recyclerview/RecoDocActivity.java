@@ -182,6 +182,7 @@ public class RecoDocActivity extends AppCompatActivity {
                 Intent intent = new Intent(RecoDocActivity.this, DoctorMesActivity.class);
                 intent.putExtra("docMsg", (Serializable) mlist.get(postion));
                 startActivity(intent);
+                finish();
 
             }
         });
