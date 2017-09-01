@@ -17,7 +17,6 @@
     </com.megvii.faceppidcardui.imageview.CircleImageView>
 
 
-
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
@@ -69,8 +68,9 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/text_doctor"
         android:hint="例如123"
-        android:maxLength="4"
         android:inputType="number"
+        android:maxLength="4"
+        android:maxLines="1"
         android:textSize="40sp" />
 
     <TextView
@@ -95,6 +95,7 @@
         android:hint="例如123"
         android:inputType="number"
         android:maxLength="11"
+        android:maxLines="1"
         android:textSize="40sp" />
 
 
@@ -117,6 +118,7 @@
         android:layout_toRightOf="@+id/text_address"
         android:hint="浙江省杭州市萧山区建设二路957号"
         android:maxLength="38"
+        android:maxLines="1"
         android:textSize="40sp" />
 
 

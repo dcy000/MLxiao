@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/back"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@android:color/black"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/jieshao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="审核完成，恭喜你完成注册"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
+
+</LinearLayout>

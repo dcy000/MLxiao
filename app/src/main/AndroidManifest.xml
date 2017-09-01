@@ -18,7 +18,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature
-        android:name="android.hardware.bluetooth_le" android:required="true" />
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -75,16 +76,13 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".LoadingActivity"
-            android:screenOrientation="landscape" >
-
-
-
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -93,7 +91,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape" />
@@ -108,7 +106,18 @@
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
-        <activity android:name=".facerecognition.RegisterVideoActivity"></activity>
+        <activity android:name=".facerecognition.RegisterVideoActivity" />
+        <activity android:name=".recyclerview.RecoDocActivity"></activity>
+
+
+        <activity android:name=".recyclerview.DoctorMesActivity" />
+        <activity android:name=".video.MainVideoActivity"></activity>
+
+        <activity android:name=".video.PlayVideoActivity">
+
+        </activity>
+
+
     </application>
 
 </manifest>

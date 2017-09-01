@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="backgd">#222A2A</color>
 
+    <color name="bg1">#D0E3F2</color>
+    <color name="bg2">#6AB7EB</color>
+    <color name="bgcolor">#CCFFFF</color>
+    <color name="textcolor">#6AB7EB</color>
+
 </resources>

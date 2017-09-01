@@ -12,7 +12,7 @@ import java.io.InputStream;
 
 
 public class MyApplication extends Application {
-
+//
 
     @Override
     public void onCreate() {

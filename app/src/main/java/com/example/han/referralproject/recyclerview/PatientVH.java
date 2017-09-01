@@ -1,0 +1,31 @@
+package com.example.han.referralproject.recyclerview;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.han.referralproject.R;
+
+
+/**
+ * Created by han on 2016/12/27.
+ */
+public class PatientVH extends RecyclerView.ViewHolder {
+
+    ImageView mImagine;
+    TextView mNameview;
+    TextView mRoomId;
+    public int mPosition;
+
+    public Context mContext;
+
+
+    public PatientVH(View itemView, final DoctorAdapter.OnItemClickListener onItemClistListener) {
+        super(itemView);
+        mImagine = (ImageView) itemView.findViewById(R.id.item_img);
+        mNameview = (TextView) itemView.findViewById(R.id.item_title);
+        mRoomId = (TextView) itemView.findViewById(R.id.item_desc);
+    }
+}
