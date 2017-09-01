@@ -17,7 +17,7 @@ import com.example.han.referralproject.R;
 
 public class RecordActivity extends BaseActivity implements View.OnClickListener{
     private WebView webView;
-    private final String UrlFormat = "http://192.168.200.103:8080/ZZB/br/cl?bid=100002&temp=%d";
+    private final String UrlFormat = "http://116.62.36.12:8080/ZZB/br/cl?bid=100002&temp=%d";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
