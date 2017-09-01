@@ -11,10 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9dfbc0d-9db8-4bcf-adf5-2063229536a8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_message.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_message.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/arrays.xml" afterPath="$PROJECT_DIR$/src/main/res/values/arrays.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkApi.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkApi.java" />
     </list>
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,16 +63,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="110" column="28" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
+            <state relative-caret-position="196">
+              <caret line="107" column="66" selection-start-line="107" selection-start-column="66" selection-end-line="107" selection-end-column="66" />
               <folding />
             </state>
           </provider>
           <provider editor-type-id="android-manifest">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NetworkApi.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkApi.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="19" column="56" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -94,41 +101,6 @@
                 <element signature="e#3181#3182#0" expanded="true" />
                 <element signature="e#3228#3398#0" expanded="true" />
                 <element signature="e#3397#3398#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
-              <folding>
-                <element signature="e#1076#1082#0" expanded="true" />
-                <element signature="e#1082#1088#0" expanded="true" />
-                <element signature="e#1088#1094#0" expanded="true" />
-                <element signature="e#1094#1100#0" expanded="true" />
-                <element signature="e#1100#1106#0" expanded="true" />
-                <element signature="e#1106#1112#0" expanded="true" />
-                <element signature="e#1112#1118#0" expanded="true" />
-                <element signature="e#1118#1124#0" expanded="true" />
-                <element signature="e#1164#1170#0" expanded="true" />
-                <element signature="e#1170#1176#0" expanded="true" />
-                <element signature="e#1176#1182#0" expanded="true" />
-                <element signature="e#1182#1188#0" expanded="true" />
-                <element signature="e#1188#1194#0" expanded="true" />
-                <element signature="e#1194#1200#0" expanded="true" />
-                <element signature="e#1200#1206#0" expanded="true" />
-                <element signature="e#1206#1212#0" expanded="true" />
-                <element signature="e#1282#1288#0" expanded="true" />
-                <element signature="e#1288#1294#0" expanded="true" />
-                <element signature="e#1294#1300#0" expanded="true" />
-                <element signature="e#1300#1306#0" expanded="true" />
-                <element signature="e#1306#1312#0" expanded="true" />
-                <element signature="e#1312#1318#0" expanded="true" />
-                <element signature="e#1318#1324#0" expanded="true" />
-                <element signature="e#1324#1330#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -4163,7 +4135,6 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_previous_history.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/adapter/DiseaseShowAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkApi.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/LoginActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/PreviousHistoryActivity.java" />
@@ -4180,6 +4151,7 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/item_message.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_message.xml" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkApi.java" />
       </list>
     </option>
   </component>
@@ -5264,14 +5236,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="17" column="28" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="547">
@@ -5555,13 +5519,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="110" column="28" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
+        <state relative-caret-position="196">
+          <caret line="107" column="66" selection-start-line="107" selection-start-column="66" selection-end-line="107" selection-end-column="66" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="android-manifest">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="19" column="56" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

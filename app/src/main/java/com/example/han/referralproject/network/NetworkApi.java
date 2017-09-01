@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    public static final String BasicUrl = "http://192.168.200.103:8080";
+    //public static final String BasicUrl = "http://192.168.200.103:8080";
+    public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
