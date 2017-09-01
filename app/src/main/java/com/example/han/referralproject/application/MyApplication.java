@@ -13,12 +13,8 @@ import java.io.InputStream;
 
 
 public class MyApplication extends Application {
-<<<<<<< HEAD
-//
-=======
     private static MyApplication mInstance;
     public String userId;
->>>>>>> ff71cea22aa148ec864d06445f534a98bdbf1658
 
     @Override
     public void onCreate() {
