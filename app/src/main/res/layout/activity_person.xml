@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.personal.PersonActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgcolor"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/title_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="left"
+            android:text="个人详情"
+            android:textSize="25sp" />
+    </android.support.v7.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/per_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="王大妈"
+            android:textColor="@android:color/black"
+            android:textSize="50sp" />
+
+        <com.example.han.referralproject.imageview.CircleImageView
+            android:id="@+id/per_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/per_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/head_cion2" />
+
+        <LinearLayout
+            android:id="@+id/linearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/per_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/per_image"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="账户余额:1000元"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="签约医生:赵曼林"
+                android:textSize="32sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearlayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/per_image"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的积分:1000分"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="浙江第二人民医院"
+                android:textSize="32sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RelativeLayout"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:background="@drawable/bgper_msg"
+            android:text="充 值"
+            android:textSize="40sp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bgper_msg"
+            android:text="消费记录"
+            android:textSize="40sp" />
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bgper_msg"
+            android:text="商 城"
+            android:textSize="40sp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bgper_msg"
+            android:text="订 单"
+            android:textSize="40sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearlayout1"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/bg1per_msg"
+        android:text="健康档案"
+        android:textSize="40sp" />
+
+
+</RelativeLayout>

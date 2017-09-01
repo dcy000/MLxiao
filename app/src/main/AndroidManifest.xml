@@ -44,7 +44,14 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -56,18 +63,17 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.AgreementActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.PreviousHistoryActivity"
-            android:screenOrientation="landscape" >
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -95,11 +101,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -122,17 +124,15 @@
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
         <activity android:name=".facerecognition.RegisterVideoActivity" />
-        <activity android:name=".recyclerview.RecoDocActivity"></activity>
-
-
+        <activity android:name=".recyclerview.RecoDocActivity" />
         <activity android:name=".recyclerview.DoctorMesActivity" />
-        <activity android:name=".video.MainVideoActivity"></activity>
+        <activity android:name=".video.MainVideoActivity" />
+        <activity android:name=".video.PlayVideoActivity"></activity>
+        <activity android:name=".personal.PersonActivity">
 
-        <activity android:name=".video.PlayVideoActivity">
+
 
         </activity>
-
-
     </application>
 
 </manifest>
