@@ -7,10 +7,38 @@
     <string name="fgkey">忘记密码？</string>
     <string name="register">注   册</string>
     <string name="input_name">请输入用户名</string>
-    <string name="input_key">请输入密码</string>
+    <string name="input_pwd">请输入密码</string>
     <string name="confirm">请再次输入密码</string>
-    <string name="mobile">请输入手机号码</string>
-
+    <string name="input_mobile">请输入手机号码</string>
+    <string name="i_agree">我同意</string>
+    <string name="agreement">用户协议</string>
+    <string name="empty_account">输入账号不能为空</string>
+    <string name="empty_pwd">输入密码不能为空</string>
+    <string name="empty_name">输入姓名不能为空</string>
+    <string name="empty_address">输入地址不能为空</string>
+    <string name="empty_phone">请输入手机号码</string>
+    <string name="agree_sure">请同意用户协议</string>
+    <string name="sure">确定</string>
+    <string name="do_register">正在注册...</string>
+    <string name="do_login">正在登录</string>
+    <string name="do_uploading">正在上传</string>
+    <string name="content_agreement">《腾讯游戏许可及服务协议》（以下简称“本协议”）由您与腾讯游戏服务提供方共同缔结，
+        本协议具有合同效力。请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制腾讯责任的条款、对用户权利进行限制的条款、
+        约定争议解决方式和司法管辖的条款，以及开通或使用某项服务的单独协议。前述限制、免责及争议解决方式和管辖条款可能以黑体加粗或其他合理方式提示您注意。
+        除非您已阅读并接受本协议所有条款，否则您无权使用腾讯游戏服务。您使用腾讯游戏服务即视为您已阅读并同意签署本协议。
+        如果您未满18周岁，请在法定监护人的陪同下阅读本协议，并特别注意未成年人使用条款。</string>
+    <string name="register_info">注册信息</string>
+    <string name="name">姓名</string>
+    <string name="sex">性别</string>
+    <string name="address">地址</string>
+    <string name="birthday">出生年月</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="telephone">手机号码</string>
+    <string name="pwd_set">设置密码</string>
+    <string name="next_step">下一步</string>
+    <string name="history_disease">既往病史</string>
+    <string name="sign_logo">\&#064;国辰迈联机器人--2017-2019</string>
 
     <string name="unknown_device">Unknown device</string>
     <string name="unknown_characteristic">Unknown characteristic</string>
