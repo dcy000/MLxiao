@@ -16,4 +16,8 @@
         <item>男</item>
         <item>女</item>
     </string-array>
+    <string-array name="test_message_array">
+        <item>血压偏高，请按时吃药，注意休息</item>
+        <item>血糖偏低，多补充点糖分</item>
+    </string-array>
 </resources>

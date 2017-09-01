@@ -51,8 +51,6 @@ public class RecoDocActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        setContentView(R.layout.activity_main);
-
         initToolBar();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.forum_list);

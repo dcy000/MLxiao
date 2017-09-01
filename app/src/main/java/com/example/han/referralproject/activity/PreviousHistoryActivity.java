@@ -1,6 +1,7 @@
 package com.example.han.referralproject.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.DiseaseShowAdapter;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recyclerview.RecoDocActivity;
 
 public class PreviousHistoryActivity extends BaseActivity implements View.OnClickListener{
     private DiseaseShowAdapter mAdapter;
@@ -38,6 +40,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
                     @Override
                     public void onSuccess(String response) {
                         hideLoadingDialog();
+                        startActivity(new Intent(mContext, RecoDocActivity.class));
                         finish();
                     }
                 }, new NetworkManager.FailedCallback() {

@@ -16,11 +16,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.OnlineFaceDemo;
 import com.example.han.referralproject.facerecognition.OnlineFaceDemo1;
 import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.login.PerInfoActivity;
+import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 
 
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.per_info:
+                startActivity(new Intent(this, PersonActivity.class));
                 break;
             case R.id.test:
                 intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.news:
-                intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
+                intent.setClass(getApplicationContext(), MessageActivity.class);
                 startActivity(intent);
                 break;
         }

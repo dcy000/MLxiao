@@ -22,11 +22,11 @@
     <string name="do_register">正在注册...</string>
     <string name="do_login">正在登录</string>
     <string name="do_uploading">正在上传</string>
-    <string name="content_agreement">《腾讯游戏许可及服务协议》（以下简称“本协议”）由您与腾讯游戏服务提供方共同缔结，
-        本协议具有合同效力。请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制腾讯责任的条款、对用户权利进行限制的条款、
-        约定争议解决方式和司法管辖的条款，以及开通或使用某项服务的单独协议。前述限制、免责及争议解决方式和管辖条款可能以黑体加粗或其他合理方式提示您注意。
-        除非您已阅读并接受本协议所有条款，否则您无权使用腾讯游戏服务。您使用腾讯游戏服务即视为您已阅读并同意签署本协议。
-        如果您未满18周岁，请在法定监护人的陪同下阅读本协议，并特别注意未成年人使用条款。</string>
+    <string name="do_loading">正在加载</string>
+    <string name="content_agreement">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;智能健康管家为杭州国辰迈联机器人科技有限公司名下家庭健康管理产品内置APP。\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本服务协议内容包括协议正文及所有国辰迈联已经发布的或将来可能发布的各类规则。所有规则为协议不可分割的一部分，与协议正文具有同等法律效力。\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;用户在使用国辰迈联提供的各项服务的同时，承诺接受并遵守各项相关规则的规定。国辰迈联有权根据需要不时地制定、修改本协议或各类规则，
+        如本协议有任何变更，国辰迈联将在网站上刊载公告，通知本站用户。如用户不同意相关变更，必须停止使用“服务”。经修订的协议一经在国辰迈联网站公布后，立即自动生效。
+        各类规则会在发布后生效，亦成为本协议的一部分。登录或继续使用“服务”将表示用户接受经修订的协议。
+        除另行明确声明外，任何使“服务”范围扩大或功能增强的新内容均受本协议约束。</string>
     <string name="register_info">注册信息</string>
     <string name="name">姓名</string>
     <string name="sex">性别</string>
@@ -38,7 +38,13 @@
     <string name="pwd_set">设置密码</string>
     <string name="next_step">下一步</string>
     <string name="history_disease">既往病史</string>
+    <string name="health_record">健康档案</string>
     <string name="sign_logo">\&#064;国辰迈联机器人--2017-2019</string>
+    <string name="xueya">血压</string>
+    <string name="xuetang">血糖</string>
+    <string name="wendu">温度</string>
+    <string name="xueyang">血氧</string>
+    <string name="health_message">健康消息</string>
 
     <string name="unknown_device">Unknown device</string>
     <string name="unknown_characteristic">Unknown characteristic</string>
