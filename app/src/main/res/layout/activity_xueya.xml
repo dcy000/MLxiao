@@ -50,7 +50,7 @@
        android:layout_height="200dp"
        android:layout_alignParentLeft="true"
        android:layout_alignParentBottom="true"
-       android:src="@drawable/test"
+       android:src="@drawable/tests"
        android:layout_marginLeft="200dp"/>
 
 

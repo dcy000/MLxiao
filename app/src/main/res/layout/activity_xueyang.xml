@@ -44,7 +44,7 @@
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="200dp"
         android:clickable="true"
-        android:src="@drawable/test" />
+        android:src="@drawable/tests" />
    <!-- <ProgressBar
         android:id="@+id/pb"
         style="@android:style/Widget.ProgressBar.Large"
