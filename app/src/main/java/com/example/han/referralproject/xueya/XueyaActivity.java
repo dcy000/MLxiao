@@ -638,7 +638,7 @@ public class XueyaActivity extends AppCompatActivity {
                     if (device != null) {
                         //   Log.e("===============", device.getName());
 
-                        if ("JUNSHOW".equals(device.getName())) {
+                        if ("Med_link".equals(device.getName())) {
                             mDeviceAddress = device.getAddress();
                             Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
                             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
