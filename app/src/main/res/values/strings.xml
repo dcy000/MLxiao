@@ -45,6 +45,7 @@
     <string name="wendu">温度</string>
     <string name="xueyang">血氧</string>
     <string name="health_message">健康消息</string>
+    <string name="logout">退出登录</string>
 
     <string name="unknown_device">Unknown device</string>
     <string name="unknown_characteristic">Unknown characteristic</string>

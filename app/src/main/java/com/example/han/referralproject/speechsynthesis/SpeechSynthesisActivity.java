@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -91,6 +92,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
+        findViewById(R.id.iat_recognize).performClick();
     }
 
     /**

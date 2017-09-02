@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.User;
 import com.megvii.faceppidcardui.util.ConstantData;
+import com.example.han.referralproject.util.LocalShared;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -111,6 +113,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         pw.close();
         br.close();
 
+        findViewById(R.id.btn_logout).setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +121,11 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_record:
                 startActivity(new Intent(this, RecordActivity.class));
+                break;
+            case R.id.btn_logout:
+                LocalShared.getInstance(this).loginOut();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
         }
     }

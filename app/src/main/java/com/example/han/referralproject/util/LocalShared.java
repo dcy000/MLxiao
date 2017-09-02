@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 
-
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
     private static LocalShared mInstance;
@@ -52,7 +51,7 @@ public class LocalShared {
     }
 
     public void loginOut() {
-        boolean isShowAddGuide = isShowAddGuide();
+        MyApplication.getInstance().userId = null;
         mShared.edit().clear();
     }
 
