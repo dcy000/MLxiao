@@ -1,7 +1,7 @@
 package com.megvii.faceppidcardui.util;
 
 public class ConstantData {
-    public static final String BASE_URL = "http://116.62.36.12:8888";
+    public static final String BASE_URL = "http://116.62.36.12:8080";
 
     public static final String BASE_URLS = "http://116.62.36.12:8080/edurobot/";
 

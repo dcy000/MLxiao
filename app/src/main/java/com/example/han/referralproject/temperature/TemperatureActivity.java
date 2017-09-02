@@ -91,7 +91,7 @@ public class TemperatureActivity extends AppCompatActivity {
                     final String str1 = (String) msg.obj;
                     if (str1 != null) {
                         mTextView.setText(msg.obj + "");
-                        new Thread(new Runnable() {
+                      /*  new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
@@ -100,7 +100,7 @@ public class TemperatureActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                        }).start();
+                        }).start();*/
 
 
                     }

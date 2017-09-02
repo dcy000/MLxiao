@@ -13,63 +13,71 @@ public class LocalShared {
     private SharedPreferences mShared;
 
     private final String UserId = "user_id";
+    private final String UserImg = "user_img";
 
     private final String Guide_Add_Click = "guide_add_click";
     private final String Guide_Create_Text = "guide_create_text";
     private final String Guide_Sign_In = "guide_sign_in_two";
 
-    private LocalShared(Context context){
+    private LocalShared(Context context) {
         mShared = context.getSharedPreferences(SharedName, Context.MODE_PRIVATE);
     }
 
-    public static LocalShared getInstance(Context context){
-        if (mInstance == null){
+    public static LocalShared getInstance(Context context) {
+        if (mInstance == null) {
             mInstance = new LocalShared(context);
         }
         return mInstance;
     }
 
 
-    public String getUserId(){
+    public String getUserId() {
         return mShared.getString(UserId, "");
     }
 
-    public void setUserInfo(UserInfoBean infoBean){
+    public void setUserInfo(UserInfoBean infoBean) {
         if (infoBean == null) {
             return;
         }
         MyApplication.getInstance().userId = infoBean.bid;
-        mShared.edit().putString(UserId, infoBean.bid)
-                .putString(UserId, infoBean.bid).commit();
+        mShared.edit().putString(UserId, infoBean.bid).commit();
     }
 
-    public void loginOut(){
+    public void setUserImg(String imgUrl) {
+        mShared.edit().putString(UserImg, imgUrl).commit();
+    }
+
+    public String getUserImg() {
+        return mShared.getString(UserImg, "");
+    }
+
+    public void loginOut() {
         boolean isShowAddGuide = isShowAddGuide();
         mShared.edit().clear();
     }
 
-    public boolean isShowAddGuide(){
+    public boolean isShowAddGuide() {
         return mShared.getBoolean(Guide_Add_Click, true);
     }
 
-    public void haveShowSignInGuide(){
+    public void haveShowSignInGuide() {
         mShared.edit().putBoolean(Guide_Sign_In, false).commit();
     }
 
-    public boolean isShowSignInGuide(){
+    public boolean isShowSignInGuide() {
         return mShared.getBoolean(Guide_Sign_In, true);
     }
 
-    public void haveShowAddGuide(){
+    public void haveShowAddGuide() {
         mShared.edit().putBoolean(Guide_Add_Click, false).commit();
     }
 
 
-    public boolean isShowCreateTextGuide(){
+    public boolean isShowCreateTextGuide() {
         return mShared.getBoolean(Guide_Create_Text, true);
     }
 
-    public void haveShowCreateTextGuide(){
+    public void haveShowCreateTextGuide() {
         mShared.edit().putBoolean(Guide_Create_Text, false).commit();
     }
 }

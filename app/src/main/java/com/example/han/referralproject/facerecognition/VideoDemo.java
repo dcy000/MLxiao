@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.FaceRect;
 import com.example.han.referralproject.util.FaceUtil;
 import com.example.han.referralproject.util.ParseResult;
@@ -90,7 +91,7 @@ public class VideoDemo extends Activity {
     //ImageView mImageView;
     private byte[] mImageData = null;
     boolean sign = true;
-    SharedPreferences sharedPreferences;
+    //   SharedPreferences sharedPreferences;
 
     String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
@@ -103,13 +104,12 @@ public class VideoDemo extends Activity {
 
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
-        sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME4, Context.MODE_PRIVATE);
+        //    sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME4, Context.MODE_PRIVATE);
 
-        mAuthid = sharedPreferences.getString("mAuthid", "");
-        Log.e("==============", mAuthid);
+        //    mAuthid = sharedPreferences.getString("mAuthid", "");
 
+        mAuthid = MyApplication.getInstance().userId;
         initUI();
-        //mImageView = (ImageView) findViewById(R.id.imageview);
 
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];

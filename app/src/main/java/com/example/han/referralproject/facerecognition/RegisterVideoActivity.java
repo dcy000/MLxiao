@@ -10,6 +10,7 @@ import java.util.Random;
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,8 +44,11 @@ import android.widget.Toast;
 import com.example.han.referralproject.LoadingActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.util.FaceRect;
 import com.example.han.referralproject.util.FaceUtil;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ParseResult;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceDetector;
@@ -89,7 +93,7 @@ public class RegisterVideoActivity extends Activity {
     //ImageView mImageView;
     private byte[] mImageData = null;
     boolean sign = true;
-    SharedPreferences sharedPreferences;
+    // SharedPreferences sharedPreferences;
 
     String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
@@ -102,7 +106,7 @@ public class RegisterVideoActivity extends Activity {
 
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
-        sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME, Context.MODE_PRIVATE);
+        //sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME, Context.MODE_PRIVATE);
 
 
         initUI();
@@ -280,38 +284,6 @@ public class RegisterVideoActivity extends Activity {
 
                 mImageData = baos.toByteArray();
 
-               /* if (sign) {
-                    if (null != mImageData) {
-                        Log.e("==============", mImageData.toString());
-                        // 设置用户标识，格式为6-18个字符（由字母、数字、下划线组成，不得以数字开头，不能包含空格）。
-                        // 当不设置时，云端将使用用户设备的设备ID来标识终端用户。
-                        mFaceRequest.setParameter(SpeechConstant.AUTH_ID, "123");
-                        mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
-                        mFaceRequest.sendRequest(mImageData, mRequestListener);
-                        sign = false;
-                        Log.e("=================", "已经执行");
-
-                    }
-
-                }*/
-                /* new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException e) {
-                        }
-
-
-
-
-                    }
-
-
-                }).start();*/
-
-
             }
         });
 
@@ -335,13 +307,14 @@ public class RegisterVideoActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        mAuthid = MyApplication.getInstance().userId;
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (sign) {
                     if (null != mImageData) {
-                        Date date = new Date();
+                      /*  Date date = new Date();
                         SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
                         StringBuilder str = new StringBuilder();//定义变长字符串
                         Random random = new Random();
@@ -349,15 +322,16 @@ public class RegisterVideoActivity extends Activity {
                             str.append(random.nextInt(10));
                         }
                         //将字符串转换为数字并输出
-                        mAuthid = simple.format(date) + str;
+                        mAuthid = simple.format(date) + str;*/
 
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("mAuthid", mAuthid);
-                        editor.commit();
-                        Log.e("发送前", sharedPreferences.getString("mAuthid", ""));
-                        String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
+
+
+                      /*  String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
                         editor.putString("imageData", imageBase64);
-                        editor.commit();
+                        editor.commit();*/
+
+                        String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
+                        LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
 
 
                         mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
@@ -407,12 +381,14 @@ public class RegisterVideoActivity extends Activity {
             if (error != null) {
                 switch (error.getErrorCode()) {
                     case ErrorCode.MSP_ERROR_ALREADY_EXIST:
-                        showTip("authid已经被注册，请更换后再试");
+                        showTip("账号已经被注册，请更换后再试");
                         sign = false;
+                        finish();
                         break;
                     default:
                         showTip(error.getPlainDescription(true));
                         sign = false;
+                        finish();
                         break;
                 }
             }
@@ -457,9 +433,8 @@ public class RegisterVideoActivity extends Activity {
         }
         if ("success".equals(obj.get("rst")) && sign == true) {
             showTip("注册成功");
-            Log.e("发送后", sharedPreferences.getString("mAuthid", ""));
             sign = false;
-            Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
+            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
             startActivity(intent);
             finish();
         } else {

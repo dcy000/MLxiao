@@ -17,13 +17,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.activity.MessageActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.OnlineFaceDemo;
 import com.example.han.referralproject.facerecognition.OnlineFaceDemo1;
+import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.login.PerInfoActivity;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.video.MainVideoActivity;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         mImageView1 = (ImageView) findViewById(R.id.conversation);
         mImageView2 = (ImageView) findViewById(R.id.shopping);
@@ -81,11 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, PersonActivity.class));
                 break;
             case R.id.test:
-                intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
+                intent.setClass(getApplicationContext(), VideoDemo.class);
                 startActivity(intent);
                 break;
             case R.id.classes:
-                intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
+                intent.setClass(getApplicationContext(), MainVideoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.news:

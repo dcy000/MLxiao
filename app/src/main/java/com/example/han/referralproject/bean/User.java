@@ -1,69 +1,118 @@
 package com.example.han.referralproject.bean;
 
 public class User {
-	private int id;
-	private String user_name;
-	private String user_pwd;
-	private String user_phone;
-	private String user_pic;
+	private String bid;
+	private String eqid;
+	private String bname;
+	private String sex;
+	private String dz;
+	private String age;
+	private String sfz;
+	private String tel;
+	private String mh;
 
 	public User() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String user_name, String user_pwd, String user_phone, String user_pic) {
+	public User(String bid, String eqid, String bname, String sex, String dz, String age, String sfz, String tel,
+			String mh) {
 		super();
-		this.id = id;
-		this.user_name = user_name;
-		this.user_pwd = user_pwd;
-		this.user_phone = user_phone;
-		this.user_pic = user_pic;
+		this.bid = bid;
+		this.eqid = eqid;
+		this.bname = bname;
+		this.sex = sex;
+		this.dz = dz;
+		this.age = age;
+		this.sfz = sfz;
+		this.tel = tel;
+		this.mh = mh;
+	}
+	
+	
+	
+
+	public String getBid() {
+		return bid;
 	}
 
-	public int getId() {
-		return id;
+	public void setBid(String bid) {
+		this.bid = bid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public String getEqid() {
+		return eqid;
 	}
 
-	public String getUser_name() {
-		return user_name;
+	public void setEqid(String eqid) {
+		this.eqid = eqid;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public String getBname() {
+		return bname;
 	}
 
-	public String getUser_pwd() {
-		return user_pwd;
+	public void setBname(String bname) {
+		this.bname = bname;
 	}
 
-	public void setUser_pwd(String user_pwd) {
-		this.user_pwd = user_pwd;
+	public String getSex() {
+		return sex;
 	}
 
-	public String getUser_phone() {
-		return user_phone;
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
-	public void setUser_phone(String user_phone) {
-		this.user_phone = user_phone;
+	public String getDz() {
+		return dz;
 	}
 
-	public String getUser_pic() {
-		return user_pic;
+	public void setDz(String dz) {
+		this.dz = dz;
 	}
 
-	public void setUser_pic(String user_pic) {
-		this.user_pic = user_pic;
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getSfz() {
+		return sfz;
+	}
+
+	public void setSfz(String sfz) {
+		this.sfz = sfz;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getMh() {
+		return mh;
+	}
+
+	public void setMh(String mh) {
+		this.mh = mh;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", user_name=" + user_name + ", user_pwd=" + user_pwd + ", user_phone=" + user_phone
-				+ ", user_pic=" + user_pic + "]";
+		return "User [bid=" + bid + ", eqid=" + eqid + ", bname=" + bname + ", sex=" + sex + ", dz=" + dz + ", age="
+				+ age + ", sfz=" + sfz + ", tel=" + tel + ", mh=" + mh + "]";
 	}
+
+	
+
+	
 
 }

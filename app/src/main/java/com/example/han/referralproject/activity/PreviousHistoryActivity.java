@@ -10,11 +10,12 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.DiseaseShowAdapter;
+import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 
-public class PreviousHistoryActivity extends BaseActivity implements View.OnClickListener{
+public class PreviousHistoryActivity extends BaseActivity implements View.OnClickListener {
     private DiseaseShowAdapter mAdapter;
 
     @Override
@@ -30,7 +31,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
@@ -40,7 +41,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
                     @Override
                     public void onSuccess(String response) {
                         hideLoadingDialog();
-                        startActivity(new Intent(mContext, RecoDocActivity.class));
+                        startActivity(new Intent(mContext, RegisterVideoActivity.class));
                         finish();
                     }
                 }, new NetworkManager.FailedCallback() {

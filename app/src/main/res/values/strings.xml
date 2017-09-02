@@ -61,7 +61,7 @@
     <string name="title_devices">BLE Device Scan</string>
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
 
-    <string name="app_id">5976d9d1</string>
+    <string name="app_id">59196d96</string>
     <!-- 听写 -->
     <string name="text_begin">请开始说话…</string>
     <string name="text_begin_recognizer">开始音频流识别</string>

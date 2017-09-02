@@ -17,6 +17,8 @@ public class Doctor implements Serializable {
     public int state;
     public String priority;
     public String amount;
+    public String gat;
+    public String pro;
 
 
     public Doctor() {
@@ -26,7 +28,8 @@ public class Doctor implements Serializable {
 
 
     public Doctor(int doctoerId, String docoerName, String tel, int hosid, String add, String duty, String department,
-                  String documents, String card, int rankId, int state, String priority, String amount) {
+                  String documents, String card, int rankId, int state, String priority, String amount, String gat,
+                  String pro) {
         super();
         this.doctoerId = doctoerId;
         this.docoerName = docoerName;
@@ -41,6 +44,8 @@ public class Doctor implements Serializable {
         this.state = state;
         this.priority = priority;
         this.amount = amount;
+        this.gat = gat;
+        this.pro = pro;
     }
 
 
@@ -174,12 +179,32 @@ public class Doctor implements Serializable {
     }
 
 
+    public String getGat() {
+        return gat;
+    }
+
+
+    public void setGat(String gat) {
+        this.gat = gat;
+    }
+
+
+    public String getPro() {
+        return pro;
+    }
+
+
+    public void setPro(String pro) {
+        this.pro = pro;
+    }
+
+
     @Override
     public String toString() {
         return "Doctor [doctoerId=" + doctoerId + ", docoerName=" + docoerName + ", tel=" + tel + ", hosid=" + hosid
                 + ", add=" + add + ", duty=" + duty + ", department=" + department + ", documents=" + documents
                 + ", card=" + card + ", rankId=" + rankId + ", state=" + state + ", priority=" + priority + ", amount="
-                + amount + "]";
+                + amount + ", gat=" + gat + ", pro=" + pro + "]";
     }
 
 
