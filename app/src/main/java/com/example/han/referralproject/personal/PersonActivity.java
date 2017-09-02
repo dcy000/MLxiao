@@ -14,6 +14,7 @@ import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.User;
+import com.google.gson.Gson;
 import com.megvii.faceppidcardui.util.ConstantData;
 import com.example.han.referralproject.util.LocalShared;
 
@@ -103,10 +104,11 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
             content = lineContent;
             Log.e("=========", content);
         }
+        Gson gson = new Gson();
 
         Message msg = mHandler.obtainMessage();
         msg.what = 0;
-        msg.obj = content;
+        msg.obj = gson.fromJson(content, User.class);
         mHandler.sendMessage(msg);
 
 
