@@ -44,7 +44,7 @@ public class LocalShared {
     }
 
     public void loginOut(){
-        boolean isShowAddGuide = isShowAddGuide();
+        MyApplication.getInstance().userId = null;
         mShared.edit().clear();
     }
 

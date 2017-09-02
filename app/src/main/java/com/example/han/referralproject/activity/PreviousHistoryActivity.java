@@ -49,7 +49,6 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
                         hideLoadingDialog();
                     }
                 });
-                Toast.makeText(mContext, mAdapter.getMh(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }

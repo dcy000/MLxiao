@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.RecordActivity;
+import com.example.han.referralproject.util.LocalShared;
 
 public class PersonActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -15,6 +17,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
         findViewById(R.id.btn_record).setOnClickListener(this);
+        findViewById(R.id.btn_logout).setOnClickListener(this);
     }
 
     @Override
@@ -22,6 +25,11 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.btn_record:
                 startActivity(new Intent(this, RecordActivity.class));
+                break;
+            case R.id.btn_logout:
+                LocalShared.getInstance(this).loginOut();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
         }
     }
