@@ -10,7 +10,6 @@
         <item>痛风</item>
         <item>甲亢</item>
         <item>高血脂</item>
-        <item>自定义</item>
     </string-array>
     <string-array name="sex_array">
         <item>男</item>

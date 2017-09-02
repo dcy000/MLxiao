@@ -151,12 +151,12 @@
 
     <Button
         android:id="@+id/btn_record"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/linearlayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/bg1per_msg"
         android:text="健康档案"
         android:textSize="40sp" />
@@ -164,14 +164,16 @@
 
     <TextView
         android:id="@+id/btn_logout"
-        android:layout_width="250dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="50dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@drawable/selector_btn"
         android:text="@string/logout"
         android:textColor="#f00"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 </RelativeLayout>
