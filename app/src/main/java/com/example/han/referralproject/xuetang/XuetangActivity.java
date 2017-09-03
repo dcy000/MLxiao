@@ -98,12 +98,10 @@ public class XuetangActivity extends AppCompatActivity {
                 case 1:
                     str1 = (String) msg.obj;
                     if (str1 != null) {
-                        final String[] strs = str1.split(",");
-                        mTextView.setText(strs[0]);
-                        sign = strs[3];
+                        mTextView.setText(str1);
 
-                        if ("1".equals(strs[3]) && sign1 == true) {
-                          /*  new Thread(new Runnable() {
+                      /*  if ("1".equals(strs[3]) && sign1 == true) {
+                          *//*  new Thread(new Runnable() {
                                 @Override
                                 public void run() {
                                     try {
@@ -116,9 +114,9 @@ public class XuetangActivity extends AppCompatActivity {
 
                                 }
 
-                            }).start();*/
+                            }).start();*//*
 
-                        }
+                        }*/
                     }
                     break;
                 case 2:

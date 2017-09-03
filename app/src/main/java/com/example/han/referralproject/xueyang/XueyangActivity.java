@@ -106,8 +106,8 @@ public class XueyangActivity extends AppCompatActivity {
                         mTextView.setText(strs[1]);
                         mTextView1.setText(strs[2]);
 
-                        if ("1".equals(strs[3]) && sign1 == true) {
-                           /* new Thread(new Runnable() {
+                       /* if ("1".equals(strs[3]) && sign1 == true) {
+                           *//* new Thread(new Runnable() {
                                 @Override
                                 public void run() {
                                     try {
@@ -117,9 +117,9 @@ public class XueyangActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                 }
-                            }).start();*/
+                            }).start();*//*
 
-                        }
+                        }*/
 
                     }
                     break;
