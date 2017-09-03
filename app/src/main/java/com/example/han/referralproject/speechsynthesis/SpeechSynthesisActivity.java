@@ -323,11 +323,11 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             } else if (error != null) {
                 showTip(error.getPlainDescription(true));
             }
+            findViewById(R.id.iat_recognize).performClick();
         }
 
         @Override
         public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
         }
     };
 
