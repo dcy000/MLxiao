@@ -102,7 +102,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_01" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_02" />
 
 
                 <TextView
@@ -145,7 +145,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_03" />
 
 
                 <TextView
@@ -167,7 +167,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_04" />
 
 
                 <TextView
@@ -200,7 +200,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_05" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -221,7 +221,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_06" />
 
 
                 <TextView
@@ -243,7 +243,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_07" />
 
 
                 <TextView
@@ -265,7 +265,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_08" />
 
 
                 <TextView
@@ -307,7 +307,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_09" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -328,7 +328,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_10" />
 
 
                 <TextView
@@ -350,7 +350,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_11" />
 
 
                 <TextView
@@ -372,7 +372,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_12" />
 
 
                 <TextView
@@ -405,7 +405,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_13" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -426,7 +426,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_14" />
 
 
                 <TextView
@@ -448,7 +448,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_15" />
 
 
                 <TextView
@@ -470,7 +470,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_16" />
 
 
                 <TextView
@@ -511,7 +511,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_02" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -532,7 +532,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_04" />
 
 
                 <TextView
@@ -554,7 +554,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_06" />
 
 
                 <TextView
@@ -576,7 +576,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_08" />
 
 
                 <TextView
@@ -609,7 +609,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_10" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -630,7 +630,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_12" />
 
 
                 <TextView
@@ -652,7 +652,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_14" />
 
 
                 <TextView
@@ -674,7 +674,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_16" />
 
 
                 <TextView
@@ -717,7 +717,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_01" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -738,7 +738,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_03" />
 
 
                 <TextView
@@ -760,7 +760,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_05" />
 
 
                 <TextView
@@ -782,7 +782,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_07" />
 
 
                 <TextView
@@ -815,7 +815,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_09" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -836,7 +836,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_11" />
 
 
                 <TextView
@@ -858,7 +858,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_13" />
 
 
                 <TextView
@@ -880,7 +880,7 @@
                     android:layout_width="200dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/videoimage" />
+                    android:src="@drawable/icon_test_15" />
 
 
                 <TextView

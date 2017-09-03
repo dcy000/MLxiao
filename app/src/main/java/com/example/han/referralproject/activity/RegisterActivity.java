@@ -38,7 +38,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.tv_next).setOnClickListener(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
         sexSpinner = (Spinner) findViewById(R.id.sp_sex);
-        sexSpinner.setAdapter(new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, mResources.getStringArray(R.array.sex_array)));
+        sexSpinner.setAdapter(new ArrayAdapter<String>(mContext, R.layout.item_spinner_layout, mResources.getStringArray(R.array.sex_array)));
 //        sexSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -55,14 +55,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         for (int i = 1900 ; i < 2018; i ++){
             yearList.add(String.valueOf(i));
         }
-        yearSpinner.setAdapter(new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, yearList));
+        yearSpinner.setAdapter(new ArrayAdapter<String>(mContext, R.layout.item_spinner_layout, yearList));
         yearSpinner.setSelection(90);
         monthSpinner = (Spinner) findViewById(R.id.sp_month);
         ArrayList<String> monthList = new ArrayList<>();
         for (int i = 1 ; i < 13; i ++){
             monthList.add(String.valueOf(i));
         }
-        monthSpinner.setAdapter(new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, monthList));
+        monthSpinner.setAdapter(new ArrayAdapter<String>(mContext, R.layout.item_spinner_layout, monthList));
     }
 
     @Override

@@ -52,7 +52,7 @@ public class LocalShared {
 
     public void loginOut() {
         MyApplication.getInstance().userId = null;
-        mShared.edit().clear();
+        mShared.edit().clear().commit();
     }
 
     public boolean isShowAddGuide() {
