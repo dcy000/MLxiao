@@ -28,6 +28,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initView();
+        speak(R.string.tips_register);
     }
 
     private void initView() {

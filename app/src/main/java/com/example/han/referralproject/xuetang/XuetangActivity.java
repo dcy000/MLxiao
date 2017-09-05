@@ -38,6 +38,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
+import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.linheimx.app.library.adapter.DefaultValueAdapter;
 import com.linheimx.app.library.adapter.IValueAdapter;
 import com.linheimx.app.library.charts.LineChart;
@@ -91,8 +92,8 @@ public class XuetangActivity extends AppCompatActivity {
                         mPb.setVisibility(View.INVISIBLE);
                     }*/
                     dialog.create(NDialog.CONFIRM).dismiss();
-
-                    Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
+                    sendDataToBLE(DEVICE1_ON);
+                    //Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
 
                     break;
                 case 1:
@@ -102,6 +103,19 @@ public class XuetangActivity extends AppCompatActivity {
 
                       /*  if ("1".equals(strs[3]) && sign1 == true) {
                           *//*  new Thread(new Runnable() {
+                        try {
+                            double temp = Double.parseDouble(str);
+                            mTextView.setText(str1);
+                        } catch (Exception e) {
+                            return;
+                        }
+//                        final String[] strs = str1.split(",");
+//                        mTextView.setText(strs[0]);
+//                        sign = strs[3];
+
+//                        if ("1".equals(strs[3]) && sign1 == true) {
+                          /*  new Thread(new Runnable() {
+>>>>>>> 950686eb1213fe4be221ea0dbf7f5d9d67d57119
                                 @Override
                                 public void run() {
                                     try {
@@ -116,7 +130,10 @@ public class XuetangActivity extends AppCompatActivity {
 
                             }).start();*//*
 
+
                         }*/
+//                        }
+
                     }
                     break;
                 case 2:
@@ -203,7 +220,11 @@ public class XuetangActivity extends AppCompatActivity {
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
 
                 str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
-                Log.e("=============", str);
+                Log.i("mylog", "receiver  " + str);
+                if ("OK".equals(str)){
+                    Toast.makeText(XuetangActivity.this, "speck ok", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Message msg = mHandler.obtainMessage();
                 msg.what = 1;
                 msg.obj = str;
