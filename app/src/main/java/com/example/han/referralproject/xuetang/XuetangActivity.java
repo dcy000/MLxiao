@@ -501,6 +501,9 @@ public class XuetangActivity extends BaseActivity {
         Log.i("mylog", "Sending result : " + str);
         final byte[] tx = str.getBytes();
         if (mConnected) {
+            if (characteristicTX == null || mBluetoothLeService == null){
+                return;
+            }
             characteristicTX.setValue(tx);
             mBluetoothLeService.writeCharacteristic(characteristicTX);
             mBluetoothLeService.setCharacteristicNotification(characteristicRX, true);

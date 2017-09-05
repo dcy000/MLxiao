@@ -350,6 +350,7 @@ public class VideoDemo extends Activity {
                             mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
                             mFaceRequest.sendRequest(mImageData, mRequestListener);
                             Log.e("==============", "正在执行");
+                            Log.i("mylog", "id : " + mAuthid);
                         }
                         try {
                             Thread.sleep(2000);

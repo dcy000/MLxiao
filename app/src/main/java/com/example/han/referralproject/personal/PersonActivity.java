@@ -85,6 +85,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.btn_record).setOnClickListener(this);
 
         mTextView = (TextView) findViewById(R.id.per_name);
+        findViewById(R.id.btn_logout).setOnClickListener(this);
 
     }
 
