@@ -5,7 +5,7 @@
     android:paddingLeft="8dip"
     android:textStyle="bold"
     android:textColor="#333"
-    android:textSize="30sp"
+    android:textSize="40sp"
     android:singleLine="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

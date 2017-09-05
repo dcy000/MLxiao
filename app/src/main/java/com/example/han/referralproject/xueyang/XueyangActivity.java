@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
@@ -61,7 +62,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class XueyangActivity extends AppCompatActivity {
+public class XueyangActivity extends BaseActivity {
 
 
     //   LineChart _lineChart;
@@ -93,7 +94,6 @@ public class XueyangActivity extends AppCompatActivity {
                    /* if (mPb.getVisibility() == View.VISIBLE) {
                         mPb.setVisibility(View.INVISIBLE);
                     }*/
-                    dialog.create(NDialog.CONFIRM).dismiss();
                     sendDataToBLE(DEVICE1_ON);
                     //Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
 
@@ -102,6 +102,11 @@ public class XueyangActivity extends AppCompatActivity {
                 case 1:
                     String str = (String) msg.obj;
                     if (str != null) {
+                        if ("OK".equals(str)) {
+                            dialog.create(NDialog.CONFIRM).dismiss();
+                            speak(R.string.tips_open_device);
+                            return;
+                        }
                         final String[] strs = str.split(",");
                         sign = strs[0];
                         mTextView.setText(strs[1]);
@@ -218,10 +223,6 @@ public class XueyangActivity extends AppCompatActivity {
 
                 str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
                 Log.i("mylog", "receiver  " + str);
-                if ("OK".equals(str)) {
-                    Toast.makeText(XueyangActivity.this, "speck ok", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 Message msg = mHandler.obtainMessage();
                 msg.what = 1;
                 msg.obj = str;

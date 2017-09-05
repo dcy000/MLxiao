@@ -18,7 +18,7 @@
     <string name="empty_address">输入地址不能为空</string>
     <string name="empty_phone">请输入手机号码</string>
     <string name="agree_sure">请同意用户协议</string>
-    <string name="sure">确定</string>
+    <string name="sure">下一步</string>
     <string name="do_register">正在注册...</string>
     <string name="do_login">正在登录</string>
     <string name="do_uploading">正在上传</string>

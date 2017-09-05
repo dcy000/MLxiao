@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,32 +39,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView mImageView3;
     ImageView mImageView4;
     ImageView mImageView5;
-    ImageView mImageView6;
-    ImageView mImageView7;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mImageView1 = (ImageView) findViewById(R.id.conversation);
-        mImageView2 = (ImageView) findViewById(R.id.shopping);
-        mImageView3 = (ImageView) findViewById(R.id.zixun);
-        mImageView4 = (ImageView) findViewById(R.id.per_info);
-        mImageView5 = (ImageView) findViewById(R.id.test);
-        mImageView6 = (ImageView) findViewById(R.id.classes);
-        mImageView7 = (ImageView) findViewById(R.id.news);
+        mImageView1 = (ImageView) findViewById(R.id.robot_con);
+        mImageView2 = (ImageView) findViewById(R.id.person_info);
+        mImageView3 = (ImageView) findViewById(R.id.health_test);
+        mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
+        mImageView5 = (ImageView) findViewById(R.id.health_class);
 
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
         mImageView3.setOnClickListener(this);
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
-        mImageView6.setOnClickListener(this);
-        mImageView7.setOnClickListener(this);
 
-
+        findViewById(R.id.ll_anim).setOnClickListener(this);
+        RotateAnimation tranAnimation = new RotateAnimation(-30f, 30f, 250, 250);
+        tranAnimation.setDuration(1000);
+        tranAnimation.setRepeatCount(Animation.INFINITE);
+        tranAnimation.setRepeatMode(Animation.REVERSE);
+        findViewById(R.id.iv_anim).setAnimation(tranAnimation);
+        tranAnimation.start();
     }
 
 
@@ -69,29 +71,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.conversation:
+            case R.id.ll_anim:
+                v.setVisibility(View.GONE);
+                break;
+            case R.id.robot_con:
                 intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.shopping:
-                break;
-            case R.id.zixun:
-                intent.setClass(getApplicationContext(), PerInfoActivity.class);
+            case R.id.person_info:
+                intent.setClass(getApplicationContext(), PersonActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.per_info:
-                startActivity(new Intent(this, PersonActivity.class));
-                break;
-            case R.id.test:
+            case R.id.health_test:
                 intent.setClass(getApplicationContext(), VideoDemo.class);
                 startActivity(intent);
                 break;
-            case R.id.classes:
+            case R.id.doctor_ask:
                 intent.setClass(getApplicationContext(), MainVideoActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.news:
-                intent.setClass(getApplicationContext(), MessageActivity.class);
+            case R.id.health_class:
+                intent.setClass(getApplicationContext(), MainVideoActivity.class);
                 startActivity(intent);
                 break;
         }

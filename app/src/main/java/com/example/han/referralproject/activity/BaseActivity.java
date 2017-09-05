@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
     private SharedPreferences mTtsSharedPreferences;
-
+    private Handler mDelayHandler = new Handler();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
     }
+
 
     private InitListener mTtsInitListener = new InitListener() {
         @Override
@@ -62,8 +64,14 @@ public class BaseActivity extends AppCompatActivity {
         mTts.startSpeaking(text, mTtsListener);
     }
 
-    protected void speak(int resId){
+    protected void speak(final int resId){
         mTts.startSpeaking(getString(resId), mTtsListener);
+//        mDelayHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 500);
     }
 
     private SynthesizerListener mTtsListener = new SynthesizerListener() {
@@ -139,14 +147,14 @@ public class BaseActivity extends AppCompatActivity {
         mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        if (mTts != null) {
-//            mTts.stopSpeaking();
-//            mTts.destroy();
-//        }
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTts != null) {
+            mTts.stopSpeaking();
+            mTts.destroy();
+        }
+    }
 
     @Override
     protected void onStop() {
