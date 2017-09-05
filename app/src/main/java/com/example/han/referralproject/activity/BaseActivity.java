@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speech.setting.TtsSettings;
@@ -18,7 +19,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -138,9 +139,18 @@ public class BaseActivity extends FragmentActivity {
         mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
     }
 
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (mTts != null) {
+//            mTts.stopSpeaking();
+//            mTts.destroy();
+//        }
+//    }
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         if (mTts != null) {
             mTts.stopSpeaking();
             mTts.destroy();

@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
@@ -62,7 +63,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class XuetangActivity extends AppCompatActivity {
+public class XuetangActivity extends BaseActivity {
 
     //   LineChart _lineChart1;
     public ImageView mImageView;
@@ -214,6 +215,7 @@ public class XuetangActivity extends AppCompatActivity {
                 str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
                 Log.i("mylog", "receiver  " + str);
                 if ("OK".equals(str)){
+//                    speak(R.string.tips_open_device);
                     Toast.makeText(XuetangActivity.this, "speck ok", Toast.LENGTH_SHORT).show();
                     return;
                 }

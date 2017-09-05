@@ -14,11 +14,12 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DoctorMesActivity extends AppCompatActivity {
+public class DoctorMesActivity extends BaseActivity {
 
 
     Toolbar mToolBar;
@@ -44,6 +45,7 @@ public class DoctorMesActivity extends AppCompatActivity {
 
             }
         });
+        speak(R.string.tips_info);
     }
 
     public void show() {

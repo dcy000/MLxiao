@@ -51,6 +51,11 @@
 主人，如果您有账号，请直接登入；首次使用请点击注册。</string>
     <string name="tips_register">主人，为了更好地为您服务，需要您填写您的个人信息，填写完毕后点击下一步</string>
     <string name="tips_disease">主人，为了全部掌握您的健康信息，如果您有病史请选择对应标签，然后点击下一步</string>
+    <string name="tips_face">主人，让我给您拍个照，下次我就认识您啦</string>
+    <string name="tips_doctor">主人，请选择您最信任的医生完成签约，如果他没在里面可以点击左下角的帮助按钮。</string>
+    <string name="tips_info">主人，如果需要签约就点击签约按钮。</string>
+    <string name="tips_test">主人，请点击您需要测量的项目</string>
+    <string name="tips_open_device">主人，小e加载完毕，您可以打开设备开始测量了</string>
     
 
     <string name="unknown_device">Unknown device</string>

@@ -60,10 +60,6 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -75,7 +71,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.PreviousHistoryActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".activity.RecordActivity"
             android:screenOrientation="landscape"></activity>
@@ -106,7 +103,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".LoadingActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+        </activity>
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
@@ -119,6 +117,10 @@
         <activity
             android:name=".Test_mainActivity"
             android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"

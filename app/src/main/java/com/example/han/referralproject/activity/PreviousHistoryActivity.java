@@ -4,8 +4,10 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
@@ -37,6 +39,9 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
                 finish();
                 break;
             case R.id.tv_next:
+                if (TextUtils.isEmpty(mAdapter.getMh())){
+                    return;
+                }
                 showLoadingDialog(getString(R.string.do_uploading));
                 NetworkApi.setUserMh(mAdapter.getMh(), new NetworkManager.SuccessCallback<String>() {
                     @Override

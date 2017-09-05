@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecoDocActivity extends AppCompatActivity {
+public class RecoDocActivity extends BaseActivity {
 
     private ListView mateListView;
     private EditText editText;
@@ -123,7 +124,7 @@ public class RecoDocActivity extends AppCompatActivity {
         });
 
         initData();
-
+        speak(R.string.tips_doctor);
     }
 
     private void initToolBar() {
