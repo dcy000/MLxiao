@@ -19,7 +19,7 @@ import com.example.han.referralproject.util.LocalShared;
 
 import java.util.ArrayList;
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener{
+public class RegisterActivity extends BaseActivity implements View.OnClickListener {
     private EditText mNameEt, mAddressEt, mTelephoneEt, mPwdEt;
     private Spinner sexSpinner, yearSpinner, monthSpinner;
 
@@ -28,7 +28,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initView();
-        speak(R.string.tips_register);
+     //   speak(R.string.tips_register);
     }
 
     private void initView() {
@@ -53,14 +53,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 //        });
         yearSpinner = (Spinner) findViewById(R.id.sp_year);
         ArrayList<String> yearList = new ArrayList<>();
-        for (int i = 1900 ; i < 2018; i ++){
+        for (int i = 1900; i < 2018; i++) {
             yearList.add(String.valueOf(i));
         }
         yearSpinner.setAdapter(new ArrayAdapter<String>(mContext, R.layout.item_spinner_layout, yearList));
         yearSpinner.setSelection(90);
         monthSpinner = (Spinner) findViewById(R.id.sp_month);
         ArrayList<String> monthList = new ArrayList<>();
-        for (int i = 1 ; i < 13; i ++){
+        for (int i = 1; i < 13; i++) {
             monthList.add(String.valueOf(i));
         }
         monthSpinner.setAdapter(new ArrayAdapter<String>(mContext, R.layout.item_spinner_layout, monthList));
@@ -68,12 +68,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.tv_next:
-                if (!checkInputInfo()){
+                if (!checkInputInfo()) {
                     return;
                 }
                 showLoadingDialog(getString(R.string.do_register));
@@ -99,19 +99,19 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private boolean checkInputInfo() {
-        if (TextUtils.isEmpty(mNameEt.getText())){
+        if (TextUtils.isEmpty(mNameEt.getText())) {
             Toast.makeText(mContext, R.string.empty_name, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (TextUtils.isEmpty(mAddressEt.getText())){
+        if (TextUtils.isEmpty(mAddressEt.getText())) {
             Toast.makeText(mContext, R.string.empty_name, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (TextUtils.isEmpty(mTelephoneEt.getText())){
+        if (TextUtils.isEmpty(mTelephoneEt.getText())) {
             Toast.makeText(mContext, R.string.empty_name, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (TextUtils.isEmpty(mPwdEt.getText())){
+        if (TextUtils.isEmpty(mPwdEt.getText())) {
             Toast.makeText(mContext, R.string.empty_name, Toast.LENGTH_SHORT).show();
             return false;
         }

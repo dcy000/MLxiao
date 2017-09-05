@@ -3,14 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_main"
     tools:context="com.example.han.referralproject.MainActivity">
 
     <ImageView
+        android:id="@+id/robot_con"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        android:src="@drawable/robot_con" />
 
-        />
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/person_info"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/person_info" />
+
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/health_test"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/health_test" />
+
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/doctor_ask"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/doctor_ask" />
+
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/health_class"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/health_class" />
 
 
 </RelativeLayout>
