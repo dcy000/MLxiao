@@ -55,7 +55,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
         holder.mContext = context;
         holder.mPosition = position;
         Picasso.with(context)
-                .load(ConstantData.BASE_URL + "/referralProject/" + mListPat.get(position).getDocuments())
+                .load(ConstantData.BASE_URL + "/referralProject/" + mListPat.get(position).getCard())
                 .placeholder(R.drawable.head_cion2)
                 .error(R.drawable.head_cion2)
                 .tag(context)

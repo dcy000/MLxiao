@@ -100,6 +100,10 @@ public class XuetangActivity extends BaseActivity {
                 case 1:
                     str1 = (String) msg.obj;
                     if (str1 != null) {
+                        mTextView.setText(str1);
+
+                      /*  if ("1".equals(strs[3]) && sign1 == true) {
+                          *//*  new Thread(new Runnable() {
                         try {
                             double temp = Double.parseDouble(str);
                             mTextView.setText(str1);
@@ -112,6 +116,7 @@ public class XuetangActivity extends BaseActivity {
 
 //                        if ("1".equals(strs[3]) && sign1 == true) {
                           /*  new Thread(new Runnable() {
+>>>>>>> 950686eb1213fe4be221ea0dbf7f5d9d67d57119
                                 @Override
                                 public void run() {
                                     try {
@@ -124,9 +129,12 @@ public class XuetangActivity extends BaseActivity {
 
                                 }
 
-                            }).start();*/
+                            }).start();*//*
 
+
+                        }*/
 //                        }
+
                     }
                     break;
                 case 2:
