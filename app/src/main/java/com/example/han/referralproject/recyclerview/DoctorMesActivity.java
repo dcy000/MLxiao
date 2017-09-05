@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,16 +22,17 @@ import java.util.TimerTask;
 public class DoctorMesActivity extends AppCompatActivity {
 
 
-    Toolbar mToolBar;
+   // Toolbar mToolBar;
     TextView mTitleText;
     Button mButton;
     TextView mtextview;
+    ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
-        initToolBar();
+    //    initToolBar();
 
         mButton = (Button) findViewById(R.id.qianyue);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +44,14 @@ public class DoctorMesActivity extends AppCompatActivity {
                 finish();
 
 
+            }
+        });
+
+        mImageView= (ImageView) findViewById(R.id.icon_back);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -81,7 +91,7 @@ public class DoctorMesActivity extends AppCompatActivity {
         }, cnt);
     }
 
-    private void initToolBar() {
+   /* private void initToolBar() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mTitleText = (TextView) findViewById(R.id.title_content);
 
@@ -93,5 +103,5 @@ public class DoctorMesActivity extends AppCompatActivity {
         // mTitleText.setTextSize(25);
         //    mTitleText.setGravity(Gravity.CENTER);
 
-    }
+    }*/
 }

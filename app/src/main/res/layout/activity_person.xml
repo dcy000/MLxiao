@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/normal_bg"
     tools:context="com.example.han.referralproject.personal.PersonActivity">
 
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,14 +22,38 @@
             android:layout_gravity="left"
             android:text="个人详情"
             android:textSize="25sp" />
-    </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>-->
+
+    <LinearLayout
+        android:id="@+id/linearlayou"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/icon_back"
+            android:text="个人中心"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+    </LinearLayout>
 
 
     <RelativeLayout
         android:id="@+id/RelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/linearlayou"
         android:layout_margin="20dp">
 
         <TextView
@@ -153,10 +178,10 @@
         android:id="@+id/btn_record"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="50dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
+        android:layout_marginRight="50dp"
         android:background="@drawable/bg1per_msg"
         android:text="健康档案"
         android:textSize="40sp" />
@@ -166,14 +191,14 @@
         android:id="@+id/btn_logout"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:visibility="visible"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="50dp"
         android:background="@drawable/selector_btn"
+        android:gravity="center"
         android:text="@string/logout"
         android:textColor="#f00"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="visible" />
 </RelativeLayout>

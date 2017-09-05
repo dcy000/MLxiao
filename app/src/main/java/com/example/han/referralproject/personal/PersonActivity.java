@@ -52,6 +52,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
 
     public TextView mTextView;
     public ImageView mImageView;
+    public ImageView mImageView1;
 
     @Override
 
@@ -61,10 +62,25 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) findViewById(R.id.per_image);
 
+        mImageView1 = (ImageView) findViewById(R.id.icon_back);
+
+        mImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
         String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
-        byte[] bytes = Base64.decode(imageData1.getBytes(), 1);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        mImageView.setImageBitmap(bitmap);
+
+        if (imageData1 != null) {
+            byte[] bytes = Base64.decode(imageData1.getBytes(), 1);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            mImageView.setImageBitmap(bitmap);
+
+        }
+
 
         findViewById(R.id.btn_record).setOnClickListener(this);
 

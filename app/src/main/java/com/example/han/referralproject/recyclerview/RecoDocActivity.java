@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,17 +42,27 @@ public class RecoDocActivity extends AppCompatActivity {
     private List<Doctor> mlist = new ArrayList<Doctor>();
     DoctorAdapter mDoctorAdapter;
     private int mCurrPage = 0;
-    Toolbar mToolBar;
+    //   Toolbar mToolBar;
     TextView mTitleText;
+
+    ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reco_doc);
 
+        mImageView = (ImageView) findViewById(R.id.icon_back);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        initToolBar();
+        //    initToolBar();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.forum_list);
 
@@ -126,7 +137,7 @@ public class RecoDocActivity extends AppCompatActivity {
 
     }
 
-    private void initToolBar() {
+   /* private void initToolBar() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mTitleText = (TextView) findViewById(R.id.title_content);
 
@@ -138,7 +149,7 @@ public class RecoDocActivity extends AppCompatActivity {
         mTitleText.setTextSize(25);
         //    mTitleText.setGravity(Gravity.CENTER);
 
-    }
+    }*/
 
     // 处理点击事件
     @Override
