@@ -48,7 +48,6 @@
             android:screenOrientation="landscape">
 
 
-
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -61,7 +60,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize" >
 
         </activity>
 
@@ -80,7 +79,6 @@
         <activity
             android:name=".activity.PreviousHistoryActivity"
             android:screenOrientation="landscape">
-
 
 
 
@@ -117,10 +115,16 @@
         </activity>
         <activity
             android:name=".LoadingActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+        </activity>
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -128,8 +132,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape">
-
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
@@ -148,10 +151,7 @@
         <activity android:name=".facerecognition.RegisterVideoActivity" />
         <activity android:name=".recyclerview.RecoDocActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
 
         </activity>
         <activity android:name=".recyclerview.DoctorMesActivity" >
@@ -159,7 +159,11 @@
 
 
         </activity>
-        <activity android:name=".video.MainVideoActivity" />
+        <activity android:name=".video.MainVideoActivity" >
+
+
+
+        </activity>
         <activity android:name=".video.PlayVideoActivity"></activity>
         <activity android:name=".personal.PersonActivity">
 

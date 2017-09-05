@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
@@ -62,7 +63,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class XuetangActivity extends AppCompatActivity {
+public class XuetangActivity extends BaseActivity {
 
     //   LineChart _lineChart1;
     public ImageView mImageView;
@@ -91,7 +92,6 @@ public class XuetangActivity extends AppCompatActivity {
                     /*if (mPb.getVisibility() == View.VISIBLE) {
                         mPb.setVisibility(View.INVISIBLE);
                     }*/
-                    dialog.create(NDialog.CONFIRM).dismiss();
                     sendDataToBLE(DEVICE1_ON);
                     //Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
 
@@ -99,8 +99,12 @@ public class XuetangActivity extends AppCompatActivity {
                 case 1:
                     str1 = (String) msg.obj;
                     if (str1 != null) {
+                        if ("OK".equals(str)){
+                            dialog.create(NDialog.CONFIRM).dismiss();
+                            speak(R.string.tips_open_device);
+                            return;
+                        }
                         mTextView.setText(str1);
-
                       /*  if ("1".equals(strs[3]) && sign1 == true) {
                           *//*  new Thread(new Runnable() {
                         try {
@@ -221,10 +225,6 @@ public class XuetangActivity extends AppCompatActivity {
 
                 str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
                 Log.i("mylog", "receiver  " + str);
-                if ("OK".equals(str)){
-                    Toast.makeText(XuetangActivity.this, "speck ok", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 Message msg = mHandler.obtainMessage();
                 msg.what = 1;
                 msg.obj = str;
@@ -498,7 +498,7 @@ public class XuetangActivity extends AppCompatActivity {
 
 
     void sendDataToBLE(String str) {
-        Log.d(TAG, "Sending result=" + str);
+        Log.i("mylog", "Sending result : " + str);
         final byte[] tx = str.getBytes();
         if (mConnected) {
             characteristicTX.setValue(tx);

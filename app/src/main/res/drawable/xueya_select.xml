@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/bg1" android:state_pressed="false" />
-    <item android:drawable="@color/bg2" android:state_pressed="true" />
-
+    <item android:drawable="@drawable/per_msgs" android:state_pressed="true" />
+    <item android:drawable="@drawable/per_msgs" android:state_focused="true" />
+    <item android:drawable="@drawable/per_msgs" android:state_selected="true" />
+    <item android:drawable="@drawable/per_msg"></item>
 </selector>

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/conversation_bg"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
-
+    android:visibility="visible"
+    android:id="@+id/Rela">
 
 
     <EditText
@@ -18,8 +16,21 @@
         android:layout_weight="1"
         android:gravity="top|left"
         android:paddingBottom="20dp"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone" />
 
+
+    <ImageView
+        android:id="@+id/iat_recognizes"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:src="@drawable/chat"
+        />
 
 
     <LinearLayout
@@ -28,7 +39,8 @@
         android:layout_marginBottom="2dp"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/iat_recognize"
@@ -56,4 +68,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

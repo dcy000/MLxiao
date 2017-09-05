@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speech.setting.TtsSettings;
@@ -18,7 +20,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -29,7 +31,7 @@ public class BaseActivity extends FragmentActivity {
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
     private SharedPreferences mTtsSharedPreferences;
-
+    private Handler mDelayHandler = new Handler();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class BaseActivity extends FragmentActivity {
         mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
     }
+
 
     private InitListener mTtsInitListener = new InitListener() {
         @Override
@@ -61,8 +64,14 @@ public class BaseActivity extends FragmentActivity {
         mTts.startSpeaking(text, mTtsListener);
     }
 
-    protected void speak(int resId){
+    protected void speak(final int resId){
         mTts.startSpeaking(getString(resId), mTtsListener);
+//        mDelayHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 500);
     }
 
     private SynthesizerListener mTtsListener = new SynthesizerListener() {
@@ -141,6 +150,15 @@ public class BaseActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mTts != null) {
+            mTts.stopSpeaking();
+            mTts.destroy();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         if (mTts != null) {
             mTts.stopSpeaking();
             mTts.destroy();

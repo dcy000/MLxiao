@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.example.han.referralproject.xindian.XindianActivity;
 import com.example.han.referralproject.xuetang.XuetangActivity;
@@ -17,7 +18,7 @@ import com.example.han.referralproject.xueyang.XueyangActivity;
 
 import java.util.Calendar;
 
-public class Test_mainActivity extends AppCompatActivity implements View.OnClickListener {
+public class Test_mainActivity extends BaseActivity implements View.OnClickListener {
 
     ImageView mImageView1;
     ImageView mImageView2;
@@ -47,7 +48,7 @@ public class Test_mainActivity extends AppCompatActivity implements View.OnClick
         mImageView5.setOnClickListener(this);
         mImageView6.setOnClickListener(this);
 
-
+        speak(R.string.tips_test);
 
     }
 

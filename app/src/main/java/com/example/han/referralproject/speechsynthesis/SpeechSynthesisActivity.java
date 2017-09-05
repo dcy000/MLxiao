@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
@@ -68,13 +69,17 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     private String voicer = "nannan";
 
     private Toast mToast1;
+    RelativeLayout mRelativeLayout;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
 
         initLayout();
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
+        mRelativeLayout.setBackgroundResource(R.drawable.conversation_bg);
 
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
@@ -86,20 +91,20 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
 
         mSharedPreferences = getSharedPreferences(IatSettings.PREFER_NAME, Activity.MODE_PRIVATE);
         mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-        mResultText = ((EditText) findViewById(R.id.iat_text));
+        //mResultText = ((EditText) findViewById(R.id.iat_text));
 
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
-        findViewById(R.id.iat_recognize).performClick();
+        findViewById(R.id.iat_recognizes).performClick();
     }
 
     /**
      * 初始化Layout。
      */
     private void initLayout() {
-        findViewById(R.id.iat_recognize).setOnClickListener(this);
+        findViewById(R.id.iat_recognizes).setOnClickListener(this);
 
         findViewById(R.id.iat_stop).setOnClickListener(this);
         findViewById(R.id.iat_cancel).setOnClickListener(this);
@@ -120,8 +125,8 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         switch (view.getId()) {
             // 开始听写
             // 如何判断一次听写结束：OnResult isLast=true 或者 onError
-            case R.id.iat_recognize:
-                mResultText.setText(null);// 清空显示内容
+            case R.id.iat_recognizes:
+                //mResultText.setText(null);// 清空显示内容
                 mIatResults.clear();
                 // 设置参数
                 setParam();
@@ -142,7 +147,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                 }
                 break;
 
-            // 停止听写
+           /* // 停止听写
             case R.id.iat_stop:
                 mIat.stopListening();
                 showTip("停止听写");
@@ -151,7 +156,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             case R.id.iat_cancel:
                 mIat.cancel();
                 showTip("取消听写");
-                break;
+                break;*/
 
             default:
                 break;
@@ -196,9 +201,8 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         }
 
 
-        mResultText.setText(resultBuffer.toString());
-        mResultText.setSelection(mResultText.length());
-
+//        mResultText.setText(resultBuffer.toString());
+//        mResultText.setSelection(mResultText.length());
 
     }
 
@@ -240,6 +244,8 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
 
         if (str1 != null) {
             startSynthesis(str1);
+        } else {
+            findViewById(R.id.iat_recognizes).performClick();
 
         }
         pw.close();
@@ -303,14 +309,14 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
             // 合成进度
             mPercentForBuffering = percent;
-        //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
+            //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
         }
 
         @Override
         public void onSpeakProgress(int percent, int beginPos, int endPos) {
             // 播放进度
             mPercentForPlaying = percent;
-        //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
+            //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
         }
 
         @Override
@@ -320,7 +326,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             } else if (error != null) {
                 showTip(error.getPlainDescription(true));
             }
-            findViewById(R.id.iat_recognize).performClick();
+            findViewById(R.id.iat_recognizes).performClick();
         }
 
         @Override
@@ -370,12 +376,10 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
             printResult(results);
-
             if (isLast == true) {
                 new Thread(new Runnable() {
                     public void run() {
                         try {
-
                             post(resultBuffer + "");
 
                         } catch (Exception e) {
@@ -383,6 +387,10 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                         }
                     }
                 }).start();
+            } else {
+                Log.e("============", "没说话");
+
+
             }
         }
 
@@ -391,6 +399,9 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
          */
         public void onError(SpeechError error) {
             showTip(error.getPlainDescription(true));
+
+            findViewById(R.id.iat_recognizes).performClick();
+
         }
 
     };
@@ -428,10 +439,10 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         }
 
         // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理
-        mIat.setParameter(SpeechConstant.VAD_BOS, mSharedPreferences.getString("iat_vadbos_preference", "4000"));
+        mIat.setParameter(SpeechConstant.VAD_BOS, mSharedPreferences.getString("iat_vadbos_preference", "5000"));
 
         // 设置语音后端点:后端点静音检测时间，即用户停止说话多长时间内即认为不再输入， 自动停止录音
-        mIat.setParameter(SpeechConstant.VAD_EOS, mSharedPreferences.getString("iat_vadeos_preference", "1000"));
+        mIat.setParameter(SpeechConstant.VAD_EOS, mSharedPreferences.getString("iat_vadeos_preference", "500"));
 
         // 设置标点符号,设置为"0"返回结果无标点,设置为"1"返回结果有标点
         mIat.setParameter(SpeechConstant.ASR_PTT, mSharedPreferences.getString("iat_punc_preference", "0"));

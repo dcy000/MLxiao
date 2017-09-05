@@ -28,7 +28,6 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
     LinearLayout mLinearLayout1;
     LinearLayout mLinearLayout2;
     LinearLayout mLinearLayout3;
-    ImageView mImageView;
     ImageView mImageView1;
     ImageView mImageView2;
     ImageView mImageView3;
@@ -60,8 +59,9 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
     ImageView mImageView29;
     ImageView mImageView30;
     ImageView mImageView31;
-    Toolbar mToolBar;
+    //  Toolbar mToolBar;
     TextView mTitleText;
+    public ImageView mImageView;
 
     @Override
 
@@ -69,7 +69,15 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_video);
 
-        initToolBar();
+        //initToolBar();
+
+        mImageView = (ImageView) findViewById(R.id.icon_back);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mButton = (Button) findViewById(R.id.pressure);
         mButton1 = (Button) findViewById(R.id.xue_tang);
@@ -151,6 +159,17 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (v.isSelected()) {
+                    v.setSelected(false);
+
+
+                } else {
+                    mButton1.setSelected(false);
+                    mButton2.setSelected(false);
+                    mButton3.setSelected(false);
+                    v.setSelected(true);
+                }
+
                 mLinearLayout.setVisibility(View.VISIBLE);
                 mLinearLayout1.setVisibility(View.GONE);
                 mLinearLayout2.setVisibility(View.GONE);
@@ -162,6 +181,16 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (v.isSelected()) {
+                    v.setSelected(false);
+                } else {
+                    mButton.setSelected(false);
+                    mButton2.setSelected(false);
+                    mButton3.setSelected(false);
+                    v.setSelected(true);
+                }
+
                 mLinearLayout.setVisibility(View.GONE);
                 mLinearLayout1.setVisibility(View.VISIBLE);
                 mLinearLayout2.setVisibility(View.GONE);
@@ -173,6 +202,16 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (v.isSelected()) {
+                    v.setSelected(false);
+                } else {
+                    mButton.setSelected(false);
+                    mButton1.setSelected(false);
+                    mButton3.setSelected(false);
+                    v.setSelected(true);
+                }
+
                 mLinearLayout.setVisibility(View.GONE);
                 mLinearLayout1.setVisibility(View.GONE);
                 mLinearLayout2.setVisibility(View.VISIBLE);
@@ -184,6 +223,16 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
         mButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (v.isSelected()) {
+                    v.setSelected(false);
+                } else {
+                    mButton.setSelected(false);
+                    mButton1.setSelected(false);
+                    mButton2.setSelected(false);
+                    v.setSelected(true);
+                }
+
                 mLinearLayout.setVisibility(View.GONE);
                 mLinearLayout1.setVisibility(View.GONE);
                 mLinearLayout2.setVisibility(View.GONE);
@@ -333,7 +382,7 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-    private void initToolBar() {
+    /*private void initToolBar() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mTitleText = (TextView) findViewById(R.id.title_content);
 
@@ -345,7 +394,7 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
         mTitleText.setTextSize(25);
         //    mTitleText.setGravity(Gravity.CENTER);
 
-    }
+    }*/
 
     // 处理点击事件
     @Override

@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
@@ -63,7 +64,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class XueyaActivity extends AppCompatActivity {
+public class XueyaActivity extends BaseActivity {
 
 
     private final static int LINE_NUM = 2;
@@ -103,7 +104,6 @@ public class XueyaActivity extends AppCompatActivity {
                   /*  if (mPb.getVisibility() == View.VISIBLE) {
                         mPb.setVisibility(View.INVISIBLE);
                     }*/
-                    dialog.create(NDialog.CONFIRM).dismiss();
                     sendDataToBLE(DEVICE1_ON);
 //                    Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
 
@@ -111,6 +111,11 @@ public class XueyaActivity extends AppCompatActivity {
                 case 1:
                     str1 = (String) msg.obj;
                     if (str1 != null) {
+                        if ("OK".equals(str)) {
+                            dialog.create(NDialog.CONFIRM).dismiss();
+                            speak(R.string.tips_open_device);
+                            return;
+                        }
                         final String[] strs = str1.split(",");
                         mTextView.setText(strs[0]);
                         mTextView1.setText(strs[1]);
@@ -221,10 +226,6 @@ public class XueyaActivity extends AppCompatActivity {
 
                 str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
                 Log.i("mylog", "receiver  " + str);
-                if ("OK".equals(str)){
-                    Toast.makeText(XueyaActivity.this, "speck ok", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 Message msg = mHandler.obtainMessage();
                 msg.what = 1;
                 msg.obj = str;

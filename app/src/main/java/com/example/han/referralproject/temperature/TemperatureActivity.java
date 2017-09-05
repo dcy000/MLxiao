@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
@@ -60,7 +61,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class TemperatureActivity extends AppCompatActivity {
+public class TemperatureActivity extends BaseActivity {
 
     //   LineChart _lineChart1;
     public ImageView mImageView;
@@ -84,12 +85,16 @@ public class TemperatureActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    dialog.create(NDialog.CONFIRM).dismiss();
                     sendDataToBLE(DEVICE1_ON);
                     break;
                 case 1:
                     final String str1 = (String) msg.obj;
                     if (str1 != null) {
+                        if ("OK".equals(str)){
+                            dialog.create(NDialog.CONFIRM).dismiss();
+                            speak(R.string.tips_open_device);
+                            return;
+                        }
                         mTextView.setText(msg.obj + "");
                       /*  new Thread(new Runnable() {
                             @Override
@@ -191,10 +196,6 @@ public class TemperatureActivity extends AppCompatActivity {
 
                 str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
                 Log.i("mylog", "receiver  " + str);
-                if ("OK".equals(str)){
-                    Toast.makeText(TemperatureActivity.this, "speck ok", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 Message msg = mHandler.obtainMessage();
                 msg.what = 1;
                 msg.obj = str;

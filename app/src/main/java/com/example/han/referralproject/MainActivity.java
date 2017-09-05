@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -53,6 +56,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mImageView3.setOnClickListener(this);
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
+
+        findViewById(R.id.ll_anim).setOnClickListener(this);
+        float pivotX = .5f; // 取自身区域在X轴上的中心点
+        float pivotY = .5f; // 取自身区域在Y轴上的中心点
+    //    new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 围绕自身的中心点进行旋转
+
+        RotateAnimation tranAnimation = new RotateAnimation(-30, 30, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        tranAnimation.setDuration(1000);
+        tranAnimation.setRepeatCount(Animation.INFINITE);
+        tranAnimation.setRepeatMode(Animation.REVERSE);
+        findViewById(R.id.iv_anim).setAnimation(tranAnimation);
+        tranAnimation.start();
     }
 
 
@@ -60,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.ll_anim:
+                v.setVisibility(View.GONE);
+                break;
             case R.id.robot_con:
                 intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
                 startActivity(intent);
