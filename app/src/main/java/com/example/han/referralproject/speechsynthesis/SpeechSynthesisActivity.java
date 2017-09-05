@@ -65,7 +65,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     // 播放进度
     private int mPercentForPlaying = 0;
     // 默认发音人
-    private String voicer = "xiaoyan";
+    private String voicer = "nannan";
 
     private Toast mToast1;
 
@@ -80,7 +80,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         mIat = SpeechRecognizer.createRecognizer(this, mInitListener);
 
-        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        // 初始化听`写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         mIatDialog = new RecognizerDialog(this, mInitListener);
 
@@ -121,9 +121,6 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             // 开始听写
             // 如何判断一次听写结束：OnResult isLast=true 或者 onError
             case R.id.iat_recognize:
-                // 移动数据分析，收集开始听写事件
-                FlowerCollector.onEvent(this, "iat_recognize");
-
                 mResultText.setText(null);// 清空显示内容
                 mIatResults.clear();
                 // 设置参数
@@ -306,14 +303,14 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
             // 合成进度
             mPercentForBuffering = percent;
-            showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
+        //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
         }
 
         @Override
         public void onSpeakProgress(int percent, int beginPos, int endPos) {
             // 播放进度
             mPercentForPlaying = percent;
-            showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
+        //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
         }
 
         @Override
@@ -448,7 +445,6 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();
