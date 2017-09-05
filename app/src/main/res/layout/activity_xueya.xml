@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
         android:layout_marginTop="170dp"
-        android:text="140"
+        android:text="0"
         android:textSize="50sp" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
         android:layout_marginTop="270dp"
-        android:text="90"
+        android:text="0"
         android:textSize="50sp" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
         android:layout_marginTop="390dp"
-        android:text="65"
+        android:text="0"
         android:textSize="50sp" />
 
    <ImageView
@@ -51,6 +51,7 @@
        android:layout_alignParentLeft="true"
        android:layout_alignParentBottom="true"
        android:src="@drawable/tests"
+       android:visibility="gone"
        android:layout_marginLeft="200dp"/>
 
 

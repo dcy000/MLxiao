@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="320dp"
         android:layout_marginTop="210dp"
-        android:text="90"
+        android:text="0"
         android:textSize="40sp" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="320sp"
         android:layout_marginTop="270dp"
-        android:text="65"
+        android:text="0"
         android:textSize="40sp" />
 
 
@@ -44,6 +44,7 @@
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="200dp"
         android:clickable="true"
+        android:visibility="gone"
         android:src="@drawable/tests" />
    <!-- <ProgressBar
         android:id="@+id/pb"

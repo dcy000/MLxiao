@@ -32,6 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.tv_register).setOnClickListener(this);
         findViewById(R.id.tv_agreement).setOnClickListener(this);
+        speak(R.string.tips_login);
     }
 
     @Override

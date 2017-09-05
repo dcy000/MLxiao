@@ -27,6 +27,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
         mGridView.setAdapter(mAdapter);
         findViewById(R.id.tv_next).setOnClickListener(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
+        speak(R.string.tips_disease);
     }
 
     @Override

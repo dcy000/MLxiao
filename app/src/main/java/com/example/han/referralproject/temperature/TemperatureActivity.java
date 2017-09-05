@@ -85,7 +85,7 @@ public class TemperatureActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     dialog.create(NDialog.CONFIRM).dismiss();
-                    Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
+                    sendDataToBLE(DEVICE1_ON);
                     break;
                 case 1:
                     final String str1 = (String) msg.obj;
@@ -190,7 +190,11 @@ public class TemperatureActivity extends AppCompatActivity {
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
 
                 str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
-                Log.e("=============", str);
+                Log.i("mylog", "receiver  " + str);
+                if ("OK".equals(str)){
+                    Toast.makeText(TemperatureActivity.this, "speck ok", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Message msg = mHandler.obtainMessage();
                 msg.what = 1;
                 msg.obj = str;
@@ -386,7 +390,7 @@ public class TemperatureActivity extends AppCompatActivity {
 
 
     void sendDataToBLE(String str) {
-        Log.d(TAG, "Sending result=" + str);
+        Log.i("mylog", "Sending result : " + str);
         final byte[] tx = str.getBytes();
         if (mConnected) {
             characteristicTX.setValue(tx);
