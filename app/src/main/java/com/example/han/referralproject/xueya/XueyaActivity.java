@@ -662,6 +662,9 @@ public class XueyaActivity extends BaseActivity {
     void sendDataToBLE(String str) {
         final byte[] tx = str.getBytes();
         if (mConnected) {
+            if (characteristicTX == null || mBluetoothLeService == null){
+                return;
+            }
             characteristicTX.setValue(tx);
             mBluetoothLeService.writeCharacteristic(characteristicTX);
             mBluetoothLeService.setCharacteristicNotification(characteristicRX, true);

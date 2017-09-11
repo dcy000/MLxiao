@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.health_test:
-                intent.setClass(getApplicationContext(), VideoDemo.class);
+//                intent.setClass(getApplicationContext(), VideoDemo.class);
+                intent.setClass(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.doctor_ask:

@@ -21,7 +21,7 @@ public class MyApplication extends Application {
         super.onCreate();
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(this);
-        // userId = mShared.getUserId();
+        userId = mShared.getUserId();
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
     }
 

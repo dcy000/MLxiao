@@ -1,10 +1,12 @@
-package com.example.han.referralproject.xuetang;
+package com.example.han.referralproject.activity;
 
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
@@ -15,41 +17,26 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
+import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
-import com.example.han.referralproject.temperature.TemperatureActivity;
-import com.linheimx.app.library.adapter.DefaultValueAdapter;
-import com.linheimx.app.library.adapter.IValueAdapter;
-import com.linheimx.app.library.charts.LineChart;
-import com.linheimx.app.library.data.Entry;
-import com.linheimx.app.library.data.Line;
-import com.linheimx.app.library.data.Lines;
-import com.linheimx.app.library.model.HighLight;
-import com.linheimx.app.library.model.XAxis;
-import com.linheimx.app.library.model.YAxis;
-import com.linheimx.app.library.utils.Utils;
+import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.megvii.faceppidcardui.util.ConstantData;
 
 import java.io.BufferedReader;
@@ -62,10 +49,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
-public class XuetangActivity extends BaseActivity {
+public class DetectActivity extends BaseActivity {
 
-    //   LineChart _lineChart1;
     public ImageView mImageView;
 
     private BluetoothAdapter mBluetoothAdapter;
@@ -73,15 +60,19 @@ public class XuetangActivity extends BaseActivity {
     private static final int REQUEST_ENABLE_BT = 1;
     private static final long SCAN_PERIOD = 10000;
     private String mDeviceAddress;
-    private final static String TAG = XuetangActivity.class.getSimpleName();
+    private final static String TAG = DetectActivity.class.getSimpleName();
     private BluetoothLeService mBluetoothLeService;
     public boolean threadDisable = true;
     public String str;
     public TextView mTextView;
     NDialog dialog;
-    public String str1 = null;
-    public String sign;
-    public boolean sign1 = true;
+    private BluetoothGatt mBluetoothGatt;
+
+    private String detectType = Type_Xueya;
+    public static final String Type_Wendu = "wendu";
+    public static final String Type_Xueya = "xueya";
+    public static final String Type_XueTang = "xuetang";
+
 
     Handler mHandler = new Handler() {
         @Override
@@ -89,55 +80,18 @@ public class XuetangActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    /*if (mPb.getVisibility() == View.VISIBLE) {
-                        mPb.setVisibility(View.INVISIBLE);
-                    }*/
-                    sendDataToBLE(DEVICE1_ON);
-                    //Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
-
+                    sendDataByte(Commands.CMD_LENGTH_TEN, Commands.CMD_CATEGORY_ZERO);
                     break;
                 case 1:
-                    str1 = (String) msg.obj;
-                    if (str1 != null) {
-                        if ("OK".equals(str1)) {
-                            dialog.create(NDialog.CONFIRM).dismiss();
-                            speak(R.string.tips_open_device);
-                            return;
-                        }
-                        mTextView.setText(str1);
-                      /*  if ("1".equals(strs[3]) && sign1 == true) {
-                          *//*  new Thread(new Runnable() {
-                        try {
-                            double temp = Double.parseDouble(str);
-                            mTextView.setText(str1);
-                        } catch (Exception e) {
-                            return;
-                        }
-//                        final String[] strs = str1.split(",");
-//                        mTextView.setText(strs[0]);
-//                        sign = strs[3];
-
-//                        if ("1".equals(strs[3]) && sign1 == true) {
-                          /*  new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        posts(strs[0]);
-                                        sign1 = false;
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-
-                                }
-
-                            }).start();*//*
-
-
-                        }*/
+                    mTextView.setText((String) msg.obj);
+//                    if (str1 != null) {
+//                        if ("OK".equals(str)){
+//                            dialog.create(NDialog.CONFIRM).dismiss();
+//                            speak(R.string.tips_open_device);
+//                            return;
 //                        }
-
-                    }
+//                        mTextView.setText(str1);
+//                    }
                     break;
                 case 2:
                     Toast.makeText(getApplicationContext(), "检测完成", Toast.LENGTH_SHORT).show();
@@ -174,7 +128,6 @@ public class XuetangActivity extends BaseActivity {
 
         while ((lineContent = br.readLine()) != null) {
             content = lineContent;
-            Log.e("---------", content);
         }
 
         if (content.equals("0"))
@@ -196,7 +149,9 @@ public class XuetangActivity extends BaseActivity {
                 Log.e(TAG, "Unable to initialize Bluetooth");
                 finish();
             }
-            mBluetoothLeService.connect(mDeviceAddress);
+            if (mBluetoothLeService.connect(mDeviceAddress)) {
+                mBluetoothGatt = mBluetoothLeService.getGatt();
+            }
         }
 
         @Override
@@ -213,53 +168,89 @@ public class XuetangActivity extends BaseActivity {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
-
+                if (Type_XueTang.equals(detectType)){
+                    XueTangGattAttributes.notify(mBluetoothGatt);
+                    mHandler.sendEmptyMessageDelayed(0, 1000);
+                }
+                Log.i("mylog", "gata connect 11111111111111111111");
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
+                Log.i("mylog", "gata disConnect 22222222222222222");
                 mConnected = false;
-
-
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+                Log.i("mylog", "gata servicesConnect 3333333333333333");
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
+//                String data=intent.getStringExtra("devicename_status");
+                Log.i("mylog", "receiver    ");
+                byte[] notify = intent
+                        .getByteArrayExtra(BluetoothLeService.EXTRA_NOTIFY_DATA);
 
-                str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
-                Log.i("mylog", "receiver  " + str);
-                Message msg = mHandler.obtainMessage();
-                msg.what = 1;
-                msg.obj = str;
-                mHandler.sendMessage(msg);
+                String str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
+                byte[] data = str.getBytes();
+                switch (detectType) {
+                    case Type_Wendu:
+                        int tempData = (int)str.toCharArray()[6];
+                        StringBuilder mTempResult = new StringBuilder();
+                        mTempResult.append("3").append((tempData - 44)/10).append(".").append((tempData - 44)%10);
+                        Message msg = mHandler.obtainMessage();
+                        msg.what = 1;
+                        msg.obj = mTempResult.toString();
+                        mHandler.sendMessage(msg);
+                        break;
+                    case Type_Xueya:
+
+                        break;
+                }
             }
-
-
         }
     };
 
-    private final String LIST_NAME = "NAME";
-    private final String LIST_UUID = "UUID";
-    private BluetoothGattCharacteristic characteristicTX;
-    private BluetoothGattCharacteristic characteristicRX;
 
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         if (gattServices == null) return;
         String uuid = null;
         String unknownServiceString = getResources().getString(R.string.unknown_service);
         ArrayList<HashMap<String, String>> gattServiceData = new ArrayList<HashMap<String, String>>();
-
+        BluetoothGattCharacteristic characteristic = null;
         // Loops through available GATT Services.
-        for (BluetoothGattService gattService : gattServices) {
-            HashMap<String, String> currentServiceData = new HashMap<String, String>();
-            uuid = gattService.getUuid().toString();
-            currentServiceData.put(LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
 
+//        for (BluetoothGattService gattService : gattServices) {
 
-            currentServiceData.put(LIST_UUID, uuid);
-            gattServiceData.add(currentServiceData);
-
+//            HashMap<String, String> currentServiceData = new HashMap<String, String>();
+//            uuid = gattService.getUuid().toString();
+//            Log.i("mylog", "uuid : " + uuid);
+//            currentServiceData.put(LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
+//            currentServiceData.put(LIST_UUID, uuid);
+//            gattServiceData.add(currentServiceData);
             // get characteristic when UUID matches RX/TX UUID
-            characteristicTX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
-            characteristicRX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
+//            characteristic = gattService.getCharacteristics().get(4);
+//            characteristic = gattService.getCharacteristic(UUID.fromString(uuid));
+//            break;
+//            characteristicRX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
+//        }
+        switch (detectType) {
+            case Type_Wendu:
+            case Type_Xueya:
+                characteristic = gattServices.get(3).getCharacteristics().get(3);
+                break;
         }
 
+        if (characteristic == null){
+            return;
+        }
+        mBluetoothLeService.writeCharacteristic(characteristic);
+        mBluetoothLeService.readCharacteristic(characteristic);
+        mBluetoothLeService.setCharacteristicNotification(characteristic, true);
+        List<BluetoothGattDescriptor> descriptorList = characteristic.getDescriptors();
+        if(descriptorList != null && descriptorList.size() > 0) {
+            for(BluetoothGattDescriptor descriptor : descriptorList) {
+                descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                mBluetoothGatt.writeDescriptor(descriptor);
+            }
+        }
+        Log.i("mylog", "chara uuid : " + characteristic.getUuid() + "\n" + "service uuid : " + gattServices.get(3).getUuid());
+//        boolean isSuccess = readMessage();
+//        Log.i("mylog1", "is Success " + isSuccess);
     }
 
 
@@ -274,11 +265,14 @@ public class XuetangActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xue_tang);
-        //      mPb = (ProgressBar) findViewById(R.id.pb);
-
-
         mTextView = (TextView) findViewById(R.id.xue_tang);
         mImageView1 = (ImageView) findViewById(R.id.test_2);
+        mImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.sendEmptyMessage(0);
+            }
+        });
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
@@ -318,7 +312,7 @@ public class XuetangActivity extends BaseActivity {
                         threadDisable = false;
                     }
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
 
@@ -326,36 +320,6 @@ public class XuetangActivity extends BaseActivity {
             }
 
         }).start();
-
-
-        mImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                long currentTime = Calendar.getInstance().getTimeInMillis();
-                if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
-                    lastClickTime = currentTime;
-
-                    if (mBluetoothLeService != null && mConnected == true) {
-                        sendDataToBLE(DEVICE1_ON);
-                        Toast.makeText(getApplicationContext(), "已经开始测试！", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "请先开启设备再进行测试", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-
-            }
-
-        });
-
-
-   /*     _lineChart1 = (LineChart) findViewById(R.id.xuetang_chart);
-        CheckBox cb1 = (CheckBox) findViewById(R.id.xuetang_cb);
-        CheckBox cb_fill = (CheckBox) findViewById(R.id.cb_fill_xuetang);
-
-        setChartData(_lineChart1);*/
 
         mImageView = (ImageView) findViewById(R.id.xuetang_video);
         mImageView.setOnClickListener(new View.OnClickListener() {
@@ -367,28 +331,6 @@ public class XuetangActivity extends BaseActivity {
 
             }
         });
-      /*  cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                HighLight highLight = _lineChart1.get_HighLight();
-                highLight.setEnable(isChecked);// 启用高亮显示  默认为启用状态
-                _lineChart1.invalidate();
-
-            }
-        });
-
-        cb_fill.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Lines lines = _lineChart1.getlines();
-                if (lines != null && lines.getLines().size() > 0) {
-                    Line line = lines.getLines().get(0);
-                    line.setFilled(isChecked);
-                    _lineChart1.invalidate();
-                }
-            }
-        });*/
-
         dialog = new NDialog(this);
         showNormal("设备连接中，请稍后...");
 
@@ -419,94 +361,44 @@ public class XuetangActivity extends BaseActivity {
             }
             return;
         }
-
-
     }
-
-   /* private void setChartData(LineChart lineChart) {
-
-
-        // 高亮
-        HighLight highLight = lineChart.get_HighLight();
-        highLight.setEnable(true);// 启用高亮显示  默认为启用状态
-        highLight.setxValueAdapter(new IValueAdapter() {
-            @Override
-            public String value2String(double value) {
-                return "日期:   " + value;
-            }
-        });
-
-        highLight.setyValueAdapter(new IValueAdapter() {
-            @Override
-            public String value2String(double value) {
-                return "血糖:  " + value;
-            }
-        });
-
-
-        // x,y轴上的单位
-        XAxis xAxis = lineChart.get_XAxis();
-        xAxis.set_unit("日期");
-        xAxis.set_ValueAdapter(new DefaultValueAdapter(1));
-
-        YAxis yAxis = lineChart.get_YAxis();
-        yAxis.set_unit("单位：mmol/L");
-        yAxis.set_ValueAdapter(new DefaultValueAdapter(2));// 默认精度到小数点后2位,现在修改为3位精度
-
-        // 数据
-        Line line = new Line();
-        line.setLineColor(Color.RED);
-        List<Entry> list = new ArrayList<>();
-        list.add(new Entry(1, 36.5));
-        list.add(new Entry(2, 37));
-        list.add(new Entry(3, 37.5));
-        list.add(new Entry(4, 37.2));
-        list.add(new Entry(10, 37.3));
-        line.setEntries(list);
-        line.setDrawLegend(true);//设置启用绘制图例
-        line.setLegendTextSize((int) Utils.dp2px(10));//设置图例上的字体大小
-        line.setName("血糖");
-
-
-        Lines lines = new Lines();
-
-
-        lines.addLine(line);
-
-
-        lineChart.setLines(lines);
-
-    }*/
-
-
-    public String DEVICE1_ON = "EEEEE\n";
-
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
-
-
     }
 
+    /**
+     * 向设备发送命令
+     *
+     * @param 包长度
+     * @param 包类别
+     */
+    private void sendDataByte(final byte leng, final byte commandType) {
+        Commands commands = new Commands();
+        byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
+        Log.i("mylog", " sendData : " + bytesToHexString(sendDataByte));
+        XueTangGattAttributes.sendMessage(mBluetoothGatt, sendDataByte);
+    }
 
-    void sendDataToBLE(String str) {
-        Log.i("mylog", "Sending result : " + str);
-        final byte[] tx = str.getBytes();
-        if (mConnected) {
-            if (characteristicTX == null || mBluetoothLeService == null){
-                return;
-            }
-            characteristicTX.setValue(tx);
-            mBluetoothLeService.writeCharacteristic(characteristicTX);
-            mBluetoothLeService.setCharacteristicNotification(characteristicRX, true);
+    public static String bytesToHexString(byte[] src){
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (src == null || src.length <= 0) {
+            return null;
         }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
     }
 
     @Override
@@ -546,11 +438,23 @@ public class XuetangActivity extends BaseActivity {
                 @Override
                 public void run() {
                     if (device != null) {
-                        //    Log.e("===============", device.getName());
+//                        if ("Bioland-BGM".equals(device.getName())) {
+                        String deviceName = "FSRKB-EWQ01";
+                        switch (detectType){
+                            case Type_Wendu:
+                                deviceName = "FSRKB-EWQ01";
+                                break;
+                            case Type_Xueya:
+                                deviceName = "eBlood-Pressure";
+                                break;
+                            case Type_XueTang:
+                                deviceName = "Bioland-BGM";
+                        }
 
-                        if ("Med_link".equals(device.getName())) {
+                        if (deviceName.equals(device.getName())) {
+                            dialog.create(NDialog.CONFIRM).dismiss();
                             mDeviceAddress = device.getAddress();
-                            Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
+                            Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
                             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                             mBluetoothAdapter.stopLeScan(mLeScanCallback);
                         }
