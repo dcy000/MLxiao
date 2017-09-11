@@ -79,18 +79,35 @@ public class TemperatureActivity extends BaseActivity {
 
     NDialog dialog;
 
+    public boolean sign_connect = true;
+
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    sendDataToBLE(DEVICE1_ON);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (sign_connect) {
+                                sendDataToBLE(DEVICE1_ON);
+                                Log.e("============", "已执行");
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                }
+
+                            }
+                        }
+
+                    }).start();
                     break;
                 case 1:
                     final String str1 = (String) msg.obj;
                     if (str1 != null) {
-                        if ("OK".equals(str)){
+                        if ("OK".equals(str)) {
+                            sign_connect = false;
                             dialog.create(NDialog.CONFIRM).dismiss();
                             speak(R.string.tips_open_device);
                             return;
@@ -244,6 +261,7 @@ public class TemperatureActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
+        dialog = new NDialog(this);
 
 
         mTextView = (TextView) findViewById(R.id.text_temperature);
@@ -355,7 +373,6 @@ public class TemperatureActivity extends BaseActivity {
                 }
             }
         });*/
-        dialog = new NDialog(this);
         showNormal("设备连接中，请稍后...");
 
     }
@@ -418,10 +435,10 @@ public class TemperatureActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        sign_connect = false;
         unregisterReceiver(mGattUpdateReceiver);
 
         if (mBluetoothLeService != null) {
-
             unbindService(mServiceConnection);
 
         }

@@ -111,11 +111,11 @@ public class XueyaActivity extends BaseActivity {
                 case 1:
                     str1 = (String) msg.obj;
                     if (str1 != null) {
-                        if ("OK".equals(str)) {
+                       /* if ("OK".equals(str)) {
                             dialog.create(NDialog.CONFIRM).dismiss();
                             speak(R.string.tips_open_device);
                             return;
-                        }
+                        }*/
                         final String[] strs = str1.split(",");
                         mTextView.setText(strs[0]);
                         mTextView1.setText(strs[1]);
@@ -334,8 +334,10 @@ public class XueyaActivity extends BaseActivity {
                     if (mBluetoothLeService == null && mConnected == false) {
                         mBluetoothAdapter.startLeScan(mLeScanCallback);
                     } else {
-                        mHandler.sendEmptyMessage(0);
+                        //    mHandler.sendEmptyMessage(0);
                         threadDisable = false;
+                        dialog.create(NDialog.CONFIRM).dismiss();
+                        speak(R.string.tips_open_device);
                     }
                     try {
                         Thread.sleep(3000);
@@ -439,6 +441,7 @@ public class XueyaActivity extends BaseActivity {
                     Toast.makeText(getApplicationContext(), "已开始测试！", Toast.LENGTH_SHORT).show();
                 } else {
                     finish();
+
                     Toast.makeText(getApplicationContext(), "设备断开，请重新连接", Toast.LENGTH_SHORT).show();
 
                 }

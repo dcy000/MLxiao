@@ -111,6 +111,7 @@ public class VideoDemo extends Activity {
         mAuthid = MyApplication.getInstance().userId;
         initUI();
 
+
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mAcc = new Accelerometer(VideoDemo.this);

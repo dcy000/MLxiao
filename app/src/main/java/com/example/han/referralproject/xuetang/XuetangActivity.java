@@ -99,7 +99,7 @@ public class XuetangActivity extends BaseActivity {
                 case 1:
                     str1 = (String) msg.obj;
                     if (str1 != null) {
-                        if ("OK".equals(str)){
+                        if ("OK".equals(str1)) {
                             dialog.create(NDialog.CONFIRM).dismiss();
                             speak(R.string.tips_open_device);
                             return;
@@ -119,7 +119,6 @@ public class XuetangActivity extends BaseActivity {
 
 //                        if ("1".equals(strs[3]) && sign1 == true) {
                           /*  new Thread(new Runnable() {
->>>>>>> 950686eb1213fe4be221ea0dbf7f5d9d67d57119
                                 @Override
                                 public void run() {
                                     try {
