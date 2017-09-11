@@ -111,7 +111,6 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
-            Log.i("mylog2", "onDescriptorRead");
             super.onDescriptorRead(gatt, descriptor, status);
         }
     };
@@ -127,15 +126,18 @@ public class BluetoothLeService extends Service {
         final Intent intent = new Intent(action);
 
         final byte[] data = characteristic.getValue();
-
+        StringBuilder mBuilder = new StringBuilder();
+        for (byte item : data){
+            mBuilder.append(item).append("    ");
+        }
         if (data != null && data.length > 0) {
-            final StringBuilder stringBuilder = new StringBuilder();
-            for (byte byteChar : data)
-                stringBuilder.append(String.format("%02X ", byteChar));
+//            final StringBuilder stringBuilder = new StringBuilder();
+//            for (byte byteChar : data)
+//                stringBuilder.append(String.format("%02X ", byteChar));
          //   Log.e(TAG, String.format("%s", new String(data)));
             // getting cut off when longer, need to push on new line, 0A
-            intent.putExtra(EXTRA_DATA, String.format("%s", new String(data)));
-
+//            intent.putExtra(EXTRA_DATA, String.format("%s", new String(data)));
+            intent.putExtra(EXTRA_DATA, data);
         }
         sendBroadcast(intent);
     }

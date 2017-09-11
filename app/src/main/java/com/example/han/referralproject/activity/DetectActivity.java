@@ -24,7 +24,9 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Xml;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,7 +70,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_Xueya;
+    private String detectType = Type_XueTang;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -171,17 +173,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
+                if (detectType == Type_XueTang) {
+                    mHandler.sendEmptyMessage(0);
+                }
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-//                String data=intent.getStringExtra("devicename_status");
-                Log.i("mylog", "receiver    ");
-                byte[] notify = intent
-                        .getByteArrayExtra(BluetoothLeService.EXTRA_NOTIFY_DATA);
-
-                String str = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
-                byte[] data = str.getBytes();
+                Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                byte[] notifyData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
                 switch (detectType) {
                     case Type_Wendu:
-                        int tempData = (int)str.toCharArray()[6];
+                        int tempData = notifyData[6] & 0xff;
                         StringBuilder mTempResult = new StringBuilder();
                         mTempResult.append("3").append((tempData - 44)/10).append(".").append((tempData - 44)%10);
                         Message msg = mHandler.obtainMessage();
@@ -190,18 +190,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         mHandler.sendMessage(msg);
                         break;
                     case Type_Xueya:
-                        char[] xueyaChars = str.toCharArray();
-                        if ((int)xueyaChars[0] == 32 && xueyaChars.length == 2) {
-                            mHighPressTv.setText(String.valueOf((int)xueyaChars[1]));
+                        if ((int)notifyData[0] == 32 && notifyData.length == 2) {
+                            mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
                         }
-                        if ((int)xueyaChars[0] == 12){
-                            mHighPressTv.setText(String.valueOf((int)xueyaChars[2]));
-                            mLowPressTv.setText(String.valueOf((int)xueyaChars[4]));
-                            mPulseTv.setText(String.valueOf((int)xueyaChars[8]));
+                        if ((int)notifyData[0] == 12){
+                            mHighPressTv.setText(String.valueOf(notifyData[2] & 0xff));
+                            mLowPressTv.setText(String.valueOf(notifyData[4] & 0xff));
+                            mPulseTv.setText(String.valueOf(notifyData[8] & 0xff));
                         }
                         StringBuilder mBuilder = new StringBuilder();
-                        for (char item : xueyaChars){
-                            mBuilder.append(item).append("(").append((int)item).append(")").append("    ");
+//                        for (char item : xueyaChars){
+//                            mBuilder.append(item).append("(").append((byte)item).append(")").append("    ");
+//                        }
+                        for (byte item : notifyData){
+                            mBuilder.append(item).append("    ");
                         }
                         Log.i("mylog", mBuilder.toString());
                         break;
@@ -280,6 +282,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+        String type = getIntent().getStringExtra("type");
+        if (!TextUtils.isEmpty(type)){
+            switch (type) {
+                case "wendu":
+                    detectType = Type_Wendu;
+                    break;
+                case "xueya":
+                    detectType = Type_Xueya;
+                    break;
+                case "xuetang":
+                    detectType = Type_XueTang;
+                    break;
+            }
+        }
         switch (detectType) {
             case Type_Wendu:
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
@@ -287,8 +303,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
                 break;
+            case Type_XueTang:
+                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+                break;
         }
-
         mResultTv = (TextView) findViewById(R.id.tv_result);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
@@ -335,7 +353,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
 
         }).start();
-
+        speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);
         findViewById(R.id.xueya_video).setOnClickListener(this);
         dialog = new NDialog(this);

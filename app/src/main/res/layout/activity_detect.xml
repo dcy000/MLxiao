@@ -94,4 +94,27 @@
             android:visibility="gone"
             android:layout_marginLeft="200dp"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_xuetang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/xuetang_bg">
+        <ImageView
+            android:id="@+id/xuetang_video"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/xuetang_video"
+            android:clickable="true" />
+        <TextView
+            android:id="@+id/tv_xuetang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="200dp"
+            android:text="0.00"
+            android:textSize="40sp" />
+    </RelativeLayout>
 </FrameLayout>
