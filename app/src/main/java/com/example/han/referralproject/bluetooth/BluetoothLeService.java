@@ -70,7 +70,6 @@ public class BluetoothLeService extends Service {
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-            Log.i("mylog2", "onConnectionStateChange");
             String intentAction;
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 intentAction = ACTION_GATT_CONNECTED;
@@ -91,7 +90,6 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-            Log.i("mylog2", "onServiceDiscovered");
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
             } else {
@@ -101,7 +99,6 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-            Log.i("mylog2", "onCharacterRead");
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             }
@@ -109,7 +106,6 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            Log.i("mylog2", "onCharacterChange");
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
         }
 

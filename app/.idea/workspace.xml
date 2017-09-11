@@ -12,11 +12,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9dfbc0d-9db8-4bcf-adf5-2063229536a8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/DetectActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/DetectActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/BluetoothLeService.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/BluetoothLeService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_xue_tang.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_xue_tang.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_xueya.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_xueya.xml" />
     </list>
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,15 +52,103 @@
       <file leaf-file-name="DetectActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/DetectActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="70" column="42" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
+            <state relative-caret-position="343">
+              <caret line="204" column="25" selection-start-line="204" selection-start-column="25" selection-end-line="204" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1504970362000" expanded="true" signature="3275:3300" ph="&quot;主人，小e加载完毕，您可以打开设备开始测量了&quot;" />
-                <marker date="1504970362000" expanded="false" signature="8053:8103" ph="&quot;Unknown service&quot;" />
-                <marker date="1504970362000" expanded="true" signature="8179:8204" ph="&lt;~&gt;" />
-                <marker date="1504970362000" expanded="true" signature="8455:8471" ph="&lt;~&gt;" />
+                <element signature="e#2797#3520#0" expanded="true" />
+                <element signature="e#3519#3520#0" expanded="true" />
+                <element signature="e#5462#8495#0" expanded="true" />
+                <element signature="e#8494#8495#0" expanded="true" />
+                <element signature="e#12833#12859#0" expanded="true" />
+                <element signature="e#13170#13208#0" expanded="true" />
+                <element signature="e#13388#13991#0" expanded="true" />
+                <element signature="e#13990#13991#0" expanded="true" />
+                <element signature="e#14708#14709#0" expanded="false" />
+                <element signature="e#14764#14765#0" expanded="false" />
+                <element signature="e#17167#18641#0" expanded="true" />
+                <element signature="e#17342#18623#0" expanded="true" />
+                <element signature="e#18622#18623#0" expanded="true" />
+                <element signature="e#18640#18641#0" expanded="true" />
+                <marker date="1505102168000" expanded="false" signature="8687:8737" ph="&quot;Unknown service&quot;" />
+                <marker date="1505102168000" expanded="true" signature="8813:8838" ph="&lt;~&gt;" />
+                <marker date="1505102168000" expanded="true" signature="9089:9105" ph="&lt;~&gt;" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XueyaActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/xueya/XueyaActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="436" column="45" selection-start-line="436" selection-start-column="45" selection-end-line="436" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_xue_tang.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_xue_tang.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_temperature.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_temperature.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TemperatureActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/temperature/TemperatureActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="325" column="0" selection-start-line="325" selection-start-column="0" selection-end-line="325" selection-end-column="0" />
+              <folding>
+                <element signature="e#11920#12325#0" expanded="true" />
+                <element signature="e#12324#12325#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_detect.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_detect.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="78" column="47" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_xueya.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_xueya.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="36" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,65 +156,21 @@
       <file leaf-file-name="BluetoothGattDescriptor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../../android/sdk/sources/android-23/android/bluetooth/BluetoothGattDescriptor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
+            <state relative-caret-position="270">
               <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="String.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../android/sdk/sources/android-23/java/lang/String.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7335">
-              <caret line="520" column="17" selection-start-line="520" selection-start-column="17" selection-end-line="520" selection-end-column="17" />
               <folding>
-                <element signature="e#19077#19078#0" expanded="true" />
-                <element signature="e#19134#19135#0" expanded="true" />
+                <element signature="e#0#6693#0" expanded="false" />
+                <element signature="e#4599#4600#0" expanded="false" />
+                <element signature="e#4637#4638#0" expanded="false" />
+                <element signature="e#4998#4999#0" expanded="false" />
+                <element signature="e#5026#5027#0" expanded="false" />
+                <element signature="e#5430#5431#0" expanded="false" />
+                <element signature="e#5462#5463#0" expanded="false" />
+                <element signature="e#5618#5619#0" expanded="false" />
+                <element signature="e#5653#5654#0" expanded="false" />
+                <element signature="e#6055#6056#0" expanded="false" />
+                <element signature="e#6084#6085#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1500">
-              <caret line="100" column="51" selection-start-line="100" selection-start-column="51" selection-end-line="100" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleGattAttributes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/SampleGattAttributes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XueTangGattAttributes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/XueTangGattAttributes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WenduGattAttributes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/WenduGattAttributes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="32" column="85" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="85" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -134,12 +178,9 @@
       <file leaf-file-name="BluetoothLeService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/BluetoothLeService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="112" column="62" selection-start-line="112" selection-start-column="62" selection-end-line="112" selection-end-column="62" />
-              <folding>
-                <element signature="e#8608#8609#0" expanded="true" />
-                <element signature="e#8645#8646#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="336">
+              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -149,16 +190,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BluetoothGattCallback.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../android/sdk/sources/android-23/android/bluetooth/BluetoothGattCallback.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="21" column="43" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -4094,7 +4125,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/network/NetworkManager.java" />
         <option value="$PROJECT_DIR$/src/main/res/drawable/shape_btn_rect_normal.xml" />
         <option value="$PROJECT_DIR$/src/main/res/drawable/shape_btn_register.xml" />
         <option value="$PROJECT_DIR$/src/main/res/drawable/shape_btn_rect_checked.xml" />
@@ -4116,7 +4146,6 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_previous_history.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/speechsynthesis/SpeechSynthesisActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_temperature.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_xueya.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_xueyang.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/TtsDemo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/facerecognition/RegisterVideoActivity.java" />
@@ -4140,18 +4169,21 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/temperature/TemperatureActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/XueTangGattAttributes.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/Commands.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_xue_tang.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/WenduGattAttributes.java" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_xue_tang.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_xueya.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_detect.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/BluetoothLeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/DetectActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+    <option name="x" value="18" />
+    <option name="y" value="28" />
     <option name="width" value="1680" />
-    <option name="height" value="961" />
+    <option name="height" value="977" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -4178,11 +4210,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane />
       </pane>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -4979,7 +5009,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -5334,19 +5366,20 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="961" extended-state="6" />
+    <frame x="18" y="28" width="1680" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32071006" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3205575" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3928994" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39256677" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32596043" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3267442" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3301887" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32662722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329849" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -5355,7 +5388,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31315482" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31126598" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -5363,7 +5396,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932693" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -5407,49 +5439,16 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/DetectActivity.java</url>
-          <line>189</line>
+          <line>198</line>
           <properties />
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/DetectActivity.java</url>
-          <line>233</line>
-          <properties />
-          <option name="timeStamp" value="28" />
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="30" />
+      <option name="time" value="31" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/util/LocalShared.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_disease_layout.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_register.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/arrays.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -5461,16 +5460,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
           <caret line="2145" column="19" selection-start-line="2145" selection-start-column="19" selection-end-line="2145" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_temperature.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -5488,16 +5477,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="29" column="75" selection-start-line="29" selection-start-column="75" selection-end-line="29" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_xueya.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="53" column="31" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -5691,36 +5670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/temperature/TemperatureActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#14866#14867#0" expanded="false" />
-            <element signature="e#14897#14898#0" expanded="false" />
-            <element signature="e#17193#17194#0" expanded="false" />
-            <element signature="e#17249#17250#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/xueya/XueyaActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2865">
-          <caret line="253" column="46" selection-start-line="253" selection-start-column="46" selection-end-line="253" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#15091#15092#0" expanded="false" />
-            <element signature="e#15147#15148#0" expanded="false" />
-            <element signature="e#23438#23439#0" expanded="false" />
-            <element signature="e#23469#23470#0" expanded="false" />
-            <element signature="e#23780#23781#0" expanded="false" />
-            <element signature="e#23813#23814#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/xueyang/XueyangActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2850">
@@ -5732,17 +5681,6 @@
             <element signature="e#20134#20135#0" expanded="false" />
             <element signature="e#20165#20166#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_xue_tang.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5759,7 +5697,7 @@
         <state relative-caret-position="7620">
           <caret line="510" column="5" selection-start-line="499" selection-start-column="3" selection-end-line="510" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -5768,7 +5706,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#0#1896#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -5788,8 +5728,44 @@
         <state relative-caret-position="7335">
           <caret line="520" column="17" selection-start-line="520" selection-start-column="17" selection-end-line="520" selection-end-column="17" />
           <folding>
-            <element signature="e#19077#19078#0" expanded="true" />
-            <element signature="e#19134#19135#0" expanded="true" />
+            <element signature="e#0#58450#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2110#2111#0" expanded="false" />
+            <element signature="e#2167#2168#0" expanded="false" />
+            <element signature="e#2794#2795#0" expanded="false" />
+            <element signature="e#2879#2880#0" expanded="false" />
+            <element signature="e#27409#27410#0" expanded="false" />
+            <element signature="e#27442#27443#0" expanded="false" />
+            <element signature="e#30964#30965#0" expanded="false" />
+            <element signature="e#30992#30993#0" expanded="false" />
+            <element signature="e#37343#37344#0" expanded="false" />
+            <element signature="e#37387#37388#0" expanded="false" />
+            <element signature="e#40011#40012#0" expanded="false" />
+            <element signature="e#40083#40084#0" expanded="false" />
+            <element signature="e#40906#40907#0" expanded="false" />
+            <element signature="e#40965#40966#0" expanded="false" />
+            <element signature="e#41055#41056#0" expanded="false" />
+            <element signature="e#41082#41083#0" expanded="false" />
+            <element signature="e#41415#41416#0" expanded="false" />
+            <element signature="e#41494#41495#0" expanded="false" />
+            <element signature="e#42322#42323#0" expanded="false" />
+            <element signature="e#42388#42389#0" expanded="false" />
+            <element signature="e#44429#44430#0" expanded="false" />
+            <element signature="e#44474#44475#0" expanded="false" />
+            <element signature="e#44600#44601#0" expanded="false" />
+            <element signature="e#44644#44645#0" expanded="false" />
+            <element signature="e#44766#44767#0" expanded="false" />
+            <element signature="e#44812#44813#0" expanded="false" />
+            <element signature="e#44936#44937#0" expanded="false" />
+            <element signature="e#44979#44980#0" expanded="false" />
+            <element signature="e#45385#45386#0" expanded="false" />
+            <element signature="e#45449#45450#0" expanded="false" />
+            <element signature="e#45796#45797#0" expanded="false" />
+            <element signature="e#45843#45844#0" expanded="false" />
+            <element signature="e#50307#50308#0" expanded="false" />
+            <element signature="e#50357#50358#0" expanded="false" />
+            <element signature="e#51666#51667#0" expanded="false" />
+            <element signature="e#51710#51711#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -5798,7 +5774,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#0#3333#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -5806,7 +5785,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="21" column="43" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="e#0#6503#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -5814,7 +5795,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="32" column="85" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="85" />
-          <folding />
+          <folding>
+            <element signature="e#0#3331#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -5826,35 +5810,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/BluetoothLeService.java">
+    <entry file="file://$PROJECT_DIR$/../../../android/sdk/sources/android-23/android/bluetooth/BluetoothGattDescriptor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="112" column="62" selection-start-line="112" selection-start-column="62" selection-end-line="112" selection-end-column="62" />
+        <state relative-caret-position="270">
+          <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
           <folding>
-            <element signature="e#8608#8609#0" expanded="true" />
-            <element signature="e#8645#8646#0" expanded="true" />
+            <element signature="e#0#6693#0" expanded="false" />
+            <element signature="e#4599#4600#0" expanded="false" />
+            <element signature="e#4637#4638#0" expanded="false" />
+            <element signature="e#4998#4999#0" expanded="false" />
+            <element signature="e#5026#5027#0" expanded="false" />
+            <element signature="e#5430#5431#0" expanded="false" />
+            <element signature="e#5462#5463#0" expanded="false" />
+            <element signature="e#5618#5619#0" expanded="false" />
+            <element signature="e#5653#5654#0" expanded="false" />
+            <element signature="e#6055#6056#0" expanded="false" />
+            <element signature="e#6084#6085#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../android/sdk/sources/android-23/android/bluetooth/BluetoothGattDescriptor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable-hdpi/xuetang_bg.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable-hdpi/temperature_video.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_xue_tang.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+        <state relative-caret-position="75">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_temperature.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_xueya.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/xueya/XueyaActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="436" column="45" selection-start-line="436" selection-start-column="45" selection-end-line="436" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_detect.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="78" column="47" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/temperature/TemperatureActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="325" column="0" selection-start-line="325" selection-start-column="0" selection-end-line="325" selection-end-column="0" />
+          <folding>
+            <element signature="e#11920#12325#0" expanded="true" />
+            <element signature="e#12324#12325#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/bluetooth/BluetoothLeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/han/referralproject/activity/DetectActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="70" column="42" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
+        <state relative-caret-position="343">
+          <caret line="204" column="25" selection-start-line="204" selection-start-column="25" selection-end-line="204" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1504970362000" expanded="true" signature="3275:3300" ph="&quot;主人，小e加载完毕，您可以打开设备开始测量了&quot;" />
-            <marker date="1504970362000" expanded="false" signature="8053:8103" ph="&quot;Unknown service&quot;" />
-            <marker date="1504970362000" expanded="true" signature="8179:8204" ph="&lt;~&gt;" />
-            <marker date="1504970362000" expanded="true" signature="8455:8471" ph="&lt;~&gt;" />
+            <element signature="e#2797#3520#0" expanded="true" />
+            <element signature="e#3519#3520#0" expanded="true" />
+            <element signature="e#5462#8495#0" expanded="true" />
+            <element signature="e#8494#8495#0" expanded="true" />
+            <element signature="e#12833#12859#0" expanded="true" />
+            <element signature="e#13170#13208#0" expanded="true" />
+            <element signature="e#13388#13991#0" expanded="true" />
+            <element signature="e#13990#13991#0" expanded="true" />
+            <element signature="e#14708#14709#0" expanded="false" />
+            <element signature="e#14764#14765#0" expanded="false" />
+            <element signature="e#17167#18641#0" expanded="true" />
+            <element signature="e#17342#18623#0" expanded="true" />
+            <element signature="e#18622#18623#0" expanded="true" />
+            <element signature="e#18640#18641#0" expanded="true" />
+            <marker date="1505102168000" expanded="false" signature="8687:8737" ph="&quot;Unknown service&quot;" />
+            <marker date="1505102168000" expanded="true" signature="8813:8838" ph="&lt;~&gt;" />
+            <marker date="1505102168000" expanded="true" signature="9089:9105" ph="&lt;~&gt;" />
           </folding>
         </state>
       </provider>
