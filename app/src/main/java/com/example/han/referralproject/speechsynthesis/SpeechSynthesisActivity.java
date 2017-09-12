@@ -3,7 +3,10 @@ package com.example.han.referralproject.speechsynthesis;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +14,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
+import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.temperature.TemperatureActivity;
+import com.example.han.referralproject.video.MainVideoActivity;
 import com.example.han.referralproject.xuetang.XuetangActivity;
 import com.example.han.referralproject.xueya.XueyaActivity;
 import com.example.han.referralproject.xueyang.XueyangActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
@@ -40,6 +47,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -77,8 +85,23 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     private Toast mToast1;
     RelativeLayout mRelativeLayout;
 
-    @Override
 
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    startSynthesis(str1);
+
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+
+
+    };
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
@@ -104,6 +127,15 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
         findViewById(R.id.iat_recognizes).performClick();
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                findViewById(R.id.iat_recognizes).performClick();
+            }
+        });
+
     }
 
     /**
@@ -144,6 +176,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                     showTip(getString(R.string.text_begin));
                 } else {
                     // 不显示听写对话框
+                    ret = mIat.startListening(mRecognizerListener);
                     if (ret != ErrorCode.SUCCESS) {
                         showTip("听写失败,错误码：" + ret);
                     } else {
@@ -168,6 +201,115 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         }
 
     }
+
+    /**
+     * 听写监听器。
+     */
+    private RecognizerListener mRecognizerListener = new RecognizerListener() {
+
+        @Override
+        public void onBeginOfSpeech() {
+            // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
+            //   showTip("开始说话");
+        }
+
+        @Override
+        public void onError(SpeechError error) {
+            // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
+            // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。
+        }
+
+        @Override
+        public void onEndOfSpeech() {
+            // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
+            //  showTip("结束说话");
+        }
+
+        @Override
+        public void onResult(RecognizerResult results, boolean isLast) {
+            //  Log.d(TAG, results.getResultString());
+            printResult(results);
+
+            if (isLast) {
+                new Thread(new Runnable() {
+                    public void run() {
+                        if (resultBuffer.toString().matches(".*测.*血压.*")) {
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), XueyaActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("xueyang")) {
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        } else if (resultBuffer.toString().matches(".*歌.*")) {
+                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                            if (file.exists()) {
+                                try {
+                                    mediaPlayer.reset();//从新设置要播放的音乐
+                                    mediaPlayer.setDataSource(file.getAbsolutePath());
+                                    mediaPlayer.prepare();//预加载音频
+                                    mediaPlayer.start();//播放音乐
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
+                        } else {
+                            try {
+                                post(resultBuffer + "");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                }).start();
+
+            }
+        }
+
+        @Override
+        public void onVolumeChanged(int volume, byte[] data) {
+            //    showTip("当前正在说话，音量大小：" + volume);
+            //   Log.d(TAG, "返回音频数据：" + data.length);
+        }
+
+        @Override
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+        }
+    };
+
 
     /**
      * 初始化监听器。
@@ -213,6 +355,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
 
     }
 
+    String str1;
 
     private void post(String str) throws Exception {
         URL url = new URL("http://api.aicyber.com/passive_chat");
@@ -227,16 +370,16 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
 
         Gson gson = new Gson();
 
-        RobotContent robot = new RobotContent("gh_1822e89468ba", str, "Guochen", "0e166831d6f44cee9372c2080214fbad");
+        RobotContent robot = new RobotContent("gh_1822e89468ba", str, "ml05120568675", "3e809a3d90398631ad4b291aadf0f230");
 
         pw.print(gson.toJson(robot));
-
 
         pw.flush();
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         String lineContent = null;
         String content = null;
 
+        //    Log.e("+++++++++++++", resultBuffer.toString());
         while ((lineContent = br.readLine()) != null) {
             content = lineContent;
         }
@@ -244,14 +387,15 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
 
         Receive1 string = gson.fromJson(content, Receive1.class);
 
-        String str1 = string.getReceive().getOutput();
+        str1 = string.getReceive().getOutput();
 
 
         Log.e("返回结果", str1);
 
         if (str1 != null) {
-            startSynthesis(str1);
+            mHandler.sendEmptyMessage(0);
         } else {
+            Log.e("==========", "已执行");
             // findViewById(R.id.iat_recognizes).performClick();
         }
         pw.close();
@@ -376,6 +520,9 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     }
 
 
+    private MediaPlayer mediaPlayer;//MediaPlayer对象
+    private File file;//要播放的文件
+
     /**
      * 听写UI监听器
      */
@@ -423,6 +570,45 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                                 finish();
                             }
 
+                        } else if (resultBuffer.toString().matches(".*视频.*")) {
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), MainVideoActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        } else if (resultBuffer.toString().matches(".*歌.*")) {
+                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                            if (file.exists()) {
+                                try {
+                                    mediaPlayer.reset();//从新设置要播放的音乐
+                                    mediaPlayer.setDataSource(file.getAbsolutePath());
+                                    mediaPlayer.prepare();//预加载音频
+                                    mediaPlayer.start();//播放音乐
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
+                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("jingju")) {
+                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/jingju.mp3");
+                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                            if (file.exists()) {
+                                try {
+                                    mediaPlayer.reset();//从新设置要播放的音乐
+                                    mediaPlayer.setDataSource(file.getAbsolutePath());
+                                    mediaPlayer.prepare();//预加载音频
+                                    mediaPlayer.start();//播放音乐
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
                         } else {
                             try {
                                 post(resultBuffer + "");
@@ -433,7 +619,6 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                         }
                     }
                 }).start();
-            } else {
             }
         }
 
@@ -510,6 +695,12 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             // 退出时释放连接
             mTts.destroy();
         }
+
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+        mediaPlayer.release();
+
     }
 
     @Override
