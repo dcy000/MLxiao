@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
@@ -57,6 +58,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                     public void onSuccess(UserInfoBean response) {
                         LocalShared.getInstance(mContext).setUserInfo(response);
                         hideLoadingDialog();
+                        startActivity(new Intent(mContext, MainActivity.class));
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
