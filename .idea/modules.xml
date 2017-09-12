@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/MLxiao.iml" filepath="$PROJECT_DIR$/MLxiao.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vmtools/vmtools.iml" filepath="$PROJECT_DIR$/vmtools/vmtools.iml" />
       <module fileurl="file://$PROJECT_DIR$/wkvideoplayer/wkvideoplayer.iml" filepath="$PROJECT_DIR$/wkvideoplayer/wkvideoplayer.iml" />
     </modules>
   </component>

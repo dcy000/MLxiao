@@ -30,6 +30,7 @@ import com.example.han.referralproject.login.PerInfoActivity;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.video.MainVideoActivity;
+import com.medlink.danbogh.call.EMUIHelper;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -92,8 +93,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.doctor_ask:
-                intent.setClass(getApplicationContext(), MainVideoActivity.class);
-                startActivity(intent);
+//                intent.setClass(getApplicationContext(), MainVideoActivity.class);
+//                startActivity(intent);
+                EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
                 break;
             case R.id.health_class:
                 intent.setClass(getApplicationContext(), MainVideoActivity.class);
