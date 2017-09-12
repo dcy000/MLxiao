@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.example.han.referralproject.xindian.XindianActivity;
 import com.example.han.referralproject.xuetang.XuetangActivity;
@@ -63,7 +64,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
             Intent intent = new Intent();
             switch (v.getId()) {
                 case R.id.test_xueya:
-                    intent.setClass(getApplicationContext(), AttentionActivity.class);
+                    intent.setClass(mContext, DetectActivity.class);
+                    intent.putExtra("type", "xueya");
                     startActivity(intent);
                     break;
                 case R.id.test_xueyang:
@@ -72,7 +74,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 
                     break;
                 case R.id.test_wendu:
-                    intent.setClass(getApplicationContext(), TemperatureActivity.class);
+                    intent.setClass(mContext, DetectActivity.class);
+                    intent.putExtra("type", "wendu");
                     startActivity(intent);
                     break;
                 case R.id.test_xuetang:

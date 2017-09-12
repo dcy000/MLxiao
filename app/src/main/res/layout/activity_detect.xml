@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_temp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/test_temperature">
+        <ImageView
+            android:id="@+id/temperature_video"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/temperature_video"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="280dp"
+            android:text="00.0"
+            android:textSize="50sp" />
+
+        <ImageView
+            android:id="@+id/test_2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="200dp"
+            android:clickable="true"
+            android:visibility="gone"
+            android:src="@drawable/tests" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_xueya"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/xueya_bg">
+        <ImageView
+            android:id="@+id/xueya_video"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/xueya_video"
+            android:clickable="true" />
+
+
+        <TextView
+            android:id="@+id/high_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="170dp"
+            android:text="0"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/low_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="270dp"
+            android:text="0"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/pulse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="390dp"
+            android:text="0"
+            android:textSize="50sp" />
+
+        <ImageView
+            android:id="@+id/test_1"
+            android:clickable="true"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/tests"
+            android:visibility="gone"
+            android:layout_marginLeft="200dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_xuetang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/xuetang_bg">
+        <ImageView
+            android:id="@+id/xuetang_video"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/xuetang_video"
+            android:clickable="true" />
+        <TextView
+            android:id="@+id/tv_xuetang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="200dp"
+            android:text="0.00"
+            android:textSize="40sp" />
+    </RelativeLayout>
+</FrameLayout>

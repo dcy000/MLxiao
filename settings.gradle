@@ -1,1 +1,1 @@
-include ':app', ':library', ':wkvideoplayer', ':FaceppIDCardUI'
+include ':app', ':library', ':wkvideoplayer', ':FaceppIDCardUI', ':vmtools'

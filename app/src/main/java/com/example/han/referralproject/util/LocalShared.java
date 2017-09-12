@@ -13,6 +13,7 @@ public class LocalShared {
 
     private final String UserId = "user_id";
     private final String UserImg = "user_img";
+    private final String UserPhoneNum = "user_phone_num";
 
     private final String Guide_Add_Click = "guide_add_click";
     private final String Guide_Create_Text = "guide_create_text";
@@ -34,12 +35,17 @@ public class LocalShared {
         return mShared.getString(UserId, "");
     }
 
+    public String getPhoneNum() {
+        return mShared.getString(UserPhoneNum, "");
+    }
+
     public void setUserInfo(UserInfoBean infoBean) {
         if (infoBean == null) {
             return;
         }
         MyApplication.getInstance().userId = infoBean.bid;
-        mShared.edit().putString(UserId, infoBean.bid).commit();
+        MyApplication.getInstance().telphoneNum = infoBean.tel;
+        mShared.edit().putString(UserId, infoBean.bid).putString(UserPhoneNum, infoBean.tel).commit();
     }
 
     public void setUserImg(String imgUrl) {

@@ -70,7 +70,6 @@ public class BluetoothLeService extends Service {
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-            Log.i("mylog2", "onConnectionStateChange");
             String intentAction;
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 intentAction = ACTION_GATT_CONNECTED;
@@ -91,7 +90,6 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-            Log.i("mylog2", "onServiceDiscovered");
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
             } else {
@@ -101,7 +99,6 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-            Log.i("mylog2", "onCharacterRead");
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             }
@@ -109,13 +106,11 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            Log.i("mylog2", "onCharacterChange");
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
         }
 
         @Override
         public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
-            Log.i("mylog2", "onDescriptorRead");
             super.onDescriptorRead(gatt, descriptor, status);
         }
     };
@@ -131,15 +126,18 @@ public class BluetoothLeService extends Service {
         final Intent intent = new Intent(action);
 
         final byte[] data = characteristic.getValue();
-
+        StringBuilder mBuilder = new StringBuilder();
+        for (byte item : data){
+            mBuilder.append(item).append("    ");
+        }
         if (data != null && data.length > 0) {
-            final StringBuilder stringBuilder = new StringBuilder();
-            for (byte byteChar : data)
-                stringBuilder.append(String.format("%02X ", byteChar));
+//            final StringBuilder stringBuilder = new StringBuilder();
+//            for (byte byteChar : data)
+//                stringBuilder.append(String.format("%02X ", byteChar));
          //   Log.e(TAG, String.format("%s", new String(data)));
             // getting cut off when longer, need to push on new line, 0A
-            intent.putExtra(EXTRA_DATA, String.format("%s", new String(data)));
-
+//            intent.putExtra(EXTRA_DATA, String.format("%s", new String(data)));
+            intent.putExtra(EXTRA_DATA, data);
         }
         sendBroadcast(intent);
     }

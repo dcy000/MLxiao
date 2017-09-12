@@ -1,7 +1,6 @@
 package com.example.han.referralproject.activity;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,11 +10,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener{
     private EditText mAccountTv;
@@ -57,6 +60,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                     public void onSuccess(UserInfoBean response) {
                         LocalShared.getInstance(mContext).setUserInfo(response);
                         hideLoadingDialog();
+                        startActivity(new Intent(mContext, MainActivity.class));
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
