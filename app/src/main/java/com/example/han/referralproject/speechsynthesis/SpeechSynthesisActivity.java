@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.speech.setting.IatSettings;
@@ -389,7 +390,8 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                             if (sign == true) {
                                 sign = false;
                                 mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), XueyaActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                                intent.putExtra("type", "xueya");
                                 startActivity(intent);
                                 finish();
                             }
@@ -418,7 +420,8 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                             if (sign == true) {
                                 sign = false;
                                 mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                                intent.putExtra("type", "wendu");
                                 startActivity(intent);
                                 finish();
                             }

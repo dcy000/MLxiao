@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.example.han.referralproject"
         minSdkVersion 18
-        targetSdkVersion 22
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         useLibrary 'org.apache.http.legacy'
@@ -20,9 +20,9 @@ android {
                 abiFilters = ["armeabi-v7a", "x86"]
             }
             // 是否开启压缩
-            zipAlignEnabled false
-            // 是否开启混淆
-            minifyEnabled false
+//            zipAlignEnabled false
+//            // 是否开启混淆
+//            minifyEnabled false
             // 设置debug的签名
 //            signingConfig signingConfigs.debug
         }
@@ -43,7 +43,10 @@ android {
 
 }
 
+
 repositories {
+    jcenter()
+
     flatDir {
         dirs 'libs' //就是你放aar的目录地址
     }
@@ -56,7 +59,7 @@ dependencies {
     compile name: 'SMSSDK-2.1.4', ext: 'aar'
     compile name: 'SMSSDKGUI-2.1.4', ext: 'aar'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
