@@ -99,26 +99,25 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize">
 
         </activity>
 
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity
             android:name=".activity.AgreementActivity"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape">
 
 
         </activity>
         <activity
             android:name=".activity.PreviousHistoryActivity"
             android:screenOrientation="landscape">
-
 
 
         </activity>
@@ -136,6 +135,14 @@
             android:name=".PlayVideoActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".activity.DetectActivity"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape"></activity>
         <activity
@@ -149,21 +156,13 @@
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
             android:screenOrientation="landscape">
-
-
         </activity>
         <activity
             android:name=".LoadingActivity"
-            android:screenOrientation="landscape" >
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -171,7 +170,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
@@ -191,15 +190,12 @@
         <activity android:name=".recyclerview.RecoDocActivity">
 
 
-
         </activity>
-        <activity android:name=".recyclerview.DoctorMesActivity" >
-
+        <activity android:name=".recyclerview.DoctorMesActivity">
 
 
         </activity>
-        <activity android:name=".video.MainVideoActivity" >
-
+        <activity android:name=".video.MainVideoActivity">
 
 
         </activity>

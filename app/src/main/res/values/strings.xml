@@ -55,7 +55,7 @@
     <string name="tips_doctor">主人，请选择您最信任的医生完成签约，如果他没在里面可以点击左下角的帮助按钮。</string>
     <string name="tips_info">主人，如果需要签约就点击签约按钮。</string>
     <string name="tips_test">主人，请点击您需要测量的项目</string>
-    <string name="tips_open_device">主人，小e加载完毕，您可以打开设备开始测量了</string>
+    <string name="tips_open_device">主人，您可以打开设备开始测量了</string>
     
 
     <string name="unknown_device">Unknown device</string>
@@ -74,6 +74,9 @@
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
 
     <string name="app_id">59196d96</string>
+
+    <string name="app_ids">59196d96</string>
+
     <!-- 听写 -->
     <string name="text_begin">请开始说话…</string>
     <string name="text_begin_recognizer">开始音频流识别</string>

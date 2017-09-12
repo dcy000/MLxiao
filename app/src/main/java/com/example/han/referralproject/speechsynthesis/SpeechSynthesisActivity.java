@@ -1,6 +1,7 @@
 package com.example.han.referralproject.speechsynthesis;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,10 @@ import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.temperature.TemperatureActivity;
+import com.example.han.referralproject.xuetang.XuetangActivity;
+import com.example.han.referralproject.xueya.XueyaActivity;
+import com.example.han.referralproject.xueyang.XueyangActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -25,6 +30,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
@@ -136,7 +142,6 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                     mIatDialog.setListener(mRecognizerDialogListener);
                     mIatDialog.show();
                     showTip(getString(R.string.text_begin));
-
                 } else {
                     // 不显示听写对话框
                     if (ret != ErrorCode.SUCCESS) {
@@ -177,6 +182,8 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             }
         }
     };
+
+    public boolean sign = true;
 
     private void printResult(RecognizerResult results) {
         String text = JsonParser.parseIatResult(results.getResultString());
@@ -245,8 +252,7 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         if (str1 != null) {
             startSynthesis(str1);
         } else {
-            findViewById(R.id.iat_recognizes).performClick();
-
+            // findViewById(R.id.iat_recognizes).performClick();
         }
         pw.close();
         br.close();
@@ -379,18 +385,55 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             if (isLast == true) {
                 new Thread(new Runnable() {
                     public void run() {
-                        try {
-                            post(resultBuffer + "");
+                        if (resultBuffer.toString().matches(".*测.*血压.*")) {
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), XueyaActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("xueyang")) {
+
+                            Log.e("==========", PinYinUtils.converterToSpell(resultBuffer.toString()));
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
+                            if (sign == true) {
+                                sign = false;
+                                mIatDialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        } else {
+                            try {
+                                post(resultBuffer + "");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                         }
                     }
                 }).start();
             } else {
-                Log.e("============", "没说话");
-
-
             }
         }
 
@@ -405,7 +448,6 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
         }
 
     };
-
 
     private void showTip(final String str) {
         mToast.setText(str);
@@ -454,8 +496,9 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
+
         if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();
@@ -467,5 +510,21 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             // 退出时释放连接
             mTts.destroy();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+      /*  if (null != mIat) {
+            // 退出时释放连接
+            mIat.cancel();
+            mIat.destroy();
+        }
+
+        if (null != mTts) {
+            mTts.stopSpeaking();
+            // 退出时释放连接
+            mTts.destroy();
+        }*/
     }
 }
