@@ -279,35 +279,35 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
 
                 break;
             case R.id.image9:
-                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/pressure1.mp4");
+                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/jinshengbin1.mp4");
 
                 break;
             case R.id.image10:
-                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/xuetang1.mp4");
+                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/jinshengbin2.mp4");
 
                 break;
             case R.id.image11:
-                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/xuetang2.mp4");
+                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/jinshengbin3.mp4");
 
                 break;
             case R.id.image12:
-                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/xuetang4.mp4");
+                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/jinshengbin4.mp4");
 
                 break;
             case R.id.image13:
-                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/pressure1.mp4");
+                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/jinshengbin5.mp4");
 
                 break;
             case R.id.image14:
-                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/pressure2.mp4");
+                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/jinshengbin6.mp4");
 
                 break;
             case R.id.image15:
-                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/pressure3.mp4");
+                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/jinshengbin7.mp4");
 
                 break;
             case R.id.image16:
-                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/pressure4.mp4");
+                intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/jinshengbin8.mp4");
 
                 break;
             case R.id.image17:

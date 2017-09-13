@@ -75,7 +75,7 @@
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:background="@drawable/xueya_select"
-            android:text="高血糖"
+            android:text="精神病"
             android:textSize="40sp" />
 
         <Button
@@ -337,7 +337,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="高血糖第一讲"
+                    android:text="精神病第一讲"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -359,7 +359,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="高血糖第二讲"
+                    android:text="精神病第二讲"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -381,7 +381,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="高血糖第三讲"
+                    android:text="精神病第三讲"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -403,7 +403,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="高血糖第四讲"
+                    android:text="精神病第四讲"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -435,7 +435,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="高血糖五讲"
+                    android:text="精神病第五讲"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -457,7 +457,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="高血糖第六讲"
+                    android:text="精神病第六讲"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -479,7 +479,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="高血糖第七讲"
+                    android:text="精神病第七讲"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -501,7 +501,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="高血糖第八讲"
+                    android:text="精神病第八讲"
                     android:textSize="25sp" />
             </LinearLayout>
 
