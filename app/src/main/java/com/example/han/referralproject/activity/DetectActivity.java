@@ -333,26 +333,28 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
 
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+        registerBltReceiver();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (threadDisable) {
-                    if (mBluetoothLeService == null && mConnected == false) {
-                        mBluetoothAdapter.startLeScan(mLeScanCallback);
-                    } else {
-                        mHandler.sendEmptyMessage(0);
-                        threadDisable = false;
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                    }
-
-                }
-            }
-
-        }).start();
+        mBluetoothAdapter.startDiscovery();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (threadDisable) {
+//                    if (mBluetoothLeService == null && mConnected == false) {
+//                        mBluetoothAdapter.startLeScan(mLeScanCallback);
+//                    } else {
+//                        mHandler.sendEmptyMessage(0);
+//                        threadDisable = false;
+//                    }
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                    }
+//
+//                }
+//            }
+//
+//        }).start();
         speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);
         findViewById(R.id.xueya_video).setOnClickListener(this);
@@ -360,6 +362,72 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         showNormal("设备连接中，请稍后...");
 
     }
+
+    public void registerBltReceiver() {
+        IntentFilter intent = new IntentFilter();
+        intent.addAction(BluetoothDevice.ACTION_FOUND);//搜索发现设备
+        intent.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);//状态改变
+        intent.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);//行动扫描模式改变了
+        intent.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);//动作状态发生了变化
+        registerReceiver(searchDevices, intent);
+    }
+
+    private BroadcastReceiver searchDevices = new BroadcastReceiver() {
+        //接收
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            Bundle b = intent.getExtras();
+            Object[] lstName = b.keySet().toArray();
+
+            // 显示所有收到的消息及其细节
+            for (int i = 0; i < lstName.length; i++) {
+                String keyName = lstName[i].toString();
+                Log.i("mylog", keyName + ">>>" + String.valueOf(b.get(keyName)));
+            }
+            BluetoothDevice device;
+            // 搜索发现设备时，取得设备的信息；注意，这里有可能重复搜索同一设备
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                String deviceName = "FSRKB-EWQ01";
+                switch (detectType){
+                    case Type_Wendu:
+                        deviceName = "FSRKB-EWQ01";
+                        break;
+                    case Type_Xueya:
+                        deviceName = "eBlood-Pressure";
+                        break;
+                    case Type_XueTang:
+                        deviceName = "Bioland-BGM";
+                }
+
+                if (deviceName.equals(device.getName())) {
+                    dialog.create(NDialog.CONFIRM).dismiss();
+                    mDeviceAddress = device.getAddress();
+                    Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+                    bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                    if (mBluetoothAdapter != null){
+                        mBluetoothAdapter.cancelDiscovery();
+                    }
+                }
+            }
+            //状态改变时
+            else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
+                device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                switch (device.getBondState()) {
+                    case BluetoothDevice.BOND_BONDING://正在配对
+                        Log.d("BlueToothTestActivity", "正在配对......");
+                        break;
+                    case BluetoothDevice.BOND_BONDED://配对结束
+                        Log.d("BlueToothTestActivity", "完成配对");
+                        break;
+                    case BluetoothDevice.BOND_NONE://取消配对/未配对
+                        Log.d("BlueToothTestActivity", "取消配对");
+                    default:
+                        break;
+                }
+            }
+        }
+    };
 
     public void showNormal(String message) {
         dialog.setMessageCenter(true)
@@ -444,7 +512,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        threadDisable = false;
         unregisterReceiver(mGattUpdateReceiver);
+
+        unregisterReceiver(searchDevices);
+        if (mBluetoothAdapter != null){
+            mBluetoothAdapter.cancelDiscovery();
+        }
 
         if (mBluetoothLeService != null) {
 

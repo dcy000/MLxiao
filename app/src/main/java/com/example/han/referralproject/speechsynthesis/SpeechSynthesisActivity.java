@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -530,98 +532,195 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
             printResult(results);
-            if (isLast == true) {
-                new Thread(new Runnable() {
-                    public void run() {
-                        if (resultBuffer.toString().matches(".*测.*血压.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                                intent.putExtra("type", "xueya");
-                                startActivity(intent);
-                                finish();
-                            }
+            if (isLast) {
+                if (resultBuffer.toString().matches(".*测.*血压.*")) {
+                    if (sign == true) {
+                        sign = false;
+                        mIatDialog.dismiss();
+                        Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                        intent.putExtra("type", "xueya");
+                        startActivity(intent);
+                        finish();
+                    }
 
-                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("xueyang")) {
+                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("xueyang")) {
 
-                            Log.e("==========", PinYinUtils.converterToSpell(resultBuffer.toString()));
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
+                    Log.e("==========", PinYinUtils.converterToSpell(resultBuffer.toString()));
+                    if (sign == true) {
+                        sign = false;
+                        mIatDialog.dismiss();
+                        Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
-                        } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
+                } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
+                    if (sign == true) {
+                        sign = false;
+                        mIatDialog.dismiss();
+                        Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
-                        } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                                intent.putExtra("type", "wendu");
-                                startActivity(intent);
-                                finish();
-                            }
+                } else if (resultBuffer.toString().matches(".*测.*体温.*")) {
+                    if (sign == true) {
+                        sign = false;
+                        mIatDialog.dismiss();
+                        Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                        intent.putExtra("type", "wendu");
+                        startActivity(intent);
+                        finish();
+                    }
 
-                        } else if (resultBuffer.toString().matches(".*视频.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), MainVideoActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
+                } else if (resultBuffer.toString().matches(".*视频.*")) {
+                    if (sign == true) {
+                        sign = false;
+                        mIatDialog.dismiss();
+                        Intent intent = new Intent(getApplicationContext(), MainVideoActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
-                        } else if (resultBuffer.toString().matches(".*歌.*")) {
-                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                            if (file.exists()) {
-                                try {
-                                    mediaPlayer.reset();//从新设置要播放的音乐
-                                    mediaPlayer.setDataSource(file.getAbsolutePath());
-                                    mediaPlayer.prepare();//预加载音频
-                                    mediaPlayer.start();//播放音乐
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-
-                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("jingju")) {
-                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/jingju.mp3");
-                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                            if (file.exists()) {
-                                try {
-                                    mediaPlayer.reset();//从新设置要播放的音乐
-                                    mediaPlayer.setDataSource(file.getAbsolutePath());
-                                    mediaPlayer.prepare();//预加载音频
-                                    mediaPlayer.start();//播放音乐
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-
-                        } else {
-                            try {
-                                post(resultBuffer + "");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
+                } else if (resultBuffer.toString().matches(".*歌.*")) {
+                    file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                    //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                    if (file.exists()) {
+                        try {
+                            mediaPlayer.reset();//从新设置要播放的音乐
+                            mediaPlayer.setDataSource(file.getAbsolutePath());
+                            mediaPlayer.prepare();//预加载音频
+                            mediaPlayer.start();//播放音乐
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
-                }).start();
+
+
+                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("jingju")) {
+                    file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/jingju.mp3");
+                    //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                    if (file.exists()) {
+                        try {
+                            mediaPlayer.reset();//从新设置要播放的音乐
+                            mediaPlayer.setDataSource(file.getAbsolutePath());
+                            mediaPlayer.prepare();//预加载音频
+                            mediaPlayer.start();//播放音乐
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                } else {
+                    new SpeechTask().execute();
+                }
+            }
+            if (isLast == true) {
+//                new Thread(new Runnable() {
+//                    public void run() {
+//                        if (resultBuffer.toString().matches(".*测.*血压.*")) {
+//                            if (sign == true) {
+//                                sign = false;
+//                                mIatDialog.dismiss();
+//                                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                                intent.putExtra("type", "xueya");
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//
+//                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("xueyang")) {
+//
+//                            Log.e("==========", PinYinUtils.converterToSpell(resultBuffer.toString()));
+//                            if (sign == true) {
+//                                sign = false;
+//                                mIatDialog.dismiss();
+//                                Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//
+//                        } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
+//                            if (sign == true) {
+//                                sign = false;
+//                                mIatDialog.dismiss();
+//                                Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//
+//                        } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
+//                            if (sign == true) {
+//                                sign = false;
+//                                mIatDialog.dismiss();
+//                                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                                intent.putExtra("type", "wendu");
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//
+//                        } else if (resultBuffer.toString().matches(".*视频.*")) {
+//                            if (sign == true) {
+//                                sign = false;
+//                                mIatDialog.dismiss();
+//                                Intent intent = new Intent(getApplicationContext(), MainVideoActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//
+//                        } else if (resultBuffer.toString().matches(".*歌.*")) {
+//                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+//                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+//                            if (file.exists()) {
+//                                try {
+//                                    mediaPlayer.reset();//从新设置要播放的音乐
+//                                    mediaPlayer.setDataSource(file.getAbsolutePath());
+//                                    mediaPlayer.prepare();//预加载音频
+//                                    mediaPlayer.start();//播放音乐
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//
+//
+//                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("jingju")) {
+//                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/jingju.mp3");
+//                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+//                            if (file.exists()) {
+//                                try {
+//                                    mediaPlayer.reset();//从新设置要播放的音乐
+//                                    mediaPlayer.setDataSource(file.getAbsolutePath());
+//                                    mediaPlayer.prepare();//预加载音频
+//                                    mediaPlayer.start();//播放音乐
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//
+//
+//                        } else {
+//                            try {
+//                                post(resultBuffer + "");
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//                    }
+//                }).start();
+            }
+        }
+
+
+        class SpeechTask extends AsyncTask<Void, Void, Void>{
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    post(resultBuffer.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
         }
 
@@ -687,6 +786,28 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
     protected void onStop() {
         super.onStop();
 
+//        if (null != mIat) {
+//            // 退出时释放连接
+//            mIat.cancel();
+//            mIat.destroy();
+//        }
+//
+//        if (null != mTts) {
+//            mTts.stopSpeaking();
+//            // 退出时释放连接
+//            mTts.destroy();
+//        }
+//
+//        if (mediaPlayer.isPlaying()) {
+//            mediaPlayer.stop();
+//        }
+//        mediaPlayer.release();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();
@@ -703,12 +824,6 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
             mediaPlayer.stop();
         }
         mediaPlayer.release();
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
       /*  if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();
