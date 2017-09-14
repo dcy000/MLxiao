@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
@@ -58,7 +59,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class SpeechSynthesisActivity extends AppCompatActivity implements View.OnClickListener {
+public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
 
     private static String TAG = SpeechSynthesisActivity.class.getSimpleName();
     // 语音听写对象
@@ -718,6 +719,15 @@ public class SpeechSynthesisActivity extends AppCompatActivity implements View.O
                 try {
                     post(resultBuffer.toString());
                 } catch (Exception e) {
+                    runOnUiThread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                //speak(R.string.speak_no_result);
+                                findViewById(R.id.iat_recognizes).performClick();
+                            }
+                        }
+                    );
                     e.printStackTrace();
                 }
                 return null;

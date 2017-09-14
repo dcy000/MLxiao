@@ -46,6 +46,7 @@
     <string name="xueyang">血氧</string>
     <string name="health_message">健康消息</string>
     <string name="logout">退出登录</string>
+    <string name="speak_no_result">我还没学习到</string>
     
     <string name="tips_login">您好，感谢您购买杭州国辰迈联的产品，我是您的健康机器人管家-小e，接下来将由我为您开启健康之旅。
 主人，如果您有账号，请直接登入；首次使用请点击注册。</string>
