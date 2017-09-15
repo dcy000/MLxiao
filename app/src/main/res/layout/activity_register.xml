@@ -114,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="34dp"
+                android:visibility="gone"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -172,15 +173,26 @@
                 <!--android:textSize="30sp"/>-->
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/et_address"
-                android:layout_width="440dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="111dp"
-                android:layout_marginTop="17dp"
-                android:background="@drawable/shape_rect_gray"
-                android:hint="请输入详细地址：精确到小区"
-                android:textSize="30sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address"
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="440dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="21dp"
+                    android:background="@drawable/shape_rect_gray"
+                    android:hint="请输入详细地址：精确到小区"
+                    android:textSize="30sp"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

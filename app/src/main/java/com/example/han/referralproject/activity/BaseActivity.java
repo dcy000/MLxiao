@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speech.setting.TtsSettings;
@@ -27,7 +28,7 @@ public class BaseActivity extends AppCompatActivity {
     // 语音合成对象
     private SpeechSynthesizer mTts;
     // 默认发音人
-    private String voicer = "xiaoyan";
+    private String voicer = "nannan";
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
     private SharedPreferences mTtsSharedPreferences;
@@ -65,6 +66,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void speak(final int resId){
+        setParam();
         mTts.startSpeaking(getString(resId), mTtsListener);
 //        mDelayHandler.postDelayed(new Runnable() {
 //            @Override
@@ -90,7 +92,6 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-
         }
 
         @Override
@@ -99,6 +100,7 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onCompleted(SpeechError error) {
+            onActivitySpeakFinish();
             if (error == null) {
             } else if (error != null) {
             }
@@ -106,9 +108,10 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
         }
     };
+
+    protected void onActivitySpeakFinish(){}
 
     /**
      * 参数设置

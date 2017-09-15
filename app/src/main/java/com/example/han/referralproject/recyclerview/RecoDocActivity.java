@@ -194,7 +194,7 @@ public class RecoDocActivity extends BaseActivity {
                 Intent intent = new Intent(RecoDocActivity.this, DoctorMesActivity.class);
                 intent.putExtra("docMsg", (Serializable) mlist.get(postion));
                 startActivity(intent);
-                finish();
+//                finish();
 
             }
         });
