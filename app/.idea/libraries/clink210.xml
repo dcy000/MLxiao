@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="clink210">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../wkvideoplayer/libs/clink210.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
