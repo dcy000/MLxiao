@@ -160,10 +160,10 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -188,8 +188,6 @@
         <activity android:name=".xindian.XindianActivity" />
         <activity android:name=".facerecognition.RegisterVideoActivity" />
         <activity android:name=".recyclerview.RecoDocActivity">
-
-
         </activity>
         <activity android:name=".recyclerview.DoctorMesActivity">
 
@@ -201,10 +199,6 @@
         </activity>
         <activity android:name=".video.PlayVideoActivity"></activity>
         <activity android:name=".personal.PersonActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity

@@ -10,10 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;
 
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.application.MyApplication;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
 
     Chronometer ch;
 
@@ -21,6 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        speak(R.string.tips_splash);
 
         ch = (Chronometer) findViewById(R.id.chronometer);
 
@@ -46,7 +49,5 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 }

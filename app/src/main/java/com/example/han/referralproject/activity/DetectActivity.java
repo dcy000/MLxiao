@@ -362,8 +362,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         registerBltReceiver();
 
         mBluetoothAdapter.startDiscovery();
-        mXueyaResult = mResources.getStringArray(R.array.result_xueya);
-        mWenduResult = mResources.getStringArray(R.array.result_wendu);
+        mXueyaResults = mResources.getStringArray(R.array.result_xueya);
+        mWenduResults = mResources.getStringArray(R.array.result_wendu);
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
