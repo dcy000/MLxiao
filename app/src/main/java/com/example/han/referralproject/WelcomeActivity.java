@@ -23,8 +23,6 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        speak(R.string.tips_splash);
-
         ch = (Chronometer) findViewById(R.id.chronometer);
 
         //设置开始计时时间

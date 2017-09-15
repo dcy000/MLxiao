@@ -87,9 +87,9 @@
             android:layout_alignBottom="@id/per_name"
             android:layout_alignParentRight="true"
             android:layout_marginRight="72dp"
-            android:background="@drawable/bgper_msg"
+            android:background="@drawable/per_msg1"
             android:text="健康档案"
-            android:textColor="#49b2eb"
+            android:textColor="#fff"
             android:textSize="35sp"/>
         <TextView
             android:id="@+id/tv_balance"

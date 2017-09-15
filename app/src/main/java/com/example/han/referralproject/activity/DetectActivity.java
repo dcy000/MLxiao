@@ -185,6 +185,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 switch (detectType) {
                     case Type_Wendu:
                         int tempData = notifyData[6] & 0xff;
+                        if (tempData == 1) {
+                            return;
+                        }
                         StringBuilder mTempResult = new StringBuilder();
                         mTempResult.append("3").append((tempData - 44)/10).append(".").append((tempData - 44)%10);
                         Message msg = mHandler.obtainMessage();

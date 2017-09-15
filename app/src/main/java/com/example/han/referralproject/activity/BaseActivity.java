@@ -66,6 +66,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void speak(final int resId){
+        setParam();
         mTts.startSpeaking(getString(resId), mTtsListener);
 //        mDelayHandler.postDelayed(new Runnable() {
 //            @Override
@@ -91,7 +92,6 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-
         }
 
         @Override
@@ -101,7 +101,6 @@ public class BaseActivity extends AppCompatActivity {
         @Override
         public void onCompleted(SpeechError error) {
             onActivitySpeakFinish();
-            Log.i("mylog", error.toString());
             if (error == null) {
             } else if (error != null) {
             }
@@ -109,7 +108,6 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
         }
     };
 
