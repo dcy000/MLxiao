@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
-    android:orientation="vertical">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/normal_bg"
+                android:orientation="vertical">
 
     <!--  <android.support.v7.widget.Toolbar
           android:id="@+id/toolbar"
@@ -27,7 +27,8 @@
     <LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="69dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
@@ -36,28 +37,27 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/icon_back"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/icon_back"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="签约医生"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="30sp"/>
     </LinearLayout>
-
 
     <com.example.han.referralproject.imageview.CircleImageView
         android:id="@+id/circleImageView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="204dp"
+        android:layout_height="204dp"
         android:layout_below="@+id/linearlayou"
         android:layout_centerHorizontal="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="26dp"
         android:layout_toLeftOf="@+id/linearlayout"
-        android:src="@drawable/head_cion2" />
+        android:src="@drawable/head_cion2"/>
 
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -79,8 +79,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="赵曼林"
-                android:textColor="@android:color/black"
-                android:textSize="40sp" />
+                android:textColor="#212121"
+                android:textSize="40sp"/>
 
             <TextView
                 android:id="@+id/duty"
@@ -88,8 +88,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="副主任医师"
-                android:textColor="@android:color/black"
-                android:textSize="30sp" />
+                android:textColor="#212121"
+                android:textSize="30sp"/>
 
         </LinearLayout>
 
@@ -105,7 +105,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="广州市脑科医院"
-                android:textSize="30sp" />
+                android:textColor="#a2a2a2"
+                android:textSize="30sp"/>
 
             <TextView
                 android:id="@+id/department"
@@ -113,20 +114,62 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="精神科"
-                android:textSize="25sp" />
+                android:textColor="#a2a2a2"
+                android:textSize="25sp"/>
 
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="糖尿病  高血压  抑郁症"
-            android:textColor="@color/textcolor"
-            android:textSize="30sp" />
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_doctor_tag"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="4dp"
+                android:text="糖尿病"
+                android:textColor="@color/textcolor"
+                android:textSize="23sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/bg_doctor_tag"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="4dp"
+                android:text="高血压"
+                android:textColor="@color/textcolor"
+                android:textSize="23sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/bg_doctor_tag"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="4dp"
+                android:text="抑郁症"
+                android:textColor="@color/textcolor"
+                android:textSize="23sp"/>
+        </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/ll_doctor_stars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -135,38 +178,47 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/star" />
+                android:src="@drawable/ic_star_activated"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/star" />
+                android:src="@drawable/ic_star_activated"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/star" />
+                android:src="@drawable/ic_star_activated"/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic_star_activated"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/star" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/star" />
-
+                android:src="@drawable/selector_ic_star"/>
 
         </LinearLayout>
-
-
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/linearlayout"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/linearlayout"
+        android:text="已咨询 25612 / 评价 256"
+        android:textColor="#b7badb"
+        android:textSize="23sp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -181,19 +233,10 @@
             android:layout_height="90dp"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="100dp"
-            android:background="@drawable/shape1btn"
+            android:background="@drawable/selector_bg_btn"
             android:text="签 约"
-            android:textColor="@color/textcolor"
-            android:textSize="50sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="已咨询25612"
-            android:textSize="30sp" />
-
+            android:textColor="@android:color/white"
+            android:textSize="50sp"/>
     </LinearLayout>
 
     <ImageView
@@ -202,13 +245,21 @@
         android:layout_height="1sp"
         android:layout_below="@+id/linearlayout"
         android:layout_marginTop="15dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/line"
-        android:layout_margin="20dp"
-        android:text="@string/text"
-        android:textSize="25sp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:textColor="#a2a2a2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text"
+            android:textSize="25sp"/>
+    </ScrollView>
 </RelativeLayout>
