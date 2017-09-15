@@ -19,13 +19,7 @@ android {
             ndk {
                 abiFilters = ["armeabi-v7a", "x86"]
             }
-            // 是否开启压缩
-//            zipAlignEnabled false
-//            // 是否开启混淆
-//            minifyEnabled false
-            // 设置debug的签名
-//            signingConfig signingConfigs.debug
-        }
+    }
 
         release {
             minifyEnabled false

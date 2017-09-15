@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
-    tools:context="com.example.han.referralproject.personal.PersonActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/normal_bg"
+                tools:context="com.example.han.referralproject.personal.PersonActivity">
 
 
     <!--<android.support.v7.widget.Toolbar
@@ -27,7 +27,9 @@
     <LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="69dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:orientation="horizontal">
 
         <ImageView
@@ -36,16 +38,15 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/icon_back"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/icon_back"
+            android:gravity="center"
             android:text="个人中心"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="30sp"/>
     </LinearLayout>
 
 
@@ -54,151 +55,163 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearlayou"
-        android:layout_margin="20dp">
+        android:layout_margin="23dp"
+        android:padding="23dp">
+
+        <com.example.han.referralproject.imageview.CircleImageView
+            android:id="@+id/per_image"
+            android:layout_width="205dp"
+            android:layout_height="205dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="72dp"
+            android:src="@drawable/head_cion2"/>
+
+
 
         <TextView
             android:id="@+id/per_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="23dp"
+            android:layout_toRightOf="@id/per_image"
             android:text="王大妈"
-            android:textColor="@android:color/black"
-            android:textSize="50sp" />
+            android:textColor="#686868"
+            android:textSize="50sp"/>
 
-        <com.example.han.referralproject.imageview.CircleImageView
-            android:id="@+id/per_image"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/per_name"
-            android:scaleType="centerCrop"
-            android:src="@drawable/head_cion2" />
-
-        <LinearLayout
-            android:id="@+id/linearlayout"
+        <Button
+            android:id="@+id/btn_record"
+            android:layout_width="160dp"
+            android:layout_height="58dp"
+            android:layout_alignBottom="@id/per_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="72dp"
+            android:background="@drawable/bgper_msg"
+            android:text="健康档案"
+            android:textColor="#49b2eb"
+            android:textSize="35sp"/>
+        <TextView
+            android:id="@+id/tv_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/per_name"
-            android:layout_centerHorizontal="true"
+            android:layout_below="@id/per_name"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
-            android:layout_toRightOf="@+id/per_image"
-            android:orientation="horizontal">
+            android:layout_toRightOf="@id/per_image"
+            android:text="账户余额: 1000元"
+            android:textColor="#a2a2a2"
+            android:textSize="27sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="账户余额:1000元"
-                android:textSize="32sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="签约医生:赵曼林"
-                android:textSize="32sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearlayout"
-            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_balance"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/per_image"
-            android:orientation="horizontal">
+            android:layout_toRightOf="@id/per_image"
+            android:text="我的积分: 1000分"
+            android:textColor="#a2a2a2"
+            android:textSize="27sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的积分:1000分"
-                android:textSize="32sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_balance"
+            android:layout_marginLeft="300dp"
+            android:layout_toRightOf="@id/per_image"
+            android:text="签约医生: 赵曼林"
+            android:textColor="#a2a2a2"
+            android:textSize="27sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="浙江第二人民医院"
-                android:textSize="32sp" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/tv_hospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_points"
+            android:layout_marginLeft="300dp"
+            android:layout_toRightOf="@id/per_image"
+            android:text="浙江第二人民医院"
+            android:textColor="#a2a2a2"
+            android:textSize="27sp"/>
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearlayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_below="@id/RelativeLayout"
+        android:layout_margin="23dp"
+        android:dividerPadding="20dp"
         android:orientation="horizontal"
         android:weightSum="4">
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
             android:layout_weight="1"
             android:background="@drawable/bgper_msg"
+            android:gravity="center"
             android:text="充 值"
-            android:textSize="40sp" />
+            android:textColor="#49b2eb"
+            android:textSize="35sp"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="59dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
             android:layout_weight="1"
             android:background="@drawable/bgper_msg"
+            android:gravity="center"
             android:text="消费记录"
-            android:textSize="40sp" />
+            android:textColor="#49b2eb"
+            android:textSize="35sp"/>
 
 
         <Button
+            android:id="@+id/button2"
             android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="59dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
             android:layout_weight="1"
             android:background="@drawable/bgper_msg"
+            android:gravity="center"
             android:text="商 城"
-            android:textSize="40sp" />
+            android:textColor="#49b2eb"
+            android:textSize="35sp"/>
 
         <Button
+            android:id="@+id/button"
             android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="59dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
             android:layout_weight="1"
             android:background="@drawable/bgper_msg"
+            android:gravity="center"
             android:text="订 单"
-            android:textSize="40sp" />
+            android:textColor="#49b2eb"
+            android:textSize="35sp"/>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_record"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="50dp"
-        android:background="@drawable/bg1per_msg"
-        android:text="健康档案"
-        android:textSize="40sp" />
-
-
     <TextView
         android:id="@+id/btn_logout"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="30dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/selector_btn"
         android:gravity="center"
+        android:padding="8dp"
         android:text="@string/logout"
-        android:textColor="#f00"
-        android:textSize="20sp"
-        android:visibility="visible" />
+        android:textColor="#abcadf"
+        android:textSize="30sp"/>
 </RelativeLayout>
