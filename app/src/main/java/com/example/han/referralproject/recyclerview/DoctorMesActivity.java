@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.constant.ConstantData;
+import com.squareup.picasso.Picasso;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,19 +25,40 @@ import java.util.TimerTask;
 public class DoctorMesActivity extends BaseActivity {
 
 
-   // Toolbar mToolBar;
+    // Toolbar mToolBar;
     TextView mTitleText;
     Button mButton;
-    TextView mtextview;
     ImageView mImageView;
+
+    ImageView mImageView1;
+    TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
-    //    initToolBar();
+        //    initToolBar();
+        mImageView1 = (ImageView) findViewById(R.id.circleImageView);
+
+        mTextView = (TextView) findViewById(R.id.names);
 
         mButton = (Button) findViewById(R.id.qianyue);
+
+        Intent intent = getIntent();
+        Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
+
+
+        Picasso.with(this)
+                .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getCard())
+                .placeholder(R.drawable.head_cion2)
+                .error(R.drawable.head_cion2)
+                .tag(this)
+                .fit()
+                .into(mImageView1);
+
+
+        mTextView.setText(doctor.getDocoerName());
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +71,7 @@ public class DoctorMesActivity extends BaseActivity {
             }
         });
 
-        mImageView= (ImageView) findViewById(R.id.icon_back);
+        mImageView = (ImageView) findViewById(R.id.icon_back);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
