@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/normal_bg"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="69dp"
         android:gravity="center_vertical">
 
         <ImageView
@@ -15,25 +15,25 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/icon_back"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register_info"
             android:textColor="@android:color/white"
-            android:textSize="35sp" />
+            android:textSize="35sp"/>
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="43dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="54dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
@@ -47,149 +47,201 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/name"
-                    android:textColor="@android:color/black"
-                    android:textSize="45sp" />
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
 
                 <EditText
                     android:id="@+id/et_name"
-                    android:layout_width="150dp"
+                    android:layout_width="117dp"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="21dp"
                     android:background="@drawable/shape_rect_gray"
                     android:lines="1"
                     android:maxEms="10"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
                     android:text="@string/sex"
-                    android:textColor="@android:color/black"
-                    android:textSize="45sp" />
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
 
                 <Spinner
                     android:id="@+id/sp_sex"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center" />
+                    android:layout_width="73dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/shape_rect_gray"
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
                     android:text="@string/birthday"
-                    android:textColor="@android:color/black"
-                    android:textSize="45sp" />
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
 
                 <Spinner
+                    android:background="@drawable/shape_rect_gray"
                     android:id="@+id/sp_year"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center" />
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/year"
-                    android:textColor="@android:color/black"
-                    android:textSize="45sp" />
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
 
                 <Spinner
+                    android:background="@drawable/shape_rect_gray"
                     android:id="@+id/sp_month"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center" />
+                    android:layout_width="73dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/month"
-                    android:textColor="@android:color/black"
-                    android:textSize="45sp" />
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="34dp"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textColor="@android:color/black"
-                    android:textSize="45sp" />
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
 
-                <EditText
-                    android:id="@+id/et_address"
-                    android:layout_width="400dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
+                <Spinner
                     android:background="@drawable/shape_rect_gray"
-                    android:textSize="30sp" />
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="21dp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_province"
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
+
+                <Spinner
+                    android:background="@drawable/shape_rect_gray"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_city"
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
+
+                <Spinner
+                    android:background="@drawable/shape_rect_gray"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_county"
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
+
+                <!--<EditText-->
+                <!--android:id="@+id/et_address"-->
+                <!--android:layout_width="400dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:background="@drawable/shape_rect_gray"-->
+                <!--android:textSize="30sp"/>-->
             </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="440dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="111dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/shape_rect_gray"
+                android:hint="请输入详细地址：精确到小区"
+                android:textSize="30sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="34dp"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/telephone"
-                    android:textColor="@android:color/black"
-                    android:textSize="45sp" />
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
 
                 <EditText
                     android:id="@+id/et_telephone"
-                    android:layout_width="200dp"
+                    android:layout_width="290dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/shape_rect_gray"
                     android:inputType="phone"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="34dp"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pwd_set"
-                    android:textColor="@android:color/black"
-                    android:textSize="45sp" />
+                    android:textColor="#686868"
+                    android:textSize="45sp"/>
 
                 <EditText
                     android:id="@+id/et_pwd"
-                    android:layout_width="200dp"
+                    android:layout_width="290dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/shape_rect_gray"
                     android:inputType="textPassword"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
             </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_next"
             android:layout_width="200dp"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginRight="50dp"
-            android:background="@drawable/selector_btn"
+            android:background="@drawable/selector_bg_btn"
             android:gravity="center"
             android:text="@string/next_step"
-            android:textColor="#6bb7eb"
-            android:textSize="40sp" />
+            android:textColor="@android:color/white"
+            android:textSize="40sp"/>
+            <!--android:textColor="#6bb7eb"-->
     </RelativeLayout>
 </LinearLayout>
