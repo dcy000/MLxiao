@@ -1,6 +1,7 @@
 package com.example.han.referralproject.recyclerview;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,9 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.constant.ConstantData;
+import com.medlink.danbogh.call.XDialogFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,32 +27,58 @@ import java.util.TimerTask;
 public class DoctorMesActivity extends BaseActivity {
 
 
-   // Toolbar mToolBar;
+    // Toolbar mToolBar;
     TextView mTitleText;
     Button mButton;
-    TextView mtextview;
     ImageView mImageView;
+
+    ImageView mImageView1;
+    TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
-    //    initToolBar();
+        //    initToolBar();
+        mImageView1 = (ImageView) findViewById(R.id.circleImageView);
+
+        mTextView = (TextView) findViewById(R.id.names);
 
         mButton = (Button) findViewById(R.id.qianyue);
+
+        Intent intent = getIntent();
+        Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
+
+
+        Picasso.with(this)
+                .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getCard())
+                .placeholder(R.drawable.avatar_placeholder)
+                .error(R.drawable.avatar_placeholder)
+                .tag(this)
+                .fit()
+                .into(mImageView1);
+
+
+        mTextView.setText(doctor.getDocoerName());
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-
-
+//                show();
+                XDialogFragment dialogFragment = new XDialogFragment();
+                dialogFragment.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                dialogFragment.show(getSupportFragmentManager(), XDialogFragment.tag());
             }
         });
 
-        mImageView= (ImageView) findViewById(R.id.icon_back);
+        mImageView = (ImageView) findViewById(R.id.icon_back);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

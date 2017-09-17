@@ -59,23 +59,25 @@
         android:layout_marginTop="14dp"
         android:layout_marginBottom="14dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="50dp">
+        android:paddingLeft="20dp">
 
         <Spinner
             android:background="@drawable/shape_rect_gray"
             android:id="@+id/sp_province"
             android:layout_width="81dp"
             android:layout_height="40dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="省"
+            android:visibility="gone"
             android:textColor="#686868"
             android:textSize="30sp"/>
 
@@ -84,7 +86,7 @@
             android:background="@drawable/shape_rect_gray"
             android:id="@+id/spinner"
             android:layout_width="81dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:gravity="center"/>
 
         <TextView
@@ -93,14 +95,14 @@
             android:layout_height="wrap_content"
             android:text="市"
             android:textColor="#686868"
-            android:textSize="30sp"/>
+            android:textSize="40sp"/>
 
         <Spinner
             android:layout_marginLeft="5dp"
             android:background="@drawable/shape_rect_gray"
             android:id="@+id/spinner1"
             android:layout_width="151dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:gravity="center"/>
 
         <TextView
@@ -109,14 +111,14 @@
             android:layout_height="wrap_content"
             android:text="区/县"
             android:textColor="#686868"
-            android:textSize="30sp"/>
+            android:textSize="40sp"/>
 
         <Spinner
             android:layout_marginLeft="10dp"
             android:background="@drawable/shape_rect_gray"
             android:id="@+id/spinner2"
             android:layout_width="151dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:gravity="center"/>
 
 
@@ -126,13 +128,13 @@
             android:layout_marginLeft="5dp"
             android:text="医院"
             android:textColor="#686868"
-            android:textSize="30sp"/>
+            android:textSize="40sp"/>
 
         <EditText
             android:id="@+id/sousuo"
             android:layout_width="151dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="140dp"
             android:background="@drawable/bg_et_search"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="5dp"
@@ -192,7 +194,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:id="@+id/forum_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

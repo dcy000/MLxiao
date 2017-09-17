@@ -19,6 +19,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.constant.ConstantData;
@@ -33,14 +34,14 @@ import com.example.han.referralproject.video.MainVideoActivity;
 import com.medlink.danbogh.call.EMUIHelper;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     ImageView mImageView1;
     ImageView mImageView2;
     ImageView mImageView3;
     ImageView mImageView4;
     ImageView mImageView5;
-
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tranAnimation.setRepeatMode(Animation.REVERSE);
         findViewById(R.id.iv_anim).setAnimation(tranAnimation);
         tranAnimation.start();
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                speak(R.string.tips_splash);
+            }
+        }, 1000);
     }
 
+
+    @Override
+    protected void onActivitySpeakFinish() {
+        super.onActivitySpeakFinish();
+        findViewById(R.id.ll_anim).setVisibility(View.GONE);
+    }
 
     @Override
     public void onClick(View v) {
@@ -88,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.health_test:
-//                intent.setClass(getApplicationContext(), VideoDemo.class);
-                intent.setClass(getApplicationContext(), Test_mainActivity.class);
+                intent.setClass(getApplicationContext(), VideoDemo.class);
+//                intent.setClass(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.doctor_ask:

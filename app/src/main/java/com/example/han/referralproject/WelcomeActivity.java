@@ -10,10 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;
 
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.application.MyApplication;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
 
     Chronometer ch;
 
@@ -46,7 +47,5 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 }

@@ -47,9 +47,9 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
                     @Override
                     public void onSuccess(String response) {
                         hideLoadingDialog();
-//                        startActivity(new Intent(mContext, RegisterVideoActivity.class));
-                        startActivity(new Intent(mContext, RecoDocActivity.class));
-                        finish();
+                        startActivity(new Intent(mContext, RegisterVideoActivity.class));
+//                        startActivity(new Intent(mContext, RecoDocActivity.class));
+//                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

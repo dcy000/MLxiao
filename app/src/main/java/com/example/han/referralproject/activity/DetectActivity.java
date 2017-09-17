@@ -74,6 +74,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
+    private boolean isXueyaFirst = true;
+    private String[] mXueyaResults;
+    private String[] mWenduResults;
 
 
     Handler mHandler = new Handler() {
@@ -182,12 +185,25 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 switch (detectType) {
                     case Type_Wendu:
                         int tempData = notifyData[6] & 0xff;
+                        if (tempData == 1) {
+                            return;
+                        }
                         StringBuilder mTempResult = new StringBuilder();
                         mTempResult.append("3").append((tempData - 44)/10).append(".").append((tempData - 44)%10);
                         Message msg = mHandler.obtainMessage();
                         msg.what = 1;
                         msg.obj = mTempResult.toString();
                         mHandler.sendMessage(msg);
+                        String wenduResult;
+                        float wenduValue = Float.valueOf(mTempResult.toString());
+                        if (wenduValue < 38){
+                            wenduResult = mWenduResults[0];
+                        } else if (wenduValue < 40){
+                            wenduResult = mWenduResults[1];
+                        } else {
+                            wenduResult = mWenduResults[2];
+                        }
+                        speak(String.format(getString(R.string.tips_result_wendu), mTempResult.toString(), wenduResult));
                         break;
                     case Type_Xueya:
                         if ((int)notifyData[0] == 32 && notifyData.length == 2) {
@@ -197,6 +213,19 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mHighPressTv.setText(String.valueOf(notifyData[2] & 0xff));
                             mLowPressTv.setText(String.valueOf(notifyData[4] & 0xff));
                             mPulseTv.setText(String.valueOf(notifyData[8] & 0xff));
+                            if (isXueyaFirst){
+                                String xueyaResult;
+                                if ((notifyData[2] & 0xff) <= 140){
+                                    xueyaResult = mXueyaResults[0];
+                                } else if ((notifyData[2] & 0xff) <= 160){
+                                    xueyaResult = mXueyaResults[1];
+                                } else {
+                                    xueyaResult = mXueyaResults[2];
+                                }
+                                speak(String.format(getString(R.string.tips_result_xueya),
+                                        notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
+                                isXueyaFirst = false;
+                            }
                         }
                         StringBuilder mBuilder = new StringBuilder();
 //                        for (char item : xueyaChars){
@@ -336,6 +365,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         registerBltReceiver();
 
         mBluetoothAdapter.startDiscovery();
+        mXueyaResults = mResources.getStringArray(R.array.result_xueya);
+        mWenduResults = mResources.getStringArray(R.array.result_wendu);
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
