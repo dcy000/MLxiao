@@ -70,7 +70,7 @@ import org.json.JSONObject;
  * 离线视频流检测示例
  * 该业务仅支持离线人脸检测SDK，请开发者前往<a href="http://www.xfyun.cn/">讯飞语音云</a>SDK下载界面，下载对应离线SDK
  */
-public class RegisterVideoActivity extends BaseActivity implements View.OnClickListener{
+public class RegisterVideoActivity extends BaseActivity {
     private final static String TAG = VideoDemo.class.getSimpleName();
     private SurfaceView mPreviewSurface;
     private SurfaceView mFaceSurface;
@@ -100,7 +100,6 @@ public class RegisterVideoActivity extends BaseActivity implements View.OnClickL
     String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
-    private View previewLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,21 +124,6 @@ public class RegisterVideoActivity extends BaseActivity implements View.OnClickL
 
     }
 
-    @Override
-    public void onClick(View v) {
-        previewLayout.setVisibility(View.GONE);
-        switch (v.getId()) {
-            case R.id.btn_ok:
-                String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
-                LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
-                mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-                mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
-                mFaceRequest.sendRequest(mImageData, mRequestListener);
-                break;
-            case R.id.btn_camera:
-                break;
-        }
-    }
 
     private Callback mPreviewCallback = new Callback() {
 
@@ -177,9 +161,7 @@ public class RegisterVideoActivity extends BaseActivity implements View.OnClickL
     private void initUI() {
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
         mFaceSurface = (SurfaceView) findViewById(R.id.sfv_face);
-        previewLayout = findViewById(R.id.rl_view);
-        findViewById(R.id.btn_ok).setOnClickListener(this);
-        findViewById(R.id.btn_camera).setOnClickListener(this);
+
         mPreviewSurface.getHolder().addCallback(mPreviewCallback);
         mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         mFaceSurface.setZOrderOnTop(true);
@@ -305,7 +287,6 @@ public class RegisterVideoActivity extends BaseActivity implements View.OnClickL
                 mImageData = baos.toByteArray();
 
 
-
             }
         });
 
@@ -329,48 +310,49 @@ public class RegisterVideoActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
-        mAuthid = MyApplication.getInstance().userId;
+    //    mAuthid = MyApplication.getInstance().userId;
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (sign) {
-//                    if (null != mImageData) {
-//                      /*  Date date = new Date();
-//                        SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
-//                        StringBuilder str = new StringBuilder();//定义变长字符串
-//                        Random random = new Random();
-//                        for (int i = 0; i < 8; i++) {
-//                            str.append(random.nextInt(10));
-//                        }
-//                        //将字符串转换为数字并输出
-//                        mAuthid = simple.format(date) + str;*/
-//
-//
-//
-//                      /*  String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
-//                        editor.putString("imageData", imageBase64);
-//                        editor.commit();*/
-//
-//                        String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
-//                        LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
-//
-//
-//                        mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-//                        mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
-//                        mFaceRequest.sendRequest(mImageData, mRequestListener);
-//                        Log.e("==============", "正在执行");
-//                    }
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//                    }
-//
-//                }
-//            }
-//        }
-//
-//        ).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (sign) {
+                    if (null != mImageData) {
+                        Date date = new Date();
+                        SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
+                        StringBuilder str = new StringBuilder();//定义变长字符串
+                        Random random = new Random();
+                        for (int i = 0; i < 8; i++) {
+                            str.append(random.nextInt(10));
+                        }
+                        //将字符串转换为数字并输出
+                        mAuthid = simple.format(date) + str;
+
+
+
+                      /*  String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
+                        editor.putString("imageData", imageBase64);
+                        editor.commit();*/
+
+
+                        String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
+                        LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
+
+
+                        mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                        mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
+                        mFaceRequest.sendRequest(mImageData, mRequestListener);
+                        Log.e("==============", "正在执行");
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                    }
+
+                }
+            }
+        }
+
+        ).start();
 
 
     }
@@ -454,9 +436,11 @@ public class RegisterVideoActivity extends BaseActivity implements View.OnClickL
             }
         }
         if ("success".equals(obj.get("rst")) && sign == true) {
-            showTip("注册成功");
+            // showTip("注册成功");
             sign = false;
-            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+
+
+            Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
             startActivity(intent);
             finish();
         } else {

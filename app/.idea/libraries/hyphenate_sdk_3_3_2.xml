@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="hyphenate-sdk-3.3.2">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/3e8a5e144210f2b9300e50a477f7acaf46b16da7/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/3e8a5e144210f2b9300e50a477f7acaf46b16da7/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/8fca056ae5fb7994d21b930b65014c2935b3cfdb/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/8fca056ae5fb7994d21b930b65014c2935b3cfdb/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

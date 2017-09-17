@@ -57,9 +57,9 @@
     <string name="tips_info">主人，如果需要签约就点击签约按钮。</string>
     <string name="tips_test">主人，请点击您需要测量的项目</string>
     <string name="tips_open_device">主人，您可以打开设备开始测量了</string>
-    <string formatted="false" name="tips_result_wendu">主人，您的温度是%1$s度，%2$s</string>
+    <string name="tips_result_wendu" formatted="false">主人，您的温度是%1$s度，%2$s</string>
     <string name="tips_xueya">请将血压计佩戴在绑在左臂或者右臂上，高度与心脏平齐，手臂放松，手掌张开，按开始按钮开始测量</string>
-    <string formatted="false" name="tips_result_xueya">主人，您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
+    <string name="tips_result_xueya" formatted="false">主人，您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
 
     <string name="unknown_device">Unknown device</string>
     <string name="unknown_characteristic">Unknown characteristic</string>
@@ -224,7 +224,7 @@
         <item>关闭</item>
     </string-array>
 
-     <string name="text">
+    <string name="text">
         赵曼林，男，主任医师，1982年本科毕业开始从事医学临床、教学及科研工作。1995年毕业于北京医科大学（现北京大学医学部）获医学硕士学位。主攻高血压、冠心病的诊断及治疗，擅长疑难病及危重急症的诊治。并从事冠心病的介入诊断及治疗，每年独立完成冠状动脉造影、PTCA或支架植入术500例以上。至今已在国内外杂志发表论文数十篇，为国内外多家杂志的审稿人。主持浙江省科技攻关项目、浙江省教育厅等多项课题，参编《儿科学词典》等著作。研究方向：高血压、冠心病的诊断及治疗。
     </string>
 
