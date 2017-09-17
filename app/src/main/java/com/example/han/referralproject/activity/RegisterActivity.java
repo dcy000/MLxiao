@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
     private EditText mNameEt, mAddressEt, mTelephoneEt, mPwdEt;
     private Spinner sexSpinner, yearSpinner, monthSpinner;
+    public Spinner mSpProvince;
+    private Spinner mSpCity;
+    private Spinner mSpCounty;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +36,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
+        mSpProvince = ((Spinner) findViewById(R.id.sp_province));
+        mSpProvince.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner_layout,mResources.getStringArray(R.array.provinces) ));
+        mSpCity = ((Spinner) findViewById(R.id.sp_city));
+        mSpCity.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner_layout,mResources.getStringArray(R.array.cities) ));
+        mSpCounty = ((Spinner) findViewById(R.id.sp_county));
+        mSpCounty.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner_layout,mResources.getStringArray(R.array.counties) ));
         mNameEt = (EditText) findViewById(R.id.et_name);
         mAddressEt = (EditText) findViewById(R.id.et_address);
         mTelephoneEt = (EditText) findViewById(R.id.et_telephone);
