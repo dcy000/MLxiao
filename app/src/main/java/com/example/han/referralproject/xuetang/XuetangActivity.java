@@ -528,7 +528,10 @@ public class XuetangActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mGattUpdateReceiver);
-
+        threadDisable = false;
+        if (mBluetoothAdapter != null){
+            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        }
         if (mBluetoothLeService != null) {
 
             unbindService(mServiceConnection);

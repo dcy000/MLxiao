@@ -601,6 +601,10 @@ public class XueyangActivity extends BaseActivity {
             unbindService(mServiceConnection);
 
         }
+        threadDisable = false;
+        if (mBluetoothAdapter != null){
+            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        }
         mBluetoothLeService = null;
     }
 

@@ -323,6 +323,10 @@ public class XindianActivity extends AppCompatActivity {
             unbindService(mServiceConnection);
 
         }
+        threadDisable = false;
+        if (mBluetoothAdapter != null){
+            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        }
         mBluetoothLeService = null;
     }
 
