@@ -63,7 +63,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/xueya_select"
+            android:background="@drawable/selector_bg_green"
             android:text="高血压"
             android:textSize="40sp" />
 
@@ -74,7 +74,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/xueya_select"
+            android:background="@drawable/selector_bg_red"
             android:text="精神病"
             android:textSize="40sp" />
 
@@ -85,7 +85,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/xueya_select"
+            android:background="@drawable/selector_bg_yellow"
             android:text="中风"
             android:textSize="40sp" />
 
@@ -96,7 +96,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/xueya_select"
+            android:background="@drawable/selector_bg_blue"
             android:text="脑瘫"
             android:textSize="40sp" />
     </LinearLayout>

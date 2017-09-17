@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.OfflineActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecoDocActivity extends BaseActivity {
+public class RecoDocActivity extends BaseActivity implements View.OnClickListener{
 
     private ListView mateListView;
     private EditText editText;
@@ -60,6 +61,7 @@ public class RecoDocActivity extends BaseActivity {
                 finish();
             }
         });
+        findViewById(R.id.tv_offline).setOnClickListener(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -151,6 +153,15 @@ public class RecoDocActivity extends BaseActivity {
         //    mTitleText.setGravity(Gravity.CENTER);
 
     }*/
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_offline:
+                startActivity(new Intent(mContext, OfflineActivity.class));
+                break;
+        }
+    }
 
     // 处理点击事件
     @Override
