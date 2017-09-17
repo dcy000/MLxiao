@@ -102,8 +102,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.health_test:
-//                intent.setClass(getApplicationContext(), VideoDemo.class);
-                intent.setClass(getApplicationContext(), Test_mainActivity.class);
+                intent.setClass(getApplicationContext(), VideoDemo.class);
+//                intent.setClass(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.doctor_ask:
