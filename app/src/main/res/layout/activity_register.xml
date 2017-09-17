@@ -148,12 +148,12 @@
                     android:textSize="45sp"/>
 
                 <Spinner
+                    android:id="@+id/sp_county"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
                     android:gravity="center"/>
 
                 <TextView
-                    android:id="@+id/sp_county"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/register_county"

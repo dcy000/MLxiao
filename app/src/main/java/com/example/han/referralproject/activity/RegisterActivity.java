@@ -40,7 +40,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mSpProvince.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner_layout,mResources.getStringArray(R.array.provinces) ));
         mSpCity = ((Spinner) findViewById(R.id.sp_city));
         mSpCity.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner_layout,mResources.getStringArray(R.array.cities) ));
-        mSpCounty = ((Spinner) findViewById(R.id.sp_province));
+        mSpCounty = ((Spinner) findViewById(R.id.sp_county));
         mSpCounty.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner_layout,mResources.getStringArray(R.array.counties) ));
         mNameEt = (EditText) findViewById(R.id.et_name);
         mAddressEt = (EditText) findViewById(R.id.et_address);

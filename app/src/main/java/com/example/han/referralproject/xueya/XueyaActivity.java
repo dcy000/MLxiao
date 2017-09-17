@@ -711,6 +711,10 @@ public class XueyaActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        threadDisable = false;
+        if (mBluetoothAdapter != null){
+            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        }
     }
 
     @Override
