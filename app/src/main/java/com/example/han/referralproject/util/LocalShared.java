@@ -13,6 +13,7 @@ public class LocalShared {
 
     private final String UserId = "user_id";
     private final String UserImg = "user_img";
+    private final String XunfeiId = "Xunfei_Id";
     private final String UserPhoneNum = "user_phone_num";
 
     private final String Guide_Add_Click = "guide_add_click";
@@ -55,7 +56,13 @@ public class LocalShared {
     public String getUserImg() {
         return mShared.getString(UserImg, "");
     }
+    public void setXunfeiID(String imgUrl) {
+        mShared.edit().putString(XunfeiId, imgUrl).commit();
+    }
 
+    public String getXunfeiId() {
+        return mShared.getString(XunfeiId, "");
+    }
     public void loginOut() {
         MyApplication.getInstance().userId = null;
         mShared.edit().clear().commit();

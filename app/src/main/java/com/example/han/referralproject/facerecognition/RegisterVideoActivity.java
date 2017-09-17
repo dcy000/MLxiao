@@ -310,7 +310,7 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-    //    mAuthid = MyApplication.getInstance().userId;
+        //    mAuthid = MyApplication.getInstance().userId;
 
         new Thread(new Runnable() {
             @Override
@@ -327,6 +327,7 @@ public class RegisterVideoActivity extends BaseActivity {
                         //将字符串转换为数字并输出
                         mAuthid = simple.format(date) + str;
 
+                        LocalShared.getInstance(getApplicationContext()).setXunfeiID(mAuthid);
 
 
                       /*  String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));

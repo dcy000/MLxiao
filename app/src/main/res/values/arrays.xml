@@ -29,4 +29,16 @@
         <item>您的体温偏高，请咨询医生或再测一次</item>
         <item>您的体温较高，请尽快联系医生</item>
     </string-array>
+    <string-array name="provinces">
+        <item>浙江</item>
+        <item>广东</item>
+    </string-array>
+    <string-array name="cities">
+        <item>杭州</item>
+        <item>宁波</item>
+    </string-array>
+    <string-array name="counties">
+        <item>西湖区</item>
+        <item>萧山区</item>
+    </string-array>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.han.referralproject.recyclerview;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
+import com.medlink.danbogh.call.XDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.Timer;
@@ -50,8 +52,8 @@ public class DoctorMesActivity extends BaseActivity {
 
         Picasso.with(this)
                 .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getCard())
-                .placeholder(R.drawable.head_cion2)
-                .error(R.drawable.head_cion2)
+                .placeholder(R.drawable.avatar_placeholder)
+                .error(R.drawable.avatar_placeholder)
                 .tag(this)
                 .fit()
                 .into(mImageView1);
@@ -62,12 +64,17 @@ public class DoctorMesActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-
-
+//                show();
+                XDialogFragment dialogFragment = new XDialogFragment();
+                dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                dialogFragment.show(getSupportFragmentManager(), XDialogFragment.tag());
             }
         });
 

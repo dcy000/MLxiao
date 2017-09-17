@@ -57,7 +57,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="26dp"
         android:layout_toLeftOf="@+id/linearlayout"
-        android:src="@drawable/head_cion2"/>
+        android:src="@drawable/avatar_placeholder"/>
 
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -229,14 +229,14 @@
 
         <Button
             android:id="@+id/qianyue"
-            android:layout_width="200dp"
-            android:layout_height="90dp"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="100dp"
             android:background="@drawable/selector_bg_btn"
             android:text="签 约"
             android:textColor="@android:color/white"
-            android:textSize="50sp"/>
+            android:textSize="30sp"/>
     </LinearLayout>
 
     <ImageView

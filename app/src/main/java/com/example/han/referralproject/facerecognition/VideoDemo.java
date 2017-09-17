@@ -47,6 +47,7 @@ import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.FaceRect;
 import com.example.han.referralproject.util.FaceUtil;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ParseResult;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceDetector;
@@ -60,7 +61,6 @@ import com.megvii.faceppidcardui.util.ConstantData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 
 public class VideoDemo extends Activity {
@@ -105,7 +105,7 @@ public class VideoDemo extends Activity {
 
         //    mAuthid = sharedPreferences.getString("mAuthid", "");
 
-        mAuthid = MyApplication.getInstance().userId;
+        mAuthid = LocalShared.getInstance(getApplicationContext()).getXunfeiId();
         initUI();
 
 
