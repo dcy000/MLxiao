@@ -56,8 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearlayou"
-        android:layout_marginLeft="23dp"
-        android:layout_marginRight="23dp"
+        android:layout_margin="23dp"
         android:padding="23dp">
 
         <com.example.han.referralproject.imageview.CircleImageView
@@ -141,7 +140,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/linearlayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
