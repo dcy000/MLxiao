@@ -32,8 +32,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="48dp"
-            android:layout_marginTop="54dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="55dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
@@ -47,118 +47,141 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/name"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#2e2e2e"
+                    android:textSize="35sp"/>
 
                 <EditText
                     android:id="@+id/et_name"
-                    android:layout_width="117dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="21dp"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/shape_rect_gray"
                     android:lines="1"
                     android:maxEms="10"
+                    android:paddingLeft="5dp"
+                    android:textColor="#939393"
                     android:textSize="30sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="@string/sex"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#2e2e2e"
+                    android:textSize="35sp"/>
 
                 <Spinner
                     android:id="@+id/sp_sex"
-                    android:layout_width="73dp"
-                    android:layout_height="60dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/selector_bg_spinner"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="@string/birthday"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#2e2e2e"
+                    android:textSize="35sp"/>
 
                 <Spinner
                     android:id="@+id/sp_year"
                     android:layout_width="120dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/selector_bg_spinner"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
                     android:text="@string/year"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#939393"
+                    android:textSize="35sp"/>
 
                 <Spinner
                     android:id="@+id/sp_month"
-                    android:layout_width="73dp"
-                    android:layout_height="60dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/selector_bg_spinner"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="@string/month"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#939393"
+                    android:textSize="35sp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="34dp"
+                android:layout_marginTop="35dp"
                 android:gravity="center_vertical">
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#2e2e2e"
+                    android:textSize="35sp"/>
 
                 <Spinner
                     android:id="@+id/sp_province"
                     android:layout_width="130dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="21dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/selector_bg_spinner"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="@string/register_province"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#939393"
+                    android:textSize="35sp"/>
 
                 <Spinner
                     android:id="@+id/sp_city"
                     android:layout_width="130dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/selector_bg_spinner"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="@string/register_city"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#939393"
+                    android:textSize="35sp"/>
 
                 <Spinner
                     android:id="@+id/sp_county"
                     android:layout_width="130dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/selector_bg_spinner"
                     android:gravity="center"/>
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="@string/register_county"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#939393"
+                    android:textSize="35sp"/>
 
                 <!--<EditText-->
                 <!--android:id="@+id/et_address"-->
@@ -174,20 +197,51 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center_vertical">
+
                 <TextView
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
                     android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textSize="45sp"
+                    android:visibility="gone"/>
+
                 <EditText
                     android:id="@+id/et_address"
                     android:layout_width="440dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="111dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="85dp"
                     android:background="@drawable/shape_rect_gray"
                     android:hint="请输入详细地址：精确到小区"
+                    android:paddingLeft="5dp"
+                    android:textColor="#939393"
+                    android:textColorHint="#cccccc"
+                    android:textSize="30sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身份证号码"
+                    android:textColor="#2e2e2e"
+                    android:textSize="35sp"/>
+
+                <EditText
+                    android:id="@+id/et_idcard"
+                    android:layout_width="400dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/shape_rect_gray"
+                    android:hint="请输入身份证号码"
+                    android:paddingLeft="5dp"
+                    android:textColor="#939393"
+                    android:textColorHint="#cccccc"
                     android:textSize="30sp"/>
             </LinearLayout>
 
@@ -201,16 +255,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/telephone"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#2e2e2e"
+                    android:textSize="35sp"/>
 
                 <EditText
                     android:id="@+id/et_telephone"
                     android:layout_width="290dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/shape_rect_gray"
+                    android:hint="请输入手机号码"
                     android:inputType="phone"
+                    android:paddingLeft="5dp"
+                    android:textColor="#939393"
+                    android:textColorHint="#cccccc"
                     android:textSize="30sp"/>
             </LinearLayout>
 
@@ -224,23 +282,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pwd_set"
-                    android:textColor="#686868"
-                    android:textSize="45sp"/>
+                    android:textColor="#2e2e2e"
+                    android:textSize="35sp"/>
 
                 <EditText
                     android:id="@+id/et_pwd"
                     android:layout_width="290dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/shape_rect_gray"
+                    android:hint="请设置密码"
                     android:inputType="textPassword"
+                    android:paddingLeft="5dp"
+                    android:textColor="#939393"
+                    android:textColorHint="#cccccc"
                     android:textSize="30sp"/>
             </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_next"
-            android:layout_width="200dp"
+            android:layout_width="160dp"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -251,6 +313,5 @@
             android:text="@string/next_step"
             android:textColor="@android:color/white"
             android:textSize="30sp"/>
-            <!--android:textColor="#6bb7eb"-->
     </RelativeLayout>
 </LinearLayout>
