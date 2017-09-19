@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/normal_bg"
-                tools:context="com.example.han.referralproject.personal.PersonActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_bg"
+    tools:context="com.example.han.referralproject.personal.PersonActivity">
 
 
     <!--<android.support.v7.widget.Toolbar
@@ -33,13 +33,13 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_gravity="center_vertical"
             android:id="@+id/icon_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back"/>
+            android:src="@drawable/icon_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
             android:gravity="center"
             android:text="个人中心"
             android:textColor="@android:color/white"
-            android:textSize="35sp"/>
+            android:textSize="35sp" />
     </LinearLayout>
 
 
@@ -66,7 +66,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="40dp"
-            android:src="@drawable/avatar_placeholder"/>
+            android:src="@drawable/avatar_placeholder" />
 
 
         <TextView
@@ -78,7 +78,7 @@
             android:layout_toRightOf="@id/per_image"
             android:text="王大妈"
             android:textColor="#686868"
-            android:textSize="50sp"/>
+            android:textSize="50sp" />
 
         <Button
             android:id="@+id/btn_record"
@@ -90,7 +90,7 @@
             android:background="@drawable/health_document"
             android:text="健康档案"
             android:textColor="#fff"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/tv_balance"
@@ -103,7 +103,7 @@
             android:layout_toRightOf="@id/per_image"
             android:text="账户余额: 1000元"
             android:textColor="#a2a2a2"
-            android:textSize="27sp"/>
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/tv_points"
@@ -115,7 +115,7 @@
             android:layout_toRightOf="@id/per_image"
             android:text="我的积分: 1000分"
             android:textColor="#a2a2a2"
-            android:textSize="27sp"/>
+            android:textSize="27sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
             android:layout_toRightOf="@id/per_image"
             android:text="签约医生: 赵曼林"
             android:textColor="#a2a2a2"
-            android:textSize="27sp"/>
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/tv_hospital"
@@ -136,24 +136,25 @@
             android:layout_toRightOf="@id/per_image"
             android:text="浙江第二人民医院"
             android:textColor="#a2a2a2"
-            android:textSize="27sp"/>
+            android:textSize="27sp" />
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_marginTop="30dp"
         android:id="@+id/linearlayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/RelativeLayout"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_width="0dp"
+            android:layout_height="125dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:src="@drawable/account_recharge"/>
+            android:src="@drawable/account_recharge"
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -161,7 +162,7 @@
             android:layout_height="125dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:src="@drawable/consume_record"/>
+            android:src="@drawable/consume_record" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -169,66 +170,14 @@
             android:layout_height="125dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:src="@drawable/health_mall"/>
+            android:src="@drawable/health_mall" />
 
         <ImageView
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:src="@drawable/my_ordor"/>
-
-        <!--<Button-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:layout_marginLeft="23dp"-->
-        <!--android:layout_marginRight="23dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@drawable/bgper_msg"-->
-        <!--android:gravity="center"-->
-        <!--android:text="充 值"-->
-        <!--android:textColor="#49b2eb"-->
-        <!--android:textSize="35sp"/>-->
-
-        <!--<Button-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="59dp"-->
-        <!--android:layout_marginLeft="23dp"-->
-        <!--android:layout_marginRight="23dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@drawable/bgper_msg"-->
-        <!--android:gravity="center"-->
-        <!--android:text="消费记录"-->
-        <!--android:textColor="#49b2eb"-->
-        <!--android:textSize="35sp"/>-->
-
-
-        <!--<Button-->
-        <!--android:id="@+id/button2"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="59dp"-->
-        <!--android:layout_marginLeft="23dp"-->
-        <!--android:layout_marginRight="23dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@drawable/bgper_msg"-->
-        <!--android:gravity="center"-->
-        <!--android:text="商 城"-->
-        <!--android:textColor="#49b2eb"-->
-        <!--android:textSize="35sp"/>-->
-
-        <!--<Button-->
-        <!--android:id="@+id/button"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="59dp"-->
-        <!--android:layout_marginLeft="23dp"-->
-        <!--android:layout_marginRight="23dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@drawable/bgper_msg"-->
-        <!--android:gravity="center"-->
-        <!--android:text="订 单"-->
-        <!--android:textColor="#49b2eb"-->
-        <!--android:textSize="35sp"/>-->
-
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:src="@drawable/my_ordor" />
     </LinearLayout>
 
     <TextView
@@ -243,5 +192,5 @@
         android:padding="8dp"
         android:text="@string/logout"
         android:textColor="#abcadf"
-        android:textSize="25sp"/>
+        android:textSize="25sp" />
 </RelativeLayout>

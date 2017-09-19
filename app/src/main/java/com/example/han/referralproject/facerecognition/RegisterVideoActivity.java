@@ -66,10 +66,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-/**
- * 离线视频流检测示例
- * 该业务仅支持离线人脸检测SDK，请开发者前往<a href="http://www.xfyun.cn/">讯飞语音云</a>SDK下载界面，下载对应离线SDK
- */
+
 public class RegisterVideoActivity extends BaseActivity {
     private final static String TAG = VideoDemo.class.getSimpleName();
     private SurfaceView mPreviewSurface;
