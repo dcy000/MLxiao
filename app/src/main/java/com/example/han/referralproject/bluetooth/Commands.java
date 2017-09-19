@@ -31,10 +31,7 @@ public class Commands {
 	public final static byte CMD_LENGTH_FIFTEEN = 0x0F;
 	public final static byte CMD_SIXTEEN_THIRTEEN = 0x10;
 
-	/**
-	 * 血糖
-	 */
-
+	public final static byte[] datas = {0x5A, 0x0A, 0x03, 0x10, 0x05, 0x02, 0x0F, 0x21, 0x3B, (byte)0xEB};
 	/**
 	 * 血压
 	 */

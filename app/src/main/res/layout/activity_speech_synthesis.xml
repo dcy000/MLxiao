@@ -22,14 +22,13 @@
 
     <ImageView
         android:id="@+id/iat_recognizes"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:clickable="true"
-        android:src="@drawable/chat"
         />
 
 

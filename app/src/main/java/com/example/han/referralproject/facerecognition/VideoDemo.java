@@ -47,6 +47,7 @@ import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.FaceRect;
 import com.example.han.referralproject.util.FaceUtil;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ParseResult;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceDetector;
@@ -62,10 +63,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-/**
- * 离线视频流检测示例
- * 该业务仅支持离线人脸检测SDK，请开发者前往<a href="http://www.xfyun.cn/">讯飞语音云</a>SDK下载界面，下载对应离线SDK
- */
 public class VideoDemo extends Activity {
     private final static String TAG = VideoDemo.class.getSimpleName();
     private SurfaceView mPreviewSurface;
@@ -108,7 +105,7 @@ public class VideoDemo extends Activity {
 
         //    mAuthid = sharedPreferences.getString("mAuthid", "");
 
-        mAuthid = MyApplication.getInstance().userId;
+        mAuthid = LocalShared.getInstance(getApplicationContext()).getXunfeiId();
         initUI();
 
 
@@ -205,24 +202,6 @@ public class VideoDemo extends Activity {
                         break;
                 }
                 return false;
-            }
-        });*/
-
-       /* RadioGroup alignGruop = (RadioGroup) findViewById(R.id.align_mode);
-        alignGruop.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup arg0, int arg1) {
-                switch (arg1) {
-                    case R.id.detect:
-                        isAlign = 0;
-                        break;
-                    case R.id.align:
-                        isAlign = 1;
-                        break;
-                    default:
-                        break;
-                }
             }
         });*/
 

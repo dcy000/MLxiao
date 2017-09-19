@@ -1,6 +1,7 @@
 package com.medlink.danbogh.call;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,6 +25,12 @@ public class XDialogFragment extends DialogFragment implements Runnable {
 
     private float dimAmount;
     private boolean showBottom;
+
+    private DialogInterface.OnDismissListener onDismissListener;
+
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+    }
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
@@ -57,6 +64,10 @@ public class XDialogFragment extends DialogFragment implements Runnable {
     public void onStart() {
         super.onStart();
         initWindowParams();
+        Dialog dialog = getDialog();
+        if (dialog != null && onDismissListener != null) {
+            dialog.setOnDismissListener(onDismissListener);
+        }
         mHandler.postDelayed(this, 2000);
     }
 
