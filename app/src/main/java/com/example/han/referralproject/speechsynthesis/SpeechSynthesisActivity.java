@@ -170,6 +170,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             // 开始听写
             // 如何判断一次听写结束：OnResult isLast=true 或者 onError
             case R.id.iat_recognizes:
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
                 //mResultText.setText(null);// 清空显示内容
                 mIatResults.clear();
                 // 设置参数

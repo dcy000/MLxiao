@@ -14,10 +14,11 @@ import android.webkit.WebViewClient;
 import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 
 public class RecordActivity extends BaseActivity implements View.OnClickListener{
     private WebView webView;
-    private final String UrlFormat = "http://116.62.36.12:8080/ZZB/br/cl?bid=100002&temp=%d";
+    private final String UrlFormat = "http://116.62.36.12:8080/ZZB/br/cl?bid=%s&temp=%d";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
                     break;
             }
             showLoadingDialog(getString(R.string.do_loading));
-            webView.loadUrl(String.format(UrlFormat, temp));
+            webView.loadUrl(String.format(UrlFormat, MyApplication.getInstance().userId, temp));
         }
     };
 
@@ -64,7 +65,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
     private void initWebView() {
         webView = (WebView) findViewById(R.id.wv_content);
         showLoadingDialog(getString(R.string.do_loading));
-        webView.loadUrl(String.format(UrlFormat, 2));
+        webView.loadUrl(String.format(UrlFormat, MyApplication.getInstance().userId, 2));
         //webView.addJavascriptInterface(new JSHook(context), "androidClient");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(false);

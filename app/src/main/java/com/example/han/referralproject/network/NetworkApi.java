@@ -3,6 +3,7 @@ package com.example.han.referralproject.network;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.util.Utils;
 
@@ -10,11 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    //public static final String BasicUrl = "http://192.168.200.103:8080";
+//    public static final String BasicUrl = "http://192.168.200.103:8080";
     public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
+    public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
+    public static final String UploadDataUrl = BasicUrl + "/ZZB/bl/doaddbl";
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback){
         Map<String, String> paramsMap = new HashMap<>();
@@ -44,6 +47,20 @@ public class NetworkApi {
         paramsMap.put("bid", MyApplication.getInstance().userId);
         paramsMap.put("mh", mh);
         NetworkManager.getInstance().postResultString(AddMhUrl, paramsMap, callback, failedCallback);
+    }
+
+    public static void bindDoctor(int doctorId, NetworkManager.SuccessCallback<String> callback){
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("docterid", String.valueOf(doctorId));
+        paramsMap.put("eqid", Utils.getDeviceId());
+        NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
+    }
+
+    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback){
+        if (info == null){
+            return;
+        }
+        NetworkManager.getInstance().postResultString(UploadDataUrl, info.getParamsMap(), successCallback);
     }
 
 //    public static final String HomePageUrl = BasicUrl + "/appIndex";

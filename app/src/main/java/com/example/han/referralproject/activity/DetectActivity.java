@@ -34,11 +34,14 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.iflytek.cloud.thirdparty.V;
 import com.megvii.faceppidcardui.util.ConstantData;
 
@@ -74,7 +77,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
-    private boolean isXueyaFirst = true;
+    private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
 
@@ -91,51 +94,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     mResultTv.setText((String) msg.obj);
                     break;
                 case 2:
-                    Toast.makeText(getApplicationContext(), "检测完成", Toast.LENGTH_SHORT).show();
-                    break;
-                case 3:
-                    Toast.makeText(getApplicationContext(), "请重新检测", Toast.LENGTH_SHORT).show();
+                    isGetResustFirst = true;//温度测量重置标志位
                     break;
             }
         }
     };
-
-    private void posts(String bloodSuger) throws Exception {
-        // 创建URL对象
-        URL url = new URL(ConstantData.BASE_URL + "/referralProject/AddInfoServlet");
-        // 获取该URL与服务器的连接对象
-        URLConnection conn = url.openConnection();
-        // 设置头信息，请求头信息了解
-        conn.setRequestProperty("accept", "*/*");
-        conn.setRequestProperty("connection", "Keep-Alive");
-
-        // 设置可以操作连接的输入输出流
-        conn.setDoOutput(true);// 默认为false，允许使用输出流
-        conn.setDoInput(true);// 默认为true，允许使用输入流
-
-
-        // 传参数
-        PrintWriter pw = new PrintWriter(conn.getOutputStream());
-        pw.print("data=" + bloodSuger);
-        pw.flush();
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String lineContent = null;
-        String content = null;
-
-        while ((lineContent = br.readLine()) != null) {
-            content = lineContent;
-        }
-
-        if (content.equals("0"))
-            mHandler.sendEmptyMessage(2);
-        else {
-            mHandler.sendEmptyMessage(3);
-        }
-        pw.close();
-        br.close();
-
-    }
 
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -203,6 +166,18 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         } else {
                             wenduResult = mWenduResults[2];
                         }
+                        if (isGetResustFirst) {
+                            isGetResustFirst = false;
+                            mHandler.sendEmptyMessageDelayed(2, 5000);
+                            DataInfoBean info = new DataInfoBean();
+                            info.temper_ature = String.valueOf(wenduValue);
+                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                         speak(String.format(getString(R.string.tips_result_wendu), mTempResult.toString(), wenduResult));
                         break;
                     case Type_Xueya:
@@ -213,7 +188,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mHighPressTv.setText(String.valueOf(notifyData[2] & 0xff));
                             mLowPressTv.setText(String.valueOf(notifyData[4] & 0xff));
                             mPulseTv.setText(String.valueOf(notifyData[8] & 0xff));
-                            if (isXueyaFirst){
+                            if (isGetResustFirst){
                                 String xueyaResult;
                                 if ((notifyData[2] & 0xff) <= 140){
                                     xueyaResult = mXueyaResults[0];
@@ -224,7 +199,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 }
                                 speak(String.format(getString(R.string.tips_result_xueya),
                                         notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
-                                isXueyaFirst = false;
+                                DataInfoBean info = new DataInfoBean();
+                                info.high_pressure = notifyData[2] & 0xff;
+                                info.low_pressure = notifyData[4] & 0xff;
+                                info.pulse = notifyData[8] & 0xff;
+                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String response) {
+                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                isGetResustFirst = false;
                             }
                         }
                         StringBuilder mBuilder = new StringBuilder();

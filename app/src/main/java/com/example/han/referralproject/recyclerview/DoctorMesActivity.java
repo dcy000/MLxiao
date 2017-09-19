@@ -18,6 +18,8 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.medlink.danbogh.call.XDialogFragment;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +49,7 @@ public class DoctorMesActivity extends BaseActivity {
         mButton = (Button) findViewById(R.id.qianyue);
 
         Intent intent = getIntent();
-        Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
+        final Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
 
 
         Picasso.with(this)
@@ -65,16 +67,21 @@ public class DoctorMesActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 //                show();
-                XDialogFragment dialogFragment = new XDialogFragment();
-                dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                NetworkApi.bindDoctor(doctor.doctoerId, new NetworkManager.SuccessCallback<String>() {
                     @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                    public void onSuccess(String response) {
+                        XDialogFragment dialogFragment = new XDialogFragment();
+                        dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                        dialogFragment.show(getSupportFragmentManager(), XDialogFragment.tag());
                     }
                 });
-                dialogFragment.show(getSupportFragmentManager(), XDialogFragment.tag());
             }
         });
 
