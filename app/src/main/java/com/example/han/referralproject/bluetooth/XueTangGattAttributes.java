@@ -68,8 +68,7 @@ public class XueTangGattAttributes {
 		if (service == null)
 			return false;
 
-		BluetoothGattCharacteristic characteristic = service
-				.getCharacteristic(UUID.fromString(CHARACTERISTIC_NOTIFY));
+		BluetoothGattCharacteristic characteristic = service.getCharacteristic(UUID.fromString(CHARACTERISTIC_NOTIFY));
 		if (characteristic != null) {
 			BluetoothGattDescriptor descriptor = characteristic
 					.getDescriptor(UUID

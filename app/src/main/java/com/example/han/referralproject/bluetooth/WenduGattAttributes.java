@@ -86,14 +86,12 @@ public class WenduGattAttributes {
 		if (gatt == null)
 			return false;
 
-		BluetoothGattService service = gatt.getService(UUID
-				.fromString(GATT_SERVICE_PRIMARY));
+		BluetoothGattService service = gatt.getService(UUID.fromString(GATT_SERVICE_PRIMARY));
 
 		if (service == null)
 			return false;
 
-		BluetoothGattCharacteristic characteristic = service
-				.getCharacteristic(UUID.fromString(CHARACTERISTIC_READABLE));
+		BluetoothGattCharacteristic characteristic = service.getCharacteristic(UUID.fromString(CHARACTERISTIC_READABLE));
 
 		return gatt.readCharacteristic(characteristic);
 	}

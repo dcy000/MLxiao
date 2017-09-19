@@ -3,6 +3,7 @@ package com.example.han.referralproject.speechsynthesis;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -100,6 +101,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     startSynthesis(str1);
 
                     break;
+
+                case 1:
+                    findViewById(R.id.iat_recognizes).performClick();
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -107,12 +112,23 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     };
 
+
+    int maxVolume = 0;
+    int volume = 0;
+    AudioManager mAudioManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
 
         initLayout();
+
+        //初始化音频管理器
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
         mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
         mRelativeLayout.setBackgroundResource(R.drawable.conversation_bg);
 
@@ -288,8 +304,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                     e.printStackTrace();
                                 }
                             }
-
-
+                        } else if (resultBuffer.toString().matches(".*歌.*")) {
+                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                            if (file.exists()) {
+                                try {
+                                    mediaPlayer.reset();//从新设置要播放的音乐
+                                    mediaPlayer.setDataSource(file.getAbsolutePath());
+                                    mediaPlayer.prepare();//预加载音频
+                                    mediaPlayer.start();//播放音乐
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         } else {
                             try {
                                 post(resultBuffer + "");
@@ -529,6 +556,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private MediaPlayer mediaPlayer;//MediaPlayer对象
     private File file;//要播放的文件
 
+
     /**
      * 听写UI监听器
      */
@@ -625,6 +653,38 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         startActivity(intent);
                         finish();
                     }*/
+
+                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*da.*shengyin.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*da.*yinliang.*")) {
+                    volume += 3;
+                    if (volume < maxVolume) {
+                        speak(getString(R.string.add_volume));
+                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+                        mHandler.sendEmptyMessageDelayed(1, 2000);
+                    } else {
+                        speak(getString(R.string.max_volume));
+                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
+                        mHandler.sendEmptyMessageDelayed(1, 3000);
+
+
+                    }
+
+
+                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*xiao.*shengyin.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*xiao.*yinliang.*")) {
+
+                    volume -= 3;
+                    if (volume > 3) {
+                        speak(getString(R.string.reduce_volume));
+                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+                        mHandler.sendEmptyMessageDelayed(1, 2000);
+
+
+                    } else {
+                        speak(getString(R.string.min_volume));
+                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
+                        mHandler.sendEmptyMessageDelayed(1, 3000);
+
+                    }
+
 
                 } else {
                     new SpeechTask().execute();

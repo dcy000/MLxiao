@@ -138,8 +138,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.OfflineActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".LoadingActivity"
             android:screenOrientation="landscape" />

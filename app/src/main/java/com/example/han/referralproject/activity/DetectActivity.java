@@ -222,8 +222,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyaResult = mXueyaResults[2];
                                 }
-                                speak(String.format(getString(R.string.tips_result_xueya),
-                                        notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
+                                speak(String.format(getString(R.string.tips_result_xueya), notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
                                 isXueyaFirst = false;
                             }
                         }
@@ -367,25 +366,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mBluetoothAdapter.startDiscovery();
         mXueyaResults = mResources.getStringArray(R.array.result_xueya);
         mWenduResults = mResources.getStringArray(R.array.result_wendu);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (threadDisable) {
-//                    if (mBluetoothLeService == null && mConnected == false) {
-//                        mBluetoothAdapter.startLeScan(mLeScanCallback);
-//                    } else {
-//                        mHandler.sendEmptyMessage(0);
-//                        threadDisable = false;
-//                    }
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                    }
-//
-//                }
-//            }
-//
-//        }).start();
+
         speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);
         findViewById(R.id.xueya_video).setOnClickListener(this);
@@ -499,8 +480,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     /**
      * 向设备发送命令
      *
-     * @param 包长度
-     * @param 包类别
+     * @param
+     * @param
      */
     private void sendDataByte(final byte leng, final byte commandType) {
         Commands commands = new Commands();
