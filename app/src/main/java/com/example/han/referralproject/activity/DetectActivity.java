@@ -488,10 +488,24 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
      * @param 包类别
      */
     private void sendDataByte(final byte leng, final byte commandType) {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (threadDisable){
+//
+//                }
+//            }
+//        }).start();
         Commands commands = new Commands();
-        byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
+        //byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
+        byte[] sendDataByte = Commands.datas;
         Log.i("mylog", " sendData : " + bytesToHexString(sendDataByte));
         XueTangGattAttributes.sendMessage(mBluetoothGatt, sendDataByte);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String bytesToHexString(byte[] src){
