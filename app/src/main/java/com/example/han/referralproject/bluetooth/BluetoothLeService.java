@@ -106,6 +106,7 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+            Log.i("mylog", "yes yes ");
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
         }
 

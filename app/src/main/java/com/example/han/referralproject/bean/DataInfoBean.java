@@ -12,6 +12,8 @@ public class DataInfoBean {
     public int high_pressure;
     public int low_pressure;
     public int pulse;
+    public String blood_sugar;
+    public String blood_oxygen;
 
     public Map<String, String> getParamsMap(){
         Map<String, String> paramsMap = new HashMap<>();
@@ -24,6 +26,9 @@ public class DataInfoBean {
             paramsMap.put("high_pressure", String.valueOf(high_pressure));
             paramsMap.put("low_pressure", String.valueOf(low_pressure));
             paramsMap.put("pulse", String.valueOf(pulse));
+        }
+        if (!TextUtils.isEmpty(blood_sugar)){
+            paramsMap.put("blood_sugar", String.valueOf(blood_sugar));
         }
         return paramsMap;
     }
