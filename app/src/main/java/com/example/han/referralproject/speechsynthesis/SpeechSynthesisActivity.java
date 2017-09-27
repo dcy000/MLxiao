@@ -590,7 +590,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                        intent.putExtra("type", "xuetang");
                         startActivity(intent);
                         finish();
                     }
