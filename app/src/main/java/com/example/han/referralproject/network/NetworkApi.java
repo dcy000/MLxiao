@@ -11,15 +11,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://192.168.200.103:8080";
-    public static final String BasicUrl = "http://116.62.36.12:8080";
+        public static final String BasicUrl = "http://192.168.200.108:8080";
+//    public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
     public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
     public static final String UploadDataUrl = BasicUrl + "/ZZB/bl/doaddbl";
+    public static final String CHARGE_URL = BasicUrl + "/ZZB/eq/koufei";
 
-    public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback){
+    public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("username", phoneNum);
         paramsMap.put("password", pwd);
@@ -27,7 +28,7 @@ public class NetworkApi {
     }
 
     public static void registerUser(String name, String sex, String address, String telephone, String pwd,
-                                    NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback){
+                                    NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bname", name);
         paramsMap.put("age", "50");
@@ -39,8 +40,8 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
-    public static void setUserMh(String mh, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback){
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)){
+    public static void setUserMh(String mh, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
         Map<String, String> paramsMap = new HashMap<>();
@@ -49,18 +50,26 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultString(AddMhUrl, paramsMap, callback, failedCallback);
     }
 
-    public static void bindDoctor(int doctorId, NetworkManager.SuccessCallback<String> callback){
+    public static void bindDoctor(int doctorId, NetworkManager.SuccessCallback<String> callback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("docterid", String.valueOf(doctorId));
         paramsMap.put("eqid", Utils.getDeviceId());
         NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
     }
 
-    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback){
-        if (info == null){
+    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback) {
+        if (info == null) {
             return;
         }
         NetworkManager.getInstance().postResultString(UploadDataUrl, info.getParamsMap(), successCallback);
+    }
+
+
+    public static void charge(int minute, NetworkManager.SuccessCallback<Object> successCallback, NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("eqid", Utils.getDeviceId());
+        params.put("time", String.valueOf(minute));
+        NetworkManager.getInstance().postResultClass(CHARGE_URL, params, Object.class, successCallback, failedCallback);
     }
 
 //    public static final String HomePageUrl = BasicUrl + "/appIndex";

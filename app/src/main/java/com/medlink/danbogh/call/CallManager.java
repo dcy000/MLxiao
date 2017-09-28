@@ -14,8 +14,11 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 
 import android.support.v7.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.chat.EMCallManager;
 import com.hyphenate.chat.EMClient;
@@ -25,10 +28,11 @@ import com.hyphenate.exceptions.EMNoActiveCallException;
 import com.hyphenate.exceptions.EMServiceNotReadyException;
 
 import com.vmloft.develop.library.tools.utils.VMLog;
+
 import java.util.Timer;
 import java.util.TimerTask;
-import org.greenrobot.eventbus.EventBus;
 
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -261,10 +265,35 @@ public class CallManager {
             e.printStackTrace();
             VMLog.e("结束通话失败：error %d - %s", e.getErrorCode(), e.getMessage());
         }
+        //考虑扣费
+        considerChargeIfNeeded();
         // 挂断电话调用保存消息方法
         saveCallMessage();
         // 通话结束，重置通话状态
         reset();
+    }
+
+    private boolean charged = false;
+
+    public void considerChargeIfNeeded() {
+        if (!charged) {
+            final int minute = callTime / 60;
+            if (minute >= 0) {
+                NetworkApi.charge(minute + 1,
+                        new NetworkManager.SuccessCallback<Object>() {
+                            @Override
+                            public void onSuccess(Object response) {
+                                Toast.makeText(context, minute + "分钟", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+                                Toast.makeText(context, minute + "分钟, 失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        }
+        charged = true;
     }
 
     /**
@@ -360,7 +389,8 @@ public class CallManager {
             loadSound();
             // 设置资源加载监听，也因为加载资源在单独的进程，需要时间，所以等监听到加载完成才能播放
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                @Override public void onLoadComplete(SoundPool soundPool, int i, int i1) {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int i, int i1) {
                     VMLog.d("SoundPool load complete! mSoundId: %d", mSoundId);
                     isLoaded = true;
                     // 首次监听到加载完毕，开始播放音频
@@ -497,7 +527,8 @@ public class CallManager {
         }
         timer.purge();
         TimerTask task = new TimerTask() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 callTime++;
                 EventBus.getDefault().post(event);
             }
@@ -541,6 +572,8 @@ public class CallManager {
             audioManager.setSpeakerphoneOn(true);
             audioManager.setMode(AudioManager.MODE_NORMAL);
         }
+
+        charged = false;
     }
 
     /**
