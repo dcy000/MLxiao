@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/alarm_item_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00 : 00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ToggleButton
+        android:id="@+id/alarm_item_tb_enable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/alarm_item_tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintBottom_toBottomOf="@id/alarm_item_tv_time"
+        app:layout_constraintBaseline_toBaselineOf="@+id/alarm_item_tv_time"
+        app:layout_constraintLeft_toRightOf="@+id/alarm_item_tv_time"
+        app:layout_constraintRight_toLeftOf="@+id/alarm_item_tb_enable"/>
+
+    <TextView
+        android:id="@+id/alarm_item_tv_sunday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="日"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_item_tv_time"/>
+
+    <TextView
+        android:id="@+id/alarm_item_tv_monday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="一"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintLeft_toRightOf="@id/alarm_item_tv_sunday"
+        app:layout_constraintTop_toBottomOf="@id/alarm_item_tv_time"/>
+
+    <TextView
+        android:id="@+id/alarm_item_tv_tuesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="二"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintLeft_toRightOf="@id/alarm_item_tv_monday"
+        app:layout_constraintTop_toBottomOf="@id/alarm_item_tv_time"/>
+
+    <TextView
+        android:id="@+id/alarm_item_tv_wednesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="三"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintLeft_toRightOf="@id/alarm_item_tv_tuesday"
+        app:layout_constraintTop_toBottomOf="@id/alarm_item_tv_time"/>
+
+    <TextView
+        android:id="@+id/alarm_item_tv_thursday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="四"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintLeft_toRightOf="@id/alarm_item_tv_wednesday"
+        app:layout_constraintTop_toBottomOf="@id/alarm_item_tv_time"/>
+
+    <TextView
+        android:id="@+id/alarm_item_tv_friday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="五"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintLeft_toRightOf="@id/alarm_item_tv_thursday"
+        app:layout_constraintTop_toBottomOf="@id/alarm_item_tv_time"/>
+
+    <TextView
+        android:id="@+id/alarm_item_tv_saturday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="六"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintLeft_toRightOf="@id/alarm_item_tv_friday"
+        app:layout_constraintTop_toBottomOf="@id/alarm_item_tv_time"/>
+</android.support.constraint.ConstraintLayout>

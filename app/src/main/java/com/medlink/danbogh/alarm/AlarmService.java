@@ -14,20 +14,17 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (ACTION_ALARM.equals(intent.getAction())) {
-            onAlarm();
-        }
+        Intent alarmIntent = new Intent(getBaseContext(), AlarmActivity.class);
+        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        alarmIntent.putExtras(intent);
+        getApplication().startActivity(alarmIntent);
+        AlarmHelper.setupAlarms(this);
         return super.onStartCommand(intent, flags, startId);
-    }
-
-    private void onAlarm() {
-
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-
         return null;
     }
 }

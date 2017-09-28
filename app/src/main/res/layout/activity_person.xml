@@ -162,7 +162,7 @@
             android:layout_height="125dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:src="@drawable/consume_record" />
+            android:src="@drawable/consume_record"/>
 
         <ImageView
             android:id="@+id/imageView2"
@@ -172,12 +172,19 @@
             android:layout_marginRight="40dp"
             android:src="@drawable/health_mall" />
 
+        <!--<ImageView-->
+            <!--android:layout_width="125dp"-->
+            <!--android:layout_height="125dp"-->
+            <!--android:layout_marginLeft="40dp"-->
+            <!--android:layout_marginRight="40dp"-->
+            <!--android:src="@drawable/my_ordor" />-->
         <ImageView
+            android:id="@+id/iv_alarm"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:src="@drawable/my_ordor" />
+            android:src="@drawable/ic_alarm" />
     </LinearLayout>
 
     <TextView

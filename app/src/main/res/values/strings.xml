@@ -55,7 +55,6 @@
     <string name="min_volume">当前已经是最小声音了</string>
 
 
-
     <string name="tips_splash">您好 感谢您购买杭州国辰迈联的产品，我是您的健康机器人管家小e，接下来将由我为您开启健康之旅。</string>
     <string name="tips_login">主人，如果您有账号，请直接登入；首次使用请点击注册。</string>
     <string name="tips_register">主人，为了更好地为您服务，需要您填写您的个人信息，填写完毕后点击下一步</string>
