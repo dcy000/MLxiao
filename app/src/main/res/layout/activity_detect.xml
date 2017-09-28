@@ -118,4 +118,40 @@
             android:text="0.00"
             android:textSize="40sp" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_xueyang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/xueyang_bg">
+        <ImageView
+            android:id="@+id/xueyang_video"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/xueyang_video"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/xue_yang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="210dp"
+            android:text="0"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/xueyang_pulse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="320sp"
+            android:layout_marginTop="270dp"
+            android:text="0"
+            android:textSize="40sp" />
+    </RelativeLayout>
+
+
 </FrameLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/cl_alarm_wake"
+    android:background="@drawable/conversation_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.medlink.danbogh.alarm.AlarmActivity">
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/alarm_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="100dp"
+        android:text="Alarm!"
+        android:textSize="38dp"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/alarm_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/alarm_tv_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="28dp"
+        android:text="00 : 00"
+        android:textSize="52dp"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/alarm_tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/alarm_tv_time"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="28dp"
+        android:text="Alarm Content"/>
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/alarm_btn_dismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="100dp"
+        android:textAllCaps="false"
+        android:text="Dismiss"
+        android:textSize="38dp"/>
+
+</android.support.constraint.ConstraintLayout>

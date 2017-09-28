@@ -40,5 +40,7 @@
     <string-array name="counties">
         <item>西湖区</item>
         <item>萧山区</item>
+    </string-array><string-array name="repeats">
+        <item>每天</item>
     </string-array>
 </resources>

@@ -19,9 +19,8 @@ import com.medlink.danbogh.call.CallReceiver;
 import com.medlink.danbogh.call.EMAccountHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import org.litepal.LitePal;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +42,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LitePal.initialize(this);
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(this);
         userId = mShared.getUserId();

@@ -219,6 +219,9 @@ public class XuetangActivity extends BaseActivity {
 
 
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+                if (mBluetoothLeService == null) {
+                    return;
+                }
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
 

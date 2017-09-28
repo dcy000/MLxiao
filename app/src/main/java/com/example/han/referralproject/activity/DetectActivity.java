@@ -77,6 +77,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
+    public static final String Type_XueYang = "xueyang";
     private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
@@ -139,12 +140,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
-                if (detectType == Type_XueTang) {
-                    mHandler.sendEmptyMessage(0);
-                }
+//                if (detectType == Type_XueTang) {
+//                    mHandler.sendEmptyMessage(0);
+//                }
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 byte[] notifyData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
+                byte[] extraData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_NOTIFY_DATA);
                 switch (detectType) {
                     case Type_Wendu:
                         int tempData = notifyData[6] & 0xff;
@@ -221,6 +223,25 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         Log.i("mylog", mBuilder.toString());
                         break;
+                    case Type_XueTang:
+                        if (extraData.length < 12){
+                            return;
+                        }
+                        //threadDisable = false;
+                        if (isGetResustFirst) {
+                            float xuetangResut = ((float)(extraData[10] << 8) + extraData[9])/18;
+                            mResultTv.setText(String.format("%.2f", xuetangResut));
+                            DataInfoBean info = new DataInfoBean();
+                            info.blood_sugar = String.format("%.2f", xuetangResut);
+                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            isGetResustFirst = false;
+                        }
+                        break;
                 }
             }
         }
@@ -254,6 +275,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_Xueya:
                 characteristic = gattServices.get(3).getCharacteristics().get(3);
                 break;
+            case Type_XueYang:
+//                characteristic = gattServices.
         }
 
         if (characteristic == null){
@@ -262,6 +285,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mBluetoothLeService.writeCharacteristic(characteristic);
         mBluetoothLeService.readCharacteristic(characteristic);
         mBluetoothLeService.setCharacteristicNotification(characteristic, true);
+        //第一个坑，数据没传输过来
         List<BluetoothGattDescriptor> descriptorList = characteristic.getDescriptors();
         if(descriptorList != null && descriptorList.size() > 0) {
             for(BluetoothGattDescriptor descriptor : descriptorList) {
@@ -283,6 +307,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.xueya_video:
                 url = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/血压计.mp4";
+                break;
+            case R.id.xuetang_video:
+                url = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/血糖.mp4";
+                break;
+            case R.id.xueyang_video:
+                url = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/血氧.mp4";
                 break;
         }
         Intent intent = new Intent(mContext, PlayVideoActivity.class);
@@ -312,16 +342,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
         switch (detectType) {
             case Type_Wendu:
+                mResultTv = (TextView) findViewById(R.id.tv_result);
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
                 break;
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
                 break;
             case Type_XueTang:
+                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
                 break;
         }
-        mResultTv = (TextView) findViewById(R.id.tv_result);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
         mPulseTv = (TextView) findViewById(R.id.pulse);
@@ -356,6 +387,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);
         findViewById(R.id.xueya_video).setOnClickListener(this);
+        findViewById(R.id.xuetang_video).setOnClickListener(this);
+        findViewById(R.id.xueyang_video).setOnClickListener(this);
         dialog = new NDialog(this);
         showNormal("设备连接中，请稍后...");
 
@@ -470,24 +503,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
      * @param
      */
     private void sendDataByte(final byte leng, final byte commandType) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (threadDisable){
-//
-//                }
-//            }
-//        }).start();
-        Commands commands = new Commands();
-        //byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
-        byte[] sendDataByte = Commands.datas;
-        Log.i("mylog", " sendData : " + bytesToHexString(sendDataByte));
-        XueTangGattAttributes.sendMessage(mBluetoothGatt, sendDataByte);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (threadDisable){
+                    Commands commands = new Commands();
+                    //byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
+                    byte[] sendDataByte = Commands.datas;
+                    XueTangGattAttributes.sendMessage(mBluetoothGatt, sendDataByte);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     public static String bytesToHexString(byte[] src){

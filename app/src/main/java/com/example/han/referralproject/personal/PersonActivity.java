@@ -19,6 +19,7 @@ import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.User;
 import com.google.gson.Gson;
+import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.megvii.faceppidcardui.util.ConstantData;
 import com.example.han.referralproject.util.LocalShared;
 
@@ -53,6 +54,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
     public TextView mTextView;
     public ImageView mImageView;
     public ImageView mImageView1;
+    public ImageView mIvAlarm;
 
     @Override
 
@@ -86,7 +88,14 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
 
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.btn_logout).setOnClickListener(this);
-
+        mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
+        mIvAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = AlarmList2Activity.newLaunchIntent(PersonActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

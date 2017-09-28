@@ -12,13 +12,10 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener{
     private EditText mAccountTv;

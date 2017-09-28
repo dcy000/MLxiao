@@ -1,5 +1,6 @@
 package com.medlink.danbogh.call;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -38,11 +39,8 @@ public class CallManager {
     // 上下文菜单
     private Context context;
 
-    // 蓝牙相关对象
-    private BluetoothAdapter bluetoothAdapter;
-    private BluetoothHeadset bluetoothHeadset;
-
     // 单例类实例
+    @SuppressLint("StaticFieldLeak")
     private static volatile CallManager instance;
 
     // 通知栏提醒管理类
@@ -105,8 +103,6 @@ public class CallManager {
      */
     public void init(Context context) {
         this.context = context.getApplicationContext();
-        // 初始化蓝牙监听
-        initBluetoothListener();
         // 初始化音频池
         initSoundPool();
         // 音频管理器
@@ -320,44 +316,6 @@ public class CallManager {
         // 设置声音模式为通讯模式
         audioManager.setMode(AudioManager.MODE_IN_CALL);
         setOpenSpeaker(false);
-        connectBluetoothAudio();
-    }
-
-    /**
-     * 初始化蓝牙监听
-     */
-    private void initBluetoothListener() {
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter != null) {
-            bluetoothAdapter.getProfileProxy(context, new BluetoothProfile.ServiceListener() {
-                @Override public void onServiceConnected(int profile, BluetoothProfile proxy) {
-                    bluetoothHeadset = (BluetoothHeadset) proxy;
-                    VMLog.d("bluetooth is ");
-                }
-
-                @Override public void onServiceDisconnected(int profile) {
-                    bluetoothHeadset = null;
-                }
-            }, BluetoothProfile.HEADSET);
-        }
-    }
-
-    /**
-     * 连接蓝牙音频输出设备，通过蓝牙输出声音
-     */
-    private void connectBluetoothAudio() {
-        if (bluetoothHeadset != null) {
-            bluetoothHeadset.startVoiceRecognition(bluetoothHeadset.getConnectedDevices().get(0));
-        }
-    }
-
-    /**
-     * 与蓝牙输出设备断开连接
-     */
-    private void disconnectBluetoothAudio() {
-        if (bluetoothHeadset != null) {
-            bluetoothHeadset.stopVoiceRecognition(bluetoothHeadset.getConnectedDevices().get(0));
-        }
     }
 
     /**
