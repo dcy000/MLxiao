@@ -70,7 +70,6 @@ dependencies {
     compile 'org.litepal.android:core:1.6.0'
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
     compile 'com.zhy:okhttputils:2.6.2'
