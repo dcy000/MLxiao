@@ -1,11 +1,18 @@
 package com.example.han.referralproject;
 
+import android.Manifest;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;
@@ -13,15 +20,28 @@ import android.widget.Chronometer;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.music.AppCache;
+import com.example.han.referralproject.music.EventCallback;
+import com.example.han.referralproject.music.PermissionReq;
+import com.example.han.referralproject.music.PlayService;
+import com.example.han.referralproject.music.ToastUtils;
 
 public class WelcomeActivity extends BaseActivity {
 
     Chronometer ch;
 
+    private ServiceConnection mPlayServiceConnection;
+
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        checkService();
+
 
         ch = (Chronometer) findViewById(R.id.chronometer);
 
@@ -36,7 +56,7 @@ public class WelcomeActivity extends BaseActivity {
                 // 如果从开始计时到现在超过了60s
                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                     ch.stop();
-                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)){
+                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                     } else {
@@ -48,4 +68,83 @@ public class WelcomeActivity extends BaseActivity {
             }
         });
     }
+
+    private void checkService() {
+        if (AppCache.getPlayService() == null) {
+            startService();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    bindService();
+                }
+            }, 500);
+        }
+    }
+
+    private void bindService() {
+        Intent intent = new Intent();
+        intent.setClass(this, PlayService.class);
+        mPlayServiceConnection = new PlayServiceConnection();
+        bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private class PlayServiceConnection implements ServiceConnection {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            final PlayService playService = ((PlayService.PlayBinder) service).getService();
+            AppCache.setPlayService(playService);
+            PermissionReq.with(WelcomeActivity.this).permissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .result(new PermissionReq.Result() {
+                        @Override
+                        public void onGranted() {
+                         //   scanMusic(playService);
+
+                            Log.e("==========", "PlayServiceConnection");
+
+                        }
+
+                        @Override
+                        public void onDenied() {
+                            ToastUtils.show(getString(R.string.no_permission, "存储空间", "扫描本地歌曲"));
+                            finish();
+                            playService.quit();
+                        }
+                    })
+                    .request();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+    }
+
+    private void scanMusic(final PlayService playService) {
+        playService.updateMusicList(new EventCallback<Void>() {
+            @Override
+            public void onEvent(Void aVoid) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        if (mPlayServiceConnection != null) {
+            unbindService(mPlayServiceConnection);
+        }
+        super.onDestroy();
+    }
+
+    private void startService() {
+        Intent intent = new Intent(this, PlayService.class);
+        startService(intent);
+        Log.e("==========", "startService");
+    }
+
+
 }
