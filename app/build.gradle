@@ -41,8 +41,6 @@ android {
 
 
 repositories {
-    jcenter()
-
     flatDir {
         dirs 'libs' //就是你放aar的目录地址
     }
@@ -50,8 +48,6 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile name: 'SMSSDK-2.1.4', ext: 'aar'
-    compile name: 'SMSSDKGUI-2.1.4', ext: 'aar'
     compile project(':library')
     compile project(':wkvideoplayer')
     compile files('libs/Msc.jar')
@@ -74,4 +70,11 @@ dependencies {
     compile 'org.litepal.android:core:1.6.0'
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     testCompile 'junit:junit:4.12'
+    compile name: 'SMSSDK-3.0.0', ext: 'aar'
+    compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
+    compile 'com.zhy:okhttputils:2.6.2'
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    compile 'me.wcy:lrcview:1.4.2'
+    compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'
+    compile files('libs/commons-lang-2.3.jar')
 }

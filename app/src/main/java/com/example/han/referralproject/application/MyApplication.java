@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.IntentFilter;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.music.AppCache;
+import com.example.han.referralproject.music.ForegroundObserver;
+import com.example.han.referralproject.music.HttpInterceptor;
+import com.example.han.referralproject.music.Preferences;
 import com.example.han.referralproject.util.LocalShared;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
@@ -13,11 +17,15 @@ import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call.CallManager;
 import com.medlink.danbogh.call.CallReceiver;
 import com.medlink.danbogh.call.EMAccountHelper;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 
 public class MyApplication extends Application {
@@ -43,8 +51,26 @@ public class MyApplication extends Application {
         //EM
         initHyphenate(this);
         //if (telphoneNum != null) {
-            EMAccountHelper.login(emBrId(), "123");
+        EMAccountHelper.login(emBrId(), "123");
         //}
+
+
+        AppCache.init(this);
+        AppCache.updateNightMode(Preferences.isNightMode());
+        ForegroundObserver.init(this);
+        initOkHttpUtils();
+
+    }
+
+
+    private void initOkHttpUtils() {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .addInterceptor(new HttpInterceptor())
+                .build();
+        OkHttpUtils.initClient(okHttpClient);
     }
 
     public static MyApplication getInstance() {

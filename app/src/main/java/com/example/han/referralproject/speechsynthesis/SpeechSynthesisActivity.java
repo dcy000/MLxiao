@@ -1,6 +1,7 @@
 package com.example.han.referralproject.speechsynthesis;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -9,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,12 +23,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.bean.User;
+import com.example.han.referralproject.music.AppCache;
+import com.example.han.referralproject.music.HttpCallback;
+import com.example.han.referralproject.music.HttpClient;
+import com.example.han.referralproject.music.Music;
+import com.example.han.referralproject.music.OnPlayerEventListener;
+import com.example.han.referralproject.music.PlayFragment;
+import com.example.han.referralproject.music.PlaySearchedMusic;
+import com.example.han.referralproject.music.PlayService;
+import com.example.han.referralproject.music.SearchMusic;
+import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.temperature.TemperatureActivity;
@@ -50,6 +63,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.iflytek.sunflower.FlowerCollector;
 import com.medlink.danbogh.call.EMUIHelper;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,10 +73,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
-public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
+public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener, OnPlayerEventListener {
 
     private static String TAG = SpeechSynthesisActivity.class.getSimpleName();
     // 语音听写对象
@@ -91,6 +107,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private Toast mToast1;
     RelativeLayout mRelativeLayout;
+
+
+    private PlayFragment mPlayFragment;
+    private AudioManager mAudioManagers;
+    private ComponentName mRemoteReceiver;
+    private boolean isPlayFragmentShow = false;
 
 
     Handler mHandler = new Handler() {
@@ -158,7 +180,169 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         });
 
+
+        if (!checkServiceAlive()) {
+            return;
+        }
+
+        getPlayService().setOnPlayEventListener(this);
+
+
     }
+
+    @Override
+    public void onChange(Music music) {
+        if (mPlayFragment != null) {
+            mPlayFragment.onChange(music);
+        }
+    }
+
+    @Override
+    public void onPlayerStart() {
+        if (mPlayFragment != null) {
+            mPlayFragment.onPlayerStart();
+        }
+    }
+
+    @Override
+    public void onPlayerPause() {
+        if (mPlayFragment != null) {
+            mPlayFragment.onPlayerPause();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mPlayFragment != null && isPlayFragmentShow) {
+            if (getPlayService().isPlaying()) {
+                getPlayService().playPause();
+            }
+            hidePlayingFragment();
+            finish();
+            return;
+        }
+
+        super.onBackPressed();
+    }
+
+    private void hidePlayingFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(0, R.anim.fragment_slide_down);
+        ft.hide(mPlayFragment);
+        ft.commitAllowingStateLoss();
+        isPlayFragmentShow = false;
+    }
+
+    /**
+     * 更新播放进度
+     */
+    @Override
+    public void onPublish(int progress) {
+        if (mPlayFragment != null) {
+            mPlayFragment.onPublish(progress);
+        }
+    }
+
+    @Override
+    public void onBufferingUpdate(int percent) {
+        if (mPlayFragment != null) {
+            mPlayFragment.onBufferingUpdate(percent);
+        }
+    }
+
+    @Override
+    public void onTimer(long remain) {
+    }
+
+    @Override
+    public void onMusicListUpdate() {
+
+    }
+
+    private List<SearchMusic.Song> mSearchMusicList = new ArrayList<>();
+
+
+    private void searchMusic(String keyword) {
+
+        HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
+
+            @Override
+            public void onSuccess(SearchMusic response) {
+                if (response == null || response.getSong() == null) {
+                    speak("抱歉，没找到这首歌");
+                    mHandler.sendEmptyMessageDelayed(1, 3000);
+
+                    return;
+                }
+                mSearchMusicList.clear();
+                mSearchMusicList.addAll(response.getSong());
+
+
+                new PlaySearchedMusic(SpeechSynthesisActivity.this, mSearchMusicList.get(0)) {
+                    @Override
+                    public void onPrepare() {
+                    }
+
+                    @Override
+                    public void onExecuteSuccess(Music music) {
+                        getPlayService().play(music);
+                        ToastUtils.show(getString(R.string.now_play, music.getTitle()));
+
+                        showPlayingFragment();
+
+                    }
+
+                    @Override
+                    public void onExecuteFail(Exception e) {
+                        //   mProgressDialog.cancel();
+                        ToastUtils.show(R.string.unable_to_play);
+                    }
+                }.execute();
+
+            }
+
+            @Override
+            public void onFail(Exception e) {
+            }
+        });
+    }
+
+
+    private void showPlayingFragment() {
+        if (isPlayFragmentShow) {
+            return;
+        }
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.fragment_slide_up, 0);
+        if (mPlayFragment == null) {
+            mPlayFragment = new PlayFragment();
+            ft.replace(android.R.id.content, mPlayFragment);
+        } else {
+            ft.show(mPlayFragment);
+        }
+        ft.commitAllowingStateLoss();
+        isPlayFragmentShow = true;
+    }
+
+
+    public PlayService getPlayService() {
+        PlayService playService = AppCache.getPlayService();
+        if (playService == null) {
+            throw new NullPointerException("play service is null");
+        }
+        return playService;
+    }
+
+    protected boolean checkServiceAlive() {
+        if (AppCache.getPlayService() == null) {
+            startActivity(new Intent(this, WelcomeActivity.class));
+            AppCache.clearStack();
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * 初始化Layout。
@@ -615,7 +799,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (resultBuffer.toString().matches(".*歌.*") || resultBuffer.toString().matches(".*音乐.*")) {
+                /*}
+                else if (resultBuffer.toString().matches(".*歌.*") || resultBuffer.toString().matches(".*音乐.*")) {
                     file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
                     //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
                     if (file.exists()) {
@@ -643,7 +828,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                             e.printStackTrace();
                         }
                     }
-
+*/
 
                 } else if (resultBuffer.toString().matches(".*打.*电话.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*zixun.*yisheng.*")) {
 
@@ -687,6 +872,43 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
                         mHandler.sendEmptyMessageDelayed(1, 3000);
 
+                    }
+
+
+                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("ting") || resultBuffer.toString().contains("播放") || PinYinUtils.converterToSpell(resultBuffer.toString()).contains("fangyishou")) {
+
+
+                    try {
+                        if (resultBuffer.toString().matches(".*听.*的.*")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
+                        } else if (resultBuffer.toString().contains("听")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "听"));
+                        }
+                        if (resultBuffer.toString().matches(".*播放.*的.*")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
+                        } else if (resultBuffer.toString().contains("播放")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "放"));
+                        }
+                        if (resultBuffer.toString().matches(".*放.*首.*的.*")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
+                        } else if (resultBuffer.toString().contains("放一首")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "首"));
+                        }
+
+
+                        // searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
+
+                    } catch (Exception e) {
+                        runOnUiThread(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        speak(R.string.speak_no_result);
+                                        //   findViewById(R.id.iat_recognizes).performClick();
+                                    }
+                                }
+                        );
+                        e.printStackTrace();
                     }
 
 
@@ -819,16 +1041,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mediaPlayer.stop();
         }
         mediaPlayer.release();
-      /*  if (null != mIat) {
-            // 退出时释放连接
-            mIat.cancel();
-            mIat.destroy();
-        }
 
-        if (null != mTts) {
-            mTts.stopSpeaking();
-            // 退出时释放连接
-            mTts.destroy();
-        }*/
+
+        if (mRemoteReceiver != null) {
+            mAudioManagers.unregisterMediaButtonEventReceiver(mRemoteReceiver);
+        }
+        PlayService service = AppCache.getPlayService();
+        if (service != null) {
+            service.setOnPlayEventListener(null);
+        }
     }
+
+
 }
