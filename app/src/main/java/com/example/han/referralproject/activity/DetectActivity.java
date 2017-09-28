@@ -26,7 +26,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Xml;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,24 +37,14 @@ import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.Commands;
-import com.example.han.referralproject.bluetooth.SampleGattAttributes;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.iflytek.cloud.thirdparty.V;
-import com.megvii.faceppidcardui.util.ConstantData;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 public class DetectActivity extends BaseActivity implements View.OnClickListener{
 
@@ -70,10 +59,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public String str;
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
+    public TextView mXueYangTv, mXueYangPulseTv;
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XueTang;
+    private String detectType = Type_XueYang;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -81,6 +71,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
+    private BluetoothGattCharacteristic mWriteCharacteristic;
 
 
     Handler mHandler = new Handler() {
@@ -129,9 +120,18 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
-                if (Type_XueTang.equals(detectType)){
-                    XueTangGattAttributes.notify(mBluetoothGatt);
-                    mHandler.sendEmptyMessageDelayed(0, 1000);
+                switch (detectType) {
+                    case Type_XueTang:
+                        XueTangGattAttributes.notify(mBluetoothGatt);
+                        mHandler.sendEmptyMessageDelayed(0, 1000);
+                        break;
+                    case Type_XueYang:
+//                        mWriteCharacteristic.setValue(Commands.xueyangDatas);
+//                        mWriteCharacteristic
+//                                .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+//                        boolean issuccess = mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
+//                        Log.i("mylog", "success");
+                        break;
                 }
                 Log.i("mylog", "gata connect 11111111111111111111");
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
@@ -140,6 +140,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
+                switch (detectType) {
+                    case Type_XueYang:
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (threadDisable){
+                                    mWriteCharacteristic.setValue(Commands.xueyangDatas);
+                                    mWriteCharacteristic
+                                            .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                                    mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }).start();
+                        break;
+                }
 //                if (detectType == Type_XueTang) {
 //                    mHandler.sendEmptyMessage(0);
 //                }
@@ -221,7 +241,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         for (byte item : notifyData){
                             mBuilder.append(item).append("    ");
                         }
-                        Log.i("mylog", mBuilder.toString());
                         break;
                     case Type_XueTang:
                         if (extraData.length < 12){
@@ -240,6 +259,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 }
                             });
                             isGetResustFirst = false;
+                        }
+                        break;
+                    case Type_XueYang:
+                        if (notifyData != null && notifyData.length == 12) {
+                            threadDisable = false;
+                            mXueYangTv.setText(String.valueOf(notifyData[5]));
+                            mXueYangPulseTv.setText(String.valueOf(notifyData[6]));
+                            if (isGetResustFirst) {
+                                DataInfoBean info = new DataInfoBean();
+                                info.blood_oxygen = String.format(String.valueOf(notifyData[5]));
+                                info.pulse = (int)notifyData[6];
+                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String response) {
+                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                isGetResustFirst = false;
+                                mHandler.sendEmptyMessageDelayed(2, 30000);
+                            }
                         }
                         break;
                 }
@@ -276,12 +315,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 characteristic = gattServices.get(3).getCharacteristics().get(3);
                 break;
             case Type_XueYang:
+                characteristic = gattServices.get(2).getCharacteristics().get(1);
+                break;
 //                characteristic = gattServices.
         }
 
         if (characteristic == null){
             return;
         }
+        mWriteCharacteristic = characteristic;
         mBluetoothLeService.writeCharacteristic(characteristic);
         mBluetoothLeService.readCharacteristic(characteristic);
         mBluetoothLeService.setCharacteristicNotification(characteristic, true);
@@ -338,6 +380,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 case "xuetang":
                     detectType = Type_XueTang;
                     break;
+                case "xueyang":
+                    detectType = Type_XueYang;
+                    break;
             }
         }
         switch (detectType) {
@@ -352,10 +397,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mResultTv = (TextView) findViewById(R.id.tv_xuetang);
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
                 break;
+            case Type_XueYang:
+                findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
+                break;
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
         mPulseTv = (TextView) findViewById(R.id.pulse);
+        mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
+        mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
             } else {
@@ -429,6 +479,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_XueTang:
                         deviceName = "Bioland-BGM";
+                        break;
+                    case Type_XueYang:
+                        deviceName = "POD";
+                        break;
                 }
 
                 if (deviceName.equals(device.getName())) {
