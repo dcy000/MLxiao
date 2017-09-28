@@ -197,7 +197,8 @@
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape"/>

@@ -124,7 +124,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         //注册回调监听接口
         SMSSDK.registerEventHandler(eventHandler);
 
+        startSpeakListener();
+    }
 
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
     }
 
     private void initView() {
