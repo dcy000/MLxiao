@@ -122,6 +122,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
+//                switch (detectType) {
+//                    case Type_XueTang:
+//                        XueTangGattAttributes.notify(mBluetoothGatt);
+//                        mHandler.sendEmptyMessageDelayed(0, 1000);
+//                        break;
+//                    case Type_XueYang:
+////                        mWriteCharacteristic.setValue(Commands.xueyangDatas);
+////                        mWriteCharacteristic
+////                                .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+////                        boolean issuccess = mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
+////                        Log.i("mylog", "success");
+//                        break;
+//                }
+                Log.i("mylog", "gata connect 11111111111111111111");
+            } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
+                Log.i("mylog", "gata disConnect 22222222222222222");
+                mConnected = false;
+            } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+                Log.i("mylog", "gata servicesConnect 3333333333333333");
+                displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueTang:
                         XueTangGattAttributes.notify(mBluetoothGatt);
@@ -135,13 +155,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        Log.i("mylog", "success");
                         break;
                 }
-                Log.i("mylog", "gata connect 11111111111111111111");
-            } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-                Log.i("mylog", "gata disConnect 22222222222222222");
-                mConnected = false;
-            } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-                Log.i("mylog", "gata servicesConnect 3333333333333333");
-                displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueYang:
                         new Thread(new Runnable() {
@@ -245,12 +258,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_XueTang:
-                        if (extraData.length < 12){
+                        if (notifyData == null || notifyData.length < 12){
                             return;
                         }
                         //threadDisable = false;
                         if (isGetResustFirst) {
-                            float xuetangResut = ((float)(extraData[10] << 8) + extraData[9])/18;
+                            float xuetangResut = ((float)(notifyData[10] << 8) + notifyData[9])/18;
                             mResultTv.setText(String.format("%.2f", xuetangResut));
                             DataInfoBean info = new DataInfoBean();
                             info.blood_sugar = String.format("%.2f", xuetangResut);
@@ -391,34 +404,34 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         switch (detectType) {
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
-                        tipsLayout.setVisibility(View.VISIBLE);
-                        speak(R.string.tips_wendu_one);
-                    }
-                }, 500);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        tipsLayout.setBackgroundResource(R.drawable.tips_wendu_two);
-                        speak(R.string.tips_wendu_two);
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                tipsLayout.setBackgroundResource(R.drawable.tips_wendu_three);
-                                speak(R.string.tips_wendu_three);
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        tipsLayout.setVisibility(View.GONE);
-                                    }
-                                }, 8000);
-                            }
-                        }, 8000);
-                    }
-                }, 5000);
+                findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tipsLayout.setVisibility(View.VISIBLE);
+//                        //speak(R.string.tips_wendu_one);
+//                    }
+//                }, 1000);
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tipsLayout.setBackgroundResource(R.drawable.tips_wendu_two);
+//                        //speak(R.string.tips_wendu_two);
+//                        mHandler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                tipsLayout.setBackgroundResource(R.drawable.tips_wendu_three);
+//                                //speak(R.string.tips_wendu_three);
+//                                mHandler.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        tipsLayout.setVisibility(View.GONE);
+//                                    }
+//                                }, 8000);
+//                            }
+//                        }, 8000);
+//                    }
+//                }, 8000);
                 break;
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
