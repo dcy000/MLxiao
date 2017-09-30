@@ -1,43 +1,23 @@
 package com.example.han.referralproject;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.facerecognition.OnlineFaceDemo;
-import com.example.han.referralproject.facerecognition.OnlineFaceDemo1;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.facerecognition.VideoDemo;
-import com.example.han.referralproject.login.PerInfoActivity;
 import com.example.han.referralproject.personal.PersonActivity;
-import com.example.han.referralproject.recyclerview.Doctor;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.video.MainVideoActivity;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call.EMUIHelper;
-
-import java.util.List;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -132,7 +112,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final String REGEX_GO_PERSONAL_CENTER = ".*(gerenzhongxin|wodeshuju).*";
     public static final String REGEX_GO_CLASS = ".*(jiankangketang|shipin).*";
     public static final String REGEX_SEE_DOCTOR = ".*(yisheng|zixun|kan|yuyue)(zixun|yisheng).*";
-    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
+    public static final String REGEX_SET_ALARM = ".*(naozhong|tixingwochiyao).*";
 
     @Override
     protected void onSpeakListenerResult(String result) {
