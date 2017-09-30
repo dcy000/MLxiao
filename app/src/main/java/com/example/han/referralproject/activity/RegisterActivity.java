@@ -145,7 +145,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        super.onSpeakListenerResult(result);
         Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
         String in = PinYinUtils.converterToSpell(result);
 

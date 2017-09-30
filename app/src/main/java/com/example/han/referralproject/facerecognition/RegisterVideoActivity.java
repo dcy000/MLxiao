@@ -599,4 +599,8 @@ public class RegisterVideoActivity extends BaseActivity {
         mToast.show();
     }
 
+    @Override
+    protected void onSpeakListenerResult(String result) {
+
+    }
 }

@@ -86,12 +86,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        startListening();
-    }
-
-    @Override
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
         findViewById(R.id.ll_anim).setVisibility(View.GONE);
@@ -135,7 +129,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    public static final String REGEX_CALL_XIAO_YI = ".*(nihao|xiaoyi)xiaoyi.*";
     public static final String REGEX_GO_PERSONAL_CENTER = ".*(gerenzhongxin|wodeshuju).*";
     public static final String REGEX_GO_CLASS = ".*(jiankangketang|shipin).*";
     public static final String REGEX_SEE_DOCTOR = ".*(yisheng|zixun|kan|yuyue)(zixun|yisheng).*";
@@ -166,10 +159,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
             mImageView2.performClick();
             return;
-        }
-
-        if (inSpell.matches(REGEX_CALL_XIAO_YI)) {
-            mImageView1.performClick();
         }
     }
 }

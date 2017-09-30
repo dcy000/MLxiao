@@ -43,7 +43,6 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        super.onSpeakListenerResult(result);
         Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
         String inSpell = PinYinUtils.converterToSpell(result);
 

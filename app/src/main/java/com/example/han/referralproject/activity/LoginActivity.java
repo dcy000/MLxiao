@@ -85,7 +85,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        super.onSpeakListenerResult(result);
         Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
 
         if (result.matches(".*注册.*") || PinYinUtils.converterToSpell(result).matches(".*zhuce.*")) {
