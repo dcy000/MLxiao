@@ -172,7 +172,8 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.MessageActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -266,6 +267,12 @@
         <activity android:name="com.medlink.danbogh.alarm.AlarmDetail2Activity">
         </activity>
         <activity android:name="com.medlink.danbogh.alarm.AlarmActivity">
+        </activity>
+        <activity android:name=".activity.SymptomAnalyseActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity android:name=".activity.SymptomAnalyseResultActivity"
+            android:screenOrientation="landscape" >
         </activity>
 
         <!-- ############### EM ################# -->

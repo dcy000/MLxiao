@@ -76,6 +76,9 @@ public class BaseActivity extends AppCompatActivity {
 
 
     protected void speak(String text){
+        if (TextUtils.isEmpty(text)){
+            return;
+        }
         mTts.startSpeaking(text, mTtsListener);
     }
 

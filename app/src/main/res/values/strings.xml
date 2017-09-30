@@ -48,6 +48,8 @@
     <string name="logout">退出登录</string>
     <string name="speak_no_result">我还没学习到</string>
     <string name="offline_sign">线下签约</string>
+    <string name="submit">提交</string>
+    <string name="no_yz">目前还没有消息</string>
 
     <string name="add_volume">调大声音</string>
     <string name="reduce_volume">调小声音</string>

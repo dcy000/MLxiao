@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.LoginActivity;
+import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.RecordActivity;
+import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.User;
 import com.google.gson.Gson;
@@ -85,7 +87,8 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
 
 
         findViewById(R.id.btn_record).setOnClickListener(this);
-
+        findViewById(R.id.iv_message).setOnClickListener(this);
+        findViewById(R.id.iv_check).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
@@ -165,6 +168,12 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
                 LocalShared.getInstance(this).loginOut();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
+                break;
+            case R.id.iv_check:
+                startActivity(new Intent(this, SymptomAnalyseActivity.class));
+                break;
+            case R.id.iv_message:
+                startActivity(new Intent(this, MessageActivity.class));
                 break;
         }
     }
