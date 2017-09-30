@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,6 +25,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -104,6 +106,10 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
+        FragmentActivity activity = getActivity();
+        if (activity != null && activity instanceof BaseActivity) {
+            ((BaseActivity) activity).setEnableListeningLoop(false);
+        }
         IntentFilter filter = new IntentFilter(Actions.VOLUME_CHANGED_ACTION);
         getContext().registerReceiver(mVolumeReceiver, filter);
     }

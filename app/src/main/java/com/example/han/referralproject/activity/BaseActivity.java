@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
@@ -49,11 +50,11 @@ public class BaseActivity extends AppCompatActivity {
     private SpeechRecognizer mIat;
     private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
-    private boolean resumed;
+    private boolean enableListeningLoop;
 
 
-    public void setResumed(boolean enable) {
-        resumed = enable;
+    public void setEnableListeningLoop(boolean enable) {
+        enableListeningLoop = enable;
     }
 
 
@@ -63,7 +64,7 @@ public class BaseActivity extends AppCompatActivity {
         mContext = this;
         mResources = getResources();
 
-        resumed = true;
+        enableListeningLoop = true;
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer == null) {
             mIat = SpeechRecognizer.createRecognizer(this, mTtsInitListener);
@@ -96,14 +97,15 @@ public class BaseActivity extends AppCompatActivity {
     };
 
     protected void speak(String text) {
-        if (TextUtils.isEmpty(text)){
+        if (TextUtils.isEmpty(text)) {
             return;
         }
         stopListening();
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer != null) {
-            synthesizer.startSpeaking(text, mTtsListener);
+        if (synthesizer == null) {
+            synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         }
+        synthesizer.startSpeaking(text, mTtsListener);
     }
 
     protected void speak(final int resId) {
@@ -122,7 +124,7 @@ public class BaseActivity extends AppCompatActivity {
         setRecognizerParams();
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (resumed
+        if (enableListeningLoop
                 && recognizer != null && !recognizer.isListening()
                 && synthesizer != null && !synthesizer.isSpeaking()) {
             recognizer.startListening(mIatListener);
@@ -137,9 +139,10 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public static final String REGEX_CALL_XIAO_YI = ".*(nihao|xiao(yi|yu))xiao(yi|yu).*";
+    public static final String REGEX_CALL_XIAO_YI = ".*xiao(yi|yu|li).*";
 
     protected void onSpeakListenerResult(String result) {
+        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         String inSpell = PinYinUtils.converterToSpell(result);
         if (inSpell.matches(REGEX_CALL_XIAO_YI)) {
             speak(R.string.hello);
@@ -188,12 +191,10 @@ public class BaseActivity extends AppCompatActivity {
             if (!TextUtils.isEmpty(resultBuffer.toString())) {
                 onSpeakListenerResult(resultBuffer.toString());
             }
-            startListening();
         }
 
         @Override
         public void onError(SpeechError speechError) {
-            startListening();
             Log.i("speak", "error          " + speechError.getErrorDescription());
         }
 
@@ -321,13 +322,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     Handler handler = MyApplication.getInstance().getBgHandler();
-    public Runnable mR = new Runnable() {
+    public Runnable mListening = new Runnable() {
         @Override
         public void run() {
-            handler.removeCallbacks(mR);
             startListening();
-            if (resumed) {
-                handler.postDelayed(mR, 200);
+            if (enableListeningLoop) {
+                handler.postDelayed(mListening, 200);
             }
         }
     };
@@ -335,14 +335,14 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        handler.postDelayed(mR, 200);
-        resumed = true;
+        enableListeningLoop = true;
+        handler.postDelayed(mListening, 200);
     }
 
     @Override
     protected void onPause() {
-        handler.removeCallbacks(mR);
-        resumed = false;
+        enableListeningLoop = false;
+        handler.removeCallbacks(mListening);
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null && synthesizer.isSpeaking()) {
             synthesizer.stopSpeaking();

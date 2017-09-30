@@ -11,15 +11,11 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
@@ -29,7 +25,6 @@ import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
-import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.HttpCallback;
 import com.example.han.referralproject.music.HttpClient;
@@ -56,11 +51,10 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.iflytek.sunflower.FlowerCollector;
+import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call.EMUIHelper;
 
 import org.apache.commons.lang.StringUtils;
@@ -181,13 +175,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         });
 
 
-        if (!checkServiceAlive()) {
-            return;
-        }
+//        if (!checkServiceAlive()) {
+//            return;
+//        }
 
-        getPlayService().setOnPlayEventListener(this);
+//        getPlayService().setOnPlayEventListener(this);
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setEnableListeningLoop(false);
     }
 
     @Override
@@ -434,6 +434,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             //  showTip("结束说话");
         }
 
+        public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
+        public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
+
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             //  Log.d(TAG, results.getResultString());
@@ -442,6 +445,23 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (isLast) {
                 new Thread(new Runnable() {
                     public void run() {
+                        String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
+                        if (inSpell.matches(REGEX_SET_ALARM)) {
+                            Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
+                            startActivity(intent);
+                            return;
+                        }
+                        if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+                            Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
+                            startActivity(intent);
+                            return;
+                        }
+
+                        if (inSpell.matches(REGEX_SET_ALARM)) {
+
+                            return;
+                        }
+
                         if (resultBuffer.toString().matches(".*测.*血压.*")) {
                             if (sign == true) {
                                 sign = false;
@@ -451,66 +471,68 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 finish();
                             }
 
-                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("xueyang")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        } else if (resultBuffer.toString().matches(".*歌.*")) {
-                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                            if (file.exists()) {
-                                try {
-                                    mediaPlayer.reset();//从新设置要播放的音乐
-                                    mediaPlayer.setDataSource(file.getAbsolutePath());
-                                    mediaPlayer.prepare();//预加载音频
-                                    mediaPlayer.start();//播放音乐
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        } else if (resultBuffer.toString().matches(".*歌.*")) {
-                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                            if (file.exists()) {
-                                try {
-                                    mediaPlayer.reset();//从新设置要播放的音乐
-                                    mediaPlayer.setDataSource(file.getAbsolutePath());
-                                    mediaPlayer.prepare();//预加载音频
-                                    mediaPlayer.start();//播放音乐
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
                         } else {
-                            try {
-                                post(resultBuffer + "");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                            if (inSpell.contains("xueyang")) {
+                                if (sign == true) {
+                                    sign = false;
+                                    mIatDialog.dismiss();
+                                    Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
 
+                            } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
+                                if (sign == true) {
+                                    sign = false;
+                                    mIatDialog.dismiss();
+                                    Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                            } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
+                                if (sign == true) {
+                                    sign = false;
+                                    mIatDialog.dismiss();
+                                    Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                            } else if (resultBuffer.toString().matches(".*歌.*")) {
+                                file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                                //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                                if (file.exists()) {
+                                    try {
+                                        mediaPlayer.reset();//从新设置要播放的音乐
+                                        mediaPlayer.setDataSource(file.getAbsolutePath());
+                                        mediaPlayer.prepare();//预加载音频
+                                        mediaPlayer.start();//播放音乐
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } else if (resultBuffer.toString().matches(".*歌.*")) {
+                                file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                                //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                                if (file.exists()) {
+                                    try {
+                                        mediaPlayer.reset();//从新设置要播放的音乐
+                                        mediaPlayer.setDataSource(file.getAbsolutePath());
+                                        mediaPlayer.prepare();//预加载音频
+                                        mediaPlayer.start();//播放音乐
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } else {
+                                try {
+                                    post(resultBuffer + "");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
                         }
                     }
                 }).start();

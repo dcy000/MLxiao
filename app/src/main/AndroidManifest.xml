@@ -191,10 +191,6 @@
         <activity
             android:name=".activity.DetectActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
@@ -243,10 +239,6 @@
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
         <activity android:name=".facerecognition.RegisterVideoActivity">
-<<<<<<< HEAD
-
-=======
->>>>>>> 1ddd00b17773ad321d40d11fb637d71482534b6f
         </activity>
         <activity android:name=".recyclerview.RecoDocActivity"></activity>
         <activity android:name=".recyclerview.DoctorMesActivity"></activity>
