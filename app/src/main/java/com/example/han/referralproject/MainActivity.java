@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,9 +30,14 @@ import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.login.PerInfoActivity;
 import com.example.han.referralproject.personal.PersonActivity;
+import com.example.han.referralproject.recyclerview.Doctor;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.video.MainVideoActivity;
+import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call.EMUIHelper;
+
+import java.util.List;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -79,6 +85,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }, 1000);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startListening();
+    }
 
     @Override
     protected void onActivitySpeakFinish() {
@@ -122,5 +133,43 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
 
+    }
+
+    public static final String REGEX_CALL_XIAO_YI = ".*(nihao|xiaoyi)xiaoyi.*";
+    public static final String REGEX_GO_PERSONAL_CENTER = ".*(gerenzhongxin|wodeshuju).*";
+    public static final String REGEX_GO_CLASS = ".*(jiankangketang|shipin).*";
+    public static final String REGEX_SEE_DOCTOR = ".*(yisheng|zixun|kan|yuyue)(zixun|yisheng).*";
+    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        super.onSpeakListenerResult(result);
+        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+        String inSpell = PinYinUtils.converterToSpell(result);
+
+        if (inSpell.matches(REGEX_SET_ALARM)) {
+            Intent intent = AlarmList2Activity.newLaunchIntent(this);
+            startActivity(intent);
+            return;
+        }
+
+        if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+            mImageView4.performClick();
+            return;
+        }
+
+        if (inSpell.matches(REGEX_GO_CLASS)) {
+            mImageView5.performClick();
+            return;
+        }
+
+        if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
+            mImageView2.performClick();
+            return;
+        }
+
+        if (inSpell.matches(REGEX_CALL_XIAO_YI)) {
+            mImageView1.performClick();
+        }
     }
 }

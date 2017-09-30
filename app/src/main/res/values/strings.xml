@@ -288,5 +288,6 @@
     <string name="about_github">https://github.com/wangchenyan</string>
     <string name="no_permission">没有%1$s权限，无法%2$s！</string>
     <string name="user_help">主人，认真阅读用户须知，帮助您完成签约</string>
+    <string name="hello">你好</string>
 
 </resources>

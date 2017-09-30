@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.iflytek.cloud.ErrorCode;
@@ -45,11 +46,12 @@ public class BaseActivity extends AppCompatActivity {
     private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
     private boolean resumed;
-    private boolean mEnableListening;
 
-    public void setEnableListening(boolean enable) {
-        mEnableListening = enable;
+
+    public void setResumed(boolean enable) {
+        resumed = enable;
     }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class BaseActivity extends AppCompatActivity {
         mContext = this;
         mResources = getResources();
 
-        mEnableListening = true;
+        resumed = true;
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer == null) {
             mIat = SpeechRecognizer.createRecognizer(this, mTtsInitListener);
@@ -113,7 +115,10 @@ public class BaseActivity extends AppCompatActivity {
     protected void startListening() {
         setRecognizerParams();
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
-        if (mEnableListening && recognizer != null && !recognizer.isListening()) {
+        SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
+        if (resumed
+                && recognizer != null && !recognizer.isListening()
+                && synthesizer != null && !synthesizer.isSpeaking()) {
             recognizer.startListening(mIatListener);
         }
     }
@@ -122,6 +127,7 @@ public class BaseActivity extends AppCompatActivity {
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer != null && recognizer.isListening()) {
             recognizer.stopListening();
+            recognizer.cancel();
         }
     }
 
@@ -167,15 +173,12 @@ public class BaseActivity extends AppCompatActivity {
             if (!TextUtils.isEmpty(resultBuffer.toString())) {
                 onSpeakListenerResult(resultBuffer.toString());
             }
-
-            if (mEnableListening && !mTts.isSpeaking()) {
-                mIat.startListening(mIatListener);
-            }
+            startListening();
         }
 
         @Override
         public void onError(SpeechError speechError) {
-            mIat.startListening(mIatListener);
+            startListening();
             Log.i("speak", "error          " + speechError.getErrorDescription());
         }
 
@@ -220,9 +223,7 @@ public class BaseActivity extends AppCompatActivity {
     };
 
     protected void onActivitySpeakFinish() {
-        if (mEnableListening) {
-            startListening();
-        }
+        startListening();
     }
 
 
@@ -304,22 +305,36 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    Handler handler = MyApplication.getInstance().getBgHandler();
+    public Runnable mR = new Runnable() {
+        @Override
+        public void run() {
+            handler.removeCallbacks(mR);
+            startListening();
+            if (resumed) {
+                handler.postDelayed(mR, 200);
+            }
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
-        mEnableListening = true;
+        handler.postDelayed(mR, 200);
+        resumed = true;
     }
 
     @Override
     protected void onPause() {
-        mEnableListening = false;
-        SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
-        if (recognizer != null && recognizer.isListening()) {
-            recognizer.stopListening();
-        }
+        handler.removeCallbacks(mR);
+        resumed = false;
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null && synthesizer.isSpeaking()) {
             synthesizer.stopSpeaking();
+        }
+        SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
+        if (recognizer != null && recognizer.isListening()) {
+            recognizer.stopListening();
         }
         super.onPause();
     }
