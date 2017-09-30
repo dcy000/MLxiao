@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -29,7 +30,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class PersonActivity extends AppCompatActivity implements View.OnClickListener {
+public class PersonActivity extends BaseActivity implements View.OnClickListener {
 
     public String userId;
 

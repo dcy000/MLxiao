@@ -14,10 +14,11 @@ import android.widget.TextView;
 
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
 import java.io.File;
 
-public class MainVideoActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainVideoActivity extends BaseActivity implements View.OnClickListener {
 
 
     Button mButton;
