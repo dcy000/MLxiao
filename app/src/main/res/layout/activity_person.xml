@@ -157,20 +157,20 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/iv_message"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:src="@drawable/consume_record"/>
+            android:src="@drawable/icon_doctor_message"/>
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv_check"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:src="@drawable/health_mall" />
+            android:src="@drawable/icon_check" />
 
         <!--<ImageView-->
             <!--android:layout_width="125dp"-->

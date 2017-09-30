@@ -125,7 +125,12 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -145,7 +150,8 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="landscape"
@@ -161,7 +167,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.MessageActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -185,7 +192,8 @@
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape" />
@@ -200,8 +208,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
 
         </activity>
         <activity
@@ -250,6 +256,12 @@
         <activity android:name="com.medlink.danbogh.alarm.AlarmList2Activity" />
         <activity android:name="com.medlink.danbogh.alarm.AlarmDetail2Activity" />
         <activity android:name="com.medlink.danbogh.alarm.AlarmActivity" />
+        <activity android:name=".activity.SymptomAnalyseActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity android:name=".activity.SymptomAnalyseResultActivity"
+            android:screenOrientation="landscape" >
+        </activity>
 
         <!-- ############### EM ################# -->
         <!-- 设置环信应用的AppKey -->
@@ -278,6 +290,7 @@
             </intent-filter>
         </receiver>
 
+
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity">
 
@@ -285,7 +298,6 @@
 
         </activity>
         <activity android:name=".recyclerview.AddAppoActivity">
-
 
 
         </activity>

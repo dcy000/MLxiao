@@ -103,7 +103,7 @@ public class RegisterVideoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
 
-        SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
+        //SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
         //sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME, Context.MODE_PRIVATE);
 
@@ -117,8 +117,6 @@ public class RegisterVideoActivity extends BaseActivity {
         mFaceDetector = FaceDetector.createDetector(RegisterVideoActivity.this, null);
 
         mFaceRequest = new FaceRequest(this);
-        speak(R.string.tips_face);
-
     }
 
 
@@ -499,7 +497,7 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        speak(R.string.tips_face);
         if (null != mAcc) {
             mAcc.start();
         }
@@ -601,4 +599,8 @@ public class RegisterVideoActivity extends BaseActivity {
         mToast.show();
     }
 
+    @Override
+    protected void onSpeakListenerResult(String result) {
+
+    }
 }

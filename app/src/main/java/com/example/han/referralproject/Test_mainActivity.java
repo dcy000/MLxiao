@@ -69,9 +69,9 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.test_xueyang:
-                    intent.setClass(getApplicationContext(), XueyangActivity.class);
+                    intent.setClass(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "xueyang");
                     startActivity(intent);
-
                     break;
                 case R.id.test_wendu:
                     intent.setClass(mContext, DetectActivity.class);

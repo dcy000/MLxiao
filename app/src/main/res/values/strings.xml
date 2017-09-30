@@ -48,6 +48,14 @@
     <string name="logout">退出登录</string>
     <string name="speak_no_result">我还没学习到</string>
     <string name="offline_sign">线下签约</string>
+    <string name="submit">提交</string>
+    <string name="no_yz">目前还没有消息</string>
+    <string name="tips_wendu_one">请取出5号仪器，耳温枪</string>
+    <string name="tips_wendu_two">拆下防尘盖，按下电源按钮</string>
+    <string name="tips_wendu_three">把测温头伸入耳道，按下并松开测温按钮，显示测温</string>
+    <string name="tips_xueya_one">请取出一号仪器，血压计</string>
+    <string name="tips_xueya_two">将手穿过绷带孔，放置于肘关节上方2厘米处，与心脏位置齐平，
+        并扎紧绷带，按下开关键，进行测试，请耐心等待测量结果</string>
 
     <string name="add_volume">调大声音</string>
     <string name="reduce_volume">调小声音</string>
@@ -55,12 +63,12 @@
     <string name="min_volume">当前已经是最小声音了</string>
 
 
-    <string name="tips_splash">您好 感谢您购买杭州国辰迈联的产品，我是您的健康机器人管家小e，接下来将由我为您开启健康之旅。</string>
+    <string name="tips_splash">您好 感谢您购买杭州国辰迈联的产品，我是您的健康机器人管家小易，接下来将由我为您开启健康之旅。</string>
     <string name="tips_login">主人，如果您有账号，请直接登入；首次使用请点击注册。</string>
     <string name="tips_register">主人，为了更好地为您服务，需要您填写您的个人信息，填写完毕后点击下一步</string>
     <string name="tips_disease">主人，为了全部掌握您的健康信息，如果您有病史请选择对应标签，然后点击下一步</string>
     <string name="tips_face">主人，让我给您拍个照，下次我就认识您啦</string>
-    <string name="tips_doctor">主人，请选择您最信任的医生完成签约，如果他没在里面可以点击左下角的帮助按钮。</string>
+    <string name="tips_doctor">主人，请选择您最信任的医生完成签约，如果他没在里面可以点击右上角的线下签约按钮。</string>
     <string name="tips_info">主人，如果需要签约就点击签约按钮。</string>
     <string name="tips_test">主人，请点击您需要测量的项目</string>
     <string name="tips_open_device">主人，您可以打开设备开始测量了</string>
@@ -232,7 +240,7 @@
     </string-array>
 
     <string name="text">
-        赵曼林，男，主任医师，1982年本科毕业开始从事医学临床、教学及科研工作。1995年毕业于北京医科大学（现北京大学医学部）获医学硕士学位。主攻高血压、冠心病的诊断及治疗，擅长疑难病及危重急症的诊治。并从事冠心病的介入诊断及治疗，每年独立完成冠状动脉造影、PTCA或支架植入术500例以上。至今已在国内外杂志发表论文数十篇，为国内外多家杂志的审稿人。主持浙江省科技攻关项目、浙江省教育厅等多项课题，参编《儿科学词典》等著作。研究方向：高血压、冠心病的诊断及治疗。
+        主任医师，1982年本科毕业开始从事医学临床、教学及科研工作。1995年毕业于北京医科大学（现北京大学医学部）获医学硕士学位。主攻高血压、冠心病的诊断及治疗，擅长疑难病及危重急症的诊治。并从事冠心病的介入诊断及治疗，每年独立完成冠状动脉造影、PTCA或支架植入术500例以上。至今已在国内外杂志发表论文数十篇，为国内外多家杂志的审稿人。主持浙江省科技攻关项目、浙江省教育厅等多项课题，参编《儿科学词典》等著作。研究方向：高血压、冠心病的诊断及治疗。
     </string>
 
 
@@ -287,6 +295,8 @@
     <string name="about_jianshu">http://www.jianshu.com/users/3231579893ac</string>
     <string name="about_github">https://github.com/wangchenyan</string>
     <string name="no_permission">没有%1$s权限，无法%2$s！</string>
+    <string name="user_help">主人，认真阅读用户须知，帮助您完成签约</string>
+    <string name="hello">你好</string>
 
     <string name="yuyue_time">9月23日</string>
     <string name="add_ture">确&#160;&#160;&#160;认</string>

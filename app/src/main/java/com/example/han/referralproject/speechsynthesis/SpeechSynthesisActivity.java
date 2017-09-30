@@ -11,25 +11,21 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
-import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.HttpCallback;
 import com.example.han.referralproject.music.HttpClient;
@@ -56,11 +52,10 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.iflytek.sunflower.FlowerCollector;
+import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call.EMUIHelper;
 
 import org.apache.commons.lang.StringUtils;
@@ -188,6 +183,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         getPlayService().setOnPlayEventListener(this);
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setEnableListeningLoop(false);
     }
 
     @Override
@@ -442,6 +443,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (isLast) {
                 new Thread(new Runnable() {
                     public void run() {
+                        String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
+
+
                         if (resultBuffer.toString().matches(".*测.*血压.*")) {
                             if (sign == true) {
                                 sign = false;
@@ -451,66 +455,68 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 finish();
                             }
 
-                        } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("xueyang")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        } else if (resultBuffer.toString().matches(".*歌.*")) {
-                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                            if (file.exists()) {
-                                try {
-                                    mediaPlayer.reset();//从新设置要播放的音乐
-                                    mediaPlayer.setDataSource(file.getAbsolutePath());
-                                    mediaPlayer.prepare();//预加载音频
-                                    mediaPlayer.start();//播放音乐
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        } else if (resultBuffer.toString().matches(".*歌.*")) {
-                            file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                            //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                            if (file.exists()) {
-                                try {
-                                    mediaPlayer.reset();//从新设置要播放的音乐
-                                    mediaPlayer.setDataSource(file.getAbsolutePath());
-                                    mediaPlayer.prepare();//预加载音频
-                                    mediaPlayer.start();//播放音乐
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
                         } else {
-                            try {
-                                post(resultBuffer + "");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                            if (inSpell.contains("xueyang")) {
+                                if (sign == true) {
+                                    sign = false;
+                                    mIatDialog.dismiss();
+                                    Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
 
+                            } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
+                                if (sign == true) {
+                                    sign = false;
+                                    mIatDialog.dismiss();
+                                    Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                            } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
+                                if (sign == true) {
+                                    sign = false;
+                                    mIatDialog.dismiss();
+                                    Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                            } else if (resultBuffer.toString().matches(".*歌.*")) {
+                                file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                                //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                                if (file.exists()) {
+                                    try {
+                                        mediaPlayer.reset();//从新设置要播放的音乐
+                                        mediaPlayer.setDataSource(file.getAbsolutePath());
+                                        mediaPlayer.prepare();//预加载音频
+                                        mediaPlayer.start();//播放音乐
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } else if (resultBuffer.toString().matches(".*歌.*")) {
+                                file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                                //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                                if (file.exists()) {
+                                    try {
+                                        mediaPlayer.reset();//从新设置要播放的音乐
+                                        mediaPlayer.setDataSource(file.getAbsolutePath());
+                                        mediaPlayer.prepare();//预加载音频
+                                        mediaPlayer.start();//播放音乐
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } else {
+                                try {
+                                    post(resultBuffer + "");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
                         }
                     }
                 }).start();
@@ -744,6 +750,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private File file;//要播放的文件
 
 
+    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
+    public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
+
     /**
      * 听写UI监听器
      */
@@ -751,7 +760,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onResult(RecognizerResult results, boolean isLast) {
             printResult(results);
             if (isLast) {
-                if (resultBuffer.toString().matches(".*测.*血压.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*xueya.*")) {
+                String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
+                if (inSpell.matches(REGEX_SET_ALARM)) {
+                    Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
+                    startActivity(intent);
+                    return;
+                }
+                if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+                    Intent intent1 = new Intent(SpeechSynthesisActivity.this, SymptomAnalyseActivity.class);
+                    startActivity(intent1);
+                    return;
+                }
+
+                if (resultBuffer.toString().matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -761,16 +782,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*ce.*xueyang.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*xueyang.*")) {
+                } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                        intent.putExtra("type", "xueyang");
                         startActivity(intent);
                         finish();
                     }
 
-                } else if (resultBuffer.toString().matches(".*测.*血糖.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*xuetang.*")) {
+                } else if (resultBuffer.toString().matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -780,7 +802,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (resultBuffer.toString().matches(".*测.*体温.*") || resultBuffer.toString().matches(".*测.*温度.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*tiwen.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*wendu.*")) {
+                } else if (resultBuffer.toString().matches(".*测.*体温.*") || resultBuffer.toString().matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -790,7 +812,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (resultBuffer.toString().matches(".*视频.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*jiankang.*jiangtan.*")) {
+                } else if (resultBuffer.toString().matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -830,7 +852,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 */
 
-                } else if (resultBuffer.toString().matches(".*打.*电话.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*zixun.*yisheng.*")) {
+                } else if (resultBuffer.toString().matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
                     EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
 
@@ -843,7 +865,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }*/
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*da.*shengyin.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*da.*yinliang.*")) {
+                } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")) {
                     volume += 3;
                     if (volume < maxVolume) {
                         speak(getString(R.string.add_volume));
@@ -858,7 +880,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*xiao.*shengyin.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*xiao.*yinliang.*")) {
+                } else if (inSpell.matches(".*xiao.*shengyin.*") || inSpell.matches(".*xiao.*yinliang.*")) {
 
                     volume -= 3;
                     if (volume > 3) {
@@ -875,7 +897,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("ting") || resultBuffer.toString().contains("播放") || PinYinUtils.converterToSpell(resultBuffer.toString()).contains("fangyishou")) {
+                } else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
 
 
                     try {

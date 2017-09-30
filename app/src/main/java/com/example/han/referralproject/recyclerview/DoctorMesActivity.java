@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.medlink.danbogh.call.XDialogFragment;
 import com.squareup.picasso.Picasso;
 
@@ -92,7 +94,6 @@ public class DoctorMesActivity extends BaseActivity {
                 finish();
             }
         });
-        speak(R.string.tips_info);
     }
 
     public void show() {
@@ -108,8 +109,6 @@ public class DoctorMesActivity extends BaseActivity {
         toast.setGravity(Gravity.FILL_HORIZONTAL, 0, 0);
         showMyToast(toast, 3000);
         // toast.show();
-
-
     }
 
 
@@ -143,4 +142,29 @@ public class DoctorMesActivity extends BaseActivity {
         //    mTitleText.setGravity(Gravity.CENTER);
 
     }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        speak(R.string.tips_info);
+    }
+
+    public static final String REGEX_BACK = ".*(fanhui|shangyibu).*";
+
+    public static final String REGEX_CHECK = ".*(qianyue).*";
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+        String inSpell = PinYinUtils.converterToSpell(result);
+
+        if (inSpell.matches(REGEX_CHECK)) {
+            mButton.performClick();
+            return;
+        }
+
+        if (inSpell.matches(REGEX_BACK)) {
+            mImageView.performClick();
+        }
+    }
 }

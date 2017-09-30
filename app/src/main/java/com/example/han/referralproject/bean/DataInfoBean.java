@@ -28,7 +28,10 @@ public class DataInfoBean {
             paramsMap.put("pulse", String.valueOf(pulse));
         }
         if (!TextUtils.isEmpty(blood_sugar)){
-            paramsMap.put("blood_sugar", String.valueOf(blood_sugar));
+            paramsMap.put("blood_sugar", blood_sugar);
+        }
+        if (!TextUtils.isEmpty(blood_oxygen)){
+            paramsMap.put("blood_oxygen", blood_oxygen);
         }
         return paramsMap;
     }
