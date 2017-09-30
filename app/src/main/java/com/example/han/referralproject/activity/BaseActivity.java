@@ -95,8 +95,10 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-
     protected void speak(String text) {
+        if (TextUtils.isEmpty(text)){
+            return;
+        }
         stopListening();
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null) {

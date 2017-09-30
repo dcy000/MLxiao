@@ -60,10 +60,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
     public TextView mXueYangTv, mXueYangPulseTv;
+    public View tipsLayout;
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XueYang;
+    private String detectType = Type_XueTang;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -385,20 +386,68 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     break;
             }
         }
+        tipsLayout = findViewById(R.id.rl_tips);
         switch (detectType) {
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
-                findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
+                        tipsLayout.setVisibility(View.VISIBLE);
+                        speak(R.string.tips_wendu_one);
+                    }
+                }, 500);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setBackgroundResource(R.drawable.tips_wendu_two);
+                        speak(R.string.tips_wendu_two);
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                tipsLayout.setBackgroundResource(R.drawable.tips_wendu_three);
+                                speak(R.string.tips_wendu_three);
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tipsLayout.setVisibility(View.GONE);
+                                    }
+                                }, 8000);
+                            }
+                        }, 8000);
+                    }
+                }, 5000);
                 break;
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
+                tipsLayout.setVisibility(View.VISIBLE);
+                tipsLayout.setBackgroundResource(R.drawable.tips_xueya_one);
+                speak(R.string.tips_xueya_one);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_two);
+                        speak(R.string.tips_xueya_two);
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                tipsLayout.setVisibility(View.GONE);
+                            }
+                        }, 10000);
+                    }
+                }, 8000);
                 break;
             case Type_XueTang:
                 mResultTv = (TextView) findViewById(R.id.tv_xuetang);
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
                 break;
             case Type_XueYang:
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
                 break;
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
@@ -434,13 +483,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mXueyaResults = mResources.getStringArray(R.array.result_xueya);
         mWenduResults = mResources.getStringArray(R.array.result_wendu);
 
-        speak(R.string.tips_open_device);
+        //speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);
         findViewById(R.id.xueya_video).setOnClickListener(this);
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
-        dialog = new NDialog(this);
-        showNormal("设备连接中，请稍后...");
 
     }
 
@@ -486,7 +533,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
 
                 if (deviceName.equals(device.getName())) {
-                    dialog.create(NDialog.CONFIRM).dismiss();
+                    if (dialog != null){
+                        dialog.create(NDialog.CONFIRM).dismiss();
+                    }
                     mDeviceAddress = device.getAddress();
                     Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
                     bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
@@ -564,6 +613,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     Commands commands = new Commands();
                     //byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
                     byte[] sendDataByte = Commands.datas;
+                    Log.i("mylog", "sendData");
                     XueTangGattAttributes.sendMessage(mBluetoothGatt, sendDataByte);
                     try {
                         Thread.sleep(1000);
@@ -648,7 +698,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
 
                         if (deviceName.equals(device.getName())) {
-                            dialog.create(NDialog.CONFIRM).dismiss();
+                            //dialog.create(NDialog.CONFIRM).dismiss();
                             mDeviceAddress = device.getAddress();
                             Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
                             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);

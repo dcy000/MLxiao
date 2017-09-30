@@ -30,7 +30,7 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
-    private EditText mNameEt, mAddressEt, mTelephoneEt, mPwdEt;
+    private EditText mNameEt, mAddressEt, mTelephoneEt, mPwdEt, mIdCardEt;
     private Spinner sexSpinner, yearSpinner, monthSpinner;
     public Spinner mSpProvince;
     private Spinner mSpCity;
@@ -68,6 +68,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         showLoadingDialog(getString(R.string.do_register));
                         NetworkApi.registerUser(mNameEt.getText().toString(), sexSpinner.getSelectedItem().toString(),
                                 mAddressEt.getText().toString(), mTelephoneEt.getText().toString(), mPwdEt.getText().toString(),
+                                mIdCardEt.getText().toString(),
                                 new NetworkManager.SuccessCallback<UserInfoBean>() {
                                     @Override
                                     public void onSuccess(UserInfoBean response) {
@@ -211,6 +212,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mAddressEt = (EditText) findViewById(R.id.et_address);
         mTelephoneEt = (EditText) findViewById(R.id.et_telephone);
         mPwdEt = (EditText) findViewById(R.id.et_pwd);
+        mIdCardEt = (EditText) findViewById(R.id.et_id_card);
         findViewById(R.id.tv_next).setOnClickListener(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
         sexSpinner = (Spinner) findViewById(R.id.sp_sex);
