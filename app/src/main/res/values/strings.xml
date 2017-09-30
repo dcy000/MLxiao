@@ -56,6 +56,8 @@
     <string name="tips_xueya_one">请取出一号仪器，血压计</string>
     <string name="tips_xueya_two">将手穿过绷带孔，放置于肘关节上方2厘米处，与心脏位置齐平，
         并扎紧绷带，按下开关键，进行测试，请耐心等待测量结果</string>
+    <string name="tips_xuetang_one">取出采血笔，将采血针装入采血笔，拧下保护套，旋转采血笔头，
+        旋转头部调整扎针深度，拉一下采血笔尾部开始扎针测量，快速拿出试纸，插入血糖仪</string>
 
     <string name="add_volume">调大声音</string>
     <string name="reduce_volume">调小声音</string>

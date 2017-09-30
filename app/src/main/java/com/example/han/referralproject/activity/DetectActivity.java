@@ -404,45 +404,79 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         switch (detectType) {
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
-                findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
-//                mHandler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        tipsLayout.setVisibility(View.VISIBLE);
-//                        //speak(R.string.tips_wendu_one);
-//                    }
-//                }, 1000);
-//                mHandler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        tipsLayout.setBackgroundResource(R.drawable.tips_wendu_two);
-//                        //speak(R.string.tips_wendu_two);
-//                        mHandler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                tipsLayout.setBackgroundResource(R.drawable.tips_wendu_three);
-//                                //speak(R.string.tips_wendu_three);
-//                                mHandler.postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        tipsLayout.setVisibility(View.GONE);
-//                                    }
-//                                }, 8000);
-//                            }
-//                        }, 8000);
-//                    }
-//                }, 8000);
-                break;
-            case Type_Xueya:
-                findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
-                tipsLayout.setVisibility(View.VISIBLE);
-                tipsLayout.setBackgroundResource(R.drawable.tips_xueya_one);
-                speak(R.string.tips_xueya_one);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_two);
-                        speak(R.string.tips_xueya_two);
+                        tipsLayout.setVisibility(View.VISIBLE);
+                        findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
+                        speak(R.string.tips_wendu_one);
+                    }
+                }, 1000);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setBackgroundResource(R.drawable.tips_wendu_two);
+                        speak(R.string.tips_wendu_two);
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                tipsLayout.setBackgroundResource(R.drawable.tips_wendu_three);
+                                speak(R.string.tips_wendu_three);
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tipsLayout.setVisibility(View.GONE);
+                                    }
+                                }, 8000);
+                            }
+                        }, 8000);
+                    }
+                }, 8000);
+                break;
+            case Type_Xueya:
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setVisibility(View.VISIBLE);
+                        findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_one);
+                        speak(R.string.tips_xueya_one);
+                    }
+                }, 1000);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_two);
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_three);
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tipsLayout.setVisibility(View.GONE);
+                                    }
+                                }, 8000);
+                            }
+                        }, 8000);
+                    }
+                }, 8000);
+                break;
+            case Type_XueTang:
+                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setVisibility(View.VISIBLE);
+                        findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_one);
+                        speak(R.string.tips_xuetang_one);
+                    }
+                }, 1000);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_two);
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -451,12 +485,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }, 10000);
                     }
                 }, 8000);
-                break;
-            case Type_XueTang:
-                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
-                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
-                dialog = new NDialog(this);
-                showNormal("设备连接中，请稍后...");
+
+//                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+//                dialog = new NDialog(th、is);
+//                showNormal("设备连接中，请稍后...");
                 break;
             case Type_XueYang:
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
