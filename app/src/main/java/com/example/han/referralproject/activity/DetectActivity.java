@@ -118,6 +118,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.i("mylog", "action : " + intent.getAction());
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
@@ -613,7 +614,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     Commands commands = new Commands();
                     //byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
                     byte[] sendDataByte = Commands.datas;
-                    Log.i("mylog", "sendData");
+                    //Log.i("mylog", "sendData");
                     XueTangGattAttributes.sendMessage(mBluetoothGatt, sendDataByte);
                     try {
                         Thread.sleep(1000);
