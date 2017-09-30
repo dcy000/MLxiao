@@ -50,6 +50,12 @@
     <string name="offline_sign">线下签约</string>
     <string name="submit">提交</string>
     <string name="no_yz">目前还没有消息</string>
+    <string name="tips_wendu_one">请取出5号仪器，耳温枪</string>
+    <string name="tips_wendu_two">拆下防尘盖，按下电源按钮</string>
+    <string name="tips_wendu_three">把测温头伸入耳道，按下并松开测温按钮，显示测温</string>
+    <string name="tips_xueya_one">请取出一号仪器，血压计</string>
+    <string name="tips_xueya_two">将手穿过绷带孔，放置于肘关节上方2厘米处，与心脏位置齐平，
+        并扎紧绷带，按下开关键，进行测试，请耐心等待测量结果</string>
 
     <string name="add_volume">调大声音</string>
     <string name="reduce_volume">调小声音</string>

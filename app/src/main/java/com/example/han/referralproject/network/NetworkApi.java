@@ -34,7 +34,7 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(LoginUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
-    public static void registerUser(String name, String sex, String address, String telephone, String pwd,
+    public static void registerUser(String name, String sex, String address, String telephone, String pwd, String sfz,
                                     NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback){
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bname", name);
@@ -44,6 +44,7 @@ public class NetworkApi {
         paramsMap.put("pwd", pwd);
         paramsMap.put("dz", address);
         paramsMap.put("sex", sex);
+        paramsMap.put("sfz", sfz);
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
