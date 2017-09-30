@@ -161,8 +161,6 @@ public class MainVideoActivity extends AppCompatActivity implements View.OnClick
             public void onClick(View v) {
                 if (v.isSelected()) {
                     v.setSelected(false);
-
-
                 } else {
                     mButton1.setSelected(false);
                     mButton2.setSelected(false);

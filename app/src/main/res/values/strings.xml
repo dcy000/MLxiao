@@ -288,4 +288,13 @@
     <string name="about_github">https://github.com/wangchenyan</string>
     <string name="no_permission">没有%1$s权限，无法%2$s！</string>
 
+    <string name="yuyue_time">9月23日</string>
+    <string name="add_ture">确&#160;&#160;&#160;认</string>
+
+    <string name="afternoon">下\n午</string>
+    <string name="morning">上\n午</string>
+
+    <string name="dialog" formatted="false">您预约了%1$s的咨询，确认请点击完成按钮</string>
+
+
 </resources>

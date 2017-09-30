@@ -47,10 +47,7 @@ public class XDialogFragment extends DialogFragment implements Runnable {
 
     @Nullable
     @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.dialog_tip_signed_succeed, container, false);
     }
 

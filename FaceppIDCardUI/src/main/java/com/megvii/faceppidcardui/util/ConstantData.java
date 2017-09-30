@@ -14,4 +14,10 @@ public class ConstantData {
     public static final String SHARED_FILE_NAME4 = "user";
 
 
+    public static final String SHARED_FILE_NAME5 = "yuyue_1";
+    public static final String SHARED_FILE_NAME6 = "yuyue_2";
+    public static final String SHARED_FILE_NAME7 = "yuyue_3";
+    public static final String SHARED_FILE_NAME8 = "yuyue_4";
+
+
 }

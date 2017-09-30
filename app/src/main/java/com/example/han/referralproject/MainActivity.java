@@ -29,6 +29,8 @@ import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.login.PerInfoActivity;
 import com.example.han.referralproject.personal.PersonActivity;
+import com.example.han.referralproject.recyclerview.AddAppoActivity;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.video.MainVideoActivity;
 import com.medlink.danbogh.call.EMUIHelper;
@@ -62,7 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.ll_anim).setOnClickListener(this);
         float pivotX = .5f; // 取自身区域在X轴上的中心点
         float pivotY = .5f; // 取自身区域在Y轴上的中心点
-    //    new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 围绕自身的中心点进行旋转
+        //    new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 围绕自身的中心点进行旋转
 
         RotateAnimation tranAnimation = new RotateAnimation(-30, 30, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         tranAnimation.setDuration(1000);
@@ -109,7 +111,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.doctor_ask:
 //                intent.setClass(getApplicationContext(), MainVideoActivity.class);
 //                startActivity(intent);
-                EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
+                intent.setClass(getApplicationContext(), DoctorappoActivity.class);
+                startActivity(intent);
+
+                //    EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
                 break;
             case R.id.health_class:
                 intent.setClass(getApplicationContext(), MainVideoActivity.class);
