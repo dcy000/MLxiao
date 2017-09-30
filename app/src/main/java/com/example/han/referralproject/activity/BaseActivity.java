@@ -135,7 +135,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public static final String REGEX_CALL_XIAO_YI = ".*(nihao|xiaoyi)xiaoyi.*";
+    public static final String REGEX_CALL_XIAO_YI = ".*(nihao|xiao(yi|yu))xiao(yi|yu).*";
 
     protected void onSpeakListenerResult(String result) {
         String inSpell = PinYinUtils.converterToSpell(result);
