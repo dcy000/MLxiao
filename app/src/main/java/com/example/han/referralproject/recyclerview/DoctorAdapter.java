@@ -77,4 +77,8 @@ public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
     public void setOnItemClistListener(OnItemClickListener itemClistListener) {
         this.onItemClistListener = itemClistListener;
     }
+
+    public OnItemClickListener getOnItemClistListener() {
+        return onItemClistListener;
+    }
 }

@@ -4,6 +4,10 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Process;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.music.AppCache;
@@ -146,5 +150,14 @@ public class MyApplication extends Application {
         }
         // 没有匹配的项，返回为null
         return null;
+    }
+
+    private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);
+    {mBgThread.start();}
+
+    private Handler mBgHandler;
+
+    public Handler getBgHandler() {
+        return mBgHandler == null ? new Handler(mBgThread.getLooper()) : mBgHandler;
     }
 }

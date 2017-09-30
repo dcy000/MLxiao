@@ -26,8 +26,9 @@ public class NetworkApi {
     public static final String AnalyseUrl = BasicUrl + "/ZZB/bl/selcon";
     public static final String GetYZUrl = BasicUrl + "/ZZB/bl/selYzAndTime";
     public static final String UploadDataUrl = BasicUrl + "/ZZB/bl/doaddbl";
+    public static final String CHARGE_URL = BasicUrl + "/ZZB/eq/koufei";
 
-    public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback){
+    public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("username", phoneNum);
         paramsMap.put("password", pwd);
@@ -74,18 +75,26 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultString(AddMhUrl, paramsMap, callback, failedCallback);
     }
 
-    public static void bindDoctor(int doctorId, NetworkManager.SuccessCallback<String> callback){
+    public static void bindDoctor(int doctorId, NetworkManager.SuccessCallback<String> callback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("docterid", String.valueOf(doctorId));
         paramsMap.put("eqid", Utils.getDeviceId());
         NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
     }
 
-    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback){
-        if (info == null){
+    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback) {
+        if (info == null) {
             return;
         }
         NetworkManager.getInstance().postResultString(UploadDataUrl, info.getParamsMap(), successCallback);
+    }
+
+
+    public static void charge(int minute, NetworkManager.SuccessCallback<Object> successCallback, NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("eqid", Utils.getDeviceId());
+        params.put("time", String.valueOf(minute));
+        NetworkManager.getInstance().postResultClass(CHARGE_URL, params, Object.class, successCallback, failedCallback);
     }
 
 //    public static final String HomePageUrl = BasicUrl + "/appIndex";

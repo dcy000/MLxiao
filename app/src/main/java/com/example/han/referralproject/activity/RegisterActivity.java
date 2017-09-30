@@ -1,12 +1,10 @@
 package com.example.han.referralproject.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,10 +18,13 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.mob.MobSDK;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -74,13 +75,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                         hideLoadingDialog();
                                         LocalShared.getInstance(mContext).setUserInfo(response);
                                         startActivity(new Intent(mContext, PreviousHistoryActivity.class));
-//                                finish();
+                                finish();
                                     }
                                 }, new NetworkManager.FailedCallback() {
                                     @Override
                                     public void onFailed(String message) {
                                         hideLoadingDialog();
                                         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                                        speak("主人," + message);
                                     }
                                 });
 
@@ -90,13 +92,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         ((Throwable) data).printStackTrace();
                     }
                 } else if (result == SMSSDK.RESULT_ERROR) {
-
                     Toast.makeText(getApplicationContext(), "验证码错误", Toast.LENGTH_SHORT).show();
-
+                    speak("验证码错误,请重新输入");
                 }
             }
         }
     };
+    public EditText mEtIdCard;
 
 
     @Override
@@ -104,12 +106,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initView();
-        speak(R.string.tips_register);
 
         mTextView = (TextView) findViewById(R.id.yanzheng);
         mEditText = (EditText) findViewById(R.id.text_yanzheng);
         mTextView.setOnClickListener(this);
         mEditText.setOnClickListener(this);
+
+        mEtIdCard = (EditText) findViewById(R.id.et_id_card);
 
         MobSDK.init(this, APPKEY, APPSECRETE);
         EventHandler eventHandler = new EventHandler() {
@@ -124,13 +127,78 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         };
         //注册回调监听接口
         SMSSDK.registerEventHandler(eventHandler);
-
-        startSpeakListener();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        speak(R.string.tips_register);
+    }
+
+    public static final String REGEX_IN_PHONE = ".*(shouji|dianhua)(hao|haoma)?(shi)?(\\d+)";
+    public static final String REGEX_IN_NAME = ".*(我|名字|姓名)(是|叫)(.*)";
+    public static final String REGEX_IN_ADDRESS = ".*(地址|住)(是|在)?(.*)";
+    public static final String REGEX_IN_ID_CARD = ".*shenfenzheng(haoma)?(shi)?(\\d+).*";
+    public static final String REGEX_FETCH_CODE = ".*(fasong|huoqu)yanzhengma.*";
+    public static final String REGEX_IN_CODE = ".*yanzhengma.*(\\d{4}).*";
+    public static final String REGEX_IN_PASSWORD = ".*mima(shi)?(.*)";
+    public static final String REGEX_GO_NEXT = ".*xiayibu.*";
 
     @Override
     protected void onSpeakListenerResult(String result) {
         Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+        String in = PinYinUtils.converterToSpell(result);
+
+        Pattern patternInName = Pattern.compile(REGEX_IN_NAME);
+        Matcher matcherInName = patternInName.matcher(result);
+        if (matcherInName.find()) {
+            mNameEt.setText(matcherInName.group(matcherInName.groupCount()));
+            return;
+        }
+
+        Pattern patternInAddress = Pattern.compile(REGEX_IN_ADDRESS);
+        Matcher matcherInAddress = patternInAddress.matcher(result);
+        if (matcherInAddress.find()) {
+            mAddressEt.setText(matcherInAddress.group(matcherInAddress.groupCount()));
+            return;
+        }
+
+        Pattern patternInIdCard = Pattern.compile(REGEX_IN_ID_CARD);
+        Matcher matcherInIdCard = patternInIdCard.matcher(in);
+        if (matcherInIdCard.find()) {
+            mEtIdCard.setText(matcherInIdCard.group(matcherInIdCard.groupCount()));
+            return;
+        }
+
+        Pattern patternInPhone = Pattern.compile(REGEX_IN_PHONE);
+        Matcher matcherInPhone = patternInPhone.matcher(in);
+        if (matcherInPhone.find()) {
+            mTelephoneEt.setText(matcherInPhone.group(matcherInPhone.groupCount()));
+            return;
+        }
+
+        if (in.matches(REGEX_FETCH_CODE)) {
+            findViewById(R.id.yanzheng).performClick();
+            return;
+        }
+
+        Pattern patternInCode = Pattern.compile(REGEX_IN_CODE);
+        Matcher matcherInCode = patternInCode.matcher(in);
+        if (matcherInCode.find()) {
+            mEditText.setText(matcherInCode.group(matcherInCode.groupCount()));
+            return;
+        }
+
+        Pattern patternInPassword = Pattern.compile(REGEX_IN_PASSWORD);
+        Matcher matcherInPassword = patternInPassword.matcher(in);
+        if (matcherInPassword.find()) {
+            mPwdEt.setText(matcherInPassword.group(matcherInPassword.groupCount()));
+            return;
+        }
+
+        if (in.matches(REGEX_GO_NEXT)) {
+            findViewById(R.id.tv_next).performClick();
+        }
     }
 
     private void initView() {
@@ -144,7 +212,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mAddressEt = (EditText) findViewById(R.id.et_address);
         mTelephoneEt = (EditText) findViewById(R.id.et_telephone);
         mPwdEt = (EditText) findViewById(R.id.et_pwd);
-        mIdCardEt = (EditText) findViewById(R.id.et_idcard);
+        mIdCardEt = (EditText) findViewById(R.id.et_id_card);
         findViewById(R.id.tv_next).setOnClickListener(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
         sexSpinner = (Spinner) findViewById(R.id.sp_sex);
@@ -173,6 +241,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                 // 1. 通过规则判断手机号
                 if (!judgePhoneNums(phoneNums)) {
+                    speak("主人，手机号码输入有误，请重新输入");
                     return;
                 } // 2. 通过sdk发送短信验证
                 SMSSDK.getVerificationCode("86", phoneNums);
@@ -250,7 +319,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
          * 联通：130、131、132、152、155、156、185、186 电信：133、153、180、189、（1349卫通）
          * 总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
          */
-        String telRegex = "[1][358]\\d{9}";// "[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        String telRegex = "[1][3578]\\d{9}";// "[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
         if (TextUtils.isEmpty(mobileNums))
             return false;
         else
@@ -282,6 +351,5 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
-
     }
 }

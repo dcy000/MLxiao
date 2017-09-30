@@ -64,7 +64,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XueYang;
+    private String detectType = Type_XueTang;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -441,9 +441,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_XueTang:
                 mResultTv = (TextView) findViewById(R.id.tv_xuetang);
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
                 break;
             case Type_XueYang:
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
                 break;
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
@@ -484,8 +488,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xueya_video).setOnClickListener(this);
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
-        dialog = new NDialog(this);
-        //showNormal("设备连接中，请稍后...");
 
     }
 
@@ -531,7 +533,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
 
                 if (deviceName.equals(device.getName())) {
-                    //dialog.create(NDialog.CONFIRM).dismiss();
+                    if (dialog != null){
+                        dialog.create(NDialog.CONFIRM).dismiss();
+                    }
                     mDeviceAddress = device.getAddress();
                     Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
                     bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
@@ -609,6 +613,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     Commands commands = new Commands();
                     //byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
                     byte[] sendDataByte = Commands.datas;
+                    Log.i("mylog", "sendData");
                     XueTangGattAttributes.sendMessage(mBluetoothGatt, sendDataByte);
                     try {
                         Thread.sleep(1000);
