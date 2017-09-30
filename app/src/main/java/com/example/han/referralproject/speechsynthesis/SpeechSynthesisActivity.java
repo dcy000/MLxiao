@@ -176,11 +176,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         });
 
 
-//        if (!checkServiceAlive()) {
-//            return;
-//        }
+        if (!checkServiceAlive()) {
+            return;
+        }
 
-//        getPlayService().setOnPlayEventListener(this);
+        getPlayService().setOnPlayEventListener(this);
 
 
     }
