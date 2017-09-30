@@ -15,7 +15,7 @@ import com.example.han.referralproject.R;
 public class PatientVH extends RecyclerView.ViewHolder {
 
     ImageView mImagine;
-    TextView mNameview;
+    public TextView mNameview;
     TextView mRoomId;
     public int mPosition;
 

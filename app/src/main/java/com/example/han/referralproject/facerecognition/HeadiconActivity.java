@@ -3,18 +3,20 @@ package com.example.han.referralproject.facerecognition;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 
-public class HeadiconActivity extends AppCompatActivity {
+public class HeadiconActivity extends BaseActivity {
 
     CircleImageView mCircleImageView;
     Button mButton;
@@ -57,6 +59,26 @@ public class HeadiconActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             mCircleImageView.setImageBitmap(bitmap);
         }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startListening();
+    }
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        super.onSpeakListenerResult(result);
+        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+        String inSpell = PinYinUtils.converterToSpell(result);
+
+        if (inSpell.matches(".*(queding|wancheng|xiayibu).*")) {
+            mButton.performClick();
+            return;
+        }
+        if (inSpell.matches(".*(quxiao|chongxin|zhongxin|zhongpai|zaipai|chongpai|zhongpai).*")) {
+            mButton1.performClick();
+        }
     }
 }

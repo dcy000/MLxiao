@@ -233,7 +233,7 @@
                     android:textSize="35sp" />
 
                 <EditText
-                    android:id="@+id/et_idcard"
+                    android:id="@+id/et_id_card"
                     android:layout_width="400dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"

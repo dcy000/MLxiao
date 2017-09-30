@@ -22,7 +22,7 @@
         android:layout_below="@+id/per_image"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="20dp"
-        android:text="确认"
+        android:text="确定"
         android:textSize="40sp" />
 
     <Button

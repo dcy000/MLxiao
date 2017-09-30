@@ -1,11 +1,10 @@
 package com.example.han.referralproject.recyclerview;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecoDocActivity extends BaseActivity implements View.OnClickListener{
+public class RecoDocActivity extends BaseActivity implements View.OnClickListener {
 
     private ListView mateListView;
     private EditText editText;
@@ -48,6 +49,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     TextView mTitleText;
 
     ImageView mImageView;
+    public View mTvCheckOffline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,8 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 finish();
             }
         });
-        findViewById(R.id.tv_offline).setOnClickListener(this);
+        mTvCheckOffline = findViewById(R.id.tv_offline);
+        mTvCheckOffline.setOnClickListener(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -128,7 +131,6 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 //获取Spinner控件的适配器
                 ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
                 Log.e("==============", adapter.getItem(position));
-                ;
             }
 
             //没有选中时的处理
@@ -137,7 +139,6 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         });
 
         initData();
-        speak(R.string.tips_doctor);
     }
 
    /* private void initToolBar() {
@@ -173,6 +174,12 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        speak(R.string.tips_doctor);
     }
 
     @Override
@@ -324,4 +331,25 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
     }
 
+
+    public static final String REGEX_CHECK_OFFLINE = ".*xianxiaqianyue.*";
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        super.onSpeakListenerResult(result);
+        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+        String inSpell = PinYinUtils.converterToSpell(result);
+
+        List<Doctor> list = this.mlist;
+        for (int i = 0; i < list.size(); i++) {
+            Doctor doctor = list.get(i);
+            if (result.contains(doctor.getDocoerName())) {
+                mDoctorAdapter.getOnItemClistListener().onItemClick(i);
+                return;
+            }
+        }
+        if (!TextUtils.isEmpty(inSpell) && inSpell.matches(REGEX_CHECK_OFFLINE)) {
+            mTvCheckOffline.performClick();
+        }
+    }
 }

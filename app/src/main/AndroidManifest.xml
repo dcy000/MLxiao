@@ -155,7 +155,8 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="landscape"
@@ -166,7 +167,8 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.PreviousHistoryActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".activity.RecordActivity"
             android:screenOrientation="landscape"/>
@@ -209,11 +211,6 @@
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -236,8 +233,10 @@
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
         <activity android:name=".facerecognition.RegisterVideoActivity">
-
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".recyclerview.RecoDocActivity"></activity>
         <activity android:name=".recyclerview.DoctorMesActivity"></activity>
@@ -295,7 +294,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".facerecognition.HeadiconActivity"/>
+        <activity android:name=".facerecognition.HeadiconActivity">
+
+        </activity>
     </application>
 
 </manifest>

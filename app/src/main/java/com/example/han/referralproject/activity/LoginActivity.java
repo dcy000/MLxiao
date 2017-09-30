@@ -15,6 +15,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener{
@@ -32,7 +33,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.tv_register).setOnClickListener(this);
         findViewById(R.id.tv_agreement).setOnClickListener(this);
-        speak(R.string.tips_login);
     }
 
     @Override
@@ -76,4 +76,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        speak(R.string.tips_login);
+    }
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        super.onSpeakListenerResult(result);
+        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+
+        if (result.matches(".*注册.*") || PinYinUtils.converterToSpell(result).matches(".*zhuce.*")) {
+            findViewById(R.id.tv_register).performClick();
+        } else if (result.matches(".*登录.*") || PinYinUtils.converterToSpell(result).matches(".*denglu.*")) {
+            findViewById(R.id.btn_login).performClick();
+        }
+    }
+
 }
