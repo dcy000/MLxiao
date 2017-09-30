@@ -22,6 +22,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
@@ -175,11 +176,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         });
 
 
-//        if (!checkServiceAlive()) {
-//            return;
-//        }
+        if (!checkServiceAlive()) {
+            return;
+        }
 
-//        getPlayService().setOnPlayEventListener(this);
+        getPlayService().setOnPlayEventListener(this);
 
 
     }
@@ -434,9 +435,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             //  showTip("结束说话");
         }
 
-        public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
-        public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
-
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             //  Log.d(TAG, results.getResultString());
@@ -446,21 +444,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 new Thread(new Runnable() {
                     public void run() {
                         String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
-                        if (inSpell.matches(REGEX_SET_ALARM)) {
-                            Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
-                            startActivity(intent);
-                            return;
-                        }
-                        if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-                            Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
-                            startActivity(intent);
-                            return;
-                        }
 
-                        if (inSpell.matches(REGEX_SET_ALARM)) {
-
-                            return;
-                        }
 
                         if (resultBuffer.toString().matches(".*测.*血压.*")) {
                             if (sign == true) {
@@ -766,6 +750,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private File file;//要播放的文件
 
 
+    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
+    public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
+
     /**
      * 听写UI监听器
      */
@@ -773,7 +760,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onResult(RecognizerResult results, boolean isLast) {
             printResult(results);
             if (isLast) {
-                if (resultBuffer.toString().matches(".*测.*血压.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*xueya.*")) {
+                String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
+                if (inSpell.matches(REGEX_SET_ALARM)) {
+                    Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
+                    startActivity(intent);
+                    return;
+                }
+                if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+                    Intent intent1 = new Intent(SpeechSynthesisActivity.this, SymptomAnalyseActivity.class);
+                    startActivity(intent1);
+                    return;
+                }
+
+                if (resultBuffer.toString().matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -783,7 +782,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*ce.*xueyang.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*xueyang.*")) {
+                } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -793,7 +792,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (resultBuffer.toString().matches(".*测.*血糖.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*xuetang.*")) {
+                } else if (resultBuffer.toString().matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -803,7 +802,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (resultBuffer.toString().matches(".*测.*体温.*") || resultBuffer.toString().matches(".*测.*温度.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*tiwen.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*liang.*wendu.*")) {
+                } else if (resultBuffer.toString().matches(".*测.*体温.*") || resultBuffer.toString().matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -813,7 +812,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (resultBuffer.toString().matches(".*视频.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*jiankang.*jiangtan.*")) {
+                } else if (resultBuffer.toString().matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -853,7 +852,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 */
 
-                } else if (resultBuffer.toString().matches(".*打.*电话.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*zixun.*yisheng.*")) {
+                } else if (resultBuffer.toString().matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
                     EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
 
@@ -866,7 +865,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }*/
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*da.*shengyin.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*da.*yinliang.*")) {
+                } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")) {
                     volume += 3;
                     if (volume < maxVolume) {
                         speak(getString(R.string.add_volume));
@@ -881,7 +880,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*xiao.*shengyin.*") || PinYinUtils.converterToSpell(resultBuffer.toString()).matches(".*xiao.*yinliang.*")) {
+                } else if (inSpell.matches(".*xiao.*shengyin.*") || inSpell.matches(".*xiao.*yinliang.*")) {
 
                     volume -= 3;
                     if (volume > 3) {
@@ -898,7 +897,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("ting") || resultBuffer.toString().contains("播放") || PinYinUtils.converterToSpell(resultBuffer.toString()).contains("fangyishou")) {
+                } else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
 
 
                     try {
