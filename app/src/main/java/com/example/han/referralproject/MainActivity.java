@@ -158,7 +158,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
             mImageView2.performClick();
-            return;
         }
     }
 }

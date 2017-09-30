@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.FaceRect;
 import com.example.han.referralproject.util.FaceUtil;
@@ -63,7 +64,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class VideoDemo extends Activity {
+public class VideoDemo extends BaseActivity {
     private final static String TAG = VideoDemo.class.getSimpleName();
     private SurfaceView mPreviewSurface;
     private SurfaceView mFaceSurface;
