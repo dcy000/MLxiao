@@ -325,6 +325,7 @@ public class BaseActivity extends AppCompatActivity {
     public Runnable mListening = new Runnable() {
         @Override
         public void run() {
+            handler.removeCallbacks(mListening);
             startListening();
             if (enableListeningLoop) {
                 handler.postDelayed(mListening, 200);
@@ -341,12 +342,12 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        enableListeningLoop = false;
-        handler.removeCallbacks(mListening);
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null && synthesizer.isSpeaking()) {
             synthesizer.stopSpeaking();
         }
+        enableListeningLoop = false;
+        handler.removeCallbacks(mListening);
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer != null && recognizer.isListening()) {
             recognizer.stopListening();
