@@ -446,17 +446,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_two);
+                        speak(R.string.tips_xueya_two);
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_two);
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_three);
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        tipsLayout.setVisibility(View.GONE);
-                                    }
-                                }, 8000);
+                                tipsLayout.setVisibility(View.GONE);
                             }
                         }, 8000);
                     }

@@ -68,7 +68,7 @@ public class DoctorMesActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                show();
+                show();
                 NetworkApi.bindDoctor(doctor.doctoerId, new NetworkManager.SuccessCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
