@@ -162,8 +162,6 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
             public void onClick(View v) {
                 if (v.isSelected()) {
                     v.setSelected(false);
-
-
                 } else {
                     mButton1.setSelected(false);
                     mButton2.setSelected(false);

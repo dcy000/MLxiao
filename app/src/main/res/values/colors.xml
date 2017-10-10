@@ -30,4 +30,13 @@
     <color name="grey_900_96p">#F5212121</color>
 
 
+    <color name="name_color">#686868</color>
+    <color name="name_good_at">#8c8c8c</color>
+    <color name="name_pay">#327DFB</color>
+
+    <color name="cancel_yuyue">#06BB00</color>
+    <color name="true_yuyue">#FFA200</color>
+
+    #FFA200
+
 </resources>

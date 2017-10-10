@@ -56,6 +56,8 @@
     <string name="tips_xueya_one">请取出一号仪器，血压计</string>
     <string name="tips_xueya_two">将手穿过绷带孔，放置于肘关节上方2厘米处，与心脏位置齐平，
         并扎紧绷带，按下开关键，进行测试，请耐心等待测量结果</string>
+    <string name="tips_xuetang_one">取出采血笔，将采血针装入采血笔，拧下保护套，旋转采血笔头，
+        旋转头部调整扎针深度，拉一下采血笔尾部开始扎针测量，快速拿出试纸，插入血糖仪</string>
 
     <string name="add_volume">调大声音</string>
     <string name="reduce_volume">调小声音</string>
@@ -297,5 +299,14 @@
     <string name="no_permission">没有%1$s权限，无法%2$s！</string>
     <string name="user_help">主人，认真阅读用户须知，帮助您完成签约</string>
     <string name="hello">你好</string>
+
+    <string name="yuyue_time">9月23日</string>
+    <string name="add_ture">确&#160;&#160;&#160;认</string>
+
+    <string name="afternoon">下\n午</string>
+    <string name="morning">上\n午</string>
+
+    <string name="dialog" formatted="false">您预约了%1$s的咨询，确认请点击完成按钮</string>
+
 
 </resources>
