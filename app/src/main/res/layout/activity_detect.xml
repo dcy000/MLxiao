@@ -170,4 +170,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="50dp"
+        android:layout_height="90dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_back" />
 </FrameLayout>

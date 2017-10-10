@@ -66,5 +66,10 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="50dp"
+        android:layout_height="90dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_back" />
 </RelativeLayout>

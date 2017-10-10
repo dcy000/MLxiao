@@ -147,6 +147,7 @@ public class XueyangActivity extends BaseActivity {
             }
         }
     };
+    public ImageView ivBack;
 
     private void posts(String blood_oxygen, String pulse) throws Exception {
         // 创建URL对象
@@ -287,7 +288,13 @@ public class XueyangActivity extends BaseActivity {
         setChartData(_lineChart1);
 
         setChartDatas(_lineChart);*/
-
+        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mTextView = (TextView) findViewById(R.id.xue_yang);
         mTextView1 = (TextView) findViewById(R.id.xueyang_pulse);
         mImageView1 = (ImageView) findViewById(R.id.test_3);
