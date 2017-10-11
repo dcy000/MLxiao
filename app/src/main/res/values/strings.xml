@@ -64,6 +64,15 @@
     <string name="max_volume">当前已经是最大声音了</string>
     <string name="min_volume">当前已经是最小声音了</string>
 
+    <!-- version update -->
+    <string name="version_update_title">版本更新</string>
+    <string name="version_update_new_verion_message">检测到新版本，建议您更新！</string>
+    <string name="version_update_action_download_title">新版本下载...</string>
+    <string name="version_update_action_download">下载安装</string>
+    <string name="version_update_action_later">以后再说</string>
+    <string name="version_update_action_cancel">取消</string>
+    <string name="version_update_url_error_message">版本更新链接错误！</string>
+
 
     <string name="tips_splash">您好 感谢您购买杭州国辰迈联的产品，我是您的健康机器人管家小易，接下来将由我为您开启健康之旅。</string>
     <string name="tips_login">主人，如果您有账号，请直接登入；首次使用请点击注册。</string>

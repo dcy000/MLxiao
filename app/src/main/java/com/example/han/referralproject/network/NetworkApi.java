@@ -7,6 +7,7 @@ import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +26,7 @@ public class NetworkApi {
     public static final String GetAllSymUrl = BasicUrl + "/ZZB/bl/selAllSym";
     public static final String AnalyseUrl = BasicUrl + "/ZZB/bl/selcon";
     public static final String GetYZUrl = BasicUrl + "/ZZB/bl/selYzAndTime";
+    public static final String GetVersionUrl = BasicUrl + "/ZZB/vc/selone";
     public static final String UploadDataUrl = BasicUrl + "/ZZB/bl/doaddbl";
     public static final String CHARGE_URL = BasicUrl + "/ZZB/eq/koufei";
 
@@ -80,6 +82,10 @@ public class NetworkApi {
         paramsMap.put("docterid", String.valueOf(doctorId));
         paramsMap.put("eqid", Utils.getDeviceId());
         NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
+    }
+
+    public static void getVersionInfo(NetworkManager.SuccessCallback<VersionInfoBean> callback, NetworkManager.FailedCallback failedCallback) {
+        NetworkManager.getInstance().getResultClass(GetVersionUrl, null, VersionInfoBean.class, callback, failedCallback);
     }
 
     public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback) {

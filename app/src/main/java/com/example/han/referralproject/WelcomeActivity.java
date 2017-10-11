@@ -20,11 +20,15 @@ import android.widget.Chronometer;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.EventCallback;
 import com.example.han.referralproject.music.PermissionReq;
 import com.example.han.referralproject.music.PlayService;
 import com.example.han.referralproject.music.ToastUtils;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.UpdateAppManager;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -42,29 +46,68 @@ public class WelcomeActivity extends BaseActivity {
 
         checkService();
 
-
-        ch = (Chronometer) findViewById(R.id.chronometer);
-
-        //设置开始计时时间
-        ch.setBase(SystemClock.elapsedRealtime());
-        //启动计时器
-        ch.start();
-        //为计时器绑定监听事件
-        ch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+        //new UpdateAppManager(mContext).showNoticeDialog("http://7xt9gr.com1.z0.glb.clouddn.com/app-release.apk");
+        NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
-            public void onChronometerTick(Chronometer ch) {
-                // 如果从开始计时到现在超过了60s
-                if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
-                    ch.stop();
-                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
+            public void onSuccess(VersionInfoBean response) {
+                try {
+                    if (response != null && response.vid > getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionCode) {
+                        new UpdateAppManager(mContext).showNoticeDialog(response.url);
                     } else {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+                        ch = (Chronometer) findViewById(R.id.chronometer);
+                        //设置开始计时时间
+                        ch.setBase(SystemClock.elapsedRealtime());
+                        //启动计时器
+                        ch.start();
+                        //为计时器绑定监听事件
+                        ch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                            @Override
+                            public void onChronometerTick(Chronometer ch) {
+                                // 如果从开始计时到现在超过了60s
+                                if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
+                                    ch.stop();
+                                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                    finish();
+                                }
+                            }
+                        });
                     }
-                    finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ch = (Chronometer) findViewById(R.id.chronometer);
+                //设置开始计时时间
+                ch.setBase(SystemClock.elapsedRealtime());
+                //启动计时器
+                ch.start();
+                //为计时器绑定监听事件
+                ch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                    @Override
+                    public void onChronometerTick(Chronometer ch) {
+                        // 如果从开始计时到现在超过了60s
+                        if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
+                            ch.stop();
+                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                            }
+                            finish();
+                        }
+                    }
+                });
             }
         });
     }
