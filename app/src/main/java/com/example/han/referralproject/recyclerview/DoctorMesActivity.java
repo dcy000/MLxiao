@@ -3,6 +3,7 @@ package com.example.han.referralproject.recyclerview;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +40,9 @@ public class DoctorMesActivity extends BaseActivity {
     ImageView mImageView1;
     TextView mTextView;
 
+    SharedPreferences sharedPreferences;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,18 @@ public class DoctorMesActivity extends BaseActivity {
 
         Intent intent = getIntent();
         final Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
+
+
+        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+
+
+        SharedPreferences.Editor editor7 = sharedPreferences.edit();
+
+        editor7.putString("name", doctor.getDocoerName());
+        editor7.putString("position", doctor.getDuty());
+        editor7.putString("feature", doctor.getGat());
+        editor7.putString("image", doctor.getCard());
+        editor7.commit();
 
 
         Picasso.with(this)
@@ -68,7 +84,7 @@ public class DoctorMesActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                show();
+            //    show();
                 NetworkApi.bindDoctor(doctor.doctoerId, new NetworkManager.SuccessCallback<String>() {
                     @Override
                     public void onSuccess(String response) {

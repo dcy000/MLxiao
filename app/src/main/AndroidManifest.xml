@@ -126,10 +126,7 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -205,7 +202,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -294,10 +290,10 @@
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity">
 
-
-
         </activity>
         <activity android:name=".recyclerview.AddAppoActivity">
+
+
 
 
         </activity>

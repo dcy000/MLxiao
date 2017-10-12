@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,7 +20,8 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
-import com.megvii.faceppidcardui.util.ConstantData;
+import com.example.han.referralproject.constant.ConstantData;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -153,6 +157,12 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
     ImageView mImageView;
 
+    ImageView mCircleImageView;
+    TextView TextView1;
+    TextView TextView2;
+    TextView TextView3;
+
+
     public void showNormal(String message) {
         dialog.setMessageCenter(false)
                 .setMessage(message)
@@ -176,6 +186,11 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
 
+        sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);
+        sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+        sharedPreferences2 = getSharedPreferences(ConstantData.SHARED_FILE_NAME2, Context.MODE_PRIVATE);
+        sharedPreferences3 = getSharedPreferences(ConstantData.SHARED_FILE_NAME3, Context.MODE_PRIVATE);
+
 
         mImageView = (ImageView) findViewById(R.id.icon_back);
 
@@ -185,11 +200,6 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 finish();
             }
         });
-
-        sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME5, Context.MODE_PRIVATE);
-        sharedPreferences1 = getSharedPreferences(ConstantData.SHARED_FILE_NAME6, Context.MODE_PRIVATE);
-        sharedPreferences2 = getSharedPreferences(ConstantData.SHARED_FILE_NAME7, Context.MODE_PRIVATE);
-        sharedPreferences3 = getSharedPreferences(ConstantData.SHARED_FILE_NAME8, Context.MODE_PRIVATE);
 
 
         mButtons = (Button) findViewById(R.id.yuyue_true);
@@ -279,6 +289,7 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
         mLinearLayout2 = (LinearLayout) findViewById(R.id.linearlayou6);
         mLinearLayout3 = (LinearLayout) findViewById(R.id.linearlayou7);
         mLinearLayout4 = (LinearLayout) findViewById(R.id.linearlayou8);
+
         mLinearLayout5 = (LinearLayout) findViewById(R.id.linearlayou9);
         mLinearLayout6 = (LinearLayout) findViewById(R.id.linearlayou10);
         mLinearLayout7 = (LinearLayout) findViewById(R.id.linearlayou11);
@@ -506,108 +517,244 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        mCircleImageView = (ImageView) findViewById(R.id.circleImageView2);
+        TextView1 = (TextView) findViewById(R.id.doctor_name);
+        TextView2 = (TextView) findViewById(R.id.doctor_position);
+        TextView3 = (TextView) findViewById(R.id.doctor_feature);
+
+
+        Picasso.with(this)
+                .load(ConstantData.BASE_URL + "/referralProject/" + sharedPreferences1.getString("image", ""))
+                .placeholder(R.drawable.avatar_placeholder)
+                .error(R.drawable.avatar_placeholder)
+                .tag(this)
+                .fit()
+                .into(mCircleImageView);
+
+        TextView1.setText("姓名：" + sharedPreferences1.getString("name", ""));
+        TextView2.setText("职级：" + sharedPreferences1.getString("position", ""));
+        TextView3.setText("擅长：" + sharedPreferences1.getString("feature", ""));
+
 
     }
+
+    public void SharePerfence(SharedPreferences sharedPreferences, String month, String day, String time) {
+
+        SharedPreferences.Editor editor7 = sharedPreferences.edit();
+
+        editor7.putString("month", simple.format(date));
+        editor7.putString("day", "上午");
+        editor7.putString("time", "9:00-9:20");
+        editor7.commit();
+
+    }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.yuyue1:
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("month", simple.format(date));
-                editor.putString("day", "上午");
-                editor.putString("time", "9:00-9:20");
-                editor.commit();
 
                 if (view.isSelected()) {
                     mButton2.setText("未预约");
                     view.setSelected(false);
                 } else {
 
+                    if ("".equals(sharedPreferences.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences, simple.format(date), "上午", "9:00-9:20");
+
+                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences2, simple.format(date), "上午", "9:00-9:20");
+                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences3, simple.format(date), "上午", "9:00-9:20");
+
+                    }
                     view.setSelected(true);
                     mButton2.setText("已预约");
 
-
                 }
+
                 break;
             case R.id.yuyue2:
-                SharedPreferences.Editor editor1 = sharedPreferences.edit();
-                editor1.putString("month", formatter.format(date1));
-                editor1.putString("day", "上午");
-                editor1.putString("time", "9:00-9:20");
-                editor1.commit();
+
 
                 if (view.isSelected()) {
                     mButton3.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    if ("".equals(sharedPreferences.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences, formatter.format(date1), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences2, formatter.format(date1), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences3, formatter.format(date1), "上午", "9:00-9:20");
+
+                    }
+
+
+                  /*  SharedPreferences.Editor editor7 = sharedPreferences.edit();
+
+                    editor7.putString("month", formatter.format(date1));
+
+                    editor7.putString("day", "上午");
+                    editor7.putString("time", "9:00-9:20");
+                    editor7.commit();*/
+
                     view.setSelected(true);
                     mButton3.setText("已预约");
 
                 }
                 break;
             case R.id.yuyue3:
-                SharedPreferences.Editor editor2 = sharedPreferences.edit();
-                editor2.putString("month", formatte2.format(date2));
-                editor2.putString("day", "上午");
-                editor2.putString("time", "9:00-9:20");
-                editor2.commit();
+
 
                 if (view.isSelected()) {
                     mButton4.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    if ("".equals(sharedPreferences.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences, formatte2.format(date2), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences2, formatte2.format(date2), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences3, formatte2.format(date2), "上午", "9:00-9:20");
+
+                    }
+
+
+                   /* SharedPreferences.Editor editor2 = sharedPreferences.edit();
+                    editor2.putString("month", formatte2.format(date2));
+                    editor2.putString("day", "上午");
+                    editor2.putString("time", "9:00-9:20");
+                    editor2.commit();*/
+
                     view.setSelected(true);
                     mButton4.setText("已预约");
 
                 }
                 break;
             case R.id.yuyue4:
-                SharedPreferences.Editor editor3 = sharedPreferences.edit();
 
-                editor3.putString("month", formatter4.format(date3));
-                editor3.putString("day", "上午");
-                editor3.putString("time", "9:00-9:20");
-                editor3.commit();
 
                 if (view.isSelected()) {
                     mButton5.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    if ("".equals(sharedPreferences.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences, formatter4.format(date3), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences2, formatter4.format(date3), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences3, formatter4.format(date3), "上午", "9:00-9:20");
+
+                    }
+
+
+                  /*  SharedPreferences.Editor editor3 = sharedPreferences.edit();
+                    editor3.putString("month", formatter4.format(date3));
+                    editor3.putString("day", "上午");
+                    editor3.putString("time", "9:00-9:20");
+                    editor3.commit();*/
+
                     view.setSelected(true);
                     mButton5.setText("已预约");
 
                 }
                 break;
             case R.id.yuyue5:
-                SharedPreferences.Editor editor4 = sharedPreferences.edit();
 
-                editor4.putString("month", formatter6.format(date4));
-                editor4.putString("day", "上午");
-                editor4.putString("time", "9:00-9:20");
-                editor4.commit();
 
                 if (view.isSelected()) {
                     mButton6.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+
+                    if ("".equals(sharedPreferences.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences, formatter6.format(date4), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences2, formatter6.format(date4), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences3, formatter6.format(date4), "上午", "9:00-9:20");
+
+                    }
+
+
+                   /* SharedPreferences.Editor editor4 = sharedPreferences.edit();
+                    editor4.putString("month", formatter6.format(date4));
+                    editor4.putString("day", "上午");
+                    editor4.putString("time", "9:00-9:20");
+                    editor4.commit();*/
+
                     view.setSelected(true);
                     mButton6.setText("已预约");
 
                 }
                 break;
             case R.id.yuyue6:
-                SharedPreferences.Editor editor5 = sharedPreferences.edit();
-
-                editor5.putString("month", formatter8.format(date5));
-                editor5.putString("day", "上午");
-                editor5.putString("time", "9:00-9:20");
-                editor5.commit();
 
                 if (view.isSelected()) {
                     mButton7.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    if ("".equals(sharedPreferences.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences, formatter8.format(date5), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences2, formatter8.format(date5), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences3, formatter8.format(date5), "上午", "9:00-9:20");
+
+                    }
+
+
+                 /*   SharedPreferences.Editor editor5 = sharedPreferences.edit();
+                    editor5.putString("month", formatter8.format(date5));
+                    editor5.putString("day", "上午");
+                    editor5.putString("time", "9:00-9:20");
+                    editor5.commit();*/
+
                     view.setSelected(true);
                     mButton7.setText("已预约");
 
@@ -615,34 +762,57 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue7:
-                SharedPreferences.Editor editor6 = sharedPreferences.edit();
 
-                editor6.putString("month", formatter10.format(date6));
-                editor6.putString("day", "上午");
-                editor6.putString("time", "9:00-9:20");
-                editor6.commit();
 
                 if (view.isSelected()) {
                     mButton8.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    if ("".equals(sharedPreferences.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences, formatter10.format(date6), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences2, formatter10.format(date6), "上午", "9:00-9:20");
+
+
+                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
+
+                        SharePerfence(sharedPreferences3, formatter10.format(date6), "上午", "9:00-9:20");
+
+                    }
+
+
+                /*    SharedPreferences.Editor editor6 = sharedPreferences.edit();
+                    editor6.putString("month", formatter10.format(date6));
+                    editor6.putString("day", "上午");
+                    editor6.putString("time", "9:00-9:20");
+                    editor6.commit();*/
+
+
                     view.setSelected(true);
                     mButton8.setText("已预约");
 
                 }
                 break;
             case R.id.yuyue8:
-                SharedPreferences.Editor editor7 = sharedPreferences.edit();
 
-                editor7.putString("month", simple.format(date));
-                editor7.putString("day", "上午");
-                editor7.putString("time", "9:40-9:50");
-                editor7.commit();
 
                 if (view.isSelected()) {
                     mButton9.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor7 = sharedPreferences.edit();
+
+                    editor7.putString("month", simple.format(date));
+                    editor7.putString("day", "上午");
+                    editor7.putString("time", "9:40-9:50");
+                    editor7.commit();
+
                     view.setSelected(true);
                     mButton9.setText("已预约");
 
@@ -651,18 +821,20 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.yuyue9:
 
-                SharedPreferences.Editor editor8 = sharedPreferences.edit();
-
-
-                editor8.putString("month", formatter.format(date1));
-                editor8.putString("day", "上午");
-                editor8.putString("time", "9:40-9:50");
-                editor8.commit();
 
                 if (view.isSelected()) {
                     mButton10.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor8 = sharedPreferences.edit();
+
+
+                    editor8.putString("month", formatter.format(date1));
+                    editor8.putString("day", "上午");
+                    editor8.putString("time", "9:40-9:50");
+                    editor8.commit();
+
                     view.setSelected(true);
                     mButton10.setText("已预约");
 
@@ -672,17 +844,18 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.yuyue10:
 
 
-                SharedPreferences.Editor editor9 = sharedPreferences.edit();
-
-                editor9.putString("month", formatte2.format(date2));
-                editor9.putString("day", "上午");
-                editor9.putString("time", "9:40-9:50");
-                editor9.commit();
-
                 if (view.isSelected()) {
                     mButton11.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor9 = sharedPreferences.edit();
+
+                    editor9.putString("month", formatte2.format(date2));
+                    editor9.putString("day", "上午");
+                    editor9.putString("time", "9:40-9:50");
+                    editor9.commit();
+
                     view.setSelected(true);
                     mButton11.setText("已预约");
 
@@ -691,18 +864,20 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.yuyue11:
 
-                SharedPreferences.Editor editor10 = sharedPreferences.edit();
-
-
-                editor10.putString("month", formatter4.format(date3));
-                editor10.putString("day", "上午");
-                editor10.putString("time", "9:40-9:50");
-                editor10.commit();
 
                 if (view.isSelected()) {
                     mButton12.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor10 = sharedPreferences.edit();
+
+
+                    editor10.putString("month", formatter4.format(date3));
+                    editor10.putString("day", "上午");
+                    editor10.putString("time", "9:40-9:50");
+                    editor10.commit();
+
                     view.setSelected(true);
                     mButton12.setText("已预约");
 
@@ -710,17 +885,20 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue12:
-                SharedPreferences.Editor editor11 = sharedPreferences.edit();
 
-                editor11.putString("month", formatter6.format(date4));
-                editor11.putString("day", "上午");
-                editor11.putString("time", "9:40-9:50");
-                editor11.commit();
 
                 if (view.isSelected()) {
                     mButton13.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor11 = sharedPreferences.edit();
+
+                    editor11.putString("month", formatter6.format(date4));
+                    editor11.putString("day", "上午");
+                    editor11.putString("time", "9:40-9:50");
+                    editor11.commit();
+
                     view.setSelected(true);
                     mButton13.setText("已预约");
 
@@ -728,16 +906,19 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue13:
-                SharedPreferences.Editor editor12 = sharedPreferences.edit();
 
-                editor12.putString("month", formatter8.format(date5));
-                editor12.putString("day", "上午");
-                editor12.putString("time", "9:40-9:50");
-                editor12.commit();
                 if (view.isSelected()) {
                     mButton14.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor12 = sharedPreferences.edit();
+
+                    editor12.putString("month", formatter8.format(date5));
+                    editor12.putString("day", "上午");
+                    editor12.putString("time", "9:40-9:50");
+                    editor12.commit();
+
                     view.setSelected(true);
                     mButton14.setText("已预约");
 
@@ -745,17 +926,20 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue14:
-                SharedPreferences.Editor editor13 = sharedPreferences.edit();
 
-                editor13.putString("month", formatter10.format(date6));
-                editor13.putString("day", "上午");
-                editor13.putString("time", "9:40-9:50");
-                editor13.commit();
 
                 if (view.isSelected()) {
                     mButton15.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor13 = sharedPreferences.edit();
+
+                    editor13.putString("month", formatter10.format(date6));
+                    editor13.putString("day", "上午");
+                    editor13.putString("time", "9:40-9:50");
+                    editor13.commit();
+
                     view.setSelected(true);
                     mButton15.setText("已预约");
 
@@ -763,17 +947,20 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue15:
-                SharedPreferences.Editor editor14 = sharedPreferences.edit();
 
-                editor14.putString("month", simple.format(date));
-                editor14.putString("day", "上午");
-                editor14.putString("time", "10:00-10:30");
-                editor14.commit();
 
                 if (view.isSelected()) {
                     mButton16.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor14 = sharedPreferences.edit();
+
+                    editor14.putString("month", simple.format(date));
+                    editor14.putString("day", "上午");
+                    editor14.putString("time", "10:00-10:30");
+                    editor14.commit();
+
                     view.setSelected(true);
                     mButton16.setText("已预约");
 
@@ -781,17 +968,20 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue16:
-                SharedPreferences.Editor editor15 = sharedPreferences.edit();
 
-                editor15.putString("month", formatter.format(date1));
-                editor15.putString("day", "上午");
-                editor15.putString("time", "10:00-10:30");
-                editor15.commit();
 
                 if (view.isSelected()) {
                     mButton17.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor15 = sharedPreferences.edit();
+
+                    editor15.putString("month", formatter.format(date1));
+                    editor15.putString("day", "上午");
+                    editor15.putString("time", "10:00-10:30");
+                    editor15.commit();
+
                     view.setSelected(true);
                     mButton17.setText("已预约");
 
@@ -799,17 +989,19 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.yuyue17:
 
-                SharedPreferences.Editor editor16 = sharedPreferences.edit();
-
-                editor16.putString("month", (formatte2.format(date2)));
-                editor16.putString("day", "上午");
-                editor16.putString("time", "10:00-10:30");
-                editor16.commit();
 
                 if (view.isSelected()) {
                     mButton18.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor16 = sharedPreferences.edit();
+
+                    editor16.putString("month", (formatte2.format(date2)));
+                    editor16.putString("day", "上午");
+                    editor16.putString("time", "10:00-10:30");
+                    editor16.commit();
+
                     view.setSelected(true);
                     mButton18.setText("已预约");
 
@@ -818,17 +1010,20 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.yuyue18:
 
-                SharedPreferences.Editor editor17 = sharedPreferences.edit();
-
-                editor17.putString("month", formatter4.format(date3));
-                editor17.putString("day", "上午");
-                editor17.putString("time", "10:00-10:30");
-                editor17.commit();
 
                 if (view.isSelected()) {
                     mButton19.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+
+                    SharedPreferences.Editor editor17 = sharedPreferences.edit();
+
+                    editor17.putString("month", formatter4.format(date3));
+                    editor17.putString("day", "上午");
+                    editor17.putString("time", "10:00-10:30");
+                    editor17.commit();
+
                     view.setSelected(true);
                     mButton19.setText("已预约");
 
@@ -836,17 +1031,20 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue19:
-                SharedPreferences.Editor editor18 = sharedPreferences.edit();
 
-                editor18.putString("month", formatter6.format(date4));
-                editor18.putString("day", "上午");
-                editor18.putString("time", "10:00-10:30");
-                editor18.commit();
 
                 if (view.isSelected()) {
                     mButton20.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor18 = sharedPreferences.edit();
+
+                    editor18.putString("month", formatter6.format(date4));
+                    editor18.putString("day", "上午");
+                    editor18.putString("time", "10:00-10:30");
+                    editor18.commit();
+
                     view.setSelected(true);
                     mButton20.setText("已预约");
 
@@ -854,18 +1052,21 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue20:
-                SharedPreferences.Editor editor19 = sharedPreferences.edit();
 
-
-                editor19.putString("month", formatter8.format(date5));
-                editor19.putString("day", "上午");
-                editor19.putString("time", "10:00-10:30");
-                editor19.commit();
 
                 if (view.isSelected()) {
                     mButton21.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor19 = sharedPreferences.edit();
+
+
+                    editor19.putString("month", formatter8.format(date5));
+                    editor19.putString("day", "上午");
+                    editor19.putString("time", "10:00-10:30");
+                    editor19.commit();
+
                     view.setSelected(true);
                     mButton21.setText("已预约");
 
@@ -873,36 +1074,42 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.yuyue21:
-                SharedPreferences.Editor editor20 = sharedPreferences.edit();
 
-
-                editor20.putString("month", formatter10.format(date6));
-                editor20.putString("day", "上午");
-                editor20.putString("time", "10:00-10:30");
-                editor20.commit();
 
                 if (view.isSelected()) {
                     mButton22.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor20 = sharedPreferences.edit();
+
+
+                    editor20.putString("month", formatter10.format(date6));
+                    editor20.putString("day", "上午");
+                    editor20.putString("time", "10:00-10:30");
+                    editor20.commit();
+
                     view.setSelected(true);
                     mButton22.setText("已预约");
 
                 }
                 break;
             case R.id.yuyue22:
-                SharedPreferences.Editor editor21 = sharedPreferences.edit();
 
-
-                editor21.putString("month", simple.format(date));
-                editor21.putString("day", "上午");
-                editor21.putString("time", "10:40-11:30");
-                editor21.commit();
 
                 if (view.isSelected()) {
                     mButton23.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor21 = sharedPreferences.edit();
+
+
+                    editor21.putString("month", simple.format(date));
+                    editor21.putString("day", "上午");
+                    editor21.putString("time", "10:40-11:30");
+                    editor21.commit();
+
                     view.setSelected(true);
                     mButton23.setText("已预约");
 
@@ -910,17 +1117,19 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.yuyue23:
 
-                SharedPreferences.Editor editor22 = sharedPreferences.edit();
-
-                editor22.putString("month", formatter.format(date1));
-                editor22.putString("day", "上午");
-                editor22.putString("time", "10:40-11:30");
-                editor22.commit();
 
                 if (view.isSelected()) {
                     mButton24.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor22 = sharedPreferences.edit();
+
+                    editor22.putString("month", formatter.format(date1));
+                    editor22.putString("day", "上午");
+                    editor22.putString("time", "10:40-11:30");
+                    editor22.commit();
+
                     view.setSelected(true);
                     mButton24.setText("已预约");
 
@@ -928,17 +1137,19 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.yuyue24:
 
-                SharedPreferences.Editor editor23 = sharedPreferences.edit();
-
-                editor23.putString("month", formatte2.format(date2));
-                editor23.putString("day", "上午");
-                editor23.putString("time", "10:40-11:30");
-                editor23.commit();
 
                 if (view.isSelected()) {
                     mButton25.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor23 = sharedPreferences.edit();
+
+                    editor23.putString("month", formatte2.format(date2));
+                    editor23.putString("day", "上午");
+                    editor23.putString("time", "10:40-11:30");
+                    editor23.commit();
+
                     view.setSelected(true);
                     mButton25.setText("已预约");
 
@@ -946,17 +1157,19 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.yuyue25:
 
-                SharedPreferences.Editor editor24 = sharedPreferences.edit();
-
-                editor24.putString("month", formatter4.format(date3));
-                editor24.putString("day", "上午");
-                editor24.putString("time", "10:40-11:30");
-                editor24.commit();
 
                 if (view.isSelected()) {
                     mButton26.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor24 = sharedPreferences.edit();
+
+                    editor24.putString("month", formatter4.format(date3));
+                    editor24.putString("day", "上午");
+                    editor24.putString("time", "10:40-11:30");
+                    editor24.commit();
+
                     view.setSelected(true);
                     mButton26.setText("已预约");
 
@@ -964,51 +1177,59 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.yuyue26:
 
-                SharedPreferences.Editor editor25 = sharedPreferences.edit();
-
-                editor25.putString("month", formatter6.format(date4));
-                editor25.putString("day", "上午");
-                editor25.putString("time", "10:40-11:30");
-                editor25.commit();
 
                 if (view.isSelected()) {
                     mButton27.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor25 = sharedPreferences.edit();
+
+                    editor25.putString("month", formatter6.format(date4));
+                    editor25.putString("day", "上午");
+                    editor25.putString("time", "10:40-11:30");
+                    editor25.commit();
+
                     view.setSelected(true);
                     mButton27.setText("已预约");
 
                 }
                 break;
             case R.id.yuyue27:
-                SharedPreferences.Editor editor26 = sharedPreferences.edit();
 
-                editor26.putString("month", formatter8.format(date5));
-                editor26.putString("day", "上午");
-                editor26.putString("time", "10:40-11:30");
-                editor26.commit();
 
                 if (view.isSelected()) {
                     mButton28.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor26 = sharedPreferences.edit();
+
+                    editor26.putString("month", formatter8.format(date5));
+                    editor26.putString("day", "上午");
+                    editor26.putString("time", "10:40-11:30");
+                    editor26.commit();
+
                     view.setSelected(true);
                     mButton28.setText("已预约");
 
                 }
                 break;
             case R.id.yuyue28:
-                SharedPreferences.Editor editor27 = sharedPreferences.edit();
 
-                editor27.putString("month", formatter10.format(date6));
-                editor27.putString("day", "上午");
-                editor27.putString("time", "10:40-11:30");
-                editor27.commit();
 
                 if (view.isSelected()) {
                     mButton29.setText("未预约");
                     view.setSelected(false);
                 } else {
+
+                    SharedPreferences.Editor editor27 = sharedPreferences.edit();
+
+                    editor27.putString("month", formatter10.format(date6));
+                    editor27.putString("day", "上午");
+                    editor27.putString("time", "10:40-11:30");
+                    editor27.commit();
+
                     view.setSelected(true);
                     mButton29.setText("已预约");
 
