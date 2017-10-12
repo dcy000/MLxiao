@@ -64,7 +64,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XueTang;
+    private String detectType = Type_Wendu;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -122,6 +122,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
+//                switch (detectType) {
+//                    case Type_XueTang:
+//                        XueTangGattAttributes.notify(mBluetoothGatt);
+//                        mHandler.sendEmptyMessageDelayed(0, 1000);
+//                        break;
+//                    case Type_XueYang:
+////                        mWriteCharacteristic.setValue(Commands.xueyangDatas);
+////                        mWriteCharacteristic
+////                                .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+////                        boolean issuccess = mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
+////                        Log.i("mylog", "success");
+//                        break;
+//                }
+                Log.i("mylog", "gata connect 11111111111111111111");
+            } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
+                Log.i("mylog", "gata disConnect 22222222222222222");
+                mConnected = false;
+            } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+                Log.i("mylog", "gata servicesConnect 3333333333333333");
+                displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueTang:
                         XueTangGattAttributes.notify(mBluetoothGatt);
@@ -135,31 +155,25 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        Log.i("mylog", "success");
                         break;
                 }
-                Log.i("mylog", "gata connect 11111111111111111111");
-            } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-                Log.i("mylog", "gata disConnect 22222222222222222");
-                mConnected = false;
-            } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-                Log.i("mylog", "gata servicesConnect 3333333333333333");
-                displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueYang:
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                while (threadDisable){
-                                    mWriteCharacteristic.setValue(Commands.xueyangDatas);
-                                    mWriteCharacteristic
-                                            .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-                                    mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
-                                    try {
-                                        Thread.sleep(1000);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }).start();
+//                        new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                while (threadDisable){
+//                                    mWriteCharacteristic.setValue(Commands.xueyangDatas);
+//                                    mWriteCharacteristic
+//                                            .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+//                                    mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
+//                                    Log.i("mylog2", "血氧 write");
+//                                    try {
+//                                        Thread.sleep(1000);
+//                                    } catch (InterruptedException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            }
+//                        }).start();
                         break;
                 }
 //                if (detectType == Type_XueTang) {
@@ -245,12 +259,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_XueTang:
-                        if (extraData.length < 12){
+                        if (notifyData == null || notifyData.length < 12){
                             return;
                         }
                         //threadDisable = false;
                         if (isGetResustFirst) {
-                            float xuetangResut = ((float)(extraData[10] << 8) + extraData[9])/18;
+                            float xuetangResut = ((float)(notifyData[10] << 8) + notifyData[9])/18;
                             mResultTv.setText(String.format("%.2f", xuetangResut));
                             DataInfoBean info = new DataInfoBean();
                             info.blood_sugar = String.format("%.2f", xuetangResut);
@@ -264,7 +278,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_XueYang:
-                        if (notifyData != null && notifyData.length == 12) {
+                        if (notifyData != null && notifyData.length == 12 && notifyData[5] != 0) {
                             threadDisable = false;
                             mXueYangTv.setText(String.valueOf(notifyData[5]));
                             mXueYangPulseTv.setText(String.valueOf(notifyData[6]));
@@ -325,10 +339,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         if (characteristic == null){
             return;
         }
+
         mWriteCharacteristic = characteristic;
+
+        switch (detectType) {
+            case Type_XueYang:
+                mWriteCharacteristic.setValue(Commands.xueyangDatas);
+                mWriteCharacteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                break;
+        }
+
         mBluetoothLeService.writeCharacteristic(characteristic);
         mBluetoothLeService.readCharacteristic(characteristic);
         mBluetoothLeService.setCharacteristicNotification(characteristic, true);
+
         //第一个坑，数据没传输过来
         List<BluetoothGattDescriptor> descriptorList = characteristic.getDescriptors();
         if(descriptorList != null && descriptorList.size() > 0) {
@@ -394,11 +418,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
                         tipsLayout.setVisibility(View.VISIBLE);
+                        findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
                         speak(R.string.tips_wendu_one);
                     }
-                }, 500);
+                }, 1000);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -418,18 +442,47 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                         }, 8000);
                     }
-                }, 5000);
+                }, 8000);
                 break;
             case Type_Xueya:
-                findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
-                tipsLayout.setVisibility(View.VISIBLE);
-                tipsLayout.setBackgroundResource(R.drawable.tips_xueya_one);
-                speak(R.string.tips_xueya_one);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_two);
+                        tipsLayout.setVisibility(View.VISIBLE);
+                        findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_one);
+                        speak(R.string.tips_xueya_one);
+                    }
+                }, 1000);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
                         speak(R.string.tips_xueya_two);
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_two);
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                tipsLayout.setVisibility(View.GONE);
+                            }
+                        }, 8000);
+                    }
+                }, 8000);
+                break;
+            case Type_XueTang:
+                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setVisibility(View.VISIBLE);
+                        findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_one);
+                        speak(R.string.tips_xuetang_one);
+                    }
+                }, 1000);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_two);
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -438,12 +491,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }, 10000);
                     }
                 }, 8000);
-                break;
-            case Type_XueTang:
-                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
-                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
-                dialog = new NDialog(this);
-                showNormal("设备连接中，请稍后...");
+
+//                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+//                dialog = new NDialog(th、is);
+//                showNormal("设备连接中，请稍后...");
                 break;
             case Type_XueYang:
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
@@ -649,12 +700,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override
