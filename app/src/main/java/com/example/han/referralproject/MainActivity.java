@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onSpeakListenerResult(String result) {
         super.onSpeakListenerResult(result);
-        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
         String inSpell = PinYinUtils.converterToSpell(result);
 
         if (inSpell.matches(REGEX_SET_ALARM)) {

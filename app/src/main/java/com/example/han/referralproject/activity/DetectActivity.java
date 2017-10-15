@@ -69,6 +69,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
     public static final String Type_XueYang = "xueyang";
+    public static final String Type_XinDian = "xindian";
     private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
@@ -264,7 +265,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         //threadDisable = false;
                         if (isGetResustFirst) {
-                            float xuetangResut = ((float)(notifyData[10] << 8) + notifyData[9])/18;
+//                            float xuetangResut = ((float)((notifyData[10] << 8 + (notifyData[9] & 0xff))))/18;
+                            float xuetangResut = ((float)(((notifyData[9] & 0xff))))/18;
                             mResultTv.setText(String.format("%.2f", xuetangResut));
                             DataInfoBean info = new DataInfoBean();
                             info.blood_sugar = String.format("%.2f", xuetangResut);
@@ -409,6 +411,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 case "xueyang":
                     detectType = Type_XueYang;
                     break;
+                case "xindian":
+                    detectType = Type_XinDian;
+                    break;
             }
         }
         tipsLayout = findViewById(R.id.rl_tips);
@@ -500,6 +505,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
                 dialog = new NDialog(this);
                 showNormal("设备连接中，请稍后...");
+                break;
+            case Type_XinDian:
+                findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
                 break;
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
