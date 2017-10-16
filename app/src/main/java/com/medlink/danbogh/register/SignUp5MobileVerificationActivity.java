@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +12,11 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.Utils;
+import com.mob.MobSDK;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,6 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 /**
  * Created by lenovo on 2017/10/12.
@@ -54,10 +59,12 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up5_mobile_verification);
         mUnbinder = ButterKnife.bind(this);
         initView();
+        initSms();
     }
 
     @Override
     protected void onDestroy() {
+        Handlers.ui().removeCallbacks(countDown);
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
@@ -66,6 +73,10 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
     private void initView() {
 
+    }
+    private void initSms() {
+        MobSDK.init(this, Utils.SMS_KEY, Utils.SMS_SECRETE);
+        SMSSDK.registerEventHandler(smsHandler);
     }
 
     @Override
@@ -76,10 +87,58 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
     private boolean inPhone = true;
 
+    private EventHandler smsHandler = new EventHandler() {
+        @Override
+        public void afterEvent(int event, int result, Object data) {
+            if (result == SMSSDK.RESULT_COMPLETE) {
+                switch (event) {
+                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
+                        T.show("正在获取验证码");
+                        break;
+                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
+                        T.show("验证码正确");
+                        navToNext();
+                        break;
+                    default:
+                        break;
+                }
+            } else if ()
+        }
+    };
+
+    private void navToNext() {
+        Intent intent = SignUp6PasswordActivity.newIntent(this);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.tv_sign_up_fetch_code)
     public void onTvFetchCodeClicked() {
-        // TODO: 2017/10/15 验证码逻辑
+        String phone = etPhone.getText().toString().trim();
+        if (!Utils.isValidPhone(phone)) {
+            speak("主人，手机号码输入有误，请重新输入");
+            return;
+        }
+        SMSSDK.getVerificationCode("86", phone);
+        i = 10;
+        tvFetchCode.setEnabled(false);
+        Handlers.ui().postDelayed(countDown, 1000);
     }
+
+    private int i;
+
+    private Runnable countDown = new Runnable() {
+        @Override
+        public void run() {
+            if (i == 0) {
+                tvFetchCode.setText("获取验证码");
+                tvFetchCode.setEnabled(true);
+                return;
+            }
+            tvFetchCode.setText("已发送（" + i + "）");
+            i--;
+            Handlers.ui().postDelayed(countDown, 1000);
+        }
+    };
 
     @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
@@ -90,13 +149,12 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         String code = etCode.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
-        if (TextUtils.isEmpty(code) || TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(code) || !Utils.isValidPhone(phone)) {
             speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
             return;
         }
-
-        Intent intent = SignUp6PasswordActivity.newIntent(this);
-        startActivity(intent);
+        SMSSDK.submitVerificationCode("86", phone, code);
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpPhone(phone);
     }
 
     public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";

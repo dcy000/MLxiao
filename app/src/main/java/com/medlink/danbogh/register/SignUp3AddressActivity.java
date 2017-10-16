@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import java.util.Arrays;
@@ -94,8 +95,19 @@ public class SignUp3AddressActivity extends BaseActivity {
             speak(R.string.sign_up3_address_tip);
             return;
         }
+
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
         Intent intent = SignUp4IdCardActivity.newIntent(this);
         startActivity(intent);
+    }
+
+    private String getAddress() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(spCounty.getSelectedItem().toString()).append("省")
+                .append(spCity.getSelectedItem().toString()).append("市")
+                .append(spCounty.getSelectedItem().toString()).append("区")
+                .append(etAddress.getText().toString().trim());
+        return builder.toString();
     }
 
     public static final String REGEX_IN_PROVINCE = ".*(sheng|shen|seng|sen)";

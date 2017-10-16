@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import java.util.regex.Matcher;
@@ -78,6 +79,8 @@ public class SignUp4IdCardActivity extends BaseActivity {
             speak(R.string.sign_up_id_card_tip);
             return;
         }
+
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpIdCard(idCard);
         Intent intent = SignUp5MobileVerificationActivity.newIntent(this);
         startActivity(intent);
     }

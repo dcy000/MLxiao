@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import java.util.regex.Matcher;
@@ -99,6 +100,8 @@ public class SignUp2GenderActivity extends BaseActivity {
             return;
         }
 
+        String gender = mIvRbMan.isSelected() ? "男" : "女";
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpGender(gender);
         Intent intent = SignUp3AddressActivity.newIntent(this);
         startActivity(intent);
     }
