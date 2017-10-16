@@ -244,8 +244,13 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        if (progress == getPlayService().getPlayingMusic().getDuration()
-                ) {
+        if (progress == getPlayService().getPlayingMusic().getDuration()) {
+
+
+          //  onPlayerPause();
+
+            getPlayService().stop();
+
             getActivity().finish();
         }
     }
@@ -423,7 +428,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onPause() {
         super.onPause();
-     //   getPlayService().playPause();
+        //   getPlayService().playPause();
 
     }
 
