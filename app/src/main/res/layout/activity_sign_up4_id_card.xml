@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_sign_up_root_id_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_tab1_personal_info">
+
+    <TextView
+        android:id="@+id/tv_sign_up_id_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:gravity="center"
+        android:text="您的身份证号码"
+        android:textColor="#8C8C8C"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/et_id_card"
+        android:layout_width="600dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_rect_gray"
+        android:hint="请输入身份证号码"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#939393"
+        android:textColorHint="#cccccc"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_sign_up_id_card"
+        app:layout_constraintRight_toRightOf="@+id/tv_sign_up_id_card"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_id_card"/>
+
+    <include layout="@layout/include_sign_up_tab"/>
+
+    <include layout="@layout/include_sign_up_nav"/>
+</android.support.constraint.ConstraintLayout>

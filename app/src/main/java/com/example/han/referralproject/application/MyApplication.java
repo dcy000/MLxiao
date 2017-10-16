@@ -21,6 +21,7 @@ import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call.CallManager;
 import com.medlink.danbogh.call.CallReceiver;
 import com.medlink.danbogh.call.EMAccountHelper;
+import com.medlink.danbogh.utils.T;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
@@ -46,6 +47,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        T.init(this);
         LitePal.initialize(this);
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(this);

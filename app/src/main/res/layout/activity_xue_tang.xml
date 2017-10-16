@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/xuetang_bg">
 
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="50dp"
+        android:layout_height="90dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_back" />
 
     <ImageView
         android:id="@+id/xuetang_video"

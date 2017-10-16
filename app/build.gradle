@@ -67,6 +67,9 @@ dependencies {
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
     compile files('libs/commons-lang-2.3.jar')
+    compile ('github.hellocsl:GalleryLayoutManager:1.0.6'){
+        exclude group: 'com.android.support', module:'recyclerview-v7'
+    }
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'

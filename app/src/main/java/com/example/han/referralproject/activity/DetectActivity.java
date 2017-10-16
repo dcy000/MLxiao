@@ -303,6 +303,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
     };
+    public ImageView ivBack;
 
 
     private void displayGattServices(List<BluetoothGattService> gattServices) {
@@ -396,6 +397,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         String type = getIntent().getStringExtra("type");
         if (!TextUtils.isEmpty(type)){
             switch (type) {

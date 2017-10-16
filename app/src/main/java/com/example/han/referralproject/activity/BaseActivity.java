@@ -29,6 +29,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.medlink.danbogh.utils.T;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -146,6 +147,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void onSpeakListenerResult(String result) {
         //Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+//        T.show(result);
         String inSpell = PinYinUtils.converterToSpell(result);
         if (inSpell.matches(REGEX_CALL_XIAO_YI)) {
             speak(R.string.hello);
