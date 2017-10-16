@@ -104,6 +104,7 @@ public class BaseActivity extends AppCompatActivity {
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer == null) {
             synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
+            setSynthesizerParams();
         }
         synthesizer.startSpeaking(text, mTtsListener);
     }

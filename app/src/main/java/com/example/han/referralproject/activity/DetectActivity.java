@@ -590,6 +590,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     case Type_XueYang:
                         deviceName = "POD";
                         break;
+                    case Type_XinDian:
+                        break;
                 }
 
                 if (deviceName.equals(device.getName())) {
