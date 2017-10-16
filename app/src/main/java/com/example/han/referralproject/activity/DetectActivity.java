@@ -64,7 +64,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XueTang;
+    private String detectType = Type_Wendu;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -157,22 +157,23 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
                 switch (detectType) {
                     case Type_XueYang:
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                while (threadDisable){
-                                    mWriteCharacteristic.setValue(Commands.xueyangDatas);
-                                    mWriteCharacteristic
-                                            .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-                                    mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
-                                    try {
-                                        Thread.sleep(1000);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }).start();
+//                        new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                while (threadDisable){
+//                                    mWriteCharacteristic.setValue(Commands.xueyangDatas);
+//                                    mWriteCharacteristic
+//                                            .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+//                                    mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
+//                                    Log.i("mylog2", "血氧 write");
+//                                    try {
+//                                        Thread.sleep(1000);
+//                                    } catch (InterruptedException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            }
+//                        }).start();
                         break;
                 }
 //                if (detectType == Type_XueTang) {
@@ -277,7 +278,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_XueYang:
-                        if (notifyData != null && notifyData.length == 12) {
+                        if (notifyData != null && notifyData.length == 12 && notifyData[5] != 0) {
                             threadDisable = false;
                             mXueYangTv.setText(String.valueOf(notifyData[5]));
                             mXueYangPulseTv.setText(String.valueOf(notifyData[6]));
@@ -339,10 +340,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         if (characteristic == null){
             return;
         }
+
         mWriteCharacteristic = characteristic;
+
+        switch (detectType) {
+            case Type_XueYang:
+                mWriteCharacteristic.setValue(Commands.xueyangDatas);
+                mWriteCharacteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                break;
+        }
+
         mBluetoothLeService.writeCharacteristic(characteristic);
         mBluetoothLeService.readCharacteristic(characteristic);
         mBluetoothLeService.setCharacteristicNotification(characteristic, true);
+
         //第一个坑，数据没传输过来
         List<BluetoothGattDescriptor> descriptorList = characteristic.getDescriptors();
         if(descriptorList != null && descriptorList.size() > 0) {
@@ -697,12 +708,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override

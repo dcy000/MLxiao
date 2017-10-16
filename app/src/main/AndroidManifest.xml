@@ -174,7 +174,8 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" >
+        </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape"/>
@@ -307,6 +308,8 @@
         <activity android:name="com.medlink.danbogh.register.SignUp6PasswordActivity">
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp7HeightActivity">
+
+
 
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp8WeightActivity">

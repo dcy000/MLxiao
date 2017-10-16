@@ -43,13 +43,14 @@
 
 
         <com.example.han.referralproject.imageview.CircleImageView
-            android:id="@+id/circleImageView"
+            android:id="@+id/circleImageView1"
             android:layout_width="204dp"
             android:layout_height="204dp"
             android:clickable="true"
             android:src="@drawable/avatar_placeholder" />
 
         <TextView
+            android:id="@+id/docotor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
@@ -60,6 +61,7 @@
 
 
         <TextView
+            android:id="@+id/docotor_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -68,6 +70,7 @@
             android:textSize="30sp" />
 
         <TextView
+            android:id="@+id/docotor_feature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -107,94 +110,6 @@
 
 
         <LinearLayout
-            android:id="@+id/linearlayou3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/yuyue_time"
-                android:textColor="#8c8c8c"
-                android:textSize="35sp" />
-
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_yuyue"
-                android:text="取消预约"
-                android:textColor="@android:color/white"
-                android:textSize="30sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/linearlayou4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/yuyue_time"
-                android:textColor="#8c8c8c"
-                android:textSize="35sp" />
-
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_yuyue"
-                android:text="取消预约"
-                android:textColor="@android:color/white"
-                android:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearlayou5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/yuyue_time"
-                android:textColor="#8c8c8c"
-                android:textSize="35sp" />
-
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_yuyue"
-                android:text="取消预约"
-                android:textColor="@android:color/white"
-                android:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/linearlayou7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -232,37 +147,8 @@
                 android:textSize="35sp" />
 
 
-            <!-- <Button
-                 android:layout_width="150dp"
-                 android:layout_height="50dp"
-                 android:layout_marginLeft="30dp"
-                 android:layout_marginTop="15dp"
-                 android:background="@drawable/bg_yuyue"
-                 android:text="取消预约"
-                 android:textColor="@android:color/white"
-                 android:textSize="30sp" />-->
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/linearlayou6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/yuyue_time"
-                android:textColor="#8c8c8c"
-                android:textSize="35sp" />
-
-
             <Button
+                android:id="@+id/cancel_yuyue"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="30dp"
@@ -271,6 +157,110 @@
                 android:text="取消预约"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearlayou8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/yuyue_time3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="#8c8c8c"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/yuyue_time4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="#8c8c8c"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/yuyue_time5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="#8c8c8c"
+                android:textSize="35sp" />
+
+
+            <Button
+                android:id="@+id/cancel_yuyue1"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_yuyue"
+                android:text="取消预约"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearlayou9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/yuyue_time6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="#8c8c8c"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/yuyue_time7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="#8c8c8c"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/yuyue_time8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="#8c8c8c"
+                android:textSize="35sp" />
+
+
+            <Button
+                android:id="@+id/cancel_yuyue2"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_yuyue"
+                android:text="取消预约"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+
 
         </LinearLayout>
 
