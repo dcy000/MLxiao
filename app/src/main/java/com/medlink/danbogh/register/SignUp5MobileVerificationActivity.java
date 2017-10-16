@@ -1,0 +1,160 @@
+package com.medlink.danbogh.register;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.medlink.danbogh.utils.T;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
+/**
+ * Created by lenovo on 2017/10/12.
+ */
+
+public class SignUp5MobileVerificationActivity extends BaseActivity {
+    @BindView(R.id.et_sign_up_phone)
+    EditText etPhone;
+    @BindView(R.id.et_sign_up_code)
+    EditText etCode;
+    @BindView(R.id.tv_sign_up_fetch_code)
+    TextView tvFetchCode;
+    @BindView(R.id.tv_sign_up_go_back)
+    TextView tvGoBack;
+    @BindView(R.id.tv_sign_up_go_forward)
+    TextView tvGoForward;
+    public Unbinder mUnbinder;
+
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, SignUp5MobileVerificationActivity.class);
+        if (!(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        return intent;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_up5_mobile_verification);
+        mUnbinder = ButterKnife.bind(this);
+        initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
+        super.onDestroy();
+    }
+
+    private void initView() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
+    }
+
+    private boolean inPhone = true;
+
+    @OnClick(R.id.tv_sign_up_fetch_code)
+    public void onTvFetchCodeClicked() {
+        // TODO: 2017/10/15 验证码逻辑
+    }
+
+    @OnClick(R.id.tv_sign_up_go_back)
+    public void onTvGoBackClicked() {
+        finish();
+    }
+
+    @OnClick(R.id.tv_sign_up_go_forward)
+    public void onTvGoForwardClicked() {
+        String code = etCode.getText().toString().trim();
+        String phone = etPhone.getText().toString().trim();
+        if (TextUtils.isEmpty(code) || TextUtils.isEmpty(phone)) {
+            speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
+            return;
+        }
+
+        Intent intent = SignUp6PasswordActivity.newIntent(this);
+        startActivity(intent);
+    }
+
+    public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
+    public static final String REGEX_IN_DEL_ALL = ".*(quanbu|suoyou|shuoyou).*";
+    public static final String REGEX_IN_NUMBER = "(\\d+)";
+    public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
+    public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
+    public static final String REGEX_IN_PHONE = ".*(手机|号码|手机号码).*";
+    public static final String REGEX_IN_CODE = ".*(验证码).*";
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        T.show(result);
+
+        if (result.matches(REGEX_IN_GO_BACK)) {
+            onTvGoBackClicked();
+            return;
+        }
+        if (result.matches(REGEX_IN_GO_FORWARD)) {
+            onTvGoForwardClicked();
+            return;
+        }
+
+        Pattern patternInIdCard = Pattern.compile(REGEX_IN_NUMBER);
+        Matcher matcherInIdCard = patternInIdCard.matcher(result);
+        if (matcherInIdCard.find()) {
+            EditText et = inPhone ? this.etPhone : this.etCode;
+            String s = et.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());
+            et.setText(s);
+            et.setSelection(s.length());
+            return;
+        }
+
+        if (result.matches(REGEX_IN_PHONE) && !inPhone) {
+            inPhone = true;
+            speak(R.string.sign_up_phone_tip);
+            return;
+        }
+
+        if (result.matches(REGEX_IN_CODE) && inPhone) {
+            inPhone = false;
+            speak(R.string.sign_up_code_tip);
+            return;
+        }
+
+        String inSpell = PinYinUtils.converterToSpell(result);
+        if (inSpell.matches(REGEX_IN_DEL_ALL)) {
+            EditText editText = inPhone ? etPhone : etCode;
+            editText.setText("");
+            editText.setSelection(0);
+            return;
+        }
+
+        if (inSpell.matches(REGEX_IN_DEL)) {
+            EditText editText = inPhone ? etPhone : etCode;
+            String target = editText.getText().toString().trim();
+            editText.setText(target.substring(0, target.length() - 1));
+            editText.setSelection(target.length() - 1);
+        }
+    }
+}
