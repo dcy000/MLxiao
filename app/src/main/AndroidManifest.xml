@@ -146,8 +146,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="landscape"
@@ -163,8 +162,7 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.MessageActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -174,8 +172,7 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape" >
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape"/>
@@ -189,8 +186,7 @@
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape"/>
@@ -200,6 +196,11 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -256,6 +257,7 @@
             android:screenOrientation="landscape">
         </activity>
 
+
         <!-- ############### EM ################# -->
         <!-- 设置环信应用的AppKey -->
         <meta-data
@@ -283,6 +285,7 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".recyclerview.AppraiseActivity"/>
         <activity android:name=".facerecognition.HeadiconActivity"/>
         <activity android:name=".recyclerview.DoctorappoActivity">
         </activity>
@@ -291,11 +294,6 @@
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp2GenderActivity">
         </activity>
@@ -308,8 +306,6 @@
         <activity android:name="com.medlink.danbogh.register.SignUp6PasswordActivity">
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp7HeightActivity">
-
-
 
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp8WeightActivity">
