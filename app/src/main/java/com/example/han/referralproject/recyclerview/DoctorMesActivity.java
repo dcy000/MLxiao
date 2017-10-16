@@ -31,9 +31,6 @@ import java.util.TimerTask;
 
 public class DoctorMesActivity extends BaseActivity {
 
-
-    // Toolbar mToolBar;
-    TextView mTitleText;
     Button mButton;
     ImageView mImageView;
 

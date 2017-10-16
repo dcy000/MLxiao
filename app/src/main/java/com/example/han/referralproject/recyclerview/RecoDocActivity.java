@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,26 +44,25 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     private List<Doctor> mlist = new ArrayList<Doctor>();
     DoctorAdapter mDoctorAdapter;
     private int mCurrPage = 0;
-    //   Toolbar mToolBar;
-    TextView mTitleText;
 
-    ImageView mImageView;
-    public View mTvCheckOffline;
+    public View mTvContractOffline;
+    public TextView tvGoBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reco_doc);
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
-        mImageView.setOnClickListener(new View.OnClickListener() {
+        tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        mTvCheckOffline = findViewById(R.id.tv_offline);
-        mTvCheckOffline.setOnClickListener(this);
+
+        mTvContractOffline = findViewById(R.id.tv_sign_up_contract_offline);
+        mTvContractOffline.setOnClickListener(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -158,7 +156,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_offline:
+            case R.id.tv_sign_up_contract_offline:
                 startActivity(new Intent(mContext, OfflineActivity.class));
                 break;
         }
@@ -348,7 +346,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             }
         }
         if (!TextUtils.isEmpty(inSpell) && inSpell.matches(REGEX_CHECK_OFFLINE)) {
-            mTvCheckOffline.performClick();
+            mTvContractOffline.performClick();
         }
     }
 }

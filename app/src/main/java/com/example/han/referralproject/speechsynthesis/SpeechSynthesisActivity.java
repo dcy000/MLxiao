@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -133,12 +134,20 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     int maxVolume = 0;
     int volume = 0;
     AudioManager mAudioManager;
+    public ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
 
+        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initLayout();
 
         //初始化音频管理器
@@ -176,11 +185,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         });
 
 
-        if (!checkServiceAlive()) {
-            return;
-        }
+//        if (!checkServiceAlive()) {
+//            return;
+//        }
 
-        getPlayService().setOnPlayEventListener(this);
+//        getPlayService().setOnPlayEventListener(this);
 
 
     }
@@ -782,7 +791,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }
 
-                } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*")) {
+                } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*") || inSpell.matches(".*ce.*baohedu.*")) {
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
@@ -1073,6 +1082,4 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             service.setOnPlayEventListener(null);
         }
     }
-
-
 }

@@ -590,7 +590,7 @@ public class VideoCallActivity extends CallActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        exitFullScreen();
+        //exitFullScreen();
     }
 
     @Override

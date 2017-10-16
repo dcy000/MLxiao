@@ -29,6 +29,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.medlink.danbogh.utils.T;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,14 +105,17 @@ public class BaseActivity extends AppCompatActivity {
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer == null) {
             synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
+            setSynthesizerParams();
         }
         synthesizer.startSpeaking(text, mTtsListener);
     }
 
-    protected void speak(final int resId) {
-        stopListening();
-        setSynthesizerParams();
-        mTts.startSpeaking(getString(resId), mTtsListener);
+    protected void speak(int resId) {
+        speak(getString(resId));
+//        stopListening();
+//        setSynthesizerParams();
+//        mTts.startSpeaking(getString(resId), mTtsListener);
+
 //        mDelayHandler.postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -142,7 +146,8 @@ public class BaseActivity extends AppCompatActivity {
     public static final String REGEX_CALL_XIAO_YI = ".*xiao(yi|yu|li).*";
 
     protected void onSpeakListenerResult(String result) {
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+//        T.show(result);
         String inSpell = PinYinUtils.converterToSpell(result);
         if (inSpell.matches(REGEX_CALL_XIAO_YI)) {
             speak(R.string.hello);

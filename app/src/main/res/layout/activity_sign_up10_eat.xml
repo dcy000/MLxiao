@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_sign_up_root_eat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_tab2_health_info"
+    tools:context="com.medlink.danbogh.register.SignUp10EatActivity">
+
+    <include layout="@layout/include_sign_up_content_health_info"/>
+
+    <include layout="@layout/include_sign_up_tab"/>
+
+    <include layout="@layout/include_sign_up_nav"/>
+</android.support.constraint.ConstraintLayout>

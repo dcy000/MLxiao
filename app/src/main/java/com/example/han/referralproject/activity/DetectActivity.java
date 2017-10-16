@@ -69,6 +69,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
     public static final String Type_XueYang = "xueyang";
+    public static final String Type_XinDian = "xindian";
     private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
@@ -264,7 +265,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         //threadDisable = false;
                         if (isGetResustFirst) {
-                            float xuetangResut = ((float)(notifyData[10] << 8) + notifyData[9])/18;
+//                            float xuetangResut = ((float)((notifyData[10] << 8 + (notifyData[9] & 0xff))))/18;
+                            float xuetangResut = ((float)(((notifyData[9] & 0xff))))/18;
                             mResultTv.setText(String.format("%.2f", xuetangResut));
                             DataInfoBean info = new DataInfoBean();
                             info.blood_sugar = String.format("%.2f", xuetangResut);
@@ -301,6 +303,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
     };
+    public ImageView ivBack;
 
 
     private void displayGattServices(List<BluetoothGattService> gattServices) {
@@ -394,6 +397,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         String type = getIntent().getStringExtra("type");
         if (!TextUtils.isEmpty(type)){
             switch (type) {
@@ -408,6 +418,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     break;
                 case "xueyang":
                     detectType = Type_XueYang;
+                    break;
+                case "xindian":
+                    detectType = Type_XinDian;
                     break;
             }
         }
@@ -501,6 +514,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 dialog = new NDialog(this);
                 showNormal("设备连接中，请稍后...");
                 break;
+            case Type_XinDian:
+                findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
+                break;
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
@@ -581,6 +597,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_XueYang:
                         deviceName = "POD";
+                        break;
+                    case Type_XinDian:
                         break;
                 }
 

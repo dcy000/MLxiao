@@ -4,7 +4,7 @@
         <item>高血压</item>
         <item>糖尿病</item>
         <item>冠心病</item>
-        <item>慢性阻塞性肺疾病</item>
+        <item>慢阻肺</item>
         <item>孕产妇</item>
         <item>脑卒中</item>
         <item>痛风</item>
@@ -28,14 +28,21 @@
     <string-array name="provinces">
         <item>浙江</item>
         <item>广东</item>
+        <item>山东</item>
     </string-array>
     <string-array name="cities">
         <item>杭州</item>
         <item>宁波</item>
+        <item>青岛</item>
+        <item>济南</item>
     </string-array>
     <string-array name="counties">
-        <item>西湖区</item>
-        <item>萧山区</item>
+        <item>西湖</item>
+        <item>萧山</item>
+        <item>市南</item>
+        <item>市北</item>
+        <item>四方</item>
+        <item>黄岛</item>
     </string-array><string-array name="repeats">
         <item>每天</item>
     </string-array>

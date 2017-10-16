@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--<color name="colorAccent">#8C8C8C</color>-->
+    <color name="colorAccent">#3F51B5</color>
     <color name="backgd">#222A2A</color>
 
     <color name="bg1">#D0E3F2</color>
@@ -38,5 +39,10 @@
     <color name="true_yuyue">#FFA200</color>
     <color name="appraise">#676767</color>
 
+
+    <color name="colorSaltyPreference">#34b87f</color>
+    <color name="textColorDiseaseUnselected">#929292</color>
+    <color name="textColorDiseaseSelected">@android:color/white</color>
+    <color name="textColorSelected">@android:color/white</color>
 
 </resources>

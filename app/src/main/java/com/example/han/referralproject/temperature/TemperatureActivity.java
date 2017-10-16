@@ -137,6 +137,7 @@ public class TemperatureActivity extends BaseActivity {
             }
         }
     };
+    public ImageView ivBack;
 
     private void posts(String temperature) throws Exception {
         // 创建URL对象
@@ -263,6 +264,13 @@ public class TemperatureActivity extends BaseActivity {
         setContentView(R.layout.activity_temperature);
         dialog = new NDialog(this);
 
+        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mTextView = (TextView) findViewById(R.id.text_temperature);
         mImageView1 = (ImageView) findViewById(R.id.test_2);
