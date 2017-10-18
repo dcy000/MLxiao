@@ -64,7 +64,12 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        Handlers.ui().removeCallbacks(countDown);
+        if (smsHandler != null) {
+            SMSSDK.unregisterEventHandler(smsHandler);
+        }
+        if (countDown != null) {
+            Handlers.ui().removeCallbacks(countDown);
+        }
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
@@ -74,6 +79,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     private void initView() {
 
     }
+
     private void initSms() {
         MobSDK.init(this, Utils.SMS_KEY, Utils.SMS_SECRETE);
         SMSSDK.registerEventHandler(smsHandler);
@@ -86,30 +92,6 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     }
 
     private boolean inPhone = true;
-
-    private EventHandler smsHandler = new EventHandler() {
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                switch (event) {
-                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-                        T.show("正在获取验证码");
-                        break;
-                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-                        T.show("验证码正确");
-                        navToNext();
-                        break;
-                    default:
-                        break;
-                }
-            } else if ()
-        }
-    };
-
-    private void navToNext() {
-        Intent intent = SignUp6PasswordActivity.newIntent(this);
-        startActivity(intent);
-    }
 
     @OnClick(R.id.tv_sign_up_fetch_code)
     public void onTvFetchCodeClicked() {
@@ -157,12 +139,40 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         LocalShared.getInstance(this.getApplicationContext()).setSignUpPhone(phone);
     }
 
+    private EventHandler smsHandler = new EventHandler() {
+        @Override
+        public void afterEvent(int event, int result, Object data) {
+            if (result == SMSSDK.RESULT_COMPLETE) {
+                switch (event) {
+                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
+                        T.show("正在获取验证码...");
+                        break;
+                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
+                        T.show("验证码正确");
+                        navToNext();
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                T.show("验证码错误");
+                speak("验证码错误,请重新输入");
+            }
+        }
+    };
+
+    private void navToNext() {
+        Intent intent = SignUp6PasswordActivity.newIntent(this);
+        startActivity(intent);
+    }
+
     public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
     public static final String REGEX_IN_DEL_ALL = ".*(quanbu|suoyou|shuoyou).*";
     public static final String REGEX_IN_NUMBER = "(\\d+)";
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
     public static final String REGEX_IN_PHONE = ".*(手机|号码|手机号码).*";
+    public static final String REGEX_FETCH_CODE = ".*(fasong|huoqu)yanzhengma.*";
     public static final String REGEX_IN_CODE = ".*(验证码).*";
 
     @Override
@@ -193,6 +203,12 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             speak(R.string.sign_up_phone_tip);
             return;
         }
+        String inSpell = PinYinUtils.converterToSpell(result);
+
+        if (result.matches(REGEX_FETCH_CODE) && tvFetchCode.isEnabled()) {
+            onTvFetchCodeClicked();
+            return;
+        }
 
         if (result.matches(REGEX_IN_CODE) && inPhone) {
             inPhone = false;
@@ -200,7 +216,6 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             return;
         }
 
-        String inSpell = PinYinUtils.converterToSpell(result);
         if (inSpell.matches(REGEX_IN_DEL_ALL)) {
             EditText editText = inPhone ? etPhone : etCode;
             editText.setText("");

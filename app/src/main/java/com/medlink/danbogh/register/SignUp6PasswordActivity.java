@@ -8,10 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.PreviousHistoryActivity;
+import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import java.util.regex.Matcher;
@@ -77,8 +83,35 @@ public class SignUp6PasswordActivity extends BaseActivity {
             return;
         }
 
-        Intent intent = SignUp7HeightActivity.newIntent(this);
-        startActivity(intent);
+        showLoadingDialog(getString(R.string.do_register));
+        final LocalShared shared = LocalShared.getInstance(this);
+        String name = shared.getSignUpName();
+        String gender = shared.getSignUpGender();
+        String address = shared.getSignUpAddress();
+        String idCard = shared.getSignUpIdCard();
+        String phone = shared.getSignUpPhone();
+        NetworkApi.registerUser(name, gender, address, phone, password, idCard,
+                new NetworkManager.SuccessCallback<UserInfoBean>() {
+                    @Override
+                    public void onSuccess(UserInfoBean response) {
+                        hideLoadingDialog();
+                        shared.setUserInfo(response);
+                        navToNext();
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        hideLoadingDialog();
+                        T.show(message);
+                        speak("主人," + message);
+                    }
+                }
+        );
+    }
+
+    private void navToNext() {
+        startActivity(new Intent(this, SignUp7HeightActivity.class));
+        finish();
     }
 
     public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";

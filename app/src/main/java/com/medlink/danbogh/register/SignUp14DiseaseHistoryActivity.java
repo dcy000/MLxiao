@@ -1,16 +1,21 @@
 package com.medlink.danbogh.register;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -37,7 +42,6 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     private DiseaseHistoryAdapter mAdapter;
     public List<DiseaseHistoryModel> mModels;
     public GridLayoutManager mLayoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +100,44 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        T.show("我是有底线的");
-        speak("我是有底线的");
+        String mh = getMh();
+        if (TextUtils.isEmpty(mh)) {
+            T.show(R.string.sign_up_disease_history_tip);
+            speak(R.string.sign_up_disease_history_tip);
+            return;
+        }
+
+        showLoadingDialog(getString(R.string.do_uploading));
+        NetworkApi.setUserMh(mh, new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+                hideLoadingDialog();
+                navToNext();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                hideLoadingDialog();
+            }
+        });
+    }
+
+    private void navToNext() {
+        Intent intent = new Intent(mContext, RegisterVideoActivity.class);
+        startActivity(intent);
+    }
+
+    private String getMh() {
+        StringBuilder mhBuilder = new StringBuilder();
+        int size = mModels == null ? 0 : mModels.size();
+        for (int i = 0; i < size; i++) {
+            if (mModels.get(i).isSelected()) {
+                mhBuilder.append(i + 1);
+                mhBuilder.append(",");
+            }
+        }
+        int length = mhBuilder.length();
+        return length == 0 ? mhBuilder.toString() : mhBuilder.substring(0, length - 1);
     }
 
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
@@ -116,6 +156,7 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
             return;
         }
 
+        //语音选择病史标签
         int size = mModels == null ? 0 : mModels.size();
         for (int i = 0; i < size; i++) {
             DiseaseHistoryModel model = mModels.get(i);

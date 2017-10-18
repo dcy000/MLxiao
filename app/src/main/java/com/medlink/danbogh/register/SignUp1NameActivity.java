@@ -39,6 +39,7 @@ public class SignUp1NameActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up1_name);
         mUnbinder = ButterKnife.bind(this);
+        mTvGoBack.setEnabled(false);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class SignUp1NameActivity extends BaseActivity {
     protected void onSpeakListenerResult(String result) {
         T.show(result);
 
-        if (result.matches(REGEX_IN_GO_BACK)) {
+        if (result.matches(REGEX_IN_GO_BACK) && mTvGoBack.isEnabled()) {
             onTvGoBackClicked();
             return;
         }

@@ -71,6 +71,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
     private AudioManager mAudioManager;
     private List<View> mViewPagerContent;
     private int mLastProgress;
+    public ImageView ivGoBack;
 
     @Nullable
     @Override
@@ -82,6 +83,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ViewBinder.bind(this, view);
+        ivGoBack = (ImageView) view.findViewById(R.id.iv_go_back);
         init();
         setListener();
     }
