@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -84,6 +85,14 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ViewBinder.bind(this, view);
         ivGoBack = (ImageView) view.findViewById(R.id.iv_go_back);
+        ivGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
         init();
         setListener();
     }

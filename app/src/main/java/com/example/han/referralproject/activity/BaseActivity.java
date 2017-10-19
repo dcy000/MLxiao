@@ -330,7 +330,6 @@ public class BaseActivity extends AppCompatActivity {
     public Runnable mListening = new Runnable() {
         @Override
         public void run() {
-            handler.removeCallbacks(mListening);
             startListening();
             if (enableListeningLoop) {
                 handler.postDelayed(mListening, 200);

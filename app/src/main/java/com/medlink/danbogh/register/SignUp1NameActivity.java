@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,6 +54,14 @@ public class SignUp1NameActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         speak(R.string.sign_up1_name_tip);
+    }
+
+    @OnClick(R.id.cl_sign_up_root_name)
+    public void onClRootClicked() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            Utils.hideKeyBroad(view);
+        }
     }
 
     @OnClick(R.id.tv_sign_up_go_back)

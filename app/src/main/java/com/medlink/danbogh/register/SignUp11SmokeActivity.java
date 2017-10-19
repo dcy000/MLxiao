@@ -34,9 +34,9 @@ public class SignUp11SmokeActivity extends BaseActivity {
     TextView tvGoBack;
     @BindView(R.id.tv_sign_up_go_forward)
     TextView tvGoForward;
-    public Unbinder mUnbinder;
+    private Unbinder mUnbinder;
     private EatAdapter mAdapter;
-    public List<EatModel> mModels;
+    private List<EatModel> mModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +50,36 @@ public class SignUp11SmokeActivity extends BaseActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         rvContent.setLayoutManager(layoutManager);
-        mAdapter = new EatAdapter();
+        mModels = eatModals();
+        mAdapter = new EatAdapter(mModels);
+        mAdapter.setOnItemClickListener(onItemClickListener);
         rvContent.setAdapter(mAdapter);
-        mAdapter.replaceAll(eatModals());
 
         tvTab1PersonalInfo.setTextColor(Color.parseColor("#3f86fc"));
         tvTab2HealthInfo.setTextColor(getResources().getColor(R.color.textColorSelected));
     }
+
+    private int positionSelected = -1;
+
+    private View.OnClickListener onItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int position = rvContent.getChildAdapterPosition(v);
+            if (position == positionSelected) {
+                onTvGoForwardClicked();
+                return;
+            }
+            if (positionSelected >= 0
+                    && positionSelected < mModels.size()) {
+                mModels.get(positionSelected).setSelected(false);
+                mAdapter.notifyItemChanged(positionSelected);
+            }
+            positionSelected = position;
+            mModels.get(position).setSelected(true);
+            mAdapter.notifyItemChanged(position);
+            onTvGoForwardClicked();
+        }
+    };
 
     private List<EatModel> eatModals() {
         mModels = new ArrayList<>(3);
@@ -129,16 +152,14 @@ public class SignUp11SmokeActivity extends BaseActivity {
         for (int i = 0; i < size; i++) {
             String type = map.get(i);
             if (result.contains(type)) {
-                View view = rvContent.getChildAt(i);
-                EatHolder eatHolder = (EatHolder) rvContent.getChildViewHolder(view);
-                eatHolder.onTvEatClicked();
+                onItemClickListener.onClick(rvContent.getChildAt(i));
                 return;
             }
         }
     }
 
-    public static SparseArrayCompat<String> map;
-    static {
+    public SparseArrayCompat<String> map;
+    {
         map = new SparseArrayCompat<>(3);
         map.put(0, "经常");
         map.put(1, "偶尔");

@@ -146,7 +146,9 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="landscape"
@@ -196,7 +198,11 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -290,24 +296,26 @@
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp2GenderActivity">
         </activity>
-        <activity android:name="com.medlink.danbogh.register.SignUp3AddressActivity">
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp3AddressActivity"
+            android:windowSoftInputMode="stateHidden|adjustNothing">
         </activity>
-        <activity android:name="com.medlink.danbogh.register.SignUp4IdCardActivity">
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp4IdCardActivity"
+            android:windowSoftInputMode="stateHidden|adjustNothing">
         </activity>
-        <activity android:name="com.medlink.danbogh.register.SignUp5MobileVerificationActivity">
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp5MobileVerificationActivity"
+            android:windowSoftInputMode="stateHidden|adjustNothing">
         </activity>
-        <activity android:name="com.medlink.danbogh.register.SignUp6PasswordActivity">
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp6PasswordActivity"
+            android:windowSoftInputMode="stateHidden|adjustNothing">
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp7HeightActivity">
-
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp8WeightActivity">
         </activity>

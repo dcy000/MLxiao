@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class SignUp7HeightActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.rv_sign_up_content)
     RecyclerView rvContent;
+    @BindView(R.id.tv_sign_up_unit)
+    TextView tvUnit;
     @BindView(R.id.tv_sign_up_go_back)
     TextView tvGoBack;
     @BindView(R.id.tv_sign_up_go_forward)
@@ -70,6 +73,7 @@ public class SignUp7HeightActivity extends BaseActivity {
     }
 
     protected void initView() {
+        tvUnit.setText("cm");
         GalleryLayoutManager layoutManager = new GalleryLayoutManager(GalleryLayoutManager.VERTICAL);
         layoutManager.attach(rvContent, 1);
         layoutManager.setCallbackInFling(true);
@@ -129,10 +133,11 @@ public class SignUp7HeightActivity extends BaseActivity {
             return;
         }
 
+        String in = Utils.chineseToNumber(result);
         int size = mStrings.size();
         for (int i = 0; i < size; i++) {
             String height = mStrings.get(i);
-            if (result.contains(height)) {
+            if (in.contains(height)) {
                 rvContent.smoothScrollToPosition(i);
                 return;
             }

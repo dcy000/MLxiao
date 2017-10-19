@@ -1,6 +1,5 @@
 package com.medlink.danbogh.call;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,19 +51,9 @@ public class XDialogFragment extends DialogFragment implements Runnable {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         initWindowParams();
-        Dialog dialog = getDialog();
-        if (dialog != null && onDismissListener != null) {
-            dialog.setOnDismissListener(onDismissListener);
-        }
         mHandler.postDelayed(this, 2000);
     }
 
@@ -110,13 +99,14 @@ public class XDialogFragment extends DialogFragment implements Runnable {
 
     @Override
     public void run() {
-        hide();
+        dismiss();
     }
 
-    public void hide() {
-        Dialog dialog = getDialog();
-        if (dialog != null && dialog.isShowing()) {
-            dismiss();
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (onDismissListener != null) {
+            onDismissListener.onDismiss(dialog);
         }
     }
 }

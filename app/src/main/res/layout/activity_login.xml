@@ -68,7 +68,6 @@
                 android:background="@drawable/shape_btn_login"
                 android:textSize="18sp"/>
         </LinearLayout>
-
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"

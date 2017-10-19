@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,6 +71,14 @@ public class SignUp6PasswordActivity extends BaseActivity {
         speak(R.string.sign_up_password_tip);
     }
 
+    @OnClick(R.id.cl_sign_up_root_password)
+    public void onClRootClicked() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            Utils.hideKeyBroad(view);
+        }
+    }
+
     @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
@@ -115,7 +125,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
     }
 
     public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
-    public static final String REGEX_IN_DEL_ALL = ".*(quanbu|suoyou|shuoyou).*";
+    public static final String REGEX_IN_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
     public static final String REGEX_IN_NUMBER = "(\\d+)";
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
@@ -133,8 +143,9 @@ public class SignUp6PasswordActivity extends BaseActivity {
             return;
         }
 
-        Pattern patternInIdCard = Pattern.compile(REGEX_IN_NUMBER);
-        Matcher matcherInIdCard = patternInIdCard.matcher(result);
+        Pattern patternInPassword = Pattern.compile(REGEX_IN_NUMBER);
+        String in = Utils.chineseToNumber(result);
+        Matcher matcherInIdCard = patternInPassword.matcher(in);
         if (matcherInIdCard.find()) {
             String s = etPassword.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());
             s = s.length() > 6 ? s.substring(0, 6) : s;

@@ -50,13 +50,36 @@ public class SignUp13SportsActivity extends BaseActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         rvContent.setLayoutManager(layoutManager);
-        mAdapter = new EatAdapter();
+        mModels = eatModals();
+        mAdapter = new EatAdapter(mModels);
+        mAdapter.setOnItemClickListener(onItemClickListener);
         rvContent.setAdapter(mAdapter);
-        mAdapter.replaceAll(eatModals());
 
         tvTab1PersonalInfo.setTextColor(Color.parseColor("#3f86fc"));
         tvTab2HealthInfo.setTextColor(getResources().getColor(R.color.textColorSelected));
     }
+
+    private int positionSelected = -1;
+
+    private View.OnClickListener onItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int position = rvContent.getChildAdapterPosition(v);
+            if (position == positionSelected) {
+                onTvGoForwardClicked();
+                return;
+            }
+            if (positionSelected >= 0
+                    && positionSelected < mModels.size()) {
+                mModels.get(positionSelected).setSelected(false);
+                mAdapter.notifyItemChanged(positionSelected);
+            }
+            positionSelected = position;
+            mModels.get(position).setSelected(true);
+            mAdapter.notifyItemChanged(position);
+            onTvGoForwardClicked();
+        }
+    };
 
     private List<EatModel> eatModals() {
         mModels = new ArrayList<>(4);
@@ -134,9 +157,7 @@ public class SignUp13SportsActivity extends BaseActivity {
         for (int i = 0; i < size; i++) {
             String type = map.get(i);
             if (result.contains(type)) {
-                View view = rvContent.getChildAt(i);
-                EatHolder eatHolder = (EatHolder) rvContent.getChildViewHolder(view);
-                eatHolder.onTvEatClicked();
+                onItemClickListener.onClick(rvContent.getChildAt(i));
                 return;
             }
         }

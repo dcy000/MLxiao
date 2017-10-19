@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -16,6 +18,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.Utils;
 
 import java.util.Arrays;
 
@@ -38,10 +41,10 @@ public class SignUp3AddressActivity extends BaseActivity {
     Spinner spCounty;
     @BindView(R.id.et_sign_up_address)
     EditText etAddress;
-    public Unbinder mUnbinder;
-    public String[] mProvinceArray;
-    public String[] mCityArray;
-    public String[] mCountyArray;
+    private Unbinder mUnbinder;
+    private String[] mProvinceArray;
+    private String[] mCityArray;
+    private String[] mCountyArray;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp3AddressActivity.class);
@@ -82,6 +85,14 @@ public class SignUp3AddressActivity extends BaseActivity {
         speak(R.string.sign_up3_address_tip);
     }
 
+    @OnClick(R.id.cl_sign_up_root_address)
+    public void onClRootClicked() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            Utils.hideKeyBroad(view);
+        }
+    }
+
     @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
@@ -110,6 +121,8 @@ public class SignUp3AddressActivity extends BaseActivity {
         return builder.toString();
     }
 
+    public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
+    public static final String REGEX_IN_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
     public static final String REGEX_IN_PROVINCE = ".*(sheng|shen|seng|sen)";
     public static final String REGEX_IN_CITY = ".*(shi|si)";
     public static final String REGEX_IN_COUNTY = ".*(qu|xian)";
@@ -124,6 +137,7 @@ public class SignUp3AddressActivity extends BaseActivity {
             onTvGoBackClicked();
             return;
         }
+
         if (result.matches(REGEX_IN_GO_FORWARD)) {
             onTvGoForwardClicked();
             return;
@@ -153,6 +167,7 @@ public class SignUp3AddressActivity extends BaseActivity {
                 }
             }
         }
+
         if (inSpell.matches(REGEX_IN_COUNTY)) {
             String inCounty = result.substring(0, result.length() - 1);
             String county;
@@ -165,7 +180,19 @@ public class SignUp3AddressActivity extends BaseActivity {
             }
         }
 
-        etAddress.setText(result);
-        etAddress.setSelection(result.length());
+        if (inSpell.matches(REGEX_IN_DEL_ALL)) {
+            etAddress.setText("");
+            return;
+        }
+
+        String target = etAddress.getText().toString().trim();
+        if (inSpell.matches(REGEX_IN_DEL)) {
+            etAddress.setText(target.substring(0, target.length() - 1));
+            etAddress.setSelection(target.length() - 1);
+        }
+
+        String text = target + result;
+        etAddress.setText(text);
+        etAddress.setSelection(text.length());
     }
 }

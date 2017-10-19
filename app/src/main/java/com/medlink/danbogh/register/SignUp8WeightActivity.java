@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.han.referralproject.R;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
     protected void initView() {
         super.initView();
         tvTitle.setText("您的体重");
+        tvUnit.setText("kg");
     }
 
     @Override
@@ -57,9 +59,10 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
         }
 
         int size = mStrings == null ? 0 : mStrings.size();
+        String in = Utils.chineseToNumber(result);
         for (int i = 0; i < size; i++) {
             String weight = mStrings.get(i);
-            if (result.contains(weight)) {
+            if (in.contains(weight)) {
                 rvContent.smoothScrollToPosition(i);
                 return;
             }

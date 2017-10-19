@@ -18,6 +18,7 @@ public class SignUp9BloodTypeActivity extends SignUp7HeightActivity {
     protected void initView() {
         super.initView();
         tvTitle.setText("您的血型");
+        tvUnit.setText("型");
     }
 
     @Override
@@ -58,9 +59,10 @@ public class SignUp9BloodTypeActivity extends SignUp7HeightActivity {
         }
 
         int size = mStrings == null ? 0 : mStrings.size();
+        String in = result.toLowerCase();
         for (int i = 0; i < size; i++) {
             String bloodType = mStrings.get(i);
-            if (result.contains(bloodType.toLowerCase())) {
+            if (in.contains(bloodType.toLowerCase())) {
                 rvContent.smoothScrollToPosition(i);
                 return;
             }

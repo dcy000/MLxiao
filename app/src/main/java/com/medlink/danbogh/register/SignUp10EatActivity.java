@@ -66,12 +66,35 @@ public class SignUp10EatActivity extends BaseActivity {
         mLayoutManager = new GridLayoutManager(this, 3);
         mLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         rvContent.setLayoutManager(mLayoutManager);
-        mAdapter = new EatAdapter();
+        mModels = eatModals();
+        mAdapter = new EatAdapter(mModels);
+        mAdapter.setOnItemClickListener(onItemClickListener);
         rvContent.setAdapter(mAdapter);
-        mAdapter.replaceAll(eatModals());
         tvTab1PersonalInfo.setTextColor(Color.parseColor("#3f86fc"));
         tvTab2HealthInfo.setTextColor(getResources().getColor(R.color.textColorSelected));
     }
+
+    private int positionSelected = -1;
+
+    private View.OnClickListener onItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int position = rvContent.getChildAdapterPosition(v);
+            if (position == positionSelected) {
+                onTvGoForwardClicked();
+                return;
+            }
+            if (positionSelected >= 0
+                    && positionSelected < mModels.size()) {
+                mModels.get(positionSelected).setSelected(false);
+                mAdapter.notifyItemChanged(positionSelected);
+            }
+            positionSelected = position;
+            mModels.get(position).setSelected(true);
+            mAdapter.notifyItemChanged(position);
+            onTvGoForwardClicked();
+        }
+    };
 
     private List<EatModel> eatModals() {
         mModels = new ArrayList<>(6);
@@ -145,16 +168,15 @@ public class SignUp10EatActivity extends BaseActivity {
         for (int i = 0; i < size; i++) {
             String type = map.get(i);
             if (result.contains(type)) {
-                View view = rvContent.getChildAt(i);
-                EatHolder eatHolder = (EatHolder) rvContent.getChildViewHolder(view);
-                eatHolder.onTvEatClicked();
+                onItemClickListener.onClick(rvContent.getChildAt(i));
                 return;
             }
         }
     }
 
-    public static SparseArrayCompat<String> map;
-    static {
+    public SparseArrayCompat<String> map;
+
+    {
         map = new SparseArrayCompat<>(6);
         map.put(0, "荤素");
         map.put(1, "荤");

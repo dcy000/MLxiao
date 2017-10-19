@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -89,6 +90,17 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
+        EditText editText = inPhone ? etPhone : etCode;
+        editText.requestFocus();
+        Utils.hideKeyBroad(editText);
+    }
+
+    @OnClick(R.id.cl_sign_up_root_mobile_verification)
+    public void onClRootClicked() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            Utils.hideKeyBroad(view);
+        }
     }
 
     private boolean inPhone = true;
@@ -98,10 +110,13 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         String phone = etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
             speak("主人，手机号码输入有误，请重新输入");
+            inPhone = true;
+            etPhone.setText("");
+            etPhone.requestFocus();
             return;
         }
         SMSSDK.getVerificationCode("86", phone);
-        i = 10;
+        i = 30;
         tvFetchCode.setEnabled(false);
         Handlers.ui().postDelayed(countDown, 1000);
     }
@@ -155,8 +170,16 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
                         break;
                 }
             } else {
-                T.show("验证码错误");
-                speak("验证码错误,请重新输入");
+                switch (event) {
+                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
+                        T.show("无法获取验证码");
+                        speak("主人,当前手机号的验证码获取次数已超过5次,请更换手机号码或改天再试");
+                        break;
+                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
+                        T.show("验证码错误");
+                        speak("验证码错误,请重新输入");
+                        break;
+                }
             }
         }
     };
@@ -166,14 +189,14 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
-    public static final String REGEX_IN_DEL_ALL = ".*(quanbu|suoyou|shuoyou).*";
+    public static final String REGEX_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
+    public static final String REGEX_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
     public static final String REGEX_IN_NUMBER = "(\\d+)";
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
-    public static final String REGEX_IN_PHONE = ".*(手机|号码|手机号码).*";
+    public static final String REGEX_IN_PHONE = ".*(shu|su)(ru|lu|lv)(shou|sou)ji.*";
     public static final String REGEX_FETCH_CODE = ".*(fasong|huoqu)yanzhengma.*";
-    public static final String REGEX_IN_CODE = ".*(验证码).*";
+    public static final String REGEX_IN_CODE = ".*(shu|su)(ru|lu|lv)(yanzhengma)";
 
     @Override
     protected void onSpeakListenerResult(String result) {
@@ -188,42 +211,51 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             return;
         }
 
-        Pattern patternInIdCard = Pattern.compile(REGEX_IN_NUMBER);
-        Matcher matcherInIdCard = patternInIdCard.matcher(result);
-        if (matcherInIdCard.find()) {
+        Pattern patternInNumber = Pattern.compile(REGEX_IN_NUMBER);
+        String in = Utils.chineseToNumber(result);
+        Matcher matcherInNumber = patternInNumber.matcher(in);
+        if (matcherInNumber.find()) {
             EditText et = inPhone ? this.etPhone : this.etCode;
-            String s = et.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());
+            String s = et.getText().toString() + matcherInNumber.group(matcherInNumber.groupCount());
             et.setText(s);
             et.setSelection(s.length());
             return;
         }
 
-        if (result.matches(REGEX_IN_PHONE) && !inPhone) {
-            inPhone = true;
-            speak(R.string.sign_up_phone_tip);
-            return;
-        }
         String inSpell = PinYinUtils.converterToSpell(result);
 
-        if (result.matches(REGEX_FETCH_CODE) && tvFetchCode.isEnabled()) {
+        if (inSpell.matches(REGEX_IN_PHONE) && !inPhone) {
+            inPhone = true;
+            speak(R.string.sign_up_phone_tip);
+            etPhone.requestFocus();
+            return;
+        }
+
+        if (inSpell.matches(REGEX_FETCH_CODE) && tvFetchCode.isEnabled()) {
+
+
+            inPhone = false;
+            speak(R.string.sign_up_fetch_code_tip);
+            etCode.requestFocus();
             onTvFetchCodeClicked();
             return;
         }
 
-        if (result.matches(REGEX_IN_CODE) && inPhone) {
+        if (inSpell.matches(REGEX_IN_CODE) && inPhone) {
             inPhone = false;
             speak(R.string.sign_up_code_tip);
+            etCode.requestFocus();
             return;
         }
 
-        if (inSpell.matches(REGEX_IN_DEL_ALL)) {
+        if (inSpell.matches(REGEX_DEL_ALL)) {
             EditText editText = inPhone ? etPhone : etCode;
             editText.setText("");
             editText.setSelection(0);
             return;
         }
 
-        if (inSpell.matches(REGEX_IN_DEL)) {
+        if (inSpell.matches(REGEX_DEL)) {
             EditText editText = inPhone ? etPhone : etCode;
             String target = editText.getText().toString().trim();
             editText.setText(target.substring(0, target.length() - 1));

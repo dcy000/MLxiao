@@ -4,8 +4,8 @@
         <shape
             android:shape="oval">
             <size
-                android:width="35dp"
-                android:height="35dp"/>
+                android:width="70dp"
+                android:height="70dp"/>
             <solid android:color="@android:color/white"/>
             <stroke
                 android:width="2dp"
@@ -16,11 +16,11 @@
     <item android:gravity="center">
         <shape android:shape="oval">
             <size
-                android:width="22dp"
-                android:height="22dp"/>
+                android:width="70dp"
+                android:height="70dp"/>
             <solid android:color="#3F85FC"/>
-            <stroke android:width="10dp"
-                android:color="@android:color/transparent"/>
+            <stroke android:width="20dp"
+                    android:color="@android:color/transparent"/>
         </shape>
     </item>
 </layer-list>

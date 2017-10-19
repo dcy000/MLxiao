@@ -30,11 +30,21 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 
     public static final int MIN_CLICK_DELAY_TIME = 1000;
     private long lastClickTime = 0;
+    public ImageView mIvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_main);
+
+        mIvBack = (ImageView) findViewById(R.id.iv_back);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         mImageView1 = (ImageView) findViewById(R.id.test_xueya);
         mImageView2 = (ImageView) findViewById(R.id.test_xueyang);
         mImageView3 = (ImageView) findViewById(R.id.test_wendu);

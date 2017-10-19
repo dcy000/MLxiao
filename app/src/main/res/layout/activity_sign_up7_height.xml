@@ -24,20 +24,26 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_sign_up_content"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_height"/>
 
-    <include
-        layout="@layout/include_sign_up_tab"
-        android:layout_width="0dp"
-        android:layout_height="0dp"/>
 
-    <include
-        layout="@layout/include_sign_up_nav"
-        android:layout_width="0dp"
-        android:layout_height="0dp"/>
+    <TextView
+        android:id="@+id/tv_sign_up_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="cm"
+        android:textColor="#FFC107"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_sign_up_content"
+        app:layout_constraintLeft_toRightOf="@+id/rv_sign_up_content"
+        app:layout_constraintTop_toTopOf="@+id/rv_sign_up_content"/>
+
+    <include layout="@layout/include_sign_up_tab"/>
+
+    <include layout="@layout/include_sign_up_nav"/>
 </android.support.constraint.ConstraintLayout>

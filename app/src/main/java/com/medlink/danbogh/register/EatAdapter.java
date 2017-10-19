@@ -4,24 +4,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by lenovo on 2017/10/13.
  */
 
-public class EatAdapter extends RecyclerView.Adapter<EatHolder> {
-    public ArrayList<EatModel> mEatModels = new ArrayList<>(6);
+public class EatAdapter extends RecyclerView.Adapter<EatAdapter.EatHolder> {
+    public List<EatModel> mEatModels;
+
+    public EatAdapter(List<EatModel> eatModels) {
+        mEatModels = eatModels;
+    }
 
     @Override
     public EatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_eat, parent, false);
-        return new EatHolder(view);
+        return new EatHolder(view, mListener);
     }
 
     @Override
@@ -32,12 +41,40 @@ public class EatAdapter extends RecyclerView.Adapter<EatHolder> {
 
     @Override
     public int getItemCount() {
-        return mEatModels.size();
+        return mEatModels == null ? 0 : mEatModels.size();
     }
 
-    public void replaceAll(Collection<EatModel> models) {
-        this.mEatModels.clear();
-        this.mEatModels.addAll(models);
-        this.notifyDataSetChanged();
+    private View.OnClickListener mListener;
+
+    public void setOnItemClickListener(View.OnClickListener listener) {
+        mListener = listener;
+    }
+
+    public class EatHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_sign_up_eat)
+        ImageView ivEat;
+        @BindView(R.id.tv_sign_up_eat)
+        TextView tvEat;
+
+        public EatModel mEatModel;
+
+        public EatHolder(View itemView, View.OnClickListener listener) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(listener);
+        }
+
+        public void onBind(EatModel eatModel) {
+            mEatModel = eatModel;
+            ivEat.setImageResource(eatModel.getImgRes());
+            tvEat.setBackgroundResource(eatModel.isSelected()
+                    ? eatModel.getBgSelected()
+                    : eatModel.getBg());
+            tvEat.setTextColor(eatModel.isSelected()
+                    ? tvEat.getResources().getColor(R.color.white)
+                    : eatModel.getSelectedColor());
+            tvEat.setText(eatModel.getEatType());
+            tvEat.setSelected(eatModel.isSelected());
+        }
     }
 }

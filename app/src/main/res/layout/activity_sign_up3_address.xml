@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/cl_sign_up_root_address"
     android:background="@drawable/bg_tab1_personal_info"
     tools:context="com.medlink.danbogh.register.SignUp3AddressActivity">
 
