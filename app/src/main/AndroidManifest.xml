@@ -147,7 +147,6 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize">
-
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
@@ -164,7 +163,7 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.MessageActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -174,7 +173,7 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape"/>
@@ -188,7 +187,7 @@
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape"/>
@@ -259,7 +258,6 @@
             android:screenOrientation="landscape">
         </activity>
 
-
         <!-- ############### EM ################# -->
         <!-- 设置环信应用的AppKey -->
         <meta-data
@@ -322,7 +320,6 @@
         <activity android:name="com.medlink.danbogh.register.SignUp9BloodTypeActivity">
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp10EatActivity">
-
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp11SmokeActivity">
         </activity>
@@ -331,6 +328,8 @@
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity">
         </activity>
         <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity">
+        </activity>
+        <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity">
         </activity>
     </application>
 

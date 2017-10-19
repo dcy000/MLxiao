@@ -301,7 +301,7 @@
     <string name="play_tips_sure">立即打开</string>
     <string name="timer_set">设置成功，将于%s分钟后关闭</string>
     <string name="timer_cancel">定时停止播放已取消</string>
-  <string name="no_permission">没有%1$s权限，无法%2$s！</string>
+    <string name="no_permission">没有%1$s权限，无法%2$s！</string>
     <string name="user_help">主人，认真阅读用户须知，帮助您完成签约</string>
     <string name="hello">你好</string>
 
@@ -346,7 +346,6 @@
     <string name="sign_up_disease_history_tip">主人，如果您有病史，请选择对应标签</string>
 
     <string name="appraise">评&#160;&#160;&#160;&#160;&#160;价</string>
-
 
 
 </resources>

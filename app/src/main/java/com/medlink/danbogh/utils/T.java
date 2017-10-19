@@ -20,38 +20,27 @@ public class T {
     }
 
     public static void show(@StringRes final int resId) {
-        Handlers.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                show(sContext.getString(resId));
-            }
-        });
+        show(sContext.getString(resId));
     }
 
     public static void showLong(@StringRes final int resId) {
-        Handlers.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                showLong(sContext.getString(resId));
-            }
-        });
+        showLong(sContext.getString(resId));
     }
 
     public static void show(final String text) {
-        Handlers.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                show(text, Toast.LENGTH_SHORT);
-            }
-        });
+        showOnUiThread(text, Toast.LENGTH_SHORT);
     }
 
 
     public static void showLong(final String text) {
-        Handlers.runOnUiThread(new Runnable() {
+        showOnUiThread(text, Toast.LENGTH_LONG);
+    }
+
+    private static void showOnUiThread(final String text, final int duration) {
+        Handlers.ui().post(new Runnable() {
             @Override
             public void run() {
-                show(text, Toast.LENGTH_LONG);
+                show(text, duration);
             }
         });
     }

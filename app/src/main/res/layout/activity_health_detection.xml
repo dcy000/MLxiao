@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.medlink.danbogh.healthdetection.HealthDetectionActivity">
+
+    <FrameLayout
+        android:id="@+id/ll_health_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="138pt"
+        android:orientation="horizontal"
+        android:background="#3f85fc"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:src="@drawable/ic_back"
+            android:layout_gravity="left|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:id="@+id/tv_health_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="66pt"
+            android:text="健康检测"/>
+
+        <ImageView
+            android:layout_gravity="right|center_vertical"
+            android:src=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>
