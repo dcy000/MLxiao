@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <!-- 读取网络信息状态 -->
 
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
@@ -147,6 +148,13 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".activity.WifiConnectActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="landscape"
@@ -172,7 +180,8 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape"/>
@@ -196,11 +205,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
