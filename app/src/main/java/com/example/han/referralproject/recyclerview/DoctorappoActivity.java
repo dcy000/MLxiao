@@ -176,7 +176,7 @@ public class DoctorappoActivity extends AppCompatActivity implements View.OnClic
 
         }
 
-      
+
 
     }
 
