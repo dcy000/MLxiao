@@ -258,8 +258,10 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         if (inSpell.matches(REGEX_DEL)) {
             EditText editText = inPhone ? etPhone : etCode;
             String target = editText.getText().toString().trim();
-            editText.setText(target.substring(0, target.length() - 1));
-            editText.setSelection(target.length() - 1);
+            if (!TextUtils.isEmpty(target)) {
+                editText.setText(target.substring(0, target.length() - 1));
+                editText.setSelection(target.length() - 1);
+            }
         }
     }
 }

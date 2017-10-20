@@ -34,7 +34,6 @@
 
         <ImageView
             android:layout_gravity="right|center_vertical"
-            android:src=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </FrameLayout>

@@ -163,8 +163,10 @@ public class SignUp6PasswordActivity extends BaseActivity {
 
         if (inSpell.matches(REGEX_IN_DEL)) {
             String target = etPassword.getText().toString().trim();
-            etPassword.setText(target.substring(0, target.length() - 1));
-            etPassword.setSelection(target.length() - 1);
+            if (!TextUtils.isEmpty(target)) {
+                etPassword.setText(target.substring(0, target.length() - 1));
+                etPassword.setSelection(target.length() - 1);
+            }
         }
     }
 }

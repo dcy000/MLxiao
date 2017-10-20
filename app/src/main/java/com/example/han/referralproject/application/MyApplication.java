@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Looper;
 import android.os.Process;
+import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.music.AppCache;
@@ -21,6 +21,7 @@ import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call.CallManager;
 import com.medlink.danbogh.call.CallReceiver;
 import com.medlink.danbogh.call.EMAccountHelper;
+import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -45,6 +46,12 @@ public class MyApplication extends Application {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         T.init(this);
@@ -66,6 +73,7 @@ public class MyApplication extends Application {
         ForegroundObserver.init(this);
         initOkHttpUtils();
 
+//        NimInitHelper.getInstance().init(this, true);
     }
 
 
@@ -106,10 +114,10 @@ public class MyApplication extends Application {
         EMOptions options = new EMOptions();
         options.setAutoLogin(true);
         // 动态设置appkey，如果清单配置文件设置了 appkey，这里可以不用设置
-        //options.setAppKey("yunshangzhijia#yunyue");
+        //nimOptions.setAppKey("yunshangzhijia#yunyue");
 
         // 设置小米推送 appID 和 appKey
-//        options.setMipushConfig("2882303761517573806", "5981757315806");
+//        nimOptions.setMipushConfig("2882303761517573806", "5981757315806");
 
         // 设置消息是否按照服务器时间排序
         options.setSortMessageByServerTime(false);

@@ -1,5 +1,6 @@
 package com.medlink.danbogh.utils;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
@@ -94,6 +95,35 @@ public class Utils {
             }
         }
         return new String(chars);
+    }
+
+    public static boolean inMainProcess(Context context) {
+        String packageName = context.getPackageName();
+        String processName = getProcessName(context);
+        return packageName.equals(processName);
+    }
+
+    public static String getProcessName(Context context) {
+        String processName = null;
+        ActivityManager manager = ((ActivityManager)
+                context.getSystemService(Context.ACTIVITY_SERVICE));
+        while (true) {
+            for (ActivityManager.RunningAppProcessInfo info : manager.getRunningAppProcesses()) {
+                if (info.pid == android.os.Process.myPid()) {
+                    processName = info.processName;
+                    break;
+                }
+            }
+            if (!TextUtils.isEmpty(processName)) {
+                return processName;
+            }
+            // take a rest and again
+            try {
+                Thread.sleep(100L);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
 

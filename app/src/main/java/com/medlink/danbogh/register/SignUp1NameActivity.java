@@ -133,8 +133,10 @@ public class SignUp1NameActivity extends BaseActivity {
 
         if (inSpell.matches(REGEX_IN_DEL)) {
             String target = mEtName.getText().toString().trim();
-            mEtName.setText(target.substring(0, target.length() - 1));
-            mEtName.setSelection(target.length() - 1);
+            if (!TextUtils.isEmpty(target)) {
+                mEtName.setText(target.substring(0, target.length() - 1));
+                mEtName.setSelection(target.length() - 1);
+            }
         }
     }
 }

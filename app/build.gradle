@@ -35,6 +35,10 @@ android {
         }
     }
 
+    dexOptions {
+        javaMaxHeapSize '4g'
+    }
+
     lintOptions {
         abortOnError false
     }
@@ -57,6 +61,7 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:multidex:1.0.1'
     compile project(':library')
     compile project(':wkvideoplayer')
     compile files('libs/Msc.jar')
@@ -89,4 +94,6 @@ dependencies {
     compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.netease.nimlib:basesdk:4.3.0'
+    compile 'com.netease.nimlib:avchat:4.3.0'
 }

@@ -132,8 +132,10 @@ public class SignUp4IdCardActivity extends BaseActivity {
 
         if (inSpell.matches(REGEX_IN_DEL)) {
             String target = etIdCard.getText().toString().trim();
-            etIdCard.setText(target.substring(0, target.length() - 1));
-            etIdCard.setSelection(target.length() - 1);
+            if (!TextUtils.isEmpty(target)) {
+                etIdCard.setText(target.substring(0, target.length() - 1));
+                etIdCard.setSelection(target.length() - 1);
+            }
         }
     }
 }

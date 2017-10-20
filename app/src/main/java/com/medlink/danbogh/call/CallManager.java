@@ -266,7 +266,7 @@ public class CallManager {
             VMLog.e("结束通话失败：error %d - %s", e.getErrorCode(), e.getMessage());
         }
         //考虑扣费
-        considerChargeIfNeeded();
+//        considerChargeIfNeeded();
         // 挂断电话调用保存消息方法
         saveCallMessage();
         // 通话结束，重置通话状态

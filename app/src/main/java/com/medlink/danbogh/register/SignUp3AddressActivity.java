@@ -187,8 +187,10 @@ public class SignUp3AddressActivity extends BaseActivity {
 
         String target = etAddress.getText().toString().trim();
         if (inSpell.matches(REGEX_IN_DEL)) {
-            etAddress.setText(target.substring(0, target.length() - 1));
-            etAddress.setSelection(target.length() - 1);
+            if (!TextUtils.isEmpty(target)) {
+                etAddress.setText(target.substring(0, target.length() - 1));
+                etAddress.setSelection(target.length() - 1);
+            }
         }
 
         String text = target + result;

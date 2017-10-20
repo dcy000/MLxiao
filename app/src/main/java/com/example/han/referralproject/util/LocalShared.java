@@ -138,4 +138,23 @@ public class LocalShared {
     public String getSignUpPhone() {
         return mShared.getString(SIGN_UP_PHONE, "");
     }
+
+    private static final String NIM_ACCOUNT = "nim_account";
+    private static final String NIM_TOKEN = "nim_token";
+
+    public void setNimAccount(String account) {
+        mShared.edit().putString(NIM_ACCOUNT, account).apply();
+    }
+
+    public String getNimAccount() {
+        return mShared.getString(NIM_ACCOUNT, "");
+    }
+
+    public void setNimToken(String token) {
+        mShared.edit().putString(NIM_TOKEN, token).apply();
+    }
+
+    public String getNimToken() {
+        return mShared.getString(NIM_TOKEN, "");
+    }
 }
