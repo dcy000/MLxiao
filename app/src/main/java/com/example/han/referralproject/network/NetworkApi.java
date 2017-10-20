@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.bean.UserInfoBean;
@@ -17,8 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://192.168.200.108:8080";
-    public static final String BasicUrl = "http://116.62.36.12:8080";
+    public static final String BasicUrl = "http://192.168.200.103:8080";
+    //    public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
@@ -29,6 +30,9 @@ public class NetworkApi {
     public static final String GetVersionUrl = BasicUrl + "/ZZB/vc/selone";
     public static final String UploadDataUrl = BasicUrl + "/ZZB/bl/doaddbl";
     public static final String CHARGE_URL = BasicUrl + "/ZZB/eq/koufei";
+    public static final String PAY_URL = BasicUrl + "/ZZB/br/chongzhi";
+    public static final String DOCTOR_URL = BasicUrl + "/ZZB/docter/search_OneDocter";
+
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
@@ -37,8 +41,25 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(LoginUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
-    public static void registerUser(String name, String sex, String address, String telephone, String pwd, String sfz,
-                                    NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback){
+
+    public static void PayInfo(String eqid, String bba, String time, String bid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("eqid", eqid);
+        paramsMap.put("bba", bba);
+        paramsMap.put("time", time);
+        paramsMap.put("bid", bid);
+        NetworkManager.getInstance().postResultClass(PAY_URL, paramsMap, UserInfoBean.class, listener, failedCallback);
+    }
+
+    public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctors> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bid", bid);
+
+        NetworkManager.getInstance().postResultClass(DOCTOR_URL, paramsMap, Doctors.class, listener, failedCallback);
+    }
+
+
+    public static void registerUser(String name, String sex, String address, String telephone, String pwd, String sfz, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bname", name);
         paramsMap.put("age", "50");
@@ -51,24 +72,27 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
-    public static void getAllSym(NetworkManager.SuccessCallback<ArrayList<SymptomBean>> callback){
-        NetworkManager.getInstance().getResultClass(GetAllSymUrl, null, new TypeToken<ArrayList<SymptomBean>>(){}.getType(), callback);
+    public static void getAllSym(NetworkManager.SuccessCallback<ArrayList<SymptomBean>> callback) {
+        NetworkManager.getInstance().getResultClass(GetAllSymUrl, null, new TypeToken<ArrayList<SymptomBean>>() {
+        }.getType(), callback);
     }
 
-    public static void analyseSym(String params, NetworkManager.SuccessCallback<ArrayList<SymptomResultBean>> callback){
+    public static void analyseSym(String params, NetworkManager.SuccessCallback<ArrayList<SymptomResultBean>> callback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("parameter", params);
-        NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, new TypeToken<ArrayList<SymptomResultBean>>(){}.getType(), callback);
+        NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, new TypeToken<ArrayList<SymptomResultBean>>() {
+        }.getType(), callback);
     }
 
-    public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback){
+    public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", MyApplication.getInstance().userId);
-        NetworkManager.getInstance().getResultClass(GetYZUrl, paramsMap, new TypeToken<ArrayList<YzInfoBean>>(){}.getType(), callback);
+        NetworkManager.getInstance().getResultClass(GetYZUrl, paramsMap, new TypeToken<ArrayList<YzInfoBean>>() {
+        }.getType(), callback);
     }
 
-    public static void setUserMh(String mh, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback){
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)){
+    public static void setUserMh(String mh, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
         Map<String, String> paramsMap = new HashMap<>();
@@ -77,10 +101,10 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultString(AddMhUrl, paramsMap, callback, failedCallback);
     }
 
-    public static void bindDoctor(int doctorId, NetworkManager.SuccessCallback<String> callback) {
+    public static void bindDoctor(String bid, int doctorId, NetworkManager.SuccessCallback<String> callback) {
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("docterid", String.valueOf(doctorId));
-        paramsMap.put("eqid", Utils.getDeviceId());
+        paramsMap.put("bid", bid);
+        paramsMap.put("doid", String.valueOf(doctorId));
         NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
     }
 
@@ -103,59 +127,5 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(CHARGE_URL, params, Object.class, successCallback, failedCallback);
     }
 
-//    public static final String HomePageUrl = BasicUrl + "/appIndex";
-//    public static final String UserInfoUrl = BasicUrl + "/centerInfo";
-//    public static final String FavoriteSaveUrl = BasicUrl + "/user/favoriteSave";
-//    public static final String FavoriteDeleteUrl = BasicUrl + "/user/favoriteDelete";
-//    public static final String GetFavoriteListUrl = BasicUrl + "/user/favoriteList";
-//    public static final String GetTraceListUrl = BasicUrl + "/user/traceList";
-//    public static final String TraceSaveUrl = BasicUrl + "/user/traceSave";
-//    public static final String TraceDeleteUrl = BasicUrl + "/user/traceDelete";
 
-//    public static void loginWithOpenId(String openId, String type, String nickName, String imageUrl,
-//                                       NetworkManager.SuccessCallback<LoginInfoBean> listener, NetworkManager.FailedCallback failedCallback){
-//        Map<String, String> paramsMap = new HashMap<>();
-//        paramsMap.put("nick", nickName);
-//        paramsMap.put("portrait", imageUrl);
-//        paramsMap.put("sign", Utils.md5HexDigest("#2017" + openId + "dD78hy2!" + nickName + "uK23lp"));
-//        paramsMap.put("type", type);
-//        paramsMap.put("userName", openId);
-//        NetworkManager.getInstance().postResultClass(LoginWithOpenIdUrl, paramsMap, LoginInfoBean.class, listener, failedCallback);
-//    }
-//
-//    public static void getHomePage(NetworkManager.SuccessCallback<HomePageBean> listener, NetworkManager.FailedCallback failedCallback){
-//        NetworkManager.getInstance().getResultClass(HomePageUrl, HomePageBean.class, listener);
-//    }
-//
-//    public static void getUserInfo(NetworkManager.SuccessCallback<UserPageBean> listener){
-//        NetworkManager.getInstance().getResultClass(UserInfoUrl, UserPageBean.class, listener);
-//    }
-//
-//    public static void favoriteOperation(long imageId, boolean isLike){
-//        Map<String, String> paramsMap = new HashMap<>();
-//        paramsMap.put("targetId", String.valueOf(imageId));
-//        NetworkManager.getInstance().postResultString(isLike ? FavoriteSaveUrl : FavoriteDeleteUrl, paramsMap, null);
-//    }
-//
-//    public static void getFavoriteList(NetworkManager.SuccessCallback<FavoriteListBean> listener){
-//        Map<String, String> paramsMap = new HashMap<>();
-//        paramsMap.put("pageSize", "1000");
-//        NetworkManager.getInstance().getResultClass(GetFavoriteListUrl, paramsMap, FavoriteListBean.class, listener);
-//    }
-//
-//    public static void getTraceList(NetworkManager.SuccessCallback<TraceListBean> listener){
-//        Map<String, String> paramsMap = new HashMap<>();
-//        paramsMap.put("pageSize", "1000");
-//        NetworkManager.getInstance().getResultClass(GetTraceListUrl, paramsMap, TraceListBean.class, listener);
-//    }
-
-//    public static void traceAdd(long imageId){
-//        Map<String, String> paramsMap = new HashMap<>();
-//        paramsMap.put("targetId", String.valueOf(imageId));
-//        NetworkManager.getInstance().postResultString(TraceSaveUrl, paramsMap, null);
-//    }
-//
-//    public static void cleanTrace(){
-//        NetworkManager.getInstance().postResultString(TraceDeleteUrl, null, null);
-//    }
 }

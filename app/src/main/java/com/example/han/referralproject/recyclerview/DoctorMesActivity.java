@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -55,7 +56,7 @@ public class DoctorMesActivity extends BaseActivity {
         final Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
 
 
-        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+    /*    sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
 
         SharedPreferences.Editor editor7 = sharedPreferences.edit();
@@ -64,7 +65,7 @@ public class DoctorMesActivity extends BaseActivity {
         editor7.putString("position", doctor.getDuty());
         editor7.putString("feature", doctor.getGat());
         editor7.putString("image", doctor.getCard());
-        editor7.commit();
+        editor7.commit();*/
 
 
         Picasso.with(this)
@@ -81,8 +82,8 @@ public class DoctorMesActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    show();
-                NetworkApi.bindDoctor(doctor.doctoerId, new NetworkManager.SuccessCallback<String>() {
+                //    show();
+                NetworkApi.bindDoctor(MyApplication.getInstance().userId, doctor.doctoerId, new NetworkManager.SuccessCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
                         XDialogFragment dialogFragment = new XDialogFragment();

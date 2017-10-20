@@ -181,6 +181,8 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 }).create(NDialog.CONFIRM).show();
     }
 
+    public TextView mTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -536,6 +538,10 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
         TextView3.setText("擅长：" + sharedPreferences1.getString("feature", ""));
 
 
+        mTextView = (TextView) findViewById(R.id.service_amount);
+        mTextView.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
+
+
     }
 
     public void SharePerfence(SharedPreferences sharedPreferences, String month, String day, String time) {
@@ -549,27 +555,46 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    public void SharePerfence1(SharedPreferences sharedPreferences) {
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("month", "");
+        editor.putString("day", "");
+        editor.putString("time", "");
+        editor.commit();
+
+    }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.yuyue1:
 
+
+
                 if (view.isSelected()) {
+
                     mButton2.setText("未预约");
                     view.setSelected(false);
                 } else {
+
 
                     if ("".equals(sharedPreferences.getString("month", ""))) {
 
                         SharePerfence(sharedPreferences, simple.format(date), "上午", "9:00-9:20");
 
+
                     } else if ("".equals(sharedPreferences2.getString("month", ""))) {
 
                         SharePerfence(sharedPreferences2, simple.format(date), "上午", "9:00-9:20");
+
+
                     } else if ("".equals(sharedPreferences3.getString("month", ""))) {
 
                         SharePerfence(sharedPreferences3, simple.format(date), "上午", "9:00-9:20");
+
 
                     }
                     view.setSelected(true);
@@ -580,13 +605,16 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.yuyue2:
 
-
                 if (view.isSelected()) {
+
+
+
                     mButton3.setText("未预约");
                     view.setSelected(false);
                 } else {
 
                     if ("".equals(sharedPreferences.getString("month", ""))) {
+
 
                         SharePerfence(sharedPreferences, formatter.format(date1), "上午", "9:00-9:20");
 
@@ -596,9 +624,11 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                         SharePerfence(sharedPreferences2, formatter.format(date1), "上午", "9:00-9:20");
 
 
+
                     } else if ("".equals(sharedPreferences3.getString("month", ""))) {
 
                         SharePerfence(sharedPreferences3, formatter.format(date1), "上午", "9:00-9:20");
+
 
                     }
 
@@ -620,6 +650,7 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 if (view.isSelected()) {
+
                     mButton4.setText("未预约");
                     view.setSelected(false);
                 } else {
@@ -656,6 +687,7 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 if (view.isSelected()) {
+
                     mButton5.setText("未预约");
                     view.setSelected(false);
                 } else {
@@ -692,6 +724,7 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 if (view.isSelected()) {
+
                     mButton6.setText("未预约");
                     view.setSelected(false);
                 } else {
@@ -728,6 +761,7 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.yuyue6:
 
                 if (view.isSelected()) {
+
                     mButton7.setText("未预约");
                     view.setSelected(false);
                 } else {
@@ -765,6 +799,7 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
 
 
                 if (view.isSelected()) {
+
                     mButton8.setText("未预约");
                     view.setSelected(false);
                 } else {

@@ -58,6 +58,9 @@ public class DoctorappoActivity extends AppCompatActivity implements View.OnClic
     public TextView mTextView10;
     public TextView mTextView11;
 
+    public TextView mTextView12;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +91,9 @@ public class DoctorappoActivity extends AppCompatActivity implements View.OnClic
         mTextView9 = (TextView) findViewById(R.id.yuyue_time6);
         mTextView10 = (TextView) findViewById(R.id.yuyue_time7);
         mTextView11 = (TextView) findViewById(R.id.yuyue_time8);
+        mTextView12 = (TextView) findViewById(R.id.service_amount);
+
+        mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
         mImageView.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +176,7 @@ public class DoctorappoActivity extends AppCompatActivity implements View.OnClic
 
         }
 
+      
 
     }
 
@@ -190,6 +197,8 @@ public class DoctorappoActivity extends AppCompatActivity implements View.OnClic
         mTextView9.setText(sharedPreferences3.getString("month", ""));
         mTextView10.setText(sharedPreferences3.getString("day", ""));
         mTextView11.setText(sharedPreferences3.getString("time", ""));
+
+
 
 
     }
