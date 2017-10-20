@@ -19,6 +19,7 @@ import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.music.AppCache;
@@ -29,6 +30,7 @@ import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.example.han.referralproject.util.WiFiUtil;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -45,6 +47,10 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
 
         checkService();
+        if (!WiFiUtil.getInstance(this).isNetworkEnabled(this)){
+            startActivity(new Intent(mContext, WifiConnectActivity.class));
+            finish();
+        }
 
         //new UpdateAppManager(mContext).showNoticeDialog("http://7xt9gr.com1.z0.glb.clouddn.com/app-release.apk");
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {

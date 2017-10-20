@@ -2,6 +2,8 @@ package com.example.han.referralproject.adapter;
 
 import android.content.Context;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +20,13 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
     private LayoutInflater mInflater;
     private List<ScanResult> mDataList;
     private Context mContext;
+//    private WifiManager mWifiManager;
 
     public WifiConnectRecyclerAdapter(Context context, List<ScanResult> dataList){
         mInflater = LayoutInflater.from(context);
         mDataList = dataList;
         mContext = context;
+//        mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
     }
 
     @Override
@@ -35,6 +39,12 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
         final ScanResult itemResult = mDataList.get(position);
         holder.mNameTv.setText(itemResult.SSID);
         holder.mIpTv.setText(itemResult.BSSID);
+//        WifiInfo mInfo = mWifiManager.getConnectionInfo();
+//        if (mInfo != null && itemResult.BSSID.equals(mInfo.getBSSID())) {
+//            holder.mStatusView.setVisibility(View.VISIBLE);
+//        } else {
+//            holder.mStatusView.setVisibility(View.GONE);
+//        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +61,7 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
     public class WifiHolder extends RecyclerView.ViewHolder {
         public TextView mNameTv;
         public TextView mIpTv;
+        //public View mStatusView;
 
         public WifiHolder(View view){
             super(view);
