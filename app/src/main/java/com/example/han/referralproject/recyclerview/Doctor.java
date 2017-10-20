@@ -23,7 +23,6 @@ public class Doctor implements Serializable {
 
     public Doctor() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 

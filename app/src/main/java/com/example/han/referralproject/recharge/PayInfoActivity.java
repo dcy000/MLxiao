@@ -1,0 +1,294 @@
+package com.example.han.referralproject.recharge;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.han.referralproject.MainActivity;
+import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.Utils;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import cn.beecloud.BCCache;
+import cn.beecloud.BCOfflinePay;
+import cn.beecloud.BCPay;
+import cn.beecloud.BCQuery;
+import cn.beecloud.BeeCloud;
+import cn.beecloud.async.BCCallback;
+import cn.beecloud.async.BCResult;
+import cn.beecloud.entity.BCBillStatus;
+import cn.beecloud.entity.BCQRCodeResult;
+import cn.beecloud.entity.BCQueryBillResult;
+import cn.beecloud.entity.BCReqParams;
+
+public class PayInfoActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+    private static final int REQ_QRCODE_CODE = 1;
+    private static final int NOTIFY_RESULT = 10;
+    private static final int ERR_CODE = 99;
+
+    ProgressDialog loadingDialog;
+
+    String billNum;
+    String billId;
+
+    String type = "BC_ALI_QRCODE";
+    BCReqParams.BCChannelTypes channelType;
+    String billTitle;
+
+    Bitmap qrCodeBitMap;
+    String notify;
+    String errMsg;
+
+    ImageView qrcodeImg;
+
+    private Handler mHandler = new Handler(new Handler.Callback() {
+
+        @Override
+        public boolean handleMessage(final Message msg) {
+            switch (msg.what) {
+                case REQ_QRCODE_CODE:
+
+                    qrcodeImg.setImageBitmap(qrCodeBitMap);
+
+                    break;
+
+                case NOTIFY_RESULT:
+                    Toast.makeText(PayInfoActivity.this, notify, Toast.LENGTH_LONG).show();
+                    break;
+
+                case ERR_CODE:
+                    Toast.makeText(PayInfoActivity.this, errMsg, Toast.LENGTH_LONG).show();
+                    break;
+
+                case 2:
+                    Double numbers = Double.parseDouble(number) / 100;
+
+                    NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", "789", new NetworkManager.SuccessCallback<String>() {
+                        @Override
+                        public void onSuccess(String response) {
+                            Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_LONG).show();
+
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+                            sign = false;
+
+
+                        }
+                    });
+
+                    break;
+            }
+
+            return true;
+        }
+    });
+
+    public String number;
+    public ImageView mImageView1;
+    public ImageView mImageView2;
+
+    public Boolean sign = true;
+    Date date;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pay_info);
+
+
+        mImageView1 = (ImageView) findViewById(R.id.icon_back);
+        mImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        Intent intent = getIntent();
+        number = intent.getStringExtra("number");
+
+
+        //对于二维码，微信使用 WX_NATIVE 作为channel参数
+        //支付宝使用ALI_OFFLINE_QRCODE
+
+        channelType = BCReqParams.BCChannelTypes.valueOf(type);
+        billTitle = "杭州国辰迈联机器人科技有限公司";
+
+
+        loadingDialog = new ProgressDialog(this);
+        loadingDialog.setMessage("处理中，请稍候...");
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCancelable(true);
+
+        qrcodeImg = (ImageView) this.findViewById(R.id.qrcodeImg);
+
+
+        reqQrCode();
+
+        mImageView1.setOnClickListener(this);
+        mImageView2.setOnClickListener(this);
+        date = new Date();
+
+
+    }
+
+    public void QueryOrder() {
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (sign) {
+
+                    if (type.startsWith("BC")) {
+                        // BC的渠道通过id查询结果
+                        BCQuery.getInstance().queryBillByIDAsync(billId, new BCCallback() {
+                            @Override
+                            public void done(BCResult result) {
+
+                                BCQueryBillResult billStatus = (BCQueryBillResult) result;
+
+                                final Message msg = mHandler.obtainMessage();
+
+                                //表示支付成功
+                                if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
+
+                                    mHandler.sendEmptyMessage(2);
+                                    sign = false;
+
+
+                                }
+
+                            }
+                        });
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                    }
+
+                }
+            }
+
+        }).start();
+
+    }
+
+
+    void reqQrCode() {
+
+
+        loadingDialog.show();
+
+        Map<String, String> optional = new HashMap<String, String>();
+        optional.put("用途", "用户充值");
+        optional.put("testEN", "迈联智慧");
+
+        //初始化回调入口
+        BCCallback callback = new BCCallback() {
+            @Override
+            public void done(BCResult bcResult) {
+
+                //此处关闭loading界面
+                loadingDialog.dismiss();
+
+                final BCQRCodeResult bcqrCodeResult = (BCQRCodeResult) bcResult;
+
+                Message msg = mHandler.obtainMessage();
+
+                //resultCode为0表示请求成功
+                if (bcqrCodeResult.getResultCode() == 0) {
+                    billId = bcqrCodeResult.getId();
+
+                    //如果你设置了生成二维码参数为true那么此处可以获取二维码
+                    qrCodeBitMap = bcqrCodeResult.getQrCodeBitmap();
+
+                    QueryOrder();
+
+
+                    //否则通过 bcqrCodeResult.getQrCodeRawContent() 获取二维码的内容，自己去生成对应的二维码
+
+                    msg.what = REQ_QRCODE_CODE;
+                } else {
+                    errMsg = "err code:" + bcqrCodeResult.getResultCode() + "; err msg: " + bcqrCodeResult.getResultMsg() + "; err detail: " + bcqrCodeResult.getErrDetail();
+
+                    /**
+                     * 你发布的项目中不需要做如下判断，此处由于支付宝政策原因，
+                     * 不再提供支付宝支付的测试功能，所以给出提示说明
+                     */
+                    if (BCCache.getInstance().appId.equals("c5d1cba1-5e3f-4ba0-941d-9b0a371fe719") && type.equals("ALI") && !bcqrCodeResult.getErrDetail().equals("该功能暂不支持测试模式")) {
+                        errMsg = "支付失败：由于支付宝政策原因，故不再提供支付宝支付的测试功能，给您带来的不便，敬请谅解";
+                    }
+
+                    msg.what = ERR_CODE;
+                }
+
+                mHandler.sendMessage(msg);
+            }
+        };
+
+        billNum = BillUtils.genBillNum();
+
+        if (channelType == BCReqParams.BCChannelTypes.BC_NATIVE) {
+            // BeeCloud微信二维码支付并不是严格意义上的线下支付
+            BCPay.getInstance(PayInfoActivity.this).reqBCNativeAsync(
+                    billTitle,  //商品描述
+                    1,          //总金额, 以分为单位, 必须是正整数
+                    billNum,   //流水号
+                    optional,  //扩展参数
+                    true,     //是否生成二维码的bitmap
+                    480,       //二维码的尺寸, 以px为单位, 如果为null则默认为360
+                    callback);
+        } else {
+            BCOfflinePay.PayParams payParam = new BCOfflinePay.PayParams();
+
+            payParam.channelType = channelType;
+            payParam.billTitle = billTitle; //商品描述
+            payParam.billTotalFee = Integer.parseInt(number); //总金额, 以分为单位, 必须是正整数
+            payParam.billNum = billNum;         //流水号
+            payParam.optional = optional;   //扩展参数
+            payParam.genQRCode = true;      //是否生成二维码的bitmap
+            payParam.qrCodeWidth = 480;     //二维码的尺寸, 以px为单位, 如果为null则默认为360
+
+            BCOfflinePay.getInstance().reqQRCodeAsync(payParam, callback);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.icon_back:
+
+                finish();
+                break;
+            case R.id.icon_home:
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sign = false;
+
+    }
+}

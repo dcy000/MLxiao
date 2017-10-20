@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.beecloud.BeeCloud;
 import okhttp3.OkHttpClient;
 
 
@@ -74,8 +75,16 @@ public class MyApplication extends Application {
         initOkHttpUtils();
 
 //        NimInitHelper.getInstance().init(this, true);
+        BeeCloud.setAppIdAndSecret("2732d773-09a4-403d-87b4-b040d14ce4b9",
+                "ffa06c16-c2ee-4b48-a65c-795936d53cc7");
+
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     private void initOkHttpUtils() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()

@@ -1,6 +1,8 @@
 package com.example.han.referralproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recyclerview.AddAppoActivity;
@@ -31,6 +34,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ImageView mImageView5;
     private Handler mHandler = new Handler();
 
+    SharedPreferences sharedPreferences;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView3.setOnClickListener(this);
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
+
+        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+
 
         findViewById(R.id.ll_anim).setOnClickListener(this);
         float pivotX = .5f; // 取自身区域在X轴上的中心点
@@ -96,8 +105,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.doctor_ask:
 //                intent.setClass(getApplicationContext(), MainVideoActivity.class);
 //                startActivity(intent);
-                intent.setClass(getApplicationContext(), DoctorappoActivity.class);
-                startActivity(intent);
+                if ("".equals(sharedPreferences.getString("name", ""))) {
+                    Toast.makeText(getApplicationContext(), "请先查看是否与签约医生签约成功", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    intent.setClass(getApplicationContext(), DoctorappoActivity.class);
+                    startActivity(intent);
+                }
+
 
                 //    EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
                 break;

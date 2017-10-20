@@ -64,7 +64,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_Wendu;
+    private String detectType = Type_XinDian;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -336,6 +336,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_XueYang:
                 characteristic = gattServices.get(2).getCharacteristics().get(1);
                 break;
+            case Type_XinDian:
+                break;
 //                characteristic = gattServices.
         }
 
@@ -516,6 +518,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case Type_XinDian:
                 findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
                 break;
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
@@ -599,6 +603,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         deviceName = "POD";
                         break;
                     case Type_XinDian:
+                        deviceName = "PC80B";
                         break;
                 }
 

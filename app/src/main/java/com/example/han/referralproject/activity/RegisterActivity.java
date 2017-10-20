@@ -75,7 +75,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                         hideLoadingDialog();
                                         LocalShared.getInstance(mContext).setUserInfo(response);
                                         startActivity(new Intent(mContext, PreviousHistoryActivity.class));
-                                finish();
+                                        finish();
                                     }
                                 }, new NetworkManager.FailedCallback() {
                                     @Override

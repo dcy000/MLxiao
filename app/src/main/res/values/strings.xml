@@ -270,8 +270,12 @@
     <string name="register_province">省</string>
     <string name="register_city">市</string>
     <string name="register_county">县/区</string>
+    <string name="wifi_connect">WiFi连接</string>
+    <string name="wlan">WLAN</string>
+    <string name="wifi_choose">选取网络</string>
 
-
+    <string name="ok">确定</string>
+    <string name="connect">连接</string>
     <string name="cancel">取消</string>
     <string name="unknown">未知</string>
     <string name="delete_music">删除%s？</string>
@@ -347,5 +351,12 @@
 
     <string name="appraise">评&#160;&#160;&#160;&#160;&#160;价</string>
 
+    <string name="pay">账&#160;&#160;户&#160;&#160;充&#160;&#160;值</string>
+
+    <string name="pay_1">0.01元</string>
+    <string name="pay_2">充&#160;&#160;&#160;值</string>
+    <string name="pay_3">50元</string>
+    <string name="pay_4">100元</string>
+    <string name="pay_introduce">请用支付宝APP扫描完成支付</string>
 
 </resources>

@@ -1,6 +1,8 @@
 package com.example.han.referralproject.personal;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -20,10 +23,15 @@ import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.bean.User;
+import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.PayInfoActivity;
+import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.megvii.faceppidcardui.util.ConstantData;
 import com.example.han.referralproject.util.LocalShared;
 
 import java.io.BufferedReader;
@@ -59,8 +67,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public ImageView mImageView1;
     public ImageView mIvAlarm;
 
-    @Override
+    SharedPreferences sharedPreferences;
+    public TextView mTextView1;
+    public TextView mTextView2;
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
@@ -100,6 +112,14 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
             }
         });
+
+        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+
+
+        mTextView1 = (TextView) findViewById(R.id.doctor_id);
+        mTextView2 = (TextView) findViewById(R.id.tv_hospital);
+
+
     }
 
     @Override
@@ -116,6 +136,35 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 }
             }
         }).start();
+
+
+        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctors>() {
+            @Override
+            public void onSuccess(Doctors response) {
+                Log.e("=============", response.toString());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("name", response.getDoctername());
+                editor.putString("position", response.getDuty());
+                editor.putString("feature", response.getDepartment());
+                editor.putString("hospital", response.getHosname());
+         //       editor.putString("image", response.getCard());
+                editor.putString("service_amount", response.getService_amount());
+                editor.commit();
+
+                mTextView1.setText("签约医生：" + sharedPreferences.getString("name", ""));
+                mTextView2.setText(sharedPreferences.getString("hospital", ""));
+
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
+
 
     }
 
