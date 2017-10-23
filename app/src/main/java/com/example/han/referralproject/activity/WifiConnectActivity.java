@@ -58,6 +58,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mSwitch.setChecked(mWiFiUtil.isWifiOpened());
         mSwitch.setOnCheckedChangeListener(mCheckedChangeListener);
         findViewById(R.id.iv_refresh).setOnClickListener(this);
+        findViewById(R.id.view_back).setOnClickListener(this);
         RecyclerView mWifiRv = (RecyclerView) findViewById(R.id.rv_wifi);
         mWifiRv.setLayoutManager(new LinearLayoutManager(mContext));
         mConnectAdapter = new WifiConnectRecyclerAdapter(mContext, mDataList);
@@ -97,6 +98,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.tv_system:
                 startActivity(new Intent("android.net.wifi.PICK_WIFI_NETWORK"));
+                break;
+            case R.id.view_back:
+                finish();
                 break;
         }
     }

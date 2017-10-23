@@ -4,14 +4,24 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:background="#ededed">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:text="@string/wifi_connect"
-        android:textSize="40sp"
-        android:textColor="#3f85ff"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/view_back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/wifi_connect"
+            android:layout_centerInParent="true"
+            android:textSize="40sp"
+            android:textColor="#3f85ff"/>
+    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
