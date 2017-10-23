@@ -59,6 +59,9 @@ public class HeadiconActivity extends BaseActivity {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             mCircleImageView.setImageBitmap(bitmap);
         }
+
+        speak(R.string.head_icon);
+
     }
 
     @Override

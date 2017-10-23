@@ -97,7 +97,7 @@ public class SignUp4IdCardActivity extends BaseActivity {
 
     public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
     public static final String REGEX_IN_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
-    public static final String REGEX_IN_ID_CARD = "(\\d+[x|X]?)";
+    public static final String REGEX_IN_ID_CARD = "(\\d*[x|X]?)";
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
 

@@ -25,6 +25,27 @@ public class AlarmHelper {
     public static final String MINUTE = "minute";
     public static final String TONE = "tone";
 
+
+    public static void setupAlarm(Context context, int hourOfDay, int minute) {
+        AlarmModel model = new AlarmModel();
+        model.setMinute(minute);
+        model.setHourOfDay(hourOfDay);
+        model.setContent("吃药提醒");
+        model.setInterval(AlarmModel.INTERVAL_DAY);
+        model.setEnabled(true);
+        setupAlarm(context, model);
+    }
+
+    public static void setupAlarm(Context context, AlarmModel model) {
+        AlarmHelper.cancelAlarms(context);
+        if (model.getId() < 0) {
+            model.save();
+        } else {
+            model.update(model.getId());
+        }
+        AlarmHelper.setupAlarms(context);
+    }
+
     public static void setupAlarms(Context context) {
         cancelAlarms(context);
 

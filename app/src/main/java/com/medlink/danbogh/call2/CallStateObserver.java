@@ -24,15 +24,15 @@ public class CallStateObserver {
         DIALING_IN      // 来电已接通
     }
 
-    private final String TAG = "PhoneCallStateObserver";
+    private final String TAG = "CallStateObserver";
 
     private int phoneState = TelephonyManager.CALL_STATE_IDLE;
-    private CallState stateEnum = CallStateObserver.CallState.IDLE;
+    private CallState state = CallStateObserver.CallState.IDLE;
 
     private List<Observer<Integer>> autoHangUpObservers = new ArrayList<>(1); // 与本地电话互斥的挂断监听
 
     private static class Holder {
-        public final static CallStateObserver INSTANCE = new CallStateObserver();
+        private final static CallStateObserver INSTANCE = new CallStateObserver();
     }
 
     private CallStateObserver() {
@@ -46,20 +46,20 @@ public class CallStateObserver {
     public void onCallStateChanged(String state) {
         Log.i(TAG, "onCallStateChanged, now state =" + state);
 
-        stateEnum = CallState.IDLE;
+        this.state = CallState.IDLE;
         if (TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
             phoneState = TelephonyManager.CALL_STATE_IDLE;
-            stateEnum = CallState.IDLE;
+            this.state = CallState.IDLE;
         } else if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
             phoneState = TelephonyManager.CALL_STATE_RINGING;
-            stateEnum = CallState.INCOMING_CALL;
+            this.state = CallState.INCOMING_CALL;
         } else if (TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             int lastPhoneState = phoneState;
             phoneState = TelephonyManager.CALL_STATE_OFFHOOK;
             if (lastPhoneState == TelephonyManager.CALL_STATE_IDLE) {
-                stateEnum = CallState.DIALING_OUT;
+                this.state = CallState.DIALING_OUT;
             } else if (lastPhoneState == TelephonyManager.CALL_STATE_RINGING) {
-                stateEnum = CallState.DIALING_IN;
+                this.state = CallState.DIALING_IN;
             }
         }
 
@@ -70,15 +70,15 @@ public class CallStateObserver {
      * 处理本地电话与网络通话的互斥
      */
     public void handleLocalCall() {
-        LogUtil.i(TAG, "notify phone state changed, state=" + stateEnum.name());
+        LogUtil.i(TAG, "notify call state changed, state=" + state.name());
 
-        if (stateEnum != CallState.IDLE) {
+        if (state != CallState.IDLE) {
             AVChatManager.getInstance().hangUp2(AVChatManager.getInstance().getCurrentChatId(), new HandleLocalCallCallback(1));
         }
     }
 
-    public CallState getPhoneCallState() {
-        return stateEnum;
+    public CallState getCallState() {
+        return state;
     }
 
     private class HandleLocalCallCallback implements AVChatCallback<Void> {
@@ -105,7 +105,7 @@ public class CallStateObserver {
             notifyObservers(autoHangUpObservers, 0);
 
             if (!TextUtils.isEmpty(log)) {
-                LogUtil.i(TAG, log + " throws exception, e=" + exception.getMessage());
+                Log.i(TAG, log + " throws exception, e=" + exception.getMessage());
             }
         }
     }

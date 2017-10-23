@@ -92,7 +92,6 @@ public class PayInfoActivity extends AppCompatActivity implements View.OnClickLi
                         public void onFailed(String message) {
                             sign = false;
 
-
                         }
                     });
 

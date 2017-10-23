@@ -361,4 +361,10 @@
     <string name="pay_4">100元</string>
     <string name="pay_introduce">请用支付宝APP扫描完成支付</string>
 
+    <string name="head_icon">主人，请确认您的头像，完成请点击下一步</string>
+    <string name="head_verify">主人，请对准摄像头，让我帮您记录数据</string>
+
+    <string name="yuyue">主人，请选择您要预约的时间</string>
+    <string name="yuyue_1">主人，请点击预约按钮和签约医生进行预约</string>
+
 </resources>
