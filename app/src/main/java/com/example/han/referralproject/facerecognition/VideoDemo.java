@@ -100,6 +100,9 @@ public class VideoDemo extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
 
+        speak(R.string.head_verify);
+
+
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
         //    sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME4, Context.MODE_PRIVATE);

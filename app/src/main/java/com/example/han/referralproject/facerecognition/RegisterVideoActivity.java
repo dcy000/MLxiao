@@ -66,7 +66,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-
 public class RegisterVideoActivity extends BaseActivity {
     private final static String TAG = VideoDemo.class.getSimpleName();
     private SurfaceView mPreviewSurface;
@@ -118,6 +117,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
         mFaceRequest = new FaceRequest(this);
     }
+
 
 
     private Callback mPreviewCallback = new Callback() {
@@ -337,7 +337,6 @@ public class RegisterVideoActivity extends BaseActivity {
                         mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
                         mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
                         mFaceRequest.sendRequest(mImageData, mRequestListener);
-                        Log.e("==============", "正在执行");
                     }
                     try {
                         Thread.sleep(2000);
@@ -386,9 +385,9 @@ public class RegisterVideoActivity extends BaseActivity {
                         finish();
                         break;
                     default:
-                        showTip(error.getPlainDescription(true));
-                        sign = false;
-                        finish();
+                      //  showTip(error.getPlainDescription(true));
+                      //  sign = false;
+                     //   finish();
                         break;
                 }
             }
@@ -397,36 +396,12 @@ public class RegisterVideoActivity extends BaseActivity {
     };
 
 
-    /*private void verify(JSONObject obj) throws JSONException {
-        int ret = obj.getInt("ret");
-        if (ret != 0) {
-            showTip("验证失败");
-            return;
-        }
-        if ("success".equals(obj.get("rst"))) {
-            if (obj.getBoolean("verf")) {
-                showTip("通过验证，欢迎回来！");
-                Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
-                startActivity(intent);
-                sign = false;
-                finish();
-            } else {
-                showTip("验证不通过");
-                finish();
-            }
-        } else {
-            showTip("验证失败");
-            finish();
-        }
-    }*/
-
     private void register(JSONObject obj) throws JSONException {
         int ret = obj.getInt("ret");
         if (ret != 0) {
             if (sign == true) {
                 showTip("注册失败");
                 sign = false;
-                Log.e("===========", "注册失败");
                 finish();
                 return;
             }
@@ -434,16 +409,14 @@ public class RegisterVideoActivity extends BaseActivity {
         if ("success".equals(obj.get("rst")) && sign == true) {
             // showTip("注册成功");
             sign = false;
-
-
             Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
             startActivity(intent);
             finish();
         } else {
             if (sign == true) {
                 showTip("注册失败");
+                Log.e("===============", "执行1");
                 sign = false;
-                Log.e("+++++++++", "注册失败");
                 finish();
             }
 

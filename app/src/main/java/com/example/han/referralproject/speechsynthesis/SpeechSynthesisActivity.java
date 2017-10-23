@@ -202,6 +202,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        findViewById(R.id.iat_recognizes).performClick();
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         setEnableListeningLoop(false);
@@ -229,6 +236,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
     }
 
+
     @Override
     public void onBackPressed() {
         if (mPlayFragment != null && isPlayFragmentShow) {
@@ -236,7 +244,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 getPlayService().playPause();
             }
             hidePlayingFragment();
-            finish();
+            //   finish();
             return;
         }
 
@@ -968,6 +976,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
+                } else if (inSpell.matches(".*bu.*liao.*") || resultBuffer.toString().contains("退出")
+                        || resultBuffer.toString().contains("返回") || resultBuffer.toString().contains("再见")
+                        || resultBuffer.toString().contains("闭嘴") || inSpell.matches(".*baibai.*")) {
+
+                    finish();
                 } else {
                     new SpeechTask().execute();
                 }
