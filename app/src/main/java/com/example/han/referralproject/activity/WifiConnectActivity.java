@@ -42,11 +42,13 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private TextView mConnectedWifiName;
     private WifiManager mWifiManager;
     private Handler mHandler = new Handler();
+    private boolean isFirstWifi = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_connect_layout);
+        isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);
         mWiFiUtil = WiFiUtil.getInstance(this);
         mWiFiUtil.openWifi();
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -156,12 +158,16 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()){
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                            startActivity(new Intent(mContext, LoginActivity.class));
+                        if (isFirstWifi){
+                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                                startActivity(new Intent(mContext, LoginActivity.class));
+                            } else {
+                                startActivity(new Intent(mContext, MainActivity.class));
+                            }
+                            finish();
                         } else {
-                            startActivity(new Intent(mContext, MainActivity.class));
+                            scanWifi();
                         }
-                        finish();
                     }
 //                    if (info != null) {
 //                        //如果当前的网络连接成功并且网络连接可用

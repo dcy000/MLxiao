@@ -150,6 +150,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/iv_recharge"
             android:layout_width="0dp"
             android:layout_height="125dp"
             android:layout_marginLeft="40dp"
@@ -201,4 +202,9 @@
         android:text="@string/logout"
         android:textColor="#abcadf"
         android:textSize="25sp" />
+    <View
+        android:id="@+id/view_wifi"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>
