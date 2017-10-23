@@ -174,7 +174,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
-        findViewById(R.id.iat_recognizes).performClick();
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -191,6 +190,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         getPlayService().setOnPlayEventListener(this);
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        findViewById(R.id.iat_recognizes).performClick();
 
     }
 
@@ -221,6 +227,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
     }
 
+
     @Override
     public void onBackPressed() {
         if (mPlayFragment != null && isPlayFragmentShow) {
@@ -228,7 +235,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 getPlayService().playPause();
             }
             hidePlayingFragment();
-            finish();
+            //   finish();
             return;
         }
 
@@ -943,6 +950,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
+                } else if (inSpell.matches(".*bu.*liao.*") || resultBuffer.toString().contains("退出")
+                        || resultBuffer.toString().contains("返回") || resultBuffer.toString().contains("再见")
+                        || resultBuffer.toString().contains("闭嘴") || inSpell.matches(".*baibai.*")) {
+
+                    finish();
                 } else {
                     new SpeechTask().execute();
                 }

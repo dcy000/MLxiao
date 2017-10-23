@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
@@ -23,7 +24,7 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.medlink.danbogh.call.EMUIHelper;
 import com.squareup.picasso.Picasso;
 
-public class DoctorappoActivity extends AppCompatActivity implements View.OnClickListener {
+public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
 
     SharedPreferences sharedPreferences;
     SharedPreferences sharedPreferences1;
@@ -65,6 +66,8 @@ public class DoctorappoActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
+
+        speak(R.string.yuyue_1);
 
         sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);
 
@@ -177,7 +180,6 @@ public class DoctorappoActivity extends AppCompatActivity implements View.OnClic
         }
 
 
-
     }
 
     @Override
@@ -197,8 +199,6 @@ public class DoctorappoActivity extends AppCompatActivity implements View.OnClic
         mTextView9.setText(sharedPreferences3.getString("month", ""));
         mTextView10.setText(sharedPreferences3.getString("day", ""));
         mTextView11.setText(sharedPreferences3.getString("time", ""));
-
-
 
 
     }

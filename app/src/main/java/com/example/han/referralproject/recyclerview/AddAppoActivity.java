@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.constant.ConstantData;
@@ -29,7 +30,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
-public class AddAppoActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddAppoActivity extends BaseActivity implements View.OnClickListener {
 
     public Button mButton;
     public Button mButton1;
@@ -187,6 +188,8 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
+
+        speak(R.string.yuyue);
 
         sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
@@ -573,7 +576,6 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.yuyue1:
 
 
-
                 if (view.isSelected()) {
 
                     mButton2.setText("未预约");
@@ -608,7 +610,6 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                 if (view.isSelected()) {
 
 
-
                     mButton3.setText("未预约");
                     view.setSelected(false);
                 } else {
@@ -622,7 +623,6 @@ public class AddAppoActivity extends AppCompatActivity implements View.OnClickLi
                     } else if ("".equals(sharedPreferences2.getString("month", ""))) {
 
                         SharePerfence(sharedPreferences2, formatter.format(date1), "上午", "9:00-9:20");
-
 
 
                     } else if ("".equals(sharedPreferences3.getString("month", ""))) {
