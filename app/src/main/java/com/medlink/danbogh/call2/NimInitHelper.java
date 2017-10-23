@@ -5,14 +5,22 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.medlink.danbogh.utils.Utils;
 import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.netease.nimlib.sdk.avchat.AVChatManager;
+import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;
+import com.netease.nimlib.sdk.avchat.model.AVChatData;
+import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
+import com.netease.nimlib.sdk.msg.model.BroadcastMessage;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 
 /**
@@ -21,9 +29,12 @@ import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 
 public class NimInitHelper {
 
+    private static final String TAG = "NimInitHelper";
+
     private Context context;
 
-    private NimInitHelper() {}
+    private NimInitHelper() {
+    }
 
     public static NimInitHelper getInstance() {
         return Holder.INSTANCE;
@@ -40,10 +51,62 @@ public class NimInitHelper {
         if (Utils.inMainProcess(context)) {
             // 1、UI相关初始化操作
             // 2、相关Service调用
+            registerImMessageFilter();
+            // 注册全局云信sdk 观察者
+            registerNimGlobalObserver(register);
         }
-        registerImMessageFilter();
     }
 
+    private void registerImMessageFilter() {
+
+    }
+
+    private void registerNimGlobalObserver(boolean register) {
+        // 注册网络通话来电
+        registerAVChatIncomingCallObserver(register);
+
+        // 注册云信全员广播
+        registerNimBroadcastMessage(register);
+    }
+
+    /**
+     * 注册音视频来电观察者
+     *
+     * @param register
+     */
+    private void registerAVChatIncomingCallObserver(boolean register) {
+        AVChatManager.getInstance().observeIncomingCall(new Observer<AVChatData>() {
+            @Override
+            public void onEvent(AVChatData data) {
+                String extra = data.getExtra();
+                Log.e("Extra", "Extra Message->" + extra);
+                if (CallStateObserver.getInstance().getCallState() != CallStateObserver.CallState.IDLE
+                        || NimCallHelper.getInstance().isChatting()
+                        || AVChatManager.getInstance().getCurrentChatId() != 0) {
+                    Log.i(TAG, "reject incoming call data =" + data.toString() + " as local phone is not idle");
+                    AVChatManager.getInstance().sendControlCommand(data.getChatId(), AVChatControlCommand.BUSY, null);
+                    return;
+                }
+                // 有来电
+                NimCallHelper.getInstance().setChatting(true);
+                NimCallHelper.getInstance().dispatchIncomingCallFromBroadCast(data);
+            }
+        }, register);
+    }
+
+    /**
+     * 注册云信全服广播接收器
+     *
+     * @param register
+     */
+    private void registerNimBroadcastMessage(boolean register) {
+        NIMClient.getService(MsgServiceObserve.class).observeBroadcastMessage(new Observer<BroadcastMessage>() {
+            @Override
+            public void onEvent(BroadcastMessage broadcastMessage) {
+                Toast.makeText(context, broadcastMessage.getContent(), Toast.LENGTH_SHORT).show();
+            }
+        }, register);
+    }
 
     private SDKOptions options() {
         SDKOptions options = new SDKOptions();
@@ -105,9 +168,5 @@ public class NimInitHelper {
             }
         };
         return options;
-    }
-
-    private void registerImMessageFilter() {
-
     }
 }

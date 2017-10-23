@@ -56,6 +56,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call.EMUIHelper;
 
@@ -73,6 +74,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener, OnPlayerEventListener {
 
@@ -121,6 +125,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     break;
 
                 case 1:
+
                     findViewById(R.id.iat_recognizes).performClick();
                     break;
             }
@@ -174,7 +179,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
-        findViewById(R.id.iat_recognizes).performClick();
+
+        mHandler.sendEmptyMessageDelayed(1, 3500);
+//        findViewById(R.id.iat_recognizes).performClick();
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -198,6 +205,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         setEnableListeningLoop(false);
+        speak("主人，来和我聊天吧");
     }
 
     @Override
@@ -760,7 +768,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
     public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
+    public static final String REGEX_SET_ALARM_WHEN = ".*tixing.*(shangwu|xiawu).*(\\d{1,2}):(\\d{1,2}).*yao.*";
     public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
+
 
     /**
      * 听写UI监听器
@@ -770,6 +780,21 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             printResult(results);
             if (isLast) {
                 String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
+
+                Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
+                Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
+                if (matcherWhenAlarm.find()) {
+                    String am = matcherWhenAlarm.group(1);
+                    String hourOfDay = matcherWhenAlarm.group(2);
+                    String minute = matcherWhenAlarm.group(3);
+                    AlarmHelper.setupAlarm(SpeechSynthesisActivity.this.getApplicationContext(),
+                            am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
+                            Integer.valueOf(minute));
+                    String tip = String.format(Locale.CHINA,
+                            "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
+                    speak(tip);
+                    return;
+                }
                 if (inSpell.matches(REGEX_SET_ALARM)) {
                     Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
                     startActivity(intent);
@@ -1056,6 +1081,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mHandler.removeMessages(1);
+        mHandler.removeMessages(0);
         if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();

@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="闹钟提醒"
+            android:text="吃药提醒"
             android:textColor="@android:color/white"
             android:textSize="35sp"/>
     </LinearLayout>
@@ -82,7 +82,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/bg_shape_tv_content"
         android:gravity="center"
-        android:text="闹钟备注"
+        android:text="提醒备注"
         android:textColor="#ffffff"
         android:textSize="21sp"
         app:layout_constraintLeft_toLeftOf="@id/alarm_detail_tv_repeat"
