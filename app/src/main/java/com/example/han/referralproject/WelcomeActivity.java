@@ -48,7 +48,9 @@ public class WelcomeActivity extends BaseActivity {
 
         checkService();
         if (!WiFiUtil.getInstance(this).isNetworkEnabled(this)){
-            startActivity(new Intent(mContext, WifiConnectActivity.class));
+            Intent mIntent = new Intent(mContext, WifiConnectActivity.class);
+            mIntent.putExtra("is_first_wifi", true);
+            startActivity(mIntent);
             finish();
         }
 

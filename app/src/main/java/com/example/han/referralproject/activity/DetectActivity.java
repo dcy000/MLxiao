@@ -17,6 +17,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
@@ -60,11 +62,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
     public TextView mXueYangTv, mXueYangPulseTv;
-    public View tipsLayout;
+//    public View tipsLayout;
+    public VideoView mVideoView;
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XinDian;
+    private String detectType = Type_Wendu;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -387,10 +390,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case R.id.xueyang_video:
                 url = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/血氧.mp4";
                 break;
+            case R.id.view_over:
+                if (mVideoView != null){
+                    mVideoView.setVisibility(View.GONE);
+                    if (mVideoView.isPlaying()){
+                        mVideoView.pause();
+                    }
+                }
+                break;
         }
-        Intent intent = new Intent(mContext, PlayVideoActivity.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
+        if (!TextUtils.isEmpty(url)){
+            Intent intent = new Intent(mContext, PlayVideoActivity.class);
+            intent.putExtra("url", url);
+            startActivity(intent);
+        }
     }
 
     public ImageView mImageView1;
@@ -426,102 +439,122 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     break;
             }
         }
-        tipsLayout = findViewById(R.id.rl_tips);
-        switch (detectType) {
-            case Type_Wendu:
-                mResultTv = (TextView) findViewById(R.id.tv_result);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        tipsLayout.setVisibility(View.VISIBLE);
-                        findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
-                        speak(R.string.tips_wendu_one);
-                    }
-                }, 1000);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        tipsLayout.setBackgroundResource(R.drawable.tips_wendu_two);
-                        speak(R.string.tips_wendu_two);
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                tipsLayout.setBackgroundResource(R.drawable.tips_wendu_three);
-                                speak(R.string.tips_wendu_three);
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        tipsLayout.setVisibility(View.GONE);
-                                    }
-                                }, 8000);
-                            }
-                        }, 8000);
-                    }
-                }, 8000);
-                break;
-            case Type_Xueya:
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        tipsLayout.setVisibility(View.VISIBLE);
-                        findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
-                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_one);
-                        speak(R.string.tips_xueya_one);
-                    }
-                }, 1000);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        speak(R.string.tips_xueya_two);
-                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_two);
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                tipsLayout.setVisibility(View.GONE);
-                            }
-                        }, 8000);
-                    }
-                }, 8000);
-                break;
-            case Type_XueTang:
-                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        tipsLayout.setVisibility(View.VISIBLE);
-                        findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
-                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_one);
-                        speak(R.string.tips_xuetang_one);
-                    }
-                }, 1000);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_two);
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                tipsLayout.setVisibility(View.GONE);
-                            }
-                        }, 10000);
-                    }
-                }, 8000);
+//        tipsLayout = findViewById(R.id.rl_tips);
+//        switch (detectType) {
+//            case Type_Wendu:
+//                mResultTv = (TextView) findViewById(R.id.tv_result);
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tipsLayout.setVisibility(View.VISIBLE);
+//                        findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
+//                        speak(R.string.tips_wendu_one);
+//                    }
+//                }, 1000);
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tipsLayout.setBackgroundResource(R.drawable.tips_wendu_two);
+//                        speak(R.string.tips_wendu_two);
+//                        mHandler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                tipsLayout.setBackgroundResource(R.drawable.tips_wendu_three);
+//                                speak(R.string.tips_wendu_three);
+//                                mHandler.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        tipsLayout.setVisibility(View.GONE);
+//                                    }
+//                                }, 8000);
+//                            }
+//                        }, 8000);
+//                    }
+//                }, 8000);
+//                break;
+//            case Type_Xueya:
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tipsLayout.setVisibility(View.VISIBLE);
+//                        findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
+//                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_one);
+//                        speak(R.string.tips_xueya_one);
+//                    }
+//                }, 1000);
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        speak(R.string.tips_xueya_two);
+//                        tipsLayout.setBackgroundResource(R.drawable.tips_xueya_two);
+//                        mHandler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                tipsLayout.setVisibility(View.GONE);
+//                            }
+//                        }, 8000);
+//                    }
+//                }, 8000);
+//                break;
+//            case Type_XueTang:
+//                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tipsLayout.setVisibility(View.VISIBLE);
+//                        findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+//                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_one);
+//                        speak(R.string.tips_xuetang_one);
+//                    }
+//                }, 1000);
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tipsLayout.setBackgroundResource(R.drawable.tips_xuetang_two);
+//                        mHandler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                tipsLayout.setVisibility(View.GONE);
+//                            }
+//                        }, 10000);
+//                    }
+//                }, 8000);
 
 //                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
 //                dialog = new NDialog(th、is);
 //                showNormal("设备连接中，请稍后...");
+        int resourceId = R.raw.tips_xindian;
+        switch (detectType){
+            case Type_Wendu:
+                findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
+                resourceId = R.raw.tips_wendu;
+                break;
+            case Type_Xueya:
+                findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
+                resourceId = R.raw.tips_xueya;
+                break;
+            case Type_XueTang:
+                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
+                resourceId = R.raw.tips_xuetang;
                 break;
             case Type_XueYang:
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
-                dialog = new NDialog(this);
-                showNormal("设备连接中，请稍后...");
+                resourceId = R.raw.tips_xueyang;
+//                dialog = new NDialog(this);
+//                showNormal("设备连接中，请稍后...");
                 break;
             case Type_XinDian:
                 findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
-                dialog = new NDialog(this);
-                showNormal("设备连接中，请稍后...");
+                resourceId = R.raw.tips_xindian;
+//                dialog = new NDialog(this);
+//                showNormal("设备连接中，请稍后...");
                 break;
         }
+        mVideoView = (VideoView) findViewById(R.id.vv_tips);
+        String uri = "android.resource://" + getPackageName() + "/" + resourceId;
+        mVideoView.setVideoURI(Uri.parse(uri));
+        mVideoView.start();
+        findViewById(R.id.view_over).setOnClickListener(this);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
         mPulseTv = (TextView) findViewById(R.id.pulse);
@@ -560,7 +593,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xueya_video).setOnClickListener(this);
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
-
     }
 
     public void registerBltReceiver() {

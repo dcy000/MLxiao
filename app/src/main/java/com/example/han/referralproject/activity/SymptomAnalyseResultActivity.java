@@ -27,6 +27,11 @@ public class SymptomAnalyseResultActivity extends BaseActivity implements View.O
         RecyclerView symptomResultRv = (RecyclerView) findViewById(R.id.rv_symptom_result);
         symptomResultRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         symptomResultRv.setAdapter(new SymptomResultAdapter(mContext, mDataList));
+        StringBuilder mBuilder = new StringBuilder();
+        for (SymptomResultBean itemBean : mDataList){
+            mBuilder.append(itemBean.con).append("、");
+        }
+        speak(String.format(getString(R.string.tips_symptom_result), mBuilder.toString()));
     }
 
     @Override
