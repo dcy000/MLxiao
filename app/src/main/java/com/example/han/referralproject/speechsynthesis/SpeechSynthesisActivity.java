@@ -181,7 +181,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
-        mHandler.sendEmptyMessageDelayed(1, 3500);
+        //mHandler.sendEmptyMessageDelayed(1, 3500);
 //        findViewById(R.id.iat_recognizes).performClick();
 
         mediaPlayer = new MediaPlayer();
@@ -436,6 +436,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 break;
         }
 
+    }
+
+    @Override
+    protected void onActivitySpeakFinish() {
+        super.onActivitySpeakFinish();
+        findViewById(R.id.iat_recognizes).performClick();
     }
 
     /**
