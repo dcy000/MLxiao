@@ -120,7 +120,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    startSynthesis(str1);
+//                    startSynthesis(str1);
+                    speak(str1);
 
                     break;
 
@@ -176,7 +177,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //mResultText = ((EditText) findViewById(R.id.iat_text));
 
         // 初始化合成对象
-        mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
+//        mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
