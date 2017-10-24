@@ -22,8 +22,8 @@
             android:id="@+id/tv_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="280dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="300dp"
             android:text="00.0"
             android:textSize="50sp" />
 
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="300dp"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="186dp"
             android:text="0"
             android:textSize="50sp" />
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="300dp"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="298dp"
             android:text="0"
             android:textSize="50sp" />
 
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="300dp"
-            android:layout_marginTop="390dp"
+            android:layout_marginTop="423dp"
             android:text="0"
             android:textSize="50sp" />
 
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="230dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="220dp"
             android:text="0.00"
             android:textSize="40sp" />
     </RelativeLayout>
@@ -137,8 +137,8 @@
             android:id="@+id/tv_xue_yang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="320dp"
-            android:layout_marginTop="210dp"
+            android:layout_marginLeft="340dp"
+            android:layout_marginTop="220dp"
             android:text="0"
             android:textSize="40sp" />
         <TextView
@@ -146,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="320sp"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="285dp"
             android:text="0"
             android:textSize="40sp" />
     </RelativeLayout>

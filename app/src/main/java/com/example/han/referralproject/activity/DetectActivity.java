@@ -68,7 +68,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_Wendu;
+    private String detectType = Type_XueYang;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
