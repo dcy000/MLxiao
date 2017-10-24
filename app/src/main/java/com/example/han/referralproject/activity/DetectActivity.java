@@ -17,6 +17,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -101,6 +102,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
+            Log.i("mylog", "service connected");
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
@@ -143,6 +145,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 Log.i("mylog", "gata disConnect 22222222222222222");
                 mConnected = false;
+                if (mBluetoothAdapter != null){
+                    mBluetoothAdapter.startDiscovery();
+                }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
@@ -376,19 +381,19 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        String url = "";
+        int resourceId = 0;
         switch (v.getId()) {
             case R.id.temperature_video:
-                url = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/电子温度计.mp4";
+                resourceId = R.raw.tips_wendu;
                 break;
             case R.id.xueya_video:
-                url = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/血压计.mp4";
+                resourceId = R.raw.tips_xueya;
                 break;
             case R.id.xuetang_video:
-                url = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/血糖.mp4";
+                resourceId = R.raw.tips_xuetang;
                 break;
             case R.id.xueyang_video:
-                url = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/血氧.mp4";
+                resourceId = R.raw.tips_xueyang;
                 break;
             case R.id.view_over:
                 if (mVideoView != null){
@@ -399,10 +404,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
         }
-        if (!TextUtils.isEmpty(url)){
-            Intent intent = new Intent(mContext, PlayVideoActivity.class);
-            intent.putExtra("url", url);
-            startActivity(intent);
+        if (resourceId != 0){
+            mVideoView.setVisibility(View.VISIBLE);
+            String uri = "android.resource://" + getPackageName() + "/" + resourceId;
+            mVideoView.setVideoURI(Uri.parse(uri));
+            mVideoView.start();
         }
     }
 
@@ -526,6 +532,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         int resourceId = R.raw.tips_xindian;
         switch (detectType){
             case Type_Wendu:
+                mResultTv = (TextView) findViewById(R.id.tv_result);
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_wendu;
                 break;
@@ -534,6 +541,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 resourceId = R.raw.tips_xueya;
                 break;
             case Type_XueTang:
+                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xuetang;
                 break;
@@ -554,6 +562,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         String uri = "android.resource://" + getPackageName() + "/" + resourceId;
         mVideoView.setVideoURI(Uri.parse(uri));
         mVideoView.start();
+        mVideoView.setOnCompletionListener(mCompletionListener);
         findViewById(R.id.view_over).setOnClickListener(this);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
@@ -594,6 +603,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
     }
+
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            mVideoView.setVisibility(View.GONE);
+        }
+    };
 
     public void registerBltReceiver() {
         IntentFilter intent = new IntentFilter();
@@ -644,8 +660,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         dialog.create(NDialog.CONFIRM).dismiss();
                     }
                     mDeviceAddress = device.getAddress();
-                    Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
-                    bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                    if (mBluetoothLeService == null){
+                        Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+                        bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                    } else {
+                        if (mBluetoothLeService.connect(mDeviceAddress)) {
+                            mBluetoothGatt = mBluetoothLeService.getGatt();
+                        }
+                    }
                     if (mBluetoothAdapter != null){
                         mBluetoothAdapter.cancelDiscovery();
                     }
