@@ -121,7 +121,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         return builder.toString();
     }
 
-    public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
+    public static final String REGEX_IN_DEL = ".*(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole).*";
     public static final String REGEX_IN_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
     public static final String REGEX_IN_PROVINCE = ".*(sheng|shen|seng|sen)";
     public static final String REGEX_IN_CITY = ".*(shi|si)";
@@ -191,6 +191,7 @@ public class SignUp3AddressActivity extends BaseActivity {
                 etAddress.setText(target.substring(0, target.length() - 1));
                 etAddress.setSelection(target.length() - 1);
             }
+            return;
         }
 
         String text = target + result;

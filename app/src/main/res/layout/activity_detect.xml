@@ -22,8 +22,8 @@
             android:id="@+id/tv_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="280dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="300dp"
             android:text="00.0"
             android:textSize="50sp" />
 
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="300dp"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="186dp"
             android:text="0"
             android:textSize="50sp" />
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="300dp"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="298dp"
             android:text="0"
             android:textSize="50sp" />
 
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="300dp"
-            android:layout_marginTop="390dp"
+            android:layout_marginTop="423dp"
             android:text="0"
             android:textSize="50sp" />
 
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="230dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="220dp"
             android:text="0.00"
             android:textSize="40sp" />
     </RelativeLayout>
@@ -137,8 +137,8 @@
             android:id="@+id/tv_xue_yang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="320dp"
-            android:layout_marginTop="210dp"
+            android:layout_marginLeft="340dp"
+            android:layout_marginTop="220dp"
             android:text="0"
             android:textSize="40sp" />
         <TextView
@@ -146,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="320sp"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="285dp"
             android:text="0"
             android:textSize="40sp" />
     </RelativeLayout>
@@ -161,27 +161,35 @@
             android:layout_height="wrap_content"
             android:textSize="40sp" />
     </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_tips"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="gone"-->
+        <!--android:background="@drawable/tips_wendu_one">-->
+
+        <!--<View-->
+            <!--android:id="@+id/view_next"-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:layout_marginBottom="40dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentBottom="true"/>-->
+    <!--</RelativeLayout>-->
     <RelativeLayout
-        android:id="@+id/rl_tips"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/tips_wendu_one">
+        android:layout_height="match_parent">
+        <VideoView
+            android:id="@+id/vv_tips"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <View
             android:id="@+id/view_over"
             android:layout_width="120dp"
             android:layout_height="70dp"
             android:layout_alignParentRight="true"/>
-        <View
-            android:id="@+id/view_next"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
-
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="50dp"

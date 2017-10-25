@@ -192,7 +192,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -216,12 +217,10 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -255,7 +254,7 @@
 
         </activity>
         <activity android:name=".video.PlayVideoActivity" />
-        <activity android:name=".personal.PersonActivity" />
+        <activity android:name=".personal.PersonActivity" ></activity>
         <activity
             android:name="com.medlink.danbogh.call.VideoCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -278,7 +277,8 @@
         <activity android:name="com.medlink.danbogh.alarm.AlarmActivity" />
         <activity
             android:name=".activity.SymptomAnalyseActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape"></activity>

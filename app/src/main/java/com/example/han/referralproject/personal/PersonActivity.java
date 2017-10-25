@@ -23,6 +23,7 @@ import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.bean.User;
@@ -120,7 +121,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         findViewById(R.id.btn_record).setOnClickListener(this);
         findViewById(R.id.iv_message).setOnClickListener(this);
+
         findViewById(R.id.iv_check).setOnClickListener(this);
+        findViewById(R.id.view_wifi).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
@@ -246,6 +249,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));
+                break;
+            case R.id.view_wifi:
+                startActivity(new Intent(this, WifiConnectActivity.class));
                 break;
         }
     }

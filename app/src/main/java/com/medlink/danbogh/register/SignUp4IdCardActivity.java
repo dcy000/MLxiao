@@ -97,7 +97,7 @@ public class SignUp4IdCardActivity extends BaseActivity {
 
     public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
     public static final String REGEX_IN_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
-    public static final String REGEX_IN_ID_CARD = "(\\d+[x|X]?)";
+    public static final String REGEX_IN_ID_CARD = "(\\d*[x|X]?)";
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
 
@@ -114,16 +114,6 @@ public class SignUp4IdCardActivity extends BaseActivity {
             return;
         }
 
-        Pattern patternInIdCard = Pattern.compile(REGEX_IN_ID_CARD);
-        String in = Utils.chineseToNumber(result);
-        Matcher matcherInIdCard = patternInIdCard.matcher(in);
-        if (matcherInIdCard.find()) {
-            String s = etIdCard.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());
-            etIdCard.setText(s);
-            etIdCard.setSelection(s.length());
-            return;
-        }
-
         String inSpell = PinYinUtils.converterToSpell(result);
         if (inSpell.matches(REGEX_IN_DEL_ALL)) {
             etIdCard.setText("");
@@ -136,6 +126,16 @@ public class SignUp4IdCardActivity extends BaseActivity {
                 etIdCard.setText(target.substring(0, target.length() - 1));
                 etIdCard.setSelection(target.length() - 1);
             }
+            return;
+        }
+
+        String in = Utils.chineseToNumber(result);
+        Pattern patternInIdCard = Pattern.compile(REGEX_IN_ID_CARD);
+        Matcher matcherInIdCard = patternInIdCard.matcher(in);
+        if (matcherInIdCard.find()) {
+            String s = etIdCard.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());
+            etIdCard.setText(s);
+            etIdCard.setSelection(s.length());
         }
     }
 }

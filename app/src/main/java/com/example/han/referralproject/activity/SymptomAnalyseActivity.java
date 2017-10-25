@@ -88,6 +88,7 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
             if (response == null) {
                 return;
             }
+            speak(R.string.tips_symptom);
             mDataList.addAll(response);
             mSymptomAdapter.notifyDataSetChanged();
         }
