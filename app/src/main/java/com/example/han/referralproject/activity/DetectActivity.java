@@ -68,7 +68,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XueYang;
+    private String detectType = Type_XinDian;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -345,6 +345,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 characteristic = gattServices.get(2).getCharacteristics().get(1);
                 break;
             case Type_XinDian:
+                characteristic = gattServices.get(3).getCharacteristics().get(0);
                 break;
 //                characteristic = gattServices.
         }
