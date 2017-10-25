@@ -3,23 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/test_main"
+    android:background="@drawable/normal_bg"
     tools:context="com.example.han.referralproject.Test_mainActivity">
 
     <LinearLayout
         android:id="@+id/linear_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:orientation="horizontal">
 
 
         <ImageView
             android:id="@+id/test_xueya"
-            android:clickable="true"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="350dp"
             android:layout_weight="1"
+            android:clickable="true"
             android:src="@drawable/test_xueya" />
 
         <ImageView
@@ -29,88 +29,101 @@
 
         <ImageView
             android:id="@+id/test_xueyang"
-            android:clickable="true"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="350dp"
             android:layout_weight="1"
+            android:clickable="true"
             android:src="@drawable/test_xueyang" />
+
         <ImageView
             android:layout_width="2dp"
             android:layout_height="wrap_content"
             android:background="@android:color/black" />
 
         <ImageView
-            android:clickable="true"
             android:id="@+id/test_wendu"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="350dp"
             android:layout_weight="1"
+            android:clickable="true"
             android:src="@drawable/test_wendu" />
 
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="345dp"
-        android:orientation="vertical">
+        android:layout_marginTop="350dp"
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:id="@+id/test_xuetang"
+            android:layout_width="0dp"
+            android:layout_height="350dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/test_xuetang" />
+
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/black" />
 
+        <ImageView
+            android:id="@+id/test_xindian"
+            android:layout_width="0dp"
+            android:layout_height="350dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/test_xindian" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="2dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@android:color/black" />
 
-            <ImageView
-                android:clickable="true"
-                android:id="@+id/test_xuetang"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/test_xuetang" />
+        <ImageView
+            android:id="@+id/test_qita"
+            android:layout_width="0dp"
+            android:layout_height="350dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/test_weight" />
 
-            <ImageView
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/black" />
-
-            <ImageView
-                android:clickable="true"
-                android:id="@+id/test_xindian"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/test_xindian" />
-
-            <ImageView
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/black" />
-
-            <ImageView
-                android:clickable="true"
-                android:id="@+id/test_qita"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/test_qita" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical">
+
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/icon_back" />
     </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/icon_home"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:src="@drawable/icon_home" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/healthy_test"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
 </RelativeLayout>

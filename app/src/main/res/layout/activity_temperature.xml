@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/test_temperature">
+    android:background="@drawable/normal_bg">
 
     <ImageView
         android:id="@+id/iv_back"
@@ -21,14 +21,47 @@
         android:background="@drawable/temperature_video"
         android:clickable="true" />
 
-    <TextView
-        android:id="@+id/text_temperature"
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="280dp"
-        android:layout_marginTop="280dp"
-        android:text="00.0"
-        android:textSize="50sp" />
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="300dp">
+
+        <TextView
+            android:id="@+id/text_temperature1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/temperature"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_temperature1"
+            android:layout_marginLeft="30sp"
+            android:gravity="center"
+            android:text="@string/temperature1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/text_temperature"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/text_temperature1"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="00.0"
+            android:textSize="50sp" />
+
+
+    </RelativeLayout>
+
 
     <ImageView
         android:id="@+id/test_2"
@@ -39,7 +72,8 @@
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="200dp"
         android:clickable="true"
-        android:src="@drawable/tests" />
+        android:src="@drawable/tests"
+        android:visibility="gone" />
 
 
     <!-- <com.linheimx.app.library.charts.LineChart

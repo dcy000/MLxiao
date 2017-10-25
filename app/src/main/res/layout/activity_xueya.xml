@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/xueya_bg">
+    android:background="@drawable/normal_bg">
 
 
     <ImageView
@@ -11,6 +11,15 @@
         android:layout_height="90dp"
         android:scaleType="centerInside"
         android:src="@drawable/icon_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/test_xueya"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
 
     <ImageView
         android:id="@+id/xueya_video"
@@ -23,41 +32,132 @@
         android:clickable="true" />
 
 
-    <TextView
-        android:id="@+id/high_pressure"
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="170dp"
-        android:text="0"
-        android:textSize="50sp" />
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="170dp">
 
-    <TextView
-        android:id="@+id/low_pressure"
+        <TextView
+            android:id="@+id/high_pressure1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/high_pressure"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/high_pressure1"
+            android:layout_marginLeft="10sp"
+            android:gravity="center"
+            android:text="@string/high_pressure1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/high_pressure"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/high_pressure1"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="50sp" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="270dp"
-        android:text="0"
-        android:textSize="50sp" />
+        android:layout_below="@+id/RelativeLayout1"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="50dp">
 
-    <TextView
-        android:id="@+id/pulse"
+        <TextView
+            android:id="@+id/low_pressure1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/low_pressure"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/low_pressure1"
+            android:layout_marginLeft="10sp"
+            android:gravity="center"
+            android:text="@string/high_pressure1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/low_pressure"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/low_pressure1"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="50sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="390dp"
-        android:text="0"
-        android:textSize="50sp" />
+        android:layout_below="@+id/RelativeLayout2"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="50dp">
 
-   <ImageView
-       android:id="@+id/test_1"
-       android:clickable="true"
-       android:layout_width="200dp"
-       android:layout_height="200dp"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentBottom="true"
-       android:src="@drawable/tests"
-       android:layout_marginLeft="200dp"/>
+        <TextView
+            android:id="@+id/purse1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/purse"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/purse1"
+            android:layout_marginLeft="20sp"
+            android:gravity="center"
+            android:text="@string/purse1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/purse"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/purse1"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="50sp" />
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/test_1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="200dp"
+        android:clickable="true"
+        android:src="@drawable/tests"
+        android:visibility="gone" />
 
 </RelativeLayout>

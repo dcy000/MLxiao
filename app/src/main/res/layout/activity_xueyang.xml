@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/xueyang_bg">
+    android:background="@drawable/normal_bg">
 
     <ImageView
         android:id="@+id/iv_back"
@@ -21,24 +21,105 @@
         android:background="@drawable/xueyang_video"
         android:clickable="true" />
 
+    <!--
+        <TextView
+            android:id="@+id/xue_yang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="210dp"
+            android:text="0"
+            android:textSize="40sp" />
 
-    <TextView
-        android:id="@+id/xue_yang"
+        <TextView
+            android:id="@+id/xueyang_pulse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="320sp"
+            android:layout_marginTop="270dp"
+            android:text="0"
+            android:textSize="40sp" />-->
+
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout_xueyang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="320dp"
-        android:layout_marginTop="210dp"
-        android:text="0"
-        android:textSize="40sp" />
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="200dp">
 
-    <TextView
-        android:id="@+id/xueyang_pulse"
+        <TextView
+            android:id="@+id/test_xueyang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/xue_yang"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_xueyang"
+            android:layout_marginLeft="50dp"
+            android:gravity="center"
+            android:text="@string/xue_yang1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/xue_yang"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="40dp"
+            android:layout_toRightOf="@+id/test_xueyang"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="50sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="320sp"
-        android:layout_marginTop="270dp"
-        android:text="0"
-        android:textSize="40sp" />
+        android:layout_below="@+id/RelativeLayout_xueyang"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/test_maibo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:gravity="center"
+            android:text="@string/maibo"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_maibo"
+            android:layout_marginLeft="50dp"
+            android:gravity="center"
+            android:text="@string/maibo1"
+            android:textSize="18sp" />
+
+
+        <TextView
+
+            android:id="@+id/maibo"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="90dp"
+            android:layout_toRightOf="@+id/test_maibo"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="50sp" />
+
+
+    </RelativeLayout>
 
 
     <ImageView
@@ -50,15 +131,15 @@
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="200dp"
         android:clickable="true"
-        android:visibility="gone"
-        android:src="@drawable/tests" />
-   <!-- <ProgressBar
-        android:id="@+id/pb"
-        style="@android:style/Widget.ProgressBar.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateDrawable="@drawable/pro_bar"
-        android:layout_centerInParent="true"/>-->
+        android:src="@drawable/tests"
+        android:visibility="gone" />
+    <!-- <ProgressBar
+         android:id="@+id/pb"
+         style="@android:style/Widget.ProgressBar.Large"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:indeterminateDrawable="@drawable/pro_bar"
+         android:layout_centerInParent="true"/>-->
 
 
     <!--  <com.linheimx.app.library.charts.LineChart

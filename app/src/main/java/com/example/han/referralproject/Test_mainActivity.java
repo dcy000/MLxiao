@@ -31,6 +31,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
     public static final int MIN_CLICK_DELAY_TIME = 1000;
     private long lastClickTime = 0;
     public ImageView mIvBack;
+    public ImageView mIvHome;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,16 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
+
+        mIvHome = (ImageView) findViewById(R.id.icon_home);
+        mIvHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

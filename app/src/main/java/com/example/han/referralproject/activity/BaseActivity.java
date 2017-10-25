@@ -128,9 +128,7 @@ public class BaseActivity extends AppCompatActivity {
         setRecognizerParams();
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (enableListeningLoop
-                && recognizer != null && !recognizer.isListening()
-                && synthesizer != null && !synthesizer.isSpeaking()) {
+        if (enableListeningLoop && recognizer != null && !recognizer.isListening() && synthesizer != null && !synthesizer.isSpeaking()) {
             recognizer.startListening(mIatListener);
         }
     }
