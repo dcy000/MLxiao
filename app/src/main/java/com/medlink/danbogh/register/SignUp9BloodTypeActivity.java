@@ -24,9 +24,9 @@ public class SignUp9BloodTypeActivity extends SignUp7HeightActivity {
     @Override
     protected List<String> getStrings() {
         mStrings = new ArrayList<>();
+        mStrings.add("AB");
         mStrings.add("A");
         mStrings.add("B");
-        mStrings.add("AB");
         mStrings.add("O");
         return mStrings;
     }

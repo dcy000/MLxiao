@@ -161,6 +161,17 @@
             android:layout_height="wrap_content"
             android:textSize="40sp" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_tizhong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/tv_tizhong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp" />
+    </RelativeLayout>
     <!--<RelativeLayout-->
         <!--android:id="@+id/rl_tips"-->
         <!--android:layout_width="match_parent"-->
