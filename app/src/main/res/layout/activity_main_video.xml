@@ -23,7 +23,7 @@
              android:textSize="30sp" />
      </android.support.v7.widget.Toolbar>-->
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -45,14 +45,55 @@
             android:text="健康讲堂"
             android:textColor="@android:color/white"
             android:textSize="30sp" />
+    </LinearLayout>-->
+
+
+    <LinearLayout
+        android:id="@+id/linearlayou"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_back" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/healthy_class"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
+
+    <ImageView
+        android:id="@+id/icon_home"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:src="@drawable/icon_home" />
+
+
 
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_below="@+id/linearlayou"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="90dp"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -64,7 +105,9 @@
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:background="@drawable/selector_bg_green"
+            android:gravity="center"
             android:text="高血压"
+            android:textColor="#FFFFFF"
             android:textSize="40sp" />
 
         <Button
@@ -75,7 +118,9 @@
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:background="@drawable/selector_bg_red"
+            android:gravity="center"
             android:text="精神病"
+            android:textColor="#FD695D"
             android:textSize="40sp" />
 
         <Button
@@ -86,7 +131,9 @@
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:background="@drawable/selector_bg_yellow"
+            android:gravity="center"
             android:text="中风"
+            android:textColor="#FEB70F"
             android:textSize="40sp" />
 
         <Button
@@ -97,7 +144,9 @@
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:background="@drawable/selector_bg_blue"
+            android:gravity="center"
             android:text="脑瘫"
+            android:textColor="#5599FC"
             android:textSize="40sp" />
     </LinearLayout>
 

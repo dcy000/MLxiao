@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
@@ -34,6 +35,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
 
     public Button mButton;
 
+    public ImageView ImageView1;
+    public ImageView ImageView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,26 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
 
         mButton = (Button) findViewById(R.id.niming_appraise);
         dialog = new NDialog1(AppraiseActivity.this);
+
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
     }
 

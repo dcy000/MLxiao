@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -37,7 +38,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     public TextView mTextView2;
     public Button mButton1;
     public ImageView circleImageView;
-    public ImageView mImageView;
 
     public TextView mTextView3;
     public TextView mTextView4;
@@ -61,6 +61,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     public TextView mTextView12;
 
+    public ImageView ImageView1;
+    public ImageView ImageView2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,27 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_doctorappo);
 
         speak(R.string.yuyue_1);
+
+
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);
 
@@ -80,7 +104,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mTextView1 = (TextView) findViewById(R.id.yuyue_time1);
         mTextView2 = (TextView) findViewById(R.id.yuyue_time2);
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
 
         mTextView3 = (TextView) findViewById(R.id.docotor_name);
         mTextView4 = (TextView) findViewById(R.id.docotor_position);
@@ -99,12 +122,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
 
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
 

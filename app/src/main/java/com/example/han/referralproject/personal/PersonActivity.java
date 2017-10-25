@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
@@ -28,6 +29,7 @@ import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recharge.PayInfoActivity;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
@@ -64,12 +66,15 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
     public TextView mTextView;
     public ImageView mImageView;
-    public ImageView mImageView1;
     public ImageView mIvAlarm;
 
     SharedPreferences sharedPreferences;
     public TextView mTextView1;
     public TextView mTextView2;
+
+    public ImageView mImageView1;
+    public ImageView mImageView2;
+    public ImageView mImageView3;
 
 
     @Override
@@ -79,11 +84,25 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) findViewById(R.id.per_image);
 
+        mImageView3 = (ImageView) findViewById(R.id.iv_pay);
+
+        mImageView3.setOnClickListener(this);
+
         mImageView1 = (ImageView) findViewById(R.id.icon_back);
+        mImageView2 = (ImageView) findViewById(R.id.icon_home);
 
         mImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        mImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -147,7 +166,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 editor.putString("position", response.getDuty());
                 editor.putString("feature", response.getDepartment());
                 editor.putString("hospital", response.getHosname());
-         //       editor.putString("image", response.getCard());
+                //       editor.putString("image", response.getCard());
                 editor.putString("service_amount", response.getService_amount());
                 editor.commit();
 
@@ -224,6 +243,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_message:
                 startActivity(new Intent(this, MessageActivity.class));
+                break;
+            case R.id.iv_pay:
+                startActivity(new Intent(this, PayActivity.class));
                 break;
         }
     }

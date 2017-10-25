@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 
 import org.litepal.crud.DataSupport;
@@ -32,6 +33,8 @@ public class AlarmList2Activity extends AppCompatActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.icon_home)
+    ImageView icon_home;
     @BindView(R.id.alarm_list_rv_alarms)
     RecyclerView rvAlarms;
     @BindView(R.id.alarm_list_tv_add_alarm)
@@ -70,6 +73,13 @@ public class AlarmList2Activity extends AppCompatActivity {
 
     @OnClick(R.id.iv_back)
     public void onIvBackClicked() {
+        finish();
+    }
+
+    @OnClick(R.id.icon_home)
+    public void onHomeBackClicked() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
         finish();
     }
 

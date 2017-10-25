@@ -40,6 +40,9 @@ public class DoctorMesActivity extends BaseActivity {
 
     SharedPreferences sharedPreferences;
 
+    public ImageView ImageView1;
+    public ImageView ImageView2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,26 @@ public class DoctorMesActivity extends BaseActivity {
 
         Intent intent = getIntent();
         final Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
+
+
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
     /*    sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
@@ -101,13 +124,13 @@ public class DoctorMesActivity extends BaseActivity {
             }
         });
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
+      /*  mImageView = (ImageView) findViewById(R.id.icon_back);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
     }
 
     public void show() {

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomRecyclerAdapter;
 import com.example.han.referralproject.bean.SymptomBean;
@@ -26,23 +27,47 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
     private SymptomRecyclerAdapter mSymptomAdapter;
     public ImageView ivBack;
 
+    public ImageView ImageView1;
+    public ImageView ImageView2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_symptom_analyse);
-        ivBack = (ImageView) findViewById(R.id.iv_back);
+        /*ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_symptom);
         mSymptomAdapter = new SymptomRecyclerAdapter(mContext, mDataList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         mRecyclerView.setAdapter(mSymptomAdapter);
         findViewById(R.id.btn_analyse).setOnClickListener(this);
         NetworkApi.getAllSym(mGetAllSymCallback);
+
+
+
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
