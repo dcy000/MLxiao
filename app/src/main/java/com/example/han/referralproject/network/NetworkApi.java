@@ -3,6 +3,7 @@ package com.example.han.referralproject.network;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.SymptomBean;
@@ -86,9 +87,14 @@ public class NetworkApi {
         }.getType(), callback);
     }
 
-//    public static void clue(NetworkManager.SuccessCallback<>){
-//
-//    }
+    public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback){
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            return;
+        }
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bid", MyApplication.getInstance().userId);
+        NetworkManager.getInstance().getResultClass(ClueUrl, paramsMap, new TypeToken<ArrayList<ClueInfoBean>>(){}.getType(), callback);
+    }
 
     public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {
         Map<String, String> paramsMap = new HashMap<>();
