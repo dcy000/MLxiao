@@ -69,12 +69,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XinDian;
+    private String detectType = Type_TiZhong;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
     public static final String Type_XueYang = "xueyang";
     public static final String Type_XinDian = "xindian";
+    public static final String Type_TiZhong = "tizhong";
     private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
@@ -146,7 +147,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 Log.i("mylog", "gata disConnect 22222222222222222");
                 mConnected = false;
-                if (mBluetoothAdapter != null) {
+                if (mBluetoothAdapter != null){
+//                    dialog = new NDialog(mContext);
+//                    showNormal("设备连接中，请稍后...");
                     mBluetoothAdapter.startDiscovery();
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
@@ -190,8 +193,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                    mHandler.sendEmptyMessage(0);
 //                }
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-                Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 byte[] notifyData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
+                //Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + notifyData.length);
+                Log.i("mylog", "receive   " + bytesToHexString(notifyData));
                 byte[] extraData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_NOTIFY_DATA);
                 switch (detectType) {
                     case Type_Wendu:
@@ -308,6 +312,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                         }
                         break;
+                    case Type_TiZhong:
+                        if (notifyData != null && notifyData.length == 20){
+                            float result = ((float)(notifyData[2] << 8) + (float)(notifyData[3] & 0xff))/10;
+                            mResultTv.setText(String.valueOf(result));
+                        }
+                        break;
                 }
             }
         }
@@ -348,7 +358,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_XinDian:
                 characteristic = gattServices.get(3).getCharacteristics().get(0);
                 break;
-//                characteristic = gattServices.
+            case Type_TiZhong:
+                characteristic = gattServices.get(3).getCharacteristics().get(2);
+                break;
         }
 
         if (characteristic == null) {
@@ -459,6 +471,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 case "xindian":
                     detectType = Type_XinDian;
                     break;
+                case "tizhong":
+                    detectType = Type_TiZhong;
+                    break;
             }
         }
 //        tipsLayout = findViewById(R.id.rl_tips);
@@ -545,8 +560,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
 //                dialog = new NDialog(th、is);
 //                showNormal("设备连接中，请稍后...");
-        int resourceId = R.raw.tips_xindian;
-        switch (detectType) {
+        int resourceId = 0;
+        switch (detectType){
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
@@ -573,12 +588,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                dialog = new NDialog(this);
 //                showNormal("设备连接中，请稍后...");
                 break;
+            case Type_TiZhong:
+                mResultTv = (TextView) findViewById(R.id.tv_tizhong);
+                findViewById(R.id.rl_tizhong).setVisibility(View.VISIBLE);
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
+                break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
-        String uri = "android.resource://" + getPackageName() + "/" + resourceId;
-        mVideoView.setVideoURI(Uri.parse(uri));
-        mVideoView.start();
-        mVideoView.setOnCompletionListener(mCompletionListener);
+        if (resourceId != 0){
+            String uri = "android.resource://" + getPackageName() + "/" + resourceId;
+            mVideoView.setVideoURI(Uri.parse(uri));
+            mVideoView.start();
+            mVideoView.setOnCompletionListener(mCompletionListener);
+        } else {
+            mVideoView.setVisibility(View.GONE);
+        }
         findViewById(R.id.view_over).setOnClickListener(this);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
@@ -668,6 +693,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_XinDian:
                         deviceName = "PC80B";
+                        break;
+                    case Type_TiZhong:
+                        deviceName = "000FatScale01";
                         break;
                 }
 
@@ -781,7 +809,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             if (hv.length() < 2) {
                 stringBuilder.append(0);
             }
-            stringBuilder.append(hv);
+            stringBuilder.append(hv).append(" ");
         }
         return stringBuilder.toString();
     }
