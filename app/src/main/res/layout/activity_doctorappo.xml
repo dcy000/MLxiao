@@ -60,13 +60,13 @@
 
     <ImageView
         android:id="@+id/icon_home"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:clickable="true"
-        android:src="@drawable/icon_home" />
+        android:src="@drawable/icon_wifi" />
 
 
     <LinearLayout
