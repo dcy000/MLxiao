@@ -25,6 +25,7 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.User;
+import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -146,7 +147,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     protected void onStart() {
         super.onStart();
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -155,7 +156,22 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     e.printStackTrace();
                 }
             }
-        }).start();
+        }).start();*/
+
+
+        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo response) {
+                mTextView.setText(response.getBname());
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
 
 
         NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {

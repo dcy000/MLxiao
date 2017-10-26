@@ -8,6 +8,7 @@ import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
+import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.YzInfoBean;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://192.168.200.103:8080";
+    //    public static final String BasicUrl = "http://192.168.200.103:8080";
 //        public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String BasicUrl = "http://118.31.238.207:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
@@ -35,6 +36,7 @@ public class NetworkApi {
     public static final String CHARGE_URL = BasicUrl + "/ZZB/eq/koufei";
     public static final String PAY_URL = BasicUrl + "/ZZB/br/chongzhi";
     public static final String DOCTOR_URL = BasicUrl + "/ZZB/docter/search_OneDocter";
+    public static final String PERSON_URL = BasicUrl + "/ZZB/br/selOneUser_con";
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
@@ -59,6 +61,13 @@ public class NetworkApi {
         paramsMap.put("bid", bid);
 
         NetworkManager.getInstance().postResultClass(DOCTOR_URL, paramsMap, Doctor.class, listener, failedCallback);
+    }
+
+    public static void PersonInfo(String bid, NetworkManager.SuccessCallback<UserInfo> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bid", bid);
+
+        NetworkManager.getInstance().postResultClass(PERSON_URL, paramsMap, UserInfo.class, listener, failedCallback);
     }
 
 

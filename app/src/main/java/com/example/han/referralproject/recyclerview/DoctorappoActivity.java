@@ -33,6 +33,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     SharedPreferences sharedPreferences2;
     SharedPreferences sharedPreferences3;
 
+    SharedPreferences sharedPreferences4;
+
 
     public TextView mTextView;
     public TextView mTextView1;
@@ -100,6 +102,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         sharedPreferences2 = getSharedPreferences(ConstantData.SHARED_FILE_NAME2, Context.MODE_PRIVATE);
         sharedPreferences3 = getSharedPreferences(ConstantData.SHARED_FILE_NAME3, Context.MODE_PRIVATE);
 
+        sharedPreferences4 = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
         mTextView = (TextView) findViewById(R.id.yuyue_time);
         mTextView1 = (TextView) findViewById(R.id.yuyue_time1);
@@ -123,12 +126,10 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
-
-
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
 
         Picasso.with(this)
-                .load(ConstantData.BASE_URL + "/referralProject/" + sharedPreferences1.getString("image", ""))
+                .load(sharedPreferences4.getString("person_image", ""))
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)

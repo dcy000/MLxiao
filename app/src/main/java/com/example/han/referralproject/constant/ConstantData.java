@@ -12,6 +12,8 @@ public class ConstantData {
 
     public static final String DOCTOR_MSG = "doctor_message";
 
+    public static final String PERSON_IMAGE = "person_image";
+
     //  public static final String SHARED_FILE_NAME="shared";
 
 

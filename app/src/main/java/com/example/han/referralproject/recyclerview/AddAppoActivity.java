@@ -132,6 +132,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     SharedPreferences sharedPreferences2;
     SharedPreferences sharedPreferences3;
 
+    SharedPreferences sharedPreferences4;
+
+
     SimpleDateFormat simple;
     SimpleDateFormat simple1;
     SimpleDateFormat formatter;
@@ -220,6 +223,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         sharedPreferences2 = getSharedPreferences(ConstantData.SHARED_FILE_NAME2, Context.MODE_PRIVATE);
         sharedPreferences3 = getSharedPreferences(ConstantData.SHARED_FILE_NAME3, Context.MODE_PRIVATE);
+
+        sharedPreferences4 = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
 
       /*  mImageView = (ImageView) findViewById(R.id.icon_back);
@@ -557,7 +562,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
 
         Picasso.with(this)
-                .load(ConstantData.BASE_URL + "/referralProject/" + sharedPreferences1.getString("image", ""))
+                .load(sharedPreferences4.getString("person_image", ""))
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)

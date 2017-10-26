@@ -55,6 +55,9 @@ public class DoctorMesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
         //    initToolBar();
+
+        sharedPreferences = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
+
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
 
         mTextView = (TextView) findViewById(R.id.names);
@@ -109,6 +112,11 @@ public class DoctorMesActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("person_image", ConstantData.BASE_URL + "/referralProject/" + doctor.getCard());
+                editor.commit();
+
                 //    show();
                 NetworkApi.bindDoctor(MyApplication.getInstance().userId, doctor.getDocterid(), new NetworkManager.SuccessCallback<String>() {
                     @Override
@@ -117,6 +125,8 @@ public class DoctorMesActivity extends BaseActivity {
                         dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
+
+
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -205,7 +215,12 @@ public class DoctorMesActivity extends BaseActivity {
         }
 
         if (inSpell.matches(REGEX_BACK)) {
-            mImageView.performClick();
+
+            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+            startActivity(intent);
+            finish();
+
+          //  mImageView.performClick();
         }
     }
 }
