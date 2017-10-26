@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DataInfoBean;
-import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.bean.UserInfoBean;
@@ -53,11 +53,11 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(PAY_URL, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
-    public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctors> listener, NetworkManager.FailedCallback failedCallback) {
+    public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctor> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", bid);
 
-        NetworkManager.getInstance().postResultClass(DOCTOR_URL, paramsMap, Doctors.class, listener, failedCallback);
+        NetworkManager.getInstance().postResultClass(DOCTOR_URL, paramsMap, Doctor.class, listener, failedCallback);
     }
 
 

@@ -1,6 +1,8 @@
 package com.example.han.referralproject.recyclerview;
 
 
+import com.example.han.referralproject.bean.Doctor;
+
 import java.util.List;
 
 import retrofit2.Call;

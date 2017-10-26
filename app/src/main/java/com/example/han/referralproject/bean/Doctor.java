@@ -1,11 +1,11 @@
-package com.example.han.referralproject.recyclerview;
+package com.example.han.referralproject.bean;
 
 import java.io.Serializable;
 
 public class Doctor implements Serializable {
 
-    public int doctoerId;
-    public String docoerName;
+    public int docterid;
+    public String doctername;
     public String tel;
     public int hosid;
     public String add;
@@ -19,19 +19,25 @@ public class Doctor implements Serializable {
     public String amount;
     public String gat;
     public String pro;
+    public String pend;
+    public String evaluation;
+    public String apply_amount;
+    public String service_amount;
+    public String getHosname;
 
 
     public Doctor() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 
-    public Doctor(int doctoerId, String docoerName, String tel, int hosid, String add, String duty, String department,
+    public Doctor(int docterid, String doctername, String tel, int hosid, String add, String duty, String department,
                   String documents, String card, int rankId, int state, String priority, String amount, String gat,
-                  String pro) {
+                  String pro, String pend, String evaluation, String apply_amount, String service_amount, String getHosname) {
         super();
-        this.doctoerId = doctoerId;
-        this.docoerName = docoerName;
+        this.docterid = docterid;
+        this.doctername = doctername;
         this.tel = tel;
         this.hosid = hosid;
         this.add = add;
@@ -45,26 +51,31 @@ public class Doctor implements Serializable {
         this.amount = amount;
         this.gat = gat;
         this.pro = pro;
+        this.pend = pend;
+        this.evaluation = evaluation;
+        this.apply_amount = apply_amount;
+        this.service_amount = service_amount;
+        this.getHosname = getHosname;
     }
 
 
-    public int getDoctoerId() {
-        return doctoerId;
+    public int getDocterid() {
+        return docterid;
     }
 
 
-    public void setDoctoerId(int doctoerId) {
-        this.doctoerId = doctoerId;
+    public void setDocterid(int docterid) {
+        this.docterid = docterid;
     }
 
 
-    public String getDocoerName() {
-        return docoerName;
+    public String getDoctername() {
+        return doctername;
     }
 
 
-    public void setDocoerName(String docoerName) {
-        this.docoerName = docoerName;
+    public void setDoctername(String doctername) {
+        this.doctername = doctername;
     }
 
 
@@ -198,12 +209,64 @@ public class Doctor implements Serializable {
     }
 
 
+    public String getPend() {
+        return pend;
+    }
+
+
+    public void setPend(String pend) {
+        this.pend = pend;
+    }
+
+
+    public String getEvaluation() {
+        return evaluation;
+    }
+
+
+    public void setEvaluation(String evaluation) {
+        this.evaluation = evaluation;
+    }
+
+
+    public String getApply_amount() {
+        return apply_amount;
+    }
+
+
+    public void setApply_amount(String apply_amount) {
+        this.apply_amount = apply_amount;
+    }
+
+
+    public String getService_amount() {
+        return service_amount;
+    }
+
+
+    public void setService_amount(String service_amount) {
+        this.service_amount = service_amount;
+    }
+
+
+    public String getGetHosname() {
+        return getHosname;
+    }
+
+
+    public void setGetHosname(String getHosname) {
+        this.getHosname = getHosname;
+    }
+
+
     @Override
     public String toString() {
-        return "Doctor [doctoerId=" + doctoerId + ", docoerName=" + docoerName + ", tel=" + tel + ", hosid=" + hosid
+        return "Doctor [docterid=" + docterid + ", doctername=" + doctername + ", tel=" + tel + ", hosid=" + hosid
                 + ", add=" + add + ", duty=" + duty + ", department=" + department + ", documents=" + documents
                 + ", card=" + card + ", rankId=" + rankId + ", state=" + state + ", priority=" + priority + ", amount="
-                + amount + ", gat=" + gat + ", pro=" + pro + "]";
+                + amount + ", gat=" + gat + ", pro=" + pro + ", pend=" + pend + ", evaluation=" + evaluation
+                + ", apply_amount=" + apply_amount + ", service_amount=" + service_amount + ", getHosname=" + getHosname
+                + "]";
     }
 
 
