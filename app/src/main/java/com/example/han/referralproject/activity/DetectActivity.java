@@ -69,7 +69,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_TiZhong;
+    private String detectType = Type_Wendu;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -147,6 +147,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 Log.i("mylog", "gata disConnect 22222222222222222");
                 mConnected = false;
+                speak(R.string.tips_blue_unConnect);
                 if (mBluetoothAdapter != null){
 //                    dialog = new NDialog(mContext);
 //                    showNormal("设备连接中，请稍后...");
@@ -154,6 +155,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
+                speak(R.string.tips_blue_connect);
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueTang:
@@ -200,17 +202,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 switch (detectType) {
                     case Type_Wendu:
                         int tempData = notifyData[6] & 0xff;
-                        if (tempData == 1) {
+                        if (tempData < 44) {
+                            speak(R.string.tips_error_temp);
                             return;
                         }
                         StringBuilder mTempResult = new StringBuilder();
-                        mTempResult.append("3").append((tempData - 44) / 10).append(".").append((tempData - 44) % 10);
-                        Message msg = mHandler.obtainMessage();
-                        msg.what = 1;
-                        msg.obj = mTempResult.toString();
-                        mHandler.sendMessage(msg);
+                        mTempResult.append((tempData - 44) / 10).append(".").append((tempData - 44) % 10);
                         String wenduResult;
-                        float wenduValue = Float.valueOf(mTempResult.toString());
+                        float wenduValue = 30 + Float.valueOf(mTempResult.toString());
                         if (wenduValue < 38) {
                             wenduResult = mWenduResults[0];
                         } else if (wenduValue < 40) {
@@ -220,6 +219,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         if (isGetResustFirst) {
                             isGetResustFirst = false;
+                            mResultTv.setText(String.valueOf(wenduValue));
                             mHandler.sendEmptyMessageDelayed(2, 5000);
                             DataInfoBean info = new DataInfoBean();
                             info.temper_ature = String.valueOf(wenduValue);
@@ -230,7 +230,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 }
                             });
                         }
-                        speak(String.format(getString(R.string.tips_result_wendu), mTempResult.toString(), wenduResult));
+                        speak(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
                         break;
                     case Type_Xueya:
                         if ((int) notifyData[0] == 32 && notifyData.length == 2) {
@@ -279,10 +279,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         //threadDisable = false;
                         if (isGetResustFirst) {
 //                            float xuetangResut = ((float)((notifyData[10] << 8 + (notifyData[9] & 0xff))))/18;
-                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
-                            mResultTv.setText(String.format("%.2f", xuetangResut));
+                            float xuetangResut = ((float)(notifyData[10] << 8) + (float)(notifyData[9] & 0xff))/18;
+//                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
+                            mResultTv.setText(String.format("%.1f", xuetangResut));
                             DataInfoBean info = new DataInfoBean();
-                            info.blood_sugar = String.format("%.2f", xuetangResut);
+                            info.blood_sugar = String.format("%.1f", xuetangResut);
                             NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {

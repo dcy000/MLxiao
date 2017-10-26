@@ -20,10 +20,11 @@ import java.util.Map;
 public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.103:8080";
 //        public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080/";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
+    public static final String ClueUrl = BasicUrl + "/ZZB/br/selOneUserClueAll";
     public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
     public static final String GetAllSymUrl = BasicUrl + "/ZZB/bl/selAllSym";
     public static final String AnalyseUrl = BasicUrl + "/ZZB/bl/selcon";
@@ -84,6 +85,10 @@ public class NetworkApi {
         NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, new TypeToken<ArrayList<SymptomResultBean>>() {
         }.getType(), callback);
     }
+
+//    public static void clue(NetworkManager.SuccessCallback<>){
+//
+//    }
 
     public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {
         Map<String, String> paramsMap = new HashMap<>();

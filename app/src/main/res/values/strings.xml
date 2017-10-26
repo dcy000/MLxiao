@@ -87,6 +87,9 @@
     <string name="tips_result_xueya" formatted="false">主人，您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
     <string name="tips_symptom">主人，请选择对应症状并提交</string>
     <string name="tips_symptom_result">主人，你有可能是%s</string>
+    <string name="tips_error_temp">主人，温度测量不正常，请重新测试</string>
+    <string name="tips_blue_connect">蓝牙已连接</string>
+    <string name="tips_blue_unConnect">蓝牙已断开</string>
 
     <string name="unknown_device">Unknown device</string>
     <string name="unknown_characteristic">Unknown characteristic</string>
