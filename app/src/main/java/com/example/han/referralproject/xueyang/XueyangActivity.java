@@ -78,8 +78,8 @@ public class XueyangActivity extends BaseActivity {
     private BluetoothLeService mBluetoothLeService;
     public boolean threadDisable = true;
     public String str;
-    public TextView mTextView;
-    public TextView mTextView1;
+   // public TextView mTextView;
+   // public TextView mTextView1;
     public String sign;
 
     NDialog dialog;
@@ -109,8 +109,8 @@ public class XueyangActivity extends BaseActivity {
                         }
                         final String[] strs = str.split(",");
                         sign = strs[0];
-                        mTextView.setText(strs[1]);
-                        mTextView1.setText(strs[2]);
+                      /*  mTextView.setText(strs[1]);
+                        mTextView1.setText(strs[2]);*/
 
 
                        /* if ("1".equals(strs[3]) && sign1 == true) {
@@ -295,8 +295,8 @@ public class XueyangActivity extends BaseActivity {
                 finish();
             }
         });
-        mTextView = (TextView) findViewById(R.id.xue_yang);
-        mTextView1 = (TextView) findViewById(R.id.xueyang_pulse);
+   /*     mTextView = (TextView) findViewById(R.id.xue_yang);
+        mTextView1 = (TextView) findViewById(R.id.xueyang_pulse);*/
         mImageView1 = (ImageView) findViewById(R.id.test_3);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
@@ -420,9 +420,9 @@ public class XueyangActivity extends BaseActivity {
             }
         });*/
 
-        dialog = new NDialog(this);
+      /*  dialog = new NDialog(this);
         showNormal("设备连接中，请稍后...");
-
+*/
 
     }
 

@@ -159,7 +159,12 @@
 
         <activity
             android:name=".temperature.TemperatureActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+
+
+
+
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
@@ -186,20 +191,30 @@
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+
+
+        </activity>
         <activity
             android:name=".PlayVideoActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xuetang.XuetangActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+
+
+
+        </activity>
         <activity
             android:name=".xueyang.XueyangActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+
+
+
+        </activity>
 
         <service
             android:name=".bluetooth.BluetoothLeService"
@@ -227,7 +242,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape" />
@@ -248,13 +264,12 @@
         </activity>
         <activity android:name=".recyclerview.RecoDocActivity" />
         <activity android:name=".recyclerview.DoctorMesActivity" />
-        <activity android:name=".video.MainVideoActivity" >
-
+        <activity android:name=".video.MainVideoActivity">
 
 
         </activity>
         <activity android:name=".video.PlayVideoActivity" />
-        <activity android:name=".personal.PersonActivity" ></activity>
+        <activity android:name=".personal.PersonActivity"></activity>
         <activity
             android:name="com.medlink.danbogh.call.VideoCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -277,8 +292,7 @@
         <activity android:name="com.medlink.danbogh.alarm.AlarmActivity" />
         <activity
             android:name=".activity.SymptomAnalyseActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape"></activity>
