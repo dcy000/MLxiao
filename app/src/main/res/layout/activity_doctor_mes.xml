@@ -83,7 +83,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:clickable="true"
-        android:src="@drawable/icon_home" />
+        android:src="@drawable/icon_home"
+        android:visibility="gone" />
 
 
     <com.example.han.referralproject.imageview.CircleImageView
@@ -267,14 +268,15 @@
 
         <Button
             android:id="@+id/qianyue"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="130dp"
             android:background="@drawable/selector_bg_btn"
-            android:text="签 约"
+            android:gravity="center"
+            android:text="@string/qianyue"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="45sp" />
     </LinearLayout>
 
     <ImageView
@@ -294,6 +296,7 @@
         android:layout_marginTop="20dp">
 
         <TextView
+            android:id="@+id/introduce"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text"

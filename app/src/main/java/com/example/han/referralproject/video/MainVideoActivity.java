@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 
 import java.io.File;
 
@@ -89,7 +90,7 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
         ImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), WifiConnectActivity.class);
                 startActivity(intent);
                 finish();
             }

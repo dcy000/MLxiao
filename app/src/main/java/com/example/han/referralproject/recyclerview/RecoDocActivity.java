@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 
 import java.io.Serializable;
@@ -43,7 +44,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     private RecyclerView mRecyclerView;
     private List<Doctor> mlist = new ArrayList<Doctor>();
     DoctorAdapter mDoctorAdapter;
-    private int mCurrPage = 0;
+    private int mCurrPage;
 
     public View mTvContractOffline;
     public TextView tvGoBack;
@@ -52,6 +53,8 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reco_doc);
+
+        mCurrPage = 0;
 
         tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
         tvGoBack.setOnClickListener(new View.OnClickListener() {
@@ -248,6 +251,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
                         mCurrPage = mCurrPage + 1;
+
                         loadMore();
                         //   initData();
                     }
@@ -307,6 +311,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                     List<Doctor> list = new ArrayList<Doctor>();
                     mlist.clear();
                     list = response.body();
+                    Log.e("===========", list.toString());
                     mlist.addAll(list);
                     mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
                     mRecyclerView.setAdapter(mDoctorAdapter);
@@ -340,7 +345,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         List<Doctor> list = this.mlist;
         for (int i = 0; i < list.size(); i++) {
             Doctor doctor = list.get(i);
-            if (result.contains(doctor.getDocoerName())) {
+            if (result.contains(doctor.getDoctername())) {
                 mDoctorAdapter.getOnItemClistListener().onItemClick(i);
                 return;
             }
