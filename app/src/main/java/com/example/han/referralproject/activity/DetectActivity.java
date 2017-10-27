@@ -148,6 +148,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 Log.i("mylog", "gata disConnect 22222222222222222");
                 mConnected = false;
                 speak(R.string.tips_blue_unConnect);
+                isGetResustFirst = true;
                 if (mBluetoothAdapter != null){
 //                    dialog = new NDialog(mContext);
 //                    showNormal("设备连接中，请稍后...");
@@ -282,6 +283,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             float xuetangResut = ((float)(notifyData[10] << 8) + (float)(notifyData[9] & 0xff))/18;
 //                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
+                            speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut)));
                             DataInfoBean info = new DataInfoBean();
                             info.blood_sugar = String.format("%.1f", xuetangResut);
                             NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
