@@ -17,6 +17,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener{
@@ -70,7 +71,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 });
                 break;
             case R.id.tv_register:
-                startActivity(new Intent(mContext, SignUp1NameActivity.class));
+//                startActivity(new Intent(mContext, SignUp1NameActivity.class));
+                NimCallActivity.launch(this, "doctor_18940866148");
                 break;
             case R.id.tv_agreement:
                 startActivity(new Intent(mContext, AgreementActivity.class));

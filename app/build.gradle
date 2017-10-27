@@ -72,7 +72,6 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:multidex:1.0.1'
     compile project(':library')
     compile project(':wkvideoplayer')
     compile files('libs/Msc.jar')
@@ -86,6 +85,8 @@ dependencies {
     compile('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
+    compile project(':sdk')
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
@@ -103,9 +104,8 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.8.0'
     compile 'me.wcy:lrcview:1.4.2'
     compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'
-    testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.netease.nimlib:basesdk:4.3.0'
     compile 'com.netease.nimlib:avchat:4.3.0'
-    compile project(':sdk')
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }

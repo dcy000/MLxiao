@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.utils.Utils;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -45,17 +46,21 @@ public class NimAccountHelper {
         return false;
     }
 
+    public void loginWithPassword(String account, String password, RequestCallback<LoginInfo> callback) {
+        login(account, Utils.md5(password), callback);
+    }
+
     public AbortableFuture<LoginInfo> login(final String account, final String token, final RequestCallback<LoginInfo> callback) {
         LoginInfo info = new LoginInfo(account, token);
         AuthService service = NIMClient.getService(AuthService.class);
         AbortableFuture<LoginInfo> future = service.login(info);
-        future.setCallback(new RequestCallbackWrapper<LoginInfo>() {
-
-            @Override
-            public void onResult(int code, LoginInfo result, Throwable exception) {
-
-            }
-        });
+//        future.setCallback(new RequestCallbackWrapper<LoginInfo>() {
+//
+//            @Override
+//            public void onResult(int code, LoginInfo result, Throwable exception) {
+//
+//            }
+//        });
         future.setCallback(new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {

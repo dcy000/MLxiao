@@ -16,50 +16,50 @@ import java.util.List;
  * Created by lenovo on 2017/10/20.
  */
 
-public class CallStateObserver {
-    public enum CallState {
+public class PhoneStateObserver {
+    public enum PhoneState {
         IDLE,           // 空闲
         INCOMING_CALL,  // 有来电
         DIALING_OUT,    // 呼出电话已经接通
         DIALING_IN      // 来电已接通
     }
 
-    private final String TAG = "CallStateObserver";
+    private final String TAG = "PhoneStateObserver";
 
     private int phoneState = TelephonyManager.CALL_STATE_IDLE;
-    private CallState state = CallStateObserver.CallState.IDLE;
+    private PhoneState state = PhoneState.IDLE;
 
     private List<Observer<Integer>> autoHangUpObservers = new ArrayList<>(1); // 与本地电话互斥的挂断监听
 
     private static class Holder {
-        private final static CallStateObserver INSTANCE = new CallStateObserver();
+        private final static PhoneStateObserver INSTANCE = new PhoneStateObserver();
     }
 
-    private CallStateObserver() {
+    private PhoneStateObserver() {
 
     }
 
-    public static CallStateObserver getInstance() {
+    public static PhoneStateObserver getInstance() {
         return Holder.INSTANCE;
     }
 
-    public void onCallStateChanged(String state) {
-        Log.i(TAG, "onCallStateChanged, now state =" + state);
+    public void onPhoneStateChanged(String state) {
+        Log.i(TAG, "onPhoneStateChanged, now state =" + state);
 
-        this.state = CallState.IDLE;
+        this.state = PhoneState.IDLE;
         if (TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
             phoneState = TelephonyManager.CALL_STATE_IDLE;
-            this.state = CallState.IDLE;
+            this.state = PhoneState.IDLE;
         } else if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
             phoneState = TelephonyManager.CALL_STATE_RINGING;
-            this.state = CallState.INCOMING_CALL;
+            this.state = PhoneState.INCOMING_CALL;
         } else if (TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             int lastPhoneState = phoneState;
             phoneState = TelephonyManager.CALL_STATE_OFFHOOK;
             if (lastPhoneState == TelephonyManager.CALL_STATE_IDLE) {
-                this.state = CallState.DIALING_OUT;
+                this.state = PhoneState.DIALING_OUT;
             } else if (lastPhoneState == TelephonyManager.CALL_STATE_RINGING) {
-                this.state = CallState.DIALING_IN;
+                this.state = PhoneState.DIALING_IN;
             }
         }
 
@@ -72,12 +72,12 @@ public class CallStateObserver {
     public void handleLocalCall() {
         LogUtil.i(TAG, "notify call state changed, state=" + state.name());
 
-        if (state != CallState.IDLE) {
+        if (state != PhoneState.IDLE) {
             AVChatManager.getInstance().hangUp2(AVChatManager.getInstance().getCurrentChatId(), new HandleLocalCallCallback(1));
         }
     }
 
-    public CallState getCallState() {
+    public PhoneState getCallState() {
         return state;
     }
 
