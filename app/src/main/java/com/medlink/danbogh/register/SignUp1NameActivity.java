@@ -41,7 +41,7 @@ public class SignUp1NameActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up1_name);
         mUnbinder = ButterKnife.bind(this);
-        mTvGoBack.setEnabled(false);
+        //mTvGoBack.setEnabled(false);
     }
 
     @Override

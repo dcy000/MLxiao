@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
@@ -131,6 +132,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     SharedPreferences sharedPreferences2;
     SharedPreferences sharedPreferences3;
 
+    SharedPreferences sharedPreferences4;
+
+
     SimpleDateFormat simple;
     SimpleDateFormat simple1;
     SimpleDateFormat formatter;
@@ -184,6 +188,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
     public TextView mTextView;
 
+    public ImageView ImageView1;
+    public ImageView ImageView2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,20 +198,43 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         speak(R.string.yuyue);
 
+
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         sharedPreferences2 = getSharedPreferences(ConstantData.SHARED_FILE_NAME2, Context.MODE_PRIVATE);
         sharedPreferences3 = getSharedPreferences(ConstantData.SHARED_FILE_NAME3, Context.MODE_PRIVATE);
 
+        sharedPreferences4 = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
+
+      /*  mImageView = (ImageView) findViewById(R.id.icon_back);
 
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
+        });*/
 
 
         mButtons = (Button) findViewById(R.id.yuyue_true);
@@ -214,7 +244,10 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             public void onClick(View view) {
 
                 dialog = new NDialog2(AddAppoActivity.this);
-                showNormal(String.format(getString(R.string.dialog), "张医生"));
+
+                speak(String.format(getString(R.string.dialog), sharedPreferences1.getString("name", "")));
+
+                showNormal(String.format(getString(R.string.dialog), sharedPreferences1.getString("name", "")));
             }
         });
 
@@ -529,7 +562,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
 
         Picasso.with(this)
-                .load(ConstantData.BASE_URL + "/referralProject/" + sharedPreferences1.getString("image", ""))
+                .load(sharedPreferences4.getString("person_image", ""))
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)

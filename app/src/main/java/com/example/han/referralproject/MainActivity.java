@@ -13,16 +13,26 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.VideoDemo;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recyclerview.AddAppoActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.video.MainVideoActivity;
+import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.EMUIHelper;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -127,6 +137,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
+            @Override
+            public void onSuccess(ArrayList<ClueInfoBean> response) {
+                if (response == null || response.size() == 0) {
+                    return;
+                }
+                List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
+                //DataSupport.deleteAll(AlarmModel.class);
+                for (ClueInfoBean itemBean: response){
+                    String[] timeString = itemBean.cluetime.split(":");
+                    boolean isSetted = false;
+                    for (AlarmModel itemModel : models){
+                        if (itemModel.getHourOfDay() == Integer.valueOf(timeString[0]) &&
+                                itemModel.getMinute() == Integer.valueOf(timeString[1])) {
+                            isSetted = true;
+                            break;
+                        }
+                    }
+                    if (!isSetted){
+                        AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]));
+                    }
+                }
+            }
+        });
     }
 
     public static final String REGEX_GO_PERSONAL_CENTER = ".*(gerenzhongxin|wodeshuju).*";

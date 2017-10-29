@@ -1,6 +1,7 @@
 package com.example.han.referralproject.video;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 
 import java.io.File;
 
@@ -64,21 +67,43 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
     TextView mTitleText;
     public ImageView mImageView;
 
-    @Override
+    public ImageView ImageView1;
+    public ImageView ImageView2;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_video);
 
         //initToolBar();
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WifiConnectActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+       /* mImageView = (ImageView) findViewById(R.id.icon_back);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
 
         mButton = (Button) findViewById(R.id.pressure);
         mButton1 = (Button) findViewById(R.id.xue_tang);
@@ -157,12 +182,19 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
         mImageView31.setOnClickListener(this);
 
 
+        mButton.setSelected(true);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v.isSelected()) {
+                    mButton.setTextColor(Color.parseColor("#00CD79"));
                     v.setSelected(false);
+
                 } else {
+                    mButton.setTextColor(Color.parseColor("#FFFFFF"));
+                    mButton1.setTextColor(Color.parseColor("#FD695D"));
+                    mButton2.setTextColor(Color.parseColor("#FEB70F"));
+                    mButton3.setTextColor(Color.parseColor("#5599FC"));
                     mButton1.setSelected(false);
                     mButton2.setSelected(false);
                     mButton3.setSelected(false);
@@ -182,8 +214,15 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
             public void onClick(View v) {
 
                 if (v.isSelected()) {
+                    mButton1.setTextColor(Color.parseColor("#FD695D"));
                     v.setSelected(false);
+
+
                 } else {
+                    mButton.setTextColor(Color.parseColor("#00CD79"));
+                    mButton2.setTextColor(Color.parseColor("#FEB70F"));
+                    mButton3.setTextColor(Color.parseColor("#5599FC"));
+                    mButton1.setTextColor(Color.parseColor("#FFFFFF"));
                     mButton.setSelected(false);
                     mButton2.setSelected(false);
                     mButton3.setSelected(false);
@@ -203,8 +242,15 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
             public void onClick(View v) {
 
                 if (v.isSelected()) {
+                    mButton2.setTextColor(Color.parseColor("#FEB70F"));
+
                     v.setSelected(false);
                 } else {
+                    mButton2.setTextColor(Color.parseColor("#FFFFFF"));
+                    mButton.setTextColor(Color.parseColor("#00CD79"));
+                    mButton1.setTextColor(Color.parseColor("#FD695D"));
+                    mButton3.setTextColor(Color.parseColor("#5599FC"));
+
                     mButton.setSelected(false);
                     mButton1.setSelected(false);
                     mButton3.setSelected(false);
@@ -224,8 +270,13 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
             public void onClick(View v) {
 
                 if (v.isSelected()) {
+                    mButton3.setTextColor(Color.parseColor("#5599FC"));
                     v.setSelected(false);
                 } else {
+                    mButton.setTextColor(Color.parseColor("#00CD79"));
+                    mButton1.setTextColor(Color.parseColor("#FD695D"));
+                    mButton2.setTextColor(Color.parseColor("#FEB70F"));
+                    mButton3.setTextColor(Color.parseColor("#FFFFFF"));
                     mButton.setSelected(false);
                     mButton1.setSelected(false);
                     mButton2.setSelected(false);

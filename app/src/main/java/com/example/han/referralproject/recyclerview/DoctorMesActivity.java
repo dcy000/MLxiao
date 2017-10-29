@@ -20,6 +20,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -37,8 +38,16 @@ public class DoctorMesActivity extends BaseActivity {
 
     ImageView mImageView1;
     TextView mTextView;
+    TextView mTextView1;
+    TextView mTextView2;
+    TextView mTextView3;
+    TextView mTextView4;
+
 
     SharedPreferences sharedPreferences;
+
+    public ImageView ImageView1;
+    public ImageView ImageView2;
 
 
     @Override
@@ -46,9 +55,17 @@ public class DoctorMesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
         //    initToolBar();
+
+        sharedPreferences = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
+
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
 
         mTextView = (TextView) findViewById(R.id.names);
+        mTextView1 = (TextView) findViewById(R.id.duty);
+        mTextView2 = (TextView) findViewById(R.id.hospital);
+        mTextView3 = (TextView) findViewById(R.id.department);
+        mTextView4 = (TextView) findViewById(R.id.introduce);
+
 
         mButton = (Button) findViewById(R.id.qianyue);
 
@@ -56,16 +73,24 @@ public class DoctorMesActivity extends BaseActivity {
         final Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
 
 
-    /*    sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
 
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-        SharedPreferences.Editor editor7 = sharedPreferences.edit();
-
-        editor7.putString("name", doctor.getDocoerName());
-        editor7.putString("position", doctor.getDuty());
-        editor7.putString("feature", doctor.getGat());
-        editor7.putString("image", doctor.getCard());
-        editor7.commit();*/
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         Picasso.with(this)
@@ -77,19 +102,31 @@ public class DoctorMesActivity extends BaseActivity {
                 .into(mImageView1);
 
 
-        mTextView.setText(doctor.getDocoerName());
+        mTextView.setText(doctor.getDoctername());
+        mTextView1.setText(doctor.getDuty());
+        mTextView2.setText(doctor.getGetHosname());
+        mTextView3.setText(doctor.getDepartment());
+        mTextView4.setText(doctor.getPro());
+
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("person_image", ConstantData.BASE_URL + "/referralProject/" + doctor.getCard());
+                editor.commit();
+
                 //    show();
-                NetworkApi.bindDoctor(MyApplication.getInstance().userId, doctor.doctoerId, new NetworkManager.SuccessCallback<String>() {
+                NetworkApi.bindDoctor(MyApplication.getInstance().userId, doctor.getDocterid(), new NetworkManager.SuccessCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
                         XDialogFragment dialogFragment = new XDialogFragment();
                         dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
+
+
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -101,13 +138,13 @@ public class DoctorMesActivity extends BaseActivity {
             }
         });
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
+      /*  mImageView = (ImageView) findViewById(R.id.icon_back);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
     }
 
     public void show() {
@@ -178,7 +215,12 @@ public class DoctorMesActivity extends BaseActivity {
         }
 
         if (inSpell.matches(REGEX_BACK)) {
-            mImageView.performClick();
+
+            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+            startActivity(intent);
+            finish();
+
+          //  mImageView.performClick();
         }
     }
 }

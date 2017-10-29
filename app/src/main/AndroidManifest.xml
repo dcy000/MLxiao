@@ -143,7 +143,12 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+
+
+
+        </activity>
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -159,7 +164,12 @@
 
         <activity
             android:name=".temperature.TemperatureActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+
+
+
+
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
@@ -186,7 +196,10 @@
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+
+
+        </activity>
         <activity
             android:name=".PlayVideoActivity"
             android:screenOrientation="landscape"/>
@@ -196,10 +209,19 @@
         </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+
+
+
+        </activity>
         <activity
             android:name=".xueyang.XueyangActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+
+
+
+        </activity>
+
 
         <service
             android:name=".bluetooth.BluetoothLeService"
@@ -228,7 +250,8 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape"/>
@@ -272,8 +295,7 @@
         <activity android:name="com.medlink.danbogh.alarm.AlarmActivity"/>
         <activity
             android:name=".activity.SymptomAnalyseActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape"/>
@@ -384,7 +406,7 @@
 
         <activity android:name="com.medlink.danbogh.call2.NimCallActivity"
             android:launchMode="singleInstance"
-            android:configChanges="orientation">
+            android:configChanges="orientation|keyboardHidden">
         </activity>
     </application>
 

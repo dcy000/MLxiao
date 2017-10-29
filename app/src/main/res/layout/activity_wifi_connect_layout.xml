@@ -50,11 +50,12 @@
                 android:text="@string/wlan"
                 android:textColor="#3f85ff"
                 android:textSize="35sp"/>
-            <View
+            <ImageView
                 android:id="@+id/iv_refresh"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="#0f0"
+                android:src="@drawable/icon_refresh"
+                android:scaleType="centerInside"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"/>
             <Switch

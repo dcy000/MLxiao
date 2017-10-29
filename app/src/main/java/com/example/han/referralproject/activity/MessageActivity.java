@@ -1,12 +1,15 @@
 package com.example.han.referralproject.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.MessageShowAdapter;
 import com.example.han.referralproject.bean.YzInfoBean;
@@ -19,16 +22,39 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     private ArrayList<YzInfoBean> mDataList = new ArrayList<>();
     private MessageShowAdapter messageShowAdapter;
 
+    public ImageView ImageView1;
+    public ImageView ImageView2;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        findViewById(R.id.iv_back).setOnClickListener(this);
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.rv_message);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         messageShowAdapter = new MessageShowAdapter(mContext, mDataList);
         mRecyclerView.setAdapter(messageShowAdapter);
         NetworkApi.getYzList(successCallback);
+
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private NetworkManager.SuccessCallback successCallback = new NetworkManager.SuccessCallback<ArrayList<YzInfoBean>>() {
@@ -47,9 +73,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_back:
-                finish();
-                break;
+
         }
     }
 }

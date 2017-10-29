@@ -6,6 +6,9 @@
     android:background="@drawable/normal_bg"
     tools:context="com.example.han.referralproject.facerecognition.HeadiconActivity">
 
+
+
+
     <com.example.han.referralproject.imageview.CircleImageView
         android:id="@+id/per_image"
         android:layout_width="400dp"

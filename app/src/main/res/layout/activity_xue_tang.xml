@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/xuetang_bg">
+    android:background="@drawable/normal_bg">
 
     <ImageView
         android:id="@+id/iv_back"
@@ -21,14 +21,54 @@
         android:background="@drawable/xuetang_video"
         android:clickable="true" />
 
-    <TextView
-        android:id="@+id/xue_tang"
+    <!-- <TextView
+         android:id="@+id/xue_tang"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="230dp"
+         android:layout_marginTop="200dp"
+         android:text="0.00"
+         android:textSize="40sp" />-->
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="230dp"
-        android:layout_marginTop="200dp"
-        android:text="0.00"
-        android:textSize="40sp" />
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="300dp">
+
+        <TextView
+            android:id="@+id/test_xuetang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="@string/xuetang"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_xuetang"
+            android:layout_marginLeft="5sp"
+            android:gravity="center"
+            android:text="@string/xue_tang1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/xue_tang"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/test_xuetang"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="50sp" />
+
+
+    </RelativeLayout>
 
 
     <ImageView
@@ -40,8 +80,8 @@
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="200dp"
         android:clickable="true"
-        android:visibility="gone"
-        android:src="@drawable/tests" />
+        android:src="@drawable/tests"
+        android:visibility="gone" />
 
     <!-- <ProgressBar
          android:id="@+id/pb"

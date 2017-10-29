@@ -7,10 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.recyclerview.Doctor;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-
-import java.util.List;
 
 public class OfflineActivity extends BaseActivity implements View.OnClickListener{
 

@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.PlayVideoActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DataInfoBean;
@@ -49,7 +50,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DetectActivity extends BaseActivity implements View.OnClickListener{
+public class DetectActivity extends BaseActivity implements View.OnClickListener {
 
     private BluetoothAdapter mBluetoothAdapter;
     int MY_PERMISSIONS_REQUEST_LOCATION = 0;
@@ -63,7 +64,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
     public TextView mXueYangTv, mXueYangPulseTv;
-//    public View tipsLayout;
+    //    public View tipsLayout;
     public VideoView mVideoView;
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
@@ -74,6 +75,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public static final String Type_XueTang = "xuetang";
     public static final String Type_XueYang = "xueyang";
     public static final String Type_XinDian = "xindian";
+    public static final String Type_TiZhong = "tizhong";
     private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
@@ -145,11 +147,16 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 Log.i("mylog", "gata disConnect 22222222222222222");
                 mConnected = false;
+                speak(R.string.tips_blue_unConnect);
+                isGetResustFirst = true;
                 if (mBluetoothAdapter != null){
+//                    dialog = new NDialog(mContext);
+//                    showNormal("设备连接中，请稍后...");
                     mBluetoothAdapter.startDiscovery();
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
+                speak(R.string.tips_blue_connect);
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueTang:
@@ -189,32 +196,31 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                    mHandler.sendEmptyMessage(0);
 //                }
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-                Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 byte[] notifyData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
+                //Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + notifyData.length);
+                Log.i("mylog", "receive   " + bytesToHexString(notifyData));
                 byte[] extraData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_NOTIFY_DATA);
                 switch (detectType) {
                     case Type_Wendu:
                         int tempData = notifyData[6] & 0xff;
-                        if (tempData == 1) {
+                        if (tempData < 44) {
+                            speak(R.string.tips_error_temp);
                             return;
                         }
                         StringBuilder mTempResult = new StringBuilder();
-                        mTempResult.append("3").append((tempData - 44)/10).append(".").append((tempData - 44)%10);
-                        Message msg = mHandler.obtainMessage();
-                        msg.what = 1;
-                        msg.obj = mTempResult.toString();
-                        mHandler.sendMessage(msg);
+                        mTempResult.append((tempData - 44) / 10).append(".").append((tempData - 44) % 10);
                         String wenduResult;
-                        float wenduValue = Float.valueOf(mTempResult.toString());
-                        if (wenduValue < 38){
+                        float wenduValue = 30 + Float.valueOf(mTempResult.toString());
+                        if (wenduValue < 38) {
                             wenduResult = mWenduResults[0];
-                        } else if (wenduValue < 40){
+                        } else if (wenduValue < 40) {
                             wenduResult = mWenduResults[1];
                         } else {
                             wenduResult = mWenduResults[2];
                         }
                         if (isGetResustFirst) {
                             isGetResustFirst = false;
+                            mResultTv.setText(String.valueOf(wenduValue));
                             mHandler.sendEmptyMessageDelayed(2, 5000);
                             DataInfoBean info = new DataInfoBean();
                             info.temper_ature = String.valueOf(wenduValue);
@@ -225,21 +231,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 }
                             });
                         }
-                        speak(String.format(getString(R.string.tips_result_wendu), mTempResult.toString(), wenduResult));
+                        speak(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
                         break;
                     case Type_Xueya:
-                        if ((int)notifyData[0] == 32 && notifyData.length == 2) {
+                        if ((int) notifyData[0] == 32 && notifyData.length == 2) {
                             mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
                         }
-                        if ((int)notifyData[0] == 12){
+                        if ((int) notifyData[0] == 12) {
                             mHighPressTv.setText(String.valueOf(notifyData[2] & 0xff));
                             mLowPressTv.setText(String.valueOf(notifyData[4] & 0xff));
                             mPulseTv.setText(String.valueOf(notifyData[8] & 0xff));
-                            if (isGetResustFirst){
+                            if (isGetResustFirst) {
                                 String xueyaResult;
-                                if ((notifyData[2] & 0xff) <= 140){
+                                if ((notifyData[2] & 0xff) <= 140) {
                                     xueyaResult = mXueyaResults[0];
-                                } else if ((notifyData[2] & 0xff) <= 160){
+                                } else if ((notifyData[2] & 0xff) <= 160) {
                                     xueyaResult = mXueyaResults[1];
                                 } else {
                                     xueyaResult = mXueyaResults[2];
@@ -263,21 +269,23 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        for (char item : xueyaChars){
 //                            mBuilder.append(item).append("(").append((byte)item).append(")").append("    ");
 //                        }
-                        for (byte item : notifyData){
+                        for (byte item : notifyData) {
                             mBuilder.append(item).append("    ");
                         }
                         break;
                     case Type_XueTang:
-                        if (notifyData == null || notifyData.length < 12){
+                        if (notifyData == null || notifyData.length < 12) {
                             return;
                         }
                         //threadDisable = false;
                         if (isGetResustFirst) {
 //                            float xuetangResut = ((float)((notifyData[10] << 8 + (notifyData[9] & 0xff))))/18;
-                            float xuetangResut = ((float)(((notifyData[9] & 0xff))))/18;
-                            mResultTv.setText(String.format("%.2f", xuetangResut));
+                            float xuetangResut = ((float)(notifyData[10] << 8) + (float)(notifyData[9] & 0xff))/18;
+//                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
+                            mResultTv.setText(String.format("%.1f", xuetangResut));
+                            speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut)));
                             DataInfoBean info = new DataInfoBean();
-                            info.blood_sugar = String.format("%.2f", xuetangResut);
+                            info.blood_sugar = String.format("%.1f", xuetangResut);
                             NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
@@ -295,7 +303,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             if (isGetResustFirst) {
                                 DataInfoBean info = new DataInfoBean();
                                 info.blood_oxygen = String.format(String.valueOf(notifyData[5]));
-                                info.pulse = (int)notifyData[6];
+                                info.pulse = (int) notifyData[6];
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
@@ -305,6 +313,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 isGetResustFirst = false;
                                 mHandler.sendEmptyMessageDelayed(2, 30000);
                             }
+                        }
+                        break;
+                    case Type_TiZhong:
+                        if (notifyData != null && notifyData.length == 20){
+                            float result = ((float)(notifyData[2] << 8) + (float)(notifyData[3] & 0xff))/10;
+                            mResultTv.setText(String.valueOf(result));
                         }
                         break;
                 }
@@ -330,7 +344,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //            currentServiceData.put(LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
 //            currentServiceData.put(LIST_UUID, uuid);
 //            gattServiceData.add(currentServiceData);
-            // get characteristic when UUID matches RX/TX UUID
+        // get characteristic when UUID matches RX/TX UUID
 //            characteristic = gattService.getCharacteristics().get(4);
 //            characteristic = gattService.getCharacteristic(UUID.fromString(uuid));
 //            break;
@@ -345,11 +359,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 characteristic = gattServices.get(2).getCharacteristics().get(1);
                 break;
             case Type_XinDian:
+                characteristic = gattServices.get(3).getCharacteristics().get(0);
                 break;
-//                characteristic = gattServices.
+            case Type_TiZhong:
+                characteristic = gattServices.get(3).getCharacteristics().get(2);
+                break;
         }
 
-        if (characteristic == null){
+        if (characteristic == null) {
             return;
         }
 
@@ -368,8 +385,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
         //第一个坑，数据没传输过来
         List<BluetoothGattDescriptor> descriptorList = characteristic.getDescriptors();
-        if(descriptorList != null && descriptorList.size() > 0) {
-            for(BluetoothGattDescriptor descriptor : descriptorList) {
+        if (descriptorList != null && descriptorList.size() > 0) {
+            for (BluetoothGattDescriptor descriptor : descriptorList) {
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 mBluetoothGatt.writeDescriptor(descriptor);
             }
@@ -396,15 +413,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 resourceId = R.raw.tips_xueyang;
                 break;
             case R.id.view_over:
-                if (mVideoView != null){
+                if (mVideoView != null) {
                     mVideoView.setVisibility(View.GONE);
-                    if (mVideoView.isPlaying()){
+                    if (mVideoView.isPlaying()) {
                         mVideoView.pause();
                     }
                 }
                 break;
         }
-        if (resourceId != 0){
+        if (resourceId != 0) {
             mVideoView.setVisibility(View.VISIBLE);
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
@@ -413,11 +430,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     }
 
     public ImageView mImageView1;
+    public ImageView mImageView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+
+
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -425,8 +445,19 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
+
+        mImageView2 = (ImageView) findViewById(R.id.icon_home);
+        mImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         String type = getIntent().getStringExtra("type");
-        if (!TextUtils.isEmpty(type)){
+        if (!TextUtils.isEmpty(type)) {
             switch (type) {
                 case "wendu":
                     detectType = Type_Wendu;
@@ -442,6 +473,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     break;
                 case "xindian":
                     detectType = Type_XinDian;
+                    break;
+                case "tizhong":
+                    detectType = Type_TiZhong;
                     break;
             }
         }
@@ -529,7 +563,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
 //                dialog = new NDialog(th、is);
 //                showNormal("设备连接中，请稍后...");
-        int resourceId = R.raw.tips_xindian;
+        int resourceId = 0;
         switch (detectType){
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
@@ -557,12 +591,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                dialog = new NDialog(this);
 //                showNormal("设备连接中，请稍后...");
                 break;
+            case Type_TiZhong:
+                mResultTv = (TextView) findViewById(R.id.tv_tizhong);
+                findViewById(R.id.rl_tizhong).setVisibility(View.VISIBLE);
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
+                break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
-        String uri = "android.resource://" + getPackageName() + "/" + resourceId;
-        mVideoView.setVideoURI(Uri.parse(uri));
-        mVideoView.start();
-        mVideoView.setOnCompletionListener(mCompletionListener);
+        if (resourceId != 0){
+            String uri = "android.resource://" + getPackageName() + "/" + resourceId;
+            mVideoView.setVideoURI(Uri.parse(uri));
+            mVideoView.start();
+            mVideoView.setOnCompletionListener(mCompletionListener);
+        } else {
+            mVideoView.setVisibility(View.GONE);
+        }
         findViewById(R.id.view_over).setOnClickListener(this);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
@@ -637,7 +681,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 String deviceName = "FSRKB-EWQ01";
-                switch (detectType){
+                switch (detectType) {
                     case Type_Wendu:
                         deviceName = "FSRKB-EWQ01";
                         break;
@@ -653,14 +697,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     case Type_XinDian:
                         deviceName = "PC80B";
                         break;
+                    case Type_TiZhong:
+                        deviceName = "000FatScale01";
+                        break;
                 }
 
                 if (deviceName.equals(device.getName())) {
-                    if (dialog != null){
+                    if (dialog != null) {
                         dialog.create(NDialog.CONFIRM).dismiss();
                     }
                     mDeviceAddress = device.getAddress();
-                    if (mBluetoothLeService == null){
+                    if (mBluetoothLeService == null) {
                         Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
                         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                     } else {
@@ -668,7 +715,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mBluetoothGatt = mBluetoothLeService.getGatt();
                         }
                     }
-                    if (mBluetoothAdapter != null){
+                    if (mBluetoothAdapter != null) {
                         mBluetoothAdapter.cancelDiscovery();
                     }
                 }
@@ -738,7 +785,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (threadDisable){
+                while (threadDisable) {
                     Commands commands = new Commands();
                     //byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
                     byte[] sendDataByte = Commands.datas;
@@ -754,7 +801,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }).start();
     }
 
-    public static String bytesToHexString(byte[] src){
+    public static String bytesToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder("");
         if (src == null || src.length <= 0) {
             return null;
@@ -765,7 +812,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             if (hv.length() < 2) {
                 stringBuilder.append(0);
             }
-            stringBuilder.append(hv);
+            stringBuilder.append(hv).append(" ");
         }
         return stringBuilder.toString();
     }
@@ -786,7 +833,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         unregisterReceiver(mGattUpdateReceiver);
 
         unregisterReceiver(searchDevices);
-        if (mBluetoothAdapter != null){
+        if (mBluetoothAdapter != null) {
             mBluetoothAdapter.cancelDiscovery();
         }
 
@@ -809,7 +856,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if (device != null) {
 //                        if ("Bioland-BGM".equals(device.getName())) {
                         String deviceName = "FSRKB-EWQ01";
-                        switch (detectType){
+                        switch (detectType) {
                             case Type_Wendu:
                                 deviceName = "FSRKB-EWQ01";
                                 break;

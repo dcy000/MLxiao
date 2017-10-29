@@ -75,6 +75,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -120,7 +121,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-//                    startSynthesis(str1);
+                    //startSynthesis(str1);
                     speak(str1);
 
                     break;
@@ -141,11 +142,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     int volume = 0;
     AudioManager mAudioManager;
     public ImageView ivBack;
-
+    Random rand;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
+
+         rand = new Random();
+
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +185,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
-        mHandler.sendEmptyMessageDelayed(1, 3500);
+        //mHandler.sendEmptyMessageDelayed(1, 3500);
 //        findViewById(R.id.iat_recognizes).performClick();
 
         mediaPlayer = new MediaPlayer();
@@ -438,6 +442,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     }
 
+    @Override
+    protected void onActivitySpeakFinish() {
+        super.onActivitySpeakFinish();
+        findViewById(R.id.iat_recognizes).performClick();
+    }
+
     /**
      * 听写监听器。
      */
@@ -642,13 +652,61 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         str1 = string.getReceive().getOutput();
 
 
-        Log.e("返回结果", str1);
-
         if (str1 != null) {
-            mHandler.sendEmptyMessage(0);
+
+            if (getString(R.string.speak_null).equals(str1)) {
+
+                int randNum = rand.nextInt(10) + 1;
+
+                switch (randNum) {
+
+                    case 1:
+                        speak(R.string.speak_1);
+                        break;
+                    case 2:
+                        speak(R.string.speak_2);
+                        break;
+                    case 3:
+                        speak(R.string.speak_3);
+
+                        break;
+                    case 4:
+                        speak(R.string.speak_4);
+
+                        break;
+                    case 5:
+                        speak(R.string.speak_5);
+
+                        break;
+                    case 6:
+                        speak(R.string.speak_6);
+
+                        break;
+                    case 7:
+                        speak(R.string.speak_7);
+
+                        break;
+                    case 8:
+                        speak(R.string.speak_8);
+
+                        break;
+                    case 9:
+                        speak(R.string.speak_9);
+
+                        break;
+                    case 10:
+                        speak(R.string.speak_10);
+
+                        break;
+                    default:
+                        break;
+                }
+
+            } else {
+                mHandler.sendEmptyMessage(0);
+
+            }
         } else {
-            Log.e("==========", "已执行");
-            // findViewById(R.id.iat_recognizes).performClick();
         }
         pw.close();
         br.close();

@@ -381,7 +381,7 @@ public class TemperatureActivity extends BaseActivity {
                 }
             }
         });*/
-        showNormal("设备连接中，请稍后...");
+      //  showNormal("设备连接中，请稍后...");
 
     }
 

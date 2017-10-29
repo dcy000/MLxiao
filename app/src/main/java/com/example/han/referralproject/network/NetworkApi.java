@@ -3,10 +3,12 @@ package com.example.han.referralproject.network;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DataInfoBean;
-import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
+import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.YzInfoBean;
@@ -18,11 +20,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    public static final String BasicUrl = "http://192.168.200.103:8080";
+    //    public static final String BasicUrl = "http://192.168.200.103:8080";
 //        public static final String BasicUrl = "http://116.62.36.12:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
+    public static final String ClueUrl = BasicUrl + "/ZZB/br/selOneUserClueAll";
     public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
     public static final String GetAllSymUrl = BasicUrl + "/ZZB/bl/selAllSym";
     public static final String AnalyseUrl = BasicUrl + "/ZZB/bl/selcon";
@@ -32,6 +36,7 @@ public class NetworkApi {
     public static final String CHARGE_URL = BasicUrl + "/ZZB/eq/koufei";
     public static final String PAY_URL = BasicUrl + "/ZZB/br/chongzhi";
     public static final String DOCTOR_URL = BasicUrl + "/ZZB/docter/search_OneDocter";
+    public static final String PERSON_URL = BasicUrl + "/ZZB/br/selOneUser_con";
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
@@ -51,11 +56,18 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(PAY_URL, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
-    public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctors> listener, NetworkManager.FailedCallback failedCallback) {
+    public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctor> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", bid);
 
-        NetworkManager.getInstance().postResultClass(DOCTOR_URL, paramsMap, Doctors.class, listener, failedCallback);
+        NetworkManager.getInstance().postResultClass(DOCTOR_URL, paramsMap, Doctor.class, listener, failedCallback);
+    }
+
+    public static void PersonInfo(String bid, NetworkManager.SuccessCallback<UserInfo> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bid", bid);
+
+        NetworkManager.getInstance().postResultClass(PERSON_URL, paramsMap, UserInfo.class, listener, failedCallback);
     }
 
 
@@ -82,6 +94,15 @@ public class NetworkApi {
         paramsMap.put("parameter", params);
         NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, new TypeToken<ArrayList<SymptomResultBean>>() {
         }.getType(), callback);
+    }
+
+    public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback){
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            return;
+        }
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bid", MyApplication.getInstance().userId);
+        NetworkManager.getInstance().getResultClass(ClueUrl, paramsMap, new TypeToken<ArrayList<ClueInfoBean>>(){}.getType(), callback);
     }
 
     public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {

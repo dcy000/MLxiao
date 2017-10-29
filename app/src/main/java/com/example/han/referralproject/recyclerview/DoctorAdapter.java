@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.constant.ConstantData;
 import com.squareup.picasso.Picasso;
 
@@ -62,7 +63,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
                 .fit()
                 .into(holder.mImagine);
         //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
-        holder.mNameview.setText(mListPat.get(position).getDocoerName());
+        holder.mNameview.setText(mListPat.get(position).getDoctername());
         holder.mRoomId.setText(mListPat.get(position).getDepartment());
 
 

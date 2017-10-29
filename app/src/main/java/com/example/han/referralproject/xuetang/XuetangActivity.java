@@ -392,8 +392,8 @@ public class XuetangActivity extends BaseActivity {
             }
         });*/
 
-        dialog = new NDialog(this);
-        showNormal("设备连接中，请稍后...");
+    /*    dialog = new NDialog(this);
+        showNormal("设备连接中，请稍后...");*/
 
     }
 

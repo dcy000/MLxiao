@@ -14,14 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.constant.ConstantData;
 import com.medlink.danbogh.call.EMUIHelper;
+import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
 
 public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
@@ -31,13 +34,14 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     SharedPreferences sharedPreferences2;
     SharedPreferences sharedPreferences3;
 
+    SharedPreferences sharedPreferences4;
+
 
     public TextView mTextView;
     public TextView mTextView1;
     public TextView mTextView2;
     public Button mButton1;
     public ImageView circleImageView;
-    public ImageView mImageView;
 
     public TextView mTextView3;
     public TextView mTextView4;
@@ -61,6 +65,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     public TextView mTextView12;
 
+    public ImageView ImageView1;
+    public ImageView ImageView2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,18 +76,39 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         speak(R.string.yuyue_1);
 
+
+        ImageView1 = (ImageView) findViewById(R.id.icon_back);
+        ImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        ImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        ImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WifiConnectActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         sharedPreferences2 = getSharedPreferences(ConstantData.SHARED_FILE_NAME2, Context.MODE_PRIVATE);
         sharedPreferences3 = getSharedPreferences(ConstantData.SHARED_FILE_NAME3, Context.MODE_PRIVATE);
 
+        sharedPreferences4 = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
         mTextView = (TextView) findViewById(R.id.yuyue_time);
         mTextView1 = (TextView) findViewById(R.id.yuyue_time1);
         mTextView2 = (TextView) findViewById(R.id.yuyue_time2);
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
 
         mTextView3 = (TextView) findViewById(R.id.docotor_name);
         mTextView4 = (TextView) findViewById(R.id.docotor_position);
@@ -99,17 +127,10 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
 
         Picasso.with(this)
-                .load(ConstantData.BASE_URL + "/referralProject/" + sharedPreferences1.getString("image", ""))
+                .load(sharedPreferences4.getString("person_image", ""))
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)
@@ -124,7 +145,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
+//                EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
+                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
                 finish();
             }
         });

@@ -7,15 +7,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
@@ -24,14 +23,13 @@ import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.User;
+import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.recharge.PayInfoActivity;
-import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
@@ -66,12 +64,15 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
     public TextView mTextView;
     public ImageView mImageView;
-    public ImageView mImageView1;
     public ImageView mIvAlarm;
 
     SharedPreferences sharedPreferences;
     public TextView mTextView1;
     public TextView mTextView2;
+
+    public ImageView mImageView1;
+    public ImageView mImageView2;
+    public ImageView mImageView3;
 
 
     @Override
@@ -81,11 +82,25 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) findViewById(R.id.per_image);
 
+        mImageView3 = (ImageView) findViewById(R.id.iv_pay);
+
+        mImageView3.setOnClickListener(this);
+
         mImageView1 = (ImageView) findViewById(R.id.icon_back);
+        mImageView2 = (ImageView) findViewById(R.id.icon_home);
 
         mImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        mImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WifiConnectActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -103,7 +118,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         findViewById(R.id.btn_record).setOnClickListener(this);
         findViewById(R.id.iv_message).setOnClickListener(this);
-        findViewById(R.id.iv_recharge).setOnClickListener(this);
+
         findViewById(R.id.iv_check).setOnClickListener(this);
         findViewById(R.id.view_wifi).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
@@ -123,6 +138,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         mTextView1 = (TextView) findViewById(R.id.doctor_id);
         mTextView2 = (TextView) findViewById(R.id.tv_hospital);
 
+        findViewById(R.id.btn_logout).setOnClickListener(this);
+
 
     }
 
@@ -130,7 +147,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     protected void onStart() {
         super.onStart();
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -139,19 +156,34 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     e.printStackTrace();
                 }
             }
-        }).start();
+        }).start();*/
 
 
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctors>() {
+        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
-            public void onSuccess(Doctors response) {
+            public void onSuccess(UserInfo response) {
+                mTextView.setText(response.getBname());
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
+
+
+        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+            @Override
+            public void onSuccess(Doctor response) {
                 Log.e("=============", response.toString());
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("name", response.getDoctername());
                 editor.putString("position", response.getDuty());
                 editor.putString("feature", response.getDepartment());
-                editor.putString("hospital", response.getHosname());
-         //       editor.putString("image", response.getCard());
+                editor.putString("hospital", response.getHosname);
+                //       editor.putString("image", response.getCard());
                 editor.putString("service_amount", response.getService_amount());
                 editor.commit();
 
@@ -209,7 +241,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         pw.close();
         br.close();
 
-        findViewById(R.id.btn_logout).setOnClickListener(this);
     }
 
     @Override
@@ -229,7 +260,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             case R.id.iv_message:
                 startActivity(new Intent(this, MessageActivity.class));
                 break;
-            case R.id.iv_recharge:
+            case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));
                 break;
             case R.id.view_wifi:
