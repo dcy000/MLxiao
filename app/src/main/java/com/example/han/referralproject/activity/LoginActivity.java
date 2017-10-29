@@ -71,8 +71,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 });
                 break;
             case R.id.tv_register:
-//                startActivity(new Intent(mContext, SignUp1NameActivity.class));
-                NimCallActivity.launch(this, "doctor_18940866148");
+                startActivity(new Intent(mContext, SignUp1NameActivity.class));
                 break;
             case R.id.tv_agreement:
                 startActivity(new Intent(mContext, AgreementActivity.class));
