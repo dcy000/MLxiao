@@ -24,6 +24,7 @@ import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.constant.ConstantData;
 import com.medlink.danbogh.call.EMUIHelper;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
 
@@ -71,6 +72,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        NimAccountHelper.getInstance().login("br_12345678912", "123456",null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
