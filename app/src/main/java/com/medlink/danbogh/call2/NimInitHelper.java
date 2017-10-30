@@ -46,7 +46,7 @@ public class NimInitHelper {
     }
 
     public void init(Context context, boolean register) {
-        context = context.getApplicationContext();
+        this.context = context.getApplicationContext();
         NIMClient.init(context, NimAccountHelper.getInstance().loginInfo(), options());
         if (Utils.inMainProcess(context)) {
             // 1、UI相关初始化操作
@@ -54,6 +54,10 @@ public class NimInitHelper {
             registerImMessageFilter();
             // 注册全局云信sdk 观察者
             registerNimGlobalObserver(register);
+//            doctor_18940866148
+//            br_12345678912
+//            NimCallActivity.launch(this, "br_12345678912");
+            NimAccountHelper.getInstance().login("br_12345678912", "123456",null);
         }
     }
 
@@ -80,7 +84,7 @@ public class NimInitHelper {
             public void onEvent(AVChatData data) {
                 String extra = data.getExtra();
                 Log.e("Extra", "Extra Message->" + extra);
-                if (CallStateObserver.getInstance().getCallState() != CallStateObserver.CallState.IDLE
+                if (PhoneStateObserver.getInstance().getCallState() != PhoneStateObserver.PhoneState.IDLE
                         || NimCallHelper.getInstance().isChatting()
                         || AVChatManager.getInstance().getCurrentChatId() != 0) {
                     Log.i(TAG, "reject incoming call data =" + data.toString() + " as local phone is not idle");
@@ -89,7 +93,7 @@ public class NimInitHelper {
                 }
                 // 有来电
                 NimCallHelper.getInstance().setChatting(true);
-                NimCallHelper.getInstance().dispatchIncomingCallFromBroadCast(data);
+                NimCallHelper.getInstance().dispatchIncomingCallFromBroadCast(context,data);
             }
         }, register);
     }
@@ -135,7 +139,7 @@ public class NimInitHelper {
 
         // 配置附件缩略图的尺寸大小。表示向服务器请求缩略图文件的大小
         // 该值一般应根据屏幕尺寸来确定， 默认值为 Screen.width / 2
-        options.thumbnailSize = 1200 / 2;
+        options.thumbnailSize = 1080 / 2;
 
         // 用户资料提供者, 目前主要用于提供用户资料，用于新消息通知栏中显示消息来源的头像和昵称
         options.userInfoProvider = new UserInfoProvider() {

@@ -21,6 +21,7 @@ import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call.CallManager;
 import com.medlink.danbogh.call.CallReceiver;
 import com.medlink.danbogh.call.EMAccountHelper;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -65,16 +66,15 @@ public class MyApplication extends Application {
         //EM
         initHyphenate(this);
         //if (telphoneNum != null) {
-        EMAccountHelper.login(emBrId(), "123");
+//        EMAccountHelper.login(emBrId(), "123");
         //}
-
+        NimInitHelper.getInstance().init(this, true);
 
         AppCache.init(this);
         AppCache.updateNightMode(Preferences.isNightMode());
         ForegroundObserver.init(this);
         initOkHttpUtils();
 
-//        NimInitHelper.getInstance().init(this, true);
         BeeCloud.setAppIdAndSecret("2732d773-09a4-403d-87b4-b040d14ce4b9",
                 "ffa06c16-c2ee-4b48-a65c-795936d53cc7");
 

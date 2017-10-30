@@ -3,6 +3,7 @@ package com.example.han.referralproject.network;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.SymptomBean;
@@ -21,10 +22,11 @@ import java.util.Map;
 public class NetworkApi {
     //    public static final String BasicUrl = "http://192.168.200.103:8080";
 //        public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080/";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
+    public static final String ClueUrl = BasicUrl + "/ZZB/br/selOneUserClueAll";
     public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
     public static final String GetAllSymUrl = BasicUrl + "/ZZB/bl/selAllSym";
     public static final String AnalyseUrl = BasicUrl + "/ZZB/bl/selcon";
@@ -92,6 +94,15 @@ public class NetworkApi {
         paramsMap.put("parameter", params);
         NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, new TypeToken<ArrayList<SymptomResultBean>>() {
         }.getType(), callback);
+    }
+
+    public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback){
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            return;
+        }
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bid", MyApplication.getInstance().userId);
+        NetworkManager.getInstance().getResultClass(ClueUrl, paramsMap, new TypeToken<ArrayList<ClueInfoBean>>(){}.getType(), callback);
     }
 
     public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {

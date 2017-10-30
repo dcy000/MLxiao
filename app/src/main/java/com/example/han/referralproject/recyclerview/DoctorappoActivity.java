@@ -24,6 +24,7 @@ import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.constant.ConstantData;
 import com.medlink.danbogh.call.EMUIHelper;
+import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
 
 public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
@@ -144,7 +145,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
+//                EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
+                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
                 finish();
             }
         });

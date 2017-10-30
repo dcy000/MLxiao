@@ -12,7 +12,7 @@ public class InComingCallReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (TelephonyManager.ACTION_PHONE_STATE_CHANGED.equals(action)) {
             final String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-            CallStateObserver.getInstance().onCallStateChanged(state);
+            PhoneStateObserver.getInstance().onPhoneStateChanged(state);
         }
     }
 }

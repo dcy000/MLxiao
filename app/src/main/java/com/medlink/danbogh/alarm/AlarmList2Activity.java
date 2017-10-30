@@ -15,9 +15,14 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,7 +34,7 @@ import butterknife.Unbinder;
  * Created by lenovo on 2017/9/26.
  */
 
-public class AlarmList2Activity extends AppCompatActivity {
+public class AlarmList2Activity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -62,6 +67,20 @@ public class AlarmList2Activity extends AppCompatActivity {
         mAdapter = new AlarmsAdapter();
         rvAlarms.setAdapter(mAdapter);
         refresh();
+        NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
+            @Override
+            public void onSuccess(ArrayList<ClueInfoBean> response) {
+                if (response == null || response.size() == 0) {
+                    return;
+                }
+                StringBuilder mBuilder = new StringBuilder();
+
+                for (ClueInfoBean itemBean: response){
+                    mBuilder.append(response.get(0).doctername).append("提醒您").append(itemBean.cluetime).append("吃").append(itemBean.medicine);
+                }
+                speak(mBuilder.toString());
+            }
+        });
     }
 
     private void refresh() {

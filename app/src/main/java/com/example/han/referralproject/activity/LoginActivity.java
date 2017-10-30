@@ -17,6 +17,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener{
