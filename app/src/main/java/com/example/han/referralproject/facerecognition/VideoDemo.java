@@ -35,6 +35,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -46,6 +47,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.util.FaceRect;
 import com.example.han.referralproject.util.FaceUtil;
 import com.example.han.referralproject.util.LocalShared;
@@ -94,6 +96,8 @@ public class VideoDemo extends BaseActivity {
     String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
+    public ImageView mImageView;
+    public Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +106,24 @@ public class VideoDemo extends BaseActivity {
 
         speak(R.string.head_verify);
 
+
+        mButton = (Button) findViewById(R.id.tiao_guo);
+        mButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        mImageView = (ImageView) findViewById(R.id.icon_back);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 

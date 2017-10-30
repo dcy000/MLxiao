@@ -38,6 +38,8 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
@@ -97,10 +99,32 @@ public class RegisterVideoActivity extends BaseActivity {
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
 
+    public ImageView mImageView;
+
+    public Button mButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
+
+        mButton = (Button) findViewById(R.id.tiao_guo);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        mImageView = (ImageView) findViewById(R.id.icon_back);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         //SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
@@ -117,7 +141,6 @@ public class RegisterVideoActivity extends BaseActivity {
 
         mFaceRequest = new FaceRequest(this);
     }
-
 
 
     private Callback mPreviewCallback = new Callback() {
@@ -385,9 +408,9 @@ public class RegisterVideoActivity extends BaseActivity {
                         finish();
                         break;
                     default:
-                      //  showTip(error.getPlainDescription(true));
-                      //  sign = false;
-                     //   finish();
+                        //  showTip(error.getPlainDescription(true));
+                        //  sign = false;
+                        //   finish();
                         break;
                 }
             }
@@ -546,6 +569,7 @@ public class RegisterVideoActivity extends BaseActivity {
             }
         }).start();
     }
+
 
     @Override
     protected void onPause() {

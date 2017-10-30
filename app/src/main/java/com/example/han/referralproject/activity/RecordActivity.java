@@ -15,10 +15,11 @@ import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.network.NetworkApi;
 
 public class RecordActivity extends BaseActivity implements View.OnClickListener{
     private WebView webView;
-    private final String UrlFormat = "http://116.62.36.12:8080/ZZB/br/cl?bid=%s&temp=%d";
+    private final String UrlFormat = NetworkApi.BasicUrl + "/ZZB/br/cl?bid=%s&temp=%d";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
