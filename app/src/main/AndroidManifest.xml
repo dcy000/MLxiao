@@ -236,10 +236,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -263,6 +260,11 @@
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
         <activity android:name=".facerecognition.RegisterVideoActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>

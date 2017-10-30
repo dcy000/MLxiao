@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <SurfaceView
         android:id="@+id/sfv_preview"
         android:layout_width="match_parent"
@@ -14,32 +15,61 @@
         android:layout_height="match_parent" />
 
 
+    <LinearLayout
+        android:id="@+id/linearlayou"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:layout_gravity="left"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-   <!-- <RadioGroup
-        android:id="@+id/align_mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        >
-        <RadioButton
-            android:id="@+id/detect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="检测"
-            />
-        <RadioButton
-            android:id="@+id/align"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="聚焦"
-            />
-    </RadioGroup>-->
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_back" />
+    </LinearLayout>
 
+    <Button
+        android:id="@+id/tiao_guo"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_bg_btn"
+        android:gravity="center"
+        android:text="@string/tiao_zhuan"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp" />
+
+
+    <!-- <RadioGroup
+         android:id="@+id/align_mode"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:orientation="horizontal"
+         android:weightSum="2"
+         >
+         <RadioButton
+             android:id="@+id/detect"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:checked="true"
+             android:text="检测"
+             />
+         <RadioButton
+             android:id="@+id/align"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="聚焦"
+             />
+     </RadioGroup>-->
 
 
 </RelativeLayout>
