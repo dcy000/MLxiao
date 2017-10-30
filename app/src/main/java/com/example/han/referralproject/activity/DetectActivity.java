@@ -211,7 +211,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         mTempResult.append((tempData - 44) / 10).append(".").append((tempData - 44) % 10);
                         String wenduResult;
                         float wenduValue = 30 + Float.valueOf(mTempResult.toString());
-                        if (wenduValue < 38) {
+                        if (wenduValue < 36) {
+                            wenduResult = mWenduResults[3];
+                        } else if (wenduValue < 38) {
                             wenduResult = mWenduResults[0];
                         } else if (wenduValue < 40) {
                             wenduResult = mWenduResults[1];

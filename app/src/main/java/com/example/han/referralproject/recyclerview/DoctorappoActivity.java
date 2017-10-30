@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -129,13 +130,15 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
 
-        Picasso.with(this)
-                .load(sharedPreferences4.getString("person_image", ""))
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(this)
-                .fit()
-                .into(circleImageView);
+        if (!TextUtils.isEmpty(sharedPreferences4.getString("person_image", ""))){
+            Picasso.with(this)
+                    .load(sharedPreferences4.getString("person_image", ""))
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .tag(this)
+                    .fit()
+                    .into(circleImageView);
+        }
 
         mTextView3.setText(sharedPreferences1.getString("name", ""));
         mTextView4.setText("职级：" + sharedPreferences1.getString("position", ""));
