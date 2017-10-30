@@ -267,13 +267,10 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".xindian.XindianActivity"/>
         <activity android:name=".facerecognition.RegisterVideoActivity">
-
         </activity>
-        <activity android:name=".recyclerview.RecoDocActivity" >
-
-        </activity>
-        <activity android:name=".recyclerview.DoctorMesActivity" />
-        <activity android:name=".video.MainVideoActivity"></activity>
+        <activity android:name=".recyclerview.RecoDocActivity"/>
+        <activity android:name=".recyclerview.DoctorMesActivity"/>
+        <activity android:name=".video.MainVideoActivity"/>
         <activity android:name=".video.PlayVideoActivity"/>
         <activity android:name=".personal.PersonActivity"/>
         <activity
