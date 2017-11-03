@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
@@ -18,7 +19,7 @@ import com.example.han.referralproject.util.LocalShared;
 
 public class HeadiconActivity extends BaseActivity {
 
-    CircleImageView mCircleImageView;
+    ImageView mCircleImageView;
     Button mButton;
     Button mButton1;
 
@@ -28,7 +29,7 @@ public class HeadiconActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headicon);
 
-        mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
+        mCircleImageView = (ImageView) findViewById(R.id.per_image);
         mButton = (Button) findViewById(R.id.trues);
         mButton1 = (Button) findViewById(R.id.cancel);
 

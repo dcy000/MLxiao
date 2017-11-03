@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,17 +8,26 @@
     tools:context="com.example.han.referralproject.facerecognition.HeadiconActivity">
 
 
-
-
     <com.example.han.referralproject.imageview.CircleImageView
         android:id="@+id/per_image"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:src="@drawable/avatar_placeholder" />
 
+    <!--<ImageView
+        android:id="@+id/per_image"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/avatar_placeholder" />-->
+
+
+
+
+
     <Button
-        android:background="@drawable/selector_bg_btn"
+        android:textColor="#3F85FC"
         android:id="@+id/trues"
         android:layout_width="200dp"
         android:layout_height="60dp"
@@ -25,11 +35,13 @@
         android:layout_below="@+id/per_image"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="20dp"
-        android:text="确定"
+        android:background="@drawable/bg_btn_go_back"
+        android:gravity="center"
+        android:text="上一步"
         android:textSize="40sp" />
 
     <Button
-        android:background="@drawable/selector_bg_btn"
+        android:textColor="@android:color/white"
         android:id="@+id/cancel"
         android:layout_width="200dp"
         android:layout_height="60dp"
@@ -37,7 +49,9 @@
         android:layout_below="@+id/per_image"
         android:layout_marginRight="200dp"
         android:layout_marginTop="20dp"
-        android:text="取消"
+        android:background="@drawable/bg_btn_go_forward"
+        android:gravity="center"
+        android:text="下一步"
         android:textSize="40sp" />
 
 

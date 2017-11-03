@@ -11,6 +11,7 @@ import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.reflect.TypeToken;
@@ -20,9 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    //    public static final String BasicUrl = "http://192.168.200.103:8080";
-//        public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://192.168.200.103:8080";
+    //        public static final String BasicUrl = "http://116.62.36.12:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
@@ -37,6 +38,9 @@ public class NetworkApi {
     public static final String PAY_URL = BasicUrl + "/ZZB/br/chongzhi";
     public static final String DOCTOR_URL = BasicUrl + "/ZZB/docter/search_OneDocter";
     public static final String PERSON_URL = BasicUrl + "/ZZB/br/selOneUser_con";
+    public static final String YUYUE_URL = BasicUrl + "/ZZB/bl/insertReserve";
+    public static final String YUYUE_URL_INFO = BasicUrl + "/ZZB/bl/selAllreserveByDoidAndUserid";
+    public static final String YUYUE_URL_CANCEL = BasicUrl + "/ZZB/bl/delReserveByRid";
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
@@ -53,7 +57,7 @@ public class NetworkApi {
         paramsMap.put("bba", bba);
         paramsMap.put("time", time);
         paramsMap.put("bid", bid);
-        NetworkManager.getInstance().postResultClass(PAY_URL, paramsMap, UserInfoBean.class, listener, failedCallback);
+        NetworkManager.getInstance().postResultClass(PAY_URL, paramsMap, String.class, listener, failedCallback);
     }
 
     public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctor> listener, NetworkManager.FailedCallback failedCallback) {
@@ -68,6 +72,34 @@ public class NetworkApi {
         paramsMap.put("bid", bid);
 
         NetworkManager.getInstance().postResultClass(PERSON_URL, paramsMap, UserInfo.class, listener, failedCallback);
+    }
+
+    public static void YuYue(String start_time, String end_time, String userid, String docterid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("start_time", start_time);
+        paramsMap.put("end_time", end_time);
+        paramsMap.put("userid", userid + "");
+        paramsMap.put("docterid", docterid + "");
+
+
+        NetworkManager.getInstance().postResultClass(YUYUE_URL, paramsMap, UserInfo.class, listener, failedCallback);
+    }
+
+
+    public static void YuYue_info(String userid, String docterid, NetworkManager.SuccessCallback<ArrayList<YuYueInfo>> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("userid", userid);
+        paramsMap.put("docterid", docterid);
+
+        NetworkManager.getInstance().postResultClass(YUYUE_URL_INFO, paramsMap, new TypeToken<ArrayList<YuYueInfo>>() {
+        }.getType(), listener, failedCallback);
+    }
+
+    public static void YuYue_cancel(String rid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("rid", rid);
+
+        NetworkManager.getInstance().postResultClass(YUYUE_URL_CANCEL, paramsMap, String.class, listener, failedCallback);
     }
 
 
@@ -96,13 +128,14 @@ public class NetworkApi {
         }.getType(), callback);
     }
 
-    public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback){
+    public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback) {
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", MyApplication.getInstance().userId);
-        NetworkManager.getInstance().getResultClass(ClueUrl, paramsMap, new TypeToken<ArrayList<ClueInfoBean>>(){}.getType(), callback);
+        NetworkManager.getInstance().getResultClass(ClueUrl, paramsMap, new TypeToken<ArrayList<ClueInfoBean>>() {
+        }.getType(), callback);
     }
 
     public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {

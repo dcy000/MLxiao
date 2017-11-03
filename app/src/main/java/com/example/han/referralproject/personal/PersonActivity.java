@@ -179,11 +179,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             public void onSuccess(Doctor response) {
                 Log.e("=============", response.toString());
                 SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("doctor_id", response.docterid + "");
                 editor.putString("name", response.getDoctername());
                 editor.putString("position", response.getDuty());
                 editor.putString("feature", response.getDepartment());
                 editor.putString("hospital", response.getHosname);
-                //       editor.putString("image", response.getCard());
                 editor.putString("service_amount", response.getService_amount());
                 editor.commit();
 

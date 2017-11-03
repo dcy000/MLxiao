@@ -51,7 +51,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.pay_2:
                 intent.putExtra("number", "5000");
-
                 startActivity(intent);
 
                 break;

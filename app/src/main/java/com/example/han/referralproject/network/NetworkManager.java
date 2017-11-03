@@ -101,6 +101,10 @@ public class NetworkManager {
         doRequest(Method.POST, url, params, mClass, successCallback, failedCallback);
     }
 
+    public void postResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback, FailedCallback failedCallback){
+        doRequest(Method.POST, url, params, mType, successCallback, failedCallback);
+    }
+
     public void doRequest(Method method, String url, Map<String, String> paramMap, final Object type,
                           final SuccessCallback successCallback, final FailedCallback failedCallback){
         Callback responseCallback = initCallback(type, successCallback, failedCallback);

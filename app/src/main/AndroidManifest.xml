@@ -239,11 +239,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -266,7 +262,14 @@
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".xindian.XindianActivity"/>
+
         <activity android:name=".facerecognition.RegisterVideoActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
 
         </activity>
         <activity android:name=".recyclerview.RecoDocActivity" >
@@ -332,8 +335,16 @@
 
         <activity android:name=".recyclerview.AppraiseActivity"/>
         <activity android:name=".facerecognition.HeadiconActivity"/>
-        <activity android:name=".recyclerview.DoctorappoActivity"/>
+        <activity android:name=".recyclerview.DoctorappoActivity">
+
+
+
+
+        </activity>
         <activity android:name=".recyclerview.AddAppoActivity">
+
+
+
         </activity>
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
@@ -360,6 +371,9 @@
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity"/>
         <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity"/>
         <activity android:name=".recharge.PayActivity">
+
+
+
         </activity>
         <activity android:name=".recharge.PayInfoActivity">
         </activity>

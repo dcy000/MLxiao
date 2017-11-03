@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,17 +24,22 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
+import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.PayInfoActivity;
+import com.example.han.referralproject.util.Utils;
 import com.medlink.danbogh.call.EMUIHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
 
-    SharedPreferences sharedPreferences;
     SharedPreferences sharedPreferences1;
-    SharedPreferences sharedPreferences2;
-    SharedPreferences sharedPreferences3;
 
     SharedPreferences sharedPreferences4;
 
@@ -59,14 +66,67 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     public TextView mTextView7;
     public TextView mTextView8;
 
-    public TextView mTextView9;
-    public TextView mTextView10;
-    public TextView mTextView11;
 
     public TextView mTextView12;
 
     public ImageView ImageView1;
     public ImageView ImageView2;
+
+
+    private Handler mHandler = new Handler(new Handler.Callback() {
+
+        @Override
+        public boolean handleMessage(final Message msg) {
+            switch (msg.what) {
+                case 1:
+
+
+                    break;
+
+                case 0:
+
+                    if (list.size() == 3) {
+                        mLinearLayout1.setVisibility(View.VISIBLE);
+                        mLinearLayout2.setVisibility(View.VISIBLE);
+                        mLinearLayout3.setVisibility(View.VISIBLE);
+
+
+                        mTextView.setText(list.get(0).getStart_time());
+                        mTextView1.setText(list.get(0).getEnd_time());
+
+
+                        mTextView2.setText(list.get(1).getStart_time());
+                        mTextView6.setText(list.get(1).getEnd_time());
+
+
+                        mTextView7.setText(list.get(2).getStart_time());
+                        mTextView8.setText(list.get(2).getEnd_time());
+
+
+                    } else if (list.size() == 2) {
+
+                        mLinearLayout1.setVisibility(View.VISIBLE);
+                        mLinearLayout2.setVisibility(View.VISIBLE);
+                        mTextView.setText(list.get(0).getStart_time());
+                        mTextView1.setText(list.get(0).getEnd_time());
+
+                        mTextView2.setText(list.get(1).getStart_time());
+                        mTextView6.setText(list.get(1).getEnd_time());
+
+                    } else if (list.size() == 1) {
+
+                        mLinearLayout1.setVisibility(View.VISIBLE);
+                        mTextView.setText(list.get(0).getStart_time());
+                        mTextView1.setText(list.get(0).getEnd_time());
+
+                    }
+
+                    break;
+            }
+
+            return true;
+        }
+    });
 
 
     @Override
@@ -75,6 +135,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_doctorappo);
 
         speak(R.string.yuyue_1);
+
+        dialog1 = new NDialog2(DoctorappoActivity.this);
 
 
         ImageView1 = (ImageView) findViewById(R.id.icon_back);
@@ -96,13 +158,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-
-        sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);
-
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        sharedPreferences2 = getSharedPreferences(ConstantData.SHARED_FILE_NAME2, Context.MODE_PRIVATE);
-        sharedPreferences3 = getSharedPreferences(ConstantData.SHARED_FILE_NAME3, Context.MODE_PRIVATE);
-
         sharedPreferences4 = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
         mTextView = (TextView) findViewById(R.id.yuyue_time);
@@ -119,9 +175,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mTextView8 = (TextView) findViewById(R.id.yuyue_time5);
 
 
-        mTextView9 = (TextView) findViewById(R.id.yuyue_time6);
-        mTextView10 = (TextView) findViewById(R.id.yuyue_time7);
-        mTextView11 = (TextView) findViewById(R.id.yuyue_time8);
         mTextView12 = (TextView) findViewById(R.id.service_amount);
 
         mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
@@ -129,13 +182,16 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
 
-        Picasso.with(this)
-                .load(sharedPreferences4.getString("person_image", ""))
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(this)
-                .fit()
-                .into(circleImageView);
+        if (!"".equals(sharedPreferences4.getString("person_image", ""))) {
+            Picasso.with(this)
+                    .load(sharedPreferences4.getString("person_image", ""))
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .tag(this)
+                    .fit()
+                    .into(circleImageView);
+        }
+
 
         mTextView3.setText(sharedPreferences1.getString("name", ""));
         mTextView4.setText("职级：" + sharedPreferences1.getString("position", ""));
@@ -145,7 +201,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
                 NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
                 finish();
             }
@@ -156,15 +211,15 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ("".equals(sharedPreferences.getString("month", "")) || "".equals(sharedPreferences2.getString("month", ""))
-                        || "".equals(sharedPreferences3.getString("month", ""))) {
-
+                if ("".equals(mTextView.getText().toString()) ||
+                        "".equals(mTextView2.getText().toString()) ||
+                        "".equals(mTextView7.getText().toString())) {
                     Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class);
                     startActivity(intent);
                     finish();
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "您预约已达上限", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "签约已达上限", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -184,19 +239,18 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButton_1.setOnClickListener(this);
         mButton_2.setOnClickListener(this);
 
-        if ("".equals(sharedPreferences.getString("month", ""))) {
 
+        if ("".equals(mTextView.getText().toString())) {
             mLinearLayout1.setVisibility(View.INVISIBLE);
 
         }
-        if ("".equals(sharedPreferences2.getString("month", ""))) {
 
+        if ("".equals(mTextView2.getText().toString())) {
             mLinearLayout2.setVisibility(View.INVISIBLE);
 
         }
 
-        if ("".equals(sharedPreferences3.getString("month", ""))) {
-
+        if ("".equals(mTextView7.getText().toString())) {
             mLinearLayout3.setVisibility(View.INVISIBLE);
 
         }
@@ -204,28 +258,40 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     }
 
+    List<YuYueInfo> list = new ArrayList<YuYueInfo>();
+
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        mTextView.setText(sharedPreferences.getString("month", ""));
-        mTextView1.setText(sharedPreferences.getString("day", ""));
-        mTextView2.setText(sharedPreferences.getString("time", ""));
+
+        NetworkApi.YuYue_info(MyApplication.getInstance().userId, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
+            @Override
+            public void onSuccess(ArrayList<YuYueInfo> response) {
+
+                list = response;
 
 
-        mTextView6.setText(sharedPreferences2.getString("month", ""));
-        mTextView7.setText(sharedPreferences2.getString("day", ""));
-        mTextView8.setText(sharedPreferences2.getString("time", ""));
+                mHandler.sendEmptyMessage(0);
 
 
-        mTextView9.setText(sharedPreferences3.getString("month", ""));
-        mTextView10.setText(sharedPreferences3.getString("day", ""));
-        mTextView11.setText(sharedPreferences3.getString("time", ""));
+                Log.e("=============", response.toString());
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
 
 
     }
 
     NDialog1 dialog;
+    NDialog2 dialog1;
 
 
     @Override
@@ -263,27 +329,84 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(int which) {
                         if (which == 1) {
+
                             if (sign == 1) {
-                                mLinearLayout1.setVisibility(View.INVISIBLE);
-                                SharedPreferences.Editor editor7 = sharedPreferences.edit();
-                                editor7.putString("month", "");
-                                editor7.putString("day", "");
-                                editor7.putString("time", "");
-                                editor7.commit();
+
+
+                                NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String response) {
+                                        mTextView.setText("");
+                                        mTextView1.setText("");
+                                        mLinearLayout1.setVisibility(View.INVISIBLE);
+                                        ShowNormals("取消成功");
+
+
+                                    }
+
+                                }, new NetworkManager.FailedCallback() {
+                                    @Override
+                                    public void onFailed(String message) {
+                                        ShowNormals("取消失败");
+
+
+                                    }
+                                });
+
+
                             } else if (sign == 2) {
-                                mLinearLayout2.setVisibility(View.INVISIBLE);
-                                SharedPreferences.Editor editor7 = sharedPreferences2.edit();
-                                editor7.putString("month", "");
-                                editor7.putString("day", "");
-                                editor7.putString("time", "");
-                                editor7.commit();
+
+
+                                NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String response) {
+
+                                        mTextView2.setText("");
+                                        mTextView6.setText("");
+                                        mLinearLayout2.setVisibility(View.INVISIBLE);
+                                        ShowNormals("取消成功");
+
+
+                                    }
+
+                                }, new NetworkManager.FailedCallback() {
+                                    @Override
+                                    public void onFailed(String message) {
+                                        ShowNormals("取消失败");
+
+
+                                    }
+                                });
+
+
                             } else if (sign == 3) {
-                                mLinearLayout3.setVisibility(View.INVISIBLE);
-                                SharedPreferences.Editor editor7 = sharedPreferences3.edit();
-                                editor7.putString("month", "");
-                                editor7.putString("day", "");
-                                editor7.putString("time", "");
-                                editor7.commit();
+
+
+                                NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String response) {
+
+
+                                        mTextView7.setText("");
+                                        mTextView8.setText("");
+
+                                        mLinearLayout3.setVisibility(View.INVISIBLE);
+
+                                        ShowNormals("取消成功");
+
+
+                                    }
+
+                                }, new NetworkManager.FailedCallback() {
+                                    @Override
+                                    public void onFailed(String message) {
+
+                                        ShowNormals("取消失败");
+
+                                    }
+                                });
+
+
                             }
 
                         }
@@ -291,5 +414,25 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                     }
                 }).create(NDialog.CONFIRM).show();
     }
+
+
+    public void ShowNormals(String str) {
+        dialog1.setMessageCenter(true)
+                .setMessage(str)
+                .setMessageSize(40)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#FFA200"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
+                    @Override
+                    public void onClick(int which) {
+
+
+                    }
+                }).create(NDialog.CONFIRM).show();
+
+    }
+
 
 }
