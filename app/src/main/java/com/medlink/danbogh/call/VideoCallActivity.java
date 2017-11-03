@@ -502,7 +502,7 @@ public class VideoCallActivity extends CallActivity {
                 break;
             case DISCONNECTED: // 通话已中断
                 VMLog.i("通话已结束" + callError);
-                CallManager.getInstance().considerChargeIfNeeded();
+//                CallManager.getInstance().considerChargeIfNeeded();
                 onFinish();
                 break;
             case NETWORK_DISCONNECTED:

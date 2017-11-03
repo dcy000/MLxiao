@@ -8,31 +8,31 @@
     tools:context="com.example.han.referralproject.recyclerview.AddAppoActivity">
 
 
-  <!--  <LinearLayout
-        android:id="@+id/linearlayou"
-        android:layout_width="wrap_content"
-        android:layout_height="69dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+    <!--  <LinearLayout
+          android:id="@+id/linearlayou"
+          android:layout_width="wrap_content"
+          android:layout_height="69dp"
+          android:layout_marginTop="10dp"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/icon_back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+          <ImageView
+              android:id="@+id/icon_back"
+              android:layout_width="50dp"
+              android:layout_height="match_parent"
+              android:clickable="true"
+              android:scaleType="centerInside"
+              android:src="@drawable/icon_back" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="添加预约"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
-    </LinearLayout>
--->
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="添加预约"
+              android:textColor="@android:color/white"
+              android:textSize="30sp" />
+      </LinearLayout>
+  -->
 
 
     <LinearLayout
@@ -169,8 +169,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/circleImageView2"
-        android:layout_marginLeft="220dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="235dp"
+        android:layout_marginTop="35dp"
         android:layout_toRightOf="@+id/add_morning"
         android:orientation="horizontal">
 
@@ -185,7 +185,7 @@
             android:id="@+id/date2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -193,7 +193,7 @@
             android:id="@+id/date3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="25dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -201,7 +201,7 @@
             android:id="@+id/date4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="25dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -209,7 +209,7 @@
             android:id="@+id/date5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="25dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -217,7 +217,7 @@
             android:id="@+id/date6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="25dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -225,7 +225,7 @@
             android:id="@+id/date7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="25dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -328,7 +328,7 @@
             android:id="@+id/time3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="10:00-10:30"
             android:textSize="30sp" />
 
@@ -336,7 +336,7 @@
             android:id="@+id/time4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="10:40-11:30"
             android:textSize="30sp" />
     </LinearLayout>
@@ -348,7 +348,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearlayou3"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="8dp"
         android:layout_toRightOf="@+id/linearlayou4"
         android:orientation="horizontal"
         android:visibility="visible">
@@ -682,7 +682,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearlayou3"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="8dp"
         android:layout_toRightOf="@+id/linearlayou4"
         android:orientation="horizontal"
         android:visibility="gone">

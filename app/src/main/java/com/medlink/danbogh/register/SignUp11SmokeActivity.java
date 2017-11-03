@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class SignUp11SmokeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up11_smoke);
+        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
@@ -122,12 +124,17 @@ public class SignUp11SmokeActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        for (EatModel model : mModels) {
+        int size = mModels.size();
+        for (int i = 0; i < size; i++) {
+            EatModel model = mModels.get(i);
             if (model.isSelected()) {
+                LocalShared.getInstance(this.getApplicationContext()).setSignUpSmoke("" + (i + 1));
                 Intent intent = new Intent(this, SignUp12DrinkActivity.class);
                 startActivity(intent);
                 return;
             }
+        }
+        for (EatModel model : mModels) {
         }
         speak(R.string.sign_up_smoke_tip);
     }
@@ -159,6 +166,7 @@ public class SignUp11SmokeActivity extends BaseActivity {
     }
 
     public SparseArrayCompat<String> map;
+
     {
         map = new SparseArrayCompat<>(3);
         map.put(0, "经常");

@@ -16,7 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.Utils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.StatusCode;
@@ -25,7 +31,6 @@ import com.netease.nimlib.sdk.auth.ClientType;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.AVChatStateObserver;
-import com.netease.nimlib.sdk.avchat.AVChatStateObserverLite;
 import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;
 import com.netease.nimlib.sdk.avchat.constant.AVChatEventType;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
@@ -348,7 +353,6 @@ public class NimCallActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
@@ -356,6 +360,8 @@ public class NimCallActivity extends AppCompatActivity {
         NimCallHelper.getInstance().setChatting(false);
         registerNimCallObserver(false);
         NimCallHelper.getInstance().destroy();
+        stopTimer();
+        super.onDestroy();
     }
 
     @Override
@@ -467,7 +473,7 @@ public class NimCallActivity extends AppCompatActivity {
         public void onCallEstablished() {
             CallTimeoutObserver.getInstance().observeTimeoutNotification(
                     timeoutObserver, false, mIsIncomingCall);
-            //// TODO: 2017/10/25 计时
+            startTimer();
 
             if (mCallType == AVChatType.VIDEO.getValue()) {
                 NimCallHelper.getInstance().notifyCallStateChanged(CallState.VIDEO);
@@ -684,6 +690,58 @@ public class NimCallActivity extends AppCompatActivity {
         }
     };
 
+    private int mSeconds = 0;
+
+    private void startTimer() {
+        mSeconds = 0;
+        Handlers.runOnUiThread(refreshCallTime);
+    }
+
+    private void stopTimer() {
+        Handlers.ui().removeCallbacks(refreshCallTime);
+        if (mSeconds > 0) {
+            final int minutes = mSeconds / 60;
+            if (minutes + 1 >= 0) {
+                final String bid = MyApplication.getInstance().userId;
+                NetworkApi.DoctorInfo(bid, new NetworkManager.SuccessCallback<Doctor>() {
+                    @Override
+                    public void onSuccess(Doctor response) {
+                        int docterid = response.docterid;
+                        NetworkApi.charge(minutes + 1, docterid, bid,
+                                new NetworkManager.SuccessCallback<Object>() {
+                                    @Override
+                                    public void onSuccess(Object response) {
+                                        T.show(minutes + "分钟");
+                                    }
+                                }, new NetworkManager.FailedCallback() {
+                                    @Override
+                                    public void onFailed(String message) {
+                                        T.show(minutes + "分钟, 失败");
+                                    }
+                                });
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        T.show("请签约医生");
+                    }
+                });
+            }
+        }
+    }
+
+    private final Runnable refreshCallTime = new Runnable() {
+        @Override
+        public void run() {
+            Handlers.ui().postDelayed(refreshCallTime, 1000);
+            if (!tvCallTime.isShown()) {
+                tvCallTime.setVisibility(View.VISIBLE);
+            }
+            tvCallTime.setText(Utils.formatCallTime(mSeconds));
+            mSeconds++;
+        }
+    };
+
     @OnClick(R.id.ic_call_switch_camera)
     public void onIvSwitchCameraClicked() {
         NimCallHelper.getInstance().switchCamera();
@@ -692,7 +750,7 @@ public class NimCallActivity extends AppCompatActivity {
     @OnClick(R.id.iv_call_toggle_camera)
     public void onIvToggleCameraClicked() {
         boolean selected = ivToggleCamera.isSelected();
-        AVChatManager.getInstance().muteLocalAudio(!selected);
+        AVChatManager.getInstance().muteLocalVideo(!selected);
         ivToggleCamera.setSelected(!selected);
         ivSmallCover.setVisibility(!selected ? View.GONE : View.VISIBLE);
     }

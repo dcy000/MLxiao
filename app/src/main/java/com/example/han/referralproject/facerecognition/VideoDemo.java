@@ -355,7 +355,6 @@ public class VideoDemo extends BaseActivity {
                             mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
                             mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
                             mFaceRequest.sendRequest(mImageData, mRequestListener);
-                            Log.e("==============", "正在执行");
                             Log.i("mylog", "id : " + mAuthid);
                         }
                         try {

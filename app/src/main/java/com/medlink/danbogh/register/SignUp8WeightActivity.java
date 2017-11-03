@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -33,6 +34,8 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
 
     @Override
     public void onTvGoForwardClicked() {
+        String weight = mStrings.get(selectedPosition);
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpWeight(Float.valueOf(weight));
         Intent intent = new Intent(this, SignUp9BloodTypeActivity.class);
         startActivity(intent);
     }

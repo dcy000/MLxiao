@@ -20,9 +20,13 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -158,7 +162,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     Date date6;
 
     Button mButtons;
-    NDialog2 dialog;
+    NDialog1 dialog;
+    NDialog2 dialog1;
 
     ImageView mImageView;
 
@@ -166,11 +171,67 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     TextView TextView1;
     TextView TextView2;
     TextView TextView3;
+    SharedPreferences sharedPreference;
 
 
-    public void showNormal(String message) {
+    public void showNormal(final SharedPreferences sharedPreferences, String str1, String str2, String str3) {
+
+        String[] str = str1.split("/");
+        String[] strs = str3.split("-");
+
+        final String start_time = years.format(date) + "-" + str[0] + "-" + str[1] + " " + strs[0];
+        final String end_time = years.format(date) + "-" + str[0] + "-" + str[1] + " " + strs[1];
+
+        speak(String.format(getString(R.string.dialog), str[0], str[1], str2, str3, sharedPreferences1.getString("name", "")));
+
+        dialog = new NDialog1(AddAppoActivity.this);
+
+
         dialog.setMessageCenter(false)
-                .setMessage(message)
+                .setMessage(String.format(getString(R.string.dialog), str[0], str[1], str2, str3, sharedPreferences1.getString("name", "")))
+                .setMessageSize(40)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#FFA200"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+                    @Override
+                    public void onClick(int which) {
+                        if (which == 1) {
+
+                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, sharedPreference.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+
+                                    //   SharePerfence(sharedPreferences, str1, str2, str3);
+
+                                    ShowNormals("预约成功");
+
+
+                                }
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+                                    ShowNormals("预约失败");
+
+                                }
+                            });
+
+
+                        } else if (which == 0) {
+                            dialog.create(NDialog.CONFIRM).cancel();
+                            dialog = null;
+                        }
+
+                    }
+                })
+                .create(NDialog.CONFIRM).show();
+    }
+
+    public void ShowNormals(String str) {
+        dialog1.setMessageCenter(true)
+                .setMessage(str)
                 .setMessageSize(40)
                 .setCancleable(false)
                 .setButtonCenter(true)
@@ -179,24 +240,38 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 .setOnConfirmListener(new NDialog2.OnConfirmListener() {
                     @Override
                     public void onClick(int which) {
-                        Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if (which == 1) {
+
+                            Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+
                     }
                 }).create(NDialog.CONFIRM).show();
+
     }
+
 
     public TextView mTextView;
 
     public ImageView ImageView1;
     public ImageView ImageView2;
 
+    SimpleDateFormat years;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
 
+        dialog1 = new NDialog2(AddAppoActivity.this);
+
+
         speak(R.string.yuyue);
+
+        sharedPreference = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
 
         ImageView1 = (ImageView) findViewById(R.id.icon_back);
@@ -227,27 +302,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         sharedPreferences4 = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
 
-      /*  mImageView = (ImageView) findViewById(R.id.icon_back);
-
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });*/
-
-
         mButtons = (Button) findViewById(R.id.yuyue_true);
 
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                dialog = new NDialog2(AddAppoActivity.this);
+                dialog = new NDialog1(AddAppoActivity.this);
 
-                speak(String.format(getString(R.string.dialog), sharedPreferences1.getString("name", "")));
+                //     speak(String.format(getString(R.string.dialog), sharedPreferences1.getString("name", "")));
 
-                showNormal(String.format(getString(R.string.dialog), sharedPreferences1.getString("name", "")));
+                //showNormal(String.format(getString(R.string.dialog), sharedPreferences1.getString("name", "")));
             }
         });
 
@@ -347,6 +412,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         mTextView12 = (TextView) findViewById(R.id.week5);
         mTextView13 = (TextView) findViewById(R.id.week6);
         mTextView14 = (TextView) findViewById(R.id.week7);
+
+
+        years = new SimpleDateFormat("y");
 
 
         date = new Date();
@@ -561,13 +629,16 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         TextView3 = (TextView) findViewById(R.id.doctor_feature);
 
 
-        Picasso.with(this)
-                .load(sharedPreferences4.getString("person_image", ""))
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(this)
-                .fit()
-                .into(mCircleImageView);
+        if (!"".equals(sharedPreferences4.getString("person_image", ""))) {
+            Picasso.with(this)
+                    .load(sharedPreferences4.getString("person_image", ""))
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .tag(this)
+                    .fit()
+                    .into(mCircleImageView);
+        }
+
 
         TextView1.setText("姓名：" + sharedPreferences1.getString("name", ""));
         TextView2.setText("职级：" + sharedPreferences1.getString("position", ""));
@@ -591,47 +662,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    public void SharePerfence1(SharedPreferences sharedPreferences) {
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString("month", "");
-        editor.putString("day", "");
-        editor.putString("time", "");
-        editor.commit();
-
-    }
-
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.yuyue1:
-
-
                 if (view.isSelected()) {
-
                     mButton2.setText("未预约");
                     view.setSelected(false);
                 } else {
+                    showNormal(sharedPreferences3, simple.format(date), "上午", "09:00-09:20");
 
-
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences, simple.format(date), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, simple.format(date), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, simple.format(date), "上午", "9:00-9:20");
-
-
-                    }
                     view.setSelected(true);
                     mButton2.setText("已预约");
 
@@ -647,32 +688,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter.format(date1), "上午", "09:00-09:20");
 
-
-                        SharePerfence(sharedPreferences, formatter.format(date1), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter.format(date1), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter.format(date1), "上午", "9:00-9:20");
-
-
-                    }
-
-
-                  /*  SharedPreferences.Editor editor7 = sharedPreferences.edit();
-
-                    editor7.putString("month", formatter.format(date1));
-
-                    editor7.putString("day", "上午");
-                    editor7.putString("time", "9:00-9:20");
-                    editor7.commit();*/
 
                     view.setSelected(true);
                     mButton3.setText("已预约");
@@ -688,28 +705,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatte2.format(date2), "上午", "9:00-9:20");
+                    showNormal(sharedPreferences3, formatte2.format(date2), "上午", "09:00-09:20");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatte2.format(date2), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatte2.format(date2), "上午", "9:00-9:20");
-
-                    }
-
-
-                   /* SharedPreferences.Editor editor2 = sharedPreferences.edit();
-                    editor2.putString("month", formatte2.format(date2));
-                    editor2.putString("day", "上午");
-                    editor2.putString("time", "9:00-9:20");
-                    editor2.commit();*/
 
                     view.setSelected(true);
                     mButton4.setText("已预约");
@@ -725,28 +723,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter4.format(date3), "上午", "9:00-9:20");
+                    showNormal(sharedPreferences3, formatter4.format(date3), "上午", "09:00-09:20");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter4.format(date3), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter4.format(date3), "上午", "9:00-9:20");
-
-                    }
-
-
-                  /*  SharedPreferences.Editor editor3 = sharedPreferences.edit();
-                    editor3.putString("month", formatter4.format(date3));
-                    editor3.putString("day", "上午");
-                    editor3.putString("time", "9:00-9:20");
-                    editor3.commit();*/
 
                     view.setSelected(true);
                     mButton5.setText("已预约");
@@ -762,29 +741,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
+                    showNormal(sharedPreferences3, formatter6.format(date4), "上午", "09:00-09:20");
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences, formatter6.format(date4), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter6.format(date4), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter6.format(date4), "上午", "9:00-9:20");
-
-                    }
-
-
-                   /* SharedPreferences.Editor editor4 = sharedPreferences.edit();
-                    editor4.putString("month", formatter6.format(date4));
-                    editor4.putString("day", "上午");
-                    editor4.putString("time", "9:00-9:20");
-                    editor4.commit();*/
 
                     view.setSelected(true);
                     mButton6.setText("已预约");
@@ -799,28 +757,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter8.format(date5), "上午", "9:00-9:20");
+                    showNormal(sharedPreferences3, formatter8.format(date5), "上午", "09:00-09:20");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter8.format(date5), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter8.format(date5), "上午", "9:00-9:20");
-
-                    }
-
-
-                 /*   SharedPreferences.Editor editor5 = sharedPreferences.edit();
-                    editor5.putString("month", formatter8.format(date5));
-                    editor5.putString("day", "上午");
-                    editor5.putString("time", "9:00-9:20");
-                    editor5.commit();*/
 
                     view.setSelected(true);
                     mButton7.setText("已预约");
@@ -837,28 +776,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter10.format(date6), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter10.format(date6), "上午", "9:00-9:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter10.format(date6), "上午", "9:00-9:20");
-
-                    }
-
-
-                /*    SharedPreferences.Editor editor6 = sharedPreferences.edit();
-                    editor6.putString("month", formatter10.format(date6));
-                    editor6.putString("day", "上午");
-                    editor6.putString("time", "9:00-9:20");
-                    editor6.commit();*/
+                    showNormal(sharedPreferences3, formatter10.format(date6), "上午", "09:00-09:20");
 
 
                     view.setSelected(true);
@@ -875,26 +794,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, simple.format(date), "上午", "09:40-09:50");
 
-                        SharePerfence(sharedPreferences, simple.format(date), "上午", "9:40-9:50");
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, simple.format(date), "上午", "9:40-9:50");
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, simple.format(date), "上午", "9:40-9:50");
-
-                    }
-
-
-                   /* SharedPreferences.Editor editor7 = sharedPreferences.edit();
-
-                    editor7.putString("month", simple.format(date));
-                    editor7.putString("day", "上午");
-                    editor7.putString("time", "9:40-9:50");
-                    editor7.commit();*/
 
                     view.setSelected(true);
                     mButton9.setText("已预约");
@@ -910,29 +811,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter.format(date1), "上午", "9:40-9:50");
+                    showNormal(sharedPreferences3, formatter.format(date1), "上午", "09:40-09:50");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter.format(date1), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter.format(date1), "上午", "9:40-9:50");
-
-                    }
-
-                /*    SharedPreferences.Editor editor8 = sharedPreferences.edit();
-
-
-                    editor8.putString("month", formatter.format(date1));
-                    editor8.putString("day", "上午");
-                    editor8.putString("time", "9:40-9:50");
-                    editor8.commit();*/
 
                     view.setSelected(true);
                     mButton10.setText("已预约");
@@ -949,28 +830,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatte2.format(date2), "上午", "09:40-09:50");
 
-                        SharePerfence(sharedPreferences, formatte2.format(date2), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatte2.format(date2), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatte2.format(date2), "上午", "9:40-9:50");
-
-                    }
-
-                  /*  SharedPreferences.Editor editor9 = sharedPreferences.edit();
-
-                    editor9.putString("month", formatte2.format(date2));
-                    editor9.putString("day", "上午");
-                    editor9.putString("time", "9:40-9:50");
-                    editor9.commit();*/
 
                     view.setSelected(true);
                     mButton11.setText("已预约");
@@ -987,29 +848,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter4.format(date3), "上午", "09:40-09:50");
 
-                        SharePerfence(sharedPreferences, formatter4.format(date3), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter4.format(date3), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter4.format(date3), "上午", "9:40-9:50");
-
-                    }
-
-                  /*  SharedPreferences.Editor editor10 = sharedPreferences.edit();
-
-
-                    editor10.putString("month", formatter4.format(date3));
-                    editor10.putString("day", "上午");
-                    editor10.putString("time", "9:40-9:50");
-                    editor10.commit();*/
 
                     view.setSelected(true);
                     mButton12.setText("已预约");
@@ -1025,29 +865,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter6.format(date4), "上午", "9:40-9:50");
+                    showNormal(sharedPreferences3, formatter6.format(date4), "上午", "09:40-09:50");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter6.format(date4), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter6.format(date4), "上午", "9:40-9:50");
-
-                    }
-
-
-                 /*   SharedPreferences.Editor editor11 = sharedPreferences.edit();
-
-                    editor11.putString("month", formatter6.format(date4));
-                    editor11.putString("day", "上午");
-                    editor11.putString("time", "9:40-9:50");
-                    editor11.commit();*/
 
                     view.setSelected(true);
                     mButton13.setText("已预约");
@@ -1062,28 +882,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter8.format(date5), "上午", "9:40-9:50");
+                    showNormal(sharedPreferences3, formatter8.format(date5), "上午", "09:40-09:50");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter8.format(date5), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter8.format(date5), "上午", "9:40-9:50");
-
-                    }
-
-                  /*  SharedPreferences.Editor editor12 = sharedPreferences.edit();
-
-                    editor12.putString("month", formatter8.format(date5));
-                    editor12.putString("day", "上午");
-                    editor12.putString("time", "9:40-9:50");
-                    editor12.commit();*/
 
                     view.setSelected(true);
                     mButton14.setText("已预约");
@@ -1100,28 +901,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter10.format(date6), "上午", "09:40-09:50");
 
-                        SharePerfence(sharedPreferences, formatter10.format(date6), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter10.format(date6), "上午", "9:40-9:50");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter10.format(date6), "上午", "9:40-9:50");
-
-                    }
-
-                   /* SharedPreferences.Editor editor13 = sharedPreferences.edit();
-
-                    editor13.putString("month", formatter10.format(date6));
-                    editor13.putString("day", "上午");
-                    editor13.putString("time", "9:40-9:50");
-                    editor13.commit();*/
 
                     view.setSelected(true);
                     mButton15.setText("已预约");
@@ -1137,29 +918,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, simple.format(date), "上午", "10:00-10:30");
+                    showNormal(sharedPreferences3, simple.format(date), "上午", "10:00-10:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, simple.format(date), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, simple.format(date), "上午", "10:00-10:30");
-
-                    }
-
-
-                   /* SharedPreferences.Editor editor14 = sharedPreferences.edit();
-
-                    editor14.putString("month", simple.format(date));
-                    editor14.putString("day", "上午");
-                    editor14.putString("time", "10:00-10:30");
-                    editor14.commit();*/
 
                     view.setSelected(true);
                     mButton16.setText("已预约");
@@ -1176,28 +937,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter.format(date1), "上午", "10:00-10:30");
 
-                        SharePerfence(sharedPreferences, formatter.format(date1), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter.format(date1), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter.format(date1), "上午", "10:00-10:30");
-
-                    }
-
-                   /* SharedPreferences.Editor editor15 = sharedPreferences.edit();
-
-                    editor15.putString("month", formatter.format(date1));
-                    editor15.putString("day", "上午");
-                    editor15.putString("time", "10:00-10:30");
-                    editor15.commit();*/
 
                     view.setSelected(true);
                     mButton17.setText("已预约");
@@ -1212,29 +953,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatte2.format(date2), "上午", "10:00-10:30");
+                    showNormal(sharedPreferences3, formatte2.format(date2), "上午", "10:00-10:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatte2.format(date2), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatte2.format(date2), "上午", "10:00-10:30");
-
-                    }
-
-
-                  /*  SharedPreferences.Editor editor16 = sharedPreferences.edit();
-
-                    editor16.putString("month", (formatte2.format(date2)));
-                    editor16.putString("day", "上午");
-                    editor16.putString("time", "10:00-10:30");
-                    editor16.commit();*/
 
                     view.setSelected(true);
                     mButton18.setText("已预约");
@@ -1250,29 +971,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter4.format(date3), "上午", "10:00-10:30");
+                    showNormal(sharedPreferences3, formatter4.format(date3), "上午", "10:00-10:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter4.format(date3), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter4.format(date3), "上午", "10:00-10:30");
-
-                    }
-
-
-                   /* SharedPreferences.Editor editor17 = sharedPreferences.edit();
-
-                    editor17.putString("month", formatter4.format(date3));
-                    editor17.putString("day", "上午");
-                    editor17.putString("time", "10:00-10:30");
-                    editor17.commit();*/
 
                     view.setSelected(true);
                     mButton19.setText("已预约");
@@ -1289,28 +990,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter6.format(date4), "上午", "10:00-10:30");
 
-                        SharePerfence(sharedPreferences, formatter6.format(date4), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter6.format(date4), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter6.format(date4), "上午", "10:00-10:30");
-
-                    }
-
-                   /* SharedPreferences.Editor editor18 = sharedPreferences.edit();
-
-                    editor18.putString("month", formatter6.format(date4));
-                    editor18.putString("day", "上午");
-                    editor18.putString("time", "10:00-10:30");
-                    editor18.commit();*/
 
                     view.setSelected(true);
                     mButton20.setText("已预约");
@@ -1326,30 +1007,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter8.format(date5), "上午", "10:00-10:30");
+                    showNormal(sharedPreferences3, formatter8.format(date5), "上午", "10:00-10:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter8.format(date5), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter8.format(date5), "上午", "10:00-10:30");
-
-                    }
-
-
-                  /*  SharedPreferences.Editor editor19 = sharedPreferences.edit();
-
-
-                    editor19.putString("month", formatter8.format(date5));
-                    editor19.putString("day", "上午");
-                    editor19.putString("time", "10:00-10:30");
-                    editor19.commit();*/
 
                     view.setSelected(true);
                     mButton21.setText("已预约");
@@ -1365,30 +1025,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter10.format(date6), "上午", "10:00-10:30");
+                    showNormal(sharedPreferences3, formatter10.format(date6), "上午", "10:00-10:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter10.format(date6), "上午", "10:00-10:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter10.format(date6), "上午", "10:00-10:30");
-
-                    }
-
-
-                   /* SharedPreferences.Editor editor20 = sharedPreferences.edit();
-
-
-                    editor20.putString("month", formatter10.format(date6));
-                    editor20.putString("day", "上午");
-                    editor20.putString("time", "10:00-10:30");
-                    editor20.commit();*/
 
                     view.setSelected(true);
                     mButton22.setText("已预约");
@@ -1404,30 +1043,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, simple.format(date), "上午", "10:40-11:30");
 
-                        SharePerfence(sharedPreferences, simple.format(date), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, simple.format(date), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, simple.format(date), "上午", "10:40-11:30");
-
-                    }
-
-
-                   /* SharedPreferences.Editor editor21 = sharedPreferences.edit();
-
-
-                    editor21.putString("month", simple.format(date));
-                    editor21.putString("day", "上午");
-                    editor21.putString("time", "10:40-11:30");
-                    editor21.commit();*/
 
                     view.setSelected(true);
                     mButton23.setText("已预约");
@@ -1442,28 +1059,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter.format(date1), "上午", "10:40-11:30");
 
-                        SharePerfence(sharedPreferences, formatter.format(date1), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter.format(date1), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter.format(date1), "上午", "10:40-11:30");
-
-                    }
-
-                   /* SharedPreferences.Editor editor22 = sharedPreferences.edit();
-
-                    editor22.putString("month", formatter.format(date1));
-                    editor22.putString("day", "上午");
-                    editor22.putString("time", "10:40-11:30");
-                    editor22.commit();*/
 
                     view.setSelected(true);
                     mButton24.setText("已预约");
@@ -1478,28 +1075,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatte2.format(date2), "上午", "10:40-11:30");
+                    showNormal(sharedPreferences3, formatte2.format(date2), "上午", "10:40-11:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatte2.format(date2), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatte2.format(date2), "上午", "10:40-11:30");
-
-                    }
-
-                   /* SharedPreferences.Editor editor23 = sharedPreferences.edit();
-
-                    editor23.putString("month", formatte2.format(date2));
-                    editor23.putString("day", "上午");
-                    editor23.putString("time", "10:40-11:30");
-                    editor23.commit();*/
 
                     view.setSelected(true);
                     mButton25.setText("已预约");
@@ -1515,28 +1093,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter4.format(date3), "上午", "10:40-11:30");
 
-                        SharePerfence(sharedPreferences, formatter4.format(date3), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter4.format(date3), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter4.format(date3), "上午", "10:40-11:30");
-
-                    }
-/*
-                    SharedPreferences.Editor editor24 = sharedPreferences.edit();
-
-                    editor24.putString("month", formatter4.format(date3));
-                    editor24.putString("day", "上午");
-                    editor24.putString("time", "10:40-11:30");
-                    editor24.commit();*/
 
                     view.setSelected(true);
                     mButton26.setText("已预约");
@@ -1551,28 +1109,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter6.format(date4), "上午", "10:40-11:30");
+                    showNormal(sharedPreferences3, formatter6.format(date4), "上午", "10:40-11:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter6.format(date4), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter6.format(date4), "上午", "10:40-11:30");
-
-                    }
-
-                  /*  SharedPreferences.Editor editor25 = sharedPreferences.edit();
-
-                    editor25.putString("month", formatter6.format(date4));
-                    editor25.putString("day", "上午");
-                    editor25.putString("time", "10:40-11:30");
-                    editor25.commit();*/
 
                     view.setSelected(true);
                     mButton27.setText("已预约");
@@ -1587,29 +1126,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter8.format(date5), "上午", "10:40-11:30");
+                    showNormal(sharedPreferences3, formatter8.format(date5), "上午", "10:40-11:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter8.format(date5), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter8.format(date5), "上午", "10:40-11:30");
-
-                    }
-
-
-                  /*  SharedPreferences.Editor editor26 = sharedPreferences.edit();
-
-                    editor26.putString("month", formatter8.format(date5));
-                    editor26.putString("day", "上午");
-                    editor26.putString("time", "10:40-11:30");
-                    editor26.commit();*/
 
                     view.setSelected(true);
                     mButton28.setText("已预约");
@@ -1624,29 +1143,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter10.format(date6), "上午", "10:40-11:30");
+                    showNormal(sharedPreferences3, formatter10.format(date6), "上午", "10:40-11:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter10.format(date6), "上午", "10:40-11:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter10.format(date6), "上午", "10:40-11:30");
-
-                    }
-
-
-                  /*  SharedPreferences.Editor editor27 = sharedPreferences.edit();
-
-                    editor27.putString("month", formatter10.format(date6));
-                    editor27.putString("day", "上午");
-                    editor27.putString("time", "10:40-11:30");
-                    editor27.commit();*/
 
                     view.setSelected(true);
                     mButton29.setText("已预约");
@@ -1660,21 +1159,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, simple.format(date), "下午", "14:30-15:30");
+                    showNormal(sharedPreferences3, simple.format(date), "下午", "14:30-15:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, simple.format(date), "下午", "14:30-15:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, simple.format(date), "下午", "14:30-15:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton30.setText("已预约");
@@ -1687,21 +1174,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter.format(date1), "下午", "14:30-15:30");
+                    showNormal(sharedPreferences3, formatter.format(date1), "下午", "14:30-15:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter.format(date1), "下午", "14:30-15:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter.format(date1), "下午", "14:30-15:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton31.setText("已预约");
@@ -1714,21 +1189,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatte2.format(date2), "下午", "14:30-15:30");
+                    showNormal(sharedPreferences3, formatte2.format(date2), "下午", "14:30-15:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatte2.format(date2), "下午", "14:30-15:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatte2.format(date2), "下午", "14:30-15:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton32.setText("已预约");
@@ -1742,21 +1205,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter4.format(date3), "下午", "14:30-15:30");
+                    showNormal(sharedPreferences3, formatter4.format(date3), "下午", "14:30-15:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter4.format(date3), "下午", "14:30-15:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter4.format(date3), "下午", "14:30-15:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton33.setText("已预约");
@@ -1770,21 +1221,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter6.format(date4), "下午", "14:30-15:30");
+                    showNormal(sharedPreferences3, formatter6.format(date4), "下午", "14:30-15:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter6.format(date4), "下午", "14:30-15:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter6.format(date4), "下午", "14:30-15:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton34.setText("已预约");
@@ -1797,21 +1236,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter8.format(date5), "下午", "14:30-15:30");
+                    showNormal(sharedPreferences3, formatter8.format(date5), "下午", "14:30-15:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter8.format(date5), "下午", "14:30-15:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter8.format(date5), "下午", "14:30-15:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton35.setText("已预约");
@@ -1824,21 +1251,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter10.format(date6), "下午", "14:30-15:30");
+                    showNormal(sharedPreferences3, formatter10.format(date6), "下午", "14:30-15:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter10.format(date6), "下午", "14:30-15:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter10.format(date6), "下午", "14:30-15:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton.setText("已预约");
@@ -1851,21 +1266,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, simple.format(date), "下午", "15:50-16:20");
 
-                        SharePerfence(sharedPreferences, simple.format(date), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, simple.format(date), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, simple.format(date), "下午", "15:50-16:20");
-
-                    }
 
                     view.setSelected(true);
                     mButton37.setText("已预约");
@@ -1878,21 +1280,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter.format(date1), "下午", "15:50-16:20");
 
-                        SharePerfence(sharedPreferences, formatter.format(date1), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter.format(date1), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter.format(date1), "下午", "15:50-16:20");
-
-                    }
 
                     view.setSelected(true);
                     mButton38.setText("已预约");
@@ -1905,21 +1294,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatte2.format(date2), "下午", "15:50-16:20");
+                    showNormal(sharedPreferences3, formatte2.format(date2), "下午", "15:50-16:20");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatte2.format(date2), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatte2.format(date2), "下午", "15:50-16:20");
-
-                    }
 
                     view.setSelected(true);
                     mButton39.setText("已预约");
@@ -1932,21 +1309,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter4.format(date3), "下午", "15:50-16:20");
+                    showNormal(sharedPreferences3, formatter4.format(date3), "下午", "15:50-16:20");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter4.format(date3), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter4.format(date3), "下午", "15:50-16:20");
-
-                    }
 
                     view.setSelected(true);
                     mButton40.setText("已预约");
@@ -1960,21 +1325,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
+                    showNormal(sharedPreferences3, formatter6.format(date4), "下午", "15:50-16:20");
 
-                        SharePerfence(sharedPreferences, formatter6.format(date4), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter6.format(date4), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter6.format(date4), "下午", "15:50-16:20");
-
-                    }
 
                     view.setSelected(true);
                     mButton41.setText("已预约");
@@ -1987,21 +1339,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter8.format(date5), "下午", "15:50-16:20");
+                    showNormal(sharedPreferences3, formatter8.format(date5), "下午", "15:50-16:20");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter8.format(date5), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter8.format(date5), "下午", "15:50-16:20");
-
-                    }
 
                     view.setSelected(true);
                     mButton42.setText("已预约");
@@ -2014,21 +1354,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter10.format(date6), "下午", "15:50-16:20");
+                    showNormal(sharedPreferences3, formatter10.format(date6), "下午", "15:50-16:20");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter10.format(date6), "下午", "15:50-16:20");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter10.format(date6), "下午", "15:50-16:20");
-
-                    }
 
                     view.setSelected(true);
                     mButton43.setText("已预约");
@@ -2041,21 +1369,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, simple.format(date), "下午", "16:40-17:30");
+                    showNormal(sharedPreferences3, simple.format(date), "下午", "16:40-17:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, simple.format(date), "下午", "16:40-17:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, simple.format(date), "下午", "16:40-17:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton44.setText("已预约");
@@ -2068,21 +1384,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter.format(date1), "下午", "16:40-17:30");
+                    showNormal(sharedPreferences3, formatter.format(date1), "下午", "16:40-17:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter.format(date1), "下午", "16:40-17:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter.format(date1), "下午", "16:40-17:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton45.setText("已预约");
@@ -2095,21 +1399,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatte2.format(date2), "下午", "16:40-17:30");
+                    showNormal(sharedPreferences3, formatte2.format(date2), "下午", "16:40-17:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatte2.format(date2), "下午", "16:40-17:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatte2.format(date2), "下午", "16:40-17:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton46.setText("已预约");
@@ -2122,21 +1414,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter4.format(date3), "下午", "16:40-17:30");
+                    showNormal(sharedPreferences3, formatter4.format(date3), "下午", "16:40-17:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter4.format(date3), "下午", "16:40-17:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter4.format(date3), "下午", "16:40-17:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton47.setText("已预约");
@@ -2149,21 +1429,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter6.format(date4), "下午", "16:40-17:30");
+                    showNormal(sharedPreferences3, formatter6.format(date4), "下午", "16:40-17:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter6.format(date4), "下午", "16:40-17:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter6.format(date4), "下午", "16:40-17:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton48.setText("已预约");
@@ -2176,21 +1444,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter8.format(date5), "下午", "16:40-17:30");
+                    showNormal(sharedPreferences3, formatter8.format(date5), "下午", "16:40-17:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter8.format(date5), "下午", "16:40-17:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter8.format(date5), "下午", "16:40-17:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton49.setText("已预约");
@@ -2203,21 +1459,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter10.format(date6), "下午", "16:40-17:30");
+                    showNormal(sharedPreferences3, formatter10.format(date6), "下午", "16:40-17:30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter10.format(date6), "下午", "16:40-17:30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter10.format(date6), "下午", "16:40-17:30");
-
-                    }
 
                     view.setSelected(true);
                     mButton50.setText("已预约");
@@ -2230,21 +1474,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, simple.format(date), "下午", "17:50-18；30");
+                    showNormal(sharedPreferences3, simple.format(date), "下午", "17:50-18；30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, simple.format(date), "下午", "17:50-18；30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, simple.format(date), "下午", "17:50-18；30");
-
-                    }
 
                     view.setSelected(true);
                     mButton51.setText("已预约");
@@ -2257,21 +1489,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter.format(date1), "下午", "17:50-18；30");
+                    showNormal(sharedPreferences3, formatter.format(date1), "下午", "17:50-18；30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter.format(date1), "下午", "17:50-18；30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter.format(date1), "下午", "17:50-18；30");
-
-                    }
 
                     view.setSelected(true);
                     mButton52.setText("已预约");
@@ -2284,21 +1504,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatte2.format(date2), "下午", "17:50-18；30");
+                    showNormal(sharedPreferences3, formatte2.format(date2), "下午", "17:50-18；30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatte2.format(date2), "下午", "17:50-18；30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatte2.format(date2), "下午", "17:50-18；30");
-
-                    }
 
                     view.setSelected(true);
                     mButton53.setText("已预约");
@@ -2311,21 +1519,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter4.format(date3), "下午", "17:50-18；30");
+                    showNormal(sharedPreferences3, formatter4.format(date3), "下午", "17:50-18；30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter4.format(date3), "下午", "17:50-18；30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter4.format(date3), "下午", "17:50-18；30");
-
-                    }
 
                     view.setSelected(true);
                     mButton54.setText("已预约");
@@ -2338,21 +1534,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter6.format(date4), "下午", "17:50-18；30");
+                    showNormal(sharedPreferences3, formatter6.format(date4), "下午", "17:50-18；30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter6.format(date4), "下午", "17:50-18；30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter6.format(date4), "下午", "17:50-18；30");
-
-                    }
 
                     view.setSelected(true);
                     mButton55.setText("已预约");
@@ -2365,21 +1549,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter8.format(date5), "下午", "17:50-18；30");
+                    showNormal(sharedPreferences3, formatter8.format(date5), "下午", "17:50-18；30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter8.format(date5), "下午", "17:50-18；30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter8.format(date5), "下午", "17:50-18；30");
-
-                    }
 
                     view.setSelected(true);
                     mButton56.setText("已预约");
@@ -2392,21 +1564,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    if ("".equals(sharedPreferences.getString("month", ""))) {
 
-                        SharePerfence(sharedPreferences, formatter10.format(date6), "下午", "17:50-18；30");
+                    showNormal(sharedPreferences3, formatter10.format(date6), "下午", "17:50-18；30");
 
-
-                    } else if ("".equals(sharedPreferences2.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences2, formatter10.format(date6), "下午", "17:50-18；30");
-
-
-                    } else if ("".equals(sharedPreferences3.getString("month", ""))) {
-
-                        SharePerfence(sharedPreferences3, formatter10.format(date6), "下午", "17:50-18；30");
-
-                    }
 
                     view.setSelected(true);
                     mButton57.setText("已预约");

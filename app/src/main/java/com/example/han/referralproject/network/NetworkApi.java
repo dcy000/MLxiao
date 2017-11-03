@@ -11,6 +11,7 @@ import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +38,9 @@ public class NetworkApi {
     public static final String PAY_URL = BasicUrl + "/ZZB/br/chongzhi";
     public static final String DOCTOR_URL = BasicUrl + "/ZZB/docter/search_OneDocter";
     public static final String PERSON_URL = BasicUrl + "/ZZB/br/selOneUser_con";
+    public static final String YUYUE_URL = BasicUrl + "/ZZB/bl/insertReserve";
+    public static final String YUYUE_URL_INFO = BasicUrl + "/ZZB/bl/selAllreserveByDoidAndUserid";
+    public static final String YUYUE_URL_CANCEL = BasicUrl + "/ZZB/bl/delReserveByRid";
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
@@ -53,7 +57,7 @@ public class NetworkApi {
         paramsMap.put("bba", bba);
         paramsMap.put("time", time);
         paramsMap.put("bid", bid);
-        NetworkManager.getInstance().postResultClass(PAY_URL, paramsMap, UserInfoBean.class, listener, failedCallback);
+        NetworkManager.getInstance().postResultClass(PAY_URL, paramsMap, String.class, listener, failedCallback);
     }
 
     public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctor> listener, NetworkManager.FailedCallback failedCallback) {
@@ -70,17 +74,67 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(PERSON_URL, paramsMap, UserInfo.class, listener, failedCallback);
     }
 
-
-    public static void registerUser(String name, String sex, String address, String telephone, String pwd, String sfz, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
+    public static void YuYue(String start_time, String end_time, String userid, String docterid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("bname", name);
+        paramsMap.put("start_time", start_time);
+        paramsMap.put("end_time", end_time);
+        paramsMap.put("userid", userid + "");
+        paramsMap.put("docterid", docterid + "");
+
+
+        NetworkManager.getInstance().postResultClass(YUYUE_URL, paramsMap, UserInfo.class, listener, failedCallback);
+    }
+
+
+    public static void YuYue_info(String userid, String docterid, NetworkManager.SuccessCallback<ArrayList<YuYueInfo>> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("userid", userid);
+        paramsMap.put("docterid", docterid);
+
+        NetworkManager.getInstance().postResultClass(YUYUE_URL_INFO, paramsMap, new TypeToken<ArrayList<YuYueInfo>>() {
+        }.getType(), listener, failedCallback);
+    }
+
+    public static void YuYue_cancel(String rid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("rid", rid);
+
+        NetworkManager.getInstance().postResultClass(YUYUE_URL_CANCEL, paramsMap, String.class, listener, failedCallback);
+    }
+
+
+    public static void registerUser(
+            String name,
+            String sex,
+            String sfz,
+            String address,
+            String telephone,
+            String pwd,
+            float height,
+            float weight,
+            String bloodType,
+            String eat,
+            String smoke,
+            String drink,
+            String sports,
+            NetworkManager.SuccessCallback<UserInfoBean> listener,
+            NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("age", "50");
+        paramsMap.put("bname", name);
+        paramsMap.put("sex", sex);
         paramsMap.put("eqid", Utils.getDeviceId());
         paramsMap.put("tel", telephone);
         paramsMap.put("pwd", pwd);
         paramsMap.put("dz", address);
-        paramsMap.put("sex", sex);
         paramsMap.put("sfz", sfz);
+        paramsMap.put("height", String.valueOf(height));
+        paramsMap.put("weight", String.valueOf(weight));
+        paramsMap.put("bloodType", bloodType);
+        paramsMap.put("eat", eat);
+        paramsMap.put("smoke", smoke);
+        paramsMap.put("drink", drink);
+        paramsMap.put("sports", sports);
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
@@ -96,13 +150,14 @@ public class NetworkApi {
         }.getType(), callback);
     }
 
-    public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback){
+    public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback) {
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", MyApplication.getInstance().userId);
-        NetworkManager.getInstance().getResultClass(ClueUrl, paramsMap, new TypeToken<ArrayList<ClueInfoBean>>(){}.getType(), callback);
+        NetworkManager.getInstance().getResultClass(ClueUrl, paramsMap, new TypeToken<ArrayList<ClueInfoBean>>() {
+        }.getType(), callback);
     }
 
     public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {
@@ -141,10 +196,14 @@ public class NetworkApi {
     }
 
 
-    public static void charge(int minute, NetworkManager.SuccessCallback<Object> successCallback, NetworkManager.FailedCallback failedCallback) {
+    public static void charge(int minute, int doctorId, String bId,
+                              NetworkManager.SuccessCallback<Object> successCallback,
+                              NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
+        params.put("doctorid", String.valueOf(doctorId));
         params.put("eqid", Utils.getDeviceId());
         params.put("time", String.valueOf(minute));
+        params.put("bid", bId);
         NetworkManager.getInstance().postResultClass(CHARGE_URL, params, Object.class, successCallback, failedCallback);
     }
 

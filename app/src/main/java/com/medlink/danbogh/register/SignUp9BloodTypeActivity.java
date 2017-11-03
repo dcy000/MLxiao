@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class SignUp9BloodTypeActivity extends SignUp7HeightActivity {
 
     @Override
     public void onTvGoForwardClicked() {
+        String bloodType = mStrings.get(selectedPosition);
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpBloodType(bloodType);
         Intent intent = new Intent(this, SignUp10EatActivity.class);
         startActivity(intent);
     }

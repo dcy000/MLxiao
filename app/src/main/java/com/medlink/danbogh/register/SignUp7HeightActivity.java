@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -50,6 +51,7 @@ public class SignUp7HeightActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up7_height);
+        setDisableGlobalListen(true);
         unbinder = ButterKnife.bind(this);
         initView();
     }
@@ -72,14 +74,17 @@ public class SignUp7HeightActivity extends BaseActivity {
         return R.string.sign_up_height_tip;
     }
 
+    protected int selectedPosition = 1;
+
     protected void initView() {
         tvUnit.setText("cm");
         GalleryLayoutManager layoutManager = new GalleryLayoutManager(GalleryLayoutManager.VERTICAL);
-        layoutManager.attach(rvContent, 1);
+        layoutManager.attach(rvContent, selectedPosition);
         layoutManager.setCallbackInFling(true);
         layoutManager.setOnItemSelectedListener(new GalleryLayoutManager.OnItemSelectedListener() {
             @Override
             public void onItemSelected(RecyclerView recyclerView, View item, int position) {
+                selectedPosition = position;
                 select(mStrings == null ? String.valueOf(position) : mStrings.get(position));
             }
         });
@@ -109,12 +114,14 @@ public class SignUp7HeightActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
+        String height = mStrings.get(selectedPosition);
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Float.valueOf(height));
         Intent intent = new Intent(this, SignUp8WeightActivity.class);
         startActivity(intent);
     }
 
     public void select(String text) {
-        T.show("别选" + text + "了");
+        T.show(text);
     }
 
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";

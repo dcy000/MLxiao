@@ -142,7 +142,7 @@ public class CallManager {
         EMClient.getInstance().callManager().getCallOptions().setMaxVideoFrameRate(30);
         // 设置音视频通话采样率，一般不需要设置，除非采集声音有问题才需要手动设置
         EMClient.getInstance().callManager().getCallOptions().setAudioSampleRate(48000);
-        // 设置录制视频采用 mov 编码 TODO 后期这个而接口需要移动到 EMCallOptions 中
+        // 设置录制视频采用 mov 编码  后期这个而接口需要移动到 EMCallOptions 中
         EMClient.getInstance().callManager().getVideoCallHelper().setPreferMovFormatEnable(true);
     }
 
@@ -279,18 +279,18 @@ public class CallManager {
         if (!charged) {
             final int minute = callTime / 60;
             if (minute >= 0) {
-                NetworkApi.charge(minute + 1,
-                        new NetworkManager.SuccessCallback<Object>() {
-                            @Override
-                            public void onSuccess(Object response) {
-                                Toast.makeText(context, minute + "分钟", Toast.LENGTH_SHORT).show();
-                            }
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-                                Toast.makeText(context, minute + "分钟, 失败", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+//                NetworkApi.charge(minute + 1,
+//                        new NetworkManager.SuccessCallback<Object>() {
+//                            @Override
+//                            public void onSuccess(Object response) {
+//                                Toast.makeText(context, minute + "分钟", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }, new NetworkManager.FailedCallback() {
+//                            @Override
+//                            public void onFailed(String message) {
+//                                Toast.makeText(context, minute + "分钟, 失败", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
             }
         }
         charged = true;

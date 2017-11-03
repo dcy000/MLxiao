@@ -77,6 +77,7 @@ public class RegisterVideoActivity extends BaseActivity {
     // Camera nv21格式预览帧的尺寸，默认设置640*480
     private int PREVIEW_WIDTH = 1280;
     private int PREVIEW_HEIGHT = 720;
+
     // 预览帧数据存储数组和缓存数组
     private byte[] nv21;
     private byte[] buffer;
@@ -107,7 +108,7 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
-
+        setDisableGlobalListen(true);
         mButton = (Button) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,70 +186,11 @@ public class RegisterVideoActivity extends BaseActivity {
         mFaceSurface.setZOrderOnTop(true);
         mFaceSurface.getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
-        // 点击SurfaceView，切换摄相头
-       /* mFaceSurface.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // 只有一个摄相头，不支持切换
-                if (Camera.getNumberOfCameras() == 1) {
-                    showTip("只有后置摄像头，不能切换");
-                    return;
-                }
-                closeCamera();
-                if (CameraInfo.CAMERA_FACING_FRONT == mCameraId) {
-                    mCameraId = CameraInfo.CAMERA_FACING_BACK;
-                } else {
-                    mCameraId = CameraInfo.CAMERA_FACING_FRONT;
-                }
-                openCamera();
-            }
-        });*/
-
-       /* // 长按SurfaceView 500ms后松开，摄相头聚集
-        mFaceSurface.setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        mLastClickTime = System.currentTimeMillis();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (System.currentTimeMillis() - mLastClickTime > 500) {
-                            mCamera.autoFocus(null);
-                            return true;
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });*/
-
-       /* RadioGroup alignGruop = (RadioGroup) findViewById(R.id.align_mode);
-        alignGruop.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup arg0, int arg1) {
-                switch (arg1) {
-                    case R.id.detect:
-                        isAlign = 0;
-                        break;
-                    case R.id.align:
-                        isAlign = 1;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });*/
-
         setSurfaceSize();
         mToast = Toast.makeText(RegisterVideoActivity.this, "", Toast.LENGTH_SHORT);
     }
+
+    Bitmap b3;
 
     private void openCamera() {
         if (null != mCamera) {
@@ -268,11 +210,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
         try {
             mCamera = Camera.open(mCameraId);
-           /* if (CameraInfo.CAMERA_FACING_FRONT == mCameraId) {
-                showTip("前置摄像头已开启，点击可切换");
-            } else {
-                showTip("后置摄像头已开启，点击可切换");
-            }*/
+
         } catch (Exception e) {
             e.printStackTrace();
             closeCamera();
@@ -292,17 +230,9 @@ public class RegisterVideoActivity extends BaseActivity {
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
                 System.arraycopy(data, 0, nv21, 0, data.length);
-                Bitmap b3 = decodeToBitMap(nv21, camera);
+                b3 = decodeToBitMap(nv21, camera);
 
                 //mImageView.setImageBitmap(b3);
-
-
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-                //可根据流量及网络状况对图片进行压缩
-                b3.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-
-                mImageData = baos.toByteArray();
 
 
             }
@@ -325,6 +255,45 @@ public class RegisterVideoActivity extends BaseActivity {
         }
     }
 
+
+    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
+        if (null == bitmap || edgeLength <= 0) {
+            return null;
+        }
+
+        Bitmap result = bitmap;
+        int widthOrg = bitmap.getWidth();
+        int heightOrg = bitmap.getHeight();
+
+        if (widthOrg > edgeLength && heightOrg > edgeLength) {
+            //压缩到一个最小长度是edgeLength的bitmap
+            int longerEdge = (int) (edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg));
+            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
+            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
+            Bitmap scaledBitmap;
+
+            try {
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
+            } catch (Exception e) {
+                return null;
+            }
+
+            //从图中截取正中间的正方形部分。
+            int xTopLeft = (scaledWidth - edgeLength) / 2;
+            int yTopLeft = (scaledHeight - edgeLength) / 2;
+
+            try {
+                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength);
+                scaledBitmap.recycle();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        return result;
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -334,6 +303,31 @@ public class RegisterVideoActivity extends BaseActivity {
             @Override
             public void run() {
                 while (sign) {
+
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                    }
+
+                    Log.e("==============", "两秒");
+
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+
+                    if (b3 != null) {
+
+                        Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+
+                        //可根据流量及网络状况对图片进行压缩
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        mImageData = baos.toByteArray();
+
+                    }
+
+
+
+
                     if (null != mImageData) {
                         Date date = new Date();
                         SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
@@ -353,18 +347,13 @@ public class RegisterVideoActivity extends BaseActivity {
                         editor.commit();*/
 
 
-                        String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
-                        LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
-
-
                         mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
                         mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
                         mFaceRequest.sendRequest(mImageData, mRequestListener);
+
+
                     }
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                    }
+
 
                 }
             }
@@ -432,6 +421,11 @@ public class RegisterVideoActivity extends BaseActivity {
         if ("success".equals(obj.get("rst")) && sign == true) {
             // showTip("注册成功");
             sign = false;
+
+            String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
+            LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
+
+
             Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
             startActivity(intent);
             finish();
