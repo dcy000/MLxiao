@@ -98,6 +98,14 @@ public class LocalShared {
     private static final String SIGN_UP_ADDRESS = "sign_up_address";
     private static final String SIGN_UP_ID_CARD = "sign_up_id_card";
     private static final String SIGN_UP_PHONE = "sign_up_phone";
+    private static final String SIGN_UP_PASSWORD = "sign_up_password";
+    private static final String SIGN_UP_HEIGHT = "sign_up_height";
+    private static final String SIGN_UP_WEIGHT = "sign_up_weight";
+    private static final String SIGN_UP_BLOOD_TYPE = "sign_up_blood_type";
+    private static final String SIGN_UP_EAT = "sign_up_eat";
+    private static final String SIGN_UP_SMOKE = "sign_up_smoke";
+    private static final String SIGN_UP_DRINK = "sign_up_drink";
+    private static final String SIGN_UP_SPORT = "sign_up_sport";
 
     public void setSignUpName(String name) {
         mShared.edit().putString(SIGN_UP_NAME, name).apply();
@@ -137,6 +145,70 @@ public class LocalShared {
 
     public String getSignUpPhone() {
         return mShared.getString(SIGN_UP_PHONE, "");
+    }
+
+    public void setSignUpPassword(String password) {
+        mShared.edit().putString(SIGN_UP_PASSWORD, password).apply();
+    }
+
+    public String getSignUpPassword() {
+        return mShared.getString(SIGN_UP_PASSWORD, "");
+    }
+
+    public void setSignUpHeight(float height) {
+        mShared.edit().putFloat(SIGN_UP_HEIGHT, height).apply();
+    }
+
+    public float getSignUpHeight() {
+        return mShared.getFloat(SIGN_UP_HEIGHT, 180f);
+    }
+
+    public void setSignUpWeight(float weight) {
+        mShared.edit().putFloat(SIGN_UP_WEIGHT, weight).apply();
+    }
+
+    public float getSignUpWeight() {
+        return mShared.getFloat(SIGN_UP_WEIGHT, 65f);
+    }
+
+    public void setSignUpBloodType(String bloodType) {
+        mShared.edit().putString(SIGN_UP_BLOOD_TYPE, bloodType).apply();
+    }
+
+    public String getSignUpBloodType() {
+        return mShared.getString(SIGN_UP_BLOOD_TYPE, "A");
+    }
+
+    public void setSignUpEat(String eat) {
+        mShared.edit().putString(SIGN_UP_EAT, eat).apply();
+    }
+
+    public String getSignUpEat() {
+        return mShared.getString(SIGN_UP_EAT, "1");
+    }
+
+    public void setSignUpSmoke(String smoke) {
+        mShared.edit().putString(SIGN_UP_SMOKE, smoke).apply();
+    }
+
+    public  String getSignUpSmoke() {
+        return mShared.getString(SIGN_UP_SMOKE, "1");
+    }
+
+    public void setSignUpDrink(String drink) {
+        mShared.edit().putString(SIGN_UP_DRINK, drink).apply();
+    }
+
+    public String getSignUpDrink() {
+        return mShared.getString(SIGN_UP_DRINK, "1");
+    }
+
+    public void setSignUpSport(String sport) {
+        mShared.edit().putString(SIGN_UP_SPORT, sport).apply();
+    }
+
+    public String getSignUpSport() {
+        return mShared.getString(SIGN_UP_SPORT, "1");
     }
 
     private static final String NIM_ACCOUNT = "nim_account";

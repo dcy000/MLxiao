@@ -54,6 +54,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up6_password);
+        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
     }
 
@@ -93,30 +94,8 @@ public class SignUp6PasswordActivity extends BaseActivity {
             return;
         }
 
-        showLoadingDialog(getString(R.string.do_register));
-        final LocalShared shared = LocalShared.getInstance(this);
-        String name = shared.getSignUpName();
-        String gender = shared.getSignUpGender();
-        String address = shared.getSignUpAddress();
-        String idCard = shared.getSignUpIdCard();
-        String phone = shared.getSignUpPhone();
-        NetworkApi.registerUser(name, gender, address, phone, password, idCard,
-                new NetworkManager.SuccessCallback<UserInfoBean>() {
-                    @Override
-                    public void onSuccess(UserInfoBean response) {
-                        hideLoadingDialog();
-                        shared.setUserInfo(response);
-                        navToNext();
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        hideLoadingDialog();
-                        T.show(message);
-                        speak("主人," + message);
-                    }
-                }
-        );
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpPassword(password);
+        navToNext();
     }
 
     private void navToNext() {

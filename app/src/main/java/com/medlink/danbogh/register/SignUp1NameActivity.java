@@ -42,6 +42,7 @@ public class SignUp1NameActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up1_name);
         mUnbinder = ButterKnife.bind(this);
         //mTvGoBack.setEnabled(false);
+        setDisableGlobalListen(true);
     }
 
     @Override

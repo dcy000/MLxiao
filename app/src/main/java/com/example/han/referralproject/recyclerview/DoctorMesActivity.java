@@ -55,7 +55,7 @@ public class DoctorMesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
         //    initToolBar();
-
+        setDisableGlobalListen(true);
         sharedPreferences = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);

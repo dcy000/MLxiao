@@ -28,8 +28,9 @@ public class HeadiconActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headicon);
+        setDisableGlobalListen(true);
+        mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
 
-        mCircleImageView = (ImageView) findViewById(R.id.per_image);
         mButton = (Button) findViewById(R.id.trues);
         mButton1 = (Button) findViewById(R.id.cancel);
 

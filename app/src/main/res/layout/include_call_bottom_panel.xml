@@ -4,9 +4,9 @@
 
     <ImageView
         android:id="@+id/ic_call_switch_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="30dp"
         android:padding="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_call_switch_camera"
@@ -18,9 +18,9 @@
 
     <ImageView
         android:id="@+id/iv_call_toggle_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="30dp"
         android:padding="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_call_close_camera"
@@ -30,9 +30,9 @@
 
     <ImageView
         android:id="@+id/iv_call_toggle_mute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="30dp"
         android:padding="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_call_mute"
@@ -42,9 +42,9 @@
 
     <ImageView
         android:id="@+id/iv_call_hang_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/bg_call_hang_up"
         android:padding="10dp"
         android:scaleType="centerInside"

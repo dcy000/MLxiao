@@ -56,6 +56,8 @@ public class NimInitHelper {
             registerNimGlobalObserver(register);
 //            doctor_18940866148
 //            br_12345678912
+//            br_12345678913
+//            br_12345678914
 //            NimCallActivity.launch(this, "br_12345678912");
             NimAccountHelper.getInstance().login("br_12345678912", "123456",null);
         }

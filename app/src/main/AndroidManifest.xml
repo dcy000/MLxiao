@@ -146,7 +146,6 @@
             android:screenOrientation="landscape">
 
 
-
         </activity>
 
         <activity
@@ -165,8 +164,6 @@
         <activity
             android:name=".temperature.TemperatureActivity"
             android:screenOrientation="landscape">
-
-
 
 
         </activity>
@@ -212,12 +209,10 @@
             android:screenOrientation="landscape">
 
 
-
         </activity>
         <activity
             android:name=".xueyang.XueyangActivity"
             android:screenOrientation="landscape">
-
 
 
         </activity>
@@ -239,7 +234,10 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -265,18 +263,10 @@
 
         <activity android:name=".facerecognition.RegisterVideoActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-
-
         </activity>
-        <activity android:name=".recyclerview.RecoDocActivity" >
-
-        </activity>
-        <activity android:name=".recyclerview.DoctorMesActivity" />
-        <activity android:name=".video.MainVideoActivity"></activity>
+        <activity android:name=".recyclerview.RecoDocActivity"/>
+        <activity android:name=".recyclerview.DoctorMesActivity"/>
+        <activity android:name=".video.MainVideoActivity"/>
         <activity android:name=".video.PlayVideoActivity"/>
         <activity android:name=".personal.PersonActivity"/>
         <activity
@@ -417,13 +407,14 @@
         <receiver
             android:name="com.medlink.danbogh.call2.InComingCallReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.medlink.danbogh.call2.NimCallActivity"
+        <activity
+            android:name="com.medlink.danbogh.call2.NimCallActivity"
             android:launchMode="singleInstance"
-            android:configChanges="orientation|keyboardHidden">
+            android:screenOrientation="landscape">
         </activity>
     </application>
 
