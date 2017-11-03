@@ -69,13 +69,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_Wendu;
+    private String detectType = Type_XueTang;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
     public static final String Type_XueYang = "xueyang";
     public static final String Type_XinDian = "xindian";
     public static final String Type_TiZhong = "tizhong";
+    public static final String Type_SanHeYi = "sanheyi";
     private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
@@ -94,7 +95,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     mResultTv.setText((String) msg.obj);
                     break;
                 case 2:
-                    isGetResustFirst = true;//温度测量重置标志位
+                    isGetResustFirst = true;//测量重置标志位
                     break;
             }
         }
@@ -238,6 +239,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     case Type_Xueya:
                         if ((int) notifyData[0] == 32 && notifyData.length == 2) {
                             mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
+                            mLowPressTv.setText("0");
+                            mPulseTv.setText("0");
                         }
                         if ((int) notifyData[0] == 12) {
                             mHighPressTv.setText(String.valueOf(notifyData[2] & 0xff));
@@ -265,6 +268,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     }
                                 });
                                 isGetResustFirst = false;
+                                mHandler.sendEmptyMessageDelayed(2, 30000);
                             }
                         }
                         StringBuilder mBuilder = new StringBuilder();
@@ -639,7 +643,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         registerBltReceiver();
 
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true){
+//                    boolean flag = mBluetoothAdapter.startDiscovery();
+//                    Log.i("mylog", "flag : " + flag);
+//                    try {
+//                        Thread.sleep(2000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }).start();
         mBluetoothAdapter.startDiscovery();
+
         mXueyaResults = mResources.getStringArray(R.array.result_xueya);
         mWenduResults = mResources.getStringArray(R.array.result_wendu);
 

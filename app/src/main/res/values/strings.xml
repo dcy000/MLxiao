@@ -48,6 +48,20 @@
     <string name="speak_no_result">我还没学习到</string>
     <string name="offline_sign">线下签约</string>
     <string name="submit">提交</string>
+    <string name="connect_connect_off">与设备连接断开</string>
+    <string name="measure_ecg_file_ing">正在接收文件</string>
+    <string name="measure_ecg_file_end">接收完成</string>
+    <string name="measure_ecg_time_out">接收超时</string>
+    <string name="measure_ecg_time_err">接收文件出错</string>
+    <string name="measure_lead_off">导联脱落</string>
+    <string name="const_data_nodata">--</string>
+    <string name="connect_opening">正在打开蓝牙</string>
+    <string name="connect_openfail">蓝牙打开失败</string>
+    <string name="connect_startseach">正在搜索设备</string>
+    <string name="connect_startconnect">正在与设备建立连接</string>
+    <string name="connect_success">与设备成功连接</string>
+    <string name="connect_fail">与设备连接失败 点击重新开始连接</string>
+    <string name="connect_close">检测到蓝牙被关闭 操作失败</string>
     <string name="no_yz">目前还没有消息</string>
     <string name="tips_wendu_one">请取出5号仪器，耳温枪</string>
     <string name="tips_wendu_two">拆下防尘盖，按下电源按钮</string>
@@ -57,7 +71,10 @@
         并扎紧绷带，按下开关键，进行测试，请耐心等待测量结果</string>
     <string name="tips_xuetang_one">取出采血笔，将采血针装入采血笔，拧下保护套，旋转采血笔头，
         旋转头部调整扎针深度，拉一下采血笔尾部开始扎针测量，快速拿出试纸，插入血糖仪</string>
-
+    <string name="tab_disease_one">疾病综述</string>
+    <string name="tab_disease_two">饮食建议</string>
+    <string name="tab_disease_three"></string>
+    
     <string name="add_volume">调大声音</string>
     <string name="reduce_volume">调小声音</string>
     <string name="max_volume">当前已经是最大声音了</string>

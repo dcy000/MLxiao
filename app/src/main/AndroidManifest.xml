@@ -190,6 +190,18 @@
         <activity
             android:name=".activity.MessageActivity"
             android:screenOrientation="landscape"/>
+        <service android:name=".xindian.ReceiveService"
+            android:enabled="true"></service>
+        <activity
+            android:name=".xindian.XinDianDetectActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".xindian.ConnectActivity"></activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -203,6 +215,7 @@
         <activity
             android:name=".activity.DetectActivity"
             android:screenOrientation="landscape">
+
         </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
@@ -234,11 +247,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"

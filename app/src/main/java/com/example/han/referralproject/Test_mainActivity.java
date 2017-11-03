@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.temperature.TemperatureActivity;
+import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.xindian.XindianActivity;
 import com.example.han.referralproject.xuetang.XuetangActivity;
 import com.example.han.referralproject.xueya.AttentionActivity;
@@ -106,7 +107,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.test_xindian:
-                    intent.setClass(getApplicationContext(), XindianActivity.class);
+                    intent.setClass(getApplicationContext(), XinDianDetectActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.test_qita:
