@@ -2,16 +2,22 @@ package com.medlink.danbogh.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by lenovo on 2017/10/16.
@@ -155,6 +161,44 @@ public class Utils {
             builder.append(hex);
         }
         return builder.toString();
+    }
+
+    public static String formatCallTime(int seconds) {
+        final int hh = seconds / 60 / 60;
+        final int mm = seconds / 60 % 60;
+        final int ss = seconds % 60;
+        return (hh > 9 ? "" + hh : "0" + hh) +
+                (mm > 9 ? ":" + mm : ":0" + mm) +
+                (ss > 9 ? ":" + ss : ":0" + ss);
+    }
+
+    public static String readText(InputStream in) {
+        if (in == null) {
+            return "";
+        }
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            StringBuilder builder = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                builder.append(line);
+            }
+            return builder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static String readTextFromAssetFile(Context context, String fileName) {
+        AssetManager manager = context.getAssets();
+        InputStream in = null;
+        try {
+            in = manager.open(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return readText(in);
     }
 }
 

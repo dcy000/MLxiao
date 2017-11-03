@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
@@ -29,7 +28,6 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.medlink.danbogh.utils.T;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -141,18 +139,19 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public static final String REGEX_CALL_XIAO_YI = ".*xiao(yi|yu|li).*";
-
     protected void onSpeakListenerResult(String result) {
         //Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 //        T.show(result);
-        String inSpell = PinYinUtils.converterToSpell(result);
-        if (inSpell.matches(REGEX_CALL_XIAO_YI)) {
-            speak(R.string.hello);
-            Intent intent = new Intent();
-            intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
-            startActivity(intent);
-        }
+    }
+
+    private boolean disableGlobalListen;
+
+    public boolean isDisableGlobalListen() {
+        return disableGlobalListen;
+    }
+
+    public void setDisableGlobalListen(boolean disableGlobalListen) {
+        this.disableGlobalListen = disableGlobalListen;
     }
 
     private RecognizerListener mIatListener = new RecognizerListener() {
@@ -191,8 +190,23 @@ public class BaseActivity extends AppCompatActivity {
             for (String key : mIatResults.keySet()) {
                 resultBuffer.append(mIatResults.get(key));
             }
-            if (!TextUtils.isEmpty(resultBuffer.toString())) {
-                onSpeakListenerResult(resultBuffer.toString());
+            String result = resultBuffer.toString();
+            if (!TextUtils.isEmpty(result)) {
+                if (!disableGlobalListen) {
+                    String inSpell = PinYinUtils.converterToSpell(result);
+                    if (inSpell.matches(".*(houtui|fanhui).*")) {
+                        onBackPressed();
+                        return;
+                    }
+                    if (inSpell.matches(".*xiao(yi|yu|li).*")) {
+                        speak(R.string.hello);
+                        Intent intent = new Intent();
+                        intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
+                        startActivity(intent);
+                        return;
+                    }
+                }
+                onSpeakListenerResult(result);
             }
         }
 

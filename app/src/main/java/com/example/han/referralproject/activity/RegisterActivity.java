@@ -65,26 +65,26 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         if (!checkInputInfo()) {
                             return;
                         }
-                        showLoadingDialog(getString(R.string.do_register));
-                        NetworkApi.registerUser(mNameEt.getText().toString(), sexSpinner.getSelectedItem().toString(),
-                                mAddressEt.getText().toString(), mTelephoneEt.getText().toString(), mPwdEt.getText().toString(),
-                                mIdCardEt.getText().toString(),
-                                new NetworkManager.SuccessCallback<UserInfoBean>() {
-                                    @Override
-                                    public void onSuccess(UserInfoBean response) {
-                                        hideLoadingDialog();
-                                        LocalShared.getInstance(mContext).setUserInfo(response);
-                                        startActivity(new Intent(mContext, PreviousHistoryActivity.class));
-                                        finish();
-                                    }
-                                }, new NetworkManager.FailedCallback() {
-                                    @Override
-                                    public void onFailed(String message) {
-                                        hideLoadingDialog();
-                                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-                                        speak("主人," + message);
-                                    }
-                                });
+//                        showLoadingDialog(getString(R.string.do_register));
+//                        NetworkApi.registerUser(mNameEt.getText().toString(), sexSpinner.getSelectedItem().toString(),
+//                                mAddressEt.getText().toString(), mTelephoneEt.getText().toString(), mPwdEt.getText().toString(),
+//                                mIdCardEt.getText().toString(),
+//                                new NetworkManager.SuccessCallback<UserInfoBean>() {
+//                                    @Override
+//                                    public void onSuccess(UserInfoBean response) {
+//                                        hideLoadingDialog();
+//                                        LocalShared.getInstance(mContext).setUserInfo(response);
+//                                        startActivity(new Intent(mContext, PreviousHistoryActivity.class));
+//                                        finish();
+//                                    }
+//                                }, new NetworkManager.FailedCallback() {
+//                                    @Override
+//                                    public void onFailed(String message) {
+//                                        hideLoadingDialog();
+//                                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+//                                        speak("主人," + message);
+//                                    }
+//                                });
 
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         Toast.makeText(getApplicationContext(), "正在获取验证码", Toast.LENGTH_SHORT).show();

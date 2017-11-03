@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -42,6 +46,7 @@ public class SignUp13SportsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up13_sports);
+        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
@@ -127,14 +132,69 @@ public class SignUp13SportsActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        for (EatModel model : mModels) {
+        int size = mModels.size();
+        for (int i = 0; i < size; i++) {
+            EatModel model = mModels.get(i);
             if (model.isSelected()) {
-                Intent intent = new Intent(this, SignUp14DiseaseHistoryActivity.class);
-                startActivity(intent);
+                LocalShared.getInstance(this.getApplicationContext()).setSignUpSport("" + (i + 1));
+                signUp();
                 return;
             }
         }
         speak(R.string.sign_up_sports_tip);
+    }
+
+    private void navToNext() {
+        Intent intent = new Intent(this, SignUp14DiseaseHistoryActivity.class);
+        startActivity(intent);
+    }
+
+    private void signUp() {
+        showLoadingDialog(getString(R.string.do_register));
+        final LocalShared shared = LocalShared.getInstance(this);
+        String name = shared.getSignUpName();
+        String gender = shared.getSignUpGender();
+        String address = shared.getSignUpAddress();
+        String idCard = shared.getSignUpIdCard();
+        String phone = shared.getSignUpPhone();
+        String password = shared.getSignUpPassword();
+        float height = shared.getSignUpHeight();
+        float weight = shared.getSignUpWeight();
+        String bloodType = shared.getSignUpBloodType();
+        String eat = shared.getSignUpEat();
+        String smoke = shared.getSignUpSmoke();
+        String drink = shared.getSignUpDrink();
+        String sport = shared.getSignUpSport();
+        NetworkApi.registerUser(
+                name,
+                gender,
+                address,
+                idCard,
+                phone,
+                password,
+                height,
+                weight,
+                bloodType,
+                eat,
+                smoke,
+                drink,
+                sport,
+                new NetworkManager.SuccessCallback<UserInfoBean>() {
+                    @Override
+                    public void onSuccess(UserInfoBean response) {
+                        hideLoadingDialog();
+                        shared.setUserInfo(response);
+                        navToNext();
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        hideLoadingDialog();
+                        T.show(message);
+                        speak("主人," + message);
+                    }
+                }
+        );
     }
 
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";

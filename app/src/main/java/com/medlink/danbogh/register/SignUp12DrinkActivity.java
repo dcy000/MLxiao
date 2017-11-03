@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class SignUp12DrinkActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up12_drink);
+        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
@@ -122,8 +124,11 @@ public class SignUp12DrinkActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        for (EatModel model : mModels) {
+        int size = mModels.size();
+        for (int i = 0; i < size; i++) {
+            EatModel model = mModels.get(size);
             if (model.isSelected()) {
+                LocalShared.getInstance(this.getApplicationContext()).setSignUpDrink("" + (i + 1));
                 Intent intent = new Intent(this, SignUp13SportsActivity.class);
                 startActivity(intent);
                 return;

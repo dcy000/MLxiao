@@ -21,6 +21,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 
 import java.io.Serializable;
@@ -53,13 +54,15 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reco_doc);
-
+        setDisableGlobalListen(true);
         mCurrPage = 0;
 
         tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
         tvGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(mContext, RegisterVideoActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -335,12 +338,21 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     }
 
 
+    public static final String REGEX_IN_GO_BACK = ".*(shangyibu|houtui|fanhui).*";
     public static final String REGEX_CHECK_OFFLINE = ".*xianxiaqianyue.*";
 
     @Override
     protected void onSpeakListenerResult(String result) {
         Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+
         String inSpell = PinYinUtils.converterToSpell(result);
+        if (!TextUtils.isEmpty(inSpell) && inSpell.matches(REGEX_CHECK_OFFLINE)) {
+            mTvContractOffline.performClick();
+        }
+
+        if (!TextUtils.isEmpty(inSpell) && inSpell.matches(REGEX_IN_GO_BACK)) {
+            tvGoBack.performClick();
+        }
 
         List<Doctor> list = this.mlist;
         for (int i = 0; i < list.size(); i++) {
@@ -350,8 +362,6 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 return;
             }
         }
-        if (!TextUtils.isEmpty(inSpell) && inSpell.matches(REGEX_CHECK_OFFLINE)) {
-            mTvContractOffline.performClick();
-        }
+
     }
 }

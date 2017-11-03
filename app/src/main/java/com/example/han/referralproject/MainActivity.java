@@ -134,6 +134,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
+    public void onBackPressed() {
+        //main activity no back
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
