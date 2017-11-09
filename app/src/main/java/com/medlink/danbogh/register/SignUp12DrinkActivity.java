@@ -126,7 +126,7 @@ public class SignUp12DrinkActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         int size = mModels.size();
         for (int i = 0; i < size; i++) {
-            EatModel model = mModels.get(size);
+            EatModel model = mModels.get(i);
             if (model.isSelected()) {
                 LocalShared.getInstance(this.getApplicationContext()).setSignUpDrink("" + (i + 1));
                 Intent intent = new Intent(this, SignUp13SportsActivity.class);

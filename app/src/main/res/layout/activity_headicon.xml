@@ -28,7 +28,7 @@
 
     <Button
         android:textColor="#3F85FC"
-        android:id="@+id/trues"
+        android:id="@+id/cancel"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
@@ -42,7 +42,7 @@
 
     <Button
         android:textColor="@android:color/white"
-        android:id="@+id/cancel"
+        android:id="@+id/trues"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"

@@ -253,7 +253,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         if (mProvinceNames != null) {
             int size = mProvinceNames.size();
             for (int i = 0; i < size; i++) {
-                String provinceName = mProvinceNames.get(size);
+                String provinceName = mProvinceNames.get(i);
                 String provinceSpell = PinYinUtils.converterToSpell(provinceName);
                 if (inSpell.equals(provinceSpell)) {
                     spProvince.setSelection(i);
@@ -265,7 +265,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         if (mCityNames != null) {
             int size = mCityNames.size();
             for (int i = 0; i < size; i++) {
-                String cityName = mCityNames.get(size);
+                String cityName = mCityNames.get(i);
                 String citySpell = PinYinUtils.converterToSpell(cityName);
                 if (inSpell.equals(citySpell)) {
                     spCity.setSelection(i);
@@ -277,7 +277,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         if (mCountyNames != null) {
             int size = mCountyNames.size();
             for (int i = 0; i < size; i++) {
-                String countyName = mCountyNames.get(size);
+                String countyName = mCountyNames.get(i);
                 String countySpell = PinYinUtils.converterToSpell(countyName);
                 if (inSpell.equals(countySpell)) {
                     spCounty.setSelection(i);
