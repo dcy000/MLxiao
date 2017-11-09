@@ -128,6 +128,7 @@
         android:src="@drawable/avatar_placeholder" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/yuyue_true"
         android:layout_width="200dp"
         android:layout_height="70dp"
@@ -136,6 +137,7 @@
         android:layout_marginRight="80dp"
         android:layout_marginTop="70dp"
         android:background="@drawable/add_true"
+        android:gravity="center"
         android:text="@string/add_ture"
         android:textColor="#FFFFFF"
         android:textSize="45sp" />
@@ -169,7 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/circleImageView2"
-        android:layout_marginLeft="235dp"
+        android:layout_marginLeft="230dp"
         android:layout_marginTop="35dp"
         android:layout_toRightOf="@+id/add_morning"
         android:orientation="horizontal">
@@ -201,7 +203,7 @@
             android:id="@+id/date4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="10dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -209,7 +211,7 @@
             android:id="@+id/date5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="5dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -217,7 +219,7 @@
             android:id="@+id/date6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="5dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -225,7 +227,7 @@
             android:id="@+id/date7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="5dp"
             android:text="9/30"
             android:textSize="35sp" />
 
@@ -313,7 +315,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="9:00-9:20"
+            android:text="9：00-9:15"
             android:textSize="30sp" />
 
         <TextView
@@ -321,7 +323,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="9:40-9:50"
+            android:text="9:30-9:45"
             android:textSize="30sp" />
 
         <TextView
@@ -329,7 +331,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="10:00-10:30"
+            android:text="10:00-10:15"
             android:textSize="30sp" />
 
         <TextView
@@ -337,7 +339,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="10:40-11:30"
+            android:text="10:30-10:45"
             android:textSize="30sp" />
     </LinearLayout>
 

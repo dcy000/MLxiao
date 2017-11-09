@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.constant.ConstantData;
 import com.squareup.picasso.Picasso;
 
@@ -18,10 +19,10 @@ import java.util.List;
  */
 public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
 
-    List<Doctor> mListPat;
+    List<Doctors> mListPat;
     private Context context;
 
-    public DoctorAdapter(List<Doctor> mListGood, Context context) {
+    public DoctorAdapter(List<Doctors> mListGood, Context context) {
         this.mListPat = mListGood;
         this.context = context;
 
@@ -56,7 +57,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
         holder.mContext = context;
         holder.mPosition = position;
         Picasso.with(context)
-                .load(ConstantData.BASE_URL + "/referralProject/" + mListPat.get(position).getCard())
+                .load(ConstantData.BASE_URL + "/referralProject/" + mListPat.get(position).getDocter_photo())
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(context)

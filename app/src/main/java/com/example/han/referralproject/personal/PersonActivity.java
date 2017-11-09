@@ -33,6 +33,7 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
+import com.squareup.picasso.Picasso;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 import java.io.BufferedReader;
@@ -70,6 +71,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     SharedPreferences sharedPreferences;
     public TextView mTextView1;
     public TextView mTextView2;
+    public TextView mTextView3;
 
     public ImageView mImageView1;
     public ImageView mImageView2;
@@ -86,6 +88,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         mImageView3 = (ImageView) findViewById(R.id.iv_pay);
 
         mImageView3.setOnClickListener(this);
+
+        mTextView3 = (TextView) findViewById(R.id.tv_balance);
 
         mImageView1 = (ImageView) findViewById(R.id.icon_back);
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
@@ -107,14 +111,14 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         });
 
 
-        String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
+      /*  String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
 
         if (imageData1 != null) {
             byte[] bytes = Base64.decode(imageData1.getBytes(), 1);
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             mImageView.setImageBitmap(bitmap);
 
-        }
+        }*/
 
 
         findViewById(R.id.btn_record).setOnClickListener(this);
@@ -164,6 +168,15 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onSuccess(UserInfo response) {
                 mTextView.setText(response.getBname());
+                mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
+                Picasso.with(PersonActivity.this)
+                        .load(response.getuser_photo())
+                        .placeholder(R.drawable.avatar_placeholder)
+                        .error(R.drawable.avatar_placeholder)
+                        .tag(this)
+                        .fit()
+                        .into(mImageView);
+
             }
 
         }, new NetworkManager.FailedCallback() {
@@ -178,14 +191,14 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
-                Log.e("=============", response.toString());
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("doctor_id", response.docterid + "");
                 editor.putString("name", response.getDoctername());
                 editor.putString("position", response.getDuty());
                 editor.putString("feature", response.getDepartment());
-                editor.putString("hospital", response.getHosname);
+                editor.putString("hospital", response.getHosname());
                 editor.putString("service_amount", response.getService_amount());
+                editor.putString("docter_photo", response.getDocter_photo());
                 editor.commit();
 
                 mTextView1.setText("签约医生：" + sharedPreferences.getString("name", ""));

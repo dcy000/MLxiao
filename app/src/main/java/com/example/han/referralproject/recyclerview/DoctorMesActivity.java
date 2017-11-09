@@ -21,6 +21,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -44,8 +45,6 @@ public class DoctorMesActivity extends BaseActivity {
     TextView mTextView4;
 
 
-    SharedPreferences sharedPreferences;
-
     public ImageView ImageView1;
     public ImageView ImageView2;
 
@@ -56,7 +55,6 @@ public class DoctorMesActivity extends BaseActivity {
         setContentView(R.layout.activity_doctor_mes);
         //    initToolBar();
         setDisableGlobalListen(true);
-        sharedPreferences = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
 
@@ -70,7 +68,7 @@ public class DoctorMesActivity extends BaseActivity {
         mButton = (Button) findViewById(R.id.qianyue);
 
         Intent intent = getIntent();
-        final Doctor doctor = (Doctor) intent.getSerializableExtra("docMsg");
+        final Doctors doctor = (Doctors) intent.getSerializableExtra("docMsg");
 
 
         ImageView1 = (ImageView) findViewById(R.id.icon_back);
@@ -94,7 +92,7 @@ public class DoctorMesActivity extends BaseActivity {
 
 
         Picasso.with(this)
-                .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getCard())
+                .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getDocter_photo())
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)
@@ -104,7 +102,7 @@ public class DoctorMesActivity extends BaseActivity {
 
         mTextView.setText(doctor.getDoctername());
         mTextView1.setText(doctor.getDuty());
-        mTextView2.setText(doctor.getGetHosname());
+        mTextView2.setText(doctor.getHosnames());
         mTextView3.setText(doctor.getDepartment());
         mTextView4.setText(doctor.getPro());
 
@@ -113,9 +111,6 @@ public class DoctorMesActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("person_image", ConstantData.BASE_URL + "/referralProject/" + doctor.getCard());
-                editor.commit();
 
                 //    show();
                 NetworkApi.bindDoctor(MyApplication.getInstance().userId, doctor.getDocterid(), new NetworkManager.SuccessCallback<String>() {
@@ -220,7 +215,7 @@ public class DoctorMesActivity extends BaseActivity {
             startActivity(intent);
             finish();
 
-          //  mImageView.performClick();
+            //  mImageView.performClick();
         }
     }
 }

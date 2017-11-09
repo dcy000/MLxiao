@@ -433,4 +433,7 @@
     <string name="tiao_zhuan">跳&#160;&#160;过</string>
     <string name="medication_reminder">吃 药 提 醒</string>
 
+    <string name="robot_amount" formatted="false">账户余额：%1$s</string>
+
+
 </resources>

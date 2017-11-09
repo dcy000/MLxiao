@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,9 +14,21 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.google.gson.Gson;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 public class HeadiconActivity extends BaseActivity {
 
@@ -23,28 +36,48 @@ public class HeadiconActivity extends BaseActivity {
     Button mButton;
     Button mButton1;
 
+    private UploadManager uploadManager;
+
+    String imageData1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headicon);
         setDisableGlobalListen(true);
+
+        uploadManager = new UploadManager();
+
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
 
-        mButton = (Button) findViewById(R.id.trues);
-        mButton1 = (Button) findViewById(R.id.cancel);
+        mButton = (Button) findViewById(R.id.cancel);
+        mButton1 = (Button) findViewById(R.id.trues);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
-                startActivity(intent);
-                finish();
+
+                NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
+                    @Override
+                    public void onSuccess(String response) {
+                        getImageUrl(response);
+                    }
+
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+
+
+
+                    }
+                });
+
+
             }
         });
 
 
-        mButton1.setOnClickListener(new View.OnClickListener() {
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterVideoActivity.class);
@@ -54,7 +87,7 @@ public class HeadiconActivity extends BaseActivity {
         });
 
 
-        String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
+        imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
 
         if (imageData1 != null) {
             byte[] bytes = Base64.decode(imageData1.getBytes(), 1);
@@ -63,6 +96,51 @@ public class HeadiconActivity extends BaseActivity {
         }
 
         speak(R.string.head_icon);
+
+    }
+
+
+    public void getImageUrl(String token) {
+        byte[] data = Base64.decode(imageData1.getBytes(), 1);
+        Date date = new Date();
+        SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
+        StringBuilder str = new StringBuilder();//定义变长字符串
+        Random random = new Random();
+        for (int i = 0; i < 8; i++) {
+            str.append(random.nextInt(10));
+        }
+        //将字符串转换为数字并输出
+        String key = simple.format(date) + str + ".jpg";
+
+        uploadManager.put(data, key, token, new UpCompletionHandler() {
+            @Override
+            public void complete(String key, ResponseInfo info, JSONObject res) {
+                if (info.isOK()) {
+
+                    String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
+
+                    NetworkApi.return_imageUrl(imageUrl, 100001 + "", new NetworkManager.SuccessCallback<String>() {
+                        @Override
+                        public void onSuccess(String response) {
+                            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+
+
+                        }
+                    });
+
+
+                } else {
+
+                }
+            }
+        }, null);
 
     }
 

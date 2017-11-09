@@ -21,18 +21,23 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
+import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
 
 public class AddAppoActivity extends BaseActivity implements View.OnClickListener {
@@ -131,12 +136,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     public TextView mTextView13;
     public TextView mTextView14;
 
-    SharedPreferences sharedPreferences;
     SharedPreferences sharedPreferences1;
-    SharedPreferences sharedPreferences2;
-    SharedPreferences sharedPreferences3;
-
-    SharedPreferences sharedPreferences4;
 
 
     SimpleDateFormat simple;
@@ -161,7 +161,6 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     Date date5;
     Date date6;
 
-    Button mButtons;
     NDialog1 dialog;
     NDialog2 dialog1;
 
@@ -174,7 +173,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     SharedPreferences sharedPreference;
 
 
-    public void showNormal(final SharedPreferences sharedPreferences, String str1, String str2, String str3) {
+    public void showNormal(String str1, String str2, String str3) {
 
         String[] str = str1.split("/");
         String[] strs = str3.split("-");
@@ -199,9 +198,10 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(int which) {
                         if (which == 1) {
 
-                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, sharedPreference.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue(start_time, end_time, "100002", "10002", new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
+                                    //sharedPreference.getString("doctor_id", "")
 
                                     //   SharePerfence(sharedPreferences, str1, str2, str3);
 
@@ -261,6 +261,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
     SimpleDateFormat years;
 
+    List<AlreadyYuyue> list = new ArrayList<AlreadyYuyue>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -294,27 +296,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         });
 
 
-        sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        sharedPreferences2 = getSharedPreferences(ConstantData.SHARED_FILE_NAME2, Context.MODE_PRIVATE);
-        sharedPreferences3 = getSharedPreferences(ConstantData.SHARED_FILE_NAME3, Context.MODE_PRIVATE);
-
-        sharedPreferences4 = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
 
 
-        mButtons = (Button) findViewById(R.id.yuyue_true);
-
-        mButtons.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dialog = new NDialog1(AddAppoActivity.this);
-
-                //     speak(String.format(getString(R.string.dialog), sharedPreferences1.getString("name", "")));
-
-                //showNormal(String.format(getString(R.string.dialog), sharedPreferences1.getString("name", "")));
-            }
-        });
 
         mButton = (Button) findViewById(R.id.add_afternoon);
         mButton1 = (Button) findViewById(R.id.add_morning);
@@ -573,10 +557,10 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 if (v.isSelected()) {
                     v.setSelected(false);
                 } else {
-                    mTextView1.setText("14:30-15:30");
-                    mTextView2.setText("15:50-16:20");
-                    mTextView3.setText("16:40-17:30");
-                    mTextView4.setText("17:50-18:30");
+                    mTextView1.setText("14:00-14:15");
+                    mTextView2.setText("14:30-14:45");
+                    mTextView3.setText("15:00-15:15");
+                    mTextView4.setText("15:30-15:45");
 
                     mLinearLayout1.setVisibility(View.GONE);
                     mLinearLayout2.setVisibility(View.GONE);
@@ -613,15 +597,373 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     mLinearLayout8.setVisibility(View.GONE);
 
 
-                    mTextView1.setText("9:00-9:20");
-                    mTextView2.setText("9:40-9:50");
-                    mTextView3.setText("10:00-10:30");
-                    mTextView4.setText("10:40-11:30");
+                    mTextView1.setText("9:00-9:15");
+                    mTextView2.setText("9:30-9:45");
+                    mTextView3.setText("10:00-10:15");
+                    mTextView4.setText("10:30-10:45");
                     mButton.setSelected(false);
                     v.setSelected(true);
                 }
             }
         });
+
+
+        NetworkApi.YuYue_already("10002", new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
+            @Override
+            public void onSuccess(ArrayList<AlreadyYuyue> response) {
+
+                list = response;
+
+
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:00:00"))) {
+                        mButton2.setEnabled(false);
+                        mButton2.setSelected(true);
+                        mButton2.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:00:00"))) {
+                        mButton3.setEnabled(false);
+                        mButton3.setSelected(true);
+                        mButton3.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:00:00"))) {
+                        mButton4.setEnabled(false);
+                        mButton4.setSelected(true);
+                        mButton4.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:00:00"))) {
+                        mButton5.setEnabled(false);
+                        mButton5.setSelected(true);
+                        mButton5.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:00:00"))) {
+                        mButton6.setEnabled(false);
+                        mButton6.setSelected(true);
+                        mButton6.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:00:00"))) {
+                        mButton7.setEnabled(false);
+                        mButton7.setSelected(true);
+                        mButton7.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:00:00"))) {
+                        mButton8.setEnabled(false);
+                        mButton8.setSelected(true);
+                        mButton8.setText("已预约");
+                    }
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:30:00"))) {
+                        mButton9.setEnabled(false);
+                        mButton9.setSelected(true);
+                        mButton9.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:30:00"))) {
+                        mButton10.setEnabled(false);
+                        mButton10.setSelected(true);
+                        mButton10.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:30:00"))) {
+                        mButton11.setEnabled(false);
+                        mButton11.setSelected(true);
+                        mButton11.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:30:00"))) {
+                        mButton12.setEnabled(false);
+                        mButton12.setSelected(true);
+                        mButton12.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:30:00"))) {
+                        mButton13.setEnabled(false);
+                        mButton13.setSelected(true);
+                        mButton13.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:30:00"))) {
+                        mButton14.setEnabled(false);
+                        mButton14.setSelected(true);
+                        mButton14.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:30:00"))) {
+                        mButton15.setEnabled(false);
+                        mButton15.setSelected(true);
+                        mButton15.setText("已预约");
+                    }
+
+
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:00:00"))) {
+                        mButton16.setEnabled(false);
+                        mButton16.setSelected(true);
+                        mButton16.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:00:00"))) {
+                        mButton17.setEnabled(false);
+                        mButton17.setSelected(true);
+                        mButton17.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:00:00"))) {
+                        mButton18.setEnabled(false);
+                        mButton18.setSelected(true);
+                        mButton18.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:00:00"))) {
+                        mButton19.setEnabled(false);
+                        mButton19.setSelected(true);
+                        mButton19.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:00:00"))) {
+                        mButton20.setEnabled(false);
+                        mButton20.setSelected(true);
+                        mButton20.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:00:00"))) {
+                        mButton21.setEnabled(false);
+                        mButton21.setSelected(true);
+                        mButton21.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:00:00"))) {
+                        mButton22.setEnabled(false);
+                        mButton22.setSelected(true);
+                        mButton22.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:30:00"))) {
+                        mButton23.setEnabled(false);
+                        mButton23.setSelected(true);
+                        mButton23.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:30:00"))) {
+                        mButton24.setEnabled(false);
+                        mButton24.setSelected(true);
+                        mButton24.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:30:00"))) {
+                        mButton25.setEnabled(false);
+                        mButton25.setSelected(true);
+                        mButton25.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:30:00"))) {
+                        mButton26.setEnabled(false);
+                        mButton26.setSelected(true);
+                        mButton26.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:30:00"))) {
+                        mButton27.setEnabled(false);
+                        mButton27.setSelected(true);
+                        mButton27.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:30:00"))) {
+                        mButton28.setEnabled(false);
+                        mButton28.setSelected(true);
+                        mButton28.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:30:00"))) {
+                        mButton29.setEnabled(false);
+                        mButton29.setSelected(true);
+                        mButton29.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "14:00:00"))) {
+                        mButton30.setEnabled(false);
+                        mButton30.setSelected(true);
+                        mButton30.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "14:00:00"))) {
+                        mButton31.setEnabled(false);
+                        mButton31.setSelected(true);
+                        mButton31.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "14:00:00"))) {
+                        mButton32.setEnabled(false);
+                        mButton32.setSelected(true);
+                        mButton32.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "14:00:00"))) {
+                        mButton33.setEnabled(false);
+                        mButton33.setSelected(true);
+                        mButton33.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "14:00:00"))) {
+                        mButton34.setEnabled(false);
+                        mButton34.setSelected(true);
+                        mButton34.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "14:00:00"))) {
+                        mButton35.setEnabled(false);
+                        mButton35.setSelected(true);
+                        mButton35.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "14:00:00"))) {
+                        mButton36.setEnabled(false);
+                        mButton36.setSelected(true);
+                        mButton36.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", " 14:30:00"))) {
+                        mButton37.setEnabled(false);
+                        mButton37.setSelected(true);
+                        mButton37.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "14:30:00"))) {
+                        mButton38.setEnabled(false);
+                        mButton38.setSelected(true);
+                        mButton38.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "14:30:00"))) {
+                        mButton39.setEnabled(false);
+                        mButton39.setSelected(true);
+                        mButton39.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "14:30:00"))) {
+                        mButton40.setEnabled(false);
+                        mButton40.setSelected(true);
+                        mButton40.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "14:30:00"))) {
+                        mButton41.setEnabled(false);
+                        mButton41.setSelected(true);
+                        mButton41.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "14:30:00"))) {
+                        mButton42.setEnabled(false);
+                        mButton42.setSelected(true);
+                        mButton42.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "14:30:00"))) {
+                        mButton43.setEnabled(false);
+                        mButton43.setSelected(true);
+                        mButton43.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:00:00"))) {
+                        mButton44.setEnabled(false);
+                        mButton44.setSelected(true);
+                        mButton44.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:00:00"))) {
+                        mButton45.setEnabled(false);
+                        mButton45.setSelected(true);
+                        mButton45.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:00:00"))) {
+                        mButton46.setEnabled(false);
+                        mButton46.setSelected(true);
+                        mButton46.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:00:00"))) {
+                        mButton47.setEnabled(false);
+                        mButton47.setSelected(true);
+                        mButton47.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:00:00"))) {
+                        mButton48.setEnabled(false);
+                        mButton48.setSelected(true);
+                        mButton48.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:00:00"))) {
+                        mButton49.setEnabled(false);
+                        mButton49.setSelected(true);
+                        mButton49.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:00:00"))) {
+                        mButton50.setEnabled(false);
+                        mButton50.setSelected(true);
+                        mButton50.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:30:00"))) {
+                        mButton51.setEnabled(false);
+                        mButton51.setSelected(true);
+                        mButton51.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:30:00"))) {
+                        mButton52.setEnabled(false);
+                        mButton52.setSelected(true);
+                        mButton52.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:30:00"))) {
+                        mButton53.setEnabled(false);
+                        mButton53.setSelected(true);
+                        mButton53.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:30:00"))) {
+                        mButton54.setEnabled(false);
+                        mButton54.setSelected(true);
+                        mButton54.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:30:00"))) {
+                        mButton55.setEnabled(false);
+                        mButton55.setSelected(true);
+                        mButton55.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:30:00"))) {
+                        mButton56.setEnabled(false);
+                        mButton56.setSelected(true);
+                        mButton56.setText("已预约");
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:30:00"))) {
+                        mButton57.setEnabled(false);
+                        mButton57.setSelected(true);
+                        mButton57.setText("已预约");
+                    }
+
+                }
+
+                // sharedPreferences1.getString("doctor_id", "")
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+
 
         mCircleImageView = (ImageView) findViewById(R.id.circleImageView2);
         TextView1 = (TextView) findViewById(R.id.doctor_name);
@@ -629,9 +971,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         TextView3 = (TextView) findViewById(R.id.doctor_feature);
 
 
-        if (!"".equals(sharedPreferences4.getString("person_image", ""))) {
+        if (!"".equals(sharedPreferences1.getString("docter_photo", ""))) {
             Picasso.with(this)
-                    .load(sharedPreferences4.getString("person_image", ""))
+                    .load(sharedPreferences1.getString("docter_photo", ""))
                     .placeholder(R.drawable.avatar_placeholder)
                     .error(R.drawable.avatar_placeholder)
                     .tag(this)
@@ -651,15 +993,27 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    public void SharePerfence(SharedPreferences sharedPreferences, String month, String day, String time) {
+    public String dateToStamp(String s) throws ParseException {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = simpleDateFormat.parse(s);
+        long ts = date.getTime();
+        res = String.valueOf(ts);
+        return res;
+    }
 
-        SharedPreferences.Editor editor7 = sharedPreferences.edit();
+    public String changeTime(String tim, String tims) {
 
-        editor7.putString("month", month);
-        editor7.putString("day", day);
-        editor7.putString("time", time);
-        editor7.commit();
+        String time = null;
+        String[] str1 = tim.split("/");
+        String string1 = years.format(date) + "-" + str1[0] + "-" + str1[1] + " " + tims;
+        try {
+            time = dateToStamp(string1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+        return time;
     }
 
 
@@ -671,7 +1025,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     mButton2.setText("未预约");
                     view.setSelected(false);
                 } else {
-                    showNormal(sharedPreferences3, simple.format(date), "上午", "09:00-09:20");
+                    showNormal(simple.format(date), "上午", "09:00:00-09:15:00");
 
                     view.setSelected(true);
                     mButton2.setText("已预约");
@@ -688,7 +1042,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(sharedPreferences3, formatter.format(date1), "上午", "09:00-09:20");
+                    showNormal(formatter.format(date1), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -706,7 +1060,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatte2.format(date2), "上午", "09:00-09:20");
+                    showNormal(formatte2.format(date2), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -724,7 +1078,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter4.format(date3), "上午", "09:00-09:20");
+                    showNormal(formatter4.format(date3), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -741,7 +1095,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(sharedPreferences3, formatter6.format(date4), "上午", "09:00-09:20");
+                    showNormal(formatter6.format(date4), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -758,7 +1112,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter8.format(date5), "上午", "09:00-09:20");
+                    showNormal(formatter8.format(date5), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -777,7 +1131,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter10.format(date6), "上午", "09:00-09:20");
+                    showNormal(formatter10.format(date6), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -794,7 +1148,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, simple.format(date), "上午", "09:40-09:50");
+                    showNormal(simple.format(date), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -812,7 +1166,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter.format(date1), "上午", "09:40-09:50");
+                    showNormal(formatter.format(date1), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -830,7 +1184,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatte2.format(date2), "上午", "09:40-09:50");
+                    showNormal(formatte2.format(date2), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -848,7 +1202,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter4.format(date3), "上午", "09:40-09:50");
+                    showNormal(formatter4.format(date3), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -866,7 +1220,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter6.format(date4), "上午", "09:40-09:50");
+                    showNormal(formatter6.format(date4), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -883,7 +1237,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter8.format(date5), "上午", "09:40-09:50");
+                    showNormal(formatter8.format(date5), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -901,7 +1255,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter10.format(date6), "上午", "09:40-09:50");
+                    showNormal(formatter10.format(date6), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -919,7 +1273,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, simple.format(date), "上午", "10:00-10:30");
+                    showNormal(simple.format(date), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -937,7 +1291,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter.format(date1), "上午", "10:00-10:30");
+                    showNormal(formatter.format(date1), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -954,7 +1308,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatte2.format(date2), "上午", "10:00-10:30");
+                    showNormal(formatte2.format(date2), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -972,7 +1326,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter4.format(date3), "上午", "10:00-10:30");
+                    showNormal(formatter4.format(date3), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -990,7 +1344,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter6.format(date4), "上午", "10:00-10:30");
+                    showNormal(formatter6.format(date4), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1008,7 +1362,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter8.format(date5), "上午", "10:00-10:30");
+                    showNormal(formatter8.format(date5), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1026,7 +1380,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter10.format(date6), "上午", "10:00-10:30");
+                    showNormal(formatter10.format(date6), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1043,7 +1397,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, simple.format(date), "上午", "10:40-11:30");
+                    showNormal(simple.format(date), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1059,7 +1413,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(sharedPreferences3, formatter.format(date1), "上午", "10:40-11:30");
+                    showNormal(formatter.format(date1), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1076,7 +1430,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatte2.format(date2), "上午", "10:40-11:30");
+                    showNormal(formatte2.format(date2), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1093,7 +1447,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter4.format(date3), "上午", "10:40-11:30");
+                    showNormal(formatter4.format(date3), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1110,7 +1464,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter6.format(date4), "上午", "10:40-11:30");
+                    showNormal(formatter6.format(date4), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1127,7 +1481,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter8.format(date5), "上午", "10:40-11:30");
+                    showNormal(formatter8.format(date5), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1144,7 +1498,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter10.format(date6), "上午", "10:40-11:30");
+                    showNormal(formatter10.format(date6), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1160,7 +1514,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, simple.format(date), "下午", "14:30-15:30");
+                    showNormal(simple.format(date), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1175,7 +1529,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter.format(date1), "下午", "14:30-15:30");
+                    showNormal(formatter.format(date1), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1190,7 +1544,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatte2.format(date2), "下午", "14:30-15:30");
+                    showNormal(formatte2.format(date2), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1206,7 +1560,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter4.format(date3), "下午", "14:30-15:30");
+                    showNormal(formatter4.format(date3), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1222,7 +1576,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter6.format(date4), "下午", "14:30-15:30");
+                    showNormal(formatter6.format(date4), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1237,7 +1591,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter8.format(date5), "下午", "14:30-15:30");
+                    showNormal(formatter8.format(date5), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1252,7 +1606,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter10.format(date6), "下午", "14:30-15:30");
+                    showNormal(formatter10.format(date6), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1266,7 +1620,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(sharedPreferences3, simple.format(date), "下午", "15:50-16:20");
+                    showNormal(simple.format(date), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1280,7 +1634,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(sharedPreferences3, formatter.format(date1), "下午", "15:50-16:20");
+                    showNormal(formatter.format(date1), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1295,7 +1649,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatte2.format(date2), "下午", "15:50-16:20");
+                    showNormal(formatte2.format(date2), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1310,7 +1664,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter4.format(date3), "下午", "15:50-16:20");
+                    showNormal(formatter4.format(date3), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1325,7 +1679,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter6.format(date4), "下午", "15:50-16:20");
+                    showNormal(formatter6.format(date4), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1340,7 +1694,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter8.format(date5), "下午", "15:50-16:20");
+                    showNormal(formatter8.format(date5), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1355,7 +1709,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter10.format(date6), "下午", "15:50-16:20");
+                    showNormal(formatter10.format(date6), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1370,7 +1724,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, simple.format(date), "下午", "16:40-17:30");
+                    showNormal(simple.format(date), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1385,7 +1739,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter.format(date1), "下午", "16:40-17:30");
+                    showNormal(formatter.format(date1), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1400,7 +1754,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatte2.format(date2), "下午", "16:40-17:30");
+                    showNormal(formatte2.format(date2), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1415,7 +1769,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter4.format(date3), "下午", "16:40-17:30");
+                    showNormal(formatter4.format(date3), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1430,7 +1784,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter6.format(date4), "下午", "16:40-17:30");
+                    showNormal(formatter6.format(date4), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1445,7 +1799,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter8.format(date5), "下午", "16:40-17:30");
+                    showNormal(formatter8.format(date5), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1460,7 +1814,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter10.format(date6), "下午", "16:40-17:30");
+                    showNormal(formatter10.format(date6), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1475,7 +1829,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, simple.format(date), "下午", "17:50-18；30");
+                    showNormal(simple.format(date), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1490,7 +1844,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter.format(date1), "下午", "17:50-18；30");
+                    showNormal(formatter.format(date1), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1505,7 +1859,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatte2.format(date2), "下午", "17:50-18；30");
+                    showNormal(formatte2.format(date2), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1520,7 +1874,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter4.format(date3), "下午", "17:50-18；30");
+                    showNormal(formatter4.format(date3), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1535,7 +1889,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter6.format(date4), "下午", "17:50-18；30");
+                    showNormal(formatter6.format(date4), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1550,7 +1904,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter8.format(date5), "下午", "17:50-18；30");
+                    showNormal(formatter8.format(date5), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1565,7 +1919,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(sharedPreferences3, formatter10.format(date6), "下午", "17:50-18；30");
+                    showNormal(formatter10.format(date6), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
