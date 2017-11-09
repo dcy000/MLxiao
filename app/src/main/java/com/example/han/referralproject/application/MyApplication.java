@@ -4,16 +4,20 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.ForegroundObserver;
 import com.example.han.referralproject.music.HttpInterceptor;
 import com.example.han.referralproject.music.Preferences;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
@@ -24,6 +28,7 @@ import com.medlink.danbogh.call.EMAccountHelper;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.UiUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
@@ -43,8 +48,8 @@ public class MyApplication extends Application {
 
     public String emDoctorId = "gcml_doctor_18940866148";
 
-    public String emBrId() {
-        return "gcml_br_" + "12345678912";
+    public String nimUserId() {
+        return "user_" + userId;
     }
 
     @Override
@@ -56,6 +61,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        UiUtils.init(this, 1980, 1200);
+        UiUtils.compat(this, 1980);
         T.init(this);
         LitePal.initialize(this);
         mInstance = this;
@@ -80,6 +87,11 @@ public class MyApplication extends Application {
 
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        UiUtils.compat(this, 1980);
+    }
 
     private void initOkHttpUtils() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -167,7 +179,10 @@ public class MyApplication extends Application {
     }
 
     private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);
-    {mBgThread.start();}
+
+    {
+        mBgThread.start();
+    }
 
     private Handler mBgHandler;
 

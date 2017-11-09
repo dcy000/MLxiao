@@ -155,18 +155,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
                 //DataSupport.deleteAll(AlarmModel.class);
-                for (ClueInfoBean itemBean: response){
+                for (ClueInfoBean itemBean : response) {
                     String[] timeString = itemBean.cluetime.split(":");
                     boolean isSetted = false;
-                    for (AlarmModel itemModel : models){
-                        if (itemModel.getHourOfDay() == Integer.valueOf(timeString[0]) &&
-                                itemModel.getMinute() == Integer.valueOf(timeString[1])) {
+                    for (AlarmModel itemModel : models) {
+                        if (itemModel.getHourOfDay() == Integer.valueOf(timeString[0])
+                                && itemModel.getMinute() == Integer.valueOf(timeString[1])
+                                && itemModel.getContent() != null
+                                && itemModel.getContent().equals(itemBean.medicine)) {
                             isSetted = true;
                             break;
                         }
                     }
-                    if (!isSetted){
-                        AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]));
+                    if (!isSetted) {
+                        AlarmHelper.setupAlarm(mContext,
+                                Integer.valueOf(timeString[0]),
+                                Integer.valueOf(timeString[1]),
+                                itemBean.medicine);
                     }
                 }
             }

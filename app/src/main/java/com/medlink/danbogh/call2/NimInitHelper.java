@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.medlink.danbogh.utils.Utils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -59,7 +60,8 @@ public class NimInitHelper {
 //            br_12345678913
 //            br_12345678914
 //            NimCallActivity.launch(this, "br_12345678912");
-            NimAccountHelper.getInstance().login("br_12345678912", "123456",null);
+            String nimUserId = MyApplication.getInstance().nimUserId();
+            NimAccountHelper.getInstance().login(nimUserId, "123456",null);
         }
     }
 

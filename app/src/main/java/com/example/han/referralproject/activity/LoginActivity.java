@@ -19,9 +19,11 @@ import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.healthdetection.SelfCheckReportActivity;
+import com.medlink.danbogh.location.LocationActivity;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener{
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private EditText mAccountTv;
     private EditText mPwdTv;
     private CheckBox mCheckBox;
@@ -40,17 +42,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_login:
-                if (TextUtils.isEmpty(mAccountTv.getText())){
+                if (TextUtils.isEmpty(mAccountTv.getText())) {
                     Toast.makeText(mContext, R.string.empty_account, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(mPwdTv.getText())){
+                if (TextUtils.isEmpty(mPwdTv.getText())) {
                     Toast.makeText(mContext, R.string.empty_pwd, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (!mCheckBox.isChecked()){
+                if (!mCheckBox.isChecked()) {
                     Toast.makeText(mContext, R.string.agree_sure, Toast.LENGTH_SHORT).show();
                     return;
                 }

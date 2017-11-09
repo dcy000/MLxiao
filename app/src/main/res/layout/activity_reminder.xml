@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_alarm_reminder_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_bg"
+    tools:context="com.medlink.danbogh.alarm.ReminderActivity">
+
+    <TextView
+        android:id="@+id/tv_alarm_reminder_content"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:maxLines="2"
+        android:textColor="#8c8c8c"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_reminder_ll_toolbar"
+        tools:text="主人，该吃药啦，一次一 粒，用 温 水 冲 服"/>
+
+    <ImageView
+        android:id="@+id/iv_alarm_medical"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="35dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/medical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_alarm_reminder_content"/>
+
+    <TextView
+        android:id="@+id/tv_btn_confirm"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_btn_yellow"
+        android:gravity="center"
+        android:text="已经服用"
+        android:textColor="@color/text_color_btn_yellow"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/alarm_reminder_ll_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/medication_reminder"
+            android:textColor="@android:color/white"
+            android:textSize="35sp"/>
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

@@ -144,10 +144,7 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-
-
         </activity>
-
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -164,8 +161,6 @@
         <activity
             android:name=".temperature.TemperatureActivity"
             android:screenOrientation="landscape">
-
-
         </activity>
         <activity
             android:name=".activity.LoginActivity"
@@ -195,16 +190,22 @@
             android:name=".xindian.ReceiveService"
             android:enabled="true"></service>
 
+        <activity android:name=".xindian.ConnectActivity"></activity>
+
+            android:screenOrientation="landscape"/>
+
+        <service
+            android:name=".xindian.ReceiveService"
+            android:enabled="true"/>
+
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".xindian.ConnectActivity"></activity>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
             android:screenOrientation="landscape">
-
-
         </activity>
         <activity
             android:name=".PlayVideoActivity"
@@ -212,21 +213,15 @@
         <activity
             android:name=".activity.DetectActivity"
             android:screenOrientation="landscape">
-
         </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape">
-
-
         </activity>
         <activity
             android:name=".xueyang.XueyangActivity"
             android:screenOrientation="landscape">
-
-
         </activity>
-
 
         <service
             android:name=".bluetooth.BluetoothLeService"
@@ -234,7 +229,8 @@
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape" />
@@ -244,9 +240,11 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-
-
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -284,10 +282,8 @@
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
-        <activity android:name=".personal.PersonActivity">
+        <activity android:name=".personal.PersonActivity"/>
 
-
-        </activity>
         <activity
             android:name="com.medlink.danbogh.call.VideoCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -310,7 +306,7 @@
         <activity android:name="com.medlink.danbogh.alarm.AlarmActivity" />
         <activity
             android:name=".activity.SymptomAnalyseActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape" />
@@ -345,14 +341,8 @@
         <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity">
-
-
-
-
         </activity>
         <activity android:name=".recyclerview.AddAppoActivity">
-
-
         </activity>
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
@@ -379,8 +369,6 @@
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity" />
         <activity android:name=".recharge.PayActivity">
-
-
         </activity>
         <activity android:name=".recharge.PayInfoActivity"></activity>
         <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity" />
@@ -429,7 +417,33 @@
         <activity
             android:name="com.medlink.danbogh.call2.NimCallActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+        </activity>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="UfYYXHyPGrWlWmRnGVHBQoG2gk8bdqvX">
+        </meta-data>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+
+        <activity android:name="com.medlink.danbogh.alarm.ReminderActivity">
+        </activity>
+        <activity
+            android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name="com.medlink.danbogh.location.LocationActivity">
+        </activity>
+        <activity android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity">
+        </activity>
+        <activity android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity">
+        </activity>
+>>>>>>> 904b49d884c10f0c14ae658b10fb8fc9c4e95a1e
     </application>
 
 </manifest>

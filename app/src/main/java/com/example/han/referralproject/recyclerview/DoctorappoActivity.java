@@ -133,6 +133,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         NimAccountHelper.getInstance().login("br_12345678912", "123456", null);
+        String nimUserId = MyApplication.getInstance().nimUserId();
+        NimAccountHelper.getInstance().login(nimUserId, "123456",null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
@@ -161,6 +163,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         });
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+        doctorId = sharedPreferences1.getString("doctor_id", "");
 
         mTextView = (TextView) findViewById(R.id.yuyue_time);
         mTextView1 = (TextView) findViewById(R.id.yuyue_time1);
@@ -201,7 +204,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
+                NimCallActivity.launch(DoctorappoActivity.this, "doctor_" + doctorId);
                 finish();
             }
         });
@@ -260,13 +263,14 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     List<YuYueInfo> list = new ArrayList<YuYueInfo>();
 
+    private String doctorId;
 
     @Override
     protected void onStart() {
         super.onStart();
 
 
-        NetworkApi.YuYue_info("100002", "10002", new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
+        NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
 

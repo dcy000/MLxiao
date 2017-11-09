@@ -74,7 +74,7 @@
     <string name="tab_disease_one">疾病综述</string>
     <string name="tab_disease_two">饮食建议</string>
     <string name="tab_disease_three"></string>
-    
+
     <string name="add_volume">调大声音</string>
     <string name="reduce_volume">调小声音</string>
     <string name="max_volume">当前已经是最大声音了</string>
@@ -431,6 +431,7 @@
 
     <string name="qianyue">签&#160;&#160;约</string>
     <string name="tiao_zhuan">跳&#160;&#160;过</string>
+    <string name="medication_reminder">吃 药 提 醒</string>
 
     <string name="robot_amount" formatted="false">账户余额：%1$s</string>
 
