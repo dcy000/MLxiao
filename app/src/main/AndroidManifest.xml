@@ -222,7 +222,8 @@
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape"/>
@@ -244,6 +245,10 @@
         <activity
             android:name=".Test_mainActivity"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"

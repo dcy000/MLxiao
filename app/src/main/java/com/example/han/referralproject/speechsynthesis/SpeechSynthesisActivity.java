@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -166,8 +167,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
-        mRelativeLayout.setBackgroundResource(R.drawable.conversation_bg);
-
+        mRelativeLayout.setBackgroundResource(R.drawable.face_anim);
+        AnimationDrawable anim = (AnimationDrawable) mRelativeLayout.getBackground();
+        anim.start();
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         mIat = SpeechRecognizer.createRecognizer(this, mInitListener);
