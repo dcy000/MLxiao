@@ -33,6 +33,7 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -247,7 +248,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_record:
-                startActivity(new Intent(this, RecordActivity.class));
+                startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
             case R.id.btn_logout:
                 LocalShared.getInstance(this).loginOut();
