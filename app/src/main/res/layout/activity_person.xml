@@ -85,8 +85,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:clickable="true"
-        android:visibility="gone"
-        android:src="@drawable/icon_home" />
+        android:src="@drawable/icon_home"
+        android:visibility="gone" />
 
 
     <RelativeLayout
@@ -126,6 +126,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="72dp"
             android:background="@drawable/health_document"
+            android:gravity="center"
             android:text="健康档案"
             android:textColor="#fff"
             android:textSize="30sp" />
@@ -241,10 +242,11 @@
         android:text="@string/logout"
         android:textColor="#abcadf"
         android:textSize="25sp" />
+
     <ImageView
         android:id="@+id/view_wifi"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/icon_wifi"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:src="@drawable/icon_wifi" />
 </RelativeLayout>

@@ -2,7 +2,7 @@ package com.example.han.referralproject.bean;
 
 import java.io.Serializable;
 
-public class Doctor implements Serializable {
+public class Doctors implements Serializable {
 
     public int docterid;
     public String doctername;
@@ -24,17 +24,17 @@ public class Doctor implements Serializable {
     public String apply_amount;
     public String service_amount;
     public String docter_photo;
-    public String rankname;
+    public String hosnames;
 
-    public Doctor() {
+    public Doctors() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 
-    public Doctor(int docterid, String doctername, String tel, String hosname, String add, String duty, String department,
-                  String documents, String card, int rankId, int state, String priority, String amount, String gat,
-                  String pro, String pend, String evaluation, String apply_amount, String service_amount, String docter_photo, String rankname) {
+    public Doctors(int docterid, String doctername, String tel, String hosname, String add, String duty, String department,
+                   String documents, String card, int rankId, int state, String priority, String amount, String gat,
+                   String pro, String pend, String evaluation, String apply_amount, String service_amount, String docter_photo, String hosnames) {
         super();
         this.docterid = docterid;
         this.doctername = doctername;
@@ -56,7 +56,7 @@ public class Doctor implements Serializable {
         this.apply_amount = apply_amount;
         this.service_amount = service_amount;
         this.docter_photo = docter_photo;
-        this.rankname = rankname;
+        this.hosnames = hosnames;
     }
 
 
@@ -258,14 +258,18 @@ public class Doctor implements Serializable {
         this.docter_photo = docter_photo;
     }
 
-    public String getrankname() {
-        return rankname;
+
+
+    public String getHosnames() {
+        return hosnames;
     }
 
 
-    public void setankname(String rankname) {
-        this.rankname = rankname;
+    public void setHosnames(String hosnames) {
+        this.hosnames = hosnames;
     }
+
+
 
 
     @Override
@@ -275,7 +279,7 @@ public class Doctor implements Serializable {
                 + ", card=" + card + ", rankId=" + rankId + ", state=" + state + ", priority=" + priority + ", amount="
                 + amount + ", gat=" + gat + ", pro=" + pro + ", pend=" + pend + ", evaluation=" + evaluation
                 + ", apply_amount=" + apply_amount + ", service_amount=" + service_amount
-                + ", docter_photo=" + docter_photo + ", rankname=" + rankname + "]";
+                + ", docter_photo=" + docter_photo + ", hosnames=" + hosnames + "]";
     }
 
 

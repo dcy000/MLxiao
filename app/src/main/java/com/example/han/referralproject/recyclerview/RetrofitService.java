@@ -2,6 +2,7 @@ package com.example.han.referralproject.recyclerview;
 
 
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.Doctors;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface RetrofitService {
     Call<List<String>> GetInfo(@Path("link") String link);
 
     @GET("/referralProject/{link}")
-    Call<List<Doctor>> LoardMore(@Path("link") String link, @Query("limit") int limit);
+    Call<List<Doctors>> LoardMore(@Path("link") String link, @Query("limit") int limit);
 
 
     @GET("/referralProject/{link}")
@@ -24,7 +25,7 @@ public interface RetrofitService {
 
 
     @GET("/referralProject/{link}")
-    Call<List<Doctor>> ShowDocMsg(@Path("link") String link, @Query("position") int position);
+    Call<List<Doctors>> ShowDocMsg(@Path("link") String link, @Query("position") int position);
 
 
 }

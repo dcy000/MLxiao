@@ -43,7 +43,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     SharedPreferences sharedPreferences1;
 
-    SharedPreferences sharedPreferences4;
 
 
     public TextView mTextView;
@@ -133,6 +132,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        NimAccountHelper.getInstance().login("br_12345678912", "123456", null);
         String nimUserId = MyApplication.getInstance().nimUserId();
         NimAccountHelper.getInstance().login(nimUserId, "123456",null);
         super.onCreate(savedInstanceState);
@@ -163,7 +163,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         });
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        sharedPreferences4 = getSharedPreferences(ConstantData.PERSON_IMAGE, Context.MODE_PRIVATE);
         doctorId = sharedPreferences1.getString("doctor_id", "");
 
         mTextView = (TextView) findViewById(R.id.yuyue_time);
@@ -187,9 +186,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
 
-        if (!TextUtils.isEmpty(sharedPreferences4.getString("person_image", ""))){
+        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
             Picasso.with(this)
-                    .load(sharedPreferences4.getString("person_image", ""))
+                    .load(sharedPreferences1.getString("docter_photo", ""))
                     .placeholder(R.drawable.avatar_placeholder)
                     .error(R.drawable.avatar_placeholder)
                     .tag(this)
@@ -269,10 +268,14 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onStart() {
         super.onStart();
+
+
         NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
 
+                // MyApplication.getInstance().userId
+                // sharedPreferences1.getString("doctor_id", "")
                 list = response;
 
 

@@ -1,19 +1,25 @@
 package com.example.han.referralproject.recyclerview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
+import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.imageview.CircleImageView;
+import com.squareup.picasso.Picasso;
 
 public class AppraiseActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,11 +44,23 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
     public ImageView ImageView1;
     public ImageView ImageView2;
 
+    public TextView mTextView1;
+    public TextView mTextView2;
+    public TextView mTextView3;
+    public TextView mTextView4;
+
+    SharedPreferences sharedPreferences1;
+
+    CircleImageView mCircleImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appraise);
 
+        sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+
+        mCircleImageView = (CircleImageView) findViewById(R.id.circleImageView1);
         mImageView1 = (ImageView) findViewById(R.id.star1);
         mImageView2 = (ImageView) findViewById(R.id.star2);
         mImageView3 = (ImageView) findViewById(R.id.star3);
@@ -56,6 +74,12 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
         mButton4 = (Button) findViewById(R.id.button4);
         mButton5 = (Button) findViewById(R.id.button5);
         mButton6 = (Button) findViewById(R.id.button6);
+
+        mTextView1 = (TextView) findViewById(R.id.doctor_name);
+        mTextView2 = (TextView) findViewById(R.id.doctor_position);
+        mTextView3 = (TextView) findViewById(R.id.doctor_feature);
+        mTextView4 = (TextView) findViewById(R.id.pay_standard);
+
 
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
@@ -93,6 +117,20 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+        mTextView4.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
+        mTextView1.setText(sharedPreferences1.getString("name", ""));
+        mTextView2.setText("职级：" + sharedPreferences1.getString("position", ""));
+        mTextView3.setText("擅长：" + sharedPreferences1.getString("feature", ""));
+
+        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
+            Picasso.with(this)
+                    .load(sharedPreferences1.getString("docter_photo", ""))
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .tag(this)
+                    .fit()
+                    .into(mCircleImageView);
+        }
 
     }
 

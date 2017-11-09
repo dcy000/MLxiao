@@ -21,6 +21,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 
@@ -43,7 +44,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     private List<String> mInfoList = new ArrayList<String>();
 
     private RecyclerView mRecyclerView;
-    private List<Doctor> mlist = new ArrayList<Doctor>();
+    private List<Doctors> mlist = new ArrayList<Doctors>();
     DoctorAdapter mDoctorAdapter;
     private int mCurrPage;
 
@@ -253,9 +254,12 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                     int maxPosition = lastVisiblePosition[lastVisiblePosition.length - 1];
 
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
-                        mCurrPage = mCurrPage + 1;
 
-                        loadMore();
+                        if (mlist.size() >= 9) {
+                            mCurrPage = mCurrPage + 1;
+                            loadMore();
+                        }
+
                         //   initData();
                     }
 
@@ -273,15 +277,15 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
         RetrofitService retrofitService = RetrofitClient.getClient();
         // 创建有一个回调对象
-        Call<List<Doctor>> call = retrofitService.ShowDocMsg("ShowDocServlet", 9 * mCurrPage);
+        Call<List<Doctors>> call = retrofitService.ShowDocMsg("ShowDocServlet", 9 * mCurrPage);
         // 用回调对象发起请求
-        call.enqueue(new Callback<List<Doctor>>() {
+        call.enqueue(new Callback<List<Doctors>>() {
 
             // 回调方法
             @Override
-            public void onResponse(Call<List<Doctor>> call, Response<List<Doctor>> response) {
+            public void onResponse(Call<List<Doctors>> call, Response<List<Doctors>> response) {
                 if (response.isSuccessful()) {
-                    List<Doctor> list = new ArrayList<Doctor>();
+                    List<Doctors> list = new ArrayList<Doctors>();
                     list = response.body();
                     mlist.addAll(list);
 
@@ -293,7 +297,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
             // 返回http状态码非成功的回调方法
             @Override
-            public void onFailure(Call<List<Doctor>> call, Throwable t) {
+            public void onFailure(Call<List<Doctors>> call, Throwable t) {
 
             }
         });
@@ -304,17 +308,16 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     public void initData() {
         RetrofitService retrofitService = RetrofitClient.getClient();
         // 创建有一个回调对象
-        Call<List<Doctor>> call = retrofitService.LoardMore("LoadMoreServlet", mCurrPage);
+        Call<List<Doctors>> call = retrofitService.LoardMore("LoadMoreServlet", mCurrPage);
         // 用回调对象发起请求
-        call.enqueue(new Callback<List<Doctor>>() {
+        call.enqueue(new Callback<List<Doctors>>() {
             // 回调方法
             @Override
-            public void onResponse(Call<List<Doctor>> call, Response<List<Doctor>> response) {
+            public void onResponse(Call<List<Doctors>> call, Response<List<Doctors>> response) {
                 if (response.isSuccessful()) {
-                    List<Doctor> list = new ArrayList<Doctor>();
+                    List<Doctors> list = new ArrayList<Doctors>();
                     mlist.clear();
                     list = response.body();
-                    Log.e("===========", list.toString());
                     mlist.addAll(list);
                     mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
                     mRecyclerView.setAdapter(mDoctorAdapter);
@@ -330,7 +333,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
             // 返回http状态码非成功的回调方法
             @Override
-            public void onFailure(Call<List<Doctor>> call, Throwable t) {
+            public void onFailure(Call<List<Doctors>> call, Throwable t) {
 
             }
         });
@@ -354,9 +357,9 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             tvGoBack.performClick();
         }
 
-        List<Doctor> list = this.mlist;
+        List<Doctors> list = this.mlist;
         for (int i = 0; i < list.size(); i++) {
-            Doctor doctor = list.get(i);
+            Doctors doctor = list.get(i);
             if (result.contains(doctor.getDoctername())) {
                 mDoctorAdapter.getOnItemClistListener().onItemClick(i);
                 return;

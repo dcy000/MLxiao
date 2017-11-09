@@ -92,7 +92,7 @@ public class PayInfoActivity extends AppCompatActivity implements View.OnClickLi
                 case 2:
                     Double numbers = Double.parseDouble(number) / 100;
 
-                    NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", "123", new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();

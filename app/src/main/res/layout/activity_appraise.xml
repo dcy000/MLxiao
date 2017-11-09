@@ -87,6 +87,7 @@
             android:src="@drawable/avatar_placeholder" />
 
         <TextView
+            android:id="@+id/doctor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
@@ -96,6 +97,7 @@
             android:textSize="40sp" />
 
         <TextView
+            android:id="@+id/doctor_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -104,6 +106,7 @@
             android:textSize="30sp" />
 
         <TextView
+            android:id="@+id/doctor_feature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -112,6 +115,7 @@
             android:textSize="30sp" />
 
         <TextView
+            android:id="@+id/pay_standard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -198,6 +202,7 @@
                 android:layout_width="160dp"
                 android:layout_height="60dp"
                 android:background="@drawable/appraise_selector"
+                android:gravity="center"
                 android:text="医德高尚"
                 android:textSize="30sp" />
 
@@ -207,6 +212,7 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/appraise_selector"
+                android:gravity="center"
                 android:text="认真负责"
                 android:textSize="30sp" />
 
@@ -216,6 +222,7 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/appraise_selector"
+                android:gravity="center"
                 android:text="周到细致"
                 android:textSize="30sp" />
 
@@ -234,6 +241,7 @@
                 android:layout_width="160dp"
                 android:layout_height="60dp"
                 android:background="@drawable/appraise_selector"
+                android:gravity="center"
                 android:text="缺乏耐心"
                 android:textSize="30sp" />
 
@@ -243,6 +251,7 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/appraise_selector"
+                android:gravity="center"
                 android:text="不够专业"
                 android:textSize="30sp" />
 
@@ -252,6 +261,7 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/appraise_selector"
+                android:gravity="center"
                 android:text="不够细致"
                 android:textSize="30sp" />
         </LinearLayout>
@@ -263,6 +273,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/shape_nimin"
+            android:gravity="center"
             android:text="匿名评价"
             android:textColor="#FFFFFF"
             android:textSize="43sp" />
