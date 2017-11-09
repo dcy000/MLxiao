@@ -3,6 +3,7 @@ package com.example.han.referralproject.network;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.Doctor;
@@ -14,6 +15,7 @@ import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.util.Utils;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -21,9 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-//        public static final String BasicUrl = "http://192.168.200.103:8080";
-//        public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://192.168.200.103:8080";
+    //  public static final String BasicUrl = "http://116.62.36.12:8080";
+    //   public static final String BasicUrl = "http://118.31.238.207:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
@@ -40,7 +42,11 @@ public class NetworkApi {
     public static final String PERSON_URL = BasicUrl + "/ZZB/br/selOneUser_con";
     public static final String YUYUE_URL = BasicUrl + "/ZZB/bl/insertReserve";
     public static final String YUYUE_URL_INFO = BasicUrl + "/ZZB/bl/selAllreserveByDoidAndUserid";
+    public static final String YUYUE_ALREADY = BasicUrl + "/ZZB/bl/selReserveStart_time";
+
     public static final String YUYUE_URL_CANCEL = BasicUrl + "/ZZB/bl/delReserveByRid";
+    public static final String TOKEN_URL = BasicUrl + "/ZZB/br/seltoken";
+    public static final String RETURN_IMAGE_URL = BasicUrl + "/ZZB/br/upUser_photo";
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
@@ -82,7 +88,7 @@ public class NetworkApi {
         paramsMap.put("docterid", docterid + "");
 
 
-        NetworkManager.getInstance().postResultClass(YUYUE_URL, paramsMap, UserInfo.class, listener, failedCallback);
+        NetworkManager.getInstance().postResultClass(YUYUE_URL, paramsMap, String.class, listener, failedCallback);
     }
 
 
@@ -100,6 +106,28 @@ public class NetworkApi {
         paramsMap.put("rid", rid);
 
         NetworkManager.getInstance().postResultClass(YUYUE_URL_CANCEL, paramsMap, String.class, listener, failedCallback);
+    }
+
+    public static void YuYue_already(String docterid, NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("docterid", docterid);
+
+        NetworkManager.getInstance().postResultClass(YUYUE_ALREADY, paramsMap, new TypeToken<ArrayList<AlreadyYuyue>>() {
+        }.getType(), listener, failedCallback);
+    }
+
+
+    public static void get_token(NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+
+        NetworkManager.getInstance().postResultString(TOKEN_URL, paramsMap, listener, failedCallback);
+    }
+
+    public static void return_imageUrl(String user_photo, String bid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("user_photo", user_photo);
+        paramsMap.put("bid", bid);
+        NetworkManager.getInstance().postResultClass(RETURN_IMAGE_URL, paramsMap, String.class, listener, failedCallback);
     }
 
 

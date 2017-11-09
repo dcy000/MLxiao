@@ -432,4 +432,7 @@
     <string name="qianyue">签&#160;&#160;约</string>
     <string name="tiao_zhuan">跳&#160;&#160;过</string>
 
+    <string name="robot_amount" formatted="false">账户余额：%1$s</string>
+
+
 </resources>

@@ -108,4 +108,7 @@ dependencies {
     compile 'com.netease.nimlib:avchat:4.3.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
+
 }
