@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:padding="10dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:background="@drawable/bg_analyse_result">
+        android:orientation="vertical"
+        tools:background="@drawable/bg_item_report0">
+
         <TextView
             android:id="@+id/tv_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:textColor="#686868"
             android:textSize="35sp"
-            android:textColor="#333"
-            android:layout_marginTop="40dp"/>
+            tools:text="1、脑动脉供血不足"/>
+
         <View
+            android:id="@+id/line_title"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:background="#FFCEA130"/>
+            android:layout_marginTop="10dp"
+            tools:background="#FFCEA130"/>
+
         <TextView
             android:id="@+id/tv_item_probability"
             android:layout_width="match_parent"
@@ -32,13 +40,17 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="40dp"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/tv_item_deal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textSize="30sp"/>
+            android:layout_marginTop="50dp"
+            android:textSize="30sp"
+            tools:text="常见症状：头晕、脑血管供血不足、反复头晕"/>
     </LinearLayout>
 </FrameLayout>
