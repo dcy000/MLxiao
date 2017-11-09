@@ -139,9 +139,11 @@ public class SignUp10EatActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        for (EatModel model : mModels) {
+        int size = mModels.size();
+        for (int i = 0; i < size; i++) {
+            EatModel model = mModels.get(i);
             if (model.isSelected()) {
-                LocalShared.getInstance(this.getApplicationContext()).setSignUpEat(model.getEatType());
+                LocalShared.getInstance(this.getApplicationContext()).setSignUpEat((i+1) + "");
                 Intent intent = new Intent(this, SignUp11SmokeActivity.class);
                 startActivity(intent);
                 return;
