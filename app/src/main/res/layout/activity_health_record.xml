@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.medlink.danbogh.healthdetection.HealthRecordActivity">
+
+    <WebView
+        android:id="@+id/wv_health_record_content"
+        android:layout_width="0pt"
+        android:layout_height="0pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_health_record"/>
+
+    <RadioGroup
+        android:id="@+id/rg_health_record"
+        android:layout_width="0pt"
+        android:layout_height="120pt"
+        android:divider="@drawable/line_vertical"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_health_record">
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_record_situation"-->
+            <!--android:layout_width="0pt"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/bg_rb_health_record0"-->
+            <!--android:button="@null"-->
+            <!--android:gravity="center"-->
+            <!--android:text="基本情况"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:textSize="65pt"/>-->
+
+        <RadioButton
+            android:id="@+id/rb_record_temperature"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="体  温"
+            android:textColor="#ffffff"
+            android:textSize="65pt"/>
+
+        <RadioButton
+            android:id="@+id/rb_record_blood_pressure"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record2"
+            android:button="@null"
+            android:gravity="center"
+            android:text="血  压"
+            android:textColor="#ffffff"
+            android:textSize="65pt"/>
+
+        <RadioButton
+            android:id="@+id/rb_record_blood_glucose"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record3"
+            android:button="@null"
+            android:gravity="center"
+            android:text="血  糖"
+            android:textColor="#ffffff"
+            android:textSize="65pt"/>
+
+        <RadioButton
+            android:id="@+id/rb_record_blood_oxygen"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record4"
+            android:button="@null"
+            android:gravity="center"
+            android:text="血  氧"
+            android:textColor="#ffffff"
+            android:textSize="65pt"/>
+    </RadioGroup>
+
+    <include
+        android:id="@+id/toolbar_health_record"
+        layout="@layout/include_toolbar"/>
+</android.support.constraint.ConstraintLayout>

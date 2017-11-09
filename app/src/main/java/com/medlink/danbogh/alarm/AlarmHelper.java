@@ -25,6 +25,15 @@ public class AlarmHelper {
     public static final String MINUTE = "minute";
     public static final String TONE = "tone";
 
+    public static void setupAlarm(Context context, int hourOfDay, int minute, String content) {
+        AlarmModel model = new AlarmModel();
+        model.setMinute(minute);
+        model.setHourOfDay(hourOfDay);
+        model.setContent(content);
+        model.setInterval(AlarmModel.INTERVAL_DAY);
+        model.setEnabled(true);
+        setupAlarm(context, model);
+    }
 
     public static void setupAlarm(Context context, int hourOfDay, int minute) {
         AlarmModel model = new AlarmModel();
