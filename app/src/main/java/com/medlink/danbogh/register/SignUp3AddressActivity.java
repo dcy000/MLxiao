@@ -114,6 +114,10 @@ public class SignUp3AddressActivity extends BaseActivity {
     private List<String> mCityNames;
     private List<String> mCountyNames;
 
+    int provinceIndex = 0;
+    int cityIndex = 0;
+    int countyIndex = 0;
+
     private ArrayAdapter<String> provinceAdapter;
     private ArrayAdapter<String> mCityAdapter;
     private ArrayAdapter<String> mCountyAdapter;
@@ -143,6 +147,7 @@ public class SignUp3AddressActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //update relative city | county
+                provinceIndex = position;
                 mCityNames = mCityNameMap.get(mProvinceNames.get(position));
                 mCityAdapter.clear();
                 mCityAdapter.addAll(mCityNames);
@@ -161,9 +166,22 @@ public class SignUp3AddressActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //update relative county
+                cityIndex = position;
                 mCountyNames = mCountyNameMap.get(mCityNames.get(position));
                 mCountyAdapter.clear();
                 mCountyAdapter.addAll(mCountyNames);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spCounty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                countyIndex = position;
             }
 
             @Override
@@ -209,9 +227,9 @@ public class SignUp3AddressActivity extends BaseActivity {
 
     private String getAddress() {
         StringBuilder builder = new StringBuilder();
-        builder.append(spCounty.getSelectedItem().toString())
-                .append(spCity.getSelectedItem().toString())
-                .append(spCounty.getSelectedItem().toString())
+        builder.append(mProvinceNames.get(provinceIndex))
+                .append(mCityNames.get(cityIndex))
+                .append(mCountyNames.get(countyIndex))
                 .append(etAddress.getText().toString().trim());
         return builder.toString();
     }
