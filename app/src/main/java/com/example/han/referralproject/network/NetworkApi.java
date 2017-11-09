@@ -159,11 +159,11 @@ public class NetworkApi {
         paramsMap.put("sfz", sfz);
         paramsMap.put("height", String.valueOf(height));
         paramsMap.put("weight", String.valueOf(weight));
-        paramsMap.put("bloodType", bloodType);
-        paramsMap.put("eat", eat);
+        paramsMap.put("blood_type", bloodType);
+        paramsMap.put("eating_habits", eat);
         paramsMap.put("smoke", smoke);
         paramsMap.put("drink", drink);
-        paramsMap.put("sports", sports);
+        paramsMap.put("exercise_habits", sports);
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 

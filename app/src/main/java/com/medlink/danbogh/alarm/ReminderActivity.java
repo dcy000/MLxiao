@@ -3,6 +3,7 @@ package com.medlink.danbogh.alarm;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,11 +40,13 @@ public class ReminderActivity extends BaseActivity {
         int hourOfDay = getIntent().getIntExtra(AlarmHelper.HOUR_OF_DAY, 0);
         int minute = getIntent().getIntExtra(AlarmHelper.MINUTE, 0);
 
+        if (TextUtils.isEmpty(mContent)) {
+            mContent = "主人，没想到吧，我小易又回来了！";
+        }
+
         tvContent.setText(mContent);
 
-        speak(mContent);
-
-//        Handlers.runOnUiThread(mAlarm);
+        Handlers.runOnUiThread(mAlarm);
 
         //Ensure wakelock release
         Runnable releaseWakelock = new Runnable() {
@@ -83,7 +86,7 @@ public class ReminderActivity extends BaseActivity {
 
     @OnClick(R.id.tv_btn_confirm)
     public void onTvBtnConfirmClicked() {
-
+        finish();
     }
 
     @Override
