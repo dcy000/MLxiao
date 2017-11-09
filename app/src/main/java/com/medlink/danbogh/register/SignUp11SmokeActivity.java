@@ -134,8 +134,6 @@ public class SignUp11SmokeActivity extends BaseActivity {
                 return;
             }
         }
-        for (EatModel model : mModels) {
-        }
         speak(R.string.sign_up_smoke_tip);
     }
 
