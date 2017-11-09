@@ -83,7 +83,7 @@ public class ReminderActivity extends BaseActivity {
 
     @OnClick(R.id.tv_btn_confirm)
     public void onTvBtnConfirmClicked() {
-
+        finish();
     }
 
     @Override
