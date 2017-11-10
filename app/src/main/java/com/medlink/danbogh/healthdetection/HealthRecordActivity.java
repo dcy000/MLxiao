@@ -42,6 +42,7 @@ public class HealthRecordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_record);
         mUnbinder = ButterKnife.bind(this);
+        tvTitle.setText("健康档案");
         initWebView();
         initTabs();
     }

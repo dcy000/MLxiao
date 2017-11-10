@@ -132,9 +132,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        NimAccountHelper.getInstance().login("br_12345678912", "123456", null);
         String nimUserId = MyApplication.getInstance().nimUserId();
-        NimAccountHelper.getInstance().login(nimUserId, "123456",null);
+        NimAccountHelper.getInstance().login("br_12345678912", "123456",null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
@@ -204,7 +203,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "doctor_" + doctorId);
+                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
                 finish();
             }
         });
