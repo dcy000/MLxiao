@@ -115,7 +115,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private AudioManager mAudioManagers;
     private ComponentName mRemoteReceiver;
     private boolean isPlayFragmentShow = false;
-
+    private AnimationDrawable faceAnim;
 
     Handler mHandler = new Handler() {
         @Override
@@ -124,7 +124,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 case 0:
                     //startSynthesis(str1);
                     speak(str1);
-
+                    if (faceAnim != null){
+                        faceAnim.start();
+                    }
                     break;
 
                 case 1:
@@ -168,8 +170,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
         mRelativeLayout.setBackgroundResource(R.drawable.face_anim);
-        AnimationDrawable anim = (AnimationDrawable) mRelativeLayout.getBackground();
-        anim.start();
+        faceAnim = (AnimationDrawable) mRelativeLayout.getBackground();
+        faceAnim.start();
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         mIat = SpeechRecognizer.createRecognizer(this, mInitListener);
@@ -447,6 +449,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
+        if (faceAnim != null && faceAnim.isRunning()){
+            faceAnim.stop();
+        }
         findViewById(R.id.iat_recognizes).performClick();
     }
 
@@ -657,7 +662,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (str1 != null) {
 
             if (getString(R.string.speak_null).equals(str1)) {
-
+                if (faceAnim != null){
+                    faceAnim.start();
+                }
                 int randNum = rand.nextInt(10) + 1;
 
                 switch (randNum) {

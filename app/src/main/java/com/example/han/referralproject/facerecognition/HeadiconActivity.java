@@ -135,8 +135,6 @@ public class HeadiconActivity extends BaseActivity {
 
                                 }
                             });
-
-
                 } else {
 
                 }

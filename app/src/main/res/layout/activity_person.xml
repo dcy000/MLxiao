@@ -249,4 +249,9 @@
         android:layout_height="70dp"
         android:layout_alignParentRight="true"
         android:src="@drawable/icon_wifi" />
+    <View
+        android:id="@+id/view_change"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

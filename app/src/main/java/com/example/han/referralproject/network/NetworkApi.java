@@ -23,9 +23,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    public static final String BasicUrl = "http://192.168.200.103:8080";
-    //  public static final String BasicUrl = "http://116.62.36.12:8080";
-    //   public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://192.168.200.103:8080";
+//    public static final String BasicUrl = "http://116.62.36.12:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
+
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
@@ -159,11 +160,11 @@ public class NetworkApi {
         paramsMap.put("sfz", sfz);
         paramsMap.put("height", String.valueOf(height));
         paramsMap.put("weight", String.valueOf(weight));
-        paramsMap.put("bloodType", bloodType);
-        paramsMap.put("eat", eat);
+        paramsMap.put("blood_type", bloodType);
+        paramsMap.put("eating_habits", eat);
         paramsMap.put("smoke", smoke);
         paramsMap.put("drink", drink);
-        paramsMap.put("sports", sports);
+        paramsMap.put("exercise_habits", sports);
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 

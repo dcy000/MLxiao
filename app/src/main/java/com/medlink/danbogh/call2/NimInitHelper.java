@@ -61,7 +61,7 @@ public class NimInitHelper {
 //            br_12345678914
 //            NimCallActivity.launch(this, "br_12345678912");
             String nimUserId = MyApplication.getInstance().nimUserId();
-            NimAccountHelper.getInstance().login(nimUserId, "123456",null);
+            NimAccountHelper.getInstance().login("br_12345678912", "123456",null);
         }
     }
 

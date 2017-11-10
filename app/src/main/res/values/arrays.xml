@@ -36,12 +36,12 @@
         <item>女</item>
     </string-array>
     <string-array name="result_xueya">
-        <item>测量结果正常</item>
+        <item>根据世界卫生组织标准，测量结果正常</item>
         <item>您的血压偏高，请咨询医生或再测一次</item>
         <item>您的血压较高，请尽快联系医生</item>
     </string-array>
     <string-array name="result_wendu">
-        <item>测量结果正常</item>
+        <item>根据世界卫生组织标准，测量结果正常</item>
         <item>您的体温偏高，请咨询医生或再测一次</item>
         <item>您的体温较高，请尽快联系医生</item>
         <item>您的体温偏低，请咨询医生或再测一次</item>

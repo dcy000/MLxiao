@@ -69,7 +69,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XueTang;
+    private String detectType = Type_XueYang;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -310,6 +310,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 DataInfoBean info = new DataInfoBean();
                                 info.blood_oxygen = String.format(String.valueOf(notifyData[5]));
                                 info.pulse = (int) notifyData[6];
+                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, info.pulse));
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
