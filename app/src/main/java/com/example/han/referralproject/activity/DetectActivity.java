@@ -80,6 +80,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private boolean isGetResustFirst = true;
     private String[] mXueyaResults;
     private String[] mWenduResults;
+    private String[] mXueYangResults;
     private BluetoothGattCharacteristic mWriteCharacteristic;
     private View mOverView;
 
@@ -310,7 +311,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 DataInfoBean info = new DataInfoBean();
                                 info.blood_oxygen = String.format(String.valueOf(notifyData[5]));
                                 info.pulse = (int) notifyData[6];
-                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, info.pulse));
+                                String xueyangResult;
+                                if (notifyData[5] >= 90){
+                                    xueyangResult = mXueYangResults[0];
+                                } else {
+                                    xueyangResult = mXueYangResults[1];
+                                }
+                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, info.pulse, xueyangResult));
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
@@ -665,6 +672,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
         mXueyaResults = mResources.getStringArray(R.array.result_xueya);
         mWenduResults = mResources.getStringArray(R.array.result_wendu);
+        mXueYangResults = mResources.getStringArray(R.array.result_xueyang);
 
         //speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);

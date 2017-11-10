@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -41,19 +42,43 @@ public class HeadiconActivity extends BaseActivity {
 
     String imageData1;
 
+    ImageView mImageView1;
+    ImageView mImageView2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headicon);
         setDisableGlobalListen(true);
 
-        Log.e("=====================",LocalShared.getInstance(getApplicationContext()).getXunfeiId());
+        Log.e("=====================", LocalShared.getInstance(getApplicationContext()).getXunfeiId());
         uploadManager = new UploadManager();
 
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
 
         mButton = (Button) findViewById(R.id.cancel);
         mButton1 = (Button) findViewById(R.id.trues);
+
+        mImageView1 = (ImageView) findViewById(R.id.icon_back);
+        mImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        mImageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        mImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
