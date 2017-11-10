@@ -165,7 +165,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     SharedPreferences sharedPreference;
 
 
-    public void showNormal(String str1, String str2, String str3) {
+    public void showNormal(final Button button, String str1, String str2, String str3) {
 
         String[] str = str1.split("/");
         String[] strs = str3.split("-");
@@ -211,6 +211,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
 
                         } else if (which == 0) {
+                            button.setText("未预约");
+                            button.setSelected(false);
+
                             dialog.create(NDialog.CONFIRM).cancel();
                             dialog = null;
                         }
@@ -1015,7 +1018,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     mButton2.setText("未预约");
                     view.setSelected(false);
                 } else {
-                    showNormal(simple.format(date), "上午", "09:00:00-09:15:00");
+                    showNormal(mButton2, simple.format(date), "上午", "09:00:00-09:15:00");
 
                     view.setSelected(true);
                     mButton2.setText("已预约");
@@ -1032,7 +1035,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(formatter.format(date1), "上午", "09:00:00-09:15:00");
+                    showNormal(mButton3,formatter.format(date1), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -1050,7 +1053,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatte2.format(date2), "上午", "09:00:00-09:15:00");
+                    showNormal(mButton4,formatte2.format(date2), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -1068,7 +1071,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter4.format(date3), "上午", "09:00:00-09:15:00");
+                    showNormal(mButton5,formatter4.format(date3), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -1085,7 +1088,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(formatter6.format(date4), "上午", "09:00:00-09:15:00");
+                    showNormal(mButton6,formatter6.format(date4), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -1102,7 +1105,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter8.format(date5), "上午", "09:00:00-09:15:00");
+                    showNormal(mButton7,formatter8.format(date5), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -1121,7 +1124,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter10.format(date6), "上午", "09:00:00-09:15:00");
+                    showNormal(mButton8,formatter10.format(date6), "上午", "09:00:00-09:15:00");
 
 
                     view.setSelected(true);
@@ -1138,7 +1141,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(simple.format(date), "上午", "09:30:00-09:45:00");
+                    showNormal(mButton9,simple.format(date), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -1156,7 +1159,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter.format(date1), "上午", "09:30:00-09:45:00");
+                    showNormal(mButton10,formatter.format(date1), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -1174,7 +1177,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatte2.format(date2), "上午", "09:30:00-09:45:00");
+                    showNormal(mButton11,formatte2.format(date2), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -1192,7 +1195,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter4.format(date3), "上午", "09:30:00-09:45:00");
+                    showNormal(mButton12,formatter4.format(date3), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -1210,7 +1213,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter6.format(date4), "上午", "09:30:00-09:45:00");
+                    showNormal(mButton13,formatter6.format(date4), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -1227,7 +1230,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter8.format(date5), "上午", "09:30:00-09:45:00");
+                    showNormal(mButton14,formatter8.format(date5), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -1245,7 +1248,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter10.format(date6), "上午", "09:30:00-09:45:00");
+                    showNormal(mButton15,formatter10.format(date6), "上午", "09:30:00-09:45:00");
 
 
                     view.setSelected(true);
@@ -1263,7 +1266,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(simple.format(date), "上午", "10:00:00-10:15:00");
+                    showNormal(mButton16,simple.format(date), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1281,7 +1284,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter.format(date1), "上午", "10:00:00-10:15:00");
+                    showNormal(mButton17,formatter.format(date1), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1298,7 +1301,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatte2.format(date2), "上午", "10:00:00-10:15:00");
+                    showNormal(mButton18,formatte2.format(date2), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1316,7 +1319,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter4.format(date3), "上午", "10:00:00-10:15:00");
+                    showNormal(mButton19,formatter4.format(date3), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1334,7 +1337,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter6.format(date4), "上午", "10:00:00-10:15:00");
+                    showNormal(mButton20,formatter6.format(date4), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1352,7 +1355,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter8.format(date5), "上午", "10:00:00-10:15:00");
+                    showNormal(mButton21,formatter8.format(date5), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1370,7 +1373,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter10.format(date6), "上午", "10:00:00-10:15:00");
+                    showNormal(mButton22,formatter10.format(date6), "上午", "10:00:00-10:15:00");
 
 
                     view.setSelected(true);
@@ -1387,7 +1390,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(simple.format(date), "上午", "10:30:00-10:45:00");
+                    showNormal(mButton23,simple.format(date), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1403,7 +1406,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(formatter.format(date1), "上午", "10:30:00-10:45:00");
+                    showNormal(mButton24,formatter.format(date1), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1420,7 +1423,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatte2.format(date2), "上午", "10:30:00-10:45:00");
+                    showNormal(mButton25,formatte2.format(date2), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1437,7 +1440,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter4.format(date3), "上午", "10:30:00-10:45:00");
+                    showNormal(mButton26,formatter4.format(date3), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1454,7 +1457,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter6.format(date4), "上午", "10:30:00-10:45:00");
+                    showNormal(mButton27,formatter6.format(date4), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1471,7 +1474,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter8.format(date5), "上午", "10:30:00-10:45:00");
+                    showNormal(mButton28,formatter8.format(date5), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1488,7 +1491,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter10.format(date6), "上午", "10:30:00-10:45:00");
+                    showNormal(mButton29,formatter10.format(date6), "上午", "10:30:00-10:45:00");
 
 
                     view.setSelected(true);
@@ -1504,7 +1507,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(simple.format(date), "下午", "14:00:00-14:15:00");
+                    showNormal(mButton30,simple.format(date), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1519,7 +1522,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter.format(date1), "下午", "14:00:00-14:15:00");
+                    showNormal(mButton31,formatter.format(date1), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1534,7 +1537,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatte2.format(date2), "下午", "14:00:00-14:15:00");
+                    showNormal(mButton32,formatte2.format(date2), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1550,7 +1553,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter4.format(date3), "下午", "14:00:00-14:15:00");
+                    showNormal(mButton33,formatter4.format(date3), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1566,7 +1569,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter6.format(date4), "下午", "14:00:00-14:15:00");
+                    showNormal(mButton34,formatter6.format(date4), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1581,7 +1584,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter8.format(date5), "下午", "14:00:00-14:15:00");
+                    showNormal(mButton35,formatter8.format(date5), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1596,7 +1599,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter10.format(date6), "下午", "14:00:00-14:15:00");
+                    showNormal(mButton36,formatter10.format(date6), "下午", "14:00:00-14:15:00");
 
 
                     view.setSelected(true);
@@ -1610,7 +1613,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(simple.format(date), "下午", "14:30:00-14:45:00");
+                    showNormal(mButton37,simple.format(date), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1624,7 +1627,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     view.setSelected(false);
                 } else {
 
-                    showNormal(formatter.format(date1), "下午", "14:30:00-14:45:00");
+                    showNormal(mButton38,formatter.format(date1), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1639,7 +1642,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatte2.format(date2), "下午", "14:30:00-14:45:00");
+                    showNormal(mButton39,formatte2.format(date2), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1654,7 +1657,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter4.format(date3), "下午", "14:30:00-14:45:00");
+                    showNormal(mButton40,formatter4.format(date3), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1669,7 +1672,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter6.format(date4), "下午", "14:30:00-14:45:00");
+                    showNormal(mButton41,formatter6.format(date4), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1684,7 +1687,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter8.format(date5), "下午", "14:30:00-14:45:00");
+                    showNormal(mButton42,formatter8.format(date5), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1699,7 +1702,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter10.format(date6), "下午", "14:30:00-14:45:00");
+                    showNormal(mButton43,formatter10.format(date6), "下午", "14:30:00-14:45:00");
 
 
                     view.setSelected(true);
@@ -1714,7 +1717,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(simple.format(date), "下午", "15:00:00-15:15:00");
+                    showNormal(mButton44,simple.format(date), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1729,7 +1732,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter.format(date1), "下午", "15:00:00-15:15:00");
+                    showNormal(mButton45,formatter.format(date1), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1744,7 +1747,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatte2.format(date2), "下午", "15:00:00-15:15:00");
+                    showNormal(mButton46,formatte2.format(date2), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1759,7 +1762,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter4.format(date3), "下午", "15:00:00-15:15:00");
+                    showNormal(mButton47,formatter4.format(date3), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1774,7 +1777,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter6.format(date4), "下午", "15:00:00-15:15:00");
+                    showNormal(mButton48,formatter6.format(date4), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1789,7 +1792,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter8.format(date5), "下午", "15:00:00-15:15:00");
+                    showNormal(mButton49,formatter8.format(date5), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1804,7 +1807,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter10.format(date6), "下午", "15:00:00-15:15:00");
+                    showNormal(mButton50,formatter10.format(date6), "下午", "15:00:00-15:15:00");
 
 
                     view.setSelected(true);
@@ -1819,7 +1822,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(simple.format(date), "下午", "15:30:00-15:45:00");
+                    showNormal(mButton51,simple.format(date), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1834,7 +1837,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter.format(date1), "下午", "15:30:00-15:45:00");
+                    showNormal(mButton52,formatter.format(date1), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1849,7 +1852,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatte2.format(date2), "下午", "15:30:00-15:45:00");
+                    showNormal(mButton53,formatte2.format(date2), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1864,7 +1867,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter4.format(date3), "下午", "15:30:00-15:45:00");
+                    showNormal(mButton54,formatter4.format(date3), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1879,7 +1882,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter6.format(date4), "下午", "15:30:00-15:45:00");
+                    showNormal(mButton55,formatter6.format(date4), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1894,7 +1897,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter8.format(date5), "下午", "15:30:00-15:45:00");
+                    showNormal(mButton56,formatter8.format(date5), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);
@@ -1909,7 +1912,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 } else {
 
 
-                    showNormal(formatter10.format(date6), "下午", "15:30:00-15:45:00");
+                    showNormal(mButton57,formatter10.format(date6), "下午", "15:30:00-15:45:00");
 
 
                     view.setSelected(true);

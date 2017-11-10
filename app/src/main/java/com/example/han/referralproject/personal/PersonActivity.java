@@ -55,6 +55,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     mUser = (User) msg.obj;
                     mTextView.setText(mUser.getBname());
                     break;
+                case 1:
+
+                    LocalShared.getInstance(getApplicationContext()).setXunfeiID(msg.obj + "");
+
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -167,6 +172,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
+
+                Message msg = mHandler.obtainMessage();
+                msg.what = 1;
+                msg.obj = response.getXfid();
+                mHandler.sendMessage(msg);
+
                 mTextView.setText(response.getBname());
                 mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
                 Picasso.with(PersonActivity.this)
@@ -176,6 +187,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                         .tag(this)
                         .fit()
                         .into(mImageView);
+
 
             }
 

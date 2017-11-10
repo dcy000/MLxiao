@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.network.NetworkApi;
@@ -37,7 +38,7 @@ import cn.beecloud.entity.BCQRCodeResult;
 import cn.beecloud.entity.BCQueryBillResult;
 import cn.beecloud.entity.BCReqParams;
 
-public class PayInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class PayInfoActivity extends BaseActivity implements View.OnClickListener {
 
 
     private static final int REQ_QRCODE_CODE = 1;
@@ -96,6 +97,7 @@ public class PayInfoActivity extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                            speak(getString(R.string.pay_success));
 
                         }
                     }, new NetworkManager.FailedCallback() {
@@ -115,6 +117,8 @@ public class PayInfoActivity extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+
+                            speak(getString(R.string.pay_success));
 
                         }
                     }, new NetworkManager.FailedCallback() {

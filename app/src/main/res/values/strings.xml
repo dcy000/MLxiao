@@ -434,6 +434,7 @@
     <string name="medication_reminder">吃 药 提 醒</string>
 
     <string name="robot_amount" formatted="false">账户余额：%1$s</string>
+    <string name="pay_success">主人，您已充值成功，请查询个人账户余额</string>
 
 
 </resources>

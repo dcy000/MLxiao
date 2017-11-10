@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -46,6 +47,7 @@ public class HeadiconActivity extends BaseActivity {
         setContentView(R.layout.activity_headicon);
         setDisableGlobalListen(true);
 
+        Log.e("=====================",LocalShared.getInstance(getApplicationContext()).getXunfeiId());
         uploadManager = new UploadManager();
 
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
@@ -66,7 +68,6 @@ public class HeadiconActivity extends BaseActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
 
 
                     }
@@ -119,21 +120,21 @@ public class HeadiconActivity extends BaseActivity {
 
                     String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
 
-                    NetworkApi.return_imageUrl(imageUrl, 100001 + "", new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
+                    NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
+                            new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
 
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
 
-
-                        }
-                    });
+                                }
+                            });
 
 
                 } else {
