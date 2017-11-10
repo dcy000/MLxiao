@@ -155,11 +155,11 @@ public class HeadiconActivity extends BaseActivity {
         String inSpell = PinYinUtils.converterToSpell(result);
 
         if (inSpell.matches(".*(queding|wancheng|xiayibu).*")) {
-            mButton.performClick();
+            mButton1.performClick();
             return;
         }
         if (inSpell.matches(".*(quxiao|chongxin|zhongxin|zhongpai|zaipai|chongpai|zhongpai).*")) {
-            mButton1.performClick();
+            mButton.performClick();
         }
     }
 }

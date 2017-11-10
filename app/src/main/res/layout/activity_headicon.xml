@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
+    android:background="@drawable/bg_tab2_health_info"
     tools:context="com.example.han.referralproject.facerecognition.HeadiconActivity">
 
 
@@ -23,18 +23,15 @@
         android:src="@drawable/avatar_placeholder" />-->
 
 
-
-
-
     <Button
         android:textColor="#3F85FC"
         android:id="@+id/cancel"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/per_image"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/bg_btn_go_back"
         android:gravity="center"
         android:text="上一步"
@@ -43,16 +40,57 @@
     <Button
         android:textColor="@android:color/white"
         android:id="@+id/trues"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/per_image"
-        android:layout_marginRight="200dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/bg_btn_go_forward"
         android:gravity="center"
         android:text="下一步"
         android:textSize="40sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_tab1_personal_info"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="65dp"
+            android:gravity="center"
+            android:text="个人信息"
+            android:textColor="#3f86fc"
+            android:textSize="35sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_tab2_health_info"
+            app:layout_constraintTop_toTopOf="parent"/>
 
+        <TextView
+            android:id="@+id/tv_tab2_health_info"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="65dp"
+            android:gravity="center"
+            android:text="健康信息"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_tab1_personal_info"
+            app:layout_constraintRight_toLeftOf="@+id/tv_tab3_contract_doctor"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_tab3_contract_doctor"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="65dp"
+            android:gravity="center"
+            android:text="签约医生"
+            android:textColor="#34B87F"
+            android:textSize="35sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_tab2_health_info"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </LinearLayout>
 </RelativeLayout>

@@ -81,7 +81,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private String[] mXueyaResults;
     private String[] mWenduResults;
     private BluetoothGattCharacteristic mWriteCharacteristic;
-
+    private View mOverView;
 
     Handler mHandler = new Handler() {
         @Override
@@ -422,6 +422,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case R.id.view_over:
                 if (mVideoView != null) {
                     mVideoView.setVisibility(View.GONE);
+                    mOverView.setVisibility(View.GONE);
                     if (mVideoView.isPlaying()) {
                         mVideoView.pause();
                     }
@@ -430,6 +431,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
         if (resourceId != 0) {
             mVideoView.setVisibility(View.VISIBLE);
+            mOverView.setVisibility(View.VISIBLE);
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
             mVideoView.start();
@@ -614,7 +616,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         } else {
             mVideoView.setVisibility(View.GONE);
         }
-        findViewById(R.id.view_over).setOnClickListener(this);
+        mOverView = findViewById(R.id.view_over);
+        mOverView.setOnClickListener(this);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
         mPulseTv = (TextView) findViewById(R.id.pulse);
@@ -674,6 +677,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void onCompletion(MediaPlayer mp) {
             mVideoView.setVisibility(View.GONE);
+            mOverView.setVisibility(View.GONE);
         }
     };
 

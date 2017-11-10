@@ -332,7 +332,8 @@
         </receiver>
 
         <activity android:name=".recyclerview.AppraiseActivity" />
-        <activity android:name=".facerecognition.HeadiconActivity" />
+        <activity android:name=".facerecognition.HeadiconActivity" >
+        </activity>
         <activity android:name=".recyclerview.DoctorappoActivity">
         </activity>
         <activity android:name=".recyclerview.AddAppoActivity">

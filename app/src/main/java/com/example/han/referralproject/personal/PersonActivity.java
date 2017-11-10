@@ -133,6 +133,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.view_wifi).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.btn_logout).setOnClickListener(this);
+        findViewById(R.id.view_change).setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
         mIvAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,6 +292,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.view_wifi:
                 startActivity(new Intent(this, WifiConnectActivity.class));
+                break;
+            case R.id.view_change:
+
                 break;
         }
     }
