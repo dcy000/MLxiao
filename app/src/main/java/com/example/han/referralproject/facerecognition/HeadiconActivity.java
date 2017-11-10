@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -119,7 +120,7 @@ public class HeadiconActivity extends BaseActivity {
 
                     String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
 
-                    NetworkApi.return_imageUrl(imageUrl, 100001 + "", new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
                             Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
