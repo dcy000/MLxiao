@@ -43,7 +43,7 @@ public class ReminderActivity extends BaseActivity {
         int hourOfDay = getIntent().getIntExtra(AlarmHelper.HOUR_OF_DAY, 0);
         int minute = getIntent().getIntExtra(AlarmHelper.MINUTE, 0);
 
-        if (TextUtils.isEmpty(mContent)) {
+        if (mContent.equals("主人,")) {
             mContent += "没想到吧，我小易又回来了！";
         }
 

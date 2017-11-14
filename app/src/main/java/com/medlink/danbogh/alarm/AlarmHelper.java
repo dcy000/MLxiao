@@ -24,6 +24,18 @@ public class AlarmHelper {
     public static final String HOUR_OF_DAY = "hourOfDay";
     public static final String MINUTE = "minute";
     public static final String TONE = "tone";
+    public static final String TAG = "tag";
+
+    public static void setupAlarm(Context context, int hourOfDay, int minute, String content, String tag) {
+        AlarmModel model = new AlarmModel();
+        model.setMinute(minute);
+        model.setHourOfDay(hourOfDay);
+        model.setContent(content);
+        model.setInterval(AlarmModel.INTERVAL_DAY);
+        model.setEnabled(true);
+        model.setTag(tag);
+        setupAlarm(context, model);
+    }
 
     public static void setupAlarm(Context context, int hourOfDay, int minute, String content) {
         AlarmModel model = new AlarmModel();
@@ -143,6 +155,8 @@ public class AlarmHelper {
         i.putExtra(MINUTE, model.getMinute());
         Uri tone = model.getTone();
         i.putExtra(TONE, tone == null ? "" : tone.toString());
+        String tag = model.getTag();
+        i.putExtra(TAG, tag == null ? "" : tag);
         return i;
     }
 }
