@@ -11,6 +11,7 @@ public class LocalShared {
     private static LocalShared mInstance;
     private SharedPreferences mShared;
 
+    private final String UserAccounts = "user_accounts";
     private final String UserId = "user_id";
     private final String UserImg = "user_img";
     private final String XunfeiId = "Xunfei_Id";
@@ -31,6 +32,9 @@ public class LocalShared {
         return mInstance;
     }
 
+//    public String addAccount() {
+//        return mShared.get(UserAccounts, "");
+//    }
 
     public String getUserId() {
         return mShared.getString(UserId, "");

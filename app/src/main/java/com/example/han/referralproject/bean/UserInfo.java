@@ -17,6 +17,7 @@ public class UserInfo {
     public String categoryid;
     public String user_photo;
     public String amount;
+    public String xfid;
 
 
     public UserInfo() {
@@ -25,7 +26,7 @@ public class UserInfo {
 
 
     public UserInfo(String doctername, String sfz, String sex, String eqid, String bname, String dz, String tel,
-                    String categoryname, String mh, String state, String bid, String age, String categoryid, String user_photo, String amount) {
+                    String categoryname, String mh, String state, String bid, String age, String categoryid, String user_photo, String amount, String xfid) {
         super();
         this.doctername = doctername;
         this.sfz = sfz;
@@ -42,7 +43,7 @@ public class UserInfo {
         this.categoryid = categoryid;
         this.user_photo = user_photo;
         this.amount = amount;
-
+        this.xfid = xfid;
     }
 
 
@@ -193,12 +194,21 @@ public class UserInfo {
         this.amount = amount;
     }
 
+    public String getXfid() {
+        return xfid;
+    }
+
+
+    public void setXfid(String xfid) {
+        this.xfid = xfid;
+    }
+
 
     @Override
     public String toString() {
         return "UserInfo [doctername=" + doctername + ", sfz=" + sfz + ", sex=" + sex + ", eqid=" + eqid + ", bname="
                 + bname + ", dz=" + dz + ", tel=" + tel + ", categoryname=" + categoryname + ", mh=" + mh + ", state="
-                + state + ", bid=" + bid + ", age=" + age + ", categoryid=" + categoryid + ", user_photo=" + user_photo + ", amount=" + amount + "]";
+                + state + ", bid=" + bid + ", age=" + age + ", categoryid=" + categoryid + ", user_photo=" + user_photo + ", amount=" + amount + ", xfid=" + xfid + "]";
     }
 
 

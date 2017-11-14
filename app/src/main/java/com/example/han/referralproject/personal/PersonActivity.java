@@ -55,6 +55,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     mUser = (User) msg.obj;
                     mTextView.setText(mUser.getBname());
                     break;
+                case 1:
+
+                    LocalShared.getInstance(getApplicationContext()).setXunfeiID(msg.obj + "");
+
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -128,6 +133,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.view_wifi).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.btn_logout).setOnClickListener(this);
+        findViewById(R.id.view_change).setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
         mIvAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +173,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
+
+                Message msg = mHandler.obtainMessage();
+                msg.what = 1;
+                msg.obj = response.getXfid();
+                mHandler.sendMessage(msg);
+
                 mTextView.setText(response.getBname());
                 mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
                 Picasso.with(PersonActivity.this)
@@ -176,6 +188,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                         .tag(this)
                         .fit()
                         .into(mImageView);
+
 
             }
 
@@ -279,6 +292,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.view_wifi:
                 startActivity(new Intent(this, WifiConnectActivity.class));
+                break;
+            case R.id.view_change:
+
                 break;
         }
     }

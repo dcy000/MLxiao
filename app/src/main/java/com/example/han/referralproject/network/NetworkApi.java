@@ -124,10 +124,11 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultString(TOKEN_URL, paramsMap, listener, failedCallback);
     }
 
-    public static void return_imageUrl(String user_photo, String bid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+    public static void return_imageUrl(String user_photo, String bid, String xfid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("user_photo", user_photo);
         paramsMap.put("bid", bid);
+        paramsMap.put("xfid", xfid);
         NetworkManager.getInstance().postResultClass(RETURN_IMAGE_URL, paramsMap, String.class, listener, failedCallback);
     }
 

@@ -309,8 +309,6 @@ public class RegisterVideoActivity extends BaseActivity {
                     } catch (InterruptedException e) {
                     }
 
-                    Log.e("==============", "两秒");
-
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -326,8 +324,6 @@ public class RegisterVideoActivity extends BaseActivity {
                     }
 
 
-
-
                     if (null != mImageData) {
                         Date date = new Date();
                         SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
@@ -339,7 +335,6 @@ public class RegisterVideoActivity extends BaseActivity {
                         //将字符串转换为数字并输出
                         mAuthid = simple.format(date) + str;
 
-                        LocalShared.getInstance(getApplicationContext()).setXunfeiID(mAuthid);
 
 
                       /*  String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
@@ -350,7 +345,7 @@ public class RegisterVideoActivity extends BaseActivity {
                         mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
                         mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
                         mFaceRequest.sendRequest(mImageData, mRequestListener);
-
+                        Log.e("发送前", mAuthid + "");
 
                     }
 
@@ -421,6 +416,7 @@ public class RegisterVideoActivity extends BaseActivity {
         if ("success".equals(obj.get("rst")) && sign == true) {
             // showTip("注册成功");
             sign = false;
+            LocalShared.getInstance(getApplicationContext()).setXunfeiID(mAuthid);
 
             String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
             LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
@@ -432,7 +428,6 @@ public class RegisterVideoActivity extends BaseActivity {
         } else {
             if (sign == true) {
                 showTip("注册失败");
-                Log.e("===============", "执行1");
                 sign = false;
                 finish();
             }

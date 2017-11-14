@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -115,7 +116,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private AudioManager mAudioManagers;
     private ComponentName mRemoteReceiver;
     private boolean isPlayFragmentShow = false;
-
+    private AnimationDrawable faceAnim;
 
     Handler mHandler = new Handler() {
         @Override
@@ -124,7 +125,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 case 0:
                     //startSynthesis(str1);
                     speak(str1);
-
+                    startAnim();
+//                    if (faceAnim != null){
+//                        faceAnim.start();
+//                    }
                     break;
 
                 case 1:
@@ -167,9 +171,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
-        mRelativeLayout.setBackgroundResource(R.drawable.face_anim);
-        AnimationDrawable anim = (AnimationDrawable) mRelativeLayout.getBackground();
-        anim.start();
+//        mRelativeLayout.setBackgroundResource(R.drawable.face_anim);
+//        faceAnim = (AnimationDrawable) mRelativeLayout.getBackground();
+//        faceAnim.start();
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         mIat = SpeechRecognizer.createRecognizer(this, mInitListener);
@@ -285,6 +289,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onTimer(long remain) {
+    }
+
+    private void startAnim() {
+        AnimationDrawable anim = new AnimationDrawable();
+        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
+        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
+        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_three), 50);
+        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
+        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
+        anim.setOneShot(true);
+        mRelativeLayout.setBackground(anim);
+        anim.start();
     }
 
     @Override
@@ -447,6 +463,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
+        if (faceAnim != null && faceAnim.isRunning()){
+            faceAnim.stop();
+        }
         findViewById(R.id.iat_recognizes).performClick();
     }
 
@@ -657,7 +676,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (str1 != null) {
 
             if (getString(R.string.speak_null).equals(str1)) {
-
+//                if (faceAnim != null){
+//                    faceAnim.start();
+//                }
+                startAnim();
                 int randNum = rand.nextInt(10) + 1;
 
                 switch (randNum) {

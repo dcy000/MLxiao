@@ -98,6 +98,7 @@ public class VideoDemo extends BaseActivity {
     private FaceRequest mFaceRequest;
     public ImageView mImageView;
     public Button mButton;
+    Bitmap b3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,11 +128,10 @@ public class VideoDemo extends BaseActivity {
 
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
-        //    sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME4, Context.MODE_PRIVATE);
-
-        //    mAuthid = sharedPreferences.getString("mAuthid", "");
 
         mAuthid = LocalShared.getInstance(getApplicationContext()).getXunfeiId();
+
+        Log.e("讯飞id", mAuthid);
         initUI();
 
 
@@ -277,48 +277,9 @@ public class VideoDemo extends BaseActivity {
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
                 System.arraycopy(data, 0, nv21, 0, data.length);
-                Bitmap b3 = decodeToBitMap(nv21, camera);
+                b3 = decodeToBitMap(nv21, camera);
 
                 //mImageView.setImageBitmap(b3);
-
-
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-                //可根据流量及网络状况对图片进行压缩
-                b3.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-
-                mImageData = baos.toByteArray();
-
-               /* if (sign) {
-                    if (null != mImageData) {
-                        Log.e("==============", mImageData.toString());
-                        // 设置用户标识，格式为6-18个字符（由字母、数字、下划线组成，不得以数字开头，不能包含空格）。
-                        // 当不设置时，云端将使用用户设备的设备ID来标识终端用户。
-                        mFaceRequest.setParameter(SpeechConstant.AUTH_ID, "123");
-                        mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
-                        mFaceRequest.sendRequest(mImageData, mRequestListener);
-                        sign = false;
-                        Log.e("=================", "已经执行");
-
-                    }
-
-                }*/
-                /* new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException e) {
-                        }
-
-
-
-
-                    }
-
-
-                }).start();*/
 
 
             }
@@ -351,16 +312,32 @@ public class VideoDemo extends BaseActivity {
                 @Override
                 public void run() {
                     while (sign) {
-                        if (null != mImageData && null != mAuthid) {
-                            mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-                            mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
-                            mFaceRequest.sendRequest(mImageData, mRequestListener);
-                            Log.i("mylog", "id : " + mAuthid);
-                        }
+
                         try {
                             Thread.sleep(2000);
                         } catch (InterruptedException e) {
                         }
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+
+                        if (b3 != null) {
+
+                            Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+
+                            //可根据流量及网络状况对图片进行压缩
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                            mImageData = baos.toByteArray();
+
+                        }
+
+
+                        if (null != mImageData && null != mAuthid) {
+                            mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                            mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
+                            mFaceRequest.sendRequest(mImageData, mRequestListener);
+                        }
+
 
                     }
                 }
@@ -370,6 +347,44 @@ public class VideoDemo extends BaseActivity {
 
 
         }
+    }
+
+
+    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
+        if (null == bitmap || edgeLength <= 0) {
+            return null;
+        }
+
+        Bitmap result = bitmap;
+        int widthOrg = bitmap.getWidth();
+        int heightOrg = bitmap.getHeight();
+
+        if (widthOrg > edgeLength && heightOrg > edgeLength) {
+            //压缩到一个最小长度是edgeLength的bitmap
+            int longerEdge = (int) (edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg));
+            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
+            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
+            Bitmap scaledBitmap;
+
+            try {
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
+            } catch (Exception e) {
+                return null;
+            }
+
+            //从图中截取正中间的正方形部分。
+            int xTopLeft = (scaledWidth - edgeLength) / 2;
+            int yTopLeft = (scaledHeight - edgeLength) / 2;
+
+            try {
+                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength);
+                scaledBitmap.recycle();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        return result;
     }
 
     private RequestListener mRequestListener = new RequestListener() {
