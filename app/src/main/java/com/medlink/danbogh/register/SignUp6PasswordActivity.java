@@ -4,19 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.PreviousHistoryActivity;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
@@ -123,7 +117,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
         }
 
         Pattern patternInPassword = Pattern.compile(REGEX_IN_NUMBER);
-        String in = Utils.chineseToNumber(result);
+        String in = Utils.chineseMapToNumber(result);
         Matcher matcherInIdCard = patternInPassword.matcher(in);
         if (matcherInIdCard.find()) {
             String s = etPassword.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());

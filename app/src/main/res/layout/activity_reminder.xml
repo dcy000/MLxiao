@@ -27,7 +27,7 @@
         android:id="@+id/iv_alarm_medical"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="230dp"
         android:scaleType="centerCrop"
         android:src="@drawable/medical"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -36,8 +36,8 @@
 
     <TextView
         android:id="@+id/tv_btn_confirm"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/bg_btn_yellow"
         android:gravity="center"

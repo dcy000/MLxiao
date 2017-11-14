@@ -122,6 +122,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                     }
 
+
+
+
                     break;
             }
 
@@ -280,8 +283,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 mHandler.sendEmptyMessage(0);
 
-
-                Log.e("=============", response.toString());
 
             }
 

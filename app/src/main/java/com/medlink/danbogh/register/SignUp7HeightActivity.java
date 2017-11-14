@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
+import com.megvii.faceppidcardui.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,11 +142,11 @@ public class SignUp7HeightActivity extends BaseActivity {
             return;
         }
 
-        String in = Utils.chineseToNumber(result);
+        String in = Utils.isNumeric(result) ? result : Utils.removeNonnumeric(Utils.chineseMapToNumber(result));
         int size = mStrings.size();
         for (int i = 0; i < size; i++) {
             String height = mStrings.get(i);
-            if (in.contains(height)) {
+            if (in.equals(height)) {
                 rvContent.smoothScrollToPosition(i);
                 return;
             }

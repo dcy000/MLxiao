@@ -14,7 +14,11 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent alarmIntent = new Intent(getBaseContext(), ReminderActivity.class);
+        String tag = intent.getStringExtra("tag");
+        Intent alarmIntent = new Intent();
+        if (tag == null || tag.isEmpty()) {
+            alarmIntent.setClass(getBaseContext(), ReminderActivity.class);
+        }
         alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         alarmIntent.putExtras(intent);
         getApplication().startActivity(alarmIntent);

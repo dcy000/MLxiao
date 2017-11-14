@@ -99,11 +99,11 @@
     <string name="tips_info">主人，如果需要签约就点击签约按钮。</string>
     <string name="tips_test">主人，请点击您需要测量的项目</string>
     <string name="tips_open_device">主人，您可以打开设备开始测量了</string>
-    <string name="tips_result_wendu" formatted="false">主人，您的温度是%1$s度，%2$s</string>
+    <string name="tips_result_wendu" formatted="false">主人，您的体温是%1$s度，%2$s</string>
     <string name="tips_xueya">请将血压计佩戴在绑在左臂或者右臂上，高度与心脏平齐，手臂放松，手掌张开，按开始按钮开始测量</string>
     <string name="tips_result_xueya" formatted="false">主人，您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
     <string name="tips_result_xuetang">主人，您的血糖值为%s</string>
-    <string name="tips_result_xueyang" formatted="false">主人，您的血氧饱和度为%1$s，脉搏为%2$d</string>
+    <string name="tips_result_xueyang" formatted="false">主人，您的血氧饱和度为%1$s，脉搏为%2$d，%3$s</string>
     <string name="tips_symptom">主人，请选择对应症状并提交</string>
     <string name="tips_symptom_result">主人，你有可能是%s</string>
     <string name="tips_error_temp">主人，温度测量不正常，请重新测试</string>

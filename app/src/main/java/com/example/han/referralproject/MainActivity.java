@@ -168,10 +168,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         }
                     }
                     if (!isSetted) {
-                        AlarmHelper.setupAlarm(mContext,
-                                Integer.valueOf(timeString[0]),
-                                Integer.valueOf(timeString[1]),
-                                itemBean.medicine);
+                        AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]), itemBean.medicine);
                     }
                 }
             }

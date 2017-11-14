@@ -213,7 +213,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         }
 
         Pattern patternInNumber = Pattern.compile(REGEX_IN_NUMBER);
-        String in = Utils.chineseToNumber(result);
+        String in = Utils.chineseMapToNumber(result);
         Matcher matcherInNumber = patternInNumber.matcher(in);
         if (matcherInNumber.find()) {
             EditText et = inPhone ? this.etPhone : this.etCode;

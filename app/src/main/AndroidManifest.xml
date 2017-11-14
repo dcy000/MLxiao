@@ -336,10 +336,6 @@
         </receiver>
 
         <activity android:name=".recyclerview.AppraiseActivity" >
-
-
-
-
         </activity>
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity">

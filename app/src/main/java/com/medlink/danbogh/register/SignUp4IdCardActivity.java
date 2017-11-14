@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -130,7 +129,7 @@ public class SignUp4IdCardActivity extends BaseActivity {
             return;
         }
 
-        String in = Utils.chineseToNumber(result);
+        String in = Utils.chineseMapToNumber(result);
         Pattern patternInIdCard = Pattern.compile(REGEX_IN_ID_CARD);
         Matcher matcherInIdCard = patternInIdCard.matcher(in);
         if (matcherInIdCard.find()) {
