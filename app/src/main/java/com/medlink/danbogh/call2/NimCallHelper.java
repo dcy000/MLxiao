@@ -449,20 +449,19 @@ public class NimCallHelper {
     public void closeSessions(int exitCode) {
         //not  user  hang up active  and warning tone is playing,so wait its end
         Log.i(TAG, "close session -> " + CallExitCode.getExitString(exitCode));
-
-        if (exitCode == CallExitCode.HANGUP || exitCode == CallExitCode.PEER_HANGUP) {
-            Context context = MyApplication.getInstance().getApplicationContext();
-            Intent intent = new Intent(context, AppraiseActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        }
-
         showQuitToast(exitCode);
         mCallEstablished.set(false);
         canSwitchCamera = false;
         if (mOnCloseSessionListener != null) {
             mOnCloseSessionListener.onCloseSession();
             mOnCloseSessionListener = null;
+        }
+
+        if (exitCode == CallExitCode.HANGUP || exitCode == CallExitCode.PEER_HANGUP) {
+            Context context = MyApplication.getInstance().getApplicationContext();
+            Intent intent = new Intent(context, AppraiseActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         }
     }
 
