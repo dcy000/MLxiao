@@ -1,9 +1,12 @@
 package com.medlink.danbogh.call2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.recyclerview.AppraiseActivity;
 import com.medlink.danbogh.utils.T;
 import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
@@ -446,13 +449,19 @@ public class NimCallHelper {
     public void closeSessions(int exitCode) {
         //not  user  hang up active  and warning tone is playing,so wait its end
         Log.i(TAG, "close session -> " + CallExitCode.getExitString(exitCode));
-
         showQuitToast(exitCode);
         mCallEstablished.set(false);
         canSwitchCamera = false;
         if (mOnCloseSessionListener != null) {
             mOnCloseSessionListener.onCloseSession();
             mOnCloseSessionListener = null;
+        }
+
+        if (exitCode == CallExitCode.HANGUP || exitCode == CallExitCode.PEER_HANGUP) {
+            Context context = MyApplication.getInstance().getApplicationContext();
+            Intent intent = new Intent(context, AppraiseActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         }
     }
 

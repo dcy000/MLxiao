@@ -1,10 +1,9 @@
 package com.medlink.danbogh.register;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -62,13 +61,31 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
         }
 
         int size = mStrings == null ? 0 : mStrings.size();
-        String in = Utils.chineseToNumber(result);
+        String in = Utils.isNumeric(result) ? result : Utils.removeNonnumeric(Utils.chineseMapToNumber(result));
         for (int i = 0; i < size; i++) {
             String weight = mStrings.get(i);
-            if (in.contains(weight)) {
+            if (in.equals(weight)) {
                 rvContent.smoothScrollToPosition(i);
                 return;
             }
         }
+
+        String inSpell = PinYinUtils.converterToSpell(result);
+        if (inSpell.contains("qishi")) {
+            if (i70 == -1) {
+                for (int i = 0; i < size; i++) {
+                    String weight = mStrings.get(i);
+                    if (weight.equals("70")) {
+                        i70 = i;
+                        rvContent.smoothScrollToPosition(i70);
+                        return;
+                    }
+                }
+            } else {
+                rvContent.smoothScrollToPosition(i70);
+            }
+        }
     }
+
+    private int i70 = -1;
 }

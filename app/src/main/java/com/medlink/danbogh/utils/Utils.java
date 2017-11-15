@@ -18,6 +18,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lenovo on 2017/10/16.
@@ -62,48 +64,70 @@ public class Utils {
         }
     }
 
-    public static String chineseToNumber(String chinese) {
+    public static boolean isNumeric(String in){
+        if (in == null || in.length() == 0) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(in);
+        return isNum.matches();
+    }
+
+    public static String chineseMapToNumber(String chinese) {
         if (chinese == null || chinese.length() == 0) {
             return "";
         }
+
         char[] chars = chinese.toCharArray();
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < chars.length; i++) {
-            switch (chars[i]) {
+            char aChar = chars[i];
+            switch (aChar) {
                 case '零':
-                    chars[i] = '0';
+                    builder.append("0");
                     break;
                 case '一':
-                    chars[i] = '1';
+                    builder.append("1");
                     break;
                 case '二':
-                    chars[i] = '2';
+                case '两':
+                    builder.append("2");
                     break;
                 case '三':
-                    chars[i] = '3';
+                    builder.append("3");
                     break;
                 case '四':
-                    chars[i] = '4';
+                    builder.append("4");
                     break;
                 case '五':
-                    chars[i] = '5';
+                    builder.append("5");
                     break;
                 case '六':
-                    chars[i] = '6';
+                    builder.append("6");
                     break;
                 case '七':
-                    chars[i] = '7';
+                    builder.append("7");
                     break;
                 case '八':
-                    chars[i] = '8';
+                    builder.append("8");
                     break;
                 case '九':
-                    chars[i] = '9';
+                    builder.append("9");
+                    break;
+                case '百':
+                    builder.append("00");
                     break;
                 default:
                     break;
             }
         }
-        return new String(chars);
+        return builder.toString();
+    }
+
+    public static String removeNonnumeric(String in) {
+        Pattern pattern = Pattern.compile("[^0-9]");
+        Matcher matcher = pattern.matcher(in);
+        return matcher.replaceAll("").trim();
     }
 
     public static boolean inMainProcess(Context context) {

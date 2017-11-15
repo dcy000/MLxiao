@@ -30,6 +30,10 @@ public class AlarmModel extends DataSupport{
 
     private int minute;
 
+    private long timestamp = -1;
+
+    private String tag;
+
     @Interval
     private int interval;
 
@@ -69,6 +73,22 @@ public class AlarmModel extends DataSupport{
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     @Interval
