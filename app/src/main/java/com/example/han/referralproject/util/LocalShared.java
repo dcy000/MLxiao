@@ -2,9 +2,12 @@ package com.example.han.referralproject.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+
+import java.util.ArrayList;
 
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
@@ -32,8 +35,27 @@ public class LocalShared {
         return mInstance;
     }
 
-//    public String addAccount() {
+//    public void addAccount(String bid) {
+//        if (TextUtils.isEmpty(bid)){
+//            return;
+//        }
+//
 //        return mShared.get(UserAccounts, "");
+//    }
+
+    public String[] getAccounts() {
+        String accountsString = mShared.getString(UserAccounts, "");
+        if (TextUtils.isEmpty(accountsString)){
+            return null;
+        }
+        return accountsString.split(",");
+    }
+
+//    public boolean isContainAccount(String bid){
+//        String[] accountsArray = getAccounts();
+//        for (String item : accountsArray){
+//
+//        }
 //    }
 
     public String getUserId() {
