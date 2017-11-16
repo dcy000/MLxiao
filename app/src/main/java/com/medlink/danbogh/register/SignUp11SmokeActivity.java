@@ -43,7 +43,6 @@ public class SignUp11SmokeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up11_smoke);
-        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
@@ -114,6 +113,7 @@ public class SignUp11SmokeActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.sign_up_smoke_tip);
     }
 

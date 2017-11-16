@@ -50,7 +50,6 @@ public class SignUp2GenderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up2_gender);
-        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
@@ -85,6 +84,7 @@ public class SignUp2GenderActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.sign_up2_gender_tip);
     }
 

@@ -53,7 +53,6 @@ public class SignUp7HeightActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up7_height);
-        setDisableGlobalListen(true);
         unbinder = ButterKnife.bind(this);
         initView();
     }
@@ -69,6 +68,7 @@ public class SignUp7HeightActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(geTip());
     }
 

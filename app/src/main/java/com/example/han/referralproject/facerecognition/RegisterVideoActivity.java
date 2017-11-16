@@ -108,7 +108,6 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
-        setDisableGlobalListen(true);
         mButton = (Button) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +137,11 @@ public class RegisterVideoActivity extends BaseActivity {
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mAcc = new Accelerometer(RegisterVideoActivity.this);
-        mFaceDetector = FaceDetector.createDetector(RegisterVideoActivity.this, null);
+        try {
+            mFaceDetector = FaceDetector.createDetector(RegisterVideoActivity.this, null);
+        } catch (SpeechError speechError) {
+            speechError.printStackTrace();
+        }
 
         mFaceRequest = new FaceRequest(this);
     }
@@ -482,6 +485,7 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.tips_face);
         if (null != mAcc) {
             mAcc.start();

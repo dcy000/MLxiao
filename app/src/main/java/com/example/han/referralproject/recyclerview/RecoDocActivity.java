@@ -55,7 +55,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reco_doc);
-        setDisableGlobalListen(true);
+
         mCurrPage = 0;
 
         tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
@@ -184,6 +184,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.tips_doctor);
     }
 

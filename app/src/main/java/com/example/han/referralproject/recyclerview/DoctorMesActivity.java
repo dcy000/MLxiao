@@ -54,7 +54,6 @@ public class DoctorMesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
         //    initToolBar();
-        setDisableGlobalListen(true);
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
 
@@ -192,6 +191,7 @@ public class DoctorMesActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.tips_info);
     }
 

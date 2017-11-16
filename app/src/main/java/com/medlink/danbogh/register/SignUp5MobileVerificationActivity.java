@@ -58,7 +58,6 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up5_mobile_verification);
-        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
         initSms();
@@ -90,6 +89,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
         EditText editText = inPhone ? etPhone : etCode;
         editText.requestFocus();

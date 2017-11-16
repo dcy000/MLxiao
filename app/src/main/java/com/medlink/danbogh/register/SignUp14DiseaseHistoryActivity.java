@@ -47,7 +47,6 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up14_disease_history);
-        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
@@ -91,6 +90,7 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.sign_up_disease_history_tip);
     }
 

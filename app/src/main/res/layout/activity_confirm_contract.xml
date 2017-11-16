@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_tab3_contract_doctor"
+    tools:context="com.medlink.danbogh.register.ConfirmContractActivity">
+
+    <View
+        android:id="@+id/line_center_vertical"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="120dp"
+        android:text="姓名"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="联系方式"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"/>
+
+    <TextView
+        android:id="@+id/tv_id_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="身份证号码"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone"/>
+
+    <TextView
+        android:id="@+id/tv_contract_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="签约周期"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_id_card"
+        app:layout_constraintTop_toBottomOf="@+id/tv_id_card"/>
+
+    <TextView
+        android:id="@+id/tv_contract_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="120dp"
+        android:text="签约医生"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/line_center_vertical"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_doctor_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="医生联系方式"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_contract_doctor"
+        app:layout_constraintTop_toBottomOf="@+id/tv_contract_doctor"/>
+
+    <TextView
+        android:id="@+id/tv_contract_organization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="签约机构"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_doctor_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_doctor_phone"/>
+
+    <TextView
+        android:id="@+id/tv_service_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="服务包"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_contract_organization"
+        app:layout_constraintTop_toBottomOf="@+id/tv_contract_organization"/>
+
+    <include layout="@layout/include_sign_up_tab"/>
+
+    <include layout="@layout/include_sign_up_nav"/>
+</android.support.constraint.ConstraintLayout>

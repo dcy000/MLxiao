@@ -138,7 +138,11 @@ public class VideoDemo extends BaseActivity {
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mAcc = new Accelerometer(VideoDemo.this);
-        mFaceDetector = FaceDetector.createDetector(VideoDemo.this, null);
+        try {
+            mFaceDetector = FaceDetector.createDetector(VideoDemo.this, null);
+        } catch (SpeechError speechError) {
+            speechError.printStackTrace();
+        }
 
         mFaceRequest = new FaceRequest(this);
 
