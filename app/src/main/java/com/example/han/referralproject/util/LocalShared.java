@@ -50,10 +50,10 @@ public class LocalShared {
         }
     }
 
-    public void deleteAccount(String bid) {
+    public String deleteAccount(String bid) {
         String[] accountsArray = getAccounts();
         if (accountsArray == null || TextUtils.isEmpty(bid)){
-            return;
+            return "";
         }
         ArrayList<String> accountsList = new ArrayList<>();
         for (String item : accountsArray){
@@ -63,13 +63,15 @@ public class LocalShared {
             accountsList.add(item);
         }
         if (accountsList.size() == 0){
-            mShared.edit().putString(UserAccounts, "").commit();
+            return "";
+            //mShared.edit().putString(UserAccounts, "").commit();
         } else {
             StringBuilder mBuilder = new StringBuilder();
             for (String itemAccount : accountsList){
                 mBuilder.append(itemAccount).append(",");
             }
-            mShared.edit().putString(UserAccounts, mBuilder.toString()).commit();
+            return mBuilder.toString();
+            //mShared.edit().putString(UserAccounts, mBuilder.toString()).commit();
         }
     }
 
@@ -125,6 +127,8 @@ public class LocalShared {
         return mShared.getString(XunfeiId, "");
     }
     public void loginOut() {
+        String accountHistory = deleteAccount(MyApplication.getInstance().userId);
+
         MyApplication.getInstance().userId = null;
         mShared.edit().clear().commit();
     }
