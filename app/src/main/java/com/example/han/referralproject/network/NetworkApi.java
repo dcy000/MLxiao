@@ -41,6 +41,7 @@ public class NetworkApi {
     public static final String PAY_URL = BasicUrl + "/ZZB/br/chongzhi";
     public static final String DOCTOR_URL = BasicUrl + "/ZZB/docter/search_OneDocter";
     public static final String PERSON_URL = BasicUrl + "/ZZB/br/selOneUser_con";
+    public static final String GetInfo_URL = BasicUrl + "/ZZB/br/selMoreUser";
     public static final String YUYUE_URL = BasicUrl + "/ZZB/bl/insertReserve";
     public static final String YUYUE_URL_INFO = BasicUrl + "/ZZB/bl/selAllreserveByDoidAndUserid";
     public static final String YUYUE_ALREADY = BasicUrl + "/ZZB/bl/selReserveStart_time";
@@ -116,7 +117,6 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(YUYUE_ALREADY, paramsMap, new TypeToken<ArrayList<AlreadyYuyue>>() {
         }.getType(), listener, failedCallback);
     }
-
 
     public static void get_token(NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
