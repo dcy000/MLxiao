@@ -21,7 +21,7 @@
         android:textColor="@color/white"
         android:textSize="40sp" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/xueya_video"
         android:layout_width="400dp"
         android:layout_height="300dp"
@@ -29,7 +29,15 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="200dp"
         android:background="@drawable/xueya_video"
-        android:clickable="true" />
+        android:clickable="true" />-->
+
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/video_xueyas" />
 
 
     <RelativeLayout

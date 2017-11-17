@@ -87,14 +87,17 @@ public class AlarmHelper {
                 continue;
             }
 
+            Calendar nextCalendar = Calendar.getInstance();
             PendingIntent pi = newPendingIntent(context, model);
             long timestamp = model.getTimestamp();
             if (timestamp != -1) {
-                setupAlarm(context, timestamp, pi);
+                long millis = nextCalendar.getTimeInMillis();
+                if (timestamp > millis) {
+                    setupAlarm(context, timestamp, pi);
+                }
                 continue;
             }
 
-            Calendar nextCalendar = Calendar.getInstance();
             nextCalendar.set(Calendar.HOUR_OF_DAY, model.getHourOfDay());
             nextCalendar.set(Calendar.MINUTE, model.getMinute());
             nextCalendar.set(Calendar.SECOND, 0);
@@ -162,7 +165,7 @@ public class AlarmHelper {
 
     private static PendingIntent newPendingIntent(Context context, AlarmModel model) {
         Intent i = newIntent(context, model, AlarmService.class);
-        return PendingIntent.getService(context, (int) model.getId(), i, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getService(context, (int) model.getId(), i, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     @NonNull

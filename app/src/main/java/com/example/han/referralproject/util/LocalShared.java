@@ -16,6 +16,7 @@ public class LocalShared {
 
     private final String UserAccounts = "user_accounts";
     private final String UserId = "user_id";
+    private static final String USER_NAME = "user_name";
     private final String UserImg = "user_img";
     private final String XunfeiId = "Xunfei_Id";
     private final String UserPhoneNum = "user_phone_num";
@@ -109,7 +110,12 @@ public class LocalShared {
         }
         MyApplication.getInstance().userId = infoBean.bid;
         MyApplication.getInstance().telphoneNum = infoBean.tel;
-        mShared.edit().putString(UserId, infoBean.bid).putString(UserPhoneNum, infoBean.tel).commit();
+        MyApplication.getInstance().userName = infoBean.bname;
+        mShared.edit()
+                .putString(UserId, infoBean.bid)
+                .putString(UserPhoneNum, infoBean.tel)
+                .putString(USER_NAME, infoBean.bname)
+                .apply();
     }
 
     public void setUserImg(String imgUrl) {

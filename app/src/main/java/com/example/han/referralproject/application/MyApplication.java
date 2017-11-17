@@ -47,6 +47,7 @@ public class MyApplication extends Application {
     public String telphoneNum;
 
     public String emDoctorId = "gcml_doctor_18940866148";
+    public String userName;
 
     public String nimUserId() {
         return "user_" + userId;
@@ -71,7 +72,7 @@ public class MyApplication extends Application {
         telphoneNum = mShared.getPhoneNum();
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
         //EM
-        initHyphenate(this);
+//        initHyphenate(this);
         //if (telphoneNum != null) {
 //        EMAccountHelper.login(emBrId(), "123");
         //}
@@ -138,7 +139,7 @@ public class MyApplication extends Application {
         // 设置消息是否按照服务器时间排序
         options.setSortMessageByServerTime(false);
         // 初始化环信SDK,一定要先调用init()
-        EMClient.getInstance().init(context, options);
+//        EMClient.getInstance().init(context, options);
         // 开启 debug 模式
         EMClient.getInstance().setDebugMode(true);
         // 设置通话广播监听器

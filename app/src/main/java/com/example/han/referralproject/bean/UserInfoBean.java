@@ -9,4 +9,5 @@ public class UserInfoBean {
     public String sfz;
     public String tel;
     public String mh;
+    public String bname;
 }

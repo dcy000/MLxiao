@@ -21,7 +21,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:clickable="true"
-        android:src="@drawable/robot_dialog"/>
+        android:src="@drawable/robot_con"/>
 
     <ImageView
         android:id="@+id/person_info"
@@ -36,7 +36,7 @@
         android:layout_marginTop="25dp"
         android:layout_toLeftOf="@id/robot_con"
         android:clickable="true"
-        android:src="@drawable/personal_center"/>
+        android:src="@drawable/person_info"/>
 
     <ImageView
         android:id="@+id/health_test"
@@ -51,7 +51,7 @@
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@id/robot_con"
         android:clickable="true"
-        android:src="@drawable/health_detection"/>
+        android:src="@drawable/health_test"/>
 
     <ImageView
         android:id="@+id/doctor_ask"
@@ -66,7 +66,7 @@
         android:layout_marginTop="25dp"
         android:layout_toRightOf="@id/robot_con"
         android:clickable="true"
-        android:src="@drawable/doctor_consult"/>
+        android:src="@drawable/doctor_ask"/>
 
     <ImageView
         android:id="@+id/health_class"

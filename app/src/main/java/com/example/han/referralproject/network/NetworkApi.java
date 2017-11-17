@@ -7,6 +7,7 @@ import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.bean.UserInfo;
@@ -19,13 +20,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://192.168.200.103:8080";
+    //public static final String BasicUrl = "http://192.168.200.104:8080";
+
+        public static final String BasicUrl = "http://192.168.200.103:8080";
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -42,6 +46,7 @@ public class NetworkApi {
     public static final String DOCTOR_URL = BasicUrl + "/ZZB/docter/search_OneDocter";
     public static final String PERSON_URL = BasicUrl + "/ZZB/br/selOneUser_con";
     public static final String GetInfo_URL = BasicUrl + "/ZZB/br/selMoreUser";
+    public static final String PERSON_AMOUNT = BasicUrl + "/ZZB/eq/eq_amount";
     public static final String YUYUE_URL = BasicUrl + "/ZZB/bl/insertReserve";
     public static final String YUYUE_URL_INFO = BasicUrl + "/ZZB/bl/selAllreserveByDoidAndUserid";
     public static final String YUYUE_ALREADY = BasicUrl + "/ZZB/bl/selReserveStart_time";
@@ -49,6 +54,7 @@ public class NetworkApi {
     public static final String YUYUE_URL_CANCEL = BasicUrl + "/ZZB/bl/delReserveByRid";
     public static final String TOKEN_URL = BasicUrl + "/ZZB/br/seltoken";
     public static final String RETURN_IMAGE_URL = BasicUrl + "/ZZB/br/upUser_photo";
+    public static final String ADD_EAT_MEDICAL_URL = BasicUrl + "/ZZB/br/addeatmod";
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
@@ -80,6 +86,13 @@ public class NetworkApi {
         paramsMap.put("bid", bid);
 
         NetworkManager.getInstance().postResultClass(PERSON_URL, paramsMap, UserInfo.class, listener, failedCallback);
+    }
+
+    public static void Person_Amount(String eqid, NetworkManager.SuccessCallback<RobotAmount> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("eqid", eqid);
+
+        NetworkManager.getInstance().postResultClass(PERSON_AMOUNT, paramsMap, RobotAmount.class, listener, failedCallback);
     }
 
     public static void YuYue(String start_time, String end_time, String userid, String docterid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
@@ -136,8 +149,8 @@ public class NetworkApi {
     public static void registerUser(
             String name,
             String sex,
-            String sfz,
             String address,
+            String sfz,
             String telephone,
             String pwd,
             float height,
@@ -237,5 +250,16 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(CHARGE_URL, params, Object.class, successCallback, failedCallback);
     }
 
-
+    public static void addEatMedicalRecord(
+            String content,
+            String state,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("username", MyApplication.getInstance().userName);
+        params.put("jl", content);
+        params.put("time", String.valueOf(Calendar.getInstance().getTimeInMillis()));
+        params.put("state", state);
+        NetworkManager.getInstance().postResultClass(ADD_EAT_MEDICAL_URL, params, Object.class, successCallback, failedCallback);
+    }
 }

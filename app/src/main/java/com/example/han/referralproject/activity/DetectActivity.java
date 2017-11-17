@@ -65,13 +65,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
     public TextView mXueYangTv, mXueYangPulseTv;
-    //    public View tipsLayout;
+    public View tipsLayout;
     public VideoView mVideoView;
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
     private String detectType = Type_XueYang;
-    public static final String Type_Wendu = "wendu";
+     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
     public static final String Type_XueYang = "xueyang";
@@ -152,7 +152,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mConnected = false;
                 speak(R.string.tips_blue_unConnect);
                 isGetResustFirst = true;
-                if (mBluetoothAdapter != null){
+                if (mBluetoothAdapter != null) {
 //                    dialog = new NDialog(mContext);
 //                    showNormal("设备连接中，请稍后...");
                     startSearch();
@@ -289,7 +289,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         //threadDisable = false;
                         if (isGetResustFirst) {
 //                            float xuetangResut = ((float)((notifyData[10] << 8 + (notifyData[9] & 0xff))))/18;
-                            float xuetangResut = ((float)(notifyData[10] << 8) + (float)(notifyData[9] & 0xff))/18;
+                            float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
 //                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
                             speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut)));
@@ -314,7 +314,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 info.blood_oxygen = String.format(String.valueOf(notifyData[5]));
                                 info.pulse = (int) notifyData[6];
                                 String xueyangResult;
-                                if (notifyData[5] >= 90){
+                                if (notifyData[5] >= 90) {
                                     xueyangResult = mXueYangResults[0];
                                 } else {
                                     xueyangResult = mXueYangResults[1];
@@ -332,8 +332,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_TiZhong:
-                        if (notifyData != null && notifyData.length == 20){
-                            float result = ((float)(notifyData[2] << 8) + (float)(notifyData[3] & 0xff))/10;
+                        if (notifyData != null && notifyData.length == 20) {
+                            float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                             mResultTv.setText(String.valueOf(result));
                         }
                         break;
@@ -582,7 +582,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                dialog = new NDialog(th、is);
 //                showNormal("设备连接中，请稍后...");
         int resourceId = 0;
-        switch (detectType){
+        switch (detectType) {
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
@@ -617,7 +617,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
-        if (resourceId != 0){
+        if (resourceId != 0) {
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
             mVideoView.start();

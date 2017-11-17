@@ -360,7 +360,7 @@ public class XuetangActivity extends BaseActivity {
 
         setChartData(_lineChart1);*/
 
-        mImageView = (ImageView) findViewById(R.id.xuetang_video);
+      /*  mImageView = (ImageView) findViewById(R.id.xuetang_video);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -369,7 +369,7 @@ public class XuetangActivity extends BaseActivity {
                 startActivity(intent);
 
             }
-        });
+        });*/
       /*  cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
