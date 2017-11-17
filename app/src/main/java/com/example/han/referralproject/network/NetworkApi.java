@@ -19,13 +19,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://192.168.200.103:8080";
+        public static final String BasicUrl = "http://192.168.200.103:8080";
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -48,6 +49,7 @@ public class NetworkApi {
     public static final String YUYUE_URL_CANCEL = BasicUrl + "/ZZB/bl/delReserveByRid";
     public static final String TOKEN_URL = BasicUrl + "/ZZB/br/seltoken";
     public static final String RETURN_IMAGE_URL = BasicUrl + "/ZZB/br/upUser_photo";
+    public static final String ADD_EAT_MEDICAL_URL = BasicUrl + "/ZZB/br/addeatmod";
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
@@ -237,5 +239,16 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(CHARGE_URL, params, Object.class, successCallback, failedCallback);
     }
 
-
+    public static void addEatMedicalRecord(
+            String content,
+            String state,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("username", MyApplication.getInstance().userName);
+        params.put("jl", content);
+        params.put("time", String.valueOf(Calendar.getInstance().getTimeInMillis()));
+        params.put("state", state);
+        NetworkManager.getInstance().postResultClass(ADD_EAT_MEDICAL_URL, params, Object.class, successCallback, failedCallback);
+    }
 }

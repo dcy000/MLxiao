@@ -47,6 +47,7 @@ public class MyApplication extends Application {
     public String telphoneNum;
 
     public String emDoctorId = "gcml_doctor_18940866148";
+    public String userName;
 
     public String nimUserId() {
         return "user_" + userId;

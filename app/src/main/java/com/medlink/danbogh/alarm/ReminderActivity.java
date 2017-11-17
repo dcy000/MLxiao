@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.network.NetworkApi;
 import com.medlink.danbogh.utils.Handlers;
 
 import butterknife.BindView;
@@ -25,6 +26,8 @@ public class ReminderActivity extends BaseActivity {
     TextView tvContent;
     @BindView(R.id.iv_alarm_medical)
     ImageView ivMedical;
+    @BindView(R.id.tv_btn_ignore)
+    TextView tvIgnore;
     @BindView(R.id.tv_btn_confirm)
     TextView tvConfirm;
     public Unbinder mUnbinder;
@@ -86,9 +89,17 @@ public class ReminderActivity extends BaseActivity {
 
     private PowerManager.WakeLock mWakeLock;
 
+    @OnClick(R.id.tv_btn_ignore)
+    public void onTvBtnIgnoreClicked() {
+        String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
+        NetworkApi.addEatMedicalRecord(content, "0", null, null);
+        finish();
+    }
 
     @OnClick(R.id.tv_btn_confirm)
     public void onTvBtnConfirmClicked() {
+        String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
+        NetworkApi.addEatMedicalRecord(content, "1", null, null);
         finish();
     }
 
