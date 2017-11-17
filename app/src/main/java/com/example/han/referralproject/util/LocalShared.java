@@ -2,9 +2,12 @@ package com.example.han.referralproject.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+
+import java.util.ArrayList;
 
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
@@ -13,6 +16,7 @@ public class LocalShared {
 
     private final String UserAccounts = "user_accounts";
     private final String UserId = "user_id";
+    private static final String USER_NAME = "user_name";
     private final String UserImg = "user_img";
     private final String XunfeiId = "Xunfei_Id";
     private final String UserPhoneNum = "user_phone_num";
@@ -32,9 +36,65 @@ public class LocalShared {
         return mInstance;
     }
 
-//    public String addAccount() {
-//        return mShared.get(UserAccounts, "");
-//    }
+    public void addAccount(String bid) {
+        if (TextUtils.isEmpty(bid)) {
+            return;
+        }
+        String accountsString = mShared.getString(UserAccounts, "");
+        if (TextUtils.isEmpty(accountsString)){
+            mShared.edit().putString(UserAccounts, bid + ",").commit();
+        } else {
+            String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(",");
+            if (!isContainAccount(accountsArray, bid)) {
+                mShared.edit().putString(UserAccounts, accountsString + bid + ",").commit();
+            }
+        }
+    }
+
+    public String deleteAccount(String bid) {
+        String[] accountsArray = getAccounts();
+        if (accountsArray == null || TextUtils.isEmpty(bid)){
+            return "";
+        }
+        ArrayList<String> accountsList = new ArrayList<>();
+        for (String item : accountsArray){
+            if (item.equals(bid)){
+                continue;
+            }
+            accountsList.add(item);
+        }
+        if (accountsList.size() == 0){
+            return "";
+            //mShared.edit().putString(UserAccounts, "").commit();
+        } else {
+            StringBuilder mBuilder = new StringBuilder();
+            for (String itemAccount : accountsList){
+                mBuilder.append(itemAccount).append(",");
+            }
+            return mBuilder.toString();
+            //mShared.edit().putString(UserAccounts, mBuilder.toString()).commit();
+        }
+    }
+
+    public String[] getAccounts() {
+        String accountsString = mShared.getString(UserAccounts, "");
+        if (TextUtils.isEmpty(accountsString)){
+            return null;
+        }
+        return accountsString.substring(0, accountsString.length() - 1).split(",");
+    }
+
+    public boolean isContainAccount(String[] accountsArray, String bid){
+        if (TextUtils.isEmpty(bid) || accountsArray == null){
+            return false;
+        }
+        for (String item : accountsArray){
+            if (bid.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String getUserId() {
         return mShared.getString(UserId, "");
@@ -50,7 +110,12 @@ public class LocalShared {
         }
         MyApplication.getInstance().userId = infoBean.bid;
         MyApplication.getInstance().telphoneNum = infoBean.tel;
-        mShared.edit().putString(UserId, infoBean.bid).putString(UserPhoneNum, infoBean.tel).commit();
+        MyApplication.getInstance().userName = infoBean.bname;
+        mShared.edit()
+                .putString(UserId, infoBean.bid)
+                .putString(UserPhoneNum, infoBean.tel)
+                .putString(USER_NAME, infoBean.bname)
+                .apply();
     }
 
     public void setUserImg(String imgUrl) {
@@ -68,6 +133,8 @@ public class LocalShared {
         return mShared.getString(XunfeiId, "");
     }
     public void loginOut() {
+        String accountHistory = deleteAccount(MyApplication.getInstance().userId);
+
         MyApplication.getInstance().userId = null;
         mShared.edit().clear().commit();
     }

@@ -117,7 +117,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
         }
 
         Pattern patternInPassword = Pattern.compile(REGEX_IN_NUMBER);
-        String in = Utils.chineseMapToNumber(result);
+        String in = Utils.isNumeric(result) ? result : Utils.removeNonnumeric(Utils.chineseMapToNumber(result));
         Matcher matcherInIdCard = patternInPassword.matcher(in);
         if (matcherInIdCard.find()) {
             String s = etPassword.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());
