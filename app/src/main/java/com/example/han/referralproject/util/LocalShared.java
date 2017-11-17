@@ -35,28 +35,63 @@ public class LocalShared {
         return mInstance;
     }
 
-//    public void addAccount(String bid) {
-//        if (TextUtils.isEmpty(bid)){
-//            return;
-//        }
-//
-//        return mShared.get(UserAccounts, "");
-//    }
+    public void addAccount(String bid) {
+        if (TextUtils.isEmpty(bid)) {
+            return;
+        }
+        String accountsString = mShared.getString(UserAccounts, "");
+        if (TextUtils.isEmpty(accountsString)){
+            mShared.edit().putString(UserAccounts, bid + ",").commit();
+        } else {
+            String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(",");
+            if (!isContainAccount(accountsArray, bid)) {
+                mShared.edit().putString(UserAccounts, accountsString + bid + ",").commit();
+            }
+        }
+    }
+
+    public void deleteAccount(String bid) {
+        String[] accountsArray = getAccounts();
+        if (accountsArray == null || TextUtils.isEmpty(bid)){
+            return;
+        }
+        ArrayList<String> accountsList = new ArrayList<>();
+        for (String item : accountsArray){
+            if (item.equals(bid)){
+                continue;
+            }
+            accountsList.add(item);
+        }
+        if (accountsList.size() == 0){
+            mShared.edit().putString(UserAccounts, "").commit();
+        } else {
+            StringBuilder mBuilder = new StringBuilder();
+            for (String itemAccount : accountsList){
+                mBuilder.append(itemAccount).append(",");
+            }
+            mShared.edit().putString(UserAccounts, mBuilder.toString()).commit();
+        }
+    }
 
     public String[] getAccounts() {
         String accountsString = mShared.getString(UserAccounts, "");
         if (TextUtils.isEmpty(accountsString)){
             return null;
         }
-        return accountsString.split(",");
+        return accountsString.substring(0, accountsString.length() - 1).split(",");
     }
 
-//    public boolean isContainAccount(String bid){
-//        String[] accountsArray = getAccounts();
-//        for (String item : accountsArray){
-//
-//        }
-//    }
+    public boolean isContainAccount(String[] accountsArray, String bid){
+        if (TextUtils.isEmpty(bid) || accountsArray == null){
+            return false;
+        }
+        for (String item : accountsArray){
+            if (bid.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String getUserId() {
         return mShared.getString(UserId, "");
