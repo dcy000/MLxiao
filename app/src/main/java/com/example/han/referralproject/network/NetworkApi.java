@@ -138,8 +138,8 @@ public class NetworkApi {
     public static void registerUser(
             String name,
             String sex,
-            String sfz,
             String address,
+            String sfz,
             String telephone,
             String pwd,
             float height,
