@@ -129,4 +129,20 @@ public class AlarmModel extends DataSupport{
     public void setTone(Uri tone) {
         this.tone = tone;
     }
+
+    @Override
+    public String toString() {
+        return "AlarmModel{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", hourOfDay=" + hourOfDay +
+                ", minute=" + minute +
+                ", timestamp=" + timestamp +
+                ", tag='" + tag + '\'' +
+                ", interval=" + interval +
+                ", flags=" + flags +
+                ", enabled=" + enabled +
+                ", tone=" + tone +
+                '}';
+    }
 }

@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak(R.string.tips_splash);
+             //   speak(R.string.tips_splash);
             }
         }, 1000);
     }

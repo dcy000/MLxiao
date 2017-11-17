@@ -9,6 +9,7 @@ public class ConstantData {
 
     public static final String DOCTOR_MSG = "doctor_message";
 
+    public static final String YUYUE = "yuyue";
 
     //  public static final String SHARED_FILE_NAME="shared";
 

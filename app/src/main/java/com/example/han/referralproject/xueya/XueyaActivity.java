@@ -439,7 +439,7 @@ public class XueyaActivity extends BaseActivity {
         });
 
 
-        mImageView = (ImageView) findViewById(R.id.xueya_video);
+       /* mImageView = (ImageView) findViewById(R.id.xueya_video);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -448,7 +448,7 @@ public class XueyaActivity extends BaseActivity {
                 startActivity(intent);
 
             }
-        });
+        });*/
 
     }
 
