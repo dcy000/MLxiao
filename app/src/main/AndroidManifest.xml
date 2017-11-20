@@ -439,6 +439,7 @@
         </activity>
         <activity android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity">
         </activity>
+        <activity android:name="com.medlink.danbogh.register.ConfirmContractActivity"/>
     </application>
 
 </manifest>

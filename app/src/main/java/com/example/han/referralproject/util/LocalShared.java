@@ -17,6 +17,7 @@ public class LocalShared {
     private final String UserAccounts = "user_accounts";
     private final String UserId = "user_id";
     private static final String USER_NAME = "user_name";
+    private static final String USER_ID_CARD = "user_id_card";
     private final String UserImg = "user_img";
     private final String XunfeiId = "Xunfei_Id";
     private final String UserPhoneNum = "user_phone_num";
