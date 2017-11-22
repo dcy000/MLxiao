@@ -60,6 +60,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private final static String TAG = DetectActivity.class.getSimpleName();
     private BluetoothLeService mBluetoothLeService;
     public boolean threadDisable = true;
+    public boolean blueThreadDisable = true;
     public String str;
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
@@ -154,7 +155,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 if (mBluetoothAdapter != null){
 //                    dialog = new NDialog(mContext);
 //                    showNormal("设备连接中，请稍后...");
-                    mBluetoothAdapter.startDiscovery();
+                    startSearch();
+//                    mBluetoothAdapter.startDiscovery();
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
@@ -654,21 +656,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         registerBltReceiver();
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (true){
-//                    boolean flag = mBluetoothAdapter.startDiscovery();
-//                    Log.i("mylog", "flag : " + flag);
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }).start();
-        mBluetoothAdapter.startDiscovery();
+        startSearch();
+        //mBluetoothAdapter.startDiscovery();
 
         mXueyaResults = mResources.getStringArray(R.array.result_xueya);
         mWenduResults = mResources.getStringArray(R.array.result_wendu);
@@ -679,6 +668,33 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xueya_video).setOnClickListener(this);
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
+    }
+
+    private void startSearch() {
+        blueThreadDisable = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (blueThreadDisable){
+                    if (!mBluetoothAdapter.isDiscovering()){
+                        boolean flag = mBluetoothAdapter.startDiscovery();
+                        Log.i("mylog", "flag : " + flag);
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void stopSearch() {
+        blueThreadDisable = false;
+        if (mBluetoothAdapter != null) {
+            mBluetoothAdapter.cancelDiscovery();
+        }
     }
 
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
@@ -749,9 +765,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mBluetoothGatt = mBluetoothLeService.getGatt();
                         }
                     }
-                    if (mBluetoothAdapter != null) {
-                        mBluetoothAdapter.cancelDiscovery();
-                    }
+                    stopSearch();
                 }
             }
             //状态改变时
@@ -865,16 +879,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         super.onDestroy();
         threadDisable = false;
         unregisterReceiver(mGattUpdateReceiver);
-
         unregisterReceiver(searchDevices);
-        if (mBluetoothAdapter != null) {
-            mBluetoothAdapter.cancelDiscovery();
-        }
-
+        stopSearch();
         if (mBluetoothLeService != null) {
-
             unbindService(mServiceConnection);
-
         }
         mBluetoothLeService = null;
     }
