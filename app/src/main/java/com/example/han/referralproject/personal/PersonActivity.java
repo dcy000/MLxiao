@@ -28,6 +28,7 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
@@ -315,7 +316,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(this, WifiConnectActivity.class));
                 break;
             case R.id.view_change:
-
+                new ChangeAccountDialog(mContext).show();
                 break;
         }
     }
