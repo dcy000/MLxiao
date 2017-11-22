@@ -29,6 +29,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private BluetoothGatt mBluetoothGatt;
 
     private String detectType = Type_XueYang;
-     public static final String Type_Wendu = "wendu";
+    public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
     public static final String Type_XueYang = "xueyang";
@@ -450,10 +452,57 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public ImageView mImageView1;
     public ImageView mImageView2;
 
+    public Button mButton;
+    public Button mButton1;
+    public Button mButton2;
+    public Button mButton3;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+
+        mButton = (Button) findViewById(R.id.history);
+        mButton1 = (Button) findViewById(R.id.history1);
+        mButton2 = (Button) findViewById(R.id.history2);
+        mButton3 = (Button) findViewById(R.id.history3);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        mButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        mButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        mButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
@@ -675,8 +724,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (blueThreadDisable){
-                    if (!mBluetoothAdapter.isDiscovering()){
+                while (blueThreadDisable) {
+                    if (!mBluetoothAdapter.isDiscovering()) {
                         boolean flag = mBluetoothAdapter.startDiscovery();
                         Log.i("mylog", "flag : " + flag);
                     }

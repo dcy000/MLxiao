@@ -266,7 +266,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         if (System.currentTimeMillis() < time && System.currentTimeMillis() >= time1) {
             mButtons.setEnabled(true);
-
             mButtons.setSelected(true);
 
         } else {
@@ -335,6 +334,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         dialog1 = new NDialog2(DoctorappoActivity.this);
 
         mButtons = (Button) findViewById(R.id.video_doctor);
+        mButtons.setEnabled(false);
+        mButtons.setSelected(false);
 
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override

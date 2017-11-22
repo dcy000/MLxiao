@@ -11,15 +11,25 @@
         android:scaleType="centerInside"
         android:src="@drawable/icon_back" />
 
+
     <ImageView
-        android:id="@+id/temperature_video"
-        android:layout_width="400dp"
-        android:layout_height="300dp"
+        android:id="@+id/video_temperature"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="200dp"
-        android:background="@drawable/temperature_video"
-        android:clickable="true" />
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/video_temperature" />
+
+    <ImageView
+        android:id="@+id/video_temperatures"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignStart="@+id/video_temperature"
+        android:layout_below="@+id/video_temperature"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/video_temperatures" />
 
 
     <RelativeLayout
@@ -74,6 +84,39 @@
         android:clickable="true"
         android:src="@drawable/tests"
         android:visibility="gone" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="70dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:background="@drawable/shape_phone"
+            android:gravity="center"
+            android:text="历史记录"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp" />
+
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/shape_show"
+            android:gravity="center"
+            android:text="使用演示"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp" />
+
+
+    </LinearLayout>
 
 
     <!-- <com.linheimx.app.library.charts.LineChart

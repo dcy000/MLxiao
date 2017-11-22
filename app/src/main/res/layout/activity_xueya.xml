@@ -32,12 +32,34 @@
         android:clickable="true" />-->
 
     <ImageView
-        android:layout_width="500dp"
-        android:layout_height="200dp"
+        android:id="@+id/video_xuetang1"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="100dp"
-        android:src="@drawable/video_xueyas" />
+        android:src="@drawable/xueyass" />
+
+    <ImageView
+        android:id="@+id/video_xuetang2"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignStart="@+id/video_xuetang1"
+        android:layout_below="@+id/video_xuetang1"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/xueyas" />
+
+    <ImageView
+        android:id="@+id/video_xuetang3"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignStart="@+id/video_xuetang2"
+        android:layout_below="@+id/video_xuetang2"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/xuey" />
+
 
 
     <RelativeLayout
@@ -45,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="170dp">
+        android:layout_marginTop="130dp">
 
         <TextView
             android:id="@+id/high_pressure1"
