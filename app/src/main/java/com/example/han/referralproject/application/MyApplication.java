@@ -21,6 +21,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
+import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call.CallManager;
 import com.medlink.danbogh.call.CallReceiver;
@@ -29,6 +30,7 @@ import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
+import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
@@ -70,7 +72,11 @@ public class MyApplication extends Application {
         LocalShared mShared = LocalShared.getInstance(this);
         userId = mShared.getUserId();
         telphoneNum = mShared.getPhoneNum();
-        SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
+        WakeupHelper.init(this);
+        StringBuilder builder = new StringBuilder();
+        builder.append("appid=").append(getString(R.string.app_id)).append(",")
+                .append(SpeechConstant.ENGINE_MODE+"="+SpeechConstant.MODE_MSC);
+        SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
         //EM
         initHyphenate(this);
         //if (telphoneNum != null) {

@@ -83,7 +83,7 @@ public class VideoDemo extends BaseActivity {
     // 加速度感应器，用于获取手机的朝向
     private Accelerometer mAcc;
     // FaceDetector对象，集成了离线人脸识别：人脸检测、视频流检测功能
-    private FaceDetector mFaceDetector;
+//    private FaceDetector mFaceDetector;
     private boolean mStopTrack;
     private Toast mToast;
     private long mLastClickTime;
@@ -138,7 +138,11 @@ public class VideoDemo extends BaseActivity {
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mAcc = new Accelerometer(VideoDemo.this);
-        mFaceDetector = FaceDetector.createDetector(VideoDemo.this, null);
+//        try {
+//            mFaceDetector = FaceDetector.createDetector(VideoDemo.this, null);
+//        } catch (SpeechError speechError) {
+//            speechError.printStackTrace();
+//        }
 
         mFaceRequest = new FaceRequest(this);
 
@@ -292,14 +296,14 @@ public class VideoDemo extends BaseActivity {
             e.printStackTrace();
         }
 
-        if (mFaceDetector == null) {
-            /**
-             * 离线视频流检测功能需要单独下载支持离线人脸的SDK
-             * 请开发者前往语音云官网下载对应SDK
-             */
-            // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
-            showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
-        }
+//        if (mFaceDetector == null) {
+//            /**
+//             * 离线视频流检测功能需要单独下载支持离线人脸的SDK
+//             * 请开发者前往语音云官网下载对应SDK
+//             */
+//            // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
+//            showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
+//        }
     }
 
     @Override
@@ -498,80 +502,80 @@ public class VideoDemo extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        if (null != mAcc) {
-            mAcc.start();
-        }
-
-        mStopTrack = false;
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                while (!mStopTrack) {
-                    if (null == nv21) {
-                        continue;
-                    }
-
-                    synchronized (nv21) {
-                        System.arraycopy(nv21, 0, buffer, 0, nv21.length);
-                    }
-
-                    // 获取手机朝向，返回值0,1,2,3分别表示0,90,180和270度
-                    int direction = Accelerometer.getDirection();
-                    boolean frontCamera = (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId);
-                    // 前置摄像头预览显示的是镜像，需要将手机朝向换算成摄相头视角下的朝向。
-                    // 转换公式：a' = (360 - a)%360，a为人眼视角下的朝向（单位：角度）
-                    if (frontCamera) {
-                        // SDK中使用0,1,2,3,4分别表示0,90,180,270和360度
-                        direction = (4 - direction) % 4;
-                    }
-
-                    if (mFaceDetector == null) {
-                        /**
-                         * 离线视频流检测功能需要单独下载支持离线人脸的SDK
-                         * 请开发者前往语音云官网下载对应SDK
-                         */
-                        // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
-                        showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
-                        break;
-                    }
-
-                    String result = mFaceDetector.trackNV21(buffer, PREVIEW_WIDTH, PREVIEW_HEIGHT, isAlign, direction);
-                    Log.d(TAG, "result:" + result);
-
-                    FaceRect[] faces = ParseResult.parseResult(result);
-
-                    Canvas canvas = mFaceSurface.getHolder().lockCanvas();
-                    if (null == canvas) {
-                        continue;
-                    }
-
-                    canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                    canvas.setMatrix(mScaleMatrix);
-
-                    if (faces == null || faces.length <= 0) {
-                        mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
-                        continue;
-                    }
-
-                    if (null != faces && frontCamera == (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId)) {
-                        for (FaceRect face : faces) {
-                            face.bound = FaceUtil.RotateDeg90(face.bound, PREVIEW_WIDTH, PREVIEW_HEIGHT);
-                            if (face.point != null) {
-                                for (int i = 0; i < face.point.length; i++) {
-                                    face.point[i] = FaceUtil.RotateDeg90(face.point[i], PREVIEW_WIDTH, PREVIEW_HEIGHT);
-                                }
-                            }
-                            FaceUtil.drawFaceRect(canvas, face, PREVIEW_WIDTH, PREVIEW_HEIGHT, frontCamera, false);
-                        }
-                    } else {
-                        Log.d(TAG, "faces:0");
-                    }
-
-                    mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
-                }
-            }
-        }).start();
+//        if (null != mAcc) {
+//            mAcc.start();
+//        }
+//
+//        mStopTrack = false;
+//        new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                while (!mStopTrack) {
+//                    if (null == nv21) {
+//                        continue;
+//                    }
+//
+//                    synchronized (nv21) {
+//                        System.arraycopy(nv21, 0, buffer, 0, nv21.length);
+//                    }
+//
+//                    // 获取手机朝向，返回值0,1,2,3分别表示0,90,180和270度
+//                    int direction = Accelerometer.getDirection();
+//                    boolean frontCamera = (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId);
+//                    // 前置摄像头预览显示的是镜像，需要将手机朝向换算成摄相头视角下的朝向。
+//                    // 转换公式：a' = (360 - a)%360，a为人眼视角下的朝向（单位：角度）
+//                    if (frontCamera) {
+//                        // SDK中使用0,1,2,3,4分别表示0,90,180,270和360度
+//                        direction = (4 - direction) % 4;
+//                    }
+//
+//                    if (mFaceDetector == null) {
+//                        /**
+//                         * 离线视频流检测功能需要单独下载支持离线人脸的SDK
+//                         * 请开发者前往语音云官网下载对应SDK
+//                         */
+//                        // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
+//                        showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
+//                        break;
+//                    }
+//
+//                    String result = mFaceDetector.trackNV21(buffer, PREVIEW_WIDTH, PREVIEW_HEIGHT, isAlign, direction);
+//                    Log.d(TAG, "result:" + result);
+//
+//                    FaceRect[] faces = ParseResult.parseResult(result);
+//
+//                    Canvas canvas = mFaceSurface.getHolder().lockCanvas();
+//                    if (null == canvas) {
+//                        continue;
+//                    }
+//
+//                    canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+//                    canvas.setMatrix(mScaleMatrix);
+//
+//                    if (faces == null || faces.length <= 0) {
+//                        mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
+//                        continue;
+//                    }
+//
+//                    if (null != faces && frontCamera == (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId)) {
+//                        for (FaceRect face : faces) {
+//                            face.bound = FaceUtil.RotateDeg90(face.bound, PREVIEW_WIDTH, PREVIEW_HEIGHT);
+//                            if (face.point != null) {
+//                                for (int i = 0; i < face.point.length; i++) {
+//                                    face.point[i] = FaceUtil.RotateDeg90(face.point[i], PREVIEW_WIDTH, PREVIEW_HEIGHT);
+//                                }
+//                            }
+//                            FaceUtil.drawFaceRect(canvas, face, PREVIEW_WIDTH, PREVIEW_HEIGHT, frontCamera, false);
+//                        }
+//                    } else {
+//                        Log.d(TAG, "faces:0");
+//                    }
+//
+//                    mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
+//                }
+//            }
+//        }).start();
     }
 
     @Override
@@ -588,10 +592,10 @@ public class VideoDemo extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         sign = false;
-        if (null != mFaceDetector) {
-            // 销毁对象
-            mFaceDetector.destroy();
-        }
+//        if (null != mFaceDetector) {
+//            // 销毁对象
+//            mFaceDetector.destroy();
+//        }
     }
 
     private void showTip(final String str) {

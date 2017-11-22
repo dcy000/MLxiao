@@ -48,7 +48,6 @@ public class SignUp6PasswordActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up6_password);
-        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
     }
 
@@ -63,6 +62,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.sign_up_password_tip);
     }
 
