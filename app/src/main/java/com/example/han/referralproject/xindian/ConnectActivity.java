@@ -42,7 +42,7 @@ public class ConnectActivity extends Activity implements OnClickListener{
 		imgProgress = (ImageView) findViewById(R.id.dialog_pro);
 		imgProgress.setOnClickListener(reConListener);
 		conDeviceName = getIntent().getExtras().getInt("device");
-		findViewById(R.id.iv_back).setOnClickListener(this);
+		findViewById(R.id.icon_back).setOnClickListener(this);
 
 		IntentFilter filter = new IntentFilter(
 				ReceiveService.BLU_ACTION_STATE_CHANGE);
