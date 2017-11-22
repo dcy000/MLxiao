@@ -96,7 +96,7 @@ public class WakeupHelper {
 
     public void enableWakeuperListening(boolean enable) {
         if (enable) {
-            startWakeuprListening(Wakeuperlistener());
+            startWakeuprListening(wakeuperlistener());
         } else {
             stopWakeuprListening();
         }
@@ -104,7 +104,7 @@ public class WakeupHelper {
 
     private WakeuperListener listener;
 
-    private WakeuperListener Wakeuperlistener() {
+    private WakeuperListener wakeuperlistener() {
         if (listener == null) {
             listener = new AbsWakeuperListener() {
                 @Override
