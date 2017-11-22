@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.example.han.referralproject.recyclerview.DoctorAlarmActivity;
+
 /**
  * Created by lenovo on 2017/9/19.
  */
@@ -18,7 +20,11 @@ public class AlarmService extends Service {
         Intent alarmIntent = new Intent();
         if (tag == null || tag.isEmpty()) {
             alarmIntent.setClass(getBaseContext(), ReminderActivity.class);
+        } else if ("1".equals(tag)) {
+            alarmIntent.setClass(getBaseContext(), DoctorAlarmActivity.class);
+
         }
+
         alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         alarmIntent.putExtras(intent);
         getApplication().startActivity(alarmIntent);

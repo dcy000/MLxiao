@@ -184,6 +184,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                     public void onSuccess(UserInfoBean response) {
                         hideLoadingDialog();
                         shared.setUserInfo(response);
+                        shared.addAccount(response.bid);
                         navToNext();
                     }
                 }, new NetworkManager.FailedCallback() {

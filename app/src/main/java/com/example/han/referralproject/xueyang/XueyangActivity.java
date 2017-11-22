@@ -365,7 +365,7 @@ public class XueyangActivity extends BaseActivity {
         });
 
 
-        mImageView = (ImageView) findViewById(R.id.xueyang_video);
+      /*  mImageView = (ImageView) findViewById(R.id.xueyang_video);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -374,7 +374,7 @@ public class XueyangActivity extends BaseActivity {
                 startActivity(intent);
 
             }
-        });
+        });*/
         /*cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

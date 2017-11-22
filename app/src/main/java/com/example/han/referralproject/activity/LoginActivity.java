@@ -61,6 +61,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onSuccess(UserInfoBean response) {
                         LocalShared.getInstance(mContext).setUserInfo(response);
+                        LocalShared.getInstance(mContext).addAccount(response.bid);
                         hideLoadingDialog();
                         startActivity(new Intent(mContext, MainActivity.class));
                         finish();

@@ -24,12 +24,15 @@ import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
@@ -201,6 +204,25 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         });
 
 
+        NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
+            @Override
+            public void onSuccess(RobotAmount response) {
+
+
+                mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
+
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
+
+
         NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
@@ -294,7 +316,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(this, WifiConnectActivity.class));
                 break;
             case R.id.view_change:
-
+                new ChangeAccountDialog(mContext).show();
                 break;
         }
     }

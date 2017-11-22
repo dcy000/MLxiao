@@ -78,7 +78,7 @@ public class MyApplication extends Application {
                 .append(SpeechConstant.ENGINE_MODE+"="+SpeechConstant.MODE_MSC);
         SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
         //EM
-        initHyphenate(this);
+//        initHyphenate(this);
         //if (telphoneNum != null) {
 //        EMAccountHelper.login(emBrId(), "123");
         //}
@@ -145,7 +145,7 @@ public class MyApplication extends Application {
         // 设置消息是否按照服务器时间排序
         options.setSortMessageByServerTime(false);
         // 初始化环信SDK,一定要先调用init()
-        EMClient.getInstance().init(context, options);
+//        EMClient.getInstance().init(context, options);
         // 开启 debug 模式
         EMClient.getInstance().setDebugMode(true);
         // 设置通话广播监听器

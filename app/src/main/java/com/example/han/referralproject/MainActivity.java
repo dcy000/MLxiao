@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak("主人，您爱吃荤吗？您常抽烟吗？您喝酒吗？");
+                speak(R.string.tips_splash);
             }
         }, 1000);
     }
@@ -168,10 +168,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         }
                     }
                     if (!isSetted) {
-                        AlarmHelper.setupAlarm(mContext,
-                                Integer.valueOf(timeString[0]),
-                                Integer.valueOf(timeString[1]),
-                                itemBean.medicine);
+                        AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]), itemBean.medicine);
                     }
                 }
             }

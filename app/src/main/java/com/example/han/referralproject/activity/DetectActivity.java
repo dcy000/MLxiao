@@ -29,6 +29,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -65,7 +67,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
     public TextView mXueYangTv, mXueYangPulseTv;
-    //    public View tipsLayout;
+    public View tipsLayout;
     public VideoView mVideoView;
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
@@ -152,7 +154,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mConnected = false;
                 speak(R.string.tips_blue_unConnect);
                 isGetResustFirst = true;
-                if (mBluetoothAdapter != null){
+                if (mBluetoothAdapter != null) {
 //                    dialog = new NDialog(mContext);
 //                    showNormal("设备连接中，请稍后...");
                     startSearch();
@@ -289,7 +291,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         //threadDisable = false;
                         if (isGetResustFirst) {
 //                            float xuetangResut = ((float)((notifyData[10] << 8 + (notifyData[9] & 0xff))))/18;
-                            float xuetangResut = ((float)(notifyData[10] << 8) + (float)(notifyData[9] & 0xff))/18;
+                            float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
 //                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
                             speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut)));
@@ -314,7 +316,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 info.blood_oxygen = String.format(String.valueOf(notifyData[5]));
                                 info.pulse = (int) notifyData[6];
                                 String xueyangResult;
-                                if (notifyData[5] >= 90){
+                                if (notifyData[5] >= 90) {
                                     xueyangResult = mXueYangResults[0];
                                 } else {
                                     xueyangResult = mXueYangResults[1];
@@ -332,8 +334,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_TiZhong:
-                        if (notifyData != null && notifyData.length == 20){
-                            float result = ((float)(notifyData[2] << 8) + (float)(notifyData[3] & 0xff))/10;
+                        if (notifyData != null && notifyData.length == 20) {
+                            float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                             mResultTv.setText(String.valueOf(result));
                         }
                         break;
@@ -450,10 +452,57 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public ImageView mImageView1;
     public ImageView mImageView2;
 
+    public Button mButton;
+    public Button mButton1;
+    public Button mButton2;
+    public Button mButton3;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+
+        mButton = (Button) findViewById(R.id.history);
+        mButton1 = (Button) findViewById(R.id.history1);
+        mButton2 = (Button) findViewById(R.id.history2);
+        mButton3 = (Button) findViewById(R.id.history3);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        mButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        mButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        mButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
@@ -582,7 +631,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                dialog = new NDialog(th、is);
 //                showNormal("设备连接中，请稍后...");
         int resourceId = 0;
-        switch (detectType){
+        switch (detectType) {
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
@@ -617,7 +666,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
-        if (resourceId != 0){
+        if (resourceId != 0) {
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
             mVideoView.start();
@@ -675,8 +724,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (blueThreadDisable){
-                    if (!mBluetoothAdapter.isDiscovering()){
+                while (blueThreadDisable) {
+                    if (!mBluetoothAdapter.isDiscovering()) {
                         boolean flag = mBluetoothAdapter.startDiscovery();
                         Log.i("mylog", "flag : " + flag);
                     }

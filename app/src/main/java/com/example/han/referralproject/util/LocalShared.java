@@ -135,9 +135,8 @@ public class LocalShared {
     }
     public void loginOut() {
         String accountHistory = deleteAccount(MyApplication.getInstance().userId);
-
         MyApplication.getInstance().userId = null;
-        mShared.edit().clear().commit();
+        mShared.edit().clear().putString(UserAccounts, accountHistory).commit();
     }
 
     public boolean isShowAddGuide() {

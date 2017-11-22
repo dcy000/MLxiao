@@ -190,11 +190,10 @@
 
         <ImageView
             android:id="@+id/iv_pay"
-            android:layout_width="0dp"
+            android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:clickable="true"
             android:src="@drawable/account_recharge" />
 
@@ -202,31 +201,34 @@
             android:id="@+id/iv_message"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/icon_doctor_message" />
 
         <ImageView
             android:id="@+id/iv_check"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/icon_check" />
 
-        <!--<ImageView-->
-        <!--android:layout_width="125dp"-->
-        <!--android:layout_height="125dp"-->
-        <!--android:layout_marginLeft="40dp"-->
-        <!--android:layout_marginRight="40dp"-->
-        <!--android:src="@drawable/my_ordor" />-->
+
         <ImageView
             android:id="@+id/iv_alarm"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/ic_alarm" />
+
+        <ImageView
+            android:id="@+id/iv_shopping"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/icon_shopping" />
     </LinearLayout>
 
     <TextView
@@ -249,9 +251,10 @@
         android:layout_height="70dp"
         android:layout_alignParentRight="true"
         android:src="@drawable/icon_wifi" />
+
     <View
         android:id="@+id/view_change"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
