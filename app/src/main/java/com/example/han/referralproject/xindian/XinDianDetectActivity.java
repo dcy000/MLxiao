@@ -28,7 +28,7 @@ import com.example.han.referralproject.network.NetworkManager;
 /**
  * draw by view
  */
-public class XinDianDetectActivity extends BaseActivity {
+public class XinDianDetectActivity extends BaseActivity implements View.OnClickListener{
 
 	/**
 	 * PC80B绘图的View
@@ -98,6 +98,16 @@ public class XinDianDetectActivity extends BaseActivity {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ReceiveService.ACTION_BLU_DISCONNECT);
 		registerReceiver(receiver, filter);
+		findViewById(R.id.icon_back).setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()){
+			case R.id.icon_back:
+				finish();
+				break;
+		}
 	}
 
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -233,7 +243,7 @@ public class XinDianDetectActivity extends BaseActivity {
 			}
 				break;
 			case StaticReceive.MSG_TERMINAL_OFFLINE:{				
-				sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));				
+				sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
 			}
 				break;
 			default:break;

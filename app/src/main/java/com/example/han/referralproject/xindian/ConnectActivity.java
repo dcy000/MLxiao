@@ -20,7 +20,7 @@ import com.example.han.referralproject.R;
 /**
  * progress dialog for bluetooth connecting
  */
-public class ConnectActivity extends Activity {
+public class ConnectActivity extends Activity implements OnClickListener{
 
 	/** 显示当前进度 */
 	private TextView tvStatus;
@@ -42,6 +42,7 @@ public class ConnectActivity extends Activity {
 		imgProgress = (ImageView) findViewById(R.id.dialog_pro);
 		imgProgress.setOnClickListener(reConListener);
 		conDeviceName = getIntent().getExtras().getInt("device");
+		findViewById(R.id.iv_back).setOnClickListener(this);
 
 		IntentFilter filter = new IntentFilter(
 				ReceiveService.BLU_ACTION_STATE_CHANGE);
@@ -113,6 +114,15 @@ public class ConnectActivity extends Activity {
 			}
 		}
 	};
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()){
+			case R.id.icon_back:
+				finish();
+				break;
+		}
+	}
 
 	@Override
 	protected void onDestroy() {
