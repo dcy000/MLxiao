@@ -108,7 +108,7 @@
             android:gravity="center"
             android:text="高血压"
             android:textColor="#FFFFFF"
-            android:textSize="40sp" />
+            android:textSize="40sp"/>
 
         <Button
             android:id="@+id/xue_tang"

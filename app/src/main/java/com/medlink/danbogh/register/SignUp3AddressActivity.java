@@ -62,7 +62,6 @@ public class SignUp3AddressActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up3_address);
-        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initData();
     }
@@ -78,6 +77,7 @@ public class SignUp3AddressActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.sign_up3_address_tip);
     }
 

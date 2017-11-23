@@ -50,7 +50,6 @@ public class HeadiconActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headicon);
-        setDisableGlobalListen(true);
 
         Log.e("=====================", LocalShared.getInstance(getApplicationContext()).getXunfeiId());
         uploadManager = new UploadManager();
@@ -171,6 +170,7 @@ public class HeadiconActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         startListening();
     }
 

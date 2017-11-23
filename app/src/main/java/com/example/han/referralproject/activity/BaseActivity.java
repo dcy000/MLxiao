@@ -2,7 +2,6 @@ package com.example.han.referralproject.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,12 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -28,10 +24,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.qiniu.android.common.FixedZone;
-import com.qiniu.android.storage.Configuration;
-import com.qiniu.android.storage.UploadManager;
-import com.qiniu.android.storage.UploadOptions;
+import com.medlink.danbogh.wakeup.WakeupHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +61,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         mResources = getResources();
-
 
         enableListeningLoop = true;
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
@@ -170,6 +162,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setDisableGlobalListen(boolean disableGlobalListen) {
         this.disableGlobalListen = disableGlobalListen;
+        WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
     }
 
     private RecognizerListener mIatListener = new RecognizerListener() {
@@ -210,20 +203,6 @@ public class BaseActivity extends AppCompatActivity {
             }
             String result = resultBuffer.toString();
             if (!TextUtils.isEmpty(result)) {
-                if (!disableGlobalListen) {
-                    String inSpell = PinYinUtils.converterToSpell(result);
-                    if (inSpell.matches(".*(houtui|fanhui).*")) {
-                        onBackPressed();
-                        return;
-                    }
-                    if (inSpell.matches(".*xiao(yi|yu|li).*")) {
-                        speak(R.string.hello);
-                        Intent intent = new Intent();
-                        intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
-                        startActivity(intent);
-                        return;
-                    }
-                }
                 onSpeakListenerResult(result);
             }
         }
@@ -371,6 +350,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         enableListeningLoop = true;
+        setDisableGlobalListen(false);
         handler.postDelayed(mListening, 200);
     }
 

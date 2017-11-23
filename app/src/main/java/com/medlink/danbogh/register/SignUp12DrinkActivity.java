@@ -43,7 +43,6 @@ public class SignUp12DrinkActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up12_drink);
-        setDisableGlobalListen(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
@@ -114,6 +113,7 @@ public class SignUp12DrinkActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.sign_up_drink_tip);
     }
 

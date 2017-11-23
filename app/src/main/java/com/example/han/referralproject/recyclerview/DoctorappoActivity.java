@@ -51,7 +51,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     SharedPreferences sharedPreferences1;
 
-
     public TextView mTextView;
     public TextView mTextView1;
     public TextView mTextView2;
@@ -324,7 +323,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String nimUserId = MyApplication.getInstance().nimUserId();
-        NimAccountHelper.getInstance().login("br_12345678912", "123456", null);
+        NimAccountHelper.getInstance().login(nimUserId, "123456", null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
@@ -407,7 +406,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
+                NimCallActivity.launch(DoctorappoActivity.this, "doctor_" + doctorId/*"doctor_18940866148"*/);
                 finish();
             }
         });

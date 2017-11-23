@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
@@ -55,6 +56,7 @@ public class NetworkApi {
     public static final String TOKEN_URL = BasicUrl + "/ZZB/br/seltoken";
     public static final String RETURN_IMAGE_URL = BasicUrl + "/ZZB/br/upUser_photo";
     public static final String ADD_EAT_MEDICAL_URL = BasicUrl + "/ZZB/br/addeatmod";
+    public static final String GET_CONTRACT_INFO = BasicUrl + "/ZZB/docter/docter_user";
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
@@ -261,5 +263,15 @@ public class NetworkApi {
         params.put("time", String.valueOf(Calendar.getInstance().getTimeInMillis()));
         params.put("state", state);
         NetworkManager.getInstance().postResultClass(ADD_EAT_MEDICAL_URL, params, Object.class, successCallback, failedCallback);
+    }
+
+    public static void getContractInfo(
+            String doctorId,
+            NetworkManager.SuccessCallback<ContractInfo> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userid", MyApplication.getInstance().userId);
+        params.put("docterid", doctorId);
+        NetworkManager.getInstance().getResultClass(GET_CONTRACT_INFO, params, ContractInfo.class, successCallback, failedCallback);
     }
 }

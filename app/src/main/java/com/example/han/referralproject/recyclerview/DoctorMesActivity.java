@@ -27,6 +27,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.medlink.danbogh.call.XDialogFragment;
+import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.Timer;
@@ -54,7 +55,6 @@ public class DoctorMesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
         //    initToolBar();
-        setDisableGlobalListen(true);
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
 
@@ -111,25 +111,7 @@ public class DoctorMesActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-
-                //    show();
-                NetworkApi.bindDoctor(MyApplication.getInstance().userId, doctor.getDocterid(), new NetworkManager.SuccessCallback<String>() {
-                    @Override
-                    public void onSuccess(String response) {
-                        XDialogFragment dialogFragment = new XDialogFragment();
-                        dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-
-
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-                        dialogFragment.show(getSupportFragmentManager(), XDialogFragment.tag());
-                    }
-                });
+                ConfirmContractActivity.start(DoctorMesActivity.this, String.valueOf(doctor.docterid));
             }
         });
 
@@ -192,6 +174,7 @@ public class DoctorMesActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.tips_info);
     }
 

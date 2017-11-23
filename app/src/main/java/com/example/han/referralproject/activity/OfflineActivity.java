@@ -17,7 +17,6 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
-        setDisableGlobalListen(true);
         mBack = findViewById(R.id.view_back);
         mBack.setOnClickListener(this);
     }
@@ -25,6 +24,7 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(getString(R.string.user_help));
     }
 
