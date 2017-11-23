@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    //public static final String BasicUrl = "http://192.168.200.104:8080";
+//    public static final String BasicUrl = "http://192.168.200.104:8080";
 
         public static final String BasicUrl = "http://192.168.200.103:8080";
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
@@ -37,6 +37,7 @@ public class NetworkApi {
     public static final String ClueUrl = BasicUrl + "/ZZB/br/selOneUserClueAll";
     public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
     public static final String GetAllSymUrl = BasicUrl + "/ZZB/bl/selAllSym";
+    //次层病症和首层诊断结果
     public static final String AnalyseUrl = BasicUrl + "/ZZB/bl/selcon";
     public static final String GetYZUrl = BasicUrl + "/ZZB/bl/selYzAndTime";
     public static final String GetVersionUrl = BasicUrl + "/ZZB/vc/selone";
@@ -181,16 +182,19 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
+    /**
+     * 获取所有症状
+     * @param callback
+     */
     public static void getAllSym(NetworkManager.SuccessCallback<ArrayList<SymptomBean>> callback) {
         NetworkManager.getInstance().getResultClass(GetAllSymUrl, null, new TypeToken<ArrayList<SymptomBean>>() {
         }.getType(), callback);
     }
 
-    public static void analyseSym(String params, NetworkManager.SuccessCallback<ArrayList<SymptomResultBean>> callback) {
+    public static void analyseSym(String params, NetworkManager.SuccessCallback<SymptomResultBean> callback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("parameter", params);
-        NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, new TypeToken<ArrayList<SymptomResultBean>>() {
-        }.getType(), callback);
+        NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, SymptomResultBean.class, callback);
     }
 
     public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback) {

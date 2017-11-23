@@ -10,17 +10,23 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomRecyclerAdapter;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
+import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 症状自查页面1
+ */
 public class SymptomAnalyseActivity extends BaseActivity implements View.OnClickListener{
     private RecyclerView mRecyclerView;
     private ArrayList<SymptomBean> mDataList = new ArrayList<>();
@@ -42,6 +48,7 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
             }
         });*/
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_symptom);
+
         mSymptomAdapter = new SymptomRecyclerAdapter(mContext, mDataList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         mRecyclerView.setAdapter(mSymptomAdapter);
@@ -73,10 +80,12 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_analyse:
+            case R.id.btn_analyse://提交
                 String selectResult = mSymptomAdapter.getResult();
                 if (!TextUtils.isEmpty(selectResult)){
                     NetworkApi.analyseSym(selectResult, mAnalyseCallback);
+                }else{
+                    ToastUtils.show("请选择病症");
                 }
                 break;
         }
@@ -94,15 +103,18 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
         }
     };
 
-    private NetworkManager.SuccessCallback mAnalyseCallback = new NetworkManager.SuccessCallback<ArrayList<SymptomResultBean>>() {
+    private NetworkManager.SuccessCallback mAnalyseCallback = new NetworkManager.SuccessCallback<SymptomResultBean>() {
         @Override
-        public void onSuccess(ArrayList<SymptomResultBean> response) {
+        public void onSuccess(SymptomResultBean response) {
             if (response == null) {
                 return;
             }
-            Intent mResultIntent = new Intent(mContext, SymptomAnalyseResultActivity.class);
-            mResultIntent.putExtra("result", response);
-            startActivity(new Intent(mResultIntent));
+//            Intent mResultIntent = new Intent(mContext, SymptomAnalyseResultActivity.class);
+//            mResultIntent.putExtra("result", (Serializable) response.getBqss());
+//            startActivity(new Intent(mResultIntent));
+            Intent secondIntent=new Intent(mContext,SecondSymptomAnalyseActivity.class);
+            secondIntent.putExtra("result",response);
+            startActivity(secondIntent);
         }
     };
 }
