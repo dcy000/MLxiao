@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.video.VideoListActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_video"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_health_video"/>
+
+    <RadioGroup
+        android:id="@+id/rg_health_video"
+        android:layout_width="0pt"
+        android:layout_height="120pt"
+        android:divider="@drawable/line_vertical"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_video_list">
+
+        <!--<RadioButton-->
+        <!--android:id="@+id/rb_record_situation"-->
+        <!--android:layout_width="0pt"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/bg_rb_health_record0"-->
+        <!--android:button="@null"-->
+        <!--android:gravity="center"-->
+        <!--android:text="基本情况"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="65pt"/>-->
+
+        <RadioButton
+            android:id="@+id/rb_video_hypertension"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="高血压"
+            android:textColor="#ffffff"
+            android:textSize="65pt"/>
+
+        <RadioButton
+            android:id="@+id/rb_video_stroke"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record2"
+            android:button="@null"
+            android:gravity="center"
+            android:text="中风"
+            android:textColor="#ffffff"
+            android:textSize="65pt"/>
+
+        <RadioButton
+            android:id="@+id/rb_video_psychosis"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record3"
+            android:button="@null"
+            android:gravity="center"
+            android:text="精神病"
+            android:textColor="#ffffff"
+            android:textSize="65pt"/>
+
+        <RadioButton
+            android:id="@+id/rb_video_palsy"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record4"
+            android:button="@null"
+            android:gravity="center"
+            android:text="脑瘫"
+            android:textColor="#ffffff"
+            android:textSize="65pt"/>
+    </RadioGroup>
+
+    <include
+        android:id="@+id/toolbar_video_list"
+        layout="@layout/include_toolbar"/>
+</android.support.constraint.ConstraintLayout>

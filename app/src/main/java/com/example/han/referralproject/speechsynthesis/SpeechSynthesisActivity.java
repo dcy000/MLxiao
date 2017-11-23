@@ -61,6 +61,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call.EMUIHelper;
+import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
@@ -180,7 +181,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         // 初始化听`写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
-        mIatDialog = new RecognizerDialog(this, mInitListener);
+        mIatDialog = new MlRecognizerDialog(this, mInitListener);
 
         mSharedPreferences = getSharedPreferences(IatSettings.PREFER_NAME, Activity.MODE_PRIVATE);
         mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
