@@ -265,10 +265,6 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         dialog1 = new NDialog2(AddAppoActivity.this);
 
 
-        //   speak(R.string.yuyue);
-
-        //sharedPreference = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-
 
         ImageView1 = (ImageView) findViewById(R.id.icon_back);
         ImageView2 = (ImageView) findViewById(R.id.icon_home);

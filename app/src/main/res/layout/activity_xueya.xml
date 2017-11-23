@@ -37,7 +37,7 @@
         android:layout_height="180dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:src="@drawable/xueyass" />
 
     <ImageView
@@ -59,7 +59,6 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/xuey" />
-
 
 
     <RelativeLayout
