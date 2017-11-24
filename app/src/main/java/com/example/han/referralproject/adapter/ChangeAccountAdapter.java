@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.imageview.CircleImageView;
+import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.squareup.picasso.Picasso;
 
 public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdapter.MyHolder> {
     private String[] mAccountIds;
@@ -31,6 +34,13 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
     @Override
     public void onBindViewHolder(ChangeAccountAdapter.MyHolder holder, final int position) {
         holder.mIdView.setText(mAccountIds[position]);
+//        Picasso.with(mContext)
+//                .load(response.getuser_photo())
+//                .placeholder(R.drawable.avatar_placeholder)
+//                .error(R.drawable.avatar_placeholder)
+//                .tag(this)
+//                .fit()
+//                .into(mImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,10 +59,12 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
 
     public class MyHolder extends RecyclerView.ViewHolder {
         public TextView mIdView;
+        public CircleImageView mHeaderIv;
 
         public MyHolder(View view){
             super(view);
             mIdView = (TextView) view.findViewById(R.id.tv_id);
+            mHeaderIv = (CircleImageView) view.findViewById(R.id.iv_header);
         }
     }
 }

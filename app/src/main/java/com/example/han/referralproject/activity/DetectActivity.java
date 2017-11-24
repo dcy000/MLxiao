@@ -724,8 +724,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (blueThreadDisable) {
-                    if (!mBluetoothAdapter.isDiscovering()) {
+                while (blueThreadDisable){
+                    if (!mBluetoothAdapter.isDiscovering()){
                         boolean flag = mBluetoothAdapter.startDiscovery();
                         Log.i("mylog", "flag : " + flag);
                     }
