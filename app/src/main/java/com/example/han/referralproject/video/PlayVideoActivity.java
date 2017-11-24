@@ -42,7 +42,6 @@ public class PlayVideoActivity extends AppCompatActivity implements View.OnClick
         mSuperVideoPlayer.setAutoHideController(false);
         Uri uri = Uri.parse(urls);
         mSuperVideoPlayer.loadAndPlay(uri, 0);
-
     }
 
 

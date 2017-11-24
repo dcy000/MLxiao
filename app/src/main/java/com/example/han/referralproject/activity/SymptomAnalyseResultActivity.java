@@ -20,7 +20,7 @@ public class SymptomAnalyseResultActivity extends BaseActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_symptom_result_layout);
         findViewById(R.id.iv_back).setOnClickListener(this);
-        ArrayList<SymptomResultBean> mDataList = (ArrayList<SymptomResultBean>) getIntent().getSerializableExtra("result");
+        ArrayList<SymptomResultBean.bqs> mDataList = (ArrayList<SymptomResultBean.bqs>) getIntent().getSerializableExtra("result");
         if (mDataList == null || mDataList.size() == 0) {
             return;
         }
@@ -28,8 +28,8 @@ public class SymptomAnalyseResultActivity extends BaseActivity implements View.O
         symptomResultRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         symptomResultRv.setAdapter(new SymptomResultAdapter(mContext, mDataList));
         StringBuilder mBuilder = new StringBuilder();
-        for (SymptomResultBean itemBean : mDataList){
-            mBuilder.append(itemBean.con).append("、");
+        for (SymptomResultBean.bqs itemBean : mDataList){
+            mBuilder.append(itemBean.getBname()).append("、");
         }
         speak(String.format(getString(R.string.tips_symptom_result), mBuilder.toString()));
     }

@@ -19,6 +19,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.MessageActivity;
+import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -296,8 +297,10 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_record:
-                startActivity(new Intent(this, HealthRecordActivity.class));
+            case R.id.btn_record://健康档案
+
+//                startActivity(new Intent(this, HealthRecordActivity.class));
+                startActivity(new Intent(this,MyBaseDataActivity.class));
                 break;
             case R.id.btn_logout:
                 LocalShared.getInstance(this).loginOut();
