@@ -103,8 +103,6 @@ public class NetworkApi {
         paramsMap.put("end_time", end_time);
         paramsMap.put("userid", userid + "");
         paramsMap.put("docterid", docterid + "");
-
-
         NetworkManager.getInstance().postResultClass(YUYUE_URL, paramsMap, String.class, listener, failedCallback);
     }
 
@@ -113,7 +111,6 @@ public class NetworkApi {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("docterid", docterid);
-
         NetworkManager.getInstance().postResultClass(YUYUE_URL_INFO, paramsMap, new TypeToken<ArrayList<YuYueInfo>>() {
         }.getType(), listener, failedCallback);
     }
@@ -189,6 +186,13 @@ public class NetworkApi {
      */
     public static void getAllSym(NetworkManager.SuccessCallback<ArrayList<SymptomBean>> callback) {
         NetworkManager.getInstance().getResultClass(GetAllSymUrl, null, new TypeToken<ArrayList<SymptomBean>>() {
+        }.getType(), callback);
+    }
+
+    public static void getAllUsers(String accounts, NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> callback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("p", accounts);
+        NetworkManager.getInstance().getResultClass(GetInfo_URL, null, new TypeToken<ArrayList<UserInfoBean>>() {
         }.getType(), callback);
     }
 

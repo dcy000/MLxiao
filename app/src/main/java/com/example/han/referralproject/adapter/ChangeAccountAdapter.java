@@ -21,7 +21,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
     private Context mContext;
 
     public ChangeAccountAdapter(Context context){
-        mAccountIds = LocalShared.getInstance(context).getAccounts();
+
         mInflater = LayoutInflater.from(context);
         mContext = context;
     }

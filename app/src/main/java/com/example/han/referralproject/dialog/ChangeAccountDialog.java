@@ -12,6 +12,7 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.adapter.ChangeAccountAdapter;
+import com.example.han.referralproject.util.LocalShared;
 
 
 public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
@@ -21,6 +22,8 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
     public ChangeAccountDialog(Context context){
         super(context, R.style.XDialog);
         mContext = context;
+        String[] mAccountIds = LocalShared.getInstance(context).getAccounts();
+
     }
 
     @Override
