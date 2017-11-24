@@ -205,6 +205,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         });
 
 
+
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
             public void onSuccess(RobotAmount response) {
@@ -228,7 +229,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onSuccess(Doctor response) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("doctor_id", response.docterid + "");
+                editor.putString("doctor_id", response.getDocterid() + "");
                 editor.putString("name", response.getDoctername());
                 editor.putString("position", response.getDuty());
                 editor.putString("feature", response.getDepartment());

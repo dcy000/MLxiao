@@ -53,6 +53,8 @@ public class BaseActivity extends AppCompatActivity {
         enableListeningLoop = enable;
     }
 
+    SpeechSynthesizer synthesizer;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,17 +94,28 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
+
     protected void speak(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
         stopListening();
-        SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
+        synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer == null) {
             synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
-            setSynthesizerParams();
         }
+        setSynthesizerParams();
+
         synthesizer.startSpeaking(text, mTtsListener);
+    }
+
+    public void stopSpeaking() {
+
+        if (synthesizer != null) {
+            synthesizer.stopSpeaking();
+        }
+
+
     }
 
     protected void speak(int resId) {
