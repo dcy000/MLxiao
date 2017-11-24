@@ -48,7 +48,7 @@ public class SymptomResultAdapter extends RecyclerView.Adapter<SymptomResultAdap
         holder.itemView.setBackgroundResource(itemBgReses[position % 3]);
         holder.lineTitle.setBackgroundColor(Color.parseColor(colors[position % 3]));
         holder.titleTv.setText(itemBean.getBname());
-//        holder.probabilityTv.setText(String.format("患病概率 %.2f",itemBean.probability * 100) + "%");
+        holder.probabilityTv.setText(String.format("患病概率 %.2f",Float.parseFloat(itemBean.getGl()) * 100) + "%");
         holder.dealTv.setText(itemBean.getSuggest());
     }
 

@@ -23,6 +23,7 @@ public class SymptomRecyclerAdapter extends RecyclerView.Adapter<SymptomRecycler
     private ArrayList<Integer> mSelectList = new ArrayList<>();
     private int select_index=-1;//记录选中的位置
     private Context context;
+
     public SymptomRecyclerAdapter(Context context, ArrayList<SymptomBean> dataList){
         mInflater = LayoutInflater.from(context);
         mDataList = dataList;
@@ -41,7 +42,6 @@ public class SymptomRecyclerAdapter extends RecyclerView.Adapter<SymptomRecycler
         return mDataList.get(select_index).id;
     }
 
-
     @Override
     public SymptomRecyclerAdapter.SymptomHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new SymptomHolder(mInflater.inflate(R.layout.item_symptom_layout, null));
@@ -50,11 +50,11 @@ public class SymptomRecyclerAdapter extends RecyclerView.Adapter<SymptomRecycler
     @Override
     public void onBindViewHolder(SymptomRecyclerAdapter.SymptomHolder holder,final int position) {
         holder.symptomTv.setText(mDataList.get(position).name);
-        if(mDataList.get(position).isSelected){
-            holder.symptomTv.setSelected(true);
-        }else{
-            holder.symptomTv.setSelected(false);
-        }
+//        if(mDataList.get(position).isSelected){
+//            holder.symptomTv.setSelected(true);
+//        }else{
+//            holder.symptomTv.setSelected(false);
+//        }
         holder.symptomTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,16 +65,17 @@ public class SymptomRecyclerAdapter extends RecyclerView.Adapter<SymptomRecycler
 //                    mSelectList.add(Integer.valueOf(position));
 //                    v.setSelected(true);
 //                }
-                for(int i=0;i<mDataList.size();i++){
-                    if(i==position){
-                        mDataList.get(i).isSelected=true;
-                        select_index=position;
-                    }else{
-                        mDataList.get(i).isSelected=false;
-                    }
-                }
-                notifyDataSetChanged();
-                NetworkApi.analyseSym(mDataList.get(position).id, mAnalyseCallback);
+                selectTag.getTag(mDataList.get(position),position);
+//                for(int i=0;i<mDataList.size();i++){
+//                    if(i==position){
+//                        mDataList.get(i).isSelected=true;
+//                        select_index=position;
+//                    }else{
+//                        mDataList.get(i).isSelected=false;
+//                    }
+//                }
+//                notifyDataSetChanged();
+
             }
         });
     }
@@ -92,19 +93,14 @@ public class SymptomRecyclerAdapter extends RecyclerView.Adapter<SymptomRecycler
             symptomTv = (TextView) itemView.findViewById(R.id.tv_item_symptom);
         }
     }
-    private NetworkManager.SuccessCallback mAnalyseCallback = new NetworkManager.SuccessCallback<SymptomResultBean>() {
-        @Override
-        public void onSuccess(SymptomResultBean response) {
-            if (response == null) {
-                return;
-            }
-//            Intent mResultIntent = new Intent(mContext, SymptomAnalyseResultActivity.class);
-//            mResultIntent.putExtra("result", (Serializable) response.getBqss());
-//            startActivity(new Intent(mResultIntent));
-            Intent secondIntent=new Intent(context,SecondSymptomAnalyseActivity.class);
-            secondIntent.putExtra("result",response);
-            secondIntent.putExtra("choose_one",mDataList.get(select_index));
-            context.startActivity(secondIntent);
-        }
-    };
+
+    private SelectTag selectTag;
+
+    public void setOnSelectTagListenter(SelectTag selectTag) {
+        this.selectTag = selectTag;
+    }
+
+    public interface SelectTag{
+        void getTag(SymptomBean symptomBean,int position);
+    }
 }

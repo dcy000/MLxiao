@@ -10,7 +10,7 @@ public class SymptomResultBean implements Serializable{
 //    public String deal;
 //    public float probability;
     private List<zzs> zzs;
-    private List<bqs> bqss;
+    private List<bqs> bqs;
 
     public List<SymptomResultBean.zzs> getZzs() {
         return zzs;
@@ -20,19 +20,19 @@ public class SymptomResultBean implements Serializable{
         this.zzs = zzs;
     }
 
-    public List<bqs> getBqss() {
-        return bqss;
+    public List<SymptomResultBean.bqs> getBqs() {
+        return bqs;
     }
 
-    public void setBqss(List<bqs> bqss) {
-        this.bqss = bqss;
+    public void setBqs(List<SymptomResultBean.bqs> bqs) {
+        this.bqs = bqs;
     }
 
     @Override
     public String toString() {
         return "SymptomResultBean{" +
                 "zzs=" + zzs +
-                ", bqss=" + bqss +
+                ", bqs=" + bqs +
                 '}';
     }
 

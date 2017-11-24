@@ -175,7 +175,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line_report3"
-            tools:text="患病概率 51.85%\n常见症状：头晕、脑血管供血不足、反复头晕"/>
+            tools:text="患病概率: 51.85%\n常见症状：头晕、脑血管供血不足、反复头晕"/>
         <TextView
             android:id="@+id/tv_report_detail3"
             android:layout_width="220pt"

@@ -42,7 +42,6 @@ public class SignUp1NameActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up1_name);
         mUnbinder = ButterKnife.bind(this);
         //mTvGoBack.setEnabled(false);
-        setDisableGlobalListen(true);
     }
 
     @Override
@@ -54,6 +53,7 @@ public class SignUp1NameActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setDisableGlobalListen(true);
         speak(R.string.sign_up1_name_tip);
     }
 

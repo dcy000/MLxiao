@@ -42,37 +42,127 @@
 
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
         android:layout_below="@id/linearlayou"
+        android:orientation="horizontal"
         >
 
 
 
         <LinearLayout
-            android:id="@+id/ll_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:id="@+id/ll_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
             android:gravity="center_horizontal"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
             android:visibility="gone"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
             >
-            <!--<TextView-->
-                <!--android:id="@+id/btn_next"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="60dp"-->
-                <!--android:layout_alignParentBottom="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_bg_btn"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/next_step"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="30sp" />-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#99A0A6"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#B3BDC3"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#D2DEE4"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#D7DFE5"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#E4EDF5"/>
+            <RelativeLayout
+                android:id="@+id/rl_tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                >
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:textSize="23sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_selected"
+                    android:layout_centerInParent="true"
+                    android:text="胸痛"
+                    android:layout_marginLeft="50dp"
+
+                    />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/right_delete"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_tv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tv_2"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:textSize="23sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_selected"
+                    android:layout_centerInParent="true"
+                    android:text=""
+                    />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/right_delete"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_tv3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tv_3"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:textSize="23sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_selected"
+                    android:layout_centerInParent="true"
+                    android:text="呼吸困难胸痛的不行"
+                    />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/right_delete"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
             <TextView
                 android:id="@+id/btn_analyse"
                 android:layout_width="160dp"
@@ -84,17 +174,35 @@
                 android:gravity="center"
                 android:text="@string/submit"
                 android:textColor="@android:color/white"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_symptom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="30dp"
-            android:layout_above="@id/ll_bottom"
-            android:layout_alignParentTop="true"
-            />
-    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/next_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是否还有以下症状"
+                android:textColor="#6bb7eb"
+                android:textSize="30sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:visibility="gone"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_symptom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:layout_above="@id/ll_bottom"
+                android:layout_alignParentTop="true"
+                android:overScrollMode="never"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

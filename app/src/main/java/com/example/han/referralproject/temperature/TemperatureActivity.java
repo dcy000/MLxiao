@@ -350,7 +350,7 @@ public class TemperatureActivity extends BaseActivity {
 
         setChartData(_lineChart1);*/
 
-        mImageView = (ImageView) findViewById(R.id.temperature_video);
+       /* mImageView = (ImageView) findViewById(R.id.temperature_video);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -359,7 +359,7 @@ public class TemperatureActivity extends BaseActivity {
                 startActivity(intent);
 
             }
-        });
+        });*/
       /*  cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

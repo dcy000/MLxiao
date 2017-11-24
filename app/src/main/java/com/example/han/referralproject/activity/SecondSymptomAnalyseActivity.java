@@ -55,7 +55,10 @@ public class SecondSymptomAnalyseActivity extends BaseActivity implements View.O
         mList=new ArrayList<>();
         List<SymptomResultBean.zzs> zzss=secondResult.getZzs();
         for(int i=0;i<zzss.size();i++){
-            mList.add(new SymptomBean(zzss.get(i).getId(),zzss.get(i).getName()));
+            SymptomBean symptomBean=new SymptomBean();
+            symptomBean.id=zzss.get(i).getId();
+            symptomBean.name=zzss.get(i).getName();
+            mList.add(symptomBean);
         }
         setAdapter();
 

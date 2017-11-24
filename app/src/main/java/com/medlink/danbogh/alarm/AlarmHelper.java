@@ -91,8 +91,7 @@ public class AlarmHelper {
             PendingIntent pi = newPendingIntent(context, model);
             long timestamp = model.getTimestamp();
             if (timestamp != -1) {
-                long millis = nextCalendar.getTimeInMillis();
-                if (timestamp > millis) {
+                if (timestamp > nextCalendar.getTimeInMillis()) {
                     setupAlarm(context, timestamp, pi);
                 }
                 continue;

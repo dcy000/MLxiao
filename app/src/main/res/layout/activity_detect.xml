@@ -20,15 +20,68 @@
             android:textColor="@color/white"
             android:textSize="40sp" />
 
+        <!--  <ImageView
+              android:id="@+id/temperature_video"
+              android:layout_width="400dp"
+              android:layout_height="300dp"
+              android:layout_alignParentRight="true"
+              android:layout_marginRight="50dp"
+              android:layout_marginTop="200dp"
+              android:background="@drawable/temperature_video"
+              android:clickable="true" />-->
+
         <ImageView
-            android:id="@+id/temperature_video"
-            android:layout_width="400dp"
-            android:layout_height="300dp"
+            android:id="@+id/video_temperature"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="200dp"
-            android:background="@drawable/temperature_video"
-            android:clickable="true" />
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="150dp"
+            android:src="@drawable/video_temperature" />
+
+        <ImageView
+            android:id="@+id/video_temperatures"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
+            android:layout_alignStart="@+id/video_temperature"
+            android:layout_below="@+id/video_temperature"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/video_temperatures" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="70dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/history"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape_phone"
+                android:gravity="center"
+                android:text="历史记录"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+            <Button
+                android:id="@+id/temperature_video"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/shape_show"
+                android:gravity="center"
+                android:text="使用演示"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+
+        </LinearLayout>
 
 
         <RelativeLayout
@@ -109,7 +162,7 @@
             android:textColor="@color/white"
             android:textSize="40sp" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/xueya_video"
             android:layout_width="400dp"
             android:layout_height="300dp"
@@ -117,7 +170,72 @@
             android:layout_marginRight="50dp"
             android:layout_marginTop="200dp"
             android:background="@drawable/xueya_video"
-            android:clickable="true" />
+            android:clickable="true" />-->
+
+
+        <ImageView
+            android:id="@+id/video_xueya1"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/xueyass" />
+
+        <ImageView
+            android:id="@+id/video_xueya2"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
+            android:layout_alignStart="@+id/video_xueya1"
+            android:layout_below="@+id/video_xueya1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/xueyas" />
+
+        <ImageView
+            android:id="@+id/video_xueya3"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
+            android:layout_alignStart="@+id/video_xueya2"
+            android:layout_below="@+id/video_xueya2"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/xuey" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="70dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/history1"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape_phone"
+                android:gravity="center"
+                android:text="历史记录"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+
+            <Button
+                android:id="@+id/xueya_video"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/shape_show"
+                android:gravity="center"
+                android:text="使用演示"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+
+        </LinearLayout>
 
 
         <RelativeLayout
@@ -125,7 +243,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="170dp">
+            android:layout_marginTop="130dp">
 
             <TextView
                 android:id="@+id/high_pressure1"
@@ -294,24 +412,80 @@
             android:textColor="@color/white"
             android:textSize="40sp" />
 
-        <ImageView
-            android:id="@+id/xuetang_video"
-            android:layout_width="400dp"
-            android:layout_height="300dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="200dp"
-            android:background="@drawable/xuetang_video"
-            android:clickable="true" />
+        <!--   <ImageView
+               android:id="@+id/xuetang_video"
+               android:layout_width="400dp"
+               android:layout_height="300dp"
+               android:layout_alignParentRight="true"
+               android:layout_marginRight="50dp"
+               android:layout_marginTop="200dp"
+               android:background="@drawable/xuetang_video"
+               android:clickable="true" />-->
 
-        <!--   <TextView
-               android:id="@+id/tv_xuetang"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="230dp"
-               android:layout_marginTop="220dp"
-               android:text="0.00"
-               android:textSize="40sp" />-->
+
+        <ImageView
+            android:id="@+id/video_xuetang1"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/video_xueyas" />
+
+        <ImageView
+            android:id="@+id/video_xuetang2"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
+            android:layout_alignStart="@+id/video_xuetang1"
+            android:layout_below="@+id/video_xuetang1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/video_xueya" />
+
+        <ImageView
+            android:id="@+id/video_xuetang3"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
+            android:layout_alignStart="@+id/video_xuetang2"
+            android:layout_below="@+id/video_xuetang2"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/video_xueyass" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="70dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/history2"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape_phone"
+                android:gravity="center"
+                android:text="历史记录"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+
+            <Button
+                android:id="@+id/xuetang_video"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/shape_show"
+                android:gravity="center"
+                android:text="使用演示"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -409,33 +583,59 @@
             android:textColor="@color/white"
             android:textSize="40sp" />
 
+        <!--  <ImageView
+              android:id="@+id/xueyang_video"
+              android:layout_width="400dp"
+              android:layout_height="300dp"
+              android:layout_alignParentRight="true"
+              android:layout_marginRight="50dp"
+              android:layout_marginTop="200dp"
+              android:background="@drawable/xueyang_video"
+              android:clickable="true" />-->
+
         <ImageView
-            android:id="@+id/xueyang_video"
-            android:layout_width="400dp"
-            android:layout_height="300dp"
+            android:id="@+id/video_xueyang"
+            android:layout_width="550dp"
+            android:layout_height="180dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="200dp"
-            android:background="@drawable/xueyang_video"
-            android:clickable="true" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/video_xueyang" />
 
-        <!-- <TextView
-             android:id="@+id/tv_xue_yang"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginLeft="340dp"
-             android:layout_marginTop="220dp"
-             android:text="0"
-             android:textSize="40sp" />
 
-         <TextView
-             android:id="@+id/tv_xueyang_pulse"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginLeft="320sp"
-             android:layout_marginTop="285dp"
-             android:text="0"
-             android:textSize="40sp" />-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="70dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/history3"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape_phone"
+                android:gravity="center"
+                android:text="历史记录"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+
+            <Button
+                android:id="@+id/xueyang_video"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/shape_show"
+                android:gravity="center"
+                android:text="使用演示"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+
+        </LinearLayout>
 
 
         <RelativeLayout
@@ -531,11 +731,13 @@
             android:layout_height="wrap_content"
             android:textSize="40sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_tizhong"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
+
         <TextView
             android:id="@+id/tv_tizhong"
             android:layout_width="wrap_content"
@@ -543,20 +745,20 @@
             android:textSize="40sp" />
     </RelativeLayout>
     <!--<RelativeLayout-->
-        <!--android:id="@+id/rl_tips"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:visibility="gone"-->
-        <!--android:background="@drawable/tips_wendu_one">-->
+    <!--android:id="@+id/rl_tips"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:visibility="gone"-->
+    <!--android:background="@drawable/tips_wendu_one">-->
 
-        <!--<View-->
-            <!--android:id="@+id/view_next"-->
-            <!--android:layout_width="150dp"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_marginRight="30dp"-->
-            <!--android:layout_marginBottom="40dp"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_alignParentBottom="true"/>-->
+    <!--<View-->
+    <!--android:id="@+id/view_next"-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_marginBottom="40dp"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentBottom="true"/>-->
     <!--</RelativeLayout>-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -571,15 +773,15 @@
             android:id="@+id/view_over"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="30dp"
             android:layout_marginRight="20dp"
+            android:background="@drawable/selector_bg_btn"
             android:gravity="center"
             android:text="@string/tiao_zhuan"
             android:textColor="#FFFFFF"
-            android:textSize="35sp"
-            android:background="@drawable/selector_bg_btn"/>
+            android:textSize="35sp" />
     </RelativeLayout>
 
     <ImageView
@@ -598,5 +800,39 @@
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:src="@drawable/icon_home" />
+
+
+    <!--  <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom"
+          android:layout_marginBottom="100dp"
+          android:layout_marginLeft="70dp"
+          android:orientation="horizontal">
+
+
+          <Button
+              android:layout_width="200dp"
+              android:layout_height="70dp"
+              android:background="@drawable/shape_phone"
+              android:gravity="center"
+              android:text="历史记录"
+              android:textColor="#FFFFFF"
+              android:textSize="35sp" />
+
+
+          <Button
+              android:layout_width="200dp"
+              android:layout_height="70dp"
+              android:layout_marginLeft="50dp"
+              android:background="@drawable/shape_show"
+              android:gravity="center"
+              android:text="使用演示"
+              android:textColor="#FFFFFF"
+              android:textSize="35sp" />
+
+
+      </LinearLayout>
+  -->
 
 </FrameLayout>

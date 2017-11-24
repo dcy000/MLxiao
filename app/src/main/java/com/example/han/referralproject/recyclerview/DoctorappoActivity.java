@@ -52,7 +52,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     SharedPreferences sharedPreferences1;
     SharedPreferences sharedPreferences;
 
-
     public TextView mTextView;
     public TextView mTextView1;
     public TextView mTextView2;
@@ -266,7 +265,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         if (System.currentTimeMillis() < time && System.currentTimeMillis() >= time1) {
             mButtons.setEnabled(true);
-
             mButtons.setSelected(true);
 
         } else {
@@ -326,7 +324,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String nimUserId = MyApplication.getInstance().nimUserId();
-        NimAccountHelper.getInstance().login("br_12345678912", "123456", null);
+        NimAccountHelper.getInstance().login(nimUserId, "123456", null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
@@ -335,6 +333,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         dialog1 = new NDialog2(DoctorappoActivity.this);
 
         mButtons = (Button) findViewById(R.id.video_doctor);
+        mButtons.setEnabled(false);
+        mButtons.setSelected(false);
 
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -410,7 +410,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
+                NimCallActivity.launch(DoctorappoActivity.this, "doctor_" + doctorId/*"doctor_18940866148"*/);
                 finish();
             }
         });
