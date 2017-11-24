@@ -114,7 +114,7 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="23dp"
             android:layout_toRightOf="@id/per_image"
-            android:text="王大妈"
+            android:text=""
             android:textColor="#686868"
             android:textSize="50sp" />
 
@@ -163,7 +163,7 @@
             android:layout_alignBottom="@id/tv_balance"
             android:layout_marginLeft="350dp"
             android:layout_toRightOf="@id/per_image"
-            android:text="签约医生: 赵曼林"
+            android:text="签约医生: 未签约"
             android:textColor="#a2a2a2"
             android:textSize="27sp" />
 

@@ -128,14 +128,21 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     //startSynthesis(str1);
                     speak(str1);
                     startAnim();
-//                    if (faceAnim != null){
-//                        faceAnim.start();
-//                    }
+
                     break;
 
                 case 1:
 
                     findViewById(R.id.iat_recognizes).performClick();
+                    break;
+                case 2:
+                    // 显示听写对话框
+                    if (mIatDialog == null){
+                        return;
+                    }
+                    mIatDialog.setListener(mRecognizerDialogListener);
+                    mIatDialog.show();
+                    showTip(getString(R.string.text_begin));
                     break;
             }
             super.handleMessage(msg);
@@ -150,12 +157,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     AudioManager mAudioManager;
     public ImageView ivBack;
     Random rand;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
 
-         rand = new Random();
+        rand = new Random();
 
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
@@ -173,9 +181,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
-//        mRelativeLayout.setBackgroundResource(R.drawable.face_anim);
-//        faceAnim = (AnimationDrawable) mRelativeLayout.getBackground();
-//        faceAnim.start();
+
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         mIat = SpeechRecognizer.createRecognizer(this, mInitListener);
@@ -189,12 +195,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //mResultText = ((EditText) findViewById(R.id.iat_text));
 
         // 初始化合成对象
-//        mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
+        // mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
-        //mHandler.sendEmptyMessageDelayed(1, 3500);
-//        findViewById(R.id.iat_recognizes).performClick();
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -217,7 +221,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onStart() {
         super.onStart();
-        findViewById(R.id.iat_recognizes).performClick();
+        speak("主人,来和我聊天吧");
+
+        mHandler.sendEmptyMessageDelayed(1, 3000);
 
     }
 
@@ -225,7 +231,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         setEnableListeningLoop(false);
-        speak("主人，来和我聊天吧");
+
     }
 
     @Override
@@ -430,10 +436,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 setParam();
                 boolean isShowDialog = mSharedPreferences.getBoolean(getString(R.string.pref_key_iat_show), true);
                 if (isShowDialog) {
-                    // 显示听写对话框
-                    mIatDialog.setListener(mRecognizerDialogListener);
-                    mIatDialog.show();
-                    showTip(getString(R.string.text_begin));
+
+                    stopSpeaking();
+                    mHandler.sendEmptyMessageDelayed(2, 500);
+
                 } else {
                     // 不显示听写对话框
                     ret = mIat.startListening(mRecognizerListener);
@@ -465,7 +471,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
-        if (faceAnim != null && faceAnim.isRunning()){
+        if (faceAnim != null && faceAnim.isRunning()) {
             faceAnim.stop();
         }
         findViewById(R.id.iat_recognizes).performClick();
@@ -620,7 +626,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         try {
             JSONObject resultJson = new JSONObject(results.getResultString());
             sn = resultJson.optString("sn");
-            Log.e("==============", text);
 
 
         } catch (JSONException e) {
@@ -678,9 +683,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (str1 != null) {
 
             if (getString(R.string.speak_null).equals(str1)) {
-//                if (faceAnim != null){
-//                    faceAnim.start();
-//                }
                 startAnim();
                 int randNum = rand.nextInt(10) + 1;
 
@@ -722,7 +724,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         break;
                     case 10:
                         speak(R.string.speak_10);
-
                         break;
                     default:
                         break;
@@ -743,7 +744,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     public void startSynthesis(String str) {
 
-        //   mTts = SpeechSynthesizer.createSynthesizer(IatDemo.this, mTtsInitListener);
+        //  mTts = SpeechSynthesizer.createSynthesizer(IatDemo.this, mTtsInitListener);
 
         // 设置参数
         setParams();
@@ -1179,6 +1180,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mIatDialog = null;
         mHandler.removeMessages(1);
         mHandler.removeMessages(0);
         if (null != mIat) {

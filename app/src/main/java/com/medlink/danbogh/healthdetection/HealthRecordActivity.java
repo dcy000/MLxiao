@@ -1,5 +1,6 @@
 package com.medlink.danbogh.healthdetection;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.webkit.ConsoleMessage;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -58,7 +60,7 @@ public class HealthRecordActivity extends BaseActivity {
         wvContent.getSettings().setAllowFileAccessFromFileURLs(true);
         wvContent.getSettings().setDomStorageEnabled(true);
         wvContent.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        wvContent.setWebChromeClient(new WebChromeClient(){
+        wvContent.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
@@ -69,7 +71,7 @@ public class HealthRecordActivity extends BaseActivity {
                 return true;
             }
         });
-        wvContent.setWebViewClient(new WebViewClient(){
+        wvContent.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 hideLoadingDialog();
@@ -110,6 +112,9 @@ public class HealthRecordActivity extends BaseActivity {
 
     @OnClick(R.id.iv_home)
     public void onIvHomeClicked() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 
