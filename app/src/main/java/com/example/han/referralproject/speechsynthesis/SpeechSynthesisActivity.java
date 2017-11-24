@@ -43,6 +43,7 @@ import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.example.han.referralproject.video.MainVideoActivity;
+import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.xuetang.XuetangActivity;
 import com.example.han.referralproject.xueya.XueyaActivity;
 import com.example.han.referralproject.xueyang.XueyangActivity;
@@ -942,7 +943,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), MainVideoActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
                         startActivity(intent);
                         finish();
                     }
