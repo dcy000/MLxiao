@@ -1,6 +1,8 @@
 package com.example.han.referralproject.bean;
 
-public class UserInfoBean {
+import java.io.Serializable;
+
+public class UserInfoBean implements Serializable{
     public String bid;
     public String categoryid;
     public String doct;

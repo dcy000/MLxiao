@@ -10,7 +10,7 @@
         android:textColor="#000"
         android:gravity="center"
         android:textSize="35sp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
     <com.example.han.referralproject.imageview.CircleImageView
         android:id="@+id/iv_header"
         android:layout_width="205dp"
