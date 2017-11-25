@@ -10,15 +10,20 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.imageview.CircleImageView;
+import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdapter.MyHolder> {
-    private String[] mAccountIds;
     private LayoutInflater mInflater;
     private Context mContext;
+    private ArrayList<UserInfoBean> mUserData;
 
-    public ChangeAccountAdapter(Context context){
-        mAccountIds = LocalShared.getInstance(context).getAccounts();
+    public ChangeAccountAdapter(Context context, ArrayList<UserInfoBean> userData){
+        mUserData = userData;
         mInflater = LayoutInflater.from(context);
         mContext = context;
     }
@@ -30,13 +35,19 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
 
     @Override
     public void onBindViewHolder(ChangeAccountAdapter.MyHolder holder, final int position) {
-        holder.mIdView.setText(mAccountIds[position]);
+        final UserInfoBean itemBean = mUserData.get(position);
+        holder.mIdView.setText(itemBean.bid);
+        Picasso.with(mContext)
+                .load(itemBean.user_photo)
+                .placeholder(R.drawable.avatar_placeholder)
+                .error(R.drawable.avatar_placeholder)
+                .tag(this)
+                .fit()
+                .into(holder.mHeaderIv);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication.getInstance().userId = mAccountIds[position];
-                UserInfoBean itemBean = new UserInfoBean();
-                itemBean.bid = mAccountIds[position];
+                MyApplication.getInstance().userId = itemBean.bid;
                 LocalShared.getInstance(mContext).setUserInfo(itemBean);
             }
         });
@@ -44,15 +55,17 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
 
     @Override
     public int getItemCount() {
-        return mAccountIds == null ? 0 : mAccountIds.length;
+        return mUserData == null ? 0 : mUserData.size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
         public TextView mIdView;
+        public CircleImageView mHeaderIv;
 
         public MyHolder(View view){
             super(view);
             mIdView = (TextView) view.findViewById(R.id.tv_id);
+            mHeaderIv = (CircleImageView) view.findViewById(R.id.iv_header);
         }
     }
 }

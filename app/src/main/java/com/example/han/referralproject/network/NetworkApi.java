@@ -27,9 +27,9 @@ import java.util.Map;
 public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.104:8080";
 
-    public static final String BasicUrl = "http://192.168.200.103:8080";
+//    public static final String BasicUrl = "http://192.168.200.103:8080";
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -103,8 +103,6 @@ public class NetworkApi {
         paramsMap.put("end_time", end_time);
         paramsMap.put("userid", userid + "");
         paramsMap.put("docterid", docterid + "");
-
-
         NetworkManager.getInstance().postResultClass(YUYUE_URL, paramsMap, String.class, listener, failedCallback);
     }
 
@@ -113,7 +111,6 @@ public class NetworkApi {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("docterid", docterid);
-
         NetworkManager.getInstance().postResultClass(YUYUE_URL_INFO, paramsMap, new TypeToken<ArrayList<YuYueInfo>>() {
         }.getType(), listener, failedCallback);
     }
@@ -189,6 +186,13 @@ public class NetworkApi {
      */
     public static void getAllSym(NetworkManager.SuccessCallback<ArrayList<SymptomBean>> callback) {
         NetworkManager.getInstance().getResultClass(GetAllSymUrl, null, new TypeToken<ArrayList<SymptomBean>>() {
+        }.getType(), callback);
+    }
+
+    public static void getAllUsers(String accounts, NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> callback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("p", accounts);
+        NetworkManager.getInstance().getResultClass(GetInfo_URL, paramsMap, new TypeToken<ArrayList<UserInfoBean>>() {
         }.getType(), callback);
     }
 

@@ -143,7 +143,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         findViewById(R.id.btn_record).setOnClickListener(this);
         findViewById(R.id.iv_message).setOnClickListener(this);
-
+        findViewById(R.id.view_health).setOnClickListener(this);
         findViewById(R.id.iv_check).setOnClickListener(this);
         findViewById(R.id.view_wifi).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
@@ -307,11 +307,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_record://健康档案
-
-//                startActivity(new Intent(this, HealthRecordActivity.class));
-                startActivity(new Intent(this,MyBaseDataActivity.class));
-                break;
             case R.id.btn_logout:
                 LocalShared.getInstance(this).loginOut();
                 startActivity(new Intent(this, LoginActivity.class));
@@ -331,6 +326,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.view_change:
                 new ChangeAccountDialog(mContext).show();
+                break;
+            case R.id.view_health:
+                startActivity(new Intent(this,MyBaseDataActivity.class));
+                break;
+            case R.id.btn_record://健康档案
+                startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
         }
     }
