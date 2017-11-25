@@ -448,6 +448,9 @@
     <string name="jiankangdangan">健康档案</string>
     <string name="healthy_equ">健康仪器</string>
     <string name="healthy_con">健康耗材</string>
+    <string name="an_hour_later">饭后\n一小时</string>
+    <string name="two_hour_later">饭后\n两小时</string>
+    <string name="kongfu">空腹</string>
 
 
 </resources>

@@ -400,7 +400,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/normal_bg"
-        android:visibility="gone">
+        android:visibility="visible">
 
 
         <TextView
@@ -524,6 +524,7 @@
                 android:textSize="50sp" />
 
 
+
         </RelativeLayout>
 
         <!-- <RelativeLayout
@@ -563,8 +564,65 @@
 
 
          </RelativeLayout>-->
-
-
+        <!--选择时间-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:visibility="visible">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="#6bb7eb"
+                    android:background="@drawable/selector_btn"
+                    android:layout_centerInParent="true"
+                    android:text="@string/kongfu"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="#6bb7eb"
+                    android:background="@drawable/selector_btn"
+                    android:layout_centerInParent="true"
+                    android:text="@string/an_hour_later"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="100dp"/>
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="#6bb7eb"
+                    android:background="@drawable/selector_btn"
+                    android:layout_centerInParent="true"
+                    android:text="@string/two_hour_later"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="100dp"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:textSize="30sp"
+                android:textColor="#6bb7eb"
+                android:background="@drawable/selector_btn"
+                android:layout_centerInParent="true"
+                android:text="@string/two_hour_later"
+                android:gravity="center"
+                android:layout_marginTop="50dp"/>
+        </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -762,7 +820,8 @@
     <!--</RelativeLayout>-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <VideoView
             android:id="@+id/vv_tips"
