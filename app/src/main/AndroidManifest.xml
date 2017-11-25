@@ -426,11 +426,12 @@
 
 
         </activity>
-        <activity android:name=".shopping.GoodDetailActivity">
+        <activity android:name=".shopping.GoodDetailActivity"></activity>
 
 
 
-        </activity>
+        <activity android:name=".activity.SecondSymptomAnalyseActivity"/>
+        <activity android:name=".activity.MyBaseDataActivity"/>
     </application>
 
 </manifest>

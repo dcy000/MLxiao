@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 public class SymptomResultAdapter extends RecyclerView.Adapter<SymptomResultAdapter.ResultHolder> {
     private LayoutInflater mInflater;
-    private ArrayList<SymptomResultBean> mDataList;
+    private ArrayList<SymptomResultBean.bqs> mDataList;
 
     private int[] itemBgReses;
 
     private String[] colors;
 
-    public SymptomResultAdapter(Context context, ArrayList<SymptomResultBean> dataList) {
+    public SymptomResultAdapter(Context context, ArrayList<SymptomResultBean.bqs> dataList) {
         mInflater = LayoutInflater.from(context);
         mDataList = dataList;
         itemBgReses = new int[]{
@@ -44,12 +44,12 @@ public class SymptomResultAdapter extends RecyclerView.Adapter<SymptomResultAdap
 
     @Override
     public void onBindViewHolder(SymptomResultAdapter.ResultHolder holder, int position) {
-        SymptomResultBean itemBean = mDataList.get(position);
+        SymptomResultBean.bqs itemBean = mDataList.get(position);
         holder.itemView.setBackgroundResource(itemBgReses[position % 3]);
         holder.lineTitle.setBackgroundColor(Color.parseColor(colors[position % 3]));
-        holder.titleTv.setText(itemBean.con);
-//        holder.probabilityTv.setText(String.format("患病概率 %.2f",itemBean.probability * 100) + "%");
-        holder.dealTv.setText(itemBean.deal);
+        holder.titleTv.setText(itemBean.getBname());
+        holder.probabilityTv.setText(String.format("患病概率 %.2f",Float.parseFloat(itemBean.getGl()) * 100) + "%");
+        holder.dealTv.setText(itemBean.getSuggest());
     }
 
     @Override

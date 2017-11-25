@@ -24,6 +24,7 @@ import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.video.MainVideoActivity;
+import com.example.han.referralproject.video.VideoListActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
@@ -127,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 //    EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
                 break;
             case R.id.health_class:
-                intent.setClass(getApplicationContext(), MainVideoActivity.class);
+                intent.setClass(getApplicationContext(), VideoListActivity.class);
                 startActivity(intent);
                 break;
         }
