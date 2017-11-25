@@ -228,6 +228,7 @@
             android:layout_height="125dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:clickable="true"
             android:src="@drawable/icon_shopping" />
     </LinearLayout>
 

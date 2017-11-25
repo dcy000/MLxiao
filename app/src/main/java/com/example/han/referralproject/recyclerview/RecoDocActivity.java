@@ -208,10 +208,6 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(DensityUtils.dp2px(getApplicationContext(), -5)));
 
-
-      /*  mDoctorAdapter = new DoctorAdapter(mlist, this);
-        mRecyclerView.setAdapter(mDoctorAdapter);*/
-
         mDoctorAdapter.setOnItemClistListener(new DoctorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion) {
@@ -367,5 +363,11 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             }
         }
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mDoctorAdapter = null;
     }
 }

@@ -18,7 +18,7 @@
             android:id="@+id/icon_back"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/icon_back" />
     </LinearLayout>
@@ -27,67 +27,82 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="@string/healthy_shopping"
         android:textColor="@color/white"
         android:textSize="40sp" />
 
 
-    <LinearLayout
-        android:id="@+id/linearlayout1"
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearlayout"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical">
+        android:background="#FFFFFF">
 
-        <TextView
-            android:id="@+id/healthy_equ"
+        <LinearLayout
+            android:id="@+id/linearlayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/healthy_equ"
-            android:textColor="#000000"
-            android:textSize="40sp" />
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/line_1"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_marginTop="5dp"
-            android:src="#3E85FC"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/healthy_equ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/healthy_equ"
+                android:textColor="#3E85FC"
+                android:textSize="40sp" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/line_1"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="5dp"
+                android:src="#3E85FC" />
 
-    <LinearLayout
-        android:id="@+id/linearlayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/linearlayout"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="200dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical">
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/healthy_con"
+        <LinearLayout
+            android:id="@+id/linearlayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/healthy_con"
-            android:textColor="#000000"
-            android:textSize="40sp" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="200dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/line_2"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_marginTop="5dp"
-            android:src="#3E85FC"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/healthy_con"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/healthy_con"
+                android:textColor="#000000"
+                android:textSize="40sp" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/line_2"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="5dp"
+                android:src="#3E85FC"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/shop_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/RelativeLayout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:scrollbars="vertical" />
 
 
 </RelativeLayout>

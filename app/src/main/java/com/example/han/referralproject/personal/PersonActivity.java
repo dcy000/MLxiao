@@ -32,6 +32,7 @@ import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
@@ -85,6 +86,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public ImageView mImageView2;
     public ImageView mImageView3;
 
+    public ImageView mImageView4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +119,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
+        mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
 
 
       /*  String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
@@ -128,6 +131,14 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         }*/
 
+        mImageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PersonActivity.this, ShopListActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         findViewById(R.id.btn_record).setOnClickListener(this);
         findViewById(R.id.iv_message).setOnClickListener(this);
@@ -202,7 +213,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
-
 
 
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {

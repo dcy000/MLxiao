@@ -447,6 +447,12 @@
     <string name="phone_cancel">忽&#160;略</string>
     <string name="healthy_equ">健康仪器</string>
     <string name="healthy_con">健康耗材</string>
+    <string name="goods_name">快速心电监测仪PC-80b</string>
+    <string name="goods_amount">198</string>
+    <string name="goods_detail">商&#160;&#160;品&#160;&#160;详&#160;&#160;情</string>
+
+
+    <string name="shop_sum_price" formatted="false">总价：%1$s</string>
 
 
 </resources>
