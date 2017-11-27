@@ -27,10 +27,11 @@ import java.util.Map;
 public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.104:8080";
 
+    public static final String BasicUrl = "http://192.168.200.103:8080";
     //    public static final String BasicUrl = "http://192.168.200.103:8080";
 
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -59,7 +60,8 @@ public class NetworkApi {
     public static final String ADD_EAT_MEDICAL_URL = BasicUrl + "/ZZB/br/addeatmod";
     public static final String GET_CONTRACT_INFO = BasicUrl + "/ZZB/docter/docter_user";
 
-    public static final String GET_MY_BASE_DATA=BasicUrl+"/ZZB/br/selOneUserEverything";
+    public static final String GET_MY_BASE_DATA = BasicUrl + "/ZZB/br/selOneUserEverything";
+
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("username", phoneNum);
@@ -183,6 +185,7 @@ public class NetworkApi {
 
     /**
      * 获取所有症状
+     *
      * @param callback
      */
     public static void getAllSym(NetworkManager.SuccessCallback<ArrayList<SymptomBean>> callback) {
@@ -293,11 +296,12 @@ public class NetworkApi {
 
     /**
      * 获取个人的基本信息
+     *
      * @param successCallback
      * @param failedCallback
      */
     public static void getMyBaseData(
-    NetworkManager.SuccessCallback<UserInfoBean> successCallback, NetworkManager.FailedCallback failedCallback){
+            NetworkManager.SuccessCallback<UserInfoBean> successCallback, NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         NetworkManager.getInstance().getResultClass(GET_MY_BASE_DATA, params, UserInfoBean.class, successCallback, failedCallback);

@@ -216,7 +216,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:gravity="center_vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -227,8 +228,7 @@
                         android:textSize="29sp"
                         android:textColor="#333333"
                         android:text="身份信息"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginTop="29dp"/>
+                        android:layout_marginLeft="22dp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -309,7 +309,8 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:background="@color/white"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -320,8 +321,7 @@
                         android:textSize="29sp"
                         android:textColor="#333333"
                         android:text="健康状况"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginTop="29dp"/>
+                        android:layout_marginLeft="22dp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

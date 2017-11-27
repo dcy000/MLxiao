@@ -104,7 +104,7 @@
     <string name="tips_result_wendu" formatted="false">主人，您的体温是%1$s度，%2$s</string>
     <string name="tips_xueya">请将血压计佩戴在绑在左臂或者右臂上，高度与心脏平齐，手臂放松，手掌张开，按开始按钮开始测量</string>
     <string name="tips_result_xueya" formatted="false">主人，您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
-    <string name="tips_result_xuetang">主人，您的血糖值为%s</string>
+    <string name="tips_result_xuetang">主人，您的血糖值为%1$s,%2$s</string>
     <string name="tips_result_xueyang" formatted="false">主人，您的血氧饱和度为%1$s，脉搏为%2$d，%3$s</string>
     <string name="tips_symptom">主人，请选择对应症状并提交</string>
     <string name="tips_symptom_result">主人，你有可能是%s</string>
@@ -447,7 +447,7 @@
     <string name="doctor_reminds">请及时与医生进行视频通话</string>
     <string name="phone_true">开始通话</string>
     <string name="phone_cancel">忽&#160;略</string>
-    <string name="jiankangdangan">健康档案</string>
+    <string name="jiankangdangan">基础信息</string>
     <string name="healthy_equ">健康仪器</string>
     <string name="healthy_con">健康耗材</string>
     <string name="goods_name">快速心电监测仪PC-80b</string>
@@ -459,6 +459,11 @@
     <string name="an_hour_later">饭后\n一小时</string>
     <string name="two_hour_later">饭后\n两小时</string>
     <string name="kongfu">空腹</string>
-
-
+    <string name="three_hour_later">饭后\n三小时</string>
+    <string name="symptoms">主人，您是否有以下症状</string>
+    <string name="bingfa">并发症状</string>
+    <string name="now_eating_state">主人，请选择您当前的状态</string>
+    <string name="gaoxueya">主人，您有可能是高血压，请及时到医院就诊</string>
+    <string name="tangniaobing">主人，您有可能是糖尿病，请及时服药或到医院就诊</string>
+    <string name="dixuetang">主人，您有可能是低血糖，请及时补充糖分或到医院就诊</string>
 </resources>

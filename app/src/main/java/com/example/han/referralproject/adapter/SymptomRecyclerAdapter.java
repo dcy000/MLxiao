@@ -22,12 +22,10 @@ public class SymptomRecyclerAdapter extends RecyclerView.Adapter<SymptomRecycler
     private ArrayList<SymptomBean> mDataList;
     private ArrayList<Integer> mSelectList = new ArrayList<>();
     private int select_index=-1;//记录选中的位置
-    private Context context;
 
     public SymptomRecyclerAdapter(Context context, ArrayList<SymptomBean> dataList){
         mInflater = LayoutInflater.from(context);
         mDataList = dataList;
-        this.context=context;
     }
 
     public String getResult(){
