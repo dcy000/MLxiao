@@ -8,19 +8,17 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
-import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -312,8 +310,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
-            case R.id.iv_check:
-                startActivity(new Intent(this, SymptomAnalyseActivity.class));
+            case R.id.iv_check://病症自查
+                startActivity(new Intent(this, BodychartActivity.class));
                 break;
             case R.id.iv_message:
                 startActivity(new Intent(this, MessageActivity.class));

@@ -127,7 +127,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     };
 
     private boolean mConnected = false;
-
+    private boolean xuetangAbnormal=false;//测量血糖异常标识，默认正常
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -284,7 +284,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mBuilder.append(item).append("    ");
                         }
                         break;
-                    case Type_XueTang:
+                    case Type_XueTang://血糖测量
                         if (notifyData == null || notifyData.length < 12) {
                             return;
                         }
@@ -294,7 +294,53 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
 //                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
-                            speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut)));
+                            switch (seletTimeType){
+                                case 0://空腹
+                                    if(xuetangResut<3.61){
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低"));
+                                        xuetangAbnormal=true;
+                                    }else if(xuetangResut<=7.0){
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
+                                    }else{
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高"));
+                                        xuetangAbnormal=true;
+                                    }
+                                    break;
+                                case 1://饭后一小时
+                                    if(xuetangResut<3.61){
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低"));
+                                        xuetangAbnormal=true;
+                                    }else if(xuetangResut<=11.1){
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
+                                    }else{
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高"));
+                                        xuetangAbnormal=true;
+                                    }
+                                    break;
+                                case 2://饭后两小时
+                                    if(xuetangResut<3.61){
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低"));
+                                        xuetangAbnormal=true;
+                                    }else if(xuetangResut<=7.8){
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
+                                    }else{
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高"));
+                                        xuetangAbnormal=true;
+                                    }
+                                    break;
+                                case 3://饭后三小时
+                                    if(xuetangResut<3.61){
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低"));
+                                        xuetangAbnormal=true;
+                                    }else if(xuetangResut<=7.0){
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
+                                    }else{
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高"));
+                                        xuetangAbnormal=true;
+                                    }
+                                    break;
+                            }
+
                             DataInfoBean info = new DataInfoBean();
                             info.blood_sugar = String.format("%.1f", xuetangResut);
                             NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
@@ -345,6 +391,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     };
     public ImageView ivBack;
 
+    @Override
+    protected void onActivitySpeakFinish() {//语音播放完成后，如果血糖异常，则跳转到并发症页面
+        if(xuetangAbnormal){
+//            startActivity(new Intent(this,SymptomsActivity.class));
+        }
+    }
 
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         if (gattServices == null) return;
@@ -430,7 +482,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case R.id.xueyang_video:
                 resourceId = R.raw.tips_xueyang;
                 break;
-            case R.id.view_over:
+            case R.id.view_over://跳过演示视频
                 if (mVideoView != null) {
                     mVideoView.setVisibility(View.GONE);
                     mOverView.setVisibility(View.GONE);
@@ -462,6 +514,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+
 
         mButton = (Button) findViewById(R.id.history);
         mButton1 = (Button) findViewById(R.id.history1);
@@ -520,10 +573,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
+//                startActivity(new Intent(DetectActivity.this,SymptomsActivity.class));
             }
         });
 
         String type = getIntent().getStringExtra("type");
+
         if (!TextUtils.isEmpty(type)) {
             switch (type) {
                 case "wendu":
@@ -546,6 +601,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     break;
             }
         }
+
 //        tipsLayout = findViewById(R.id.rl_tips);
 //        switch (detectType) {
 //            case Type_Wendu:
@@ -717,6 +773,40 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xueya_video).setOnClickListener(this);
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
+        //选择血糖测量的时间
+        setXuetangSelectTime();
+    }
+    private int seletTimeType=0;
+    private void setXuetangSelectTime() {
+        //空腹
+        findViewById(R.id.tv_empty).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seletTimeType=0;
+                findViewById(R.id.ll_selectTime).setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.tv_an_hour).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seletTimeType=1;
+                findViewById(R.id.ll_selectTime).setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.tv_two_hour).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seletTimeType=2;
+                findViewById(R.id.ll_selectTime).setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.tv_three_hour).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seletTimeType=3;
+                findViewById(R.id.ll_selectTime).setVisibility(View.GONE);
+            }
+        });
     }
 
     private void startSearch() {
@@ -866,10 +956,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
+        speak(getString(R.string.now_eating_state));
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mVideoView.pause();
     }
 
     /**
