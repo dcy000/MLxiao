@@ -40,6 +40,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
         mChangeAccountAdapter = new ChangeAccountAdapter(mContext, mDataList);
         mRecyclerView.setAdapter(mChangeAccountAdapter);
         findViewById(R.id.view_login).setOnClickListener(this);
+        findViewById(R.id.btn_logout).setOnClickListener(this);
         String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
         StringBuilder mAccountIdBuilder = new StringBuilder();
         for (String item : mAccountIds){
@@ -63,6 +64,11 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.view_login:
+                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                ((Activity)mContext).finish();
+                break;
+            case R.id.btn_logout:
+                LocalShared.getInstance(mContext).loginOut();
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
                 ((Activity)mContext).finish();
                 break;

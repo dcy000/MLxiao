@@ -1,6 +1,7 @@
 package com.example.han.referralproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
     @Override
     public void onBindViewHolder(ChangeAccountAdapter.MyHolder holder, final int position) {
         final UserInfoBean itemBean = mUserData.get(position);
-        holder.mIdView.setText(itemBean.bid);
+        holder.mNameView.setText(itemBean.bname);
         Picasso.with(mContext)
                 .load(itemBean.user_photo)
                 .placeholder(R.drawable.avatar_placeholder)
@@ -49,6 +50,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
             public void onClick(View v) {
                 MyApplication.getInstance().userId = itemBean.bid;
                 LocalShared.getInstance(mContext).setUserInfo(itemBean);
+                mContext.sendBroadcast(new Intent("change_account"));
             }
         });
     }
@@ -59,12 +61,12 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        public TextView mIdView;
+        public TextView mNameView;
         public CircleImageView mHeaderIv;
 
         public MyHolder(View view){
             super(view);
-            mIdView = (TextView) view.findViewById(R.id.tv_id);
+            mNameView = (TextView) view.findViewById(R.id.tv_name);
             mHeaderIv = (CircleImageView) view.findViewById(R.id.iv_header);
         }
     }
