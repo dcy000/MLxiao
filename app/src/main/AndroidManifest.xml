@@ -143,11 +143,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" >
-
-
-
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -163,7 +159,7 @@
 
         <activity
             android:name=".temperature.TemperatureActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="landscape"
@@ -171,9 +167,6 @@
         <activity
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
-
-
-
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="landscape"
@@ -207,7 +200,7 @@
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".PlayVideoActivity"
             android:screenOrientation="landscape" />
@@ -216,10 +209,10 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".xuetang.XuetangActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xueyang.XueyangActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".bluetooth.BluetoothLeService"
@@ -227,8 +220,8 @@
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape" />
@@ -250,7 +243,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
@@ -266,8 +259,8 @@
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
-        <activity android:name=".facerecognition.RegisterVideoActivity"></activity>
-        <activity android:name=".recyclerview.RecoDocActivity"></activity>
+        <activity android:name=".facerecognition.RegisterVideoActivity" />
+        <activity android:name=".recyclerview.RecoDocActivity" />
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
@@ -327,9 +320,9 @@
         </receiver>
 
         <activity android:name=".recyclerview.AppraiseActivity" />
-        <activity android:name=".facerecognition.HeadiconActivity"></activity>
-        <activity android:name=".recyclerview.DoctorappoActivity"></activity>
-        <activity android:name=".recyclerview.AddAppoActivity"></activity>
+        <activity android:name=".facerecognition.HeadiconActivity" />
+        <activity android:name=".recyclerview.DoctorappoActivity" />
+        <activity android:name=".recyclerview.AddAppoActivity" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
@@ -354,7 +347,7 @@
         <activity android:name="com.medlink.danbogh.register.SignUp12DrinkActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity" />
-        <activity android:name=".recharge.PayActivity"></activity>
+        <activity android:name=".recharge.PayActivity" />
         <activity android:name=".recharge.PayInfoActivity" />
         <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity" />
 
@@ -416,22 +409,18 @@
         <activity android:name="com.medlink.danbogh.alarm.ReminderActivity" />
         <activity
             android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name="com.medlink.danbogh.location.LocationActivity"></activity>
-        <activity android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity"></activity>
-        <activity android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name="com.medlink.danbogh.location.LocationActivity" />
+        <activity android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity" />
+        <activity android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity" />
         <activity android:name="com.medlink.danbogh.register.ConfirmContractActivity" />
-        <activity android:name=".video.VideoListActivity"></activity>
-        <activity android:name=".shopping.ShopListActivity">
-
-
-        </activity>
-        <activity android:name=".shopping.GoodDetailActivity"></activity>
-
-
-
-        <activity android:name=".activity.SecondSymptomAnalyseActivity"/>
-        <activity android:name=".activity.MyBaseDataActivity"/>
+        <activity android:name=".video.VideoListActivity" />
+        <activity android:name=".shopping.ShopListActivity" />
+        <activity android:name=".shopping.GoodDetailActivity" />
+        <activity android:name=".activity.SecondSymptomAnalyseActivity" />
+        <activity android:name=".activity.MyBaseDataActivity" />
+        <activity android:name=".activity.SymptomsActivity" />
+        <activity android:name=".activity.BodychartActivity"></activity>
     </application>
 
 </manifest>

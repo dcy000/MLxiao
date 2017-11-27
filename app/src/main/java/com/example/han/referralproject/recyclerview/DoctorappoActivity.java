@@ -88,11 +88,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         public boolean handleMessage(final Message msg) {
             switch (msg.what) {
                 case 1:
-
                     break;
 
                 case 0:
-
                     models = DataSupport.findAll(AlarmModel.class);
 
 
@@ -511,7 +509,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "doctor_" + doctorId/*"doctor_18940866148"*/);
+                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
                 finish();
             }
         });
