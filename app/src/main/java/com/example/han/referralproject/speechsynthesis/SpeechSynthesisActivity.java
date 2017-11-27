@@ -2,6 +2,7 @@ package com.example.han.referralproject.speechsynthesis;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
@@ -29,6 +30,7 @@ import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
+import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.HttpCallback;
 import com.example.han.referralproject.music.HttpClient;
@@ -39,6 +41,7 @@ import com.example.han.referralproject.music.PlaySearchedMusic;
 import com.example.han.referralproject.music.PlayService;
 import com.example.han.referralproject.music.SearchMusic;
 import com.example.han.referralproject.music.ToastUtils;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.temperature.TemperatureActivity;
@@ -62,6 +65,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call.EMUIHelper;
+import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 
 import org.apache.commons.lang.StringUtils;
@@ -158,7 +162,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     public ImageView ivBack;
     Random rand;
 
+
+    SharedPreferences sharedPreferences;
+
     ImageView mImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +175,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         rand = new Random();
 
+        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         mImageView = (ImageView) findViewById(R.id.iat_recognizes);
 
 
@@ -991,9 +1000,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 } else if (resultBuffer.toString().matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
-                    EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
-
-                    finish();
+                    if ("".equals(sharedPreferences.getString("name", ""))) {
+                        T.show("请先查看是否与签约医生签约成功");
+                    } else {
+                        Intent intent = new Intent();
+                        intent.setClass(getApplicationContext(), DoctorappoActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                    /* if (sign == true) {
                         sign = false;
                         mIatDialog.dismiss();

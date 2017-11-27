@@ -27,7 +27,8 @@ import java.util.Map;
 public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.104:8080";
 
-//    public static final String BasicUrl = "http://192.168.200.103:8080";
+    //    public static final String BasicUrl = "http://192.168.200.103:8080";
+
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String BasicUrl = "http://118.31.238.207:8080";
 
@@ -265,7 +266,14 @@ public class NetworkApi {
             NetworkManager.SuccessCallback<Object> successCallback,
             NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("username", MyApplication.getInstance().userName);
+        String userName = MyApplication.getInstance().userName;
+        if (userName == null) {
+            if (failedCallback != null) {
+                failedCallback.onFailed("请重新登录");
+            }
+            return;
+        }
+        params.put("username", userName);
         params.put("jl", content);
         params.put("time", String.valueOf(Calendar.getInstance().getTimeInMillis()));
         params.put("state", state);

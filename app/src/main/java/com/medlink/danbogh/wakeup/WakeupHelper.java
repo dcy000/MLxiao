@@ -13,6 +13,9 @@ import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by lenovo on 2017/11/15.
  */
@@ -63,7 +66,7 @@ public class WakeupHelper {
 
     private void setParameter(VoiceWakeuper wakeuper) {
         wakeuper.setParameter(SpeechConstant.PARAMS, null);
-        wakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:-10");
+        wakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:10");
         wakeuper.setParameter(SpeechConstant.IVW_SST, "wakeup");
         wakeuper.setParameter(SpeechConstant.KEEP_ALIVE, "1");
         wakeuper.setParameter(SpeechConstant.IVW_NET_MODE, "1");
@@ -108,10 +111,19 @@ public class WakeupHelper {
         if (listener == null) {
             listener = new AbsWakeuperListener() {
                 @Override
-                public void onResult(WakeuperResult wakeuperResult) {
-                    Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    sContext.startActivity(intent);
+                public void onResult(WakeuperResult result) {
+                    String json = result.getResultString();
+                    try {
+                        JSONObject jsonObj = new JSONObject(json);
+                        int score = jsonObj.optInt("score");
+                        if (score >= 66) {
+                            Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            sContext.startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             };
         }
