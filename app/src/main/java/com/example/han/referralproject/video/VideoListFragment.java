@@ -3,6 +3,7 @@ package com.example.han.referralproject.video;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.UiUtils;
+import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,16 +72,16 @@ public class VideoListFragment extends Fragment {
     private void fetchVideos(int position) {
         switch (position) {
             case 0:
-                provideVideos("hypertension", "高血压");
+                provideVideos("hypertension", "健康讲堂");
                 break;
             case 1:
-                provideVideos(/*"stroke"*/"psychosis", "中风");
+                provideVideos(/*"stroke"*/"opera", "曲艺天地");
                 break;
             case 2:
-                provideVideos("psychosis", "精神病");
+                provideVideos("lifetip", "生活助手");
                 break;
             case 3:
-                provideVideos(/*"palsy"*/"hypertension", "脑瘫");
+                provideVideos(/*"palsy"*/"cartoon", "动画片");
                 break;
             default:
                 break;
@@ -85,11 +89,14 @@ public class VideoListFragment extends Fragment {
     }
 
     public static final String BASE_URL = "http://oyptcv2pb.bkt.clouddn.com/";
-    public static final String TITLE_FORMAT = "%s 第%d讲";
+    public static final String TITLE_FORMAT = "%s %d";
 
     private void provideVideos(String type, String extra) {
         List<VideoDetailEntity> entities = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
+            if (i == 7 && type.equals("opera")) {
+                break;
+            }
             String url = BASE_URL + type + i + ".mp4";
             String title = String.format(Locale.CHINA, TITLE_FORMAT, extra, i);
             entities.add(new VideoDetailEntity(url, title));
@@ -100,6 +107,11 @@ public class VideoListFragment extends Fragment {
     private void showVideos(List<VideoDetailEntity> entities) {
         videos = entities;
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     private List<VideoDetailEntity> videos;
@@ -116,10 +128,22 @@ public class VideoListFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(Holder holder, int position) {
-            VideoDetailEntity entity = videos.get(position);
+        public void onBindViewHolder(final Holder holder, int position) {
+            final VideoDetailEntity entity = videos.get(position);
             holder.tvTitle.setText(entity.getTitle());
-            holder.ivThumbnail.setImageResource(R.drawable.icon_test_01);
+            holder.ivThumbnail.setImageResource(R.drawable.ic_thumbnail_placeholder);
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    final Bitmap thumbnail = Utils.createVideoThumbnail(entity.getUrl(), UiUtils.pt(455), UiUtils.pt(255));
+                    Handlers.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.ivThumbnail.setImageBitmap(thumbnail);
+                        }
+                    });
+                }
+            });
         }
 
         @Override
