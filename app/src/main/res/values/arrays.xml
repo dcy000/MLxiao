@@ -50,6 +50,11 @@
         <item>根据世界卫生组织标准，测量结果正常</item>
         <item>您的血氧饱和度偏低，请尽快联系医生</item>
     </string-array>
+    <string-array name="result_xuetang">
+        <item>根据世界卫生组织标准，测量结果正常</item>
+        <item>您的血糖偏低</item>
+        <item>您的血糖偏高</item>
+    </string-array>
     <string-array name="provinces">
         <item>浙江</item>
         <item>广东</item>
