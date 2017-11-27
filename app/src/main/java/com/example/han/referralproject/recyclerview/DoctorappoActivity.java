@@ -88,11 +88,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         public boolean handleMessage(final Message msg) {
             switch (msg.what) {
                 case 1:
-
                     break;
 
                 case 0:
-
                     models = DataSupport.findAll(AlarmModel.class);
 
 
