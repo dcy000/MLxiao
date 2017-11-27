@@ -137,7 +137,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     break;
                 case 2:
                     // 显示听写对话框
-                    if (mIatDialog == null){
+                    if (mIatDialog == null) {
                         return;
                     }
                     mIatDialog.setListener(mRecognizerDialogListener);
@@ -158,12 +158,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     public ImageView ivBack;
     Random rand;
 
+    ImageView mImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
 
         rand = new Random();
+
+        mImageView = (ImageView) findViewById(R.id.iat_recognizes);
 
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
@@ -256,6 +260,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
+
+
     @Override
     public void onBackPressed() {
         if (mPlayFragment != null && isPlayFragmentShow) {
@@ -263,6 +269,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 getPlayService().playPause();
             }
             hidePlayingFragment();
+
+            mImageView.setClickable(true);
+
             //   finish();
             return;
         }
@@ -1027,6 +1036,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 } else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
 
+                    mImageView.setClickable(false);
 
                     try {
                         if (resultBuffer.toString().matches(".*听.*的.*")) {
