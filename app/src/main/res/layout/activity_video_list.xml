@@ -48,7 +48,7 @@
             android:background="@drawable/bg_rb_health_record1"
             android:button="@null"
             android:gravity="center"
-            android:text="高血压"
+            android:text="健康讲堂"
             android:textColor="#ffffff"
             android:textSize="65pt"/>
 
@@ -60,7 +60,7 @@
             android:background="@drawable/bg_rb_health_record2"
             android:button="@null"
             android:gravity="center"
-            android:text="中风"
+            android:text="曲艺天地"
             android:textColor="#ffffff"
             android:textSize="65pt"/>
 
@@ -72,7 +72,7 @@
             android:background="@drawable/bg_rb_health_record3"
             android:button="@null"
             android:gravity="center"
-            android:text="精神病"
+            android:text="生活助手"
             android:textColor="#ffffff"
             android:textSize="65pt"/>
 
@@ -84,7 +84,7 @@
             android:background="@drawable/bg_rb_health_record4"
             android:button="@null"
             android:gravity="center"
-            android:text="脑瘫"
+            android:text="动画片"
             android:textColor="#ffffff"
             android:textSize="65pt"/>
     </RadioGroup>

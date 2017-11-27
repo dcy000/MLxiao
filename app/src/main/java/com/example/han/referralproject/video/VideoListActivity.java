@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.medlink.danbogh.utils.Handlers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,7 @@ public class VideoListActivity extends BaseActivity {
 
             }
         });
+        vpVideo.setOffscreenPageLimit(3);
         mFragments = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             mFragments.add(VideoListFragment.newInstance(i));
@@ -142,6 +144,8 @@ public class VideoListActivity extends BaseActivity {
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
+        Handlers.bg().removeCallbacksAndMessages(null);
+        Handlers.ui().removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 }

@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +49,7 @@ public class ReminderActivity extends BaseActivity {
         int minute = getIntent().getIntExtra(AlarmHelper.MINUTE, 0);
 
         if (mContent.equals("主人,")) {
-            mContent += "没想到吧，我小易又回来了！";
+            mContent += "该吃药了！";
         }
 
         tvContent.setText(mContent);
@@ -92,15 +94,34 @@ public class ReminderActivity extends BaseActivity {
     @OnClick(R.id.tv_btn_ignore)
     public void onTvBtnIgnoreClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(content, "0", null, null);
-        finish();
+        NetworkApi.addEatMedicalRecord(content, "0", new NetworkManager.SuccessCallback<Object>() {
+            @Override
+            public void onSuccess(Object response) {
+                finish();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                finish();
+            }
+        });
     }
 
     @OnClick(R.id.tv_btn_confirm)
     public void onTvBtnConfirmClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(content, "1", null, null);
-        finish();
+        NetworkApi.addEatMedicalRecord(content, "1", new NetworkManager.SuccessCallback<Object>() {
+            @Override
+            public void onSuccess(Object response) {
+                finish();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+                finish();
+            }
+        });
     }
 
     @Override

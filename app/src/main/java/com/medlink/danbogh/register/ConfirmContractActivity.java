@@ -81,11 +81,11 @@ public class ConfirmContractActivity extends AppCompatActivity {
                 tvName.setText("姓名： " +  response.bname);
                 tvPhone.setText("联系方式: " + response.btel);
                 tvIdCard.setText("身份证： " +  response.sfz);
-                tvIdCard.setText("签约周期： " +  response.sfz);
-                tvIdCard.setText("签约医生： " +  response.doctername);
-                tvIdCard.setText("医生联系方式： " +  response.dtel);
-                tvIdCard.setText("签约机构： " +  response.hosname);
-                tvIdCard.setText("服务费用： " +  response.amount);
+                tvContractInterval.setText("签约周期： " +  response.sfz);
+                tvContractDoctor.setText("签约医生： " +  response.doctername);
+                tvDoctorPhone.setText("医生联系方式： " +  response.dtel);
+                tvContractOrganization.setText("签约机构： " +  response.hosname);
+                tvServiceType.setText("服务费用： " +  response.amount);
             }
         }, new NetworkManager.FailedCallback() {
             @Override

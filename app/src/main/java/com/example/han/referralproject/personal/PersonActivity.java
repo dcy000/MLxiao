@@ -1,7 +1,9 @@
 package com.example.han.referralproject.personal;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -87,6 +89,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
     public ImageView mImageView4;
 
+    private ChangeAccountDialog mChangeAccountDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,25 +168,32 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         findViewById(R.id.btn_logout).setOnClickListener(this);
 
-
+        getData();
+        registerReceiver(mReceiver, new IntentFilter("change_account"));
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    post();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case "change_account":
+                    if (mChangeAccountDialog != null){
+                        mChangeAccountDialog.dismiss();
+                    }
+                    getData();
+                    break;
             }
-        }).start();*/
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+    }
 
 
+    private void getData() {
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
@@ -259,8 +270,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
-
-
     }
 
     private void post() throws Exception {
@@ -323,7 +332,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(this, WifiConnectActivity.class));
                 break;
             case R.id.view_change:
-                new ChangeAccountDialog(mContext).show();
+                mChangeAccountDialog = new ChangeAccountDialog(mContext);
+                mChangeAccountDialog.show();
                 break;
             case R.id.view_health://健康档案
                 startActivity(new Intent(this,MyBaseDataActivity.class));

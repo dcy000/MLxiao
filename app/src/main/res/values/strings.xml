@@ -12,6 +12,8 @@
     <string name="input_mobile">请输入手机号码</string>
     <string name="i_agree">我同意</string>
     <string name="agreement">用户协议</string>
+    <string name="change_account">账号切换</string>
+    <string name="add_account">添加账号</string>
     <string name="empty_account">输入账号不能为空</string>
     <string name="empty_pwd">输入密码不能为空</string>
     <string name="empty_name">输入姓名不能为空</string>

@@ -229,6 +229,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:padding="8dp"
+        android:visibility="gone"
         android:text="@string/logout"
         android:textColor="#abcadf"
         android:textSize="25sp" />
@@ -243,17 +244,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
         android:layout_alignParentBottom="true">
-        <View
-            android:id="@+id/view_change"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:background="@drawable/icon_account" />
         <View
             android:id="@+id/view_health"
             android:layout_width="220dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
             android:background="@drawable/icon_health" />
         <View
             android:id="@+id/btn_record"
@@ -261,5 +258,11 @@
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/icon_history" />
+        <View
+            android:id="@+id/view_change"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/icon_account" />
     </LinearLayout>
 </RelativeLayout>

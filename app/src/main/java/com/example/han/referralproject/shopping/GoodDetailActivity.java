@@ -66,6 +66,7 @@ public class GoodDetailActivity extends AppCompatActivity implements View.OnClic
 
         mTextView.setText(goods.getGoodsname());
         mTextView1.setText(goods.getGoodsprice());
+        mTextView3.setText(goods.getGoodsprice());
 
         Picasso.with(this)
                 .load(ConstantData.BASE_URL + "/referralProject/" + goods.getGoodsimage())
