@@ -17,7 +17,6 @@ import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.util.Utils;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -26,9 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    //public static final String BasicUrl = "http://192.168.200.104:8080";
+//    public static final String BasicUrl = "http://192.168.200.104:8080";
 
     //    public static final String BasicUrl = "http://192.168.200.103:8080";
+
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String BasicUrl = "http://118.31.238.207:8080";
 
@@ -38,6 +38,7 @@ public class NetworkApi {
     public static final String ClueUrl = BasicUrl + "/ZZB/br/selOneUserClueAll";
     public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
     public static final String GetAllSymUrl = BasicUrl + "/ZZB/bl/selAllSym";
+    //次层病症和首层诊断结果
     public static final String AnalyseUrl = BasicUrl + "/ZZB/bl/selcon";
     public static final String GetYZUrl = BasicUrl + "/ZZB/bl/selYzAndTime";
     public static final String GetVersionUrl = BasicUrl + "/ZZB/vc/selone";
@@ -58,7 +59,7 @@ public class NetworkApi {
     public static final String ADD_EAT_MEDICAL_URL = BasicUrl + "/ZZB/br/addeatmod";
     public static final String GET_CONTRACT_INFO = BasicUrl + "/ZZB/docter/docter_user";
 
-
+    public static final String GET_MY_BASE_DATA=BasicUrl+"/ZZB/br/selOneUserEverything";
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("username", phoneNum);
@@ -103,8 +104,6 @@ public class NetworkApi {
         paramsMap.put("end_time", end_time);
         paramsMap.put("userid", userid + "");
         paramsMap.put("docterid", docterid + "");
-
-
         NetworkManager.getInstance().postResultClass(YUYUE_URL, paramsMap, String.class, listener, failedCallback);
     }
 
@@ -113,7 +112,6 @@ public class NetworkApi {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("docterid", docterid);
-
         NetworkManager.getInstance().postResultClass(YUYUE_URL_INFO, paramsMap, new TypeToken<ArrayList<YuYueInfo>>() {
         }.getType(), listener, failedCallback);
     }
@@ -183,16 +181,26 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
+    /**
+     * 获取所有症状
+     * @param callback
+     */
     public static void getAllSym(NetworkManager.SuccessCallback<ArrayList<SymptomBean>> callback) {
         NetworkManager.getInstance().getResultClass(GetAllSymUrl, null, new TypeToken<ArrayList<SymptomBean>>() {
         }.getType(), callback);
     }
 
-    public static void analyseSym(String params, NetworkManager.SuccessCallback<ArrayList<SymptomResultBean>> callback) {
+    public static void getAllUsers(String accounts, NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> callback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("p", accounts);
+        NetworkManager.getInstance().getResultClass(GetInfo_URL, paramsMap, new TypeToken<ArrayList<UserInfoBean>>() {
+        }.getType(), callback);
+    }
+
+    public static void analyseSym(String params, NetworkManager.SuccessCallback<SymptomResultBean> callback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("parameter", params);
-        NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, new TypeToken<ArrayList<SymptomResultBean>>() {
-        }.getType(), callback);
+        NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, SymptomResultBean.class, callback);
     }
 
     public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback) {
@@ -280,5 +288,18 @@ public class NetworkApi {
         params.put("userid", MyApplication.getInstance().userId);
         params.put("docterid", doctorId);
         NetworkManager.getInstance().getResultClass(GET_CONTRACT_INFO, params, ContractInfo.class, successCallback, failedCallback);
+
+    }
+
+    /**
+     * 获取个人的基本信息
+     * @param successCallback
+     * @param failedCallback
+     */
+    public static void getMyBaseData(
+    NetworkManager.SuccessCallback<UserInfoBean> successCallback, NetworkManager.FailedCallback failedCallback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid", MyApplication.getInstance().userId);
+        NetworkManager.getInstance().getResultClass(GET_MY_BASE_DATA, params, UserInfoBean.class, successCallback, failedCallback);
     }
 }

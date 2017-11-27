@@ -162,7 +162,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     public ImageView ivBack;
     Random rand;
 
+
     SharedPreferences sharedPreferences;
+
+    ImageView mImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +176,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         rand = new Random();
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+        mImageView = (ImageView) findViewById(R.id.iat_recognizes);
+
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -263,6 +269,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
+
+
     @Override
     public void onBackPressed() {
         if (mPlayFragment != null && isPlayFragmentShow) {
@@ -270,6 +278,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 getPlayService().playPause();
             }
             hidePlayingFragment();
+
+            mImageView.setClickable(true);
+
             //   finish();
             return;
         }
@@ -1039,6 +1050,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 } else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
 
+                    mImageView.setClickable(false);
 
                     try {
                         if (resultBuffer.toString().matches(".*听.*的.*")) {

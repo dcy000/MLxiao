@@ -1,7 +1,9 @@
 package com.example.han.referralproject.personal;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +21,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.MessageActivity;
+import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.RecordActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -32,6 +35,7 @@ import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
@@ -85,6 +89,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public ImageView mImageView2;
     public ImageView mImageView3;
 
+    public ImageView mImageView4;
+
+    private ChangeAccountDialog mChangeAccountDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +124,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
+        mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
 
 
       /*  String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
@@ -128,10 +136,18 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         }*/
 
+        mImageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PersonActivity.this, ShopListActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         findViewById(R.id.btn_record).setOnClickListener(this);
         findViewById(R.id.iv_message).setOnClickListener(this);
-
+        findViewById(R.id.view_health).setOnClickListener(this);
         findViewById(R.id.iv_check).setOnClickListener(this);
         findViewById(R.id.view_wifi).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
@@ -154,25 +170,32 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         findViewById(R.id.btn_logout).setOnClickListener(this);
 
-
+        getData();
+        registerReceiver(mReceiver, new IntentFilter("change_account"));
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    post();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case "change_account":
+                    if (mChangeAccountDialog != null){
+                        mChangeAccountDialog.dismiss();
+                    }
+                    getData();
+                    break;
             }
-        }).start();*/
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+    }
 
 
+    private void getData() {
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
@@ -202,7 +225,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
-
 
 
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
@@ -250,8 +272,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
-
-
     }
 
     private void post() throws Exception {
@@ -296,9 +316,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_record:
-                startActivity(new Intent(this, HealthRecordActivity.class));
-                break;
             case R.id.btn_logout:
                 LocalShared.getInstance(this).loginOut();
                 startActivity(new Intent(this, LoginActivity.class));
@@ -317,7 +334,14 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(this, WifiConnectActivity.class));
                 break;
             case R.id.view_change:
-                new ChangeAccountDialog(mContext).show();
+                mChangeAccountDialog = new ChangeAccountDialog(mContext);
+                mChangeAccountDialog.show();
+                break;
+            case R.id.view_health:
+                startActivity(new Intent(this,MyBaseDataActivity.class));
+                break;
+            case R.id.btn_record://健康档案
+                startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
         }
     }

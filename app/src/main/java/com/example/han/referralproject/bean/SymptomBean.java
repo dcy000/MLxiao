@@ -1,6 +1,9 @@
 package com.example.han.referralproject.bean;
 
-public class SymptomBean {
-    public String sid;
-    public String sname;
+import java.io.Serializable;
+
+public class SymptomBean implements Serializable{
+    public String id;
+    public String name;
+    public  boolean isSelected;
 }

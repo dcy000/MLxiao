@@ -89,12 +89,12 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             switch (msg.what) {
                 case 1:
 
-
                     break;
 
                 case 0:
 
                     models = DataSupport.findAll(AlarmModel.class);
+
 
                     if (list.size() == 3) {
                         mLinearLayout1.setVisibility(View.VISIBLE);
@@ -135,8 +135,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         long time3 = 0;
 
                         try {
-                            time2 = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                            time3 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                            time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                            time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
 
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -149,8 +149,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         long time5 = 0;
 
                         try {
-                            time4 = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                            time5 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                            time4 = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                            time5 = Long.parseLong(dateToStamp(list.get(2).getEnd_time()));
 
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -161,6 +161,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                     } else if (list.size() == 2) {
 
+                        Log.e("=======", models.toString());
+
+
                         mLinearLayout1.setVisibility(View.VISIBLE);
                         mLinearLayout2.setVisibility(View.VISIBLE);
                         mTextView.setText(list.get(0).getStart_time());
@@ -169,8 +172,90 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         mTextView2.setText(list.get(1).getStart_time());
                         mTextView6.setText(list.get(1).getEnd_time());
 
-                        setAlarmClock(0);
-                        setAlarmClock(1);
+                        //   setAlarmClock(0);
+
+
+                        if (!"".equals(list.get(0).getStart_time())) {
+                            long time = 0;
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            String times = String.valueOf(time - 60000);
+
+                            if (models.size() == 0) {
+                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                            } else {
+
+                                boolean sign = true;
+
+                                for (int a = 0; a < models.size(); a++) {
+
+                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                        sign = false;
+                                    } else {
+
+                                        if (sign == true && a == list.size() - 1) {
+
+                                            AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                        }
+                                    }
+
+
+                                }
+
+                            }
+
+
+                        }
+
+
+                        //  setAlarmClock(1);
+
+
+                        if (!"".equals(list.get(1).getStart_time())) {
+                            long time = 0;
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            String times = String.valueOf(time - 60000);
+
+                            if (models.size() == 0) {
+                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                            } else {
+
+                                boolean sign = true;
+
+                                for (int a = 0; a < models.size(); a++) {
+
+                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                        sign = false;
+                                    } else {
+
+                                        if (sign == true && a == list.size() - 1) {
+
+                                            AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+
+                                        }
+                                    }
+
+
+                                }
+
+                            }
+
+
+                        }
+
 
                         long time = 0;
                         long time1 = 0;
@@ -189,8 +274,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         long time3 = 0;
 
                         try {
-                            time2 = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                            time3 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                            time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                            time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
 
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -201,6 +286,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                     } else if (list.size() == 1) {
 
+                        Log.e("====1===", models.toString());
+
                         mLinearLayout1.setVisibility(View.VISIBLE);
                         mTextView.setText(list.get(0).getStart_time());
                         mTextView1.setText(list.get(0).getEnd_time());
@@ -209,10 +296,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         long time1 = 0;
                         if (!"".equals(list.get(0).getStart_time())) {
 
-
                             try {
                                 time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-
                                 time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
 
                             } catch (ParseException e) {
@@ -225,27 +310,42 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                 AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
 
                             } else {
-                                for (AlarmModel itemModel : models) {
+                               /* for (AlarmModel itemModel : models) {
 
                                     if (String.valueOf(itemModel.getTimestamp()).equals(times)) {
-
-
                                         break;
                                     } else {
                                         AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-
                                         break;
-
                                     }
+
+                                }*/
+
+                                boolean sign = true;
+
+                                for (int a = 0; a < models.size(); a++) {
+
+                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                        sign = false;
+                                    } else {
+
+                                        if (sign == true && a == list.size() - 1) {
+
+                                            AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                        }
+                                    }
+
 
                                 }
 
+
                             }
 
-                            enableVideo(time1, time - 60000);
 
                         }
+
+                        enableVideo(time1, time - 60000);
 
 
                     }
@@ -276,8 +376,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     public void setAlarmClock(int i) {
 
         if (!"".equals(list.get(i).getStart_time())) {
-
-
             long time = 0;
             try {
                 time = Long.parseLong(dateToStamp(list.get(i).getStart_time()));
@@ -291,22 +389,29 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                 AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
 
             } else {
-                for (AlarmModel itemModel : models) {
 
-                    if (String.valueOf(itemModel.getTimestamp()).equals(times)) {
-                        break;
+                boolean sign = true;
+
+                for (int a = 0; a < models.size(); a++) {
+
+                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                        sign = false;
                     } else {
-                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-                        break;
 
+                        if (sign == true && a == list.size() - 1) {
+
+                            AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                        }
                     }
+
 
                 }
 
             }
+
+
         }
-
-
     }
 
 

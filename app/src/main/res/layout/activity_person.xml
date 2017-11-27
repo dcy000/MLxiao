@@ -118,19 +118,6 @@
             android:textColor="#686868"
             android:textSize="50sp" />
 
-        <Button
-            android:id="@+id/btn_record"
-            android:layout_width="160dp"
-            android:layout_height="58dp"
-            android:layout_alignBottom="@id/per_name"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="72dp"
-            android:background="@drawable/health_document"
-            android:gravity="center"
-            android:text="健康档案"
-            android:textColor="#fff"
-            android:textSize="30sp" />
-
         <TextView
             android:id="@+id/tv_balance"
             android:layout_width="wrap_content"
@@ -228,6 +215,7 @@
             android:layout_height="125dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:clickable="true"
             android:src="@drawable/icon_shopping" />
     </LinearLayout>
 
@@ -241,6 +229,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:padding="8dp"
+        android:visibility="gone"
         android:text="@string/logout"
         android:textColor="#abcadf"
         android:textSize="25sp" />
@@ -252,9 +241,28 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/icon_wifi" />
 
-    <View
-        android:id="@+id/view_change"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+        <View
+            android:id="@+id/view_health"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:background="@drawable/icon_health" />
+        <View
+            android:id="@+id/btn_record"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/icon_history" />
+        <View
+            android:id="@+id/view_change"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/icon_account" />
+    </LinearLayout>
 </RelativeLayout>
