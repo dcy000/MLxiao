@@ -327,10 +327,10 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             case R.id.view_change:
                 new ChangeAccountDialog(mContext).show();
                 break;
-            case R.id.view_health:
+            case R.id.view_health://健康档案
                 startActivity(new Intent(this,MyBaseDataActivity.class));
                 break;
-            case R.id.btn_record://健康档案
+            case R.id.btn_record:
                 startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
         }

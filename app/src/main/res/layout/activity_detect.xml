@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--温度检测-->
     <RelativeLayout
         android:id="@+id/rl_temp"
         android:layout_width="match_parent"
@@ -145,7 +145,7 @@
             android:src="@drawable/tests"
             android:visibility="gone" />
     </RelativeLayout>
-
+    <!--血压检测-->
     <RelativeLayout
         android:id="@+id/rl_xueya"
         android:layout_width="match_parent"
@@ -394,7 +394,7 @@
             android:src="@drawable/tests"
             android:visibility="gone" />
     </RelativeLayout>
-
+    <!--血糖监测-->
     <RelativeLayout
         android:id="@+id/rl_xuetang"
         android:layout_width="match_parent"
@@ -571,7 +571,7 @@
             android:orientation="vertical"
             android:layout_centerInParent="true"
             android:gravity="center_horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -624,7 +624,7 @@
                 android:layout_marginTop="50dp"/>
         </LinearLayout>
     </RelativeLayout>
-
+    <!--血氧监测-->
     <RelativeLayout
         android:id="@+id/rl_xueyang"
         android:layout_width="match_parent"
@@ -776,7 +776,7 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
+    <!--心电监测-->
     <RelativeLayout
         android:id="@+id/rl_xindian"
         android:layout_width="match_parent"
@@ -789,7 +789,7 @@
             android:layout_height="wrap_content"
             android:textSize="40sp" />
     </RelativeLayout>
-
+    <!--体重监测-->
     <RelativeLayout
         android:id="@+id/rl_tizhong"
         android:layout_width="match_parent"
