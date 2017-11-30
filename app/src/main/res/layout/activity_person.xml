@@ -115,6 +115,7 @@
             android:layout_marginTop="23dp"
             android:layout_toRightOf="@id/per_image"
             android:text=""
+            android:lines="1"
             android:textColor="#686868"
             android:textSize="50sp" />
 

@@ -171,8 +171,8 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                     return;
                 }
                 if (flag == 3) {//如果已经选中了三个标签则直接跳转到结果页
-                    startActivity(new Intent(mContext, SymptomAnalyseResultActivity.class)
-                            .putExtra("result", (Serializable) response.getBqs()));
+//                    startActivity(new Intent(mContext, SymptomAnalyseResultActivity.class)
+//                            .putExtra("result", (Serializable) response.getBqs()));
                 }
                 List<SymptomResultBean.zzs> zzss = response.getZzs();
                 mDataList.clear();

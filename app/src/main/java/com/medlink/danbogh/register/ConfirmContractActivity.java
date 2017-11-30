@@ -81,7 +81,8 @@ public class ConfirmContractActivity extends AppCompatActivity {
                 tvName.setText("姓名： " +  response.bname);
                 tvPhone.setText("联系方式: " + response.btel);
                 tvIdCard.setText("身份证： " +  response.sfz);
-                tvContractInterval.setText("签约周期： " +  response.sfz);
+                //tvContractInterval.setText("签约周期： " +  response.sfz);
+                tvContractInterval.setText("签约周期： " +  "两年");
                 tvContractDoctor.setText("签约医生： " +  response.doctername);
                 tvDoctorPhone.setText("医生联系方式： " +  response.dtel);
                 tvContractOrganization.setText("签约机构： " +  response.hosname);

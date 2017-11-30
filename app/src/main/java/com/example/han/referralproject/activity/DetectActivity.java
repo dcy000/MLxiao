@@ -72,7 +72,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XueYang;
+    private String detectType = Type_SanHeYi;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -297,45 +297,45 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             switch (seletTimeType){
                                 case 0://空腹
                                     if(xuetangResut<3.61){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低"));
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }else if(xuetangResut<=7.0){
                                         speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
                                     }else{
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高"));
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }
                                     break;
                                 case 1://饭后一小时
                                     if(xuetangResut<3.61){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低"));
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }else if(xuetangResut<=11.1){
                                         speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
                                     }else{
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高"));
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }
                                     break;
                                 case 2://饭后两小时
                                     if(xuetangResut<3.61){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低"));
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }else if(xuetangResut<=7.8){
                                         speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
                                     }else{
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高"));
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }
                                     break;
                                 case 3://饭后三小时
                                     if(xuetangResut<3.61){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低"));
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }else if(xuetangResut<=7.0){
                                         speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
                                     }else{
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高"));
+                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }
                                     break;
@@ -383,6 +383,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         if (notifyData != null && notifyData.length == 20) {
                             float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                             mResultTv.setText(String.valueOf(result));
+                        }
+                        break;
+                    case Type_SanHeYi:
+                        if (notifyData == null || notifyData.length < 20){
+                            return;
+                        }
+                        if (isGetResustFirst){
+                            int result = (notifyData[18] << 8) + (notifyData[17] & 0xff);
+                            mResultTv.setText(String.valueOf(result));
+                            speak(String.valueOf(result));
+                            isGetResustFirst = false;
                         }
                         break;
                 }
@@ -433,6 +444,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case Type_TiZhong:
                 characteristic = gattServices.get(3).getCharacteristics().get(2);
+                break;
+            case Type_SanHeYi:
+                characteristic = gattServices.get(3).getCharacteristics().get(1);
                 break;
         }
 
@@ -599,6 +613,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 case "tizhong":
                     detectType = Type_TiZhong;
                     break;
+                case "sanheyi":
+                    detectType = Type_SanHeYi;
+                    break;
             }
         }
 
@@ -717,6 +734,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_TiZhong:
                 mResultTv = (TextView) findViewById(R.id.tv_tizhong);
                 findViewById(R.id.rl_tizhong).setVisibility(View.VISIBLE);
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
+                break;
+            case Type_SanHeYi:
+                mResultTv = (TextView) findViewById(R.id.tv_sanheyi);
+                findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
                 dialog = new NDialog(this);
                 showNormal("设备连接中，请稍后...");
                 break;
@@ -889,6 +912,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     case Type_TiZhong:
                         deviceName = "000FatScale01";
                         break;
+                    case Type_SanHeYi:
+                        deviceName = "BeneCheck-1544";
+                        break;
                 }
 
                 if (deviceName.equals(device.getName())) {
@@ -956,7 +982,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-        speak(getString(R.string.now_eating_state));
+//        speak(getString(R.string.now_eating_state));
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
