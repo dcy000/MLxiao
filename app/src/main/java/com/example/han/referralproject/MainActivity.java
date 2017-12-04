@@ -125,7 +125,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     startActivity(intent);
                 }
 
-
                 //    EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
                 break;
             case R.id.health_class:
@@ -134,6 +133,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
+
 
     @Override
     public void onBackPressed() {

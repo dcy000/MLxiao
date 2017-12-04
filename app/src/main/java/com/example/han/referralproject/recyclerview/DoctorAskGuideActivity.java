@@ -21,11 +21,11 @@ public class DoctorAskGuideActivity extends Activity implements View.OnClickList
     /**
      * 预约医生
      */
-    private TextView mDoctorYuyue;
+    private ImageView mDoctorYuyue;
     /**
      * 在线医生
      */
-    private TextView mDoctorZaixian;
+    private ImageView mDoctorZaixian;
     private ImageView mIconBack;
     private LinearLayout mLinearlayou;
     private ImageView mIconHome;
@@ -63,9 +63,9 @@ public class DoctorAskGuideActivity extends Activity implements View.OnClickList
     }
 
     private void initView() {
-        mDoctorYuyue = (TextView) findViewById(R.id.doctor_yuyue);
+        mDoctorYuyue = (ImageView) findViewById(R.id.doctor_yuyue);
         mDoctorYuyue.setOnClickListener(this);
-        mDoctorZaixian = (TextView) findViewById(R.id.doctor_zaixian);
+        mDoctorZaixian = (ImageView) findViewById(R.id.doctor_zaixian);
         mDoctorZaixian.setOnClickListener(this);
         mIconBack = (ImageView) findViewById(R.id.icon_back);
         mIconBack.setOnClickListener(this);

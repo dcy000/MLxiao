@@ -48,34 +48,34 @@
         android:src="@drawable/icon_home"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    <TextView
+    <ImageView
         android:id="@+id/doctor_yuyue"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:background="#f67"
+        android:layout_height="200dp"
         android:gravity="center"
-        android:text="预约医生"
         android:textSize="40sp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/doctor_zaixian" />
+        app:layout_constraintRight_toLeftOf="@+id/doctor_zaixian"
+        android:src="@drawable/doc_qianyue"
+        android:layout_marginLeft="80dp"/>
 
 
-    <TextView
+    <ImageView
         android:id="@+id/doctor_zaixian"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:background="#A67"
+        android:layout_height="200dp"
         android:gravity="center"
-        android:text="在线医生"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/doctor_yuyue"
         app:layout_constraintRight_toRightOf="parent"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:src="@drawable/doc_zaixian"
+        android:layout_marginRight="80dp"/>
 
 
 
