@@ -83,6 +83,8 @@ public class Utils {
             return "";
         }
 
+
+
         char[] chars = chinese.toCharArray();
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < chars.length; i++) {

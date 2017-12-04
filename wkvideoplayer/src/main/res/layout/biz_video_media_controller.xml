@@ -17,8 +17,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/biz_video_play" />
 
         <RelativeLayout
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressDrawable="@drawable/biz_video_progressbar"
-                android:thumb="@drawable/live_head_passerby"
+                android:thumb="@drawable/progress_bar"
                 android:thumbOffset="1.5dip" />
 
             <TextView

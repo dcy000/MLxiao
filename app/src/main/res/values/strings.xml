@@ -473,7 +473,7 @@
     <string name="dixuetang">主人，您有可能是低血糖，请及时补充糖分或到医院就诊</string>
 
     <string name="order_id" formatted="false">订单号：%1$s</string>
-    <string name="facc_register">主人让我给你拍个照，准备，3,2,1</string>
+    <string name="facc_register">主人让我给你拍个照，准备，三二一</string>
 
     <string name="shop_good">主人，请选择您要购买的商品</string>
     <string name="shop_mount">主人，请选择购买数量</string>

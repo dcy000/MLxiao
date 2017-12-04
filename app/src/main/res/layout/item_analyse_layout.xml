@@ -3,8 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="350dp"
              android:layout_height="500dp"
-             android:orientation="vertical"
-             android:padding="10dp">
+             android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -62,8 +61,7 @@
             android:textSize="30sp"
             tools:text="常见症状：头晕、脑血管供血不足、反复头晕"
             android:layout_below="@id/tv_item_probability"
-            android:layout_above="@id/btn_details"
-            android:layout_marginBottom="20dp"/>
+            android:layout_above="@id/btn_details"/>
 
     </RelativeLayout>
 
