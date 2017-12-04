@@ -38,7 +38,7 @@ public class NDialog2 {
     public static final int INPUT = 200;//输入框
     public static final int CHOICE = 300;//选择
 
-    private String positiveButtonText = "完成";
+    private String positiveButtonText = "确定";
   //  private String negativeButtonText = "取消";
 
     private int positiveTextColor = Color.parseColor("#333333");

@@ -120,6 +120,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
                             speak(getString(R.string.pay_success));
 
+
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override

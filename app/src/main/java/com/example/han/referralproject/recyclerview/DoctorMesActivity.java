@@ -20,6 +20,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.constant.ConstantData;
@@ -35,7 +36,6 @@ import java.util.TimerTask;
 
 public class DoctorMesActivity extends BaseActivity {
 
-    Button mButton;
     ImageView mImageView;
 
     ImageView mImageView1;
@@ -49,6 +49,17 @@ public class DoctorMesActivity extends BaseActivity {
     public ImageView ImageView1;
     public ImageView ImageView2;
 
+    public ImageView mStar1;
+    public ImageView mStar2;
+    public ImageView mStar3;
+    public ImageView mStar4;
+    public ImageView mStar5;
+
+    Button mButton;
+
+    private AllDoctor allDoctor;
+    private int flag = -1;//记录是从预约医生过来的还是在线医生过来的，0：预约医生，1：在线医生
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +74,25 @@ public class DoctorMesActivity extends BaseActivity {
         mTextView2 = (TextView) findViewById(R.id.hospital);
         mTextView3 = (TextView) findViewById(R.id.department);
         mTextView4 = (TextView) findViewById(R.id.introduce);
-
+        title = (TextView) findViewById(R.id.title);
 
         mButton = (Button) findViewById(R.id.qianyue);
+        mStar1 = (ImageView) findViewById(R.id.star1);
+        mStar2 = (ImageView) findViewById(R.id.star2);
+        mStar3 = (ImageView) findViewById(R.id.star3);
+        mStar4 = (ImageView) findViewById(R.id.star4);
+        mStar5 = (ImageView) findViewById(R.id.star5);
 
         Intent intent = getIntent();
-        final Doctors doctor = (Doctors) intent.getSerializableExtra("docMsg");
+        Docter doctor = (Docter) intent.getSerializableExtra("docMsg");
 
+        if (intent.getSerializableExtra("docMsg") instanceof Doctors) {
+            doctor = (Docter) intent.getSerializableExtra("docMsg");
+            flag = 0;
+        } else if (intent.getSerializableExtra("docMsg") instanceof AllDoctor) {
+            allDoctor = (AllDoctor) intent.getSerializableExtra("docMsg");
+            flag = 1;
+        }
 
         ImageView1 = (ImageView) findViewById(R.id.icon_back);
         ImageView2 = (ImageView) findViewById(R.id.icon_home);
@@ -92,7 +115,7 @@ public class DoctorMesActivity extends BaseActivity {
 
 
         Picasso.with(this)
-                .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getDocter_photo())
+                .load(doctor.getDocter_photo())
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)
@@ -102,18 +125,94 @@ public class DoctorMesActivity extends BaseActivity {
 
         mTextView.setText(doctor.getDoctername());
         mTextView1.setText(doctor.getDuty());
-        mTextView2.setText(doctor.getHosnames());
+        mTextView2.setText(doctor.getHosname());
         mTextView3.setText(doctor.getDepartment());
         mTextView4.setText(doctor.getPro());
 
+        if (Integer.parseInt(doctor.getEvaluation()) <= 60) {
 
+            mStar1.setVisibility(View.VISIBLE);
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 70 &&
+                Integer.parseInt(doctor.getEvaluation()) > 60) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 80 &&
+                Integer.parseInt(doctor.getEvaluation()) > 70) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 90 &&
+                Integer.parseInt(doctor.getEvaluation()) > 80) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+            mStar4.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) > 90
+                ) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+            mStar4.setVisibility(View.VISIBLE);
+            mStar5.setVisibility(View.VISIBLE);
+
+
+        }
+
+        if (flag == 0) {
+            Picasso.with(this)
+                    .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getDocter_photo())
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .tag(this)
+                    .fit()
+                    .into(mImageView1);
+
+
+            mTextView.setText(doctor.getDoctername());
+            mTextView1.setText(doctor.getDuty());
+            mTextView2.setText(doctor.getHosname());
+            mTextView3.setText(doctor.getDepartment());
+            mTextView4.setText(doctor.getPro());
+            mButton.setText("签约");
+            title.setText(R.string.doctor_qianyue);
+
+        } else if (flag == 1) {
+            Picasso.with(this)
+                    .load(allDoctor.docter_photo)
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .tag(this)
+                    .fit()
+                    .into(mImageView1);
+
+            mTextView.setText(allDoctor.doctername);
+            mTextView1.setText(allDoctor.duty);
+            mTextView2.setText(allDoctor.hosname);
+            mTextView3.setText(allDoctor.department);
+            mTextView4.setText(allDoctor.pro);
+            mButton.setText("咨询");
+            title.setText(R.string.doctor_zixun);
+        }
+
+        final Docter finalDoctor = doctor;
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (flag == 0) {
+                    ConfirmContractActivity.start(DoctorMesActivity.this, String.valueOf(finalDoctor.getDocterid()));
+                }
 
-                ConfirmContractActivity.start(DoctorMesActivity.this, String.valueOf(doctor.docterid));
             }
         });
+
+
 
       /*  mImageView = (ImageView) findViewById(R.id.icon_back);
         mImageView.setOnClickListener(new View.OnClickListener() {
@@ -124,38 +223,38 @@ public class DoctorMesActivity extends BaseActivity {
         });*/
     }
 
-    public void show() {
-        Toast toast = new Toast(getApplicationContext());
-        LayoutInflater inflate = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflate.inflate(R.layout.your_custom_layout, null);
-        View vs = v.findViewById(R.id.back);//找到你要设透明背景的layout 的id
-        vs.getBackground().setAlpha(100);//0~255透明度值
+//    public void show() {
+//        Toast toast = new Toast(getApplicationContext());
+//        LayoutInflater inflate = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View v = inflate.inflate(R.layout.your_custom_layout, null);
+//        View vs = v.findViewById(R.id.back);//找到你要设透明背景的layout 的id
+//        vs.getBackground().setAlpha(100);//0~255透明度值
+//
+//        // 在这里初始化一下里面的文字啊什么的
+//        toast.setView(v);
+//        //   toast.setDuration(Toast.LENGTH_LONG);
+//        toast.setGravity(Gravity.FILL_HORIZONTAL, 0, 0);
+//        showMyToast(toast, 3000);
+//        // toast.show();
+//    }
 
-        // 在这里初始化一下里面的文字啊什么的
-        toast.setView(v);
-        //   toast.setDuration(Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.FILL_HORIZONTAL, 0, 0);
-        showMyToast(toast, 3000);
-        // toast.show();
-    }
 
-
-    public void showMyToast(final Toast toast, final int cnt) {
-        final Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                toast.show();
-            }
-        }, 0, Toast.LENGTH_LONG);
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                toast.cancel();
-                timer.cancel();
-            }
-        }, cnt);
-    }
+//    public void showMyToast(final Toast toast, final int cnt) {
+//        final Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                toast.show();
+//            }
+//        }, 0, Toast.LENGTH_LONG);
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                toast.cancel();
+//                timer.cancel();
+//            }
+//        }, cnt);
+//    }
 
    /* private void initToolBar() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
@@ -175,7 +274,12 @@ public class DoctorMesActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.tips_info);
+        if (flag == 0) {//预约医生
+            speak(R.string.tips_info);
+        } else if (flag == 1) {//咨询在线医生
+
+        }
+
     }
 
     public static final String REGEX_BACK = ".*(fanhui|shangyibu).*";

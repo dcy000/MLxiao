@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,10 +16,13 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.squareup.picasso.Picasso;
 
 public class AppraiseActivity extends AppCompatActivity implements View.OnClickListener {
@@ -52,6 +56,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
     SharedPreferences sharedPreferences1;
 
     CircleImageView mCircleImageView;
+
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +151,7 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
                 mImageView4.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.stars));
                 mImageView5.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.stars));
 
+                i = 10;
 
                 break;
             case R.id.star2:
@@ -156,6 +163,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
                 mImageView4.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.stars));
                 mImageView5.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.stars));
 
+                i = 20;
+
                 break;
             case R.id.star3:
 
@@ -165,6 +174,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
                 mImageView3.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.sta));
                 mImageView4.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.stars));
                 mImageView5.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.stars));
+
+                i = 30;
 
 
                 break;
@@ -178,6 +189,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
                 mImageView5.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.stars));
 
 
+                i = 40;
+
                 break;
             case R.id.star5:
 
@@ -186,6 +199,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
                 mImageView3.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.sta));
                 mImageView4.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.sta));
                 mImageView5.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.sta));
+
+                i = 50;
 
 
                 break;
@@ -285,9 +300,62 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
                 .setOnConfirmListener(new NDialog1.OnConfirmListener() {
                     @Override
                     public void onClick(int which) {
-                        Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
-                        startActivity(intent);
-                        finish();
+                        StringBuffer str = new StringBuffer();
+
+                        if (mButton1.isSelected()) {
+
+                            str.append(mButton1.getText().toString() + ",");
+
+
+                        }
+                        if (mButton2.isSelected()) {
+
+                            str.append(mButton2.getText().toString() + ",");
+
+
+                        }
+                        if (mButton3.isSelected()) {
+
+                            str.append(mButton3.getText().toString() + ",");
+
+
+                        }
+                        if (mButton4.isSelected()) {
+
+                            str.append(mButton4.getText().toString() + ",");
+
+
+                        }
+                        if (mButton5.isSelected()) {
+
+                            str.append(mButton5.getText().toString() + ",");
+
+
+                        }
+                        if (mButton6.isSelected()) {
+
+                            str.append(mButton6.getText().toString());
+
+                        }
+
+                        NetworkApi.appraise(sharedPreferences1.getString("doctor_id", ""), MyApplication.getInstance().userId, str.toString(), i, System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
+
+                            @Override
+                            public void onSuccess(String response) {
+
+                                Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
+
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+
+
+                            }
+                        });
 
 
                     }

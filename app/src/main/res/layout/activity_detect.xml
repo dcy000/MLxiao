@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--温度检测-->
     <RelativeLayout
         android:id="@+id/rl_temp"
         android:layout_width="match_parent"
@@ -145,7 +145,7 @@
             android:src="@drawable/tests"
             android:visibility="gone" />
     </RelativeLayout>
-
+    <!--血压检测-->
     <RelativeLayout
         android:id="@+id/rl_xueya"
         android:layout_width="match_parent"
@@ -394,7 +394,7 @@
             android:src="@drawable/tests"
             android:visibility="gone" />
     </RelativeLayout>
-
+    <!--血糖监测-->
     <RelativeLayout
         android:id="@+id/rl_xuetang"
         android:layout_width="match_parent"
@@ -429,8 +429,9 @@
             android:layout_height="180dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="80dp"
-            android:src="@drawable/video_xueyas" />
+            android:layout_marginTop="100dp"
+            android:src="@drawable/video_xueyas"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/video_xuetang2"
@@ -450,7 +451,7 @@
             android:layout_below="@+id/video_xuetang2"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/video_xueyass" />
+            android:src="@drawable/video_xueyass"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -458,7 +459,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="100dp"
             android:layout_marginLeft="70dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
 
             <Button
@@ -566,12 +568,12 @@
          </RelativeLayout>-->
         <!--选择时间-->
         <LinearLayout
+            android:id="@+id/ll_selectTime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="90dp"
             android:orientation="vertical"
-            android:layout_centerInParent="true"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:background="#fff"
             android:visibility="visible">
             <LinearLayout
@@ -580,6 +582,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 >
+
                 <TextView
                     android:id="@+id/tv_empty"
                     android:layout_width="150dp"
@@ -593,6 +596,7 @@
                     android:layout_gravity="center"
                     />
                 <TextView
+                    android:id="@+id/tv_an_hour"
                     android:layout_width="150dp"
                     android:layout_height="80dp"
                     android:gravity="center"
@@ -604,6 +608,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="100dp"/>
                 <TextView
+                    android:id="@+id/tv_two_hour"
                     android:layout_width="150dp"
                     android:layout_height="80dp"
                     android:gravity="center"
@@ -616,18 +621,19 @@
                     android:layout_marginLeft="100dp"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/tv_three_hour"
                 android:layout_width="150dp"
                 android:layout_height="80dp"
                 android:textSize="30sp"
                 android:textColor="#6bb7eb"
                 android:background="@drawable/selector_btn"
                 android:layout_centerInParent="true"
-                android:text="@string/two_hour_later"
+                android:text="@string/three_hour_later"
                 android:gravity="center"
                 android:layout_marginTop="50dp"/>
         </LinearLayout>
     </RelativeLayout>
-
+    <!--血氧监测-->
     <RelativeLayout
         android:id="@+id/rl_xueyang"
         android:layout_width="match_parent"
@@ -779,7 +785,7 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
+    <!--心电监测-->
     <RelativeLayout
         android:id="@+id/rl_xindian"
         android:layout_width="match_parent"
@@ -792,7 +798,7 @@
             android:layout_height="wrap_content"
             android:textSize="40sp" />
     </RelativeLayout>
-
+    <!--体重监测-->
     <RelativeLayout
         android:id="@+id/rl_tizhong"
         android:layout_width="match_parent"
@@ -804,6 +810,120 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_sanheyi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/normal_bg"
+        android:visibility="visible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/test_sanheyi"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="170dp">
+                <TextView
+                    android:id="@+id/tv_san_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="血&#160;&#160;&#160;&#160;糖"
+                    android:textSize="45sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_san_tag"
+                    android:layout_marginLeft="10sp"
+                    android:gravity="center"
+                    android:text="@string/xue_tang1"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tv_san_one"
+                    android:layout_width="230dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_toRightOf="@+id/tv_san_tag"
+                    android:background="@drawable/celiang_shape"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="50sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="50dp">
+                <TextView
+                    android:id="@+id/tv_san_tag_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="尿&#160;&#160;&#160;&#160;酸"
+                    android:textSize="45sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_san_tag_two"
+                    android:layout_marginLeft="10sp"
+                    android:gravity="center"
+                    android:text="@string/xue_tang1"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tv_san_two"
+                    android:layout_width="230dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_toRightOf="@+id/tv_san_tag_two"
+                    android:background="@drawable/celiang_shape"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="50sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="50dp">
+                <TextView
+                    android:id="@+id/tv_san_tag_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="胆固醇"
+                    android:textSize="45sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_san_tag_three"
+                    android:layout_marginLeft="10sp"
+                    android:gravity="center"
+                    android:text="@string/xue_tang1"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tv_san_three"
+                    android:layout_width="230dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_toRightOf="@+id/tv_san_tag_three"
+                    android:background="@drawable/celiang_shape"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="50sp" />
+            </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
     <!--<RelativeLayout-->
     <!--android:id="@+id/rl_tips"-->
@@ -821,9 +941,13 @@
     <!--android:layout_alignParentRight="true"-->
     <!--android:layout_alignParentBottom="true"/>-->
     <!--</RelativeLayout>-->
+
+
+    <!--视频播放界面-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <VideoView
             android:id="@+id/vv_tips"

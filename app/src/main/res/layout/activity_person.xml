@@ -115,6 +115,7 @@
             android:layout_marginTop="23dp"
             android:layout_toRightOf="@id/per_image"
             android:text=""
+            android:lines="1"
             android:textColor="#686868"
             android:textSize="50sp" />
 
@@ -127,7 +128,7 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/per_image"
-            android:text="账户余额: 1000元"
+            android:text="账户余额: 0元"
             android:textColor="#a2a2a2"
             android:textSize="27sp" />
 
@@ -139,7 +140,7 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/per_image"
-            android:text="我的积分: 1000分"
+            android:text="我的积分: 0分"
             android:textColor="#a2a2a2"
             android:textSize="27sp" />
 
@@ -217,6 +218,35 @@
             android:layout_marginRight="20dp"
             android:clickable="true"
             android:src="@drawable/icon_shopping" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_order"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:clickable="true"
+                android:src="@drawable/order" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="订单信息"
+                android:textColor="#1E222B"
+                android:textSize="25sp" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <TextView
@@ -229,10 +259,10 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:padding="8dp"
-        android:visibility="gone"
         android:text="@string/logout"
         android:textColor="#abcadf"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/view_wifi"
@@ -244,20 +274,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:gravity="center"
-        android:layout_alignParentBottom="true">
+        android:gravity="center">
+
         <View
             android:id="@+id/view_health"
             android:layout_width="220dp"
             android:layout_height="60dp"
             android:background="@drawable/icon_health" />
+
         <View
             android:id="@+id/btn_record"
             android:layout_width="220dp"
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/icon_history" />
+
         <View
             android:id="@+id/view_change"
             android:layout_width="220dp"

@@ -15,7 +15,9 @@ public class DataInfoBean {
     public String blood_sugar;
     public String blood_oxygen;
     public int heart_rate;
-    public int ecg;
+    public int ecg;//心电结果
+    public String cholesterol;//胆固醇
+    public String uric_acid;//尿酸
 
     public Map<String, String> getParamsMap(){
         Map<String, String> paramsMap = new HashMap<>();
@@ -38,6 +40,12 @@ public class DataInfoBean {
         if (heart_rate != 0){
             paramsMap.put("heart_rate", String.valueOf(heart_rate));
             paramsMap.put("ecg", String.valueOf(ecg));
+        }
+        if (!TextUtils.isEmpty(cholesterol)){
+            paramsMap.put("cholesterol", cholesterol);
+        }
+        if (!TextUtils.isEmpty(uric_acid)){
+            paramsMap.put("uric_acid", uric_acid);
         }
         return paramsMap;
     }
