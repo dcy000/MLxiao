@@ -424,7 +424,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         }
 
         String text = target + result;
-        if (text.length() < 50) {
+        if (text.length() < 30) {
             etAddress.setText(text);
             etAddress.setSelection(text.length());
         }
