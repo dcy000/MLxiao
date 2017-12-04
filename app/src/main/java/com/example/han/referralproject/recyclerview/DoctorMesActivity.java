@@ -205,10 +205,9 @@ public class DoctorMesActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (flag == 0) {
 
-                    ConfirmContractActivity.start(DoctorMesActivity.this, finalDoctor.getDocterid());
-                }
+                ConfirmContractActivity.start(DoctorMesActivity.this, finalDoctor.getDocterid());
+
 
             }
         });
