@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
 
-public class DoctorAskGuideActivity extends Activity implements View.OnClickListener {
+public class DoctorAskGuideActivity extends BaseActivity implements View.OnClickListener {
 
 
     private SharedPreferences sharedPreferences;
