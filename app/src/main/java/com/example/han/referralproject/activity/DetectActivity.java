@@ -67,6 +67,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
     public TextView mXueYangTv, mXueYangPulseTv;
+    public TextView mSanHeYiOneTv, mSanHeYiTwoTv, mSanHeYiThreeTv;
     public View tipsLayout;
     public VideoView mVideoView;
     NDialog dialog;
@@ -386,13 +387,43 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_SanHeYi:
-                        if (notifyData == null || notifyData.length < 20){
+                        if (notifyData == null || notifyData.length < 13){
                             return;
                         }
                         if (isGetResustFirst){
-                            int result = (notifyData[18] << 8) + (notifyData[17] & 0xff);
-                            mResultTv.setText(String.valueOf(result));
-                            speak(String.valueOf(result));
+                            int result = ((notifyData[11] & 0xff) << 8) + (notifyData[10] & 0xff);
+                            int basic = (int) Math.pow(16, 3);
+                            int flag = result/basic;
+                            int number = result % basic;
+                            double afterResult;
+                            afterResult = number / Math.pow(10, 13 - flag);
+                            DataInfoBean info = new DataInfoBean();
+                            if (notifyData[1] == 65){
+                                info.blood_sugar = String.valueOf(afterResult);
+                                mSanHeYiOneTv.setText(String.valueOf(afterResult));
+                                speak(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), "正常"));
+                            } else if (notifyData[1] == 81) {//尿酸
+                                info.uric_acid = String.valueOf(afterResult);
+                                mSanHeYiTwoTv.setText(String.valueOf(afterResult));
+                                speak(String.format(getString(R.string.tips_result_niaosuan), String.valueOf(afterResult), "正常"));
+                            } else if (notifyData[1] == 97) {//胆固醇
+                                info.cholesterol = String.valueOf(afterResult);
+                                mSanHeYiThreeTv.setText(String.valueOf(afterResult));
+                                speak(String.format(getString(R.string.tips_result_danguchun), String.valueOf(afterResult), "正常"));
+                            }
+                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+//                            if (notifyData[1] == 65){
+//                                afterResult = number / Math.pow(10, 11 - flag);
+//                            } else {
+//                                afterResult = number / Math.pow(10, 13 - flag);
+//                            }
+//                            int result = (notifyData[18] << 8) + (notifyData[17] & 0xff);
+                            //mResultTv.setText(String.valueOf(result));
                             isGetResustFirst = false;
                         }
                         break;
@@ -446,7 +477,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 characteristic = gattServices.get(3).getCharacteristics().get(2);
                 break;
             case Type_SanHeYi:
-                characteristic = gattServices.get(3).getCharacteristics().get(1);
+                characteristic = gattServices.get(4).getCharacteristics().get(0);
+//                characteristic = gattServices.get(3).getCharacteristics().get(1);
                 break;
         }
 
@@ -738,10 +770,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 showNormal("设备连接中，请稍后...");
                 break;
             case Type_SanHeYi:
-                mResultTv = (TextView) findViewById(R.id.tv_sanheyi);
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
-                dialog = new NDialog(this);
-                showNormal("设备连接中，请稍后...");
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
@@ -755,8 +784,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
         mOverView = findViewById(R.id.view_over);
         mOverView.setOnClickListener(this);
+        if (detectType == Type_SanHeYi){
+            mOverView.setVisibility(View.GONE);
+        }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
+        mSanHeYiOneTv = (TextView) findViewById(R.id.tv_san_one);
+        mSanHeYiTwoTv = (TextView) findViewById(R.id.tv_san_two);
+        mSanHeYiThreeTv = (TextView) findViewById(R.id.tv_san_three);
         mPulseTv = (TextView) findViewById(R.id.pulse);
         mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
         mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
@@ -781,10 +816,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             return;
         }
 
-        registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
-        registerBltReceiver();
-
-        startSearch();
         //mBluetoothAdapter.startDiscovery();
 
         mXueyaResults = mResources.getStringArray(R.array.result_xueya);
@@ -799,6 +830,28 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         //选择血糖测量的时间
         setXuetangSelectTime();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+        registerBltReceiver();
+        startSearch();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        threadDisable = false;
+        unregisterReceiver(mGattUpdateReceiver);
+        unregisterReceiver(searchDevices);
+        stopSearch();
+        if (mBluetoothLeService != null) {
+            unbindService(mServiceConnection);
+        }
+        mBluetoothLeService = null;
+    }
+
     private int seletTimeType=0;
     private void setXuetangSelectTime() {
         //空腹
@@ -833,6 +886,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void startSearch() {
+        if (detectType == Type_SanHeYi){
+            dialog = new NDialog(this);
+            showNormal("设备连接中，请稍后...");
+        }
         blueThreadDisable = true;
         new Thread(new Runnable() {
             @Override
@@ -914,6 +971,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_SanHeYi:
                         deviceName = "BeneCheck-1544";
+//                        deviceName = "BeneCheck GL-0F8B73";
+//                        deviceName = "BeneCheck TC-B DONGLE";
                         break;
                 }
 
@@ -1049,14 +1108,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        threadDisable = false;
-        unregisterReceiver(mGattUpdateReceiver);
-        unregisterReceiver(searchDevices);
-        stopSearch();
-        if (mBluetoothLeService != null) {
-            unbindService(mServiceConnection);
-        }
-        mBluetoothLeService = null;
     }
 
     // Device scan callback.

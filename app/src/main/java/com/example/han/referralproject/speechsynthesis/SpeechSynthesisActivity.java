@@ -1105,15 +1105,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 try {
                     post(resultBuffer.toString());
                 } catch (Exception e) {
-                    runOnUiThread(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    //speak(R.string.speak_no_result);
-                                    findViewById(R.id.iat_recognizes).performClick();
-                                }
-                            }
-                    );
+//                    runOnUiThread(
+//                            new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    //speak(R.string.speak_no_result);
+//                                    findViewById(R.id.iat_recognizes).performClick();
+//                                }
+//                            }
+//                    );
                     e.printStackTrace();
                 }
                 return null;

@@ -19,6 +19,7 @@ import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.reflect.TypeToken;
 
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -28,10 +29,10 @@ public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.104:8080";
 
 //    public static final String BasicUrl = "http://192.168.200.103:8080";
-    //    public static final String BasicUrl = "http://192.168.200.103:8080";
+    public static final String BasicUrl = "http://192.168.200.103:8080";
 
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
