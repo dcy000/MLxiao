@@ -4,21 +4,36 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.facerecognition.VideoDemo;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.AddAppoActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.RetrofitClient;
+import com.example.han.referralproject.recyclerview.RetrofitService;
+import com.example.han.referralproject.util.Utils;
 import com.squareup.picasso.Picasso;
 
-public class GoodDetailActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class GoodDetailActivity extends BaseActivity implements View.OnClickListener {
 
 
     ImageView mImageView1;
@@ -32,6 +47,9 @@ public class GoodDetailActivity extends AppCompatActivity implements View.OnClic
     Button mButton;
     int i = 1;
     NDialog1 dialog1;
+    NDialog2 dialog2;
+
+    Goods goods;
 
     @Override
 
@@ -39,12 +57,15 @@ public class GoodDetailActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_detail);
 
+        speak(getString(R.string.shop_mount));
+
 
         dialog1 = new NDialog1(GoodDetailActivity.this);
+        dialog2 = new NDialog2(GoodDetailActivity.this);
 
 
         Intent intent = getIntent();
-        Goods goods = (Goods) intent.getSerializableExtra("goods");
+        goods = (Goods) intent.getSerializableExtra("goods");
 
         mImageView1 = (ImageView) findViewById(R.id.goods_image);
         mImageView2 = (ImageView) findViewById(R.id.add_mount);
@@ -66,7 +87,7 @@ public class GoodDetailActivity extends AppCompatActivity implements View.OnClic
 
         mTextView.setText(goods.getGoodsname());
         mTextView1.setText(goods.getGoodsprice());
-        mTextView3.setText(goods.getGoodsprice());
+        mTextView3.setText(String.format(getString(R.string.shop_sum_price), goods.getGoodsprice()));
 
         Picasso.with(this)
                 .load(ConstantData.BASE_URL + "/referralProject/" + goods.getGoodsimage())
@@ -109,13 +130,50 @@ public class GoodDetailActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.shopping:
-                ShowNormals();
 
-                break;
+/*
+                NetworkApi.order_list("0", "0", "1", "琪琪", "1", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+                    @Override
+                    public void onSuccess(ArrayList<Orders> response) {
+
+                        Log.e("==========", response.toString());
+
+                    }
+
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+
+                        Log.e("=============", "失败");
+
+                    }
+                });*/
+
+
+                NetworkApi.order_info(MyApplication.getInstance().userId, Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<Order>() {
+                    @Override
+                    public void onSuccess(Order response) {
+
+                        ShowNormals(response.getOrderid());
+                    }
+
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+
+
+                        ShowNormal("余额不足请及时充值");
+                    }
+                });
+
+
         }
+
+
     }
 
-    public void ShowNormals() {
+
+    public void ShowNormals(final String orderid) {
         dialog1.setMessageCenter(true)
                 .setMessage("是否确认购买该商品")
                 .setMessageSize(50)
@@ -128,11 +186,66 @@ public class GoodDetailActivity extends AppCompatActivity implements View.OnClic
                     public void onClick(int which) {
                         if (which == 1) {
 
+
+                            Intent intent = new Intent(getApplicationContext(), VideoDemo.class);
+                            intent.putExtra("orderid", orderid);
+                            intent.putExtra("sign", "1");
+                            startActivity(intent);
+
+
+                        } else if (which == 0) {
+
+
+                            NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    ShowNormal("取消成功");
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+                                    ShowNormal("取消失败");
+
+
+                                }
+                            });
+
+
                         }
 
                     }
                 }).create(NDialog.CONFIRM).show();
 
     }
+
+
+    public void ShowNormal(String message) {
+        dialog2.setMessageCenter(true)
+                .setMessage(message)
+                .setMessageSize(50)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#3F86FC"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
+                    @Override
+                    public void onClick(int which) {
+                        if (which == 1) {
+
+                           /* Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
+
+                            startActivity(intent);
+*/
+
+                        }
+
+                    }
+                }).create(NDialog.CONFIRM).show();
+
+    }
+
 
 }

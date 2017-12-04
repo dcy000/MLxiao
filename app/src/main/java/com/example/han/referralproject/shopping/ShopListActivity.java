@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.RetrofitClient;
 import com.example.han.referralproject.recyclerview.RetrofitService;
@@ -26,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShopListActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShopListActivity extends BaseActivity implements View.OnClickListener {
 
     LinearLayout mLinearLayout1;
     LinearLayout mLinearLayout2;
@@ -43,6 +44,9 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
+
+
+        speak(getString(R.string.shop_good));
 
         mLinearLayout1 = (LinearLayout) findViewById(R.id.linearlayout1);
         mLinearLayout2 = (LinearLayout) findViewById(R.id.linearlayout2);
@@ -111,8 +115,6 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                     mlist.clear();
                     list = response.body();
                     mlist.addAll(list);
-
-
                     setData();
 
                     mShopAdapter.notifyDataSetChanged();
@@ -139,13 +141,14 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
             final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
             mRecyclerView.setLayoutManager(layoutManager);
-            SpacesItemDecoration decoration = new SpacesItemDecoration(5);
+            SpacesItemDecoration decoration = new SpacesItemDecoration(1);
             mRecyclerView.addItemDecoration(decoration);
 
-            mRecyclerView.addItemDecoration(new SpaceItemDecoration(DensityUtils.dp2px(getApplicationContext(), 5)));
+            mRecyclerView.addItemDecoration(new SpaceItemDecoration(DensityUtils.dp2px(getApplicationContext(), 1)));
 
             mShopAdapter = new ShopAdapter(mlist, getApplicationContext());
             mRecyclerView.setAdapter(mShopAdapter);
+
 
             mShopAdapter.setOnItemClistListener(new ShopAdapter.OnItemClickListener() {
                 @Override
@@ -153,6 +156,7 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
                     Intent intent = new Intent(ShopListActivity.this, GoodDetailActivity.class);
                     intent.putExtra("goods", (Serializable) mlist.get(postion));
+
                     startActivity(intent);
 
                 }
@@ -160,6 +164,8 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
 
         }
+
+
     }
 
 }

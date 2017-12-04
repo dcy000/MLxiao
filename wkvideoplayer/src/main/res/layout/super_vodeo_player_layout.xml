@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
   ~ Copyright 2015 TedXiong xiong-wei@hotmail.com
   ~
@@ -16,9 +15,8 @@
   ~ limitations under the License.
   -->
 
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/video_inner_container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="fill"
@@ -28,13 +26,13 @@
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
 
     <com.android.tedcoder.wkvideoplayer.view.MediaController
         android:id="@+id/controller"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 
     <FrameLayout
         android:id="@+id/progressbar"
@@ -47,7 +45,7 @@
             style="@style/video_progressbar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 
     <FrameLayout
@@ -58,10 +56,10 @@
         android:layout_alignParentTop="true">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
-            android:src="@drawable/biz_news_list_ad_video_close_btn"/>
+            android:src="@drawable/biz_news_list_ad_video_close_btn" />
     </FrameLayout>
 
 </RelativeLayout>

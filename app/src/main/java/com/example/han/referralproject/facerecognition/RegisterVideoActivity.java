@@ -18,11 +18,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
@@ -38,6 +42,7 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -108,6 +113,9 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
+
+        speak(getString(R.string.facc_register));
+
         mButton = (Button) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -286,7 +294,7 @@ public class RegisterVideoActivity extends BaseActivity {
             int yTopLeft = (scaledHeight - edgeLength) / 2;
 
             try {
-                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength);
+                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength - 50);
                 scaledBitmap.recycle();
             } catch (Exception e) {
                 return null;
@@ -316,9 +324,21 @@ public class RegisterVideoActivity extends BaseActivity {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 
+                  /*  if (b3 != null) {
+
+                        Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+
+                        //可根据流量及网络状况对图片进行压缩
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        mImageData = baos.toByteArray();
+
+                    }*/
+
+
                     if (b3 != null) {
 
                         Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+
 
                         //可根据流量及网络状况对图片进行压缩
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -361,6 +381,40 @@ public class RegisterVideoActivity extends BaseActivity {
 
 
     }
+
+
+    public Bitmap getCircleBitmap(Bitmap bitmap) {
+        if (bitmap == null) {
+            return null;
+        }
+        try {
+            Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(circleBitmap);
+            final Paint paint = new Paint();
+            final Rect rect = new Rect(0, 0, bitmap.getWidth(),
+                    bitmap.getHeight());
+            final RectF rectF = new RectF(new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
+            float roundPx = 0.0f;
+            // 以较短的边为标准
+            if (bitmap.getWidth() > bitmap.getHeight()) {
+                roundPx = bitmap.getHeight() / 2.0f;
+            } else {
+                roundPx = bitmap.getWidth() / 2.0f;
+            }
+            paint.setAntiAlias(true);
+            canvas.drawARGB(0, 0, 0, 0);
+            paint.setColor(Color.WHITE);
+            canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+            final Rect src = new Rect(0, 0, bitmap.getWidth(),
+                    bitmap.getHeight());
+            canvas.drawBitmap(bitmap, src, rect, paint);
+            return circleBitmap;
+        } catch (Exception e) {
+            return bitmap;
+        }
+    }
+
 
     private RequestListener mRequestListener = new RequestListener() {
 

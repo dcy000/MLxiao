@@ -24,8 +24,7 @@ public class FullyLinearLayoutManager extends LinearLayoutManager {
     private int[] mMeasuredDimension = new int[2];
 
     @Override
-    public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state,
-                          int widthSpec, int heightSpec) {
+    public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
 
         final int widthMode = View.MeasureSpec.getMode(widthSpec);
         final int heightMode = View.MeasureSpec.getMode(heightSpec);

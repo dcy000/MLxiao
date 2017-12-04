@@ -116,6 +116,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             etPhone.requestFocus();
             return;
         }
+        etCode.requestFocus();
         SMSSDK.getVerificationCode("86", phone);
         i = 30;
         tvFetchCode.setEnabled(false);

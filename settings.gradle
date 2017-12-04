@@ -1,1 +1,1 @@
-include ':app', ':library', ':wkvideoplayer', ':FaceppIDCardUI', ':vmtools',':sdk'
+include ':app', ':library', ':wkvideoplayer', ':FaceppIDCardUI', ':vmtools',':sdk',':lib-wheelrecyclerview'

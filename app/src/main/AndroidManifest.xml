@@ -188,15 +188,16 @@
             android:name=".xindian.ReceiveService"
             android:enabled="true" />
 
-        <activity android:name=".xindian.ConnectActivity" />
-        android:screenOrientation="landscape"/>
+        <activity android:name=".xindian.ConnectActivity"
+            android:screenOrientation="landscape"/>
         <service
             android:name=".xindian.ReceiveService"
             android:enabled="true" />
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+        </activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -206,7 +207,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -231,6 +233,8 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -238,13 +242,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+
+
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape" />
@@ -259,8 +266,14 @@
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
-        <activity android:name=".facerecognition.RegisterVideoActivity" />
-        <activity android:name=".recyclerview.RecoDocActivity" />
+        <activity android:name=".facerecognition.RegisterVideoActivity" >
+
+
+
+
+
+        </activity>
+        <activity android:name=".recyclerview.RecoDocActivity"></activity>
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
@@ -329,7 +342,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".recyclerview.AppraiseActivity" />
+        <activity android:name=".recyclerview.AppraiseActivity"></activity>
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity" />
         <activity android:name=".recyclerview.AddAppoActivity" />
@@ -409,7 +422,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="UfYYXHyPGrWlWmRnGVHBQoG2gk8bdqvX" />
+            android:value="MDMGtSWAjuIlCSQE7lkYbAHzKos6PNIG" />
 
         <service
             android:name="com.baidu.location.f"
@@ -431,6 +444,14 @@
         <activity android:name=".activity.MyBaseDataActivity" />
         <activity android:name=".activity.SymptomsActivity" />
         <activity android:name=".activity.BodychartActivity" />
+        <activity android:name=".shopping.OrderListActivity">
+
+
+
+
+
+        </activity>
+=======
         <activity android:name=".activity.DiseaseDetailsActivity" />
         <activity android:name=".activity.DiseaseDetails2Activity" />
         <activity android:name=".recyclerview.OnlineDoctorListActivity" />

@@ -36,7 +36,6 @@ import java.util.TimerTask;
 
 public class DoctorMesActivity extends BaseActivity {
 
-    Button mButton;
     ImageView mImageView;
 
     ImageView mImageView1;
@@ -49,10 +48,19 @@ public class DoctorMesActivity extends BaseActivity {
 
     public ImageView ImageView1;
     public ImageView ImageView2;
-    private Doctors doctor;
+
+    public ImageView mStar1;
+    public ImageView mStar2;
+    public ImageView mStar3;
+    public ImageView mStar4;
+    public ImageView mStar5;
+
+    Button mButton;
+
     private AllDoctor allDoctor;
-    private int flag=-1;//记录是从预约医生过来的还是在线医生过来的，0：预约医生，1：在线医生
+    private int flag = -1;//记录是从预约医生过来的还是在线医生过来的，0：预约医生，1：在线医生
     private TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,18 +74,24 @@ public class DoctorMesActivity extends BaseActivity {
         mTextView2 = (TextView) findViewById(R.id.hospital);
         mTextView3 = (TextView) findViewById(R.id.department);
         mTextView4 = (TextView) findViewById(R.id.introduce);
-        title= (TextView) findViewById(R.id.title);
+        title = (TextView) findViewById(R.id.title);
 
         mButton = (Button) findViewById(R.id.qianyue);
+        mStar1 = (ImageView) findViewById(R.id.star1);
+        mStar2 = (ImageView) findViewById(R.id.star2);
+        mStar3 = (ImageView) findViewById(R.id.star3);
+        mStar4 = (ImageView) findViewById(R.id.star4);
+        mStar5 = (ImageView) findViewById(R.id.star5);
 
         Intent intent = getIntent();
+        Docter doctor = (Docter) intent.getSerializableExtra("docMsg");
 
-        if(intent.getSerializableExtra("docMsg") instanceof Doctors){
-            doctor = (Doctors) intent.getSerializableExtra("docMsg");
-            flag=0;
-        }else if(intent.getSerializableExtra("docMsg") instanceof AllDoctor){
-            allDoctor=(AllDoctor) intent.getSerializableExtra("docMsg");
-            flag=1;
+        if (intent.getSerializableExtra("docMsg") instanceof Doctors) {
+            doctor = (Docter) intent.getSerializableExtra("docMsg");
+            flag = 0;
+        } else if (intent.getSerializableExtra("docMsg") instanceof AllDoctor) {
+            allDoctor = (AllDoctor) intent.getSerializableExtra("docMsg");
+            flag = 1;
         }
 
         ImageView1 = (ImageView) findViewById(R.id.icon_back);
@@ -99,7 +113,59 @@ public class DoctorMesActivity extends BaseActivity {
             }
         });
 
-        if(flag==0){
+
+        Picasso.with(this)
+                .load(doctor.getDocter_photo())
+                .placeholder(R.drawable.avatar_placeholder)
+                .error(R.drawable.avatar_placeholder)
+                .tag(this)
+                .fit()
+                .into(mImageView1);
+
+
+        mTextView.setText(doctor.getDoctername());
+        mTextView1.setText(doctor.getDuty());
+        mTextView2.setText(doctor.getHosname());
+        mTextView3.setText(doctor.getDepartment());
+        mTextView4.setText(doctor.getPro());
+
+        if (Integer.parseInt(doctor.getEvaluation()) <= 60) {
+
+            mStar1.setVisibility(View.VISIBLE);
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 70 &&
+                Integer.parseInt(doctor.getEvaluation()) > 60) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 80 &&
+                Integer.parseInt(doctor.getEvaluation()) > 70) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 90 &&
+                Integer.parseInt(doctor.getEvaluation()) > 80) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+            mStar4.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) > 90
+                ) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+            mStar4.setVisibility(View.VISIBLE);
+            mStar5.setVisibility(View.VISIBLE);
+
+
+        }
+
+        if (flag == 0) {
             Picasso.with(this)
                     .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getDocter_photo())
                     .placeholder(R.drawable.avatar_placeholder)
@@ -111,13 +177,13 @@ public class DoctorMesActivity extends BaseActivity {
 
             mTextView.setText(doctor.getDoctername());
             mTextView1.setText(doctor.getDuty());
-            mTextView2.setText(doctor.getHosnames());
+            mTextView2.setText(doctor.getHosname());
             mTextView3.setText(doctor.getDepartment());
             mTextView4.setText(doctor.getPro());
             mButton.setText("签约");
             title.setText(R.string.doctor_qianyue);
 
-        }else if(flag==1){
+        } else if (flag == 1) {
             Picasso.with(this)
                     .load(allDoctor.docter_photo)
                     .placeholder(R.drawable.avatar_placeholder)
@@ -135,11 +201,12 @@ public class DoctorMesActivity extends BaseActivity {
             title.setText(R.string.doctor_zixun);
         }
 
+        final Docter finalDoctor = doctor;
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag==0){
-                    ConfirmContractActivity.start(DoctorMesActivity.this, String.valueOf(doctor.docterid));
+                if (flag == 0) {
+                    ConfirmContractActivity.start(DoctorMesActivity.this, String.valueOf(finalDoctor.getDocterid()));
                 }
 
             }
@@ -207,9 +274,9 @@ public class DoctorMesActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        if(flag==0){//预约医生
+        if (flag == 0) {//预约医生
             speak(R.string.tips_info);
-        }else if(flag==1){//咨询在线医生
+        } else if (flag == 1) {//咨询在线医生
 
         }
 

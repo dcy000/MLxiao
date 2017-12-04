@@ -23,6 +23,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -85,7 +86,15 @@ public class AlarmList2Activity extends BaseActivity {
 
     private void refresh() {
         List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-        if (models != null && models.size() != 0) {
+        if (models != null) {
+            Iterator<AlarmModel> iterator = models.iterator();
+            while (iterator.hasNext()) {
+                AlarmModel model = iterator.next();
+                String tag = model.getTag();
+                if (tag != null && !tag.isEmpty()) {
+                    iterator.remove();
+                }
+            }
             mAdapter.replaceAll(models);
         }
     }
@@ -117,7 +126,15 @@ public class AlarmList2Activity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-            if (models != null && models.size() != 0) {
+            if (models != null) {
+                Iterator<AlarmModel> iterator = models.iterator();
+                while (iterator.hasNext()) {
+                    AlarmModel model = iterator.next();
+                    String tag = model.getTag();
+                    if (tag != null && !tag.isEmpty()) {
+                        iterator.remove();
+                    }
+                }
                 mAdapter.replaceAll(models);
             }
         }
@@ -142,7 +159,17 @@ public class AlarmList2Activity extends BaseActivity {
         AlarmHelper.cancelAlarms(this);
         DataSupport.delete(AlarmModel.class, alarmId);
         List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-        mAdapter.replaceAll(models);
+        if (models != null) {
+            Iterator<AlarmModel> iterator = models.iterator();
+            while (iterator.hasNext()) {
+                AlarmModel model = iterator.next();
+                String tag = model.getTag();
+                if (tag != null && !tag.isEmpty()) {
+                    iterator.remove();
+                }
+            }
+            mAdapter.replaceAll(models);
+        }
         AlarmHelper.setupAlarms(this);
     }
 
