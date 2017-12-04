@@ -520,6 +520,8 @@ public class VideoDemo extends BaseActivity {
 
                             speak(getString(R.string.shop_success));
                             ShowNormal("支付成功", "1");
+                            GoodDetailActivity.mActivity.finish();
+
 
                         }
 

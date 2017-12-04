@@ -1060,6 +1060,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")
                         || inSpell.matches(".*yinliang.*da.*") || inSpell.matches(".*shengyin.*da.*")
+                        || inSpell.matches(".*tigao.*shengyin.*") || inSpell.matches(".*shengyin.*tigao.*")
                         || inSpell.matches(".*yinliang.*shenggao.*") || inSpell.matches(".*shenggao.*yinliang.*")) {
                     volume += 3;
                     if (volume < maxVolume) {
@@ -1077,7 +1078,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 } else if (inSpell.matches(".*xiao.*shengyin.*") || inSpell.matches(".*xiao.*yinliang.*")
                         || inSpell.matches(".*shengyin.*xiao.*") || inSpell.matches(".*yinliang.*xiao.*")
-                        || inSpell.matches(".*yinliang.*jiangdi.*") || inSpell.matches(".*jiangdi.*yinliang.*")) {
+                        || inSpell.matches(".*yinliang.*jiangdi.*") || inSpell.matches(".*jiangdi.*yinliang.*")
+                        || inSpell.matches(".*jiangdi.*shengyin.*") || inSpell.matches(".*shengyin.*jiangdi.*")) {
 
                     volume -= 3;
                     if (volume > 3) {
@@ -1152,13 +1154,23 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
 
 
-                } else if(inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")){//症状自查
-                    startActivity(new Intent(SpeechSynthesisActivity.this,BodychartActivity.class));
-                }else if(inSpell.matches(".*(li(si|shi)|(shu|su)ju|jilu).*")){
+                } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
+                    startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
+                } else if (inSpell.matches(".*(li(si|shi)|(shu|su)ju|jilu).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
-                }else if(inSpell.matches(".*(dangan).*")){
+                } else if (inSpell.matches(".*(dangan).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
+<<<<<<< HEAD
                 }else {
+=======
+                } else if (inSpell.matches(".*((zi|zhi)xun|yi(shen|sheng|seng)|dadianhua).*")) {
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
+                } else if (inSpell.matches(".*(qianyue|yi(shen|sheng|seng)|jiating|yuyue).*")) {
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
+                } else if (inSpell.matches(".*(zaixian|yi(shen|sheng|seng)).*")) {
+                    startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
+                } else {
+>>>>>>> 1874c00cfa4ea0d7ecbf7dffa7986103fb537dd7
                     new SpeechTask().execute();
                 }
             }

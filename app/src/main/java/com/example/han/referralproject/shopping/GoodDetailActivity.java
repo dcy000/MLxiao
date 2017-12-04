@@ -1,5 +1,6 @@
 package com.example.han.referralproject.shopping;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,9 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
     Goods goods;
 
+    public static Activity mActivity;
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
         speak(getString(R.string.shop_mount));
 
+
+        mActivity = this;
 
         dialog1 = new NDialog1(GoodDetailActivity.this);
         dialog2 = new NDialog2(GoodDetailActivity.this);
