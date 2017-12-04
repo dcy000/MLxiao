@@ -20,10 +20,14 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.util.LocalShared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,7 +48,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     private List<String> mInfoList = new ArrayList<String>();
 
     private RecyclerView mRecyclerView;
-    private List<Doctors> mlist = new ArrayList<Doctors>();
+    private List<Docter> mlist = new ArrayList<Docter>();
     DoctorAdapter mDoctorAdapter;
     private int mCurrPage;
 
@@ -143,7 +147,32 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-        initData();
+        //   initData();
+
+
+        NetworkApi.doctor_list(0, 8, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+            @Override
+            public void onSuccess(ArrayList<Docter> response) {
+
+                List<Docter> list = new ArrayList<Docter>();
+                mlist.clear();
+                list.addAll(response);
+                mlist.addAll(list);
+                mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+                mRecyclerView.setAdapter(mDoctorAdapter);
+
+                setData();
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+
+
     }
 
    /* private void initToolBar() {
@@ -253,11 +282,31 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
 
                         if (mlist.size() >= 9) {
-                            mCurrPage = mCurrPage + 1;
-                            loadMore();
+                            mCurrPage += 9;
+
+                            NetworkApi.doctor_list(mCurrPage, mCurrPage + 8, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                                @Override
+                                public void onSuccess(ArrayList<Docter> response) {
+
+                                    List<Docter> list = new ArrayList<Docter>();
+                                    list.clear();
+                                    list = response;
+                                    mlist.addAll(list);
+                                    mDoctorAdapter.notifyDataSetChanged();
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
+                            });
+
+
                         }
 
-                        //   initData();
+
                     }
 
 
@@ -270,7 +319,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    public void loadMore() {
+   /* public void loadMore() {
 
         RetrofitService retrofitService = RetrofitClient.getClient();
         // 创建有一个回调对象
@@ -299,10 +348,10 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-    }
+    }*/
 
 
-    public void initData() {
+    /*public void initData() {
         RetrofitService retrofitService = RetrofitClient.getClient();
         // 创建有一个回调对象
         Call<List<Doctors>> call = retrofitService.LoardMore("LoadMoreServlet", mCurrPage);
@@ -335,7 +384,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-    }
+    }*/
 
 
     public static final String REGEX_IN_GO_BACK = ".*(shangyibu|houtui|fanhui).*";
@@ -354,9 +403,9 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             tvGoBack.performClick();
         }
 
-        List<Doctors> list = this.mlist;
+        List<Docter> list = this.mlist;
         for (int i = 0; i < list.size(); i++) {
-            Doctors doctor = list.get(i);
+            Docter doctor = list.get(i);
             if (result.contains(doctor.getDoctername())) {
                 mDoctorAdapter.getOnItemClistListener().onItemClick(i);
                 return;

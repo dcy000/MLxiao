@@ -35,7 +35,6 @@ import java.util.TimerTask;
 
 public class DoctorMesActivity extends BaseActivity {
 
-    Button mButton;
     ImageView mImageView;
 
     ImageView mImageView1;
@@ -49,6 +48,13 @@ public class DoctorMesActivity extends BaseActivity {
     public ImageView ImageView1;
     public ImageView ImageView2;
 
+    public ImageView mStar1;
+    public ImageView mStar2;
+    public ImageView mStar3;
+    public ImageView mStar4;
+    public ImageView mStar5;
+
+    Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +70,15 @@ public class DoctorMesActivity extends BaseActivity {
         mTextView3 = (TextView) findViewById(R.id.department);
         mTextView4 = (TextView) findViewById(R.id.introduce);
 
-
         mButton = (Button) findViewById(R.id.qianyue);
+        mStar1 = (ImageView) findViewById(R.id.star1);
+        mStar2 = (ImageView) findViewById(R.id.star2);
+        mStar3 = (ImageView) findViewById(R.id.star3);
+        mStar4 = (ImageView) findViewById(R.id.star4);
+        mStar5 = (ImageView) findViewById(R.id.star5);
 
         Intent intent = getIntent();
-        final Doctors doctor = (Doctors) intent.getSerializableExtra("docMsg");
+        final Docter doctor = (Docter) intent.getSerializableExtra("docMsg");
 
 
         ImageView1 = (ImageView) findViewById(R.id.icon_back);
@@ -92,7 +102,7 @@ public class DoctorMesActivity extends BaseActivity {
 
 
         Picasso.with(this)
-                .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getDocter_photo())
+                .load(doctor.getDocter_photo())
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)
@@ -102,9 +112,45 @@ public class DoctorMesActivity extends BaseActivity {
 
         mTextView.setText(doctor.getDoctername());
         mTextView1.setText(doctor.getDuty());
-        mTextView2.setText(doctor.getHosnames());
+        mTextView2.setText(doctor.getHosname());
         mTextView3.setText(doctor.getDepartment());
         mTextView4.setText(doctor.getPro());
+
+        if (Integer.parseInt(doctor.getEvaluation()) <= 60) {
+
+            mStar1.setVisibility(View.VISIBLE);
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 70 &&
+                Integer.parseInt(doctor.getEvaluation()) > 60) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 80 &&
+                Integer.parseInt(doctor.getEvaluation()) > 70) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) <= 90 &&
+                Integer.parseInt(doctor.getEvaluation()) > 80) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+            mStar4.setVisibility(View.VISIBLE);
+
+
+        } else if (Integer.parseInt(doctor.getEvaluation()) > 90
+                ) {
+            mStar1.setVisibility(View.VISIBLE);
+            mStar2.setVisibility(View.VISIBLE);
+            mStar3.setVisibility(View.VISIBLE);
+            mStar4.setVisibility(View.VISIBLE);
+            mStar5.setVisibility(View.VISIBLE);
+
+
+        }
 
 
         mButton.setOnClickListener(new View.OnClickListener() {

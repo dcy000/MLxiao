@@ -78,7 +78,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     public ImageView ImageView1;
     public ImageView ImageView2;
-    List<AlarmModel> models;
+    List<AlarmModel> models = new ArrayList<AlarmModel>();
 
     public Button mButtons;
 
@@ -86,6 +86,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         @Override
         public boolean handleMessage(final Message msg) {
+
+
             switch (msg.what) {
                 case 1:
                     break;
@@ -265,12 +267,19 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         enableVideo(time5, time4 - 60000);
 
+                        models = DataSupport.findAll(AlarmModel.class);
+
 
                     } else if (list.size() == 2) {
 
 
+                        models = DataSupport.findAll(AlarmModel.class);
+
                         mLinearLayout1.setVisibility(View.VISIBLE);
                         mLinearLayout2.setVisibility(View.VISIBLE);
+                        mLinearLayout3.setVisibility(View.GONE);
+
+
                         mTextView.setText(list.get(0).getStart_time());
                         mTextView1.setText(list.get(0).getEnd_time());
 
@@ -381,12 +390,17 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         enableVideo(time3, time2 - 60000);
 
+                        models = DataSupport.findAll(AlarmModel.class);
+
 
                     } else if (list.size() == 1) {
 
-                        Log.e("====1===", models.toString());
+                        models = DataSupport.findAll(AlarmModel.class);
 
                         mLinearLayout1.setVisibility(View.VISIBLE);
+                        mLinearLayout2.setVisibility(View.GONE);
+                        mLinearLayout3.setVisibility(View.GONE);
+
                         mTextView.setText(list.get(0).getStart_time());
                         mTextView1.setText(list.get(0).getEnd_time());
 
@@ -444,8 +458,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         enableVideo(time1, time - 60000);
 
 
-                    }
+                        models = DataSupport.findAll(AlarmModel.class);
 
+                    }
 
                     break;
             }
@@ -672,6 +687,12 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
 
+        yuYueDoctor();
+
+    }
+
+    public void yuYueDoctor() {
+
 
         NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
@@ -679,9 +700,11 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 // MyApplication.getInstance().userId
                 // sharedPreferences1.getString("doctor_id", "")
-                list = response;
-                mHandler.sendEmptyMessage(0);
 
+
+                list.clear();
+                list.addAll(response);
+                mHandler.sendEmptyMessage(0);
 
             }
 
@@ -695,6 +718,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     }
 
+
     NDialog1 dialog;
     NDialog2 dialog1;
 
@@ -705,6 +729,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             case R.id.cancel_yuyue:
 
                 dialog = new NDialog1(DoctorappoActivity.this);
+
+
                 showNormal(1);
 
                 break;
@@ -769,21 +795,28 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                                     }
                                                 });*/
 
+                                        models = DataSupport.findAll(AlarmModel.class);
+
+
                                         if (models.size() != 0) {
 
                                             for (int i = 0; i < models.size(); i++) {
                                                 if (times.equals(models.get(i).getTimestamp() + "")) {
                                                     models.get(i).delete();
                                                     break;
-                                                } else {
-                                                    break;
                                                 }
                                             }
+
+
+
                                         }
+
 
                                         mTextView.setText("");
                                         mTextView1.setText("");
                                         mLinearLayout1.setVisibility(View.INVISIBLE);
+                                        yuYueDoctor();
+
                                         ShowNormals("取消成功");
 
 
@@ -822,8 +855,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                                 if (times.equals(models.get(i).getTimestamp() + "")) {
                                                     models.get(i).delete();
                                                     break;
-                                                } else {
-                                                    break;
                                                 }
                                             }
                                         }
@@ -831,6 +862,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                         mTextView2.setText("");
                                         mTextView6.setText("");
                                         mLinearLayout2.setVisibility(View.INVISIBLE);
+                                        yuYueDoctor();
+
+
                                         ShowNormals("取消成功");
 
                                         /*DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
@@ -884,8 +918,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                                 if (times.equals(models.get(i).getTimestamp() + "")) {
                                                     models.get(i).delete();
                                                     break;
-                                                } else {
-                                                    break;
                                                 }
                                             }
                                         }
@@ -893,6 +925,10 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                         mTextView7.setText("");
                                         mTextView8.setText("");
                                         mLinearLayout3.setVisibility(View.INVISIBLE);
+
+                                        yuYueDoctor();
+
+
                                         ShowNormals("取消成功");
 
                                        /* DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
@@ -943,7 +979,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                 .setOnConfirmListener(new NDialog2.OnConfirmListener() {
                     @Override
                     public void onClick(int which) {
-
 
                     }
                 }).create(NDialog.CONFIRM).show();
