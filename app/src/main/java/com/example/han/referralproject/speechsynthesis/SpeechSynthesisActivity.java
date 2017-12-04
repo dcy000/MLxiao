@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -913,7 +914,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     return;
                 }
                 if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-                    Intent intent1 = new Intent(SpeechSynthesisActivity.this, SymptomAnalyseActivity.class);
+                    Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
                     startActivity(intent1);
                     return;
                 }
@@ -1091,7 +1092,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         || resultBuffer.toString().contains("闭嘴") || inSpell.matches(".*baibai.*")) {
 
                     finish();
-                } else {
+                }else if(inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this,BodychartActivity.class));
+                }else {
                     new SpeechTask().execute();
                 }
             }

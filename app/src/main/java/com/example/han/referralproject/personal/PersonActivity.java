@@ -330,7 +330,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             case R.id.view_health://健康档案
                 startActivity(new Intent(this, MyBaseDataActivity.class));
                 break;
-            case R.id.btn_record:
+            case R.id.btn_record://测量历史
                 startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
 

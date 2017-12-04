@@ -3,14 +3,22 @@ package com.example.han.referralproject.network;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
+import com.example.han.referralproject.bean.BloodOxygenHistory;
+import com.example.han.referralproject.bean.BloodPressureHistory;
+import com.example.han.referralproject.bean.BloodSugarHistory;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.bean.HeartRateHistory;
+import com.example.han.referralproject.bean.PulseHistory;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
+import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
@@ -30,11 +38,18 @@ import java.util.Map;
 public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.104:8080";
 
-    public static final String BasicUrl = "http://192.168.200.109:8080";
     //    public static final String BasicUrl = "http://192.168.200.103:8080";
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
     //  public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://192.168.200.103:8080";//高峰本地
+    //    public static final String BasicUrl = "http://192.168.200.103:8080";
+
+//    public static final String BasicUrl = "http://116.62.36.12:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
+    public static final String BasicUrl="http://192.168.200.109:8080";//文博本地
+
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -77,6 +92,9 @@ public class NetworkApi {
 
     public static final String ORDER_LIST = BasicUrl + "/ZZB/order/one_more_orders";
 
+    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl";
+    //全部医生
+    public static final String Get_AllDotor=BasicUrl+"/ZZB/docter/seldoctors";
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
@@ -338,7 +356,7 @@ public class NetworkApi {
                               NetworkManager.SuccessCallback<Object> successCallback,
                               NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("doctorid", String.valueOf(doctorId));
+        params.put("docterid", String.valueOf(doctorId));
         params.put("eqid", Utils.getDeviceId());
         params.put("time", String.valueOf(minute));
         params.put("bid", bId);
@@ -387,5 +405,103 @@ public class NetworkApi {
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         NetworkManager.getInstance().getResultClass(GET_MY_BASE_DATA, params, UserInfoBean.class, successCallback, failedCallback);
+    }
+
+    /**
+     * 获取体温历史数据
+     * @param successCallback
+     */
+    public static void getTemperatureHistory(String temp,NetworkManager.SuccessCallback<ArrayList<TemperatureHistory>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("bid","100001");
+        params.put("temp",temp);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<TemperatureHistory>>() {}.getType(),
+                successCallback);
+    }
+
+    /**
+     * 获取血压的历史数据
+     * @param temp
+     * @param successCallback
+     */
+    public static void getBloodpressureHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid","100001");
+        params.put("temp",temp);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodPressureHistory>>() {}.getType(),
+                successCallback);
+    }
+
+    /**
+     * 血糖
+     * @param temp
+     * @param successCallback
+     */
+    public static void getBloodSugarHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid","100001");
+        params.put("temp",temp);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodSugarHistory>>() {}.getType(),
+                successCallback);
+    }
+
+    /**
+     * 血氧
+     * @param temp
+     * @param successCallback
+     */
+    public static void getBloodOxygenHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid","100001");
+        params.put("temp",temp);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodOxygenHistory>>() {}.getType(),
+                successCallback);
+    }
+
+    /**
+     * 心率
+     * @param temp
+     * @param successCallback
+     */
+    public static void getHeartRateHistory(String temp,NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid","100001");
+        params.put("temp",temp);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<HeartRateHistory>>() {}.getType(),
+                successCallback);
+    }
+    /**
+     * 脉搏
+     * @param temp
+     * @param successCallback
+     */
+    public static void getPulseHistory(String temp,NetworkManager.SuccessCallback<ArrayList<PulseHistory>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid","100001");
+        params.put("temp",temp);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<PulseHistory>>() {}.getType(),
+                successCallback);
+    }
+    /**
+     * 获取所有医生
+     * @param successCallback
+     */
+    public static void getAllDoctor(String doctorname,String start,String limit,NetworkManager.SuccessCallback<ArrayList<AllDoctor>> successCallback
+            ) {
+        HashMap<String, String> params = new HashMap<>();
+        if(null!=doctorname){
+            params.put("doctorname",doctorname);
+        }
+        params.put("start",start);
+        params.put("limit",limit);
+        NetworkManager.getInstance().getResultClass(Get_AllDotor, params, new TypeToken<ArrayList<AllDoctor>>() {}.getType(),
+                successCallback);
     }
 }

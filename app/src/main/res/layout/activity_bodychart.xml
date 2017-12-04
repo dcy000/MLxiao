@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
     tools:context="com.example.han.referralproject.activity.BodychartActivity">
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:background="@color/toolbar_bg"/>
     <LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="wrap_content"
@@ -22,6 +24,11 @@
             android:src="@drawable/icon_back" />
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearlayou"
+        android:src="@drawable/img_bg"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,48 +52,126 @@
         android:id="@+id/head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/head"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/linearlayou"
-        android:layout_marginTop="60dp"
-        android:clickable="true"/>
+        android:layout_marginTop="80dp"
+        android:clickable="true"
+        android:background="@drawable/selector_head"/>
     <ImageView
         android:id="@+id/chest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/chest"
         android:layout_below="@id/head"
         android:layout_centerHorizontal="true"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:background="@drawable/selector_chest"/>
     <ImageView
         android:id="@+id/left_hand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/left_hand"
         android:layout_toLeftOf="@id/chest"
         android:layout_below="@id/head"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:background="@drawable/selector_left_hand"
+        android:layout_marginTop="2dp"/>
     <ImageView
         android:id="@+id/right_hand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/right_hand"
         android:layout_toRightOf="@id/chest"
-        android:layout_below="@id/head"/>
+        android:layout_below="@id/head"
+        android:background="@drawable/selector_right_hand"
+        android:layout_marginTop="3dp"
+        android:clickable="true"/>
     <ImageView
         android:id="@+id/abdomen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/abdomen"
         android:layout_below="@id/chest"
         android:layout_centerHorizontal="true"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:background="@drawable/selector_abdomen"/>
     <ImageView
         android:id="@+id/legs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/legs"
         android:layout_below="@id/abdomen"
         android:layout_centerHorizontal="true"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:background="@drawable/selector_legs"/>
+
+    <RelativeLayout
+        android:layout_width="304dp"
+        android:layout_height="175dp"
+        android:layout_below="@id/linearlayou"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="260dp">
+        <ImageView
+            android:id="@+id/imgHead"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_head"/>
+        <View
+            android:id="@+id/viewHead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="80dp"
+            android:clickable="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="350dp"
+        android:layout_height="187dp"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="320dp">
+        <ImageView
+            android:id="@+id/imgAbdomen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_abdomen"/>
+        <View
+            android:id="@+id/viewAbdomen"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="367dp"
+        android:layout_height="301dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="170dp">
+        <ImageView
+            android:id="@+id/imgChest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_chest"/>
+        <View
+            android:id="@+id/viewChest"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="50dp"
+            android:clickable="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="343dp"
+        android:layout_height="187dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="370dp"
+        android:layout_marginRight="200dp">
+        <ImageView
+            android:id="@+id/imgLegs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_all_fours"/>
+        <View
+            android:id="@+id/viewLegs"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="195dp"
+            android:clickable="true"
+            android:layout_marginTop="75dp"/>
+    </RelativeLayout>
 </RelativeLayout>

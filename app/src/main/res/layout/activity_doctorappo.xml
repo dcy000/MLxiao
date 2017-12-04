@@ -67,7 +67,15 @@
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:src="@drawable/icon_wifi" />
-
+    <Button
+        android:id="@+id/online_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="在线医生"
+        android:textSize="30sp"
+        android:layout_toLeftOf="@id/icon_home"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"/>
 
     <LinearLayout
         android:id="@+id/linearlayou1"
