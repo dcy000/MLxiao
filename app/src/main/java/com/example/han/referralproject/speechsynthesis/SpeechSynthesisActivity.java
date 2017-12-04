@@ -1126,9 +1126,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
                 }else if(inSpell.matches(".*(dangan).*")){
                     startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
-                }else if(inSpell.matches(".*((zi|zhi)xun|yi(shen|sheng|seng)|dadianhua).*")){
+                }else if(inSpell.matches(".*(yi(shen|sheng|seng)|dadianhua|(zi|zhi)xun).*")){
                     startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
-                }else if(inSpell.matches(".*(qianyue|yi(shen|sheng|seng)|jiating|yuyue).*")){
+                }else if(inSpell.matches(".*(qianyue|jiating|yuyue).*")){
                     startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
                 }else if(inSpell.matches(".*(zaixian|yi(shen|sheng|seng)).*")){
                     startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
