@@ -660,19 +660,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             mLinearLayout3.setVisibility(View.INVISIBLE);
 
         }
-        testOnlineDoctor();
 
     }
 
-    private void testOnlineDoctor() {
-        Button online_doctor= (Button) findViewById(R.id.online_doctor);
-        online_doctor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DoctorappoActivity.this,OnlineDoctorListActivity.class));
-            }
-        });
-    }
 
     List<YuYueInfo> list = new ArrayList<YuYueInfo>();
 
