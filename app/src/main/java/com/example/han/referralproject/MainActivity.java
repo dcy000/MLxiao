@@ -20,6 +20,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recyclerview.AddAppoActivity;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
@@ -109,21 +110,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.health_test:
+
                 intent.setClass(getApplicationContext(), VideoDemo.class);
+                intent.putExtra("sign", "0");
+                intent.putExtra("orderid", "0");
+
 //                intent.setClass(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.doctor_ask:
+            case R.id.doctor_ask://医生咨询
 //                intent.setClass(getApplicationContext(), MainVideoActivity.class);
 //                startActivity(intent);
                 if ("".equals(sharedPreferences.getString("name", ""))) {
                     Toast.makeText(getApplicationContext(), "请先查看是否与签约医生签约成功", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    intent.setClass(getApplicationContext(), DoctorappoActivity.class);
+                    intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
                     startActivity(intent);
                 }
-
 
                 //    EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
                 break;
@@ -133,6 +137,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
+
 
     @Override
     public void onBackPressed() {

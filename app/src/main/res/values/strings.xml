@@ -457,6 +457,8 @@
     <string name="goods_amount">198</string>
     <string name="goods_detail">商&#160;&#160;品&#160;&#160;详&#160;&#160;情</string>
 
+    <string name="orders_detail">订&#160;&#160;单&#160;&#160;详&#160;&#160;情</string>
+
 
     <string name="shop_sum_price" formatted="false">总价：%1$s</string>
     <string name="an_hour_later">饭后\n一小时</string>
@@ -469,4 +471,18 @@
     <string name="gaoxueya">主人，您有可能是高血压，请及时到医院就诊</string>
     <string name="tangniaobing">主人，您有可能是糖尿病，请及时服药或到医院就诊</string>
     <string name="dixuetang">主人，您有可能是低血糖，请及时补充糖分或到医院就诊</string>
+
+    <string name="order_id" formatted="false">订单号：%1$s</string>
+    <string name="facc_register">主人让我给你拍个照，准备，3,2,1</string>
+
+    <string name="shop_good">主人，请选择您要购买的商品</string>
+    <string name="shop_mount">主人，请选择购买数量</string>
+    <string name="shop_yanzheng">主人，验证不通过，请重新验证</string>
+    <string name="shop_success">主人，恭喜您支付成功</string>
+
+
+    <string name="bingzhengxiangqing">病症详情</string>
+    <string name="disease_reason"></string>
+    <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;医&#160;&#160;生</string>
+    <string name="bodyguide">主人，请选择病症对应部位</string>
 </resources>

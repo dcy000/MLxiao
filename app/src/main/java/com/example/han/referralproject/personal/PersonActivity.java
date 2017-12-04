@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -33,6 +34,7 @@ import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
@@ -89,7 +91,13 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
     public ImageView mImageView4;
 
+    public ImageView mImageView5;
+
+
     private ChangeAccountDialog mChangeAccountDialog;
+
+    SharedPreferences sharedPreferences1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +114,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mImageView1 = (ImageView) findViewById(R.id.icon_back);
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
+
+        mImageView5 = (ImageView) findViewById(R.id.iv_order);
 
         mImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +134,16 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         });
         mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
 
+
+        mImageView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
       /*  String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
 
@@ -148,6 +168,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.view_health).setOnClickListener(this);
         findViewById(R.id.iv_check).setOnClickListener(this);
         findViewById(R.id.view_wifi).setOnClickListener(this);
+
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         findViewById(R.id.view_change).setOnClickListener(this);
@@ -162,14 +183,22 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
+        sharedPreferences1 = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
+
 
         mTextView1 = (TextView) findViewById(R.id.doctor_id);
         mTextView2 = (TextView) findViewById(R.id.tv_hospital);
 
         findViewById(R.id.btn_logout).setOnClickListener(this);
 
-        getData();
+
         registerReceiver(mReceiver, new IntentFilter("change_account"));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getData();
     }
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -177,7 +206,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case "change_account":
-                    if (mChangeAccountDialog != null){
+                    if (mChangeAccountDialog != null) {
                         mChangeAccountDialog.dismiss();
                     }
                     getData();
@@ -203,8 +232,13 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 msg.obj = response.getXfid();
                 mHandler.sendMessage(msg);
 
+
+                SharedPreferences.Editor editor = sharedPreferences1.edit();
+                editor.putString("userName", response.getBname());
+                editor.commit();
+
                 mTextView.setText(response.getBname());
-                mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
+                //    mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount())+"元");
                 Picasso.with(PersonActivity.this)
                         .load(response.getuser_photo())
                         .placeholder(R.drawable.avatar_placeholder)
@@ -228,10 +262,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
             public void onSuccess(RobotAmount response) {
-
-
                 mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-
 
             }
 
@@ -272,45 +303,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         });
     }
 
-    private void post() throws Exception {
-        // 创建URL对象
-        URL url = new URL(ConstantData.BASE_URL + "/referralProject/UserInfoServlet");
-        // 获取该URL与服务器的连接对象
-        URLConnection conn = url.openConnection();
-        // 设置头信息，请求头信息了解
-        conn.setRequestProperty("accept", "*/*");
-        conn.setRequestProperty("connection", "Keep-Alive");
-
-        // 设置可以操作连接的输入输出流
-        conn.setDoOutput(true);// 默认为false，允许使用输出流
-        conn.setDoInput(true);// 默认为true，允许使用输入流
-
-
-        // 传参数
-        PrintWriter pw = new PrintWriter(conn.getOutputStream());
-        pw.print("datas=" + userId);
-        pw.flush();
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String lineContent = null;
-        String content = null;
-
-        while ((lineContent = br.readLine()) != null) {
-            content = lineContent;
-            Log.e("=========", content);
-        }
-        Gson gson = new Gson();
-
-        Message msg = mHandler.obtainMessage();
-        msg.what = 0;
-        msg.obj = gson.fromJson(content, User.class);
-        mHandler.sendMessage(msg);
-
-
-        pw.close();
-        br.close();
-
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -336,11 +328,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 mChangeAccountDialog.show();
                 break;
             case R.id.view_health://健康档案
-                startActivity(new Intent(this,MyBaseDataActivity.class));
+                startActivity(new Intent(this, MyBaseDataActivity.class));
                 break;
-            case R.id.btn_record:
+            case R.id.btn_record://测量历史
                 startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
+
         }
     }
 }

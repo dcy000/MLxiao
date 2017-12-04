@@ -14,11 +14,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
@@ -26,6 +30,7 @@ import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
 import android.os.Process;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -47,11 +52,19 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.bean.NDialog2;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
+import com.example.han.referralproject.shopping.GoodDetailActivity;
+import com.example.han.referralproject.shopping.OrderListActivity;
+import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.util.FaceRect;
 import com.example.han.referralproject.util.FaceUtil;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ParseResult;
+import com.example.han.referralproject.util.Utils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceDetector;
 import com.iflytek.cloud.FaceRequest;
@@ -99,6 +112,12 @@ public class VideoDemo extends BaseActivity {
     public ImageView mImageView;
     public Button mButton;
     Bitmap b3;
+    String signs;
+    String orderid;
+
+
+    NDialog2 dialog2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +125,13 @@ public class VideoDemo extends BaseActivity {
         setContentView(R.layout.activity_video_demo);
 
         speak(R.string.head_verify);
+
+
+        Intent intent = getIntent();
+        signs = intent.getStringExtra("sign");
+        orderid = intent.getStringExtra("orderid");
+
+        dialog2 = new NDialog2(VideoDemo.this);
 
 
         mButton = (Button) findViewById(R.id.tiao_guo);
@@ -117,6 +143,13 @@ public class VideoDemo extends BaseActivity {
                 finish();
             }
         });
+
+
+        if ("1".equals(signs)) {
+
+            mButton.setVisibility(View.GONE);
+        }
+
 
         mImageView = (ImageView) findViewById(R.id.icon_back);
         mImageView.setOnClickListener(new View.OnClickListener() {
@@ -329,6 +362,9 @@ public class VideoDemo extends BaseActivity {
 
                             Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
 
+                            //    Bitmap bitmap = getCircleBitmap(bitmap1);
+
+
                             //可根据流量及网络状况对图片进行压缩
                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                             mImageData = baos.toByteArray();
@@ -350,6 +386,39 @@ public class VideoDemo extends BaseActivity {
             ).start();
 
 
+        }
+    }
+
+
+    public Bitmap getCircleBitmap(Bitmap bitmap) {
+        if (bitmap == null) {
+            return null;
+        }
+        try {
+            Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(circleBitmap);
+            final Paint paint = new Paint();
+            final Rect rect = new Rect(0, 0, bitmap.getWidth(),
+                    bitmap.getHeight());
+            final RectF rectF = new RectF(new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
+            float roundPx = 0.0f;
+            // 以较短的边为标准
+            if (bitmap.getWidth() > bitmap.getHeight()) {
+                roundPx = bitmap.getHeight() / 2.0f;
+            } else {
+                roundPx = bitmap.getWidth() / 2.0f;
+            }
+            paint.setAntiAlias(true);
+            canvas.drawARGB(0, 0, 0, 0);
+            paint.setColor(Color.WHITE);
+            canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+            final Rect src = new Rect(0, 0, bitmap.getWidth(),
+                    bitmap.getHeight());
+            canvas.drawBitmap(bitmap, src, rect, paint);
+            return circleBitmap;
+        } catch (Exception e) {
+            return bitmap;
         }
     }
 
@@ -433,16 +502,74 @@ public class VideoDemo extends BaseActivity {
         }
         if ("success".equals(obj.get("rst"))) {
             if (obj.getBoolean("verf") && sign == true) {
-                showTip("通过验证，欢迎回来！");
-                Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
-                startActivity(intent);
-                sign = false;
-                finish();
-            } else {
-                if (sign == true) {
-                    showTip("验证不通过");
+
+                if ("0".equals(signs)) {
+
+                    showTip("通过验证，欢迎回来！");
+                    Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
+                    startActivity(intent);
                     sign = false;
                     finish();
+
+                } else if ("1".equals(signs)) {
+
+                    sign = false;
+                    NetworkApi.pay_status(MyApplication.getInstance().userId, Utils.getDeviceId(), orderid, new NetworkManager.SuccessCallback<String>() {
+                        @Override
+                        public void onSuccess(String response) {
+
+                            speak(getString(R.string.shop_success));
+                            ShowNormal("支付成功", "1");
+
+                        }
+
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+
+                            ShowNormal("支付失败", "0");
+
+
+                        }
+                    });
+
+
+                }
+
+            } else {
+                if (sign == true) {
+
+                    if ("0".equals(signs)) {
+
+
+                        showTip("验证不通过");
+                        sign = false;
+                        finish();
+
+                    } else if ("1".equals(signs)) {
+
+
+                        NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+
+                                speak(getString(R.string.shop_yanzheng));
+                                showTip("验证不通过");
+                                finish();
+
+                            }
+
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+
+
+                            }
+                        });
+
+                    }
+
+
                 }
             }
         } else {
@@ -452,6 +579,41 @@ public class VideoDemo extends BaseActivity {
                 finish();
             }
         }
+    }
+
+
+    public void ShowNormal(String message, final String sign) {
+        dialog2.setMessageCenter(true)
+                .setMessage(message)
+                .setMessageSize(50)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#3F86FC"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
+                    @Override
+                    public void onClick(int which) {
+                        if (which == 1) {
+
+                            if ("1".equals(sign)) {
+                                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            } else {
+
+                                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
+
+
+                        }
+
+                    }
+                }).create(NDialog.CONFIRM).show();
+
     }
 
 

@@ -6,8 +6,10 @@ public class ConstantData {
     public static final String ACTION_BROAD_NOTICE = "com.android.deskclock.ALARM_ALERT";
 
 
-
     public static final String DOCTOR_MSG = "doctor_message";
+
+    public static final String PERSON_MSG = "person_message";
+
 
     public static final String YUYUE = "yuyue";
 
