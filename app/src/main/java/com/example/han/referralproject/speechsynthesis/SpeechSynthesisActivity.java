@@ -934,7 +934,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
                     return;
                 }
-                if (inSpell.matches(".*(jingju|yueju|xiju).*")) {
+                if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
                     VideoListActivity.launch(SpeechSynthesisActivity.this, 1);
                     return;
                 }
