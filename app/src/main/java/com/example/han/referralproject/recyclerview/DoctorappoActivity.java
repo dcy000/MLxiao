@@ -112,9 +112,118 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         mTextView8.setText(list.get(2).getEnd_time());
 
 
-                        setAlarmClock(0);
+                    /*    setAlarmClock(0);
                         setAlarmClock(1);
-                        setAlarmClock(2);
+                        setAlarmClock(2);*/
+
+
+                        if (!"".equals(list.get(0).getStart_time())) {
+                            long time = 0;
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            String times = String.valueOf(time - 60000);
+
+                            if (models.size() == 0) {
+                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                            } else {
+
+                                boolean sign = true;
+
+                                for (int a = 0; a < models.size(); a++) {
+
+                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                        sign = false;
+                                    }
+
+
+                                }
+                                if (sign == true) {
+
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                }
+                            }
+
+
+                        }
+
+
+                        if (!"".equals(list.get(1).getStart_time())) {
+                            long time = 0;
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            String times = String.valueOf(time - 60000);
+
+                            if (models.size() == 0) {
+                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                            } else {
+
+                                boolean sign = true;
+
+                                for (int a = 0; a < models.size(); a++) {
+
+                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                        sign = false;
+                                    }
+
+
+                                }
+                                if (sign == true) {
+
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                }
+                            }
+
+
+                        }
+
+
+                        if (!"".equals(list.get(2).getStart_time())) {
+                            long time = 0;
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            String times = String.valueOf(time - 60000);
+
+                            if (models.size() == 0) {
+                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                            } else {
+
+                                boolean sign = true;
+
+                                for (int a = 0; a < models.size(); a++) {
+
+                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                        sign = false;
+                                    }
+
+
+                                }
+                                if (sign == true) {
+
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                }
+                            }
+
+
+                        }
+
 
                         long time = 0;
                         long time1 = 0;
@@ -159,8 +268,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                     } else if (list.size() == 2) {
 
-                        Log.e("=======", models.toString());
-
 
                         mLinearLayout1.setVisibility(View.VISIBLE);
                         mLinearLayout2.setVisibility(View.VISIBLE);
@@ -194,18 +301,15 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                                     if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
                                         sign = false;
-                                    } else {
-
-                                        if (sign == true && a == list.size() - 1) {
-
-                                            AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                                        }
                                     }
 
 
                                 }
+                                if (sign == true) {
 
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                }
                             }
 
 
@@ -236,17 +340,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                                     if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
                                         sign = false;
-                                    } else {
-
-                                        if (sign == true && a == list.size() - 1) {
-
-                                            AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-
-                                        }
                                     }
 
+                                }
 
+                                if (sign == true) {
+
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
                                 }
 
                             }
@@ -325,15 +425,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                                     if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
                                         sign = false;
-                                    } else {
-
-                                        if (sign == true && a == list.size() - 1) {
-
-                                            AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                                        }
                                     }
 
+                                }
+
+                                if (sign == true) {
+
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
 
                                 }
 
