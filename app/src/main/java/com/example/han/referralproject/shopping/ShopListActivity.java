@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.recyclerview.DensityUtils;
@@ -37,6 +38,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
     ImageView mImageView2;
     private RecyclerView mRecyclerView;
     ImageView mImageView3;
+    ImageView mImageView4;
 
 
     @Override
@@ -64,6 +66,18 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
                 finish();
             }
         });
+
+        mImageView4 = (ImageView) findViewById(R.id.icon_home);
+
+        mImageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.shop_list);
 

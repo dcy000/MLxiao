@@ -3,8 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="350dp"
              android:layout_height="500dp"
-             android:orientation="vertical"
-             android:padding="10dp">
+             android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,19 +42,15 @@
             android:layout_below="@id/line_title"/>
         <TextView
             android:id="@+id/btn_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
             android:text="查看详情"
             android:textSize="30sp"
             android:textColor="@color/white"
-            android:background="@drawable/selector_bg_btn"
+            android:background="@drawable/bg_blue"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"/>
+            android:gravity="center"/>
         <TextView
             android:id="@+id/tv_item_deal"
             android:layout_width="match_parent"
@@ -66,7 +61,8 @@
             android:textSize="30sp"
             tools:text="常见症状：头晕、脑血管供血不足、反复头晕"
             android:layout_below="@id/tv_item_probability"
-            android:layout_above="@id/btn_details"
-            android:layout_marginBottom="20dp"/>
+            android:layout_above="@id/btn_details"/>
+
     </RelativeLayout>
+
 </FrameLayout>

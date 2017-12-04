@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomResultAdapter;
 import com.example.han.referralproject.bean.SymptomResultBean;
+import com.example.han.referralproject.recyclerview.LinearLayoutDividerItemDecoration;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class SymptomAnalyseResultActivity extends BaseActivity implements View.O
         }
         RecyclerView symptomResultRv = (RecyclerView) findViewById(R.id.rv_symptom_result);
         symptomResultRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        symptomResultRv.addItemDecoration(new LinearLayoutDividerItemDecoration(20,0));
         symptomResultRv.setAdapter(new SymptomResultAdapter(mContext, mDataList));
         StringBuilder mBuilder = new StringBuilder();
         for (SymptomResultBean.bqs itemBean : mDataList){
