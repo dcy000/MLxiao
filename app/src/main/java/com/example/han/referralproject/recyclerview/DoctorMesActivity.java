@@ -207,7 +207,6 @@ public class DoctorMesActivity extends BaseActivity {
             public void onClick(View v) {
                 if (flag == 0) {
 
-
                     ConfirmContractActivity.start(DoctorMesActivity.this, finalDoctor.getDocterid());
                 }
 
