@@ -1,5 +1,7 @@
 package com.example.han.referralproject.video;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -35,11 +37,23 @@ public class VideoListActivity extends BaseActivity {
     ImageView ivHome;
     private Unbinder mUnbinder;
 
+    public static void launch(Context context, int position) {
+        Intent intent = new Intent(context, VideoListActivity.class);
+        if (!(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        intent.putExtra("position", position);
+        context.startActivity(intent);
+    }
+
+    private int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
         mUnbinder = ButterKnife.bind(this);
+        position = getIntent().getIntExtra("position", 0);
         tvTitle.setText("健康讲堂");
         ivHome.setImageResource(R.drawable.icon_wifi);
         rgHealthVideo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -80,7 +94,7 @@ public class VideoListActivity extends BaseActivity {
                 return mFragments == null ? 0 : 4;
             }
         });
-        rgHealthVideo.check(R.id.rb_video_hypertension);
+        rgHealthVideo.check(provideCheckedId(position));
     }
 
     private List<VideoListFragment> mFragments;
@@ -137,6 +151,11 @@ public class VideoListActivity extends BaseActivity {
         Intent intent = new Intent(this, WifiConnectActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        super.onSpeakListenerResult(result);
     }
 
     @Override
