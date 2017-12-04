@@ -42,7 +42,10 @@ import com.example.han.referralproject.music.PlaySearchedMusic;
 import com.example.han.referralproject.music.PlayService;
 import com.example.han.referralproject.music.SearchMusic;
 import com.example.han.referralproject.music.ToastUtils;
+import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.recharge.PayInfoActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.temperature.TemperatureActivity;
@@ -268,8 +271,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mPlayFragment.onPlayerPause();
         }
     }
-
-
 
 
     @Override
@@ -1017,7 +1018,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         finish();
                     }*/
 
-                } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")) {
+                } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")
+                        || inSpell.matches(".*yinliang.*da.*") || inSpell.matches(".*shengyin.*da.*")
+                        || inSpell.matches(".*yinliang.*shenggao.*") || inSpell.matches(".*shenggao.*yinliang.*")) {
                     volume += 3;
                     if (volume < maxVolume) {
                         speak(getString(R.string.add_volume));
@@ -1032,7 +1035,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } else if (inSpell.matches(".*xiao.*shengyin.*") || inSpell.matches(".*xiao.*yinliang.*")) {
+                } else if (inSpell.matches(".*xiao.*shengyin.*") || inSpell.matches(".*xiao.*yinliang.*")
+                        || inSpell.matches(".*shengyin.*xiao.*") || inSpell.matches(".*yinliang.*xiao.*")
+                        || inSpell.matches(".*yinliang.*jiangdi.*") || inSpell.matches(".*jiangdi.*yinliang.*")) {
 
                     volume -= 3;
                     if (volume > 3) {
@@ -1092,9 +1097,23 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         || resultBuffer.toString().contains("闭嘴") || inSpell.matches(".*baibai.*")) {
 
                     finish();
-                }else if(inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")){
-                    startActivity(new Intent(SpeechSynthesisActivity.this,BodychartActivity.class));
-                }else {
+                } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
+                    startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
+                } else if (inSpell.matches(".*qian.*")) {
+
+                    Intent intent = new Intent(getApplicationContext(), PayActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (inSpell.matches(".*mai.*") || inSpell.matches(".*wan.*") ||
+                        inSpell.matches(".*diu.*") ||
+                        resultBuffer.toString().contains("没有")) {
+
+                    Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
+                    startActivity(intent);
+                    finish();
+
+
+                } else {
                     new SpeechTask().execute();
                 }
             }
