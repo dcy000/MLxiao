@@ -10,11 +10,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
+import com.crazypumpkin.versatilerecyclerview.library.WheelRecyclerView;
 import com.example.han.referralproject.R;
 
 import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,8 +46,12 @@ public class AlarmDetail2Activity extends AppCompatActivity {
     TextView tvCancel;
     @BindView(R.id.alarm_detail_tv_confirm)
     TextView tvConfirm;
-    @BindView(R.id.alarm_detail_tp_time)
-    TimePicker tpTime;
+    //    @BindView(R.id.alarm_detail_tp_time)
+//    TimePicker tpTime;
+    @BindView(R.id.wrv_hour)
+    WheelRecyclerView wrvHour;
+    @BindView(R.id.wrv_minute)
+    WheelRecyclerView wrvMinute;
 
     private Unbinder mUnbinder;
 
@@ -58,19 +66,59 @@ public class AlarmDetail2Activity extends AppCompatActivity {
         long id = getIntent().getLongExtra("id", -1);
         if (id == -1) {
             mModel = new AlarmModel();
+            Calendar calendar = Calendar.getInstance();
+            int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+            mModel.setHourOfDay(hourOfDay);
+            mModel.setMinute(minute);
         } else {
             mModel = DataSupport.find(AlarmModel.class, id);
-            show(mModel);
         }
+        show(mModel);
     }
 
     private void initView() {
         spRepeat.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner_layout, getResources().getStringArray(R.array.repeats)));
+        wrvHour.setData(provideHours());
+        wrvMinute.setData(provideMinutes());
+    }
+
+    private List<String> provideMinutes() {
+        List<String> minutes = new ArrayList<>();
+        for (int i = 0; i < 60; i++) {
+            if (i < 10) {
+                minutes.add("0" + i);
+            } else {
+                minutes.add("" + i);
+            }
+        }
+        return minutes;
+    }
+
+    private List<String> provideHours() {
+        List<String> hours = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            if (i < 10) {
+                hours.add("0" + i);
+            } else {
+                hours.add("" + i);
+            }
+        }
+        return hours;
     }
 
     private void show(AlarmModel model) {
-        tpTime.setCurrentMinute(model.getMinute());
-        tpTime.setCurrentHour(model.getHourOfDay());
+        wrvHour.setSelect(model.getHourOfDay());
+        wrvMinute.setSelect(model.getMinute());
+        int interval = model.getInterval();
+        if (interval > 2) {
+            for (int dayOfWeek = Calendar.SUNDAY; dayOfWeek <= Calendar.SATURDAY; ++dayOfWeek) {
+                if (model.hasDayOfWeek(dayOfWeek)) {
+                    interval = dayOfWeek + 3;
+                }
+            }
+        }
+        spRepeat.setSelection(interval);
         etContent.setText(model.getContent());
     }
 
@@ -99,10 +147,25 @@ public class AlarmDetail2Activity extends AppCompatActivity {
     }
 
     private void updateModel() {
-        mModel.setMinute(tpTime.getCurrentMinute());
-        mModel.setHourOfDay(tpTime.getCurrentHour());
-        mModel.setContent(etContent.getText().toString().trim());
-        mModel.setInterval(AlarmModel.INTERVAL_DAY);
+        int hourOfDay = wrvHour.getSelected();
+        int minute = wrvMinute.getSelected();
+        String content = etContent.getText().toString().trim();
+        mModel.setHourOfDay(hourOfDay);
+        mModel.setMinute(minute);
+        mModel.setContent(content);
+        int interval = spRepeat.getSelectedItemPosition();
+        if (interval == AlarmModel.INTERVAL_NONE) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.SECOND, 0);
+            mModel.setTimestamp(calendar.getTimeInMillis());
+        }
+        if (interval > 2) {
+            int dayOfWeek = interval - 3;
+            mModel.addDayOfWeek(dayOfWeek);
+        }
+        mModel.setInterval(interval);
         mModel.setEnabled(true);
     }
 

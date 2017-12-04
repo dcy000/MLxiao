@@ -22,11 +22,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.baidu.wallet.base.datamodel.UserData;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Receive1;
@@ -46,6 +48,9 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recharge.PayInfoActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.temperature.TemperatureActivity;
@@ -69,6 +74,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call.EMUIHelper;
+import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 
@@ -881,7 +887,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private File file;//要播放的文件
 
 
-    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
+    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao).*";
     public static final String REGEX_SET_ALARM_WHEN = ".*tixing.*(shangwu|xiawu).*(\\d{1,2}):(\\d{1,2}).*yao.*";
     public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
 
@@ -909,6 +915,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     speak(tip);
                     return;
                 }
+
                 if (inSpell.matches(REGEX_SET_ALARM)) {
                     Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
                     startActivity(intent);
@@ -917,6 +924,28 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 if (inSpell.matches(REGEX_SEE_DOCTOR)) {
                     Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
                     startActivity(intent1);
+                    return;
+                }
+                if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+                    Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
+                    startActivity(intent1);
+                    return;
+                }
+
+                if (inSpell.matches(".*(jiankangketang|shipin|dianshi).*")) {
+                    VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
+                    return;
+                }
+                if (inSpell.matches(".*(jingju|yueju|xiju).*")) {
+                    VideoListActivity.launch(SpeechSynthesisActivity.this, 1);
+                    return;
+                }
+                if (inSpell.matches(".*(shenghuozhushou).*")) {
+                    VideoListActivity.launch(SpeechSynthesisActivity.this, 2);
+                    return;
+                }
+                if (inSpell.matches(".*(donghuapian|dongman).*")) {
+                    VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
                     return;
                 }
 
@@ -1113,7 +1142,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
 
 
-                } else {
+                } else if(inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")){//症状自查
+                    startActivity(new Intent(SpeechSynthesisActivity.this,BodychartActivity.class));
+                }else if(inSpell.matches(".*(li(si|shi)|(shu|su)ju|jilu).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
+                }else if(inSpell.matches(".*(dangan).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
+                }else if(inSpell.matches(".*((zi|zhi)xun|yi(shen|sheng|seng)|dadianhua).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
+                }else if(inSpell.matches(".*(qianyue|yi(shen|sheng|seng)|jiating|yuyue).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
+                }else if(inSpell.matches(".*(zaixian|yi(shen|sheng|seng)).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
+                }else {
                     new SpeechTask().execute();
                 }
             }
@@ -1127,15 +1168,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 try {
                     post(resultBuffer.toString());
                 } catch (Exception e) {
-                    runOnUiThread(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    //speak(R.string.speak_no_result);
-                                    findViewById(R.id.iat_recognizes).performClick();
-                                }
-                            }
-                    );
+//                    runOnUiThread(
+//                            new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    //speak(R.string.speak_no_result);
+//                                    findViewById(R.id.iat_recognizes).performClick();
+//                                }
+//                            }
+//                    );
                     e.printStackTrace();
                 }
                 return null;

@@ -101,6 +101,7 @@
         android:background="@drawable/shape_rect_gray"
         android:hint="请输入详细地址"
         android:maxLines="1"
+        android:maxLength="50"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="#939393"

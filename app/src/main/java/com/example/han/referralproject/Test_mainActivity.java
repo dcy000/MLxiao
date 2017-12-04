@@ -111,7 +111,10 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.test_qita:
-                    intent.setClass(getApplicationContext(), XueyaActivity.class);
+                    //intent.setClass(getApplicationContext(), XueyaActivity.class);
+                    intent.setClass(mContext, DetectActivity.class);
+                    intent.putExtra("type", "sanheyi");
+                    startActivity(intent);
                     break;
             }
         }

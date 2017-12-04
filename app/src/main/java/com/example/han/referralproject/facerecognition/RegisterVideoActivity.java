@@ -33,6 +33,8 @@ import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Process;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -108,6 +110,98 @@ public class RegisterVideoActivity extends BaseActivity {
     public ImageView mImageView;
 
     public Button mButton;
+
+
+    private Handler mHandler = new Handler(new Handler.Callback() {
+
+        @Override
+        public boolean handleMessage(final Message msg) {
+            switch (msg.what) {
+                case 0:
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (sign) {
+
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                }
+
+
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+
+                  /*  if (b3 != null) {
+
+                        Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+
+                        //可根据流量及网络状况对图片进行压缩
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        mImageData = baos.toByteArray();
+
+                    }*/
+
+
+                                if (b3 != null) {
+
+                                    Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+
+
+                                    //可根据流量及网络状况对图片进行压缩
+                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                    mImageData = baos.toByteArray();
+
+                                }
+
+
+                                if (null != mImageData) {
+                                    Date date = new Date();
+                                    SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
+                                    StringBuilder str = new StringBuilder();//定义变长字符串
+                                    Random random = new Random();
+                                    for (int i = 0; i < 8; i++) {
+                                        str.append(random.nextInt(10));
+                                    }
+                                    //将字符串转换为数字并输出
+                                    mAuthid = simple.format(date) + str;
+
+
+
+                      /*  String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
+                        editor.putString("imageData", imageBase64);
+                        editor.commit();*/
+
+
+                                    mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                                    mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
+                                    mFaceRequest.sendRequest(mImageData, mRequestListener);
+                                    Log.e("发送前", mAuthid + "");
+
+                                }
+
+
+                            }
+                        }
+                    }
+
+                    ).start();
+
+
+
+
+
+
+                    break;
+
+
+            }
+
+            return true;
+        }
+    });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -310,111 +404,13 @@ public class RegisterVideoActivity extends BaseActivity {
         super.onStart();
         //    mAuthid = MyApplication.getInstance().userId;
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (sign) {
 
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                    }
+        mHandler.sendEmptyMessageDelayed(0, 5000);
 
 
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-
-                  /*  if (b3 != null) {
-
-                        Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
-
-                        //可根据流量及网络状况对图片进行压缩
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                        mImageData = baos.toByteArray();
-
-                    }*/
-
-
-                    if (b3 != null) {
-
-                        Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
-
-
-                        //可根据流量及网络状况对图片进行压缩
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                        mImageData = baos.toByteArray();
-
-                    }
-
-
-                    if (null != mImageData) {
-                        Date date = new Date();
-                        SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
-                        StringBuilder str = new StringBuilder();//定义变长字符串
-                        Random random = new Random();
-                        for (int i = 0; i < 8; i++) {
-                            str.append(random.nextInt(10));
-                        }
-                        //将字符串转换为数字并输出
-                        mAuthid = simple.format(date) + str;
-
-
-
-                      /*  String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
-                        editor.putString("imageData", imageBase64);
-                        editor.commit();*/
-
-
-                        mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-                        mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
-                        mFaceRequest.sendRequest(mImageData, mRequestListener);
-                        Log.e("发送前", mAuthid + "");
-
-                    }
-
-
-                }
-            }
-        }
-
-        ).start();
 
 
     }
-
-
-    public Bitmap getCircleBitmap(Bitmap bitmap) {
-        if (bitmap == null) {
-            return null;
-        }
-        try {
-            Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(circleBitmap);
-            final Paint paint = new Paint();
-            final Rect rect = new Rect(0, 0, bitmap.getWidth(),
-                    bitmap.getHeight());
-            final RectF rectF = new RectF(new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
-            float roundPx = 0.0f;
-            // 以较短的边为标准
-            if (bitmap.getWidth() > bitmap.getHeight()) {
-                roundPx = bitmap.getHeight() / 2.0f;
-            } else {
-                roundPx = bitmap.getWidth() / 2.0f;
-            }
-            paint.setAntiAlias(true);
-            canvas.drawARGB(0, 0, 0, 0);
-            paint.setColor(Color.WHITE);
-            canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-            final Rect src = new Rect(0, 0, bitmap.getWidth(),
-                    bitmap.getHeight());
-            canvas.drawBitmap(bitmap, src, rect, paint);
-            return circleBitmap;
-        } catch (Exception e) {
-            return bitmap;
-        }
-    }
-
 
     private RequestListener mRequestListener = new RequestListener() {
 
@@ -540,7 +536,7 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.tips_face);
+        //    speak(R.string.tips_face);
 //        if (null != mAcc) {
 //            mAcc.start();
 //        }

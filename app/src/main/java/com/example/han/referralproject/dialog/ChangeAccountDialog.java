@@ -12,6 +12,7 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.adapter.ChangeAccountAdapter;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -71,7 +72,24 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 LocalShared.getInstance(mContext).loginOut();
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
                 ((Activity)mContext).finish();
-                break;
+//                if (mDataList == null){
+//                    return;
+//                }
+//                if (mDataList.size() == 1){
+//                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
+//                    ((Activity)mContext).finish();
+//                    break;
+//                } else {
+//                    for (UserInfoBean itemBean : mDataList){
+//                        if (!itemBean.bid.equals(MyApplication.getInstance().userId)){
+//                            LocalShared.getInstance(mContext).loginOut();
+//                            MyApplication.getInstance().userId = itemBean.bid;
+//                            LocalShared.getInstance(mContext).setUserInfo(itemBean);
+//                            mContext.sendBroadcast(new Intent("change_account"));
+//                        }
+//                    }
+//                }
+//                break;
         }
     }
 
