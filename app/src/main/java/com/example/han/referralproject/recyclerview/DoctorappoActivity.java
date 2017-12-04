@@ -426,7 +426,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String nimUserId = MyApplication.getInstance().nimUserId();
-        NimAccountHelper.getInstance().login("br_12345678912", "123456", null);
+        NimAccountHelper.getInstance().login(nimUserId, "123456", null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
@@ -442,7 +442,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
 
-                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
+                NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
                 finish();
             }
         });
@@ -509,7 +509,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "doctor_18940866148");
+                NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
                 finish();
             }
         });
@@ -562,8 +562,18 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             mLinearLayout3.setVisibility(View.INVISIBLE);
 
         }
+        testOnlineDoctor();
 
+    }
 
+    private void testOnlineDoctor() {
+        Button online_doctor= (Button) findViewById(R.id.online_doctor);
+        online_doctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DoctorappoActivity.this,OnlineDoctorListActivity.class));
+            }
+        });
     }
 
     List<YuYueInfo> list = new ArrayList<YuYueInfo>();

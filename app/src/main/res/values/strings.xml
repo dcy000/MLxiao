@@ -466,4 +466,8 @@
     <string name="gaoxueya">主人，您有可能是高血压，请及时到医院就诊</string>
     <string name="tangniaobing">主人，您有可能是糖尿病，请及时服药或到医院就诊</string>
     <string name="dixuetang">主人，您有可能是低血糖，请及时补充糖分或到医院就诊</string>
+    <string name="bingzhengxiangqing">病症详情</string>
+    <string name="disease_reason"></string>
+    <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;医&#160;&#160;生</string>
+    <string name="bodyguide">主人，请选择病症对应部位</string>
 </resources>

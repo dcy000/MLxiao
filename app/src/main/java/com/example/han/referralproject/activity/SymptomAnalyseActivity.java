@@ -193,20 +193,44 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_analyse://提交
+                if(flag==0){
+                    ToastUtils.show("至少选择一个病症标签");
+                    return;
+                }
                 NetworkApi.analyseSym(buffer.substring(0, buffer.length() - 1), mAnalyseCallback);
                 break;
             case R.id.tv_1://删除第一层病症标签
                 flag--;
                 //需要把后面两层的移动到前面去
-                rlTv3.setVisibility(View.GONE);
+                switch (flag){
+                    case 0:
+                        rlTv1.setVisibility(View.GONE);
+                        rlTv2.setVisibility(View.GONE);
+                        rlTv3.setVisibility(View.GONE);
+                        b_1="";
+                        b_2="";
+                        b_3="";
+                        break;
+                    case 1:
+                        rlTv2.setVisibility(View.GONE);
+                        rlTv3.setVisibility(View.GONE);
+                        b_1=b_2;
+                        b_2="";
+                        b_3="";
+                        break;
+                    case 2:
+                        rlTv3.setVisibility(View.GONE);
+                        b_1 = b_2;
+                        b_2 = b_3;
+                        b_3 = "";
+                        break;
+                }
                 tv1.setText(tv2.getText().toString());
                 tv2.setText(tv3.getText().toString());
-                b_1 = b_2;
-                b_2 = b_3;
-                b_3 = "";
 
-                if (TextUtils.isEmpty(b_2) && TextUtils.isEmpty(b_3)) {
-                    llLeft.setVisibility(View.GONE);
+
+                if (TextUtils.isEmpty(b_2) && TextUtils.isEmpty(b_3)&&TextUtils.isEmpty(b_1)) {
+//                    llLeft.setVisibility(View.GONE);
                     nextNotice.setVisibility(View.GONE);
                     NetworkApi.getAllSym(mGetAllSymCallback);//获得第一层的病症
                 } else {
@@ -243,6 +267,10 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                 return;
             }
             speak(R.string.tips_symptom);
+            head.clear();
+            chest.clear();
+            abdomen.clear();
+            leg.clear();
             for(int i=0;i<response.size();i++){
                 if(response.get(i).id.equals("6")||//头部
                         response.get(i).id.equals("7")||

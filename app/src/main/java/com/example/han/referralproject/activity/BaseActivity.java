@@ -2,6 +2,7 @@ package com.example.han.referralproject.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
@@ -203,6 +205,18 @@ public class BaseActivity extends AppCompatActivity {
             }
             String result = resultBuffer.toString();
             if (!TextUtils.isEmpty(result)) {
+                if(result.matches(".*(冰镇|病症|自查|制茶|只差|直插|之差).*")){
+                    startActivity(new Intent(BaseActivity.this,BodychartActivity.class));
+                    return;
+                }
+                if(result.matches(".*(返回|反悔).*")){
+                    finish();
+                    return;
+                }
+                if(result.matches(".*(首页|守夜|授业).*")){
+                    startActivity(new Intent(BaseActivity.this,MainActivity.class));
+                    finish();
+                }
                 onSpeakListenerResult(result);
             }
         }
