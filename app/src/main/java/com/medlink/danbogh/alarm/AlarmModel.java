@@ -11,16 +11,10 @@ import org.litepal.crud.DataSupport;
 
 public class AlarmModel extends DataSupport{
 
-    public static final int INTERVAL_NONE = 1;
-    public static final int INTERVAL_DAY = 2;
-    public static final int INTERVAL_WEEK = 4;
-
-    @IntDef({
-            INTERVAL_NONE,
-            INTERVAL_DAY,
-            INTERVAL_WEEK
-    })
-    public @interface Interval{}
+    public static final int INTERVAL_NONE = 0;
+    public static final int INTERVAL_DAY = 1;
+    public static final int INTERVAL_ONE_DAY = 2;
+    public static final int INTERVAL_WEEK = 3;
 
     private long id = -1;
 
@@ -34,7 +28,6 @@ public class AlarmModel extends DataSupport{
 
     private String tag;
 
-    @Interval
     private int interval;
 
     private int flags;
@@ -91,12 +84,11 @@ public class AlarmModel extends DataSupport{
         this.tag = tag;
     }
 
-    @Interval
     public int getInterval() {
         return interval;
     }
 
-    public void setInterval(@Interval int interval) {
+    public void setInterval(int interval) {
         this.interval = interval;
     }
 

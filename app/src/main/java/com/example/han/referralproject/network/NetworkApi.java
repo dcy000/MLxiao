@@ -253,7 +253,7 @@ public class NetworkApi {
                               NetworkManager.SuccessCallback<Object> successCallback,
                               NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("doctorid", String.valueOf(doctorId));
+        params.put("docterid", String.valueOf(doctorId));
         params.put("eqid", Utils.getDeviceId());
         params.put("time", String.valueOf(minute));
         params.put("bid", bId);

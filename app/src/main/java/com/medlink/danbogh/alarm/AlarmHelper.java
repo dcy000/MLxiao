@@ -37,14 +37,18 @@ public class AlarmHelper {
         setupAlarm(context, model);
     }
 
-    public static void setupAlarm(Context context, int hourOfDay, int minute, String content, String tag) {
+    public static void setupAlarm(
+            Context context,
+            int hourOfDay,
+            int minute,
+            String content,
+            int interval) {
         AlarmModel model = new AlarmModel();
         model.setMinute(minute);
         model.setHourOfDay(hourOfDay);
         model.setContent(content);
-        model.setInterval(AlarmModel.INTERVAL_DAY);
+        model.setInterval(interval);
         model.setEnabled(true);
-        model.setTag(tag);
         setupAlarm(context, model);
     }
 
@@ -87,6 +91,7 @@ public class AlarmHelper {
                 continue;
             }
 
+            //一次性闹钟
             Calendar nextCalendar = Calendar.getInstance();
             PendingIntent pi = newPendingIntent(context, model);
             long timestamp = model.getTimestamp();
@@ -104,13 +109,29 @@ public class AlarmHelper {
             final int nowHourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
 
+            //每天
             if (model.getInterval() == AlarmModel.INTERVAL_DAY) {
                 if (model.getHourOfDay() < nowHourOfDay
                         || model.getMinute() <= nowMinute) {
                     nextCalendar.add(Calendar.DAY_OF_MONTH, 1);
                 }
                 setupAlarm(context, nextCalendar.getTimeInMillis(), pi);
-            } else if (model.getInterval() == AlarmModel.INTERVAL_WEEK) {
+                continue;
+            }
+
+            //隔天
+            if (model.getInterval() == AlarmModel.INTERVAL_ONE_DAY) {
+                if (model.getHourOfDay() < nowHourOfDay
+                        || model.getMinute() <= nowMinute) {
+                    nextCalendar.add(Calendar.DAY_OF_MONTH, 2);
+                }
+                setupAlarm(context, nextCalendar.getTimeInMillis(), pi);
+                continue;
+            }
+
+
+            //每周
+            if (model.getInterval() == AlarmModel.INTERVAL_WEEK) {
                 boolean alarmSet = false;
                 for (int dayOfWeek = Calendar.SUNDAY; dayOfWeek <= Calendar.SATURDAY; ++dayOfWeek) {
                     if (model.hasDayOfWeek(dayOfWeek)

@@ -700,14 +700,14 @@ public class NimCallActivity extends AppCompatActivity {
     private void stopTimer() {
         Handlers.ui().removeCallbacks(refreshCallTime);
         if (mSeconds > 0) {
-            final int minutes = mSeconds / 60;
-            if (minutes + 1 >= 0) {
+            final int minutes = mSeconds / 60 + 1;
+            if (minutes >= 0) {
                 final String bid = MyApplication.getInstance().userId;
                 NetworkApi.DoctorInfo(bid, new NetworkManager.SuccessCallback<Doctor>() {
                     @Override
                     public void onSuccess(Doctor response) {
                         int docterid = response.docterid;
-                        NetworkApi.charge(minutes + 1, docterid, bid,
+                        NetworkApi.charge(minutes , docterid, bid,
                                 new NetworkManager.SuccessCallback<Object>() {
                                     @Override
                                     public void onSuccess(Object response) {
