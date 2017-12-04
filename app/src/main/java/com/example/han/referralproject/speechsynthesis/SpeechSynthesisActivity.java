@@ -885,7 +885,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private File file;//要播放的文件
 
 
-    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixingwochiyao).*";
+    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao).*";
     public static final String REGEX_SET_ALARM_WHEN = ".*tixing.*(shangwu|xiawu).*(\\d{1,2}):(\\d{1,2}).*yao.*";
     public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
 
@@ -913,6 +913,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     speak(tip);
                     return;
                 }
+
                 if (inSpell.matches(REGEX_SET_ALARM)) {
                     Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
                     startActivity(intent);
@@ -921,6 +922,28 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 if (inSpell.matches(REGEX_SEE_DOCTOR)) {
                     Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
                     startActivity(intent1);
+                    return;
+                }
+                if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+                    Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
+                    startActivity(intent1);
+                    return;
+                }
+
+                if (inSpell.matches(".*(jiankangketang|shipin|dianshi).*")) {
+                    VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
+                    return;
+                }
+                if (inSpell.matches(".*(jingju|yueju|xiju).*")) {
+                    VideoListActivity.launch(SpeechSynthesisActivity.this, 1);
+                    return;
+                }
+                if (inSpell.matches(".*(shenghuozhushou).*")) {
+                    VideoListActivity.launch(SpeechSynthesisActivity.this, 2);
+                    return;
+                }
+                if (inSpell.matches(".*(donghuapian|dongman).*")) {
+                    VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
                     return;
                 }
 
