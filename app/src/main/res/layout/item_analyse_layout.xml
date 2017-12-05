@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:textColor="#686868"
+            android:layout_centerHorizontal="true"
             android:textSize="35sp"
             tools:text="1、脑动脉供血不足"/>
 

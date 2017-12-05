@@ -60,8 +60,8 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
         adapter.setOnItemClistListener(new AllDoctorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion) {
-                startActivity(new Intent(OnlineDoctorListActivity.this,DoctorMesActivity.class)
-                        .putExtra("docMsg", (Serializable) mData.get(postion)));
+//                startActivity(new Intent(OnlineDoctorListActivity.this,DoctorMesActivity.class)
+//                        .putExtra("docMsg", (Serializable) mData.get(postion)));
             }
         });
     }

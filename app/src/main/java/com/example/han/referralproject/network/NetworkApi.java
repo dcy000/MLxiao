@@ -88,7 +88,7 @@ public class NetworkApi {
 
     public static final String ORDER_LIST = BasicUrl + "/ZZB/order/one_more_orders";
 
-    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl";
+    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl_data";
     //全部医生
     public static final String Get_AllDotor=BasicUrl+"/ZZB/docter/seldoctors";
 
