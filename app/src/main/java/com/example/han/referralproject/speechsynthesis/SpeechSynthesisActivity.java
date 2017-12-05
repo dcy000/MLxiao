@@ -1160,7 +1160,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
                 } else if (inSpell.matches(".*(dangan).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
-                }else {
+                } else {
                     new SpeechTask().execute();
                 }
             }

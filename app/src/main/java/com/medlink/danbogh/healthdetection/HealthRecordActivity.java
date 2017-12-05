@@ -671,12 +671,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     values.add(new Entry(i, response.get(i).temper_ature));
                     times.add(response.get(i).time);
                 }
-                tiwenChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-
-                MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
-                mv.setChartView(tiwenChart);
-                tiwenChart.setMarker(mv);
-
+                if(times.size()!=0){
+                    tiwenChart.getXAxis().setValueFormatter(new TimeFormatter(times));
+                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
+                    mv.setChartView(tiwenChart);
+                    tiwenChart.setMarker(mv);
+                }
                 setTiwen(values);
             }
         });
@@ -696,10 +696,13 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 for (int i = 0; i < response.size(); i++) {
                     yVals2.add(new Entry(i, response.get(i).low_pressure));
                 }
-                xueyaChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-                MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
-                mv.setChartView(xueyaChart);
-                xueyaChart.setMarker(mv);
+                if(times.size()!=0){
+                    xueyaChart.getXAxis().setValueFormatter(new TimeFormatter(times));
+                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
+                    mv.setChartView(xueyaChart);
+                    xueyaChart.setMarker(mv);
+                }
+
 
                 setXueya(yVals1, yVals2);
             }
@@ -716,11 +719,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     value.add(new Entry(i, response.get(i).blood_sugar));
                     times.add(response.get(i).time);
                 }
-                xuetangChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-
-                MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
-                mv.setChartView(xuetangChart); // For bounds control
-                xuetangChart.setMarker(mv); // Set the marker to the chart
+                if(times.size()!=0){
+                    xuetangChart.getXAxis().setValueFormatter(new TimeFormatter(times));
+                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
+                    mv.setChartView(xuetangChart); // For bounds control
+                    xuetangChart.setMarker(mv); // Set the marker to the chart
+                }
 
                 setXuetang(value);
             }
@@ -737,11 +741,13 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     value.add(new Entry(i, response.get(i).blood_oxygen));
                     times.add(response.get(i).time);
                 }
-                xueyangChart.getXAxis().setValueFormatter(new TimeFormatter(times));
+                if(times.size()!=0){
+                    xueyangChart.getXAxis().setValueFormatter(new TimeFormatter(times));
 
-                MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
-                mv.setChartView(xueyangChart); // For bounds control
-                xueyangChart.setMarker(mv); // Set the marker to the chart
+                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
+                    mv.setChartView(xueyangChart); // For bounds control
+                    xueyangChart.setMarker(mv); // Set the marker to the chart
+                }
                 setXueyang(value);
             }
         });
@@ -757,11 +763,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     value.add(new Entry(i, response.get(i).heart_rate));
                     times.add(response.get(i).time);
                 }
-                xinlvChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-
-                MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
-                mv.setChartView(xinlvChart); // For bounds control
-                xinlvChart.setMarker(mv); // Set the marker to the chart
+                if(times.size()!=0){
+                    xinlvChart.getXAxis().setValueFormatter(new TimeFormatter(times));
+                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
+                    mv.setChartView(xinlvChart); // For bounds control
+                    xinlvChart.setMarker(mv); // Set the marker to the chart
+                }
                 setXinlv(value);
             }
         });
@@ -777,11 +784,13 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     value.add(new Entry(i, response.get(i).pulse));
                     times.add(response.get(i).time);
                 }
-                maiboChart.getXAxis().setValueFormatter(new TimeFormatter(times));
+                if(times.size()!=0){
+                    maiboChart.getXAxis().setValueFormatter(new TimeFormatter(times));
 
-                MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
-                mv.setChartView(maiboChart); // For bounds control
-                maiboChart.setMarker(mv); // Set the marker to the chart
+                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
+                    mv.setChartView(maiboChart); // For bounds control
+                    maiboChart.setMarker(mv); // Set the marker to the chart
+                }
                 setMaibo(value);
             }
         });
