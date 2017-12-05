@@ -440,7 +440,8 @@
         </activity>
         <activity android:name=".activity.DiseaseDetailsActivity" />
         <activity android:name=".activity.DiseaseDetails2Activity" />
-        <activity android:name=".recyclerview.OnlineDoctorListActivity" />
+        <activity android:name=".recyclerview.OnlineDoctorListActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".recyclerview.DoctorAskGuideActivity"></activity>
     </application>
 
