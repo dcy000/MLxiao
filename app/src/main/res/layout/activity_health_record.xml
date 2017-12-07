@@ -6,15 +6,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.medlink.danbogh.healthdetection.HealthRecordActivity">
+    <LinearLayout
+        android:id="@+id/ll_indicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:id="@+id/color_1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@color/color_9cd793"/>
+            />
+        <TextView
+            android:id="@+id/indicator_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="颜色1"
+            android:textSize="22sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="#999999"/>
+        <LinearLayout
+            android:id="@+id/ll_second"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp">
+            <TextView
+                android:id="@+id/color_2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@color/color_c2364b"
+                />
+            <TextView
+                android:id="@+id/indicator_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="颜色2"
+                android:layout_marginLeft="5dp"
+                android:textColor="#999999"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|"
+            android:text="单位"
+            android:textColor="#999999"
+            android:textSize="22sp"
+            android:layout_marginRight="30dp"/>
+    </LinearLayout>
     <!--体温图-->
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/tiwen_chart"
         android:layout_width="0pt"
         android:layout_height="0pt"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_health_record"
+        app:layout_constraintTop_toBottomOf="@id/ll_indicator"
         android:visibility="visible"/>
     <!--血压图-->
     <com.github.mikephil.charting.charts.LineChart
@@ -22,9 +78,9 @@
         android:layout_width="0pt"
         android:layout_height="0pt"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_health_record"
+        app:layout_constraintTop_toBottomOf="@id/ll_indicator"
         android:visibility="gone"/>
     <!--血糖-->
     <com.github.mikephil.charting.charts.LineChart
@@ -32,9 +88,9 @@
         android:layout_width="0pt"
         android:layout_height="0pt"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_health_record"
+        app:layout_constraintTop_toBottomOf="@id/ll_indicator"
         android:visibility="gone"/>
     <!--血氧-->
     <com.github.mikephil.charting.charts.LineChart
@@ -42,9 +98,9 @@
         android:layout_width="0pt"
         android:layout_height="0pt"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_health_record"
+        app:layout_constraintTop_toBottomOf="@id/ll_indicator"
         android:visibility="gone"/>
     <!--心率-->
     <com.github.mikephil.charting.charts.LineChart
@@ -52,9 +108,9 @@
         android:layout_width="0pt"
         android:layout_height="0pt"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_health_record"
+        app:layout_constraintTop_toBottomOf="@id/ll_indicator"
         android:visibility="gone"/>
     <!--脉搏-->
     <com.github.mikephil.charting.charts.LineChart
@@ -62,20 +118,40 @@
         android:layout_width="0pt"
         android:layout_height="0pt"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_health_record"
+        app:layout_constraintTop_toBottomOf="@id/ll_indicator"
+        android:visibility="gone"/>
+    <!--胆固醇-->
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/danguchun_chart"
+        android:layout_width="0pt"
+        android:layout_height="0pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_indicator"
+        android:visibility="gone"/>
+    <!--血尿酸-->
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/xueniaosuan_chart"
+        android:layout_width="0pt"
+        android:layout_height="0pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_record"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_indicator"
         android:visibility="gone"/>
     <RadioGroup
         android:id="@+id/rg_health_record"
-        android:layout_width="0pt"
-        android:layout_height="120pt"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
         android:divider="@drawable/line_vertical"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:showDividers="middle"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_health_record">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <!--<RadioButton-->
             <!--android:id="@+id/rb_record_situation"-->
@@ -91,8 +167,8 @@
 
         <RadioButton
             android:id="@+id/rb_record_temperature"
-            android:layout_width="0pt"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
             android:layout_weight="1"
             android:background="@drawable/bg_rb_health_record1"
             android:button="@null"
@@ -103,8 +179,8 @@
 
         <RadioButton
             android:id="@+id/rb_record_blood_pressure"
-            android:layout_width="0pt"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
             android:layout_weight="1"
             android:background="@drawable/bg_rb_health_record2"
             android:button="@null"
@@ -115,8 +191,8 @@
 
         <RadioButton
             android:id="@+id/rb_record_blood_glucose"
-            android:layout_width="0pt"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
             android:layout_weight="1"
             android:background="@drawable/bg_rb_health_record3"
             android:button="@null"
@@ -127,8 +203,8 @@
 
         <RadioButton
             android:id="@+id/rb_record_blood_oxygen"
-            android:layout_width="0pt"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
             android:layout_weight="1"
             android:background="@drawable/bg_rb_health_record4"
             android:button="@null"
@@ -138,29 +214,53 @@
             android:textSize="65pt"/>
         <RadioButton
             android:id="@+id/rb_record_heart_rate"
-            android:layout_width="0pt"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
             android:layout_weight="1"
             android:background="@drawable/bg_rb_health_record5"
             android:button="@null"
             android:gravity="center"
             android:text="心  率"
             android:textColor="#999999"
-            android:textSize="65pt"/>
+            android:textSize="65pt"
+            android:visibility="gone"/>
         <RadioButton
             android:id="@+id/rb_record_pulse"
-            android:layout_width="0pt"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
             android:layout_weight="1"
             android:background="@drawable/bg_rb_health_record6"
             android:button="@null"
             android:gravity="center"
             android:text="脉  搏"
             android:textColor="#999999"
+            android:textSize="65pt"
+            android:visibility="gone"/>
+        <RadioButton
+            android:id="@+id/rb_record_cholesterol"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record7"
+            android:button="@null"
+            android:gravity="center"
+            android:text="胆固醇"
+            android:textColor="#999999"
+            android:textSize="65pt"/>
+        <RadioButton
+            android:id="@+id/rb_record_bua"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rb_health_record8"
+            android:button="@null"
+            android:gravity="center"
+            android:text="血尿酸"
+            android:textColor="#999999"
             android:textSize="65pt"/>
     </RadioGroup>
 
-    <include
-        android:id="@+id/toolbar_health_record"
-        layout="@layout/include_toolbar"/>
+    <!--<include-->
+        <!--android:id="@+id/toolbar_health_record"-->
+        <!--layout="@layout/include_toolbar"/>-->
 </android.support.constraint.ConstraintLayout>

@@ -5,9 +5,11 @@ import android.text.TextUtils;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
+import com.example.han.referralproject.bean.BUA;
 import com.example.han.referralproject.bean.BloodOxygenHistory;
 import com.example.han.referralproject.bean.BloodPressureHistory;
 import com.example.han.referralproject.bean.BloodSugarHistory;
+import com.example.han.referralproject.bean.CholesterolHistory;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.bean.DataInfoBean;
@@ -88,7 +90,8 @@ public class NetworkApi {
 
     public static final String ORDER_LIST = BasicUrl + "/ZZB/order/one_more_orders";
 
-    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl";
+    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl_data";//正式服务器
+//    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl";
     //全部医生
     public static final String Get_AllDotor=BasicUrl+"/ZZB/docter/seldoctors";
 
@@ -411,7 +414,8 @@ public class NetworkApi {
     ) {
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("bid","100001");
+        params.put("bid",MyApplication.getInstance().userId);
+//        params.put("bid","100001");
         params.put("temp",temp);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<TemperatureHistory>>() {}.getType(),
                 successCallback);
@@ -425,6 +429,7 @@ public class NetworkApi {
     public static void getBloodpressureHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
+//        params.put("bid",MyApplication.getInstance().userId);
         params.put("bid","100001");
         params.put("temp",temp);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodPressureHistory>>() {}.getType(),
@@ -439,7 +444,7 @@ public class NetworkApi {
     public static void getBloodSugarHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid","100001");
+        params.put("bid", MyApplication.getInstance().userId);
         params.put("temp",temp);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodSugarHistory>>() {}.getType(),
                 successCallback);
@@ -453,7 +458,7 @@ public class NetworkApi {
     public static void getBloodOxygenHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid","100001");
+        params.put("bid",MyApplication.getInstance().userId);
         params.put("temp",temp);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodOxygenHistory>>() {}.getType(),
                 successCallback);
@@ -467,7 +472,7 @@ public class NetworkApi {
     public static void getHeartRateHistory(String temp,NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid","100001");
+        params.put("bid",MyApplication.getInstance().userId);
         params.put("temp",temp);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<HeartRateHistory>>() {}.getType(),
                 successCallback);
@@ -480,9 +485,37 @@ public class NetworkApi {
     public static void getPulseHistory(String temp,NetworkManager.SuccessCallback<ArrayList<PulseHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid","100001");
+        params.put("bid",MyApplication.getInstance().userId);
         params.put("temp",temp);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<PulseHistory>>() {}.getType(),
+                successCallback);
+    }
+    /**
+     * 胆固醇
+     * @param temp
+     * @param successCallback
+     */
+    public static void getCholesterolHistory(String temp,NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+//        params.put("bid",MyApplication.getInstance().userId);
+        params.put("bid","100001");
+        params.put("temp",temp);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<CholesterolHistory>>() {}.getType(),
+                successCallback);
+    }
+    /**
+     * 血尿酸
+     * @param temp
+     * @param successCallback
+     */
+    public static void getBUAHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BUA>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+//        params.put("bid",MyApplication.getInstance().userId);
+        params.put("bid","100001");
+        params.put("temp",temp);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BUA>>() {}.getType(),
                 successCallback);
     }
     /**

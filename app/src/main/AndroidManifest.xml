@@ -235,11 +235,10 @@
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.HOME"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -247,7 +246,8 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape"/>
@@ -265,14 +265,6 @@
         <activity android:name=".facerecognition.RegisterVideoActivity">
         </activity>
         <activity android:name=".recyclerview.RecoDocActivity">
-
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-
-            <!--<category android:name="android.intent.category.HOME" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
         </activity>
         <activity android:name=".recyclerview.DoctorMesActivity"/>
         <activity android:name=".video.MainVideoActivity"/>
@@ -447,9 +439,10 @@
         <activity android:name=".shopping.OrderListActivity">
 
         </activity>
-        <activity android:name=".activity.DiseaseDetailsActivity"/>
-        <activity android:name=".activity.DiseaseDetails2Activity"/>
-        <activity android:name=".recyclerview.OnlineDoctorListActivity"/>
+        <activity android:name=".activity.DiseaseDetailsActivity" />
+        <activity android:name=".activity.DiseaseDetails2Activity" />
+        <activity android:name=".recyclerview.OnlineDoctorListActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".recyclerview.DoctorAskGuideActivity"></activity>
     </application>
 
