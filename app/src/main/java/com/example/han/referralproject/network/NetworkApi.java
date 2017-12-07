@@ -414,8 +414,8 @@ public class NetworkApi {
     ) {
         HashMap<String, String> params = new HashMap<>();
 
-//        params.put("bid",MyApplication.getInstance().userId);
-        params.put("bid","100001");
+        params.put("bid",MyApplication.getInstance().userId);
+//        params.put("bid","100001");
         params.put("temp",temp);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<TemperatureHistory>>() {}.getType(),
                 successCallback);
