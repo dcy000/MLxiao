@@ -1,5 +1,5 @@
 package com.example.han.referralproject.xindian;
-
+import java.io.IOException;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -14,14 +14,7 @@ import android.util.Log;
 import com.creative.base.InputStreamReader;
 import com.creative.base.OutputStreamSender;
 
-import java.io.IOException;
 
-/**
- * 后台服务类，在后台接收数据及监听各类广播消息
- * 
- * @author zougy
- * 
- */
 public class ReceiveService extends Service {
 
 	private MyBluetooth myBluetooth;
@@ -51,13 +44,13 @@ public class ReceiveService extends Service {
 	}
 
 	private void init() {
-		registerReceiver();// 注册广播接收器
-		// 初始化蓝牙操作, init bluetooth operation
+		registerReceiver();// ע��㲥������
+		// ��ʼ����������, init bluetooth operation
 		myBluetooth = new MyBluetooth(this, mHandler);
 	}
 
 	/**
-	 * 接收蓝牙和数据读取中发送的消息
+	 * �������������ݶ�ȡ�з��͵���Ϣ
 	 * updata bluetooth status handler
 	 */
 	private Handler mHandler = new Handler() {
@@ -99,11 +92,11 @@ public class ReceiveService extends Service {
 	};
 
 	/**
-	 * 开始接收设备数据
+	 * ��ʼ�����豸����
 	 * start to receive data
 	 * 
 	 * @param start
-	 *            是否开启
+	 *            �Ƿ���
 	 */
 	private void startRece(boolean start) {
 		if (start) {
@@ -127,11 +120,11 @@ public class ReceiveService extends Service {
 	}
 
 	/**
-	 * 注册广播接收器
+	 * ע��㲥������
 	 */
 	private void registerReceiver() {
 		IntentFilter filter = new IntentFilter();
-		// 蓝牙相关广播，监听蓝牙开
+		// ������ع㲥������������
 		filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
 
 		this.registerReceiver(bluetoothReceiver, filter);
@@ -154,7 +147,7 @@ public class ReceiveService extends Service {
 	}
 
 	/**
-	 * 注销广播接收器
+	 * ע���㲥������
 	 */
 	private void unregisterReceiver() {
 		this.unregisterReceiver(bluetoothReceiver);
@@ -165,7 +158,6 @@ public class ReceiveService extends Service {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			Log.i("mylog", " action : " + action);
 			if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
 				int state = intent.getExtras().getInt(
 						BluetoothAdapter.EXTRA_STATE);
@@ -174,22 +166,22 @@ public class ReceiveService extends Service {
 				} else if (state == BluetoothAdapter.STATE_ON) {
 					// sendBroadcast(ACTION_BLUETOOH_ON);
 				}
-			} else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {// 存储设备挂载
+			} else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {// �洢�豸����
 				sendBroadcast(ACTION_MEDIA_MOUNTED);
-			} else if (action.equals(Intent.ACTION_MEDIA_EJECT)) {// 存储设备被卸载
+			} else if (action.equals(Intent.ACTION_MEDIA_EJECT)) {// �洢�豸��ж��
 				sendBroadcast(ACTION_MEDIA_EJECT);
-			} else if (action.equals(Intent.ACTION_MEDIA_REMOVED)) {// 存储设备被移除
+			} else if (action.equals(Intent.ACTION_MEDIA_REMOVED)) {// �洢�豸���Ƴ�
 				sendBroadcast(ACTION_MEDIA_EJECT);
 			} else if (action.equals(BLU_ACTION_STARTDISCOVERY)) {
-				// 开始连接设备   start connect device
+				// ��ʼ�����豸   start connect device
 				int deviceName = intent.getExtras().getInt("device");
 				myBluetooth.startDiscovery(deviceName);
 			} else if (action.equals(BLU_ACTION_STOPDISCOVERY)) {
-				// 停止设备搜索  stop device discovery
+				// ֹͣ�豸����  stop device discovery
 				myBluetooth.stopDiscovery();
 			} else if (action.equals(BLU_ACTION_DISCONNECT)
 					|| action.equals(ACTION_BLU_DISCONNECT)
-					|| action.equals(ACTION_USER_EXIT)) {// 断开与设备的连接				
+					|| action.equals(ACTION_USER_EXIT)) {// �Ͽ����豸������				
 				//close receive data
 				startRece(false);
 				//bluetooth disconnect
@@ -199,57 +191,57 @@ public class ReceiveService extends Service {
 	};
 
 	/**
-	 * 蓝牙关闭广播
+	 * �����رչ㲥
 	 */
 	public static final String ACTION_BLUETOOH_OFF = "bluetooth_off";
 
 	/**
-	 * 蓝牙打开广播
+	 * �����򿪹㲥
 	 */
 	public static final String ACTION_BLUETOOH_ON = "bluetooth_on";
 
 	/**
-	 * 存储设备被卸载
+	 * �洢�豸��ж��
 	 */
 	public static final String ACTION_MEDIA_EJECT = "media_eject";
 
 	/**
-	 * 蓝牙连接断开
+	 * �������ӶϿ�
 	 */
 	public static final String ACTION_BLU_DISCONNECT = "disconnect";
 
 	/**
-	 * 存储设备已挂载
+	 * �洢�豸�ѹ���
 	 */
 	public static final String ACTION_MEDIA_MOUNTED = "media_mounted";
 
 	/**
-	 * 蓝牙连接状态改变
+	 * ��������״̬�ı�
 	 */
 	public static final String BLU_ACTION_STATE_CHANGE = "state_change";
 
 	/**
-	 * 蓝牙广播 开始连接设备
+	 * �����㲥 ��ʼ�����豸
 	 */
 	public static final String BLU_ACTION_STARTDISCOVERY = "startDiscovery";
 
 	/**
-	 * 蓝牙广播 停止连接设备
+	 * �����㲥 ֹͣ�����豸
 	 */
 	public static final String BLU_ACTION_STOPDISCOVERY = "stopDiscovery";
 
 	/**
-	 * 蓝牙广播 断开与设备的连接
+	 * �����㲥 �Ͽ����豸������
 	 */
 	public static final String BLU_ACTION_DISCONNECT = "disconnect";
 
 	/**
-	 * 用户广播————当前用户退出登录
+	 * �û��㲥����������ǰ�û��˳���¼
 	 */
 	public static final String ACTION_USER_EXIT = "userexit";
 
 	/**
-	 * 发送广播 主要用于通知应用蓝牙状态及设备存储卡的状态
+	 * ���͹㲥 ��Ҫ����֪ͨӦ������״̬���豸�洢����״̬
 	 * 
 	 * @param action
 	 */
@@ -259,7 +251,7 @@ public class ReceiveService extends Service {
 	}
 
 	/**
-	 * 发送广播 主要用于通知应用蓝牙当前的连接状态
+	 * ���͹㲥 ��Ҫ����֪ͨӦ��������ǰ������״̬
 	 * 
 	 * @param arg
 	 */

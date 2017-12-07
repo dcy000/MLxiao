@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,9 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * draw by view
@@ -43,8 +47,8 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 	private Thread drawThread;
 
 	private TextView tv_Gain, tv_HR, tv_MSG;
-
 	private ImageView img_Battery, img_Smooth, img_Pulse;
+	private Button btn_Conn,btn_Replay;
 
 	/**
 	 * 心电测量结果
@@ -67,21 +71,17 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_context_pc80b);
 		startService(new Intent(this, ReceiveService.class));
+		findViewById(R.id.icon_back).setOnClickListener(this);
 		init();
-		
-		android6_RequestLocation();
 
-		if (MyBluetooth.isConnected) {
-			sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
-		} else {
-			Intent i = new Intent(this, ConnectActivity.class);
-			i.putExtra("device", 3);
-			startActivityForResult(i, 0x100);
-		}
+		Intent i = new Intent(this, ConnectActivity.class);
+		i.putExtra("device", 3);
+		startActivityForResult(i, 0x100);
+
+		android6_RequestLocation();
 	}
 
 	private void init() {
-
 		measureResult = getResources().getStringArray(R.array.ecg_measureres);
 		tv_MSG = (TextView) findViewById(R.id.main_pc80B_MSG);
 		tv_Gain = (TextView) findViewById(R.id.main_pc80B_title_gain);
@@ -91,6 +91,11 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 		img_Smooth = (ImageView) findViewById(R.id.main_pc80B_title_smooth);
 		img_Pulse = (ImageView) findViewById(R.id.main_pc80B_title_pulse);
 
+//		btn_Conn = (Button) findViewById(R.id.btn_connect);
+//		btn_Replay = (Button) findViewById(R.id.btn_replay);
+//		btn_Conn.setOnClickListener(this);
+//		btn_Replay.setOnClickListener(this);
+
 		drawRunable = (DrawThreadPC80B) findViewById(R.id.main_pc80B_view_draw);
 		drawBG = (BackGround) findViewById(R.id.main_pc80B_view_bg);
 		drawRunable.setmHandler(mHandler);
@@ -98,16 +103,6 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ReceiveService.ACTION_BLU_DISCONNECT);
 		registerReceiver(receiver, filter);
-		findViewById(R.id.icon_back).setOnClickListener(this);
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()){
-			case R.id.icon_back:
-				finish();
-				break;
-		}
 	}
 
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -116,7 +111,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			if (action.equals(ReceiveService.ACTION_BLU_DISCONNECT)) {
-				Toast.makeText(mContext, R.string.connect_connect_off,
+				Toast.makeText(XinDianDetectActivity.this, R.string.connect_connect_off,
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -126,127 +121,122 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
 		@Override
 		public void handleMessage(Message msg) {
-			super.handleMessage(msg);					
+			super.handleMessage(msg);
 			switch (msg.what) {
-			case StaticReceive.MSG_DATA_BATTERY: {
-				setBattery(msg.arg1);
-			}
+				case StaticReceive.MSG_DATA_BATTERY: {
+					setBattery(msg.arg1);
+				}
 				break;
-			case BATTERY_ZERO: {// 电池电量为0时的消息  battery 0 level
-				if (img_Battery.isShown()) {
-					img_Battery.setVisibility(View.INVISIBLE);
-				} else {
-					img_Battery.setVisibility(View.VISIBLE);
+				case BATTERY_ZERO: {// 电池电量为0时的消息  battery 0 level
+					if (img_Battery.isShown()) {
+						img_Battery.setVisibility(View.INVISIBLE);
+					} else {
+						img_Battery.setVisibility(View.VISIBLE);
+					}
+					mHandler.sendEmptyMessageDelayed(BATTERY_ZERO, 500);
 				}
-				mHandler.sendEmptyMessageDelayed(BATTERY_ZERO, 500);
-			}
 				break;
-			case StaticReceive.MSG_DATA_ECG_STATUS_CH: {
-				switch (msg.arg1) {
-				case StatusMsg.FILE_TRANSMIT_START: {// 接收文件 receive file
-					setMSG(getResources().getString(
-							R.string.measure_ecg_file_ing));
-				}
-					break;
-				case StatusMsg.FILE_TRANSMIT_SUCCESS: {
-					setMSG(getResources().getString(
-							R.string.measure_ecg_file_end));
-				}
-					break;
-				case StatusMsg.FILE_TRANSMIT_ERROR: {
-					setMSG(getResources().getString(
-							R.string.measure_ecg_time_err));
-				}
-					break;
-				case StaticReceive.MSG_DATA_TIMEOUT: {
-					setMSG(getResources().getString(
-							R.string.measure_ecg_time_out));
-				}
-					break;
-				case 4: {// 准备阶段波形   ready wave
-					if (drawRunable.isPause()) {
-						drawRunable.Continue();
-					}
-					Bundle data = msg.getData();
-					if (data.getBoolean("bLeadoff")) {
-						setMSG(getResources().getString(
-								R.string.measure_lead_off));
-					} else {
-						setMSG(" ");
-					}
-					setGain(data.getInt("nGain"));
-				}
-					break;
-				case 5: {// 实时测量波形    measure wave real time
-					if (drawRunable.isPause()) {
-						drawRunable.Continue();
-					}
-					Bundle data = msg.getData();
-					if (data.getBoolean("bLeadoff")) {
-						setMSG(getResources().getString(
-								R.string.measure_lead_off));
-					} else {
-						setMSG(" ");
-					}
-					data.getInt("nTransMode");
-					setHR(data.getInt("nHR"));
-					setGain(data.getInt("nGain"));
-				}
-					break;
-				case 6: {// 测量结果   measure result
-					Bundle data = msg.getData();
-					nTransMode = data.getInt("nTransMode");
-					String time = data.getString("time");
-					if (nTransMode == StatusMsg.TRANSMIT_MODE_QUICK
-							&& time != null) {
-						setMSG(measureResult[data.getInt("nResult")]);
-					} else {
-						setMSG("");
-					}
-					drawRunable.cleanWaveData();
-					drawRunable.Pause();
-					setGain(0);
-					setHR(data.getInt("nHR"));
-					DataInfoBean info = new DataInfoBean();
-					info.ecg = data.getInt("nResult");
-					info.heart_rate = data.getInt("nHR");
-					NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
-						@Override
-						public void onSuccess(String response) {
-							//Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+				case StaticReceive.MSG_DATA_ECG_STATUS_CH: {
+					switch (msg.arg1) {
+						case StatusMsg.FILE_TRANSMIT_START: {// 接收文件 receive file
+							setMSG(getResources().getString(
+									R.string.measure_ecg_file_ing));
 						}
-					});
-					setSmooth(false);
-				}
-					break;
-				case 7: {// 传输设置    setting data transmission mode
-					int nSmoothingMode = msg.arg2;// 滤波模式     filter mode
-					nTransMode = (Integer) msg.obj;// 传输模式   transmission mode
-					if (nTransMode == StatusMsg.TRANSMIT_MODE_FILE) {
-						setMSG(getResources().getString(
-								R.string.measure_ecg_file_ing));
-					} else if (nTransMode == StatusMsg.TRANSMIT_MODE_CONTINUOUS) {
-						setMSG("");
-						setSmooth(nSmoothingMode == StatusMsg.SMOOTHMODE_ENHANCE);
+						break;
+						case StatusMsg.FILE_TRANSMIT_SUCCESS: {
+							setMSG(getResources().getString(
+									R.string.measure_ecg_file_end));
+						}
+						break;
+						case StatusMsg.FILE_TRANSMIT_ERROR: {
+							setMSG(getResources().getString(
+									R.string.measure_ecg_time_err));
+						}
+						break;
+						case StaticReceive.MSG_DATA_TIMEOUT: {
+							setMSG(getResources().getString(
+									R.string.measure_ecg_time_out));
+						}
+						break;
+						case 4: {// 准备阶段波形   ready wave
+							if (drawRunable.isPause()) {
+								drawRunable.Continue();
+							}
+							Bundle data = msg.getData();
+							if (data.getBoolean("bLeadoff")) {
+								setMSG(getResources().getString(
+										R.string.measure_lead_off));
+							} else {
+								setMSG(" ");
+							}
+							setGain(data.getInt("nGain"));
+						}
+						break;
+						case 5: {// 实时测量波形    measure wave real time
+							if (drawRunable.isPause()) {
+								drawRunable.Continue();
+							}
+							Bundle data = msg.getData();
+							if (data.getBoolean("bLeadoff")) {
+								setMSG(getResources().getString(
+										R.string.measure_lead_off));
+							} else {
+								setMSG(" ");
+							}
+							data.getInt("nTransMode");
+							setHR(data.getInt("nHR"));
+							setGain(data.getInt("nGain"));
+						}
+						break;
+						case 6: {// 测量结果   measure result
+							Bundle data = msg.getData();
+							nTransMode = data.getInt("nTransMode");
+							String time = data.getString("time");
+							if (nTransMode == StatusMsg.TRANSMIT_MODE_QUICK
+									&& time != null) {
+								setMSG(measureResult[data.getInt("nResult")]);
+							} else {
+								setMSG("");
+							}
+							drawRunable.cleanWaveData();
+							drawRunable.Pause();
+							setGain(0);
+							setHR(data.getInt("nHR"));
+							setSmooth(false);
+						}
+						break;
+						case 7: {// 传输设置    setting data transmission mode
+							int nSmoothingMode = msg.arg2;// 滤波模式     filter mode
+							nTransMode = (Integer) msg.obj;// 传输模式   transmission mode
+							if (nTransMode == StatusMsg.TRANSMIT_MODE_FILE) {
+								setMSG(getResources().getString(
+										R.string.measure_ecg_file_ing));
+							} else if (nTransMode == StatusMsg.TRANSMIT_MODE_CONTINUOUS) {
+								setMSG("");
+								setSmooth(nSmoothingMode == StatusMsg.SMOOTHMODE_ENHANCE);
+							}
+						}
+						break;
 					}
 				}
-					break;
+				break;
+				case StaticReceive.MSG_DATA_PULSE: {
+					showPulse(true);
 				}
-			}
 				break;
-			case StaticReceive.MSG_DATA_PULSE: {
-				showPulse(true);
-			}
+				case RECEIVEMSG_PULSE_OFF: {
+					showPulse(false);
+				}
 				break;
-			case RECEIVEMSG_PULSE_OFF: {
-				showPulse(false);
-			}
+				case StaticReceive.MSG_TERMINAL_OFFLINE:{
+					sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
+				}
 				break;
-			case StaticReceive.MSG_TERMINAL_OFFLINE:{				
-				sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
-			}
+				case MSG_NO_EXIST_ECGFILE:{
+					Toast.makeText(XinDianDetectActivity.this, "there is not ecg file", Toast.LENGTH_SHORT).show();
+				}
 				break;
-			default:break;
+				default:break;
 			}
 		}
 
@@ -310,6 +300,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 		super.onDestroy();
 		sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
 		if (!drawRunable.isStop()) {
+			//drawRunable.Continue();
 			drawRunable.Stop();
 		}
 		drawThread = null;
@@ -321,7 +312,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 	private static final int BATTERY_ZERO = 0x302;
 
 	private void setBattery(int battery) {
-//		setImgResource(img_Battery, batteryRes[battery]);
+		//setImgResource(img_Battery, batteryRes[battery]);
 		if (battery == 0) {
 			if (!mHandler.hasMessages(BATTERY_ZERO)) {
 				mHandler.sendEmptyMessage(BATTERY_ZERO);
@@ -332,28 +323,56 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 		}
 	}
 
+	private boolean isConn;
 	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		menu.clear();
-		if (MyBluetooth.isConnected) {
-			menu.add("disconnect device"); // 断开连接
-		} else {
-			menu.add("connect device"); // 连接设备
+	public void onClick(View v) {
+		switch (v.getId()){
+			case R.id.iv_back:
+				finish();
+				break;
 		}
-		return super.onPrepareOptionsMenu(menu);
+//		if(v.getId() == R.id.btn_connect){
+//			isConn = !isConn;
+//			if (isConn) {// connect
+//				btn_Conn.setText(getString(R.string.main_bt_disconnect));
+//				Intent i = new Intent(this, ConnectActivity.class);
+//				i.putExtra("device", 3);
+//				startActivityForResult(i, 0x100);
+//			} else {// disConnect
+//				btn_Conn.setText(getString(R.string.connect_connect));
+//				sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
+//			}
+//		}else if(v.getId() == R.id.btn_replay){
+//			replay();
+//		}
+
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (MyBluetooth.isConnected) {
-			sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
-		} else {			
-			Intent i = new Intent(this, ConnectActivity.class);
-			i.putExtra("device", 3);
-			startActivityForResult(i, 0x100);
-		}
-		return super.onOptionsItemSelected(item);
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.main, menu);
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		int id = item.getItemId();
+//		if (id == R.id.action_connect) {
+//			if (MyBluetooth.isConnected) {//断开
+//				item.setTitle(getString(R.string.connect_connect));
+//				sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
+//			} else {//连接
+//				item.setTitle(getString(R.string.main_bt_disconnect));
+//				Intent i = new Intent(this, ConnectActivity.class);
+//				i.putExtra("device", 3);
+//				startActivityForResult(i, 0x100);
+//			}
+//		}else if(id == R.id.action_replay){
+//			replay();
+//		}
+//		return super.onOptionsItemSelected(item);
+//	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -365,7 +384,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
 	/**
 	 * 设置滤波模式
-	 * 
+	 *
 	 * @param isVisible
 	 */
 	private void setSmooth(boolean isVisible) {
@@ -374,7 +393,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
 	/**
 	 * 设置图片
-	 * 
+	 *
 	 * @param img
 	 * @param res
 	 */
@@ -430,25 +449,48 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 			}
 		}
 	}
-	
+
 	/**
 	 * android6.0 蓝牙检测
 	 * android 6.0 access bluetooth
 	 */
 	private static final int REQUEST_FINE_LOCATION=0;
 	private void android6_RequestLocation(){
-		if (Build.VERSION.SDK_INT >= 23) {
+//		if (Build.VERSION.SDK_INT >= 23) {
 //			int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 //			if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
 //				//判断是否需要 向用户解释，为什么要申请该权限
 //				if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))
-//					Toast.makeText(this,"need to open location info for discovery bluetooth device in android6.0 version，otherwise find not！", Toast.LENGTH_LONG).show();
+//					Toast.makeText(this,"need to open location info for discovering bluetooth device in android6.0 system，otherwise dont find！", Toast.LENGTH_LONG).show();
 //
 //				//请求权限
 //				ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_FINE_LOCATION);
 //				return;
 //			}
-		}
-	}	
+//		}
+	}
+
+
+	private static final int MSG_NO_EXIST_ECGFILE = 46;
+	public static List<Integer> mECGReplayBuffer;
+
+	private void replay(){
+		new Thread(){
+			public void run() {
+				if (drawRunable.isPause()) {
+					drawRunable.Continue();
+				}
+
+				String path = StaticReceive.filePath+"/"+StaticReceive.fileName;
+				File file = new File(path);
+				if(!file.exists()){
+					mHandler.sendEmptyMessage(MSG_NO_EXIST_ECGFILE);
+					return;
+				}
+				mECGReplayBuffer = MyUtil.readFile(path);
+
+			};
+		}.start();
+	}
 
 }
