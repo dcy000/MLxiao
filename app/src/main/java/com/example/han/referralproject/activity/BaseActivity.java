@@ -12,8 +12,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
+import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
@@ -38,6 +46,7 @@ public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
+    protected LayoutInflater mInflater;
     // 语音合成对象
     private SpeechSynthesizer mTts;
     // 默认发音人
@@ -49,7 +58,15 @@ public class BaseActivity extends AppCompatActivity {
     private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
     private boolean enableListeningLoop;
-
+    private LinearLayout rootView;
+    private View mTitleView;
+    protected TextView mTitleText;
+    protected TextView mRightText;
+    protected ImageView mLeftView;
+    protected ImageView mRightView;
+    protected TextView mLeftText;
+    protected RelativeLayout mToolbar;
+    protected LinearLayout mllBack;
 
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
@@ -63,6 +80,13 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         mResources = getResources();
+        mInflater = LayoutInflater.from(this);
+        rootView = new LinearLayout(this);
+        rootView.setOrientation(LinearLayout.VERTICAL);
+        mTitleView = mInflater.inflate(R.layout.custom_title_layout, null);
+        rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                (int) (70 * mResources.getDisplayMetrics().density)));
+        initToolbar();
 
         enableListeningLoop = true;
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
@@ -78,6 +102,54 @@ public class BaseActivity extends AppCompatActivity {
             mTts = synthesizer;
         }
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
+    }
+
+    private void initToolbar() {
+        mllBack= (LinearLayout) mTitleView.findViewById(R.id.ll_back);
+        mToolbar= (RelativeLayout) mTitleView.findViewById(R.id.toolbar);
+        mTitleText = (TextView) mTitleView.findViewById(R.id.tv_top_title);
+        mLeftText= (TextView) mTitleView.findViewById(R.id.tv_top_left);
+        mRightText = (TextView) mTitleView.findViewById(R.id.tv_top_right);
+        mLeftView = (ImageView) mTitleView.findViewById(R.id.iv_top_left);
+        mRightView = (ImageView) mTitleView.findViewById(R.id.iv_top_right);
+        mllBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backLastActivity();
+            }
+        });
+        mRightView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backMainActivity();
+            }
+        });
+    }
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity(){
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity(){
+        startActivity(new Intent(mContext,MainActivity.class));
+        finish();
+    }
+    @Override
+    public void setContentView(int layoutResID) {
+        mInflater.inflate(layoutResID, rootView);
+        super.setContentView(rootView);
+    }
+
+    @Override
+    public void setContentView(View view) {
+        rootView.addView(view);
+        super.setContentView(rootView);
     }
 
     private InitListener mTtsInitListener = new InitListener() {

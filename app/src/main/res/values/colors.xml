@@ -51,4 +51,7 @@
     <color name="healthy_shoppings">#999999</color>
     <!--导航栏的背景颜色-->
     <color name="toolbar_bg">#3F86FC</color>
+    <color name="color_9cd793">#9CD793</color>
+    <color name="color_6d80e2">#6D80E2</color>
+    <color name="color_CFD8F1">#a8b9ec</color>
 </resources>
