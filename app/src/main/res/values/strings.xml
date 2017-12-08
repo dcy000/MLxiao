@@ -342,7 +342,7 @@
     <string name="afternoon">下\n午</string>
     <string name="morning">上\n午</string>
 
-    <string name="dialog" formatted="false">您确定要在%1$s月%2$s日%3$s%4$s和%5$s医生进行预约吗？</string>
+    <string name="dialog" formatted="false">您确定要在%1$s年%2$s月%3$s日%4$s%5$s和%6$s医生进行预约吗？</string>
     <string name="sign_up1_name_tip">主人,请输入您的姓名</string>
     <string name="meat_collocation">荤素搭配</string>
     <string name="meat_preference">偏好吃荤</string>
@@ -380,10 +380,10 @@
 
     <string name="pay">账&#160;&#160;户&#160;&#160;充&#160;&#160;值</string>
 
-    <string name="pay_1">0.01元</string>
+    <string name="pay_1">50元</string>
     <string name="pay_2">充&#160;&#160;&#160;值</string>
-    <string name="pay_3">50元</string>
-    <string name="pay_4">100元</string>
+    <string name="pay_3">100元</string>
+    <string name="pay_4">200元</string>
     <string name="pay_introduce">请用支付宝APP扫描完成支付</string>
     <string name="pay_introduces">请用微信APP扫描完成支付</string>
 
@@ -394,7 +394,7 @@
     <string name="yuyue_1">主人，请点击预约按钮和签约医生进行预约</string>
 
     <string name="healthy_class">健&#160;&#160;康&#160;&#160;讲&#160;&#160;坛</string>
-    <string name="doctor_yuyue">医&#160;&#160;生&#160;&#160;预&#160;&#160;约</string>
+    <string name="doctor_yuyue">添&#160;&#160;加&#160;&#160;预&#160;&#160;约</string>
     <string name="touxiang_true">头&#160;&#160;像&#160;&#160;确&#160;&#160;认</string>
 
     <string name="doctor_pinjia">医&#160;&#160;生&#160;&#160;评&#160;&#160;价</string>
@@ -485,4 +485,16 @@
     <string name="disease_reason"></string>
     <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;医&#160;&#160;生</string>
     <string name="bodyguide">主人，请选择病症对应部位</string>
+
+
+    <string name="zhiji">职&#160;&#160;&#160;级：主任医师</string>
+
+    <string name="shanchang">擅&#160;&#160;&#160;长：高血压、糖尿病</string>
+
+    <string name="shoufei">收费标准：10元/分钟</string>
+
+    <string name="after">上\n午</string>
+
+    <string name="afternoons">下\n午</string>
+
 </resources>

@@ -18,6 +18,8 @@
         android:name="com.example.han.referralproject.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
     <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -188,16 +190,17 @@
             android:name=".xindian.ReceiveService"
             android:enabled="true" />
 
-        <activity android:name=".xindian.ConnectActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".xindian.ConnectActivity"
+            android:screenOrientation="landscape" />
+
         <service
             android:name=".xindian.ReceiveService"
             android:enabled="true" />
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape" >
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -207,8 +210,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -232,15 +234,13 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".WelcomeActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape" />
@@ -255,19 +255,8 @@
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
-        <activity android:name=".facerecognition.RegisterVideoActivity" >
-        </activity>
-        <activity android:name=".recyclerview.RecoDocActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-        </activity>
+        <activity android:name=".facerecognition.RegisterVideoActivity"></activity>
+        <activity android:name=".recyclerview.RecoDocActivity"></activity>
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
@@ -336,10 +325,10 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".recyclerview.AppraiseActivity"></activity>
+        <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
-        <activity android:name=".recyclerview.DoctorappoActivity" />
-        <activity android:name=".recyclerview.AddAppoActivity" />
+        <activity android:name=".recyclerview.DoctorappoActivity"></activity>
+        <activity android:name=".recyclerview.AddAppoActivity"></activity>
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
@@ -364,7 +353,15 @@
         <activity android:name="com.medlink.danbogh.register.SignUp12DrinkActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity" />
-        <activity android:name=".recharge.PayActivity" />
+        <activity android:name=".recharge.PayActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".recharge.PayInfoActivity" />
         <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity" />
 
@@ -438,13 +435,18 @@
         <activity android:name=".activity.MyBaseDataActivity" />
         <activity android:name=".activity.SymptomsActivity" />
         <activity android:name=".activity.BodychartActivity" />
-        <activity android:name=".shopping.OrderListActivity">
-
-        </activity>
+        <activity android:name=".shopping.OrderListActivity"></activity>
         <activity android:name=".activity.DiseaseDetailsActivity" />
         <activity android:name=".activity.DiseaseDetails2Activity" />
         <activity android:name=".recyclerview.OnlineDoctorListActivity" />
-        <activity android:name=".recyclerview.DoctorAskGuideActivity"></activity>
+        <activity android:name=".recyclerview.DoctorAskGuideActivity" />
+        <activity
+            android:name=".recharge.DefineActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"></activity>
+
+        <service android:name=".floatingball.AssistiveTouchService" />
+
     </application>
 
 </manifest>

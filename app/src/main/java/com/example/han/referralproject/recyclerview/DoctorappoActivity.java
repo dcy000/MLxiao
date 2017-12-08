@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
+public class DoctorappoActivity extends BaseActivity  implements View.OnClickListener{
 
     SharedPreferences sharedPreferences1;
 
@@ -599,7 +599,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         mTextView12 = (TextView) findViewById(R.id.service_amount);
 
-        mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
+     //   mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
@@ -617,7 +617,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mTextView3.setText(sharedPreferences1.getString("name", ""));
         mTextView4.setText("职级：" + sharedPreferences1.getString("position", ""));
         mTextView5.setText("擅长：" + sharedPreferences1.getString("feature", ""));
-
 
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -675,7 +674,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             mLinearLayout3.setVisibility(View.INVISIBLE);
 
         }
-
     }
 
 

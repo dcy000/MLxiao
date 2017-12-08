@@ -58,6 +58,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/pay_1"
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:background="@drawable/shape_pay"
@@ -68,18 +69,30 @@
 
 
             <Button
-                android:id="@+id/pay_1"
-                android:layout_width="180dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
+                android:id="@+id/pay_4"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/shape_pay_1"
+                android:background="@drawable/shape_pay"
                 android:gravity="center"
-                android:text="@string/pay_2"
-                android:textColor="@color/white"
-                android:textSize="35sp"
+                android:text="500元"
+                android:textColor="#3F86FB"
+                android:textSize="50sp" />
 
-                />
+
+            <!-- <Button
+                 android:id="@+id/pay_1"
+                 android:layout_width="180dp"
+                 android:layout_height="60dp"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginTop="20dp"
+                 android:background="@drawable/shape_pay_1"
+                 android:gravity="center"
+                 android:text="@string/pay_2"
+                 android:textColor="@color/white"
+                 android:textSize="35sp"
+
+                 />-->
         </LinearLayout>
 
 
@@ -90,6 +103,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/pay_2"
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:background="@drawable/shape_pay"
@@ -99,19 +113,29 @@
                 android:textSize="50sp" />
 
 
-            <Button
-                android:id="@+id/pay_2"
-                android:layout_width="180dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/shape_pay_2"
-                android:gravity="center"
-                android:text="@string/pay_2"
-                android:textColor="@color/white"
-                android:textSize="35sp"
+            <!-- <Button
+                 android:id="@+id/pay_2"
+                 android:layout_width="180dp"
+                 android:layout_height="60dp"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginTop="20dp"
+                 android:background="@drawable/shape_pay_2"
+                 android:gravity="center"
+                 android:text="@string/pay_2"
+                 android:textColor="@color/white"
+                 android:textSize="35sp"
+                 />-->
 
-                />
+            <Button
+                android:id="@+id/pay_5"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_pay"
+                android:gravity="center"
+                android:text="1000元"
+                android:textColor="#3F86FB"
+                android:textSize="50sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -121,6 +145,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/pay_3"
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:background="@drawable/shape_pay"
@@ -130,19 +155,30 @@
                 android:textSize="50sp" />
 
 
-            <Button
-                android:id="@+id/pay_3"
-                android:layout_width="180dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/shape_pay_3"
-                android:gravity="center"
-                android:text="@string/pay_2"
-                android:textColor="@color/white"
-                android:textSize="35sp"
+            <!--  <Button
+                  android:id="@+id/pay_3"
+                  android:layout_width="180dp"
+                  android:layout_height="60dp"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginTop="20dp"
+                  android:background="@drawable/shape_pay_3"
+                  android:gravity="center"
+                  android:text="@string/pay_2"
+                  android:textColor="@color/white"
+                  android:textSize="35sp"
 
-                />
+                  />-->
+
+            <Button
+                android:id="@+id/pay_6"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_pay"
+                android:gravity="center"
+                android:text="更多"
+                android:textColor="#3F86FB"
+                android:textSize="50sp" />
         </LinearLayout>
 
 

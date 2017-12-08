@@ -3,6 +3,7 @@ package com.example.han.referralproject.application;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.ForegroundObserver;
 import com.example.han.referralproject.music.HttpInterceptor;
@@ -64,6 +66,11 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
+        startService(intent);
+
+
         UiUtils.init(this, 1980, 1200);
         UiUtils.compat(this, 1980);
         T.init(this);
@@ -75,7 +82,7 @@ public class MyApplication extends Application {
         WakeupHelper.init(this);
         StringBuilder builder = new StringBuilder();
         builder.append("appid=").append(getString(R.string.app_id)).append(",")
-                .append(SpeechConstant.ENGINE_MODE+"="+SpeechConstant.MODE_MSC);
+                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
         SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
         //EM
 //        initHyphenate(this);
