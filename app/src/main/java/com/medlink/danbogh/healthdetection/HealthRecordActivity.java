@@ -832,8 +832,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(tiwenChart);
                     tiwenChart.setMarker(mv);
+                    setTiwen(values, colors);
                 }
-                setTiwen(values, colors);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -887,8 +887,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times, response);
                     mv.setChartView(xueyaChart);
                     xueyaChart.setMarker(mv);
+                    setXueya(yVals1, yVals2, colors1, colors2);
                 }
-                setXueya(yVals1, yVals2, colors1, colors2);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -911,6 +911,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onSuccess(ArrayList<BloodSugarHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
+                ArrayList<Float> sugarValue = new ArrayList<Float>();
                 ArrayList<Long> times = new ArrayList<>();
                 ArrayList<Integer> colors = new ArrayList<>();
 
@@ -918,7 +919,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     switch (flag){
                         case 0:
                             if(response.get(i).sugar_time==0){
-                                value.add(new Entry(i, response.get(i).blood_sugar));
+                                sugarValue.add(response.get(i).blood_sugar);
                                 times.add(response.get(i).time);
                                 if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
                                     colors.add(Color.RED);
@@ -929,7 +930,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                             break;
                         case 1:
                             if(response.get(i).sugar_time==1){
-                                value.add(new Entry(i, response.get(i).blood_sugar));
+                                sugarValue.add(response.get(i).blood_sugar);
                                 times.add(response.get(i).time);
                                 if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
                                     colors.add(Color.RED);
@@ -940,7 +941,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                             break;
                         case 2:
                             if(response.get(i).sugar_time==2){
-                                value.add(new Entry(i, response.get(i).blood_sugar));
+                                sugarValue.add(response.get(i).blood_sugar);
                                 times.add(response.get(i).time);
                                 if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
                                     colors.add(Color.RED);
@@ -953,23 +954,26 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
 
                 }
+                for(int i=0;i<sugarValue.size();i++) {
+                    value.add(new Entry(i, response.get(i).blood_sugar));
+                }
                 if (times.size() != 0) {
                     setXueTangChart();
                     xuetangChart.getXAxis().setValueFormatter(new TimeFormatter(times));
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(xuetangChart); // For bounds control
                     xuetangChart.setMarker(mv); // Set the marker to the chart
+                    setXuetang(value, colors);
                 }
 
-                setXuetang(value, colors);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-//                xuetangChart.setNoDataText(getResources().getString(R.string.noData));
-//                xuetangChart.setData(null);
-//                xuetangChart.invalidate();
+                xuetangChart.setNoDataText(getResources().getString(R.string.noData));
+                xuetangChart.setData(null);
+                xuetangChart.invalidate();
             }
         });
     }
@@ -1001,8 +1005,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(xueyangChart); // For bounds control
                     xueyangChart.setMarker(mv); // Set the marker to the chart
+                    setXueyang(value, colors);
                 }
-                setXueyang(value, colors);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -1031,8 +1035,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(xinlvChart); // For bounds control
                     xinlvChart.setMarker(mv); // Set the marker to the chart
+                    setXinlv(value);
                 }
-                setXinlv(value);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -1058,8 +1062,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(maiboChart); // For bounds control
                     maiboChart.setMarker(mv); // Set the marker to the chart
+                    setMaibo(value);
                 }
-                setMaibo(value);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -1098,8 +1102,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(danguchunChart); // For bounds control
                     danguchunChart.setMarker(mv); // Set the marker to the chart
+                    setDanguchun(value, colors);
                 }
-                setDanguchun(value, colors);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -1142,8 +1146,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(xueniaosuanChart); // For bounds control
                     xueniaosuanChart.setMarker(mv); // Set the marker to the chart
+                    setXueniaosuan(value, colors);
                 }
-                setXueniaosuan(value, colors);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
