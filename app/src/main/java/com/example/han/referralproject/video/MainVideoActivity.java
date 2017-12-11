@@ -75,6 +75,8 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_video);
 
+        mToolbar.setVisibility(View.GONE);
+
         //initToolBar();
 
         ImageView1 = (ImageView) findViewById(R.id.icon_back);

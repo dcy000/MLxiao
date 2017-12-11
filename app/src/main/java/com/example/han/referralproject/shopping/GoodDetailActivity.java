@@ -63,6 +63,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
         speak(getString(R.string.shop_mount));
 
+        mToolbar.setVisibility(View.GONE);
 
         mActivity = this;
 

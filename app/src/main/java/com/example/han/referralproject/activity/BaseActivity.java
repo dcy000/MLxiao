@@ -84,8 +84,7 @@ public class BaseActivity extends AppCompatActivity {
         rootView = new LinearLayout(this);
         rootView.setOrientation(LinearLayout.VERTICAL);
         mTitleView = mInflater.inflate(R.layout.custom_title_layout, null);
-        rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                (int) (70 * mResources.getDisplayMetrics().density)));
+        rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (70 * mResources.getDisplayMetrics().density)));
         initToolbar();
 
         enableListeningLoop = true;

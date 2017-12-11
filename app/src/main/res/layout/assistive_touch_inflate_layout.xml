@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="500dp"
+    android:layout_height="300dp"
+    android:layout_gravity="center"
+    android:alpha="0.85"
+    android:background="@drawable/bg_touch">
+
+
+    <SeekBar
+        android:id="@+id/seek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="100dp"
+        android:focusable="true"
+        android:max="15"
+        android:maxHeight="4dp"
+        android:minHeight="4dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:progress="3"
+        android:progressDrawable="@drawable/line"
+        android:thumb="@drawable/progressbar" />
+
+
+</RelativeLayout>

@@ -15,18 +15,11 @@ android {
         multiDexEnabled true
     }
     buildTypes {
-        debug {
-            // 简单粗暴解决多个库引用 jni 库出现 UnsatisfiedLinkError 文件错误问题
-            ndk {
-                abiFilters = ["armeabi-v7a", "x86"]
-            }
-        }
-
-
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        app {
         }
     }
 

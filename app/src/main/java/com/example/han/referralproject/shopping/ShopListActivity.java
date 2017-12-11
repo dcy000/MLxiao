@@ -47,6 +47,8 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
 
+        mToolbar.setVisibility(View.GONE);
+
 
         speak(getString(R.string.shop_good));
 

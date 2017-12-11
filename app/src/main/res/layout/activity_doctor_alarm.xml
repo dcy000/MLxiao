@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
     tools:context="com.example.han.referralproject.recyclerview.DoctorAlarmActivity">
 
-    <LinearLayout
+  <!--  <LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
@@ -42,21 +41,21 @@
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:src="@drawable/icon_home" />
-
+-->
 
     <LinearLayout
         android:id="@+id/linear_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:src="@drawable/alarm" />
+            android:src="@drawable/img_yssp" />
 
         <TextView
             android:layout_width="wrap_content"
