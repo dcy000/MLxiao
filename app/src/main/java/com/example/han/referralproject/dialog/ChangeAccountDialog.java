@@ -66,12 +66,12 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.view_login:
-                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                mContext.startActivity(new Intent(mContext, SignInActivity.class));
                 ((Activity)mContext).finish();
                 break;
             case R.id.btn_logout:
                 LocalShared.getInstance(mContext).loginOut();
-                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                mContext.startActivity(new Intent(mContext, SignInActivity.class));
                 ((Activity)mContext).finish();
 //                if (mDataList == null){
 //                    return;

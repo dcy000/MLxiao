@@ -3,7 +3,6 @@ package com.medlink.danbogh.signin;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -17,17 +16,25 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
+import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.register.SignUp1NameActivity;
+import com.medlink.danbogh.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends BaseActivity {
 
     @BindView(R.id.et_sign_in_phone)
     EditText etPhone;
@@ -45,6 +52,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        mToolbar.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
         etPhone.addTextChangedListener(inputWatcher);
         etPassword.addTextChangedListener(inputWatcher);
@@ -107,9 +115,33 @@ public class SignInActivity extends AppCompatActivity {
         }
     };
 
+    @OnClick(R.id.cl_root)
+    public void onClRootClicked() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            Utils.hideKeyBroad(view);
+        }
+    }
+
     @OnClick(R.id.tv_sign_in_sign_in)
     public void onTvSignInClicked() {
-
+        showLoadingDialog(getString(R.string.do_login));
+        NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
+            @Override
+            public void onSuccess(UserInfoBean response) {
+                LocalShared.getInstance(mContext).setUserInfo(response);
+                LocalShared.getInstance(mContext).addAccount(response.bid);
+                hideLoadingDialog();
+                startActivity(new Intent(mContext, MainActivity.class));
+                finish();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                hideLoadingDialog();
+                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @OnClick(R.id.tv_sign_in_sign_up)
@@ -119,7 +151,13 @@ public class SignInActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_sign_in_forget_password)
     public void onTvForgetPasswordClicked() {
-
+        String phone = etPhone.getText().toString().trim();
+        Intent intent = new Intent(SignInActivity.this, FindPasswordActivity.class);
+        if (Utils.isValidPhone(phone)) {
+            intent.putExtra("phone", phone);
+        }
+        startActivity(intent);
+        finish();
     }
 
     @Override

@@ -26,7 +26,7 @@
             android:id="@+id/tv_top_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:text="返回"
             android:layout_toRightOf="@id/iv_top_left"
             android:textColor="@color/white"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:textSize="32sp"
+        android:textSize="34sp"
         android:text=""
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_centerInParent="true"/>
