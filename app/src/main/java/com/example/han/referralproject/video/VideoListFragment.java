@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.recyclerview.LinearLayoutDividerItemDecoration;
+import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.utils.Utils;
@@ -62,9 +64,10 @@ public class VideoListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvVideos = (RecyclerView) view.findViewById(R.id.rv_videos);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvVideos.setLayoutManager(layoutManager);
+        rvVideos.addItemDecoration(new GridViewDividerItemDecoration(30,52));
         rvVideos.setAdapter(adapter);
         fetchVideos(position);
     }
