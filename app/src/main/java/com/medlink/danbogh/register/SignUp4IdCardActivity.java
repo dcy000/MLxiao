@@ -51,6 +51,7 @@ public class SignUp4IdCardActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up4_id_card);
+        mToolbar.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
     }
 

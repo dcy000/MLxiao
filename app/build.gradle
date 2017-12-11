@@ -36,7 +36,6 @@ android {
         abortOnError false
     }
 
-
     signingConfigs {
         debug {
             storeFile file(RELEASE_STORE_FILE)

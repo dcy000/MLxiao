@@ -490,6 +490,8 @@
     <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;医&#160;&#160;生</string>
     <string name="bodyguide">主人，请选择病症对应部位</string>
 
+    <string name="title_activity_set_password">SetPasswordActivity</string>
+
 
     <string name="zhiji">职&#160;&#160;&#160;级：主任医师</string>
 
@@ -501,7 +503,5 @@
 
     <string name="afternoons">下\n午</string>
 
-=======
     <string name="noData">暂无数据</string>
->>>>>>> 89ef535d4aa701c51ac1d09e73928811ca96aae3
 </resources>
