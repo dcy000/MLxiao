@@ -380,10 +380,13 @@
 
     <string name="pay">账&#160;&#160;户&#160;&#160;充&#160;&#160;值</string>
 
-    <string name="pay_1">50元</string>
+    <string name="test_record">测&#160;&#160;量&#160;&#160;记&#160;&#160;录</string>
+
+
+    <string name="pay_1">¥50</string>
     <string name="pay_2">充&#160;&#160;&#160;值</string>
-    <string name="pay_3">100元</string>
-    <string name="pay_4">200元</string>
+    <string name="pay_3">¥100</string>
+    <string name="pay_4">¥200</string>
     <string name="pay_introduce">请用支付宝APP扫描完成支付</string>
     <string name="pay_introduces">请用微信APP扫描完成支付</string>
 
@@ -442,7 +445,7 @@
     <string name="tiao_zhuan">跳&#160;&#160;过</string>
     <string name="medication_reminder">吃 药 提 醒</string>
 
-    <string name="robot_amount" formatted="false">账户余额：%1$s</string>
+    <string name="robot_amount" formatted="false">¥%1$s</string>
     <string name="pay_success">主人，您已充值成功，请查询个人账户余额</string>
     <string name="doctor_alarm">主人，您和医生视频预约的时间到了</string>
 
@@ -473,7 +476,7 @@
     <string name="dixuetang">主人，您有可能是低血糖，请及时补充糖分或到医院就诊</string>
 
     <string name="order_id" formatted="false">订单号：%1$s</string>
-    <string name="facc_register">主人让我给你拍个照，准备，三二一</string>
+    <string name="facc_register">主人让我给你拍个照，准备，三\n\n二\n\n依</string>
 
     <string name="shop_good">主人，请选择您要购买的商品</string>
     <string name="shop_mount">主人，请选择购买数量</string>

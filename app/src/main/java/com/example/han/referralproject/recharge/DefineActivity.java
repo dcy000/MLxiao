@@ -14,23 +14,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
-public class DefineActivity extends AppCompatActivity {
+public class DefineActivity extends BaseActivity {
 
 
     EditText mEditText;
     Button mButton;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_define);
 
+        mTitleText.setText(getString(R.string.pay));
+
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         init();
+
 
         mButton = (Button) findViewById(R.id.deifine_pay);
 
@@ -61,6 +66,23 @@ public class DefineActivity extends AppCompatActivity {
         });
 
     }
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
+
 
 
     public void init() {

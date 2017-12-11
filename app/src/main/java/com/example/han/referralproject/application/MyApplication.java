@@ -63,12 +63,28 @@ public class MyApplication extends Application {
         MultiDex.install(this);
     }
 
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
-        startService(intent);
+
+        if (isMyServiceRunning(AssistiveTouchService.class)) {
+
+        } else {
+            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
+            startService(intent);
+        }
 
 
         UiUtils.init(this, 1980, 1200);
@@ -81,19 +97,29 @@ public class MyApplication extends Application {
         telphoneNum = mShared.getPhoneNum();
         WakeupHelper.init(this);
         StringBuilder builder = new StringBuilder();
-        builder.append("appid=").append(getString(R.string.app_id)).append(",")
-                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
+        builder.append("appid=").
+
+                append(getString(R.string.app_id)).
+
+                append(",")
+                .
+
+                        append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
+
         SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
         //EM
 //        initHyphenate(this);
         //if (telphoneNum != null) {
 //        EMAccountHelper.login(emBrId(), "123");
         //}
-        NimInitHelper.getInstance().init(this, true);
+        NimInitHelper.getInstance().
+
+                init(this, true);
 
         AppCache.init(this);
         AppCache.updateNightMode(Preferences.isNightMode());
         ForegroundObserver.init(this);
+
         initOkHttpUtils();
 
         BeeCloud.setAppIdAndSecret("2732d773-09a4-403d-87b4-b040d14ce4b9",

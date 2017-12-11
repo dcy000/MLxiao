@@ -9,8 +9,9 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
-public class PayActivity extends AppCompatActivity implements View.OnClickListener {
+public class PayActivity extends BaseActivity implements View.OnClickListener {
 
     public Button mButton1;
     public Button mButton2;
@@ -19,14 +20,16 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     public Button mButton5;
     public Button mButton6;
 
-    public ImageView mImageView1;
-    public ImageView mImageView2;
+    //public ImageView mImageView1;
+    //public ImageView mImageView2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
+
+        mTitleText.setText(getString(R.string.pay));
 
         mButton1 = (Button) findViewById(R.id.pay_1);
         mButton2 = (Button) findViewById(R.id.pay_2);
@@ -35,9 +38,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mButton5 = (Button) findViewById(R.id.pay_5);
         mButton6 = (Button) findViewById(R.id.pay_6);
 
-        mImageView1 = (ImageView) findViewById(R.id.icon_back);
+       /* mImageView1 = (ImageView) findViewById(R.id.icon_back);
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
-
+*/
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
         mButton3.setOnClickListener(this);
@@ -45,9 +48,24 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mButton5.setOnClickListener(this);
         mButton6.setOnClickListener(this);
 
-        mImageView1.setOnClickListener(this);
-        mImageView2.setOnClickListener(this);
+      /*  mImageView1.setOnClickListener(this);
+        mImageView2.setOnClickListener(this);*/
+    }
 
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
     }
 
     @Override
@@ -88,14 +106,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 startActivity(inten);
 
                 break;
-            case R.id.icon_back:
+           /* case R.id.icon_back:
                 finish();
                 break;
             case R.id.icon_home:
                 Intent intents = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intents);
                 finish();
-                break;
+                break;*/
         }
 
     }

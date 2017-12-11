@@ -1,5 +1,11 @@
 package com.example.han.referralproject.xindian;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
@@ -8,35 +14,29 @@ import android.os.Handler;
 import com.creative.bluetooth.BluetoothOpertion;
 import com.creative.bluetooth.IBluetoothCallBack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class MyBluetooth {
 
 	private Context mContext;
 
 	/**
-	 * SDK中的蓝牙操作类
+	 * SDK�е�����������
 	 * SDK bluetooth Operation
 	 */
 	private static BluetoothOpertion bluetoothOper;
 
 	/**
-	 * 蓝牙是否连接成功
+	 * �����Ƿ����ӳɹ�
 	 */
 	public static boolean isConnected = false;
 
 	/**
-	 * 连接上设备的socket
+	 * �������豸��socket
 	 * connected device socket
 	 */
 	public static BluetoothSocket bluSocket;
 
 	/**
-	 * 支持的蓝牙设备列表
+	 * ֧�ֵ������豸�б�
 	 * support device mode
 	 */
 	private static String[][] bluetoothArray = {
@@ -45,52 +45,52 @@ public class MyBluetooth {
 			{ "POD", "PC68B" } };
 
 	/**
-	 * 当前需要连接的设备名
+	 * ��ǰ��Ҫ���ӵ��豸��
 	 * connect device name now
 	 */
 	public int conDeviceName = -1;
 
 	/** 
-	 * 需要排除的设备 
+	 * ��Ҫ�ų����豸 
 	 * exclude device(not connect)
 	 */
 	private List<BluetoothDevice> excludeDev = new ArrayList<BluetoothDevice>();
 
 	/**
-	 * 正在打开蓝牙
+	 * ���ڴ�����
 	 */
 	public static final int BLUETOOTH_MSG_OPENING = 0;
 
 	/**
-	 * 搜索设备
+	 * �����豸
 	 */
 	public static final int BLUETOOTH_MSG_DISCOVERYING = 1;
 
 	/**
-	 * 正在连接设备
+	 * ���������豸
 	 */
 	public static final int BLUETOOTH_MSG_CONNECTING = 2;
 
 	/**
-	 * 连接成功
+	 * ���ӳɹ�
 	 */
 	public static final int BLUETOOTH_MSG_CONNECTED = 3;
 
 	/**
-	 * 连接失败
+	 * ����ʧ��
 	 */
 	public static final int BLUETOOTH_MSG_CONNECTFILE = 4;
 	/**
-	 * 打开蓝牙失败
+	 * ������ʧ��
 	 */
 	public static final int BLUETOOTH_MSG_OPENINGFILE = 5;
 	/**
-	 * 搜索完成
+	 * �������
 	 */
 	public static final int BLUETOOTH_MSG_DISCOVERYED = 6;
 
 	/**
-	 * 用于通知的Handler
+	 * ����֪ͨ��Handler
 	 */
 	private Handler mHandler;
 
@@ -102,34 +102,34 @@ public class MyBluetooth {
 	}
 
 	/**
-	 * 当前蓝牙状态——正常
+	 * ��ǰ����״̬��������
 	 */
 	public static final int BLU_STATUS_NORMAL = 0;
 
 	/**
-	 * 当前蓝牙状态——搜索中
+	 * ��ǰ����״̬����������
 	 */
 	public static final int BLU_STATUS_DISCOVERING = 1;
 
 	/**
-	 * 当前蓝牙状态——连接中
+	 * ��ǰ����״̬����������
 	 */
 	public static final int BLU_STATUS_CONNECTING = 2;
 
 	/**
-	 * 当前蓝牙状态——连接上
+	 * ��ǰ����״̬����������
 	 */
 	public static final int BLU_STATUS_CONNECTED = 3;
 
 	/**
-	 * 当前蓝牙状态
+	 * ��ǰ����״̬
 	 */
 	public static int bluStatus = 0;
 
 	// private BLEOpertion bleOpertion;
 
 	/**
-	 * 连接指定的设备
+	 * ����ָ�����豸
 	 * 
 	 * @param name
 	 */
@@ -144,7 +144,7 @@ public class MyBluetooth {
 	}
 
 	// /***
-	// * 开始搜索蓝牙(低功耗蓝牙 4.0)
+	// * ��ʼ��������(�͹������� 4.0)
 	// */
 	// public void startDiscoveryBLE() {
 	// if (bluStatus == BLU_STATUS_NORMAL) {
@@ -165,7 +165,7 @@ public class MyBluetooth {
 	// }
 
 	/**
-	 * 搜索蓝牙设备(经典蓝牙 2.0)
+	 * ���������豸(�������� 2.0)
 	 * start discovery bluetooth device in bluetooth version 2.0,3.0 
 	 */
 	public void startDiscovery() {
@@ -195,9 +195,9 @@ public class MyBluetooth {
 	}
 
 	/**
-	 * 打开手机蓝牙
+	 * ���ֻ�����
 	 * 
-	 * @return 是否打开成功
+	 * @return �Ƿ�򿪳ɹ�
 	 */
 	private boolean openBluetooth() {
 		isOpenBluTimeOut = false;
@@ -226,7 +226,7 @@ public class MyBluetooth {
 	}
 
 	/**
-	 * 取消搜索
+	 * ȡ������
 	 */
 	public void stopDiscovery() {
 		if (bluStatus == BLU_STATUS_DISCOVERING) {
@@ -236,12 +236,12 @@ public class MyBluetooth {
 	}
 
 	/**
-	 * 本次是否有过搜索
+	 * �����Ƿ��й�����
 	 * discovery record
 	 */
 	private boolean isDiscovery = false;
 
-	/** 当前设备是否在需要排除的设备队列中 */
+	/** ��ǰ�豸�Ƿ�����Ҫ�ų����豸������ */
 	private boolean isExcludeDev(BluetoothDevice dev) {
 		if (excludeDev.size() > 0) {
 			for (BluetoothDevice device : excludeDev) {
@@ -253,11 +253,11 @@ public class MyBluetooth {
 	}
 
 	/**
-	 * 开启蓝牙超时的定时器
+	 * ����������ʱ�Ķ�ʱ��
 	 */
 	private Timer openBluTimer;
 
-	/** 打开蓝牙是否超时 */
+	/** �������Ƿ�ʱ */
 	private boolean isOpenBluTimeOut = false;
 
 	private class myBluetoothCallBack implements IBluetoothCallBack {
@@ -325,7 +325,7 @@ public class MyBluetooth {
 
 
 	/**
-	 * 断开与当前设备的连接
+	 * �Ͽ��뵱ǰ�豸������
 	 */
 	public void disConnected() {
 		if (bluSocket != null && isConnected) {
@@ -336,10 +336,10 @@ public class MyBluetooth {
 	}
 
 	/**
-	 * 判断该地址是否在公司蓝牙地址中
+	 * �жϸõ�ַ�Ƿ��ڹ�˾������ַ��
 	 * 
 	 * @param address
-	 * @return true 是属于公司蓝牙产品 false 不属于公司蓝牙产品
+	 * @return true �����ڹ�˾������Ʒ false �����ڹ�˾������Ʒ
 	 */
 	protected boolean checkAddress(String address) {
 		String[] prefixs = { "94:21:97", "00:13:EF" };
@@ -350,7 +350,7 @@ public class MyBluetooth {
 		return false;
 	}
 
-	/** 设备名称是否满足 */
+	/** �豸�����Ƿ����� */
 	@SuppressWarnings("unused")
 	private boolean checkName(String name) {
 		if (name != null && !name.equals("")) {
@@ -363,7 +363,7 @@ public class MyBluetooth {
 		return false;
 	}
 
-	/** 设备名称是否满足 */
+	/** �豸�����Ƿ����� */
 	public static boolean checkName(String name, int dev) {
 		if (name != null && !name.equals("") && dev < bluetoothArray.length) {
 			for (int i = 0; i < bluetoothArray[dev].length; i++) {
@@ -375,7 +375,7 @@ public class MyBluetooth {
 	}
 
 	/**
-	 * 获取连接成功的设备
+	 * ��ȡ���ӳɹ����豸
 	 * 
 	 * @return
 	 */

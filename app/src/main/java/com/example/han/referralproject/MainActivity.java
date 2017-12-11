@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mToolbar.setVisibility(View.GONE);
         mImageView1 = (ImageView) findViewById(R.id.robot_con);
         mImageView2 = (ImageView) findViewById(R.id.person_info);
         mImageView3 = (ImageView) findViewById(R.id.health_test);

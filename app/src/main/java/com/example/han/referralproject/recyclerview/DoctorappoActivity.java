@@ -543,6 +543,9 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
+        mToolbar.setVisibility(View.GONE);
+
+
         //  speak(R.string.yuyue_1);
 
         dialog1 = new NDialog2(DoctorappoActivity.this);

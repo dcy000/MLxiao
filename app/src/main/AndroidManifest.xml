@@ -36,6 +36,24 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    =======
+    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    >>>>>>> 440a61ed5e6628f67901d9332adec2a12d8ebc2e
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -234,7 +252,10 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".WelcomeActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+
+
+        </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
             android:screenOrientation="landscape" />
@@ -260,16 +281,10 @@
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
+
         <activity android:name=".personal.PersonActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name="com.medlink.danbogh.call.VideoCallActivity"
@@ -329,6 +344,7 @@
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity"></activity>
         <activity android:name=".recyclerview.AddAppoActivity"></activity>
+
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
@@ -354,16 +370,12 @@
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity" />
         <activity android:name=".recharge.PayActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".recharge.PayInfoActivity" />
         <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity" />
+
 
         <meta-data
             android:name="com.netease.nim.appKey"
@@ -446,6 +458,19 @@
             android:windowSoftInputMode="adjustResize"></activity>
 
         <service android:name=".floatingball.AssistiveTouchService" />
+
+        <activity android:name=".recyclerview.DoctorAlarmActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
 
     </application>
 

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -22,17 +21,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.baidu.wallet.base.datamodel.UserData;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
-import com.example.han.referralproject.activity.SymptomAnalyseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.Receive1;
-import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.HttpCallback;
@@ -44,22 +38,20 @@ import com.example.han.referralproject.music.PlaySearchedMusic;
 import com.example.han.referralproject.music.PlayService;
 import com.example.han.referralproject.music.SearchMusic;
 import com.example.han.referralproject.music.ToastUtils;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.recharge.PayInfoActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.temperature.TemperatureActivity;
-import com.example.han.referralproject.video.MainVideoActivity;
+import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.xuetang.XuetangActivity;
 import com.example.han.referralproject.xueya.XueyaActivity;
 import com.example.han.referralproject.xueyang.XueyangActivity;
-import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -73,7 +65,6 @@ import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.medlink.danbogh.call.EMUIHelper;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
@@ -84,10 +75,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -96,6 +88,13 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener, OnPlayerEventListener {
 
@@ -673,39 +672,63 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     String str1;
 
+    OkHttpClient client;
+
     private void post(String str) throws Exception {
-        URL url = new URL("http://api.aicyber.com/passive_chat");
-        URLConnection conn = url.openConnection();
-        conn.setRequestProperty("accept", "*/*");
-        conn.setRequestProperty("connection", "Keep-Alive");
+//        URL url = new URL("http://api.aicyber.com/passive_chat");
+//        URLConnection conn = url.openConnection();
+//        conn.setRequestProperty("accept", "*/*");
+//        conn.setRequestProperty("connection", "Keep-Alive");
+//
+//        conn.setDoOutput(true);
+//        conn.setDoInput(true);
+//
+//        PrintWriter pw = new PrintWriter(conn.getOutputStream());
+//
+//        Gson gson = new Gson();
+//
+//        RobotContent robot = new RobotContent("gh_1822e89468ba", str, "ml05120568675", "3e809a3d90398631ad4b291aadf0f230");
+//
+//        pw.print(gson.toJson(robot));
+//
+//        pw.flush();
+//        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//        String lineContent = null;
+//        String content = null;
+//
+//        //    Log.e("+++++++++++++", resultBuffer.toString());
+//        while ((lineContent = br.readLine()) != null) {
+//            content = lineContent;
+//        }
+//
+//
+//        Receive1 string = gson.fromJson(content, Receive1.class);
+//
+//        str1 = string.getReceive().getOutput();
 
-        conn.setDoOutput(true);
-        conn.setDoInput(true);
-
-        PrintWriter pw = new PrintWriter(conn.getOutputStream());
-
-        Gson gson = new Gson();
-
-        RobotContent robot = new RobotContent("gh_1822e89468ba", str, "ml05120568675", "3e809a3d90398631ad4b291aadf0f230");
-
-        pw.print(gson.toJson(robot));
-
-        pw.flush();
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String lineContent = null;
-        String content = null;
-
-        //    Log.e("+++++++++++++", resultBuffer.toString());
-        while ((lineContent = br.readLine()) != null) {
-            content = lineContent;
+        if (client == null) {
+            client = new OkHttpClient();
         }
-
-
-        Receive1 string = gson.fromJson(content, Receive1.class);
-
-        str1 = string.getReceive().getOutput();
-
-
+        RequestBody body = new FormBody.Builder()
+                .add("eqid", Utils.getDeviceId())
+                .add("text", str)
+                .build();
+        Request request = new Request.Builder()
+                .url(NetworkApi.BasicUrl + "/ZZB/xf/xfrq")
+                .post(body)
+                .build();
+        Call call = client.newCall(request);
+        try {
+            Response response = call.execute();
+            if (response.isSuccessful()) {
+                str1 = parseXffunQAResponse(response.body().string());
+            } else {
+                str1 = "我真的不知道了";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            str1 = "我真的不知道了";
+        }
         if (str1 != null) {
 
             if (getString(R.string.speak_null).equals(str1)) {
@@ -761,10 +784,39 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         } else {
         }
-        pw.close();
-        br.close();
+//        pw.close();
+//        br.close();
 
 
+    }
+
+    private static String parseXffunQAResponse(String text) {
+        if (text.equals("1")) {
+            return "我真的不知道了";
+        }
+        try {
+            JSONObject qaResponseObj = new JSONObject(text);
+            String code = qaResponseObj.optString("code");
+            if (code == null || !code.equals("00000")) {
+                return "我真的不知道了";
+            }
+            JSONObject dataObj = qaResponseObj.optJSONObject("data");
+            if (dataObj == null) {
+                return "我真的不知道了";
+            }
+            JSONObject answerObj = dataObj.optJSONObject("answer");
+            if (answerObj == null) {
+                return "我真的不知道了";
+            }
+            String answer = answerObj.optString("text");
+            if (answer == null) {
+                return "我真的不知道了";
+            }
+            return answer;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return "我真的不知道了";
+        }
     }
 
 
@@ -948,7 +1000,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
                     return;
                 }
-
+                if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
+                    return;
+                }
+                if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
+                    startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
+                    return;
+                }
+                if (inSpell.matches(".*(yi(shen|sheng|seng)|dadianhua|(zi|zhi)xun).*")) {
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
+                    return;
+                }
                 if (resultBuffer.toString().matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
                     if (sign == true) {
                         sign = false;
@@ -1131,7 +1194,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
                 } else if (inSpell.matches(".*qian.*")) {
-
                     Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                     startActivity(intent);
                     finish();
@@ -1150,12 +1212,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
                 } else if (inSpell.matches(".*(dangan).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
-                } else if (inSpell.matches(".*((zi|zhi)xun|yi(shen|sheng|seng)|dadianhua).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
-                } else if (inSpell.matches(".*(qianyue|yi(shen|sheng|seng)|jiating|yuyue).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
-                } else if (inSpell.matches(".*(zaixian|yi(shen|sheng|seng)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
                 } else {
                     new SpeechTask().execute();
                 }

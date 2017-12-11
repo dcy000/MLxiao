@@ -228,6 +228,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
 
+        mToolbar.setVisibility(View.GONE);
+
 
         initView();
 
