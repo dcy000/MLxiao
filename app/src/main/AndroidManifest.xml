@@ -446,7 +446,16 @@
             android:name=".recyclerview.OnlineDoctorListActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".recyclerview.DoctorAskGuideActivity"/>
-        <activity android:name="com.medlink.danbogh.signin.SignInActivity">
+        <activity
+            android:name="com.medlink.danbogh.signin.SignInActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+        <activity android:name="com.medlink.danbogh.signin.FindPasswordActivity"
+                  android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity android:name="com.medlink.danbogh.signin.SetPasswordActivity"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
 

@@ -100,7 +100,7 @@ public class UpdateAppManager {
                     @Override
                     public void run() {
                         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                            context.startActivity(new Intent(context, LoginActivity.class));
+                            context.startActivity(new Intent(context, SignInActivity.class));
                         } else {
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);

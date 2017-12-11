@@ -309,7 +309,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.btn_logout:
                 LocalShared.getInstance(this).loginOut();
-                startActivity(new Intent(this, LoginActivity.class));
+                startActivity(new Intent(this, SignInActivity.class));
                 finish();
                 break;
             case R.id.iv_check://病症自查

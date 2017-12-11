@@ -58,6 +58,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up5_mobile_verification);
+        mToolbar.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
         initView();
         initSms();
