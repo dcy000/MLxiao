@@ -66,16 +66,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
 
 
 
-        mImageView4 = (ImageView) findViewById(R.id.icon_home);
 
-        mImageView4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.shop_list);

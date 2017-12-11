@@ -167,6 +167,7 @@
 
 
 
+
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -255,12 +256,7 @@
             android:screenOrientation="landscape">
 
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+
 
 
 
@@ -355,6 +351,12 @@
         <activity android:name=".recyclerview.DoctorappoActivity">
 
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".recyclerview.AddAppoActivity"></activity>
