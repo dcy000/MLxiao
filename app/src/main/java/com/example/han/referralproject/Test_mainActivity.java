@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.xindian.XindianActivity;
@@ -102,7 +103,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.test_xuetang:
-                    intent.setClass(getApplicationContext(), DetectActivity.class);
+                    intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
                     intent.putExtra("type", "xuetang");
                     startActivity(intent);
                     break;

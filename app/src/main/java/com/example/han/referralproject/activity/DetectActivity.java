@@ -344,6 +344,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             DataInfoBean info = new DataInfoBean();
                             info.blood_sugar = String.format("%.1f", xuetangResut);
+                            info.sugar_time=time+"";
                             NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
@@ -555,11 +556,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public Button mButton2;
     public Button mButton3;
 
-
+    private int time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+        time=getIntent().getIntExtra("time",0);
         mToolbar.setVisibility(View.GONE);
         mButton = (Button) findViewById(R.id.history);
         mButton1 = (Button) findViewById(R.id.history1);

@@ -115,7 +115,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     RadioGroup rgXuetangTime;
     private long currentTime=0L,weekAgoTime=0L,monthAgoTime,seasonAgoTime=0L,yearAgoTime=0L;
     private String temp = "1";//记录选择的标签,默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸
-
+    private int eatedTime=0;//默认空腹：0；饭后一小时：1；饭后两小时
+    private int timeFlag=1;//默认最近一周：1；一个月：2；一季度：3；一年：4；
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,11 +136,20 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         rbRecordCholesterol.setOnClickListener(this);
         rbRecordBua.setOnClickListener(this);
         llTime.setOnCheckedChangeListener(this);
+        rbKongfu.setOnClickListener(this);
+        rbOneHour.setOnClickListener(this);
+        rbTwoHour.setOnClickListener(this);
+
         currentTime=System.currentTimeMillis();
-        weekAgoTime=currentTime-7*24*60*60*1000;
-        seasonAgoTime=currentTime-3*30*24*60*60*1000;
-        monthAgoTime=currentTime-30*24*60*60*1000;
-        yearAgoTime=currentTime-365*24*60*60*1000;
+        Calendar curr = Calendar.getInstance();
+        curr.set(Calendar.DAY_OF_MONTH,curr.get(Calendar.DAY_OF_MONTH)-7);
+        weekAgoTime=curr.getTimeInMillis();
+        curr.set(Calendar.MONTH,curr.get(Calendar.MONTH)-1);
+        monthAgoTime=curr.getTimeInMillis();
+        curr.set(Calendar.MONTH,curr.get(Calendar.MONTH)-3);
+        seasonAgoTime=curr.getTimeInMillis();
+        curr.set(Calendar.YEAR,curr.get(Calendar.YEAR)-1);
+        yearAgoTime=curr.getTimeInMillis();
 
         getTiwen(weekAgoTime+"",currentTime+"");
     }
@@ -825,6 +835,14 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 }
                 setTiwen(values, colors);
             }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+                tiwenChart.setNoDataText(getResources().getString(R.string.noData));
+                tiwenChart.setData(null);
+                tiwenChart.invalidate();
+            }
         });
     }
 
@@ -837,18 +855,25 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         indicator2.setText("低压(mmHg)");
         llSecond.setVisibility(View.VISIBLE);
 
-        NetworkApi.getBloodpressureHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>>() {
+        NetworkApi.getBloodpressureHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodPressureHistory> response) {
                 ArrayList<Entry> yVals1 = new ArrayList<Entry>();
                 ArrayList<Entry> yVals2 = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
-                ArrayList<Integer> colors = new ArrayList<>();
+                ArrayList<Integer> colors1 = new ArrayList<>();
+                ArrayList<Integer> colors2 = new ArrayList<>();
+
                 for (int i = 0; i < response.size(); i++) {
-                    if (response.get(i).high_pressure > 130 || response.get(i).high_pressure < 90||response.get(i).low_pressure>85||response.get(i).low_pressure<60) {
-                        colors.add(Color.RED);
+                    if (response.get(i).high_pressure > 130 || response.get(i).high_pressure < 90 || response.get(i).low_pressure > 85 || response.get(i).low_pressure < 60) {
+                        colors1.add(Color.RED);
                     } else {
-                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                        colors1.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                    }
+                    if(response.get(i).low_pressure>85||response.get(i).low_pressure<60){
+                        colors2.add(Color.RED);
+                    }else{
+                        colors2.add(getResources().getColor(R.color.node2_color));
                     }
                     yVals1.add(new Entry(i, response.get(i).high_pressure));
                     times.add(response.get(i).time);
@@ -863,34 +888,56 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(xueyaChart);
                     xueyaChart.setMarker(mv);
                 }
-                setXueya(yVals1, yVals2,colors,colors);
+                setXueya(yVals1, yVals2, colors1, colors2);
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+                xueyaChart.setNoDataText(getResources().getString(R.string.noData));
+                xueyaChart.setData(null);
+                xueyaChart.invalidate();
             }
         });
     }
 
-    private void getXuetang(String start,String end) {
+    private void getXuetang(String start, String end, final int flag) {
         rgXuetangTime.setVisibility(View.VISIBLE);
         //指示器的颜色
         color1.setBackgroundColor(getResources().getColor(R.color.node_color));
         indicator1.setText("血糖(mmol/L)");
         llSecond.setVisibility(View.GONE);
-        NetworkApi.getBloodSugarHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>>() {
+        NetworkApi.getBloodSugarHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodSugarHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
-                ArrayList<Integer> colors=new ArrayList<>();
+                ArrayList<Integer> colors = new ArrayList<>();
+
                 for (int i = 0; i < response.size(); i++) {
-//                    switch (response.get(i).xx){
-//                        case xx:
-//                            if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
-//                                colors.add(Color.RED);
-//                            } else {
-//                                colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
-//                            }
-//                            break;
-//                    }
-                    value.add(new Entry(i, response.get(i).blood_sugar));
+                    if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
+                        colors.add(Color.RED);
+                    } else {
+                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                    }
+                    switch (flag){
+                        case 0:
+                            if(response.get(i).sugar_time==0){
+                                value.add(new Entry(i, response.get(i).blood_sugar));
+                            }
+                            break;
+                        case 1:
+                            if(response.get(i).sugar_time==1){
+                                value.add(new Entry(i, response.get(i).blood_sugar));
+                            }
+                            break;
+                        case 2:
+                            if(response.get(i).sugar_time==2){
+                                value.add(new Entry(i, response.get(i).blood_sugar));
+                            }
+                            break;
+                    }
+
                     times.add(response.get(i).time);
                 }
                 if (times.size() != 0) {
@@ -901,7 +948,15 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     xuetangChart.setMarker(mv); // Set the marker to the chart
                 }
 
-                setXuetang(value,colors);
+                setXuetang(value, colors);
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+                xuetangChart.setNoDataText(getResources().getString(R.string.noData));
+                xuetangChart.setData(null);
+                xuetangChart.invalidate();
             }
         });
     }
@@ -912,16 +967,16 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         color1.setBackgroundColor(getResources().getColor(R.color.node_color));
         indicator1.setText("血氧");
         llSecond.setVisibility(View.GONE);
-        NetworkApi.getBloodOxygenHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>>() {
+        NetworkApi.getBloodOxygenHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodOxygenHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
-                ArrayList<Integer> colors=new ArrayList<>();
+                ArrayList<Integer> colors = new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
-                    if(response.get(i).blood_oxygen<94){
+                    if (response.get(i).blood_oxygen < 94) {
                         colors.add(Color.RED);
-                    }else{
+                    } else {
                         colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
                     }
                     value.add(new Entry(i, response.get(i).blood_oxygen));
@@ -934,13 +989,21 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(xueyangChart); // For bounds control
                     xueyangChart.setMarker(mv); // Set the marker to the chart
                 }
-                setXueyang(value,colors);
+                setXueyang(value, colors);
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+                xueyangChart.setNoDataText(getResources().getString(R.string.noData));
+                xueyangChart.setData(null);
+                xueyangChart.invalidate();
             }
         });
     }
 
     private void getXinlv(String start,String end) {
-        NetworkApi.getHeartRateHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>>() {
+        NetworkApi.getHeartRateHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>>() {
             @Override
             public void onSuccess(ArrayList<HeartRateHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
@@ -958,11 +1021,16 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 }
                 setXinlv(value);
             }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+            }
         });
     }
 
     private void getMaibo(String start,String end) {
-        NetworkApi.getPulseHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<PulseHistory>>() {
+        NetworkApi.getPulseHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<PulseHistory>>() {
             @Override
             public void onSuccess(ArrayList<PulseHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
@@ -980,6 +1048,11 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 }
                 setMaibo(value);
             }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+            }
         });
     }
 
@@ -991,16 +1064,16 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         color2.setBackgroundColor(Color.parseColor("#6D80E2"));
         indicator2.setText("儿童(mmol/L)");
         llSecond.setVisibility(View.VISIBLE);
-        NetworkApi.getCholesterolHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>>() {
+        NetworkApi.getCholesterolHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>>() {
             @Override
             public void onSuccess(ArrayList<CholesterolHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
-                ArrayList<Integer> colors=new ArrayList<>();
+                ArrayList<Integer> colors = new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
-                    if(response.get(i).cholesterol<2.9||response.get(i).cholesterol>6.0){
+                    if (response.get(i).cholesterol < 2.9 || response.get(i).cholesterol > 6.0) {
                         colors.add(Color.RED);
-                    }else{
+                    } else {
                         colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
                     }
                     value.add(new Entry(i, response.get(i).cholesterol));
@@ -1013,7 +1086,15 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(danguchunChart); // For bounds control
                     danguchunChart.setMarker(mv); // Set the marker to the chart
                 }
-                setDanguchun(value,colors);
+                setDanguchun(value, colors);
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+                danguchunChart.setNoDataText(getResources().getString(R.string.noData));
+                danguchunChart.setData(null);
+                danguchunChart.invalidate();
             }
         });
     }
@@ -1027,16 +1108,16 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         indicator1.setText("男性");
         llSecond.setVisibility(View.VISIBLE);
 
-        NetworkApi.getBUAHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<BUA>>() {
+        NetworkApi.getBUAHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BUA>>() {
             @Override
             public void onSuccess(ArrayList<BUA> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
-                ArrayList<Integer> colors=new ArrayList<>();
+                ArrayList<Integer> colors = new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
-                    if(response.get(i).uric_acid<149||response.get(i).uric_acid>416){
+                    if (response.get(i).uric_acid < 149 || response.get(i).uric_acid > 416) {
                         colors.add(Color.RED);
-                    }else{
+                    } else {
                         colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
                     }
                     value.add(new Entry(i, response.get(i).uric_acid));
@@ -1049,7 +1130,15 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(xueniaosuanChart); // For bounds control
                     xueniaosuanChart.setMarker(mv); // Set the marker to the chart
                 }
-                setXueniaosuan(value,colors);
+                setXueniaosuan(value, colors);
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+                xueniaosuanChart.setNoDataText(getResources().getString(R.string.noData));
+                xueniaosuanChart.setData(null);
+                xueniaosuanChart.invalidate();
             }
         });
     }
@@ -1579,6 +1668,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                llTime.check(R.id.one_week);
                 setTiwenChart();
                 getTiwen(weekAgoTime+"",currentTime+"");
                 break;
@@ -1592,6 +1682,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                llTime.check(R.id.one_week);
                 getXueya(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_blood_glucose://血糖
@@ -1604,7 +1695,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
-                getXuetang(weekAgoTime+"",currentTime+"");
+                llTime.check(R.id.one_week);
+                getXuetang(weekAgoTime+"",currentTime+"",eatedTime);
                 break;
             case R.id.rb_record_blood_oxygen://血氧
                 temp = "5";
@@ -1616,7 +1708,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
-
+                llTime.check(R.id.one_week);
                 getXueyang(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_heart_rate://心率
@@ -1629,6 +1721,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                llTime.check(R.id.one_week);
                 getXinlv(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_pulse://脉搏
@@ -1641,6 +1734,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.VISIBLE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                llTime.check(R.id.one_week);
                 getMaibo(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_cholesterol://胆固醇
@@ -1654,6 +1748,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.VISIBLE);
                 xueniaosuanChart.setVisibility(View.GONE);
                 getDangucun(weekAgoTime+"",currentTime+"");
+                llTime.check(R.id.one_week);
                 break;
             case R.id.rb_record_bua://血尿酸
                 temp = "8";
@@ -1666,9 +1761,58 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.VISIBLE);
                 getXueniaosuan(weekAgoTime+"",currentTime+"");
+                llTime.check(R.id.one_week);
                 break;
-            case R.id.one_week:
-
+            case R.id.rb_kongfu:
+                eatedTime=0;
+                switch (timeFlag){
+                    case 1://一周
+                        getXuetang(weekAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 2://一个月
+                        getXuetang(monthAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 3:
+                        getXuetang(seasonAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 4:
+                        getXuetang(yearAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                }
+                break;
+            case R.id.rb_one_hour:
+                eatedTime=1;
+                switch (timeFlag){
+                    case 1://一周
+                        getXuetang(weekAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 2://一个月
+                        getXuetang(monthAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 3:
+                        getXuetang(seasonAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 4:
+                        getXuetang(yearAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                }
+                break;
+            case R.id.rb_two_hour:
+                eatedTime=2;
+                switch (timeFlag){
+                    case 1://一周
+                        getXuetang(weekAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 2://一个月
+                        getXuetang(monthAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 3:
+                        getXuetang(seasonAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                    case 4:
+                        getXuetang(yearAgoTime+"",currentTime+"",eatedTime);
+                        break;
+                }
                 break;
         }
 
@@ -1678,6 +1822,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId){
             case R.id.one_week://默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸
+                timeFlag=1;
                 switch (temp){
                     case "1":
                         getTiwen(weekAgoTime+"",currentTime+"");
@@ -1689,7 +1834,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXinlv(weekAgoTime+"",currentTime+"");
                         break;
                     case "4":
-                        getXuetang(weekAgoTime+"",currentTime+"");
+                        getXuetang(weekAgoTime+"",currentTime+"",eatedTime);
                         break;
                     case "5":
                         getXueyang(weekAgoTime+"",currentTime+"");
@@ -1706,6 +1851,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.one_month:
+                timeFlag=2;
                 switch (temp){
                     case "1":
                         getTiwen(monthAgoTime+"",currentTime+"");
@@ -1717,7 +1863,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXinlv(monthAgoTime+"",currentTime+"");
                         break;
                     case "4":
-                        getXuetang(monthAgoTime+"",currentTime+"");
+                        getXuetang(monthAgoTime+"",currentTime+"",eatedTime);
                         break;
                     case "5":
                         getXueyang(monthAgoTime+"",currentTime+"");
@@ -1734,6 +1880,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.one_season:
+                timeFlag=3;
                 switch (temp){
                     case "1":
                         getTiwen(seasonAgoTime+"",currentTime+"");
@@ -1745,7 +1892,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXinlv(seasonAgoTime+"",currentTime+"");
                         break;
                     case "4":
-                        getXuetang(seasonAgoTime+"",currentTime+"");
+                        getXuetang(seasonAgoTime+"",currentTime+"",eatedTime);
                         break;
                     case "5":
                         getXueyang(seasonAgoTime+"",currentTime+"");
@@ -1762,6 +1909,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.one_year:
+                timeFlag=4;
                 switch (temp){
                     case "1":
                         getTiwen(yearAgoTime+"",currentTime+"");
@@ -1773,7 +1921,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXinlv(yearAgoTime+"",currentTime+"");
                         break;
                     case "4":
-                        getXuetang(yearAgoTime+"",currentTime+"");
+                        getXuetang(yearAgoTime+"",currentTime+"",eatedTime);
                         break;
                     case "5":
                         getXueyang(yearAgoTime+"",currentTime+"");
@@ -1791,4 +1939,5 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
     }
+
 }

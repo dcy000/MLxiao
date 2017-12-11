@@ -8,6 +8,7 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.view.VerticalViewPager;
 import com.medlink.danbogh.utils.Handlers;
 
 import java.util.ArrayList;
@@ -31,10 +33,6 @@ public class VideoListActivity extends BaseActivity {
     ViewPager vpVideo;
     @BindView(R.id.rg_health_video)
     RadioGroup rgHealthVideo;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.iv_home)
-    ImageView ivHome;
     private Unbinder mUnbinder;
 
     public static void launch(Context context, int position) {
@@ -52,10 +50,12 @@ public class VideoListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("健康讲堂");
+        mRightView.setImageResource(R.drawable.icon_wifi);
         mUnbinder = ButterKnife.bind(this);
         position = getIntent().getIntExtra("position", 0);
-        tvTitle.setText("健康讲堂");
-        ivHome.setImageResource(R.drawable.icon_wifi);
+
         rgHealthVideo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -95,6 +95,15 @@ public class VideoListActivity extends BaseActivity {
             }
         });
         rgHealthVideo.check(provideCheckedId(position));
+
+        mRightView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoListActivity.this, WifiConnectActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private List<VideoListFragment> mFragments;
@@ -139,18 +148,6 @@ public class VideoListActivity extends BaseActivity {
                 break;
         }
         return position;
-    }
-
-    @OnClick(R.id.iv_back)
-    public void onIvBackClicked() {
-        finish();
-    }
-
-    @OnClick(R.id.iv_home)
-    public void onIvHomeClicked() {
-        Intent intent = new Intent(this, WifiConnectActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     @Override
