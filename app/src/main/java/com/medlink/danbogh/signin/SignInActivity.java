@@ -1,6 +1,8 @@
 package com.medlink.danbogh.signin;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -64,6 +66,7 @@ public class SignInActivity extends BaseActivity {
         tvAgree.setMovementMethod(LinkMovementMethod.getInstance());
         tvAgree.setText(agreeBuilder);
         checkInput();
+        ((TextView)findViewById(R.id.tv_version)).setText(getLocalVersionName());
     }
 
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener =
@@ -114,6 +117,19 @@ public class SignInActivity extends BaseActivity {
             startActivity(new Intent(SignInActivity.this, AgreementActivity.class));
         }
     };
+
+    public String getLocalVersionName() {
+        String localVersion = "";
+        try {
+            PackageInfo packageInfo = getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(getPackageName(), 0);
+            localVersion = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return localVersion;
+    }
 
     @OnClick(R.id.cl_root)
     public void onClRootClicked() {
