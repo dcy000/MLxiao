@@ -228,6 +228,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
      * 返回上一页
      */
     protected void backLastActivity() {
+        startActivity(new Intent(mContext, DoctorappoActivity.class));
         finish();
     }
 

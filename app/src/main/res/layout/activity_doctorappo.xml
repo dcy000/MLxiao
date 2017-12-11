@@ -308,42 +308,37 @@
         </LinearLayout>
 
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="60dp"
-            android:orientation="horizontal">
-
-
-            <Button
-                android:id="@+id/video_doctor"
-                android:layout_width="250dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="40dp"
-                android:background="@drawable/video_selector"
-                android:gravity="center"
-                android:text="视频医生"
-                android:textColor="#FFFFFF"
-                android:textSize="40sp" />
-
-
-            <Button
-                android:id="@+id/add_yuyue"
-                android:layout_width="250dp"
-                android:layout_height="70dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="40dp"
-                android:layout_toRightOf="@+id/video_doctor"
-                android:background="@drawable/add_yuyues"
-                android:gravity="center"
-                android:text="添加预约"
-                android:textColor="#FFFFFF"
-                android:textSize="37sp" />
-
-        </RelativeLayout>
-
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/video_doctor"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="320dp"
+        android:background="@drawable/video_selector"
+        android:gravity="center"
+        android:text="视频医生"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
+
+
+    <Button
+        android:id="@+id/add_yuyue"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/add_yuyues"
+        android:gravity="center"
+        android:text="添加预约"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
 
 
 </RelativeLayout>
