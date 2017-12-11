@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/cl_root"
-    android:background="#FAFAFA"
+    android:background="#F5F5F5"
     tools:context="com.medlink.danbogh.signin.SignInActivity">
 
     <android.support.v7.widget.CardView
