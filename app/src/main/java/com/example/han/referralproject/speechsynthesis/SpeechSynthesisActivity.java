@@ -1263,9 +1263,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                     startActivity(intent);
                     finish();
-                } else if (inSpell.matches(".*mai.*") || inSpell.matches(".*wan.*") ||
-                        inSpell.matches(".*diu.*") ||
-                        resultBuffer.toString().contains("没有")) {
+                } else if (inSpell.matches(".*mai.*")) {
 
                     Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
                     startActivity(intent);
