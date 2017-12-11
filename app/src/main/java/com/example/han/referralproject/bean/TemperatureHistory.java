@@ -7,4 +7,9 @@ package com.example.han.referralproject.bean;
 public class TemperatureHistory {
     public float temper_ature;
     public long time;
+
+    public TemperatureHistory(float temper_ature, long time) {
+        this.temper_ature = temper_ature;
+        this.time = time;
+    }
 }

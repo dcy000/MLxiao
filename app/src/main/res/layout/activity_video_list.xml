@@ -45,7 +45,7 @@
             android:layout_width="0pt"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_rb_health_record1"
+            android:background="@drawable/bg_rb_history_record"
             android:button="@null"
             android:gravity="center"
             android:text="健康讲堂"

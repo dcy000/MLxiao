@@ -1,23 +1,19 @@
 package com.medlink.danbogh.healthdetection;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.Jiashuju;
 import com.example.han.referralproject.bean.BUA;
 import com.example.han.referralproject.bean.BloodOxygenHistory;
 import com.example.han.referralproject.bean.BloodPressureHistory;
@@ -42,30 +38,21 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
 
-import java.net.CookieHandler;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class HealthRecordActivity extends BaseActivity implements View.OnClickListener {
-
-    private static final String UrlFormat = NetworkApi.BasicUrl + "/ZZB/br/cl?bid=%s&temp=%d";
-
+public class HealthRecordActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
     @BindView(R.id.tiwen_chart)
     LineChart tiwenChart;
     @BindView(R.id.xueya_chart)
     LineChart xueyaChart;
     @BindView(R.id.rg_health_record)
     RadioGroup rgHealthRecord;
-//    @BindView(R.id.iv_back)
-//    ImageView ivBack;
-//    @BindView(R.id.tv_title)
-//    TextView tvTitle;
-//    @BindView(R.id.iv_home)
-//    ImageView ivHome;
     public Unbinder mUnbinder;
     @BindView(R.id.rb_record_temperature)
     RadioButton rbRecordTemperature;
@@ -107,21 +94,38 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     LinearLayout llSecond;
     @BindView(R.id.ll_indicator)
     LinearLayout llIndicator;
-    @BindView(R.id.unit)
-    TextView unit;
 
+    @BindView(R.id.one_week)
+    RadioButton oneWeek;
+    @BindView(R.id.one_month)
+    RadioButton oneMonth;
+    @BindView(R.id.one_season)
+    RadioButton oneSeason;
+    @BindView(R.id.one_year)
+    RadioButton oneYear;
+    @BindView(R.id.ll_time)
+    RadioGroup llTime;
+    @BindView(R.id.rb_kongfu)
+    RadioButton rbKongfu;
+    @BindView(R.id.rb_one_hour)
+    RadioButton rbOneHour;
+    @BindView(R.id.rb_two_hour)
+    RadioButton rbTwoHour;
+    @BindView(R.id.rg_xuetang_time)
+    RadioGroup rgXuetangTime;
+    private long currentTime=0L,weekAgoTime=0L,monthAgoTime,seasonAgoTime=0L,yearAgoTime=0L;
     private String temp = "1";//记录选择的标签,默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_record);
+        mToolbar.setVisibility(View.VISIBLE);
         mUnbinder = ButterKnife.bind(this);
 //        tvTitle.setText("健康档案");
         //默认选择第一个
         rgHealthRecord.check(R.id.rb_record_temperature);
-
-        getTiwen();
+        mTitleText.setText("历史测量");
         rbRecordTemperature.setOnClickListener(this);
         rbRecordBloodPressure.setOnClickListener(this);
         rbRecordBloodGlucose.setOnClickListener(this);
@@ -130,6 +134,14 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         rbRecordPulse.setOnClickListener(this);
         rbRecordCholesterol.setOnClickListener(this);
         rbRecordBua.setOnClickListener(this);
+        llTime.setOnCheckedChangeListener(this);
+        currentTime=System.currentTimeMillis();
+        weekAgoTime=currentTime-7*24*60*60*1000;
+        seasonAgoTime=currentTime-3*30*24*60*60*1000;
+        monthAgoTime=currentTime-30*24*60*60*1000;
+        yearAgoTime=currentTime-365*24*60*60*1000;
+
+        getTiwen(weekAgoTime+"",currentTime+"");
     }
 
     @Override
@@ -141,17 +153,13 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      * 体温图的设置
      */
     private void setTiwenChart() {
-        //指示器的颜色
-        color1.setBackgroundColor(Color.parseColor("#6D80E2"));
-        indicator1.setText("体温");
-        unit.setText("单位(℃)");
-        llSecond.setVisibility(View.GONE);
+
         //x轴右下角文字描述
         tiwenChart.getDescription().setEnabled(false);
         // enable touch gestures 启用触
         tiwenChart.setTouchEnabled(true);
 
-        // enable scaling and dragging 启用坐标轴是否可以上下拖动
+        //启用坐标轴是否可以上下拖动
         tiwenChart.setDragEnabled(true);
         //启用缩放
         tiwenChart.setScaleEnabled(true);
@@ -159,8 +167,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         tiwenChart.setScaleYEnabled(false);
         tiwenChart.setExtraLeftOffset(40);
         tiwenChart.setExtraRightOffset(80);
-        tiwenChart.setVisibleXRangeMaximum(4);
-
+        //20个数据以后不再显示注释标签
+        tiwenChart.setMaxVisibleValueCount(20);
+        tiwenChart.setNoDataText(getResources().getString(R.string.noData));
 
         XAxis xAxis = tiwenChart.getXAxis();
         //绘制底部的X轴
@@ -171,22 +180,24 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xAxis.setDrawAxisLine(true);
         //启用X轴的网格虚线
         xAxis.setDrawGridLines(false);
+        //缩放时候的粒度
         xAxis.setGranularity(1);
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setTextSize(20f);
-        xAxis.setLabelCount(3);
+        //在可见范围只显示四个
+        xAxis.setLabelCount(4);
 
-        LimitLine ll1 = new LimitLine(37.2f, "最高体温(37.2℃)");
+        LimitLine ll1 = new LimitLine(37.2f, "最高体温(37.2)");
         ll1.setLineWidth(2f);
-        ll1.setLineColor(Color.parseColor("#CFD8F1"));
+        ll1.setLineColor(getResources().getColor(R.color.picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(36f, "最低体温(36.0℃)");
+        LimitLine ll2 = new LimitLine(36f, "最低体温(36.0)");
         ll2.setLineWidth(2f);
-        ll2.setLineColor(Color.parseColor("#a8b9ec"));
+        ll2.setLineColor(getResources().getColor(R.color.picket_line));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll2.setTextSize(18f);
@@ -201,21 +212,19 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         leftAxis.setAxisMinimum(35f);
         leftAxis.setTextSize(20f);
 
-//        leftAxis.setYOffset(20f);
-        //网格线
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        //设置网格线的颜色
-//        leftAxis.setGridColor(Color.RED);
 
+        //网格线
+        leftAxis.setDrawGridLines(false);//不启用y轴的参考线
+        leftAxis.enableGridDashedLine(10f, 10f, 0f);
         //启用零线
         leftAxis.setDrawZeroLine(false);
 
-        // limit lines are drawn behind data (and not on top)
         //绘制警戒线在绘制数据之后
         leftAxis.setDrawLimitLinesBehindData(false);
 
         //禁用右边的Y轴
         tiwenChart.getAxisRight().setEnabled(false);
+        //动画时间
         tiwenChart.animateX(2500);
 
     }
@@ -225,13 +234,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      * 血压图的基本设置
      */
     private void setXueyaChart() {
-        //指示器的颜色
-        color1.setBackgroundColor(Color.parseColor("#9CD793"));
-        indicator1.setText("高压");
-        color2.setBackgroundColor(Color.parseColor("#6D80E2"));
-        indicator2.setText("低压");
-        llSecond.setVisibility(View.VISIBLE);
-        unit.setText("单位(mmHg)");
+
         xueyaChart.getDescription().setEnabled(false);
 
         // enable touch gestures
@@ -244,29 +247,24 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xueyaChart.setScaleEnabled(true);
         xueyaChart.setDrawGridBackground(false);
         xueyaChart.setHighlightPerDragEnabled(true);
-
-        // if disabled, scaling can be done on x- and y-axis separately
-        xueyaChart.setPinchZoom(true);
-
-        // add data
-//        setData(20, 30);
         xueyaChart.animateX(2500);
         //禁止y轴缩放
         xueyaChart.setScaleYEnabled(false);
         xueyaChart.setExtraLeftOffset(50f);
         xueyaChart.setExtraRightOffset(80f);
+        xueyangChart.setNoDataText(getResources().getString(R.string.noData));
 
-        LimitLine ll1 = new LimitLine(130f, "高压Max(130mmHg)");
+        LimitLine ll1 = new LimitLine(130f, "高压Max(130)");
         ll1.setLineWidth(2f);
-        ll1.setLineColor(Color.parseColor("#D3EFD0"));
+        ll1.setLineColor(getResources().getColor(R.color.picket_line1));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(20f);
 
 
-        LimitLine ll2 = new LimitLine(90f, "高压Min(90mmHg)");
+        LimitLine ll2 = new LimitLine(90f, "高压Min(90)");
         ll2.setLineWidth(2f);
-        ll2.setLineColor(Color.parseColor("#D3EFD0"));
+        ll2.setLineColor(getResources().getColor(R.color.picket_line1));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll2.setTextSize(18f);
@@ -278,24 +276,25 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xAxis.setDrawAxisLine(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
+        xAxis.setLabelCount(4);
 
-        LimitLine ll3 = new LimitLine(85f, "低压Max(85mmHg)");
+        LimitLine ll3 = new LimitLine(85f, "低压Max(85)");
         ll3.setLineWidth(2f);
-        ll3.setLineColor(Color.parseColor("#CFD8F1"));
+        ll3.setLineColor(getResources().getColor(R.color.picket_line2));
         ll3.enableDashedLine(10.0f, 10f, 0f);
         ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll3.setTextSize(20f);
 
 
-        LimitLine ll4 = new LimitLine(60f, "低压Min(60mmHg)");
+        LimitLine ll4 = new LimitLine(60f, "低压Min(60)");
         ll4.setLineWidth(2f);
-        ll4.setLineColor(Color.parseColor("#CFD8F1"));
+        ll4.setLineColor(getResources().getColor(R.color.picket_line2));
         ll4.enableDashedLine(10f, 10f, 0f);
         ll4.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll4.setTextSize(18f);
 
         YAxis leftAxis = xueyaChart.getAxisLeft();
-        leftAxis.setDrawGridLines(true);
+        leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setGranularityEnabled(true);
         leftAxis.addLimitLine(ll1);
@@ -305,7 +304,6 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         leftAxis.setAxisMinimum(50f);
         leftAxis.setDrawLimitLinesBehindData(false);
         leftAxis.setTextSize(20f);
-
         xueyaChart.getAxisRight().setEnabled(false);
 
 
@@ -321,98 +319,85 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         // enable touch gestures 启用触
         xuetangChart.setTouchEnabled(true);
 
-        // enable scaling and dragging 启用坐标轴是否可以上下拖动
+        // 启用坐标轴是否可以上下拖动
         xuetangChart.setDragEnabled(true);
         //启用缩放
         xuetangChart.setScaleEnabled(true);
-
-        // if disabled, scaling can be done on x- and y-axis separately
-        xuetangChart.setPinchZoom(false);
         //禁止y轴缩放
         xuetangChart.setScaleYEnabled(false);
         xuetangChart.setExtraLeftOffset(50);
         xuetangChart.setExtraRightOffset(80);
-
+        xuetangChart.setNoDataText(getResources().getString(R.string.noData));
 
         XAxis xAxis = xuetangChart.getXAxis();
         //绘制底部的X轴
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        //启用绘制轴标签 //默认是true
-        xAxis.setDrawLabels(true);
-        //启用轴线实体线 //默认是true
-        xAxis.setDrawAxisLine(true);
         //启用X轴的网格虚线
         xAxis.setDrawGridLines(false);
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
-        xAxis.setTextSize(15);
+        xAxis.setTextSize(20f);
         xAxis.setGranularity(1);
+        xAxis.setLabelCount(4);
 
-        LimitLine ll1 = new LimitLine(6.11f, "空腹Max(6.11mmol/L)");
+        LimitLine ll1 = new LimitLine(6.11f, "空腹Max(6.11)");
         ll1.setLineWidth(2f);
-        ll1.setLineColor(Color.parseColor("#F0FC6D9A"));
+        ll1.setLineColor(getResources().getColor(R.color.picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll1.setTextSize(10f);
+        ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(3.61f, "空腹Min(3.61mmol/L)");
+        LimitLine ll2 = new LimitLine(3.61f, "空腹Min(3.61)");
         ll2.setLineWidth(2f);
-        ll2.setLineColor(Color.parseColor("#F0FC6D9A"));
+        ll2.setLineColor(getResources().getColor(R.color.picket_line));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        ll2.setTextSize(10f);
+        ll2.setTextSize(18f);
 
-        LimitLine ll3 = new LimitLine(9.4f, "餐后1小时Max(9.4mmol/L)");
-        ll3.setLineWidth(2f);
-        ll3.setLineColor(Color.parseColor("#F0FC6D9A"));
-        ll3.enableDashedLine(10.0f, 10f, 0f);
-        ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll3.setTextSize(10f);
-
-        LimitLine ll4 = new LimitLine(6.7f, "餐后1小时Min(6.7mmol/L)");
-        ll4.setLineWidth(2f);
-        ll4.setLineColor(Color.parseColor("#F0FC6D9A"));
-        ll4.enableDashedLine(10.0f, 10f, 0f);
-        ll4.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll4.setTextSize(10f);
-
-        LimitLine ll5 = new LimitLine(7.8f, "餐后2小时Max(7.8mmol/L)");
-        ll5.setLineWidth(2f);
-        ll5.setLineColor(Color.parseColor("#F0FC6D9A"));
-        ll5.enableDashedLine(10.0f, 10f, 0f);
-        ll5.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll5.setTextSize(10f);
-
-        LimitLine ll6 = new LimitLine(3.61f, "餐后2小时Min(3.61mmol/L)");
-        ll6.setLineWidth(2f);
-        ll6.setLineColor(Color.parseColor("#F0FC6D9A"));
-        ll6.enableDashedLine(10.0f, 10f, 0f);
-        ll6.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll6.setTextSize(10f);
+//        LimitLine ll3 = new LimitLine(9.4f, "餐后1小时Max(9.4mmol/L)");
+//        ll3.setLineWidth(2f);
+//        ll3.setLineColor(Color.parseColor("#F0FC6D9A"));
+//        ll3.enableDashedLine(10.0f, 10f, 0f);
+//        ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+//        ll3.setTextSize(10f);
+//
+//        LimitLine ll4 = new LimitLine(6.7f, "餐后1小时Min(6.7mmol/L)");
+//        ll4.setLineWidth(2f);
+//        ll4.setLineColor(Color.parseColor("#F0FC6D9A"));
+//        ll4.enableDashedLine(10.0f, 10f, 0f);
+//        ll4.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+//        ll4.setTextSize(10f);
+//
+//        LimitLine ll5 = new LimitLine(7.8f, "餐后2小时Max(7.8mmol/L)");
+//        ll5.setLineWidth(2f);
+//        ll5.setLineColor(Color.parseColor("#F0FC6D9A"));
+//        ll5.enableDashedLine(10.0f, 10f, 0f);
+//        ll5.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+//        ll5.setTextSize(10f);
+//
+//        LimitLine ll6 = new LimitLine(3.61f, "餐后2小时Min(3.61mmol/L)");
+//        ll6.setLineWidth(2f);
+//        ll6.setLineColor(Color.parseColor("#F0FC6D9A"));
+//        ll6.enableDashedLine(10.0f, 10f, 0f);
+//        ll6.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+//        ll6.setTextSize(10f);
 
         //Y轴设置
         YAxis leftAxis = xuetangChart.getAxisLeft();
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.addLimitLine(ll3);
-        leftAxis.addLimitLine(ll4);
-        leftAxis.addLimitLine(ll5);
-        leftAxis.addLimitLine(ll6);
         leftAxis.setAxisMinimum(0f);
         leftAxis.setAxisMaximum(10f);
         //网格线
+        leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
 
         //启用零线
         leftAxis.setDrawZeroLine(false);
-
-        // limit lines are drawn behind data (and not on top)
         //绘制警戒线在绘制数据之后
         leftAxis.setDrawLimitLinesBehindData(false);
         //禁用右边的Y轴
         xuetangChart.getAxisRight().setEnabled(false);
-
         xuetangChart.animateX(2500);
 
     }
@@ -421,11 +406,6 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      * 血氧基本设置
      */
     private void setXueyangChart() {
-        //指示器的颜色
-        color1.setBackgroundColor(Color.parseColor("#6D80E2"));
-        indicator1.setText("血氧");
-        unit.setText("单位(mmHg)");
-        llSecond.setVisibility(View.GONE);
 
         //x轴右下角文字描述
         xueyangChart.getDescription().setEnabled(false);
@@ -444,7 +424,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
         xueyangChart.setExtraLeftOffset(50);
         xueyangChart.setExtraRightOffset(80);
-
+        xueyangChart.setMaxVisibleValueCount(20);
+        xueyangChart.setVisibleXRangeMaximum(4);
+        xueyangChart.setNoDataText(getResources().getString(R.string.noData));
 
         XAxis xAxis = xueyangChart.getXAxis();
         //绘制底部的X轴
@@ -458,11 +440,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setTextSize(20);
         xAxis.setGranularity(1);
+        xAxis.setLabelCount(4);
 
 
         LimitLine ll1 = new LimitLine(94f, "最低血氧饱和度(94%)");
         ll1.setLineWidth(2f);
-        ll1.setLineColor(Color.parseColor("#a8b9ec"));
+        ll1.setLineColor(getResources().getColor(R.color.picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(18f);
@@ -472,16 +455,13 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(ll1);
         leftAxis.setAxisMinimum(90f);
-        leftAxis.setAxisMaximum(100f);
+        leftAxis.setAxisMaximum(101f);
         //网格线
+        leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        //设置网格线的颜色
-//        leftAxis.setGridColor(Color.RED);
-
         //启用零线
         leftAxis.setDrawZeroLine(false);
 
-        // limit lines are drawn behind data (and not on top)
         //绘制警戒线在绘制数据之后
         leftAxis.setDrawLimitLinesBehindData(false);
         leftAxis.setTextSize(20f);
@@ -509,7 +489,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xinlvChart.setScaleYEnabled(false);
         xinlvChart.setExtraLeftOffset(50);
         xinlvChart.setExtraRightOffset(80);
-
+        xinlvChart.setNoDataText(getResources().getString(R.string.noData));
 
         XAxis xAxis = xinlvChart.getXAxis();
         //绘制底部的X轴
@@ -585,7 +565,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         maiboChart.setScaleYEnabled(false);
         maiboChart.setExtraLeftOffset(50);
         maiboChart.setExtraRightOffset(80);
-
+        maiboChart.setNoDataText(getResources().getString(R.string.noData));
 
         XAxis xAxis = maiboChart.getXAxis();
         //绘制底部的X轴
@@ -647,44 +627,32 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      * 设置胆固醇
      */
     private void setDanguchunChart() {
-        //指示器的颜色
-        color1.setBackgroundColor(Color.parseColor("#9CD793"));
-        indicator1.setText("成人");
-        color2.setBackgroundColor(Color.parseColor("#6D80E2"));
-        indicator2.setText("儿童");
-        llSecond.setVisibility(View.VISIBLE);
-        unit.setText("单位(mmol/L)");
+
         //x轴右下角文字描述
         danguchunChart.getDescription().setEnabled(false);
         // enable touch gestures 启用触
         danguchunChart.setTouchEnabled(true);
 
-        // enable scaling and dragging 启用坐标轴是否可以上下拖动
         danguchunChart.setDragEnabled(true);
         //启用缩放
         danguchunChart.setScaleEnabled(true);
-        danguchunChart.setPinchZoom(false);
         //禁止y轴缩放
         danguchunChart.setScaleYEnabled(false);
         danguchunChart.setExtraLeftOffset(40);
         danguchunChart.setExtraRightOffset(80);
-
+        danguchunChart.setNoDataText(getResources().getString(R.string.noData));
 
         XAxis xAxis = danguchunChart.getXAxis();
         //绘制底部的X轴
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        //启用绘制轴标签 //默认是true
-        xAxis.setDrawLabels(true);
-        //启用轴线实体线 //默认是true
-        xAxis.setDrawAxisLine(true);
         //启用X轴的网格虚线
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1);
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setTextSize(20f);
+        xAxis.setLabelCount(4);
 
 
-        LimitLine ll1 = new LimitLine(2.9f, "成人Min(2.9mmol/L)");
+        LimitLine ll1 = new LimitLine(2.9f, "成人Min(2.9)");
         ll1.setLineWidth(2f);
         ll1.setLineColor(Color.parseColor("#9CD793"));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -692,14 +660,14 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(6.0f, "成人Max(6.0mmol/L)");
+        LimitLine ll2 = new LimitLine(6.0f, "成人Max(6.0)");
         ll2.setLineWidth(2f);
         ll2.setLineColor(Color.parseColor("#9CD793"));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll2.setTextSize(18f);
 
-        LimitLine ll3 = new LimitLine(3.1f, "儿童Min(3.1mmol/L)");
+        LimitLine ll3 = new LimitLine(3.1f, "儿童Min(3.1)");
         ll3.setLineWidth(2f);
         ll3.setLineColor(Color.parseColor("#6D80E2"));
         ll3.enableDashedLine(10.0f, 10f, 0f);
@@ -707,7 +675,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll3.setTextSize(18f);
 
 
-        LimitLine ll4 = new LimitLine(5.2f, "儿童Max(5.2mmol/L)");
+        LimitLine ll4 = new LimitLine(5.2f, "儿童Max(5.2)");
         ll4.setLineWidth(2f);
         ll4.setLineColor(Color.parseColor("#6D80E2"));
         ll4.enableDashedLine(10f, 10f, 0f);
@@ -716,7 +684,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
         //Y轴设置
         YAxis leftAxis = danguchunChart.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
         leftAxis.addLimitLine(ll3);
@@ -724,16 +692,14 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
         leftAxis.resetAxisMaximum();
         leftAxis.resetAxisMinimum();
-//        leftAxis.setAxisMaximum(15);
-//        leftAxis.setAxisMinimum(0);
 
         //网格线
+        leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
 
         //启用零线
         leftAxis.setDrawZeroLine(false);
 
-        // limit lines are drawn behind data (and not on top)
         //绘制警戒线在绘制数据之后
         leftAxis.setDrawLimitLinesBehindData(false);
         leftAxis.setTextSize(20f);
@@ -748,92 +714,77 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      * 设置血尿酸
      */
     private void setBUAChart() {
-        //指示器的颜色
-        color2.setBackgroundColor(Color.parseColor("#9CD793"));
-        indicator2.setText("女性");
-        color1.setBackgroundColor(Color.parseColor("#6D80E2"));
-        indicator1.setText("男性");
-        unit.setText("单位(umol/L)");
-        llSecond.setVisibility(View.VISIBLE);
+
         //x轴右下角文字描述
         xueniaosuanChart.getDescription().setEnabled(false);
         // enable touch gestures 启用触
         xueniaosuanChart.setTouchEnabled(true);
 
-        // enable scaling and dragging 启用坐标轴是否可以上下拖动
+        //启用坐标轴是否可以上下拖动
         xueniaosuanChart.setDragEnabled(true);
         //启用缩放
         xueniaosuanChart.setScaleEnabled(true);
-        xueniaosuanChart.setPinchZoom(false);
         //禁止y轴缩放
         xueniaosuanChart.setScaleYEnabled(false);
         xueniaosuanChart.setExtraLeftOffset(40);
         xueniaosuanChart.setExtraRightOffset(80);
-
+        xueniaosuanChart.setNoDataText(getResources().getString(R.string.noData));
 
         XAxis xAxis = xueniaosuanChart.getXAxis();
         //绘制底部的X轴
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        //启用绘制轴标签 //默认是true
-        xAxis.setDrawLabels(true);
-        //启用轴线实体线 //默认是true
-        xAxis.setDrawAxisLine(true);
         //启用X轴的网格虚线
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1);
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setTextSize(20f);
+        xAxis.setLabelCount(4);
 
 
-        LimitLine ll1 = new LimitLine(149f, "男性Max(149umol/L)");
+        LimitLine ll1 = new LimitLine(149f, "男性Max(149)");
         ll1.setLineWidth(2f);
         ll1.setLineColor(Color.parseColor("#CFD8F1"));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll1.setTextSize(20f);
+        ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(416f, "男性(416umol/L)");
+        LimitLine ll2 = new LimitLine(416f, "男性(416)");
         ll2.setLineWidth(2f);
         ll2.setLineColor(Color.parseColor("#CFD8F1"));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll2.setTextSize(20f);
+        ll2.setTextSize(18f);
 
-        LimitLine ll3 = new LimitLine(357f, "女性Max(357umol/L)");
+        LimitLine ll3 = new LimitLine(357f, "女性Max(357)");
         ll3.setLineWidth(2f);
         ll3.setLineColor(Color.parseColor("#D3EFD0"));
         ll3.enableDashedLine(10.0f, 10f, 0f);
         ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll3.setTextSize(20f);
+        ll3.setTextSize(18f);
 
-        LimitLine ll4 = new LimitLine(89f, "女性Min(89umol/L)");
+        LimitLine ll4 = new LimitLine(89f, "女性Min(89)");
         ll4.setLineWidth(2f);
         ll4.setLineColor(Color.parseColor("#D3EFD0"));
         ll4.enableDashedLine(10.0f, 10f, 0f);
         ll4.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll4.setTextSize(20f);
+        ll4.setTextSize(18f);
+
         //Y轴设置
         YAxis leftAxis = xueniaosuanChart.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
         leftAxis.addLimitLine(ll3);
         leftAxis.addLimitLine(ll4);
         leftAxis.resetAxisMaximum();
         leftAxis.resetAxisMinimum();
-//        leftAxis.setAxisMinimum(60);
-//        leftAxis.setAxisMaximum(430);
-//        leftAxis.setYOffset(20f);
+        leftAxis.setAxisMaximum(450);
+        leftAxis.setAxisMinimum(70);
         //网格线
+        leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        //设置网格线的颜色
-//        leftAxis.setGridColor(Color.RED);
-
         //启用零线
         leftAxis.setDrawZeroLine(false);
-
-        // limit lines are drawn behind data (and not on top)
         //绘制警戒线在绘制数据之后
         leftAxis.setDrawLimitLinesBehindData(false);
         leftAxis.setTextSize(20f);
@@ -843,18 +794,24 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private void getTiwen() {
-        NetworkApi.getTemperatureHistory(temp, new NetworkManager.SuccessCallback<ArrayList<TemperatureHistory>>() {
+    private void getTiwen(String start,String end) {
+        rgXuetangTime.setVisibility(View.GONE);
+        //指示器的颜色
+        color1.setBackgroundColor(getResources().getColor(R.color.node_color));
+        indicator1.setText("体温(℃)");
+        llSecond.setVisibility(View.GONE);
+        NetworkApi.getTemperatureHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<TemperatureHistory>>() {
             @Override
             public void onSuccess(ArrayList<TemperatureHistory> response) {
                 ArrayList<Entry> values = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
                 ArrayList<Integer> colors = new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
-                    if (response.get(i).temper_ature > 37.2 || response.get(i).temper_ature < 36.0) {
+
+                    if (response.get(i).temper_ature > 37.2 || response.get(i).temper_ature < 36.0) {//超出正常范围的数据用红色表明
                         colors.add(Color.RED);
                     } else {
-                        colors.add(Color.parseColor("#6D80E2"));
+                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
                     }
                     values.add(new Entry(i, response.get(i).temper_ature));
                     times.add(response.get(i).time);
@@ -871,14 +828,28 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    private void getXueya() {
-        NetworkApi.getBloodpressureHistory(temp, new NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>>() {
+    private void getXueya(String start,String end) {
+        rgXuetangTime.setVisibility(View.GONE);
+        //指示器的颜色
+        color1.setBackgroundColor(getResources().getColor(R.color.node_color));
+        indicator1.setText("高压(mmHg)");
+        color2.setBackgroundColor(getResources().getColor(R.color.node2_color));
+        indicator2.setText("低压(mmHg)");
+        llSecond.setVisibility(View.VISIBLE);
+
+        NetworkApi.getBloodpressureHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodPressureHistory> response) {
                 ArrayList<Entry> yVals1 = new ArrayList<Entry>();
                 ArrayList<Entry> yVals2 = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
+                ArrayList<Integer> colors = new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
+                    if (response.get(i).high_pressure > 130 || response.get(i).high_pressure < 90||response.get(i).low_pressure>85||response.get(i).low_pressure<60) {
+                        colors.add(Color.RED);
+                    } else {
+                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                    }
                     yVals1.add(new Entry(i, response.get(i).high_pressure));
                     times.add(response.get(i).time);
                 }
@@ -888,24 +859,37 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 if (times.size() != 0) {
                     setXueyaChart();
                     xueyaChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times,response);
+                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times, response);
                     mv.setChartView(xueyaChart);
                     xueyaChart.setMarker(mv);
                 }
-
-
-                setXueya(yVals1, yVals2);
+                setXueya(yVals1, yVals2,colors,colors);
             }
         });
     }
 
-    private void getXuetang() {
-        NetworkApi.getBloodSugarHistory(temp, new NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>>() {
+    private void getXuetang(String start,String end) {
+        rgXuetangTime.setVisibility(View.VISIBLE);
+        //指示器的颜色
+        color1.setBackgroundColor(getResources().getColor(R.color.node_color));
+        indicator1.setText("血糖(mmol/L)");
+        llSecond.setVisibility(View.GONE);
+        NetworkApi.getBloodSugarHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodSugarHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
+                ArrayList<Integer> colors=new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
+//                    switch (response.get(i).xx){
+//                        case xx:
+//                            if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
+//                                colors.add(Color.RED);
+//                            } else {
+//                                colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+//                            }
+//                            break;
+//                    }
                     value.add(new Entry(i, response.get(i).blood_sugar));
                     times.add(response.get(i).time);
                 }
@@ -917,18 +901,29 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     xuetangChart.setMarker(mv); // Set the marker to the chart
                 }
 
-                setXuetang(value);
+                setXuetang(value,colors);
             }
         });
     }
 
-    private void getXueyang() {
-        NetworkApi.getBloodOxygenHistory(temp, new NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>>() {
+    private void getXueyang(String start,String end) {
+        rgXuetangTime.setVisibility(View.GONE);
+        //指示器的颜色
+        color1.setBackgroundColor(getResources().getColor(R.color.node_color));
+        indicator1.setText("血氧");
+        llSecond.setVisibility(View.GONE);
+        NetworkApi.getBloodOxygenHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodOxygenHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
+                ArrayList<Integer> colors=new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
+                    if(response.get(i).blood_oxygen<94){
+                        colors.add(Color.RED);
+                    }else{
+                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                    }
                     value.add(new Entry(i, response.get(i).blood_oxygen));
                     times.add(response.get(i).time);
                 }
@@ -939,13 +934,13 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(xueyangChart); // For bounds control
                     xueyangChart.setMarker(mv); // Set the marker to the chart
                 }
-                setXueyang(value);
+                setXueyang(value,colors);
             }
         });
     }
 
-    private void getXinlv() {
-        NetworkApi.getHeartRateHistory(temp, new NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>>() {
+    private void getXinlv(String start,String end) {
+        NetworkApi.getHeartRateHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>>() {
             @Override
             public void onSuccess(ArrayList<HeartRateHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
@@ -966,8 +961,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    private void getMaibo() {
-        NetworkApi.getPulseHistory(temp, new NetworkManager.SuccessCallback<ArrayList<PulseHistory>>() {
+    private void getMaibo(String start,String end) {
+        NetworkApi.getPulseHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<PulseHistory>>() {
             @Override
             public void onSuccess(ArrayList<PulseHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
@@ -988,13 +983,26 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    private void getDangucun() {
-        NetworkApi.getCholesterolHistory(temp, new NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>>() {
+    private void getDangucun(String start,String end) {
+        rgXuetangTime.setVisibility(View.GONE);
+        //指示器的颜色
+        color1.setBackgroundColor(Color.parseColor("#9CD793"));
+        indicator1.setText("成人(mmol/L)");
+        color2.setBackgroundColor(Color.parseColor("#6D80E2"));
+        indicator2.setText("儿童(mmol/L)");
+        llSecond.setVisibility(View.VISIBLE);
+        NetworkApi.getCholesterolHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>>() {
             @Override
             public void onSuccess(ArrayList<CholesterolHistory> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
+                ArrayList<Integer> colors=new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
+                    if(response.get(i).cholesterol<2.9||response.get(i).cholesterol>6.0){
+                        colors.add(Color.RED);
+                    }else{
+                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                    }
                     value.add(new Entry(i, response.get(i).cholesterol));
                     times.add(response.get(i).time);
                 }
@@ -1005,18 +1013,32 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(danguchunChart); // For bounds control
                     danguchunChart.setMarker(mv); // Set the marker to the chart
                 }
-                setDanguchun(value);
+                setDanguchun(value,colors);
             }
         });
     }
 
-    private void getXueniaosuan() {
-        NetworkApi.getBUAHistory(temp, new NetworkManager.SuccessCallback<ArrayList<BUA>>() {
+    private void getXueniaosuan(String start,String end) {
+        rgXuetangTime.setVisibility(View.GONE);
+        //指示器的颜色
+        color2.setBackgroundColor(Color.parseColor("#9CD793"));
+        indicator2.setText("女性");
+        color1.setBackgroundColor(Color.parseColor("#6D80E2"));
+        indicator1.setText("男性");
+        llSecond.setVisibility(View.VISIBLE);
+
+        NetworkApi.getBUAHistory(start,end,temp, new NetworkManager.SuccessCallback<ArrayList<BUA>>() {
             @Override
             public void onSuccess(ArrayList<BUA> response) {
                 ArrayList<Entry> value = new ArrayList<Entry>();
                 ArrayList<Long> times = new ArrayList<>();
+                ArrayList<Integer> colors=new ArrayList<>();
                 for (int i = 0; i < response.size(); i++) {
+                    if(response.get(i).uric_acid<149||response.get(i).uric_acid>416){
+                        colors.add(Color.RED);
+                    }else{
+                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                    }
                     value.add(new Entry(i, response.get(i).uric_acid));
                     times.add(response.get(i).time);
                 }
@@ -1027,7 +1049,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(xueniaosuanChart); // For bounds control
                     xueniaosuanChart.setMarker(mv); // Set the marker to the chart
                 }
-                setXueniaosuan(value);
+                setXueniaosuan(value,colors);
             }
         });
     }
@@ -1047,10 +1069,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             tiwenChart.getData().notifyDataChanged();
             tiwenChart.notifyDataSetChanged();
         } else {
-            // create a dataset and give it a type
             set1 = new LineDataSet(values, "");
+            //不画节点上的图案
             set1.setDrawIcons(false);
-            // set the line to be drawn like this "- - - - - -"
 
             //设置选中指示线的样式
             set1.enableDashedHighlightLine(10f, 0f, 0f);
@@ -1062,24 +1083,27 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             set1.setValueFormatter(new MyFloatNumFormatter(temp));
 
             //走势线的样式
-            set1.enableDashedLine(10f, 0f, 0f);
-            set1.setColor(Color.parseColor("#CDD6ED"));
-            set1.setCircleColor(Color.parseColor("#6D80E2"));
+//            set1.enableDashedLine(10f, 0f, 0f);
+            //走势线的颜色
+            set1.setColor(getResources().getColor(R.color.line_color));
+            //节点圆圈的颜色
+            set1.setCircleColor(getResources().getColor(R.color.node_color));
 
             //走势线的粗细
-            set1.setLineWidth(2.5f);
+            set1.setLineWidth(6f);
             //封顶圆圈的直径
-            set1.setCircleRadius(6f);
+            set1.setCircleRadius(8f);
             //是否镂空
-            set1.setDrawCircleHole(false);
+            set1.setDrawCircleHole(true);
+            set1.setCircleHoleRadius(4f);
+
 
             //左下角指示器样式
             set1.setFormLineWidth(0f);
             set1.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
             set1.setFormSize(0f);
             //曲线区域颜色填充
-            set1.setDrawFilled(true);
-
+            set1.setDrawFilled(false);
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_tiwen);
@@ -1089,11 +1113,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
+            dataSets.add(set1);
             LineData data = new LineData(dataSets);
-            // set data
             tiwenChart.setData(data);
         }
     }
@@ -1104,7 +1125,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      * @param yVals1
      * @param yVals2
      */
-    private void setXueya(ArrayList<Entry> yVals1, ArrayList<Entry> yVals2) {
+    private void setXueya(ArrayList<Entry> yVals1, ArrayList<Entry> yVals2,ArrayList<Integer> colors1,ArrayList<Integer> colors2) {
         LineDataSet set1, set2, set3;
 
         if (xueyaChart.getData() != null &&
@@ -1116,23 +1137,23 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             xueyaChart.getData().notifyDataChanged();
             xueyaChart.notifyDataSetChanged();
         } else {
-            // create a dataset and give it a type
             set1 = new LineDataSet(yVals1, "");
+            //设置数据依赖左边的Y轴
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set1.setColor(Color.parseColor("#CBF8C3"));
-            set1.setValueTextColor(Color.parseColor("#9CD793"));
-            set1.setCircleColor(Color.parseColor("#9CD793"));
-            set1.setLineWidth(2.5f);
+            set1.setColor(getResources().getColor(R.color.line_color));
+            set1.setValueTextColors(colors1);
+            set1.setCircleColor(getResources().getColor(R.color.node_color));
+            set1.setLineWidth(6f);
 
-            set1.setCircleRadius(6f);
-            set1.setFillAlpha(65);
-            set1.setFillColor(ColorTemplate.getHoloBlue());
+            set1.setCircleRadius(8f);
+            set1.setDrawCircleHole(true);
+            set1.setCircleHoleRadius(4f);
+
             set1.setHighLightColor(Color.rgb(244, 117, 117));
-            set1.setDrawCircleHole(false);
             //设置直线圆滑过渡
-            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             //曲线区域颜色填充
-            set1.setDrawFilled(true);
+            set1.setDrawFilled(false);
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_xueya_gaoya);
@@ -1146,23 +1167,21 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             set1.setFormSize(0f);
 
 
-            // create a dataset and give it a type
             set2 = new LineDataSet(yVals2, "");
             set2.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set2.setColor(Color.parseColor("#CDD6ED"));
-            set2.setValueTextColor(Color.parseColor("#6D80E2"));
-            set2.setCircleColor(Color.parseColor("#6D80E2"));
+            set2.setColor(getResources().getColor(R.color.line2_color));
+            set2.setValueTextColors(colors2);
+            set2.setCircleColor(getResources().getColor(R.color.node2_color));
 
-            set2.setLineWidth(2.5f);
-            set2.setCircleRadius(6f);
-            set2.setFillAlpha(65);
-            set2.setFillColor(Color.RED);
-            set2.setDrawCircleHole(false);
+            set2.setLineWidth(6f);
+            set2.setCircleRadius(8f);
+            set2.setDrawCircleHole(true);
+            set2.setCircleHoleRadius(4f);
             set2.setHighLightColor(Color.rgb(244, 117, 117));
             //设置直线圆滑过渡
-            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             //曲线区域颜色填充
-            set2.setDrawFilled(true);
+            set2.setDrawFilled(false);
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_xueya_diya);
@@ -1175,12 +1194,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             set2.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
             set2.setFormSize(0f);
 
-
-            // create a data object with the datasets
             LineData data = new LineData(set1, set2);
             data.setValueTextSize(18f);
-
-            // set data
             xueyaChart.setData(data);
         }
     }
@@ -1190,7 +1205,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      *
      * @param values
      */
-    private void setXuetang(ArrayList<Entry> values) {
+    private void setXuetang(ArrayList<Entry> values,ArrayList<Integer> colors) {
 
         LineDataSet set1;
         if (xuetangChart.getData() != null &&
@@ -1200,29 +1215,23 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             xuetangChart.getData().notifyDataChanged();
             xuetangChart.notifyDataSetChanged();
         } else {
-            // create a dataset and give it a type
             set1 = new LineDataSet(values, "");
             set1.setDrawIcons(false);
 
-            // set the line to be drawn like this "- - - - - -"
-
             //设置选中指示线的样式
-            set1.enableDashedHighlightLine(10f, 0f, 0f);
-            set1.setHighLightColor(Color.BLUE);
-
-
+            set1.setHighLightColor(Color.rgb(244, 117, 117));
             //走势线的样式
-            set1.enableDashedLine(10f, 0f, 0f);
-            set1.setColor(Color.BLUE);
-            set1.setCircleColor(Color.BLACK);
-            set1.setValueTextColor(Color.RED);
+            set1.setColor(getResources().getColor(R.color.line_color));
+            set1.setCircleColor(getResources().getColor(R.color.node_color));
+            set1.setValueTextColors(colors);
             //走势线的粗细
-            set1.setLineWidth(3f);
+            set1.setLineWidth(6f);
             //封顶圆圈的直径
-            set1.setCircleRadius(3f);
+            set1.setCircleRadius(8f);
             //是否镂空
-            set1.setDrawCircleHole(false);
-            set1.setValueTextSize(9f);
+            set1.setDrawCircleHole(true);
+            set1.setCircleHoleRadius(4f);
+            set1.setValueTextSize(18f);
 
             //左下角指示器样式
             set1.setFormLineWidth(0f);
@@ -1230,7 +1239,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             set1.setFormSize(0f);
 //
             //曲线区域颜色填充
-            set1.setDrawFilled(true);
+            set1.setDrawFilled(false);
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
@@ -1240,12 +1249,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
+            dataSets.add(set1);
 
-            // create a data object with the datasets
             LineData data = new LineData(dataSets);
 
-            // set data
             xuetangChart.setData(data);
         }
     }
@@ -1255,7 +1262,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      *
      * @param values
      */
-    private void setXueyang(ArrayList<Entry> values) {
+    private void setXueyang(ArrayList<Entry> values,ArrayList<Integer> colors) {
 
         LineDataSet set1;
         if (xueyangChart.getData() != null &&
@@ -1265,29 +1272,22 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             xueyangChart.getData().notifyDataChanged();
             xueyangChart.notifyDataSetChanged();
         } else {
-            // create a dataset and give it a type
             set1 = new LineDataSet(values, "");
             set1.setDrawIcons(false);
-
-            // set the line to be drawn like this "- - - - - -"
-
             //设置选中指示线的样式
-            set1.enableDashedHighlightLine(10f, 0f, 0f);
             set1.setHighLightColor(Color.rgb(244, 117, 117));
-
-
             //走势线的样式
-            set1.setValueTextColor(Color.parseColor("#6D80E2"));
-            set1.enableDashedLine(10f, 0f, 0f);
-            set1.setColor(Color.parseColor("#CDD6ED"));
-            set1.setCircleColor(Color.parseColor("#6D80E2"));
+            set1.setValueTextColors(colors);
+            set1.setColor(getResources().getColor(R.color.line_color));
+            set1.setCircleColor(getResources().getColor(R.color.node_color));
 
             //走势线的粗细
-            set1.setLineWidth(3f);
+            set1.setLineWidth(6f);
             //封顶圆圈的直径
-            set1.setCircleRadius(6f);
+            set1.setCircleRadius(8f);
             //是否镂空
-            set1.setDrawCircleHole(false);
+            set1.setDrawCircleHole(true);
+            set1.setCircleHoleRadius(4f);
             set1.setValueTextSize(18f);
 
             //左下角指示器样式
@@ -1295,7 +1295,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             set1.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
             set1.setFormSize(0f);
             //曲线区域颜色填充
-            set1.setDrawFilled(true);
+            set1.setDrawFilled(false);
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_tiwen);
@@ -1305,12 +1305,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
+            dataSets.add(set1);
             LineData data = new LineData(dataSets);
-
-            // set data
             xueyangChart.setData(data);
         }
     }
@@ -1450,7 +1446,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      *
      * @param values
      */
-    private void setDanguchun(ArrayList<Entry> values) {
+    private void setDanguchun(ArrayList<Entry> values,ArrayList<Integer> colors) {
 
         LineDataSet set1;
         if (danguchunChart.getData() != null &&
@@ -1460,30 +1456,25 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             danguchunChart.getData().notifyDataChanged();
             danguchunChart.notifyDataSetChanged();
         } else {
-            // create a dataset and give it a type
             set1 = new LineDataSet(values, "");
             set1.setDrawIcons(false);
-
-            // set the line to be drawn like this "- - - - - -"
-
             //设置选中指示线的样式
-            set1.enableDashedHighlightLine(10f, 0f, 0f);
             set1.setHighLightColor(Color.rgb(244, 117, 117));
 
 
             //走势线的样式
-            set1.enableDashedLine(10f, 0f, 0f);
-            set1.setColor(Color.parseColor("#CDD6ED"));
-            set1.setCircleColor(Color.parseColor("#6D80E2"));
+            set1.setColor(getResources().getColor(R.color.line_color));
+            set1.setCircleColor(getResources().getColor(R.color.node_color));
 
 
-            set1.setValueTextColor(Color.parseColor("#6D80E2"));
+            set1.setValueTextColors(colors);
             //走势线的粗细
-            set1.setLineWidth(2.5f);
+            set1.setLineWidth(6f);
             //封顶圆圈的直径
-            set1.setCircleRadius(6f);
+            set1.setCircleRadius(8f);
             //是否镂空
-            set1.setDrawCircleHole(false);
+            set1.setDrawCircleHole(true);
+            set1.setCircleHoleRadius(4f);
             set1.setValueTextSize(18f);
 
             //左下角指示器样式
@@ -1492,7 +1483,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             set1.setFormSize(0f);
 //
             //曲线区域颜色填充
-            set1.setDrawFilled(true);
+            set1.setDrawFilled(false);
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_tiwen);
@@ -1502,12 +1493,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
+            dataSets.add(set1);
             LineData data = new LineData(dataSets);
-
-            // set data
             danguchunChart.setData(data);
         }
     }
@@ -1517,7 +1504,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
      *
      * @param values
      */
-    private void setXueniaosuan(ArrayList<Entry> values) {
+    private void setXueniaosuan(ArrayList<Entry> values,ArrayList<Integer> colors) {
 
         LineDataSet set1;
         if (xueniaosuanChart.getData() != null &&
@@ -1527,32 +1514,25 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             xueniaosuanChart.getData().notifyDataChanged();
             xueniaosuanChart.notifyDataSetChanged();
         } else {
-            // create a dataset and give it a type
             set1 = new LineDataSet(values, "");
             set1.setDrawIcons(false);
-
-            // set the line to be drawn like this "- - - - - -"
-
             //设置选中指示线的样式
-            set1.enableDashedHighlightLine(10f, 0f, 0f);
             set1.setHighLightColor(Color.rgb(244, 117, 117));
 
 
             //走势线的样式
-            set1.enableDashedLine(10f, 0f, 0f);
-            set1.setColor(Color.parseColor("#CDD6ED"));
-            set1.setCircleColor(Color.parseColor("#6D80E2"));
-
-
-            set1.setValueTextColor(Color.parseColor("#6D80E2"));
+            set1.setColor(getResources().getColor(R.color.line_color));
+            set1.setCircleColor(getResources().getColor(R.color.node_color));
+            set1.setValueTextColors(colors);
 
 
             //走势线的粗细
-            set1.setLineWidth(2.5f);
+            set1.setLineWidth(6f);
             //封顶圆圈的直径
-            set1.setCircleRadius(6f);
+            set1.setCircleRadius(8f);
             //是否镂空
-            set1.setDrawCircleHole(false);
+            set1.setDrawCircleHole(true);
+            set1.setCircleHoleRadius(4f);
             set1.setValueTextSize(18f);
 
             //左下角指示器样式
@@ -1561,7 +1541,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             set1.setFormSize(0f);
 //
             //曲线区域颜色填充
-            set1.setDrawFilled(true);
+            set1.setDrawFilled(false);
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_tiwen);
@@ -1571,28 +1551,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
+            dataSets.add(set1);
 
-            // create a data object with the datasets
             LineData data = new LineData(dataSets);
-
-            // set data
             xueniaosuanChart.setData(data);
         }
     }
-
-//    @OnClick(R.id.iv_back)
-//    public void onIvBackClicked() {
-//        finish();
-//    }
-//
-//    @OnClick(R.id.iv_home)
-//    public void onIvHomeClicked() {
-//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//        startActivity(intent);
-//        finish();
-//
-//    }
 
     @Override
     protected void onDestroy() {
@@ -1607,14 +1571,6 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.rb_record_temperature://体温
                 temp = "1";
-                rbRecordTemperature.setTextColor(Color.WHITE);
-                rbRecordBloodPressure.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodGlucose.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodOxygen.setTextColor(Color.parseColor("#999999"));
-                rbRecordHeartRate.setTextColor(Color.parseColor("#999999"));
-                rbRecordPulse.setTextColor(Color.parseColor("#999999"));
-                rbRecordCholesterol.setTextColor(Color.parseColor("#999999"));
-                rbRecordBua.setTextColor(Color.parseColor("#999999"));
                 tiwenChart.setVisibility(View.VISIBLE);
                 xueyaChart.setVisibility(View.GONE);
                 xuetangChart.setVisibility(View.GONE);
@@ -1624,18 +1580,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
                 setTiwenChart();
-                getTiwen();
+                getTiwen(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_blood_pressure://血压
                 temp = "2";
-                rbRecordTemperature.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodPressure.setTextColor(Color.WHITE);
-                rbRecordBloodGlucose.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodOxygen.setTextColor(Color.parseColor("#999999"));
-                rbRecordHeartRate.setTextColor(Color.parseColor("#999999"));
-                rbRecordPulse.setTextColor(Color.parseColor("#999999"));
-                rbRecordCholesterol.setTextColor(Color.parseColor("#999999"));
-                rbRecordBua.setTextColor(Color.parseColor("#999999"));
                 tiwenChart.setVisibility(View.GONE);
                 xueyaChart.setVisibility(View.VISIBLE);
                 xuetangChart.setVisibility(View.GONE);
@@ -1644,19 +1592,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
-
-                getXueya();
+                getXueya(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_blood_glucose://血糖
                 temp = "4";
-                rbRecordTemperature.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodPressure.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodGlucose.setTextColor(Color.WHITE);
-                rbRecordBloodOxygen.setTextColor(Color.parseColor("#999999"));
-                rbRecordHeartRate.setTextColor(Color.parseColor("#999999"));
-                rbRecordPulse.setTextColor(Color.parseColor("#999999"));
-                rbRecordCholesterol.setTextColor(Color.parseColor("#999999"));
-                rbRecordBua.setTextColor(Color.parseColor("#999999"));
                 tiwenChart.setVisibility(View.GONE);
                 xueyaChart.setVisibility(View.GONE);
                 xuetangChart.setVisibility(View.VISIBLE);
@@ -1665,19 +1604,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
-
-                getXuetang();
+                getXuetang(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_blood_oxygen://血氧
                 temp = "5";
-                rbRecordTemperature.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodPressure.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodGlucose.setTextColor(Color.parseColor("#999999"));
-                rbRecordHeartRate.setTextColor(Color.parseColor("#999999"));
-                rbRecordPulse.setTextColor(Color.parseColor("#999999"));
-                rbRecordCholesterol.setTextColor(Color.parseColor("#999999"));
-                rbRecordBua.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodOxygen.setTextColor(Color.WHITE);
                 tiwenChart.setVisibility(View.GONE);
                 xueyaChart.setVisibility(View.GONE);
                 xuetangChart.setVisibility(View.GONE);
@@ -1687,18 +1617,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
 
-                getXueyang();
+                getXueyang(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_heart_rate://心率
                 temp = "3";
-                rbRecordTemperature.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodPressure.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodGlucose.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodOxygen.setTextColor(Color.parseColor("#999999"));
-                rbRecordHeartRate.setTextColor(Color.WHITE);
-                rbRecordPulse.setTextColor(Color.parseColor("#999999"));
-                rbRecordCholesterol.setTextColor(Color.parseColor("#999999"));
-                rbRecordBua.setTextColor(Color.parseColor("#999999"));
                 tiwenChart.setVisibility(View.GONE);
                 xueyaChart.setVisibility(View.GONE);
                 xuetangChart.setVisibility(View.GONE);
@@ -1707,18 +1629,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
-                getXinlv();
+                getXinlv(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_pulse://脉搏
                 temp = "6";
-                rbRecordTemperature.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodPressure.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodGlucose.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodOxygen.setTextColor(Color.parseColor("#999999"));
-                rbRecordHeartRate.setTextColor(Color.parseColor("#999999"));
-                rbRecordPulse.setTextColor(Color.WHITE);
-                rbRecordCholesterol.setTextColor(Color.parseColor("#999999"));
-                rbRecordBua.setTextColor(Color.parseColor("#999999"));
                 tiwenChart.setVisibility(View.GONE);
                 xueyaChart.setVisibility(View.GONE);
                 xuetangChart.setVisibility(View.GONE);
@@ -1727,18 +1641,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.VISIBLE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
-                getMaibo();
+                getMaibo(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_cholesterol://胆固醇
                 temp = "7";
-                rbRecordTemperature.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodPressure.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodGlucose.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodOxygen.setTextColor(Color.parseColor("#999999"));
-                rbRecordHeartRate.setTextColor(Color.parseColor("#999999"));
-                rbRecordPulse.setTextColor(Color.parseColor("#999999"));
-                rbRecordCholesterol.setTextColor(Color.WHITE);
-                rbRecordBua.setTextColor(Color.parseColor("#999999"));
                 tiwenChart.setVisibility(View.GONE);
                 xueyaChart.setVisibility(View.GONE);
                 xuetangChart.setVisibility(View.GONE);
@@ -1747,18 +1653,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.VISIBLE);
                 xueniaosuanChart.setVisibility(View.GONE);
-                getDangucun();
+                getDangucun(weekAgoTime+"",currentTime+"");
                 break;
             case R.id.rb_record_bua://血尿酸
                 temp = "8";
-                rbRecordTemperature.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodPressure.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodGlucose.setTextColor(Color.parseColor("#999999"));
-                rbRecordBloodOxygen.setTextColor(Color.parseColor("#999999"));
-                rbRecordHeartRate.setTextColor(Color.parseColor("#999999"));
-                rbRecordPulse.setTextColor(Color.parseColor("#999999"));
-                rbRecordCholesterol.setTextColor(Color.parseColor("#999999"));
-                rbRecordBua.setTextColor(Color.WHITE);
                 tiwenChart.setVisibility(View.GONE);
                 xueyaChart.setVisibility(View.GONE);
                 xuetangChart.setVisibility(View.GONE);
@@ -1767,11 +1665,130 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.VISIBLE);
-                getXueniaosuan();
+                getXueniaosuan(weekAgoTime+"",currentTime+"");
+                break;
+            case R.id.one_week:
+
                 break;
         }
 
     }
 
-
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId){
+            case R.id.one_week://默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸
+                switch (temp){
+                    case "1":
+                        getTiwen(weekAgoTime+"",currentTime+"");
+                        break;
+                    case "2":
+                        getXueya(weekAgoTime+"",currentTime+"");
+                        break;
+                    case "3":
+                        getXinlv(weekAgoTime+"",currentTime+"");
+                        break;
+                    case "4":
+                        getXuetang(weekAgoTime+"",currentTime+"");
+                        break;
+                    case "5":
+                        getXueyang(weekAgoTime+"",currentTime+"");
+                        break;
+                    case "6":
+                        getMaibo(weekAgoTime+"",currentTime+"");
+                        break;
+                    case "7":
+                        getDangucun(weekAgoTime+"",currentTime+"");
+                        break;
+                    case "8":
+                        getXueniaosuan(weekAgoTime+"",currentTime+"");
+                        break;
+                }
+                break;
+            case R.id.one_month:
+                switch (temp){
+                    case "1":
+                        getTiwen(monthAgoTime+"",currentTime+"");
+                        break;
+                    case "2":
+                        getXueya(monthAgoTime+"",currentTime+"");
+                        break;
+                    case "3":
+                        getXinlv(monthAgoTime+"",currentTime+"");
+                        break;
+                    case "4":
+                        getXuetang(monthAgoTime+"",currentTime+"");
+                        break;
+                    case "5":
+                        getXueyang(monthAgoTime+"",currentTime+"");
+                        break;
+                    case "6":
+                        getMaibo(monthAgoTime+"",currentTime+"");
+                        break;
+                    case "7":
+                        getDangucun(monthAgoTime+"",currentTime+"");
+                        break;
+                    case "8":
+                        getXueniaosuan(monthAgoTime+"",currentTime+"");
+                        break;
+                }
+                break;
+            case R.id.one_season:
+                switch (temp){
+                    case "1":
+                        getTiwen(seasonAgoTime+"",currentTime+"");
+                        break;
+                    case "2":
+                        getXueya(seasonAgoTime+"",currentTime+"");
+                        break;
+                    case "3":
+                        getXinlv(seasonAgoTime+"",currentTime+"");
+                        break;
+                    case "4":
+                        getXuetang(seasonAgoTime+"",currentTime+"");
+                        break;
+                    case "5":
+                        getXueyang(seasonAgoTime+"",currentTime+"");
+                        break;
+                    case "6":
+                        getMaibo(seasonAgoTime+"",currentTime+"");
+                        break;
+                    case "7":
+                        getDangucun(seasonAgoTime+"",currentTime+"");
+                        break;
+                    case "8":
+                        getXueniaosuan(seasonAgoTime+"",currentTime+"");
+                        break;
+                }
+                break;
+            case R.id.one_year:
+                switch (temp){
+                    case "1":
+                        getTiwen(yearAgoTime+"",currentTime+"");
+                        break;
+                    case "2":
+                        getXueya(yearAgoTime+"",currentTime+"");
+                        break;
+                    case "3":
+                        getXinlv(yearAgoTime+"",currentTime+"");
+                        break;
+                    case "4":
+                        getXuetang(yearAgoTime+"",currentTime+"");
+                        break;
+                    case "5":
+                        getXueyang(yearAgoTime+"",currentTime+"");
+                        break;
+                    case "6":
+                        getMaibo(yearAgoTime+"",currentTime+"");
+                        break;
+                    case "7":
+                        getDangucun(yearAgoTime+"",currentTime+"");
+                        break;
+                    case "8":
+                        getXueniaosuan(yearAgoTime+"",currentTime+"");
+                        break;
+                }
+                break;
+        }
+    }
 }

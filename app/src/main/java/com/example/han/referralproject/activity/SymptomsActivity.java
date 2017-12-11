@@ -28,6 +28,7 @@ public class SymptomsActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_symptoms);
+        mToolbar.setVisibility(View.VISIBLE);
         initView();
         speak(getString(R.string.symptoms));
         setAdapter();

@@ -1,69 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/agreement"
+        android:textColor="#333"
+        android:textSize="50sp" />
 
-    <LinearLayout
-        android:id="@+id/linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/content_agreement"
+        android:textColor="#a2a2a2"
+        android:textSize="26sp" />
 
-        <ImageView
-            android:id="@+id/icon_back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/icon_back"
-            android:text="用户协议"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearlayout"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/agreement"
-            android:textColor="#333"
-            android:textSize="50sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/content_agreement"
-            android:textColor="#a2a2a2"
-            android:textSize="26sp" />
-
-        <TextView
-            android:id="@+id/btn_sure"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/shape_btn_normal"
-            android:gravity="center"
-            android:text="@string/sure"
-            android:textColor="#6bb7eb"
-            android:textSize="40sp" />
-    </LinearLayout>
-</RelativeLayout>
+    <TextView
+        android:id="@+id/btn_sure"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/shape_btn_normal"
+        android:gravity="center"
+        android:text="@string/sure"
+        android:textColor="#6bb7eb"
+        android:textSize="40sp" />
+</LinearLayout>

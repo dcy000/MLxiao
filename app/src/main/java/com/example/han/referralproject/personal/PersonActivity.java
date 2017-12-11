@@ -40,6 +40,7 @@ import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.signin.SignInActivity;
 import com.squareup.picasso.Picasso;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
@@ -103,6 +104,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
+        mToolbar.setVisibility(View.VISIBLE);
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) findViewById(R.id.per_image);
 
@@ -127,8 +129,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             }
         });*/
         mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
-
-
+        mTitleText.setText("个人中心");
+        mRightView.setImageResource(R.drawable.icon_wifi);
         mImageView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,6 +188,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
 
         registerReceiver(mReceiver, new IntentFilter("change_account"));
+    }
+
+    @Override
+    protected void backMainActivity() {
+        startActivity(new Intent(this, WifiConnectActivity.class));
     }
 
     @Override
@@ -316,9 +323,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));
-                break;
-            case R.id.view_wifi:
-                startActivity(new Intent(this, WifiConnectActivity.class));
                 break;
             case R.id.view_change:
                 mChangeAccountDialog = new ChangeAccountDialog(mContext);

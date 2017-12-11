@@ -34,10 +34,7 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
     private RecyclerView mRecyclerView;
     private ArrayList<SymptomBean> mDataList = new ArrayList<>();
     private SymptomRecyclerAdapter mSymptomAdapter;
-    public ImageView ivBack;
 
-    public ImageView ImageView1;
-    public ImageView ImageView2;
     private int flag = 0;//用于记录是第几层病症选择
     private LinearLayout llLeft;
     private TextView tv1, tv2, tv3;//选择的病症标签
@@ -52,13 +49,8 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_symptom_analyse);
-        /*ivBack = (ImageView) findViewById(R.id.iv_back);
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });*/
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("症状自查");
         initView();
 
         mSymptomAdapter = new SymptomRecyclerAdapter(mContext, mDataList);
@@ -69,22 +61,6 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
         //获取第一层的病症
         NetworkApi.getAllSym(mGetAllSymCallback);
 
-
-        ImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        ImageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
         setTag();
     }
 
@@ -100,8 +76,6 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
         rlTv2 = (RelativeLayout) findViewById(R.id.rl_tv2);
         rlTv3 = (RelativeLayout) findViewById(R.id.rl_tv3);
         findViewById(R.id.btn_analyse).setOnClickListener(this);
-        ImageView1 = (ImageView) findViewById(R.id.icon_back);
-        ImageView2 = (ImageView) findViewById(R.id.icon_home);
 
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);

@@ -24,6 +24,7 @@
             android:textColor="#333"
             android:textSize="16sp"
             android:inputType="phone"
+            android:gravity="center_vertical"
             android:textColorHint="#ffaeadad"
             android:background="#fff"
             android:hint="@string/input_mobile"/>

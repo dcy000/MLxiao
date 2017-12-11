@@ -1,6 +1,5 @@
 package com.example.han.referralproject.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.DiseaseDetails2Activity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.bean.SymptomResultBean;
-import com.example.han.referralproject.bean.YzInfoBean;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SymptomResultAdapter extends RecyclerView.Adapter<SymptomResultAdapter.ResultHolder> {

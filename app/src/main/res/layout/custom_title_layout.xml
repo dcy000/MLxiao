@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="64dp"
     android:background="@color/toolbar_bg"
-    android:id="@+id/toolbar">
+    android:id="@+id/toolbar"
+    android:visibility="gone">
     <LinearLayout
         android:id="@+id/ll_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingRight="40dp">
         <ImageView
             android:id="@+id/iv_top_left"
             android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="32sp"
-        android:text="标 题"
+        android:text=""
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_centerInParent="true"/>
     <TextView 
@@ -60,6 +62,6 @@
         android:scaleType="centerInside"
         android:src="@drawable/icon_home"
         android:paddingRight="30dp"
-        android:paddingLeft="30dp"
+        android:paddingLeft="60dp"
         />
 </RelativeLayout>

@@ -197,12 +197,7 @@
         <activity
             android:name=".activity.PreviousHistoryActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.RecordActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.MessageActivity"
-            android:screenOrientation="landscape" />
+
 
         <service
             android:name=".xindian.ReceiveService"
@@ -219,6 +214,7 @@
         <activity
             android:name=".xindian.XinDianDetectActivity"
             android:screenOrientation="landscape"></activity>
+
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -255,6 +251,14 @@
             android:screenOrientation="landscape">
 
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+>>>>>>> 89ef535d4aa701c51ac1d09e73928811ca96aae3
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -281,6 +285,7 @@
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
+
 
         <activity android:name=".personal.PersonActivity">
 
@@ -344,6 +349,7 @@
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity"></activity>
         <activity android:name=".recyclerview.AddAppoActivity"></activity>
+
 
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
@@ -443,13 +449,11 @@
         <activity android:name=".video.VideoListActivity" />
         <activity android:name=".shopping.ShopListActivity" />
         <activity android:name=".shopping.GoodDetailActivity" />
-        <activity android:name=".activity.SecondSymptomAnalyseActivity" />
         <activity android:name=".activity.MyBaseDataActivity" />
         <activity android:name=".activity.SymptomsActivity" />
         <activity android:name=".activity.BodychartActivity" />
         <activity android:name=".shopping.OrderListActivity"></activity>
         <activity android:name=".activity.DiseaseDetailsActivity" />
-        <activity android:name=".activity.DiseaseDetails2Activity" />
         <activity android:name=".recyclerview.OnlineDoctorListActivity" />
         <activity android:name=".recyclerview.DoctorAskGuideActivity" />
         <activity
@@ -472,6 +476,17 @@
         </activity>
 
 
+
+
+        <activity android:name=".activity.AlertHeightActivity" />
+        <activity android:name=".activity.AlertWeightActivity" />
+        <activity android:name=".activity.AlertSportActivity" />
+        <activity android:name=".activity.AlertSmokeActivity" />
+        <activity android:name=".activity.AlertEatingActivity" />
+        <activity android:name=".activity.AlertDrinkingActivity"></activity>
+        <activity android:name="com.medlink.danbogh.signin.SignInActivity">
+        </activity>
+>>>>>>> 89ef535d4aa701c51ac1d09e73928811ca96aae3
     </application>
 
 </manifest>

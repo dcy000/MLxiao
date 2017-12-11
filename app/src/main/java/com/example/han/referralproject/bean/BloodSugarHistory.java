@@ -7,4 +7,9 @@ package com.example.han.referralproject.bean;
 public class BloodSugarHistory {
     public long time;
     public float blood_sugar;
+
+    public BloodSugarHistory( float blood_sugar,long time) {
+        this.time = time;
+        this.blood_sugar = blood_sugar;
+    }
 }
