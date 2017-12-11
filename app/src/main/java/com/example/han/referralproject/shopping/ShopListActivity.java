@@ -64,7 +64,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         mImageView2 = (ImageView) findViewById(R.id.line_2);
 
 
-        
+
 
         mImageView4 = (ImageView) findViewById(R.id.icon_home);
 
