@@ -29,10 +29,11 @@ import android.widget.SeekBar;
 
 import com.example.han.referralproject.R;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AssistiveTouchService extends Service {
+public class AssistiveTouchService extends Service  {
 
     private boolean isMoving;
 
@@ -68,11 +69,21 @@ public class AssistiveTouchService extends Service {
 
     ImageView mImageView1;
 
+    public static final int MIN_CLICK_DELAY_TIME = 1000;
+    private long lastClickTime = 0;
+
+
+   // private CheckDoubleClickListener checkDoubleClickListener;
+
 
     @Override
 
     public void onCreate() {
         super.onCreate();
+
+        //checkDoubleClickListener = new CheckDoubleClickListener(this);
+
+
         init();
         calculateForMyPhone();
         createAssistiveTouchView();
@@ -106,6 +117,8 @@ public class AssistiveTouchService extends Service {
         mAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_layout, null);
 
         mImageView = (ImageView) mAssistiveTouchView.findViewById(R.id.icons);
+
+     //   mImageView.setOnClickListener(checkDoubleClickListener);
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
 
@@ -192,16 +205,68 @@ public class AssistiveTouchService extends Service {
                 return false;
             }
         });
+
+
         if (!isMoving) {
 
-            mAssistiveTouchView.setOnClickListener(new View.OnClickListener() {
+
+            mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    long currentTime = Calendar.getInstance().getTimeInMillis();
+
+                    if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
+                        lastClickTime = currentTime;
+
+                        mAssistiveTouchView.setAlpha(0);
+                        lastAssistiveTouchViewX = mParams.x;
+                        lastAssistiveTouchViewY = mParams.y;
+                        myAssitiveTouchAnimator(mParams.x, mScreenWidth / 2 - mAssistiveTouchView.getMeasuredWidth() / 2, mParams.y, mScreenHeight / 2 - mAssistiveTouchView.getMeasuredHeight() / 2, true).start();
+                        mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.25));
+
+                        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                myAssitiveTouchAnimator(mParams.x, lastAssistiveTouchViewX, mParams.y, lastAssistiveTouchViewY, true).start();
+                                mAssistiveTouchView.setAlpha(1);
+                                mImageView.setAlpha(0.85f);
+
+                            }
+                        });
+                        mPopupWindow.setFocusable(true);
+                        mPopupWindow.setTouchable(true);
+                        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+                        mPopupWindow.showAtLocation(mAssistiveTouchView, Gravity.CENTER, 0, 0);
+
+                        mImageView.setAlpha(0.0f);
+
+
+                    }
+
+
+                }
+            });
+
+
+        }
+
+
+
+    }
+
+
+   /* @Override
+    public void onCheckDoubleClick(View view) {
+        switch (view.getId()) {
+            case R.id.icon:
+                if (!isMoving) {
+                    mImageView.setEnabled(false);
                     mAssistiveTouchView.setAlpha(0);
                     lastAssistiveTouchViewX = mParams.x;
                     lastAssistiveTouchViewY = mParams.y;
                     myAssitiveTouchAnimator(mParams.x, mScreenWidth / 2 - mAssistiveTouchView.getMeasuredWidth() / 2, mParams.y, mScreenHeight / 2 - mAssistiveTouchView.getMeasuredHeight() / 2, true).start();
-                    mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.2));
+                    mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.25));
 
                     mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                         @Override
@@ -209,6 +274,8 @@ public class AssistiveTouchService extends Service {
                             myAssitiveTouchAnimator(mParams.x, lastAssistiveTouchViewX, mParams.y, lastAssistiveTouchViewY, true).start();
                             mAssistiveTouchView.setAlpha(1);
                             mImageView.setAlpha(0.85f);
+                            mImageView.setEnabled(true);
+
                         }
                     });
                     mPopupWindow.setFocusable(true);
@@ -218,10 +285,11 @@ public class AssistiveTouchService extends Service {
 
                     mImageView.setAlpha(0.0f);
 
+                    break;
                 }
-            });
         }
-    }
+    }*/
+
 
     private ValueAnimator myAssitiveTouchAnimator(final int fromx, final int tox, int fromy, final int toy, final boolean flag) {
         PropertyValuesHolder p1 = PropertyValuesHolder.ofInt("X", fromx, tox);
@@ -310,6 +378,7 @@ public class AssistiveTouchService extends Service {
         PropertyValuesHolder p4 = PropertyValuesHolder.ofFloat("scaleY", 1, 0.5F);
         ObjectAnimator.ofPropertyValuesHolder(mScreenShotView,p1,p2,p3,p4).setDuration(2000).start();*/
     }
+
 
     private class MyHandler extends Handler {
         @Override
