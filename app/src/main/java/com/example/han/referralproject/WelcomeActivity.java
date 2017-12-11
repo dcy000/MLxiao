@@ -44,10 +44,18 @@ public class WelcomeActivity extends BaseActivity {
     protected Handler mHandler = new Handler(Looper.getMainLooper());
 
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+
+
+
 
         mToolbar.setVisibility(View.GONE);
 

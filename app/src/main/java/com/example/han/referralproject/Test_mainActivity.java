@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
@@ -32,8 +33,22 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 
     public static final int MIN_CLICK_DELAY_TIME = 1000;
     private long lastClickTime = 0;
-    public ImageView mIvBack;
-    public ImageView mIvHome;
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
 
 
     @Override
@@ -41,25 +56,10 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_main);
 
-        mToolbar.setVisibility(View.GONE);
+        mToolbar.setVisibility(View.VISIBLE);
 
-        mIvBack = (ImageView) findViewById(R.id.iv_back);
-        mIvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
-        mIvHome = (ImageView) findViewById(R.id.icon_home);
-        mIvHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
 
         mImageView1 = (ImageView) findViewById(R.id.test_xueya);
         mImageView2 = (ImageView) findViewById(R.id.test_xueyang);
