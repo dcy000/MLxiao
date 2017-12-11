@@ -714,7 +714,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 .add("text", str)
                 .build();
         Request request = new Request.Builder()
-                .url(NetworkApi.BasicUrl + "/ZZB/xf/xfrq")
+//                .url(NetworkApi.BasicUrl + "/ZZB/xf/xfrq")
+                .url("http://192.168.200.103:8080" + "/ZZB/xf/xfrq")
                 .post(body)
                 .build();
         Call call = client.newCall(request);

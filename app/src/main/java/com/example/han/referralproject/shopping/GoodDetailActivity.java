@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -40,7 +41,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     ImageView mImageView1;
     ImageView mImageView2;
     ImageView mImageView3;
-    ImageView mImageView4;
     TextView mTextView;
     TextView mTextView1;
     TextView mTextView2;
@@ -63,6 +63,11 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
         speak(getString(R.string.shop_mount));
 
+        mToolbar.setVisibility(View.VISIBLE);
+
+
+        mTitleText.setText(getString(R.string.goods_detail));
+
 
         mActivity = this;
 
@@ -76,7 +81,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
         mImageView1 = (ImageView) findViewById(R.id.goods_image);
         mImageView2 = (ImageView) findViewById(R.id.add_mount);
         mImageView3 = (ImageView) findViewById(R.id.reduce_mount);
-        mImageView4 = (ImageView) findViewById(R.id.icon_back);
 
         mButton = (Button) findViewById(R.id.shopping);
 
@@ -88,7 +92,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
         mImageView2.setOnClickListener(this);
         mImageView3.setOnClickListener(this);
-        mImageView4.setOnClickListener(this);
         mButton.setOnClickListener(this);
 
         mTextView.setText(goods.getGoodsname());
@@ -102,6 +105,22 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 .tag(this)
                 .fit()
                 .into(mImageView1);
+    }
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
     }
 
     @Override
@@ -130,11 +149,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     i = 1;
                 }
                 break;
-            case R.id.icon_back:
 
-
-                finish();
-                break;
             case R.id.shopping:
 
 /*

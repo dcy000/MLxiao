@@ -83,11 +83,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
     SharedPreferences sharedPreferences;
     public TextView mTextView1;
-    public TextView mTextView2;
     public TextView mTextView3;
 
-    public ImageView mImageView1;
-    public ImageView mImageView2;
+    public TextView mTextView4;
+    //public ImageView mImageView1;
+    //public ImageView mImageView2;
     public ImageView mImageView3;
 
     public ImageView mImageView4;
@@ -104,6 +104,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
+        mToolbar.setVisibility(View.VISIBLE);
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) findViewById(R.id.per_image);
 
@@ -113,29 +114,23 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mTextView3 = (TextView) findViewById(R.id.tv_balance);
 
-        mImageView1 = (ImageView) findViewById(R.id.icon_back);
-        mImageView2 = (ImageView) findViewById(R.id.icon_home);
 
         mImageView5 = (ImageView) findViewById(R.id.iv_order);
 
-        mImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
-        mImageView2.setOnClickListener(new View.OnClickListener() {
+        mTextView4 = (TextView) findViewById(R.id.doctor_status);
+
+        /*mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), WifiConnectActivity.class);
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
         mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
-
-
+        mTitleText.setText("个人中心");
+        mRightView.setImageResource(R.drawable.icon_wifi);
         mImageView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,10 +164,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.view_health).setOnClickListener(this);
         findViewById(R.id.iv_check).setOnClickListener(this);
         findViewById(R.id.view_wifi).setOnClickListener(this);
-
+        findViewById(R.id.iv_record).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         findViewById(R.id.view_change).setOnClickListener(this);
+        mImageView.setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
         mIvAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,13 +183,17 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         sharedPreferences1 = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
 
 
-        mTextView1 = (TextView) findViewById(R.id.doctor_id);
-        mTextView2 = (TextView) findViewById(R.id.tv_hospital);
+        mTextView1 = (TextView) findViewById(R.id.doctor_name);
 
         findViewById(R.id.btn_logout).setOnClickListener(this);
 
 
         registerReceiver(mReceiver, new IntentFilter("change_account"));
+    }
+
+    @Override
+    protected void backMainActivity() {
+        startActivity(new Intent(this, WifiConnectActivity.class));
     }
 
     @Override
@@ -289,9 +289,13 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 editor.putString("docter_photo", response.getDocter_photo());
                 editor.commit();
 
-                mTextView1.setText("签约医生：" + sharedPreferences.getString("name", ""));
-                mTextView2.setText(sharedPreferences.getString("hospital", ""));
+                mTextView1.setText(sharedPreferences.getString("name", ""));
+                //    mTextView2.setText(sharedPreferences.getString("hospital", ""));
 
+                if (!"".equals(sharedPreferences.getString("name", ""))) {
+
+                    mTextView4.setText("已签约");
+                }
 
             }
 
@@ -321,16 +325,15 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));
                 break;
-            case R.id.view_wifi:
-                startActivity(new Intent(this, WifiConnectActivity.class));
-                break;
             case R.id.view_change:
                 mChangeAccountDialog = new ChangeAccountDialog(mContext);
                 mChangeAccountDialog.show();
                 break;
+            case R.id.per_image:
             case R.id.view_health://健康档案
                 startActivity(new Intent(this, MyBaseDataActivity.class));
                 break;
+            case R.id.iv_record:
             case R.id.btn_record://测量历史
                 startActivity(new Intent(this, HealthRecordActivity.class));
                 break;

@@ -5,17 +5,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class BodychartActivity extends BaseActivity implements View.OnClickListener {
-
-
-    private ImageView mIconBack;
-    private LinearLayout mLinearlayou;
-    private ImageView mIconHome;
     private ImageView mHead;
     private ImageView mChest;
     private ImageView mLeftHand;
@@ -35,16 +31,14 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bodychart);
+        ButterKnife.bind(this);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("人体导图");
         initView();
         speak(getResources().getString(R.string.bodyguide));
     }
 
     private void initView() {
-        mIconBack = (ImageView) findViewById(R.id.icon_back);
-        mIconBack.setOnClickListener(this);
-        mLinearlayou = (LinearLayout) findViewById(R.id.linearlayou);
-        mIconHome = (ImageView) findViewById(R.id.icon_home);
-        mIconHome.setOnClickListener(this);
         mHead = (ImageView) findViewById(R.id.head);
         mHead.setOnClickListener(this);
         mChest = (ImageView) findViewById(R.id.chest);
@@ -57,7 +51,6 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
         mAbdomen.setOnClickListener(this);
         mLegs = (ImageView) findViewById(R.id.legs);
         mLegs.setOnClickListener(this);
-        mLinearlayou.setOnClickListener(this);
         mImgHead = (ImageView) findViewById(R.id.imgHead);
         mViewHead = (View) findViewById(R.id.viewHead);
         mViewHead.setOnClickListener(this);
@@ -75,75 +68,27 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            default:
-                break;
-            case R.id.icon_back:
-                finish();
-                break;
-            case R.id.icon_home:
-
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-                break;
             case R.id.head:
-//                mHead.setSelected(true);
-//                mChest.setSelected(false);
-//                mAbdomen.setSelected(false);
-//                mLeftHand.setSelected(false);
-//                mRightHand.setSelected(false);
-//                mLegs.setSelected(false);
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "头部"));
                 break;
             case R.id.chest:
-//                mHead.setSelected(false);
-//                mChest.setSelected(true);
-//                mAbdomen.setSelected(false);
-//                mLeftHand.setSelected(false);
-//                mRightHand.setSelected(false);
-//                mLegs.setSelected(false);
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "胸部"));
                 break;
             case R.id.left_hand:
-//                mHead.setSelected(false);
-//                mChest.setSelected(false);
-//                mAbdomen.setSelected(false);
-//                mLeftHand.setSelected(true);
-//                mRightHand.setSelected(true);
-//                mLegs.setSelected(true);
-
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "四肢"));
                 break;
             case R.id.right_hand:
-//                mHead.setSelected(false);
-//                mChest.setSelected(false);
-//                mAbdomen.setSelected(false);
-//                mLeftHand.setSelected(true);
-//                mRightHand.setSelected(true);
-//                mLegs.setSelected(true);
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "四肢"));
                 break;
             case R.id.abdomen:
-//                mHead.setSelected(false);
-//                mChest.setSelected(false);
-//                mAbdomen.setSelected(true);
-//                mLeftHand.setSelected(false);
-//                mRightHand.setSelected(false);
-//                mLegs.setSelected(false);
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "腹部"));
                 break;
             case R.id.legs:
-//                mHead.setSelected(false);
-//                mChest.setSelected(false);
-//                mAbdomen.setSelected(false);
-//                mLeftHand.setSelected(true);
-//                mRightHand.setSelected(true);
-//                mLegs.setSelected(true);
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "四肢"));
                 break;
@@ -183,23 +128,23 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        if(!TextUtils.isEmpty(result)){
-            if(result.matches(".*(头|头部|脑袋).*")){
+        if (!TextUtils.isEmpty(result)) {
+            if (result.matches(".*(头|头部|脑袋).*")) {
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "头部"));
                 return;
             }
-            if (result.matches(".*(胸部|胸|胸膛).*")){
+            if (result.matches(".*(胸部|胸|胸膛).*")) {
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "胸部"));
                 return;
             }
-            if (result.matches(".*(腹部|肚子).*")){
+            if (result.matches(".*(腹部|肚子).*")) {
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "腹部"));
                 return;
             }
-            if (result.matches(".*(四肢|手|脚|腿|胳膊|躯干).*")){
+            if (result.matches(".*(四肢|手|脚|腿|胳膊|躯干).*")) {
 
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
                         .putExtra("title", "四肢"));

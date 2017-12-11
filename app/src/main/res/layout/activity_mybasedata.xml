@@ -1,401 +1,469 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg">
+    android:background="#F5F5F5"
+    android:orientation="horizontal">
+
 
     <LinearLayout
-        android:id="@+id/linearlayou"
-        android:layout_width="wrap_content"
-        android:layout_height="69dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/icon_back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+        <com.example.han.referralproject.imageview.CircleImageView
+            android:id="@+id/head"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:src="@color/default_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:text="姓名"
+                android:textColor="#979797"
+                android:textSize="28sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="22dp"
+                android:text="曹建平"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:text="年龄"
+                android:textColor="#979797"
+                android:textSize="28sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="22dp"
+                android:text="67"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:text="性别"
+                android:textColor="#979797"
+                android:textSize="28sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="22dp"
+                android:text="男"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:text="血型"
+                android:textColor="#979797"
+                android:textSize="28sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/blood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="22dp"
+                android:text="O"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:text="身高"
+                android:textColor="#979797"
+                android:textSize="28sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="22dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_jt"
+                android:text="175cm"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:text="体重"
+                android:textColor="#979797"
+                android:textSize="28sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="22dp"
+                android:drawablePadding="3dp"
+                android:drawableRight="@drawable/ic_jt"
+                android:text="60Kg"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:text="@string/jiankangdangan"
-        android:textColor="@color/white"
-        android:textSize="40sp" />
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_below="@id/linearlayou"
-        android:background="#F5F5F5"
-        android:orientation="horizontal"
-        >
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.9"
             android:background="@color/white"
-            android:layout_margin="16dp"
+            android:gravity="center_vertical"
             android:orientation="vertical">
-            <com.example.han.referralproject.imageview.CircleImageView
-                android:id="@+id/head"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-                android:src="@color/default_bg"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="25dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:textColor="#979797"
-                    android:text="姓名"
-                    android:layout_marginLeft="22dp"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="曹建平"
-                    android:textColor="#333333"
-                    android:textSize="28sp"
-                    android:layout_marginRight="22dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="22dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:textColor="#979797"
-                    android:text="年龄"
-                    android:layout_marginLeft="22dp"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="67"
-                    android:textColor="#333333"
-                    android:textSize="28sp"
-                    android:layout_marginRight="22dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="22dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:textColor="#979797"
-                    android:text="性别"
-                    android:layout_marginLeft="22dp"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="男"
-                    android:textColor="#333333"
-                    android:textSize="28sp"
-                    android:layout_marginRight="22dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="22dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:textColor="#979797"
-                    android:text="身高"
-                    android:layout_marginLeft="22dp"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/height"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="175cm"
-                    android:textColor="#333333"
-                    android:textSize="28sp"
-                    android:layout_marginRight="22dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="22dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:textColor="#979797"
-                    android:text="体重"
-                    android:layout_marginLeft="22dp"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="60Kg"
-                    android:textColor="#333333"
-                    android:textSize="28sp"
-                    android:layout_marginRight="22dp"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="22dp"
-                    android:text="血型"
-                    android:textColor="#979797"
+                    android:text="身份信息"
+                    android:textColor="#333333"
+                    android:textSize="29sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dp"
+                    android:text="电话号码"
                     android:textSize="28sp" />
 
                 <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/blood"
+                    android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="22dp"
-                    android:text="O"
+                    android:text="15181438908"
+                    android:textColor="#333333"
+                    android:textSize="28sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dp"
+                    android:text="身份证号"
+                    android:textSize="28sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/idcard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dp"
+                    android:text="222222*********222222"
+                    android:textColor="#333333"
+                    android:textSize="28sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dp"
+                    android:text="仪器编号"
+                    android:textSize="28sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dp"
+                    android:text="100002"
                     android:textColor="#333333"
                     android:textSize="28sp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:gravity="center_vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="29sp"
-                        android:textColor="#333333"
-                        android:text="身份信息"
-                        android:layout_marginLeft="22dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_marginLeft="22dp"
+                    android:text="健康状况"
+                    android:textColor="#333333"
+                    android:textSize="29sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="29dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="电话号码"
-                        android:textSize="28sp"
-                        android:layout_marginLeft="22dp"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:id="@+id/phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:textColor="#333333"
-                        android:text="15181438908"
-                        android:layout_marginRight="22dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_marginLeft="22dp"
+                    android:text="运动情况"
+                    android:textSize="28sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/motion"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="29dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="身份证号"
-                        android:textSize="28sp"
-                        android:layout_marginLeft="22dp"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:id="@+id/idcard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:textColor="#333333"
-                        android:text="222222*********222222"
-                        android:layout_marginRight="22dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_marginRight="22dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/ic_jt"
+                    android:text="每周一次"
+                    android:textColor="#333333"
+                    android:textSize="28sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_smoke"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="29dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="仪器编号"
-                        android:textSize="28sp"
-                        android:layout_marginLeft="22dp"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:id="@+id/number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:textColor="#333333"
-                        android:text="100002"
-                        android:layout_marginRight="22dp"/>
-                </LinearLayout>
+                    android:layout_marginLeft="22dp"
+                    android:text="吸烟情况"
+                    android:textSize="28sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/smoke"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/ic_jt"
+                    android:text="每天吸烟"
+                    android:textColor="#333333"
+                    android:textSize="28sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_eating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dp"
+                    android:text="饮食情况"
+                    android:textSize="28sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/eating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/ic_jt"
+                    android:text="荤素搭配"
+                    android:textColor="#333333"
+                    android:textSize="28sp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_drinking"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="29sp"
-                        android:textColor="#333333"
-                        android:text="健康状况"
-                        android:layout_marginLeft="22dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_marginLeft="22dp"
+                    android:text="饮酒情况"
+                    android:textSize="28sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/drinking"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="29dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="运动情况"
-                        android:textSize="28sp"
-                        android:layout_marginLeft="22dp"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:id="@+id/motion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:textColor="#333333"
-                        android:text="每周一次"
-                        android:layout_marginRight="22dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="29dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="吸烟情况"
-                        android:textSize="28sp"
-                        android:layout_marginLeft="22dp"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:id="@+id/smoke"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:textColor="#333333"
-                        android:text="每天吸烟"
-                        android:layout_marginRight="22dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="29dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="饮食情况"
-                        android:textSize="28sp"
-                        android:layout_marginLeft="22dp"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:id="@+id/eating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:textColor="#333333"
-                        android:text="荤素搭配"
-                        android:layout_marginRight="22dp"/>
-                </LinearLayout>
+                    android:layout_marginRight="22dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/ic_jt"
+                    android:text="偶尔喝酒"
+                    android:textColor="#333333"
+                    android:textSize="28sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

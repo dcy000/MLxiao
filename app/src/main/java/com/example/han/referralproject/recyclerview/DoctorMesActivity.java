@@ -67,6 +67,8 @@ public class DoctorMesActivity extends BaseActivity {
         setContentView(R.layout.activity_doctor_mes);
         //    initToolBar();
 
+
+
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
 
         mTextView = (TextView) findViewById(R.id.names);

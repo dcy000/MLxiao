@@ -15,12 +15,13 @@ import com.example.han.referralproject.recyclerview.LinearLayoutDividerItemDecor
 
 import java.util.ArrayList;
 
-public class SymptomAnalyseResultActivity extends BaseActivity implements View.OnClickListener{
+public class SymptomAnalyseResultActivity extends BaseActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_symptom_result_layout);
-        findViewById(R.id.iv_back).setOnClickListener(this);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("自查报告");
         ArrayList<SymptomResultBean.bqs> mDataList = (ArrayList<SymptomResultBean.bqs>) getIntent().getSerializableExtra("result");
         if (mDataList == null || mDataList.size() == 0) {
             return;
@@ -36,12 +37,4 @@ public class SymptomAnalyseResultActivity extends BaseActivity implements View.O
         speak(String.format(getString(R.string.tips_symptom_result), mBuilder.toString()));
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
-        }
-    }
 }

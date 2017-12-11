@@ -47,8 +47,10 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        mToolbar.setVisibility(View.GONE);
+
         checkService();
-        if (!WiFiUtil.getInstance(this).isNetworkEnabled(this)){
+        if (!WiFiUtil.getInstance(this).isNetworkEnabled(this)) {
             Intent mIntent = new Intent(mContext, WifiConnectActivity.class);
             mIntent.putExtra("is_first_wifi", true);
             startActivity(mIntent);
@@ -149,7 +151,7 @@ public class WelcomeActivity extends BaseActivity {
                     .result(new PermissionReq.Result() {
                         @Override
                         public void onGranted() {
-                         //   scanMusic(playService);
+                            //   scanMusic(playService);
 
                             Log.e("==========", "PlayServiceConnection");
 

@@ -13,13 +13,14 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 
-public class DoctorAlarmActivity extends AppCompatActivity {
+public class DoctorAlarmActivity extends BaseActivity {
 
     private PowerManager.WakeLock mWakeLock;
     private static final int WAKELOCK_TIMEOUT = 30 * 1000;
@@ -29,8 +30,8 @@ public class DoctorAlarmActivity extends AppCompatActivity {
     Button mButton2;
     long id;
     AlarmModel model;
-    ImageView mImageView;
-    ImageView mImageView1;
+    //   ImageView mImageView;
+    //   ImageView mImageView1;
 
 
     @Override
@@ -38,44 +39,14 @@ public class DoctorAlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_alarm);
 
+        mToolbar.setVisibility(View.VISIBLE);
+
         id = getIntent().getLongExtra(AlarmHelper.ID, -1);
         model = DataSupport.find(AlarmModel.class, id);
         mButton1 = (Button) findViewById(R.id.video_true);
         mButton2 = (Button) findViewById(R.id.video_cancel);
-        mImageView = (ImageView) findViewById(R.id.icon_back);
-        mImageView1 = (ImageView) findViewById(R.id.icon_home);
 
-
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int rows = DataSupport.delete(AlarmModel.class, id);
-
-                if (rows >= 1) {
-                    finish();
-                }
-
-
-            }
-        });
-
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int rows = DataSupport.delete(AlarmModel.class, id);
-
-                if (rows >= 1) {
-
-                    Intent intent = new Intent(DoctorAlarmActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
-
-            }
-        });
+        mTitleText.setText(getString(R.string.test_record));
 
 
         mButton1.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +97,36 @@ public class DoctorAlarmActivity extends AppCompatActivity {
         };
         getWindow().getDecorView().postDelayed(releaseWakelock, WAKELOCK_TIMEOUT);
     }
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+
+        int rows = DataSupport.delete(AlarmModel.class, id);
+
+        if (rows >= 1) {
+            finish();
+        }
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+
+        int rows = DataSupport.delete(AlarmModel.class, id);
+
+        if (rows >= 1) {
+
+            Intent intent = new Intent(DoctorAlarmActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
 
     @Override
     protected void onResume() {

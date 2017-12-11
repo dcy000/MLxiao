@@ -105,8 +105,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mToolbar.setVisibility(View.VISIBLE);
         initView();
-
+        mLeftText.setText("注册信息");
         mTextView = (TextView) findViewById(R.id.yanzheng);
         mEditText = (EditText) findViewById(R.id.text_yanzheng);
         mTextView.setOnClickListener(this);
@@ -214,7 +215,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mPwdEt = (EditText) findViewById(R.id.et_pwd);
         mIdCardEt = (EditText) findViewById(R.id.et_id_card);
         findViewById(R.id.tv_next).setOnClickListener(this);
-        findViewById(R.id.iv_back).setOnClickListener(this);
         sexSpinner = (Spinner) findViewById(R.id.sp_sex);
         sexSpinner.setAdapter(new ArrayAdapter<String>(mContext, R.layout.item_spinner_layout, mResources.getStringArray(R.array.sex_array)));
 
@@ -266,11 +266,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         handler.sendEmptyMessage(-8);
                     }
                 }).start();
-
-
-                break;
-            case R.id.iv_back:
-                finish();
                 break;
             case R.id.tv_next:
                 //将收到的验证码和手机号提交再次核对

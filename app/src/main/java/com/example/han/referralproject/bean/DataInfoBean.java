@@ -1,6 +1,7 @@
 package com.example.han.referralproject.bean;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.example.han.referralproject.application.MyApplication;
 
@@ -18,7 +19,7 @@ public class DataInfoBean {
     public int ecg;//心电结果
     public String cholesterol;//胆固醇
     public String uric_acid;//尿酸
-
+    public String sugar_time;//测量血糖的时间：空腹，饭后一小时，饭后两小时
     public Map<String, String> getParamsMap(){
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("time", String.valueOf(System.currentTimeMillis()));
@@ -46,6 +47,9 @@ public class DataInfoBean {
         }
         if (!TextUtils.isEmpty(uric_acid)){
             paramsMap.put("uric_acid", uric_acid);
+        }
+        if(!TextUtils.isEmpty(sugar_time)){
+            paramsMap.put("sugar_time",sugar_time);
         }
         return paramsMap;
     }

@@ -17,7 +17,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.medlink.danbogh.utils.T;
 
-public class DiseaseDetailsActivity extends Activity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class DiseaseDetailsActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private TextView mContent;
     /**
@@ -37,16 +37,14 @@ public class DiseaseDetailsActivity extends Activity implements View.OnClickList
      */
     private RadioButton mRbSport;
     private RadioGroup mRgDisease;
-    private ImageView mIvBack;
-    private TextView mTvTitle;
-    private ImageView mIvHome;
-    private FrameLayout mFlToolbar;
     private SymptomResultBean.bqs mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disease_details);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("病症详情");
         initView();
 
     }
@@ -63,13 +61,6 @@ public class DiseaseDetailsActivity extends Activity implements View.OnClickList
         mRbSport = (RadioButton) findViewById(R.id.rb_sport);
         mRbSport.setOnClickListener(this);
         mRgDisease = (RadioGroup) findViewById(R.id.rg_disease);
-        mIvBack = (ImageView) findViewById(R.id.iv_back);
-        mIvBack.setOnClickListener(this);
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
-        mIvHome = (ImageView) findViewById(R.id.iv_home);
-        mIvHome.setOnClickListener(this);
-        mFlToolbar = (FrameLayout) findViewById(R.id.fl_toolbar);
-        mTvTitle.setText("病症详情");
         //默认第一个选中
         mRbReason.setChecked(true);
         mContent.setText(mData.getReview());

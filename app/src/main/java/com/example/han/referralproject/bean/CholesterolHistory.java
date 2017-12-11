@@ -7,4 +7,9 @@ package com.example.han.referralproject.bean;
 public class CholesterolHistory {
     public float cholesterol;
     public long time;
+
+    public CholesterolHistory(float cholesterol, long time) {
+        this.cholesterol = cholesterol;
+        this.time = time;
+    }
 }

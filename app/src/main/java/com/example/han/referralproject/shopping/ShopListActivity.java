@@ -42,10 +42,15 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
 
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
+
+
+        mToolbar.setVisibility(View.VISIBLE);
+
+
+        mTitleText.setText(getString(R.string.healthy_shopping));
 
 
         speak(getString(R.string.shop_good));
@@ -58,25 +63,10 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         mImageView1 = (ImageView) findViewById(R.id.line_1);
         mImageView2 = (ImageView) findViewById(R.id.line_2);
 
-        mImageView3 = (ImageView) findViewById(R.id.icon_back);
 
-        mImageView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
-        mImageView4 = (ImageView) findViewById(R.id.icon_home);
 
-        mImageView4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.shop_list);
@@ -86,6 +76,22 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         mLinearLayout2.setOnClickListener(this);
 
         initData("GoodsServlet");
+    }
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
     }
 
     @Override

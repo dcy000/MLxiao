@@ -83,7 +83,9 @@ public class NetworkManager {
     public void getResultClass(String url, Map<String, String> params, Class mClass, SuccessCallback successCallback, FailedCallback failedCallback){
         doRequest(Method.GET, url, params, mClass, successCallback, failedCallback);
     }
-
+    public void getResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback,FailedCallback failedCallback){
+        doRequest(Method.GET, url, params, mType, successCallback, failedCallback);
+    }
     public void getResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback){
         doRequest(Method.GET, url, params, mType, successCallback, null);
     }

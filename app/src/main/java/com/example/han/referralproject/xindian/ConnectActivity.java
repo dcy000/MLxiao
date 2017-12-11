@@ -118,6 +118,7 @@ public class ConnectActivity extends Activity implements OnClickListener{
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(receiver);
+		sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
 	}
 
 	@Override

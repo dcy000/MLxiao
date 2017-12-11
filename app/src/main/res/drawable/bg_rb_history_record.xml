@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="@color/toolbar_bg">
+        <shape>
+            <solid android:color="@color/main_bg"/>
+        </shape>
+    </item>
+
+    <item android:state_checked="false" android:color="@color/gray">
+        <shape>
+            <solid android:color="@color/white"/>
+        </shape>
+    </item>
+</selector>
