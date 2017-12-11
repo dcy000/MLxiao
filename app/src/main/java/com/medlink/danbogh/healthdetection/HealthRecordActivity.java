@@ -964,6 +964,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(xuetangChart); // For bounds control
                     xuetangChart.setMarker(mv); // Set the marker to the chart
                     setXuetang(value, colors);
+                } else {
+                    xuetangChart.setNoDataText(getResources().getString(R.string.noData));
+                    xuetangChart.setData(null);
+                    xuetangChart.invalidate();
                 }
 
             }
