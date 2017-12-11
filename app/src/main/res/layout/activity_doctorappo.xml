@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
     tools:context="com.example.han.referralproject.recyclerview.DoctorappoActivity">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
@@ -41,13 +40,12 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:clickable="true"
-        android:src="@drawable/icon_wifi" />
+        android:src="@drawable/icon_wifi" />-->
 
     <LinearLayout
         android:id="@+id/linearlayou1"
         android:layout_width="400dp"
         android:layout_height="570dp"
-        android:layout_below="@+id/linearlayou"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
         android:background="#FFFFFF"

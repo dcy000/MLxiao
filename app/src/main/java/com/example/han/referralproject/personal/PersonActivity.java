@@ -164,10 +164,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.view_health).setOnClickListener(this);
         findViewById(R.id.iv_check).setOnClickListener(this);
         findViewById(R.id.view_wifi).setOnClickListener(this);
-
+        findViewById(R.id.iv_record).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         findViewById(R.id.view_change).setOnClickListener(this);
+        mImageView.setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
         mIvAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,9 +329,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 mChangeAccountDialog = new ChangeAccountDialog(mContext);
                 mChangeAccountDialog.show();
                 break;
+            case R.id.per_image:
             case R.id.view_health://健康档案
                 startActivity(new Intent(this, MyBaseDataActivity.class));
                 break;
+            case R.id.iv_record:
             case R.id.btn_record://测量历史
                 startActivity(new Intent(this, HealthRecordActivity.class));
                 break;

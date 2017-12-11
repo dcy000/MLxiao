@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -28,9 +30,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class OrderListActivity extends AppCompatActivity implements View.OnClickListener {
+public class OrderListActivity extends BaseActivity implements View.OnClickListener {
 
-    public ImageView mImageView1;
+    // public ImageView mImageView1;
     private List<Orders> mlist = new ArrayList<Orders>();
     OrderAdapter mOrderAdapter;
     private int mCurrPage = 1;
@@ -43,11 +45,17 @@ public class OrderListActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
 
-        mImageView1 = (ImageView) findViewById(R.id.icon_back);
+
+        mToolbar.setVisibility(View.VISIBLE);
 
 
+        mTitleText.setText(getString(R.string.orders_detail));
 
-        mImageView1.setOnClickListener(this);
+
+        //   mImageView1 = (ImageView) findViewById(R.id.icon_back);
+
+
+        //   mImageView1.setOnClickListener(this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.order_list);
 
@@ -85,12 +93,26 @@ public class OrderListActivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.icon_back:
-                finish();
-                break;
+
         }
 
     }

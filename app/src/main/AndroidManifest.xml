@@ -163,7 +163,11 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+
+
+        </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -339,7 +343,11 @@
 
         <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
-        <activity android:name=".recyclerview.DoctorappoActivity"></activity>
+        <activity android:name=".recyclerview.DoctorappoActivity">
+
+
+
+        </activity>
         <activity android:name=".recyclerview.AddAppoActivity"></activity>
 
         <activity android:name=".activity.MessageActivity"></activity>
