@@ -50,7 +50,7 @@ public class SymptomAnalyseResultActivity extends BaseActivity {
                     bqs.setGl("0");
                     mDataList.add(bqs);
                     adapter.notifyDataSetChanged();
-                    speak(response.review+"。"+response.suggest+"。"+response.sports);
+                    speak("请点击查看详情了解更多信息");
                 }
             }, new NetworkManager.FailedCallback() {
                 @Override
