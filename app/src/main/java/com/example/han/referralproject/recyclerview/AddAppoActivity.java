@@ -121,7 +121,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         dialog = new NDialog1(AddAppoActivity.this);
 
 
-        dialog.setMessageCenter(false)
+        dialog.setMessageCenter(true)
                 .setMessage(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")))
                 .setMessageSize(40)
                 .setCancleable(false)
@@ -190,8 +190,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-  //  public ImageView ImageView1;
- //   public ImageView ImageView2;
+    //  public ImageView ImageView1;
+    //   public ImageView ImageView2;
 
     SimpleDateFormat simpl;
 
@@ -222,7 +222,6 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     public TextView mDay5;
     public TextView mDay6;
     public TextView mDay7;
-
 
 
     /**
