@@ -167,7 +167,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                         if (isFirstWifi){
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                startActivity(new Intent(mContext, LoginActivity.class));
+                                startActivity(new Intent(mContext, SignInActivity.class));
                             } else {
                                 startActivity(new Intent(mContext, MainActivity.class));
                             }

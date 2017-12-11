@@ -79,12 +79,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
 
-        if (isMyServiceRunning(AssistiveTouchService.class)) {
 
-        } else {
-            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
-            startService(intent);
-        }
 
 
         UiUtils.init(this, 1980, 1200);

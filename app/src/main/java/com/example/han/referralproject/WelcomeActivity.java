@@ -1,6 +1,7 @@
 package com.example.han.referralproject;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.EventCallback;
 import com.example.han.referralproject.music.PermissionReq;
@@ -42,10 +44,18 @@ public class WelcomeActivity extends BaseActivity {
     protected Handler mHandler = new Handler(Looper.getMainLooper());
 
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+
+
+
 
         mToolbar.setVisibility(View.GONE);
 
@@ -78,7 +88,7 @@ public class WelcomeActivity extends BaseActivity {
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
                                     if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
                                         startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -109,7 +119,7 @@ public class WelcomeActivity extends BaseActivity {
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
                                 startActivity(intent);
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

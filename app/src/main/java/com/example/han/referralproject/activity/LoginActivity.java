@@ -2,12 +2,15 @@ package com.example.han.referralproject.activity;
 
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
@@ -39,6 +42,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.tv_register).setOnClickListener(this);
         findViewById(R.id.tv_agreement).setOnClickListener(this);
+        ((TextView)findViewById(R.id.tv_version)).setText(getLocalVersionName());
     }
 
     @Override
@@ -100,6 +104,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         } else if (result.matches(".*登录.*") || PinYinUtils.converterToSpell(result).matches(".*denglu.*")) {
             findViewById(R.id.btn_login).performClick();
         }
+    }
+
+    public String getLocalVersionName() {
+        String localVersion = "";
+        try {
+            PackageInfo packageInfo = getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(getPackageName(), 0);
+            localVersion = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return localVersion;
     }
 
 }
