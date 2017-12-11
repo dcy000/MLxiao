@@ -191,6 +191,7 @@
         <activity
             android:name=".xindian.ConnectActivity"
             android:screenOrientation="landscape"/>
+
         <service
             android:name=".xindian.ReceiveService"
             android:enabled="true"/>
@@ -235,10 +236,11 @@
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
@@ -334,7 +336,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".recyclerview.AppraiseActivity"></activity>
+        <activity android:name=".recyclerview.AppraiseActivity"/>
         <activity android:name=".facerecognition.HeadiconActivity"/>
         <activity android:name=".recyclerview.DoctorappoActivity"/>
         <activity android:name=".recyclerview.AddAppoActivity"/>
@@ -437,13 +439,15 @@
         <activity android:name=".activity.SymptomsActivity"/>
         <activity android:name=".activity.BodychartActivity"/>
         <activity android:name=".shopping.OrderListActivity">
-
         </activity>
-        <activity android:name=".activity.DiseaseDetailsActivity" />
-        <activity android:name=".activity.DiseaseDetails2Activity" />
-        <activity android:name=".recyclerview.OnlineDoctorListActivity"
+        <activity android:name=".activity.DiseaseDetailsActivity"/>
+        <activity android:name=".activity.DiseaseDetails2Activity"/>
+        <activity
+            android:name=".recyclerview.OnlineDoctorListActivity"
             android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".recyclerview.DoctorAskGuideActivity"></activity>
+        <activity android:name=".recyclerview.DoctorAskGuideActivity"/>
+        <activity android:name="com.medlink.danbogh.signin.SignInActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -791,12 +791,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private static String parseXffunQAResponse(String text) {
-        if (text.equals("1")) {
-            return "我真的不知道了";
-        }
         try {
+            JSONObject apiResposeObj = new JSONObject(text);
+            text = apiResposeObj.optString("data");
             JSONObject qaResponseObj = new JSONObject(text);
             String code = qaResponseObj.optString("code");
+            if (text.equals("1")) {
+                return "我真的不知道了";
+            }
             if (code == null || !code.equals("00000")) {
                 return "我真的不知道了";
             }

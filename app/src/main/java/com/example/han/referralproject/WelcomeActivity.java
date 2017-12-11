@@ -31,6 +31,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.medlink.danbogh.signin.SignInActivity;
 
 public class WelcomeActivity extends BaseActivity {
 

@@ -32,6 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mToolbar.setVisibility(View.GONE);
         mAccountTv = (EditText) findViewById(R.id.et_phone);
         mPwdTv = (EditText) findViewById(R.id.et_password);
         mCheckBox = (CheckBox) findViewById(R.id.cb_agree);

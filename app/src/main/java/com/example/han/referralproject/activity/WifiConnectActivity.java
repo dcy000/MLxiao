@@ -28,6 +28,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.medlink.danbogh.signin.SignInActivity;
 import com.suke.widget.SwitchButton;
 
 import java.util.ArrayList;

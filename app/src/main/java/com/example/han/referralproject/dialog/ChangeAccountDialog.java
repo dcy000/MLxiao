@@ -17,6 +17,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;
 
