@@ -12,27 +12,27 @@ import android.view.WindowManager;
 public class BackGround extends View {
 
 	public static DisplayMetrics dm;
-	/** x轴上每个像素点占的实际mm长度 */
+	/** x����ÿ�����ص�ռ��ʵ��mm���� */
 	public static float xPX2MMUnit = 0.0f;
-	/** y轴上每个像素点占的实际mm长度 */
+	/** y����ÿ�����ص�ռ��ʵ��mm���� */
 	public static float yPX2MMUnit = 0.0f;
-	/** 当前view的宽度 (mm) */
+	/** ��ǰview�Ŀ�� (mm) */
 	private float width = 0.0f;
-	/** 当前view的高度 (mm) */
+	/** ��ǰview�ĸ߶� (mm) */
 	public static float height = 0.0f;
 
-	/** 背景标尺的最小高度（mm） */
+	/** ������ߵ���С�߶ȣ�mm�� */
 	protected static final int minHeight = 4;
 
-	/** 背景标尺的实际高度(mm) */
+	/** ������ߵ�ʵ�ʸ߶�(mm) */
 	public static float gridHeigh = 0.0f;
 
-	/** 总共需要多少个网格 */
+	/** �ܹ���Ҫ���ٸ����� */
 	public static int gridCnt = 0;
 
-	/** 绘制区域的宽度(像素) */
+	/** ��������Ŀ��(����) */
 	public static int mWidth = 0;
-	/** 绘制区域的高度(像素) */
+	/** ��������ĸ߶�(����) */
 	public static int mHeight = 0;
 
 	private int backgroundColor = 0;
@@ -68,7 +68,7 @@ public class BackGround extends View {
 	}
 
 	/**
-	 * 设置背景颜色
+	 * ���ñ�����ɫ
 	 */
 	public void setBackgroundColor(int backgroundColor) {
 		this.backgroundColor = backgroundColor;
@@ -77,7 +77,7 @@ public class BackGround extends View {
 	private boolean isDrawBG = true;
 
 	/**
-	 * 设置是否绘制背景
+	 * �����Ƿ���Ʊ���
 	 * 
 	 * @param isDrawBG
 	 */
@@ -96,7 +96,7 @@ public class BackGround extends View {
 		}
 		mPaint.setStrokeWidth(1);
 		mPaint.setColor(Color.rgb(0xba, 0xba, 0xba));
-		// 绘制纵坐标
+		// ����������
 		for (float i = 0; i < width; i += gridHeigh) {
 			canvas.drawLine(fMMgetPxforX(i), 0, fMMgetPxforX(i), mHeight,
 					mPaint);
@@ -120,21 +120,21 @@ public class BackGround extends View {
 	}
 
 	/**
-	 * 是否绘制增益标尺
+	 * �Ƿ����������
 	 */
 	private boolean isDrawScale = true;
 
 	/**
-	 * 设置是否绘制增益标尺
+	 * �����Ƿ����������
 	 */
 	public void setDrawScale(boolean isDrawScale) {
 		this.isDrawScale = isDrawScale;
 	}
 
-	/** 绘制标尺 */
+	/** ���Ʊ�� */
 	private void drawScale(Canvas canvas) {
 		if (gridHeigh > 1 && isDrawScale) {
-			int h = mHeight / gridCnt;// 一格的高度
+			int h = mHeight / gridCnt;// һ��ĸ߶�
 			mPaint.setColor(Color.BLUE);
 			mPaint.setStrokeWidth(dm.density);
 			float i = (h * gain) / 2f;
@@ -160,7 +160,7 @@ public class BackGround extends View {
 	}
 
 	/**
-	 * 通过mm单位获取该距离上X轴的像素点数
+	 * ͨ��mm��λ��ȡ�þ�����X������ص���
 	 * 
 	 * @param mm
 	 * @return
@@ -170,7 +170,7 @@ public class BackGround extends View {
 	}
 
 	/**
-	 * 将指定的像素点数目得到这些像素点的mm长度（X轴）
+	 * ��ָ�������ص���Ŀ�õ���Щ���ص��mm���ȣ�X�ᣩ
 	 * 
 	 * @param px
 	 * @return
@@ -180,7 +180,7 @@ public class BackGround extends View {
 	}
 
 	/**
-	 * 通过mm单位获取该距离上Y轴的像素点数
+	 * ͨ��mm��λ��ȡ�þ�����Y������ص���
 	 * 
 	 * @param mm
 	 * @return
@@ -190,7 +190,7 @@ public class BackGround extends View {
 	}
 
 	/**
-	 * 将指定的像素点数目得到这些像素点的mm长度（Y轴）
+	 * ��ָ�������ص���Ŀ�õ���Щ���ص��mm���ȣ�Y�ᣩ
 	 * 
 	 * @param px
 	 * @return
@@ -206,7 +206,7 @@ public class BackGround extends View {
 	}
 
 	public void setViewHeight(int w, int h) {
-		// 将屏幕的像素都转换为毫米单位
+		// ����Ļ�����ض�ת��Ϊ���׵�λ
 		this.width = fPXgetMMforX(w);
 		height = fPXgetMMforY(h);
 		mHeight = h;
@@ -217,22 +217,22 @@ public class BackGround extends View {
 		postInvalidate();
 	}
 
-	/** 获取总共需要多少个网格 */
+	/** ��ȡ�ܹ���Ҫ���ٸ����� */
 	public int getGridCnt() {
 		return gridCnt;
 	}
 
-	/** 设置总共需要多少个网格 */
+	/** �����ܹ���Ҫ���ٸ����� */
 	public void setGridCnt(int gridCnt) {
 		BackGround.gridCnt = gridCnt;
 	}
 
-	/** 获取背景标尺的实际高度 (mm) */
+	/** ��ȡ������ߵ�ʵ�ʸ߶� (mm) */
 	public float getGridHeigh() {
 		return gridHeigh;
 	}
 
-	/** 获取背景标尺的实际高度 (mm) */
+	/** ��ȡ������ߵ�ʵ�ʸ߶� (mm) */
 	public void setGridHeigh(float gridHeigh) {
 		BackGround.gridHeigh = gridHeigh;
 	}

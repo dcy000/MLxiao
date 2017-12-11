@@ -887,7 +887,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     private void startSearch() {
         if (detectType == Type_SanHeYi){
-            dialog = new NDialog(this);
+            if (dialog == null){
+                dialog = new NDialog(this);
+            }
             showNormal("设备连接中，请稍后...");
         }
         blueThreadDisable = true;
@@ -970,13 +972,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         deviceName = "000FatScale01";
                         break;
                     case Type_SanHeYi:
-                        deviceName = "BeneCheck-1544";
+                        deviceName = "BeneCheck";
+//                        deviceName = "BeneCheck-1544";
 //                        deviceName = "BeneCheck GL-0F8B73";
 //                        deviceName = "BeneCheck TC-B DONGLE";
                         break;
                 }
-
-                if (deviceName.equals(device.getName())) {
+//                if (deviceName.equals(device.getName())) {
+                if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith(deviceName)) {
                     if (dialog != null) {
                         dialog.create(NDialog.CONFIRM).dismiss();
                     }

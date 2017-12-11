@@ -12,16 +12,16 @@ import com.creative.base.BaseDate.Wave;
 
 public class DrawThreadPC80B extends BaseDraw {
 
-	/** 接收到蓝牙消息——PC80B发送文件数据 */
+	/** ���յ�������Ϣ����PC80B�����ļ����� */
 	public static final int MSG_80B_FILE = 0x201;
-	/** 接收到蓝牙消息——PC80B发送实时波形数据 */
+	/** ���յ�������Ϣ����PC80B����ʵʱ�������� */
 	public static final int MSG_80B_WAVE = 0x202;
 
-	/** 当前view的高度 (mm) */
+	/** ��ǰview�ĸ߶� (mm) */
 	private float heightMm = 0;
-	/** 心电波形高度缩放比例 */
+	/** �ĵ粨�θ߶����ű��� */
 	private float zoomECGforMm = 0.0f;
-	/** 当前波形增益 */
+	/** ��ǰ�������� */
 	protected int gain = 2;
 	private CornerPathEffect cornerPathEffect = new CornerPathEffect(20);
 
@@ -38,7 +38,7 @@ public class DrawThreadPC80B extends BaseDraw {
 	}
 
 	/**
-	 * 恢复读取数据线程
+	 * �ָ���ȡ�����߳�
 	 */
 	public synchronized void Continue() {
 		this.pause = false;
@@ -67,6 +67,11 @@ public class DrawThreadPC80B extends BaseDraw {
 						} else {
 							Thread.sleep(10);
 						}
+					}else if (XinDianDetectActivity.mECGReplayBuffer!=null && XinDianDetectActivity.mECGReplayBuffer.size()>0) {
+						int y = XinDianDetectActivity.mECGReplayBuffer.remove(0);
+						Thread.sleep(7);//���ò����ٶ�,�طŲ���Ҫ�������,limit the speed of replaying
+						addData(y);
+						
 					} else {
 						Thread.sleep(100);
 					}
@@ -109,14 +114,15 @@ public class DrawThreadPC80B extends BaseDraw {
 	}
 
 	/**
-	 * 获取该点在Y轴上的像素坐标
+	 * ��ȡ�õ���Y���ϵ���������
 	 */
 	private float gethPx(int data) {
 		return BackGround.fMMgetPxfory(gethMm(data));
 	}
 
 	/**
-	 * 获取该点在Y轴上的mm坐标
+	 * ��ȡ�õ���Y���ϵ�mm����
+	 * 2048 is ECG base value
 	 */
 	protected float gethMm(int data) {
 		data -= 2048;
@@ -124,7 +130,7 @@ public class DrawThreadPC80B extends BaseDraw {
 	}
 
 	/**
-	 * 设置波形增益
+	 * ���ò�������
 	 * 
 	 * @param gain
 	 */

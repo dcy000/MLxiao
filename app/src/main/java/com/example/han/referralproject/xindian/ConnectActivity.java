@@ -16,20 +16,19 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 
-
 /**
  * progress dialog for bluetooth connecting
  */
 public class ConnectActivity extends Activity implements OnClickListener{
 
-	/** 显示当前进度 */
+	/** ��ʾ��ǰ���� */
 	private TextView tvStatus;
 
-	/** 圆形进度提示图片 */
+	/** Բ�ν�����ʾͼƬ */
 	private ImageView imgProgress;
 
 	/**
-	 * 需要连接的设备名
+	 * ��Ҫ���ӵ��豸��
 	 * connect device name
 	 */
 	private int conDeviceName;
@@ -48,7 +47,7 @@ public class ConnectActivity extends Activity implements OnClickListener{
 				ReceiveService.BLU_ACTION_STATE_CHANGE);
 		filter.addAction(ReceiveService.ACTION_BLUETOOH_OFF);
 		registerReceiver(receiver, filter);
-		// 在API11以后可以直接调用该方法 设置以dialog形式出现的activity点击外部时是否消失
+		// ��API11�Ժ����ֱ�ӵ��ø÷��� ������dialog��ʽ���ֵ�activity����ⲿʱ�Ƿ���ʧ
 		if (Build.VERSION.SDK_INT >= 11)
 			setFinishOnTouchOutside(false);
 		startCon();
@@ -116,6 +115,12 @@ public class ConnectActivity extends Activity implements OnClickListener{
 	};
 
 	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(receiver);
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
 			case R.id.icon_back:
@@ -124,14 +129,8 @@ public class ConnectActivity extends Activity implements OnClickListener{
 		}
 	}
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		unregisterReceiver(receiver);
-	}
-
 	/**
-	 * 当前蓝牙连接的设备名
+	 * ��ǰ�������ӵ��豸��
 	 */
 	public static final String CONNECTED_DEVICE_NAME = "CONNAME";
 

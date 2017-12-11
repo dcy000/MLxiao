@@ -15,14 +15,14 @@ public class BaseDraw extends View implements Runnable {
 	protected boolean stop = false;
 	protected boolean pause = false;
 	protected Handler mHandler;
-	/** 保存一整屏数据的数组 */
+	/** ����һ�������ݵ����� */
 	protected int[] data2draw;
-	/** X轴上两点的间隔 */
+	/** X��������ļ�� */
 	protected float stepx = 2;
 	protected DisplayMetrics dm;
-	/** 当前数组插入点 */
+	/** ��ǰ�������� */
 	protected int arraycnt = 0;
-	/** 当前view的高度 (px) */
+	/** ��ǰview�ĸ߶� (px) */
 	protected float height = 0;
 
 	protected float weight = 0;
@@ -32,7 +32,7 @@ public class BaseDraw extends View implements Runnable {
 	protected CornerPathEffect cornerPathEffect = new CornerPathEffect(20);
 
 	/**
-	 * 设置前景色
+	 * ����ǰ��ɫ
 	 */
 	public void setcForecolor(int cForecolor) {
 	}
@@ -116,7 +116,7 @@ public class BaseDraw extends View implements Runnable {
 	}
 
 	/**
-	 * 将需要绘制的数据添加到数组中
+	 * ����Ҫ���Ƶ�������ӵ�������
 	 * 
 	 * @param data 
 	 */
@@ -129,7 +129,7 @@ public class BaseDraw extends View implements Runnable {
 	}
 
 	/**
-	 * 清除绘制的波形
+	 * ������ƵĲ���
 	 */
 	public void cleanWaveData() {
 		if (data2draw == null)
