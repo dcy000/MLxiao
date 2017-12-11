@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
+public class DoctorappoActivity extends BaseActivity  implements View.OnClickListener{
 
     SharedPreferences sharedPreferences1;
 
@@ -76,8 +76,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     public TextView mTextView12;
 
-    public ImageView ImageView1;
-    public ImageView ImageView2;
+   // public ImageView ImageView1;
+  //  public ImageView ImageView2;
     List<AlarmModel> models = new ArrayList<AlarmModel>();
 
     public Button mButtons;
@@ -543,6 +543,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
+
+        mToolbar.setVisibility(View.VISIBLE);
+
+        mTitleText.setText(getString(R.string.doctor_qianyue));
+
+
+
         //  speak(R.string.yuyue_1);
 
         dialog1 = new NDialog2(DoctorappoActivity.this);
@@ -560,24 +567,10 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-        ImageView1 = (ImageView) findViewById(R.id.icon_back);
-        ImageView2 = (ImageView) findViewById(R.id.icon_home);
 
-        ImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
-        ImageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), WifiConnectActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
+
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
@@ -599,7 +592,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         mTextView12 = (TextView) findViewById(R.id.service_amount);
 
-        mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
+     //   mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
@@ -617,7 +610,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mTextView3.setText(sharedPreferences1.getString("name", ""));
         mTextView4.setText("职级：" + sharedPreferences1.getString("position", ""));
         mTextView5.setText("擅长：" + sharedPreferences1.getString("feature", ""));
-
 
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -675,7 +667,23 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             mLinearLayout3.setVisibility(View.INVISIBLE);
 
         }
+    }
 
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
     }
 
 

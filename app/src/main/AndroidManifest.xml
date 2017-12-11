@@ -18,6 +18,8 @@
         android:name="com.example.han.referralproject.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
     <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -144,6 +146,10 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
+
+
+
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -195,7 +201,8 @@
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"></activity>
+
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -205,7 +212,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -230,13 +237,9 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+
+
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -258,21 +261,12 @@
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
-        <activity android:name=".facerecognition.RegisterVideoActivity" />
-        <activity android:name=".recyclerview.RecoDocActivity" />
+        <activity android:name=".facerecognition.RegisterVideoActivity"></activity>
+        <activity android:name=".recyclerview.RecoDocActivity"></activity>
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
         <activity android:name=".personal.PersonActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name="com.medlink.danbogh.call.VideoCallActivity"
@@ -330,8 +324,24 @@
 
         <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
-        <activity android:name=".recyclerview.DoctorappoActivity" />
-        <activity android:name=".recyclerview.AddAppoActivity" />
+        <activity android:name=".recyclerview.DoctorappoActivity">
+
+
+
+
+        </activity>
+        <activity android:name=".recyclerview.AddAppoActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
+        </activity>
+
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
@@ -429,12 +439,19 @@
         <activity android:name=".activity.MyBaseDataActivity" />
         <activity android:name=".activity.SymptomsActivity" />
         <activity android:name=".activity.BodychartActivity" />
-        <activity android:name=".shopping.OrderListActivity" />
+        <activity android:name=".shopping.OrderListActivity"></activity>
         <activity android:name=".activity.DiseaseDetailsActivity" />
-        <activity
-            android:name=".recyclerview.OnlineDoctorListActivity"
-            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".recyclerview.OnlineDoctorListActivity" />
         <activity android:name=".recyclerview.DoctorAskGuideActivity" />
+        <activity
+            android:name=".recharge.DefineActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"></activity>
+
+        <service android:name=".floatingball.AssistiveTouchService" />
+
+        <activity android:name=".recyclerview.DoctorAlarmActivity">
+        </activity>
         <activity android:name=".activity.AlertHeightActivity" />
         <activity android:name=".activity.AlertWeightActivity" />
         <activity android:name=".activity.AlertSportActivity" />

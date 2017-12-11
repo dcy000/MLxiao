@@ -41,6 +41,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_main);
 
+        mToolbar.setVisibility(View.GONE);
+
         mIvBack = (ImageView) findViewById(R.id.iv_back);
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override

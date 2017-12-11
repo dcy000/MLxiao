@@ -3,197 +3,423 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     tools:context="com.example.han.referralproject.personal.PersonActivity">
 
 
+    <!--<LinearLayout
+        android:id="@+id/linearlayou"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout"
-        android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_back" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="23dp"
-        android:padding="23dp">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/person_information"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
 
+
+    <ImageView
+        android:id="@+id/icon_home"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:src="@drawable/icon_home"
+        android:visibility="gone" />-->
+
+
+    <LinearLayout
+        android:id="@+id/linearlayou1"
+        android:layout_width="350dp"
+        android:layout_height="570dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
         <com.example.han.referralproject.imageview.CircleImageView
             android:id="@+id/per_image"
-            android:layout_width="205dp"
-            android:layout_height="205dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="40dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
             android:src="@drawable/avatar_placeholder" />
-
 
         <TextView
             android:id="@+id/per_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="23dp"
-            android:layout_toRightOf="@id/per_image"
-            android:text=""
-            android:lines="1"
-            android:textColor="#686868"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/tv_balance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/per_name"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/per_image"
-            android:text="账户余额: 0元"
-            android:textColor="#a2a2a2"
-            android:textSize="27sp" />
-
-        <TextView
-            android:id="@+id/tv_points"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_balance"
-            android:layout_marginLeft="60dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/per_image"
-            android:text="我的积分: 0分"
-            android:textColor="#a2a2a2"
-            android:textSize="27sp" />
+            android:text="赵曼林"
+            android:textColor="#333333"
+            android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/doctor_id"
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/tv_balance"
-            android:layout_marginLeft="350dp"
-            android:layout_toRightOf="@id/per_image"
-            android:text="签约医生: 未签约"
-            android:textColor="#a2a2a2"
-            android:textSize="27sp" />
-
-        <TextView
-            android:id="@+id/tv_hospital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/tv_points"
-            android:layout_marginLeft="350dp"
-            android:layout_toRightOf="@id/per_image"
-            android:text="浙江第二人民医院"
-            android:textColor="#a2a2a2"
-            android:textSize="27sp" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/linearlayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/RelativeLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/iv_pay"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:clickable="true"
-            android:src="@drawable/account_recharge" />
-
-        <ImageView
-            android:id="@+id/iv_message"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/icon_doctor_message" />
-
-        <ImageView
-            android:id="@+id/iv_check"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/icon_check" />
-
-
-        <ImageView
-            android:id="@+id/iv_alarm"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_alarm" />
-
-        <ImageView
-            android:id="@+id/iv_shopping"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:clickable="true"
-            android:src="@drawable/icon_shopping" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iv_order"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:clickable="true"
-                android:src="@drawable/order" />
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="订单信息"
-                android:textColor="#1E222B"
-                android:textSize="25sp" />
+                android:text="余额"
+                android:textColor="#999999"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="¥2000"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="签约状态"
+                android:textColor="#999999"
+                android:textSize="30sp" />
+
+
+            <TextView
+                android:id="@+id/doctor_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未签约"
+                android:textColor="#FF5A5A"
+                android:textSize="30sp" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="签约医生"
+                android:textColor="#999999"
+                android:textSize="30sp" />
+
+
+            <TextView
+                android:id="@+id/doctor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="暂无"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearlayou2"
+        android:layout_width="match_parent"
+        android:layout_height="580dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/linearlayou1"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="健康工具"
+            android:textColor="#999999"
+            android:textSize="30sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_check"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_zzzc" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="症状自查"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_record"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:src="@drawable/ic_clls" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="测量历史"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_message"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_ysjy" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="医生建议"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_alarm"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_cytx" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="吃药提醒"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="健康生活"
+            android:textColor="#999999"
+            android:textSize="30sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_pay"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_zhcz" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="账户充值"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_shopping"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_jksc" />
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="健康商城"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_order"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_wddd" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="我的订单"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/view_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="30dp"
+            android:text="切换账户"
+            android:textColor="#999999"
+            android:textSize="30sp" />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="@string/logout"
-        android:textColor="#abcadf"
-        android:textSize="25sp"
-        android:visibility="gone" />
+
 
     <ImageView
         android:id="@+id/view_wifi"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/icon_wifi" />
+        android:src="@drawable/icon_wifi"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="35dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <View
             android:id="@+id/view_health"
@@ -209,7 +435,7 @@
             android:background="@drawable/icon_history" />
 
         <View
-            android:id="@+id/view_change"
+            android:id="@+id/btn_logout"
             android:layout_width="220dp"
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"

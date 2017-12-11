@@ -138,8 +138,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
     });
 
     public String number;
-    public ImageView mImageView1;
-    public ImageView mImageView2;
+    //  public ImageView mImageView1;
+    //  public ImageView mImageView2;
 
     public Boolean sign = true;
     public Boolean sign1 = true;
@@ -151,10 +151,14 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_info);
 
+        mToolbar.setVisibility(View.VISIBLE);
 
-        mImageView1 = (ImageView) findViewById(R.id.icon_back);
+        mTitleText.setText(getString(R.string.pay));
+
+
+    /*    mImageView1 = (ImageView) findViewById(R.id.icon_back);
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
-
+*/
         Intent intent = getIntent();
         number = intent.getStringExtra("number");
 
@@ -177,12 +181,29 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
         reqQrCode();
 
-        mImageView1.setOnClickListener(this);
-        mImageView2.setOnClickListener(this);
+      /*  mImageView1.setOnClickListener(this);
+        mImageView2.setOnClickListener(this);*/
         date = new Date();
 
 
     }
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
+
 
     public void QueryOrder() {
 
@@ -390,16 +411,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.icon_back:
 
-                finish();
-                break;
-            case R.id.icon_home:
-
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-                break;
         }
     }
 

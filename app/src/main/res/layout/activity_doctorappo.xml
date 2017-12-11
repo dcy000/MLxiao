@@ -4,35 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
     tools:context="com.example.han.referralproject.recyclerview.DoctorappoActivity">
 
     <!--<LinearLayout
-        android:id="@+id/linearlayou"
-        android:layout_width="wrap_content"
-        android:layout_height="69dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/icon_back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="预约医生"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
-    </LinearLayout>-->
-
-
-    <LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
@@ -66,22 +40,24 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:clickable="true"
-        android:src="@drawable/icon_wifi" />
+        android:src="@drawable/icon_wifi" />-->
 
     <LinearLayout
         android:id="@+id/linearlayou1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearlayou"
-        android:layout_marginLeft="80dp"
+        android:layout_width="400dp"
+        android:layout_height="570dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
 
         <com.example.han.referralproject.imageview.CircleImageView
             android:id="@+id/circleImageView1"
-            android:layout_width="204dp"
-            android:layout_height="204dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:clickable="true"
             android:src="@drawable/avatar_placeholder" />
 
@@ -89,38 +65,43 @@
             android:id="@+id/docotor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:text="赵曼林"
-            android:textColor="@color/name_color"
-            android:textSize="40sp" />
+            android:textColor="#333333"
+            android:textSize="30sp" />
 
 
         <TextView
             android:id="@+id/docotor_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:text="职级：主任医师"
-            android:textColor="@color/name_color"
+            android:text="@string/zhiji"
+            android:textColor="#333333"
             android:textSize="30sp" />
+
 
         <TextView
             android:id="@+id/docotor_feature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="擅长：高血压、糖尿病"
-            android:textColor="@color/name_good_at"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/shanchang"
+            android:textColor="#333333"
             android:textSize="30sp" />
+
 
         <TextView
             android:id="@+id/service_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="收费标准：10元/分钟"
-            android:textColor="@color/name_pay"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/shoufei"
+            android:textColor="#3F86FC"
             android:textSize="30sp" />
 
     </LinearLayout>
@@ -129,29 +110,54 @@
     <LinearLayout
         android:id="@+id/linearlayou2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="570dp"
         android:layout_below="@+id/linearlayou"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
         android:layout_toRightOf="@+id/linearlayou1"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_yuyue"
-            android:gravity="center"
-            android:text="已 预 约"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="预约时间"
+                android:textColor="#999999"
+                android:textSize="30sp" />
+
+
+            <TextView
+                android:id="@+id/yuyue_lishi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:text="预约历史"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/yuyue_lishi"
+                android:layout_marginTop="10dp"
+                android:src="#BBBBBB" />
+
+        </RelativeLayout>
 
 
         <LinearLayout
             android:id="@+id/linearlayou7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
 
@@ -187,7 +193,7 @@
                 android:id="@+id/cancel_yuyue"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_yuyue"
                 android:gravity="center"
@@ -238,7 +244,7 @@
                 android:id="@+id/cancel_yuyue1"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_yuyue"
                 android:gravity="center"
@@ -290,7 +296,7 @@
                 android:id="@+id/cancel_yuyue2"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_yuyue"
                 android:gravity="center"
@@ -302,36 +308,42 @@
         </LinearLayout>
 
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="60dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/video_doctor"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/video_selector"
+                android:gravity="center"
+                android:text="视频医生"
+                android:textColor="#FFFFFF"
+                android:textSize="40sp" />
+
+
+            <Button
+                android:id="@+id/add_yuyue"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@+id/video_doctor"
+                android:background="@drawable/add_yuyues"
+                android:gravity="center"
+                android:text="添加预约"
+                android:textColor="#FFFFFF"
+                android:textSize="37sp" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/video_doctor"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="100dp"
-        android:background="@drawable/video_selector"
-        android:gravity="center"
-        android:text="视频医生"
-        android:textColor="#FFFFFF"
-        android:textSize="35sp" />
-
-
-    <Button
-        android:id="@+id/add_yuyue"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="100dp"
-        android:background="@drawable/add_yuyues"
-        android:gravity="center"
-        android:text="添加预约"
-        android:textColor="#FF9AFF"
-        android:textSize="37sp" />
 
 </RelativeLayout>

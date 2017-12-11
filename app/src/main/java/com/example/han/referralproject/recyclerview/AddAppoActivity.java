@@ -34,99 +34,6 @@ import java.util.List;
 
 public class AddAppoActivity extends BaseActivity implements View.OnClickListener {
 
-    public Button mButton;
-    public Button mButton1;
-
-    public Button mButton2;
-    public Button mButton3;
-    public Button mButton4;
-    public Button mButton5;
-    public Button mButton6;
-    public Button mButton7;
-    public Button mButton8;
-
-    public Button mButton9;
-    public Button mButton10;
-    public Button mButton11;
-    public Button mButton12;
-    public Button mButton13;
-    public Button mButton14;
-    public Button mButton15;
-
-    public Button mButton16;
-    public Button mButton17;
-    public Button mButton18;
-    public Button mButton19;
-    public Button mButton20;
-    public Button mButton21;
-    public Button mButton22;
-
-    public Button mButton23;
-    public Button mButton24;
-    public Button mButton25;
-    public Button mButton26;
-    public Button mButton27;
-    public Button mButton28;
-    public Button mButton29;
-
-    public TextView mTextView1;
-    public TextView mTextView2;
-    public TextView mTextView3;
-    public TextView mTextView4;
-
-    public LinearLayout mLinearLayout1;
-    public LinearLayout mLinearLayout2;
-    public LinearLayout mLinearLayout3;
-    public LinearLayout mLinearLayout4;
-    public LinearLayout mLinearLayout5;
-    public LinearLayout mLinearLayout6;
-    public LinearLayout mLinearLayout7;
-    public LinearLayout mLinearLayout8;
-
-
-    public Button mButton30;
-    public Button mButton31;
-    public Button mButton32;
-    public Button mButton33;
-    public Button mButton34;
-    public Button mButton35;
-    public Button mButton36;
-    public Button mButton37;
-    public Button mButton38;
-    public Button mButton39;
-    public Button mButton40;
-    public Button mButton41;
-    public Button mButton42;
-    public Button mButton43;
-    public Button mButton44;
-    public Button mButton45;
-    public Button mButton46;
-    public Button mButton47;
-    public Button mButton48;
-    public Button mButton49;
-    public Button mButton50;
-    public Button mButton51;
-    public Button mButton52;
-    public Button mButton53;
-    public Button mButton54;
-    public Button mButton55;
-    public Button mButton56;
-    public Button mButton57;
-
-    public TextView textView1;
-    public TextView textView2;
-    public TextView textView3;
-    public TextView textView4;
-    public TextView mTextView5;
-    public TextView mTextView6;
-    public TextView mTextView7;
-    public TextView mTextView8;
-    public TextView mTextView9;
-    public TextView mTextView10;
-    public TextView mTextView11;
-    public TextView mTextView12;
-    public TextView mTextView13;
-    public TextView mTextView14;
 
     SharedPreferences sharedPreferences1;
 
@@ -156,31 +63,67 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     NDialog1 dialog;
     NDialog2 dialog1;
 
-    ImageView mImageView;
 
-    ImageView mCircleImageView;
-    TextView TextView1;
-    TextView TextView2;
-    TextView TextView3;
-    //SharedPreferences sharedPreference;
+    public TextView mTextView1;
+    public TextView mTextView2;
+    public TextView mTextView3;
+    public TextView mTextView4;
+    public TextView mTextView5;
+    public TextView mTextView6;
+    public TextView mTextView7;
+    public TextView mTextView8;
+    public TextView mTextView9;
+    public TextView mTextView10;
+    public TextView mTextView11;
+    public TextView mTextView12;
+    public TextView mTextView13;
+    public TextView mTextView14;
+    public TextView mTextView15;
+    public TextView mTextView16;
+    public TextView mTextView17;
+    public TextView mTextView18;
+    public TextView mTextView19;
+    public TextView mTextView20;
+    public TextView mTextView21;
+    public TextView mTextView22;
+    public TextView mTextView23;
+    public TextView mTextView24;
+    public TextView mTextView25;
+    public TextView mTextView26;
+    public TextView mTextView27;
+    public TextView mTextView28;
+    public TextView mTextView29;
+    public TextView mTextView30;
+    public TextView mTextView31;
+    public TextView mTextView32;
+    public TextView mTextView33;
+    public TextView mTextView34;
+    public TextView mTextView35;
+    public TextView mTextView36;
+    public TextView mTextView37;
+    public TextView mTextView38;
+    public TextView mTextView39;
+    public TextView mTextView40;
+    public TextView mTextView41;
+    public TextView mTextView42;
 
 
-    public void showNormal(final Button button, String str1, String str2, String str3) {
+    public void showNormal(final TextView mTextView, String str1, String str2, String str3) {
 
         String[] str = str1.split("/");
         String[] strs = str3.split("-");
 
-        final String start_time = years.format(date) + "-" + str[0] + "-" + str[1] + " " + strs[0];
-        final String end_time = years.format(date) + "-" + str[0] + "-" + str[1] + " " + strs[1];
+        final String start_time = str[0] + "-" + str[1] + "-" + str[2] + " " + strs[0];
+        final String end_time = str[0] + "-" + str[1] + "-" + str[2] + " " + strs[1];
 
-        speak(String.format(getString(R.string.dialog), str[0], str[1], str2, str3, sharedPreferences1.getString("name", "")));
+        speak(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")));
 
         dialog = new NDialog1(AddAppoActivity.this);
 
 
-        dialog.setMessageCenter(false)
-                .setMessage(String.format(getString(R.string.dialog), str[0], str[1], str2, str3, sharedPreferences1.getString("name", "")))
-                .setMessageSize(40)
+        dialog.setMessageCenter(true)
+                .setMessage(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")))
+                .setMessageSize(35)
                 .setCancleable(false)
                 .setButtonCenter(true)
                 .setPositiveTextColor(Color.parseColor("#FFA200"))
@@ -211,9 +154,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
 
                         } else if (which == 0) {
-                            button.setText("未预约");
-                            button.setSelected(false);
-
+                            mTextView.setText("可预约");
+                            mTextView.setTextColor(Color.parseColor("#3F86FC"));
                             dialog.create(NDialog.CONFIRM).cancel();
                             dialog = null;
                         }
@@ -248,32 +190,77 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    public TextView mTextView;
+    //  public ImageView ImageView1;
+    //   public ImageView ImageView2;
 
-    public ImageView ImageView1;
-    public ImageView ImageView2;
+    SimpleDateFormat simpl;
 
-    SimpleDateFormat years;
+    SimpleDateFormat simp2;
+    SimpleDateFormat simp3;
+    SimpleDateFormat simp4;
+    SimpleDateFormat simp5;
+    SimpleDateFormat simp6;
+    SimpleDateFormat simp7;
+    SimpleDateFormat simp8;
+
+    // SimpleDateFormat years;
 
     List<AlreadyYuyue> list = new ArrayList<AlreadyYuyue>();
+
+    public TextView mMonth;
+    public TextView mWeek1;
+    public TextView mWeek2;
+    public TextView mWeek3;
+    public TextView mWeek4;
+    public TextView mWeek5;
+    public TextView mWeek6;
+    public TextView mWeek7;
+    public TextView mDay1;
+    public TextView mDay2;
+    public TextView mDay3;
+    public TextView mDay4;
+    public TextView mDay5;
+    public TextView mDay6;
+    public TextView mDay7;
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
 
+        mToolbar.setVisibility(View.VISIBLE);
+
+
+        mTitleText.setText(getString(R.string.doctor_yuyue));
+
+        initView();
+
         dialog1 = new NDialog2(AddAppoActivity.this);
 
 
 
-        ImageView1 = (ImageView) findViewById(R.id.icon_back);
-        ImageView2 = (ImageView) findViewById(R.id.icon_home);
-
-        ImageView1.setOnClickListener(new View.OnClickListener() {
+       /* ImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-             }
+            }
         });
 
         ImageView2.setOnClickListener(new View.OnClickListener() {
@@ -283,129 +270,36 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
 
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
 
-        mButton = (Button) findViewById(R.id.add_afternoon);
-        mButton1 = (Button) findViewById(R.id.add_morning);
-
-        mButton2 = (Button) findViewById(R.id.yuyue1);
-        mButton3 = (Button) findViewById(R.id.yuyue2);
-        mButton4 = (Button) findViewById(R.id.yuyue3);
-        mButton5 = (Button) findViewById(R.id.yuyue4);
-        mButton6 = (Button) findViewById(R.id.yuyue5);
-        mButton7 = (Button) findViewById(R.id.yuyue6);
-        mButton8 = (Button) findViewById(R.id.yuyue7);
-
-        mButton9 = (Button) findViewById(R.id.yuyue8);
-        mButton10 = (Button) findViewById(R.id.yuyue9);
-        mButton11 = (Button) findViewById(R.id.yuyue10);
-        mButton12 = (Button) findViewById(R.id.yuyue11);
-        mButton13 = (Button) findViewById(R.id.yuyue12);
-        mButton14 = (Button) findViewById(R.id.yuyue13);
-        mButton15 = (Button) findViewById(R.id.yuyue14);
-
-
-        mButton16 = (Button) findViewById(R.id.yuyue15);
-        mButton17 = (Button) findViewById(R.id.yuyue16);
-        mButton18 = (Button) findViewById(R.id.yuyue17);
-        mButton19 = (Button) findViewById(R.id.yuyue18);
-        mButton20 = (Button) findViewById(R.id.yuyue19);
-        mButton21 = (Button) findViewById(R.id.yuyue20);
-        mButton22 = (Button) findViewById(R.id.yuyue21);
-
-        mButton23 = (Button) findViewById(R.id.yuyue22);
-        mButton24 = (Button) findViewById(R.id.yuyue23);
-        mButton25 = (Button) findViewById(R.id.yuyue24);
-        mButton26 = (Button) findViewById(R.id.yuyue25);
-        mButton27 = (Button) findViewById(R.id.yuyue26);
-        mButton28 = (Button) findViewById(R.id.yuyue27);
-        mButton29 = (Button) findViewById(R.id.yuyue28);
-
-        mButton30 = (Button) findViewById(R.id.yuyue29);
-        mButton31 = (Button) findViewById(R.id.yuyue30);
-        mButton32 = (Button) findViewById(R.id.yuyue31);
-        mButton33 = (Button) findViewById(R.id.yuyue32);
-        mButton34 = (Button) findViewById(R.id.yuyue33);
-        mButton35 = (Button) findViewById(R.id.yuyue34);
-        mButton36 = (Button) findViewById(R.id.yuyue35);
-        mButton37 = (Button) findViewById(R.id.yuyue36);
-        mButton38 = (Button) findViewById(R.id.yuyue37);
-        mButton39 = (Button) findViewById(R.id.yuyue38);
-        mButton40 = (Button) findViewById(R.id.yuyue39);
-        mButton41 = (Button) findViewById(R.id.yuyue40);
-        mButton42 = (Button) findViewById(R.id.yuyue41);
-        mButton43 = (Button) findViewById(R.id.yuyue42);
-        mButton44 = (Button) findViewById(R.id.yuyue43);
-        mButton45 = (Button) findViewById(R.id.yuyue44);
-        mButton46 = (Button) findViewById(R.id.yuyue45);
-        mButton47 = (Button) findViewById(R.id.yuyue46);
-        mButton48 = (Button) findViewById(R.id.yuyue47);
-        mButton49 = (Button) findViewById(R.id.yuyue48);
-        mButton50 = (Button) findViewById(R.id.yuyue49);
-        mButton51 = (Button) findViewById(R.id.yuyue50);
-        mButton52 = (Button) findViewById(R.id.yuyue51);
-        mButton53 = (Button) findViewById(R.id.yuyue52);
-        mButton54 = (Button) findViewById(R.id.yuyue53);
-        mButton55 = (Button) findViewById(R.id.yuyue54);
-        mButton56 = (Button) findViewById(R.id.yuyue55);
-        mButton57 = (Button) findViewById(R.id.yuyue56);
-
-
-        mTextView1 = (TextView) findViewById(R.id.time1);
-        mTextView2 = (TextView) findViewById(R.id.time2);
-        mTextView3 = (TextView) findViewById(R.id.time3);
-        mTextView4 = (TextView) findViewById(R.id.time4);
-
-
-        mLinearLayout1 = (LinearLayout) findViewById(R.id.linearlayou5);
-        mLinearLayout2 = (LinearLayout) findViewById(R.id.linearlayou6);
-        mLinearLayout3 = (LinearLayout) findViewById(R.id.linearlayou7);
-        mLinearLayout4 = (LinearLayout) findViewById(R.id.linearlayou8);
-
-        mLinearLayout5 = (LinearLayout) findViewById(R.id.linearlayou9);
-        mLinearLayout6 = (LinearLayout) findViewById(R.id.linearlayou10);
-        mLinearLayout7 = (LinearLayout) findViewById(R.id.linearlayou11);
-        mLinearLayout8 = (LinearLayout) findViewById(R.id.linearlayou12);
-
-        textView1 = (TextView) findViewById(R.id.date1);
-        textView2 = (TextView) findViewById(R.id.date2);
-        textView3 = (TextView) findViewById(R.id.date3);
-        textView4 = (TextView) findViewById(R.id.date4);
-        mTextView5 = (TextView) findViewById(R.id.date5);
-        mTextView6 = (TextView) findViewById(R.id.date6);
-        mTextView7 = (TextView) findViewById(R.id.date7);
-        mTextView8 = (TextView) findViewById(R.id.week1);
-        mTextView9 = (TextView) findViewById(R.id.week2);
-        mTextView10 = (TextView) findViewById(R.id.week3);
-        mTextView11 = (TextView) findViewById(R.id.week4);
-        mTextView12 = (TextView) findViewById(R.id.week5);
-        mTextView13 = (TextView) findViewById(R.id.week6);
-        mTextView14 = (TextView) findViewById(R.id.week7);
-
-
-        years = new SimpleDateFormat("y");
-
-
         date = new Date();
-        simple = new SimpleDateFormat("M/d");
+
+        simpl = new SimpleDateFormat("M");
+
+
+        simple = new SimpleDateFormat("y/M/d");
         simple.format(date);
         simple1 = new SimpleDateFormat("EEE");
         simple1.format(date);
-
+        simp2 = new SimpleDateFormat("dd");
+        simp2.format(date);
 
         date1 = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date1);
         calendar.add(calendar.DATE, 1);//把日期往后增加一天.整数往后推,负数往前移动
         date1 = calendar.getTime(); //这个时间就是日期往后推一天的结果
-        formatter = new SimpleDateFormat("M/d");
+        formatter = new SimpleDateFormat("y/M/d");
         formatter1 = new SimpleDateFormat("EEE");
+        simp3 = new SimpleDateFormat("dd");
+
         formatter.format(date1);
         formatter1.format(date1);
+        simp3.format(date1);
 
 
         date2 = new Date();
@@ -413,20 +307,28 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         calendar1.setTime(date2);
         calendar1.add(calendar1.DATE, 2);//把日期往后增加一天.整数往后推,负数往前移动
         date2 = calendar1.getTime(); //这个时间就是日期往后推一天的结果
-        formatte2 = new SimpleDateFormat("M/d");
+        formatte2 = new SimpleDateFormat("y/M/d");
         formatter3 = new SimpleDateFormat("EEE");
+        simp4 = new SimpleDateFormat("dd");
+
         formatte2.format(date2);
         formatter3.format(date2);
+        simp4.format(date2);
+
 
         date3 = new Date();
         Calendar calendar2 = new GregorianCalendar();
         calendar2.setTime(date3);
         calendar2.add(calendar2.DATE, 3);//把日期往后增加一天.整数往后推,负数往前移动
         date3 = calendar2.getTime(); //这个时间就是日期往后推一天的结果
-        formatter4 = new SimpleDateFormat("M/d");
+        formatter4 = new SimpleDateFormat("y/M/d");
         formatter5 = new SimpleDateFormat("EEE");
+        simp5 = new SimpleDateFormat("dd");
+
+
         formatter4.format(date3);
         formatter5.format(date3);
+        simp5.format(date3);
 
 
         date4 = new Date();
@@ -434,10 +336,14 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         calendar3.setTime(date4);
         calendar3.add(calendar3.DATE, 4);//把日期往后增加一天.整数往后推,负数往前移动
         date4 = calendar3.getTime(); //这个时间就是日期往后推一天的结果
-        formatter6 = new SimpleDateFormat("M/d");
+        formatter6 = new SimpleDateFormat("y/M/d");
         formatter7 = new SimpleDateFormat("EEE");
+        simp6 = new SimpleDateFormat("dd");
+
+
         formatter6.format(date4);
         formatter7.format(date4);
+        simp6.format(date4);
 
 
         date5 = new Date();
@@ -445,10 +351,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         calendar4.setTime(date5);
         calendar4.add(calendar4.DATE, 5);//把日期往后增加一天.整数往后推,负数往前移动
         date5 = calendar4.getTime(); //这个时间就是日期往后推一天的结果
-        formatter8 = new SimpleDateFormat("M/d");
+        formatter8 = new SimpleDateFormat("y/M/d");
         formatter9 = new SimpleDateFormat("EEE");
+        simp7 = new SimpleDateFormat("dd");
+
         formatter8.format(date5);
         formatter9.format(date5);
+        simp7.format(date5);
 
 
         date6 = new Date();
@@ -456,146 +365,30 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         calendar2.setTime(date6);
         calendar2.add(calendar5.DATE, 6);//把日期往后增加一天.整数往后推,负数往前移动
         date6 = calendar2.getTime(); //这个时间就是日期往后推一天的结果
-        formatter10 = new SimpleDateFormat("M/d");
+        formatter10 = new SimpleDateFormat("y/M/d");
         formatter11 = new SimpleDateFormat("EEE");
+        simp8 = new SimpleDateFormat("dd");
+
         formatter10.format(date6);
         formatter11.format(date6);
+        simp8.format(date6);
 
+        mMonth.setText(simpl.format(date) + "月");
+        mWeek1.setText(simple1.format(date));
+        mWeek2.setText(formatter1.format(date1));
+        mWeek3.setText(formatter3.format(date2));
+        mWeek4.setText(formatter5.format(date3));
+        mWeek5.setText(formatter7.format(date4));
+        mWeek6.setText(formatter9.format(date5));
+        mWeek7.setText(formatter11.format(date6));
 
-        textView1.setText(simple.format(date));
-        textView2.setText(formatter.format(date1));
-        textView3.setText(formatte2.format(date2));
-        textView4.setText(formatter4.format(date3));
-        mTextView5.setText(formatter6.format(date4));
-        mTextView6.setText(formatter8.format(date5));
-        mTextView7.setText(formatter10.format(date6));
-        mTextView8.setText(simple1.format(date));
-        mTextView9.setText(formatter1.format(date1));
-        mTextView10.setText(formatter3.format(date2));
-        mTextView11.setText(formatter5.format(date3));
-        mTextView12.setText(formatter7.format(date4));
-        mTextView13.setText(formatter9.format(date5));
-        mTextView14.setText(formatter11.format(date6));
-
-
-        mButton2.setOnClickListener(this);
-        mButton3.setOnClickListener(this);
-        mButton4.setOnClickListener(this);
-        mButton5.setOnClickListener(this);
-        mButton6.setOnClickListener(this);
-        mButton7.setOnClickListener(this);
-        mButton8.setOnClickListener(this);
-
-        mButton9.setOnClickListener(this);
-        mButton10.setOnClickListener(this);
-        mButton11.setOnClickListener(this);
-        mButton12.setOnClickListener(this);
-        mButton13.setOnClickListener(this);
-        mButton14.setOnClickListener(this);
-        mButton15.setOnClickListener(this);
-
-        mButton16.setOnClickListener(this);
-        mButton17.setOnClickListener(this);
-        mButton18.setOnClickListener(this);
-        mButton19.setOnClickListener(this);
-        mButton20.setOnClickListener(this);
-        mButton21.setOnClickListener(this);
-        mButton22.setOnClickListener(this);
-
-        mButton23.setOnClickListener(this);
-        mButton24.setOnClickListener(this);
-        mButton25.setOnClickListener(this);
-        mButton26.setOnClickListener(this);
-        mButton27.setOnClickListener(this);
-        mButton28.setOnClickListener(this);
-        mButton29.setOnClickListener(this);
-
-        mButton30.setOnClickListener(this);
-        mButton31.setOnClickListener(this);
-        mButton33.setOnClickListener(this);
-        mButton34.setOnClickListener(this);
-        mButton35.setOnClickListener(this);
-        mButton36.setOnClickListener(this);
-        mButton37.setOnClickListener(this);
-        mButton38.setOnClickListener(this);
-        mButton39.setOnClickListener(this);
-        mButton40.setOnClickListener(this);
-        mButton41.setOnClickListener(this);
-        mButton42.setOnClickListener(this);
-        mButton43.setOnClickListener(this);
-        mButton44.setOnClickListener(this);
-        mButton45.setOnClickListener(this);
-        mButton46.setOnClickListener(this);
-        mButton47.setOnClickListener(this);
-        mButton48.setOnClickListener(this);
-        mButton49.setOnClickListener(this);
-        mButton50.setOnClickListener(this);
-        mButton51.setOnClickListener(this);
-        mButton52.setOnClickListener(this);
-        mButton53.setOnClickListener(this);
-        mButton54.setOnClickListener(this);
-        mButton55.setOnClickListener(this);
-        mButton56.setOnClickListener(this);
-        mButton57.setOnClickListener(this);
-
-
-        mButton1.setSelected(true);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    v.setSelected(false);
-                } else {
-                    mTextView1.setText("14:00-14:15");
-                    mTextView2.setText("14:30-14:45");
-                    mTextView3.setText("15:00-15:15");
-                    mTextView4.setText("15:30-15:45");
-
-                    mLinearLayout1.setVisibility(View.GONE);
-                    mLinearLayout2.setVisibility(View.GONE);
-                    mLinearLayout3.setVisibility(View.GONE);
-                    mLinearLayout4.setVisibility(View.GONE);
-
-                    mLinearLayout5.setVisibility(View.VISIBLE);
-                    mLinearLayout6.setVisibility(View.VISIBLE);
-                    mLinearLayout7.setVisibility(View.VISIBLE);
-                    mLinearLayout8.setVisibility(View.VISIBLE);
-
-
-                    mButton1.setSelected(false);
-                    v.setSelected(true);
-                }
-            }
-        });
-
-        mButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    v.setSelected(false);
-                } else {
-
-                    mLinearLayout1.setVisibility(View.VISIBLE);
-                    mLinearLayout2.setVisibility(View.VISIBLE);
-                    mLinearLayout3.setVisibility(View.VISIBLE);
-                    mLinearLayout4.setVisibility(View.VISIBLE);
-
-                    mLinearLayout5.setVisibility(View.GONE);
-                    mLinearLayout6.setVisibility(View.GONE);
-                    mLinearLayout7.setVisibility(View.GONE);
-                    mLinearLayout8.setVisibility(View.GONE);
-
-
-                    mTextView1.setText("9:00-9:15");
-                    mTextView2.setText("9:30-9:45");
-                    mTextView3.setText("10:00-10:15");
-                    mTextView4.setText("10:30-10:45");
-                    mButton.setSelected(false);
-                    v.setSelected(true);
-                }
-            }
-        });
-
+        mDay1.setText(simp2.format(date));
+        mDay2.setText(simp3.format(date1));
+        mDay3.setText(simp4.format(date2));
+        mDay4.setText(simp5.format(date3));
+        mDay5.setText(simp6.format(date4));
+        mDay6.setText(simp7.format(date5));
+        mDay7.setText(simp8.format(date6));
 
         NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
             @Override
@@ -606,379 +399,353 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:00:00"))) {
-                        mButton2.setEnabled(false);
-                        mButton2.setSelected(true);
-                        mButton2.setText("已预约");
+
+                        mTextView1.setText("已预约");
+                        mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView1.setEnabled(false);
+
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:00:00"))) {
-                        mButton3.setEnabled(false);
-                        mButton3.setSelected(true);
-                        mButton3.setText("已预约");
+
+                        mTextView2.setText("已预约");
+                        mTextView2.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView2.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:00:00"))) {
-                        mButton4.setEnabled(false);
-                        mButton4.setSelected(true);
-                        mButton4.setText("已预约");
+
+                        mTextView3.setText("已预约");
+                        mTextView3.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView3.setEnabled(false);
+
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:00:00"))) {
-                        mButton5.setEnabled(false);
-                        mButton5.setSelected(true);
-                        mButton5.setText("已预约");
+
+                        mTextView4.setText("已预约");
+                        mTextView4.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView4.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:00:00"))) {
-                        mButton6.setEnabled(false);
-                        mButton6.setSelected(true);
-                        mButton6.setText("已预约");
+
+
+                        mTextView5.setText("已预约");
+                        mTextView5.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView5.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:00:00"))) {
-                        mButton7.setEnabled(false);
-                        mButton7.setSelected(true);
-                        mButton7.setText("已预约");
+
+
+                        mTextView6.setText("已预约");
+                        mTextView6.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView6.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:00:00"))) {
-                        mButton8.setEnabled(false);
-                        mButton8.setSelected(true);
-                        mButton8.setText("已预约");
-                    }
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:30:00"))) {
-                        mButton9.setEnabled(false);
-                        mButton9.setSelected(true);
-                        mButton9.setText("已预约");
-                    }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:30:00"))) {
-                        mButton10.setEnabled(false);
-                        mButton10.setSelected(true);
-                        mButton10.setText("已预约");
+                        mTextView7.setText("已预约");
+                        mTextView7.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView7.setEnabled(false);
+
+                    }
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:20:00"))) {
+
+                        mTextView8.setText("已预约");
+                        mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView8.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:30:00"))) {
-                        mButton11.setEnabled(false);
-                        mButton11.setSelected(true);
-                        mButton11.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:20:00"))) {
+
+
+                        mTextView9.setText("已预约");
+                        mTextView9.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView9.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:30:00"))) {
-                        mButton12.setEnabled(false);
-                        mButton12.setSelected(true);
-                        mButton12.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:20:00"))) {
+
+
+                        mTextView10.setText("已预约");
+                        mTextView10.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView10.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:30:00"))) {
-                        mButton13.setEnabled(false);
-                        mButton13.setSelected(true);
-                        mButton13.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:20:00"))) {
+
+
+                        mTextView11.setText("已预约");
+                        mTextView11.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView11.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:30:00"))) {
-                        mButton14.setEnabled(false);
-                        mButton14.setSelected(true);
-                        mButton14.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:20:00"))) {
+                        mTextView12.setText("已预约");
+                        mTextView12.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView12.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:30:00"))) {
-                        mButton15.setEnabled(false);
-                        mButton15.setSelected(true);
-                        mButton15.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:20:00"))) {
+                        mTextView13.setText("已预约");
+                        mTextView13.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView13.setEnabled(false);
+
+                    }
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:20:00"))) {
+                        mTextView14.setText("已预约");
+                        mTextView14.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView14.setEnabled(false);
+
                     }
 
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:00:00"))) {
-                        mButton16.setEnabled(false);
-                        mButton16.setSelected(true);
-                        mButton16.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:40:00"))) {
+                        mTextView15.setText("已预约");
+                        mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView15.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:00:00"))) {
-                        mButton17.setEnabled(false);
-                        mButton17.setSelected(true);
-                        mButton17.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:40:00"))) {
+                        mTextView16.setText("已预约");
+                        mTextView16.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView16.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:00:00"))) {
-                        mButton18.setEnabled(false);
-                        mButton18.setSelected(true);
-                        mButton18.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:40:00"))) {
+                        mTextView17.setText("已预约");
+                        mTextView17.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView17.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:00:00"))) {
-                        mButton19.setEnabled(false);
-                        mButton19.setSelected(true);
-                        mButton19.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:40:00"))) {
+                        mTextView18.setText("已预约");
+                        mTextView18.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView18.setEnabled(false);
+
+                    }
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:40:00"))) {
+
+                        mTextView19.setText("已预约");
+                        mTextView19.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView19.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:00:00"))) {
-                        mButton20.setEnabled(false);
-                        mButton20.setSelected(true);
-                        mButton20.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:40:00"))) {
+
+
+                        mTextView20.setText("已预约");
+                        mTextView20.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView20.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:00:00"))) {
-                        mButton21.setEnabled(false);
-                        mButton21.setSelected(true);
-                        mButton21.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:40:00"))) {
+
+                        mTextView21.setText("已预约");
+                        mTextView21.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView21.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:00:00"))) {
-                        mButton22.setEnabled(false);
-                        mButton22.setSelected(true);
-                        mButton22.setText("已预约");
-                    }
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "14:30:00"))) {
+                        mTextView22.setText("已预约");
+                        mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView22.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:30:00"))) {
-                        mButton23.setEnabled(false);
-                        mButton23.setSelected(true);
-                        mButton23.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:30:00"))) {
-                        mButton24.setEnabled(false);
-                        mButton24.setSelected(true);
-                        mButton24.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:30:00"))) {
-                        mButton25.setEnabled(false);
-                        mButton25.setSelected(true);
-                        mButton25.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:30:00"))) {
-                        mButton26.setEnabled(false);
-                        mButton26.setSelected(true);
-                        mButton26.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:30:00"))) {
-                        mButton27.setEnabled(false);
-                        mButton27.setSelected(true);
-                        mButton27.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:30:00"))) {
-                        mButton28.setEnabled(false);
-                        mButton28.setSelected(true);
-                        mButton28.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:30:00"))) {
-                        mButton29.setEnabled(false);
-                        mButton29.setSelected(true);
-                        mButton29.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "14:00:00"))) {
-                        mButton30.setEnabled(false);
-                        mButton30.setSelected(true);
-                        mButton30.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "14:00:00"))) {
-                        mButton31.setEnabled(false);
-                        mButton31.setSelected(true);
-                        mButton31.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "14:00:00"))) {
-                        mButton32.setEnabled(false);
-                        mButton32.setSelected(true);
-                        mButton32.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "14:00:00"))) {
-                        mButton33.setEnabled(false);
-                        mButton33.setSelected(true);
-                        mButton33.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "14:00:00"))) {
-                        mButton34.setEnabled(false);
-                        mButton34.setSelected(true);
-                        mButton34.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "14:00:00"))) {
-                        mButton35.setEnabled(false);
-                        mButton35.setSelected(true);
-                        mButton35.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "14:00:00"))) {
-                        mButton36.setEnabled(false);
-                        mButton36.setSelected(true);
-                        mButton36.setText("已预约");
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", " 14:30:00"))) {
-                        mButton37.setEnabled(false);
-                        mButton37.setSelected(true);
-                        mButton37.setText("已预约");
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "14:30:00"))) {
-                        mButton38.setEnabled(false);
-                        mButton38.setSelected(true);
-                        mButton38.setText("已预约");
+                        mTextView23.setText("已预约");
+                        mTextView23.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView23.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "14:30:00"))) {
-                        mButton39.setEnabled(false);
-                        mButton39.setSelected(true);
-                        mButton39.setText("已预约");
+
+                        mTextView24.setText("已预约");
+                        mTextView24.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView24.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "14:30:00"))) {
-                        mButton40.setEnabled(false);
-                        mButton40.setSelected(true);
-                        mButton40.setText("已预约");
+
+                        mTextView25.setText("已预约");
+                        mTextView25.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView25.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "14:30:00"))) {
-                        mButton41.setEnabled(false);
-                        mButton41.setSelected(true);
-                        mButton41.setText("已预约");
+
+                        mTextView26.setText("已预约");
+                        mTextView26.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView26.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "14:30:00"))) {
-                        mButton42.setEnabled(false);
-                        mButton42.setSelected(true);
-                        mButton42.setText("已预约");
+
+                        mTextView27.setText("已预约");
+                        mTextView27.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView27.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "14:30:00"))) {
-                        mButton43.setEnabled(false);
-                        mButton43.setSelected(true);
-                        mButton43.setText("已预约");
+
+                        mTextView28.setText("已预约");
+                        mTextView28.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView28.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:00:00"))) {
-                        mButton44.setEnabled(false);
-                        mButton44.setSelected(true);
-                        mButton44.setText("已预约");
+
+                        mTextView29.setText("已预约");
+                        mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
+                        mTextView29.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:00:00"))) {
-                        mButton45.setEnabled(false);
-                        mButton45.setSelected(true);
-                        mButton45.setText("已预约");
+
+                        mTextView30.setText("已预约");
+                        mTextView30.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView30.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:00:00"))) {
-                        mButton46.setEnabled(false);
-                        mButton46.setSelected(true);
-                        mButton46.setText("已预约");
+                        mTextView31.setText("已预约");
+                        mTextView31.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView31.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:00:00"))) {
-                        mButton47.setEnabled(false);
-                        mButton47.setSelected(true);
-                        mButton47.setText("已预约");
+                        mTextView32.setText("已预约");
+                        mTextView32.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView32.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:00:00"))) {
-                        mButton48.setEnabled(false);
-                        mButton48.setSelected(true);
-                        mButton48.setText("已预约");
+                        mTextView33.setText("已预约");
+                        mTextView33.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView33.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:00:00"))) {
-                        mButton49.setEnabled(false);
-                        mButton49.setSelected(true);
-                        mButton49.setText("已预约");
+                        mTextView34.setText("已预约");
+                        mTextView34.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView34.setEnabled(false);
+
                     }
 
                     if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:00:00"))) {
-                        mButton50.setEnabled(false);
-                        mButton50.setSelected(true);
-                        mButton50.setText("已预约");
+                        mTextView35.setText("已预约");
+                        mTextView35.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView35.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:30:00"))) {
-                        mButton51.setEnabled(false);
-                        mButton51.setSelected(true);
-                        mButton51.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:00:00"))) {
+                        mTextView36.setText("已预约");
+                        mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView36.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:30:00"))) {
-                        mButton52.setEnabled(false);
-                        mButton52.setSelected(true);
-                        mButton52.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:00:00"))) {
+                        mTextView37.setText("已预约");
+                        mTextView37.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView37.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:30:00"))) {
-                        mButton53.setEnabled(false);
-                        mButton53.setSelected(true);
-                        mButton53.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:00:00"))) {
+                        mTextView38.setText("已预约");
+                        mTextView38.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView38.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:30:00"))) {
-                        mButton54.setEnabled(false);
-                        mButton54.setSelected(true);
-                        mButton54.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:00:00"))) {
+                        mTextView39.setText("已预约");
+                        mTextView39.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView39.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:30:00"))) {
-                        mButton55.setEnabled(false);
-                        mButton55.setSelected(true);
-                        mButton55.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:00:00"))) {
+                        mTextView40.setText("已预约");
+                        mTextView40.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView40.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:30:00"))) {
-                        mButton56.setEnabled(false);
-                        mButton56.setSelected(true);
-                        mButton56.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:00:00"))) {
+                        mTextView41.setText("已预约");
+                        mTextView41.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView41.setEnabled(false);
+
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:30:00"))) {
-                        mButton57.setEnabled(false);
-                        mButton57.setSelected(true);
-                        mButton57.setText("已预约");
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:00:00"))) {
+                        mTextView42.setText("已预约");
+                        mTextView42.setTextColor(Color.parseColor("#BBBBBB"));
+
+                        mTextView42.setEnabled(false);
+
                     }
+
+                    // sharedPreferences1.getString("doctor_id", "")
 
                 }
-
-                // sharedPreferences1.getString("doctor_id", "")
             }
 
-        }, new NetworkManager.FailedCallback() {
+        }, new NetworkManager.FailedCallback()
+
+        {
             @Override
             public void onFailed(String message) {
 
             }
         });
-
-
-        mCircleImageView = (ImageView) findViewById(R.id.circleImageView2);
-        TextView1 = (TextView) findViewById(R.id.doctor_name);
-        TextView2 = (TextView) findViewById(R.id.doctor_position);
-        TextView3 = (TextView) findViewById(R.id.doctor_feature);
-
-
-        if (!"".equals(sharedPreferences1.getString("docter_photo", ""))) {
-            Picasso.with(this)
-                    .load(sharedPreferences1.getString("docter_photo", ""))
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
-                    .into(mCircleImageView);
-        }
-
-
-        TextView1.setText("姓名：" + sharedPreferences1.getString("name", ""));
-        TextView2.setText("职级：" + sharedPreferences1.getString("position", ""));
-        TextView3.setText("擅长：" + sharedPreferences1.getString("feature", ""));
-
-
-        mTextView = (TextView) findViewById(R.id.service_amount);
-        mTextView.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
-
 
     }
 
@@ -995,7 +762,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         String time = null;
         String[] str1 = tim.split("/");
-        String string1 = years.format(date) + "-" + str1[0] + "-" + str1[1] + " " + tims;
+        String string1 = str1[0] + "-" + str1[1] + "-" + str1[2] + " " + tims;
         try {
             time = dateToStamp(string1);
         } catch (ParseException e) {
@@ -1009,915 +776,489 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.yuyue1:
-                if (view.isSelected()) {
-                    mButton2.setText("未预约");
-                    view.setSelected(false);
-                } else {
-                    showNormal(mButton2, simple.format(date), "上午", "09:00:00-09:15:00");
+            case R.id.yuyue_1:
 
-                    view.setSelected(true);
-                    mButton2.setText("已预约");
-
-                }
+                showNormal(mTextView1, simple.format(date), "上午", "09:00:00-09:20:00");
+                mTextView1.setText("已预约");
+                mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
 
                 break;
-            case R.id.yuyue2:
+            case R.id.yuyue_2:
 
-                if (view.isSelected()) {
-
-
-                    mButton3.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-                    showNormal(mButton3, formatter.format(date1), "上午", "09:00:00-09:15:00");
-
-
-                    view.setSelected(true);
-                    mButton3.setText("已预约");
-
-                }
+                showNormal(mTextView2, formatter.format(date1), "上午", "09:00:00-09:20:00");
+                mTextView2.setText("已预约");
+                mTextView2.setTextColor(Color.parseColor("#BBBBBB"));
                 break;
-            case R.id.yuyue3:
+            case R.id.yuyue_3:
+
+                showNormal(mTextView3, formatte2.format(date2), "上午", "09:00:00-09:20:00");
+                mTextView3.setText("已预约");
+                mTextView3.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                if (view.isSelected()) {
-
-                    mButton4.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton4, formatte2.format(date2), "上午", "09:00:00-09:15:00");
-
-
-                    view.setSelected(true);
-                    mButton4.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue4:
+            case R.id.yuyue_4:
 
+                showNormal(mTextView4, formatter4.format(date3), "上午", "09:00:00-09:20:00");
 
-                if (view.isSelected()) {
-
-                    mButton5.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton5, formatter4.format(date3), "上午", "09:00:00-09:15:00");
-
-
-                    view.setSelected(true);
-                    mButton5.setText("已预约");
-
-                }
+                mTextView4.setText("已预约");
+                mTextView4.setTextColor(Color.parseColor("#BBBBBB"));
                 break;
-            case R.id.yuyue5:
+            case R.id.yuyue_5:
 
 
-                if (view.isSelected()) {
+                showNormal(mTextView5, formatter6.format(date4), "上午", "09:00:00-09:20:00");
 
-                    mButton6.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                mTextView5.setText("已预约");
+                mTextView5.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    showNormal(mButton6, formatter6.format(date4), "上午", "09:00:00-09:15:00");
-
-
-                    view.setSelected(true);
-                    mButton6.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue6:
-
-                if (view.isSelected()) {
-
-                    mButton7.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_6:
 
 
-                    showNormal(mButton7, formatter8.format(date5), "上午", "09:00:00-09:15:00");
+                showNormal(mTextView6, formatter8.format(date5), "上午", "09:00:00-09:20:00");
+                mTextView6.setText("已预约");
+                mTextView6.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton7.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue7:
+            case R.id.yuyue_7:
 
+                showNormal(mTextView7, formatter10.format(date6), "上午", "09:00:00-09:20:00");
 
-                if (view.isSelected()) {
+                mTextView7.setText("已预约");
+                mTextView7.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    mButton8.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton8, formatter10.format(date6), "上午", "09:00:00-09:15:00");
-
-
-                    view.setSelected(true);
-                    mButton8.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue8:
+            case R.id.yuyue_8:
+
+                showNormal(mTextView8, simple.format(date), "上午", "09:20:00-09:40:00");
+                mTextView8.setText("已预约");
+                mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                if (view.isSelected()) {
-                    mButton9.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton9, simple.format(date), "上午", "09:30:00-09:45:00");
-
-
-                    view.setSelected(true);
-                    mButton9.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue9:
+            case R.id.yuyue_9:
+
+                showNormal(mTextView9, formatter.format(date1), "上午", "09:20:00-09:40:00");
+
+                mTextView9.setText("已预约");
+                mTextView9.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                if (view.isSelected()) {
-                    mButton10.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton10, formatter.format(date1), "上午", "09:30:00-09:45:00");
-
-
-                    view.setSelected(true);
-                    mButton10.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue10:
+            case R.id.yuyue_10:
 
+                showNormal(mTextView10, formatte2.format(date2), "上午", "09:20:00-09:40:00");
+                mTextView10.setText("已预约");
+                mTextView10.setTextColor(Color.parseColor("#BBBBBB"));
 
-                if (view.isSelected()) {
-                    mButton11.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton11, formatte2.format(date2), "上午", "09:30:00-09:45:00");
-
-
-                    view.setSelected(true);
-                    mButton11.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue11:
+            case R.id.yuyue_11:
 
 
-                if (view.isSelected()) {
-                    mButton12.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView11, formatter4.format(date3), "上午", "09:20:00-09:40:00");
+
+                mTextView11.setText("已预约");
+                mTextView11.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton12, formatter4.format(date3), "上午", "09:30:00-09:45:00");
-
-
-                    view.setSelected(true);
-                    mButton12.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue12:
+            case R.id.yuyue_12:
+
+                showNormal(mTextView12, formatter6.format(date4), "上午", "09:20:00-09:40:00");
+                mTextView12.setText("已预约");
+                mTextView12.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                if (view.isSelected()) {
-                    mButton13.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton13, formatter6.format(date4), "上午", "09:30:00-09:45:00");
-
-
-                    view.setSelected(true);
-                    mButton13.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue13:
-
-                if (view.isSelected()) {
-                    mButton14.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_13:
 
 
-                    showNormal(mButton14, formatter8.format(date5), "上午", "09:30:00-09:45:00");
+                showNormal(mTextView13, formatter8.format(date5), "上午", "09:20:00-09:40:00");
+                mTextView13.setText("已预约");
+                mTextView13.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton14.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue14:
+            case R.id.yuyue_14:
 
 
-                if (view.isSelected()) {
-                    mButton15.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView14, formatter10.format(date6), "上午", "09:20:00-09:40:00");
+                mTextView14.setText("已预约");
+                mTextView14.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton15, formatter10.format(date6), "上午", "09:30:00-09:45:00");
-
-
-                    view.setSelected(true);
-                    mButton15.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue15:
+            case R.id.yuyue_15:
 
 
-                if (view.isSelected()) {
-                    mButton16.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView15, simple.format(date), "上午", "9:40:00-10:00:00");
+                mTextView15.setText("已预约");
+                mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton16, simple.format(date), "上午", "10:00:00-10:15:00");
-
-
-                    view.setSelected(true);
-                    mButton16.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue16:
+            case R.id.yuyue_16:
+
+                showNormal(mTextView16, formatter.format(date1), "上午", "9:40:00-10:00:00");
+                mTextView16.setText("已预约");
+                mTextView16.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                if (view.isSelected()) {
-                    mButton17.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton17, formatter.format(date1), "上午", "10:00:00-10:15:00");
-
-
-                    view.setSelected(true);
-                    mButton17.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue17:
+            case R.id.yuyue_17:
 
 
-                if (view.isSelected()) {
-                    mButton18.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView17, formatte2.format(date2), "上午", "9:40:00-10:00:00");
+
+                mTextView17.setText("已预约");
+                mTextView17.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton18, formatte2.format(date2), "上午", "10:00:00-10:15:00");
-
-
-                    view.setSelected(true);
-                    mButton18.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue18:
+            case R.id.yuyue_18:
 
 
-                if (view.isSelected()) {
-                    mButton19.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView18, formatter4.format(date3), "上午", "9:40:00-10:00:00");
+                mTextView18.setText("已预约");
+                mTextView18.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton19, formatter4.format(date3), "上午", "10:00:00-10:15:00");
-
-
-                    view.setSelected(true);
-                    mButton19.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue19:
+            case R.id.yuyue_19:
+
+                showNormal(mTextView19, formatter6.format(date4), "上午", "9:40:00-10:00:00");
+                mTextView19.setText("已预约");
+                mTextView19.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                if (view.isSelected()) {
-                    mButton20.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton20, formatter6.format(date4), "上午", "10:00:00-10:15:00");
-
-
-                    view.setSelected(true);
-                    mButton20.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue20:
+            case R.id.yuyue_20:
+
+                showNormal(mTextView20, formatter8.format(date5), "上午", "9:40:00-10:00:00");
+                mTextView20.setText("已预约");
+                mTextView20.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                if (view.isSelected()) {
-                    mButton21.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton21, formatter8.format(date5), "上午", "10:00:00-10:15:00");
-
-
-                    view.setSelected(true);
-                    mButton21.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue21:
+            case R.id.yuyue_21:
 
 
-                if (view.isSelected()) {
-                    mButton22.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView21, formatter10.format(date6), "上午", "9:40:00-10:00:00");
 
+                mTextView21.setText("已预约");
+                mTextView21.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    showNormal(mButton22, formatter10.format(date6), "上午", "10:00:00-10:15:00");
-
-
-                    view.setSelected(true);
-                    mButton22.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue22:
+            case R.id.yuyue_22:
 
 
-                if (view.isSelected()) {
-                    mButton23.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView22, simple.format(date), "下午", "14:30:00-14:50:00");
+
+                mTextView22.setText("已预约");
+                mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton23, simple.format(date), "上午", "10:30:00-10:45:00");
-
-
-                    view.setSelected(true);
-                    mButton23.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue23:
+            case R.id.yuyue_23:
 
 
-                if (view.isSelected()) {
-                    mButton24.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-                    showNormal(mButton24, formatter.format(date1), "上午", "10:30:00-10:45:00");
+                showNormal(mTextView23, formatter.format(date1), "下午", "14:30:00-14:50:00");
+                mTextView23.setText("已预约");
+                mTextView23.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton24.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue24:
+            case R.id.yuyue_24:
 
 
-                if (view.isSelected()) {
-                    mButton25.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView24, formatte2.format(date2), "下午", "14:30:00-14:50:00");
+                mTextView24.setText("已预约");
+                mTextView24.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton25, formatte2.format(date2), "上午", "10:30:00-10:45:00");
-
-
-                    view.setSelected(true);
-                    mButton25.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue25:
+            case R.id.yuyue_25:
+
+                showNormal(mTextView25, formatter4.format(date3), "下午", "14:30:00-14:50:00");
+                mTextView25.setText("已预约");
+                mTextView25.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                if (view.isSelected()) {
-                    mButton26.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton26, formatter4.format(date3), "上午", "10:30:00-10:45:00");
-
-
-                    view.setSelected(true);
-                    mButton26.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue26:
+            case R.id.yuyue_26:
 
 
-                if (view.isSelected()) {
-                    mButton27.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView26, formatter6.format(date4), "下午", "14:30:00-14:50:00");
+
+                mTextView26.setText("已预约");
+                mTextView26.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton27, formatter6.format(date4), "上午", "10:30:00-10:45:00");
-
-
-                    view.setSelected(true);
-                    mButton27.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue27:
+            case R.id.yuyue_27:
 
 
-                if (view.isSelected()) {
-                    mButton28.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                showNormal(mTextView27, formatter8.format(date5), "下午", "14:30:00-14:50:00");
 
+                mTextView27.setText("已预约");
+                mTextView27.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    showNormal(mButton28, formatter8.format(date5), "上午", "10:30:00-10:45:00");
-
-
-                    view.setSelected(true);
-                    mButton28.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue28:
+            case R.id.yuyue_28:
+
+                showNormal(mTextView28, formatter10.format(date6), "下午", "14:30:00-14:50:00");
 
 
-                if (view.isSelected()) {
-                    mButton29.setText("未预约");
-                    view.setSelected(false);
-                } else {
+                mTextView28.setText("已预约");
+                mTextView28.setTextColor(Color.parseColor("#BBBBBB"));
 
-
-                    showNormal(mButton29, formatter10.format(date6), "上午", "10:30:00-10:45:00");
-
-
-                    view.setSelected(true);
-                    mButton29.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue29:
-                if (view.isSelected()) {
-                    mButton30.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_29:
 
 
-                    showNormal(mButton30, simple.format(date), "下午", "14:00:00-14:15:00");
+                showNormal(mTextView29, simple.format(date), "下午", "15:00:00-15:20:00");
+                mTextView29.setText("已预约");
+                mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton30.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue30:
-                if (view.isSelected()) {
-                    mButton31.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_30:
+
+                showNormal(mTextView30, formatter.format(date1), "下午", "15:00:00-15:20:00");
+                mTextView30.setText("已预约");
+                mTextView30.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton31, formatter.format(date1), "下午", "14:00:00-14:15:00");
-
-
-                    view.setSelected(true);
-                    mButton31.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue31:
-                if (view.isSelected()) {
-                    mButton32.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_31:
+
+                showNormal(mTextView31, formatte2.format(date2), "下午", "15:00:00-15:20:00");
+
+                mTextView31.setText("已预约");
+                mTextView31.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton32, formatte2.format(date2), "下午", "14:00:00-14:15:00");
-
-
-                    view.setSelected(true);
-                    mButton32.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue32:
-                if (view.isSelected()) {
-                    mButton33.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_32:
 
 
-                    showNormal(mButton33, formatter4.format(date3), "下午", "14:00:00-14:15:00");
+                showNormal(mTextView32, formatter4.format(date3), "下午", "15:00:00-15:20:00");
+                mTextView32.setText("已预约");
+                mTextView32.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton33.setText("已预约");
-
-                }
                 break;
 
-            case R.id.yuyue33:
-                if (view.isSelected()) {
-                    mButton34.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_33:
 
+                showNormal(mTextView33, formatter6.format(date4), "下午", "15:00:00-15:20:00");
+                mTextView33.setText("已预约");
+                mTextView33.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    showNormal(mButton34, formatter6.format(date4), "下午", "14:00:00-14:15:00");
-
-
-                    view.setSelected(true);
-                    mButton34.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue34:
-                if (view.isSelected()) {
-                    mButton35.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_34:
 
 
-                    showNormal(mButton35, formatter8.format(date5), "下午", "14:00:00-14:15:00");
+                showNormal(mTextView34, formatter8.format(date5), "下午", "15:00:00-15:20:00");
+                mTextView34.setText("已预约");
+                mTextView34.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton35.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue35:
-                if (view.isSelected()) {
-                    mButton36.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_35:
+
+                showNormal(mTextView35, formatter10.format(date6), "下午", "15:00:00-15:20:00");
+                mTextView35.setText("已预约");
+                mTextView35.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton36, formatter10.format(date6), "下午", "14:00:00-14:15:00");
-
-
-                    view.setSelected(true);
-                    mButton.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue36:
-                if (view.isSelected()) {
-                    mButton37.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_36:
 
-                    showNormal(mButton37, simple.format(date), "下午", "14:30:00-14:45:00");
+                showNormal(mTextView36, simple.format(date), "下午", "16:00:00-16:20:00");
+                mTextView36.setText("已预约");
+                mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
 
-
-                    view.setSelected(true);
-                    mButton37.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue37:
-                if (view.isSelected()) {
-                    mButton38.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_37:
 
-                    showNormal(mButton38, formatter.format(date1), "下午", "14:30:00-14:45:00");
+                showNormal(mTextView37, formatter.format(date1), "下午", "16:00:00-16:20:00");
+
+                mTextView37.setText("已预约");
+                mTextView37.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton38.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue38:
-                if (view.isSelected()) {
-                    mButton39.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_38:
+
+                showNormal(mTextView38, formatte2.format(date2), "下午", "16:00:00-16:20:00");
+                mTextView38.setText("已预约");
+                mTextView38.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton39, formatte2.format(date2), "下午", "14:30:00-14:45:00");
-
-
-                    view.setSelected(true);
-                    mButton39.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue39:
-                if (view.isSelected()) {
-                    mButton40.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_39:
 
 
-                    showNormal(mButton40, formatter4.format(date3), "下午", "14:30:00-14:45:00");
+                showNormal(mTextView39, formatter4.format(date3), "下午", "16:00:00-16:20:00");
+                mTextView39.setText("已预约");
+                mTextView39.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton40.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue40:
-                if (view.isSelected()) {
-                    mButton41.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_40:
 
 
-                    showNormal(mButton41, formatter6.format(date4), "下午", "14:30:00-14:45:00");
+                showNormal(mTextView40, formatter6.format(date4), "下午", "16:00:00-16:20:00");
+                mTextView40.setText("已预约");
+                mTextView40.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    view.setSelected(true);
-                    mButton41.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue41:
-                if (view.isSelected()) {
-                    mButton42.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_41:
+
+                showNormal(mTextView41, formatter8.format(date5), "下午", "16:00:00-16:20:00");
+                mTextView41.setText("已预约");
+                mTextView41.setTextColor(Color.parseColor("#BBBBBB"));
 
 
-                    showNormal(mButton42, formatter8.format(date5), "下午", "14:30:00-14:45:00");
-
-
-                    view.setSelected(true);
-                    mButton42.setText("已预约");
-
-                }
                 break;
-            case R.id.yuyue42:
-                if (view.isSelected()) {
-                    mButton43.setText("未预约");
-                    view.setSelected(false);
-                } else {
+            case R.id.yuyue_42:
 
 
-                    showNormal(mButton43, formatter10.format(date6), "下午", "14:30:00-14:45:00");
+                showNormal(mTextView42, formatter10.format(date6), "下午", "14:30:00-14:45:00");
 
+                mTextView42.setText("已预约");
+                mTextView42.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    view.setSelected(true);
-                    mButton43.setText("已预约");
 
-                }
-                break;
-            case R.id.yuyue43:
-                if (view.isSelected()) {
-                    mButton44.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton44, simple.format(date), "下午", "15:00:00-15:15:00");
-
-
-                    view.setSelected(true);
-                    mButton44.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue44:
-                if (view.isSelected()) {
-                    mButton45.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton45, formatter.format(date1), "下午", "15:00:00-15:15:00");
-
-
-                    view.setSelected(true);
-                    mButton45.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue45:
-                if (view.isSelected()) {
-                    mButton46.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton46, formatte2.format(date2), "下午", "15:00:00-15:15:00");
-
-
-                    view.setSelected(true);
-                    mButton46.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue46:
-                if (view.isSelected()) {
-                    mButton47.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton47, formatter4.format(date3), "下午", "15:00:00-15:15:00");
-
-
-                    view.setSelected(true);
-                    mButton47.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue47:
-                if (view.isSelected()) {
-                    mButton48.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton48, formatter6.format(date4), "下午", "15:00:00-15:15:00");
-
-
-                    view.setSelected(true);
-                    mButton48.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue48:
-                if (view.isSelected()) {
-                    mButton49.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton49, formatter8.format(date5), "下午", "15:00:00-15:15:00");
-
-
-                    view.setSelected(true);
-                    mButton49.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue49:
-                if (view.isSelected()) {
-                    mButton50.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton50, formatter10.format(date6), "下午", "15:00:00-15:15:00");
-
-
-                    view.setSelected(true);
-                    mButton50.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue50:
-                if (view.isSelected()) {
-                    mButton51.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton51, simple.format(date), "下午", "15:30:00-15:45:00");
-
-
-                    view.setSelected(true);
-                    mButton51.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue51:
-                if (view.isSelected()) {
-                    mButton52.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton52, formatter.format(date1), "下午", "15:30:00-15:45:00");
-
-
-                    view.setSelected(true);
-                    mButton52.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue52:
-                if (view.isSelected()) {
-                    mButton53.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton53, formatte2.format(date2), "下午", "15:30:00-15:45:00");
-
-
-                    view.setSelected(true);
-                    mButton53.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue53:
-                if (view.isSelected()) {
-                    mButton54.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton54, formatter4.format(date3), "下午", "15:30:00-15:45:00");
-
-
-                    view.setSelected(true);
-                    mButton54.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue54:
-                if (view.isSelected()) {
-                    mButton55.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton55, formatter6.format(date4), "下午", "15:30:00-15:45:00");
-
-
-                    view.setSelected(true);
-                    mButton55.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue55:
-                if (view.isSelected()) {
-                    mButton56.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton56, formatter8.format(date5), "下午", "15:30:00-15:45:00");
-
-
-                    view.setSelected(true);
-                    mButton56.setText("已预约");
-
-                }
-                break;
-            case R.id.yuyue56:
-                if (view.isSelected()) {
-                    mButton57.setText("未预约");
-                    view.setSelected(false);
-                } else {
-
-
-                    showNormal(mButton57, formatter10.format(date6), "下午", "15:30:00-15:45:00");
-
-
-                    view.setSelected(true);
-                    mButton57.setText("已预约");
-
-                }
                 break;
 
 
         }
+
+    }
+
+
+    public void initView() {
+        mTextView1 = (TextView) findViewById(R.id.yuyue_1);
+        mTextView2 = (TextView) findViewById(R.id.yuyue_2);
+        mTextView3 = (TextView) findViewById(R.id.yuyue_3);
+        mTextView4 = (TextView) findViewById(R.id.yuyue_4);
+        mTextView5 = (TextView) findViewById(R.id.yuyue_5);
+        mTextView6 = (TextView) findViewById(R.id.yuyue_6);
+        mTextView7 = (TextView) findViewById(R.id.yuyue_7);
+        mTextView8 = (TextView) findViewById(R.id.yuyue_8);
+        mTextView9 = (TextView) findViewById(R.id.yuyue_9);
+        mTextView10 = (TextView) findViewById(R.id.yuyue_10);
+        mTextView11 = (TextView) findViewById(R.id.yuyue_11);
+        mTextView12 = (TextView) findViewById(R.id.yuyue_12);
+        mTextView13 = (TextView) findViewById(R.id.yuyue_13);
+        mTextView14 = (TextView) findViewById(R.id.yuyue_14);
+        mTextView15 = (TextView) findViewById(R.id.yuyue_15);
+        mTextView16 = (TextView) findViewById(R.id.yuyue_16);
+        mTextView17 = (TextView) findViewById(R.id.yuyue_17);
+        mTextView18 = (TextView) findViewById(R.id.yuyue_18);
+        mTextView19 = (TextView) findViewById(R.id.yuyue_19);
+        mTextView20 = (TextView) findViewById(R.id.yuyue_20);
+        mTextView21 = (TextView) findViewById(R.id.yuyue_21);
+        mTextView22 = (TextView) findViewById(R.id.yuyue_22);
+        mTextView23 = (TextView) findViewById(R.id.yuyue_23);
+        mTextView24 = (TextView) findViewById(R.id.yuyue_24);
+        mTextView25 = (TextView) findViewById(R.id.yuyue_25);
+        mTextView26 = (TextView) findViewById(R.id.yuyue_26);
+        mTextView27 = (TextView) findViewById(R.id.yuyue_27);
+        mTextView28 = (TextView) findViewById(R.id.yuyue_28);
+        mTextView29 = (TextView) findViewById(R.id.yuyue_29);
+        mTextView30 = (TextView) findViewById(R.id.yuyue_30);
+        mTextView31 = (TextView) findViewById(R.id.yuyue_31);
+        mTextView32 = (TextView) findViewById(R.id.yuyue_32);
+        mTextView33 = (TextView) findViewById(R.id.yuyue_33);
+        mTextView34 = (TextView) findViewById(R.id.yuyue_34);
+        mTextView35 = (TextView) findViewById(R.id.yuyue_35);
+        mTextView36 = (TextView) findViewById(R.id.yuyue_36);
+        mTextView37 = (TextView) findViewById(R.id.yuyue_37);
+        mTextView38 = (TextView) findViewById(R.id.yuyue_38);
+        mTextView39 = (TextView) findViewById(R.id.yuyue_39);
+        mTextView40 = (TextView) findViewById(R.id.yuyue_40);
+        mTextView41 = (TextView) findViewById(R.id.yuyue_41);
+        mTextView42 = (TextView) findViewById(R.id.yuyue_42);
+        mMonth = (TextView) findViewById(R.id.yuyue_month);
+        mWeek1 = (TextView) findViewById(R.id.yuyue_week1);
+        mWeek2 = (TextView) findViewById(R.id.yuyue_week2);
+        mWeek3 = (TextView) findViewById(R.id.yuyue_week3);
+        mWeek4 = (TextView) findViewById(R.id.yuyue_week4);
+        mWeek5 = (TextView) findViewById(R.id.yuyue_week5);
+        mWeek6 = (TextView) findViewById(R.id.yuyue_week6);
+        mWeek7 = (TextView) findViewById(R.id.yuyue_week7);
+        mDay1 = (TextView) findViewById(R.id.yuyue_day1);
+        mDay2 = (TextView) findViewById(R.id.yuyue_day2);
+        mDay3 = (TextView) findViewById(R.id.yuyue_day3);
+        mDay4 = (TextView) findViewById(R.id.yuyue_day4);
+        mDay5 = (TextView) findViewById(R.id.yuyue_day5);
+        mDay6 = (TextView) findViewById(R.id.yuyue_day6);
+        mDay7 = (TextView) findViewById(R.id.yuyue_day7);
+
+        mTextView1.setOnClickListener(this);
+        mTextView2.setOnClickListener(this);
+        mTextView3.setOnClickListener(this);
+        mTextView4.setOnClickListener(this);
+        mTextView5.setOnClickListener(this);
+        mTextView6.setOnClickListener(this);
+        mTextView7.setOnClickListener(this);
+        mTextView8.setOnClickListener(this);
+        mTextView9.setOnClickListener(this);
+        mTextView10.setOnClickListener(this);
+        mTextView11.setOnClickListener(this);
+        mTextView12.setOnClickListener(this);
+        mTextView13.setOnClickListener(this);
+        mTextView14.setOnClickListener(this);
+        mTextView15.setOnClickListener(this);
+        mTextView16.setOnClickListener(this);
+        mTextView17.setOnClickListener(this);
+        mTextView18.setOnClickListener(this);
+        mTextView19.setOnClickListener(this);
+        mTextView20.setOnClickListener(this);
+        mTextView21.setOnClickListener(this);
+        mTextView22.setOnClickListener(this);
+        mTextView23.setOnClickListener(this);
+        mTextView24.setOnClickListener(this);
+        mTextView25.setOnClickListener(this);
+        mTextView26.setOnClickListener(this);
+        mTextView27.setOnClickListener(this);
+        mTextView28.setOnClickListener(this);
+        mTextView29.setOnClickListener(this);
+        mTextView30.setOnClickListener(this);
+        mTextView31.setOnClickListener(this);
+        mTextView32.setOnClickListener(this);
+        mTextView33.setOnClickListener(this);
+        mTextView34.setOnClickListener(this);
+        mTextView35.setOnClickListener(this);
+        mTextView36.setOnClickListener(this);
+        mTextView37.setOnClickListener(this);
+        mTextView38.setOnClickListener(this);
+        mTextView39.setOnClickListener(this);
+        mTextView40.setOnClickListener(this);
+        mTextView41.setOnClickListener(this);
+        mTextView42.setOnClickListener(this);
+
+
     }
 }

@@ -15,15 +15,6 @@ android {
         multiDexEnabled true
     }
     buildTypes {
-        debug {
-            // 简单粗暴解决多个库引用 jni 库出现 UnsatisfiedLinkError 文件错误问题
-            ndk {
-                abiFilters = ["armeabi-v7a", "x86"]
-            }
-        }
-
-
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -45,14 +36,15 @@ android {
         abortOnError false
     }
 
-//    signingConfigs {
-//        debug {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
-//    }
+
+   /* signingConfigs {
+        debug {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }*/
 
     dexOptions {
         javaMaxHeapSize "4g"
