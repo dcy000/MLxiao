@@ -190,8 +190,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    public ImageView ImageView1;
-    public ImageView ImageView2;
+  //  public ImageView ImageView1;
+ //   public ImageView ImageView2;
 
     SimpleDateFormat simpl;
 
@@ -223,23 +223,41 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     public TextView mDay6;
     public TextView mDay7;
 
+
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
 
-        mToolbar.setVisibility(View.GONE);
+        mToolbar.setVisibility(View.VISIBLE);
 
+
+        mTitleText.setText(getString(R.string.doctor_yuyue));
 
         initView();
 
         dialog1 = new NDialog2(AddAppoActivity.this);
 
 
-        ImageView1 = (ImageView) findViewById(R.id.icon_back);
-        ImageView2 = (ImageView) findViewById(R.id.icon_home);
 
-        ImageView1.setOnClickListener(new View.OnClickListener() {
+       /* ImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -253,7 +271,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
 
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);

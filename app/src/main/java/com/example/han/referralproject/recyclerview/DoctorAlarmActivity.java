@@ -39,6 +39,8 @@ public class DoctorAlarmActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_alarm);
 
+        mToolbar.setVisibility(View.VISIBLE);
+
         id = getIntent().getLongExtra(AlarmHelper.ID, -1);
         model = DataSupport.find(AlarmModel.class, id);
         mButton1 = (Button) findViewById(R.id.video_true);

@@ -29,6 +29,8 @@ public class DefineActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_define);
 
+        mToolbar.setVisibility(View.VISIBLE);
+
         mTitleText.setText(getString(R.string.pay));
 
 
@@ -82,7 +84,6 @@ public class DefineActivity extends BaseActivity {
         startActivity(new Intent(mContext, MainActivity.class));
         finish();
     }
-
 
 
     public void init() {

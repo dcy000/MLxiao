@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:id="@+id/RelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -38,14 +38,13 @@
             android:textSize="40sp" />
 
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/order_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/RelativeLayout"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:scrollbars="vertical" />

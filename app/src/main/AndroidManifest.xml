@@ -163,7 +163,16 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -251,14 +260,9 @@
             android:screenOrientation="landscape">
 
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
->>>>>>> 89ef535d4aa701c51ac1d09e73928811ca96aae3
+
+
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -347,7 +351,11 @@
 
         <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
-        <activity android:name=".recyclerview.DoctorappoActivity"></activity>
+        <activity android:name=".recyclerview.DoctorappoActivity">
+
+
+
+        </activity>
         <activity android:name=".recyclerview.AddAppoActivity"></activity>
 
 
@@ -465,13 +473,8 @@
 
         <activity android:name=".recyclerview.DoctorAlarmActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+
 
         </activity>
 
@@ -486,7 +489,6 @@
         <activity android:name=".activity.AlertDrinkingActivity"></activity>
         <activity android:name="com.medlink.danbogh.signin.SignInActivity">
         </activity>
->>>>>>> 89ef535d4aa701c51ac1d09e73928811ca96aae3
     </application>
 
 </manifest>
