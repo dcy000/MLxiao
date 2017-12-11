@@ -106,4 +106,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:textColor="#fff"/>
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#fff"/>
 </RelativeLayout>
