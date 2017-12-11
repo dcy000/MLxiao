@@ -63,8 +63,13 @@ public class SymptomResultBean implements Serializable{
                     '}';
         }
     }
-    public class bqs implements Serializable{
-        private String bname,gl,review,eat,sports,suggest;
+    public static class bqs implements Serializable{
+        private String bname;
+        private String gl;
+        private String review;
+        private String eat;
+        private String sports;
+        private String suggest;
 
         public String getBname() {
             return bname;
