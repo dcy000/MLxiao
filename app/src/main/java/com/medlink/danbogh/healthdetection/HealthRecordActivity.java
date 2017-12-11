@@ -915,30 +915,43 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 ArrayList<Integer> colors = new ArrayList<>();
 
                 for (int i = 0; i < response.size(); i++) {
-                    if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
-                        colors.add(Color.RED);
-                    } else {
-                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
-                    }
                     switch (flag){
                         case 0:
                             if(response.get(i).sugar_time==0){
                                 value.add(new Entry(i, response.get(i).blood_sugar));
+                                times.add(response.get(i).time);
+                                if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
+                                    colors.add(Color.RED);
+                                } else {
+                                    colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                                }
                             }
                             break;
                         case 1:
                             if(response.get(i).sugar_time==1){
                                 value.add(new Entry(i, response.get(i).blood_sugar));
+                                times.add(response.get(i).time);
+                                if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
+                                    colors.add(Color.RED);
+                                } else {
+                                    colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                                }
                             }
                             break;
                         case 2:
                             if(response.get(i).sugar_time==2){
                                 value.add(new Entry(i, response.get(i).blood_sugar));
+                                times.add(response.get(i).time);
+                                if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
+                                    colors.add(Color.RED);
+                                } else {
+                                    colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                                }
                             }
                             break;
                     }
 
-                    times.add(response.get(i).time);
+
                 }
                 if (times.size() != 0) {
                     setXueTangChart();
@@ -954,9 +967,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                xuetangChart.setNoDataText(getResources().getString(R.string.noData));
-                xuetangChart.setData(null);
-                xuetangChart.invalidate();
+//                xuetangChart.setNoDataText(getResources().getString(R.string.noData));
+//                xuetangChart.setData(null);
+//                xuetangChart.invalidate();
             }
         });
     }
