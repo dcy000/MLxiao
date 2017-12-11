@@ -112,7 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="570dp"
         android:layout_below="@+id/linearlayou"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
         android:layout_toRightOf="@+id/linearlayou1"
         android:background="#FFFFFF"
@@ -193,7 +193,7 @@
                 android:id="@+id/cancel_yuyue"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_yuyue"
                 android:gravity="center"
@@ -244,7 +244,7 @@
                 android:id="@+id/cancel_yuyue1"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_yuyue"
                 android:gravity="center"
@@ -296,7 +296,7 @@
                 android:id="@+id/cancel_yuyue2"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_yuyue"
                 android:gravity="center"
@@ -308,7 +308,7 @@
         </LinearLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -334,13 +334,14 @@
                 android:layout_height="70dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@+id/video_doctor"
                 android:background="@drawable/add_yuyues"
                 android:gravity="center"
                 android:text="添加预约"
                 android:textColor="#FFFFFF"
                 android:textSize="37sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

@@ -123,7 +123,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         dialog.setMessageCenter(true)
                 .setMessage(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")))
-                .setMessageSize(40)
+                .setMessageSize(35)
                 .setCancleable(false)
                 .setButtonCenter(true)
                 .setPositiveTextColor(Color.parseColor("#FFA200"))
