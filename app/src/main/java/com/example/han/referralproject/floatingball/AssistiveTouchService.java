@@ -66,6 +66,9 @@ public class AssistiveTouchService extends Service {
 
     AudioManager mAudioManager;
 
+    ImageView mImageView1;
+
+
     @Override
 
     public void onCreate() {
@@ -109,6 +112,8 @@ public class AssistiveTouchService extends Service {
         mSeekBar = (SeekBar) mInflateAssistiveTouchView.findViewById(R.id.seek);
 
 
+        mImageView1 = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.image_volume);
+
         //初始化音频管理器
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
@@ -118,6 +123,14 @@ public class AssistiveTouchService extends Service {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, AudioManager.FLAG_PLAY_SOUND);
+
+
+                if (progress == 0) {
+                    mImageView1.setImageResource(R.drawable.ic_jy);
+                } else {
+                    mImageView1.setImageResource(R.drawable.ic_yl);
+
+                }
 
             }
 
@@ -179,32 +192,35 @@ public class AssistiveTouchService extends Service {
                 return false;
             }
         });
-        mAssistiveTouchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAssistiveTouchView.setAlpha(0);
-                lastAssistiveTouchViewX = mParams.x;
-                lastAssistiveTouchViewY = mParams.y;
-                myAssitiveTouchAnimator(mParams.x, mScreenWidth / 2 - mAssistiveTouchView.getMeasuredWidth() / 2, mParams.y, mScreenHeight / 2 - mAssistiveTouchView.getMeasuredHeight() / 2, true).start();
-                mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.2));
+        if (!isMoving) {
 
-                mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        myAssitiveTouchAnimator(mParams.x, lastAssistiveTouchViewX, mParams.y, lastAssistiveTouchViewY, true).start();
-                        mAssistiveTouchView.setAlpha(1);
-                        mImageView.setAlpha(0.85f);
-                    }
-                });
-                mPopupWindow.setFocusable(true);
-                mPopupWindow.setTouchable(true);
-                mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-                mPopupWindow.showAtLocation(mAssistiveTouchView, Gravity.CENTER, 0, 0);
+            mAssistiveTouchView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAssistiveTouchView.setAlpha(0);
+                    lastAssistiveTouchViewX = mParams.x;
+                    lastAssistiveTouchViewY = mParams.y;
+                    myAssitiveTouchAnimator(mParams.x, mScreenWidth / 2 - mAssistiveTouchView.getMeasuredWidth() / 2, mParams.y, mScreenHeight / 2 - mAssistiveTouchView.getMeasuredHeight() / 2, true).start();
+                    mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.2));
 
-                mImageView.setAlpha(0.0f);
+                    mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            myAssitiveTouchAnimator(mParams.x, lastAssistiveTouchViewX, mParams.y, lastAssistiveTouchViewY, true).start();
+                            mAssistiveTouchView.setAlpha(1);
+                            mImageView.setAlpha(0.85f);
+                        }
+                    });
+                    mPopupWindow.setFocusable(true);
+                    mPopupWindow.setTouchable(true);
+                    mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+                    mPopupWindow.showAtLocation(mAssistiveTouchView, Gravity.CENTER, 0, 0);
 
-            }
-        });
+                    mImageView.setAlpha(0.0f);
+
+                }
+            });
+        }
     }
 
     private ValueAnimator myAssitiveTouchAnimator(final int fromx, final int tox, int fromy, final int toy, final boolean flag) {
