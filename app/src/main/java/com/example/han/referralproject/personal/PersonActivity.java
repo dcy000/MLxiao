@@ -40,6 +40,7 @@ import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.signin.SignInActivity;
 import com.squareup.picasso.Picasso;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 

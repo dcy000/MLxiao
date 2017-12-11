@@ -45,6 +45,7 @@ android {
         abortOnError false
     }
 
+
 //    signingConfigs {
 //        debug {
 //            storeFile file(RELEASE_STORE_FILE)
@@ -86,6 +87,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
     compile project(':sdk')
+    compile project(':lib-wheelrecyclerview')
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -108,8 +110,7 @@ dependencies {
     compile 'com.netease.nimlib:avchat:4.3.0'
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     compile 'com.android.support:support-v4:25.3.1'
-    testCompile 'junit:junit:4.12'
-    compile project(':lib-wheelrecyclerview')
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }
