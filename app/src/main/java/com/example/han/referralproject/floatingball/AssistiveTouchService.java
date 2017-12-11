@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AssistiveTouchService extends Service  {
+public class AssistiveTouchService extends Service {
 
     private boolean isMoving;
 
@@ -73,7 +73,7 @@ public class AssistiveTouchService extends Service  {
     private long lastClickTime = 0;
 
 
-   // private CheckDoubleClickListener checkDoubleClickListener;
+    // private CheckDoubleClickListener checkDoubleClickListener;
 
 
     @Override
@@ -118,7 +118,7 @@ public class AssistiveTouchService extends Service  {
 
         mImageView = (ImageView) mAssistiveTouchView.findViewById(R.id.icons);
 
-     //   mImageView.setOnClickListener(checkDoubleClickListener);
+        //   mImageView.setOnClickListener(checkDoubleClickListener);
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
 
@@ -210,7 +210,7 @@ public class AssistiveTouchService extends Service  {
         if (!isMoving) {
 
 
-            mImageView.setOnClickListener(new View.OnClickListener() {
+            mAssistiveTouchView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -250,7 +250,6 @@ public class AssistiveTouchService extends Service  {
 
 
         }
-
 
 
     }
