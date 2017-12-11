@@ -1,6 +1,7 @@
 package com.example.han.referralproject;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.EventCallback;
 import com.example.han.referralproject.music.PermissionReq;

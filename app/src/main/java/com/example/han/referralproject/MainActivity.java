@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.VideoDemo;
+import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonActivity;
@@ -53,6 +55,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (isMyServiceRunning(AssistiveTouchService.class)) {
+
+        } else {
+            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
+            startService(intent);
+        }
+
         mToolbar.setVisibility(View.GONE);
         mImageView1 = (ImageView) findViewById(R.id.robot_con);
         mImageView2 = (ImageView) findViewById(R.id.person_info);
@@ -87,6 +97,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 speak(R.string.tips_splash);
             }
         }, 1000);
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
