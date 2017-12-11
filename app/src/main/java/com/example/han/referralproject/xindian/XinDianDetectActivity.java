@@ -327,7 +327,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
-			case R.id.iv_back:
+			case R.id.icon_back:
 				finish();
 				break;
 		}
