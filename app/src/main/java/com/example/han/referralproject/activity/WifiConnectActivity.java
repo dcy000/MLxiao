@@ -48,6 +48,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_connect_layout);
+        mToolbar.setVisibility(View.VISIBLE);
+        mRightView.setImageResource(R.drawable.icon_refresh);
+        mTitleText.setText("WiFi连接");
+        mRightView.setOnClickListener(this);
         isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);
         mWiFiUtil = WiFiUtil.getInstance(this);
         mWiFiUtil.openWifi();
@@ -57,8 +61,6 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mSwitch = (Switch) findViewById(R.id.switch_wifi);
         mSwitch.setChecked(mWiFiUtil.isWifiOpened());
         mSwitch.setOnCheckedChangeListener(mCheckedChangeListener);
-        findViewById(R.id.iv_refresh).setOnClickListener(this);
-        findViewById(R.id.view_back).setOnClickListener(this);
         RecyclerView mWifiRv = (RecyclerView) findViewById(R.id.rv_wifi);
         mWifiRv.setLayoutManager(new LinearLayoutManager(mContext));
         mConnectAdapter = new WifiConnectRecyclerAdapter(mContext, mDataList);
@@ -93,7 +95,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_refresh:
+            case R.id.iv_top_right:
                 scanWifi();
                 break;
             case R.id.tv_system:

@@ -45,7 +45,6 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
         checkService();
         if (!WiFiUtil.getInstance(this).isNetworkEnabled(this)){
             Intent mIntent = new Intent(mContext, WifiConnectActivity.class);

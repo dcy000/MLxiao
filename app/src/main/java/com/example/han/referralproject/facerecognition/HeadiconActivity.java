@@ -50,7 +50,6 @@ public class HeadiconActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headicon);
-
         Log.e("=====================", LocalShared.getInstance(getApplicationContext()).getXunfeiId());
         uploadManager = new UploadManager();
 

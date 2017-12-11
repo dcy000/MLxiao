@@ -1,5 +1,6 @@
 package com.example.han.referralproject.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -22,8 +23,6 @@ import com.squareup.picasso.Picasso;
  */
 
 public class MyBaseDataActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mIconBack;
-    private LinearLayout mLinearlayou;
     private CircleImageView mHead;
     /**
      * 曹建平
@@ -73,12 +72,23 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
      * 荤素搭配
      */
     private TextView mEating;
+    private TextView mDrinking;
+    private LinearLayout llHeight,llWeight,llExercise,llSmoke,llEating,llDrinking;
+    private UserInfoBean response;
     private static String TAG="MyBaseDataActivity";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybasedata);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("健康档案");
         initView();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getData();
     }
 
@@ -87,6 +97,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onSuccess(UserInfoBean response) {
                 Log.e(TAG,response.toString());
+                MyBaseDataActivity.this.response=response;
                 Picasso.with(MyBaseDataActivity.this)
                         .load(response.user_photo)
                         .placeholder(R.drawable.avatar_placeholder)
@@ -95,17 +106,19 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .fit()
                         .into(mHead);
                 mName.setText(response.bname);
-                mAge.setText(response.age);
+                mAge.setText(response.age+"岁");
                 mSex.setText(response.sex);
-                mHeight.setText(response.height);
-                mWeight.setText(response.weight);
-                mBlood.setText(response.blood_type);
+                mHeight.setText(response.height+"cm");
+                mWeight.setText(response.weight+"Kg");
+                mBlood.setText(response.blood_type+"型");
                 mPhone.setText(response.tel);
-                mIdcard.setText(response.sfz);
                 mNumber.setText(response.eqid);
                 mMotion.setText(response.exercise_habits);
                 mSmoke.setText(response.smoke);
                 mEating.setText(response.eating_habits);
+                mDrinking.setText(response.drink);
+                String shenfen=response.sfz.substring(0,5)+"********"+response.sfz.substring(response.sfz.length()-5,response.sfz.length());
+                mIdcard.setText(shenfen);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -116,9 +129,6 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initView() {
-        mIconBack = (ImageView) findViewById(R.id.icon_back);
-        mIconBack.setOnClickListener(this);
-        mLinearlayou = (LinearLayout) findViewById(R.id.linearlayou);
         mHead = (CircleImageView) findViewById(R.id.head);
         mName = (TextView) findViewById(R.id.name);
         mAge = (TextView) findViewById(R.id.age);
@@ -132,6 +142,20 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         mMotion = (TextView) findViewById(R.id.motion);
         mSmoke = (TextView) findViewById(R.id.smoke);
         mEating = (TextView) findViewById(R.id.eating);
+        mDrinking= (TextView) findViewById(R.id.drinking);
+        llHeight= (LinearLayout) findViewById(R.id.ll_height);
+        llHeight.setOnClickListener(this);
+        llWeight= (LinearLayout) findViewById(R.id.ll_weight);
+        llWeight.setOnClickListener(this);
+        llExercise= (LinearLayout) findViewById(R.id.ll_exercise);
+        llExercise.setOnClickListener(this);
+        llSmoke= (LinearLayout) findViewById(R.id.ll_smoke);
+        llEating= (LinearLayout) findViewById(R.id.ll_eating);
+        llDrinking= (LinearLayout) findViewById(R.id.ll_drinking);
+
+        llSmoke.setOnClickListener(this);
+        llEating.setOnClickListener(this);
+        llDrinking.setOnClickListener(this);
 
     }
 
@@ -142,6 +166,24 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.icon_back:
                 finish();
+                break;
+            case R.id.ll_height:
+                startActivity(new Intent(this,AlertHeightActivity.class).putExtra("data",response));
+                break;
+            case R.id.ll_weight:
+                startActivity(new Intent(this,AlertWeightActivity.class).putExtra("data",response));
+                break;
+            case R.id.ll_exercise:
+                startActivity(new Intent(this,AlertSportActivity.class).putExtra("data",response));
+                break;
+            case R.id.ll_smoke:
+                startActivity(new Intent(this,AlertSmokeActivity.class).putExtra("data",response));
+                break;
+            case R.id.ll_eating:
+                startActivity(new Intent(this,AlertEatingActivity.class).putExtra("data",response));
+                break;
+            case R.id.ll_drinking:
+                startActivity(new Intent(this,AlertDrinkingActivity.class).putExtra("data",response));
                 break;
         }
     }

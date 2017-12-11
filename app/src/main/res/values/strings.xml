@@ -485,4 +485,5 @@
     <string name="disease_reason"></string>
     <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;医&#160;&#160;生</string>
     <string name="bodyguide">主人，请选择病症对应部位</string>
+    <string name="noData">暂无数据</string>
 </resources>

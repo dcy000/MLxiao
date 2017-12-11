@@ -560,8 +560,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
-
-
+        mToolbar.setVisibility(View.GONE);
         mButton = (Button) findViewById(R.id.history);
         mButton1 = (Button) findViewById(R.id.history1);
         mButton2 = (Button) findViewById(R.id.history2);

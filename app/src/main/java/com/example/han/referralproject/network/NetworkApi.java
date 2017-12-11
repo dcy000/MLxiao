@@ -41,10 +41,10 @@ import java.util.Map;
 public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.104:8080";
 
-//    public static final String BasicUrl = "http://192.168.200.103:8080";
+    public static final String BasicUrl = "http://192.168.200.103:8080";
 
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
 //    public static final String BasicUrl="http://192.168.200.109:8080";//文博本地
 
@@ -94,6 +94,8 @@ public class NetworkApi {
 //    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl";
     //全部医生
     public static final String Get_AllDotor=BasicUrl+"/ZZB/docter/seldoctors";
+    //修改个人基本信息
+    public static final String Alert_Basedata=BasicUrl+"/ZZB/br/update_user_onecon";
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
@@ -410,13 +412,15 @@ public class NetworkApi {
      * 获取体温历史数据
      * @param successCallback
      */
-    public static void getTemperatureHistory(String temp,NetworkManager.SuccessCallback<ArrayList<TemperatureHistory>> successCallback
+    public static void getTemperatureHistory(String start,String end,String temp,NetworkManager.SuccessCallback<ArrayList<TemperatureHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
 
         params.put("bid",MyApplication.getInstance().userId);
 //        params.put("bid","100001");
         params.put("temp",temp);
+        params.put("starttime",start);
+        params.put("endtime",end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<TemperatureHistory>>() {}.getType(),
                 successCallback);
     }
@@ -426,12 +430,14 @@ public class NetworkApi {
      * @param temp
      * @param successCallback
      */
-    public static void getBloodpressureHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>> successCallback
+    public static void getBloodpressureHistory(String start,String end,String temp,NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-//        params.put("bid",MyApplication.getInstance().userId);
-        params.put("bid","100001");
+        params.put("bid",MyApplication.getInstance().userId);
+//        params.put("bid","100001");
         params.put("temp",temp);
+        params.put("starttime",start);
+        params.put("endtime",end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodPressureHistory>>() {}.getType(),
                 successCallback);
     }
@@ -441,11 +447,13 @@ public class NetworkApi {
      * @param temp
      * @param successCallback
      */
-    public static void getBloodSugarHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>> successCallback
+    public static void getBloodSugarHistory(String start,String end,String temp,NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         params.put("temp",temp);
+        params.put("starttime",start);
+        params.put("endtime",end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodSugarHistory>>() {}.getType(),
                 successCallback);
     }
@@ -455,11 +463,13 @@ public class NetworkApi {
      * @param temp
      * @param successCallback
      */
-    public static void getBloodOxygenHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>> successCallback
+    public static void getBloodOxygenHistory(String start,String end,String temp,NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
         params.put("bid",MyApplication.getInstance().userId);
         params.put("temp",temp);
+        params.put("starttime",start);
+        params.put("endtime",end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BloodOxygenHistory>>() {}.getType(),
                 successCallback);
     }
@@ -469,11 +479,13 @@ public class NetworkApi {
      * @param temp
      * @param successCallback
      */
-    public static void getHeartRateHistory(String temp,NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>> successCallback
+    public static void getHeartRateHistory(String start,String end,String temp,NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
         params.put("bid",MyApplication.getInstance().userId);
         params.put("temp",temp);
+        params.put("starttime",start);
+        params.put("endtime",end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<HeartRateHistory>>() {}.getType(),
                 successCallback);
     }
@@ -482,11 +494,13 @@ public class NetworkApi {
      * @param temp
      * @param successCallback
      */
-    public static void getPulseHistory(String temp,NetworkManager.SuccessCallback<ArrayList<PulseHistory>> successCallback
+    public static void getPulseHistory(String start,String end,String temp,NetworkManager.SuccessCallback<ArrayList<PulseHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
         params.put("bid",MyApplication.getInstance().userId);
         params.put("temp",temp);
+        params.put("starttime",start);
+        params.put("endtime",end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<PulseHistory>>() {}.getType(),
                 successCallback);
     }
@@ -495,12 +509,14 @@ public class NetworkApi {
      * @param temp
      * @param successCallback
      */
-    public static void getCholesterolHistory(String temp,NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>> successCallback
+    public static void getCholesterolHistory(String start,String end,String temp,NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-//        params.put("bid",MyApplication.getInstance().userId);
-        params.put("bid","100001");
+        params.put("bid",MyApplication.getInstance().userId);
+//        params.put("bid","100001");
         params.put("temp",temp);
+        params.put("starttime",start);
+        params.put("endtime",end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<CholesterolHistory>>() {}.getType(),
                 successCallback);
     }
@@ -509,12 +525,14 @@ public class NetworkApi {
      * @param temp
      * @param successCallback
      */
-    public static void getBUAHistory(String temp,NetworkManager.SuccessCallback<ArrayList<BUA>> successCallback
+    public static void getBUAHistory(String start,String end,String temp,NetworkManager.SuccessCallback<ArrayList<BUA>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-//        params.put("bid",MyApplication.getInstance().userId);
-        params.put("bid","100001");
+        params.put("bid",MyApplication.getInstance().userId);
+//        params.put("bid","100001");
         params.put("temp",temp);
+        params.put("starttime",start);
+        params.put("endtime",end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BUA>>() {}.getType(),
                 successCallback);
     }
@@ -532,5 +550,31 @@ public class NetworkApi {
         params.put("limit",limit);
         NetworkManager.getInstance().getResultClass(Get_AllDotor, params, new TypeToken<ArrayList<AllDoctor>>() {}.getType(),
                 successCallback);
+    }
+
+    /**
+     * 修改个人基本信息
+     * @param bid
+     * @param height
+     * @param weight
+     * @param eating_habits
+     * @param smoke
+     * @param drink
+     * @param exercise_habits
+     * @param successCallback
+     * @param failedCallback
+     */
+    public static void alertBasedata(String bid, String height, String weight,String eating_habits,String smoke,String drink,String exercise_habits,
+                              NetworkManager.SuccessCallback<Object> successCallback,
+                              NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid", bid);
+        params.put("height", height);
+        params.put("weight", weight);
+        params.put("eating_habits", eating_habits);
+        params.put("smoke", smoke);
+        params.put("drink", drink);
+        params.put("exercise_habits", exercise_habits);
+        NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
     }
 }

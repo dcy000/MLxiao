@@ -1,7 +1,6 @@
 package com.example.han.referralproject.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.SecondSymptomAnalyseActivity;
 import com.example.han.referralproject.bean.SymptomBean;
-import com.example.han.referralproject.bean.SymptomResultBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 
 import java.util.ArrayList;
 

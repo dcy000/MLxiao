@@ -5,6 +5,11 @@ package com.example.han.referralproject.bean;
  */
 
 public class BUA {
-    public long time;
     public float uric_acid;
+    public long time;
+
+    public BUA(float uric_acid, long time) {
+        this.uric_acid = uric_acid;
+        this.time = time;
+    }
 }

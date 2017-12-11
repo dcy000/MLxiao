@@ -17,6 +17,7 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
+        mToolbar.setVisibility(View.GONE);
         mBack = findViewById(R.id.view_back);
         mBack.setOnClickListener(this);
     }

@@ -24,12 +24,13 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_history);
+        mToolbar.setVisibility(View.VISIBLE);
+        mLeftText.setText("既往病史");
         diseaseArray = getResources().getStringArray(R.array.disease_type);
         mGridView = (GridView) findViewById(R.id.gv_content);
         mAdapter = new DiseaseShowAdapter(mContext);
         mGridView.setAdapter(mAdapter);
         findViewById(R.id.tv_next).setOnClickListener(this);
-        findViewById(R.id.iv_back).setOnClickListener(this);
     }
 
     @Override
@@ -64,9 +65,6 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
             case R.id.tv_next:
                 if (TextUtils.isEmpty(mAdapter.getMh())) {
                     return;

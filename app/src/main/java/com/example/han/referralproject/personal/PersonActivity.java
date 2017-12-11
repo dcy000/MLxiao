@@ -85,8 +85,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public TextView mTextView2;
     public TextView mTextView3;
 
-    public ImageView mImageView1;
-    public ImageView mImageView2;
     public ImageView mImageView3;
 
     public ImageView mImageView4;
@@ -103,6 +101,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
+        mToolbar.setVisibility(View.VISIBLE);
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) findViewById(R.id.per_image);
 
@@ -112,29 +111,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mTextView3 = (TextView) findViewById(R.id.tv_balance);
 
-        mImageView1 = (ImageView) findViewById(R.id.icon_back);
-        mImageView2 = (ImageView) findViewById(R.id.icon_home);
 
         mImageView5 = (ImageView) findViewById(R.id.iv_order);
 
-        mImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        mImageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), WifiConnectActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
         mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
-
-
+        mTitleText.setText("个人中心");
+        mRightView.setImageResource(R.drawable.icon_wifi);
         mImageView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,6 +175,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
 
         registerReceiver(mReceiver, new IntentFilter("change_account"));
+    }
+
+    @Override
+    protected void backMainActivity() {
+        startActivity(new Intent(this, WifiConnectActivity.class));
     }
 
     @Override
@@ -319,9 +306,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));
-                break;
-            case R.id.view_wifi:
-                startActivity(new Intent(this, WifiConnectActivity.class));
                 break;
             case R.id.view_change:
                 mChangeAccountDialog = new ChangeAccountDialog(mContext);

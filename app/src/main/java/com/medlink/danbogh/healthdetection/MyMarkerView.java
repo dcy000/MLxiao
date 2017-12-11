@@ -61,8 +61,6 @@ public class MyMarkerView extends MarkerView {
         mFormat = new DecimalFormat("##0");
         this.xueya=xueya;
     }
-    // callbacks everytime the MarkerView is redrawn, can be used to update the
-    // content (user-interface)
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
 
@@ -92,12 +90,34 @@ public class MyMarkerView extends MarkerView {
                 case "3"://心率
                     break;
                 case "4"://血糖
-                    text_1.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())) +"  "+ e.getY()+"mmol/L");
+                    ll2.setVisibility(GONE);
+                    color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
+                    title_1.setText("血糖");
+                    text_1.setText(e.getY()+"");
+                    time.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())));
                     break;
                 case "5"://血氧
-                    text_1.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())) +"  "+ e.getY()+"%");
+                    ll2.setVisibility(GONE);
+                    color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
+                    title_1.setText("血氧");
+                    text_1.setText(e.getY()+"");
+                    time.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())));
                     break;
                 case "6"://脉搏
+                    break;
+                case "7":
+                    ll2.setVisibility(GONE);
+                    color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
+                    title_1.setText("胆固醇");
+                    text_1.setText(e.getY()+"");
+                    time.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())));
+                    break;
+                case "8":
+                    ll2.setVisibility(GONE);
+                    color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
+                    title_1.setText("血尿酸");
+                    text_1.setText(e.getY()+"");
+                    time.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())));
                     break;
             }
 
