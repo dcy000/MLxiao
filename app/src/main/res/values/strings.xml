@@ -504,4 +504,11 @@
     <string name="afternoons">下\n午</string>
 
     <string name="noData">暂无数据</string>
+
+    <string name="doctor_name" formatted="false">%1$s</string>
+    <string name="doctor_zhiji" formatted="false">职级：%1$s</string>
+    <string name="doctor_shanchang" formatted="false">擅长：%1$s</string>
+    <string name="doctor_shoufei" formatted="false">收费标准：%1$s元/分钟</string>
+
+
 </resources>

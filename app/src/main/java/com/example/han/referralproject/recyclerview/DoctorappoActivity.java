@@ -560,9 +560,11 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                     .into(circleImageView);
         }
 
-        mTextView3.setText(sharedPreferences1.getString("name", ""));
-        mTextView4.setText("职级：" + sharedPreferences1.getString("position", ""));
-        mTextView5.setText("擅长：" + sharedPreferences1.getString("feature", ""));
+        mTextView3.setText(String.format(getString(R.string.doctor_name), sharedPreferences1.getString("name", "")));
+        mTextView4.setText(String.format(getString(R.string.doctor_zhiji), sharedPreferences1.getString("position", "")));
+        mTextView5.setText(String.format(getString(R.string.doctor_shanchang), sharedPreferences1.getString("feature", "")));
+        mTextView12.setText(String.format(getString(R.string.doctor_shoufei), sharedPreferences1.getString("service_amount", "")));
+
 
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
