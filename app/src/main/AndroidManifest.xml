@@ -236,6 +236,7 @@
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
 
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -243,7 +244,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-
 
         </activity>
         <activity
@@ -255,14 +255,10 @@
 
 
         </activity>
-       <!-- <activity
-            android:name=".facerecognition.OnlineFaceDemo"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"/>
+
+       
         <activity android:name=".facerecognition.OnlineFaceDemo1"
-            android:screenOrientation="landscape"/>-->
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".xueya.AttentionActivity"
             android:largeHeap="true"
@@ -338,6 +334,9 @@
         <activity android:name=".recyclerview.AppraiseActivity"/>
         <activity android:name=".facerecognition.HeadiconActivity"/>
         <activity android:name=".recyclerview.DoctorappoActivity">
+
+
+
 
 
         </activity>

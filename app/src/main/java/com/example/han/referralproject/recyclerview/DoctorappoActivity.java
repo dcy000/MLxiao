@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DoctorappoActivity extends BaseActivity  implements View.OnClickListener{
+public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
 
     SharedPreferences sharedPreferences1;
 
@@ -76,8 +76,8 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
 
     public TextView mTextView12;
 
-   // public ImageView ImageView1;
-  //  public ImageView ImageView2;
+    // public ImageView ImageView1;
+    //  public ImageView ImageView2;
     List<AlarmModel> models = new ArrayList<AlarmModel>();
 
     public Button mButtons;
@@ -484,47 +484,6 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
 
     }
 
-    public void setAlarmClock(int i) {
-
-        if (!"".equals(list.get(i).getStart_time())) {
-            long time = 0;
-            try {
-                time = Long.parseLong(dateToStamp(list.get(i).getStart_time()));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            String times = String.valueOf(time - 60000);
-
-            if (models.size() == 0) {
-                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-            } else {
-
-                boolean sign = true;
-
-                for (int a = 0; a < models.size(); a++) {
-
-                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
-                        sign = false;
-                    } else {
-
-                        if (sign == true && a == list.size() - 1) {
-
-                            AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                        }
-                    }
-
-
-                }
-
-            }
-
-
-        }
-    }
-
 
     public String dateToStamp(String s) throws ParseException {
         String res;
@@ -549,7 +508,6 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
         mTitleText.setText(getString(R.string.doctor_qianyue));
 
 
-
         //  speak(R.string.yuyue_1);
 
         dialog1 = new NDialog2(DoctorappoActivity.this);
@@ -557,7 +515,6 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
         mButtons = (Button) findViewById(R.id.video_doctor);
         mButtons.setEnabled(false);
         mButtons.setSelected(false);
-
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -566,10 +523,6 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
                 finish();
             }
         });
-
-
-
-
 
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
@@ -592,7 +545,7 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
 
         mTextView12 = (TextView) findViewById(R.id.service_amount);
 
-     //   mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
+        //   mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
@@ -670,7 +623,6 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
     }
 
 
-
     /**
      * 返回上一页
      */
@@ -695,8 +647,12 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
     protected void onStart() {
         super.onStart();
 
-        yuYueDoctor();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        yuYueDoctor();
     }
 
     public void yuYueDoctor() {
@@ -814,7 +770,6 @@ public class DoctorappoActivity extends BaseActivity  implements View.OnClickLis
                                                     break;
                                                 }
                                             }
-
 
 
                                         }
