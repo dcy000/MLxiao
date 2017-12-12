@@ -197,7 +197,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         //在可见范围只显示四个
         xAxis.setLabelCount(4);
 
-        LimitLine ll1 = new LimitLine(37.2f, "最高体温(37.2)");
+        LimitLine ll1 = new LimitLine(37.2f, "37.2℃");
         ll1.setLineWidth(2f);
         ll1.setLineColor(getResources().getColor(R.color.picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -205,7 +205,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(36f, "最低体温(36.0)");
+        LimitLine ll2 = new LimitLine(36f, "36.0℃");
         ll2.setLineWidth(2f);
         ll2.setLineColor(getResources().getColor(R.color.picket_line));
         ll2.enableDashedLine(10f, 10f, 0f);
@@ -264,7 +264,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xueyaChart.setExtraRightOffset(80f);
         xueyangChart.setNoDataText(getResources().getString(R.string.noData));
 
-        LimitLine ll1 = new LimitLine(130f, "高压Max(130)");
+        LimitLine ll1 = new LimitLine(130f, "130mmHg");
         ll1.setLineWidth(2f);
         ll1.setLineColor(getResources().getColor(R.color.picket_line1));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -272,7 +272,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll1.setTextSize(20f);
 
 
-        LimitLine ll2 = new LimitLine(90f, "高压Min(90)");
+        LimitLine ll2 = new LimitLine(90f, "90mmHg");
         ll2.setLineWidth(2f);
         ll2.setLineColor(getResources().getColor(R.color.picket_line1));
         ll2.enableDashedLine(10f, 10f, 0f);
@@ -288,7 +288,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(4);
 
-        LimitLine ll3 = new LimitLine(85f, "低压Max(85)");
+        LimitLine ll3 = new LimitLine(85f, "85mmHg");
         ll3.setLineWidth(2f);
         ll3.setLineColor(getResources().getColor(R.color.picket_line2));
         ll3.enableDashedLine(10.0f, 10f, 0f);
@@ -296,7 +296,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll3.setTextSize(20f);
 
 
-        LimitLine ll4 = new LimitLine(60f, "低压Min(60)");
+        LimitLine ll4 = new LimitLine(60f, "60mmHg");
         ll4.setLineWidth(2f);
         ll4.setLineColor(getResources().getColor(R.color.picket_line2));
         ll4.enableDashedLine(10f, 10f, 0f);
@@ -348,7 +348,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xAxis.setGranularity(1);
         xAxis.setLabelCount(4);
 
-        LimitLine ll1 = new LimitLine(6.11f, "空腹Max(6.11)");
+        LimitLine ll1 = new LimitLine(7.0f, "7.0mmol/L");
         ll1.setLineWidth(2f);
         ll1.setLineColor(getResources().getColor(R.color.picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -356,46 +356,55 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(3.61f, "空腹Min(3.61)");
+        LimitLine ll2 = new LimitLine(3.61f, "3.61mmol/L");
         ll2.setLineWidth(2f);
         ll2.setLineColor(getResources().getColor(R.color.picket_line));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll2.setTextSize(18f);
 
-//        LimitLine ll3 = new LimitLine(9.4f, "餐后1小时Max(9.4mmol/L)");
-//        ll3.setLineWidth(2f);
-//        ll3.setLineColor(Color.parseColor("#F0FC6D9A"));
-//        ll3.enableDashedLine(10.0f, 10f, 0f);
-//        ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-//        ll3.setTextSize(10f);
-//
-//        LimitLine ll4 = new LimitLine(6.7f, "餐后1小时Min(6.7mmol/L)");
-//        ll4.setLineWidth(2f);
-//        ll4.setLineColor(Color.parseColor("#F0FC6D9A"));
-//        ll4.enableDashedLine(10.0f, 10f, 0f);
-//        ll4.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-//        ll4.setTextSize(10f);
-//
-//        LimitLine ll5 = new LimitLine(7.8f, "餐后2小时Max(7.8mmol/L)");
-//        ll5.setLineWidth(2f);
-//        ll5.setLineColor(Color.parseColor("#F0FC6D9A"));
-//        ll5.enableDashedLine(10.0f, 10f, 0f);
-//        ll5.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-//        ll5.setTextSize(10f);
-//
-//        LimitLine ll6 = new LimitLine(3.61f, "餐后2小时Min(3.61mmol/L)");
-//        ll6.setLineWidth(2f);
-//        ll6.setLineColor(Color.parseColor("#F0FC6D9A"));
-//        ll6.enableDashedLine(10.0f, 10f, 0f);
-//        ll6.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-//        ll6.setTextSize(10f);
+        LimitLine ll3 = new LimitLine(11.1f, "11.1mmol/L");
+        ll3.setLineWidth(2f);
+        ll3.setLineColor(Color.parseColor("#F0FC6D9A"));
+        ll3.enableDashedLine(10.0f, 10f, 0f);
+        ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        ll3.setTextSize(10f);
+
+        LimitLine ll4 = new LimitLine(3.61f, "3.61mmol/L");
+        ll4.setLineWidth(2f);
+        ll4.setLineColor(Color.parseColor("#F0FC6D9A"));
+        ll4.enableDashedLine(10.0f, 10f, 0f);
+        ll4.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        ll4.setTextSize(10f);
+
+        LimitLine ll5 = new LimitLine(7.8f, "7.8mmol/L");
+        ll5.setLineWidth(2f);
+        ll5.setLineColor(Color.parseColor("#F0FC6D9A"));
+        ll5.enableDashedLine(10.0f, 10f, 0f);
+        ll5.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        ll5.setTextSize(10f);
+
+        LimitLine ll6 = new LimitLine(3.61f, "3.61mmol/L");
+        ll6.setLineWidth(2f);
+        ll6.setLineColor(Color.parseColor("#F0FC6D9A"));
+        ll6.enableDashedLine(10.0f, 10f, 0f);
+        ll6.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        ll6.setTextSize(10f);
 
         //Y轴设置
         YAxis leftAxis = xuetangChart.getAxisLeft();
         leftAxis.removeAllLimitLines();
-        leftAxis.addLimitLine(ll1);
-        leftAxis.addLimitLine(ll2);
+        if(eatedTime==0){
+            leftAxis.addLimitLine(ll1);
+            leftAxis.addLimitLine(ll2);
+        }else if(eatedTime==1){
+            leftAxis.addLimitLine(ll3);
+            leftAxis.addLimitLine(ll4);
+        }else if(eatedTime==2){
+            leftAxis.addLimitLine(ll5);
+            leftAxis.addLimitLine(ll6);
+        }
+
         leftAxis.setAxisMinimum(0f);
         leftAxis.setAxisMaximum(10f);
         //网格线
@@ -453,7 +462,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xAxis.setLabelCount(4);
 
 
-        LimitLine ll1 = new LimitLine(94f, "最低血氧饱和度(94%)");
+        LimitLine ll1 = new LimitLine(94f, "最低94%");
         ll1.setLineWidth(2f);
         ll1.setLineColor(getResources().getColor(R.color.picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -662,7 +671,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xAxis.setLabelCount(4);
 
 
-        LimitLine ll1 = new LimitLine(2.9f, "成人Min(2.9)");
+        LimitLine ll1 = new LimitLine(2.9f, "2.9mmol/L");
         ll1.setLineWidth(2f);
         ll1.setLineColor(Color.parseColor("#9CD793"));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -670,14 +679,14 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(6.0f, "成人Max(6.0)");
+        LimitLine ll2 = new LimitLine(6.0f, "6.0mmol/L");
         ll2.setLineWidth(2f);
         ll2.setLineColor(Color.parseColor("#9CD793"));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll2.setTextSize(18f);
 
-        LimitLine ll3 = new LimitLine(3.1f, "儿童Min(3.1)");
+        LimitLine ll3 = new LimitLine(3.1f, "3.1mmol/L");
         ll3.setLineWidth(2f);
         ll3.setLineColor(Color.parseColor("#6D80E2"));
         ll3.enableDashedLine(10.0f, 10f, 0f);
@@ -685,7 +694,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll3.setTextSize(18f);
 
 
-        LimitLine ll4 = new LimitLine(5.2f, "儿童Max(5.2)");
+        LimitLine ll4 = new LimitLine(5.2f, "5.2mmol/L");
         ll4.setLineWidth(2f);
         ll4.setLineColor(Color.parseColor("#6D80E2"));
         ll4.enableDashedLine(10f, 10f, 0f);
@@ -750,7 +759,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xAxis.setLabelCount(4);
 
 
-        LimitLine ll1 = new LimitLine(149f, "男性Max(149)");
+        LimitLine ll1 = new LimitLine(149f, "149μmol/L");
         ll1.setLineWidth(2f);
         ll1.setLineColor(Color.parseColor("#CFD8F1"));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -758,21 +767,21 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(416f, "男性(416)");
+        LimitLine ll2 = new LimitLine(416f, "416μmol/L");
         ll2.setLineWidth(2f);
         ll2.setLineColor(Color.parseColor("#CFD8F1"));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll2.setTextSize(18f);
 
-        LimitLine ll3 = new LimitLine(357f, "女性Max(357)");
+        LimitLine ll3 = new LimitLine(357f, "357μmol/L");
         ll3.setLineWidth(2f);
         ll3.setLineColor(Color.parseColor("#D3EFD0"));
         ll3.enableDashedLine(10.0f, 10f, 0f);
         ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll3.setTextSize(18f);
 
-        LimitLine ll4 = new LimitLine(89f, "女性Min(89)");
+        LimitLine ll4 = new LimitLine(89f, "89μmol/L");
         ll4.setLineWidth(2f);
         ll4.setLineColor(Color.parseColor("#D3EFD0"));
         ll4.enableDashedLine(10.0f, 10f, 0f);
@@ -865,21 +874,20 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 ArrayList<Integer> colors2 = new ArrayList<>();
 
                 for (int i = 0; i < response.size(); i++) {
-                    if (response.get(i).high_pressure > 130 || response.get(i).high_pressure < 90 || response.get(i).low_pressure > 85 || response.get(i).low_pressure < 60) {
+                    if (response.get(i).high_pressure > 130 || response.get(i).high_pressure < 90) {
                         colors1.add(Color.RED);
                     } else {
                         colors1.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
                     }
+
                     if(response.get(i).low_pressure>85||response.get(i).low_pressure<60){
                         colors2.add(Color.RED);
                     }else{
                         colors2.add(getResources().getColor(R.color.node2_color));
                     }
                     yVals1.add(new Entry(i, response.get(i).high_pressure));
-                    times.add(response.get(i).time);
-                }
-                for (int i = 0; i < response.size(); i++) {
                     yVals2.add(new Entry(i, response.get(i).low_pressure));
+                    times.add(response.get(i).time);
                 }
                 if (times.size() != 0) {
                     setXueyaChart();
@@ -921,7 +929,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                             if(response.get(i).sugar_time==0){
                                 sugarValue.add(response.get(i).blood_sugar);
                                 times.add(response.get(i).time);
-                                if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
+                                if (response.get(i).blood_sugar > 7.0 || response.get(i).blood_sugar <3.61 ) {
                                     colors.add(Color.RED);
                                 } else {
                                     colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
@@ -932,7 +940,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                             if(response.get(i).sugar_time==1){
                                 sugarValue.add(response.get(i).blood_sugar);
                                 times.add(response.get(i).time);
-                                if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
+                                if (response.get(i).blood_sugar > 11.1 || response.get(i).blood_sugar <3.61 ) {
                                     colors.add(Color.RED);
                                 } else {
                                     colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
@@ -943,7 +951,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                             if(response.get(i).sugar_time==2){
                                 sugarValue.add(response.get(i).blood_sugar);
                                 times.add(response.get(i).time);
-                                if (response.get(i).blood_sugar > 6.11 || response.get(i).blood_sugar <3.61 ) {
+                                if (response.get(i).blood_sugar > 7.8 || response.get(i).blood_sugar <3.61 ) {
                                     colors.add(Color.RED);
                                 } else {
                                     colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
@@ -964,6 +972,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     mv.setChartView(xuetangChart); // For bounds control
                     xuetangChart.setMarker(mv); // Set the marker to the chart
                     setXuetang(value, colors);
+                }else{
+                    xuetangChart.setNoDataText(getResources().getString(R.string.noData));
+                    xuetangChart.setData(null);
+                    xuetangChart.invalidate();
                 }
 
             }
