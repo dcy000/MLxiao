@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/cl_root"
-    android:background="#FAFAFA"
+    android:background="#F7FDFF"
     tools:context="com.medlink.danbogh.signin.SignInActivity">
 
     <android.support.v7.widget.CardView
@@ -131,4 +131,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48pt"
+        android:textSize="36pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="20dp"/>
 </android.support.constraint.ConstraintLayout>

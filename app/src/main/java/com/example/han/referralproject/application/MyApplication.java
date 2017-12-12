@@ -79,9 +79,6 @@ public class MyApplication extends Application {
         super.onCreate();
 
 
-
-
-
         UiUtils.init(this, 1980, 1200);
         UiUtils.compat(this, 1980);
         UiUtils.init(this, 1920, 1200);

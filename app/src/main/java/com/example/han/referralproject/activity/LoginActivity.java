@@ -1,6 +1,8 @@
 package com.example.han.referralproject.activity;
 
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
@@ -43,6 +46,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.tv_register).setOnClickListener(this);
         findViewById(R.id.tv_agreement).setOnClickListener(this);
         ((TextView)findViewById(R.id.tv_version)).setText(getLocalVersionName());
+        if (isMyServiceRunning(AssistiveTouchService.class)) {
+
+        } else {
+            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
+            startService(intent);
+        }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

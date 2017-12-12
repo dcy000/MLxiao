@@ -27,6 +27,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
+import com.example.han.referralproject.activity.SymptomAnalyseResultActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.HttpCallback;
@@ -1015,6 +1016,68 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
                     return;
                 }
+                if(inSpell.matches(".*(gaoxueya).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    .putExtra("type","高血压"));
+                }
+                if(inSpell.matches(".*(guanxin(bin|bing)).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","冠心病"));
+                }
+                if(inSpell.matches(".*(zhiqiguanxiaochuan).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","支气管哮喘"));
+                }
+                if(inSpell.matches(".*(gan(yin|ying)hua).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","肝硬化"));
+                }
+                if(inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","糖尿病"));
+                }
+                if(inSpell.matches(".*(tongfeng).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","痛风"));
+                }
+                if(inSpell.matches(".*(changweiyan).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","肠胃炎"));
+                }
+                if(inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","急性上呼吸道感染"));
+                }
+                if(inSpell.matches(".*(xinbaoyan).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","心包炎"));
+                }
+                if(inSpell.matches(".*((pin|ping)(xie|xue)).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","贫血"));
+                }
+                if(inSpell.matches(".*(feiyan).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","肺炎"));
+                }
+                if(inSpell.matches(".*(di(xie|xue)tang).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","低血糖"));
+                }
+                if(inSpell.matches(".*((nao|lao)chu(xie|xue)).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","脑出血"));
+                }
+                if(inSpell.matches(".*(fei|(suan|shuan)sai).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","肺栓塞"));
+                }
+                if(inSpell.matches(".*(dianxian).*")){
+                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                            .putExtra("type","癫痫"));
+                }
+
+
                 if (resultBuffer.toString().matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
                     if (sign == true) {
                         sign = false;

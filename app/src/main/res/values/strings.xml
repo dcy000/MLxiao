@@ -414,7 +414,7 @@
     <string name="purse">脉搏</string>
     <string name="purse1">(bpm)</string>
     <string name="test_xueya">血&#160;&#160;压&#160;&#160;检&#160;&#160;测</string>
-    <string name="test_temperature">温&#160;&#160;度&#160;&#160;检&#160;&#160;测</string>
+    <string name="test_temperature">体&#160;&#160;温&#160;&#160;检&#160;&#160;测</string>
     <string name="test_xuetang">血&#160;&#160;糖&#160;&#160;检&#160;&#160;测</string>
     <string name="test_sanheyi">三&#160;&#160;合&#160;&#160;一&#160;&#160;检&#160;&#160;测</string>
     <string name="test_xueyang">血&#160;&#160;氧&#160;&#160;检&#160;&#160;测</string>

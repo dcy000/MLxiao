@@ -36,15 +36,15 @@ public class SelectXuetangTimeActivity extends BaseActivity implements View.OnCl
         switch (v.getId()){
             case R.id.one_hour:
                 startActivity(new Intent(this,DetectActivity.class)
-                .putExtra("time",1));
+                .putExtra("time",1).putExtra("type", "xuetang"));
                 break;
             case R.id.two_hour:
                 startActivity(new Intent(this,DetectActivity.class)
-                        .putExtra("time",2));
+                        .putExtra("time",2).putExtra("type", "xuetang"));
                 break;
             case R.id.kongfu:
                 startActivity(new Intent(this,DetectActivity.class)
-                        .putExtra("time",0));
+                        .putExtra("time",0).putExtra("type", "xuetang"));
                 break;
         }
     }
