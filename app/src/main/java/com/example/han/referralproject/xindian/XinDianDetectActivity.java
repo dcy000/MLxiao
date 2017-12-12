@@ -295,6 +295,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 		}
 	}
 
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

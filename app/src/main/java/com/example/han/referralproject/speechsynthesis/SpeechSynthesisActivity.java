@@ -28,6 +28,8 @@ import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseResultActivity;
+import com.example.han.referralproject.bean.Receive1;
+import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.HttpCallback;
@@ -53,6 +55,7 @@ import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.xuetang.XuetangActivity;
 import com.example.han.referralproject.xueya.XueyaActivity;
 import com.example.han.referralproject.xueyang.XueyangActivity;
+import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -79,8 +82,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -730,6 +735,38 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         } catch (Exception e) {
             e.printStackTrace();
             str1 = "我真的不知道了";
+        }
+        if (("我真的不知道了").equals(str1)){
+            URL url = new URL("http://api.aicyber.com/passive_chat");
+            URLConnection conn = url.openConnection();
+            conn.setRequestProperty("accept", "*/*");
+            conn.setRequestProperty("connection", "Keep-Alive");
+
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+
+            PrintWriter pw = new PrintWriter(conn.getOutputStream());
+
+            Gson gson = new Gson();
+
+            RobotContent robot = new RobotContent("gh_1822e89468ba", str, "ml05120568675", "3e809a3d90398631ad4b291aadf0f230");
+
+            pw.print(gson.toJson(robot));
+
+            pw.flush();
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String lineContent = null;
+            String content = null;
+
+            //    Log.e("+++++++++++++", resultBuffer.toString());
+            while ((lineContent = br.readLine()) != null) {
+                content = lineContent;
+            }
+
+
+            Receive1 string = gson.fromJson(content, Receive1.class);
+
+            str1 = string.getReceive().getOutput();
         }
         if (str1 != null) {
 
