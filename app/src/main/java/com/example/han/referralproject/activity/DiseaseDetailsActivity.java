@@ -65,6 +65,7 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
         mRbReason.setChecked(true);
         mContent.setText(mData.getReview());
         mRgDisease.setOnCheckedChangeListener(this);
+        speak(mData.getReview()+"。"+mData.getSuggest()+"。"+mData.getSports());
     }
 
     @Override

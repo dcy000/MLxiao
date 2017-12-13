@@ -26,14 +26,12 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
      * 在线医生
      */
     private ImageView mDoctorZaixian;
-    private ImageView mIconBack;
-    private LinearLayout mLinearlayou;
-    private ImageView mIconHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_ask_guide);
+        mToolbar.setVisibility(View.VISIBLE);
         initView();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
     }
@@ -55,15 +53,6 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
             case R.id.doctor_zaixian:
                 startActivity(new Intent(this, OnlineDoctorListActivity.class));
                 break;
-
-            case R.id.icon_back:
-                finish();
-                break;
-            case R.id.icon_home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-                break;
         }
     }
 
@@ -72,10 +61,5 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
         mDoctorYuyue.setOnClickListener(this);
         mDoctorZaixian = (ImageView) findViewById(R.id.doctor_zaixian);
         mDoctorZaixian.setOnClickListener(this);
-        mIconBack = (ImageView) findViewById(R.id.icon_back);
-        mIconBack.setOnClickListener(this);
-        mLinearlayou = (LinearLayout) findViewById(R.id.linearlayou);
-        mIconHome = (ImageView) findViewById(R.id.icon_home);
-        mIconHome.setOnClickListener(this);
     }
 }

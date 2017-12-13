@@ -100,6 +100,8 @@
     <string name="tips_face">主人，让我给您拍个照，下次我就认识您啦</string>
     <string name="tips_doctor">主人，请选择您最信任的医生完成签约，如果他没在里面可以点击右下角的线下签约按钮。</string>
     <string name="tips_info">主人，如果需要签约就点击签约按钮。</string>
+    <string name="online_info">主人，您可以点击咨询按钮与在线医生进行视频通话。</string>
+
     <string name="tips_test">主人，请点击您需要测量的项目</string>
     <string name="tips_open_device">主人，您可以打开设备开始测量了</string>
     <string name="tips_result_wendu" formatted="false">主人，您的体温是%1$s度，%2$s</string>
@@ -403,6 +405,9 @@
 
     <string name="doctor_pinjia">医&#160;&#160;生&#160;&#160;评&#160;&#160;价</string>
     <string name="doctor_qianyue">签&#160;&#160;约&#160;&#160;医&#160;&#160;生</string>
+
+    <string name="online_qianyue">在&#160;&#160;线&#160;&#160;医&#160;&#160;生</string>
+
     <string name="person_information">个&#160;&#160;人&#160;&#160;中&#160;&#160;心</string>
     <string name="healthy_shopping">健&#160;&#160;康&#160;&#160;商&#160;&#160;城</string>
     <string name="zhengzhuang">症&#160;&#160;状&#160;&#160;自&#160;&#160;查</string>
@@ -414,7 +419,7 @@
     <string name="purse">脉搏</string>
     <string name="purse1">(bpm)</string>
     <string name="test_xueya">血&#160;&#160;压&#160;&#160;检&#160;&#160;测</string>
-    <string name="test_temperature">温&#160;&#160;度&#160;&#160;检&#160;&#160;测</string>
+    <string name="test_temperature">体&#160;&#160;温&#160;&#160;检&#160;&#160;测</string>
     <string name="test_xuetang">血&#160;&#160;糖&#160;&#160;检&#160;&#160;测</string>
     <string name="test_sanheyi">三&#160;&#160;合&#160;&#160;一&#160;&#160;检&#160;&#160;测</string>
     <string name="test_xueyang">血&#160;&#160;氧&#160;&#160;检&#160;&#160;测</string>
@@ -504,4 +509,11 @@
     <string name="afternoons">下\n午</string>
 
     <string name="noData">暂无数据</string>
+
+    <string name="doctor_name" formatted="false">%1$s</string>
+    <string name="doctor_zhiji" formatted="false">职级：%1$s</string>
+    <string name="doctor_shanchang" formatted="false">擅长：%1$s</string>
+    <string name="doctor_shoufei" formatted="false">收费标准：%1$s元/分钟</string>
+
+
 </resources>

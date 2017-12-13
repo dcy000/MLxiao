@@ -73,10 +73,12 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 LocalShared.getInstance(mContext).loginOut();
                 mContext.startActivity(new Intent(mContext, SignInActivity.class));
                 ((Activity)mContext).finish();
+
 //                if (mDataList == null){
 //                    return;
 //                }
 //                if (mDataList.size() == 1){
+//                    LocalShared.getInstance(mContext).loginOut();
 //                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
 //                    ((Activity)mContext).finish();
 //                    break;
@@ -90,7 +92,8 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
 //                        }
 //                    }
 //                }
-//                break;
+
+                break;
         }
     }
 

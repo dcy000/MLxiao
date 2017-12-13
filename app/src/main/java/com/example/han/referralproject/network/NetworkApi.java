@@ -2,6 +2,7 @@ package com.example.han.referralproject.network;
 
 import android.text.TextUtils;
 
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
@@ -13,6 +14,7 @@ import com.example.han.referralproject.bean.CholesterolHistory;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.bean.HeartRateHistory;
@@ -39,14 +41,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://192.168.200.104:8080";
+    public static final String BasicUrl = "http://192.168.200.115:8080";
 
-    public static final String BasicUrl = "http://192.168.200.103:8080";
+//    public static final String BasicUrl = "http://192.168.200.103:8080";
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    // public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
-//    public static final String BasicUrl = "http://192.168.200.117:8080";//文博本地
+//    public static final String BasicUrl="http://192.168.200.117:8080";//文博本地
 
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
@@ -82,6 +84,9 @@ public class NetworkApi {
 
     public static final String DOCTER_LIST = BasicUrl + "/ZZB/docter/seldoctors";
 
+    public static final String ONLINE_DOCTER_LIST = BasicUrl + "/ZZB/docter/search_online_status";
+
+
     public static final String ORDER_INFO = BasicUrl + "/ZZB/order/panding_pay";
 
     public static final String PAY_STATUS = BasicUrl + "/ZZB/order/pay_pro";
@@ -98,7 +103,7 @@ public class NetworkApi {
     public static final String SET_PASSWORD = BasicUrl + "/ZZB/acc/update_account_pwd";
     //修改个人基本信息
     public static final String Alert_Basedata = BasicUrl + "/ZZB/br/update_user_onecon";
-
+    public static final String Get_jibing = BasicUrl + "/ZZB/bl/selSugByBname";
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
@@ -206,6 +211,18 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(DOCTER_LIST, paramsMap, new TypeToken<ArrayList<Docter>>() {
         }.getType(), listener, failedCallback);
     }
+
+    public static void onlinedoctor_list(int online_status, String doctername, int page, int pagesize, NetworkManager.SuccessCallback<ArrayList<Docter>> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("online_status", online_status + "");
+        paramsMap.put("doctername", doctername);
+        paramsMap.put("page", page + "");
+        paramsMap.put("pagesize", pagesize + "");
+
+        NetworkManager.getInstance().postResultClass(ONLINE_DOCTER_LIST, paramsMap, new TypeToken<ArrayList<Docter>>() {
+        }.getType(), listener, failedCallback);
+    }
+
 
     public static void order_info(String userid, String eqid, String articles, String number, String price, String photo, String time, NetworkManager.SuccessCallback<Order> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
@@ -628,5 +645,19 @@ public class NetworkApi {
         params.put("drink", drink);
         params.put("exercise_habits", exercise_habits);
         NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
+    }
+
+    /**
+     * 更具语音获取疾病结果
+     *
+     * @param bname
+     * @param successCallback
+     * @param failedCallback
+     */
+    public static void getJibing(String bname, NetworkManager.SuccessCallback<DiseaseResult> successCallback,
+                                 NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bname", bname);
+        NetworkManager.getInstance().getResultClass(Get_jibing, params, DiseaseResult.class, successCallback, failedCallback);
     }
 }
