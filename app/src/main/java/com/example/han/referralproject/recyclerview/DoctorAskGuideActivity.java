@@ -45,6 +45,11 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
             default:
                 break;
             case R.id.doctor_yuyue:
+                if ("".equals(sharedPreferences.getString("name", ""))) {
+                    Intent intent = new Intent(this, OnlineDoctorListActivity.class);
+                    intent.putExtra("flag", "contract");
+                    startActivity(intent);
+                }
                 startActivity(new Intent(this, DoctorappoActivity.class));
                 break;
             case R.id.doctor_zaixian:

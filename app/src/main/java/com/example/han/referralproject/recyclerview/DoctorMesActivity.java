@@ -68,7 +68,6 @@ public class DoctorMesActivity extends BaseActivity {
         //    initToolBar();
 
 
-
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
 
         mTextView = (TextView) findViewById(R.id.names);
