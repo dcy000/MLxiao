@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +28,12 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.XDialogFragment;
 import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.squareup.picasso.Picasso;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,9 +50,6 @@ public class DoctorMesActivity extends BaseActivity {
     TextView mTextView4;
 
 
-    public ImageView ImageView1;
-    public ImageView ImageView2;
-
     public ImageView mStar1;
     public ImageView mStar2;
     public ImageView mStar3;
@@ -58,8 +59,10 @@ public class DoctorMesActivity extends BaseActivity {
     Button mButton;
 
     private AllDoctor allDoctor;
-    private int flag = -1;//记录是从预约医生过来的还是在线医生过来的，0：预约医生，1：在线医生
-    private TextView title;
+    //  private int flag = -1;//记录是从预约医生过来的还是在线医生过来的，0：预约医生，1：在线医生
+    //private TextView title;
+
+    String sign;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,13 @@ public class DoctorMesActivity extends BaseActivity {
         setContentView(R.layout.activity_doctor_mes);
         //    initToolBar();
 
+        Intent intent = getIntent();
+        final Docter doctor = (Docter) intent.getSerializableExtra("docMsg");
+
+        sign = intent.getStringExtra("sign");
+
+
+        mToolbar.setVisibility(View.VISIBLE);
 
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
@@ -76,7 +86,6 @@ public class DoctorMesActivity extends BaseActivity {
         mTextView2 = (TextView) findViewById(R.id.hospital);
         mTextView3 = (TextView) findViewById(R.id.department);
         mTextView4 = (TextView) findViewById(R.id.introduce);
-        title = (TextView) findViewById(R.id.title);
 
         mButton = (Button) findViewById(R.id.qianyue);
         mStar1 = (ImageView) findViewById(R.id.star1);
@@ -85,51 +94,17 @@ public class DoctorMesActivity extends BaseActivity {
         mStar4 = (ImageView) findViewById(R.id.star4);
         mStar5 = (ImageView) findViewById(R.id.star5);
 
-        Intent intent = getIntent();
-        Docter doctor = (Docter) intent.getSerializableExtra("docMsg");
 
-        if (intent.getSerializableExtra("docMsg") instanceof Doctors) {
-            doctor = (Docter) intent.getSerializableExtra("docMsg");
-            flag = 0;
-        } else if (intent.getSerializableExtra("docMsg") instanceof AllDoctor) {
-            allDoctor = (AllDoctor) intent.getSerializableExtra("docMsg");
-            flag = 1;
+        if ("1".equals(sign)) {
+
+            mTitleText.setText(getString(R.string.online_qianyue));
+            mButton.setText("咨询");
+
+
+        } else {
+            mTitleText.setText(getString(R.string.doctor_qianyue));
+
         }
-
-        ImageView1 = (ImageView) findViewById(R.id.icon_back);
-        ImageView2 = (ImageView) findViewById(R.id.icon_home);
-
-        ImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        ImageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
-        Picasso.with(this)
-                .load(doctor.getDocter_photo())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(this)
-                .fit()
-                .into(mImageView1);
-
-
-        mTextView.setText(doctor.getDoctername());
-        mTextView1.setText(doctor.getDuty());
-        mTextView2.setText(doctor.getHosname());
-        mTextView3.setText(doctor.getDepartment());
-        mTextView4.setText(doctor.getPro());
 
         if (Integer.parseInt(doctor.getEvaluation()) <= 60) {
 
@@ -167,62 +142,33 @@ public class DoctorMesActivity extends BaseActivity {
 
         }
 
-        if (flag == 0) {
-            Picasso.with(this)
-                    .load(ConstantData.BASE_URL + "/referralProject/" + doctor.getDocter_photo())
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
-                    .into(mImageView1);
+        Picasso.with(this)
+                .load(doctor.getDocter_photo())
+                .placeholder(R.drawable.avatar_placeholder)
+                .error(R.drawable.avatar_placeholder)
+                .tag(this)
+                .fit()
+                .into(mImageView1);
 
 
-            mTextView.setText(doctor.getDoctername());
-            mTextView1.setText(doctor.getDuty());
-            mTextView2.setText(doctor.getHosname());
-            mTextView3.setText(doctor.getDepartment());
-            mTextView4.setText(doctor.getPro());
-            mButton.setText("签约");
-            title.setText(R.string.doctor_qianyue);
+        mTextView.setText(doctor.getDoctername());
+        mTextView1.setText(doctor.getDuty());
+        mTextView2.setText(doctor.getHosname());
+        mTextView3.setText(doctor.getDepartment());
+        mTextView4.setText(doctor.getPro());
 
-        } else if (flag == 1) {
-            Picasso.with(this)
-                    .load(allDoctor.docter_photo)
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
-                    .into(mImageView1);
 
-            mTextView.setText(allDoctor.doctername);
-            mTextView1.setText(allDoctor.duty);
-            mTextView2.setText(allDoctor.hosname);
-            mTextView3.setText(allDoctor.department);
-            mTextView4.setText(allDoctor.pro);
-            mButton.setText("咨询");
-            title.setText(R.string.doctor_zixun);
-        }
-
-        final Docter finalDoctor = doctor;
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                ConfirmContractActivity.start(DoctorMesActivity.this, finalDoctor.getDocterid());
-
+              /*  ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                finish();*/
 
             }
         });
 
 
-
-      /*  mImageView = (ImageView) findViewById(R.id.icon_back);
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });*/
     }
 
 //    public void show() {
@@ -272,13 +218,40 @@ public class DoctorMesActivity extends BaseActivity {
 
     }*/
 
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+
+
+        finish();
+
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+
+        Intent intent = new Intent(DoctorMesActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        if (flag == 0) {//预约医生
+        if ("1".equals(sign)) {
+
             speak(R.string.tips_info);
-        } else if (flag == 1) {//咨询在线医生
+
+
+        } else {
+            speak(R.string.online_info);
 
         }
 

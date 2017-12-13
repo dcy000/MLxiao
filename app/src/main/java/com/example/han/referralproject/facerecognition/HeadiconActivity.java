@@ -50,7 +50,7 @@ public class HeadiconActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headicon);
-        Log.e("=====================", LocalShared.getInstance(getApplicationContext()).getXunfeiId());
+      //  Log.e("=====================", LocalShared.getInstance(getApplicationContext()).getXunfeiId());
         uploadManager = new UploadManager();
 
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);

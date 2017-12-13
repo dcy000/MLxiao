@@ -37,12 +37,10 @@
         android:layout_marginTop="25dp"
         android:focusable="true"
         android:max="15"
-        android:maxHeight="4dp"
-        android:minHeight="4dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:maxHeight="30dp"
+        android:minHeight="10dp"
         android:progress="3"
-        android:progressDrawable="@drawable/line"
+        android:progressDrawable="@drawable/biz_video_progressbar"
         android:thumb="@drawable/progressbar" />
 
 
