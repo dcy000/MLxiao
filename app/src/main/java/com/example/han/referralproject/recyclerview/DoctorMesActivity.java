@@ -45,10 +45,6 @@ public class DoctorMesActivity extends BaseActivity {
     TextView mTextView3;
     TextView mTextView4;
 
-
-    public ImageView ImageView1;
-    public ImageView ImageView2;
-
     public ImageView mStar1;
     public ImageView mStar2;
     public ImageView mStar3;
@@ -65,12 +61,9 @@ public class DoctorMesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
-        //    initToolBar();
-
-
+        mToolbar.setVisibility(View.VISIBLE);
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
-
         mTextView = (TextView) findViewById(R.id.names);
         mTextView1 = (TextView) findViewById(R.id.duty);
         mTextView2 = (TextView) findViewById(R.id.hospital);
@@ -95,25 +88,6 @@ public class DoctorMesActivity extends BaseActivity {
             allDoctor = (AllDoctor) intent.getSerializableExtra("docMsg");
             flag = 1;
         }
-
-        ImageView1 = (ImageView) findViewById(R.id.icon_back);
-        ImageView2 = (ImageView) findViewById(R.id.icon_home);
-
-        ImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        ImageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
 
         Picasso.with(this)
