@@ -1,15 +1,17 @@
 package com.example.han.referralproject.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 
-public class OfflineActivity extends BaseActivity implements View.OnClickListener{
+public class OfflineActivity extends BaseActivity implements View.OnClickListener {
 
     public View mBack;
 
@@ -20,6 +22,14 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
         mToolbar.setVisibility(View.GONE);
         mBack = findViewById(R.id.view_back);
         mBack.setOnClickListener(this);
+        findViewById(R.id.tv_ignore_contract).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OfflineActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override

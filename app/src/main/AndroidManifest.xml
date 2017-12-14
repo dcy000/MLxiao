@@ -145,7 +145,12 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+
+
+
+
+        </activity>
 
 
         <activity
@@ -243,6 +248,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+
 
         </activity>
         <activity
