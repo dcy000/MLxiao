@@ -52,7 +52,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
 
             <ImageView
@@ -75,7 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
 
             <ImageView

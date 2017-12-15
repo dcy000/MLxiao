@@ -141,12 +141,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 intent.setClass(getApplicationContext(), PersonActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.health_test:
+            case R.id.health_test://健康监测
 
                 intent.setClass(getApplicationContext(), VideoDemo.class);
                 intent.putExtra("sign", "0");
                 intent.putExtra("orderid", "0");
-
+                intent.putExtra("from","Test");
 //                intent.setClass(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 break;

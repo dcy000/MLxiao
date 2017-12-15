@@ -145,7 +145,12 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape">
+
+
+
+
+        </activity>
 
 
         <activity

@@ -1107,7 +1107,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
                             .putExtra("type","脑出血"));
                 }
-                if(inSpell.matches(".*(fei|(suan|shuan)sai).*")){
+                if(inSpell.matches(".*(fei(suan|shuan)sai).*")){
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
                             .putExtra("type","肺栓塞"));
                 }

@@ -46,7 +46,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
         String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
         StringBuilder mAccountIdBuilder = new StringBuilder();
         for (String item : mAccountIds){
-            mAccountIdBuilder.append(item).append(",");
+            mAccountIdBuilder.append(item.split(",")[0]).append(",");
         }
         NetworkApi.getAllUsers(mAccountIdBuilder.substring(0, mAccountIdBuilder.length() - 1), mListener);
     }

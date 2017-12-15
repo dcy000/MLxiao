@@ -242,6 +242,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             public void onItemClick(int postion) {
                 Intent intent = new Intent(RecoDocActivity.this, DoctorMesActivity.class);
                 intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+                intent.putExtra("sign", "0");
                 startActivity(intent);
 //                finish();
 

@@ -8,6 +8,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
@@ -37,29 +38,30 @@ public class LocalShared {
         return mInstance;
     }
 
-    public void addAccount(String bid) {
-        if (TextUtils.isEmpty(bid)) {
+    public void addAccount(String bid,String xfid) {
+        if (TextUtils.isEmpty(bid)||TextUtils.isEmpty(xfid)) {
             return;
         }
         String accountsString = mShared.getString(UserAccounts, "");
         if (TextUtils.isEmpty(accountsString)){
-            mShared.edit().putString(UserAccounts, bid + ",").commit();
+            mShared.edit().putString(UserAccounts, bid + ","+xfid+";").commit();
         } else {
-            String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(",");
-            if (!isContainAccount(accountsArray, bid)) {
-                mShared.edit().putString(UserAccounts, accountsString + bid + ",").commit();
+            String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(";");
+            if (!isContainAccount(accountsArray, bid,xfid)) {
+                mShared.edit().putString(UserAccounts, accountsString + bid + ","+xfid+";").commit();
+
             }
         }
     }
 
-    public String deleteAccount(String bid) {
+    public String deleteAccount(String bid,String xfid) {
         String[] accountsArray = getAccounts();
-        if (accountsArray == null || TextUtils.isEmpty(bid)){
+        if (accountsArray == null || TextUtils.isEmpty(bid)||TextUtils.isEmpty(xfid)){
             return "";
         }
         ArrayList<String> accountsList = new ArrayList<>();
         for (String item : accountsArray){
-            if (item.equals(bid)){
+            if (item.equals(bid+","+xfid)){
                 continue;
             }
             accountsList.add(item);
@@ -70,7 +72,7 @@ public class LocalShared {
         } else {
             StringBuilder mBuilder = new StringBuilder();
             for (String itemAccount : accountsList){
-                mBuilder.append(itemAccount).append(",");
+                mBuilder.append(itemAccount).append(";");
             }
             return mBuilder.toString();
             //mShared.edit().putString(UserAccounts, mBuilder.toString()).commit();
@@ -82,15 +84,15 @@ public class LocalShared {
         if (TextUtils.isEmpty(accountsString)){
             return null;
         }
-        return accountsString.substring(0, accountsString.length() - 1).split(",");
+        return accountsString.substring(0, accountsString.length() - 1).split(";");
     }
 
-    public boolean isContainAccount(String[] accountsArray, String bid){
-        if (TextUtils.isEmpty(bid) || accountsArray == null){
+    public boolean isContainAccount(String[] accountsArray, String bid,String xfid){
+        if (TextUtils.isEmpty(bid) || accountsArray == null||TextUtils.isEmpty(xfid)){
             return false;
         }
         for (String item : accountsArray){
-            if (bid.equals(item)) {
+            if ((bid+","+xfid).equals(item)) {
                 return true;
             }
         }
@@ -134,7 +136,7 @@ public class LocalShared {
         return mShared.getString(XunfeiId, "");
     }
     public void loginOut() {
-        String accountHistory = deleteAccount(MyApplication.getInstance().userId);
+        String accountHistory = deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);
         MyApplication.getInstance().userId = null;
         mShared.edit().clear().putString(UserAccounts, accountHistory).commit();
     }

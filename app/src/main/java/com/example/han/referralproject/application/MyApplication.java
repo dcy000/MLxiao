@@ -48,6 +48,7 @@ import okhttp3.OkHttpClient;
 public class MyApplication extends Application {
     private static MyApplication mInstance;
     public String userId;
+    public String xfid;
     public String telphoneNum;
 
     public String emDoctorId = "gcml_doctor_18940866148";
