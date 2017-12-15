@@ -32,6 +32,7 @@ import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
 
@@ -55,7 +56,7 @@ public class WelcomeActivity extends BaseActivity {
 
 
 
-
+//        Log.i("mylog", "deviceid : " + Utils.getDeviceId() + " MACID: " + Utils.getMacAddress() );
 
         mToolbar.setVisibility(View.GONE);
 
