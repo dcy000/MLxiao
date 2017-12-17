@@ -192,7 +192,11 @@ public class WiFiUtil {
         }
 
         // 使WIFI网络有效
-        mWifiManager.enableNetwork(networkId, true);
+        boolean flag = mWifiManager.enableNetwork(networkId, true);
+
+        if (flag) {
+            mWifiManager.saveConfiguration();
+        }
 
         return networkId;
     }
@@ -236,7 +240,8 @@ public class WiFiUtil {
         config.SSID = "\"" + SSID + "\"";
 
         if (type == Data.WIFI_CIPHER_NOPASS) {
-            config.wepKeys[0] = "";
+            config.wepKeys[0] = "\"" + "\"";
+//            config.wepKeys[0] = "";
             config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
             config.wepTxKeyIndex = 0;
         } else if (type == Data.WIFI_CIPHER_WEP) {

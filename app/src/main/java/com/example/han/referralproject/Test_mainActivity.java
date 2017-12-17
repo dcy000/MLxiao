@@ -1,6 +1,9 @@
 package com.example.han.referralproject;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,9 +79,22 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         mImageView6.setOnClickListener(this);
 
         speak(R.string.tips_test);
+        registerReceiver(mReceiver, new IntentFilter("change_account"));
 
     }
-
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case "change_account":
+//                    if (mChangeAccountDialog != null) {
+//                        mChangeAccountDialog.dismiss();
+//                    }
+//                    getData();
+                    break;
+            }
+        }
+    };
     @Override
     public void onClick(View v) {
 

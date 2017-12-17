@@ -207,7 +207,6 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
-
         speak(getString(R.string.facc_register));
 
         mButton = (Button) findViewById(R.id.tiao_guo);

@@ -175,6 +175,9 @@ public class NetworkManager {
                                 setDefaultFailed(responseObject.getString("message"));
                             }
                         } catch (Exception e) {
+                            if (e == null){
+                                return;
+                            }
                             setDefaultFailed(e.getMessage());
                             e.printStackTrace();
                         }

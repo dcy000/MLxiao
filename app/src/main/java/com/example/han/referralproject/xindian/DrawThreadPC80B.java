@@ -12,16 +12,16 @@ import com.creative.base.BaseDate.Wave;
 
 public class DrawThreadPC80B extends BaseDraw {
 
-	/** ���յ�������Ϣ����PC80B�����ļ����� */
+	/** ????????????????PC80B??????????? */
 	public static final int MSG_80B_FILE = 0x201;
-	/** ���յ�������Ϣ����PC80B����ʵʱ�������� */
+	/** ????????????????PC80B?????????????? */
 	public static final int MSG_80B_WAVE = 0x202;
 
-	/** ��ǰview�ĸ߶� (mm) */
+	/** ???view???? (mm) */
 	private float heightMm = 0;
-	/** �ĵ粨�θ߶����ű��� */
+	/** ??粨?θ????????? */
 	private float zoomECGforMm = 0.0f;
-	/** ��ǰ�������� */
+	/** ??????????? */
 	protected int gain = 2;
 	private CornerPathEffect cornerPathEffect = new CornerPathEffect(20);
 
@@ -38,7 +38,7 @@ public class DrawThreadPC80B extends BaseDraw {
 	}
 
 	/**
-	 * �ָ���ȡ�����߳�
+	 * ?????????????
 	 */
 	public synchronized void Continue() {
 		this.pause = false;
@@ -69,7 +69,7 @@ public class DrawThreadPC80B extends BaseDraw {
 						}
 					}else if (XinDianDetectActivity.mECGReplayBuffer!=null && XinDianDetectActivity.mECGReplayBuffer.size()>0) {
 						int y = XinDianDetectActivity.mECGReplayBuffer.remove(0);
-						Thread.sleep(7);//���ò����ٶ�,�طŲ���Ҫ�������,limit the speed of replaying
+						Thread.sleep(7);//???ò??????,??????????????,limit the speed of replaying
 						addData(y);
 						
 					} else {
@@ -114,14 +114,14 @@ public class DrawThreadPC80B extends BaseDraw {
 	}
 
 	/**
-	 * ��ȡ�õ���Y���ϵ���������
+	 * ????????Y?????????????
 	 */
 	private float gethPx(int data) {
 		return BackGround.fMMgetPxfory(gethMm(data));
 	}
 
 	/**
-	 * ��ȡ�õ���Y���ϵ�mm����
+	 * ????????Y?????mm????
 	 * 2048 is ECG base value
 	 */
 	protected float gethMm(int data) {
@@ -130,7 +130,7 @@ public class DrawThreadPC80B extends BaseDraw {
 	}
 
 	/**
-	 * ���ò�������
+	 * ???ò???????
 	 * 
 	 * @param gain
 	 */

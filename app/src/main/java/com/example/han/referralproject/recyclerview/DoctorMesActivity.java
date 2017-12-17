@@ -49,7 +49,6 @@ public class DoctorMesActivity extends BaseActivity {
     TextView mTextView3;
     TextView mTextView4;
 
-
     public ImageView mStar1;
     public ImageView mStar2;
     public ImageView mStar3;
@@ -68,6 +67,7 @@ public class DoctorMesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
+        mToolbar.setVisibility(View.VISIBLE);
         //    initToolBar();
 
         Intent intent = getIntent();
@@ -79,7 +79,6 @@ public class DoctorMesActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
-
         mTextView = (TextView) findViewById(R.id.names);
         mTextView1 = (TextView) findViewById(R.id.duty);
         mTextView2 = (TextView) findViewById(R.id.hospital);
