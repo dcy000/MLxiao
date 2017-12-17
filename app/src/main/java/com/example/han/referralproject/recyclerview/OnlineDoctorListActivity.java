@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +34,7 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
     private List<Docter> mlist = new ArrayList<Docter>();
     DoctorAdapter mDoctorAdapter;
     private int page = 1;
+    private String mFlag;
 
 
     @Override
@@ -42,6 +44,29 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
 
         initView();
 
+        mFlag = getIntent().getStringExtra("flag");
+        if ("contract".equals(mFlag)) {
+            NetworkApi.doctor_list(0, 12, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                @Override
+                public void onSuccess(ArrayList<Docter> response) {
+                    List<Docter> list = new ArrayList<Docter>();
+                    mlist.clear();
+                    list.addAll(response);
+                    mlist.addAll(list);
+                    mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+                    mRecyclerView.setAdapter(mDoctorAdapter);
+
+                    setData();
+                }
+
+            }, new NetworkManager.FailedCallback() {
+                @Override
+                public void onFailed(String message) {
+
+                }
+            });
+            return;
+        }
 
         NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
@@ -89,12 +114,18 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
             public void onItemClick(int postion) {
                 Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
                 intent.putExtra("docMsg", (Serializable) mlist.get(postion));
-                intent.putExtra("sign", "1");
+                if (!"contract".equals(mFlag)) {
+                    intent.putExtra("sign", "1");
+                }
                 startActivity(intent);
 //                finish();
 
             }
         });
+
+        if ("contract".equals(mFlag)) {
+            return;
+        }
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 

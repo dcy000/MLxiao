@@ -69,6 +69,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
                 if (TextUtils.isEmpty(mAdapter.getMh())) {
                     return;
                 }
+
                 showLoadingDialog(getString(R.string.do_uploading));
                 NetworkApi.setUserMh(mAdapter.getMh(), new NetworkManager.SuccessCallback<String>() {
                     @Override

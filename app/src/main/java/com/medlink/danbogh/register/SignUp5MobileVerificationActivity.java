@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.Handlers;
@@ -109,7 +111,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_fetch_code)
     public void onTvFetchCodeClicked() {
-        String phone = etPhone.getText().toString().trim();
+        final String phone = etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
             speak("主人，手机号码输入有误，请重新输入");
             inPhone = true;
@@ -117,11 +119,22 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             etPhone.requestFocus();
             return;
         }
-        etCode.requestFocus();
-        SMSSDK.getVerificationCode("86", phone);
-        i = 30;
-        tvFetchCode.setEnabled(false);
-        Handlers.ui().postDelayed(countDown, 1000);
+        NetworkApi.isPhoneRegistered(phone, "3", new NetworkManager.SuccessCallback<Object>() {
+            @Override
+            public void onSuccess(Object response) {
+                speak("主人，手机号码已注册");
+                inPhone = true;
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                etCode.requestFocus();
+                SMSSDK.getVerificationCode("86", phone);
+                i = 30;
+                tvFetchCode.setEnabled(false);
+                Handlers.ui().postDelayed(countDown, 1000);
+            }
+        });
     }
 
     private int i;

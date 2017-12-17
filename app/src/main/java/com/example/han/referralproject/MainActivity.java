@@ -151,17 +151,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.doctor_ask://医生咨询
-//                intent.setClass(getApplicationContext(), MainVideoActivity.class);
-//                startActivity(intent);
-                if ("".equals(sharedPreferences.getString("name", ""))) {
-                    Toast.makeText(getApplicationContext(), "请先查看是否与签约医生签约成功", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
-                    startActivity(intent);
-                }
-
-                //    EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
+                intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
+                startActivity(intent);
                 break;
             case R.id.health_class:
                 intent.setClass(getApplicationContext(), VideoListActivity.class);

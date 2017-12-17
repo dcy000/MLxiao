@@ -43,7 +43,6 @@ public class ReminderActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
 
         mContent = "主人,";
-
         mContent += getIntent().getStringExtra(AlarmHelper.CONTENT);
         int hourOfDay = getIntent().getIntExtra(AlarmHelper.HOUR_OF_DAY, 0);
         int minute = getIntent().getIntExtra(AlarmHelper.MINUTE, 0);

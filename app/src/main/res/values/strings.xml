@@ -365,7 +365,7 @@
     <string name="never_sports">从不运动</string>
     <string name="sign_up2_gender_tip">主人,请选择您的性别</string>
     <string name="sign_up3_address_tip">主人,请输入您的住址</string>
-    <string name="sign_up_id_card_tip">主人,请输入您的身份证号码</string>
+    <string name="sign_up_id_card_tip">主人,请输入正确的身份证号码</string>
     <string name="sign_up_phone_tip">主人,请输入您的手机号码</string>
     <string name="sign_up_code_tip">主人,请输入验证码</string>
     <string name="sign_up_fetch_code_tip">主人,已发送验证码，收到后请及时输入验证码</string>

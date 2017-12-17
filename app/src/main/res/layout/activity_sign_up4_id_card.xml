@@ -28,6 +28,8 @@
         android:background="@drawable/shape_rect_gray"
         android:hint="请输入身份证号码"
         android:maxLines="1"
+        android:digits="0123456789xX"
+        android:maxLength="18"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="#939393"
