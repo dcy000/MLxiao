@@ -29,7 +29,6 @@ import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
-import com.example.han.referralproject.activity.SymptomAnalyseResultActivity;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
@@ -175,6 +174,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setShowVoiceView(true);
         setContentView(R.layout.activity_speech_synthesis);
 
 
@@ -561,6 +561,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onVolumeChanged(int volume, byte[] data) {
             //    showTip("当前正在说话，音量大小：" + volume);
             //   Log.d(TAG, "返回音频数据：" + data.length);
+            if (isShowVoiceView) {
+                showPopwindow();
+            }
         }
 
         @Override

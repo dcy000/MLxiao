@@ -41,11 +41,11 @@ public class SignUp1NameActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up1_name);
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.GONE);
         //mTvGoBack.setEnabled(false);
-//        setShowVoiceView(true);
     }
 
     @Override
