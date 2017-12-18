@@ -534,7 +534,7 @@
     <string name="doctor_choice">主人，请点击选择签约医生或在线医生</string>
     doctor_choice
 
-    <string name="qianyue_doctor">主人，请选择点击添加预约按钮预约签约医生</string>
+    <string name="qianyue_doctor">主人，请咨询签约医生</string>
 
     <string name="cancel_yuyue">主人，您确定要取消预约吗？</string>
 
