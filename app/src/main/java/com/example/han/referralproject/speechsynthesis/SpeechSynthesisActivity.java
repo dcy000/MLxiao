@@ -33,15 +33,12 @@ import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.music.AppCache;
-import com.example.han.referralproject.music.HttpCallback;
-import com.example.han.referralproject.music.HttpClient;
 import com.example.han.referralproject.music.Music;
 import com.example.han.referralproject.music.OnPlayerEventListener;
 import com.example.han.referralproject.music.PlayFragment;
-import com.example.han.referralproject.music.PlaySearchedMusic;
 import com.example.han.referralproject.music.PlayService;
+import com.example.han.referralproject.music.ScreenUtils;
 import com.example.han.referralproject.music.SearchMusic;
-import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
@@ -49,11 +46,7 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.example.han.referralproject.xuetang.XuetangActivity;
-import com.example.han.referralproject.xueya.XueyaActivity;
-import com.example.han.referralproject.xueyang.XueyangActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -72,7 +65,6 @@ import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -172,13 +164,20 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
     @Override
+    protected int provideWaveViewWidth() {
+        return 1200;
+    }
+
+    @Override
+    protected int provideWaveViewHeight() {
+        return 360;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_speech_synthesis);
-
-
-
         rand = new Random();
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
@@ -534,7 +533,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
             //   showTip("开始说话");
-            showPopwindow();
+            showWaveView(true);
         }
 
         @Override
@@ -548,7 +547,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             //  showTip("结束说话");
-            hidePopwindow();
+            showWaveView(false);
         }
 
         @Override
@@ -561,9 +560,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onVolumeChanged(int volume, byte[] data) {
             //    showTip("当前正在说话，音量大小：" + volume);
             //   Log.d(TAG, "返回音频数据：" + data.length);
-            if (isShowVoiceView) {
-                showPopwindow();
-            }
+            updateVolume();
         }
 
         @Override

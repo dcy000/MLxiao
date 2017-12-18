@@ -1,6 +1,5 @@
 package com.example.han.referralproject.activity;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -31,7 +29,6 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.dialog.WaveDialog;
 import com.example.han.referralproject.music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
@@ -180,9 +177,17 @@ public class BaseActivity extends AppCompatActivity {
         finish();
     }
 
-    private VoiceLineView voiceLineView;
+    protected VoiceLineView voiceLineView;
 
-    FrameLayout mContentParent;
+    protected FrameLayout mContentParent;
+
+    protected int provideWaveViewWidth() {
+        return ScreenUtils.dp2px(450);
+    }
+
+    protected int provideWaveViewHeight() {
+        return ScreenUtils.dp2px(120);
+    }
 
     @Override
     public void setContentView(int layoutResID) {
@@ -193,11 +198,10 @@ public class BaseActivity extends AppCompatActivity {
             voiceLineView = new VoiceLineView(this);
             voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
             voiceLineView.setAnimation(AnimationUtils.loadAnimation(BaseActivity.this, R.anim.popshow_anim));
-            int width = ScreenUtils.dp2px(450);
-            int height = ScreenUtils.dp2px(120);
+            int width = provideWaveViewWidth();
+            int height = provideWaveViewHeight();
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
             params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-            params.bottomMargin = 20;
             mContentParent.addView(voiceLineView, params);
             mContentParent.bringToFront();
             voiceLineView.setVisibility(View.GONE);
@@ -322,24 +326,17 @@ public class BaseActivity extends AppCompatActivity {
     private RecognizerListener mIatListener = new RecognizerListener() {
         @Override
         public void onVolumeChanged(int i, byte[] bytes) {
-            if (isShowVoiceView) {
-                showPopwindow();
-            }
-
+            updateVolume();
         }
 
         @Override
         public void onBeginOfSpeech() {
-            if (voiceLineView != null) {
-                voiceLineView.setVisibility(View.VISIBLE);
-            }
+            showWaveView(true);
         }
 
         @Override
         public void onEndOfSpeech() {
-            if (voiceLineView != null) {
-                voiceLineView.setVisibility(View.GONE);
-            }
+            showWaveView(false);
         }
 
         @Override
@@ -392,14 +389,15 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-    protected void showPopwindow() {
-        Handlers.ui().postDelayed(updateVolumeAction, 100);
+    protected void showWaveView(boolean visible) {
+        if (voiceLineView != null) {
+            voiceLineView.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
     }
 
-
-    protected void hidePopwindow() {
-        if (voiceLineView != null) {
-            voiceLineView.setVisibility(View.GONE);
+    protected void updateVolume() {
+        if (isShowVoiceView) {
+            Handlers.ui().postDelayed(updateVolumeAction, 100);
         }
     }
 
@@ -411,7 +409,7 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onSpeakBegin() {
-            hidePopwindow();
+            showWaveView(false);
         }
 
         @Override
@@ -434,7 +432,7 @@ public class BaseActivity extends AppCompatActivity {
         @Override
         public void onCompleted(SpeechError error) {
             if (isShowVoiceView) {
-                showPopwindow();
+                updateVolume();
             }
 
             onActivitySpeakFinish();
