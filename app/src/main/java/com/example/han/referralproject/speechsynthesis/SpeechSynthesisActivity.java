@@ -178,7 +178,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         setContentView(R.layout.activity_speech_synthesis);
 
 
-
         rand = new Random();
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
@@ -1278,7 +1277,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
                 } else if (inSpell.matches(".*mai.*dongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
                         inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
-                        inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou")  ||
+                        inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou") || inSpell.matches(".*xueyaji.*huai") ||
+                        inSpell.matches(".*xuetangyi.*huai") ||inSpell.matches(".*erwenqiang.*huai") ||inSpell.matches(".*xueyangyi.*huai") ||inSpell.matches(".*xindianyi.*huai") ||
                         resultBuffer.toString().contains("丢") || resultBuffer.toString().contains("不能用")) {
 
                     Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
