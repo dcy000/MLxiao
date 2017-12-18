@@ -164,7 +164,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             enableVideo(time1, time - 60000);
 
 
-                        } else if ("已过期".equals(list.get(0).getState())) {
+                        } else if ("已过期".equals(list.get(0).getState()) ||
+                                "已拒绝".equals(list.get(0).getState())) {
 
                             NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
@@ -319,7 +320,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             enableVideo(time3, time2 - 60000);
 
 
-                        } else if ("已过期".equals(list.get(1).getState())) {
+                        } else if ("已过期".equals(list.get(1).getState())
+
+                                || "已拒绝".equals(list.get(1).getState())) {
 
                             NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
@@ -473,7 +476,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             models = DataSupport.findAll(AlarmModel.class);
 
 
-                        } else if ("已过期".equals(list.get(2).getState())) {
+                        } else if ("已过期".equals(list.get(2).getState())
+                                || "已拒绝".equals(list.get(2).getState())) {
 
 
                             NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
@@ -640,7 +644,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             enableVideo(time1, time - 60000);
 
 
-                        } else if ("已过期".equals(list.get(0).getState())) {
+                        } else if ("已过期".equals(list.get(0).getState())
+                                || "已拒绝".equals(list.get(0).getState())) {
 
                             NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
@@ -801,7 +806,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             models = DataSupport.findAll(AlarmModel.class);
 
 
-                        } else if ("已过期".equals(list.get(1).getState())) {
+                        } else if ("已过期".equals(list.get(1).getState())
+                                || "已拒绝".equals(list.get(1).getState())) {
 
 
                             NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
@@ -968,7 +974,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             models = DataSupport.findAll(AlarmModel.class);
 
 
-                        } else if ("已过期".equals(list.get(0).getState())) {
+                        } else if ("已过期".equals(list.get(0).getState())
+                                || "已拒绝".equals(list.get(0).getState())) {
 
 
                             NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
