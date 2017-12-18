@@ -48,7 +48,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
         sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
 
-        mFlag = getIntent().getStringExtra("flag");
+       /* mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
             NetworkApi.doctor_list(0, 12, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                 @Override
@@ -70,7 +70,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                 }
             });
             return;
-        }
+        }*/
 
         NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
