@@ -41,7 +41,7 @@
             android:background="@drawable/bg_rb_history_record"
             android:button="@null"
             android:gravity="center"
-            android:text="健康讲堂"
+            android:text="健康课堂"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
         <View

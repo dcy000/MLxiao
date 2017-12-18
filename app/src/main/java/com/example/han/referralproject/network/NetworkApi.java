@@ -427,13 +427,13 @@ public class NetworkApi {
     }
 
     public static void addEatMedicalRecord(
+            String userName,
             String content,
             String state,
             NetworkManager.SuccessCallback<Object> successCallback,
             NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        String userName = MyApplication.getInstance().userName;
-        if (userName == null) {
+        if (TextUtils.isEmpty(userName)) {
             if (failedCallback != null) {
                 failedCallback.onFailed("请重新登录");
             }
