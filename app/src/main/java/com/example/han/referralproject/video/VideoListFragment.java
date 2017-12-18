@@ -68,7 +68,7 @@ public class VideoListFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvVideos.setLayoutManager(layoutManager);
-        rvVideos.addItemDecoration(new GridViewDividerItemDecoration(30,52));
+        rvVideos.addItemDecoration(new GridViewDividerItemDecoration(30, 52));
         rvVideos.setAdapter(adapter);
         fetchVideos(position);
     }
@@ -93,25 +93,45 @@ public class VideoListFragment extends Fragment {
     }
 
     public static final String BASE_URL = "http://oyptcv2pb.bkt.clouddn.com/";
-    public static final String TITLE_FORMAT = "%s %d";
 
     private void provideVideos(String type, String extra) {
+        int size = provideSize(type);
         List<VideoDetailEntity> entities = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            if (i == 7 && type.equals("opera")) {
-                break;
-            }
-            String url = BASE_URL + type + i  + ".mp4";
-            String title = String.format(Locale.CHINA, TITLE_FORMAT, extra, i + 1);
+        for (int i = 0; i < size; i++) {
+            String url = BASE_URL + type + i + ".mp4";
+            String title = mTitleMap.get(type).get(i);
             entities.add(new VideoDetailEntity(url, title));
         }
         showVideos(entities);
     }
 
+    private int provideSize(String type) {
+        switch (type) {
+            case "hypertension":
+                return 18;
+            case "opera":
+                return 7;
+            case "lifetip":
+                return 21;
+            case "cartoon":
+                return 18;
+        }
+        return 7;
+    }
+
     private HashMap<String, List<String>> mTitleMap;
+
     {
         mTitleMap = new HashMap<>();
         List<String> hypertensions = new ArrayList<>();
+        hypertensions.add("高血压常识");
+        hypertensions.add("糖尿病常识");
+        hypertensions.add("糖尿病之胰岛素作用");
+        hypertensions.add("防暑小技巧");
+        hypertensions.add("防蚊技巧");
+        hypertensions.add("空调病防止");
+        hypertensions.add("止泻常识");
+        hypertensions.add("擦伤处理");
         hypertensions.add("孕产期保健知识讲座");
         hypertensions.add("人体老化时间表");
         hypertensions.add("一般人群的膳食建议");
@@ -123,7 +143,24 @@ public class VideoListFragment extends Fragment {
         hypertensions.add("细嚼慢咽真的能减肥吗");
         hypertensions.add("心肺复苏急救知识");
         mTitleMap.put("hypertension", hypertensions);
+        List<String> operas = new ArrayList<>();
+        operas.add("曲艺天地1");
+        operas.add("曲艺天地2");
+        operas.add("曲艺天地3");
+        operas.add("曲艺天地4");
+        operas.add("曲艺天地5");
+        operas.add("曲艺天地6");
+        operas.add("曲艺天地7");
+        mTitleMap.put("opera", operas);
         List<String> cartoons = new ArrayList<>();
+        cartoons.add("猫和老鼠");
+        cartoons.add("喜羊羊与灰太狼");
+        cartoons.add("蓝色的地球");
+        cartoons.add("贝贝熊");
+        cartoons.add("猫和老鼠2");
+        cartoons.add("白天与黑夜");
+        cartoons.add("猫和老鼠3");
+        cartoons.add("团团转的地球");
         cartoons.add("发现新世界");
         cartoons.add("幼儿园的一天");
         cartoons.add("虫儿飞飞");
@@ -134,20 +171,29 @@ public class VideoListFragment extends Fragment {
         cartoons.add("爱要长高");
         cartoons.add("门外的陌生人");
         cartoons.add("旧玩具");
-        mTitleMap.put("lifetip", cartoons);
+        mTitleMap.put("cartoon", cartoons);
         List<String> lifetips = new ArrayList<>();
-        cartoons.add("袜子这样跌不起球");
-        cartoons.add("1秒钟叠衬衫T恤");
-        cartoons.add("对付手脚干裂的小妙招");
-        cartoons.add("八个清洁小技巧");
-        cartoons.add("落枕了怎么办");
-        cartoons.add("葡萄干和提子怎么洗");
-        cartoons.add("数据线还能这么用");
-        cartoons.add("衣服收纳大全");
-        cartoons.add("这五种水果最难切了");
-        cartoons.add("几种牢固绳结实用打法");
-        cartoons.add("生活健康常识");
-        cartoons.add("切洋葱不流泪");
+        lifetips.add("生活小技巧1");
+        lifetips.add("生活小技巧2");
+        lifetips.add("生活小技巧3");
+        lifetips.add("生活小技巧4");
+        lifetips.add("生活小技巧5");
+        lifetips.add("生活小技巧6");
+        lifetips.add("生活小技巧7");
+        lifetips.add("生活小技巧8");
+        lifetips.add("袜子这样跌不起球");
+        lifetips.add("1秒钟叠衬衫T恤");
+        lifetips.add("对付手脚干裂的小妙招");
+        lifetips.add("八个清洁小技巧");
+        lifetips.add("落枕了怎么办");
+        lifetips.add("葡萄干和提子怎么洗");
+        lifetips.add("数据线还能这么用");
+        lifetips.add("衣服收纳大全");
+        lifetips.add("这五种水果最难切了");
+        lifetips.add("几种牢固绳结实用打法");
+        lifetips.add("生活健康常识");
+        lifetips.add("切洋葱不流泪");
+        lifetips.add("用过之后生活立变");
         mTitleMap.put("lifetip", lifetips);
     }
 
@@ -182,7 +228,18 @@ public class VideoListFragment extends Fragment {
         public void onBindViewHolder(final Holder holder, int position) {
             final VideoDetailEntity entity = videos.get(position);
             holder.tvTitle.setText(entity.getTitle());
-            holder.ivThumbnail.setImageResource(R.drawable.ic_thumbnail_placeholder);
+            Object tagObj = holder.ivThumbnail.getTag();
+            if (tagObj == null) {
+                holder.ivThumbnail.setImageResource(R.drawable.ic_thumbnail_placeholder);
+            } else {
+                String tag = (String) tagObj;
+                if (entity.getUrl().equals(tag)) {
+                    return;
+                } else {
+                    holder.ivThumbnail.setImageResource(R.drawable.ic_thumbnail_placeholder);
+                }
+            }
+            holder.ivThumbnail.setTag(entity.getUrl());
             Handlers.bg().post(new Runnable() {
                 @Override
                 public void run() {
@@ -190,7 +247,10 @@ public class VideoListFragment extends Fragment {
                     Handlers.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            holder.ivThumbnail.setImageBitmap(thumbnail);
+                            String url = (String) holder.ivThumbnail.getTag();
+                            if (entity.getUrl().equals(url)) {
+                                holder.ivThumbnail.setImageBitmap(thumbnail);
+                            }
                         }
                     });
                 }

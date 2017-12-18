@@ -51,7 +51,8 @@ public class VideoListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("健康讲堂");
+//        mTitleText.setText(R.string.title_health_class);
+        mTitleText.setText(R.string.medication_reminder);
         mRightView.setImageResource(R.drawable.icon_wifi);
         mUnbinder = ButterKnife.bind(this);
         position = getIntent().getIntExtra("position", 0);
@@ -104,6 +105,12 @@ public class VideoListActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        speak("主人，欢迎观看健康课堂");
     }
 
     private List<VideoListFragment> mFragments;

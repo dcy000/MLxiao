@@ -506,7 +506,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
         if (!TextUtils.isEmpty(mAudioPath)) {
-            T.show(mAudioPath);
             onPlayAudio(mAudioPath);
             mAudioPath = null;
             return;
@@ -1279,8 +1278,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
                 } else if (inSpell.matches(".*mai.*dongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
                         inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
-                        inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou") || inSpell.matches(".*huai.*") ||
-                        resultBuffer.toString().contains("找不到") || resultBuffer.toString().contains("丢") || resultBuffer.toString().contains("不能用")) {
+                        inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou")  ||
+                        resultBuffer.toString().contains("丢") || resultBuffer.toString().contains("不能用")) {
 
                     Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
                     startActivity(intent);

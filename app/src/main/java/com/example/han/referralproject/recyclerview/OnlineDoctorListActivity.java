@@ -1,24 +1,17 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.AllDoctor;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -28,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class OnlineDoctorListActivity extends Activity implements View.OnClickListener {
+public class OnlineDoctorListActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView mIconBack;
     private ImageView mIconHome;
@@ -228,6 +221,14 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
         intent.putExtra("sign", "1");
         startActivity(intent);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if ("contract".equals(mFlag)) {
+            speak("主人，请选择您最信任的医生签约");
+        }
     }
 
     @Override

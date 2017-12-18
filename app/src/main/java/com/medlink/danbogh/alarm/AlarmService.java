@@ -20,7 +20,7 @@ public class AlarmService extends Service {
         if (id != -1) {
             AlarmModel model = AlarmModel.find(AlarmModel.class, id);
             if (model != null) {
-                if (model.getInterval() == AlarmModel.INTERVAL_DAY) {
+                if (model.getInterval() == AlarmModel.INTERVAL_NONE) {
                     model.setEnabled(false);
                     model.update(id);
                 }
