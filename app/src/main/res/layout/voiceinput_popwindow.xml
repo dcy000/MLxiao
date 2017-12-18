@@ -8,7 +8,7 @@
     android:layout_gravity="center_horizontal">
     <com.carlos.voiceline.mylibrary.VoiceLineView
         android:id="@+id/voicLine"
-        android:layout_width="500dp"
+        android:layout_width="800dp"
         android:layout_height="120dp"
         android:background="#00000000"
         voiceView:maxVolume="200"
