@@ -145,11 +145,13 @@ public class VideoDemo extends BaseActivity {
         //   speak(R.string.head_verify);
         map = new HashMap<>();
         accounts = LocalShared.getInstance(this).getAccounts();
-        indexXfid = accounts.length * 5;
-        xfid = new String[accounts.length];
-        for (int i = 0; i < accounts.length; i++) {
-            xfid[i] = accounts[i].split(",")[1];
-            map.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
+        if(accounts!=null){
+            indexXfid = accounts.length * 5;
+            xfid = new String[accounts.length];
+            for (int i = 0; i < accounts.length; i++) {
+                xfid[i] = accounts[i].split(",")[1];
+                map.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
+            }
         }
         choosedXfid = MyApplication.getInstance().xfid;//默认选中的是当前的讯飞id;
         Intent intent = getIntent();
@@ -389,7 +391,7 @@ public class VideoDemo extends BaseActivity {
 
                         }
                         if (null != mImageData && null != mAuthid) {
-                            if ("Test".equals(fromString) && indexXfid > 0) {
+                            if ("Test".equals(fromString) && indexXfid > 0&&accounts!=null) {
                                 mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfid[indexXfid % accounts.length]);
                                 choosedXfid = xfid[indexXfid % accounts.length];
                                 indexXfid--;
