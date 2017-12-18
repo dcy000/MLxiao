@@ -45,11 +45,11 @@ public class LocalShared {
         }
         String accountsString = mShared.getString(UserAccounts_new, "");
         if (TextUtils.isEmpty(accountsString)){
-                mShared.edit().putString(UserAccounts, bid + ","+xfid+";").commit();
+                mShared.edit().putString(UserAccounts_new, bid + ","+xfid+";").commit();
         } else {
             String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(";");
             if (!isContainAccount(accountsArray, bid,xfid)) {
-                mShared.edit().putString(UserAccounts, accountsString + bid + ","+xfid+";").commit();
+                mShared.edit().putString(UserAccounts_new, accountsString + bid + ","+xfid+";").commit();
 
             }
         }
@@ -89,7 +89,7 @@ public class LocalShared {
                 return null;
             }else{
                 addAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);
-//                deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);
+                mShared.edit().putString(UserAccounts,"").commit();
                 return new String[]{MyApplication.getInstance().userId+","+MyApplication.getInstance().xfid};
             }
 
