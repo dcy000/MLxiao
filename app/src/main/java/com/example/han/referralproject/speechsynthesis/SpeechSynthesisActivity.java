@@ -72,8 +72,6 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
-import com.tyorikan.voicerecordingvisualizer.RecordingSampler;
-import com.tyorikan.voicerecordingvisualizer.VisualizerView;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;

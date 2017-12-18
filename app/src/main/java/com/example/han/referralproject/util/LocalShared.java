@@ -128,7 +128,8 @@ public class LocalShared {
                 .putString(UserId, infoBean.bid)
                 .putString(UserPhoneNum, infoBean.tel)
                 .putString(USER_NAME, infoBean.bname)
-                .apply();
+                .commit();
+        //.apply();
     }
 
     public void setUserImg(String imgUrl) {
