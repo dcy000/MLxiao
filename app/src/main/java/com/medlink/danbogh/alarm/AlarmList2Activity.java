@@ -65,6 +65,7 @@ public class AlarmList2Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_list2);
         mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText(R.string.medication_reminder);
         mUnbinder = ButterKnife.bind(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
