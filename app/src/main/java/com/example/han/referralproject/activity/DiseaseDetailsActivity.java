@@ -48,7 +48,7 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disease_details);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("病症详情");
+        mTitleText.setText("病  症  详  情");
         initView();
 
     }

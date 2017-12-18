@@ -127,7 +127,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 //        tvTitle.setText("健康档案");
         //默认选择第一个
         rgHealthRecord.check(R.id.rb_record_temperature);
-        mTitleText.setText("历史测量");
+        mTitleText.setText(R.string.history_celiang);
         rbRecordTemperature.setOnClickListener(this);
         rbRecordBloodPressure.setOnClickListener(this);
         rbRecordBloodGlucose.setOnClickListener(this);
@@ -157,7 +157,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void backMainActivity() {
-        ToastUtils.show("小意思");
+
     }
 
     /**
