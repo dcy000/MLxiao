@@ -33,7 +33,7 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_bodychart);
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("人体导图");
+        mTitleText.setText(R.string.bodyguide);
         initView();
         speak(getResources().getString(R.string.bodyguide));
     }

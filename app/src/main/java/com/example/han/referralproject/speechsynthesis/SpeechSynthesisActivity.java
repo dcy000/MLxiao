@@ -468,7 +468,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 mIatResults.clear();
                 // 设置参数
                 setParam();
-                boolean isShowDialog = mSharedPreferences.getBoolean(getString(R.string.pref_key_iat_show), true);
+//                boolean isShowDialog = mSharedPreferences.getBoolean(getString(R.string.pref_key_iat_show), true);
+                boolean isShowDialog = false;
                 if (isShowDialog) {
 
                     stopSpeaking();
@@ -480,7 +481,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     if (ret != ErrorCode.SUCCESS) {
                         showTip("听写失败,错误码：" + ret);
                     } else {
-                        showTip(getString(R.string.text_begin));
+                        //showTip(getString(R.string.text_begin));
                     }
                 }
                 break;
@@ -532,107 +533,27 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
             //   showTip("开始说话");
+            showPopwindow();
         }
 
         @Override
         public void onError(SpeechError error) {
             // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
             // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。
+            findViewById(R.id.iat_recognizes).performClick();
         }
 
         @Override
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             //  showTip("结束说话");
+            hidePopwindow();
         }
 
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             //  Log.d(TAG, results.getResultString());
-            printResult(results);
-
-            if (isLast) {
-                new Thread(new Runnable() {
-                    public void run() {
-                        String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
-
-
-                        if (resultBuffer.toString().matches(".*测.*血压.*")) {
-                            if (sign == true) {
-                                sign = false;
-                                mIatDialog.dismiss();
-                                Intent intent = new Intent(getApplicationContext(), XueyaActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        } else {
-                            if (inSpell.contains("xueyang")) {
-                                if (sign == true) {
-                                    sign = false;
-                                    mIatDialog.dismiss();
-                                    Intent intent = new Intent(getApplicationContext(), XueyangActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-
-                            } else if (resultBuffer.toString().matches(".*测.*血糖.*")) {
-                                if (sign == true) {
-                                    sign = false;
-                                    mIatDialog.dismiss();
-                                    Intent intent = new Intent(getApplicationContext(), XuetangActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-
-                            } else if (resultBuffer.toString().matches(".*测.*温度.*")) {
-                                if (sign == true) {
-                                    sign = false;
-                                    mIatDialog.dismiss();
-                                    Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-
-                            } else if (resultBuffer.toString().matches(".*歌.*")) {
-                                file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                                //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                                if (file.exists()) {
-                                    try {
-                                        mediaPlayer.reset();//从新设置要播放的音乐
-                                        mediaPlayer.setDataSource(file.getAbsolutePath());
-                                        mediaPlayer.prepare();//预加载音频
-                                        mediaPlayer.start();//播放音乐
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } else if (resultBuffer.toString().matches(".*歌.*")) {
-                                file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                                //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                                if (file.exists()) {
-                                    try {
-                                        mediaPlayer.reset();//从新设置要播放的音乐
-                                        mediaPlayer.setDataSource(file.getAbsolutePath());
-                                        mediaPlayer.prepare();//预加载音频
-                                        mediaPlayer.start();//播放音乐
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } else {
-                                try {
-                                    post(resultBuffer + "");
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }
-                    }
-                }).start();
-
-            }
+            dealData(results, isLast);
         }
 
         @Override
@@ -647,6 +568,338 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
     };
 
+    private void dealData(RecognizerResult results, boolean isLast) {
+        printResult(results);
+        if (isLast) {
+            String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
+
+            Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
+            Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
+            if (matcherWhenAlarm.find()) {
+                String am = matcherWhenAlarm.group(1);
+                String hourOfDay = matcherWhenAlarm.group(2);
+                String minute = matcherWhenAlarm.group(3);
+                AlarmHelper.setupAlarm(SpeechSynthesisActivity.this.getApplicationContext(),
+                        am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
+                        Integer.valueOf(minute));
+                String tip = String.format(Locale.CHINA,
+                        "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
+                speak(tip);
+                return;
+            }
+
+            if (inSpell.matches(REGEX_SET_ALARM)) {
+                Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
+                startActivity(intent);
+                return;
+            }
+            if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+                Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
+                startActivity(intent1);
+                return;
+            }
+            if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+                Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
+                startActivity(intent1);
+                return;
+            }
+
+            if (inSpell.matches(".*(jiankangketang|jiemu|shipin|dianshi).*")) {
+                VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
+                return;
+            }
+            if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
+                VideoListActivity.launch(SpeechSynthesisActivity.this, 1);
+                return;
+            }
+            if (inSpell.matches(".*(shenghuozhushou).*")) {
+                VideoListActivity.launch(SpeechSynthesisActivity.this, 2);
+                return;
+            }
+            if (inSpell.matches(".*(donghuapian|dongman).*")) {
+                VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
+                return;
+            }
+            if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
+                return;
+            }
+            if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
+                return;
+            }
+            if (inSpell.matches(".*(yi(shen|sheng|seng)|dadianhua|(zi|zhi)xun).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
+                return;
+            }
+            if (inSpell.matches(".*(gaoxueya).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "高血压"));
+            }
+            if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "冠心病"));
+            }
+            if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "支气管哮喘"));
+            }
+            if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "肝硬化"));
+            }
+            if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "糖尿病"));
+            }
+            if (inSpell.matches(".*(tongfeng).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "痛风"));
+            }
+            if (inSpell.matches(".*(changweiyan).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "肠胃炎"));
+            }
+            if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "急性上呼吸道感染"));
+            }
+            if (inSpell.matches(".*(xinbaoyan).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "心包炎"));
+            }
+            if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "贫血"));
+            }
+            if (inSpell.matches(".*(feiyan).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "肺炎"));
+            }
+            if (inSpell.matches(".*(di(xie|xue)tang).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "低血糖"));
+            }
+            if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "脑出血"));
+            }
+            if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "肺栓塞"));
+            }
+            if (inSpell.matches(".*(dianxian).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                        .putExtra("type", "癫痫"));
+            }
+
+
+            if (resultBuffer.toString().matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
+                if (sign == true) {
+                    sign = false;
+                    mIatDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "xueya");
+                    startActivity(intent);
+                    finish();
+                }
+
+            } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*") || inSpell.matches(".*ce.*baohedu.*")) {
+                if (sign == true) {
+                    sign = false;
+                    mIatDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "xueyang");
+                    startActivity(intent);
+                    finish();
+                }
+
+            } else if (resultBuffer.toString().matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
+                if (sign == true) {
+                    sign = false;
+                    mIatDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "xuetang");
+                    startActivity(intent);
+                    finish();
+                }
+
+            } else if (resultBuffer.toString().matches(".*测.*体温.*") || resultBuffer.toString().matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
+                if (sign == true) {
+                    sign = false;
+                    mIatDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "wendu");
+                    startActivity(intent);
+                    finish();
+                }
+
+            } else if (resultBuffer.toString().matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
+                if (sign == true) {
+                    sign = false;
+                    mIatDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                /*}
+                else if (resultBuffer.toString().matches(".*歌.*") || resultBuffer.toString().matches(".*音乐.*")) {
+                    file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
+                    //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                    if (file.exists()) {
+                        try {
+                            mediaPlayer.reset();//从新设置要播放的音乐
+                            mediaPlayer.setDataSource(file.getAbsolutePath());
+                            mediaPlayer.prepare();//预加载音频
+                            mediaPlayer.start();//播放音乐
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("jingju")) {
+                    file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/jingju.mp3");
+                    //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
+                    if (file.exists()) {
+                        try {
+                            mediaPlayer.reset();//从新设置要播放的音乐
+                            mediaPlayer.setDataSource(file.getAbsolutePath());
+                            mediaPlayer.prepare();//预加载音频
+                            mediaPlayer.start();//播放音乐
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+*/
+
+            } else if (resultBuffer.toString().matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
+
+                if ("".equals(sharedPreferences.getString("name", ""))) {
+                    T.show("请先查看是否与签约医生签约成功");
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(getApplicationContext(), DoctorappoActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                   /* if (sign == true) {
+                        sign = false;
+                        mIatDialog.dismiss();
+                        Intent intent = new Intent(getApplicationContext(), MainVideoActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }*/
+
+            } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")
+                    || inSpell.matches(".*yinliang.*da.*") || inSpell.matches(".*shengyin.*da.*")
+                    || inSpell.matches(".*tigao.*shengyin.*") || inSpell.matches(".*shengyin.*tigao.*")
+                    || inSpell.matches(".*yinliang.*shenggao.*") || inSpell.matches(".*shenggao.*yinliang.*")) {
+                volume += 3;
+                if (volume < maxVolume) {
+                    speak(getString(R.string.add_volume));
+                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+                    mHandler.sendEmptyMessageDelayed(1, 2000);
+                } else {
+                    speak(getString(R.string.max_volume));
+                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
+                    mHandler.sendEmptyMessageDelayed(1, 3000);
+
+
+                }
+
+
+            } else if (inSpell.matches(".*xiao.*shengyin.*") || inSpell.matches(".*xiao.*yinliang.*")
+                    || inSpell.matches(".*shengyin.*xiao.*") || inSpell.matches(".*yinliang.*xiao.*")
+                    || inSpell.matches(".*yinliang.*jiangdi.*") || inSpell.matches(".*jiangdi.*yinliang.*")
+                    || inSpell.matches(".*jiangdi.*shengyin.*") || inSpell.matches(".*shengyin.*jiangdi.*")) {
+
+                volume -= 3;
+                if (volume > 3) {
+                    speak(getString(R.string.reduce_volume));
+                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+                    mHandler.sendEmptyMessageDelayed(1, 2000);
+
+
+                } else {
+                    speak(getString(R.string.min_volume));
+                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
+                    mHandler.sendEmptyMessageDelayed(1, 3000);
+
+                }
+
+
+            } /*else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
+
+                    mImageView.setClickable(false);
+
+                    try {
+                        if (resultBuffer.toString().matches(".*听.*的.*")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
+                        } else if (resultBuffer.toString().contains("听")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "听"));
+                        }
+                        if (resultBuffer.toString().matches(".*播放.*的.*")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
+                        } else if (resultBuffer.toString().contains("播放")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "放"));
+                        }
+                        if (resultBuffer.toString().matches(".*放.*首.*的.*")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
+                        } else if (resultBuffer.toString().contains("放一首")) {
+                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "首"));
+                        }
+
+
+                        // searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
+
+                    } catch (Exception e) {
+                        runOnUiThread(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        speak(R.string.speak_no_result);
+                                        //   findViewById(R.id.iat_recognizes).performClick();
+                                    }
+                                }
+                        );
+                        e.printStackTrace();
+                    }
+
+
+                } */ else if (inSpell.matches(".*bu.*liao.*") || resultBuffer.toString().contains("退出")
+                    || resultBuffer.toString().contains("返回") || resultBuffer.toString().contains("再见")
+                    || resultBuffer.toString().contains("闭嘴") || inSpell.matches(".*baibai.*")) {
+
+                finish();
+            } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
+            } else if (inSpell.matches(".*chong.*qian.*") || resultBuffer.toString().contains("钱不够") || resultBuffer.toString().contains("没钱")) {
+                Intent intent = new Intent(getApplicationContext(), PayActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (inSpell.matches(".*mai.*dongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
+                    inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
+                    inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou")  ||
+                    resultBuffer.toString().contains("丢") || resultBuffer.toString().contains("不能用")) {
+
+                Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
+                startActivity(intent);
+                finish();
+
+
+            } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
+                startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
+            } else if (inSpell.matches(".*(li(si|shi)|(shu|su)ju|jilu).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
+            } else if (inSpell.matches(".*(dangan).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
+            } else {
+                new SpeechTask().execute();
+            }
+        }
+    }
 
     /**
      * 初始化监听器。
@@ -966,359 +1219,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
-            printResult(results);
-            if (isLast) {
-                String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
-
-                Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
-                Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
-                if (matcherWhenAlarm.find()) {
-                    String am = matcherWhenAlarm.group(1);
-                    String hourOfDay = matcherWhenAlarm.group(2);
-                    String minute = matcherWhenAlarm.group(3);
-                    AlarmHelper.setupAlarm(SpeechSynthesisActivity.this.getApplicationContext(),
-                            am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
-                            Integer.valueOf(minute));
-                    String tip = String.format(Locale.CHINA,
-                            "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
-                    speak(tip);
-                    return;
-                }
-
-                if (inSpell.matches(REGEX_SET_ALARM)) {
-                    Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
-                    startActivity(intent);
-                    return;
-                }
-                if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-                    Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
-                    startActivity(intent1);
-                    return;
-                }
-                if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-                    Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
-                    startActivity(intent1);
-                    return;
-                }
-
-                if (inSpell.matches(".*(jiankangketang|jiemu|shipin|dianshi).*")) {
-                    VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
-                    return;
-                }
-                if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
-                    VideoListActivity.launch(SpeechSynthesisActivity.this, 1);
-                    return;
-                }
-                if (inSpell.matches(".*(shenghuozhushou).*")) {
-                    VideoListActivity.launch(SpeechSynthesisActivity.this, 2);
-                    return;
-                }
-                if (inSpell.matches(".*(donghuapian|dongman).*")) {
-                    VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
-                    return;
-                }
-                if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
-                    return;
-                }
-                if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
-                    return;
-                }
-                if (inSpell.matches(".*(yi(shen|sheng|seng)|dadianhua|(zi|zhi)xun).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
-                    return;
-                }
-                if (inSpell.matches(".*(gaoxueya).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "高血压"));
-                }
-                if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "冠心病"));
-                }
-                if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "支气管哮喘"));
-                }
-                if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "肝硬化"));
-                }
-                if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "糖尿病"));
-                }
-                if (inSpell.matches(".*(tongfeng).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "痛风"));
-                }
-                if (inSpell.matches(".*(changweiyan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "肠胃炎"));
-                }
-                if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "急性上呼吸道感染"));
-                }
-                if (inSpell.matches(".*(xinbaoyan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "心包炎"));
-                }
-                if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "贫血"));
-                }
-                if (inSpell.matches(".*(feiyan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "肺炎"));
-                }
-                if (inSpell.matches(".*(di(xie|xue)tang).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "低血糖"));
-                }
-                if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "脑出血"));
-                }
-                if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "肺栓塞"));
-                }
-                if (inSpell.matches(".*(dianxian).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                            .putExtra("type", "癫痫"));
-                }
-
-
-                if (resultBuffer.toString().matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
-                    if (sign == true) {
-                        sign = false;
-                        mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                        intent.putExtra("type", "xueya");
-                        startActivity(intent);
-                        finish();
-                    }
-
-                } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*") || inSpell.matches(".*ce.*baohedu.*")) {
-                    if (sign == true) {
-                        sign = false;
-                        mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                        intent.putExtra("type", "xueyang");
-                        startActivity(intent);
-                        finish();
-                    }
-
-                } else if (resultBuffer.toString().matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
-                    if (sign == true) {
-                        sign = false;
-                        mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                        intent.putExtra("type", "xuetang");
-                        startActivity(intent);
-                        finish();
-                    }
-
-                } else if (resultBuffer.toString().matches(".*测.*体温.*") || resultBuffer.toString().matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
-                    if (sign == true) {
-                        sign = false;
-                        mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                        intent.putExtra("type", "wendu");
-                        startActivity(intent);
-                        finish();
-                    }
-
-                } else if (resultBuffer.toString().matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
-                    if (sign == true) {
-                        sign = false;
-                        mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                /*}
-                else if (resultBuffer.toString().matches(".*歌.*") || resultBuffer.toString().matches(".*音乐.*")) {
-                    file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                    //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                    if (file.exists()) {
-                        try {
-                            mediaPlayer.reset();//从新设置要播放的音乐
-                            mediaPlayer.setDataSource(file.getAbsolutePath());
-                            mediaPlayer.prepare();//预加载音频
-                            mediaPlayer.start();//播放音乐
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("jingju")) {
-                    file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/jingju.mp3");
-                    //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                    if (file.exists()) {
-                        try {
-                            mediaPlayer.reset();//从新设置要播放的音乐
-                            mediaPlayer.setDataSource(file.getAbsolutePath());
-                            mediaPlayer.prepare();//预加载音频
-                            mediaPlayer.start();//播放音乐
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-*/
-
-                } else if (resultBuffer.toString().matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
-
-                    if ("".equals(sharedPreferences.getString("name", ""))) {
-                        T.show("请先查看是否与签约医生签约成功");
-                    } else {
-                        Intent intent = new Intent();
-                        intent.setClass(getApplicationContext(), DoctorappoActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                   /* if (sign == true) {
-                        sign = false;
-                        mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), MainVideoActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }*/
-
-                } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")
-                        || inSpell.matches(".*yinliang.*da.*") || inSpell.matches(".*shengyin.*da.*")
-                        || inSpell.matches(".*tigao.*shengyin.*") || inSpell.matches(".*shengyin.*tigao.*")
-                        || inSpell.matches(".*yinliang.*shenggao.*") || inSpell.matches(".*shenggao.*yinliang.*")) {
-                    volume += 3;
-                    if (volume < maxVolume) {
-                        speak(getString(R.string.add_volume));
-                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
-                        mHandler.sendEmptyMessageDelayed(1, 2000);
-                    } else {
-                        speak(getString(R.string.max_volume));
-                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
-                        mHandler.sendEmptyMessageDelayed(1, 3000);
-
-
-                    }
-
-
-                } else if (inSpell.matches(".*xiao.*shengyin.*") || inSpell.matches(".*xiao.*yinliang.*")
-                        || inSpell.matches(".*shengyin.*xiao.*") || inSpell.matches(".*yinliang.*xiao.*")
-                        || inSpell.matches(".*yinliang.*jiangdi.*") || inSpell.matches(".*jiangdi.*yinliang.*")
-                        || inSpell.matches(".*jiangdi.*shengyin.*") || inSpell.matches(".*shengyin.*jiangdi.*")) {
-
-                    volume -= 3;
-                    if (volume > 3) {
-                        speak(getString(R.string.reduce_volume));
-                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
-                        mHandler.sendEmptyMessageDelayed(1, 2000);
-
-
-                    } else {
-                        speak(getString(R.string.min_volume));
-                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
-                        mHandler.sendEmptyMessageDelayed(1, 3000);
-
-                    }
-
-
-                } /*else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
-
-                    mImageView.setClickable(false);
-
-                    try {
-                        if (resultBuffer.toString().matches(".*听.*的.*")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
-                        } else if (resultBuffer.toString().contains("听")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "听"));
-                        }
-                        if (resultBuffer.toString().matches(".*播放.*的.*")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
-                        } else if (resultBuffer.toString().contains("播放")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "放"));
-                        }
-                        if (resultBuffer.toString().matches(".*放.*首.*的.*")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
-                        } else if (resultBuffer.toString().contains("放一首")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "首"));
-                        }
-
-
-                        // searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
-
-                    } catch (Exception e) {
-                        runOnUiThread(
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        speak(R.string.speak_no_result);
-                                        //   findViewById(R.id.iat_recognizes).performClick();
-                                    }
-                                }
-                        );
-                        e.printStackTrace();
-                    }
-
-
-                } */ else if (inSpell.matches(".*bu.*liao.*") || resultBuffer.toString().contains("退出")
-                        || resultBuffer.toString().contains("返回") || resultBuffer.toString().contains("再见")
-                        || resultBuffer.toString().contains("闭嘴") || inSpell.matches(".*baibai.*")) {
-
-                    finish();
-                } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
-                } else if (inSpell.matches(".*chong.*qian.*") || resultBuffer.toString().contains("钱不够") || resultBuffer.toString().contains("没钱")) {
-                    Intent intent = new Intent(getApplicationContext(), PayActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if (inSpell.matches(".*mai.*dongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
-                        inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
-                        inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou") || inSpell.matches(".*huai.*") ||
-                        resultBuffer.toString().contains("找不到") || resultBuffer.toString().contains("丢") || resultBuffer.toString().contains("不能用")) {
-
-                    Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
-                    startActivity(intent);
-                    finish();
-
-
-                } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
-                    startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
-                } else if (inSpell.matches(".*(li(si|shi)|(shu|su)ju|jilu).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
-                } else if (inSpell.matches(".*(dangan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
-                } else {
-                    new SpeechTask().execute();
-                }
-            }
-
-        }
-
-
-        class SpeechTask extends AsyncTask<Void, Void, Void> {
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    post(resultBuffer.toString());
-                } catch (Exception e) {
-//                    runOnUiThread(
-//                            new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    //speak(R.string.speak_no_result);
-//                                    findViewById(R.id.iat_recognizes).performClick();
-//                                }
-//                            }
-//                    );
-                    e.printStackTrace();
-                }
-                return null;
-            }
+            dealData(results, isLast);
         }
 
         /**
@@ -1332,6 +1233,27 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
     };
+
+    class SpeechTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                post(resultBuffer.toString());
+            } catch (Exception e) {
+//                    runOnUiThread(
+//                            new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    //speak(R.string.speak_no_result);
+//                                    findViewById(R.id.iat_recognizes).performClick();
+//                                }
+//                            }
+//                    );
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 
     private void showTip(final String str) {
         mToast.setText(str);
