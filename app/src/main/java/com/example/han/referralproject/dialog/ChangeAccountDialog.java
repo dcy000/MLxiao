@@ -44,6 +44,9 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
         findViewById(R.id.view_login).setOnClickListener(this);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
+        if (mAccountIds == null) {
+            return;
+        }
         StringBuilder mAccountIdBuilder = new StringBuilder();
         for (String item : mAccountIds){
             mAccountIdBuilder.append(item.split(",")[0]).append(",");

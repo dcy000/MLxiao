@@ -59,6 +59,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
 
     int i = 0;
 
+    public int doid;//账单id
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +139,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
                     .fit()
                     .into(mCircleImageView);
         }
+
+        doid = getIntent().getIntExtra("doid", 0);
 
     }
 
@@ -338,7 +342,7 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
 
                         }
 
-                        NetworkApi.appraise(sharedPreferences1.getString("doctor_id", ""), MyApplication.getInstance().userId, str.toString(), i, System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
+                        NetworkApi.appraise(sharedPreferences1.getString("doctor_id", ""), MyApplication.getInstance().userId, str.toString(), i, System.currentTimeMillis() + "", doid, new NetworkManager.SuccessCallback<String>() {
 
                             @Override
                             public void onSuccess(String response) {
