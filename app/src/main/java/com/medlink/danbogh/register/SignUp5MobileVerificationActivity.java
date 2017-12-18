@@ -130,7 +130,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             public void onFailed(String message) {
                 etCode.requestFocus();
                 SMSSDK.getVerificationCode("86", phone);
-                i = 30;
+                i = 60;
                 tvFetchCode.setEnabled(false);
                 Handlers.ui().postDelayed(countDown, 1000);
             }

@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -41,7 +42,6 @@ import com.example.han.referralproject.music.PlaySearchedMusic;
 import com.example.han.referralproject.music.PlayService;
 import com.example.han.referralproject.music.SearchMusic;
 import com.example.han.referralproject.music.ToastUtils;
-import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
@@ -50,7 +50,6 @@ import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.temperature.TemperatureActivity;
-import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.xuetang.XuetangActivity;
 import com.example.han.referralproject.xueya.XueyaActivity;
@@ -79,11 +78,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -94,13 +90,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener, OnPlayerEventListener {
 
@@ -331,16 +320,23 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void startAnim() {
-        AnimationDrawable anim = new AnimationDrawable();
-        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
-        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
-        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_three), 50);
-        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
-        anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
-        anim.setOneShot(true);
-        mRelativeLayout.setBackground(anim);
-        anim.start();
+        mRelativeLayout.post(action);
     }
+
+    Runnable action = new Runnable() {
+        @Override
+        public void run() {
+            AnimationDrawable anim = new AnimationDrawable();
+            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
+            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
+            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_three), 50);
+            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
+            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
+            anim.setOneShot(true);
+            mRelativeLayout.setBackground(anim);
+            anim.start();
+        }
+    };
 
     @Override
     public void onMusicListUpdate() {
@@ -502,10 +498,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
+        if (!TextUtils.isEmpty(mAudioPath)) {
+            onPlayAudio(mAudioPath);
+            mAudioPath = null;
+            return;
+        }
         if (faceAnim != null && faceAnim.isRunning()) {
             faceAnim.stop();
         }
         findViewById(R.id.iat_recognizes).performClick();
+    }
+
+    private void onPlayAudio(String audioPath) {
+
     }
 
     /**
@@ -677,66 +682,25 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     String str1;
+    private volatile String mAudioPath;
 
-    OkHttpClient client;
 
     private void post(String str) throws Exception {
-//        URL url = new URL("http://api.aicyber.com/passive_chat");
-//        URLConnection conn = url.openConnection();
-//        conn.setRequestProperty("accept", "*/*");
-//        conn.setRequestProperty("connection", "Keep-Alive");
-//
-//        conn.setDoOutput(true);
-//        conn.setDoInput(true);
-//
-//        PrintWriter pw = new PrintWriter(conn.getOutputStream());
-//
-//        Gson gson = new Gson();
-//
-//        RobotContent robot = new RobotContent("gh_1822e89468ba", str, "ml05120568675", "3e809a3d90398631ad4b291aadf0f230");
-//
-//        pw.print(gson.toJson(robot));
-//
-//        pw.flush();
-//        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//        String lineContent = null;
-//        String content = null;
-//
-//        //    Log.e("+++++++++++++", resultBuffer.toString());
-//        while ((lineContent = br.readLine()) != null) {
-//            content = lineContent;
-//        }
-//
-//
-//        Receive1 string = gson.fromJson(content, Receive1.class);
-//
-//        str1 = string.getReceive().getOutput();
-
-        if (client == null) {
-            client = new OkHttpClient();
-        }
-        RequestBody body = new FormBody.Builder()
-                .add("eqid", Utils.getDeviceId())
-                .add("text", str)
-                .build();
-        Request request = new Request.Builder()
-                .url(NetworkApi.BasicUrl + "/ZZB/xf/xfrq")
-//                .url("http://192.168.200.103:8080" + "/ZZB/xf/xfrq")
-                .post(body)
-                .build();
-        Call call = client.newCall(request);
-        try {
-            Response response = call.execute();
-            if (response.isSuccessful()) {
-                str1 = parseXffunQAResponse(response.body().string());
+        HashMap<String, String> results = QaApi.getQaFromXf(str);
+        String audiopath = results.get("audiopath");
+        String text = results.get("text");
+        boolean empty = TextUtils.isEmpty(text);
+        if (!TextUtils.isEmpty(audiopath)) {
+            mAudioPath = audiopath;
+            if (!empty) {
+                speak(text);
             } else {
-                str1 = "我真的不知道了";
+                onActivitySpeakFinish();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            str1 = "我真的不知道了";
+            return;
         }
-        if (("我真的不知道了").equals(str1)){
+        str1 = empty ? "我真的不知道了" : text;
+        if (("我真的不知道了").equals(str1)) {
             URL url = new URL("http://api.aicyber.com/passive_chat");
             URLConnection conn = url.openConnection();
             conn.setRequestProperty("accept", "*/*");
@@ -832,8 +796,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private static String parseXffunQAResponse(String text) {
         try {
             Log.i("mylog", text);
-            JSONObject apiResposeObj = new JSONObject(text);
-            text = apiResposeObj.optString("data");
+            JSONObject apiResponseObj = new JSONObject(text);
+            text = apiResponseObj.optString("data");
             JSONObject qaResponseObj = new JSONObject(text);
             String code = qaResponseObj.optString("code");
             if (text.equals("1")) {
@@ -1055,65 +1019,65 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
                     return;
                 }
-                if(inSpell.matches(".*(gaoxueya).*")){
+                if (inSpell.matches(".*(gaoxueya).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                    .putExtra("type","高血压"));
+                            .putExtra("type", "高血压"));
                 }
-                if(inSpell.matches(".*(guanxin(bin|bing)).*")){
+                if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","冠心病"));
+                            .putExtra("type", "冠心病"));
                 }
-                if(inSpell.matches(".*(zhiqiguanxiaochuan).*")){
+                if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","支气管哮喘"));
+                            .putExtra("type", "支气管哮喘"));
                 }
-                if(inSpell.matches(".*(gan(yin|ying)hua).*")){
+                if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","肝硬化"));
+                            .putExtra("type", "肝硬化"));
                 }
-                if(inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")){
+                if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","糖尿病"));
+                            .putExtra("type", "糖尿病"));
                 }
-                if(inSpell.matches(".*(tongfeng).*")){
+                if (inSpell.matches(".*(tongfeng).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","痛风"));
+                            .putExtra("type", "痛风"));
                 }
-                if(inSpell.matches(".*(changweiyan).*")){
+                if (inSpell.matches(".*(changweiyan).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","肠胃炎"));
+                            .putExtra("type", "肠胃炎"));
                 }
-                if(inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")){
+                if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","急性上呼吸道感染"));
+                            .putExtra("type", "急性上呼吸道感染"));
                 }
-                if(inSpell.matches(".*(xinbaoyan).*")){
+                if (inSpell.matches(".*(xinbaoyan).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","心包炎"));
+                            .putExtra("type", "心包炎"));
                 }
-                if(inSpell.matches(".*((pin|ping)(xie|xue)).*")){
+                if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","贫血"));
+                            .putExtra("type", "贫血"));
                 }
-                if(inSpell.matches(".*(feiyan).*")){
+                if (inSpell.matches(".*(feiyan).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","肺炎"));
+                            .putExtra("type", "肺炎"));
                 }
-                if(inSpell.matches(".*(di(xie|xue)tang).*")){
+                if (inSpell.matches(".*(di(xie|xue)tang).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","低血糖"));
+                            .putExtra("type", "低血糖"));
                 }
-                if(inSpell.matches(".*((nao|lao)chu(xie|xue)).*")){
+                if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","脑出血"));
+                            .putExtra("type", "脑出血"));
                 }
-                if(inSpell.matches(".*(fei(suan|shuan)sai).*")){
+                if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","肺栓塞"));
+                            .putExtra("type", "肺栓塞"));
                 }
-                if(inSpell.matches(".*(dianxian).*")){
+                if (inSpell.matches(".*(dianxian).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
-                            .putExtra("type","癫痫"));
+                            .putExtra("type", "癫痫"));
                 }
 
 
