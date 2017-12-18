@@ -81,9 +81,18 @@ public class LocalShared {
     }
 
     public String[] getAccounts() {
-        String accountsString = mShared.getString(UserAccounts, "");
+        String accountsString = mShared.getString(UserAccounts_new, "");
+
         if (TextUtils.isEmpty(accountsString)){
-            return null;
+            String old_accountsString=mShared.getString(UserAccounts,"");
+            if(TextUtils.isEmpty(old_accountsString)){
+                return null;
+            }else{
+                addAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);
+//                deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);
+                return new String[]{MyApplication.getInstance().userId+","+MyApplication.getInstance().xfid};
+            }
+
         }
         return accountsString.substring(0, accountsString.length() - 1).split(";");
     }

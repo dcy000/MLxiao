@@ -174,7 +174,12 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                     ToastUtils.show("至少选择一个病症标签");
                     return;
                 }
-                NetworkApi.analyseSym(buffer.substring(0, buffer.length() - 1), mAnalyseCallback);
+                if(buffer.contains(",")){
+                    NetworkApi.analyseSym(buffer.substring(0, buffer.length() - 1), mAnalyseCallback);
+                }else{
+                    NetworkApi.analyseSym(buffer, mAnalyseCallback);
+                }
+
                 break;
             case R.id.tv_1://删除第一层病症标签
                 flag--;
