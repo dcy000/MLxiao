@@ -24,6 +24,7 @@ import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -105,6 +106,53 @@ public class VideoListFragment extends Fragment {
             entities.add(new VideoDetailEntity(url, title));
         }
         showVideos(entities);
+    }
+
+    private HashMap<String, List<String>> mTitleMap;
+    {
+        mTitleMap = new HashMap<>();
+        List<String> hypertensions = new ArrayList<>();
+        hypertensions.add("孕产期保健知识讲座");
+        hypertensions.add("人体老化时间表");
+        hypertensions.add("一般人群的膳食建议");
+        hypertensions.add("正确拨打120");
+        hypertensions.add("急救知识普及");
+        hypertensions.add("旅游时崴脚、骨折怎么办");
+        hypertensions.add("如何健康吃油");
+        hypertensions.add("上班族怎么保护腰颈肩膝盖");
+        hypertensions.add("细嚼慢咽真的能减肥吗");
+        hypertensions.add("心肺复苏急救知识");
+        mTitleMap.put("hypertension", hypertensions);
+        List<String> cartoons = new ArrayList<>();
+        cartoons.add("发现新世界");
+        cartoons.add("幼儿园的一天");
+        cartoons.add("虫儿飞飞");
+        cartoons.add("去野营");
+        cartoons.add("爱哭的熊二");
+        cartoons.add("种西瓜");
+        cartoons.add("突突来俺家");
+        cartoons.add("爱要长高");
+        cartoons.add("门外的陌生人");
+        cartoons.add("旧玩具");
+        mTitleMap.put("lifetip", cartoons);
+        List<String> lifetips = new ArrayList<>();
+        cartoons.add("袜子这样跌不起球");
+        cartoons.add("1秒钟叠衬衫T恤");
+        cartoons.add("对付手脚干裂的小妙招");
+        cartoons.add("八个清洁小技巧");
+        cartoons.add("落枕了怎么办");
+        cartoons.add("葡萄干和提子怎么洗");
+        cartoons.add("数据线还能这么用");
+        cartoons.add("衣服收纳大全");
+        cartoons.add("这五种水果最难切了");
+        cartoons.add("几种牢固绳结实用打法");
+        cartoons.add("生活健康常识");
+        cartoons.add("切洋葱不流泪");
+        mTitleMap.put("lifetip", lifetips);
+    }
+
+    private static String getVideoTitle(String type) {
+        return null;
     }
 
     private void showVideos(List<VideoDetailEntity> entities) {

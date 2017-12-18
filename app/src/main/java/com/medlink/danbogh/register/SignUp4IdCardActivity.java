@@ -133,7 +133,11 @@ public class SignUp4IdCardActivity extends BaseActivity {
         Pattern patternInIdCard = Pattern.compile(REGEX_IN_ID_CARD);
         Matcher matcherInIdCard = patternInIdCard.matcher(in);
         if (matcherInIdCard.find()) {
-            String s = etIdCard.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());
+            String target = etIdCard.getText().toString().trim();
+            if (target.length() >= 18) {
+                return;
+            }
+            String s = target + matcherInIdCard.group(matcherInIdCard.groupCount());
             etIdCard.setText(s);
             etIdCard.setSelection(s.length());
         }
