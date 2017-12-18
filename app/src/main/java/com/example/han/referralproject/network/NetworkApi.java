@@ -29,6 +29,8 @@ import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.recyclerview.Docter;
+import com.example.han.referralproject.recyclerview.OnlineTime;
+import com.example.han.referralproject.shopping.Goods;
 import com.example.han.referralproject.shopping.Order;
 import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
@@ -41,7 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    public static final String BasicUrl = "http://192.168.200.115:8080";
+    public static final String BasicUrl = "http://192.168.200.109:8080";
 
 //    public static final String BasicUrl = "http://192.168.200.103:8080";
 
@@ -86,6 +88,8 @@ public class NetworkApi {
 
     public static final String ONLINE_DOCTER_LIST = BasicUrl + "/ZZB/docter/search_online_status";
 
+    public static final String ONLINE_DOCTER_ZIXUN = BasicUrl + "/ZZB/docter/online_consulting";
+
 
     public static final String ORDER_INFO = BasicUrl + "/ZZB/order/panding_pay";
 
@@ -101,9 +105,15 @@ public class NetworkApi {
     public static final String Get_AllDotor = BasicUrl + "/ZZB/docter/seldoctors";
     public static final String FIND_ACCOUNT = BasicUrl + "/ZZB/acc/sel_account";
     public static final String SET_PASSWORD = BasicUrl + "/ZZB/acc/update_account_pwd";
+
+
     //修改个人基本信息
     public static final String Alert_Basedata = BasicUrl + "/ZZB/br/update_user_onecon";
     public static final String Get_jibing = BasicUrl + "/ZZB/bl/selSugByBname";
+
+
+    public static final String GOODS_LIST = BasicUrl + "/ZZB/order/OneType_state";
+
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
@@ -220,6 +230,25 @@ public class NetworkApi {
         paramsMap.put("pagesize", pagesize + "");
 
         NetworkManager.getInstance().postResultClass(ONLINE_DOCTER_LIST, paramsMap, new TypeToken<ArrayList<Docter>>() {
+        }.getType(), listener, failedCallback);
+    }
+
+    public static void goods_list(int state, NetworkManager.SuccessCallback<ArrayList<Goods>> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("state", state + "");
+
+        NetworkManager.getInstance().postResultClass(GOODS_LIST, paramsMap, new TypeToken<ArrayList<Goods>>() {
+        }.getType(), listener, failedCallback);
+    }
+
+
+    public static void onlinedoctor_zixun(int docterid, int userid, int state, NetworkManager.SuccessCallback<OnlineTime> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("docterid", docterid + "");
+        paramsMap.put("userid", userid + "");
+        paramsMap.put("state", state + "");
+
+        NetworkManager.getInstance().postResultClass(ONLINE_DOCTER_ZIXUN, paramsMap, new TypeToken<OnlineTime>() {
         }.getType(), listener, failedCallback);
     }
 

@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -38,7 +40,7 @@ import org.litepal.crud.DataSupport;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DoctorMesActivity extends BaseActivity {
+public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
     ImageView mImageView;
 
@@ -58,29 +60,52 @@ public class DoctorMesActivity extends BaseActivity {
 
     Button mButton;
 
-    private AllDoctor allDoctor;
-    //  private int flag = -1;//记录是从预约医生过来的还是在线医生过来的，0：预约医生，1：在线医生
-    //private TextView title;
 
     String sign;
+
+    boolean flag = true;
+
+    int i = 30;
+
+    SharedPreferences sharedPreferences;
+
+    SharedPreferences sharedPreference;
+
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    mButton.setText(i + "");
+                    break;
+                case 1:
+                    mButton.setText(getString(R.string.zixun));
+                    mButton.setEnabled(true);
+                    break;
+            }
+        }
+    };
+
+    Docter doctor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
-        //    initToolBar();
 
         Intent intent = getIntent();
-        final Docter doctor = (Docter) intent.getSerializableExtra("docMsg");
+        doctor = (Docter) intent.getSerializableExtra("docMsg");
 
         sign = intent.getStringExtra("sign");
-
-
         mToolbar.setVisibility(View.VISIBLE);
 
+        sharedPreferences = getSharedPreferences(ConstantData.ONLINE_TIME, Context.MODE_PRIVATE);
+
+        sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
-
         mTextView = (TextView) findViewById(R.id.names);
         mTextView1 = (TextView) findViewById(R.id.duty);
         mTextView2 = (TextView) findViewById(R.id.hospital);
@@ -94,17 +119,35 @@ public class DoctorMesActivity extends BaseActivity {
         mStar4 = (ImageView) findViewById(R.id.star4);
         mStar5 = (ImageView) findViewById(R.id.star5);
 
+        mButton.setOnClickListener(this);
+
 
         if ("1".equals(sign)) {
 
             mTitleText.setText(getString(R.string.online_qianyue));
-            mButton.setText("咨询");
+            mButton.setText(getString(R.string.zixun));
 
 
         } else {
             mTitleText.setText(getString(R.string.doctor_qianyue));
 
         }
+
+        if (!"".equals(sharedPreferences.getString("online_time", ""))) {
+
+            long countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
+            if (countdown < 30000) {
+
+                i = 30 - Integer.parseInt((countdown / 1000) + "");
+                mButton.setEnabled(false);
+                countdown();
+
+
+            }
+
+
+        }
+
 
         if (Integer.parseInt(doctor.getEvaluation()) <= 60) {
 
@@ -158,65 +201,43 @@ public class DoctorMesActivity extends BaseActivity {
         mTextView4.setText(doctor.getPro());
 
 
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    }
 
-              /*  ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
-                finish();*/
+    public void countdown() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (; i >= 0; i--) {
+                    mHandler.sendEmptyMessage(0);
+                    if (i == 0) {
+                        i = 30;
+                        break;
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                mHandler.sendEmptyMessage(1);
+
 
             }
-        });
-
+        }).start();
 
     }
 
-//    public void show() {
-//        Toast toast = new Toast(getApplicationContext());
-//        LayoutInflater inflate = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View v = inflate.inflate(R.layout.your_custom_layout, null);
-//        View vs = v.findViewById(R.id.back);//找到你要设透明背景的layout 的id
-//        vs.getBackground().setAlpha(100);//0~255透明度值
-//
-//        // 在这里初始化一下里面的文字啊什么的
-//        toast.setView(v);
-//        //   toast.setDuration(Toast.LENGTH_LONG);
-//        toast.setGravity(Gravity.FILL_HORIZONTAL, 0, 0);
-//        showMyToast(toast, 3000);
-//        // toast.show();
-//    }
+    @Override
+    protected void onPause() {
+        super.onPause();
 
+        //   mButton.setEnabled(true);
+        //  mButton.setText(getString(R.string.zixun));
 
-//    public void showMyToast(final Toast toast, final int cnt) {
-//        final Timer timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                toast.show();
-//            }
-//        }, 0, Toast.LENGTH_LONG);
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                toast.cancel();
-//                timer.cancel();
-//            }
-//        }, cnt);
-//    }
-
-   /* private void initToolBar() {
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        mTitleText = (TextView) findViewById(R.id.title_content);
-
-        mToolBar.setTitle("");
-        setSupportActionBar(mToolBar);
-        // 给左上角图标的左边加上一个返回的图标
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //    mTitleText.setText(str);
-        // mTitleText.setTextSize(25);
-        //    mTitleText.setGravity(Gravity.CENTER);
-
-    }*/
+    }
 
 
     /**
@@ -246,12 +267,10 @@ public class DoctorMesActivity extends BaseActivity {
         super.onResume();
         setDisableGlobalListen(true);
         if ("1".equals(sign)) {
-
-            speak(R.string.tips_info);
-
+            speak(R.string.online_info);
 
         } else {
-            speak(R.string.online_info);
+            speak(R.string.tips_info);
 
         }
 
@@ -280,4 +299,52 @@ public class DoctorMesActivity extends BaseActivity {
             //  mImageView.performClick();
         }
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.qianyue:
+
+                if ("1".equals(sign)) {
+
+                    countdown();
+                    mButton.setEnabled(false);
+                    OnlineTime();
+
+
+                } else {
+                    ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                    finish();
+                }
+                break;
+
+        }
+    }
+
+    public void OnlineTime() {
+        NetworkApi.onlinedoctor_zixun(10001, 100058, 0, new NetworkManager.SuccessCallback<OnlineTime>() {
+            @Override
+            public void onSuccess(OnlineTime response) {
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("online_time", response.getTime());
+                editor.commit();
+
+                SharedPreferences.Editor editors = sharedPreference.edit();
+                editors.putString("online_id", doctor.getDocterid());
+                editors.commit();
+
+                speak(getString(R.string.doctor_online));
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+
+    }
+
 }

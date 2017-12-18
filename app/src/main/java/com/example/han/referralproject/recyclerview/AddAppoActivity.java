@@ -224,6 +224,15 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     public TextView mDay7;
 
 
+    public TextView mMornings;
+    public TextView mAfternoons;
+    public LinearLayout LinearLayout1;
+    public LinearLayout LinearLayout2;
+    public LinearLayout LinearLayout3;
+    public LinearLayout LinearLayout4;
+
+    public int sign;
+
     /**
      * 返回上一页
      */
@@ -248,37 +257,15 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         mToolbar.setVisibility(View.VISIBLE);
 
-
         mTitleText.setText(getString(R.string.doctor_yuyue));
 
         initView();
 
         dialog1 = new NDialog2(AddAppoActivity.this);
 
-
-
-       /* ImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        ImageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });*/
-
-
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
-
         date = new Date();
-
         simpl = new SimpleDateFormat("M");
 
 
@@ -399,7 +386,9 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
 
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:00:00"))
+                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:00:00"))
+                            ) {
 
                         mTextView1.setText("已预约");
                         mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
@@ -408,7 +397,11 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:00:00"))
+
+                            ) {
 
                         mTextView2.setText("已预约");
                         mTextView2.setTextColor(Color.parseColor("#BBBBBB"));
@@ -416,7 +409,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:00:00"))
+
+
+                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:00:00"))
+
+                            ) {
 
                         mTextView3.setText("已预约");
                         mTextView3.setTextColor(Color.parseColor("#BBBBBB"));
@@ -425,7 +423,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:00:00"))
+
+
+                            ) {
 
                         mTextView4.setText("已预约");
                         mTextView4.setTextColor(Color.parseColor("#BBBBBB"));
@@ -433,7 +436,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:00:00"))
+
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:00:00"))
+
+
+                            ) {
 
 
                         mTextView5.setText("已预约");
@@ -442,7 +451,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:00:00"))
+
+
+                            ) {
 
 
                         mTextView6.setText("已预约");
@@ -451,14 +465,23 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:00:00"))
+
+                            ) {
 
                         mTextView7.setText("已预约");
                         mTextView7.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView7.setEnabled(false);
 
                     }
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:20:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:20:00"))
+
+
+                            ) {
 
                         mTextView8.setText("已预约");
                         mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
@@ -466,7 +489,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:20:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:20:00"))
+
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:20:00"))
+
+
+                            ) {
 
 
                         mTextView9.setText("已预约");
@@ -475,7 +504,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:20:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:20:00"))
+
+
+                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:20:00"))
+
+
+                            ) {
 
 
                         mTextView10.setText("已预约");
@@ -484,7 +519,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:20:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:20:00"))
+
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:20:00"))
+
+
+                            ) {
 
 
                         mTextView11.setText("已预约");
@@ -493,21 +534,35 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:20:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:20:00"))
+
+
+                            ) {
                         mTextView12.setText("已预约");
                         mTextView12.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView12.setEnabled(false);
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:20:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:20:00"))
+
+                            ) {
                         mTextView13.setText("已预约");
                         mTextView13.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView13.setEnabled(false);
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:20:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:20:00"))
+
+
+                            ) {
                         mTextView14.setText("已预约");
                         mTextView14.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView14.setEnabled(false);
@@ -515,34 +570,61 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     }
 
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:40:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:40:00"))
+
+
+                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:40:00"))
+
+
+                            ) {
                         mTextView15.setText("已预约");
                         mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView15.setEnabled(false);
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:40:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:40:00"))
+
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:40:00"))
+
+
+                            ) {
                         mTextView16.setText("已预约");
                         mTextView16.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView16.setEnabled(false);
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:40:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:40:00"))
+
+
+                            ) {
                         mTextView17.setText("已预约");
                         mTextView17.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView17.setEnabled(false);
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:40:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:40:00"))
+
+
+                            ) {
                         mTextView18.setText("已预约");
                         mTextView18.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView18.setEnabled(false);
 
                     }
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:40:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:40:00"))
+
+
+                            ) {
 
                         mTextView19.setText("已预约");
                         mTextView19.setTextColor(Color.parseColor("#BBBBBB"));
@@ -550,7 +632,11 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:40:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:40:00"))
+
+                            ) {
 
 
                         mTextView20.setText("已预约");
@@ -559,7 +645,11 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:40:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:40:00"))
+
+                            ) {
 
                         mTextView21.setText("已预约");
                         mTextView21.setTextColor(Color.parseColor("#BBBBBB"));
@@ -567,21 +657,37 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "14:30:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:00:00"))
+
+
+                            ) {
                         mTextView22.setText("已预约");
                         mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView22.setEnabled(false);
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "14:30:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:00:00"))
+
+
+                            ) {
+
                         mTextView23.setText("已预约");
                         mTextView23.setTextColor(Color.parseColor("#BBBBBB"));
                         mTextView23.setEnabled(false);
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "14:30:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:00:00"))
+
+
+                            ) {
 
                         mTextView24.setText("已预约");
                         mTextView24.setTextColor(Color.parseColor("#BBBBBB"));
@@ -589,7 +695,14 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "14:30:00"))) {
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:00:00"))
+
+
+                            ) {
+
 
                         mTextView25.setText("已预约");
                         mTextView25.setTextColor(Color.parseColor("#BBBBBB"));
@@ -597,7 +710,14 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "14:30:00"))) {
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:00:00"))
+
+
+                            ) {
+
 
                         mTextView26.setText("已预约");
                         mTextView26.setTextColor(Color.parseColor("#BBBBBB"));
@@ -605,7 +725,14 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "14:30:00"))) {
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:00:00"))
+
+
+                            ) {
+
 
                         mTextView27.setText("已预约");
                         mTextView27.setTextColor(Color.parseColor("#BBBBBB"));
@@ -613,7 +740,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "14:30:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:00:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:00:00"))
+
+
+                            ) {
 
                         mTextView28.setText("已预约");
                         mTextView28.setTextColor(Color.parseColor("#BBBBBB"));
@@ -621,7 +753,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:00:00"))) {
+
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:20:00"))
+
+
+                            ) {
 
                         mTextView29.setText("已预约");
                         mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
@@ -629,7 +767,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:20:00"))
+
+
+                            ) {
 
                         mTextView30.setText("已预约");
                         mTextView30.setTextColor(Color.parseColor("#BBBBBB"));
@@ -638,7 +781,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:20:00"))
+
+
+                            ) {
+
                         mTextView31.setText("已预约");
                         mTextView31.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -646,7 +795,14 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:00:00"))) {
+
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:20:00"))
+
+
+                            ) {
+
                         mTextView32.setText("已预约");
                         mTextView32.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -654,7 +810,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:20:00"))
+
+
+                            ) {
+
                         mTextView33.setText("已预约");
                         mTextView33.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -662,7 +824,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:20:00"))
+
+
+                            ) {
+
                         mTextView34.setText("已预约");
                         mTextView34.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -670,7 +838,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:20:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:20:00"))
+
+                            ) {
+
                         mTextView35.setText("已预约");
                         mTextView35.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -678,7 +851,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:40:00"))
+
+                            ) {
+
                         mTextView36.setText("已预约");
                         mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -686,7 +864,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:40:00"))
+
+                            ) {
+
                         mTextView37.setText("已预约");
                         mTextView37.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -694,7 +877,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:00:00"))) {
+                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:40:00"))
+
+                            ) {
+
                         mTextView38.setText("已预约");
                         mTextView38.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -702,40 +890,64 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                     }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:00:00"))) {
-                        mTextView39.setText("已预约");
-                        mTextView39.setTextColor(Color.parseColor("#BBBBBB"));
 
-                        mTextView39.setEnabled(false);
+                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:40:00"))
+
+                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:40:00"))
+
+                            ) {
+
+                        {
+                            mTextView39.setText("已预约");
+                            mTextView39.setTextColor(Color.parseColor("#BBBBBB"));
+
+                            mTextView39.setEnabled(false);
+
+                        }
+
+                        if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:40:00"))
+
+                                || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:40:00"))
+
+                                ) {
+
+                            mTextView40.setText("已预约");
+                            mTextView40.setTextColor(Color.parseColor("#BBBBBB"));
+
+                            mTextView40.setEnabled(false);
+
+                        }
+
+                        if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:40:00"))
+
+                                || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:40:00"))
+
+                                ) {
+
+                            mTextView41.setText("已预约");
+                            mTextView41.setTextColor(Color.parseColor("#BBBBBB"));
+
+                            mTextView41.setEnabled(false);
+
+                        }
+
+
+                        if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:40:00"))
+
+                                || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:40:00"))
+
+                                ) {
+
+                            mTextView42.setText("已预约");
+                            mTextView42.setTextColor(Color.parseColor("#BBBBBB"));
+
+                            mTextView42.setEnabled(false);
+
+                        }
+
+                        // sharedPreferences1.getString("doctor_id", "")
 
                     }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:00:00"))) {
-                        mTextView40.setText("已预约");
-                        mTextView40.setTextColor(Color.parseColor("#BBBBBB"));
-
-                        mTextView40.setEnabled(false);
-
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:00:00"))) {
-                        mTextView41.setText("已预约");
-                        mTextView41.setTextColor(Color.parseColor("#BBBBBB"));
-
-                        mTextView41.setEnabled(false);
-
-                    }
-
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:00:00"))) {
-                        mTextView42.setText("已预约");
-                        mTextView42.setTextColor(Color.parseColor("#BBBBBB"));
-
-                        mTextView42.setEnabled(false);
-
-                    }
-
-                    // sharedPreferences1.getString("doctor_id", "")
-
                 }
             }
 
@@ -779,20 +991,48 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.yuyue_1:
 
-                showNormal(mTextView1, simple.format(date), "上午", "09:00:00-09:20:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView1, simple.format(date), "上午", "09:00:00-09:20:00");
+
+                } else {
+                    showNormal(mTextView1, simple.format(date), "下午", "15:00:00-15:20:00");
+
+                }
                 mTextView1.setText("已预约");
                 mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
+
 
                 break;
             case R.id.yuyue_2:
 
-                showNormal(mTextView2, formatter.format(date1), "上午", "09:00:00-09:20:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView2, formatter.format(date1), "上午", "09:00:00-09:20:00");
+
+
+                } else {
+                    showNormal(mTextView2, formatter.format(date1), "下午", "15:00:00-15:20:00");
+
+                }
+
+
                 mTextView2.setText("已预约");
                 mTextView2.setTextColor(Color.parseColor("#BBBBBB"));
                 break;
             case R.id.yuyue_3:
 
-                showNormal(mTextView3, formatte2.format(date2), "上午", "09:00:00-09:20:00");
+                if (sign == 0) {
+
+
+                    showNormal(mTextView3, formatte2.format(date2), "上午", "09:00:00-09:20:00");
+
+                } else {
+                    showNormal(mTextView3, formatte2.format(date2), "下午", "15:00:00-15:20:00");
+
+                }
+
+
                 mTextView3.setText("已预约");
                 mTextView3.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -800,15 +1040,34 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_4:
 
-                showNormal(mTextView4, formatter4.format(date3), "上午", "09:00:00-09:20:00");
+
+                if (sign == 0) {
+
+
+                    showNormal(mTextView4, formatter4.format(date3), "上午", "09:00:00-09:20:00");
+
+
+                } else {
+                    showNormal(mTextView4, formatter4.format(date3), "下午", "15:00:00-15:20:00");
+
+                }
 
                 mTextView4.setText("已预约");
                 mTextView4.setTextColor(Color.parseColor("#BBBBBB"));
                 break;
             case R.id.yuyue_5:
 
+                if (sign == 0) {
 
-                showNormal(mTextView5, formatter6.format(date4), "上午", "09:00:00-09:20:00");
+
+                    showNormal(mTextView5, formatter6.format(date4), "上午", "09:00:00-09:20:00");
+
+
+                } else {
+                    showNormal(mTextView5, formatter6.format(date4), "下午", "15:00:00-15:20:00");
+
+                }
+
 
                 mTextView5.setText("已预约");
                 mTextView5.setTextColor(Color.parseColor("#BBBBBB"));
@@ -817,7 +1076,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_6:
 
 
-                showNormal(mTextView6, formatter8.format(date5), "上午", "09:00:00-09:20:00");
+                if (sign == 0) {
+
+
+                    showNormal(mTextView6, formatter8.format(date5), "上午", "09:00:00-09:20:00");
+
+
+                } else {
+                    showNormal(mTextView6, formatter8.format(date5), "下午", "15:00:00-15:20:00");
+
+                }
+
                 mTextView6.setText("已预约");
                 mTextView6.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -826,7 +1095,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.yuyue_7:
 
-                showNormal(mTextView7, formatter10.format(date6), "上午", "09:00:00-09:20:00");
+                if (sign == 0) {
+
+
+                    showNormal(mTextView7, formatter10.format(date6), "上午", "09:00:00-09:20:00");
+
+
+                } else {
+                    showNormal(mTextView7, formatter10.format(date6), "下午", "15:00:00-15:20:00");
+
+                }
+
 
                 mTextView7.setText("已预约");
                 mTextView7.setTextColor(Color.parseColor("#BBBBBB"));
@@ -834,7 +1113,18 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_8:
 
-                showNormal(mTextView8, simple.format(date), "上午", "09:20:00-09:40:00");
+                if (sign == 0) {
+
+
+                    showNormal(mTextView8, simple.format(date), "上午", "09:20:00-09:40:00");
+
+
+                } else {
+                    showNormal(mTextView8, simple.format(date), "下午", "15:20:00-15:40:00");
+
+                }
+
+
                 mTextView8.setText("已预约");
                 mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -843,7 +1133,18 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.yuyue_9:
 
-                showNormal(mTextView9, formatter.format(date1), "上午", "09:20:00-09:40:00");
+
+                if (sign == 0) {
+
+
+                    showNormal(mTextView9, formatter.format(date1), "上午", "09:20:00-09:40:00");
+
+
+                } else {
+                    showNormal(mTextView9, formatter.format(date1), "下午", "15:20:00-15:40:00");
+
+                }
+
 
                 mTextView9.setText("已预约");
                 mTextView9.setTextColor(Color.parseColor("#BBBBBB"));
@@ -853,7 +1154,18 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.yuyue_10:
 
-                showNormal(mTextView10, formatte2.format(date2), "上午", "09:20:00-09:40:00");
+
+                if (sign == 0) {
+
+
+                    showNormal(mTextView10, formatte2.format(date2), "上午", "09:20:00-09:40:00");
+
+
+                } else {
+                    showNormal(mTextView10, formatte2.format(date2), "下午", "15:20:00-15:40:00");
+
+                }
+
                 mTextView10.setText("已预约");
                 mTextView10.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -862,7 +1174,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_11:
 
 
-                showNormal(mTextView11, formatter4.format(date3), "上午", "09:20:00-09:40:00");
+                if (sign == 0) {
+
+
+                    showNormal(mTextView11, formatter4.format(date3), "上午", "09:20:00-09:40:00");
+
+
+                } else {
+                    showNormal(mTextView11, formatter4.format(date3), "下午", "15:20:00-15:40:00");
+
+                }
+
 
                 mTextView11.setText("已预约");
                 mTextView11.setTextColor(Color.parseColor("#BBBBBB"));
@@ -872,7 +1194,18 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.yuyue_12:
 
-                showNormal(mTextView12, formatter6.format(date4), "上午", "09:20:00-09:40:00");
+
+                if (sign == 0) {
+
+
+                    showNormal(mTextView12, formatter6.format(date4), "上午", "09:20:00-09:40:00");
+
+
+                } else {
+                    showNormal(mTextView12, formatter6.format(date4), "下午", "15:20:00-15:40:00");
+
+                }
+
                 mTextView12.setText("已预约");
                 mTextView12.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -882,7 +1215,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_13:
 
 
-                showNormal(mTextView13, formatter8.format(date5), "上午", "09:20:00-09:40:00");
+                if (sign == 0) {
+
+
+                    showNormal(mTextView13, formatter8.format(date5), "上午", "09:20:00-09:40:00");
+
+
+                } else {
+                    showNormal(mTextView13, formatter8.format(date5), "下午", "15:20:00-15:40:00");
+
+                }
+
                 mTextView13.setText("已预约");
                 mTextView13.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -892,7 +1235,18 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_14:
 
 
-                showNormal(mTextView14, formatter10.format(date6), "上午", "09:20:00-09:40:00");
+                if (sign == 0) {
+
+
+                    showNormal(mTextView14, formatter10.format(date6), "上午", "09:20:00-09:40:00");
+
+
+                } else {
+                    showNormal(mTextView14, formatter10.format(date6), "下午", "15:20:00-15:40:00");
+
+                }
+
+
                 mTextView14.setText("已预约");
                 mTextView14.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -902,7 +1256,16 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_15:
 
 
-                showNormal(mTextView15, simple.format(date), "上午", "9:40:00-10:00:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView15, simple.format(date), "上午", "9:40:00-10:00:00");
+
+
+                } else {
+                    showNormal(mTextView15, simple.format(date), "下午", "15:40:00-16:00:00");
+
+                }
+
                 mTextView15.setText("已预约");
                 mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -911,7 +1274,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.yuyue_16:
 
-                showNormal(mTextView16, formatter.format(date1), "上午", "9:40:00-10:00:00");
+
+                if (sign == 0) {
+
+                    showNormal(mTextView16, formatter.format(date1), "上午", "9:40:00-10:00:00");
+
+
+                } else {
+                    showNormal(mTextView16, formatter.format(date1), "下午", "15:40:00-16:00:00");
+
+                }
+
                 mTextView16.setText("已预约");
                 mTextView16.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -920,7 +1293,16 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_17:
 
 
-                showNormal(mTextView17, formatte2.format(date2), "上午", "9:40:00-10:00:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView17, formatte2.format(date2), "上午", "9:40:00-10:00:00");
+
+
+                } else {
+                    showNormal(mTextView17, formatte2.format(date2), "下午", "15:40:00-16:00:00");
+
+                }
+
 
                 mTextView17.setText("已预约");
                 mTextView17.setTextColor(Color.parseColor("#BBBBBB"));
@@ -931,7 +1313,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_18:
 
 
-                showNormal(mTextView18, formatter4.format(date3), "上午", "9:40:00-10:00:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView18, formatter4.format(date3), "上午", "9:40:00-10:00:00");
+
+
+                } else {
+                    showNormal(mTextView18, formatter4.format(date3), "下午", "15:40:00-16:00:00");
+
+                }
+
+
                 mTextView18.setText("已预约");
                 mTextView18.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -940,7 +1332,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.yuyue_19:
 
-                showNormal(mTextView19, formatter6.format(date4), "上午", "9:40:00-10:00:00");
+
+                if (sign == 0) {
+
+                    showNormal(mTextView19, formatter6.format(date4), "上午", "9:40:00-10:00:00");
+
+
+                } else {
+                    showNormal(mTextView19, formatter6.format(date4), "下午", "15:40:00-16:00:00");
+
+                }
+
                 mTextView19.setText("已预约");
                 mTextView19.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -949,7 +1351,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.yuyue_20:
 
-                showNormal(mTextView20, formatter8.format(date5), "上午", "9:40:00-10:00:00");
+
+                if (sign == 0) {
+
+                    showNormal(mTextView20, formatter8.format(date5), "上午", "9:40:00-10:00:00");
+
+
+                } else {
+                    showNormal(mTextView20, formatter8.format(date5), "下午", "15:40:00-16:00:00");
+
+                }
+
                 mTextView20.setText("已预约");
                 mTextView20.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -959,7 +1371,16 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_21:
 
 
-                showNormal(mTextView21, formatter10.format(date6), "上午", "9:40:00-10:00:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView21, formatter10.format(date6), "上午", "9:40:00-10:00:00");
+
+
+                } else {
+                    showNormal(mTextView21, formatter10.format(date6), "下午", "15:40:00-16:00:00");
+
+                }
+
 
                 mTextView21.setText("已预约");
                 mTextView21.setTextColor(Color.parseColor("#BBBBBB"));
@@ -967,8 +1388,16 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_22:
 
+                if (sign == 0) {
 
-                showNormal(mTextView22, simple.format(date), "下午", "14:30:00-14:50:00");
+                    showNormal(mTextView22, simple.format(date), "上午", "10:00:00-10:20:00");
+
+
+                } else {
+                    showNormal(mTextView22, simple.format(date), "下午", "16:00:00-16:20:00");
+
+                }
+
 
                 mTextView22.setText("已预约");
                 mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
@@ -978,7 +1407,18 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_23:
 
 
-                showNormal(mTextView23, formatter.format(date1), "下午", "14:30:00-14:50:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView23, formatter.format(date1), "上午", "10:00:00-10:20:00");
+
+
+                } else {
+
+
+                    showNormal(mTextView23, formatter.format(date1), "下午", "16:00:00-16:20:00");
+
+                }
+
                 mTextView23.setText("已预约");
                 mTextView23.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -987,7 +1427,18 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_24:
 
 
-                showNormal(mTextView24, formatte2.format(date2), "下午", "14:30:00-14:50:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView24, formatte2.format(date2), "上午", "10:00:00-10:20:00");
+
+
+                } else {
+
+
+                    showNormal(mTextView24, formatte2.format(date2), "下午", "16:00:00-16:20:00");
+
+                }
+
                 mTextView24.setText("已预约");
                 mTextView24.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -995,7 +1446,15 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_25:
 
-                showNormal(mTextView25, formatter4.format(date3), "下午", "14:30:00-14:50:00");
+
+                if (sign == 0) {
+
+                    showNormal(mTextView25, formatter4.format(date3), "上午", "10:00:00-10:20:00");
+
+                } else {
+                    showNormal(mTextView25, formatter4.format(date3), "下午", "16:00:00-16:20:00");
+                }
+
                 mTextView25.setText("已预约");
                 mTextView25.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1004,7 +1463,15 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_26:
 
 
-                showNormal(mTextView26, formatter6.format(date4), "下午", "14:30:00-14:50:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView26, formatter6.format(date4), "上午", "10:00:00-10:20:00");
+
+
+                } else {
+                    showNormal(mTextView26, formatter6.format(date4), "下午", "16:00:00-16:20:00");
+                }
+
 
                 mTextView26.setText("已预约");
                 mTextView26.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1014,7 +1481,15 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_27:
 
 
-                showNormal(mTextView27, formatter8.format(date5), "下午", "14:30:00-14:50:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView27, formatter8.format(date5), "上午", "10:00:00-10:20:00");
+
+
+                } else {
+                    showNormal(mTextView27, formatter8.format(date5), "下午", "16:00:00-16:20:00");
+                }
+
 
                 mTextView27.setText("已预约");
                 mTextView27.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1022,7 +1497,14 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_28:
 
-                showNormal(mTextView28, formatter10.format(date6), "下午", "14:30:00-14:50:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView28, formatter10.format(date6), "上午", "10:00:00-10:20:00");
+
+
+                } else {
+                    showNormal(mTextView28, formatter10.format(date6), "下午", "16:00:00-16:20:00");
+                }
 
 
                 mTextView28.setText("已预约");
@@ -1033,7 +1515,15 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_29:
 
 
-                showNormal(mTextView29, simple.format(date), "下午", "15:00:00-15:20:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView29, simple.format(date), "上午", "10:20:00-10:40:00");
+
+
+                } else {
+                    showNormal(mTextView29, simple.format(date), "下午", "16:20:00-16:40:00");
+                }
+
                 mTextView29.setText("已预约");
                 mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1041,7 +1531,15 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_30:
 
-                showNormal(mTextView30, formatter.format(date1), "下午", "15:00:00-15:20:00");
+                if (sign == 0) {
+
+                    showNormal(mTextView30, formatter.format(date1), "上午", "10:20:00-10:40:00");
+
+
+                } else {
+                    showNormal(mTextView30, formatter.format(date1), "下午", "16:20:00-16:40:00");
+                }
+
                 mTextView30.setText("已预约");
                 mTextView30.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1049,7 +1547,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_31:
 
-                showNormal(mTextView31, formatte2.format(date2), "下午", "15:00:00-15:20:00");
+
+                if (sign == 0) {
+                    showNormal(mTextView31, formatte2.format(date2), "上午", "10:20:00-10:40:00");
+                } else {
+                    showNormal(mTextView31, formatte2.format(date2), "下午", "16:20:00-16:40:00");
+                }
 
                 mTextView31.setText("已预约");
                 mTextView31.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1060,7 +1563,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_32:
 
 
-                showNormal(mTextView32, formatter4.format(date3), "下午", "15:00:00-15:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView32, formatter4.format(date3), "上午", "10:20:00-10:40:00");
+
+
+                } else {
+                    showNormal(mTextView32, formatter4.format(date3), "下午", "16:20:00-16:40:00");
+                }
                 mTextView32.setText("已预约");
                 mTextView32.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1069,7 +1578,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.yuyue_33:
 
-                showNormal(mTextView33, formatter6.format(date4), "下午", "15:00:00-15:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView33, formatter6.format(date4), "上午", "10:20:00-10:40:00");
+
+                } else {
+                    showNormal(mTextView33, formatter6.format(date4), "下午", "16:20:00-16:40:00");
+                }
                 mTextView33.setText("已预约");
                 mTextView33.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1077,7 +1591,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_34:
 
 
-                showNormal(mTextView34, formatter8.format(date5), "下午", "15:00:00-15:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView34, formatter8.format(date5), "上午", "10:20:00-10:40:00");
+
+                } else {
+                    showNormal(mTextView34, formatter8.format(date5), "下午", "16:20:00-16:40:00");
+                }
                 mTextView34.setText("已预约");
                 mTextView34.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1085,7 +1604,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_35:
 
-                showNormal(mTextView35, formatter10.format(date6), "下午", "15:00:00-15:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView35, formatter10.format(date6), "上午", "10:20:00-10:40:00");
+
+
+                } else {
+                    showNormal(mTextView35, formatter10.format(date6), "下午", "16:20:00-16:40:00");
+                }
                 mTextView35.setText("已预约");
                 mTextView35.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1093,14 +1618,25 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_36:
 
-                showNormal(mTextView36, simple.format(date), "下午", "16:00:00-16:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView36, simple.format(date), "上午", "10:40:00-11:00:00");
+
+                } else {
+                    showNormal(mTextView36, simple.format(date), "下午", "16:40:00-17:00:00");
+                }
                 mTextView36.setText("已预约");
                 mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
 
                 break;
             case R.id.yuyue_37:
 
-                showNormal(mTextView37, formatter.format(date1), "下午", "16:00:00-16:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView37, formatter.format(date1), "上午", "10:40:00-11:00:00");
+
+                } else {
+                    showNormal(mTextView37, formatter.format(date1), "下午", "16:40:00-17:00:00");
+                }
+
 
                 mTextView37.setText("已预约");
                 mTextView37.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1109,7 +1645,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_38:
 
-                showNormal(mTextView38, formatte2.format(date2), "下午", "16:00:00-16:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView38, formatte2.format(date2), "上午", "10:40:00-11:00:00");
+
+                } else {
+                    showNormal(mTextView38, formatte2.format(date2), "下午", "16:40:00-17:00:00");
+                }
+
                 mTextView38.setText("已预约");
                 mTextView38.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1118,7 +1660,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_39:
 
 
-                showNormal(mTextView39, formatter4.format(date3), "下午", "16:00:00-16:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView39, formatter4.format(date3), "上午", "10:40:00-11:00:00");
+
+                } else {
+                    showNormal(mTextView39, formatter4.format(date3), "下午", "16:40:00-17:00:00");
+                }
+
                 mTextView39.setText("已预约");
                 mTextView39.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1127,7 +1675,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_40:
 
 
-                showNormal(mTextView40, formatter6.format(date4), "下午", "16:00:00-16:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView40, formatter6.format(date4), "上午", "10:40:00-11:00:00");
+
+                } else {
+                    showNormal(mTextView40, formatter6.format(date4), "下午", "16:40:00-17:00:00");
+                }
+
                 mTextView40.setText("已预约");
                 mTextView40.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1135,7 +1689,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.yuyue_41:
 
-                showNormal(mTextView41, formatter8.format(date5), "下午", "16:00:00-16:20:00");
+                if (sign == 0) {
+                    showNormal(mTextView41, formatter8.format(date5), "上午", "10:40:00-11:00:00");
+
+                } else {
+                    showNormal(mTextView41, formatter8.format(date5), "下午", "16:40:00-17:00:00");
+                }
+
                 mTextView41.setText("已预约");
                 mTextView41.setTextColor(Color.parseColor("#BBBBBB"));
 
@@ -1144,7 +1704,12 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
             case R.id.yuyue_42:
 
 
-                showNormal(mTextView42, formatter10.format(date6), "下午", "14:30:00-14:45:00");
+                if (sign == 0) {
+                    showNormal(mTextView42, formatter10.format(date6), "上午", "10:40:00-11:00:00");
+
+                } else {
+                    showNormal(mTextView42, formatter10.format(date6), "下午", "16:40:00-17:00:00");
+                }
 
                 mTextView42.setText("已预约");
                 mTextView42.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1217,6 +1782,16 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         mDay6 = (TextView) findViewById(R.id.yuyue_day6);
         mDay7 = (TextView) findViewById(R.id.yuyue_day7);
 
+
+        mMornings = (TextView) findViewById(R.id.mornings);
+        mAfternoons = (TextView) findViewById(R.id.afternoons);
+
+        LinearLayout1 = (LinearLayout) findViewById(R.id.morning1);
+        LinearLayout2 = (LinearLayout) findViewById(R.id.morning2);
+        LinearLayout3 = (LinearLayout) findViewById(R.id.afternoon1);
+        LinearLayout4 = (LinearLayout) findViewById(R.id.afternoon2);
+
+
         mTextView1.setOnClickListener(this);
         mTextView2.setOnClickListener(this);
         mTextView3.setOnClickListener(this);
@@ -1259,6 +1834,48 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         mTextView40.setOnClickListener(this);
         mTextView41.setOnClickListener(this);
         mTextView42.setOnClickListener(this);
+
+        mMornings.setTextColor(Color.parseColor("#3F86FC"));
+        LinearLayout1.setVisibility(View.VISIBLE);
+        LinearLayout2.setVisibility(View.VISIBLE);
+        LinearLayout3.setVisibility(View.GONE);
+        LinearLayout4.setVisibility(View.GONE);
+
+
+        mMornings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                sign = 0;
+
+                mMornings.setTextColor(Color.parseColor("#3F86FC"));
+                mAfternoons.setTextColor(Color.parseColor("#757575"));
+
+                LinearLayout1.setVisibility(View.VISIBLE);
+                LinearLayout2.setVisibility(View.VISIBLE);
+                LinearLayout3.setVisibility(View.GONE);
+                LinearLayout4.setVisibility(View.GONE);
+
+            }
+        });
+
+
+        mAfternoons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                sign = 1;
+
+
+                mMornings.setTextColor(Color.parseColor("#757575"));
+                mAfternoons.setTextColor(Color.parseColor("#3F86FC"));
+                LinearLayout3.setVisibility(View.VISIBLE);
+                LinearLayout4.setVisibility(View.VISIBLE);
+                LinearLayout1.setVisibility(View.GONE);
+                LinearLayout2.setVisibility(View.GONE);
+
+            }
+        });
 
 
     }

@@ -408,6 +408,10 @@
 
     <string name="online_qianyue">在&#160;&#160;线&#160;&#160;医&#160;&#160;生</string>
 
+
+    <string name="zixun">咨&#160;询</string>
+
+
     <string name="person_information">个&#160;&#160;人&#160;&#160;中&#160;&#160;心</string>
     <string name="healthy_shopping">健&#160;&#160;康&#160;&#160;商&#160;&#160;城</string>
     <string name="zhengzhuang">症&#160;&#160;状&#160;&#160;自&#160;&#160;查</string>
@@ -448,7 +452,7 @@
     <string name="speak_10">虽然我不知道你在说什么，但是你还是会爱我的吧</string>
 
     <string name="qianyue">签&#160;&#160;约</string>
-    <string name="tiao_zhuan">跳&#160;&#160;过</string>
+    <string name="tiao_zhuan">返&#160;&#160;回</string>
     <string name="medication_reminder">吃 药 提 醒</string>
 
     <string name="robot_amount" formatted="false">¥%1$s</string>
@@ -504,7 +508,7 @@
 
     <string name="shoufei">收费标准：10元/分钟</string>
 
-    <string name="after">上\n午</string>
+    <string name="mornings">上\n午</string>
 
     <string name="afternoons">下\n午</string>
 
@@ -515,5 +519,6 @@
     <string name="doctor_shanchang" formatted="false">擅长：%1$s</string>
     <string name="doctor_shoufei" formatted="false">收费标准：%1$s元/分钟</string>
 
+    <string name="doctor_online">主人，您已发送与医生的视频请求，请耐心等待五分钟</string>
 
 </resources>

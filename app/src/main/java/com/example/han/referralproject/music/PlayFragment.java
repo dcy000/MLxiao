@@ -198,7 +198,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
      * 更新播放进度
      */
     public void onPublish(int progress) {
-        if (isAdded()) {
+      //  if (isAdded()) {
             sbProgress.setProgress(progress);
             if (mLrcViewSingle.hasLrc()) {
                 mLrcViewSingle.updateTime(progress);
@@ -209,7 +209,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
                 tvCurrentTime.setText(formatTime(progress));
                 mLastProgress = progress;
             }
-        }
+        //}
     }
 
     public void onBufferingUpdate(int percent) {

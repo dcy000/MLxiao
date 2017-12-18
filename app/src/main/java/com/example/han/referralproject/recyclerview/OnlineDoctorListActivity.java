@@ -1,11 +1,14 @@
 package com.example.han.referralproject.recyclerview;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +18,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 
@@ -33,7 +37,9 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
     private List<Docter> mlist = new ArrayList<Docter>();
     DoctorAdapter mDoctorAdapter;
     private int page = 1;
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreference;
+    long countdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,10 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
         setContentView(R.layout.activity_online_doctor_list);
 
         initView();
+
+        sharedPreferences = getSharedPreferences(ConstantData.ONLINE_TIME, Context.MODE_PRIVATE);
+
+        sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
 
 
         NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
@@ -87,11 +97,19 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
         mDoctorAdapter.setOnItemClistListener(new DoctorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion) {
-                Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
-                intent.putExtra("docMsg", (Serializable) mlist.get(postion));
-                intent.putExtra("sign", "1");
-                startActivity(intent);
-//                finish();
+                if (!"".equals(sharedPreferences.getString("online_time", ""))) {
+                    countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
+                    if (countdown < 30000) {
+                        if (mlist.get(postion).getDocterid().equals(sharedPreference.getString("online_id", ""))) {
+                            jump(postion);
+                        }
+                    } else {
+                        jump(postion);
+                    }
+                } else {
+                    jump(postion);
+                }
+
 
             }
         });
@@ -163,6 +181,15 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
 
         });
 
+
+    }
+
+    public void jump(int postion) {
+
+        Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
+        intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+        intent.putExtra("sign", "1");
+        startActivity(intent);
 
     }
 

@@ -20,7 +20,6 @@ import java.util.Random;
 
 /**
  * 音乐播放后台服务
- *
  */
 public class PlayService extends Service implements MediaPlayer.OnCompletionListener {
     private static final String TAG = "Service";

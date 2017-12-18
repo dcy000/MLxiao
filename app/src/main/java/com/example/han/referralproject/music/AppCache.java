@@ -13,9 +13,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by hzwangchenyan on 2016/11/23.
- */
+
 public class AppCache {
     private Context mContext;
     private PlayService mPlayService;

@@ -28,6 +28,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Process;
 import android.provider.MediaStore;
@@ -118,13 +119,20 @@ public class VideoDemo extends BaseActivity {
 
     NDialog2 dialog2;
 
+    private MediaPlayer mediaPlayer;//MediaPlayer对象
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
 
-        speak(R.string.head_verify);
+        //   speak(R.string.head_verify);
+
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
+
+        mediaPlayer.start();//播放音乐
 
 
         Intent intent = getIntent();
@@ -182,6 +190,12 @@ public class VideoDemo extends BaseActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mediaPlayer.pause();
+    }
 
     private Callback mPreviewCallback = new Callback() {
 
