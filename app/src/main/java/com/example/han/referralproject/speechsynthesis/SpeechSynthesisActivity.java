@@ -499,6 +499,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
         if (!TextUtils.isEmpty(mAudioPath)) {
+            T.show(mAudioPath);
             onPlayAudio(mAudioPath);
             mAudioPath = null;
             return;
