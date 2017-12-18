@@ -29,6 +29,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Process;
 import android.provider.MediaStore;
@@ -112,33 +113,45 @@ public class VideoDemo extends BaseActivity {
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
     public ImageView mImageView;
-    public Button mButton;
+    public ImageView mButton;
     Bitmap b3;
     String signs;
     String orderid;
     NDialog2 dialog2;
 
+    private MediaPlayer mediaPlayer;//MediaPlayer对象
+
+
     private String[] xfid;//存放本地取得所有xfid
     private String fromString;//标识从哪个页面过来的
     private int indexXfid;//记录讯飞id匹配到第几个了
     private String choosedXfid;//选中的讯飞id;
-    private HashMap<String,String> map;
+    private HashMap<String, String> map;
     private String[] accounts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
 
-        speak(R.string.head_verify);
-        map=new HashMap<>();
+        //   speak(R.string.head_verify);
+
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
+
+        mediaPlayer.start();//播放音乐
+
+
+        //   speak(R.string.head_verify);
+        map = new HashMap<>();
         accounts = LocalShared.getInstance(this).getAccounts();
-        indexXfid=accounts.length*5;
+        indexXfid = accounts.length * 5;
         xfid = new String[accounts.length];
         for (int i = 0; i < accounts.length; i++) {
             xfid[i] = accounts[i].split(",")[1];
-            map.put(accounts[i].split(",")[1],accounts[i].split(",")[0]);
+            map.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
         }
-        choosedXfid=MyApplication.getInstance().xfid;//默认选中的是当前的讯飞id;
+        choosedXfid = MyApplication.getInstance().xfid;//默认选中的是当前的讯飞id;
         Intent intent = getIntent();
         signs = intent.getStringExtra("sign");
         orderid = intent.getStringExtra("orderid");
@@ -146,12 +159,10 @@ public class VideoDemo extends BaseActivity {
         dialog2 = new NDialog2(VideoDemo.this);
 
 
-        mButton = (Button) findViewById(R.id.tiao_guo);
+        mButton = (ImageView) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -162,13 +173,7 @@ public class VideoDemo extends BaseActivity {
         }
 
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
 
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
@@ -193,6 +198,12 @@ public class VideoDemo extends BaseActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mediaPlayer.pause();
+    }
 
     private Callback mPreviewCallback = new Callback() {
 
@@ -378,7 +389,7 @@ public class VideoDemo extends BaseActivity {
 
                         }
                         if (null != mImageData && null != mAuthid) {
-                            if ("Test".equals(fromString)&&indexXfid>0) {
+                            if ("Test".equals(fromString) && indexXfid > 0) {
                                 mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfid[indexXfid % accounts.length]);
                                 choosedXfid = xfid[indexXfid % accounts.length];
                                 indexXfid--;
@@ -517,9 +528,9 @@ public class VideoDemo extends BaseActivity {
 
                 if ("0".equals(signs)) {
                     showTip("通过验证，欢迎回来！");
-                    if(!choosedXfid.equals(MyApplication.getInstance().xfid)){//如果不是选中的讯飞id已经改变，则切换账号
-                        MyApplication.getInstance().userId=map.get(choosedXfid);
-                        MyApplication.getInstance().xfid=choosedXfid;
+                    if (!choosedXfid.equals(MyApplication.getInstance().xfid)) {//如果不是选中的讯飞id已经改变，则切换账号
+                        MyApplication.getInstance().userId = map.get(choosedXfid);
+                        MyApplication.getInstance().xfid = choosedXfid;
                         sendBroadcast(new Intent("change_account"));
                     }
                     Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
@@ -554,7 +565,7 @@ public class VideoDemo extends BaseActivity {
                 if (sign == true) {
 
                     if ("0".equals(signs)) {
-                        if(indexXfid<=0){
+                        if (indexXfid <= 0) {
                             showTip("验证不通过");
                             sign = false;
                             finish();

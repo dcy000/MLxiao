@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/toolbar_bg"
     android:id="@+id/toolbar"
     android:visibility="gone">
@@ -34,7 +35,7 @@
             style="@style/TextAppearance.AppCompat.Title"
             />
     </LinearLayout>
-    <TextView 
+    <TextView
         android:id="@+id/tv_top_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +44,7 @@
         android:text=""
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_centerInParent="true"/>
-    <TextView 
+    <TextView
         android:id="@+id/tv_top_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

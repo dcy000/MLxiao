@@ -33,6 +33,8 @@ public class DefineActivity extends BaseActivity {
 
         mTitleText.setText(getString(R.string.pay));
 
+        speak(getString(R.string.chongzhi_define));
+
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 

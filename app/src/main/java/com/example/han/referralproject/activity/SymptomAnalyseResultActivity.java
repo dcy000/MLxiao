@@ -38,26 +38,7 @@ public class SymptomAnalyseResultActivity extends BaseActivity {
 
         adapter.notifyDataSetChanged();
         if (mList == null || mList.size() == 0) {
-            NetworkApi.getJibing(getIntent().getStringExtra("type"), new NetworkManager.SuccessCallback<DiseaseResult>() {
-                @Override
-                public void onSuccess(DiseaseResult response) {
-                    SymptomResultBean.bqs bqs=new SymptomResultBean.bqs();
-                    bqs.setBname(response.bname);
-                    bqs.setEat(response.eat);
-                    bqs.setReview(response.review);
-                    bqs.setSuggest(response.suggest);
-                    bqs.setSports(response.sports);
-                    bqs.setGl("0");
-                    mDataList.add(bqs);
-                    adapter.notifyDataSetChanged();
-                    speak("请点击查看详情了解更多信息");
-                }
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-                    ToastUtils.show(message);
-                }
-            });
+
             return;
         } else {
             mDataList.addAll(mList);

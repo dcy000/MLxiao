@@ -27,6 +27,7 @@ import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.SymptomAnalyseResultActivity;
 import com.example.han.referralproject.bean.Receive1;
@@ -127,7 +128,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private ComponentName mRemoteReceiver;
     private boolean isPlayFragmentShow = false;
     private AnimationDrawable faceAnim;
-
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -176,6 +176,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
+
+
 
         rand = new Random();
 
@@ -231,7 +233,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
         getPlayService().setOnPlayEventListener(this);
-
 
     }
 
@@ -348,7 +349,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private void searchMusic(String keyword) {
 
-        HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
+
+        //   mSearchMusicList.clear();
+
+
+        Music music = new Music(keyword);
+        getPlayService().play(music);
+        showPlayingFragment();
+
+       /* HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
 
             @Override
             public void onSuccess(SearchMusic response) {
@@ -370,8 +379,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     @Override
                     public void onExecuteSuccess(Music music) {
                         getPlayService().play(music);
-                        ToastUtils.show(getString(R.string.now_play, music.getTitle()));
-
                         showPlayingFragment();
 
                     }
@@ -388,7 +395,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             @Override
             public void onFail(Exception e) {
             }
-        });
+        });*/
     }
 
 
@@ -510,6 +517,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void onPlayAudio(String audioPath) {
+
+        Log.e("================", audioPath);
+        searchMusic(audioPath);
 
     }
 
@@ -1020,63 +1030,63 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     return;
                 }
                 if (inSpell.matches(".*(gaoxueya).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "高血压"));
                 }
                 if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "冠心病"));
                 }
                 if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "支气管哮喘"));
                 }
                 if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "肝硬化"));
                 }
                 if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "糖尿病"));
                 }
                 if (inSpell.matches(".*(tongfeng).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "痛风"));
                 }
                 if (inSpell.matches(".*(changweiyan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "肠胃炎"));
                 }
                 if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "急性上呼吸道感染"));
                 }
                 if (inSpell.matches(".*(xinbaoyan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "心包炎"));
                 }
                 if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "贫血"));
                 }
                 if (inSpell.matches(".*(feiyan).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "肺炎"));
                 }
                 if (inSpell.matches(".*(di(xie|xue)tang).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "低血糖"));
                 }
                 if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "脑出血"));
                 }
                 if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "肺栓塞"));
                 }
                 if (inSpell.matches(".*(dianxian).*")) {
-                    startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                    startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                             .putExtra("type", "癫痫"));
                 }
 
@@ -1217,7 +1227,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
+                } /*else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
 
                     mImageView.setClickable(false);
 
@@ -1255,18 +1265,21 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } else if (inSpell.matches(".*bu.*liao.*") || resultBuffer.toString().contains("退出")
+                } */ else if (inSpell.matches(".*bu.*liao.*") || resultBuffer.toString().contains("退出")
                         || resultBuffer.toString().contains("返回") || resultBuffer.toString().contains("再见")
                         || resultBuffer.toString().contains("闭嘴") || inSpell.matches(".*baibai.*")) {
 
                     finish();
                 } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
                     startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
-                } else if (inSpell.matches(".*qian.*")) {
+                } else if (inSpell.matches(".*chong.*qian.*") || resultBuffer.toString().contains("钱不够") || resultBuffer.toString().contains("没钱")) {
                     Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                     startActivity(intent);
                     finish();
-                } else if (inSpell.matches(".*mai.*")) {
+                } else if (inSpell.matches(".*mai.*dongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
+                        inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
+                        inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou") || inSpell.matches(".*huai.*") ||
+                        resultBuffer.toString().contains("找不到") || resultBuffer.toString().contains("丢") || resultBuffer.toString().contains("不能用")) {
 
                     Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
                     startActivity(intent);

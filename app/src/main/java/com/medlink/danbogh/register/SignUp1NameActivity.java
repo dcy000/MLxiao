@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastUtil;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -43,6 +45,7 @@ public class SignUp1NameActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.GONE);
         //mTvGoBack.setEnabled(false);
+        setShowVoiceView(true);
     }
 
     @Override
@@ -94,8 +97,7 @@ public class SignUp1NameActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
-
+        ToastUtil.showShort(this,result);
         if (result.matches(REGEX_IN_GO_BACK) && mTvGoBack.isEnabled()) {
             onTvGoBackClicked();
             return;

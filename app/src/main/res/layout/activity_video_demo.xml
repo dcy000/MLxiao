@@ -35,22 +35,27 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/icon_back"
+            android:visibility="gone" />
     </LinearLayout>
 
-    <Button
+    <ImageView
         android:id="@+id/tiao_guo"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/selector_bg_btn"
-        android:gravity="center"
-        android:text="@string/tiao_zhuan"
-        android:textColor="#FFFFFF"
-        android:textSize="35sp"
-         />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/face_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@+id/tiao_guo"
+        android:text="跳过"
+        android:textSize="40sp" />
 
 
     <!-- <RadioGroup

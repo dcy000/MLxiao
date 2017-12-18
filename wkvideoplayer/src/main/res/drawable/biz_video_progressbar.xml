@@ -7,7 +7,7 @@
                 android:color="#FFFFFF" />
         </shape>
     </item>
-    <item android:id="@android:id/secondaryProgress">
+   <!-- <item android:id="@android:id/secondaryProgress">
         <clip>
             <shape android:shape="line">
                 <stroke
@@ -15,7 +15,7 @@
                     android:color="@color/biz_audio_progress_second" />
             </shape>
         </clip>
-    </item>
+    </item>-->
     <item android:id="@android:id/progress">
         <clip>
             <shape android:shape="line">

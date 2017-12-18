@@ -41,7 +41,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopVH> {
         holder.mContext = context;
         holder.mPosition = position;
         Picasso.with(context)
-                .load(ConstantData.BASE_URL + "/referralProject/" + mList.get(position).getGoodsimage())
+                .load(mList.get(position).getGoodsimage())
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(context)

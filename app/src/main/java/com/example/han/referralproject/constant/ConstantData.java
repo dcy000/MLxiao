@@ -10,6 +10,10 @@ public class ConstantData {
 
     public static final String PERSON_MSG = "person_message";
 
+    public static final String ONLINE_TIME = "online_time";
+
+    public static final String ONLINE_ID = "online_id";
+
 
     public static final String YUYUE = "yuyue";
 

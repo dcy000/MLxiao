@@ -52,6 +52,9 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         mTitleText.setText(getString(R.string.orders_detail));
 
 
+        speak(getString(R.string.order));
+
+
         //   mImageView1 = (ImageView) findViewById(R.id.icon_back);
 
 
@@ -66,7 +69,6 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onSuccess(ArrayList<Orders> response) {
 
-                Log.e("==========", response.toString());
 
                 List<Orders> list = new ArrayList<Orders>();
                 mlist.clear();
@@ -84,7 +86,6 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onFailed(String message) {
 
-                Log.e("=============", "失败");
 
             }
         });
@@ -182,7 +183,6 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
                                 @Override
                                 public void onSuccess(ArrayList<Orders> response) {
 
-                                    Log.e("==========", response.toString());
 
                                     List<Orders> list = new ArrayList<Orders>();
                                     list.clear();
@@ -197,7 +197,6 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
                                 @Override
                                 public void onFailed(String message) {
 
-                                    Log.e("=============", "失败");
 
                                 }
                             });

@@ -15,6 +15,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.xindian.XindianActivity;
@@ -139,5 +140,31 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         }
 
 
+    }
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        String inSpell = PinYinUtils.converterToSpell(result);
+        Intent intent = new Intent();
+        if(inSpell.matches(".*((xie|xue)ya).*")){
+            intent.setClass(mContext, DetectActivity.class);
+            intent.putExtra("type", "xueya");
+        }else if(inSpell.matches(".*((xie|xue)yang).*")){
+            intent.setClass(getApplicationContext(), DetectActivity.class);
+            intent.putExtra("type", "xueyang");
+        }else if(inSpell.matches(".*(tiwen).*")){
+            intent.setClass(mContext, DetectActivity.class);
+            intent.putExtra("type", "wendu");
+
+        }else if(inSpell.matches(".*((xie|xue)tang).*")){
+            intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
+            intent.putExtra("type", "xuetang");
+        }else if(inSpell.matches(".*((xin|xing)dian).*")){
+            intent.setClass(getApplicationContext(), XinDianDetectActivity.class);
+        }else if(inSpell.matches(".*((san|shan)heyi|(xie|xue)niao(suan|shuan)|dangu(cun|chun)).*")){
+            intent.setClass(mContext, DetectActivity.class);
+            intent.putExtra("type", "sanheyi");
+        }
+        startActivity(intent);
     }
 }

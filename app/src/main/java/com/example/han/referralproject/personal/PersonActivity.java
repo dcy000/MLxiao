@@ -105,6 +105,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
+
+        speak(getString(R.string.person_info));
         mToolbar.setVisibility(View.VISIBLE);
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) findViewById(R.id.per_image);

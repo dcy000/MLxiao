@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.RetrofitClient;
 import com.example.han.referralproject.recyclerview.RetrofitService;
@@ -64,18 +66,13 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         mImageView2 = (ImageView) findViewById(R.id.line_2);
 
 
-
-
-
-
-
         mRecyclerView = (RecyclerView) findViewById(R.id.shop_list);
 
 
         mLinearLayout1.setOnClickListener(this);
         mLinearLayout2.setOnClickListener(this);
 
-        initData("GoodsServlet");
+        initData(2);
     }
 
 
@@ -103,7 +100,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
                 mTextView2.setTextColor(Color.parseColor("#000000"));
                 mImageView1.setVisibility(View.VISIBLE);
                 mImageView2.setVisibility(View.GONE);
-                initData("GoodsServlet");
+                initData(2);
 
                 break;
             case R.id.linearlayout2:
@@ -111,7 +108,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
                 mTextView2.setTextColor(Color.parseColor("#3E85FC"));
                 mImageView1.setVisibility(View.GONE);
                 mImageView2.setVisibility(View.VISIBLE);
-                initData("GoodServlet");
+                initData(1);
 
                 break;
 
@@ -121,8 +118,31 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
     private List<Goods> mlist = new ArrayList<Goods>();
     private ShopAdapter mShopAdapter;
 
-    public void initData(String url) {
-        RetrofitService retrofitService = RetrofitClient.getClient();
+    public void initData(int status) {
+
+        NetworkApi.goods_list(status, new NetworkManager.SuccessCallback<ArrayList<Goods>>() {
+            @Override
+            public void onSuccess(ArrayList<Goods> response) {
+
+                List<Goods> list = new ArrayList<Goods>();
+                mlist.clear();
+                list = response;
+                mlist.addAll(list);
+                setData();
+
+                mShopAdapter.notifyDataSetChanged();
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+
+
+       /* RetrofitService retrofitService = RetrofitClient.getClient();
         // 创建有一个回调对象
         Call<List<Goods>> call = retrofitService.GoodsList(url);
         // 用回调对象发起请求
@@ -149,7 +169,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
             public void onFailure(Call<List<Goods>> call, Throwable t) {
 
             }
-        });
+        });*/
 
     }
 
@@ -176,7 +196,6 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
 
                     Intent intent = new Intent(ShopListActivity.this, GoodDetailActivity.class);
                     intent.putExtra("goods", (Serializable) mlist.get(postion));
-
                     startActivity(intent);
 
                 }

@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="22dp"
-                android:text="曹建平"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
         </LinearLayout>
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="22dp"
-                android:text="67"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
         </LinearLayout>
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="22dp"
-                android:text="男"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
         </LinearLayout>
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="22dp"
-                android:text="O"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
         </LinearLayout>
@@ -162,7 +162,7 @@
                 android:layout_marginRight="22dp"
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/ic_jt"
-                android:text="175cm"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
         </LinearLayout>
@@ -194,7 +194,7 @@
                 android:layout_marginRight="22dp"
                 android:drawablePadding="3dp"
                 android:drawableRight="@drawable/ic_jt"
-                android:text="60Kg"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
         </LinearLayout>
@@ -257,7 +257,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="22dp"
-                    android:text="15181438908"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="28sp" />
             </LinearLayout>
@@ -285,7 +285,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="22dp"
-                    android:text="222222*********222222"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="28sp" />
             </LinearLayout>
@@ -313,7 +313,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="22dp"
-                    android:text="100002"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="28sp" />
             </LinearLayout>
@@ -368,7 +368,7 @@
                     android:layout_marginRight="22dp"
                     android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_jt"
-                    android:text="每周一次"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="28sp" />
             </LinearLayout>
@@ -399,7 +399,7 @@
                     android:layout_marginRight="22dp"
                     android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_jt"
-                    android:text="每天吸烟"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="28sp" />
             </LinearLayout>
@@ -430,7 +430,7 @@
                     android:layout_marginRight="22dp"
                     android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_jt"
-                    android:text="荤素搭配"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="28sp" />
             </LinearLayout>
@@ -460,7 +460,7 @@
                     android:layout_marginRight="22dp"
                     android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_jt"
-                    android:text="偶尔喝酒"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="28sp" />
             </LinearLayout>

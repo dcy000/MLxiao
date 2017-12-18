@@ -38,6 +38,7 @@ import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
 
+import org.apache.commons.lang.StringUtils;
 import org.litepal.crud.DataSupport;
 import org.litepal.crud.callback.UpdateOrDeleteCallback;
 
@@ -82,6 +83,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     public Button mButtons;
 
+
     private Handler mHandler = new Handler(new Handler.Callback() {
 
         @Override
@@ -102,311 +104,54 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         mLinearLayout3.setVisibility(View.VISIBLE);
 
 
-                        mTextView.setText(list.get(0).getStart_time());
-                        mTextView1.setText(list.get(0).getEnd_time());
+                        if ("已接受".equals(list.get(0).getState())) {
+                            mButton2.setText("已预约");
+                            mButton2.setSelected(true);
+                            mButton2.setEnabled(false);
 
 
-                        mTextView2.setText(list.get(1).getStart_time());
-                        mTextView6.setText(list.get(1).getEnd_time());
+                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
 
 
-                        mTextView7.setText(list.get(2).getStart_time());
-                        mTextView8.setText(list.get(2).getEnd_time());
-
-
-                    /*    setAlarmClock(0);
-                        setAlarmClock(1);
-                        setAlarmClock(2);*/
-
-
-                        if (!"".equals(list.get(0).getStart_time())) {
-                            long time = 0;
-                            try {
-                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            String times = String.valueOf(time - 60000);
-
-                            if (models.size() == 0) {
-                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                            } else {
-
-                                boolean sign = true;
-
-                                for (int a = 0; a < models.size(); a++) {
-
-                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
-                                        sign = false;
-                                    }
-
-
+                            if (!"".equals(list.get(0).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
                                 }
-                                if (sign == true) {
 
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
                                     AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
 
-                                }
-                            }
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
 
 
-                        }
-
-
-                        if (!"".equals(list.get(1).getStart_time())) {
-                            long time = 0;
-                            try {
-                                time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            String times = String.valueOf(time - 60000);
-
-                            if (models.size() == 0) {
-                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                            } else {
-
-                                boolean sign = true;
-
-                                for (int a = 0; a < models.size(); a++) {
-
-                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
-                                        sign = false;
                                     }
+                                    if (sign == true) {
 
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
 
-                                }
-                                if (sign == true) {
-
-                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                                }
-                            }
-
-
-                        }
-
-
-                        if (!"".equals(list.get(2).getStart_time())) {
-                            long time = 0;
-                            try {
-                                time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            String times = String.valueOf(time - 60000);
-
-                            if (models.size() == 0) {
-                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                            } else {
-
-                                boolean sign = true;
-
-                                for (int a = 0; a < models.size(); a++) {
-
-                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
-                                        sign = false;
                                     }
-
-
                                 }
-                                if (sign == true) {
 
-                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
 
-                                }
                             }
 
 
-                        }
-
-
-                        long time = 0;
-                        long time1 = 0;
-
-                        try {
-                            time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                            time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        enableVideo(time1, time - 60000);
-
-                        long time2 = 0;
-                        long time3 = 0;
-
-                        try {
-                            time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                            time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        enableVideo(time3, time2 - 60000);
-
-
-                        long time4 = 0;
-                        long time5 = 0;
-
-                        try {
-                            time4 = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
-                            time5 = Long.parseLong(dateToStamp(list.get(2).getEnd_time()));
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        enableVideo(time5, time4 - 60000);
-
-                        models = DataSupport.findAll(AlarmModel.class);
-
-
-                    } else if (list.size() == 2) {
-
-
-                        models = DataSupport.findAll(AlarmModel.class);
-
-                        mLinearLayout1.setVisibility(View.VISIBLE);
-                        mLinearLayout2.setVisibility(View.VISIBLE);
-                        mLinearLayout3.setVisibility(View.GONE);
-
-
-                        mTextView.setText(list.get(0).getStart_time());
-                        mTextView1.setText(list.get(0).getEnd_time());
-
-                        mTextView2.setText(list.get(1).getStart_time());
-                        mTextView6.setText(list.get(1).getEnd_time());
-
-                        //   setAlarmClock(0);
-
-
-                        if (!"".equals(list.get(0).getStart_time())) {
                             long time = 0;
-                            try {
-                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            String times = String.valueOf(time - 60000);
-
-                            if (models.size() == 0) {
-                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                            } else {
-
-                                boolean sign = true;
-
-                                for (int a = 0; a < models.size(); a++) {
-
-                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
-                                        sign = false;
-                                    }
-
-
-                                }
-                                if (sign == true) {
-
-                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                                }
-                            }
-
-
-                        }
-
-
-                        //  setAlarmClock(1);
-
-
-                        if (!"".equals(list.get(1).getStart_time())) {
-                            long time = 0;
-                            try {
-                                time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            String times = String.valueOf(time - 60000);
-
-                            if (models.size() == 0) {
-                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-
-                            } else {
-
-                                boolean sign = true;
-
-                                for (int a = 0; a < models.size(); a++) {
-
-                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
-                                        sign = false;
-                                    }
-
-                                }
-
-                                if (sign == true) {
-
-                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
-                                }
-
-                            }
-
-
-                        }
-
-
-                        long time = 0;
-                        long time1 = 0;
-
-                        try {
-                            time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                            time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        enableVideo(time1, time - 60000);
-
-                        long time2 = 0;
-                        long time3 = 0;
-
-                        try {
-                            time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                            time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        enableVideo(time3, time2 - 60000);
-
-                        models = DataSupport.findAll(AlarmModel.class);
-
-
-                    } else if (list.size() == 1) {
-
-                        models = DataSupport.findAll(AlarmModel.class);
-
-                        mLinearLayout1.setVisibility(View.VISIBLE);
-                        mLinearLayout2.setVisibility(View.GONE);
-                        mLinearLayout3.setVisibility(View.GONE);
-
-                        mTextView.setText(list.get(0).getStart_time());
-                        mTextView1.setText(list.get(0).getEnd_time());
-
-                        long time = 0;
-                        long time1 = 0;
-                        if (!"".equals(list.get(0).getStart_time())) {
+                            long time1 = 0;
 
                             try {
                                 time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
@@ -416,12 +161,885 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                 e.printStackTrace();
                             }
 
-                            String times = String.valueOf(time - 60000);
+                            enableVideo(time1, time - 60000);
 
-                            if (models.size() == 0) {
-                                AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
 
-                            } else {
+                        } else if ("已过期".equals(list.get(0).getState()) ||
+                                "已拒绝".equals(list.get(0).getState())) {
+
+                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    long time = 0;
+                                    try {
+                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    String times = String.valueOf(time - 60000);
+
+
+                                    if (models.size() != 0) {
+
+                                        for (int i = 0; i < models.size(); i++) {
+                                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                models.get(i).delete();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    mLinearLayout1.setVisibility(View.GONE);
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+
+                                }
+                            });
+
+
+                        } else {
+
+                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+
+
+                            if (!"".equals(list.get(0).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+
+                                    }
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                    }
+                                }
+
+
+                            }
+
+
+                            long time = 0;
+                            long time1 = 0;
+
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time1, time - 60000);
+
+
+                        }
+
+
+                        if ("已接受".equals(list.get(1).getState())) {
+                            mButton3.setText("已预约");
+                            mButton3.setSelected(true);
+                            mButton3.setEnabled(false);
+
+
+                            mTextView2.setText(StringUtils.substringBeforeLast(list.get(1).getStart_time(), ":"));
+                            mTextView6.setText(StringUtils.substringBeforeLast(list.get(1).getEnd_time(), ":"));
+
+                            if (!"".equals(list.get(1).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+
+                                    }
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                    }
+                                }
+
+
+                            }
+
+
+                            long time2 = 0;
+                            long time3 = 0;
+
+                            try {
+                                time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time3, time2 - 60000);
+
+
+                        } else if ("已过期".equals(list.get(1).getState())
+
+                                || "已拒绝".equals(list.get(1).getState())) {
+
+                            NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    long time = 0;
+                                    try {
+                                        time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    String times = String.valueOf(time - 60000);
+
+
+                                    if (models.size() != 0) {
+
+                                        for (int i = 0; i < models.size(); i++) {
+                                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                models.get(i).delete();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    mLinearLayout2.setVisibility(View.GONE);
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+
+                                }
+                            });
+
+                        } else {
+
+                            mTextView2.setText(StringUtils.substringBeforeLast(list.get(1).getStart_time(), ":"));
+                            mTextView6.setText(StringUtils.substringBeforeLast(list.get(1).getEnd_time(), ":"));
+
+                            if (!"".equals(list.get(1).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+
+                                    }
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                    }
+                                }
+
+
+                            }
+
+
+                            long time2 = 0;
+                            long time3 = 0;
+
+                            try {
+                                time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time3, time2 - 60000);
+
+
+                        }
+
+
+                        if ("已接受".equals(list.get(2).getState())) {
+                            mButton4.setText("已预约");
+                            mButton4.setSelected(true);
+                            mButton4.setEnabled(false);
+
+                            mTextView7.setText(StringUtils.substringBeforeLast(list.get(2).getStart_time(), ":"));
+                            mTextView8.setText(StringUtils.substringBeforeLast(list.get(2).getEnd_time(), ":"));
+
+                            if (!"".equals(list.get(2).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+
+                                    }
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                    }
+                                }
+
+
+                            }
+
+
+                            long time4 = 0;
+                            long time5 = 0;
+
+                            try {
+                                time4 = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                time5 = Long.parseLong(dateToStamp(list.get(2).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time5, time4 - 60000);
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+
+                        } else if ("已过期".equals(list.get(2).getState())
+                                || "已拒绝".equals(list.get(2).getState())) {
+
+
+                            NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    long time = 0;
+                                    try {
+                                        time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    String times = String.valueOf(time - 60000);
+
+
+                                    if (models.size() != 0) {
+
+                                        for (int i = 0; i < models.size(); i++) {
+                                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                models.get(i).delete();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    mLinearLayout3.setVisibility(View.GONE);
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+
+                                }
+                            });
+
+
+                        } else {
+
+                            mTextView7.setText(StringUtils.substringBeforeLast(list.get(2).getStart_time(), ":"));
+                            mTextView8.setText(StringUtils.substringBeforeLast(list.get(2).getEnd_time(), ":"));
+
+                            if (!"".equals(list.get(2).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+
+                                    }
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                    }
+                                }
+
+
+                            }
+
+
+                            long time4 = 0;
+                            long time5 = 0;
+
+                            try {
+                                time4 = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                time5 = Long.parseLong(dateToStamp(list.get(2).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time5, time4 - 60000);
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+
+                        }
+
+
+                    } else if (list.size() == 2) {
+
+                        mLinearLayout1.setVisibility(View.VISIBLE);
+                        mLinearLayout2.setVisibility(View.VISIBLE);
+                        mLinearLayout3.setVisibility(View.GONE);
+
+
+                        if ("已接受".equals(list.get(0).getState())) {
+                            mButton2.setText("已预约");
+                            mButton2.setSelected(true);
+                            mButton2.setEnabled(false);
+
+
+                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+                            //   setAlarmClock(0);
+                            if (!"".equals(list.get(0).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+
+                                    }
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                    }
+                                }
+
+
+                            }
+
+                            long time = 0;
+                            long time1 = 0;
+
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time1, time - 60000);
+
+
+                        } else if ("已过期".equals(list.get(0).getState())
+                                || "已拒绝".equals(list.get(0).getState())) {
+
+                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    long time = 0;
+                                    try {
+                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    String times = String.valueOf(time - 60000);
+
+
+                                    if (models.size() != 0) {
+
+                                        for (int i = 0; i < models.size(); i++) {
+                                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                models.get(i).delete();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    mLinearLayout1.setVisibility(View.GONE);
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+
+                                }
+                            });
+
+                        } else {
+                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+                            //   setAlarmClock(0);
+                            if (!"".equals(list.get(0).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+
+                                    }
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                    }
+                                }
+
+
+                            }
+
+                            long time = 0;
+                            long time1 = 0;
+
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time1, time - 60000);
+
+
+                        }
+
+
+                        if ("已接受".equals(list.get(1).getState())) {
+                            mButton3.setText("已预约");
+                            mButton3.setSelected(true);
+                            mButton3.setEnabled(false);
+
+
+                            mTextView2.setText(StringUtils.substringBeforeLast(list.get(1).getStart_time(), ":"));
+                            mTextView6.setText(StringUtils.substringBeforeLast(list.get(1).getEnd_time(), ":"));
+
+
+                            //  setAlarmClock(1);
+
+
+                            if (!"".equals(list.get(1).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+                                    }
+
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+                                    }
+
+                                }
+
+
+                            }
+
+
+                            long time2 = 0;
+                            long time3 = 0;
+
+                            try {
+                                time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time3, time2 - 60000);
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+
+                        } else if ("已过期".equals(list.get(1).getState())
+                                || "已拒绝".equals(list.get(1).getState())) {
+
+
+                            NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    long time = 0;
+                                    try {
+                                        time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    String times = String.valueOf(time - 60000);
+
+
+                                    if (models.size() != 0) {
+
+                                        for (int i = 0; i < models.size(); i++) {
+                                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                models.get(i).delete();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    mLinearLayout2.setVisibility(View.GONE);
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+
+                                }
+                            });
+
+
+                        } else {
+
+                            mTextView2.setText(StringUtils.substringBeforeLast(list.get(1).getStart_time(), ":"));
+                            mTextView6.setText(StringUtils.substringBeforeLast(list.get(1).getEnd_time(), ":"));
+
+
+                            //  setAlarmClock(1);
+
+
+                            if (!"".equals(list.get(1).getStart_time())) {
+                                long time = 0;
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+                                    }
+
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+                                    }
+
+                                }
+
+
+                            }
+
+
+                            long time2 = 0;
+                            long time3 = 0;
+
+                            try {
+                                time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            enableVideo(time3, time2 - 60000);
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+                        }
+
+                    } else if (list.size() == 1) {
+
+                        mLinearLayout1.setVisibility(View.VISIBLE);
+                        mLinearLayout2.setVisibility(View.GONE);
+                        mLinearLayout3.setVisibility(View.GONE);
+
+
+                        if ("已接受".equals(list.get(0).getState())) {
+                            mButton2.setText("已预约");
+                            mButton2.setSelected(true);
+                            mButton2.setEnabled(false);
+
+
+                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+
+                            long time = 0;
+                            long time1 = 0;
+                            if (!"".equals(list.get(0).getStart_time())) {
+
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
+
+                                    boolean sign = true;
+
+                                    for (int a = 0; a < models.size(); a++) {
+
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
+                                    }
+
+                                    if (sign == true) {
+
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                    }
+
+
+                                }
+
+
+                            }
+
+                            enableVideo(time1, time - 60000);
+
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+
+                        } else if ("已过期".equals(list.get(0).getState())
+                                || "已拒绝".equals(list.get(0).getState())) {
+
+
+                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    long time = 0;
+                                    try {
+                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    String times = String.valueOf(time - 60000);
+
+
+                                    if (models.size() != 0) {
+
+                                        for (int i = 0; i < models.size(); i++) {
+                                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                models.get(i).delete();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    mLinearLayout1.setVisibility(View.GONE);
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+
+                                }
+                            });
+
+
+                        } else {
+
+                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+
+                            long time = 0;
+                            long time1 = 0;
+                            if (!"".equals(list.get(0).getStart_time())) {
+
+                                try {
+                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String times = String.valueOf(time - 60000);
+
+                                if (models.size() == 0) {
+                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+
+                                } else {
                                /* for (AlarmModel itemModel : models) {
 
                                     if (String.valueOf(itemModel.getTimestamp()).equals(times)) {
@@ -433,32 +1051,36 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                                 }*/
 
-                                boolean sign = true;
+                                    boolean sign = true;
 
-                                for (int a = 0; a < models.size(); a++) {
+                                    for (int a = 0; a < models.size(); a++) {
 
-                                    if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
-                                        sign = false;
+                                        if (String.valueOf(models.get(a).getTimestamp()).equals(times)) {
+                                            sign = false;
+                                        }
+
                                     }
 
-                                }
+                                    if (sign == true) {
 
-                                if (sign == true) {
+                                        AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
 
-                                    AlarmHelper.setupAlarm(DoctorappoActivity.this, Long.parseLong(times), getString(R.string.doctor_alarm), 1 + "");
+                                    }
+
 
                                 }
 
 
                             }
 
+                            enableVideo(time1, time - 60000);
+
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
 
                         }
 
-                        enableVideo(time1, time - 60000);
-
-
-                        models = DataSupport.findAll(AlarmModel.class);
 
                     }
 
@@ -495,6 +1117,11 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
 
+    Button mButton2;
+    Button mButton3;
+    Button mButton4;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String nimUserId = MyApplication.getInstance().nimUserId();
@@ -502,6 +1129,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
+
+        mButton2 = (Button) findViewById(R.id.cancel_yuyue);
+        mButton3 = (Button) findViewById(R.id.cancel_yuyue1);
+        mButton4 = (Button) findViewById(R.id.cancel_yuyue2);
+
+
+        speak(R.string.qianyue_doctor);
 
         mToolbar.setVisibility(View.VISIBLE);
 
@@ -587,6 +1221,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                     finish();
 
                 } else {
+                    speak(getString(R.string.yuyue_limit));
+
                     Toast.makeText(getApplicationContext(), "签约已达上限", Toast.LENGTH_SHORT).show();
                 }
 
@@ -696,6 +1332,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 dialog = new NDialog1(DoctorappoActivity.this);
 
+                speak(getString(R.string.cancel_yuyue));
 
                 showNormal(1);
 
@@ -704,12 +1341,17 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             case R.id.cancel_yuyue1:
 
                 dialog = new NDialog1(DoctorappoActivity.this);
+                speak(getString(R.string.cancel_yuyue));
+
                 showNormal(2);
                 break;
 
             case R.id.cancel_yuyue2:
 
                 dialog = new NDialog1(DoctorappoActivity.this);
+
+                speak(getString(R.string.cancel_yuyue));
+
                 showNormal(3);
                 break;
         }
@@ -783,6 +1425,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                         yuYueDoctor();
 
                                         ShowNormals("取消成功");
+                                        speak(getString(R.string.cancel_success));
 
 
                                     }
@@ -831,6 +1474,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
 
                                         ShowNormals("取消成功");
+
+                                        speak(getString(R.string.cancel_success));
 
                                         /*DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
                                                 .listen(new UpdateOrDeleteCallback() {
@@ -895,6 +1540,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
 
                                         ShowNormals("取消成功");
+
+                                        speak(getString(R.string.cancel_success));
 
                                        /* DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
                                                 .listen(new UpdateOrDeleteCallback() {

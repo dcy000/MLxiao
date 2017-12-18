@@ -5,16 +5,13 @@ import java.util.List;
 
 public class SymptomResultBean implements Serializable{
 
-//    public String sid;
-//    public String con;
-//    public String deal;
-//    public float probability;
     private List<zzs> zzs;
     private List<bqs> bqs;
 
     public List<SymptomResultBean.zzs> getZzs() {
         return zzs;
     }
+
 
     public void setZzs(List<SymptomResultBean.zzs> zzs) {
         this.zzs = zzs;
@@ -28,16 +25,9 @@ public class SymptomResultBean implements Serializable{
         this.bqs = bqs;
     }
 
-    @Override
-    public String toString() {
-        return "SymptomResultBean{" +
-                "zzs=" + zzs +
-                ", bqs=" + bqs +
-                '}';
-    }
-
-    public class zzs implements Serializable{
-        private String id,name;
+    public static class zzs implements Serializable{
+        private String id;
+        private String name;
 
         public String getId() {
             return id;
@@ -53,14 +43,6 @@ public class SymptomResultBean implements Serializable{
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return "zzs{" +
-                    "id='" + id + '\'' +
-                    ", name='" + name + '\'' +
-                    '}';
         }
     }
     public static class bqs implements Serializable{
@@ -117,18 +99,6 @@ public class SymptomResultBean implements Serializable{
 
         public void setSuggest(String suggest) {
             this.suggest = suggest;
-        }
-
-        @Override
-        public String toString() {
-            return "bqs{" +
-                    "bname='" + bname + '\'' +
-                    ", gl='" + gl + '\'' +
-                    ", review='" + review + '\'' +
-                    ", eat='" + eat + '\'' +
-                    ", sports='" + sports + '\'' +
-                    ", suggest='" + suggest + '\'' +
-                    '}';
         }
     }
 }

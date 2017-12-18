@@ -2,10 +2,12 @@ package com.medlink.danbogh.call2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +20,10 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recyclerview.AppraiseActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -46,6 +50,9 @@ import com.netease.nimlib.sdk.avchat.model.AVChatOnlineAckEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatSessionStats;
 import com.netease.nimlib.sdk.avchat.model.AVChatSurfaceViewRenderer;
 import com.netease.nimlib.sdk.avchat.model.AVChatVideoFrame;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -130,6 +137,8 @@ public class NimCallActivity extends AppCompatActivity {
     public AVChatSurfaceViewRenderer mLargeRenderer;
 
     private boolean shouldEnableToggle = false;
+
+
 
     public NimCallHelper.OnCallStateChangeListener mCallListener = new NimCallHelper.OnCallStateChangeListener() {
         @Override
@@ -227,6 +236,12 @@ public class NimCallActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+
+
         if (!validSource()) {
             finish();
             return;
@@ -708,10 +723,21 @@ public class NimCallActivity extends AppCompatActivity {
                     public void onSuccess(Doctor response) {
                         int docterid = response.docterid;
                         NetworkApi.charge(minutes , docterid, bid,
-                                new NetworkManager.SuccessCallback<Object>() {
+                                new NetworkManager.SuccessCallback<String>() {
                                     @Override
-                                    public void onSuccess(Object response) {
+                                    public void onSuccess(String response) {
                                         T.show(minutes + "分钟");
+                                        if (TextUtils.isEmpty(response)){
+                                            return;
+                                        }
+                                        try {
+                                            JSONObject mResult = new JSONObject(response);
+                                            Intent intent = new Intent(NimCallActivity.this, AppraiseActivity.class);
+                                            intent.putExtra("doid", mResult.getInt("daid"));
+                                            startActivity(intent);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }, new NetworkManager.FailedCallback() {
                                     @Override

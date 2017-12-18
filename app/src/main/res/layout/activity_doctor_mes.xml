@@ -243,6 +243,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginTop="80dp"
             android:background="@drawable/bg_btn"
+            android:clickable="true"
             android:gravity="center"
             android:text="@string/qianyue"
             android:textColor="@android:color/white"

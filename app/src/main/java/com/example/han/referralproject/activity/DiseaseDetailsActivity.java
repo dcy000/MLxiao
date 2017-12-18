@@ -14,7 +14,11 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.SymptomResultBean;
+import com.example.han.referralproject.music.ToastUtils;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.medlink.danbogh.utils.T;
 
 public class DiseaseDetailsActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -50,7 +54,6 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
     }
 
     private void initView() {
-        mData= (SymptomResultBean.bqs) getIntent().getSerializableExtra("data");
         mContent = (TextView) findViewById(R.id.content);
         mRbReason = (RadioButton) findViewById(R.id.rb_reason);
         mRbReason.setOnClickListener(this);
@@ -61,11 +64,36 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
         mRbSport = (RadioButton) findViewById(R.id.rb_sport);
         mRbSport.setOnClickListener(this);
         mRgDisease = (RadioGroup) findViewById(R.id.rg_disease);
+        mRgDisease.setOnCheckedChangeListener(this);
         //默认第一个选中
         mRbReason.setChecked(true);
-        mContent.setText(mData.getReview());
-        mRgDisease.setOnCheckedChangeListener(this);
-        speak(mData.getReview()+"。"+mData.getSuggest()+"。"+mData.getSports());
+        mData= (SymptomResultBean.bqs) getIntent().getSerializableExtra("data");
+        if(mData==null){
+            NetworkApi.getJibing(getIntent().getStringExtra("type"), new NetworkManager.SuccessCallback<DiseaseResult>() {
+                @Override
+                public void onSuccess(DiseaseResult response) {
+                    mData=new SymptomResultBean.bqs();
+                    mData.setBname(response.bname);
+                    mData.setEat(response.eat);
+                    mData.setReview(response.review);
+                    mData.setSuggest(response.suggest);
+                    mData.setSports(response.sports);
+                    mData.setGl("0");
+
+                    mContent.setText(mData.getReview());
+                    speak(response.review+"。"+response.getSuggest()+"。"+response.getSports());
+                }
+            }, new NetworkManager.FailedCallback() {
+                @Override
+                public void onFailed(String message) {
+                    ToastUtils.show(message);
+                }
+            });
+        }else{
+            mContent.setText(mData.getReview());
+            speak(mData.getReview()+"。"+mData.getSuggest()+"。"+mData.getSports());
+        }
+
     }
 
     @Override

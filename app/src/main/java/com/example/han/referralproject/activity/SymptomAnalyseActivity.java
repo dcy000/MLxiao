@@ -152,6 +152,9 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                 mDataList.clear();
                 //将zzs对象转换成SymptomBean对象，方便使用同一adapter
                 for (int i = 0; i < zzss.size(); i++) {
+                    if(zzss.get(i).getId().equals(b_1)||zzss.get(i).getId().equals(b_2)||zzss.get(i).getId().equals(b_3)){
+                        continue;
+                    }
                     SymptomBean symptomBean = new SymptomBean();
                     symptomBean.id = zzss.get(i).getId();
                     symptomBean.name = zzss.get(i).getName();
@@ -171,7 +174,12 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                     ToastUtils.show("至少选择一个病症标签");
                     return;
                 }
-                NetworkApi.analyseSym(buffer.substring(0, buffer.length() - 1), mAnalyseCallback);
+                if(buffer.contains(",")){
+                    NetworkApi.analyseSym(buffer.substring(0, buffer.length() - 1), mAnalyseCallback);
+                }else{
+                    NetworkApi.analyseSym(buffer, mAnalyseCallback);
+                }
+
                 break;
             case R.id.tv_1://删除第一层病症标签
                 flag--;
