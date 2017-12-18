@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
     tools:context="com.medlink.danbogh.alarm.AlarmDetail2Activity">
 
     <LinearLayout
         android:id="@+id/alarm_ll_toolbar"
         android:layout_width="0dp"
         android:layout_height="69dp"
+        android:visibility="gone"
         android:gravity="center_vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -39,7 +39,7 @@
         android:layout_marginTop="85dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/alarm_ll_toolbar"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <!--<TimePicker-->
     <!--android:id="@+id/alarm_detail_tp_time"-->

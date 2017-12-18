@@ -11,7 +11,7 @@
 
     <View
         android:id="@+id/view_back"
-        android:layout_width="70dp"
+        android:layout_width="220dp"
         android:layout_height="70dp"/>
 
     <TextView
@@ -27,5 +27,5 @@
         android:paddingRight="10dp"
         android:text="暂不签约"
         android:textColor="#ffffff"
-        android:textSize="25sp"/>
+        android:textSize="35sp"/>
 </RelativeLayout>

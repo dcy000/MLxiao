@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.crazypumpkin.versatilerecyclerview.library.WheelRecyclerView;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -25,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class AlarmDetail2Activity extends AppCompatActivity {
+public class AlarmDetail2Activity extends BaseActivity {
 
     public static Intent newLaunchIntent(Context context, long id) {
         Intent intent = new Intent(context, AlarmDetail2Activity.class);
@@ -63,6 +65,9 @@ public class AlarmDetail2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_alarm_detail2);
         mUnbinder = ButterKnife.bind(this);
         initView();
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText(R.string.medication_reminder);
+        mRightView.setVisibility(View.GONE);
         long id = getIntent().getLongExtra("id", -1);
         if (id == -1) {
             mModel = new AlarmModel();

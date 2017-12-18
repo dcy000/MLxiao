@@ -98,6 +98,9 @@ public class AlarmHelper {
             if (timestamp != -1) {
                 if (timestamp > nextCalendar.getTimeInMillis()) {
                     setupAlarm(context, timestamp, pi);
+                } else {
+                    model.setEnabled(false);
+                    model.update(model.getId());
                 }
                 continue;
             }

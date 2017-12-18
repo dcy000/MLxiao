@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.medlink.danbogh.utils.Handlers;
@@ -48,11 +49,13 @@ public class ReminderActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(mContent)) {
             mContent = "主人,该吃药了！";
+        } else {
+            if (!mContent.startsWith("主人")) {
+                mContent = "主人," + mContent;
+            }
         }
-        if (!TextUtils.isEmpty(mContent) || !mContent.startsWith("主人")){
-            mContent = "主人," + mContent;
-        }
-        tvContent.setText(mContent);
+
+        tvContent.setText(MyApplication.getInstance().userName + mContent);
 
         Handlers.runOnUiThread(mAlarm);
 
