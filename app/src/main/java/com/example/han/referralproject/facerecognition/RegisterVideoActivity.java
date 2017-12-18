@@ -110,7 +110,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
     public ImageView mImageView;
 
-    public Button mButton;
+    public ImageView mButton;
 
 
     private Handler mHandler = new Handler(new Handler.Callback() {
@@ -212,25 +212,17 @@ public class RegisterVideoActivity extends BaseActivity {
 
         mediaPlayer.start();//播放音乐
 
-      //  speak(getString(R.string.facc_register));
+        //  speak(getString(R.string.facc_register));
 
-        mButton = (Button) findViewById(R.id.tiao_guo);
+        mButton = (ImageView) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
 
-        mImageView = (ImageView) findViewById(R.id.icon_back);
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
 
         //SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 

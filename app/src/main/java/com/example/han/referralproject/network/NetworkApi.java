@@ -43,7 +43,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://192.168.200.113:8080";
 
 //    public static final String BasicUrl = "http://192.168.200.115:8080";
 //    public static final String BasicUrl = "http://192.168.200.113:8080";

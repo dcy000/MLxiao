@@ -16,6 +16,7 @@ public class LocalShared {
     private SharedPreferences mShared;
 
     private final String UserAccounts = "user_accounts";
+    private final String UserAccounts_new="user_accounts_new";
     private final String UserId = "user_id";
     private static final String USER_NAME = "user_name";
     private static final String USER_ID_CARD = "user_id_card";
@@ -42,9 +43,9 @@ public class LocalShared {
         if (TextUtils.isEmpty(bid)||TextUtils.isEmpty(xfid)) {
             return;
         }
-        String accountsString = mShared.getString(UserAccounts, "");
+        String accountsString = mShared.getString(UserAccounts_new, "");
         if (TextUtils.isEmpty(accountsString)){
-            mShared.edit().putString(UserAccounts, bid + ","+xfid+";").commit();
+                mShared.edit().putString(UserAccounts, bid + ","+xfid+";").commit();
         } else {
             String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(";");
             if (!isContainAccount(accountsArray, bid,xfid)) {
@@ -118,7 +119,8 @@ public class LocalShared {
                 .putString(UserId, infoBean.bid)
                 .putString(UserPhoneNum, infoBean.tel)
                 .putString(USER_NAME, infoBean.bname)
-                .apply();
+                .commit();
+        //.apply();
     }
 
     public void setUserImg(String imgUrl) {

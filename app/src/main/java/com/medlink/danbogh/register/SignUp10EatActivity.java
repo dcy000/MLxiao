@@ -46,6 +46,7 @@ public class SignUp10EatActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up10_eat);
         mToolbar.setVisibility(View.GONE);
+        setShowVoiceView(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }

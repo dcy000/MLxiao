@@ -73,28 +73,28 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 ((Activity)mContext).finish();
                 break;
             case R.id.btn_logout:
-                LocalShared.getInstance(mContext).loginOut();
-                mContext.startActivity(new Intent(mContext, SignInActivity.class));
-                ((Activity)mContext).finish();
+//                LocalShared.getInstance(mContext).loginOut();
+//                mContext.startActivity(new Intent(mContext, SignInActivity.class));
+//                ((Activity)mContext).finish();
 
-//                if (mDataList == null){
-//                    return;
-//                }
-//                if (mDataList.size() == 1){
-//                    LocalShared.getInstance(mContext).loginOut();
-//                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
-//                    ((Activity)mContext).finish();
-//                    break;
-//                } else {
-//                    for (UserInfoBean itemBean : mDataList){
-//                        if (!itemBean.bid.equals(MyApplication.getInstance().userId)){
-//                            LocalShared.getInstance(mContext).loginOut();
-//                            MyApplication.getInstance().userId = itemBean.bid;
-//                            LocalShared.getInstance(mContext).setUserInfo(itemBean);
-//                            mContext.sendBroadcast(new Intent("change_account"));
-//                        }
-//                    }
-//                }
+                if (mDataList == null){
+                    return;
+                }
+                if (mDataList.size() == 1){
+                    LocalShared.getInstance(mContext).loginOut();
+                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                    ((Activity)mContext).finish();
+                    break;
+                } else {
+                    for (UserInfoBean itemBean : mDataList){
+                        if (!itemBean.bid.equals(MyApplication.getInstance().userId)){
+                            LocalShared.getInstance(mContext).loginOut();
+                            MyApplication.getInstance().userId = itemBean.bid;
+                            LocalShared.getInstance(mContext).setUserInfo(itemBean);
+                            mContext.sendBroadcast(new Intent("change_account"));
+                        }
+                    }
+                }
 
                 break;
         }

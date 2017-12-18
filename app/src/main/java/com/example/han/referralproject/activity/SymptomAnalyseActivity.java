@@ -152,6 +152,9 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                 mDataList.clear();
                 //将zzs对象转换成SymptomBean对象，方便使用同一adapter
                 for (int i = 0; i < zzss.size(); i++) {
+                    if(zzss.get(i).getId().equals(b_1)||zzss.get(i).getId().equals(b_2)||zzss.get(i).getId().equals(b_3)){
+                        continue;
+                    }
                     SymptomBean symptomBean = new SymptomBean();
                     symptomBean.id = zzss.get(i).getId();
                     symptomBean.name = zzss.get(i).getName();

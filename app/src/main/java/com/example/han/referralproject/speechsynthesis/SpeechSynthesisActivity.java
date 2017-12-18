@@ -127,7 +127,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private ComponentName mRemoteReceiver;
     private boolean isPlayFragmentShow = false;
     private AnimationDrawable faceAnim;
-
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -176,6 +175,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
+
+
 
         rand = new Random();
 
@@ -231,7 +232,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
         getPlayService().setOnPlayEventListener(this);
-
 
     }
 
