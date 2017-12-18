@@ -142,7 +142,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             }
         });*/
         mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
-        mTitleText.setText("个人中心");
+        mTitleText.setText("个  人  中  心");
         mRightView.setImageResource(R.drawable.icon_wifi);
         mImageView5.setOnClickListener(new View.OnClickListener() {
             @Override

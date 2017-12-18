@@ -380,8 +380,9 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
             WindowManager.LayoutParams lp = window.getAttributes(); // 这个是主要设置对象
             window.setGravity(Gravity.BOTTOM); // 设置窗体位置，还可以有LEFT,TOP,RIGHT,BOTTOM
             window.setAttributes(lp); // 最后重新设置
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE |
+                    WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             dialog.show();
-
             voiceLineView= (VoiceLineView) view.findViewById(R.id.voicLine);
             Thread thread = new Thread(this);
             thread.start();
