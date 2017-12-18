@@ -132,6 +132,10 @@ public class LocalShared {
         //.apply();
     }
 
+    public String getUserName() {
+        return mShared.getString(USER_NAME, "");
+    }
+
     public void setUserImg(String imgUrl) {
         mShared.edit().putString(UserImg, imgUrl).commit();
     }
