@@ -255,11 +255,14 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
 
+
         mToolbar.setVisibility(View.VISIBLE);
 
         mTitleText.setText(getString(R.string.doctor_yuyue));
 
         initView();
+
+        speak(getString(R.string.yuyue_times));
 
         dialog1 = new NDialog2(AddAppoActivity.this);
 

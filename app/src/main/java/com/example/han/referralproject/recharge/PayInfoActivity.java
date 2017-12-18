@@ -155,6 +155,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
         mTitleText.setText(getString(R.string.pay));
 
+        speak(getString(R.string.zhanghu_chongzhi));
 
     /*    mImageView1 = (ImageView) findViewById(R.id.icon_back);
         mImageView2 = (ImageView) findViewById(R.id.icon_home);

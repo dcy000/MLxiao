@@ -46,7 +46,9 @@ public class DoctorAlarmActivity extends BaseActivity {
         mButton1 = (Button) findViewById(R.id.video_true);
         mButton2 = (Button) findViewById(R.id.video_cancel);
 
-        mTitleText.setText(getString(R.string.test_record));
+        mTitleText.setText(getString(R.string.yuyue_video));
+
+        speak(getString(R.string.yuyue_tim));
 
 
         mButton1.setOnClickListener(new View.OnClickListener() {
