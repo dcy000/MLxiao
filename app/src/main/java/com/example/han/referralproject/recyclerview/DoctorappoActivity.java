@@ -1213,9 +1213,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ("".equals(mTextView.getText().toString()) ||
-                        "".equals(mTextView2.getText().toString()) ||
-                        "".equals(mTextView7.getText().toString())) {
+                if (TextUtils.isEmpty(mTextView.getText()) ||
+                        TextUtils.isEmpty(mTextView2.getText()) ||
+                        TextUtils.isEmpty(mTextView7.getText())) {
                     Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class);
                     startActivity(intent);
                     finish();
