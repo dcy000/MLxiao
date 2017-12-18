@@ -67,6 +67,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up3_address);
         mToolbar.setVisibility(View.GONE);
+        setShowVoiceView(true);
         mUnbinder = ButterKnife.bind(this);
         initData();
         initLocation();

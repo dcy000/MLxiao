@@ -123,6 +123,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_health_record);
         mToolbar.setVisibility(View.VISIBLE);
         mUnbinder = ButterKnife.bind(this);
+        speak("主人，请查看历史记录");
 //        tvTitle.setText("健康档案");
         //默认选择第一个
         rgHealthRecord.check(R.id.rb_record_temperature);
