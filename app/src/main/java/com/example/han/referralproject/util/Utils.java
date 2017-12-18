@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.net.wifi.WifiManager;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 
@@ -20,9 +21,19 @@ public class Utils {
     public static String getDeviceId(){
 //        WifiManager wm = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 //        String WLANMAC = wm.getConnectionInfo().getMacAddress();
-        TelephonyManager TelephonyMgr = (TelephonyManager) MyApplication.getInstance().getSystemService(TELEPHONY_SERVICE);
-        return TelephonyMgr.getDeviceId();
+
+//        TelephonyManager TelephonyMgr = (TelephonyManager) MyApplication.getInstance().getSystemService(TELEPHONY_SERVICE);
+//        return TelephonyMgr.getDeviceId();
+
+        return Settings.System.getString(MyApplication.getInstance().getContentResolver(), Settings.System.ANDROID_ID);
     }
+
+    @SuppressLint("MissingPermission")
+    public static String getMacAddress(){
+        WifiManager wm = (WifiManager)MyApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        return wm.getConnectionInfo().getMacAddress();
+    }
+
     /*
     * 将时间戳转换为时间
     */

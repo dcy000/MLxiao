@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -51,10 +52,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
 
 
+    private MediaPlayer mediaPlayer;//MediaPlayer对象
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+     /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
+
+        mediaPlayer.start();//播放音乐*/
 
         if (isMyServiceRunning(AssistiveTouchService.class)) {
 
@@ -105,7 +114,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak(R.string.tips_splash);
+                // speak(getString(R.string.facc_register));
+                // speak(R.string.tips_splash);
+                // speak(R.string.head_verify);
+
             }
         }, 1000);
     }
@@ -151,17 +163,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.doctor_ask://医生咨询
-//                intent.setClass(getApplicationContext(), MainVideoActivity.class);
-//                startActivity(intent);
-                if ("".equals(sharedPreferences.getString("name", ""))) {
-                    Toast.makeText(getApplicationContext(), "请先查看是否与签约医生签约成功", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
-                    startActivity(intent);
-                }
-
-                //    EMUIHelper.callVideo(MyApplication.getInstance(), MyApplication.getInstance().emDoctorId);
+                intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
+                startActivity(intent);
                 break;
             case R.id.health_class:
                 intent.setClass(getApplicationContext(), VideoListActivity.class);

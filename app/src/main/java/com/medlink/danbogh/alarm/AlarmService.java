@@ -16,6 +16,16 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        long id = intent.getLongExtra(AlarmHelper.ID, -1);
+        if (id != -1) {
+            AlarmModel model = AlarmModel.find(AlarmModel.class, id);
+            if (model != null) {
+                if (model.getInterval() == AlarmModel.INTERVAL_DAY) {
+                    model.setEnabled(false);
+                    model.update(id);
+                }
+            }
+        }
         String tag = intent.getStringExtra("tag");
         Intent alarmIntent = new Intent();
         if (tag == null || tag.isEmpty()) {

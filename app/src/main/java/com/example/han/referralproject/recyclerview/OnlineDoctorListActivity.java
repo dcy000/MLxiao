@@ -1,11 +1,15 @@
 package com.example.han.referralproject.recyclerview;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +19,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 
@@ -33,6 +38,10 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
     private List<Docter> mlist = new ArrayList<Docter>();
     DoctorAdapter mDoctorAdapter;
     private int page = 1;
+    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreference;
+    long countdown;
+    private String mFlag;
 
 
     @Override
@@ -42,6 +51,33 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
 
         initView();
 
+        sharedPreferences = getSharedPreferences(ConstantData.ONLINE_TIME, Context.MODE_PRIVATE);
+
+        sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
+
+        mFlag = getIntent().getStringExtra("flag");
+        if ("contract".equals(mFlag)) {
+            NetworkApi.doctor_list(0, 12, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                @Override
+                public void onSuccess(ArrayList<Docter> response) {
+                    List<Docter> list = new ArrayList<Docter>();
+                    mlist.clear();
+                    list.addAll(response);
+                    mlist.addAll(list);
+                    mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+                    mRecyclerView.setAdapter(mDoctorAdapter);
+
+                    setData();
+                }
+
+            }, new NetworkManager.FailedCallback() {
+                @Override
+                public void onFailed(String message) {
+
+                }
+            });
+            return;
+        }
 
         NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
@@ -87,14 +123,33 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
         mDoctorAdapter.setOnItemClistListener(new DoctorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion) {
+                if (!"".equals(sharedPreferences.getString("online_time", ""))) {
+                    countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
+                    if (countdown < 30000) {
+                        if (mlist.get(postion).getDocterid().equals(sharedPreference.getString("online_id", ""))) {
+                            jump(postion);
+                        }
+                    } else {
+                        jump(postion);
+                    }
+                } else {
+                    jump(postion);
+                }
+
                 Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
                 intent.putExtra("docMsg", (Serializable) mlist.get(postion));
-                intent.putExtra("sign", "1");
+                if (!"contract".equals(mFlag)) {
+                    intent.putExtra("sign", "1");
+                }
                 startActivity(intent);
 //                finish();
 
             }
         });
+
+        if ("contract".equals(mFlag)) {
+            return;
+        }
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -163,6 +218,15 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
 
         });
 
+
+    }
+
+    public void jump(int postion) {
+
+        Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
+        intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+        intent.putExtra("sign", "1");
+        startActivity(intent);
 
     }
 

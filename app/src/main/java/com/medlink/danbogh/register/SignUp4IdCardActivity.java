@@ -87,7 +87,7 @@ public class SignUp4IdCardActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String idCard = etIdCard.getText().toString().trim();
-        if (TextUtils.isEmpty(idCard)) {
+        if (!Utils.checkIdCard(idCard)) {
             speak(R.string.sign_up_id_card_tip);
             return;
         }
@@ -134,7 +134,11 @@ public class SignUp4IdCardActivity extends BaseActivity {
         Pattern patternInIdCard = Pattern.compile(REGEX_IN_ID_CARD);
         Matcher matcherInIdCard = patternInIdCard.matcher(in);
         if (matcherInIdCard.find()) {
-            String s = etIdCard.getText().toString() + matcherInIdCard.group(matcherInIdCard.groupCount());
+            String target = etIdCard.getText().toString().trim();
+            if (target.length() >= 18) {
+                return;
+            }
+            String s = target + matcherInIdCard.group(matcherInIdCard.groupCount());
             etIdCard.setText(s);
             etIdCard.setSelection(s.length());
         }

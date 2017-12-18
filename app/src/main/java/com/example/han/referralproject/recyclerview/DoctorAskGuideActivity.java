@@ -31,6 +31,9 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_ask_guide);
+
+        speak(getString(R.string.doctor_choice));
+
         mToolbar.setVisibility(View.VISIBLE);
         speak("主人，请点击选择签约医生或在线医生");
         initView();
@@ -48,6 +51,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                     Intent intent = new Intent(this, OnlineDoctorListActivity.class);
                     intent.putExtra("flag", "contract");
                     startActivity(intent);
+                    return;
                 }
                 startActivity(new Intent(this, DoctorappoActivity.class));
                 break;

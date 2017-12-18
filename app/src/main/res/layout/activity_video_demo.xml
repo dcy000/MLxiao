@@ -35,22 +35,22 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/icon_back"
+            android:visibility="gone" />
     </LinearLayout>
 
     <Button
         android:id="@+id/tiao_guo"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/selector_bg_btn"
         android:gravity="center"
         android:text="@string/tiao_zhuan"
         android:textColor="#FFFFFF"
-        android:textSize="35sp"
-         />
+        android:textSize="35sp" />
 
 
     <!-- <RadioGroup

@@ -46,7 +46,37 @@ public class Utils {
         return phone.matches("[1][34578]\\d{9}");
     }
 
-    public static void showKeyBroad(EditText view) {
+    public static boolean checkIdCard(String idCard) {
+        if (idCard == null || idCard.length() != 18) {
+            return false;
+        }
+        char[] chars = idCard.toCharArray();
+        int length = chars.length - 1;
+        int[] ratios = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+        int[] tails = {1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2};
+        int sum = 0;
+        int i;
+        for (i = 0; i < length; i++) {
+            if (chars[i] < '0' && chars[i] > '9') {
+                return false;
+            }
+            sum += (chars[i] - '0') * ratios[i];
+        }
+        if (!(chars[i] == 'x'
+                || chars[i] == 'X'
+                || (chars[i] >= '0' && chars[i] <= '9'))) {
+            return false;
+        }
+        int value;
+        if (chars[i] == 'x' || chars[i] == 'X') {
+            value = 10;
+        } else {
+            value = chars[i] - '0';
+        }
+        return value == tails[sum % 11];
+    }
+
+    public static void showKeyBroad(View view) {
         if (view == null) {
             return;
         }

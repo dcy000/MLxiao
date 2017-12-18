@@ -39,15 +39,15 @@
         app:layout_constraintTop_toBottomOf="@id/tv_sign_up_name"/>
 
     <TextView
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:textColor="#3F85FC"
-        android:text="语音输入格式: 星辰的星，将输入‘星’"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="语音输入格式: 星辰的星，将输入‘星’"
+        android:textColor="#3F85FC"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_name"/>
 
     <include layout="@layout/include_sign_up_tab"/>
 

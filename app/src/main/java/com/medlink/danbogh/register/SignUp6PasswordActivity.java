@@ -84,7 +84,9 @@ public class SignUp6PasswordActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String password = etPassword.getText().toString().trim();
-        if (TextUtils.isEmpty(password) || password.length() != 6) {
+        if (TextUtils.isEmpty(password)
+                || !TextUtils.isDigitsOnly(password)
+                || password.length() != 6) {
             T.show(R.string.sign_up_password_tip);
             speak(R.string.sign_up_password_tip);
             return;

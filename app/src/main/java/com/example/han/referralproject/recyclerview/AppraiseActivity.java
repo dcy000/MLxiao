@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
@@ -25,7 +26,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.squareup.picasso.Picasso;
 
-public class AppraiseActivity extends AppCompatActivity implements View.OnClickListener {
+public class AppraiseActivity extends BaseActivity implements View.OnClickListener {
 
     public ImageView mImageView1;
     public ImageView mImageView2;
@@ -45,8 +46,6 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
 
     public Button mButton;
 
-    public ImageView ImageView1;
-    public ImageView ImageView2;
 
     public TextView mTextView1;
     public TextView mTextView2;
@@ -63,6 +62,13 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appraise);
+
+        speak(getString(R.string.doctor_appraises));
+
+
+        mToolbar.setVisibility(View.VISIBLE);
+
+        mTitleText.setText(getString(R.string.doctor_appraise));
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
@@ -104,24 +110,6 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
         mButton = (Button) findViewById(R.id.niming_appraise);
         dialog = new NDialog1(AppraiseActivity.this);
 
-        ImageView1 = (ImageView) findViewById(R.id.icon_back);
-        ImageView2 = (ImageView) findViewById(R.id.icon_home);
-
-        ImageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        ImageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         mTextView4.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
         mTextView1.setText(sharedPreferences1.getString("name", ""));
@@ -139,6 +127,22 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
+
+    /**
+     * 返回上一页
+     */
+    protected void backLastActivity() {
+        finish();
+    }
+
+    /**
+     * 返回到主页面
+     */
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -280,6 +284,8 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
             case R.id.niming_appraise:
 
 
+                speak(getString(R.string.true_appraise));
+
                 showNormal();
 
                 break;
@@ -290,7 +296,7 @@ public class AppraiseActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void showNormal() {
-        dialog.setMessageCenter(false)
+        dialog.setMessageCenter(true)
                 .setMessage("您确认要进行评价？")
                 .setMessageSize(40)
                 .setCancleable(false)
