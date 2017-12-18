@@ -5,26 +5,40 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.util.Utils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -39,10 +53,12 @@ import com.medlink.danbogh.wakeup.WakeupHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements Runnable{
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -67,6 +83,13 @@ public class BaseActivity extends AppCompatActivity {
     protected TextView mLeftText;
     protected RelativeLayout mToolbar;
     protected LinearLayout mllBack;
+    private boolean isShowVoiceView=false;//是否显示声音录入图像
+    private MediaRecorder mMediaRecorder;
+    private boolean isAlive=true;
+    private VoiceLineView voiceLineView;
+    private View mFootView;
+    private AlertDialog.Builder builder;
+    private AlertDialog dialog;
 
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
@@ -84,9 +107,10 @@ public class BaseActivity extends AppCompatActivity {
         rootView = new LinearLayout(this);
         rootView.setOrientation(LinearLayout.VERTICAL);
         mTitleView = mInflater.inflate(R.layout.custom_title_layout, null);
+        mFootView=mInflater.inflate(R.layout.voiceinput_popwindow,null);
+
         rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (70 * mResources.getDisplayMetrics().density)));
         initToolbar();
-
         enableListeningLoop = true;
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer == null) {
@@ -101,7 +125,31 @@ public class BaseActivity extends AppCompatActivity {
             mTts = synthesizer;
         }
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
+
+        if (mMediaRecorder == null)
+            mMediaRecorder = new MediaRecorder();
+        mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+        mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+
+        File file = new File(Environment.getExternalStorageDirectory().getPath(), "hello.log");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        mMediaRecorder.setOutputFile(file.getAbsolutePath());
+        mMediaRecorder.setMaxDuration(1000 * 60 * 10);
+        try {
+            mMediaRecorder.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mMediaRecorder.start();
     }
+
 
     private void initToolbar() {
         mllBack= (LinearLayout) mTitleView.findViewById(R.id.ll_back);
@@ -149,6 +197,14 @@ public class BaseActivity extends AppCompatActivity {
     public void setContentView(View view) {
         rootView.addView(view);
         super.setContentView(rootView);
+//        FrameLayout mContentParent = (FrameLayout) findViewById(android.R.id.content);
+//        View view1 = new View(this);
+//        view1.setBackgroundColor(Color.parseColor("#ff0000"));
+//        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 120);
+//
+//        params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+//        params.bottomMargin =10;
+//        mContentParent.addView(view1,params);
     }
 
     private InitListener mTtsInitListener = new InitListener() {
@@ -241,16 +297,22 @@ public class BaseActivity extends AppCompatActivity {
     private RecognizerListener mIatListener = new RecognizerListener() {
         @Override
         public void onVolumeChanged(int i, byte[] bytes) {
+            if(isShowVoiceView){
+                showPopwindow();
+            }
+
         }
 
         @Override
         public void onBeginOfSpeech() {
-            Log.i("speak", "speakbegin          ");
+
         }
 
         @Override
         public void onEndOfSpeech() {
-            Log.i("speak", "speakend          ");
+            if(dialog!=null){
+                dialog.dismiss();
+            }
         }
 
         @Override
@@ -287,6 +349,7 @@ public class BaseActivity extends AppCompatActivity {
                 if(result.matches(".*(首页|守夜|授业).*")){
                     startActivity(new Intent(BaseActivity.this,MainActivity.class));
                     finish();
+                    return;
                 }
                 onSpeakListenerResult(result);
             }
@@ -302,14 +365,51 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
+    private void showPopwindow() {
+
+        if(dialog==null){
+            builder=new AlertDialog.Builder(this);
+            // 利用layoutInflater获得View
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.voiceinput_popwindow, null);
+            builder.setView(view);
+            dialog=builder.create();
+            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
+            dialog.getWindow().setDimAmount(0f);
+            Window window = dialog.getWindow();  // 获取Dialog的Window对象
+            WindowManager.LayoutParams lp = window.getAttributes(); // 这个是主要设置对象
+            window.setGravity(Gravity.BOTTOM); // 设置窗体位置，还可以有LEFT,TOP,RIGHT,BOTTOM
+            window.setAttributes(lp); // 最后重新设置
+            dialog.show();
+
+            voiceLineView= (VoiceLineView) view.findViewById(R.id.voicLine);
+            Thread thread = new Thread(this);
+            thread.start();
+
+        }else{
+            if(!dialog.isShowing())
+            dialog.show();
+
+
+        }
+    }
+
+    protected void setShowVoiceView(boolean showVoiceView) {
+        isShowVoiceView = showVoiceView;
+    }
+
     private SynthesizerListener mTtsListener = new SynthesizerListener() {
 
         @Override
         public void onSpeakBegin() {
+            if (dialog != null) {
+                dialog.dismiss();
+            }
         }
 
         @Override
         public void onSpeakPaused() {
+
         }
 
         @Override
@@ -326,6 +426,10 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onCompleted(SpeechError error) {
+            if(isShowVoiceView){
+                showPopwindow();
+            }
+
             onActivitySpeakFinish();
             if (error == null) {
             } else if (error != null) {
@@ -472,4 +576,42 @@ public class BaseActivity extends AppCompatActivity {
         mDialog.dismiss();
     }
 
+    @Override
+    public void run() {
+        while (isAlive) {
+            handler1.sendEmptyMessage(0);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        isAlive = false;
+        mMediaRecorder.release();
+        mMediaRecorder = null;
+        super.onDestroy();
+
+    }
+    private Handler handler1 = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(mMediaRecorder==null) return;
+            double ratio = (double) mMediaRecorder.getMaxAmplitude() / 100;
+            Log.e("音量大小",ratio+"");
+            double db = 0;// 分贝
+            //默认的最大音量是100,可以修改，但其实默认的，在测试过程中就有不错的表现
+            //你可以传自定义的数字进去，但需要在一定的范围内，比如0-200，就需要在xml文件中配置maxVolume
+            //同时，也可以配置灵敏度sensibility
+            if (ratio > 1)
+                db = 20 * Math.log10(ratio);
+            //只要有一个线程，不断调用这个方法，就可以使波形变化
+            //主要，这个方法必须在ui线程中调用
+            voiceLineView.setVolume((int) (db));
+        }
+    };
 }

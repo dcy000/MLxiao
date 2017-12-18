@@ -72,6 +72,8 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
+import com.tyorikan.voicerecordingvisualizer.RecordingSampler;
+import com.tyorikan.voicerecordingvisualizer.VisualizerView;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
@@ -138,7 +140,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private ComponentName mRemoteReceiver;
     private boolean isPlayFragmentShow = false;
     private AnimationDrawable faceAnim;
-
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -187,6 +188,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
+
+
 
         rand = new Random();
 
@@ -242,7 +245,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
         getPlayService().setOnPlayEventListener(this);
-
 
     }
 
@@ -507,7 +509,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
         findViewById(R.id.iat_recognizes).performClick();
     }
-
     /**
      * 听写监听器。
      */

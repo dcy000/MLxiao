@@ -1,9 +1,11 @@
 package com.example.han.referralproject.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
+import android.view.WindowManager;
 
 import com.example.han.referralproject.application.MyApplication;
 
@@ -29,5 +31,17 @@ public class Utils {
         Long time=new Long(s);
         String d = format.format(time);
         return d;
+    }
+
+    /**
+     * 调节屏幕透明度
+     * @param context
+     * @param bgAlpha
+     */
+    public static void backgroundAlpha(Activity context, float bgAlpha) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        context.getWindow().setAttributes(lp);
     }
 }
