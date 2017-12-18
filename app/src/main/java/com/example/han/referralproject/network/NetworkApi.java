@@ -45,12 +45,10 @@ import java.util.Map;
 public class NetworkApi {
 
 //    public static final String BasicUrl = "http://192.168.200.115:8080";
-
 //    public static final String BasicUrl = "http://192.168.200.113:8080";
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
      public static final String BasicUrl = "http://118.31.238.207:8080";
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
 //    public static final String BasicUrl="http://192.168.200.109:8080";//文博本地
 
@@ -205,7 +203,8 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultString(TOKEN_URL, paramsMap, listener, failedCallback);
     }
 
-    public static void appraise(String docterid, String bid, String content, int score, String time, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+    public static void appraise(String docterid, String bid, String content, int score, String time, int doid,
+                                NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
 
         paramsMap.put("docterid", docterid + "");
@@ -213,7 +212,7 @@ public class NetworkApi {
         paramsMap.put("content", content);
         paramsMap.put("score", score + "");
         paramsMap.put("time", time);
-
+        paramsMap.put("daid", String.valueOf(doid));
 
         NetworkManager.getInstance().postResultString(DOCTER_APPRAISER, paramsMap, listener, failedCallback);
     }
@@ -417,14 +416,14 @@ public class NetworkApi {
 
 
     public static void charge(int minute, int doctorId, String bId,
-                              NetworkManager.SuccessCallback<Object> successCallback,
+                              NetworkManager.SuccessCallback<String> successCallback,
                               NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("docterid", String.valueOf(doctorId));
         params.put("eqid", Utils.getDeviceId());
         params.put("time", String.valueOf(minute));
         params.put("bid", bId);
-        NetworkManager.getInstance().postResultClass(CHARGE_URL, params, Object.class, successCallback, failedCallback);
+        NetworkManager.getInstance().postResultString(CHARGE_URL, params, successCallback, failedCallback);
     }
 
     public static void addEatMedicalRecord(
