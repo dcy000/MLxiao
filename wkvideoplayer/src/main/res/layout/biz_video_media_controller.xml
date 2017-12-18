@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/media_controller_view_height"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/biz_video_bar_bg"
         android:clickable="true"
         android:orientation="horizontal">
@@ -36,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressDrawable="@drawable/biz_video_progressbar"
-                android:thumb="@drawable/progress_bar"
+                android:thumb="@drawable/progressbar"
                 android:thumbOffset="1.5dip" />
 
             <TextView

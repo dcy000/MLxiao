@@ -47,6 +47,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                     Intent intent = new Intent(this, OnlineDoctorListActivity.class);
                     intent.putExtra("flag", "contract");
                     startActivity(intent);
+                    return;
                 }
                 startActivity(new Intent(this, DoctorappoActivity.class));
                 break;

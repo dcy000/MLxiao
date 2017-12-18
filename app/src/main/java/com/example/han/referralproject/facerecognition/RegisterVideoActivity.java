@@ -32,6 +32,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -189,10 +190,6 @@ public class RegisterVideoActivity extends BaseActivity {
                     ).start();
 
 
-
-
-
-
                     break;
 
 
@@ -203,11 +200,19 @@ public class RegisterVideoActivity extends BaseActivity {
     });
 
 
+    private MediaPlayer mediaPlayer;//MediaPlayer对象
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
-        speak(getString(R.string.facc_register));
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
+
+        mediaPlayer.start();//播放音乐
+
+      //  speak(getString(R.string.facc_register));
 
         mButton = (Button) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -265,6 +270,13 @@ public class RegisterVideoActivity extends BaseActivity {
             mScaleMatrix.setScale(width / (float) PREVIEW_HEIGHT, height / (float) PREVIEW_WIDTH);
         }
     };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mediaPlayer.pause();
+    }
 
     private void setSurfaceSize() {
         DisplayMetrics metrics = new DisplayMetrics();
@@ -405,8 +417,6 @@ public class RegisterVideoActivity extends BaseActivity {
 
 
         mHandler.sendEmptyMessageDelayed(0, 5000);
-
-
 
 
     }

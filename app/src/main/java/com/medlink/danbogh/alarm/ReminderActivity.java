@@ -42,16 +42,16 @@ public class ReminderActivity extends BaseActivity {
         setContentView(R.layout.activity_reminder);
         mUnbinder = ButterKnife.bind(this);
 
-        mContent = "主人,";
-
-        mContent += getIntent().getStringExtra(AlarmHelper.CONTENT);
+        mContent = getIntent().getStringExtra(AlarmHelper.CONTENT);
         int hourOfDay = getIntent().getIntExtra(AlarmHelper.HOUR_OF_DAY, 0);
         int minute = getIntent().getIntExtra(AlarmHelper.MINUTE, 0);
 
-        if (mContent.equals("主人,")) {
-            mContent += "该吃药了！";
+        if (TextUtils.isEmpty(mContent)) {
+            mContent = "主人,该吃药了！";
         }
-
+        if (!TextUtils.isEmpty(mContent) || !mContent.startsWith("主人")){
+            mContent = "主人," + mContent;
+        }
         tvContent.setText(mContent);
 
         Handlers.runOnUiThread(mAlarm);

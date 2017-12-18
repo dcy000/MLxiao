@@ -2,6 +2,7 @@ package com.medlink.danbogh.call2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.AppraiseActivity;
@@ -136,6 +138,8 @@ public class NimCallActivity extends AppCompatActivity {
 
     private boolean shouldEnableToggle = false;
 
+
+
     public NimCallHelper.OnCallStateChangeListener mCallListener = new NimCallHelper.OnCallStateChangeListener() {
         @Override
         public void onCallStateChanged(CallState state) {
@@ -232,6 +236,12 @@ public class NimCallActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+
+
         if (!validSource()) {
             finish();
             return;

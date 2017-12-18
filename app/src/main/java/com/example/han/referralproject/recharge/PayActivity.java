@@ -29,6 +29,8 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
 
+    //    speak(getString());
+
         mToolbar.setVisibility(View.VISIBLE);
 
         mTitleText.setText(getString(R.string.pay));

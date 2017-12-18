@@ -80,7 +80,7 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
         if (secondProgress < 0) secondProgress = 0;
         if (secondProgress > 100) secondProgress = 100;
         mProgressSeekBar.setProgress(progress);
-        mProgressSeekBar.setSecondaryProgress(secondProgress);
+        //mProgressSeekBar.setSecondaryProgress(secondProgress);
     }
 
     public void setPlayState(PlayState playState) {

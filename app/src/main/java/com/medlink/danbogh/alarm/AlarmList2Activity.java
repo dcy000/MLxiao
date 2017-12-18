@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +18,8 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 
@@ -76,7 +79,7 @@ public class AlarmList2Activity extends BaseActivity {
                 }
                 StringBuilder mBuilder = new StringBuilder();
 
-                for (ClueInfoBean itemBean: response){
+                for (ClueInfoBean itemBean : response) {
                     mBuilder.append(response.get(0).doctername).append("提醒您").append(itemBean.cluetime).append("吃").append(itemBean.medicine);
                 }
                 speak(mBuilder.toString());
@@ -142,17 +145,22 @@ public class AlarmList2Activity extends BaseActivity {
 
     public void onDeleteAlarm(long id) {
         final long alarmId = id;
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("删除提醒")
-                .setTitle("确定删除?")
-                .setCancelable(true)
-                .setNegativeButton("取消", null)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        NDialog1 dialog = new NDialog1(this);
+        dialog.setMessageCenter(true)
+                .setMessage("您确定要删除吗?")
+                .setMessageSize(35)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#FFA200"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cancelAlarm(alarmId);
+                    public void onClick(int which) {
+                        if (which == 1) {
+                            cancelAlarm(alarmId);
+                        }
                     }
-                }).show();
+                }).create(NDialog.CONFIRM).show();
     }
 
     public void cancelAlarm(long alarmId) {

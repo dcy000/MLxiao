@@ -179,6 +179,13 @@ public class SignInActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setDisableGlobalListen(true);
+        speak(R.string.tips_login);
+    }
+
+    @Override
     protected void onDestroy() {
         if (mUnbinder != null) {
             mUnbinder.unbind();

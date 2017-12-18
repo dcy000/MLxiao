@@ -99,7 +99,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
         mTextView3.setText(String.format(getString(R.string.shop_sum_price), goods.getGoodsprice()));
 
         Picasso.with(this)
-                .load(ConstantData.BASE_URL + "/referralProject/" + goods.getGoodsimage())
+                .load(goods.getGoodsimage())
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)

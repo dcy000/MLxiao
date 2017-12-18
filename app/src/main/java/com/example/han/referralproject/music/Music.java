@@ -33,6 +33,30 @@ public class Music {
         ONLINE
     }
 
+
+    public Music() {
+
+    }
+
+
+    public Music(Type type, long id, String title, String artist, String album, long albumId, String coverPath, long duration, String path, String fileName, long fileSize) {
+        this.type = type;
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.album = album;
+        this.albumId = albumId;
+        this.coverPath = coverPath;
+        this.duration = duration;
+        this.path = path;
+        this.fileName = fileName;
+        this.fileSize = fileSize;
+    }
+
+    public Music(String path) {
+        this.path = path;
+    }
+
     public Type getType() {
         return type;
     }

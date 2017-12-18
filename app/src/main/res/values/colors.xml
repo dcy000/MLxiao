@@ -76,4 +76,7 @@
     <color name="line2_color">#9CE5B0</color>
     <!--第二条线的节点颜色-->
     <color name="node2_color">#3ACC61</color>
+
+    <color name="time_color">#3F86FC</color>
+
 </resources>

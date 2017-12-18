@@ -29,6 +29,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Process;
 import android.provider.MediaStore;
@@ -118,6 +119,9 @@ public class VideoDemo extends BaseActivity {
     String orderid;
     NDialog2 dialog2;
 
+    private MediaPlayer mediaPlayer;//MediaPlayer对象
+
+
     private String[] xfid;//存放本地取得所有xfid
     private String fromString;//标识从哪个页面过来的
     private int indexXfid;//记录讯飞id匹配到第几个了
@@ -129,7 +133,15 @@ public class VideoDemo extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
 
-        speak(R.string.head_verify);
+        //   speak(R.string.head_verify);
+
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
+
+        mediaPlayer.start();//播放音乐
+
+
+     //   speak(R.string.head_verify);
         map=new HashMap<>();
         accounts = LocalShared.getInstance(this).getAccounts();
         indexXfid=accounts.length*5;
@@ -193,6 +205,12 @@ public class VideoDemo extends BaseActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mediaPlayer.pause();
+    }
 
     private Callback mPreviewCallback = new Callback() {
 
