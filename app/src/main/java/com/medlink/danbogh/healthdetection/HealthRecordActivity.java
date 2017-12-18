@@ -258,7 +258,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xueyaChart.setExtraLeftOffset(50f);
         xueyaChart.setExtraRightOffset(80f);
         xueyaChart.setMaxVisibleValueCount(20);
-        xueyaChart.setNoDataText(getResources().getString(R.string.noData));
+        xueyaChart.setNoDataText("");
 
 
         LimitLine ll1 = new LimitLine(130f, "130mmHg");
@@ -335,7 +335,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
         xuetangChart.setExtraLeftOffset(50);
         xuetangChart.setExtraRightOffset(80);
-        xuetangChart.setNoDataText(getResources().getString(R.string.noData));
+        xuetangChart.setNoDataText("");
 
 
         XAxis xAxis = xuetangChart.getXAxis();
@@ -441,7 +441,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xueyangChart.setExtraLeftOffset(50);
         xueyangChart.setExtraRightOffset(80);
         xueyangChart.setMaxVisibleValueCount(20);
-        xueyangChart.setNoDataText(getResources().getString(R.string.noData));
+        xueyangChart.setNoDataText("");
 
         XAxis xAxis = xueyangChart.getXAxis();
         //绘制底部的X轴
@@ -503,7 +503,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         danguchunChart.setScaleYEnabled(false);
         danguchunChart.setExtraLeftOffset(40);
         danguchunChart.setExtraRightOffset(80);
-        danguchunChart.setNoDataText(getResources().getString(R.string.noData));
+        danguchunChart.setNoDataText("");
 
         XAxis xAxis = danguchunChart.getXAxis();
         //绘制底部的X轴
@@ -591,7 +591,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xueniaosuanChart.setScaleYEnabled(false);
         xueniaosuanChart.setExtraLeftOffset(40);
         xueniaosuanChart.setExtraRightOffset(80);
-        xueniaosuanChart.setNoDataText(getResources().getString(R.string.noData));
+        xueniaosuanChart.setNoDataText("");
 
         XAxis xAxis = xueniaosuanChart.getXAxis();
         //绘制底部的X轴
@@ -707,7 +707,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         color2.setBackgroundColor(getResources().getColor(R.color.node2_color));
         indicator2.setText("低压(mmHg)");
         llSecond.setVisibility(View.VISIBLE);
-
+        setXueyaChart();
         NetworkApi.getBloodpressureHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodPressureHistory> response) {
@@ -734,7 +734,6 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     times.add(response.get(i).time);
                 }
                 if (times.size() != 0) {
-                    setXueyaChart();
                     xueyaChart.getXAxis().setValueFormatter(new TimeFormatter(times));
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times, response);
                     mv.setChartView(xueyaChart);
@@ -759,7 +758,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         color1.setBackgroundColor(getResources().getColor(R.color.node_color));
         indicator1.setText("血糖(mmol/L)");
         llSecond.setVisibility(View.GONE);
-
+        setXueTangChart();
         NetworkApi.getBloodSugarHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodSugarHistory> response) {
@@ -808,7 +807,6 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 }
 
                 if (value.size() != 0) {
-                    setXueTangChart();
                     xuetangChart.getXAxis().setValueFormatter(new TimeFormatter(times));
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(xuetangChart); // For bounds control
@@ -838,6 +836,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         color1.setBackgroundColor(getResources().getColor(R.color.node_color));
         indicator1.setText("血氧");
         llSecond.setVisibility(View.GONE);
+        setXueyangChart();
         NetworkApi.getBloodOxygenHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>>() {
             @Override
             public void onSuccess(ArrayList<BloodOxygenHistory> response) {
@@ -854,7 +853,6 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     times.add(response.get(i).time);
                 }
                 if (times.size() != 0) {
-                    setXueyangChart();
                     xueyangChart.getXAxis().setValueFormatter(new TimeFormatter(times));
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(xueyangChart); // For bounds control
@@ -881,6 +879,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         color2.setBackgroundColor(Color.parseColor("#6D80E2"));
         indicator2.setText("儿童(mmol/L)");
         llSecond.setVisibility(View.VISIBLE);
+        setDanguchunChart();
         NetworkApi.getCholesterolHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>>() {
             @Override
             public void onSuccess(ArrayList<CholesterolHistory> response) {
@@ -897,7 +896,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     times.add(response.get(i).time);
                 }
                 if (times.size() != 0) {
-                    setDanguchunChart();
+
                     danguchunChart.getXAxis().setValueFormatter(new TimeFormatter(times));
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(danguchunChart); // For bounds control
@@ -924,7 +923,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         color1.setBackgroundColor(Color.parseColor("#6D80E2"));
         indicator1.setText("男性");
         llSecond.setVisibility(View.VISIBLE);
-
+        setBUAChart();
         NetworkApi.getBUAHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BUA>>() {
             @Override
             public void onSuccess(ArrayList<BUA> response) {
@@ -941,7 +940,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     times.add(response.get(i).time);
                 }
                 if (times.size() != 0) {
-                    setBUAChart();
+
                     xueniaosuanChart.getXAxis().setValueFormatter(new TimeFormatter(times));
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(xueniaosuanChart); // For bounds control

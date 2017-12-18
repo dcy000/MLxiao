@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,6 +64,8 @@ public class AlarmList2Activity extends BaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_list2);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText(R.string.medication_reminder);
         mUnbinder = ButterKnife.bind(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -87,6 +90,12 @@ public class AlarmList2Activity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        speak("主人，请设置吃药提醒");
+    }
+
     private void refresh() {
         List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
         if (models != null) {
@@ -100,18 +109,6 @@ public class AlarmList2Activity extends BaseActivity {
             }
             mAdapter.replaceAll(models);
         }
-    }
-
-    @OnClick(R.id.iv_back)
-    public void onIvBackClicked() {
-        finish();
-    }
-
-    @OnClick(R.id.icon_home)
-    public void onHomeBackClicked() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     @OnClick(R.id.alarm_list_tv_add_alarm)

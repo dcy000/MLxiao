@@ -131,7 +131,7 @@ public class SetPasswordActivity extends BaseActivity {
                         break;
                     case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
                         T.show("验证码错误");
-                        speak("验证码错误,请重新输入");
+                        speak("主人，您输入的验证码有误，请重新输入");
                         break;
                 }
             }
@@ -143,6 +143,7 @@ public class SetPasswordActivity extends BaseActivity {
         String pwd = etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(pwd)) {
             T.show("请输入6位数字密码");
+            speak("请输入6位数字密码");
         }
         NetworkApi.setPassword(mPhone, pwd, new NetworkManager.SuccessCallback<String>() {
             @Override
@@ -165,6 +166,7 @@ public class SetPasswordActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
+        speak("主人，请输入验证码及新的6位数字密码");
     }
 
     @Override
