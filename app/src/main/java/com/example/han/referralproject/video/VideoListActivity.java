@@ -52,7 +52,7 @@ public class VideoListActivity extends BaseActivity {
         setContentView(R.layout.activity_video_list);
         mToolbar.setVisibility(View.VISIBLE);
 //        mTitleText.setText(R.string.title_health_class);
-        mTitleText.setText(R.string.medication_reminder);
+        mTitleText.setText(R.string.title_health_class);
         mRightView.setImageResource(R.drawable.icon_wifi);
         mUnbinder = ButterKnife.bind(this);
         position = getIntent().getIntExtra("position", 0);
