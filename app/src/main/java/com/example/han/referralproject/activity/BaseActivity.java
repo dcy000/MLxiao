@@ -6,15 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.media.MediaRecorder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,13 +19,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,9 +30,9 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.util.Utils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -48,6 +42,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 
 import org.json.JSONException;
@@ -58,7 +53,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class BaseActivity extends AppCompatActivity implements Runnable{
+public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -83,13 +78,9 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
     protected TextView mLeftText;
     protected RelativeLayout mToolbar;
     protected LinearLayout mllBack;
-    private boolean isShowVoiceView=false;//是否显示声音录入图像
+    private boolean isShowVoiceView = false;//是否显示声音录入图像
     private MediaRecorder mMediaRecorder;
-    private boolean isAlive=true;
-    private VoiceLineView voiceLineView;
-    private View mFootView;
-    private AlertDialog.Builder builder;
-    private AlertDialog dialog;
+    private boolean isAlive = true;
 
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
@@ -107,7 +98,6 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
         rootView = new LinearLayout(this);
         rootView.setOrientation(LinearLayout.VERTICAL);
         mTitleView = mInflater.inflate(R.layout.custom_title_layout, null);
-        mFootView=mInflater.inflate(R.layout.voiceinput_popwindow,null);
 
         rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (70 * mResources.getDisplayMetrics().density)));
         initToolbar();
@@ -152,10 +142,10 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
 
 
     private void initToolbar() {
-        mllBack= (LinearLayout) mTitleView.findViewById(R.id.ll_back);
-        mToolbar= (RelativeLayout) mTitleView.findViewById(R.id.toolbar);
+        mllBack = (LinearLayout) mTitleView.findViewById(R.id.ll_back);
+        mToolbar = (RelativeLayout) mTitleView.findViewById(R.id.toolbar);
         mTitleText = (TextView) mTitleView.findViewById(R.id.tv_top_title);
-        mLeftText= (TextView) mTitleView.findViewById(R.id.tv_top_left);
+        mLeftText = (TextView) mTitleView.findViewById(R.id.tv_top_left);
         mRightText = (TextView) mTitleView.findViewById(R.id.tv_top_right);
         mLeftView = (ImageView) mTitleView.findViewById(R.id.iv_top_left);
         mRightView = (ImageView) mTitleView.findViewById(R.id.iv_top_right);
@@ -176,35 +166,60 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
     /**
      * 返回上一页
      */
-    protected void backLastActivity(){
+    protected void backLastActivity() {
         finish();
     }
 
     /**
      * 返回到主页面
      */
-    protected void backMainActivity(){
-        startActivity(new Intent(mContext,MainActivity.class));
+    protected void backMainActivity() {
+        startActivity(new Intent(mContext, MainActivity.class));
         finish();
     }
+
+    private VoiceLineView voiceLineView;
+
+    FrameLayout mContentParent;
+
     @Override
     public void setContentView(int layoutResID) {
         mInflater.inflate(layoutResID, rootView);
         super.setContentView(rootView);
+        if (isShowVoiceView) {
+            mContentParent = (FrameLayout) findViewById(android.R.id.content);
+            voiceLineView = new VoiceLineView(this);
+            voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
+            voiceLineView.setAnimation(AnimationUtils.loadAnimation(BaseActivity.this, R.anim.popshow_anim));
+            int width = ScreenUtils.dp2px(450);
+            int height = ScreenUtils.dp2px(120);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+            params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            params.bottomMargin = 20;
+            mContentParent.addView(voiceLineView, params);
+            mContentParent.bringToFront();
+            voiceLineView.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
     public void setContentView(View view) {
         rootView.addView(view);
         super.setContentView(rootView);
-//        FrameLayout mContentParent = (FrameLayout) findViewById(android.R.id.content);
-//        View view1 = new View(this);
-//        view1.setBackgroundColor(Color.parseColor("#ff0000"));
-//        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 120);
-//
-//        params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-//        params.bottomMargin =10;
-//        mContentParent.addView(view1,params);
+        if (isShowVoiceView) {
+            mContentParent = (FrameLayout) findViewById(android.R.id.content);
+            voiceLineView = new VoiceLineView(this);
+            voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
+            int width = ScreenUtils.dp2px(450);
+            int height = ScreenUtils.dp2px(120);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+            params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            params.bottomMargin = 20;
+            mContentParent.addView(voiceLineView, params);
+            mContentParent.bringToFront();
+            voiceLineView.setVisibility(View.GONE);
+        }
     }
 
     private InitListener mTtsInitListener = new InitListener() {
@@ -249,16 +264,6 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
 
     protected void speak(int resId) {
         speak(getString(resId));
-//        stopListening();
-//        setSynthesizerParams();
-//        mTts.startSpeaking(getString(resId), mTtsListener);
-
-//        mDelayHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }, 500);
     }
 
     protected void startListening() {
@@ -290,17 +295,32 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
     }
 
 
-
-
     public void setDisableGlobalListen(boolean disableGlobalListen) {
         this.disableGlobalListen = disableGlobalListen;
         WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
     }
 
+
+    private Runnable updateVolumeAction = new Runnable() {
+        @Override
+        public void run() {
+            if (mMediaRecorder == null) return;
+            double ratio = (double) mMediaRecorder.getMaxAmplitude() / 100;
+            Log.e("音量大小", ratio + "");
+            if (ratio > 1) {
+                volume = (int) (20 * Math.log10(ratio));
+            }
+            voiceLineView.setVolume(volume);
+
+        }
+    };
+
+    private volatile int volume;
+
     private RecognizerListener mIatListener = new RecognizerListener() {
         @Override
         public void onVolumeChanged(int i, byte[] bytes) {
-            if(isShowVoiceView){
+            if (isShowVoiceView) {
                 showPopwindow();
             }
 
@@ -308,13 +328,15 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
 
         @Override
         public void onBeginOfSpeech() {
-
+            if (voiceLineView != null) {
+                voiceLineView.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
         public void onEndOfSpeech() {
-            if(dialog!=null){
-                dialog.dismiss();
+            if (voiceLineView != null) {
+                voiceLineView.setVisibility(View.GONE);
             }
         }
 
@@ -341,16 +363,16 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
             }
             String result = resultBuffer.toString();
             if (!TextUtils.isEmpty(result)) {
-                if(result.matches(".*(冰镇|病症|自查|制茶|只差|直插|之差).*")){
-                    startActivity(new Intent(BaseActivity.this,BodychartActivity.class));
+                if (result.matches(".*(冰镇|病症|自查|制茶|只差|直插|之差).*")) {
+                    startActivity(new Intent(BaseActivity.this, BodychartActivity.class));
                     return;
                 }
-                if(result.matches(".*(返回|反悔).*")){
+                if (result.matches(".*(返回|反悔).*")) {
                     finish();
                     return;
                 }
-                if(result.matches(".*(首页|守夜|授业).*")){
-                    startActivity(new Intent(BaseActivity.this,MainActivity.class));
+                if (result.matches(".*(首页|守夜|授业).*")) {
+                    startActivity(new Intent(BaseActivity.this, MainActivity.class));
                     finish();
                     return;
                 }
@@ -368,38 +390,14 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
         }
     };
 
-    protected void showPopwindow() {
-
-        if(dialog==null){
-            builder=new AlertDialog.Builder(this);
-            // 利用layoutInflater获得View
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.voiceinput_popwindow, null);
-            builder.setView(view);
-            dialog=builder.create();
-            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
-            dialog.getWindow().setDimAmount(0f);
-            Window window = dialog.getWindow();  // 获取Dialog的Window对象
-            WindowManager.LayoutParams lp = window.getAttributes(); // 这个是主要设置对象
-            window.setGravity(Gravity.BOTTOM); // 设置窗体位置，还可以有LEFT,TOP,RIGHT,BOTTOM
-            window.setAttributes(lp); // 最后重新设置
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE |
-                    WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-            dialog.show();
-            voiceLineView= (VoiceLineView) view.findViewById(R.id.voicLine);
-            Thread thread = new Thread(this);
-            thread.start();
-
-        }else{
-            if(!dialog.isShowing()){
-                dialog.show();
-            }
-        }
+    private void showPopwindow() {
+        Handlers.ui().postDelayed(updateVolumeAction, 100);
     }
 
-    protected void hidePopwindow(){
-        if (dialog != null && dialog.isShowing()){
-            dialog.dismiss();
+
+    protected void hidePopwindow() {
+        if (voiceLineView != null) {
+            voiceLineView.setVisibility(View.GONE);
         }
     }
 
@@ -411,9 +409,7 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
 
         @Override
         public void onSpeakBegin() {
-            if (dialog != null) {
-                dialog.dismiss();
-            }
+            hidePopwindow();
         }
 
         @Override
@@ -435,7 +431,7 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
 
         @Override
         public void onCompleted(SpeechError error) {
-            if(isShowVoiceView){
+            if (isShowVoiceView) {
                 showPopwindow();
             }
 
@@ -586,41 +582,11 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
     }
 
     @Override
-    public void run() {
-        while (isAlive) {
-            handler1.sendEmptyMessage(0);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         isAlive = false;
         mMediaRecorder.release();
         mMediaRecorder = null;
+        Handlers.ui().removeCallbacks(updateVolumeAction);
         super.onDestroy();
-
     }
-    private Handler handler1 = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if(mMediaRecorder==null) return;
-            double ratio = (double) mMediaRecorder.getMaxAmplitude() / 100;
-            Log.e("音量大小",ratio+"");
-            double db = 0;// 分贝
-            //默认的最大音量是100,可以修改，但其实默认的，在测试过程中就有不错的表现
-            //你可以传自定义的数字进去，但需要在一定的范围内，比如0-200，就需要在xml文件中配置maxVolume
-            //同时，也可以配置灵敏度sensibility
-            if (ratio > 1)
-                db = 20 * Math.log10(ratio);
-            //只要有一个线程，不断调用这个方法，就可以使波形变化
-            //主要，这个方法必须在ui线程中调用
-            voiceLineView.setVolume((int) (db));
-        }
-    };
 }

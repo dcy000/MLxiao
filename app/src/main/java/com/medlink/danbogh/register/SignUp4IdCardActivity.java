@@ -50,9 +50,9 @@ public class SignUp4IdCardActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up4_id_card);
         mToolbar.setVisibility(View.GONE);
-        setShowVoiceView(true);
         mUnbinder = ButterKnife.bind(this);
     }
 

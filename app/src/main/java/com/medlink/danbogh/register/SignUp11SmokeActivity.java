@@ -42,9 +42,9 @@ public class SignUp11SmokeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up11_smoke);
         mToolbar.setVisibility(View.GONE);
-        setShowVoiceView(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }

@@ -47,9 +47,9 @@ public class SignUp6PasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up6_password);
         mToolbar.setVisibility(View.GONE);
-        setShowVoiceView(true);
         mUnbinder = ButterKnife.bind(this);
     }
 
