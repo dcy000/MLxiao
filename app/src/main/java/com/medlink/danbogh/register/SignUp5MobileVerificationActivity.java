@@ -119,20 +119,20 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             etPhone.requestFocus();
             return;
         }
-        NetworkApi.isPhoneRegistered(phone, "3", new NetworkManager.SuccessCallback<Object>() {
+        NetworkApi.canRegister(phone, "3", new NetworkManager.SuccessCallback<Object>() {
             @Override
             public void onSuccess(Object response) {
-                speak("主人，手机号码已注册");
-                inPhone = true;
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
                 etCode.requestFocus();
                 SMSSDK.getVerificationCode("86", phone);
                 i = 60;
                 tvFetchCode.setEnabled(false);
                 Handlers.ui().postDelayed(countDown, 1000);
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                speak("主人，手机号码已注册");
+                inPhone = true;
             }
         });
     }

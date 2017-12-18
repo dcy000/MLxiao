@@ -1,23 +1,20 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.medlink.danbogh.utils.T;
 
 public class DoctorAskGuideActivity extends BaseActivity implements View.OnClickListener {
-
-
-    private SharedPreferences sharedPreferences;
     /**
      * 预约医生
      */
@@ -33,7 +30,6 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_doctor_ask_guide);
         mToolbar.setVisibility(View.VISIBLE);
         initView();
-        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
     }
 
 
@@ -43,13 +39,26 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
             default:
                 break;
             case R.id.doctor_yuyue:
-                if ("".equals(sharedPreferences.getString("name", ""))) {
-                    Intent intent = new Intent(this, OnlineDoctorListActivity.class);
-                    intent.putExtra("flag", "contract");
-                    startActivity(intent);
-                    return;
-                }
-                startActivity(new Intent(this, DoctorappoActivity.class));
+                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+                    @Override
+                    public void onSuccess(Doctor response) {
+                        if (TextUtils.isEmpty(response.getDoctername())) {
+                            Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
+                            intent.putExtra("flag", "contract");
+                            startActivity(intent);
+                        } else {
+                            startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
+                        }
+                    }
+
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
+                        intent.putExtra("flag", "contract");
+                        startActivity(intent);
+                    }
+                });
                 break;
             case R.id.doctor_zaixian:
                 startActivity(new Intent(this, OnlineDoctorListActivity.class));

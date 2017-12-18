@@ -129,7 +129,7 @@ public class SignUp4IdCardActivity extends BaseActivity {
             }
             return;
         }
-        String in = Utils.isNumeric(result) ? result : Utils.removeNonnumeric(Utils.chineseMapToNumber(result));
+        String in = Utils.isNumeric(result) || result.equalsIgnoreCase("x") ? result : Utils.removeNonnumeric(Utils.chineseMapToNumber(result));
         Pattern patternInIdCard = Pattern.compile(REGEX_IN_ID_CARD);
         Matcher matcherInIdCard = patternInIdCard.matcher(in);
         if (matcherInIdCard.find()) {

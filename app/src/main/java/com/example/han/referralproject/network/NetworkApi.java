@@ -106,7 +106,7 @@ public class NetworkApi {
     public static final String Get_jibing = BasicUrl + "/ZZB/bl/selSugByBname";
     public static final String IS_PHONE_REGISTERED = BasicUrl + "/ZZB/login/tel_isClod";
 
-    public static void isPhoneRegistered(
+    public static void canRegister(
             String phone,
             String state,
             NetworkManager.SuccessCallback<Object> successCallback,

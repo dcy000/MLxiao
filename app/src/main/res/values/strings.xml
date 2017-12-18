@@ -412,7 +412,7 @@
     <string name="healthy_shopping">健&#160;&#160;康&#160;&#160;商&#160;&#160;城</string>
     <string name="zhengzhuang">症&#160;&#160;状&#160;&#160;自&#160;&#160;查</string>
     <string name="health_message">健&#160;&#160;康&#160;&#160;消&#160;&#160;息</string>
-    <string name="clerk_remind">闹&#160;&#160;钟&#160;&#160;提&#160;&#160;醒</string>
+    <string name="clerk_remind">吃&#160;&#160;药&#160;&#160;提&#160;&#160;醒</string>
     <string name="high_pressure">高压</string>
     <string name="high_pressure1">(mmHG)</string>
     <string name="low_pressure">低压</string>
@@ -449,7 +449,7 @@
 
     <string name="qianyue">签&#160;&#160;约</string>
     <string name="tiao_zhuan">跳&#160;&#160;过</string>
-    <string name="medication_reminder">吃 药 提 醒</string>
+    <string name="medication_reminder">吃&#160;&#160;药&#160;&#160;提&#160;&#160;醒</string>
 
     <string name="robot_amount" formatted="false">¥%1$s</string>
     <string name="pay_success">主人，您已充值成功，请查询个人账户余额</string>
@@ -514,6 +514,7 @@
     <string name="doctor_zhiji" formatted="false">职级：%1$s</string>
     <string name="doctor_shanchang" formatted="false">擅长：%1$s</string>
     <string name="doctor_shoufei" formatted="false">收费标准：%1$s元/分钟</string>
+    <string name="title_health_class">健&#160;&#160;康&#160;&#160;讲&#160;&#160;堂</string>
 
 
 </resources>
