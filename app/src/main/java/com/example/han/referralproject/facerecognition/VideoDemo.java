@@ -3,6 +3,7 @@ package com.example.han.referralproject.facerecognition;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
@@ -55,6 +56,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
+import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
@@ -115,13 +117,17 @@ public class VideoDemo extends BaseActivity {
     Bitmap b3;
     String signs;
     String orderid;
-
-
     NDialog2 dialog2;
 
     private MediaPlayer mediaPlayer;//MediaPlayer对象
 
 
+    private String[] xfid;//存放本地取得所有xfid
+    private String fromString;//标识从哪个页面过来的
+    private int indexXfid;//记录讯飞id匹配到第几个了
+    private String choosedXfid;//选中的讯飞id;
+    private HashMap<String,String> map;
+    private String[] accounts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,10 +141,20 @@ public class VideoDemo extends BaseActivity {
         mediaPlayer.start();//播放音乐
 
 
+     //   speak(R.string.head_verify);
+        map=new HashMap<>();
+        accounts = LocalShared.getInstance(this).getAccounts();
+        indexXfid=accounts.length*5;
+        xfid = new String[accounts.length];
+        for (int i = 0; i < accounts.length; i++) {
+            xfid[i] = accounts[i].split(",")[1];
+            map.put(accounts[i].split(",")[1],accounts[i].split(",")[0]);
+        }
+        choosedXfid=MyApplication.getInstance().xfid;//默认选中的是当前的讯飞id;
         Intent intent = getIntent();
         signs = intent.getStringExtra("sign");
         orderid = intent.getStringExtra("orderid");
-
+        fromString = intent.getStringExtra("from");
         dialog2 = new NDialog2(VideoDemo.this);
 
 
@@ -153,8 +169,7 @@ public class VideoDemo extends BaseActivity {
         });
 
 
-        if ("1".equals(signs)) {
-
+        if ("1".equals(signs)) {//支付过来
             mButton.setVisibility(View.GONE);
         }
 
@@ -329,10 +344,6 @@ public class VideoDemo extends BaseActivity {
             public void onPreviewFrame(byte[] data, Camera camera) {
                 System.arraycopy(data, 0, nv21, 0, data.length);
                 b3 = decodeToBitMap(nv21, camera);
-
-                //mImageView.setImageBitmap(b3);
-
-
             }
         });
 
@@ -384,12 +395,17 @@ public class VideoDemo extends BaseActivity {
                             mImageData = baos.toByteArray();
 
                         }
-
-
                         if (null != mImageData && null != mAuthid) {
-                            mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                            if ("Test".equals(fromString)&&indexXfid>0) {
+                                mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfid[indexXfid % accounts.length]);
+                                choosedXfid = xfid[indexXfid % accounts.length];
+                                indexXfid--;
+                            } else {
+                                mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                            }
                             mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
                             mFaceRequest.sendRequest(mImageData, mRequestListener);
+
                         }
 
 
@@ -518,25 +534,25 @@ public class VideoDemo extends BaseActivity {
             if (obj.getBoolean("verf") && sign == true) {
 
                 if ("0".equals(signs)) {
-
                     showTip("通过验证，欢迎回来！");
+                    if(!choosedXfid.equals(MyApplication.getInstance().xfid)){//如果不是选中的讯飞id已经改变，则切换账号
+                        MyApplication.getInstance().userId=map.get(choosedXfid);
+                        MyApplication.getInstance().xfid=choosedXfid;
+                        sendBroadcast(new Intent("change_account"));
+                    }
                     Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
                     startActivity(intent);
                     sign = false;
                     finish();
 
                 } else if ("1".equals(signs)) {
-
                     sign = false;
                     NetworkApi.pay_status(MyApplication.getInstance().userId, Utils.getDeviceId(), orderid, new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
-
                             speak(getString(R.string.shop_success));
                             ShowNormal("支付成功", "1");
                             GoodDetailActivity.mActivity.finish();
-
-
                         }
 
                     }, new NetworkManager.FailedCallback() {
@@ -556,11 +572,11 @@ public class VideoDemo extends BaseActivity {
                 if (sign == true) {
 
                     if ("0".equals(signs)) {
-
-
-                        showTip("验证不通过");
-                        sign = false;
-                        finish();
+                        if(indexXfid<=0){
+                            showTip("验证不通过");
+                            sign = false;
+                            finish();
+                        }
 
                     } else if ("1".equals(signs)) {
 

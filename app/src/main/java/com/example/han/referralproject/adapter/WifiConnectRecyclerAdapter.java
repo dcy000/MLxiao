@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.dialog.WifiInputDialog;
+import com.example.han.referralproject.util.WiFiUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,14 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new WifiInputDialog(mContext, itemResult).show();
+                if (itemResult.capabilities.contains("WPA2") || itemResult.capabilities.contains("WPA-PSK")
+                        || itemResult.capabilities.contains("WPA")
+                        || itemResult.capabilities.contains("WEP")) {
+                    new WifiInputDialog(mContext, itemResult).show();
+                } else {
+                    /* WIFICIPHER_OPEN NOPASSWORD 开放无加密 */
+                    WiFiUtil.getInstance(mContext).addWiFiNetwork(itemResult.SSID, "", WiFiUtil.Data.WIFI_CIPHER_NOPASS);
+                }
             }
         });
     }

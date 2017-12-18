@@ -43,15 +43,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkApi {
-    public static final String BasicUrl = "http://192.168.200.109:8080";
+//    public static final String BasicUrl = "http://192.168.200.113:8080";
 
-//    public static final String BasicUrl = "http://192.168.200.103:8080";
-
-    //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    // public static final String BasicUrl = "http://118.31.238.207:8080";
-//    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
-//    public static final String BasicUrl="http://192.168.200.117:8080";//文博本地
-
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -110,6 +104,18 @@ public class NetworkApi {
     //修改个人基本信息
     public static final String Alert_Basedata = BasicUrl + "/ZZB/br/update_user_onecon";
     public static final String Get_jibing = BasicUrl + "/ZZB/bl/selSugByBname";
+    public static final String IS_PHONE_REGISTERED = BasicUrl + "/ZZB/login/tel_isClod";
+
+    public static void isPhoneRegistered(
+            String phone,
+            String state,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("tel", phone);
+        params.put("state", state);
+        NetworkManager.getInstance().postResultClass(IS_PHONE_REGISTERED, params, Object.class, successCallback, failedCallback);
+    }
 
 
     public static final String GOODS_LIST = BasicUrl + "/ZZB/order/OneType_state";

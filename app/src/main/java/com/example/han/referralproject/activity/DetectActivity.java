@@ -209,6 +209,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 byte[] extraData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_NOTIFY_DATA);
                 switch (detectType) {
                     case Type_Wendu:
+                        if (notifyData == null || notifyData.length != 13) {
+                            return;
+                        }
                         int tempData = notifyData[6] & 0xff;
                         if (tempData < 44) {
                             speak(R.string.tips_error_temp);
@@ -465,6 +468,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //        }
         switch (detectType) {
             case Type_Wendu:
+                List<BluetoothGattCharacteristic> characteristicsList = gattServices.get(3).getCharacteristics();
+                if (characteristicsList.size() == 3){
+                    characteristic = characteristicsList.get(1);//新版本耳温枪
+                } else {
+                    characteristic = characteristicsList.get(3);//旧版本耳温枪
+                }
+                break;
             case Type_Xueya:
                 characteristic = gattServices.get(3).getCharacteristics().get(3);
                 break;

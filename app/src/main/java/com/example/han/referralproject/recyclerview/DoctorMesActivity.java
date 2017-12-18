@@ -51,7 +51,6 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     TextView mTextView3;
     TextView mTextView4;
 
-
     public ImageView mStar1;
     public ImageView mStar2;
     public ImageView mStar3;
@@ -94,6 +93,8 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes);
+        mToolbar.setVisibility(View.VISIBLE);
+        //    initToolBar();
 
         Intent intent = getIntent();
         doctor = (Docter) intent.getSerializableExtra("docMsg");
@@ -218,17 +219,14 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-
                 }
 
                 mHandler.sendEmptyMessage(1);
-
-
             }
         }).start();
 
     }
+
 
     @Override
     protected void onPause() {

@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_sign_up_root_address"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/cl_sign_up_root_address"
     android:background="@drawable/bg_tab1_personal_info"
     tools:context="com.medlink.danbogh.register.SignUp3AddressActivity">
 
@@ -100,10 +100,11 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/shape_rect_gray"
         android:hint="请输入详细地址"
-        android:maxLines="1"
         android:maxLength="50"
+        android:maxLines="1"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:singleLine="true"
         android:textColor="#939393"
         android:textColorHint="#cccccc"
         android:textSize="30sp"

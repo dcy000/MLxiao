@@ -25,5 +25,6 @@ public class UserInfoBean implements Serializable{
     public String drink;
     public String exercise_habits;
     public String user_photo;
+    public String xfid;
 
 }

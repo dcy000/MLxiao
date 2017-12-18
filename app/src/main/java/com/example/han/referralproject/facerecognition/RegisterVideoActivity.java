@@ -212,6 +212,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
         mediaPlayer.start();//播放音乐
 
+      //  speak(getString(R.string.facc_register));
 
         mButton = (Button) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {

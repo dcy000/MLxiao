@@ -22,6 +22,7 @@ public class TimeFormatter implements IAxisValueFormatter{
         if(times.size()==1){
             return Utils.stampToDate(times.get(0));
         }
+
         return Utils.stampToDate(times.get((int) v));
     }
 }

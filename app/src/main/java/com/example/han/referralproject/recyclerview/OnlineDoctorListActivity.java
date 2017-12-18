@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +41,8 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
     SharedPreferences sharedPreferences;
     SharedPreferences sharedPreference;
     long countdown;
+    private String mFlag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,29 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
 
         sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
 
+        mFlag = getIntent().getStringExtra("flag");
+        if ("contract".equals(mFlag)) {
+            NetworkApi.doctor_list(0, 12, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                @Override
+                public void onSuccess(ArrayList<Docter> response) {
+                    List<Docter> list = new ArrayList<Docter>();
+                    mlist.clear();
+                    list.addAll(response);
+                    mlist.addAll(list);
+                    mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+                    mRecyclerView.setAdapter(mDoctorAdapter);
+
+                    setData();
+                }
+
+            }, new NetworkManager.FailedCallback() {
+                @Override
+                public void onFailed(String message) {
+
+                }
+            });
+            return;
+        }
 
         NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
@@ -110,9 +136,20 @@ public class OnlineDoctorListActivity extends Activity implements View.OnClickLi
                     jump(postion);
                 }
 
+                Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
+                intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+                if (!"contract".equals(mFlag)) {
+                    intent.putExtra("sign", "1");
+                }
+                startActivity(intent);
+//                finish();
 
             }
         });
+
+        if ("contract".equals(mFlag)) {
+            return;
+        }
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 

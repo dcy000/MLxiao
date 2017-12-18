@@ -100,8 +100,8 @@ public class VideoListFragment extends Fragment {
             if (i == 7 && type.equals("opera")) {
                 break;
             }
-            String url = BASE_URL + type + i + ".mp4";
-            String title = String.format(Locale.CHINA, TITLE_FORMAT, extra, i);
+            String url = BASE_URL + type + i  + ".mp4";
+            String title = String.format(Locale.CHINA, TITLE_FORMAT, extra, i + 1);
             entities.add(new VideoDetailEntity(url, title));
         }
         showVideos(entities);
