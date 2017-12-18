@@ -289,6 +289,9 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
         return disableGlobalListen;
     }
 
+
+
+
     public void setDisableGlobalListen(boolean disableGlobalListen) {
         this.disableGlobalListen = disableGlobalListen;
         WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
@@ -365,7 +368,7 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
         }
     };
 
-    private void showPopwindow() {
+    protected void showPopwindow() {
 
         if(dialog==null){
             builder=new AlertDialog.Builder(this);
@@ -388,10 +391,15 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
             thread.start();
 
         }else{
-            if(!dialog.isShowing())
-            dialog.show();
+            if(!dialog.isShowing()){
+                dialog.show();
+            }
+        }
+    }
 
-
+    protected void hidePopwindow(){
+        if (dialog != null && dialog.isShowing()){
+            dialog.dismiss();
         }
     }
 
