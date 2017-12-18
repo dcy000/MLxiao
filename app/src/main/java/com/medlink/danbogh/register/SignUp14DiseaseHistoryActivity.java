@@ -48,7 +48,7 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up14_disease_history);
         mToolbar.setVisibility(View.GONE);
-        setShowVoiceView(true);
+//        setShowVoiceView(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }

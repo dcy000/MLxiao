@@ -477,6 +477,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 } else {
                     // 不显示听写对话框
+                    stopSpeaking();
                     ret = mIat.startListening(mRecognizerListener);
                     if (ret != ErrorCode.SUCCESS) {
                         showTip("听写失败,错误码：" + ret);

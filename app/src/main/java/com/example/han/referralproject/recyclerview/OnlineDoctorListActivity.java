@@ -129,12 +129,12 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                     jump(postion);
                 }
 
-                Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
-                intent.putExtra("docMsg", (Serializable) mlist.get(postion));
-                if (!"contract".equals(mFlag)) {
-                    intent.putExtra("sign", "1");
-                }
-                startActivity(intent);
+//                Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
+//                intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+//                if (!"contract".equals(mFlag)) {
+//                    intent.putExtra("sign", "1");
+//                }
+//                startActivity(intent);
 //                finish();
 
             }

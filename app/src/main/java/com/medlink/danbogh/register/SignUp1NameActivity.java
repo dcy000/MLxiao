@@ -45,7 +45,7 @@ public class SignUp1NameActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.GONE);
         //mTvGoBack.setEnabled(false);
-        setShowVoiceView(true);
+//        setShowVoiceView(true);
     }
 
     @Override

@@ -2,14 +2,14 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:voiceView="http://schemas.android.com/apk/res-auto"
-    android:layout_width="500dp"
-    android:layout_height="120dp"
+    android:layout_width="1200dp"
+    android:layout_height="150dp"
     android:gravity="center_horizontal"
     android:layout_gravity="center_horizontal">
     <com.carlos.voiceline.mylibrary.VoiceLineView
         android:id="@+id/voicLine"
-        android:layout_width="800dp"
-        android:layout_height="120dp"
+        android:layout_width="1200dp"
+        android:layout_height="50dp"
         android:background="#00000000"
         voiceView:maxVolume="200"
         voiceView:middleLine="#00000000"

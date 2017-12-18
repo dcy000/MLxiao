@@ -54,7 +54,7 @@ public class SignUp7HeightActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up7_height);
         mToolbar.setVisibility(View.GONE);
-        setShowVoiceView(true);
+//        setShowVoiceView(true);
         unbinder = ButterKnife.bind(this);
         initView();
     }

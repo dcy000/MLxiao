@@ -1,5 +1,6 @@
 package com.example.han.referralproject.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +37,7 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.dialog.WaveDialog;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.Utils;
@@ -89,7 +91,7 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
     private VoiceLineView voiceLineView;
     private View mFootView;
     private AlertDialog.Builder builder;
-    private AlertDialog dialog;
+    private Dialog dialog;
 
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
@@ -386,10 +388,14 @@ public class BaseActivity extends AppCompatActivity implements Runnable{
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE |
                     WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             dialog.show();
-            voiceLineView= (VoiceLineView) view.findViewById(R.id.voicLine);
+
+//            dialog = new WaveDialog(mContext);
+//            dialog.show();
+//            voiceLineView= ((WaveDialog)dialog).getVoiceLineView();
+
+            voiceLineView = (VoiceLineView) view.findViewById(R.id.voicLine);
             Thread thread = new Thread(this);
             thread.start();
-
         }else{
             if(!dialog.isShowing()){
                 dialog.show();

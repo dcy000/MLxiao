@@ -47,7 +47,7 @@ public class SignUp13SportsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up13_sports);
         mToolbar.setVisibility(View.GONE);
-        setShowVoiceView(true);
+//        setShowVoiceView(true);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
