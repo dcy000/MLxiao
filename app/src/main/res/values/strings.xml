@@ -518,7 +518,7 @@
     <string name="doctor_zhiji" formatted="false">职级：%1$s</string>
     <string name="doctor_shanchang" formatted="false">擅长：%1$s</string>
     <string name="doctor_shoufei" formatted="false">收费标准：%1$s元/分钟</string>
-    <string name="title_health_class">健&#160;&#160;康&#160;&#160;讲&#160;&#160;堂</string>
+    <string name="title_health_class">健&#160;&#160;康&#160;&#160;课&#160;&#160;堂</string>
 
     <string name="doctor_online">主人，您已发送与医生的视频请求，请耐心等待五分钟</string>
 
