@@ -31,6 +31,9 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_ask_guide);
+
+        speak(getString(R.string.doctor_choice));
+
         mToolbar.setVisibility(View.VISIBLE);
         initView();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);

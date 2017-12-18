@@ -503,6 +503,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_doctorappo);
 
 
+        speak(R.string.qianyue_doctor);
+
         mToolbar.setVisibility(View.VISIBLE);
 
         mTitleText.setText(getString(R.string.doctor_qianyue));
@@ -587,6 +589,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                     finish();
 
                 } else {
+                    speak(getString(R.string.yuyue_limit));
+
                     Toast.makeText(getApplicationContext(), "签约已达上限", Toast.LENGTH_SHORT).show();
                 }
 
@@ -696,6 +700,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 dialog = new NDialog1(DoctorappoActivity.this);
 
+                speak(getString(R.string.cancel_yuyue));
 
                 showNormal(1);
 
@@ -704,12 +709,17 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             case R.id.cancel_yuyue1:
 
                 dialog = new NDialog1(DoctorappoActivity.this);
+                speak(getString(R.string.cancel_yuyue));
+
                 showNormal(2);
                 break;
 
             case R.id.cancel_yuyue2:
 
                 dialog = new NDialog1(DoctorappoActivity.this);
+
+                speak(getString(R.string.cancel_yuyue));
+
                 showNormal(3);
                 break;
         }
@@ -783,6 +793,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                         yuYueDoctor();
 
                                         ShowNormals("取消成功");
+                                        speak(getString(R.string.cancel_success));
 
 
                                     }
@@ -831,6 +842,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
 
                                         ShowNormals("取消成功");
+
+                                        speak(getString(R.string.cancel_success));
 
                                         /*DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
                                                 .listen(new UpdateOrDeleteCallback() {
@@ -895,6 +908,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
 
                                         ShowNormals("取消成功");
+
+                                        speak(getString(R.string.cancel_success));
 
                                        /* DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
                                                 .listen(new UpdateOrDeleteCallback() {

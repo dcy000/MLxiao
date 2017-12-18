@@ -29,7 +29,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
 
-    //    speak(getString());
+        speak(getString(R.string.chongzhi));
 
         mToolbar.setVisibility(View.VISIBLE);
 

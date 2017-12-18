@@ -52,6 +52,9 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         mTitleText.setText(getString(R.string.orders_detail));
 
 
+        speak(getString(R.string.order));
+
+
         //   mImageView1 = (ImageView) findViewById(R.id.icon_back);
 
 
