@@ -147,6 +147,8 @@ public class HeadiconActivity extends BaseActivity {
                             new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
+                                    LocalShared shared = LocalShared.getInstance(mContext);
+                                    shared.addAccount(MyApplication.getInstance().userId,LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                                     Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
                                     startActivity(intent);
                                     finish();
