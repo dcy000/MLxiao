@@ -135,10 +135,10 @@ public class SignUp4IdCardActivity extends BaseActivity {
         Matcher matcherInIdCard = patternInIdCard.matcher(in);
         if (matcherInIdCard.find()) {
             String target = etIdCard.getText().toString().trim();
-            if (target.length() >= 18) {
-                return;
-            }
             String s = target + matcherInIdCard.group(matcherInIdCard.groupCount());
+            if (s.length() > 18) {
+                s = s.substring(0, 18);
+            }
             etIdCard.setText(s);
             etIdCard.setSelection(s.length());
         }
