@@ -530,7 +530,7 @@ public class VideoDemo extends BaseActivity {
 
                 if ("0".equals(signs)) {
                     showTip("通过验证，欢迎回来！");
-                    if (!choosedXfid.equals(MyApplication.getInstance().xfid)) {//如果不是选中的讯飞id已经改变，则切换账号
+                    if (!MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id已经改变，则切换账号
                         MyApplication.getInstance().userId = map.get(choosedXfid);
                         MyApplication.getInstance().xfid = choosedXfid;
                         sendBroadcast(new Intent("change_account"));
