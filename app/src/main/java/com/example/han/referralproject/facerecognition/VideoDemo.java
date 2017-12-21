@@ -33,6 +33,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Process;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -520,7 +521,7 @@ public class VideoDemo extends BaseActivity {
 
                 if ("0".equals(signs)) {
                     showTip("通过验证，欢迎回来！");
-                    if (!MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id,已经改变，则切换账号
+                    if (!TextUtils.isEmpty(choosedXfid)&&!MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id,已经改变，则切换账号
                         MyApplication.getInstance().userId = map.get(choosedXfid);
                         MyApplication.getInstance().xfid = choosedXfid;
                         sendBroadcast(new Intent("change_account"));
