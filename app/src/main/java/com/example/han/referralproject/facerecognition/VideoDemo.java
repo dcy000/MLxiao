@@ -134,15 +134,10 @@ public class VideoDemo extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
 
-        //   speak(R.string.head_verify);
-
-
         mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
 
         mediaPlayer.start();//播放音乐
 
-
-        //   speak(R.string.head_verify);
         map = new HashMap<>();
         accounts = LocalShared.getInstance(this).getAccounts();
         if(accounts!=null){
@@ -189,11 +184,6 @@ public class VideoDemo extends BaseActivity {
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mAcc = new Accelerometer(VideoDemo.this);
-//        try {
-//            mFaceDetector = FaceDetector.createDetector(VideoDemo.this, null);
-//        } catch (SpeechError speechError) {
-//            speechError.printStackTrace();
-//        }
 
         mFaceRequest = new FaceRequest(this);
 
@@ -530,7 +520,7 @@ public class VideoDemo extends BaseActivity {
 
                 if ("0".equals(signs)) {
                     showTip("通过验证，欢迎回来！");
-                    if (!MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id已经改变，则切换账号
+                    if (!MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id,已经改变，则切换账号
                         MyApplication.getInstance().userId = map.get(choosedXfid);
                         MyApplication.getInstance().xfid = choosedXfid;
                         sendBroadcast(new Intent("change_account"));
