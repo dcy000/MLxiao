@@ -74,6 +74,7 @@ public class WelcomeActivity extends BaseActivity {
             public void onSuccess(VersionInfoBean response) {
                 try {
                     if (response != null && response.vid > getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionCode) {
+//                    if (true) {
                         new UpdateAppManager(mContext).showNoticeDialog(response.url);
                     } else {
                         ch = (Chronometer) findViewById(R.id.chronometer);

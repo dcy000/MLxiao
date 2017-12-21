@@ -253,7 +253,6 @@
         <activity
             android:name=".Test_mainActivity"
             android:screenOrientation="landscape" >
-
         </activity>
 
        
