@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private MediaPlayer mediaPlayer;//MediaPlayer对象
+    private ImageView mImageView6;
 
 
     @Override
@@ -78,12 +79,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView3 = (ImageView) findViewById(R.id.health_test);
         mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
         mImageView5 = (ImageView) findViewById(R.id.health_class);
+        mImageView6= (ImageView) findViewById(R.id.call_family);
 
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
         mImageView3.setOnClickListener(this);
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
+        mImageView6.setOnClickListener(this);
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
@@ -169,6 +172,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.health_class:
                 intent.setClass(getApplicationContext(), VideoListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.call_family://紧急呼叫家人
+
                 break;
         }
     }
