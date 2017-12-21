@@ -149,6 +149,7 @@ public class SignInActivity extends BaseActivity {
             public void onSuccess(UserInfoBean response) {
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid,response.xfid);
+                LocalShared.getInstance(getApplicationContext()).setXunfeiID(response.xfid);
                 MyApplication.getInstance().xfid=response.xfid;
                 hideLoadingDialog();
                 startActivity(new Intent(mContext, MainActivity.class));
