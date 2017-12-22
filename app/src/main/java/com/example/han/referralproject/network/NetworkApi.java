@@ -17,6 +17,7 @@ import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.bean.ECGHistory;
 import com.example.han.referralproject.bean.HeartRateHistory;
 import com.example.han.referralproject.bean.PulseHistory;
 import com.example.han.referralproject.bean.RobotAmount;
@@ -45,12 +46,12 @@ import java.util.Map;
 public class NetworkApi {
 
 //    public static final String BasicUrl = "http://192.168.200.115:8080";
-    public static final String BasicUrl = "http://192.168.200.113:8080";
+//    public static final String BasicUrl = "http://192.168.200.113:8080";
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
 //     public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
-//    public static final String BasicUrl="http://192.168.200.109:8080";//文博本地
+    public static final String BasicUrl="http://192.168.200.117:8080";//文博本地
 
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
@@ -617,6 +618,24 @@ public class NetworkApi {
         params.put("starttime", start);
         params.put("endtime", end);
         NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<BUA>>() {
+                }.getType(),
+                successCallback, failedCallback);
+    }
+    /**
+     * 心电
+     *
+     * @param temp
+     * @param successCallback
+     */
+    public static void getECGHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<ECGHistory>> successCallback, NetworkManager.FailedCallback failedCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+//        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", "100001");
+        params.put("temp", temp);
+        params.put("starttime", start);
+        params.put("endtime", end);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<ECGHistory>>() {
                 }.getType(),
                 successCallback, failedCallback);
     }

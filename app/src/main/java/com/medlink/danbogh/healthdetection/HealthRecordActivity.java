@@ -6,21 +6,27 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.Jiashuju;
+import com.example.han.referralproject.adapter.XindianAdapter;
 import com.example.han.referralproject.bean.BUA;
 import com.example.han.referralproject.bean.BloodOxygenHistory;
 import com.example.han.referralproject.bean.BloodPressureHistory;
 import com.example.han.referralproject.bean.BloodSugarHistory;
 import com.example.han.referralproject.bean.CholesterolHistory;
+import com.example.han.referralproject.bean.ECGHistory;
 import com.example.han.referralproject.bean.HeartRateHistory;
 import com.example.han.referralproject.bean.PulseHistory;
 import com.example.han.referralproject.bean.TemperatureHistory;
@@ -116,8 +122,13 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     RadioButton rbTwoHour;
     @BindView(R.id.rg_xuetang_time)
     RadioGroup rgXuetangTime;
+    @BindView(R.id.xindiantu)
+    RecyclerView xindianList;
+    @BindView(R.id.rb_record_ecg)
+    RadioButton getRbRecordECG;
+
     private long currentTime = 0L, weekAgoTime = 0L, monthAgoTime, seasonAgoTime = 0L, yearAgoTime = 0L;
-    private String temp = "1";//记录选择的标签,默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸
+    private String temp = "1";//记录选择的标签,默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸，9：心电
     private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时
     private int timeFlag = 1;//默认最近一周：1；一个月：2；一季度：3；一年：4；
 
@@ -144,6 +155,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         rbKongfu.setOnClickListener(this);
         rbOneHour.setOnClickListener(this);
         rbTwoHour.setOnClickListener(this);
+        getRbRecordECG.setOnClickListener(this);
 
         currentTime = System.currentTimeMillis();
         Calendar curr = Calendar.getInstance();
@@ -970,6 +982,22 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
+    private void getXindian(String start, String end) {
+
+        NetworkApi.getECGHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<ECGHistory>>() {
+            @Override
+            public void onSuccess(ArrayList<ECGHistory> response) {
+                xindianList.setLayoutManager(new LinearLayoutManager(HealthRecordActivity.this));
+                xindianList.setAdapter(new XindianAdapter(R.layout.item_message,response));
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+            }
+        });
+    }
+
     /**
      * 设置体温的走势
      *
@@ -1403,6 +1431,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                xindianList.setVisibility(View.GONE);
+                llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
                 setTiwenChart();
                 getTiwen(weekAgoTime + "", currentTime + "");
@@ -1417,6 +1447,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                xindianList.setVisibility(View.GONE);
+                llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
                 getXueya(weekAgoTime + "", currentTime + "");
                 break;
@@ -1430,6 +1462,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                xindianList.setVisibility(View.GONE);
+                llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
                 getXuetang(weekAgoTime + "", currentTime + "", eatedTime);
                 break;
@@ -1443,6 +1477,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                xindianList.setVisibility(View.GONE);
+                llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
                 getXueyang(weekAgoTime + "", currentTime + "");
                 break;
@@ -1457,6 +1493,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.VISIBLE);
                 xueniaosuanChart.setVisibility(View.GONE);
+                xindianList.setVisibility(View.GONE);
+                llIndicator.setVisibility(View.VISIBLE);
                 getDangucun(weekAgoTime + "", currentTime + "");
                 llTime.check(R.id.one_week);
                 break;
@@ -1470,7 +1508,24 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 maiboChart.setVisibility(View.GONE);
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.VISIBLE);
+                xindianList.setVisibility(View.GONE);
+                llIndicator.setVisibility(View.VISIBLE);
                 getXueniaosuan(weekAgoTime + "", currentTime + "");
+                llTime.check(R.id.one_week);
+                break;
+            case R.id.rb_record_ecg://心电图
+                temp="9";
+                tiwenChart.setVisibility(View.GONE);
+                xueyaChart.setVisibility(View.GONE);
+                xuetangChart.setVisibility(View.GONE);
+                xueyangChart.setVisibility(View.GONE);
+                xinlvChart.setVisibility(View.GONE);
+                maiboChart.setVisibility(View.GONE);
+                danguchunChart.setVisibility(View.GONE);
+                xueniaosuanChart.setVisibility(View.GONE);
+                xindianList.setVisibility(View.VISIBLE);
+                llIndicator.setVisibility(View.GONE);
+                getXindian(weekAgoTime + "", currentTime + "");
                 llTime.check(R.id.one_week);
                 break;
             case R.id.rb_kongfu:
@@ -1552,6 +1607,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     case "8":
                         getXueniaosuan(weekAgoTime + "", currentTime + "");
                         break;
+                    case "9":
+                        getXindian(weekAgoTime+"",currentTime+"");
+                        break;
                 }
                 break;
             case R.id.one_month:
@@ -1574,6 +1632,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         break;
                     case "8":
                         getXueniaosuan(monthAgoTime + "", currentTime + "");
+                        break;
+                    case "9":
+                        getXindian(monthAgoTime + "", currentTime + "");
                         break;
                 }
                 break;
@@ -1598,6 +1659,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     case "8":
                         getXueniaosuan(seasonAgoTime + "", currentTime + "");
                         break;
+                    case "9":
+                        getXindian(monthAgoTime + "", currentTime + "");
+                        break;
                 }
                 break;
             case R.id.one_year:
@@ -1620,6 +1684,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         break;
                     case "8":
                         getXueniaosuan(yearAgoTime + "", currentTime + "");
+                        break;
+                    case "9":
+                        getXindian(yearAgoTime + "", currentTime + "");
                         break;
                 }
                 break;

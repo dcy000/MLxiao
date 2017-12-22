@@ -105,4 +105,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     compile project(':voicelibrary')
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }
