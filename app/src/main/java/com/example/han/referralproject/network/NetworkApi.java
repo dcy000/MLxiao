@@ -364,6 +364,11 @@ public class NetworkApi {
         }.getType(), callback);
     }
 
+    /**
+     * 获取下一层病症和结果
+     * @param params
+     * @param callback
+     */
     public static void analyseSym(String params, NetworkManager.SuccessCallback<SymptomResultBean> callback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("parameter", params);
