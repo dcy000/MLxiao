@@ -718,6 +718,15 @@ public class NimCallActivity extends AppCompatActivity {
             final int minutes = mSeconds / 60 + 1;
             if (minutes >= 0) {
                 final String bid = MyApplication.getInstance().userId;
+
+                if ((!TextUtils.isEmpty(mPeerAccount)
+                        && !mPeerAccount.startsWith("docter_"))
+                        || (mCallData != null
+                        && !TextUtils.isEmpty(mCallData.getAccount())
+                        && !mCallData.getAccount().startsWith("docter_"))) {
+                    return;
+                }
+
                 NetworkApi.DoctorInfo(bid, new NetworkManager.SuccessCallback<Doctor>() {
                     @Override
                     public void onSuccess(Doctor response) {
