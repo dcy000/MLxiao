@@ -304,7 +304,6 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                         response.get(i).id.equals("25")||
                         response.get(i).id.equals("26")||
                         response.get(i).id.equals("27")||
-                        response.get(i).id.equals("64")||
                         response.get(i).id.equals("67")||
                         response.get(i).id.equals("75")||
                         response.get(i).id.equals("93")||
@@ -341,6 +340,7 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                         response.get(i).id.equals("51")||
                         response.get(i).id.equals("52")||
                         response.get(i).id.equals("53")||
+                        response.get(i).id.equals("64")||
                         response.get(i).id.equals("65")||
                         response.get(i).id.equals("66")||
                         response.get(i).id.equals("72")||

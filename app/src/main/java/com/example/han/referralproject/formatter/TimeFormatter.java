@@ -19,10 +19,15 @@ public class TimeFormatter implements IAxisValueFormatter{
 
     @Override
     public String getFormattedValue(float v, AxisBase axisBase) {
+        if(v==-1){
+            return "";
+        }
         if(times.size()==1){
             return Utils.stampToDate(times.get(0));
         }
-
+        if(v>times.size()){
+            return "";
+        }
         return Utils.stampToDate(times.get((int) v));
     }
 }

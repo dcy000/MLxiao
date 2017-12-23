@@ -33,6 +33,8 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.EMUIHelper;
+import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -53,6 +55,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private MediaPlayer mediaPlayer;//MediaPlayer对象
+    private ImageView mImageView6;
 
 
     @Override
@@ -60,6 +63,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        NimAccountHelper.getInstance().login("user_"+MyApplication.getInstance().userId, "123456", null);
 
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
@@ -78,12 +82,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView3 = (ImageView) findViewById(R.id.health_test);
         mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
         mImageView5 = (ImageView) findViewById(R.id.health_class);
+        mImageView6= (ImageView) findViewById(R.id.call_family);
 
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
         mImageView3.setOnClickListener(this);
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
+        mImageView6.setOnClickListener(this);
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
@@ -169,6 +175,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.health_class:
                 intent.setClass(getApplicationContext(), VideoListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.call_family://紧急呼叫家人
+                //呼叫
+                NimCallActivity.launch(this, MyApplication.getInstance().eqid);
                 break;
         }
     }

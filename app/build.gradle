@@ -8,8 +8,8 @@ android {
         applicationId "com.example.han.referralproject"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 6
-        versionName "1.0.5"
+        versionCode 7
+        versionName "1.0.6"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -105,4 +105,7 @@ dependencies {
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
+    compile project(':voicelibrary')
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }

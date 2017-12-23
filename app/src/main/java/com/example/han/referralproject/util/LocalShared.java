@@ -317,4 +317,11 @@ public class LocalShared {
     public String getNimToken() {
         return mShared.getString(NIM_TOKEN, "");
     }
+    private static final String EQID="eq_id";
+    public void setEqID(String eqid){
+        mShared.edit().putString(EQID,eqid).commit();
+    }
+    public String getEqID(){
+        return mShared.getString(EQID,"");
+    }
 }
