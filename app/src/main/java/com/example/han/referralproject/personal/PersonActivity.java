@@ -34,6 +34,8 @@ import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.recyclerview.CheckContractActivity;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
@@ -128,6 +130,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 if ("未签约".equals(mTextView4.getText())) {
                     Intent intent = new Intent(PersonActivity.this, OnlineDoctorListActivity.class);
                     intent.putExtra("flag", "contract");
+                    startActivity(intent);
+                    return;
+                }
+                if ("待审核".equals(mTextView4.getText())) {
+                    Intent intent = new Intent(PersonActivity.this, CheckContractActivity.class);
                     startActivity(intent);
                 }
             }

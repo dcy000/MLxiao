@@ -19,7 +19,6 @@
         android:protectionLevel="signature"/>
     <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
@@ -146,13 +145,7 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-
-
-
-
         </activity>
-
-
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -204,8 +197,7 @@
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape"></activity>
-
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -215,7 +207,7 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape"/>
@@ -242,6 +234,7 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -249,15 +242,13 @@
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape" >
-
+            android:screenOrientation="landscape">
         </activity>
-
-       
-        <activity android:name=".facerecognition.OnlineFaceDemo1"
+        <activity
+            android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape"/>
         <activity
             android:name=".xueya.AttentionActivity"
@@ -270,8 +261,8 @@
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".xindian.XindianActivity"/>
-        <activity android:name=".facerecognition.RegisterVideoActivity"></activity>
-        <activity android:name=".recyclerview.RecoDocActivity"></activity>
+        <activity android:name=".facerecognition.RegisterVideoActivity"/>
+        <activity android:name=".recyclerview.RecoDocActivity"/>
         <activity android:name=".recyclerview.DoctorMesActivity"/>
         <activity android:name=".video.MainVideoActivity"/>
         <activity android:name=".video.PlayVideoActivity"/>
@@ -334,15 +325,9 @@
         <activity android:name=".recyclerview.AppraiseActivity"/>
         <activity android:name=".facerecognition.HeadiconActivity"/>
         <activity android:name=".recyclerview.DoctorappoActivity">
-
-
-
-
-
         </activity>
         <activity android:name=".recyclerview.AddAppoActivity">
         </activity>
-
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
@@ -460,16 +445,14 @@
             android:name="com.medlink.danbogh.signin.SetPasswordActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden"/>
-
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize"/>
 
         <service android:name=".floatingball.AssistiveTouchService"/>
 
         <activity android:name=".recyclerview.DoctorAlarmActivity">
-
         </activity>
         <activity android:name=".activity.AlertHeightActivity"/>
         <activity android:name=".activity.AlertWeightActivity"/>
@@ -477,7 +460,9 @@
         <activity android:name=".activity.AlertSmokeActivity"/>
         <activity android:name=".activity.AlertEatingActivity"/>
         <activity android:name=".activity.AlertDrinkingActivity"/>
-        <activity android:name=".activity.SelectXuetangTimeActivity"></activity>
+        <activity android:name=".activity.SelectXuetangTimeActivity"/>
+        <activity android:name=".recyclerview.CheckContractActivity">
+        </activity>
     </application>
 
 </manifest>

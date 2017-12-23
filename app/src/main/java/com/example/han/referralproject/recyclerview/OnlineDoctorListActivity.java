@@ -48,7 +48,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
         sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
 
-       /* mFlag = getIntent().getStringExtra("flag");
+        mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
             NetworkApi.doctor_list(0, 12, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                 @Override
@@ -59,7 +59,6 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                     mlist.addAll(list);
                     mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
                     mRecyclerView.setAdapter(mDoctorAdapter);
-
                     setData();
                 }
 
@@ -70,7 +69,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                 }
             });
             return;
-        }*/
+        }
 
         NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
@@ -116,6 +115,14 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
         mDoctorAdapter.setOnItemClistListener(new DoctorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion) {
+                if ("contract".equals(mFlag)) {
+                    Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
+                    intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+
                 if (!"".equals(sharedPreferences.getString("online_time", ""))) {
                     countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
                     if (countdown < 30000) {
@@ -128,15 +135,6 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                 } else {
                     jump(postion);
                 }
-
-//                Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
-//                intent.putExtra("docMsg", (Serializable) mlist.get(postion));
-//                if (!"contract".equals(mFlag)) {
-//                    intent.putExtra("sign", "1");
-//                }
-//                startActivity(intent);
-//                finish();
-
             }
         });
 

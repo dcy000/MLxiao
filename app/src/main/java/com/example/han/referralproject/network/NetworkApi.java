@@ -2,7 +2,6 @@ package com.example.han.referralproject.network;
 
 import android.text.TextUtils;
 
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
@@ -16,7 +15,6 @@ import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.bean.HeartRateHistory;
 import com.example.han.referralproject.bean.PulseHistory;
 import com.example.han.referralproject.bean.RobotAmount;
@@ -36,7 +34,6 @@ import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.reflect.TypeToken;
 
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -48,7 +45,7 @@ public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.113:8080";
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
-     public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
 //    public static final String BasicUrl="http://192.168.200.109:8080";//文博本地
 
@@ -111,6 +108,26 @@ public class NetworkApi {
     public static final String Alert_Basedata = BasicUrl + "/ZZB/br/update_user_onecon";
     public static final String Get_jibing = BasicUrl + "/ZZB/bl/selSugByBname";
     public static final String IS_PHONE_REGISTERED = BasicUrl + "/ZZB/login/tel_isClod";
+
+    public static final String EQ_PRE_AMOUNT = BasicUrl + "/ZZB/eq/selPaidAmountByEqid";
+    public static final String CANCEL_CONTRACT = BasicUrl + "/ZZB/br/updateUserState";
+
+    public static void cancelContract(
+            String bid,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid", bid);
+        NetworkManager.getInstance().postResultClass(CANCEL_CONTRACT, params, Object.class, successCallback, failedCallback);
+    }
+
+    public static void getEqPreAmount(
+            NetworkManager.SuccessCallback<RobotAmount> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("eqid", Utils.getDeviceId());
+        NetworkManager.getInstance().postResultClass(EQ_PRE_AMOUNT, params, RobotAmount.class, successCallback, failedCallback);
+    }
 
     public static void canRegister(
             String phone,
