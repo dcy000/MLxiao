@@ -1026,6 +1026,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             unbindService(mServiceConnection);
         }
         mBluetoothLeService = null;
+        XueyaUtils.stopThread();
     }
 
     private int seletTimeType=0;
@@ -1117,7 +1118,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             String action = intent.getAction();
             Bundle b = intent.getExtras();
             Object[] lstName = b.keySet().toArray();
-
+            Log.i("mylog", "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
             // 显示所有收到的消息及其细节
             for (int i = 0; i < lstName.length; i++) {
                 String keyName = lstName[i].toString();
@@ -1155,10 +1156,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        deviceName = "BeneCheck TC-B DONGLE";
                         break;
                 }
-                if (detectType == Type_Xueya){
+                if (detectType == Type_Xueya && deviceName.equals(device.getName())){
                     try {
+                        stopSearch();
                         XueyaUtils.connect(device, xueyaHandler);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     return;

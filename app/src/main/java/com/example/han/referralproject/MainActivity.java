@@ -33,6 +33,8 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.EMUIHelper;
+import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -61,6 +63,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        NimAccountHelper.getInstance().login("user_"+MyApplication.getInstance().userId, "123456", null);
 
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
@@ -174,7 +177,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-
+                //呼叫
+                NimCallActivity.launch(this, MyApplication.getInstance().eqid);
                 break;
         }
     }

@@ -144,11 +144,12 @@
 
     <ImageView
         android:id="@+id/iv_wifi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
+        android:layout_width="90pt"
+        android:layout_height="90pt"
         android:onClick="onWifiClick"
+        android:padding="19pt"
+        android:layout_marginRight="30pt"
         android:src="@drawable/ic_wifi2"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

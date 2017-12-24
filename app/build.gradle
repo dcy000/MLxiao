@@ -78,6 +78,7 @@ dependencies {
     }
     compile project(':sdk')
     compile project(':lib-wheelrecyclerview')
+    compile project(':voicelibrary')
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -101,8 +102,10 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     compile project(':voicelibrary')
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }

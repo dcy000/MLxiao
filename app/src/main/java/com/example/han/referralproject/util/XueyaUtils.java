@@ -22,6 +22,7 @@ public class XueyaUtils {
     public static BluetoothSocket socket;
     public static boolean isSuccess;
     public static List<byte[]> listNum = new ArrayList<>();
+    public static boolean isEnd;
 
     /**
      * TODO 连接设备
@@ -47,7 +48,8 @@ public class XueyaUtils {
             socket.connect();
         }
         Log.i("mylog", "2222222222222222222");
-        handler.sendEmptyMessage(14);
+        isEnd = false;
+        //handler.sendEmptyMessage(14);
         Thread th = new Thread(new Runnable() {
 
             @Override
@@ -59,13 +61,12 @@ public class XueyaUtils {
                     byte[] b = { (byte) 0xff, (byte) 0xff, 0x05, 0x01,
                             (byte) 0xfa };
                     os.write(b, 0, b.length);
-
+                    Log.i("mylog", "33333333333333333333333");
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 InputStream is;
-                boolean isEnd = false;
                 try {
                     is = socket.getInputStream();
                     // 定义一个数据，来接收数据
@@ -79,10 +80,10 @@ public class XueyaUtils {
                     while (!isEnd) {
                         try {
                             if (socket != null) {
+                                Log.i("mylog", "AAAAAAA--------->>>>>>>>>>"
+                                        + bytes);
                                 // 如果读取的字节数大于0，表示有数据存在
                                 bytes = is.read(buffer);
-                                System.out.println("AAAAAAA--------->>>>>>>>>>"
-                                        + bytes);
                                 if (bytes > 0 && bytes == 73) {
                                     // 定义新的字符数据，长度为读取的数据的长度
                                     byte[] byte_data = new byte[bytes];
@@ -208,5 +209,15 @@ public class XueyaUtils {
         th.start();
     }
 
+    public static void stopThread(){
+        isEnd = true;
+        if (socket != null){
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
