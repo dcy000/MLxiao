@@ -96,6 +96,13 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
             }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+    }
+
     @Override
     public void onClick(View v) {
 
