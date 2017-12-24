@@ -144,9 +144,9 @@ public class HeadiconActivity extends BaseActivity {
                     String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
 
                     NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
-                            new NetworkManager.SuccessCallback<String>() {
+                            new NetworkManager.SuccessCallback<Object>() {
                                 @Override
-                                public void onSuccess(String response) {
+                                public void onSuccess(Object response) {
                                     LocalShared shared = LocalShared.getInstance(mContext);
                                     shared.addAccount(MyApplication.getInstance().userId,LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                                     Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
