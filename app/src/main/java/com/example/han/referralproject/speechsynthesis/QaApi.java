@@ -121,11 +121,11 @@ public class QaApi {
                 //新闻(MP3)
                 String title = resultObj.optString("title");
                 if (!TextUtils.isEmpty(title)) {
-                    results.put("text", results.get("text") + title);
+                    results.put("text", results.get("text") + "\n\n\n\n" + title);
                 }
                 String url = resultObj.optString("url");
                 if (!TextUtils.isEmpty(url)) {
-                    resultObj.put("audiopath", url);
+                    results.put("audiopath", url);
                 }
                 return results;
             }
