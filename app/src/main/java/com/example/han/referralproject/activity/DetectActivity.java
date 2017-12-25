@@ -88,6 +88,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private String[] mXueyaResults;
     private String[] mWenduResults;
     private String[] mXueYangResults;
+    private String[] mEcgResults;
     private BluetoothGattCharacteristic mWriteCharacteristic;
     private View mOverView;
 
@@ -295,7 +296,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("mylog", "action : " + intent.getAction());
+            //Log.i("mylog", "action : " + intent.getAction());
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
@@ -552,6 +553,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                             mResultTv.setText(String.valueOf(result));
                         }
+                        break;
+                    case Type_XinDian:
+                        if (notifyData == null || notifyData.length < 20 || notifyData[6] != 84) {
+                            return;
+                        }
+                        ((TextView)findViewById(R.id.tv_xindian)).setText(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
+                        DataInfoBean ecgInfo = new DataInfoBean();
+                        ecgInfo.ecg = notifyData[17];
+                        ecgInfo.heart_rate = notifyData[16] & 0xff;
+                        NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        speak(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
                         break;
                     case Type_SanHeYi:
                         if (notifyData == null || notifyData.length < 13){
@@ -997,6 +1014,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mXueyaResults = mResources.getStringArray(R.array.result_xueya);
         mWenduResults = mResources.getStringArray(R.array.result_wendu);
         mXueYangResults = mResources.getStringArray(R.array.result_xueyang);
+        mEcgResults = mResources.getStringArray(R.array.ecg_measureres);
 
         //speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);
@@ -1118,7 +1136,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             String action = intent.getAction();
             Bundle b = intent.getExtras();
             Object[] lstName = b.keySet().toArray();
-            Log.i("mylog", "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
             // 显示所有收到的消息及其细节
             for (int i = 0; i < lstName.length; i++) {
                 String keyName = lstName[i].toString();
@@ -1134,8 +1151,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         deviceName = "FSRKB-EWQ01";
                         break;
                     case Type_Xueya:
-                        //deviceName = "eBlood-Pressure";
-                        deviceName = "Dual-SPP";
+                        deviceName = "eBlood-Pressure";
+                        //deviceName = "Dual-SPP";
                         break;
                     case Type_XueTang:
                         deviceName = "Bioland-BGM";
@@ -1156,15 +1173,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        deviceName = "BeneCheck TC-B DONGLE";
                         break;
                 }
-                if (detectType == Type_Xueya && deviceName.equals(device.getName())){
-                    try {
-                        stopSearch();
-                        XueyaUtils.connect(device, xueyaHandler);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return;
-                }
+
+//                if (detectType == Type_Xueya && deviceName.equals(device.getName())){
+//                    try {
+//                        stopSearch();
+//                        XueyaUtils.connect(device, xueyaHandler);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    return;
+//                }
+
 //                if (deviceName.equals(device.getName())) {
                 if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith(deviceName)) {
                     if (dialog != null) {
