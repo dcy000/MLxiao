@@ -50,6 +50,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.IOException;
@@ -753,7 +754,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public Button mButton3;
 
     private int time;
-    private ImageView onDetectView;
+    private AVLoadingIndicatorView onDetect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -819,7 +820,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
-
+        mRightView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetectActivity.this,MainActivity.class));
+                finish();
+            }
+        });
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1005,9 +1012,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mPulseTv = (TextView) findViewById(R.id.pulse);
         mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
         mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
-        onDetectView = (ImageView) findViewById(R.id.onDetect);
+        onDetect= (AVLoadingIndicatorView) findViewById(R.id.onDetect);
         if (detectType == Type_XinDian){
-            showAnimation();
+            onDetect.show();
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
@@ -1388,8 +1395,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     /**
      * 心电测量动画
      */
-    private void showAnimation(){
-        Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
-        onDetectView.startAnimation(animation);
-    }
+//    private void showAnimation(){
+//        Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
+//        onDetectView.startAnimation(animation);
+//    }
 }
