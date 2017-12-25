@@ -8,13 +8,8 @@ android {
         applicationId "com.example.han.referralproject"
         minSdkVersion 18
         targetSdkVersion 25
-<<<<<<< HEAD
-        versionCode 5
-        versionName "1.0.5"
-=======
         versionCode 7
         versionName "1.0.6"
->>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -47,11 +42,7 @@ android {
         abortOnError false
     }
 
-<<<<<<< HEAD
-     signingConfigs {
-=======
     signingConfigs {
->>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
         debug {
             storeFile file(RELEASE_STORE_FILE)
             storePassword RELEASE_STORE_PASSWORD
@@ -120,10 +111,7 @@ dependencies {
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-<<<<<<< HEAD
-=======
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     compile project(':voicelibrary')
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
->>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
 }
