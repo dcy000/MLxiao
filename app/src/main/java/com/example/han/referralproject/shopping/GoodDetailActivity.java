@@ -211,6 +211,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                             Intent intent = new Intent(getApplicationContext(), VideoDemo.class);
                             intent.putExtra("orderid", orderid);
                             intent.putExtra("sign", "1");
+                            intent.putExtra("jump", "0");
                             startActivity(intent);
 
 

@@ -218,8 +218,8 @@
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape" />
-
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -229,7 +229,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -254,14 +255,11 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
-
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
@@ -269,7 +267,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape" />

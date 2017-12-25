@@ -111,6 +111,7 @@
     <string name="tips_result_xueyang" formatted="false">主人，您的血氧饱和度为%1$s，脉搏为%2$d，%3$s</string>
     <string name="tips_result_niaosuan" formatted="false">主人，您的尿酸为%1$s,%2$s</string>
     <string name="tips_result_danguchun" formatted="false">主人，您的胆固醇为%1$s,%2$s</string>
+    <string name="tips_result_xindian" formatted="false">主人，您的心率为%1$d, %2$s</string>
     <string name="tips_symptom">主人，请选择对应症状并提交</string>
     <string name="tips_symptom_result">主人，你有可能是%s</string>
     <string name="tips_error_temp">主人，温度测量不正常，请重新测试</string>
@@ -562,4 +563,8 @@
     <string name="yuyue_tim">主人您的预约时间到了，请及时和医生进行视频通话</string>
     <string name="body_guide">人&#160;&#160;体&#160;&#160;导&#160;&#160;图</string>
     <string name="history_celiang">历&#160;&#160;史&#160;&#160;测&#160;&#160;量</string>
+
+    <string name="tiaoguo">跳&#160;&#160;过</string>
+
+
 </resources>

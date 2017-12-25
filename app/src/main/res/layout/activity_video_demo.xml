@@ -21,7 +21,7 @@
         android:src="@drawable/bg_face" />
 
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
@@ -37,7 +37,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/icon_back"
             android:visibility="gone" />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <ImageView
         android:id="@+id/tiao_guo"
@@ -49,14 +49,29 @@
         android:clickable="true"
         android:src="@drawable/face_back" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/tiao_guo"
-        android:text="返回"
-        android:textSize="40sp" />
+    <Button
+        android:id="@+id/tiao_guos"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_tiaoguo"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/tiaoguo"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:visibility="gone" />
+
+    <!-- <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="25dp"
+         android:layout_toRightOf="@+id/tiao_guo"
+         android:text="返回"
+         android:textSize="40sp" />-->
 
 
     <!-- <RadioGroup
