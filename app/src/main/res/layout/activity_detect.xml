@@ -790,7 +790,17 @@
         android:id="@+id/rl_xindian"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/normal_bg"
         android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/test_xindian"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
         <ImageView
             android:id="@+id/onDetect"
             android:layout_width="90dp"
@@ -802,7 +812,35 @@
             android:id="@+id/tv_xindian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"/>
+            android:layout_marginTop="100dp"
+            android:textSize="40sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="70dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/history4"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape_phone"
+                android:gravity="center"
+                android:text="历史记录"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+            <Button
+                android:id="@+id/xindian_video"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/shape_show"
+                android:gravity="center"
+                android:text="使用演示"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+        </LinearLayout>
     </RelativeLayout>
     <!--体重监测-->
     <RelativeLayout
@@ -959,20 +997,27 @@
             android:id="@+id/vv_tips"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <Button
+        <FrameLayout
             android:id="@+id/view_over"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/selector_bg_btn"
-            android:gravity="center"
-            android:text="@string/tiao_zhuan"
-            android:textColor="#FFFFFF"
-            android:textSize="35sp" />
+            android:layout_alignParentRight="true">
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:background="@drawable/selector_bg_btn"
+                android:gravity="center"
+                android:text="@string/tiao_zhuan"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"
+                android:textSize="35sp" />
+            <View
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"/>
+        </FrameLayout>
     </RelativeLayout>
 
     <ImageView

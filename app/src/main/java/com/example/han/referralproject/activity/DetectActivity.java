@@ -802,6 +802,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
+        findViewById(R.id.history4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -961,8 +970,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_XinDian:
                 findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xindian;
-                dialog = new NDialog(this);
-                showNormal("设备连接中，请稍后...");
+//                dialog = new NDialog(this);
+//                showNormal("设备连接中，请稍后...");
                 break;
             case Type_TiZhong:
                 mResultTv = (TextView) findViewById(R.id.tv_tizhong);
