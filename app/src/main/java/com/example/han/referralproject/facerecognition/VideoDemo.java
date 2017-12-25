@@ -368,7 +368,7 @@ public class VideoDemo extends BaseActivity {
 //            showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
 //        }
     }
-    private int first_match=5;//第一次匹配本机账号使用
+    private int first_match=3;//第一次匹配本机账号使用
     @Override
     protected void onStart() {
         super.onStart();
