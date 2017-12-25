@@ -126,7 +126,7 @@ public class RegisterVideoActivity extends BaseActivity {
                             while (sign) {
 
                                 try {
-                                    Thread.sleep(1000);
+                                    Thread.sleep(2000);
                                 } catch (InterruptedException e) {
                                 }
 
@@ -407,7 +407,7 @@ public class RegisterVideoActivity extends BaseActivity {
         //    mAuthid = MyApplication.getInstance().userId;
 
 
-        mHandler.sendEmptyMessageDelayed(0, 4000);
+        mHandler.sendEmptyMessageDelayed(0, 3000);
 
 
     }

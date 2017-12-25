@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -431,7 +432,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="100dp"
             android:src="@drawable/video_xueyas"
-            android:visibility="visible"/>
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/video_xuetang2"
@@ -451,7 +452,7 @@
             android:layout_below="@+id/video_xuetang2"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/video_xueyass"/>
+            android:src="@drawable/video_xueyass" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -526,7 +527,6 @@
                 android:textSize="50sp" />
 
 
-
         </RelativeLayout>
 
         <!-- <RelativeLayout
@@ -572,65 +572,67 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="90dp"
-            android:orientation="vertical"
-            android:gravity="center"
             android:background="#fff"
+            android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_empty"
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-                    android:gravity="center"
-                    android:textSize="30sp"
-                    android:textColor="#6bb7eb"
-                    android:background="@drawable/selector_btn"
                     android:layout_centerInParent="true"
-                    android:text="@string/kongfu"
                     android:layout_gravity="center"
-                    />
+                    android:background="@drawable/selector_btn"
+                    android:gravity="center"
+                    android:text="@string/kongfu"
+                    android:textColor="#6bb7eb"
+                    android:textSize="30sp" />
+
                 <TextView
                     android:id="@+id/tv_an_hour"
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-                    android:gravity="center"
-                    android:textSize="30sp"
-                    android:textColor="#6bb7eb"
-                    android:background="@drawable/selector_btn"
                     android:layout_centerInParent="true"
-                    android:text="@string/an_hour_later"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="100dp"/>
+                    android:layout_marginLeft="100dp"
+                    android:background="@drawable/selector_btn"
+                    android:gravity="center"
+                    android:text="@string/an_hour_later"
+                    android:textColor="#6bb7eb"
+                    android:textSize="30sp" />
+
                 <TextView
                     android:id="@+id/tv_two_hour"
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-                    android:gravity="center"
-                    android:textSize="30sp"
-                    android:textColor="#6bb7eb"
-                    android:background="@drawable/selector_btn"
                     android:layout_centerInParent="true"
-                    android:text="@string/two_hour_later"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="100dp"/>
+                    android:layout_marginLeft="100dp"
+                    android:background="@drawable/selector_btn"
+                    android:gravity="center"
+                    android:text="@string/two_hour_later"
+                    android:textColor="#6bb7eb"
+                    android:textSize="30sp" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_three_hour"
                 android:layout_width="150dp"
                 android:layout_height="80dp"
-                android:textSize="30sp"
-                android:textColor="#6bb7eb"
-                android:background="@drawable/selector_btn"
                 android:layout_centerInParent="true"
-                android:text="@string/three_hour_later"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/selector_btn"
                 android:gravity="center"
-                android:layout_marginTop="50dp"/>
+                android:text="@string/three_hour_later"
+                android:textColor="#6bb7eb"
+                android:textSize="30sp" />
         </LinearLayout>
     </RelativeLayout>
     <!--血氧监测-->
@@ -790,19 +792,66 @@
         android:id="@+id/rl_xindian"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/normal_bg"
         android:visibility="gone">
-        <ImageView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/test_xindian"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:visibility="visible"/>
+        <!--<ImageView-->
+        <!--android:id="@+id/onDetect"-->
+        <!--android:layout_width="90dp"-->
+        <!--android:layout_height="90dp"-->
+        <!--android:src="@drawable/heart_img"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--/>-->
+        <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/onDetect"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:src="@drawable/heart_img"
-            android:layout_centerInParent="true"
-            />
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="180dp"
+            android:layout_height="120dp"
+            app:indicatorColor="@color/toolbar_bg"
+            app:indicatorName="LineScaleIndicator"
+            android:layout_centerInParent="true"/>
+
         <TextView
             android:id="@+id/tv_xindian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"/>
+            android:layout_marginTop="100dp"
+            android:textSize="40sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="70dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/history4"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape_phone"
+                android:gravity="center"
+                android:text="历史记录"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+            <Button
+                android:id="@+id/xindian_video"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/shape_show"
+                android:gravity="center"
+                android:text="使用演示"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+        </LinearLayout>
     </RelativeLayout>
     <!--体重监测-->
     <RelativeLayout
@@ -817,12 +866,14 @@
             android:layout_height="wrap_content"
             android:textSize="40sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_sanheyi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/normal_bg"
         android:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -836,11 +887,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="170dp">
+
                 <TextView
                     android:id="@+id/tv_san_tag"
                     android:layout_width="wrap_content"
@@ -848,6 +901,7 @@
                     android:gravity="center"
                     android:text="血&#160;&#160;&#160;&#160;糖"
                     android:textSize="45sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -856,6 +910,7 @@
                     android:gravity="center"
                     android:text="@string/xue_tang1"
                     android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/tv_san_one"
                     android:layout_width="230dp"
@@ -867,11 +922,13 @@
                     android:text="0"
                     android:textSize="50sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="50dp">
+
                 <TextView
                     android:id="@+id/tv_san_tag_two"
                     android:layout_width="wrap_content"
@@ -879,6 +936,7 @@
                     android:gravity="center"
                     android:text="尿&#160;&#160;&#160;&#160;酸"
                     android:textSize="45sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -887,6 +945,7 @@
                     android:gravity="center"
                     android:text="@string/xue_tang1"
                     android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/tv_san_two"
                     android:layout_width="230dp"
@@ -898,11 +957,13 @@
                     android:text="0"
                     android:textSize="50sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="50dp">
+
                 <TextView
                     android:id="@+id/tv_san_tag_three"
                     android:layout_width="wrap_content"
@@ -910,6 +971,7 @@
                     android:gravity="center"
                     android:text="胆固醇"
                     android:textSize="45sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -918,6 +980,7 @@
                     android:gravity="center"
                     android:text="@string/xue_tang1"
                     android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/tv_san_three"
                     android:layout_width="230dp"
@@ -959,20 +1022,27 @@
             android:id="@+id/vv_tips"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <Button
+        <FrameLayout
             android:id="@+id/view_over"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/selector_bg_btn"
-            android:gravity="center"
-            android:text="@string/tiao_zhuan"
-            android:textColor="#FFFFFF"
-            android:textSize="35sp" />
+            android:layout_alignParentRight="true">
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:background="@drawable/selector_bg_btn"
+                android:gravity="center"
+                android:text="@string/tiao_zhuan"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"
+                android:textSize="35sp" />
+            <View
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"/>
+        </FrameLayout>
     </RelativeLayout>
 
     <ImageView

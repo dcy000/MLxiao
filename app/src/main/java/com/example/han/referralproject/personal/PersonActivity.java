@@ -44,6 +44,8 @@ import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.utils.T;
+import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 import com.squareup.picasso.Picasso;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
@@ -102,6 +104,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
     SharedPreferences sharedPreferences1;
 
+
+    double amount;
+    double amounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,6 +249,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
 
     private void getData() {
+
+
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
@@ -272,12 +279,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 if ("1".equals(response.getState())) {
 
                     mTextView4.setText("已签约");
-                } else if ("0".equals(response.getState()) && !"".equals(response.getDoctername())) {
+                } else if ("0".equals(response.getState()) && (!"".equals(response.getDoctername()))) {
 
-                    mTextView4.setText("待审核");
+                    mTextView4.setText("未签约");
 
                 } else {
-                    mTextView4.setText("未签约");
+                    mTextView4.setText("待审核");
 
                 }
 
@@ -295,8 +302,45 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
-            public void onSuccess(RobotAmount response) {
+            public void onSuccess(final RobotAmount response) {
+
                 mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
+
+
+               /* amount = Double.parseDouble(response.getAmount());
+                NetworkApi.checkNotContract(Utils.getDeviceId(), new NetworkManager.SuccessCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object responses) {
+
+                        mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
+
+
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+
+
+                        NetworkApi.getEqPreAmount(new NetworkManager.SuccessCallback<RobotAmount>() {
+                            @Override
+                            public void onSuccess(RobotAmount response) {
+
+                                amounts = amount - Double.parseDouble(response.getAmount());
+
+                                mTextView3.setText(String.format(getString(R.string.robot_amount), amounts + ""));
+
+
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+
+
+                            }
+                        });
+                    }
+                });*/
+
 
             }
 
