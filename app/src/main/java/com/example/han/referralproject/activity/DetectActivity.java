@@ -805,7 +805,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
-
+        mRightView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetectActivity.this,MainActivity.class));
+                finish();
+            }
+        });
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
