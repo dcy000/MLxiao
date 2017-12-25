@@ -39,14 +39,11 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.EMUIHelper;
-<<<<<<< HEAD
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
-=======
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
->>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
 
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
@@ -80,7 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NimAccountHelper.getInstance().login("user_"+MyApplication.getInstance().userId, "123456", null);
+        NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
 
 
 
@@ -114,7 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
 
         mImageView5 = (ImageView) findViewById(R.id.health_class);
-        mImageView6= (ImageView) findViewById(R.id.call_family);
+        mImageView6 = (ImageView) findViewById(R.id.call_family);
 
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
@@ -207,6 +204,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 intent.putExtra("sign", "0");
                 intent.putExtra("orderid", "0");
                 intent.putExtra("from", "Test");
+                intent.putExtra("jump", "1");
 //                intent.setClass(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 break;

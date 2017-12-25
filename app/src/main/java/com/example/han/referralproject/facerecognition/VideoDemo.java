@@ -129,6 +129,10 @@ public class VideoDemo extends BaseActivity {
     private HashMap<String, String> map;
     private String[] accounts;
 
+    Button mButton;
+
+    private String jump;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +144,7 @@ public class VideoDemo extends BaseActivity {
 
         map = new HashMap<>();
         accounts = LocalShared.getInstance(this).getAccounts();
-        if(accounts!=null){
+        if (accounts != null) {
             indexXfid = accounts.length * 5;
             xfid = new String[accounts.length];
             for (int i = 0; i < accounts.length; i++) {
@@ -153,6 +157,9 @@ public class VideoDemo extends BaseActivity {
         signs = intent.getStringExtra("sign");
         orderid = intent.getStringExtra("orderid");
         fromString = intent.getStringExtra("from");
+        jump = intent.getStringExtra("jump");
+
+
         dialog2 = new NDialog2(VideoDemo.this);
 
 
@@ -164,10 +171,25 @@ public class VideoDemo extends BaseActivity {
             }
         });
 
+        mButton = (Button) findViewById(R.id.tiao_guos);
+
 
         if ("1".equals(signs)) {//支付过来
             mImageView.setVisibility(View.GONE);
         }
+        if ("1".equals(jump)) {
+            mButton.setVisibility(View.VISIBLE);
+
+        }
+
+        mButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
@@ -379,7 +401,7 @@ public class VideoDemo extends BaseActivity {
 
                         }
                         if (null != mImageData && null != mAuthid) {
-                            if ("Test".equals(fromString) && indexXfid > 0&&accounts!=null) {
+                            if ("Test".equals(fromString) && indexXfid > 0 && accounts != null) {
                                 mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfid[indexXfid % accounts.length]);
                                 choosedXfid = xfid[indexXfid % accounts.length];
                                 indexXfid--;
@@ -518,7 +540,7 @@ public class VideoDemo extends BaseActivity {
 
                 if ("0".equals(signs)) {
                     showTip("通过验证，欢迎回来！");
-                    if (!TextUtils.isEmpty(choosedXfid)&&!MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id,已经改变，则切换账号
+                    if (!TextUtils.isEmpty(choosedXfid) && !MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id,已经改变，则切换账号
                         MyApplication.getInstance().userId = map.get(choosedXfid);
                         MyApplication.getInstance().xfid = choosedXfid;
                         sendBroadcast(new Intent("change_account"));
