@@ -138,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
+                android:clickable="true"
                 android:text="预约历史"
                 android:textColor="#333333"
                 android:textSize="30sp" />

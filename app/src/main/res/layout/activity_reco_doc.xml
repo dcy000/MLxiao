@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/linearlayout"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/bg_tab3_contract_doctor"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_tab3_contract_doctor"
+    android:orientation="vertical">
 
-    <include layout="@layout/include_sign_up_contract_appbar"/>
+    <include layout="@layout/include_sign_up_contract_appbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_height="40dp"
             android:background="@drawable/shape_rect_gray"
             android:gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:text="省"
             android:textColor="#686868"
             android:textSize="30sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <Spinner
             android:id="@+id/spinner"
@@ -41,7 +41,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/shape_rect_gray"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
             android:layout_marginLeft="5dp"
             android:text="市"
             android:textColor="#686868"
-            android:textSize="40sp"/>
+            android:textSize="40sp" />
 
         <Spinner
             android:id="@+id/spinner1"
@@ -57,7 +57,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/shape_rect_gray"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
             android:layout_marginLeft="5dp"
             android:text="区/县"
             android:textColor="#686868"
-            android:textSize="40sp"/>
+            android:textSize="40sp" />
 
         <Spinner
             android:id="@+id/spinner2"
@@ -73,7 +73,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/shape_rect_gray"
-            android:gravity="center"/>
+            android:gravity="center" />
 
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_marginLeft="5dp"
             android:text="医院"
             android:textColor="#686868"
-            android:textSize="40sp"/>
+            android:textSize="40sp" />
 
         <EditText
             android:id="@+id/sousuo"
@@ -96,7 +96,7 @@
             android:maxLength="5"
             android:maxLines="1"
             android:paddingLeft="5dp"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/select"
@@ -111,7 +111,7 @@
             android:paddingTop="4dp"
             android:text="搜索"
             android:textColor="@android:color/white"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
     </LinearLayout>
 
     <ImageView
@@ -120,7 +120,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#ccd3d8"/>
+        android:background="#ccd3d8" />
 
 
     <!--<EditText
@@ -153,7 +153,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
         <TextView
             android:id="@+id/tv_sign_up_go_back"
@@ -167,7 +167,7 @@
             android:gravity="center"
             android:text="上一步"
             android:textColor="#3F85FC"
-            android:textSize="35sp"/>
+            android:textSize="35sp" />
 
         <TextView
             android:id="@+id/tv_sign_up_contract_offline"
@@ -181,7 +181,7 @@
             android:gravity="center"
             android:text="线下签约"
             android:textColor="@android:color/white"
-            android:textSize="35sp"/>
+            android:textSize="35sp" />
     </RelativeLayout>
 </LinearLayout>
 

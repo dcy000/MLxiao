@@ -34,6 +34,8 @@ import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.recyclerview.CheckContractActivity;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
@@ -128,6 +130,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 if ("未签约".equals(mTextView4.getText())) {
                     Intent intent = new Intent(PersonActivity.this, OnlineDoctorListActivity.class);
                     intent.putExtra("flag", "contract");
+                    startActivity(intent);
+                    return;
+                }
+                if ("待审核".equals(mTextView4.getText())) {
+                    Intent intent = new Intent(PersonActivity.this, CheckContractActivity.class);
                     startActivity(intent);
                 }
             }
@@ -262,6 +269,19 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                         .into(mImageView);
 
 
+                if ("1".equals(response.getState())) {
+
+                    mTextView4.setText("已签约");
+                } else if ("0".equals(response.getState()) && !"".equals(response.getDoctername())) {
+
+                    mTextView4.setText("待审核");
+
+                } else {
+                    mTextView4.setText("未签约");
+
+                }
+
+
             }
 
         }, new NetworkManager.FailedCallback() {
@@ -302,13 +322,13 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 editor.putString("docter_photo", response.getDocter_photo());
                 editor.commit();
 
-                mTextView1.setText(sharedPreferences.getString("name", ""));
-                //    mTextView2.setText(sharedPreferences.getString("hospital", ""));
 
-                if (!"".equals(sharedPreferences.getString("name", ""))) {
+                if (!"".equals(response.getDoctername())) {
 
-                    mTextView4.setText("已签约");
+                    mTextView1.setText(sharedPreferences.getString("name", ""));
+
                 }
+
 
             }
 

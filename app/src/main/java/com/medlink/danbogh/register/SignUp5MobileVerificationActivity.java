@@ -108,7 +108,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         }
     }
 
-    private boolean inPhone = true;
+    private volatile boolean inPhone = true;
 
     @OnClick(R.id.tv_sign_up_fetch_code)
     public void onTvFetchCodeClicked() {
@@ -134,6 +134,8 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             public void onFailed(String message) {
                 speak("主人，手机号码已注册");
                 inPhone = true;
+                etPhone.setText("");
+                etPhone.requestFocus();
             }
         });
     }
@@ -233,7 +235,11 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         Matcher matcherInNumber = patternInNumber.matcher(in);
         if (matcherInNumber.find()) {
             EditText et = inPhone ? this.etPhone : this.etCode;
+            int length = inPhone ? 11 : 4;
             String s = et.getText().toString() + matcherInNumber.group(matcherInNumber.groupCount());
+            if (s.length() > length) {
+                s = s.substring(0, length);
+            }
             et.setText(s);
             et.setSelection(s.length());
             return;
@@ -243,17 +249,15 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
         if (inSpell.matches(REGEX_IN_PHONE) && !inPhone) {
             inPhone = true;
-            speak(R.string.sign_up_phone_tip);
             etPhone.requestFocus();
+            speak(R.string.sign_up_phone_tip);
             return;
         }
 
         if (inSpell.matches(REGEX_FETCH_CODE) && tvFetchCode.isEnabled()) {
-
-
             inPhone = false;
-            speak(R.string.sign_up_fetch_code_tip);
             etCode.requestFocus();
+            speak(R.string.sign_up_fetch_code_tip);
             onTvFetchCodeClicked();
             return;
         }

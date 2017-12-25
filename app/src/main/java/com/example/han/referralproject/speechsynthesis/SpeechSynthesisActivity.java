@@ -1277,6 +1277,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
 
         String lag = mSharedPreferences.getString("iat_language_preference", "mandarin");
+        lag = "shanxinese";
         if (lag.equals("en_us")) {
             // 设置语言
             mIat.setParameter(SpeechConstant.LANGUAGE, "en_us");

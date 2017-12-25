@@ -2,7 +2,6 @@ package com.example.han.referralproject.network;
 
 import android.text.TextUtils;
 
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
@@ -16,7 +15,6 @@ import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.bean.ECGHistory;
 import com.example.han.referralproject.bean.HeartRateHistory;
 import com.example.han.referralproject.bean.PulseHistory;
@@ -37,7 +35,6 @@ import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.reflect.TypeToken;
 
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -45,11 +42,12 @@ import java.util.Map;
 
 public class NetworkApi {
 
-//    public static final String BasicUrl = "http://192.168.200.115:8080";
-//    public static final String BasicUrl = "http://192.168.200.113:8080";
+    //    public static final String BasicUrl = "http://192.168.200.115:8080";
+   // public static final String BasicUrl = "http://192.168.200.117:8080";
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
-     public static final String BasicUrl = "http://118.31.238.207:8080";
+    //    public static final String BasicUrl = "http://118.31.238.113:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
 //    public static final String BasicUrl="http://192.168.200.117:8080";//文博本地
 
@@ -73,6 +71,9 @@ public class NetworkApi {
     public static final String PERSON_AMOUNT = BasicUrl + "/ZZB/eq/eq_amount";
     public static final String YUYUE_URL = BasicUrl + "/ZZB/bl/insertReserve";
     public static final String YUYUE_URL_INFO = BasicUrl + "/ZZB/bl/selAllreserveByDoidAndUserid";
+    public static final String YUYUE_URL_HISTORY = BasicUrl + "/ZZB/bl/selReserveByDoidAndUseridAndState";
+
+
     public static final String YUYUE_ALREADY = BasicUrl + "/ZZB/bl/selReserveStart_time";
 
     public static final String YUYUE_URL_CANCEL = BasicUrl + "/ZZB/bl/delReserveByRid";
@@ -84,6 +85,11 @@ public class NetworkApi {
     public static final String GET_MY_BASE_DATA = BasicUrl + "/ZZB/br/selOneUserEverything";
 
     public static final String DOCTER_APPRAISER = BasicUrl + "/ZZB/pj/insert";
+
+    public static final String GOODS_INSERT = BasicUrl + "/ZZB/order/insert_one";
+
+    public static final String UPDATE_STATUS = BasicUrl + "/ZZB/bl/app_update_reserve_state";
+
 
     public static final String DOCTER_LIST = BasicUrl + "/ZZB/docter/seldoctors";
 
@@ -112,6 +118,26 @@ public class NetworkApi {
     public static final String Alert_Basedata = BasicUrl + "/ZZB/br/update_user_onecon";
     public static final String Get_jibing = BasicUrl + "/ZZB/bl/selSugByBname";
     public static final String IS_PHONE_REGISTERED = BasicUrl + "/ZZB/login/tel_isClod";
+
+    public static final String EQ_PRE_AMOUNT = BasicUrl + "/ZZB/eq/selPaidAmountByEqid";
+    public static final String CANCEL_CONTRACT = BasicUrl + "/ZZB/br/updateUserState";
+
+    public static void cancelContract(
+            String bid,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid", bid);
+        NetworkManager.getInstance().postResultClass(CANCEL_CONTRACT, params, Object.class, successCallback, failedCallback);
+    }
+
+    public static void getEqPreAmount(
+            NetworkManager.SuccessCallback<RobotAmount> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("eqid", Utils.getDeviceId());
+        NetworkManager.getInstance().postResultClass(EQ_PRE_AMOUNT, params, RobotAmount.class, successCallback, failedCallback);
+    }
 
     public static void canRegister(
             String phone,
@@ -184,6 +210,20 @@ public class NetworkApi {
         }.getType(), listener, failedCallback);
     }
 
+
+    public static void YuYue_history(String userid, String docterid, int state, int page, int limit, NetworkManager.SuccessCallback<ArrayList<YuYueInfo>> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("userid", userid);
+        paramsMap.put("docterid", docterid);
+        paramsMap.put("state", state + "");
+        paramsMap.put("page", page + "");
+        paramsMap.put("limit", limit + "");
+
+        NetworkManager.getInstance().postResultClass(YUYUE_URL_HISTORY, paramsMap, new TypeToken<ArrayList<YuYueInfo>>() {
+        }.getType(), listener, failedCallback);
+    }
+
+
     public static void YuYue_cancel(String rid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("rid", rid);
@@ -197,6 +237,17 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(YUYUE_ALREADY, paramsMap, new TypeToken<ArrayList<AlreadyYuyue>>() {
         }.getType(), listener, failedCallback);
     }
+
+
+    public static void update_status(String rid, String state, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+
+        paramsMap.put("rid", rid);
+        paramsMap.put("state", state);
+
+        NetworkManager.getInstance().postResultString(UPDATE_STATUS, paramsMap, listener, failedCallback);
+    }
+
 
     public static void get_token(NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
@@ -218,13 +269,24 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultString(DOCTER_APPRAISER, paramsMap, listener, failedCallback);
     }
 
+    public static void insertGoods(String goodsname, String goodsimage, double goodsprice, int goodstate, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
 
-    public static void return_imageUrl(String user_photo, String bid, String xfid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        paramsMap.put("goodsname", goodsname);
+        paramsMap.put("goodsimage", goodsimage);
+        paramsMap.put("goodsprice", goodsprice + "");
+        paramsMap.put("goodstate", goodstate + "");
+
+        NetworkManager.getInstance().postResultString(GOODS_INSERT, paramsMap, listener, failedCallback);
+    }
+
+
+    public static void return_imageUrl(String user_photo, String bid, String xfid, NetworkManager.SuccessCallback<Object> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("user_photo", user_photo);
         paramsMap.put("bid", bid);
         paramsMap.put("xfid", xfid);
-        NetworkManager.getInstance().postResultClass(RETURN_IMAGE_URL, paramsMap, String.class, listener, failedCallback);
+        NetworkManager.getInstance().postResultString(RETURN_IMAGE_URL, paramsMap, listener, failedCallback);
     }
 
 
