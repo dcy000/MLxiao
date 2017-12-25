@@ -29,20 +29,16 @@ import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
-import com.example.han.referralproject.activity.SymptomAnalyseResultActivity;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.music.AppCache;
-import com.example.han.referralproject.music.HttpCallback;
-import com.example.han.referralproject.music.HttpClient;
 import com.example.han.referralproject.music.Music;
 import com.example.han.referralproject.music.OnPlayerEventListener;
 import com.example.han.referralproject.music.PlayFragment;
-import com.example.han.referralproject.music.PlaySearchedMusic;
 import com.example.han.referralproject.music.PlayService;
+import com.example.han.referralproject.music.ScreenUtils;
 import com.example.han.referralproject.music.SearchMusic;
-import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
@@ -50,11 +46,7 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.temperature.TemperatureActivity;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.example.han.referralproject.xuetang.XuetangActivity;
-import com.example.han.referralproject.xueya.XueyaActivity;
-import com.example.han.referralproject.xueyang.XueyangActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -73,7 +65,6 @@ import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -173,12 +164,20 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
     @Override
+    protected int provideWaveViewWidth() {
+        return 1200;
+    }
+
+    @Override
+    protected int provideWaveViewHeight() {
+        return 360;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setShowVoiceView(true);
         setContentView(R.layout.activity_speech_synthesis);
-
-
-
         rand = new Random();
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
@@ -477,6 +476,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 } else {
                     // 不显示听写对话框
+                    stopSpeaking();
                     ret = mIat.startListening(mRecognizerListener);
                     if (ret != ErrorCode.SUCCESS) {
                         showTip("听写失败,错误码：" + ret);
@@ -533,7 +533,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
             //   showTip("开始说话");
-            showPopwindow();
+            showWaveView(true);
         }
 
         @Override
@@ -547,7 +547,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             //  showTip("结束说话");
-            hidePopwindow();
+            showWaveView(false);
         }
 
         @Override
@@ -560,6 +560,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onVolumeChanged(int volume, byte[] data) {
             //    showTip("当前正在说话，音量大小：" + volume);
             //   Log.d(TAG, "返回音频数据：" + data.length);
+            updateVolume();
         }
 
         @Override
@@ -633,63 +634,63 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches(".*(gaoxueya).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "高血压"));
             }
             if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "冠心病"));
             }
             if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "支气管哮喘"));
             }
             if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "肝硬化"));
             }
             if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "糖尿病"));
             }
             if (inSpell.matches(".*(tongfeng).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "痛风"));
             }
             if (inSpell.matches(".*(changweiyan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "肠胃炎"));
             }
             if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "急性上呼吸道感染"));
             }
             if (inSpell.matches(".*(xinbaoyan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "心包炎"));
             }
             if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "贫血"));
             }
             if (inSpell.matches(".*(feiyan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "肺炎"));
             }
             if (inSpell.matches(".*(di(xie|xue)tang).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "低血糖"));
             }
             if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "脑出血"));
             }
             if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "肺栓塞"));
             }
             if (inSpell.matches(".*(dianxian).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, SymptomAnalyseResultActivity.class)
+                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "癫痫"));
             }
 
@@ -1276,6 +1277,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
 
         String lag = mSharedPreferences.getString("iat_language_preference", "mandarin");
+        lag = "shanxinese";
         if (lag.equals("en_us")) {
             // 设置语言
             mIat.setParameter(SpeechConstant.LANGUAGE, "en_us");

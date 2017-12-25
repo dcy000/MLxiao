@@ -39,9 +39,14 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.EMUIHelper;
+<<<<<<< HEAD
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
+=======
+import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.call2.NimCallActivity;
+>>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
 
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
@@ -67,6 +72,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private MediaPlayer mediaPlayer;//MediaPlayer对象
+    private ImageView mImageView6;
 
 
     @Override
@@ -74,6 +80,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        NimAccountHelper.getInstance().login("user_"+MyApplication.getInstance().userId, "123456", null);
 
 
 
@@ -107,12 +114,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
 
         mImageView5 = (ImageView) findViewById(R.id.health_class);
+        mImageView6= (ImageView) findViewById(R.id.call_family);
 
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
         mImageView3.setOnClickListener(this);
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
+        mImageView6.setOnClickListener(this);
 
         sharedPreferences =
 
@@ -208,6 +217,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.health_class:
                 intent.setClass(getApplicationContext(), VideoListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.call_family://紧急呼叫家人
+                //呼叫
+                NimCallActivity.launch(this, MyApplication.getInstance().eqid);
                 break;
         }
     }

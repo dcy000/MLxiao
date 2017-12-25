@@ -3,6 +3,7 @@ package com.medlink.danbogh.call2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
@@ -20,10 +21,16 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.bean.NDialog1;
+import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.AppraiseActivity;
+import com.example.han.referralproject.recyclerview.DoctorMesActivity;
+import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -74,8 +81,36 @@ public class NimCallActivity extends AppCompatActivity {
     public static final int SOURCE_BROADCAST = 0;
     public static final int SOURCE_INTERNAL = 1;
 
-    public static void launch(Context context, String account) {
-        launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+    public static void launch(final Context context, final String account) {
+        NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
+                new NetworkManager.SuccessCallback<RobotAmount>() {
+                    @Override
+                    public void onSuccess(RobotAmount response) {
+                        final String amount = response.getAmount();
+                        NetworkApi.getEqPreAmount(new NetworkManager.SuccessCallback<RobotAmount>() {
+                            @Override
+                            public void onSuccess(RobotAmount response) {
+                                String preAmount = response.getAmount();
+                                if (Integer.parseInt(amount) >= Integer.parseInt(preAmount)) {
+                                    //有余额
+                                    launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+                                } else {
+                                    T.show("余额不足，请充值后再试");
+                                }
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+                                T.show("服务器繁忙，请稍后再试");
+                            }
+                        });
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        T.show("服务器繁忙，请稍后再试");
+                    }
+                });
     }
 
     public static void launch(Context context, String account, int callType, int source) {
@@ -137,7 +172,6 @@ public class NimCallActivity extends AppCompatActivity {
     public AVChatSurfaceViewRenderer mLargeRenderer;
 
     private boolean shouldEnableToggle = false;
-
 
 
     public NimCallHelper.OnCallStateChangeListener mCallListener = new NimCallHelper.OnCallStateChangeListener() {
@@ -236,10 +270,6 @@ public class NimCallActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
 
 
         if (!validSource()) {
@@ -718,16 +748,25 @@ public class NimCallActivity extends AppCompatActivity {
             final int minutes = mSeconds / 60 + 1;
             if (minutes >= 0) {
                 final String bid = MyApplication.getInstance().userId;
+
+                if ((!TextUtils.isEmpty(mPeerAccount)
+                        && !mPeerAccount.startsWith("docter_"))
+                        || (mCallData != null
+                        && !TextUtils.isEmpty(mCallData.getAccount())
+                        && !mCallData.getAccount().startsWith("docter_"))) {
+                    return;
+                }
+
                 NetworkApi.DoctorInfo(bid, new NetworkManager.SuccessCallback<Doctor>() {
                     @Override
                     public void onSuccess(Doctor response) {
                         int docterid = response.docterid;
-                        NetworkApi.charge(minutes , docterid, bid,
+                        NetworkApi.charge(minutes, docterid, bid,
                                 new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
                                         T.show(minutes + "分钟");
-                                        if (TextUtils.isEmpty(response)){
+                                        if (TextUtils.isEmpty(response)) {
                                             return;
                                         }
                                         try {

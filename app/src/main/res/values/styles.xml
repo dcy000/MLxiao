@@ -23,6 +23,15 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <style name="XDialog_pup" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>

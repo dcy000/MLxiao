@@ -34,6 +34,8 @@ import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.recyclerview.CheckContractActivity;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
@@ -129,6 +131,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     Intent intent = new Intent(PersonActivity.this, OnlineDoctorListActivity.class);
                     intent.putExtra("flag", "contract");
                     startActivity(intent);
+                    return;
+                }
+                if ("待审核".equals(mTextView4.getText())) {
+                    Intent intent = new Intent(PersonActivity.this, CheckContractActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -142,7 +149,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             }
         });*/
         mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
-        mTitleText.setText("个人中心");
+        mTitleText.setText("个  人  中  心");
         mRightView.setImageResource(R.drawable.icon_wifi);
         mImageView5.setOnClickListener(new View.OnClickListener() {
             @Override

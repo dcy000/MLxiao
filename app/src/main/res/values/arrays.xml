@@ -6,10 +6,10 @@
         <item>冠心病</item>
         <item>慢阻肺</item>
         <item>孕产妇</item>
-        <item>脑卒中</item>
         <item>痛风</item>
         <item>甲亢</item>
         <item>高血脂</item>
+        <item>其他</item>
     </string-array>
     <string-array name="ecg_measureres">
         <item>波形未见异常</item>

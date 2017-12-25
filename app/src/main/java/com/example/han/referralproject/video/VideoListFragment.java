@@ -76,7 +76,7 @@ public class VideoListFragment extends Fragment {
     private void fetchVideos(int position) {
         switch (position) {
             case 0:
-                provideVideos("hypertension", "健康讲堂");
+                provideVideos("hypertension", "健康课堂");
                 break;
             case 1:
                 provideVideos(/*"stroke"*/"opera", "曲艺天地");

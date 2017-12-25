@@ -143,6 +143,7 @@ public class HeadiconActivity extends BaseActivity {
                     Log.e("================", MyApplication.getInstance().userId + "=========" + LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                     String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
 
+<<<<<<< HEAD
                     NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(), new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
@@ -157,6 +158,25 @@ public class HeadiconActivity extends BaseActivity {
 
                         }
                     });
+=======
+                    NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
+                            new NetworkManager.SuccessCallback<Object>() {
+                                @Override
+                                public void onSuccess(Object response) {
+                                    LocalShared shared = LocalShared.getInstance(mContext);
+                                    shared.addAccount(MyApplication.getInstance().userId,LocalShared.getInstance(getApplicationContext()).getXunfeiId());
+                                    Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
+                            });
+>>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
                 } else {
 
                 }

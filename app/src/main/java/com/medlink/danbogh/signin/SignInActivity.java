@@ -24,6 +24,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
@@ -148,7 +149,8 @@ public class SignInActivity extends BaseActivity {
             public void onSuccess(UserInfoBean response) {
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid,response.xfid);
-                MyApplication.getInstance().xfid=response.xfid;
+                LocalShared.getInstance(getApplicationContext()).setXunfeiID(response.xfid);
+                LocalShared.getInstance(mContext).setEqID(response.eqid);
                 hideLoadingDialog();
                 startActivity(new Intent(mContext, MainActivity.class));
                 finish();
@@ -191,5 +193,10 @@ public class SignInActivity extends BaseActivity {
             mUnbinder.unbind();
         }
         super.onDestroy();
+    }
+
+    public void onWifiClick(View view) {
+        Intent intent = new Intent(this, WifiConnectActivity.class);
+        startActivity(intent);
     }
 }

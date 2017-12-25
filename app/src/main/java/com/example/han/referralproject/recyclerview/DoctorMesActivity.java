@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,13 +27,19 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.Doctors;
+import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.bean.NDialog1;
+import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.linheimx.app.library.utils.Utils;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.XDialogFragment;
 import com.medlink.danbogh.register.ConfirmContractActivity;
+import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -311,12 +318,61 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
 
                 } else {
-                    ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
-                    finish();
+                    NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
+                            new NetworkManager.SuccessCallback<RobotAmount>() {
+                                @Override
+                                public void onSuccess(RobotAmount response) {
+                                    final String amount = response.getAmount();
+                                    NetworkApi.getEqPreAmount(new NetworkManager.SuccessCallback<RobotAmount>() {
+                                        @Override
+                                        public void onSuccess(RobotAmount response) {
+                                            String preAmount = response.getAmount();
+                                            if (Integer.parseInt(amount) >= Integer.parseInt(preAmount)) {
+                                                ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                                finish();
+                                            } else {
+                                                onLackOfAmount();
+                                            }
+                                        }
+                                    }, new NetworkManager.FailedCallback() {
+                                        @Override
+                                        public void onFailed(String message) {
+                                            T.show("服务器繁忙，请稍后再试");
+                                        }
+                                    });
+                                }
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+                                    T.show("服务器繁忙，请稍后再试");
+                                }
+                            });
                 }
                 break;
 
         }
+    }
+
+    private void onLackOfAmount() {
+        NDialog1 dialog = new NDialog1(this);
+        dialog.setMessageCenter(true)
+                .setMessage("账户余额不足,我要充值?")
+                .setMessageSize(35)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#FFA200"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+                    @Override
+                    public void onClick(int which) {
+                        if (which == 1) {
+                            Intent intent = new Intent(DoctorMesActivity.this, PayActivity.class);
+                            startActivity(intent);
+                        } else {
+                            finish();
+                        }
+                    }
+                }).create(NDialog.CONFIRM).show();
     }
 
     public void OnlineTime() {

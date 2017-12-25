@@ -13,6 +13,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 
@@ -55,7 +56,7 @@ public class ReminderActivity extends BaseActivity {
             }
         }
 
-        tvContent.setText(MyApplication.getInstance().userName + mContent);
+        tvContent.setText(LocalShared.getInstance(this).getUserName() + mContent);
 
         Handlers.runOnUiThread(mAlarm);
 
@@ -97,34 +98,41 @@ public class ReminderActivity extends BaseActivity {
     @OnClick(R.id.tv_btn_ignore)
     public void onTvBtnIgnoreClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(content, "0", new NetworkManager.SuccessCallback<Object>() {
-            @Override
-            public void onSuccess(Object response) {
-                finish();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                finish();
-            }
-        });
+        NetworkApi.addEatMedicalRecord(
+                LocalShared.getInstance(this).getUserName()
+                , content,
+                "0",
+                new NetworkManager.SuccessCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        finish();
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        finish();
+                    }
+                });
     }
 
     @OnClick(R.id.tv_btn_confirm)
     public void onTvBtnConfirmClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(content, "1", new NetworkManager.SuccessCallback<Object>() {
-            @Override
-            public void onSuccess(Object response) {
-                finish();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                T.show(message);
-                finish();
-            }
-        });
+        NetworkApi.addEatMedicalRecord(
+                LocalShared.getInstance(this).getUserName(),
+                content, "1",
+                new NetworkManager.SuccessCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        finish();
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        T.show(message);
+                        finish();
+                    }
+                });
     }
 
     @Override

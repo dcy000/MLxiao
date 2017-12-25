@@ -132,6 +132,10 @@ public class LocalShared {
         //.apply();
     }
 
+    public String getUserName() {
+        return mShared.getString(USER_NAME, "");
+    }
+
     public void setUserImg(String imgUrl) {
         mShared.edit().putString(UserImg, imgUrl).commit();
     }
@@ -312,5 +316,12 @@ public class LocalShared {
 
     public String getNimToken() {
         return mShared.getString(NIM_TOKEN, "");
+    }
+    private static final String EQID="eq_id";
+    public void setEqID(String eqid){
+        mShared.edit().putString(EQID,eqid).commit();
+    }
+    public String getEqID(){
+        return mShared.getString(EQID,"");
     }
 }

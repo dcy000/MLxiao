@@ -59,7 +59,6 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                     mlist.addAll(list);
                     mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
                     mRecyclerView.setAdapter(mDoctorAdapter);
-
                     setData();
                 }
 
@@ -69,36 +68,32 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
                 }
             });
-        }else {
 
-
-            NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-                @Override
-                public void onSuccess(ArrayList<Docter> response) {
-
-                    List<Docter> list = new ArrayList<Docter>();
-                    mlist.clear();
-                    list.addAll(response);
-                    mlist.addAll(list);
-                    mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
-                    mRecyclerView.setAdapter(mDoctorAdapter);
-
-                    setData();
-
-                }
-
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-
-                }
-            });
-
-
-
+            return;
         }
 
 
+        NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+            @Override
+            public void onSuccess(ArrayList<Docter> response) {
+
+                List<Docter> list = new ArrayList<Docter>();
+                mlist.clear();
+                list.addAll(response);
+                mlist.addAll(list);
+                mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+                mRecyclerView.setAdapter(mDoctorAdapter);
+
+                setData();
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
 
 
     }
@@ -122,6 +117,14 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
         mDoctorAdapter.setOnItemClistListener(new DoctorAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int postion) {
+                if ("contract".equals(mFlag)) {
+                    Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
+                    intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+
                 if (!"".equals(sharedPreferences.getString("online_time", ""))) {
                     countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
                     if (countdown < 30000) {

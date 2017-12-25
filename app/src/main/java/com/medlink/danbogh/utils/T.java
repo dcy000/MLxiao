@@ -3,6 +3,7 @@ package com.medlink.danbogh.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -48,6 +49,7 @@ public class T {
     private static void show(String text, int duration) {
         if (sToast == null) {
             sToast = Toast.makeText(sContext, text, duration);
+            ((TextView) sToast.getView().findViewById(android.R.id.message)).setTextSize(28);
             sToast.show();
             return;
         }

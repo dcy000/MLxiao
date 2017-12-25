@@ -49,6 +49,15 @@
         android:clickable="true"
         android:src="@drawable/face_back" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@+id/tiao_guo"
+        android:text="返回"
+        android:textSize="40sp" />
+
 
     <!-- <RadioGroup
          android:id="@+id/align_mode"

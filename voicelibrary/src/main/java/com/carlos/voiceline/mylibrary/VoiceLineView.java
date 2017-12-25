@@ -64,6 +64,26 @@ public class VoiceLineView extends View {
 
     public VoiceLineView(Context context) {
         super(context);
+        maxVolume=200;
+        middleLineColor = Color.parseColor("#00000000");
+        middleLineHeight = 0;
+        fineness = 3;
+        rectSpace = dp2px(2);
+        rectWidth = dp2px(1);
+        rectInitHeight = dp2px(1);
+        sensibility = 4;
+        mode = 0;
+        lineSpeed = 120;
+        voiceLineColor = Color.parseColor("#803F86FC");
+        paths = new ArrayList<>(20);
+        for (int i = 0; i < 20; i++) {
+            paths.add(new Path());
+        }
+    }
+
+    public int dp2px(float dpValue) {
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     public VoiceLineView(Context context, AttributeSet attrs) {
@@ -108,6 +128,14 @@ public class VoiceLineView extends View {
             drawVoiceLine(canvas);
         }
         run();
+    }
+
+    public float getMaxVolume() {
+        return maxVolume;
+    }
+
+    public void setMaxVolume(float maxVolume) {
+        this.maxVolume = maxVolume;
     }
 
     private void drawMiddleLine(Canvas canvas) {
