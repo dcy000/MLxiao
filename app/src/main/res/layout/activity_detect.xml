@@ -791,12 +791,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
-
+        <ImageView
+            android:id="@+id/onDetect"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/heart_img"
+            android:layout_centerInParent="true"
+            />
         <TextView
             android:id="@+id/tv_xindian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp" />
+            android:textSize="40sp"/>
     </RelativeLayout>
     <!--体重监测-->
     <RelativeLayout

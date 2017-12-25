@@ -30,6 +30,8 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -747,6 +749,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public Button mButton3;
 
     private int time;
+    private ImageView onDetect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -988,6 +991,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mPulseTv = (TextView) findViewById(R.id.pulse);
         mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
         mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
+        onDetect= (ImageView) findViewById(R.id.onDetect);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
             } else {
@@ -1364,4 +1368,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         return intentFilter;
     }
 
+    /**
+     * 心电测量动画
+     */
+    private void showAnimation(){
+        Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
+        onDetect.startAnimation(animation);
+    }
 }

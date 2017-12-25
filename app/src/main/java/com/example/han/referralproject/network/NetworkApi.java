@@ -43,7 +43,7 @@ import java.util.Map;
 public class NetworkApi {
 
     //    public static final String BasicUrl = "http://192.168.200.115:8080";
-   // public static final String BasicUrl = "http://192.168.200.117:8080";
+    // public static final String BasicUrl = "http://192.168.200.117:8080";
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
     //    public static final String BasicUrl = "http://118.31.238.113:8080";
@@ -121,6 +121,7 @@ public class NetworkApi {
 
     public static final String EQ_PRE_AMOUNT = BasicUrl + "/ZZB/eq/selPaidAmountByEqid";
     public static final String CANCEL_CONTRACT = BasicUrl + "/ZZB/br/updateUserState";
+    public static final String CHECK_CONTRACT = BasicUrl + "/ZZB/eq/selCountPaidAmountByEqid";
 
     public static void cancelContract(
             String bid,
@@ -131,9 +132,14 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(CANCEL_CONTRACT, params, Object.class, successCallback, failedCallback);
     }
 
-    public static void getEqPreAmount(
-            NetworkManager.SuccessCallback<RobotAmount> successCallback,
-            NetworkManager.FailedCallback failedCallback) {
+
+    public static void checkNotContract(String bid, NetworkManager.SuccessCallback<Object> successCallback, NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid", bid);
+        NetworkManager.getInstance().postResultClass(CHECK_CONTRACT, params, Object.class, successCallback, failedCallback);
+    }
+
+    public static void getEqPreAmount(NetworkManager.SuccessCallback<RobotAmount> successCallback, NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("eqid", Utils.getDeviceId());
         NetworkManager.getInstance().postResultClass(EQ_PRE_AMOUNT, params, RobotAmount.class, successCallback, failedCallback);
@@ -318,7 +324,7 @@ public class NetworkApi {
     }
 
 
-    public static void onlinedoctor_zixun(int docterid, int userid, int state, NetworkManager.SuccessCallback<OnlineTime> listener, NetworkManager.FailedCallback failedCallback) {
+    public static void onlinedoctor_zixun(String docterid, String userid, int state, NetworkManager.SuccessCallback<OnlineTime> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("docterid", docterid + "");
         paramsMap.put("userid", userid + "");
@@ -428,6 +434,7 @@ public class NetworkApi {
 
     /**
      * 获取下一层病症和结果
+     *
      * @param params
      * @param callback
      */
@@ -688,6 +695,7 @@ public class NetworkApi {
                 }.getType(),
                 successCallback, failedCallback);
     }
+
     /**
      * 心电
      *

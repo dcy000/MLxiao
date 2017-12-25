@@ -127,7 +127,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
                 if (!"".equals(sharedPreferences.getString("online_time", ""))) {
                     countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
-                    if (countdown < 30000) {
+                    if (countdown < 300000) {
                         if (mlist.get(postion).getDocterid().equals(sharedPreference.getString("online_id", ""))) {
                             jump(postion);
                         }

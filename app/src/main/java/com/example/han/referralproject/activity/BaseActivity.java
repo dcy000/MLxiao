@@ -463,6 +463,7 @@ public class BaseActivity extends AppCompatActivity {
             recognizer.setParameter(SpeechConstant.RESULT_TYPE, "json");
 
             String lag = mTtsSharedPreferences.getString("iat_language_preference", "mandarin");
+            lag = "cantonese";
             if (lag.equals("en_us")) {
                 // 设置语言
                 recognizer.setParameter(SpeechConstant.LANGUAGE, "en_us");
@@ -493,6 +494,7 @@ public class BaseActivity extends AppCompatActivity {
      * 参数设置
      */
     private void setSynthesizerParams() {
+        voicer = "xiaomei";
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null) {
             // 清空参数

@@ -368,7 +368,7 @@ public class VideoDemo extends BaseActivity {
 //            showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
 //        }
     }
-
+    private int first_match=3;//第一次匹配本机账号使用
     @Override
     protected void onStart() {
         super.onStart();
@@ -401,7 +401,10 @@ public class VideoDemo extends BaseActivity {
 
                         }
                         if (null != mImageData && null != mAuthid) {
-                            if ("Test".equals(fromString) && indexXfid > 0 && accounts != null) {
+                            if("Test".equals(fromString)&&mAuthid!=null&&first_match>0){
+                                mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                                first_match--;
+                            }else if ("Test".equals(fromString) && indexXfid > 0&&accounts!=null) {
                                 mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfid[indexXfid % accounts.length]);
                                 choosedXfid = xfid[indexXfid % accounts.length];
                                 indexXfid--;
