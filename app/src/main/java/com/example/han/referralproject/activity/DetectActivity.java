@@ -322,8 +322,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 speak(R.string.tips_blue_unConnect);
                 isGetResustFirst = true;
                 if (mBluetoothAdapter != null) {
-//                    dialog = new NDialog(mContext);
-//                    showNormal("设备连接中，请稍后...");
+                    if (detectType == Type_XinDian){
+                        dialog = new NDialog(mContext);
+                        showNormal("设备连接中，请稍后...");
+                    }
                     startSearch();
 //                    mBluetoothAdapter.startDiscovery();
                 }
@@ -343,6 +345,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        boolean issuccess = mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
 //                        Log.i("mylog", "success");
                         break;
+
                 }
                 switch (detectType) {
                     case Type_XueYang:
@@ -560,6 +563,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         if (notifyData == null || notifyData.length < 20 || notifyData[6] != 84) {
                             return;
                         }
+                        //onDetectView.setVisibility(View.GONE);
                         ((TextView)findViewById(R.id.tv_xindian)).setText(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
                         DataInfoBean ecgInfo = new DataInfoBean();
                         ecgInfo.ecg = notifyData[17];
@@ -749,7 +753,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public Button mButton3;
 
     private int time;
-    private ImageView onDetect;
+    private ImageView onDetectView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -810,11 +815,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startSearch();
+//                startSearch();
 
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
 
             }
         });
@@ -956,8 +961,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_XinDian:
                 findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xindian;
-//                dialog = new NDialog(this);
-//                showNormal("设备连接中，请稍后...");
+                dialog = new NDialog(this);
+                showNormal("设备连接中，请稍后...");
                 break;
             case Type_TiZhong:
                 mResultTv = (TextView) findViewById(R.id.tv_tizhong);
@@ -991,7 +996,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mPulseTv = (TextView) findViewById(R.id.pulse);
         mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
         mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
-        onDetect= (ImageView) findViewById(R.id.onDetect);
+        onDetectView = (ImageView) findViewById(R.id.onDetect);
+        if (detectType == Type_XinDian){
+            showAnimation();
+        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
             } else {
@@ -1373,6 +1381,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
      */
     private void showAnimation(){
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
-        onDetect.startAnimation(animation);
+        onDetectView.startAnimation(animation);
     }
 }

@@ -154,8 +154,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // speak(getString(R.string.facc_register));
-                // speak(R.string.tips_splash);
+                 //speak(getString(R.string.facc_register));
+                 speak(R.string.tips_splash);
                 // speak(R.string.head_verify);
 
             }

@@ -134,7 +134,10 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.test_xindian:
-                    intent.setClass(getApplicationContext(), XinDianDetectActivity.class);
+//                    intent.setClass(getApplicationContext(), XinDianDetectActivity.class);
+//                    startActivity(intent);
+                    intent.setClass(mContext, DetectActivity.class);
+                    intent.putExtra("type", "xindian");
                     startActivity(intent);
                     break;
                 case R.id.test_qita:
