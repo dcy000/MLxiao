@@ -250,9 +250,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
     private void getData() {
 
-        Log.e("=============", MyApplication.getInstance().userId);
 
-        Log.e("=============", Utils.getDeviceId());
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
@@ -309,7 +307,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
 
 
-                amount = Double.parseDouble(response.getAmount());
+               /* amount = Double.parseDouble(response.getAmount());
                 NetworkApi.checkNotContract(Utils.getDeviceId(), new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object responses) {
@@ -341,7 +339,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                             }
                         });
                     }
-                });
+                });*/
 
 
             }
