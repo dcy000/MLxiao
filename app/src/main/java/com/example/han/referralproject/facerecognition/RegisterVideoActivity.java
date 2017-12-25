@@ -126,7 +126,7 @@ public class RegisterVideoActivity extends BaseActivity {
                             while (sign) {
 
                                 try {
-                                    Thread.sleep(2000);
+                                    Thread.sleep(1000);
                                 } catch (InterruptedException e) {
                                 }
 
@@ -212,7 +212,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
         mediaPlayer.start();//播放音乐
 
-        //  speak(getString(R.string.facc_register));
+        // speak(getString(R.string.facc_register));
 
         mButton = (ImageView) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -221,7 +221,6 @@ public class RegisterVideoActivity extends BaseActivity {
                 finish();
             }
         });
-
 
 
         //SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
@@ -408,7 +407,7 @@ public class RegisterVideoActivity extends BaseActivity {
         //    mAuthid = MyApplication.getInstance().userId;
 
 
-        mHandler.sendEmptyMessageDelayed(0, 5000);
+        mHandler.sendEmptyMessageDelayed(0, 4000);
 
 
     }

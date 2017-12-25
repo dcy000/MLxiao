@@ -9,7 +9,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 25
         versionCode 5
-        versionName "1.0.4"
+        versionName "1.0.5"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -18,6 +18,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        app {
+            debuggable false
+        }
+        debug {
+            debuggable false
         }
     }
 
@@ -36,14 +42,14 @@ android {
         abortOnError false
     }
 
-   /* signingConfigs {
+     signingConfigs {
         debug {
             storeFile file(RELEASE_STORE_FILE)
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
         }
-    }*/
+    }
 
     dexOptions {
         javaMaxHeapSize "4g"
@@ -78,6 +84,7 @@ dependencies {
     }
     compile project(':sdk')
     compile project(':lib-wheelrecyclerview')
+    compile project(':voicelibrary')
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -101,8 +108,7 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
-    compile project(':voicelibrary')
 }

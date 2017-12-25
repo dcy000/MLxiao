@@ -2,6 +2,7 @@ package com.example.han.referralproject.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +15,19 @@ import android.widget.ImageView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.AlreadyYuyue;
+import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
 
 public class DoctorAlarmActivity extends BaseActivity {
 
@@ -33,6 +42,8 @@ public class DoctorAlarmActivity extends BaseActivity {
     //   ImageView mImageView;
     //   ImageView mImageView1;
 
+    SharedPreferences sharedPreferences1;
+    String startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +52,13 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         mToolbar.setVisibility(View.VISIBLE);
 
+        sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+
+
         id = getIntent().getLongExtra(AlarmHelper.ID, -1);
         model = DataSupport.find(AlarmModel.class, id);
+        startTime = String.valueOf(model.getTimestamp() + 60000);
+
         mButton1 = (Button) findViewById(R.id.video_true);
         mButton2 = (Button) findViewById(R.id.video_cancel);
 
@@ -79,6 +95,44 @@ public class DoctorAlarmActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 }
+
+            }
+        });
+
+
+        NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
+            @Override
+            public void onSuccess(ArrayList<AlreadyYuyue> response) {
+
+                for (int i = 0; i < response.size(); i++) {
+
+                    if (startTime.equals(response.get(i).getStart_time())) {
+
+                        NetworkApi.update_status(response.get(i).getRid(), "5", new NetworkManager.SuccessCallback<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+
+                            }
+
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+
+                            }
+                        });
+
+
+                    }
+
+                }
+
+            }
+
+        }, new NetworkManager.FailedCallback()
+
+        {
+            @Override
+            public void onFailed(String message) {
 
             }
         });
