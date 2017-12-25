@@ -71,7 +71,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
     boolean flag = true;
 
-    int i = 30;
+    int i = 300;
 
     SharedPreferences sharedPreferences;
 
@@ -144,9 +144,9 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         if (!"".equals(sharedPreferences.getString("online_time", ""))) {
 
             long countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
-            if (countdown < 30000) {
+            if (countdown < 300000) {
 
-                i = 30 - Integer.parseInt((countdown / 1000) + "");
+                i = 300 - Integer.parseInt((countdown / 1000) + "");
                 mButton.setEnabled(false);
                 countdown();
 
@@ -218,7 +218,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                 for (; i >= 0; i--) {
                     mHandler.sendEmptyMessage(0);
                     if (i == 0) {
-                        i = 30;
+                        i = 300;
                         break;
                     }
                     try {
@@ -376,7 +376,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void OnlineTime() {
-        NetworkApi.onlinedoctor_zixun(10001, 100058, 0, new NetworkManager.SuccessCallback<OnlineTime>() {
+        NetworkApi.onlinedoctor_zixun(doctor.getDocterid(), MyApplication.getInstance().userId, 0, new NetworkManager.SuccessCallback<OnlineTime>() {
             @Override
             public void onSuccess(OnlineTime response) {
 

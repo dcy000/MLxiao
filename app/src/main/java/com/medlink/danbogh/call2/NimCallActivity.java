@@ -83,13 +83,11 @@ public class NimCallActivity extends AppCompatActivity {
 
     public static void launch(final Context context, final String account) {
         final String deviceId = com.example.han.referralproject.util.Utils.getDeviceId();
-        NetworkApi.Person_Amount(deviceId,
-                new NetworkManager.SuccessCallback<RobotAmount>() {
+        NetworkApi.Person_Amount(deviceId, new NetworkManager.SuccessCallback<RobotAmount>() {
                     @Override
                     public void onSuccess(RobotAmount response) {
                         final String amount = response.getAmount();
-                        NetworkApi.checkNotContract(deviceId,
-                                new NetworkManager.SuccessCallback<Object>() {
+                        NetworkApi.checkNotContract(deviceId, new NetworkManager.SuccessCallback<Object>() {
                                     @Override
                                     public void onSuccess(Object response) {
                                         if (Float.parseFloat(amount) > 0) {
