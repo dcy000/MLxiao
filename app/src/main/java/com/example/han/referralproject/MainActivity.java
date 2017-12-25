@@ -45,15 +45,10 @@ import com.qiniu.android.storage.UploadManager;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 
-import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {

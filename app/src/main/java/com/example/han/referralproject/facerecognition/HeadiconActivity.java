@@ -49,6 +49,7 @@ public class HeadiconActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setShowVoiceView(true);
         setContentView(R.layout.activity_headicon);
         uploadManager = new UploadManager();
 
@@ -142,23 +143,6 @@ public class HeadiconActivity extends BaseActivity {
 
                     Log.e("================", MyApplication.getInstance().userId + "=========" + LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                     String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-
-<<<<<<< HEAD
-                    NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(), new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-
-                        }
-                    });
-=======
                     NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
                             new NetworkManager.SuccessCallback<Object>() {
                                 @Override
@@ -176,7 +160,6 @@ public class HeadiconActivity extends BaseActivity {
 
                                 }
                             });
->>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
                 } else {
 
                 }
@@ -198,11 +181,15 @@ public class HeadiconActivity extends BaseActivity {
         String inSpell = PinYinUtils.converterToSpell(result);
 
         if (inSpell.matches(".*(queding|wancheng|xiayibu).*")) {
-            mButton1.performClick();
+//            mButton1.performClick();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
             return;
         }
         if (inSpell.matches(".*(quxiao|chongxin|zhongxin|zhongpai|zaipai|chongpai|zhongpai).*")) {
-            mButton.performClick();
+//            mButton.performClick();
+            finish();
         }
     }
 }
