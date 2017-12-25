@@ -323,8 +323,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 speak(R.string.tips_blue_unConnect);
                 isGetResustFirst = true;
                 if (mBluetoothAdapter != null) {
-//                    dialog = new NDialog(mContext);
-//                    showNormal("设备连接中，请稍后...");
+                    if (detectType == Type_XinDian){
+                        dialog = new NDialog(mContext);
+                        showNormal("设备连接中，请稍后...");
+                    }
                     startSearch();
 //                    mBluetoothAdapter.startDiscovery();
                 }
@@ -344,6 +346,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        boolean issuccess = mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
 //                        Log.i("mylog", "success");
                         break;
+
                 }
                 switch (detectType) {
                     case Type_XueYang:
@@ -561,6 +564,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         if (notifyData == null || notifyData.length < 20 || notifyData[6] != 84) {
                             return;
                         }
+                        //onDetectView.setVisibility(View.GONE);
                         ((TextView)findViewById(R.id.tv_xindian)).setText(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
                         DataInfoBean ecgInfo = new DataInfoBean();
                         ecgInfo.ecg = notifyData[17];
@@ -751,6 +755,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     private int time;
     private AVLoadingIndicatorView onDetect;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -798,6 +803,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
+        findViewById(R.id.history4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -817,11 +831,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startSearch();
+//                startSearch();
 
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
 
             }
         });
@@ -999,6 +1013,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
         mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
         onDetect= (AVLoadingIndicatorView) findViewById(R.id.onDetect);
+        if (detectType == Type_XinDian){
+            onDetect.show();
+        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
             } else {
@@ -1378,9 +1395,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     /**
      * 心电测量动画
      */
-    private void showAnimation(){
-        Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
-        onDetect.show();
-        onDetect.hide();
-    }
+//    private void showAnimation(){
+//        Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
+//        onDetectView.startAnimation(animation);
+//    }
 }
