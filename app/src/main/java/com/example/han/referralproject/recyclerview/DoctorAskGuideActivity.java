@@ -44,42 +44,28 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
             default:
                 break;
             case R.id.doctor_yuyue:
-                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
-                    @Override
-                    public void onSuccess(Doctor doctor) {
-                        String doctername = doctor.getDoctername();
-                        if (TextUtils.isEmpty(doctername)) {
-                            Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
-                            intent.putExtra("flag", "contract");
-                            startActivity(intent);
-                            return;
-                        }
-                        NetworkApi.PersonInfo(MyApplication.getInstance().userId,
-                                new NetworkManager.SuccessCallback<UserInfo>() {
-                                    @Override
-                                    public void onSuccess(UserInfo userInfo) {
-                                        String state = userInfo.getState();
-                                        if ("0".equals(state)) {
-                                            Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
-                                            startActivity(intent);
-                                        } else {
-                                            startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
-                                        }
-                                    }
-                                }, new NetworkManager.FailedCallback() {
-                                    @Override
-                                    public void onFailed(String message) {
-                                        T.show(message);
-                                    }
-                                });
-                    }
-
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        T.show(message);
-                    }
-                });
+                NetworkApi.PersonInfo(MyApplication.getInstance().userId,
+                        new NetworkManager.SuccessCallback<UserInfo>() {
+                            @Override
+                            public void onSuccess(UserInfo userInfo) {
+                                String state = userInfo.getState();
+                                if ("0".equals(state)) {
+                                    Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
+                                    startActivity(intent);
+                                } else if ("1".equals(state)) {
+                                    startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
+                                } else {
+                                    Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
+                                    intent.putExtra("flag", "contract");
+                                    startActivity(intent);
+                                }
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+                                T.show(message);
+                            }
+                        });
                 break;
             case R.id.doctor_zaixian:
                 startActivity(new Intent(this, OnlineDoctorListActivity.class));

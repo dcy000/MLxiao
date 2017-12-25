@@ -327,7 +327,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                         @Override
                                         public void onSuccess(RobotAmount response) {
                                             String preAmount = response.getAmount();
-                                            if (Integer.parseInt(amount) >= Integer.parseInt(preAmount)) {
+                                            if (Float.parseFloat(amount) >= Float.parseFloat(preAmount)) {
                                                 ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
                                                 finish();
                                             } else {
