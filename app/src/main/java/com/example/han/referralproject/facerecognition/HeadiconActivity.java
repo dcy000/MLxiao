@@ -49,6 +49,7 @@ public class HeadiconActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setShowVoiceView(true);
         setContentView(R.layout.activity_headicon);
       //  Log.e("=====================", LocalShared.getInstance(getApplicationContext()).getXunfeiId());
         uploadManager = new UploadManager();
