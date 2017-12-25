@@ -50,6 +50,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.IOException;
@@ -749,7 +750,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public Button mButton3;
 
     private int time;
-    private ImageView onDetect;
+    private AVLoadingIndicatorView onDetect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -997,7 +998,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mPulseTv = (TextView) findViewById(R.id.pulse);
         mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
         mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
-        onDetect= (ImageView) findViewById(R.id.onDetect);
+        onDetect= (AVLoadingIndicatorView) findViewById(R.id.onDetect);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
             } else {
@@ -1379,6 +1380,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
      */
     private void showAnimation(){
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
-        onDetect.startAnimation(animation);
+        onDetect.show();
+        onDetect.hide();
     }
 }
