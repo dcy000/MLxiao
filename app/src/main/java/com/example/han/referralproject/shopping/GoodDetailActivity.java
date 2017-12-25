@@ -171,10 +171,10 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 });*/
 
 
+                Log.e("===================", System.currentTimeMillis() + "===========" + goods.getGoodsimage());
                 NetworkApi.order_info(MyApplication.getInstance().userId, Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<Order>() {
                     @Override
                     public void onSuccess(Order response) {
-
                         ShowNormals(response.getOrderid());
                     }
 
