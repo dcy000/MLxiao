@@ -594,7 +594,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                             models = DataSupport.findAll(AlarmModel.class);
 
-                            //   setAlarmClock(0);
                             if (!"".equals(list.get(0).getStart_time())) {
                                 long time = 0;
                                 try {
@@ -1121,6 +1120,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     Button mButton3;
     Button mButton4;
 
+    TextView mHistroy;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1134,6 +1135,17 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButton3 = (Button) findViewById(R.id.cancel_yuyue1);
         mButton4 = (Button) findViewById(R.id.cancel_yuyue2);
 
+        mHistroy = (TextView) findViewById(R.id.yuyue_lishi);
+
+        mHistroy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(DoctorappoActivity.this, HistoryActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         speak(R.string.qianyue_doctor);
 
@@ -1213,9 +1225,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(mTextView.getText()) ||
-                        TextUtils.isEmpty(mTextView2.getText()) ||
-                        TextUtils.isEmpty(mTextView7.getText())) {
+
+                if (list.size() < 3) {
                     Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class);
                     startActivity(intent);
                     finish();
@@ -1223,7 +1234,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                 } else {
                     speak(getString(R.string.yuyue_limit));
 
-                    Toast.makeText(getApplicationContext(), "签约已达上限", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "主人，您预约已达到最大次数", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -1294,18 +1305,19 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void yuYueDoctor() {
-
-
         NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
 
-                // MyApplication.getInstance().userId
-                // sharedPreferences1.getString("doctor_id", "")
-
+                for (int i = 0; i < response.size(); i++) {
+                    if ("已完成".equals(response.get(i).getState())) {
+                        response.remove(i);
+                    }
+                }
 
                 list.clear();
                 list.addAll(response);
+
                 mHandler.sendEmptyMessage(0);
 
             }
@@ -1387,22 +1399,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                         String times = String.valueOf(time - 60000);
 
 
-                                        /*DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
-                                                .listen(new UpdateOrDeleteCallback() {
-                                                    @Override
-                                                    public void onFinish(int rowsAffected) {
-                                                        if (rowsAffected >= 1) {
-
-                                                            mTextView.setText("");
-                                                            mTextView1.setText("");
-                                                            mLinearLayout1.setVisibility(View.INVISIBLE);
-                                                            ShowNormals("取消"成功);
-
-                                                        }
-
-                                                    }
-                                                });*/
-
                                         models = DataSupport.findAll(AlarmModel.class);
 
 
@@ -1419,8 +1415,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                         }
 
 
-                                        mTextView.setText("");
-                                        mTextView1.setText("");
+                                        mTextView.setText(null);
+                                        mTextView1.setText(null);
                                         mLinearLayout1.setVisibility(View.INVISIBLE);
                                         yuYueDoctor();
 
@@ -1467,8 +1463,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                             }
                                         }
 
-                                        mTextView2.setText("");
-                                        mTextView6.setText("");
+                                        mTextView2.setText(null);
+                                        mTextView6.setText(null);
                                         mLinearLayout2.setVisibility(View.INVISIBLE);
                                         yuYueDoctor();
 
@@ -1476,23 +1472,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                         ShowNormals("取消成功");
 
                                         speak(getString(R.string.cancel_success));
-
-                                        /*DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
-                                                .listen(new UpdateOrDeleteCallback() {
-                                                    @Override
-                                                    public void onFinish(int rowsAffected) {
-                                                        if (rowsAffected >= 1) {
-
-                                                            mTextView2.setText("");
-                                                            mTextView6.setText("");
-                                                            mLinearLayout2.setVisibility(View.INVISIBLE);
-                                                            ShowNormals("取消成功");
-
-                                                        }
-
-                                                    }
-                                                });*/
-
 
                                     }
 
@@ -1532,8 +1511,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                             }
                                         }
 
-                                        mTextView7.setText("");
-                                        mTextView8.setText("");
+                                        mTextView7.setText(null);
+                                        mTextView8.setText(null);
                                         mLinearLayout3.setVisibility(View.INVISIBLE);
 
                                         yuYueDoctor();

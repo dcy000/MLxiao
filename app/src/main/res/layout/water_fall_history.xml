@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+
+    <TextView
+        android:id="@+id/history_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="20dp"
+        android:text="2017-12-28 9:00"
+        android:textColor="#8c8c8c"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/history_line"
+        android:layout_width="30dp"
+        android:layout_height="1dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="45dp"
+        android:layout_toRightOf="@+id/history_time"
+        android:src="#8c8c8c" />
+
+    <TextView
+        android:id="@+id/history_time1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/history_line"
+        android:text="2017-12-28 9:20"
+        android:textColor="#8c8c8c"
+        android:textSize="30sp" />
+
+
+</RelativeLayout>

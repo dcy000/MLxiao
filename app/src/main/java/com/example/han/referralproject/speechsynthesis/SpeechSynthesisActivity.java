@@ -46,6 +46,7 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
@@ -572,7 +573,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private void dealData(RecognizerResult results, boolean isLast) {
         printResult(results);
         if (isLast) {
-            String inSpell = PinYinUtils.converterToSpell(resultBuffer.toString());
+            String result = resultBuffer.toString();
+            ToastUtil.showShort(this,result);
+            String inSpell = PinYinUtils.converterToSpell(result);
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
             Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
@@ -695,7 +698,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
 
-            if (resultBuffer.toString().matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
+            if (result.matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
                 if (sign == true) {
                     sign = false;
                     mIatDialog.dismiss();
@@ -715,7 +718,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
                 }
 
-            } else if (resultBuffer.toString().matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
+            } else if (result.matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
                 if (sign == true) {
                     sign = false;
                     mIatDialog.dismiss();
@@ -725,7 +728,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
                 }
 
-            } else if (resultBuffer.toString().matches(".*测.*体温.*") || resultBuffer.toString().matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
+            } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 if (sign == true) {
                     sign = false;
                     mIatDialog.dismiss();
@@ -735,7 +738,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
                 }
 
-            } else if (resultBuffer.toString().matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
+            } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
                 if (sign == true) {
                     sign = false;
                     mIatDialog.dismiss();
@@ -775,7 +778,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 */
 
-            } else if (resultBuffer.toString().matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
+            } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
                     T.show("请先查看是否与签约医生签约成功");
@@ -869,21 +872,21 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } */ else if (inSpell.matches(".*bu.*liao.*") || resultBuffer.toString().contains("退出")
-                    || resultBuffer.toString().contains("返回") || resultBuffer.toString().contains("再见")
-                    || resultBuffer.toString().contains("闭嘴") || inSpell.matches(".*baibai.*")) {
+                } */ else if (inSpell.matches(".*bu.*liao.*") || result.contains("退出")
+                    || result.contains("返回") || result.contains("再见")
+                    || result.contains("闭嘴") || inSpell.matches(".*baibai.*")) {
 
                 finish();
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
-            } else if (inSpell.matches(".*chong.*qian.*") || resultBuffer.toString().contains("钱不够") || resultBuffer.toString().contains("没钱")) {
+            } else if (inSpell.matches(".*chong.*qian.*") || result.contains("钱不够") || result.contains("没钱")) {
                 Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                 startActivity(intent);
                 finish();
             } else if (inSpell.matches(".*mai.*dongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
                     inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
                     inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou")  ||
-                    resultBuffer.toString().contains("丢") || resultBuffer.toString().contains("不能用")) {
+                    result.contains("丢") || result.contains("不能用")) {
 
                 Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
                 startActivity(intent);
