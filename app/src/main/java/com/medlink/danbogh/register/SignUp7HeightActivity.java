@@ -78,7 +78,7 @@ public class SignUp7HeightActivity extends BaseActivity {
         return R.string.sign_up_height_tip;
     }
 
-    protected int selectedPosition = 1;
+    protected int selectedPosition = 20;
 
     protected void initView() {
         tvUnit.setText("cm");
@@ -89,7 +89,7 @@ public class SignUp7HeightActivity extends BaseActivity {
             @Override
             public void onItemSelected(RecyclerView recyclerView, View item, int position) {
                 selectedPosition = position;
-                select(mStrings == null ? String.valueOf(position) : mStrings.get(position));
+                select((String) (mStrings == null ? String.valueOf(position) : mStrings.get(position)));
             }
         });
         adapter = new SelectAdapter();
@@ -145,6 +145,10 @@ public class SignUp7HeightActivity extends BaseActivity {
         }
 
         String in = Utils.isNumeric(result) ? result : Utils.removeNonnumeric(Utils.chineseMapToNumber(result));
+        selectItem(in);
+    }
+
+    protected void selectItem(String in) {
         int size = mStrings.size();
         for (int i = 0; i < size; i++) {
             String height = mStrings.get(i);

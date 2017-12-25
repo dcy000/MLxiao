@@ -50,14 +50,14 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                             public void onSuccess(UserInfo userInfo) {
                                 String state = userInfo.getState();
                                 if ("0".equals(state)) {
-                                    Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
-                                    startActivity(intent);
-                                } else if ("1".equals(state)) {
-                                    startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
-                                } else {
                                     Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
                                     intent.putExtra("flag", "contract");
                                     startActivity(intent);
+                                } else if ("1".equals(state) && TextUtils.isEmpty(userInfo.getDoctername())) {
+                                    Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
                                 }
                             }
                         }, new NetworkManager.FailedCallback() {

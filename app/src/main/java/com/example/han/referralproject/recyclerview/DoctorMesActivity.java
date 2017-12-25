@@ -323,23 +323,13 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                 @Override
                                 public void onSuccess(RobotAmount response) {
                                     final String amount = response.getAmount();
-                                    NetworkApi.getEqPreAmount(new NetworkManager.SuccessCallback<RobotAmount>() {
-                                        @Override
-                                        public void onSuccess(RobotAmount response) {
-                                            String preAmount = response.getAmount();
-                                            if (Float.parseFloat(amount) >= Float.parseFloat(preAmount)) {
-                                                ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
-                                                finish();
-                                            } else {
-                                                onLackOfAmount();
-                                            }
-                                        }
-                                    }, new NetworkManager.FailedCallback() {
-                                        @Override
-                                        public void onFailed(String message) {
-                                            T.show("服务器繁忙，请稍后再试");
-                                        }
-                                    });
+                                    String applyAmount = doctor.getApply_amount();
+                                    if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
+                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                        finish();
+                                    } else {
+                                        onLackOfAmount();
+                                    }
                                 }
                             }, new NetworkManager.FailedCallback() {
                                 @Override

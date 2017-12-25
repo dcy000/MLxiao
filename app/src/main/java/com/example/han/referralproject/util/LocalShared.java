@@ -126,6 +126,7 @@ public class LocalShared {
         MyApplication.getInstance().userName = infoBean.bname;
         mShared.edit()
                 .putString(UserId, infoBean.bid)
+                .putString(EQID, infoBean.eqid)
                 .putString(UserPhoneNum, infoBean.tel)
                 .putString(USER_NAME, infoBean.bname)
                 .commit();
