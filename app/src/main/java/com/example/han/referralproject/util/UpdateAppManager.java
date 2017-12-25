@@ -211,8 +211,10 @@ public class UpdateAppManager {
         }
         // 跳转到新版本应用安装页面
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//自动跳转
         intent.setDataAndType(Uri.parse("file://" + appFile.toString()), "application/vnd.android.package-archive");
         context.startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());//自动跳转
     }
 
     private boolean isValidAppLink(String url) {

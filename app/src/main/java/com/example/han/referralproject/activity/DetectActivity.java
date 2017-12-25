@@ -1,6 +1,7 @@
 package com.example.han.referralproject.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -29,6 +30,8 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,9 +48,11 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.XueyaUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +78,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_SanHeYi;
+    private String detectType = Type_XinDian;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -85,8 +90,169 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private String[] mXueyaResults;
     private String[] mWenduResults;
     private String[] mXueYangResults;
+    private String[] mEcgResults;
     private BluetoothGattCharacteristic mWriteCharacteristic;
     private View mOverView;
+
+
+    @SuppressLint("HandlerLeak")
+    Handler xueyaHandler = new Handler() {
+        private byte i;
+
+        @SuppressLint("SimpleDateFormat")
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:// TODO 设置显示点击查看按钮并上传数据
+
+                    break;
+                // 测量成功
+                case 1:
+                    break;
+                // 测量失败
+                case 2:
+                    break;
+                // 设备超时
+                case 3:
+                    //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.shebeilianjieyichangqingchongxinlianjie));
+                    speak("设备超时");
+                    break;
+                // 充不上气
+                case 4:
+                    //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.chongbushangqi));
+                    speak("设备充不上气");
+                    break;
+                // 测量中发生错误
+                case 5:
+                    //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.celiangzhongfashengcuowu));
+                    speak("设备检测发生错误");
+                    break;
+                // 血压计低电量
+                case 6:
+                    //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.xueyajididianliang));
+                    speak("设备低电量");
+                    break;
+                case 7:
+                    //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.quxiaocaozuo));
+                    break;
+                // 测量中
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+//                    finish();
+//                    new TimeManager(3000, 1000).start();
+                    break;
+                case 11:
+//                    String erro = (String) msg.obj;
+//                    if(erro.equals("错误信息：设备充不上气")){
+//                        getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.shebeiyichang00));
+//                    }else if(erro.equals("错误信息：血压计电量过低")){
+//                        getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.shebeiyichang02));
+//                    }else if(erro.equals("错误信息：测量中发生错误，请正确测量")){
+//                        getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.shebeiyichang01));
+//                    }
+                    break;
+                case 12://经典蓝牙测量中数据
+
+//                    if ((int) notifyData[0] == 32 && notifyData.length == 2) {
+//                        mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
+//                        mLowPressTv.setText("0");
+//                        mPulseTv.setText("0");
+//                    }
+//                    if ((int) notifyData[0] == 12) {
+//                        mHighPressTv.setText(String.valueOf(notifyData[2] & 0xff));
+//                        mLowPressTv.setText(String.valueOf(notifyData[4] & 0xff));
+//                        mPulseTv.setText(String.valueOf(notifyData[8] & 0xff));
+//                        if (isGetResustFirst) {
+//                            String xueyaResult;
+//                            if ((notifyData[2] & 0xff) <= 140) {
+//                                xueyaResult = mXueyaResults[0];
+//                            } else if ((notifyData[2] & 0xff) <= 160) {
+//                                xueyaResult = mXueyaResults[1];
+//                            } else {
+//                                xueyaResult = mXueyaResults[2];
+//                            }
+//                            speak(String.format(getString(R.string.tips_result_xueya),
+//                                    notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
+//                            DataInfoBean info = new DataInfoBean();
+//                            info.high_pressure = notifyData[2] & 0xff;
+//                            info.low_pressure = notifyData[4] & 0xff;
+//                            info.pulse = notifyData[8] & 0xff;
+//                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+//                                @Override
+//                                public void onSuccess(String response) {
+//                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//                            isGetResustFirst = false;
+//                            mHandler.sendEmptyMessageDelayed(2, 30000);
+//                        }
+//                    }
+//                    StringBuilder mBuilder = new StringBuilder();
+////                        for (char item : xueyaChars){
+////                            mBuilder.append(item).append("(").append((byte)item).append(")").append("    ");
+////                        }
+//                    for (byte item : notifyData) {
+//                        mBuilder.append(item).append("    ");
+//                    }
+
+                    byte[] result2 = (byte[]) msg.obj;
+                    int num = 0;
+				/*numPosition = result2[5];
+				if (numPosition > 255) {
+					numPosition = (((byte)numPosition)&0xff)+1+0xff;
+				}*/
+                    num = (result2[5]&0xff)|(result2[6]<<8&0xff00);
+                    Log.i("mylog", "data " + num);
+                    mHighPressTv.setText(String.valueOf(num));
+                    break;
+                case 13://经典蓝牙测量结果
+                    byte[] res = (byte[]) msg.obj;
+                    int getNew = (res[5]&0xff) + 30;
+                    int maibo = res[4]&0xff;int i = res[6];
+                    int down = 0;
+                    if(((i & 0XFF)>0)||(i & 0XFF)<256){
+                        down = (i & 0XFF) + 30;
+                    }else{
+                        down = (((byte)i) & 0XFF)+1+0xff + 30;
+                    }
+                    mHighPressTv.setText(String.valueOf(getNew));
+                    mLowPressTv.setText(String.valueOf(down));
+                    mPulseTv.setText(String.valueOf(maibo));
+                    Log.i("mylog", "gao " + getNew + " di "  + down + " pluse " + maibo);
+                    String xueyaResult;
+                    if (getNew <= 140) {
+                        xueyaResult = mXueyaResults[0];
+                    } else if (getNew <= 160) {
+                        xueyaResult = mXueyaResults[1];
+                    } else {
+                        xueyaResult = mXueyaResults[2];
+                    }
+                    speak(String.format(getString(R.string.tips_result_xueya),
+                            getNew, down, maibo, xueyaResult));
+                    DataInfoBean info = new DataInfoBean();
+                    info.high_pressure = getNew;
+                    info.low_pressure = down;
+                    info.pulse = maibo;
+                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                        @Override
+                        public void onSuccess(String response) {
+                            //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    break;
+                case 14:
+                    stopSearch();
+                    break;
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+
 
     Handler mHandler = new Handler() {
         @Override
@@ -132,7 +298,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("mylog", "action : " + intent.getAction());
+            //Log.i("mylog", "action : " + intent.getAction());
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
@@ -390,6 +556,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mResultTv.setText(String.valueOf(result));
                         }
                         break;
+                    case Type_XinDian:
+                        if (notifyData == null || notifyData.length < 20 || notifyData[6] != 84) {
+                            return;
+                        }
+                        ((TextView)findViewById(R.id.tv_xindian)).setText(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
+                        DataInfoBean ecgInfo = new DataInfoBean();
+                        ecgInfo.ecg = notifyData[17];
+                        ecgInfo.heart_rate = notifyData[16] & 0xff;
+                        NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        speak(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
+                        break;
                     case Type_SanHeYi:
                         if (notifyData == null || notifyData.length < 13){
                             return;
@@ -482,7 +664,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 characteristic = gattServices.get(2).getCharacteristics().get(1);
                 break;
             case Type_XinDian:
-                characteristic = gattServices.get(3).getCharacteristics().get(0);
+                characteristic = gattServices.get(0).getCharacteristics().get(0);
                 break;
             case Type_TiZhong:
                 characteristic = gattServices.get(3).getCharacteristics().get(2);
@@ -518,7 +700,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mBluetoothGatt.writeDescriptor(descriptor);
             }
         }
-        Log.i("mylog", "chara uuid : " + characteristic.getUuid() + "\n" + "service uuid : " + gattServices.get(3).getUuid());
+        Log.i("mylog", "chara uuid : " + characteristic.getUuid() + "\n" + "service uuid : " + gattServices.get(0).getUuid());
 //        boolean isSuccess = readMessage();
 //        Log.i("mylog1", "is Success " + isSuccess);
     }
@@ -567,6 +749,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public Button mButton3;
 
     private int time;
+    private ImageView onDetect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -627,10 +810,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-//                startActivity(new Intent(DetectActivity.this,SymptomsActivity.class));
+                startSearch();
+
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+//                finish();
+
             }
         });
 
@@ -806,6 +991,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mPulseTv = (TextView) findViewById(R.id.pulse);
         mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
         mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
+        onDetect= (ImageView) findViewById(R.id.onDetect);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
             } else {
@@ -832,6 +1018,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mXueyaResults = mResources.getStringArray(R.array.result_xueya);
         mWenduResults = mResources.getStringArray(R.array.result_wendu);
         mXueYangResults = mResources.getStringArray(R.array.result_xueyang);
+        mEcgResults = mResources.getStringArray(R.array.ecg_measureres);
 
         //speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);
@@ -861,6 +1048,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             unbindService(mServiceConnection);
         }
         mBluetoothLeService = null;
+        XueyaUtils.stopThread();
     }
 
     private int seletTimeType=0;
@@ -952,7 +1140,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             String action = intent.getAction();
             Bundle b = intent.getExtras();
             Object[] lstName = b.keySet().toArray();
-
             // 显示所有收到的消息及其细节
             for (int i = 0; i < lstName.length; i++) {
                 String keyName = lstName[i].toString();
@@ -969,6 +1156,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_Xueya:
                         deviceName = "eBlood-Pressure";
+                        //deviceName = "Dual-SPP";
                         break;
                     case Type_XueTang:
                         deviceName = "Bioland-BGM";
@@ -989,6 +1177,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        deviceName = "BeneCheck TC-B DONGLE";
                         break;
                 }
+
+//                if (detectType == Type_Xueya && deviceName.equals(device.getName())){
+//                    try {
+//                        stopSearch();
+//                        XueyaUtils.connect(device, xueyaHandler);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    return;
+//                }
+
 //                if (deviceName.equals(device.getName())) {
                 if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith(deviceName)) {
                     if (dialog != null) {
@@ -1169,4 +1368,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         return intentFilter;
     }
 
+    /**
+     * 心电测量动画
+     */
+    private void showAnimation(){
+        Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
+        onDetect.startAnimation(animation);
+    }
 }
