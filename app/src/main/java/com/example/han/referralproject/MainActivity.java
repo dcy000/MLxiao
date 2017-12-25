@@ -39,14 +39,9 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.EMUIHelper;
-<<<<<<< HEAD
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
-=======
+
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
->>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
 
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;

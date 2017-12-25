@@ -82,28 +82,42 @@ public class NimCallActivity extends AppCompatActivity {
     public static final int SOURCE_INTERNAL = 1;
 
     public static void launch(final Context context, final String account) {
-        NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
+        final String deviceId = com.example.han.referralproject.util.Utils.getDeviceId();
+        NetworkApi.Person_Amount(deviceId,
                 new NetworkManager.SuccessCallback<RobotAmount>() {
                     @Override
                     public void onSuccess(RobotAmount response) {
                         final String amount = response.getAmount();
-                        NetworkApi.getEqPreAmount(new NetworkManager.SuccessCallback<RobotAmount>() {
-                            @Override
-                            public void onSuccess(RobotAmount response) {
-                                String preAmount = response.getAmount();
-                                if (Integer.parseInt(amount) >= Integer.parseInt(preAmount)) {
-                                    //有余额
-                                    launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
-                                } else {
-                                    T.show("余额不足，请充值后再试");
-                                }
-                            }
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-                                T.show("服务器繁忙，请稍后再试");
-                            }
-                        });
+                        NetworkApi.checkNotContract(deviceId,
+                                new NetworkManager.SuccessCallback<Object>() {
+                                    @Override
+                                    public void onSuccess(Object response) {
+                                        if (Float.parseFloat(amount) > 0) {
+                                            launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+                                        }
+                                    }
+                                }, new NetworkManager.FailedCallback() {
+                                    @Override
+                                    public void onFailed(String message) {
+                                        NetworkApi.getEqPreAmount(new NetworkManager.SuccessCallback<RobotAmount>() {
+                                            @Override
+                                            public void onSuccess(RobotAmount response) {
+                                                String preAmount = response.getAmount();
+                                                if (Float.parseFloat(amount) >= Float.parseFloat(preAmount)) {
+                                                    //有余额
+                                                    launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+                                                } else {
+                                                    T.show("余额不足，请充值后再试");
+                                                }
+                                            }
+                                        }, new NetworkManager.FailedCallback() {
+                                            @Override
+                                            public void onFailed(String message) {
+                                                T.show("服务器繁忙，请稍后再试");
+                                            }
+                                        });
+                                    }
+                                });
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

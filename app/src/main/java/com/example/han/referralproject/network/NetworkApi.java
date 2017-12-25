@@ -121,6 +121,7 @@ public class NetworkApi {
 
     public static final String EQ_PRE_AMOUNT = BasicUrl + "/ZZB/eq/selPaidAmountByEqid";
     public static final String CANCEL_CONTRACT = BasicUrl + "/ZZB/br/updateUserState";
+    public static final String CHECK_CONTRACT = BasicUrl + "/ZZB/eq/selCountPaidAmountByEqid";
 
     public static void cancelContract(
             String bid,
@@ -129,6 +130,16 @@ public class NetworkApi {
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", bid);
         NetworkManager.getInstance().postResultClass(CANCEL_CONTRACT, params, Object.class, successCallback, failedCallback);
+    }
+
+
+    public static void checkNotContract(
+            String bid,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid", bid);
+        NetworkManager.getInstance().postResultClass(CHECK_CONTRACT, params, Object.class, successCallback, failedCallback);
     }
 
     public static void getEqPreAmount(
