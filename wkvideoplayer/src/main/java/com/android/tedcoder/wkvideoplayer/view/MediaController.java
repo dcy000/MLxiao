@@ -62,15 +62,15 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
     public void initTrimmedMode() {
         mMenuViewPlaceHolder.setVisibility(GONE);
         mExpandImg.setVisibility(INVISIBLE);
-        mShrinkImg.setVisibility(INVISIBLE);
+        mShrinkImg.setVisibility(GONE);
     }
 
     /***
      * 强制横屏模式
      */
-    public void forceLandscapeMode(){
-        mExpandImg.setVisibility(INVISIBLE);
-        mShrinkImg.setVisibility(INVISIBLE);
+    public void forceLandscapeMode() {
+        mExpandImg.setVisibility(GONE);
+        mShrinkImg.setVisibility(GONE);
     }
 
 
@@ -88,8 +88,8 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
     }
 
     public void setPageType(PageType pageType) {
-        mExpandImg.setVisibility(pageType.equals(PageType.EXPAND) ? GONE : VISIBLE);
-        mShrinkImg.setVisibility(pageType.equals(PageType.SHRINK) ? GONE : VISIBLE);
+        mExpandImg.setVisibility(pageType.equals(PageType.EXPAND) ? GONE : GONE);
+        mShrinkImg.setVisibility(pageType.equals(PageType.SHRINK) ? GONE : GONE);
     }
 
     public void setPlayProgressTxt(int nowSecond, int allSecond) {
@@ -139,6 +139,8 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
         mExpandImg.setOnClickListener(this);
         setPageType(PageType.SHRINK);
         setPlayState(PlayState.PAUSE);
+        mShrinkImg.setVisibility(View.GONE);
+        mExpandImg.setVisibility(GONE);
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -191,8 +193,9 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
 
         /**
          * 进度条点击
-         * @param state     进度条状态
-         * @param progress  进度
+         *
+         * @param state    进度条状态
+         * @param progress 进度
          */
         void onProgressTurn(ProgressState state, int progress);
 

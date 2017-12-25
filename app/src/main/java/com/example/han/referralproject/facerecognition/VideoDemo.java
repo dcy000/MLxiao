@@ -114,7 +114,6 @@ public class VideoDemo extends BaseActivity {
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
     public ImageView mImageView;
-    public ImageView mButton;
     Bitmap b3;
     String signs;
     String orderid;
@@ -157,8 +156,8 @@ public class VideoDemo extends BaseActivity {
         dialog2 = new NDialog2(VideoDemo.this);
 
 
-        mButton = (ImageView) findViewById(R.id.tiao_guo);
-        mButton.setOnClickListener(new OnClickListener() {
+        mImageView = (ImageView) findViewById(R.id.tiao_guo);
+        mImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -167,10 +166,8 @@ public class VideoDemo extends BaseActivity {
 
 
         if ("1".equals(signs)) {//支付过来
-            mButton.setVisibility(View.GONE);
+            mImageView.setVisibility(View.GONE);
         }
-
-
 
 
         SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));

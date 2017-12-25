@@ -4,9 +4,13 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -25,21 +29,34 @@ import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recyclerview.AddAppoActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.MainVideoActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call.EMUIHelper;
+<<<<<<< HEAD
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+=======
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+>>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
 
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -65,22 +82,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         NimAccountHelper.getInstance().login("user_"+MyApplication.getInstance().userId, "123456", null);
 
+
+
+
+
+
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
         mediaPlayer.start();//播放音乐*/
 
-        if (isMyServiceRunning(AssistiveTouchService.class)) {
+        if (
 
-        } else {
+                isMyServiceRunning(AssistiveTouchService.class))
+
+        {
+
+        } else
+
+        {
             Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
             startService(intent);
         }
 
         mToolbar.setVisibility(View.GONE);
         mImageView1 = (ImageView) findViewById(R.id.robot_con);
+
         mImageView2 = (ImageView) findViewById(R.id.person_info);
+
         mImageView3 = (ImageView) findViewById(R.id.health_test);
+
         mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
+
         mImageView5 = (ImageView) findViewById(R.id.health_class);
         mImageView6= (ImageView) findViewById(R.id.call_family);
 
@@ -91,13 +123,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView5.setOnClickListener(this);
         mImageView6.setOnClickListener(this);
 
-        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+        sharedPreferences =
+
+                getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
 
-        if (isMyServiceRunning(AssistiveTouchService.class)) {
+        if (
+
+                isMyServiceRunning(AssistiveTouchService.class))
+
+        {
 
 
-        } else {
+        } else
+
+        {
 
             Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
             startService(intent);
@@ -106,6 +146,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
         findViewById(R.id.ll_anim).setOnClickListener(this);
+
         float pivotX = .5f; // 取自身区域在X轴上的中心点
         float pivotY = .5f; // 取自身区域在Y轴上的中心点
         //    new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 围绕自身的中心点进行旋转
@@ -114,6 +155,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tranAnimation.setDuration(1000);
         tranAnimation.setRepeatCount(Animation.INFINITE);
         tranAnimation.setRepeatMode(Animation.REVERSE);
+
         findViewById(R.id.iv_anim).setAnimation(tranAnimation);
         tranAnimation.start();
 
@@ -164,7 +206,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 intent.setClass(getApplicationContext(), VideoDemo.class);
                 intent.putExtra("sign", "0");
                 intent.putExtra("orderid", "0");
-                intent.putExtra("from","Test");
+                intent.putExtra("from", "Test");
 //                intent.setClass(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 break;

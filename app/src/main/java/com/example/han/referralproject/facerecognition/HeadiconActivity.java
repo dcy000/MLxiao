@@ -50,7 +50,6 @@ public class HeadiconActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headicon);
-      //  Log.e("=====================", LocalShared.getInstance(getApplicationContext()).getXunfeiId());
         uploadManager = new UploadManager();
 
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
@@ -141,8 +140,25 @@ public class HeadiconActivity extends BaseActivity {
             public void complete(String key, ResponseInfo info, JSONObject res) {
                 if (info.isOK()) {
 
+                    Log.e("================", MyApplication.getInstance().userId + "=========" + LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                     String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
 
+<<<<<<< HEAD
+                    NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(), new NetworkManager.SuccessCallback<String>() {
+                        @Override
+                        public void onSuccess(String response) {
+                            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+
+                        }
+                    });
+=======
                     NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
                             new NetworkManager.SuccessCallback<Object>() {
                                 @Override
@@ -160,6 +176,7 @@ public class HeadiconActivity extends BaseActivity {
 
                                 }
                             });
+>>>>>>> 80e2c148ec49b30390cfd362388506c7ee16cfef
                 } else {
 
                 }

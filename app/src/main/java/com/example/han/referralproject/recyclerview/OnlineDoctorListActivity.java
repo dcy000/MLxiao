@@ -68,8 +68,10 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
                 }
             });
+
             return;
         }
+
 
         NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
@@ -135,12 +137,21 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                 } else {
                     jump(postion);
                 }
+
+              /*  Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
+                intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+                if (!"contract".equals(mFlag)) {
+                    intent.putExtra("sign", "1");
+                }
+                startActivity(intent);*/
+//                finish();
+
             }
         });
 
-        if ("contract".equals(mFlag)) {
+      /*  if ("contract".equals(mFlag)) {
             return;
-        }
+        }*/
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 

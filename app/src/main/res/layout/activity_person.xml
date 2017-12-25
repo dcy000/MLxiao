@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
-                android:text="¥2000"
+                android:text="¥0"
                 android:textColor="#333333"
                 android:textSize="30sp" />
 

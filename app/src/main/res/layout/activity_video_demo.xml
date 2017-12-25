@@ -41,11 +41,12 @@
 
     <ImageView
         android:id="@+id/tiao_guo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
+        android:clickable="true"
         android:src="@drawable/face_back" />
 
     <TextView
