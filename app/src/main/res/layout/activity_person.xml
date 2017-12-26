@@ -53,6 +53,7 @@
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
         android:orientation="vertical">
+
         <com.example.han.referralproject.imageview.CircleImageView
             android:id="@+id/per_image"
             android:layout_width="200dp"
@@ -68,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="赵曼林"
+            android:text="用户"
             android:textColor="#333333"
             android:textSize="30sp" />
 
@@ -397,11 +398,11 @@
         android:id="@+id/view_change"
         android:layout_width="250dp"
         android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="right"
         android:gravity="center"
         android:text="切换账户"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:textColor="#999999"
         android:textSize="30sp" />
 

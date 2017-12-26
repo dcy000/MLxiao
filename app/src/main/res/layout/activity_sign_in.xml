@@ -80,23 +80,29 @@
                 android:id="@+id/tv_sign_in_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36pt"
                 android:text="注册"
+                android:layout_marginTop="16pt"
                 android:textColor="#FF3F86FC"
                 android:textSize="44pt"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_sign_in_sign_in"
-                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in_sign_in" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in_sign_in"
+                android:paddingTop="20pt"
+                android:paddingBottom="40pt"
+                android:paddingRight="120pt"/>
 
             <TextView
                 android:id="@+id/tv_sign_in_forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36pt"
+                android:layout_marginTop="16pt"
                 android:text="忘记密码"
                 android:textColor="#FF999999"
                 android:textSize="44pt"
                 app:layout_constraintRight_toRightOf="@+id/tv_sign_in_sign_in"
-                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in_sign_in" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in_sign_in"
+                android:paddingLeft="80pt"
+                android:paddingBottom="40pt"
+                android:paddingTop="20pt"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
