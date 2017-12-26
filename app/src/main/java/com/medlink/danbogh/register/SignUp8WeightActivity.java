@@ -60,8 +60,8 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
             return;
         }
 
-        int size = mStrings == null ? 0 : mStrings.size();
         String in = Utils.isNumeric(result) ? result : Utils.removeNonnumeric(Utils.chineseMapToNumber(result));
+        int size = mStrings == null ? 0 : mStrings.size();
         for (int i = 0; i < size; i++) {
             String weight = mStrings.get(i);
             if (in.equals(weight)) {
@@ -86,6 +86,5 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
             }
         }
     }
-
-    private int i70 = -1;
+    private int i70 = 25;
 }

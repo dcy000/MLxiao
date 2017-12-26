@@ -56,8 +56,8 @@ public class ReminderActivity extends BaseActivity {
             }
         }
 
-        tvContent.setText(LocalShared.getInstance(this).getUserName() + mContent);
-
+        mContent = LocalShared.getInstance(this).getUserName() + mContent;
+        tvContent.setText(mContent);
         Handlers.runOnUiThread(mAlarm);
 
         //Ensure wakelock release

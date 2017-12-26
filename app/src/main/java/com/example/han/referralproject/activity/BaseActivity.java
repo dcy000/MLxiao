@@ -67,7 +67,7 @@ public class BaseActivity extends AppCompatActivity {
     private SpeechRecognizer mIat;
     private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
-    private boolean enableListeningLoop;
+    private boolean enableListeningLoop = true;
     private LinearLayout rootView;
     private View mTitleView;
     protected TextView mTitleText;
@@ -100,7 +100,6 @@ public class BaseActivity extends AppCompatActivity {
 
         rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (70 * mResources.getDisplayMetrics().density)));
         initToolbar();
-        enableListeningLoop = true;
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer == null) {
             mIat = SpeechRecognizer.createRecognizer(this, mTtsInitListener);
@@ -249,14 +248,21 @@ public class BaseActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(text)) {
             return;
         }
+        provideSynthesizer();
         stopListening();
-        synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer == null) {
-            synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
-        }
         setSynthesizerParams();
 
         synthesizer.startSpeaking(text, mTtsListener);
+    }
+
+    private synchronized void provideSynthesizer() {
+        synthesizer = SpeechSynthesizer.getSynthesizer();
+        if (synthesizer == null) {
+            synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
+            if (synthesizer == null) {
+                provideSynthesizer();
+            }
+        }
     }
 
     public void stopSpeaking() {
@@ -273,8 +279,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void startListening() {
-        setRecognizerParams();
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
+        if (recognizer == null) {
+            SpeechRecognizer.createRecognizer(this.getApplicationContext(), mTtsInitListener);
+            recognizer = SpeechRecognizer.getRecognizer();
+        }
+        setRecognizerParams();
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (enableListeningLoop && recognizer != null && !recognizer.isListening() && synthesizer != null && !synthesizer.isSpeaking()) {
             recognizer.startListening(mIatListener);
