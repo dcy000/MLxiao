@@ -560,6 +560,12 @@ public class BaseActivity extends AppCompatActivity {
         if (recognizer != null && recognizer.isListening()) {
             recognizer.stopListening();
         }
+        if(mMediaRecorder!=null){
+            isAlive = false;
+            mMediaRecorder.release();
+            mMediaRecorder = null;
+        }
+        Handlers.ui().removeCallbacks(updateVolumeAction);
         super.onPause();
     }
 
@@ -579,14 +585,5 @@ public class BaseActivity extends AppCompatActivity {
             return;
         }
         mDialog.dismiss();
-    }
-
-    @Override
-    protected void onDestroy() {
-        isAlive = false;
-        mMediaRecorder.release();
-        mMediaRecorder = null;
-        Handlers.ui().removeCallbacks(updateVolumeAction);
-        super.onDestroy();
     }
 }

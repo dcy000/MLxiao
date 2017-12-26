@@ -33,6 +33,7 @@ import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.wakeup.WakeupHelper;
+import com.squareup.leakcanary.LeakCanary;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
@@ -79,7 +80,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        LeakCanary.install(this);
 
         UiUtils.init(this, 1980, 1200);
         UiUtils.compat(this, 1980);

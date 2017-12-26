@@ -204,7 +204,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         tiwenChart.setExtraRightOffset(80);
         //20个数据以后不再显示注释标签
         tiwenChart.setMaxVisibleValueCount(20);
-        tiwenChart.setNoDataText(getResources().getString(R.string.noData));
+        tiwenChart.setNoDataText("");
 
         XAxis xAxis = tiwenChart.getXAxis();
         //绘制底部的X轴
@@ -687,6 +687,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         color1.setBackgroundColor(getResources().getColor(R.color.node_color));
         indicator1.setText("体温(℃)");
         llSecond.setVisibility(View.GONE);
+        setTiwenChart();
         NetworkApi.getTemperatureHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<TemperatureHistory>>() {
             @Override
             public void onSuccess(ArrayList<TemperatureHistory> response) {
@@ -704,7 +705,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     times.add(response.get(i).time);
                 }
                 if (times.size() != 0) {
-                    setTiwenChart();
+
                     tiwenChart.getXAxis().setValueFormatter(new TimeFormatter(times));
                     MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
                     mv.setChartView(tiwenChart);
@@ -988,7 +989,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onSuccess(ArrayList<ECGHistory> response) {
                 xindianList.setLayoutManager(new LinearLayoutManager(HealthRecordActivity.this));
-                xindianList.setAdapter(new XindianAdapter(R.layout.item_message,response));
+                xindianList.setAdapter(new XindianAdapter(R.layout.item_message, response));
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -1434,7 +1435,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 xindianList.setVisibility(View.GONE);
                 llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
-                setTiwenChart();
+//                setTiwenChart();
                 getTiwen(weekAgoTime + "", currentTime + "");
                 break;
             case R.id.rb_record_blood_pressure://血压
@@ -1514,7 +1515,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 llTime.check(R.id.one_week);
                 break;
             case R.id.rb_record_ecg://心电图
-                temp="9";
+                temp = "9";
                 tiwenChart.setVisibility(View.GONE);
                 xueyaChart.setVisibility(View.GONE);
                 xuetangChart.setVisibility(View.GONE);
@@ -1608,7 +1609,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXueniaosuan(weekAgoTime + "", currentTime + "");
                         break;
                     case "9":
-                        getXindian(weekAgoTime+"",currentTime+"");
+                        getXindian(weekAgoTime + "", currentTime + "");
                         break;
                 }
                 break;
