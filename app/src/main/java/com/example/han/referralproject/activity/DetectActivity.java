@@ -1015,6 +1015,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         onDetect= (AVLoadingIndicatorView) findViewById(R.id.onDetect);
         if (detectType == Type_XinDian){
             onDetect.show();
+//            showAnimation();
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
@@ -1397,6 +1398,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
      */
 //    private void showAnimation(){
 //        Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
-//        onDetectView.startAnimation(animation);
+//        onDetect.startAnimation(animation);
 //    }
 }
