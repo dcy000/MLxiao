@@ -98,13 +98,24 @@ public class AssistiveTouchService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+
+        int currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        mSeekBar.setProgress(currentVolume);
+
         return super.onStartCommand(intent, flags, startId);
+
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
+
+
 
     private void init() {
         mTimer = new Timer();
@@ -130,9 +141,7 @@ public class AssistiveTouchService extends Service {
         //初始化音频管理器
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
-        int currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-        mSeekBar.setProgress(currentVolume);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // fromUser直接来自于用户拖动为true，否则为false
             @Override

@@ -164,8 +164,6 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-
-
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -256,6 +254,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.HOME"/>
@@ -280,7 +279,10 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.VideoDemo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+
+        </activity>
         <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />

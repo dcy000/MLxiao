@@ -13,6 +13,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -708,6 +709,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         Log.i("mylog", "chara uuid : " + characteristic.getUuid() + "\n" + "service uuid : " + gattServices.get(0).getUuid());
 //        boolean isSuccess = readMessage();
 //        Log.i("mylog1", "is Success " + isSuccess);
+    }
+
+    //防止VedioView导致内存泄露
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new ContextWrapper(newBase)
+        {
+            @Override
+            public Object getSystemService(String name)
+            {
+                if (Context.AUDIO_SERVICE.equals(name))
+                    return getApplicationContext().getSystemService(name);
+                return super.getSystemService(name);
+            }
+        });
     }
 
     @Override

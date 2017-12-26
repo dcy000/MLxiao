@@ -28,6 +28,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
+import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
@@ -39,6 +40,7 @@ import com.example.han.referralproject.music.PlayFragment;
 import com.example.han.referralproject.music.PlayService;
 import com.example.han.referralproject.music.ScreenUtils;
 import com.example.han.referralproject.music.SearchMusic;
+import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
@@ -219,13 +221,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-        mediaPlayer = new MediaPlayer();
+       /* mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 findViewById(R.id.iat_recognizes).performClick();
             }
-        });
+        });*/
 
 
         if (!checkServiceAlive()) {
@@ -461,9 +463,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             // 开始听写
             // 如何判断一次听写结束：OnResult isLast=true 或者 onError
             case R.id.iat_recognizes:
-                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+              /*  if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
-                }
+                }*/
                 //mResultText.setText(null);// 清空显示内容
                 mIatResults.clear();
                 // 设置参数
@@ -574,7 +576,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         printResult(results);
         if (isLast) {
             String result = resultBuffer.toString();
-            ToastUtil.showShort(this,result);
+            ToastUtil.showShort(this, result);
             String inSpell = PinYinUtils.converterToSpell(result);
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
@@ -589,6 +591,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 String tip = String.format(Locale.CHINA,
                         "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
                 speak(tip);
+                return;
+            }
+
+            if (inSpell.matches("gerenzhongxin")) {
+                Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
+                startActivity(intent);
+                return;
+            }
+
+            if (inSpell.matches("yishengjianyi")) {
+                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
+                startActivity(intent);
                 return;
             }
 
@@ -885,7 +899,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 finish();
             } else if (inSpell.matches(".*mai.*dongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
                     inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
-                    inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou")  ||
+                    inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou") ||
                     result.contains("丢") || result.contains("不能用")) {
 
                 Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
@@ -1209,7 +1223,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
-    private MediaPlayer mediaPlayer;//MediaPlayer对象
+    //private MediaPlayer mediaPlayer;//MediaPlayer对象
     private File file;//要播放的文件
 
 
@@ -1346,10 +1360,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mTts.destroy();
         }
 
-        if (mediaPlayer.isPlaying()) {
+     /*   if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
         }
-        mediaPlayer.release();
+        mediaPlayer.release();*/
 
 
         if (mRemoteReceiver != null) {

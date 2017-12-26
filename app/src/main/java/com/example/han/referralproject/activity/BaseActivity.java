@@ -67,7 +67,7 @@ public class BaseActivity extends AppCompatActivity {
     private SpeechRecognizer mIat;
     private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
-    private boolean enableListeningLoop;
+    private boolean enableListeningLoop = true;
     private LinearLayout rootView;
     private View mTitleView;
     protected TextView mTitleText;
@@ -100,7 +100,6 @@ public class BaseActivity extends AppCompatActivity {
 
         rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (70 * mResources.getDisplayMetrics().density)));
         initToolbar();
-        enableListeningLoop = true;
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer == null) {
             mIat = SpeechRecognizer.createRecognizer(this, mTtsInitListener);
@@ -108,11 +107,7 @@ public class BaseActivity extends AppCompatActivity {
             mIat = recognizer;
         }
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer == null) {
-            mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
-        } else {
-            mTts = synthesizer;
-        }
+
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
 
         if (mMediaRecorder == null)
@@ -235,7 +230,6 @@ public class BaseActivity extends AppCompatActivity {
                 //    showTip("初始化失败,错误码：" + code);
             } else {
                 // 设置参数
-                setSynthesizerParams();
                 setRecognizerParams();
                 // 初始化成功，之后可以调用startSpeaking方法
                 // 注：有的开发者在onCreate方法中创建完合成对象之后马上就调用startSpeaking进行合成，
@@ -244,7 +238,6 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-
     protected void speak(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
@@ -252,12 +245,31 @@ public class BaseActivity extends AppCompatActivity {
         stopListening();
         synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer == null) {
-            synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
+            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
+            return;
         }
         setSynthesizerParams();
-
         synthesizer.startSpeaking(text, mTtsListener);
     }
+
+    private class SynthesizerInitListener implements InitListener {
+        private String mText;
+
+        SynthesizerInitListener(String text) {
+            mText = text;
+        }
+
+        @Override
+        public void onInit(int code) {
+            if (code == ErrorCode.SUCCESS) {
+                setSynthesizerParams();
+                if (!TextUtils.isEmpty(mText)) {
+                    SpeechSynthesizer.getSynthesizer().startSpeaking(mText, mTtsListener);
+                }
+            }
+        }
+    }
+
 
     public void stopSpeaking() {
 
@@ -273,8 +285,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void startListening() {
-        setRecognizerParams();
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
+        if (recognizer == null) {
+            SpeechRecognizer.createRecognizer(this.getApplicationContext(), mTtsInitListener);
+            recognizer = SpeechRecognizer.getRecognizer();
+        }
+        setRecognizerParams();
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (enableListeningLoop && recognizer != null && !recognizer.isListening() && synthesizer != null && !synthesizer.isSpeaking()) {
             recognizer.startListening(mIatListener);
@@ -560,6 +576,12 @@ public class BaseActivity extends AppCompatActivity {
         if (recognizer != null && recognizer.isListening()) {
             recognizer.stopListening();
         }
+        if(mMediaRecorder!=null){
+            isAlive = false;
+            mMediaRecorder.release();
+            mMediaRecorder = null;
+        }
+        Handlers.ui().removeCallbacks(updateVolumeAction);
         super.onPause();
     }
 
@@ -579,14 +601,5 @@ public class BaseActivity extends AppCompatActivity {
             return;
         }
         mDialog.dismiss();
-    }
-
-    @Override
-    protected void onDestroy() {
-        isAlive = false;
-        mMediaRecorder.release();
-        mMediaRecorder = null;
-        Handlers.ui().removeCallbacks(updateVolumeAction);
-        super.onDestroy();
     }
 }
