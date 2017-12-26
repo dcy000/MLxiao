@@ -200,7 +200,7 @@ public class RegisterVideoActivity extends BaseActivity {
     });
 
 
-    private MediaPlayer mediaPlayer;//MediaPlayer对象
+    //private MediaPlayer mediaPlayer;//MediaPlayer对象
 
 
     @Override
@@ -208,9 +208,9 @@ public class RegisterVideoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
+      //  mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
-        mediaPlayer.start();//播放音乐
+      //  mediaPlayer.start();//播放音乐
 
         // speak(getString(R.string.facc_register));
 
@@ -266,7 +266,7 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
 
-        mediaPlayer.pause();
+        //mediaPlayer.pause();
     }
 
     private void setSurfaceSize() {
@@ -407,7 +407,7 @@ public class RegisterVideoActivity extends BaseActivity {
         //    mAuthid = MyApplication.getInstance().userId;
 
 
-        mHandler.sendEmptyMessageDelayed(0, 3000);
+        mHandler.sendEmptyMessageDelayed(0, 2500);
 
 
     }

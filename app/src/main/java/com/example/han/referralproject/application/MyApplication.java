@@ -81,9 +81,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         LeakCanary.install(this);
-
-        UiUtils.init(this, 1980, 1200);
-        UiUtils.compat(this, 1980);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);
         T.init(this);

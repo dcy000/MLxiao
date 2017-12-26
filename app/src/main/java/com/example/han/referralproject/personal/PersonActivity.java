@@ -299,47 +299,17 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
-
+        Log.e("===================", Utils.getDeviceId());
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
             public void onSuccess(final RobotAmount response) {
 
-                mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
 
+                if (response.getAmount() != null) {
 
-               /* amount = Double.parseDouble(response.getAmount());
-                NetworkApi.checkNotContract(Utils.getDeviceId(), new NetworkManager.SuccessCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object responses) {
+                    mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
 
-                        mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-
-
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-
-
-                        NetworkApi.getEqPreAmount(new NetworkManager.SuccessCallback<RobotAmount>() {
-                            @Override
-                            public void onSuccess(RobotAmount response) {
-
-                                amounts = amount - Double.parseDouble(response.getAmount());
-
-                                mTextView3.setText(String.format(getString(R.string.robot_amount), amounts + ""));
-
-
-                            }
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-
-
-                            }
-                        });
-                    }
-                });*/
+                }
 
 
             }
