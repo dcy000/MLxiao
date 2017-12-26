@@ -110,7 +110,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
     public ImageView mImageView;
 
-    public ImageView mButton;
+    public RelativeLayout mButton;
 
 
     private Handler mHandler = new Handler(new Handler.Callback() {
@@ -214,7 +214,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
         // speak(getString(R.string.facc_register));
 
-        mButton = (ImageView) findViewById(R.id.tiao_guo);
+        mButton = (RelativeLayout) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

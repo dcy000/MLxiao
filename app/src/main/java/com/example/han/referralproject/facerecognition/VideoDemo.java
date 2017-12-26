@@ -113,7 +113,7 @@ public class VideoDemo extends BaseActivity {
     String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
-    public ImageView mImageView;
+    public RelativeLayout mImageView;
     Bitmap b3;
     String signs;
     String orderid;
@@ -130,6 +130,7 @@ public class VideoDemo extends BaseActivity {
     private String[] accounts;
 
     Button mButton;
+    RelativeLayout mRelativeLayout;
 
     private String jump;
 
@@ -163,7 +164,7 @@ public class VideoDemo extends BaseActivity {
         dialog2 = new NDialog2(VideoDemo.this);
 
 
-        mImageView = (ImageView) findViewById(R.id.tiao_guo);
+        mImageView = (RelativeLayout) findViewById(R.id.tiao_guo);
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,7 +173,7 @@ public class VideoDemo extends BaseActivity {
         });
 
         mButton = (Button) findViewById(R.id.tiao_guos);
-
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.tiao_RelativeLayout);
 
         if ("1".equals(signs)) {//支付过来
             mImageView.setVisibility(View.GONE);
@@ -188,6 +189,17 @@ public class VideoDemo extends BaseActivity {
                 Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        mRelativeLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
+                startActivity(intent);
+                finish();
+
             }
         });
 
@@ -368,7 +380,9 @@ public class VideoDemo extends BaseActivity {
 //            showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
 //        }
     }
-    private int first_match=3;//第一次匹配本机账号使用
+
+    private int first_match = 3;//第一次匹配本机账号使用
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -401,10 +415,10 @@ public class VideoDemo extends BaseActivity {
 
                         }
                         if (null != mImageData && null != mAuthid) {
-                            if("Test".equals(fromString)&&mAuthid!=null&&first_match>0){
+                            if ("Test".equals(fromString) && mAuthid != null && first_match > 0) {
                                 mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
                                 first_match--;
-                            }else if ("Test".equals(fromString) && indexXfid > 0&&accounts!=null) {
+                            } else if ("Test".equals(fromString) && indexXfid > 0 && accounts != null) {
                                 mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfid[indexXfid % accounts.length]);
                                 choosedXfid = xfid[indexXfid % accounts.length];
                                 indexXfid--;
