@@ -226,6 +226,7 @@ public class VideoDemo extends BaseActivity {
     protected void onStop() {
         super.onStop();
 
+        sign = false;
         mediaPlayer.pause();
     }
 
@@ -440,40 +441,6 @@ public class VideoDemo extends BaseActivity {
 
         }
     }
-
-
-    public Bitmap getCircleBitmap(Bitmap bitmap) {
-        if (bitmap == null) {
-            return null;
-        }
-        try {
-            Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(circleBitmap);
-            final Paint paint = new Paint();
-            final Rect rect = new Rect(0, 0, bitmap.getWidth(),
-                    bitmap.getHeight());
-            final RectF rectF = new RectF(new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
-            float roundPx = 0.0f;
-            // 以较短的边为标准
-            if (bitmap.getWidth() > bitmap.getHeight()) {
-                roundPx = bitmap.getHeight() / 2.0f;
-            } else {
-                roundPx = bitmap.getWidth() / 2.0f;
-            }
-            paint.setAntiAlias(true);
-            canvas.drawARGB(0, 0, 0, 0);
-            paint.setColor(Color.WHITE);
-            canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-            final Rect src = new Rect(0, 0, bitmap.getWidth(),
-                    bitmap.getHeight());
-            canvas.drawBitmap(bitmap, src, rect, paint);
-            return circleBitmap;
-        } catch (Exception e) {
-            return bitmap;
-        }
-    }
-
 
     public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
         if (null == bitmap || edgeLength <= 0) {
@@ -804,10 +771,11 @@ public class VideoDemo extends BaseActivity {
         mStopTrack = true;
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sign = false;
+
 //        if (null != mFaceDetector) {
 //            // 销毁对象
 //            mFaceDetector.destroy();
