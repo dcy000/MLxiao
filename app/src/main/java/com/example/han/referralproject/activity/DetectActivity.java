@@ -820,19 +820,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
-        mRightView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DetectActivity.this,MainActivity.class));
-                finish();
-            }
-        });
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                startSearch();
-
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -1181,7 +1173,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_Xueya:
                         deviceName = "eBlood-Pressure";
-                        //deviceName = "Dual-SPP";
+//                        deviceName = "Dual-SPP";
                         break;
                     case Type_XueTang:
                         deviceName = "Bioland-BGM";
@@ -1203,15 +1195,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                 }
 
-//                if (detectType == Type_Xueya && deviceName.equals(device.getName())){
-//                    try {
-//                        stopSearch();
-//                        XueyaUtils.connect(device, xueyaHandler);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    return;
-//                }
+                if (detectType == Type_Xueya && "Dual-SPP".equals(device.getName())){
+                    try {
+                        stopSearch();
+                        XueyaUtils.connect(device, xueyaHandler);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return;
+                }
 
 //                if (deviceName.equals(device.getName())) {
                 if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith(deviceName)) {

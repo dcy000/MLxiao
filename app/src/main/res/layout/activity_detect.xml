@@ -1028,9 +1028,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true">
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="60dp"
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:padding="10dp"
                 android:background="@drawable/selector_bg_btn"
                 android:gravity="center"
                 android:text="@string/tiao_zhuan"
