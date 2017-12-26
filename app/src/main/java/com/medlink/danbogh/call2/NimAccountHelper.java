@@ -64,6 +64,9 @@ public class NimAccountHelper {
         future.setCallback(new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {
+                if (param == null){
+                    return;
+                }
                 setAccount(param.getAccount());
                 setToken(param.getToken());
                 if (callback != null) {
