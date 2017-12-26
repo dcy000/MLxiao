@@ -219,13 +219,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-        mediaPlayer = new MediaPlayer();
+       /* mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 findViewById(R.id.iat_recognizes).performClick();
             }
-        });
+        });*/
 
 
         if (!checkServiceAlive()) {
@@ -461,9 +461,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             // 开始听写
             // 如何判断一次听写结束：OnResult isLast=true 或者 onError
             case R.id.iat_recognizes:
-                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+              /*  if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
-                }
+                }*/
                 //mResultText.setText(null);// 清空显示内容
                 mIatResults.clear();
                 // 设置参数
@@ -1209,7 +1209,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
-    private MediaPlayer mediaPlayer;//MediaPlayer对象
+    //private MediaPlayer mediaPlayer;//MediaPlayer对象
     private File file;//要播放的文件
 
 
@@ -1346,10 +1346,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mTts.destroy();
         }
 
-        if (mediaPlayer.isPlaying()) {
+     /*   if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
         }
-        mediaPlayer.release();
+        mediaPlayer.release();*/
 
 
         if (mRemoteReceiver != null) {
