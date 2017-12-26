@@ -248,14 +248,21 @@ public class BaseActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(text)) {
             return;
         }
+        provideSynthesizer();
         stopListening();
-        synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer == null) {
-            synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
-        }
         setSynthesizerParams();
 
         synthesizer.startSpeaking(text, mTtsListener);
+    }
+
+    private synchronized void provideSynthesizer() {
+        synthesizer = SpeechSynthesizer.getSynthesizer();
+        if (synthesizer == null) {
+            synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
+            if (synthesizer == null) {
+                provideSynthesizer();
+            }
+        }
     }
 
     public void stopSpeaking() {
