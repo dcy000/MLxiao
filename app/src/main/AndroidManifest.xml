@@ -164,8 +164,6 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-
-
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -256,15 +254,21 @@
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d625bf19a41ae50cdd4a6457b8afe9e12e7e5a4
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8d625bf19a41ae50cdd4a6457b8afe9e12e7e5a4
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
