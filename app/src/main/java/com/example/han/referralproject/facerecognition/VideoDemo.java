@@ -84,7 +84,6 @@ import org.json.JSONObject;
 
 
 public class VideoDemo extends BaseActivity {
-    private final static String TAG = VideoDemo.class.getSimpleName();
     private SurfaceView mPreviewSurface;
     private SurfaceView mFaceSurface;
     private Camera mCamera;
@@ -99,25 +98,18 @@ public class VideoDemo extends BaseActivity {
     private Matrix mScaleMatrix = new Matrix();
     // 加速度感应器，用于获取手机的朝向
     private Accelerometer mAcc;
-    // FaceDetector对象，集成了离线人脸识别：人脸检测、视频流检测功能
-//    private FaceDetector mFaceDetector;
     private boolean mStopTrack;
     private Toast mToast;
-    private long mLastClickTime;
-    private int isAlign = 0;
-    //ImageView mImageView;
     private byte[] mImageData = null;
-    boolean sign = true;
-    //   SharedPreferences sharedPreferences;
-
-    String mAuthid;
+    private boolean sign = true;
+    private String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
     public RelativeLayout mImageView;
-    Bitmap b3;
-    String signs;
-    String orderid;
-    NDialog2 dialog2;
+    private Bitmap b3;
+    private String signs;
+    private String orderid;
+    private NDialog2 dialog2;
 
     private MediaPlayer mediaPlayer;//MediaPlayer对象
 
@@ -129,8 +121,8 @@ public class VideoDemo extends BaseActivity {
     private HashMap<String, String> map;
     private String[] accounts;
 
-    Button mButton;
-    RelativeLayout mRelativeLayout;
+    private Button mButton;
+    private RelativeLayout mRelativeLayout;
 
     private String jump;
 
@@ -142,8 +134,8 @@ public class VideoDemo extends BaseActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
 
         mediaPlayer.start();//播放音乐
-
         map = new HashMap<>();
+        //获取所有账号
         accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts != null) {
             indexXfid = accounts.length * 5;
@@ -154,6 +146,7 @@ public class VideoDemo extends BaseActivity {
             }
         }
         choosedXfid = MyApplication.getInstance().xfid;//默认选中的是当前的讯飞id;
+
         Intent intent = getIntent();
         signs = intent.getStringExtra("sign");
         orderid = intent.getStringExtra("orderid");
@@ -226,6 +219,7 @@ public class VideoDemo extends BaseActivity {
     protected void onStop() {
         super.onStop();
 
+        sign = false;
         mediaPlayer.pause();
     }
 
@@ -440,40 +434,6 @@ public class VideoDemo extends BaseActivity {
 
         }
     }
-
-
-    public Bitmap getCircleBitmap(Bitmap bitmap) {
-        if (bitmap == null) {
-            return null;
-        }
-        try {
-            Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(circleBitmap);
-            final Paint paint = new Paint();
-            final Rect rect = new Rect(0, 0, bitmap.getWidth(),
-                    bitmap.getHeight());
-            final RectF rectF = new RectF(new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
-            float roundPx = 0.0f;
-            // 以较短的边为标准
-            if (bitmap.getWidth() > bitmap.getHeight()) {
-                roundPx = bitmap.getHeight() / 2.0f;
-            } else {
-                roundPx = bitmap.getWidth() / 2.0f;
-            }
-            paint.setAntiAlias(true);
-            canvas.drawARGB(0, 0, 0, 0);
-            paint.setColor(Color.WHITE);
-            canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-            final Rect src = new Rect(0, 0, bitmap.getWidth(),
-                    bitmap.getHeight());
-            canvas.drawBitmap(bitmap, src, rect, paint);
-            return circleBitmap;
-        } catch (Exception e) {
-            return bitmap;
-        }
-    }
-
 
     public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
         if (null == bitmap || edgeLength <= 0) {
@@ -804,10 +764,11 @@ public class VideoDemo extends BaseActivity {
         mStopTrack = true;
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sign = false;
+
 //        if (null != mFaceDetector) {
 //            // 销毁对象
 //            mFaceDetector.destroy();

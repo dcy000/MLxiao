@@ -717,9 +717,11 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                tiwenChart.setNoDataText(getResources().getString(R.string.noData));
-                tiwenChart.setData(null);
-                tiwenChart.invalidate();
+                if(tiwenChart!=null){
+                    tiwenChart.setNoDataText(getResources().getString(R.string.noData));
+                    tiwenChart.setData(null);
+                    tiwenChart.invalidate();
+                }
             }
         });
     }
@@ -770,9 +772,11 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                xueyaChart.setNoDataText(getResources().getString(R.string.noData));
-                xueyaChart.setData(null);
-                xueyaChart.invalidate();
+                if(xueyaChart!=null){
+                    xueyaChart.setNoDataText(getResources().getString(R.string.noData));
+                    xueyaChart.setData(null);
+                    xueyaChart.invalidate();
+                }
             }
         });
     }
@@ -848,9 +852,11 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                xuetangChart.setNoDataText(getResources().getString(R.string.noData));
-                xuetangChart.setData(null);
-                xuetangChart.invalidate();
+                if(xuetangChart!=null){
+                    xuetangChart.setNoDataText(getResources().getString(R.string.noData));
+                    xuetangChart.setData(null);
+                    xuetangChart.invalidate();
+                }
             }
         });
     }
@@ -889,9 +895,11 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                xueyangChart.setNoDataText(getResources().getString(R.string.noData));
-                xueyangChart.setData(null);
-                xueyangChart.invalidate();
+                if(xueyangChart!=null){
+                    xueyangChart.setNoDataText(getResources().getString(R.string.noData));
+                    xueyangChart.setData(null);
+                    xueyangChart.invalidate();
+                }
             }
         });
     }
@@ -933,9 +941,11 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                danguchunChart.setNoDataText(getResources().getString(R.string.noData));
-                danguchunChart.setData(null);
-                danguchunChart.invalidate();
+                if(danguchunChart!=null){
+                    danguchunChart.setNoDataText(getResources().getString(R.string.noData));
+                    danguchunChart.setData(null);
+                    danguchunChart.invalidate();
+                }
             }
         });
     }
@@ -976,9 +986,11 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                xueniaosuanChart.setNoDataText(getResources().getString(R.string.noData));
-                xueniaosuanChart.setData(null);
-                xueniaosuanChart.invalidate();
+                if(xueniaosuanChart!=null){
+                    xueniaosuanChart.setNoDataText(getResources().getString(R.string.noData));
+                    xueniaosuanChart.setData(null);
+                    xueniaosuanChart.invalidate();
+                }
             }
         });
     }

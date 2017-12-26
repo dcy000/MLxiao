@@ -256,12 +256,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(int which) {
                         if (which == 1) {
-
-                           /* Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-
-                            startActivity(intent);
-*/
-
                         }
 
                     }
@@ -270,4 +264,12 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        dialog2.create(NDialog.CONFIRM).cancel();
+        dialog2 = null;
+
+    }
 }
