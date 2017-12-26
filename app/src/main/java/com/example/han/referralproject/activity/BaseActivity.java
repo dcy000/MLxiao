@@ -107,11 +107,7 @@ public class BaseActivity extends AppCompatActivity {
             mIat = recognizer;
         }
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer == null) {
-            mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
-        } else {
-            mTts = synthesizer;
-        }
+
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
 
         if (mMediaRecorder == null)
@@ -234,7 +230,6 @@ public class BaseActivity extends AppCompatActivity {
                 //    showTip("初始化失败,错误码：" + code);
             } else {
                 // 设置参数
-                setSynthesizerParams();
                 setRecognizerParams();
                 // 初始化成功，之后可以调用startSpeaking方法
                 // 注：有的开发者在onCreate方法中创建完合成对象之后马上就调用startSpeaking进行合成，
@@ -243,27 +238,38 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-
     protected void speak(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
-        provideSynthesizer();
         stopListening();
+        synthesizer = SpeechSynthesizer.getSynthesizer();
+        if (synthesizer == null) {
+            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
+            return;
+        }
         setSynthesizerParams();
-
         synthesizer.startSpeaking(text, mTtsListener);
     }
 
-    private synchronized void provideSynthesizer() {
-        synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer == null) {
-            synthesizer = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
-            if (synthesizer == null) {
-                provideSynthesizer();
+    private class SynthesizerInitListener implements InitListener {
+        private String mText;
+
+        SynthesizerInitListener(String text) {
+            mText = text;
+        }
+
+        @Override
+        public void onInit(int code) {
+            if (code == ErrorCode.SUCCESS) {
+                setSynthesizerParams();
+                if (!TextUtils.isEmpty(mText)) {
+                    SpeechSynthesizer.getSynthesizer().startSpeaking(mText, mTtsListener);
+                }
             }
         }
     }
+
 
     public void stopSpeaking() {
 
