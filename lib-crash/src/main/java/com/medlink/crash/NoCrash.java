@@ -42,9 +42,9 @@ public class NoCrash implements CrashHelper.OnCrashListener {
         private static NoCrash sInstance = new NoCrash();
     }
 
-     private NoCrash () {
+    private NoCrash () {
 
-     }
+    }
 
     @Override
     public void onCrash(Thread thread, Throwable throwable) {
@@ -130,7 +130,6 @@ public class NoCrash implements CrashHelper.OnCrashListener {
     }
 
     public void uninstall() {
-        Holder.sInstance = null;
         CrashHelper.uninstall();
     }
 }

@@ -11,7 +11,7 @@ public class CrashHelper {
 
     private static volatile boolean sIsInstalled = false;
 
-    private static OnCrashListener sOnCrashListener;
+     private static OnCrashListener sOnCrashListener;
 
     private static Thread.UncaughtExceptionHandler sDefaultUncaughtExceptionHandler;
 
