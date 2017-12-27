@@ -3,6 +3,7 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,7 +42,8 @@ public class AlertHeightActivity extends BaseActivity {
     protected SelectAdapter adapter;
     protected ArrayList<String> mStrings;
     protected UserInfoBean data;
-    protected String eat = "",smoke="",drink="",exercise="";
+    protected String eat = "", smoke = "", drink = "", exercise = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,63 +53,71 @@ public class AlertHeightActivity extends BaseActivity {
         mTitleText.setText("修改身高");
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
-        data= (UserInfoBean) getIntent().getSerializableExtra("data");
+        data = (UserInfoBean) getIntent().getSerializableExtra("data");
         initView();
     }
-    protected void initView() {
 
-        switch (data.eating_habits){
-            case "荤素搭配":
-                eat="1";
-                break;
-            case "偏好吃荤":
-                eat="2";
-                break;
-            case "偏好吃素":
-                eat="3";
-                break;
-            case "偏好吃咸":
-                break;
-            case "偏好油腻":
-                break;
-            case "偏好甜食":
-                break;
+    protected void initView() {
+        if (!TextUtils.isEmpty(data.eating_habits)) {
+            switch (data.eating_habits) {
+                case "荤素搭配":
+                    eat = "1";
+                    break;
+                case "偏好吃荤":
+                    eat = "2";
+                    break;
+                case "偏好吃素":
+                    eat = "3";
+                    break;
+                case "偏好吃咸":
+                    break;
+                case "偏好油腻":
+                    break;
+                case "偏好甜食":
+                    break;
+            }
         }
-        switch (data.smoke){
-            case "经常抽烟":
-                smoke="1";
-                break;
-            case "偶尔抽烟":
-                smoke="2";
-                break;
-            case "从不抽烟":
-                smoke="3";
-                break;
+        if (!TextUtils.isEmpty(data.smoke)) {
+            switch (data.smoke) {
+                case "经常抽烟":
+                    smoke = "1";
+                    break;
+                case "偶尔抽烟":
+                    smoke = "2";
+                    break;
+                case "从不抽烟":
+                    smoke = "3";
+                    break;
+            }
         }
-        switch (data.drink){
-            case "经常喝酒":
-                smoke="1";
-                break;
-            case "偶尔喝酒":
-                smoke="2";
-                break;
-            case "从不喝酒":
-                smoke="3";
-                break;
+        if (!TextUtils.isEmpty(data.drink)) {
+            switch (data.drink) {
+                case "经常喝酒":
+                    smoke = "1";
+                    break;
+                case "偶尔喝酒":
+                    smoke = "2";
+                    break;
+                case "从不喝酒":
+                    smoke = "3";
+                    break;
+            }
         }
-        switch (data.exercise_habits){
-            case "每天一次":
-                exercise="1";
-                break;
-            case "每周几次":
-                exercise="2";
-                break;
-            case "偶尔运动":
-                exercise="3";
-                break;
-            case "从不运动":
-                exercise="4";
-                break;
+        if (!TextUtils.isEmpty(data.exercise_habits)) {
+            switch (data.exercise_habits) {
+                case "每天一次":
+                    exercise = "1";
+                    break;
+                case "每周几次":
+                    exercise = "2";
+                    break;
+                case "偶尔运动":
+                    exercise = "3";
+                    break;
+                case "从不运动":
+                    exercise = "4";
+                    break;
+            }
         }
 
         tvSignUpUnit.setText("cm");
@@ -131,6 +141,7 @@ public class AlertHeightActivity extends BaseActivity {
         });
         rvSignUpContent.setAdapter(adapter);
     }
+
     protected List<String> getStrings() {
         mStrings = new ArrayList<>();
         for (int i = 150; i < 200; i++) {
@@ -138,16 +149,20 @@ public class AlertHeightActivity extends BaseActivity {
         }
         return mStrings;
     }
+
     private void select(String text) {
         T.show(text);
     }
+
     protected int geTip() {
         return R.string.sign_up_height_tip;
     }
+
     @OnClick(R.id.tv_sign_up_go_back)
-    public void onTvGoBackClicked(){
+    public void onTvGoBackClicked() {
         finish();
     }
+
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         final String height = mStrings.get(selectedPosition);
@@ -156,7 +171,7 @@ public class AlertHeightActivity extends BaseActivity {
             @Override
             public void onSuccess(Object response) {
                 ToastUtils.show("修改成功");
-                speak("主人，您的身高已经修改为"+height+"厘米");
+                speak("主人，您的身高已经修改为" + height + "厘米");
 
             }
         }, new NetworkManager.FailedCallback() {

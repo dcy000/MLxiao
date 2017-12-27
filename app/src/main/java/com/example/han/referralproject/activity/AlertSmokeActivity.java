@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,59 +57,69 @@ public class AlertSmokeActivity extends BaseActivity {
 
 
     private void initView() {
-        switch (data.eating_habits){
-            case "荤素搭配":
-                eat="1";
-                break;
-            case "偏好吃荤":
-                eat="2";
-                break;
-            case "偏好吃素":
-                eat="3";
-                break;
-            case "偏好吃咸":
-                break;
-            case "偏好油腻":
-                break;
-            case "偏好甜食":
-                break;
+        if(!TextUtils.isEmpty(data.eating_habits)){
+            switch (data.eating_habits){
+                case "荤素搭配":
+                    eat="1";
+                    break;
+                case "偏好吃荤":
+                    eat="2";
+                    break;
+                case "偏好吃素":
+                    eat="3";
+                    break;
+                case "偏好吃咸":
+                    break;
+                case "偏好油腻":
+                    break;
+                case "偏好甜食":
+                    break;
+            }
         }
-        switch (data.smoke){
-            case "经常吸烟":
-                smoke="1";
-                break;
-            case "偶尔吸烟":
-                smoke="2";
-                break;
-            case "从不吸烟":
-                smoke="3";
-                break;
+        if (!TextUtils.isEmpty(data.smoke)) {
+            switch (data.smoke){
+                case "经常吸烟":
+                    smoke="1";
+                    break;
+                case "偶尔吸烟":
+                    smoke="2";
+                    break;
+                case "从不吸烟":
+                    smoke="3";
+                    break;
+            }
         }
-        switch (data.drink){
-            case "经常喝酒":
-                smoke="1";
-                break;
-            case "偶尔喝酒":
-                smoke="2";
-                break;
-            case "从不喝酒":
-                smoke="3";
-                break;
+        if (!TextUtils.isEmpty(data.drink)) {
+            switch (data.drink){
+                case "经常喝酒":
+                    smoke="1";
+                    break;
+                case "偶尔喝酒":
+                    smoke="2";
+                    break;
+                case "从不喝酒":
+                    smoke="3";
+                    break;
+            }
         }
-        switch (data.exercise_habits){
-            case "每天一次":
-                exercise="1";
-                break;
-            case "每周几次":
-                exercise="2";
-                break;
-            case "偶尔运动":
-                exercise="3";
-                break;
-            case "从不运动":
-                exercise="4";
-                break;
+
+        if(!TextUtils.isEmpty(data.exercise_habits)){
+            switch (data.exercise_habits){
+                case "每天一次":
+                    exercise="1";
+                    break;
+                case "每周几次":
+                    exercise="2";
+                    break;
+                case "偶尔运动":
+                    exercise="3";
+                    break;
+                case "从不运动":
+                    exercise="4";
+                    break;
+            }
         }
+
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         rvSignUpContent.setLayoutManager(layoutManager);
