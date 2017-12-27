@@ -742,6 +742,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case R.id.xueyang_video:
                 resourceId = R.raw.tips_xueyang;
                 break;
+            case R.id.xindian_video:
+                resourceId = R.raw.tips_xindian;
+                break;
             case R.id.view_over://跳过演示视频
                 if (mVideoView != null) {
                     mVideoView.setVisibility(View.GONE);
@@ -1058,6 +1061,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xueya_video).setOnClickListener(this);
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
+        findViewById(R.id.xindian_video).setOnClickListener(this);
         //选择血糖测量的时间
         setXuetangSelectTime();
     }

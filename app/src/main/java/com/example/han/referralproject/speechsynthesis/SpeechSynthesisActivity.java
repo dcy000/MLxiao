@@ -5,13 +5,16 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +25,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieDrawable;
+import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -164,6 +171,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     SharedPreferences sharedPreferences;
 
     ImageView mImageView;
+    private LottieAnimationView mLottieView;
 
 
     @Override
@@ -202,6 +210,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
+        mLottieView = (LottieAnimationView) findViewById(R.id.animation_view);
 
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
@@ -251,7 +260,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         setEnableListeningLoop(false);
+        mLottieView.resumeAnimation();
+    }
 
+    @Override
+    protected void onPause() {
+        mLottieView.pauseAnimation();
+        super.onPause();
     }
 
     @Override
@@ -329,15 +344,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     Runnable action = new Runnable() {
         @Override
         public void run() {
-            AnimationDrawable anim = new AnimationDrawable();
-            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
-            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
-            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_three), 50);
-            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
-            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
-            anim.setOneShot(true);
-            mRelativeLayout.setBackground(anim);
-            anim.start();
+//            AnimationDrawable anim = new AnimationDrawable();
+//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
+//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
+//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_three), 50);
+//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
+//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
+//            anim.setOneShot(true);
+//            mRelativeLayout.setBackground(anim);
+//            anim.start();
+            if (!mLottieView.isAnimating()) {
+                mLottieView.playAnimation();
+            }
         }
     };
 
@@ -1344,6 +1362,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void onDestroy() {
+        if (mLottieView != null) {
+            mLottieView.cancelAnimation();
+        }
         super.onDestroy();
         mIatDialog = null;
         mHandler.removeMessages(1);
