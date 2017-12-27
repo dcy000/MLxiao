@@ -20,23 +20,15 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.Doctors;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.example.han.referralproject.util.LocalShared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RecoDocActivity extends BaseActivity implements View.OnClickListener {
 

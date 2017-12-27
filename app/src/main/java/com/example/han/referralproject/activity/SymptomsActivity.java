@@ -13,7 +13,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SymptomsActivity extends BaseActivity implements View.OnClickListener {
 

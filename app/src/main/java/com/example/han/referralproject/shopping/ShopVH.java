@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.recyclerview.DoctorAdapter;
 
 /**
  * Created by han on 2017/11/24.

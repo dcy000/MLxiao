@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.recyclerview.DoctorAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

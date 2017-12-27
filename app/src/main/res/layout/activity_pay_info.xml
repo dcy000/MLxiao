@@ -58,10 +58,10 @@
 
             <ImageView
                 android:id="@+id/qrcodeImg"
-                android:layout_width="290dp"
-                android:layout_height="290dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/qrcode" />
+                android:src="@drawable/qrcode"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,10 +82,10 @@
 
             <ImageView
                 android:id="@+id/qrcodeImg1"
-                android:layout_width="290dp"
-                android:layout_height="290dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/qrcode" />
+                android:src="@drawable/qrcode"/>
 
             <TextView
                 android:layout_width="wrap_content"

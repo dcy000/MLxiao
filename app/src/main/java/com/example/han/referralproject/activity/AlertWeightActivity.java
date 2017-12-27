@@ -1,8 +1,5 @@
 package com.example.han.referralproject.activity;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 
 import com.example.han.referralproject.R;
@@ -10,8 +7,6 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.register.SignUp9BloodTypeActivity;
 
 import java.util.ArrayList;
 import java.util.List;

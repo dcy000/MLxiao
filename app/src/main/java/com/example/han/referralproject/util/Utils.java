@@ -5,16 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 
 import com.example.han.referralproject.application.MyApplication;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import static android.content.Context.TELEPHONY_SERVICE;
 
 public class Utils {
     @SuppressLint("MissingPermission")

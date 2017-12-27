@@ -8,7 +8,6 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
