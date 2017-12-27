@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by lenovo on 2017/12/26.
+ * Created by afirez on 2017/12/26.
  */
 
 public class NoCrash implements CrashHelper.OnCrashListener {

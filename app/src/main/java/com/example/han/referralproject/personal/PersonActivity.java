@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -279,7 +280,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 if ("1".equals(response.getState())) {
 
                     mTextView4.setText("已签约");
-                } else if ("0".equals(response.getState()) && (!"".equals(response.getDoctername()))) {
+                } else if ("0".equals(response.getState()) && (TextUtils.isEmpty(response.getDoctername()))) {
 
                     mTextView4.setText("未签约");
 
