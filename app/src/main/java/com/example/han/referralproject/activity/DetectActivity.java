@@ -13,6 +13,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -710,6 +711,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //        Log.i("mylog1", "is Success " + isSuccess);
     }
 
+    //防止VedioView导致内存泄露
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new ContextWrapper(newBase)
+        {
+            @Override
+            public Object getSystemService(String name)
+            {
+                if (Context.AUDIO_SERVICE.equals(name))
+                    return getApplicationContext().getSystemService(name);
+                return super.getSystemService(name);
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         int resourceId = 0;
@@ -725,6 +741,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.xueyang_video:
                 resourceId = R.raw.tips_xueyang;
+                break;
+            case R.id.xindian_video:
+                resourceId = R.raw.tips_xindian;
                 break;
             case R.id.view_over://跳过演示视频
                 if (mVideoView != null) {
@@ -820,19 +839,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
-        mRightView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DetectActivity.this,MainActivity.class));
-                finish();
-            }
-        });
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                startSearch();
-
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -1050,6 +1061,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xueya_video).setOnClickListener(this);
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
+        findViewById(R.id.xindian_video).setOnClickListener(this);
         //选择血糖测量的时间
         setXuetangSelectTime();
     }
@@ -1181,7 +1193,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_Xueya:
                         deviceName = "eBlood-Pressure";
-                        //deviceName = "Dual-SPP";
+//                        deviceName = "Dual-SPP";
                         break;
                     case Type_XueTang:
                         deviceName = "Bioland-BGM";
@@ -1203,15 +1215,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                 }
 
-//                if (detectType == Type_Xueya && deviceName.equals(device.getName())){
-//                    try {
-//                        stopSearch();
-//                        XueyaUtils.connect(device, xueyaHandler);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    return;
-//                }
+                if (detectType == Type_Xueya && "Dual-SPP".equals(device.getName())){
+                    try {
+                        stopSearch();
+                        XueyaUtils.connect(device, xueyaHandler);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return;
+                }
 
 //                if (deviceName.equals(device.getName())) {
                 if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith(deviceName)) {

@@ -241,6 +241,13 @@ public class RegisterVideoActivity extends BaseActivity {
 //        }
 
         mFaceRequest = new FaceRequest(this);
+//        findViewById(R.id.tiao_RelativeLayout).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), HeadiconActivity.class));
+//                finish();
+//            }
+//        });
     }
 
 

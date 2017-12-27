@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,71 +40,83 @@ public class AlertSportActivity extends BaseActivity {
     public List<EatModel> mModels;
     private int positionSelected = -1;
     private UserInfoBean data;
-    private String eat = "",smoke="",drink="",exercise="";
+    private String eat = "", smoke = "", drink = "", exercise = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert_sport);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("修改运动情况");
-        data= (UserInfoBean) getIntent().getSerializableExtra("data");
+        data = (UserInfoBean) getIntent().getSerializableExtra("data");
         ButterKnife.bind(this);
         initView();
     }
+
     private void initView() {
-        switch (data.eating_habits){
-            case "荤素搭配":
-                eat="1";
-                break;
-            case "偏好吃荤":
-                eat="2";
-                break;
-            case "偏好吃素":
-                eat="3";
-                break;
-            case "偏好吃咸":
-                break;
-            case "偏好油腻":
-                break;
-            case "偏好甜食":
-                break;
+        if (!TextUtils.isEmpty(data.eating_habits)) {
+            switch (data.eating_habits) {
+                case "荤素搭配":
+                    eat = "1";
+                    break;
+                case "偏好吃荤":
+                    eat = "2";
+                    break;
+                case "偏好吃素":
+                    eat = "3";
+                    break;
+                case "偏好吃咸":
+                    break;
+                case "偏好油腻":
+                    break;
+                case "偏好甜食":
+                    break;
+            }
         }
-        switch (data.smoke){
-            case "经常抽烟":
-                smoke="1";
-                break;
-            case "偶尔抽烟":
-                smoke="2";
-                break;
-            case "从不抽烟":
-                smoke="3";
-                break;
+        if (!TextUtils.isEmpty(data.smoke)) {
+            switch (data.smoke) {
+                case "经常抽烟":
+                    smoke = "1";
+                    break;
+                case "偶尔抽烟":
+                    smoke = "2";
+                    break;
+                case "从不抽烟":
+                    smoke = "3";
+                    break;
+            }
         }
-        switch (data.drink){
-            case "经常喝酒":
-                smoke="1";
-                break;
-            case "偶尔喝酒":
-                smoke="2";
-                break;
-            case "从不喝酒":
-                smoke="3";
-                break;
+        if (!TextUtils.isEmpty(data.drink)) {
+            switch (data.drink) {
+                case "经常喝酒":
+                    smoke = "1";
+                    break;
+                case "偶尔喝酒":
+                    smoke = "2";
+                    break;
+                case "从不喝酒":
+                    smoke = "3";
+                    break;
+            }
         }
-        switch (data.exercise_habits){
-            case "每天一次":
-                exercise="1";
-                break;
-            case "每周几次":
-                exercise="2";
-                break;
-            case "偶尔运动":
-                exercise="3";
-                break;
-            case "从不运动":
-                exercise="4";
-                break;
+        if (!TextUtils.isEmpty(data.exercise_habits)) {
+            switch (data.exercise_habits) {
+                case "每天一次":
+                    exercise = "1";
+                    break;
+                case "每周几次":
+                    exercise = "2";
+                    break;
+                case "偶尔运动":
+                    exercise = "3";
+                    break;
+                case "从不运动":
+                    exercise = "4";
+                    break;
+            }
         }
+
+
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
@@ -115,6 +128,7 @@ public class AlertSportActivity extends BaseActivity {
         rvSignUpContent.setAdapter(mAdapter);
 
     }
+
     private List<EatModel> eatModals() {
         mModels = new ArrayList<>(4);
         mModels.add(new EatModel(getString(R.string.everyday_sports),
@@ -139,6 +153,7 @@ public class AlertSportActivity extends BaseActivity {
                 R.drawable.bg_tv_salty_preference));
         return mModels;
     }
+
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -153,28 +168,30 @@ public class AlertSportActivity extends BaseActivity {
             mAdapter.notifyItemChanged(position);
         }
     };
+
     @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
     }
+
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, positionSelected+1+"", new NetworkManager.SuccessCallback<Object>() {
+        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, positionSelected + 1 + "", new NetworkManager.SuccessCallback<Object>() {
             @Override
             public void onSuccess(Object response) {
                 ToastUtils.show("修改成功");
-                switch (positionSelected+1){
+                switch (positionSelected + 1) {
                     case 1:
-                        speak("主人，您的运动情况已经修改为"+"每天一次");
+                        speak("主人，您的运动情况已经修改为" + "每天一次");
                         break;
                     case 2:
-                        speak("主人，您的运动情况已经修改为"+"每周几次");
+                        speak("主人，您的运动情况已经修改为" + "每周几次");
                         break;
                     case 3:
-                        speak("主人，您的运动情况已经修改为"+"偶尔运动");
+                        speak("主人，您的运动情况已经修改为" + "偶尔运动");
                         break;
                     case 4:
-                        speak("主人，您的运动情况已经修改为"+"从不运动");
+                        speak("主人，您的运动情况已经修改为" + "从不运动");
                         break;
                 }
             }
