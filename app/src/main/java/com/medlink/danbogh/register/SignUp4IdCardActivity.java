@@ -87,7 +87,7 @@ public class SignUp4IdCardActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String idCard = etIdCard.getText().toString().trim();
-        if (!Utils.checkIdCard(idCard)) {
+        if (!Utils.checkIdCard1(idCard)) {
             speak(R.string.sign_up_id_card_tip);
             return;
         }

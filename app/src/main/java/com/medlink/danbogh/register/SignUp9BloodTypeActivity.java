@@ -1,8 +1,6 @@
 package com.medlink.danbogh.register;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.util.LocalShared;

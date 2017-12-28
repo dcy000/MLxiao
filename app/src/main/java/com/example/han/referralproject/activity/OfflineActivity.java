@@ -11,18 +11,18 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 
-public class OfflineActivity extends BaseActivity implements View.OnClickListener {
+public class OfflineActivity extends BaseActivity{
 
-    public View mBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
-        mToolbar.setVisibility(View.GONE);
-        mBack = findViewById(R.id.view_back);
-        mBack.setOnClickListener(this);
-        findViewById(R.id.tv_ignore_contract).setOnClickListener(new View.OnClickListener() {
+        mToolbar.setVisibility(View.VISIBLE);
+        mLeftText.setText("线下签约");
+        mRightText.setText("暂不签约");
+        mRightView.setVisibility(View.GONE);
+        mRightText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OfflineActivity.this, MainActivity.class);
@@ -39,14 +39,6 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
         speak(getString(R.string.user_help));
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.view_back:
-                finish();
-                break;
-        }
-    }
 
     public static final String REGEX_BACK = ".*(fanhui|shangyibu).*";
 
@@ -56,7 +48,7 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
         String inSpell = PinYinUtils.converterToSpell(result);
 
         if (!TextUtils.isEmpty(inSpell) && inSpell.matches(REGEX_BACK)) {
-            mBack.performClick();
+            finish();
         }
     }
 }

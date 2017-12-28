@@ -1,11 +1,9 @@
 package com.example.han.referralproject.recharge;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;

@@ -3,7 +3,6 @@ package com.example.han.referralproject.application;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Handler;
@@ -12,14 +11,10 @@ import android.os.Process;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.ForegroundObserver;
 import com.example.han.referralproject.music.HttpInterceptor;
 import com.example.han.referralproject.music.Preferences;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
@@ -27,8 +22,6 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call.CallManager;
 import com.medlink.danbogh.call.CallReceiver;
-import com.medlink.danbogh.call.EMAccountHelper;
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
@@ -109,8 +102,7 @@ public class MyApplication extends Application {
 
         initOkHttpUtils();
 
-        BeeCloud.setAppIdAndSecret("2732d773-09a4-403d-87b4-b040d14ce4b9",
-                "ffa06c16-c2ee-4b48-a65c-795936d53cc7");
+        BeeCloud.setAppIdAndSecret("2732d773-09a4-403d-87b4-b040d14ce4b9", "ffa06c16-c2ee-4b48-a65c-795936d53cc7");
 
     }
 

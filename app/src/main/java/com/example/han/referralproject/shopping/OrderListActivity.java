@@ -3,13 +3,10 @@ package com.example.han.referralproject.shopping;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
@@ -18,14 +15,9 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
-import com.example.han.referralproject.recyclerview.Docter;
-import com.example.han.referralproject.recyclerview.DoctorAdapter;
-import com.example.han.referralproject.recyclerview.DoctorMesActivity;
-import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

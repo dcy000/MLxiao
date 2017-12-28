@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.medlink.danbogh.signin.SignInActivity;
 

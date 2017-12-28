@@ -12,17 +12,13 @@ import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,6 +40,16 @@ public class Utils {
             return false;
         }
         return phone.matches("[1][34578]\\d{9}");
+    }
+
+    public static boolean checkIdCard1(String idCard) {
+        if (idCard != null
+                && idCard.length() == 18
+                && isDate(idCard.substring(6,14))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static boolean checkIdCard(String idCard) {

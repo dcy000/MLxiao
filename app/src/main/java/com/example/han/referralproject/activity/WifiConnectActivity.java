@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
@@ -29,7 +28,6 @@ import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
-import com.suke.widget.SwitchButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +40,6 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private View mConnectedLayout;
     private TextView mConnectedWifiName;
     private WifiManager mWifiManager;
-    private Handler mHandler = new Handler();
     private boolean isFirstWifi = false;
 
     @Override
@@ -101,9 +98,6 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.tv_system:
                 startActivity(new Intent("android.net.wifi.PICK_WIFI_NETWORK"));
-                break;
-            case R.id.view_back:
-                finish();
                 break;
         }
     }

@@ -9,30 +9,19 @@ import java.util.Random;
 
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -45,39 +34,26 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
-import com.example.han.referralproject.LoadingActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.recyclerview.RecoDocActivity;
-import com.example.han.referralproject.util.FaceRect;
-import com.example.han.referralproject.util.FaceUtil;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ParseResult;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.FaceDetector;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.util.Accelerometer;
-import com.megvii.faceppidcardui.util.ConstantData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class RegisterVideoActivity extends BaseActivity {
-    private final static String TAG = VideoDemo.class.getSimpleName();
     private SurfaceView mPreviewSurface;
     private SurfaceView mFaceSurface;
     private Camera mCamera;
@@ -92,23 +68,19 @@ public class RegisterVideoActivity extends BaseActivity {
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
     // 加速度感应器，用于获取手机的朝向
-    private Accelerometer mAcc;
+  //  private Accelerometer mAcc;
     // FaceDetector对象，集成了离线人脸识别：人脸检测、视频流检测功能
 //    private FaceDetector mFaceDetector;
-    private boolean mStopTrack;
+    //private boolean mStopTrack;
     private Toast mToast;
-    private long mLastClickTime;
-    private int isAlign = 0;
-    //ImageView mImageView;
+    //private int isAlign = 0;
     private byte[] mImageData = null;
     boolean sign = true;
-    // SharedPreferences sharedPreferences;
 
     String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
 
-    public ImageView mImageView;
 
     public RelativeLayout mButton;
 
@@ -212,8 +184,6 @@ public class RegisterVideoActivity extends BaseActivity {
 
       //  mediaPlayer.start();//播放音乐
 
-        // speak(getString(R.string.facc_register));
-
         mButton = (RelativeLayout) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,22 +193,12 @@ public class RegisterVideoActivity extends BaseActivity {
         });
 
 
-        //SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
-
-        //sharedPreferences = getSharedPreferences(ConstantData.SHARED_FILE_NAME, Context.MODE_PRIVATE);
-
-
         initUI();
-        //mImageView = (ImageView) findViewById(R.id.imageview);
 
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
-        mAcc = new Accelerometer(RegisterVideoActivity.this);
-//        try {
-//            mFaceDetector = FaceDetector.createDetector(RegisterVideoActivity.this, null);
-//        } catch (SpeechError speechError) {
-//            speechError.printStackTrace();
-//        }
+        //mAcc = new Accelerometer(RegisterVideoActivity.this);
+
 
         mFaceRequest = new FaceRequest(this);
 //        findViewById(R.id.tiao_RelativeLayout).setOnClickListener(new View.OnClickListener() {
@@ -313,7 +273,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
         if (!checkCameraPermission()) {
             showTip("摄像头权限未打开，请打开后再试");
-            mStopTrack = true;
+            //mStopTrack = true;
             return;
         }
 
@@ -359,14 +319,7 @@ public class RegisterVideoActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-//        if (mFaceDetector == null) {
-//            /**
-//             * 离线视频流检测功能需要单独下载支持离线人脸的SDK
-//             * 请开发者前往语音云官网下载对应SDK
-//             */
-//            // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
-//            showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
-//        }
+
     }
 
 
@@ -411,7 +364,6 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //    mAuthid = MyApplication.getInstance().userId;
 
 
         mHandler.sendEmptyMessageDelayed(0, 2500);
@@ -543,7 +495,9 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        //    speak(R.string.tips_face);
+
+        speak(getString(R.string.facc_register));
+//            speak(R.string.tips_face);
 //        if (null != mAcc) {
 //            mAcc.start();
 //        }
@@ -625,10 +579,10 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         closeCamera();
-        if (null != mAcc) {
+      /*  if (null != mAcc) {
             mAcc.stop();
-        }
-        mStopTrack = true;
+        }*/
+     //   mStopTrack = true;
     }
 
     @Override

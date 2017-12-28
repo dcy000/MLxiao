@@ -1,9 +1,7 @@
 package com.medlink.danbogh.call;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.han.referralproject.application.MyApplication;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;

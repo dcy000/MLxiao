@@ -3,7 +3,6 @@ package com.medlink.danbogh.alarm;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 /**
  * Created by lenovo on 2017/9/19.

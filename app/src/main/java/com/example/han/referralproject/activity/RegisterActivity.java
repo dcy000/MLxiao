@@ -1,6 +1,5 @@
 package com.example.han.referralproject.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,11 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.example.han.referralproject.util.LocalShared;
 import com.mob.MobSDK;
 
 import java.util.ArrayList;

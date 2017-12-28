@@ -7,23 +7,15 @@ import java.util.HashMap;
 
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
@@ -32,21 +24,15 @@ import android.hardware.Camera.PreviewCallback;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Process;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
@@ -57,27 +43,18 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
-import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
-import com.example.han.referralproject.shopping.ShopListActivity;
-import com.example.han.referralproject.util.FaceRect;
-import com.example.han.referralproject.util.FaceUtil;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ParseResult;
 import com.example.han.referralproject.util.Utils;
-import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.FaceDetector;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.util.Accelerometer;
-import com.megvii.faceppidcardui.util.ConstantData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,7 +65,7 @@ public class VideoDemo extends BaseActivity {
     private SurfaceView mFaceSurface;
     private Camera mCamera;
     private int mCameraId = CameraInfo.CAMERA_FACING_FRONT;
-    // Camera nv21格式预览帧的尺寸，默认设置640*480
+    // Camera nv21格式预览帧的尺寸，默认设置640*480  1280*720
     private int PREVIEW_WIDTH = 1280;
     private int PREVIEW_HEIGHT = 720;
     // 预览帧数据存储数组和缓存数组
@@ -169,7 +146,8 @@ public class VideoDemo extends BaseActivity {
         mRelativeLayout = (RelativeLayout) findViewById(R.id.tiao_RelativeLayout);
 
         if ("1".equals(signs)) {//支付过来
-            mImageView.setVisibility(View.GONE);
+
+            mButton.setVisibility(View.GONE);
         }
         if ("1".equals(jump)) {
             mButton.setVisibility(View.VISIBLE);
@@ -197,12 +175,11 @@ public class VideoDemo extends BaseActivity {
         });
 
 
-        SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
+        //   SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
 
-        mAuthid = LocalShared.getInstance(getApplicationContext()).getXunfeiId();
+        mAuthid = LocalShared.getInstance(this).getXunfeiId();
 
-        Log.e("讯飞id", mAuthid);
         initUI();
 
 
@@ -221,6 +198,7 @@ public class VideoDemo extends BaseActivity {
 
         sign = false;
         mediaPlayer.pause();
+        mediaPlayer = null;
     }
 
     private Callback mPreviewCallback = new Callback() {
@@ -535,6 +513,7 @@ public class VideoDemo extends BaseActivity {
                             speak(getString(R.string.shop_success));
                             ShowNormal("支付成功", "1");
                             GoodDetailActivity.mActivity.finish();
+
                         }
 
                     }, new NetworkManager.FailedCallback() {

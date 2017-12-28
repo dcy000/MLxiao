@@ -3,7 +3,6 @@ package com.example.han.referralproject.shopping;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,22 +17,11 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
-import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.recyclerview.AddAppoActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity;
-import com.example.han.referralproject.recyclerview.RetrofitClient;
-import com.example.han.referralproject.recyclerview.RetrofitService;
 import com.example.han.referralproject.util.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class GoodDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -171,7 +159,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 });*/
 
 
-                Log.e("===================", System.currentTimeMillis() + "===========" + goods.getGoodsimage());
                 NetworkApi.order_info(MyApplication.getInstance().userId, Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<Order>() {
                     @Override
                     public void onSuccess(Order response) {
@@ -220,8 +207,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
                             NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
                                 @Override
-                                public void onSuccess(String response) {
-                                    ShowNormal("取消成功");
+                                public void onSuccess(String response) {ShowNormal("取消成功");
 
                                 }
 
@@ -267,12 +253,22 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onStop() {
         super.onStop();
-
+        if(mActivity!=null){
+            mActivity=null;
+        }
         if (dialog2 == null){
             return;
         }
         dialog2.create(NDialog.CONFIRM).cancel();
         dialog2 = null;
+        mActivity = null;
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
 }
