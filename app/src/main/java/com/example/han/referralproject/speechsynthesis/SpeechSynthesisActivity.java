@@ -34,11 +34,15 @@ import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.music.AppCache;
+import com.example.han.referralproject.music.HttpCallback;
+import com.example.han.referralproject.music.HttpClient;
 import com.example.han.referralproject.music.Music;
 import com.example.han.referralproject.music.OnPlayerEventListener;
 import com.example.han.referralproject.music.PlayFragment;
+import com.example.han.referralproject.music.PlaySearchedMusic;
 import com.example.han.referralproject.music.PlayService;
 import com.example.han.referralproject.music.SearchMusic;
+import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
@@ -214,21 +218,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         mSharedPreferences = getSharedPreferences(IatSettings.PREFER_NAME, Activity.MODE_PRIVATE);
         mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-        //mResultText = ((EditText) findViewById(R.id.iat_text));
 
         // 初始化合成对象
         // mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
-
-
-       /* mediaPlayer = new MediaPlayer();
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                findViewById(R.id.iat_recognizes).performClick();
-            }
-        });*/
 
 
         if (!checkServiceAlive()) {
@@ -365,11 +359,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //   mSearchMusicList.clear();
 
 
-        Music music = new Music(keyword);
+      /*  Music music = new Music(keyword);
         getPlayService().play(music);
-        showPlayingFragment();
+        showPlayingFragment();*/
 
-       /* HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
+        HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
 
             @Override
             public void onSuccess(SearchMusic response) {
@@ -407,7 +401,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             @Override
             public void onFail(Exception e) {
             }
-        });*/
+        });
     }
 
 
@@ -473,17 +467,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             // 开始听写
             // 如何判断一次听写结束：OnResult isLast=true 或者 onError
             case R.id.iat_recognizes:
-              /*  if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                }*/
-                //mResultText.setText(null);// 清空显示内容
+
                 mIatResults.clear();
                 // 设置参数
                 setParam();
-//                boolean isShowDialog = mSharedPreferences.getBoolean(getString(R.string.pref_key_iat_show), true);
                 boolean isShowDialog = false;
                 if (isShowDialog) {
-
                     stopSpeaking();
                     mHandler.sendEmptyMessageDelayed(2, 500);
 
@@ -498,18 +487,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
                 }
                 break;
-
-           /* // 停止听写
-            case R.id.iat_stop:
-                mIat.stopListening();
-                showTip("停止听写");
-                break;
-            // 取消听写
-            case R.id.iat_cancel:
-                mIat.cancel();
-                showTip("取消听写");
-                break;*/
-
             default:
                 break;
         }
@@ -532,7 +509,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private void onPlayAudio(String audioPath) {
 
-        Log.e("================", audioPath);
         searchMusic(audioPath);
 
     }
@@ -787,19 +763,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
 
-                } else if (PinYinUtils.converterToSpell(resultBuffer.toString()).contains("jingju")) {
-                    file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/jingju.mp3");
-                    //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                    if (file.exists()) {
-                        try {
-                            mediaPlayer.reset();//从新设置要播放的音乐
-                            mediaPlayer.setDataSource(file.getAbsolutePath());
-                            mediaPlayer.prepare();//预加载音频
-                            mediaPlayer.start();//播放音乐
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+                }
 */
 
             } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
@@ -812,13 +776,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     startActivity(intent);
                     finish();
                 }
-                   /* if (sign == true) {
-                        sign = false;
-                        mIatDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), MainVideoActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }*/
+
 
             } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")
                     || inSpell.matches(".*yinliang.*da.*") || inSpell.matches(".*shengyin.*da.*")
@@ -967,9 +925,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
 
-//        mResultText.setText(resultBuffer.toString());
-//        mResultText.setSelection(mResultText.length());
-
     }
 
     String str1;
@@ -993,8 +948,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         if ("musicX".equals(results.get("service")) || TextUtils.isEmpty(audiopath)) {
             mAudioPath = audiopath;
-            String music = text.substring(3);
-            searchAndPlayMusic(music);
+            int index = text.indexOf("的歌曲");
+            if (index == -1) {
+                index = text.indexOf("的");
+                index += 1;
+            } else {
+                index += 3;
+            }
+            String music = "";
+            if (index != -1) {
+                music = text.substring(index);
+                searchAndPlayMusic(music);
+            }
             return;
         }
 
@@ -1021,7 +986,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             String lineContent = null;
             String content = null;
 
-            //    Log.e("+++++++++++++", resultBuffer.toString());
             while ((lineContent = br.readLine()) != null) {
                 content = lineContent;
             }
@@ -1094,6 +1058,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private void searchAndPlayMusic(String music) {
 
+        Log.e("================", music);
+        searchMusic(music);
+    }
+
+   /* private static String parseXffunQAResponse(String text) {
+    private void searchAndPlayMusic(String music) {
+
     }
 
     private static String parseXffunQAResponse(String text) {
@@ -1127,10 +1098,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             e.printStackTrace();
             return "我真的不知道了";
         }
-    }
+    }*/
 
 
-    public void startSynthesis(String str) {
+   /* public void startSynthesis(String str) {
 
         //  mTts = SpeechSynthesizer.createSynthesizer(IatDemo.this, mTtsInitListener);
 
@@ -1139,13 +1110,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mTts.startSpeaking(str, mTtsListener);
 
 
-    }
+    }*/
 
 
     /**
      * 初始化监听。
      */
-    private InitListener mTtsInitListener = new InitListener() {
+   /* private InitListener mTtsInitListener = new InitListener() {
         @Override
         public void onInit(int code) {
             Log.d(TAG, "InitListener init() code = " + code);
@@ -1157,13 +1128,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 // 正确的做法是将onCreate中的startSpeaking调用移至这里
             }
         }
-    };
+    };*/
 
 
     /**
      * 合成回调监听。
      */
-    private SynthesizerListener mTtsListener = new SynthesizerListener() {
+   /* private SynthesizerListener mTtsListener = new SynthesizerListener() {
 
         @Override
         public void onSpeakBegin() {
@@ -1207,10 +1178,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         @Override
         public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
         }
-    };
+    };*/
 
 
-    private void setParams() {
+    /*private void setParams() {
         // 清空参数
         mTts.setParameter(SpeechConstant.PARAMS, null);
         // 根据合成引擎设置相应参数
@@ -1228,10 +1199,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
             // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
             mTts.setParameter(SpeechConstant.VOICE_NAME, "");
-            /**
-             * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
-             * 开发者如需自定义参数，请参考在线合成参数设置
-             */
+            */
+    /**
+     * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
+     * 开发者如需自定义参数，请参考在线合成参数设置
+     *//*
         }
         //设置播放器音频流类型
         mTts.setParameter(SpeechConstant.STREAM_TYPE, mSharedPreferences.getString("stream_preference", "3"));
@@ -1242,7 +1214,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
         mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
         mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
-    }
+    }*/
 
 
     //private MediaPlayer mediaPlayer;//MediaPlayer对象
@@ -1280,15 +1252,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             try {
                 post(resultBuffer.toString());
             } catch (Exception e) {
-//                    runOnUiThread(
-//                            new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    //speak(R.string.speak_no_result);
-//                                    findViewById(R.id.iat_recognizes).performClick();
-//                                }
-//                            }
-//                    );
                 e.printStackTrace();
             }
             return null;

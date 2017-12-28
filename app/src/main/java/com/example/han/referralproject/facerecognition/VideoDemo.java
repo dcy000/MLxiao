@@ -65,7 +65,7 @@ public class VideoDemo extends BaseActivity {
     private SurfaceView mFaceSurface;
     private Camera mCamera;
     private int mCameraId = CameraInfo.CAMERA_FACING_FRONT;
-    // Camera nv21格式预览帧的尺寸，默认设置640*480
+    // Camera nv21格式预览帧的尺寸，默认设置640*480  1280*720
     private int PREVIEW_WIDTH = 1280;
     private int PREVIEW_HEIGHT = 720;
     // 预览帧数据存储数组和缓存数组
@@ -146,7 +146,8 @@ public class VideoDemo extends BaseActivity {
         mRelativeLayout = (RelativeLayout) findViewById(R.id.tiao_RelativeLayout);
 
         if ("1".equals(signs)) {//支付过来
-            mImageView.setVisibility(View.GONE);
+
+            mButton.setVisibility(View.GONE);
         }
         if ("1".equals(jump)) {
             mButton.setVisibility(View.VISIBLE);
@@ -174,12 +175,11 @@ public class VideoDemo extends BaseActivity {
         });
 
 
-        SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
+        //   SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
 
-        mAuthid = LocalShared.getInstance(getApplicationContext()).getXunfeiId();
+        mAuthid = LocalShared.getInstance(this).getXunfeiId();
 
-        Log.e("讯飞id", mAuthid);
         initUI();
 
 
@@ -198,6 +198,7 @@ public class VideoDemo extends BaseActivity {
 
         sign = false;
         mediaPlayer.pause();
+        mediaPlayer = null;
     }
 
     private Callback mPreviewCallback = new Callback() {
