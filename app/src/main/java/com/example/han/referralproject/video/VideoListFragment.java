@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.recyclerview.LinearLayoutDividerItemDecoration;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.UiUtils;
@@ -26,7 +25,6 @@ import com.medlink.danbogh.utils.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 public class VideoListFragment extends Fragment {
     private static final String ARG_POSITION = "position";

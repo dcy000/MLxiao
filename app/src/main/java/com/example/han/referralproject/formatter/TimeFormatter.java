@@ -4,7 +4,6 @@ import com.example.han.referralproject.util.Utils;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**

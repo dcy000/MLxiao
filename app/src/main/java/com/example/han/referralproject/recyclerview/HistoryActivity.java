@@ -2,7 +2,6 @@ package com.example.han.referralproject.recyclerview;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -15,8 +14,6 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.shopping.OrderAdapter;
-import com.example.han.referralproject.shopping.Orders;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -14,12 +14,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.Jiashuju;
 import com.example.han.referralproject.adapter.XindianAdapter;
 import com.example.han.referralproject.bean.BUA;
 import com.example.han.referralproject.bean.BloodOxygenHistory;
@@ -27,8 +24,6 @@ import com.example.han.referralproject.bean.BloodPressureHistory;
 import com.example.han.referralproject.bean.BloodSugarHistory;
 import com.example.han.referralproject.bean.CholesterolHistory;
 import com.example.han.referralproject.bean.ECGHistory;
-import com.example.han.referralproject.bean.HeartRateHistory;
-import com.example.han.referralproject.bean.PulseHistory;
 import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.formatter.MyFloatNumFormatter;
 import com.example.han.referralproject.formatter.TimeFormatter;
@@ -43,13 +38,10 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
-import com.squareup.haha.perflib.Main;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,6 +1,5 @@
 package com.example.han.referralproject.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,9 +12,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.register.SelectAdapter;
-import com.medlink.danbogh.register.SignUp8WeightActivity;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;

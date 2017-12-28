@@ -3,7 +3,6 @@ package com.example.han.referralproject.shopping;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,22 +17,11 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
-import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.recyclerview.AddAppoActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity;
-import com.example.han.referralproject.recyclerview.RetrofitClient;
-import com.example.han.referralproject.recyclerview.RetrofitService;
 import com.example.han.referralproject.util.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class GoodDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -267,7 +255,9 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onStop() {
         super.onStop();
-
+        if(mActivity!=null){
+            mActivity=null;
+        }
         if (dialog2 == null){
             return;
         }

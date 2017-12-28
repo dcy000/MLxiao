@@ -1,29 +1,16 @@
 package com.example.han.referralproject.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 
 import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.adapter.ChangeAccountAdapter;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.signin.SignInActivity;
-
-import java.util.ArrayList;
 
 public class WaveDialog extends Dialog implements Runnable{
     private Context mContext;

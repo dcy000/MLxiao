@@ -1,7 +1,6 @@
 package com.example.han.referralproject;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -10,20 +9,15 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.EventCallback;
 import com.example.han.referralproject.music.PermissionReq;
@@ -32,7 +26,6 @@ import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.UpdateAppManager;
-import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
 

@@ -2,7 +2,6 @@ package com.example.han.referralproject.network;
 
 import android.content.Context;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.example.han.referralproject.application.MyApplication;

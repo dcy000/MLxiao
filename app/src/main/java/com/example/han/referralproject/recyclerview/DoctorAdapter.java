@@ -7,10 +7,6 @@ import android.view.ViewGroup;
 
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.Doctors;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

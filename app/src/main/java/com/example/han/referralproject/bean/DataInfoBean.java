@@ -1,7 +1,6 @@
 package com.example.han.referralproject.bean;
 
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.example.han.referralproject.application.MyApplication;
 

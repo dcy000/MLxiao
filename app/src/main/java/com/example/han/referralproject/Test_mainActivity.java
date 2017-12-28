@@ -4,25 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.example.han.referralproject.temperature.TemperatureActivity;
-import com.example.han.referralproject.xindian.XinDianDetectActivity;
-import com.example.han.referralproject.xindian.XindianActivity;
-import com.example.han.referralproject.xuetang.XuetangActivity;
-import com.example.han.referralproject.xueya.AttentionActivity;
-import com.example.han.referralproject.xueya.XueyaActivity;
-import com.example.han.referralproject.xueyang.XueyangActivity;
 
 import java.util.Calendar;
 

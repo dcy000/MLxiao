@@ -2,7 +2,6 @@
 package com.medlink.danbogh.healthdetection;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,7 +13,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
-import com.linheimx.app.library.data.Line;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

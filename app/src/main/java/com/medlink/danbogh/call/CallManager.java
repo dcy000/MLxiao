@@ -4,9 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothHeadset;
-import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
@@ -14,12 +11,8 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 
 import android.support.v7.app.NotificationCompat;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.hyphenate.EMConnectionListener;
 import com.hyphenate.chat.EMCallManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;

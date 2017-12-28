@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BodychartActivity extends BaseActivity implements View.OnClickListener {

@@ -9,18 +9,13 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.han.referralproject.LoadingActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.facerecognition.OnlineFaceDemo;
-import com.example.han.referralproject.facerecognition.OnlineFaceDemo1;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
-import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.megvii.faceppidcardui.*;
 import com.megvii.faceppidcardui.util.ConstantData;
