@@ -56,6 +56,7 @@ public class QaApi {
         results.put("text", "");
         results.put("audiopath", "");
         results.put("q", "");
+        results.put("service", "");
         try {
             JSONObject apiResponseObj = new JSONObject(text);
             text = apiResponseObj.optString("data");
@@ -82,15 +83,15 @@ public class QaApi {
                     results.put("text", answer);
                 }
             }
-            JSONObject dataDataObj = dataObj.optJSONObject("data");
-            if (dataDataObj == null) {
-                return results;
-            }
             String service = dataObj.optString("service");
             if (TextUtils.isEmpty(service)) {
                 return results;
             }
             results.put("service", service);
+            JSONObject dataDataObj = dataObj.optJSONObject("data");
+            if (dataDataObj == null) {
+                return results;
+            }
             JSONArray resultArray = dataDataObj.optJSONArray("result");
             if (resultArray == null) {
                 return results;
