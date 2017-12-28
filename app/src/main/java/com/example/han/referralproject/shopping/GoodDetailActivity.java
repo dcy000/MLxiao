@@ -193,8 +193,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(int which) {
                         if (which == 1) {
-
-
                             Intent intent = new Intent(getApplicationContext(), VideoDemo.class);
                             intent.putExtra("orderid", orderid);
                             intent.putExtra("sign", "1");
@@ -207,7 +205,8 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
                             NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
                                 @Override
-                                public void onSuccess(String response) {ShowNormal("取消成功");
+                                public void onSuccess(String response) {
+                                    ShowNormal("取消成功");
 
                                 }
 
@@ -253,21 +252,26 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onStop() {
         super.onStop();
-        if(mActivity!=null){
-            mActivity=null;
+        if (mActivity != null) {
+            mActivity = null;
         }
-        if (dialog2 == null){
-            return;
-        }
-        dialog2.create(NDialog.CONFIRM).cancel();
-        dialog2 = null;
+
         mActivity = null;
+
 
     }
 
 
     @Override
     protected void onDestroy() {
+
+        if (dialog2 != null) {
+
+            dialog2.create(NDialog.CONFIRM).cancel();
+            dialog2 = null;
+        }
+
+
         super.onDestroy();
 
     }

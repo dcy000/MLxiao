@@ -370,7 +370,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 if (response == null || response.getSong() == null) {
                     speak("抱歉，没找到这首歌");
                     mHandler.sendEmptyMessageDelayed(1, 3000);
-
                     return;
                 }
                 mSearchMusicList.clear();
@@ -1058,7 +1057,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private void searchAndPlayMusic(String music) {
 
-        Log.e("================", music);
         searchMusic(music);
     }
 
