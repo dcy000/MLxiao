@@ -946,7 +946,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             return;
         }
 
-        if ("musicX".equals(results.get("service")) || TextUtils.isEmpty(audiopath)) {
+        if ("musicX".equals(results.get("service")) && TextUtils.isEmpty(audiopath)) {
             mAudioPath = audiopath;
             int index = text.indexOf("的歌曲");
             if (index == -1) {

@@ -52,12 +52,6 @@ android {
             keyPassword RELEASE_KEY_PASSWORD
         }
     }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
-
 }
 
 
