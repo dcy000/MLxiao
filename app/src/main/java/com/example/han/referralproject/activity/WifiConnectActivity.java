@@ -40,7 +40,6 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private View mConnectedLayout;
     private TextView mConnectedWifiName;
     private WifiManager mWifiManager;
-    private Handler mHandler = new Handler();
     private boolean isFirstWifi = false;
 
     @Override
@@ -99,9 +98,6 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.tv_system:
                 startActivity(new Intent("android.net.wifi.PICK_WIFI_NETWORK"));
-                break;
-            case R.id.view_back:
-                finish();
                 break;
         }
     }
