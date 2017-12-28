@@ -146,7 +146,8 @@ public class VideoDemo extends BaseActivity {
         mRelativeLayout = (RelativeLayout) findViewById(R.id.tiao_RelativeLayout);
 
         if ("1".equals(signs)) {//支付过来
-            mImageView.setVisibility(View.GONE);
+
+            mButton.setVisibility(View.GONE);
         }
         if ("1".equals(jump)) {
             mButton.setVisibility(View.VISIBLE);

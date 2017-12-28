@@ -207,8 +207,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
                             NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
                                 @Override
-                                public void onSuccess(String response) {
-                                    ShowNormal("取消成功");
+                                public void onSuccess(String response) {ShowNormal("取消成功");
 
                                 }
 

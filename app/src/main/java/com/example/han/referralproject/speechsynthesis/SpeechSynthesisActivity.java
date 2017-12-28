@@ -34,11 +34,15 @@ import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.music.AppCache;
+import com.example.han.referralproject.music.HttpCallback;
+import com.example.han.referralproject.music.HttpClient;
 import com.example.han.referralproject.music.Music;
 import com.example.han.referralproject.music.OnPlayerEventListener;
 import com.example.han.referralproject.music.PlayFragment;
+import com.example.han.referralproject.music.PlaySearchedMusic;
 import com.example.han.referralproject.music.PlayService;
 import com.example.han.referralproject.music.SearchMusic;
+import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
@@ -355,11 +359,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //   mSearchMusicList.clear();
 
 
-        Music music = new Music(keyword);
+      /*  Music music = new Music(keyword);
         getPlayService().play(music);
-        showPlayingFragment();
+        showPlayingFragment();*/
 
-       /* HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
+        HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
 
             @Override
             public void onSuccess(SearchMusic response) {
@@ -397,7 +401,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             @Override
             public void onFail(Exception e) {
             }
-        });*/
+        });
     }
 
 
@@ -944,8 +948,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         if ("musicX".equals(results.get("service")) || TextUtils.isEmpty(audiopath)) {
             mAudioPath = audiopath;
-            String music = text.substring(3);
-          //  searchAndPlayMusic(music);
+            int index = text.indexOf("的歌曲");
+            if (index == -1) {
+                index = text.indexOf("的");
+                index += 1;
+            } else {
+                index += 3;
+            }
+            String music = "";
+            if (index != -1) {
+                music = text.substring(index);
+                searchAndPlayMusic(music);
+            }
             return;
         }
 
@@ -1040,6 +1054,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //        br.close();
 
 
+    }
+
+    private void searchAndPlayMusic(String music) {
+
+        Log.e("================", music);
+        searchMusic(music);
     }
 
    /* private static String parseXffunQAResponse(String text) {
