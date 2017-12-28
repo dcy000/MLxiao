@@ -84,7 +84,6 @@ import org.json.JSONObject;
 
 
 public class VideoDemo extends BaseActivity {
-    private final static String TAG = VideoDemo.class.getSimpleName();
     private SurfaceView mPreviewSurface;
     private SurfaceView mFaceSurface;
     private Camera mCamera;
@@ -99,25 +98,18 @@ public class VideoDemo extends BaseActivity {
     private Matrix mScaleMatrix = new Matrix();
     // 加速度感应器，用于获取手机的朝向
     private Accelerometer mAcc;
-    // FaceDetector对象，集成了离线人脸识别：人脸检测、视频流检测功能
-//    private FaceDetector mFaceDetector;
     private boolean mStopTrack;
     private Toast mToast;
-    private long mLastClickTime;
-    private int isAlign = 0;
-    //ImageView mImageView;
     private byte[] mImageData = null;
-    boolean sign = true;
-    //   SharedPreferences sharedPreferences;
-
-    String mAuthid;
+    private boolean sign = true;
+    private String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
     public RelativeLayout mImageView;
-    Bitmap b3;
-    String signs;
-    String orderid;
-    NDialog2 dialog2;
+    private Bitmap b3;
+    private String signs;
+    private String orderid;
+    private NDialog2 dialog2;
 
     private MediaPlayer mediaPlayer;//MediaPlayer对象
 
@@ -129,8 +121,8 @@ public class VideoDemo extends BaseActivity {
     private HashMap<String, String> map;
     private String[] accounts;
 
-    Button mButton;
-    RelativeLayout mRelativeLayout;
+    private Button mButton;
+    private RelativeLayout mRelativeLayout;
 
     private String jump;
 
@@ -142,8 +134,8 @@ public class VideoDemo extends BaseActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
 
         mediaPlayer.start();//播放音乐
-
         map = new HashMap<>();
+        //获取所有账号
         accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts != null) {
             indexXfid = accounts.length * 5;
@@ -154,6 +146,7 @@ public class VideoDemo extends BaseActivity {
             }
         }
         choosedXfid = MyApplication.getInstance().xfid;//默认选中的是当前的讯飞id;
+
         Intent intent = getIntent();
         signs = intent.getStringExtra("sign");
         orderid = intent.getStringExtra("orderid");
@@ -204,12 +197,11 @@ public class VideoDemo extends BaseActivity {
         });
 
 
-        SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
+        //   SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 
 
-        mAuthid = LocalShared.getInstance(getApplicationContext()).getXunfeiId();
+        mAuthid = LocalShared.getInstance(this).getXunfeiId();
 
-        Log.e("讯飞id", mAuthid);
         initUI();
 
 
@@ -228,6 +220,7 @@ public class VideoDemo extends BaseActivity {
 
         sign = false;
         mediaPlayer.pause();
+        mediaPlayer = null;
     }
 
     private Callback mPreviewCallback = new Callback() {

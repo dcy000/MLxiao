@@ -80,7 +80,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);
         T.init(this);
@@ -109,8 +109,7 @@ public class MyApplication extends Application {
 
         initOkHttpUtils();
 
-        BeeCloud.setAppIdAndSecret("2732d773-09a4-403d-87b4-b040d14ce4b9",
-                "ffa06c16-c2ee-4b48-a65c-795936d53cc7");
+        BeeCloud.setAppIdAndSecret("2732d773-09a4-403d-87b4-b040d14ce4b9", "ffa06c16-c2ee-4b48-a65c-795936d53cc7");
 
     }
 

@@ -1,48 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.han.referralproject.Test_mainActivity">
 
     <LinearLayout
-        android:layout_marginTop="-20dp"
         android:id="@+id/linear_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linear_2">
 
 
         <ImageView
             android:id="@+id/test_xueya"
             android:layout_width="0dp"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:src="@drawable/test_xueya" />
 
-        <ImageView
-            android:layout_width="2dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/black" />
 
         <ImageView
             android:id="@+id/test_xueyang"
             android:layout_width="0dp"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:src="@drawable/test_xueyang" />
 
-        <ImageView
-            android:layout_width="2dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/black" />
 
         <ImageView
             android:id="@+id/test_wendu"
             android:layout_width="0dp"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:src="@drawable/test_wendu" />
@@ -51,78 +47,66 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
-        android:orientation="horizontal">
+        android:id="@+id/linear_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/linear_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:id="@+id/test_xuetang"
             android:layout_width="0dp"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:src="@drawable/test_xuetang" />
 
-        <ImageView
-            android:layout_width="2dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/black" />
 
         <ImageView
-            android:id="@+id/test_xindian"
             android:layout_width="0dp"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:src="@drawable/test_xindian" />
 
         <ImageView
-            android:layout_width="2dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/black" />
-
-        <ImageView
-            android:id="@+id/test_qita"
             android:layout_width="0dp"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:src="@drawable/test_weight" />
 
     </LinearLayout>
-
-  <!--  <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="50dp"
+            android:id="@+id/test_xuetang"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_back" />
+            android:layout_weight="1" />
+
+
+        <ImageView
+            android:id="@+id/test_xindian"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/test_qita"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true" />
+
     </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/icon_home"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:src="@drawable/icon_home" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:text="@string/healthy_test"
-        android:textColor="@color/white"
-        android:textSize="40sp" />-->
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
