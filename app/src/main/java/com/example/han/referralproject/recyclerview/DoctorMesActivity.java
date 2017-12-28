@@ -323,14 +323,23 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                             new NetworkManager.SuccessCallback<RobotAmount>() {
                                 @Override
                                 public void onSuccess(RobotAmount response) {
+                                    if (response == null){
+                                        return;
+                                    }
                                     final String amount = response.getAmount();
                                     String applyAmount = doctor.getApply_amount();
-                                    if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
+                                    if (response.count != 0) {
+                                        if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
+                                            ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                            finish();
+                                        } else {
+                                            onLackOfAmount();
+                                        }
+                                    } else {
                                         ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
                                         finish();
-                                    } else {
-                                        onLackOfAmount();
                                     }
+
                                 }
                             }, new NetworkManager.FailedCallback() {
                                 @Override
