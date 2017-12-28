@@ -358,11 +358,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         //   mSearchMusicList.clear();
 
-
-      /*  Music music = new Music(keyword);
-        getPlayService().play(music);
-        showPlayingFragment();*/
-
         HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
 
             @Override
@@ -507,9 +502,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void onPlayAudio(String audioPath) {
-
-        searchMusic(audioPath);
-
+        Music music = new Music(audioPath);
+        getPlayService().play(music);
+        showPlayingFragment();
     }
 
     /**
@@ -945,7 +940,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             return;
         }
 
-        if ("musicX".equals(results.get("service")) || TextUtils.isEmpty(audiopath)) {
+        if ("musicX".equals(results.get("service")) && TextUtils.isEmpty(audiopath)) {
             mAudioPath = audiopath;
             int index = text.indexOf("的歌曲");
             if (index == -1) {
@@ -1332,8 +1327,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
         super.onDestroy();
         mIatDialog = null;
-        mHandler.removeMessages(1);
-        mHandler.removeMessages(0);
+        mHandler.removeCallbacksAndMessages(null);
         if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();

@@ -90,6 +90,7 @@ public class QaApi {
             if (TextUtils.isEmpty(service)) {
                 return results;
             }
+            results.put("service", service);
             JSONArray resultArray = dataDataObj.optJSONArray("result");
             if (resultArray == null) {
                 return results;

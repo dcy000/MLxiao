@@ -42,6 +42,16 @@ public class Utils {
         return phone.matches("[1][34578]\\d{9}");
     }
 
+    public static boolean checkIdCard1(String idCard) {
+        if (idCard != null
+                && idCard.length() == 18
+                && isDate(idCard.substring(6,14))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static boolean checkIdCard(String idCard) {
         if (idCard == null || idCard.length() != 18) {
             return false;
