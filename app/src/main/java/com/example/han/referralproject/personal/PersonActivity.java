@@ -285,7 +285,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
-        Log.e("===================", Utils.getDeviceId());
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
             public void onSuccess(final RobotAmount response) {

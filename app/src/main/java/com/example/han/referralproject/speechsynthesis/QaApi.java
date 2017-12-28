@@ -55,6 +55,7 @@ public class QaApi {
         HashMap<String, String> results = new HashMap<>();
         results.put("text", "");
         results.put("audiopath", "");
+        results.put("q", "");
         try {
             JSONObject apiResponseObj = new JSONObject(text);
             text = apiResponseObj.optString("data");
@@ -69,6 +70,10 @@ public class QaApi {
             JSONObject dataObj = qaResponseObj.optJSONObject("data");
             if (dataObj == null) {
                 return results;
+            }
+            String q = dataObj.optString("text");
+            if (!TextUtils.isEmpty(q)) {
+                results.put("q", q);
             }
             JSONObject answerObj = dataObj.optJSONObject("answer");
             if (answerObj != null) {
@@ -85,6 +90,7 @@ public class QaApi {
             if (TextUtils.isEmpty(service)) {
                 return results;
             }
+            results.put("service", service);
             JSONArray resultArray = dataDataObj.optJSONArray("result");
             if (resultArray == null) {
                 return results;

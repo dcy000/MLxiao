@@ -73,7 +73,8 @@
             android:gravity="center"
             android:text="@string/tiaoguo"
             android:textColor="#FFFFFF"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
