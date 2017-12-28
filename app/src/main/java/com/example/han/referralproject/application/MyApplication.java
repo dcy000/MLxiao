@@ -20,6 +20,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.medlink.crash.NoCrash;
 import com.medlink.danbogh.call.CallManager;
 import com.medlink.danbogh.call.CallReceiver;
 import com.medlink.danbogh.call2.NimInitHelper;
@@ -73,6 +74,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        NoCrash.init(this);
+        NoCrash.getInstance().install();
 //        LeakCanary.install(this);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);

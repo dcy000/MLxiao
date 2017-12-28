@@ -251,22 +251,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        if(mActivity!=null){
-            mActivity=null;
-        }
-        if (dialog2 == null){
-            return;
-        }
-        dialog2.create(NDialog.CONFIRM).cancel();
-        dialog2 = null;
-        mActivity = null;
-
-    }
-
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
 
