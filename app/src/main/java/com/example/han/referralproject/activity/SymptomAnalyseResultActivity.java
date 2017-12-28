@@ -5,16 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomResultAdapter;
-import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.SymptomResultBean;
-import com.example.han.referralproject.music.ToastUtils;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.LinearLayoutDividerItemDecoration;
 
 import java.util.ArrayList;

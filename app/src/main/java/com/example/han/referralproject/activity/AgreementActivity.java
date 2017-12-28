@@ -4,7 +4,6 @@ package com.example.han.referralproject.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 

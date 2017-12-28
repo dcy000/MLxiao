@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by lenovo on 2017/12/26.
+ * Created by afirez on 2017/12/26.
  */
 
 public class NoCrash implements CrashHelper.OnCrashListener {
@@ -42,9 +42,9 @@ public class NoCrash implements CrashHelper.OnCrashListener {
         private static NoCrash sInstance = new NoCrash();
     }
 
-     private NoCrash () {
+    private NoCrash () {
 
-     }
+    }
 
     @Override
     public void onCrash(Thread thread, Throwable throwable) {
@@ -130,7 +130,6 @@ public class NoCrash implements CrashHelper.OnCrashListener {
     }
 
     public void uninstall() {
-        Holder.sInstance = null;
         CrashHelper.uninstall();
     }
 }

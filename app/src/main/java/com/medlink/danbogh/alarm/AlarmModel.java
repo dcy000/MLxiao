@@ -1,7 +1,6 @@
 package com.medlink.danbogh.alarm;
 
 import android.net.Uri;
-import android.support.annotation.IntDef;
 
 import org.litepal.crud.DataSupport;
 

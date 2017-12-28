@@ -5,16 +5,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,9 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieComposition;
-import com.airbnb.lottie.LottieDrawable;
-import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -45,7 +38,6 @@ import com.example.han.referralproject.music.Music;
 import com.example.han.referralproject.music.OnPlayerEventListener;
 import com.example.han.referralproject.music.PlayFragment;
 import com.example.han.referralproject.music.PlayService;
-import com.example.han.referralproject.music.ScreenUtils;
 import com.example.han.referralproject.music.SearchMusic;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recharge.PayActivity;
@@ -227,9 +219,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         // mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
         mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
-
-
-
 
 
         if (!checkServiceAlive()) {
@@ -932,7 +921,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
 
-
     }
 
     String str1;
@@ -953,6 +941,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
             return;
         }
+
+        if ("musicX".equals(results.get("service")) || TextUtils.isEmpty(audiopath)) {
+            mAudioPath = audiopath;
+            String music = text.substring(3);
+          //  searchAndPlayMusic(music);
+            return;
+        }
+
         str1 = empty ? "我真的不知道了" : text;
         if (("我真的不知道了").equals(str1)) {
             URL url = new URL("http://api.aicyber.com/passive_chat");
@@ -1047,6 +1043,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
    /* private static String parseXffunQAResponse(String text) {
+    private void searchAndPlayMusic(String music) {
+
+    }
+
+    private static String parseXffunQAResponse(String text) {
         try {
             Log.i("mylog", text);
             JSONObject apiResponseObj = new JSONObject(text);
@@ -1178,10 +1179,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
             // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
             mTts.setParameter(SpeechConstant.VOICE_NAME, "");
-            *//**
-             * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
-             * 开发者如需自定义参数，请参考在线合成参数设置
-             *//*
+            */
+    /**
+     * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
+     * 开发者如需自定义参数，请参考在线合成参数设置
+     *//*
         }
         //设置播放器音频流类型
         mTts.setParameter(SpeechConstant.STREAM_TYPE, mSharedPreferences.getString("stream_preference", "3"));

@@ -2,8 +2,6 @@ package com.example.han.referralproject.adapter;
 
 import android.content.Context;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.dialog.WifiInputDialog;
 import com.example.han.referralproject.util.WiFiUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnectRecyclerAdapter.WifiHolder> {

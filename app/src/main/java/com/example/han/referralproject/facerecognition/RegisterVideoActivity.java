@@ -9,30 +9,19 @@ import java.util.Random;
 
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -45,32 +34,20 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
-import com.example.han.referralproject.LoadingActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.recyclerview.RecoDocActivity;
-import com.example.han.referralproject.util.FaceRect;
-import com.example.han.referralproject.util.FaceUtil;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ParseResult;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.FaceDetector;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.util.Accelerometer;
-import com.megvii.faceppidcardui.util.ConstantData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -207,8 +184,6 @@ public class RegisterVideoActivity extends BaseActivity {
 
       //  mediaPlayer.start();//播放音乐
 
-        // speak(getString(R.string.facc_register));
-
         mButton = (RelativeLayout) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,6 +201,13 @@ public class RegisterVideoActivity extends BaseActivity {
 
 
         mFaceRequest = new FaceRequest(this);
+//        findViewById(R.id.tiao_RelativeLayout).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), HeadiconActivity.class));
+//                finish();
+//            }
+//        });
     }
 
 
@@ -514,6 +496,82 @@ public class RegisterVideoActivity extends BaseActivity {
         super.onResume();
         setDisableGlobalListen(true);
 
+        speak(getString(R.string.facc_register));
+//            speak(R.string.tips_face);
+//        if (null != mAcc) {
+//            mAcc.start();
+//        }
+//
+//        mStopTrack = false;
+//        new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                while (!mStopTrack) {
+//                    if (null == nv21) {
+//                        continue;
+//                    }
+//
+//                    synchronized (nv21) {
+//                        System.arraycopy(nv21, 0, buffer, 0, nv21.length);
+//                    }
+//
+//                    // 获取手机朝向，返回值0,1,2,3分别表示0,90,180和270度
+//                    int direction = Accelerometer.getDirection();
+//                    boolean frontCamera = (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId);
+//                    // 前置摄像头预览显示的是镜像，需要将手机朝向换算成摄相头视角下的朝向。
+//                    // 转换公式：a' = (360 - a)%360，a为人眼视角下的朝向（单位：角度）
+//                    if (frontCamera) {
+//                        // SDK中使用0,1,2,3,4分别表示0,90,180,270和360度
+//                        direction = (4 - direction) % 4;
+//                    }
+//
+//                    if (mFaceDetector == null) {
+//                        /**
+//                         * 离线视频流检测功能需要单独下载支持离线人脸的SDK
+//                         * 请开发者前往语音云官网下载对应SDK
+//                         */
+//                        // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
+//                        showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
+//                        break;
+//                    }
+//
+//                    String result = mFaceDetector.trackNV21(buffer, PREVIEW_WIDTH, PREVIEW_HEIGHT, isAlign, direction);
+//                    Log.d(TAG, "result:" + result);
+//
+//                    FaceRect[] faces = ParseResult.parseResult(result);
+//
+//                    Canvas canvas = mFaceSurface.getHolder().lockCanvas();
+//                    if (null == canvas) {
+//                        continue;
+//                    }
+//
+//                    canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+//                    canvas.setMatrix(mScaleMatrix);
+//
+//                    if (faces == null || faces.length <= 0) {
+//                        mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
+//                        continue;
+//                    }
+//
+//                    if (null != faces && frontCamera == (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId)) {
+//                        for (FaceRect face : faces) {
+//                            face.bound = FaceUtil.RotateDeg90(face.bound, PREVIEW_WIDTH, PREVIEW_HEIGHT);
+//                            if (face.point != null) {
+//                                for (int i = 0; i < face.point.length; i++) {
+//                                    face.point[i] = FaceUtil.RotateDeg90(face.point[i], PREVIEW_WIDTH, PREVIEW_HEIGHT);
+//                                }
+//                            }
+//                            FaceUtil.drawFaceRect(canvas, face, PREVIEW_WIDTH, PREVIEW_HEIGHT, frontCamera, false);
+//                        }
+//                    } else {
+//                        Log.d(TAG, "faces:0");
+//                    }
+//
+//                    mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
+//                }
+//            }
+//        }).start();
     }
 
 

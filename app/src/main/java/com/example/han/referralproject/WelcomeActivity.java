@@ -1,7 +1,6 @@
 package com.example.han.referralproject;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -10,20 +9,15 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.LoginActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.EventCallback;
 import com.example.han.referralproject.music.PermissionReq;
@@ -32,19 +26,16 @@ import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.UpdateAppManager;
-import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
 
 public class WelcomeActivity extends BaseActivity {
 
-    Chronometer ch;
+    private Chronometer ch;
 
     private ServiceConnection mPlayServiceConnection;
 
-    protected Handler mHandler = new Handler(Looper.getMainLooper());
-
-
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
 
 
@@ -53,29 +44,22 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
-
-
-//        Log.i("mylog", "deviceid : " + Utils.getDeviceId() + " MACID: " + Utils.getMacAddress() );
-
-        mToolbar.setVisibility(View.GONE);
-
+//        mToolbar.setVisibility(View.GONE);
         checkService();
-        if (!WiFiUtil.getInstance(this).isNetworkEnabled(this)) {
-            Intent mIntent = new Intent(mContext, WifiConnectActivity.class);
+        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {
+            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
             mIntent.putExtra("is_first_wifi", true);
             startActivity(mIntent);
             finish();
         }
 
-        //new UpdateAppManager(mContext).showNoticeDialog("http://7xt9gr.com1.z0.glb.clouddn.com/app-release.apk");
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
                 try {
-                    if (response != null && response.vid > getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionCode) {
+                    if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
 //                    if (true) {
-                        new UpdateAppManager(mContext).showNoticeDialog(response.url);
+                        new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
                     } else {
                         ch = (Chronometer) findViewById(R.id.chronometer);
                         //设置开始计时时间
@@ -202,6 +186,11 @@ public class WelcomeActivity extends BaseActivity {
     protected void onDestroy() {
         if (mPlayServiceConnection != null) {
             unbindService(mPlayServiceConnection);
+            mPlayServiceConnection=null;
+        }
+        if(mHandler!=null){
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler=null;
         }
         super.onDestroy();
     }
@@ -209,7 +198,6 @@ public class WelcomeActivity extends BaseActivity {
     private void startService() {
         Intent intent = new Intent(this, PlayService.class);
         startService(intent);
-        Log.e("==========", "startService");
     }
 
 

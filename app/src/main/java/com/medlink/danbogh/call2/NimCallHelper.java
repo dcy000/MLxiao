@@ -1,12 +1,9 @@
 package com.medlink.danbogh.call2;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.recyclerview.AppraiseActivity;
 import com.medlink.danbogh.utils.T;
 import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;

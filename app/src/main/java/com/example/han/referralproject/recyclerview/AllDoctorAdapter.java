@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.AllDoctor;
-import com.example.han.referralproject.bean.Doctors;
-import com.example.han.referralproject.constant.ConstantData;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

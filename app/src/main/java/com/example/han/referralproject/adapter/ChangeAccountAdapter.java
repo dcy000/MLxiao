@@ -12,7 +12,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
-import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.squareup.picasso.Picasso;
 

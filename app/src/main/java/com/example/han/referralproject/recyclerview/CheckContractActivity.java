@@ -1,7 +1,6 @@
 package com.example.han.referralproject.recyclerview;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.recharge.PayActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 

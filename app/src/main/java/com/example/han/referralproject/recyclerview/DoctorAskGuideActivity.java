@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -49,11 +48,11 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                             @Override
                             public void onSuccess(UserInfo userInfo) {
                                 String state = userInfo.getState();
-                                if ("0".equals(state)) {
+                                if ("0".equals(state) && TextUtils.isEmpty(userInfo.getDoctername())) {
                                     Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
                                     intent.putExtra("flag", "contract");
                                     startActivity(intent);
-                                } else if ("1".equals(state) && TextUtils.isEmpty(userInfo.getDoctername())) {
+                                } else if ("0".equals(state) && !TextUtils.isEmpty(userInfo.getDoctername())) {
                                     Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
                                     startActivity(intent);
                                 } else {

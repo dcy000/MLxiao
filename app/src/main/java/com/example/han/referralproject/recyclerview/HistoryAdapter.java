@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.YuYueInfo;
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang.StringUtils;
 
