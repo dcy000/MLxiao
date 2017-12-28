@@ -189,8 +189,6 @@ public class RegisterVideoActivity extends BaseActivity {
 
       //  mediaPlayer.start();//播放音乐
 
-        // speak(getString(R.string.facc_register));
-
         mButton = (RelativeLayout) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -520,7 +518,8 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        //    speak(R.string.tips_face);
+        speak(getString(R.string.facc_register));
+//            speak(R.string.tips_face);
 //        if (null != mAcc) {
 //            mAcc.start();
 //        }

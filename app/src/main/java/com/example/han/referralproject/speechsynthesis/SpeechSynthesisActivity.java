@@ -990,6 +990,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
             return;
         }
+
+        if ("musicX".equals(results.get("service")) || TextUtils.isEmpty(audiopath)) {
+            mAudioPath = audiopath;
+            String music = text.substring(3);
+            searchAndPlayMusic(music);
+            return;
+        }
+
         str1 = empty ? "我真的不知道了" : text;
         if (("我真的不知道了").equals(str1)) {
             URL url = new URL("http://api.aicyber.com/passive_chat");
@@ -1081,6 +1089,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //        pw.close();
 //        br.close();
 
+
+    }
+
+    private void searchAndPlayMusic(String music) {
 
     }
 
