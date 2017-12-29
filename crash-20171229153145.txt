@@ -1,0 +1,23 @@
+20171229153145
+
+app_version: 1.0.7_8
+os_version: 4.4.2_19
+vendor: JTY
+model: KT971
+cpu_abi: armeabi-v7a
+
+java.util.ConcurrentModificationException
+	at java.util.HashMap$HashIterator.nextEntry(HashMap.java:806)
+	at java.util.HashMap$EntryIterator.next(HashMap.java:843)
+	at java.util.HashMap$EntryIterator.next(HashMap.java:841)
+	at java.util.HashMap.constructorPutAll(HashMap.java:208)
+	at java.util.HashMap.clone(HashMap.java:252)
+	at com.iflytek.cloud.thirdparty.cs.b(Unknown Source)
+	at com.iflytek.cloud.thirdparty.bp.setParameter(Unknown Source)
+	at com.iflytek.cloud.SpeechRecognizer.startListening(Unknown Source)
+	at com.example.han.referralproject.activity.BaseActivity.startListening(BaseActivity.java:296)
+	at com.example.han.referralproject.activity.BaseActivity$7.run(BaseActivity.java:552)
+	at android.os.Handler.handleCallback(Handler.java:808)
+	at android.os.Handler.dispatchMessage(Handler.java:103)
+	at android.os.Looper.loop(Looper.java:193)
+	at android.os.HandlerThread.run(HandlerThread.java:61)

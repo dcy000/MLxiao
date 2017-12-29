@@ -57,17 +57,17 @@ public class NoCrash implements CrashHelper.OnCrashListener {
 
         throwable.printStackTrace();
 
-        Thread.UncaughtExceptionHandler handler = CrashHelper.getDefaultUncaughtExceptionHandler();
-        if (handler != null) {
-            handler.uncaughtException(thread, throwable);
-        } else {
-            Process.killProcess(Process.myPid());
-        }
+//        Thread.UncaughtExceptionHandler handler = CrashHelper.getDefaultUncaughtExceptionHandler();
+//        if (handler != null) {
+//            handler.uncaughtException(thread, throwable);
+//        } else {
+//            Process.killProcess(Process.myPid());
+//        }
     }
 
     private static final String PATH = Environment.getExternalStorageDirectory().getPath() + "/crash/";
-    private static final String PREFIX = "crash";
-    private static final String SUFFIX = ".trace";
+    private static final String PREFIX = "crash-";
+    private static final String SUFFIX = ".txt";
 
     private void dumpCrashToSdcard(Throwable throwable) throws IOException {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -81,14 +81,15 @@ public class NoCrash implements CrashHelper.OnCrashListener {
         }
 
         long millis = System.currentTimeMillis();
-        String time = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA)
+        String time = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA)
                 .format(new Date(millis));
         File file = new File(PATH + PREFIX + time + SUFFIX);
 
         try {
             PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
             writer.println(time);
-            dumpPhoneInfo(writer);
+            writer.println();
+            dumpPhoneInfo(writer, sContext);
             writer.println();
             throwable.printStackTrace(writer);
             writer.close();
@@ -97,10 +98,11 @@ public class NoCrash implements CrashHelper.OnCrashListener {
         }
     }
 
-    private void dumpPhoneInfo(PrintWriter writer) throws PackageManager.NameNotFoundException {
-        PackageManager pm = sContext.getPackageManager();
-        PackageInfo packageInfo = pm.getPackageInfo(sContext.getPackageName(),
+    private static void dumpPhoneInfo(PrintWriter writer, Context context) throws PackageManager.NameNotFoundException {
+        PackageManager pm = context.getPackageManager();
+        PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(),
                 PackageManager.GET_ACTIVITIES);
+
         writer.print("app_version: ");
         writer.print(packageInfo.versionName);
         writer.print("_");
