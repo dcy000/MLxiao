@@ -705,8 +705,8 @@ public class NetworkApi {
     public static void getECGHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<ECGHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-//        params.put("bid", MyApplication.getInstance().userId);
-        params.put("bid", "100001");
+        params.put("bid", MyApplication.getInstance().userId);
+//        params.put("bid", "100001");
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);

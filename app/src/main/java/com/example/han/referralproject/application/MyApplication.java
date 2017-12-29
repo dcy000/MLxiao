@@ -113,7 +113,7 @@ public class MyApplication extends Application {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        UiUtils.compat(this, 1980);
+        UiUtils.compat(this, 1920);
     }
 
     private void initOkHttpUtils() {
