@@ -3,8 +3,7 @@ package com.example.han.referralproject.bean;
 public class RobotAmount {
 	
 	public String amount;
-
-	
+	public int count;
 	
 	public RobotAmount() {
 		super();
