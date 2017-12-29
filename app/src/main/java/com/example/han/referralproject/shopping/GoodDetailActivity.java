@@ -256,7 +256,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
             mActivity = null;
         }
 
-        mActivity = null;
 
 
     }
