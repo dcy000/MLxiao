@@ -142,7 +142,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         //   initData();
 
 
-        NetworkApi.doctor_list(0, 8, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+        NetworkApi.doctor_list(0, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
             public void onSuccess(ArrayList<Docter> response) {
 
@@ -275,9 +275,9 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
 
                         if (mlist.size() >= 9) {
-                            mCurrPage += 9;
+                            mCurrPage += 8;
 
-                            NetworkApi.doctor_list(mCurrPage, mCurrPage + 8, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                            NetworkApi.doctor_list(mCurrPage, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                                 @Override
                                 public void onSuccess(ArrayList<Docter> response) {
 
