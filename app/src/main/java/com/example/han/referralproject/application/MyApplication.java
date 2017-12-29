@@ -54,6 +54,7 @@ public class MyApplication extends Application {
     }
 
     public String eqid;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -86,7 +87,7 @@ public class MyApplication extends Application {
         userId = mShared.getUserId();
         xfid = mShared.getXunfeiId();
         telphoneNum = mShared.getPhoneNum();
-        eqid=mShared.getEqID();
+        eqid = mShared.getEqID();
         WakeupHelper.init(this);
         StringBuilder builder = new StringBuilder();
         builder.append("appid=")

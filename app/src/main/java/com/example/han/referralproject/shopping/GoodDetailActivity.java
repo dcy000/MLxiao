@@ -249,7 +249,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     }
 
 
-<<<<<<< HEAD
     @Override
     protected void onStop() {
         super.onStop();
