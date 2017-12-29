@@ -1,10 +1,13 @@
 package com.example.han.referralproject;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -51,7 +54,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private MediaPlayer mediaPlayer;//MediaPlayer对象
     private ImageView mImageView6;
-
+    private ImageView mBatteryIv;
+    private BatteryBroadCastReceiver mBatteryReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +63,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
-
-
-
-
-
 
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
@@ -100,6 +99,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
         mImageView6.setOnClickListener(this);
+        mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
 
         sharedPreferences =
 
@@ -107,11 +107,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
         if (
-
                 isMyServiceRunning(AssistiveTouchService.class))
 
         {
-
 
         } else
 
@@ -214,7 +212,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
+        mBatteryReceiver = new BatteryBroadCastReceiver();
+        registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(mBatteryReceiver);
     }
 
     @Override
@@ -277,6 +282,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
             mImageView2.performClick();
+        }
+    }
+
+    public class BatteryBroadCastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
+                int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+                int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 1);
+                int powerValue = (level * 100) / scale;
+                if (powerValue < 10) {
+                    mBatteryIv.setImageResource(R.drawable.battery_0);
+                } else if (powerValue < 20) {
+                    mBatteryIv.setImageResource(R.drawable.battery_1);
+                } else if (powerValue < 80) {
+                    mBatteryIv.setImageResource(R.drawable.battery_2);
+                } else {
+                    mBatteryIv.setImageResource(R.drawable.battery_3);
+                }
+            }
         }
     }
 }

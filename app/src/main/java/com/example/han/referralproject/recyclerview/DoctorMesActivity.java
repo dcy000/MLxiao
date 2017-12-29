@@ -25,6 +25,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
@@ -294,10 +295,10 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-
-                    countdown();
-                    mButton.setEnabled(false);
-                    OnlineTime();
+                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
+                    //countdown();
+                    //mButton.setEnabled(false);
+                    //OnlineTime();
 
 
                 } else {
