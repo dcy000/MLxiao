@@ -249,6 +249,19 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mActivity != null) {
+            mActivity = null;
+        }
+
+
+
+    }
+
+
+    @Override
     protected void onDestroy() {
 
         if (dialog2 != null) {
