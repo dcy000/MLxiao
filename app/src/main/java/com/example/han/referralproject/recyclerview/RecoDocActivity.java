@@ -275,7 +275,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
 
                         if (mlist.size() >= 9) {
-                            mCurrPage += 8;
+                            mCurrPage += 9;
 
                             NetworkApi.doctor_list(mCurrPage, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                                 @Override
