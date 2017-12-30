@@ -100,6 +100,14 @@ public class QaApi {
             if (resultObj == null) {
                 return results;
             }
+            if (service.equals("story")) {
+                String playUrl = resultObj.optString("playUrl");
+                if (!TextUtils.isEmpty(playUrl)) {
+                    results.put("audiopath", playUrl);
+                }
+                return results;
+            }
+
             if (service.equals("musicX")) {
                 //音乐(MP3)
                 String audiopath = resultObj.optString("audiopath");
