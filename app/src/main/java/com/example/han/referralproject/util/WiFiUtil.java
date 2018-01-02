@@ -1,5 +1,6 @@
 package com.example.han.referralproject.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -7,6 +8,8 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+
+import com.example.han.referralproject.application.MyApplication;
 
 import java.util.List;
 
@@ -295,5 +298,4 @@ public class WiFiUtil {
             return value;
         }
     }
-
 }

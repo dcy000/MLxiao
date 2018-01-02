@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
@@ -41,6 +42,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private TextView mConnectedWifiName;
     private WifiManager mWifiManager;
     private boolean isFirstWifi = false;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +51,18 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mToolbar.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.icon_refresh);
         mTitleText.setText("WiFi连接");
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean iswifiConnected=cm != null
+                && cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
+        if(iswifiConnected){
+            mediaPlayer=MediaPlayer.create(this,R.raw.wifi_connected);
+        }else{
+            mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
+        }
+
+        mediaPlayer.start();//播放音乐
+
         mRightView.setOnClickListener(this);
         isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);
         mWiFiUtil = WiFiUtil.getInstance(this);
@@ -106,6 +120,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mNetworkReceiver);
+        if(mediaPlayer!=null){
+            mediaPlayer.release();
+            mediaPlayer=null;
+        }
     }
 
     private CompoundButton.OnCheckedChangeListener mCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {

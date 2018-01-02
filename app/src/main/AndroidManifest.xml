@@ -35,7 +35,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    =======
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -249,6 +248,21 @@
         <activity
             android:name=".LoadingActivity"
             android:screenOrientation="landscape" />
+
+
+        <activity android:name=".recyclerview.RecoDocActivity" >
+
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<category android:name="android.intent.category.HOME"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+
+
+        </activity>
+
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
@@ -294,7 +308,6 @@
 
 
         </activity>
-        <activity android:name=".recyclerview.RecoDocActivity" />
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
