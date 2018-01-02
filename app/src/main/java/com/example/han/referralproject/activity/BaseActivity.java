@@ -68,6 +68,7 @@ public class BaseActivity extends AppCompatActivity {
     private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
     private boolean enableListeningLoop = true;
+    private boolean enableListeningLoopCache = enableListeningLoop;
     private LinearLayout rootView;
     private View mTitleView;
     protected TextView mTitleText;
@@ -83,6 +84,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
+        enableListeningLoopCache = enableListeningLoop;
     }
 
     SpeechSynthesizer synthesizer;
@@ -378,19 +380,6 @@ public class BaseActivity extends AppCompatActivity {
             }
             String result = resultBuffer.toString();
             if (!TextUtils.isEmpty(result)) {
-                if (result.matches(".*(冰镇|病症|自查|制茶|只差|直插|之差).*")) {
-                    startActivity(new Intent(BaseActivity.this, BodychartActivity.class));
-                    return;
-                }
-                if (result.matches(".*(返回|反悔).*")) {
-                    finish();
-                    return;
-                }
-                if (result.matches(".*(首页|守夜|授业).*")) {
-                    startActivity(new Intent(BaseActivity.this, MainActivity.class));
-                    finish();
-                    return;
-                }
                 onSpeakListenerResult(result);
             }
         }
@@ -559,9 +548,11 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        enableListeningLoop = true;
+        enableListeningLoop = enableListeningLoopCache;
         setDisableGlobalListen(false);
-        handler.postDelayed(mListening, 200);
+        if (enableListeningLoop) {
+            handler.postDelayed(mListening, 200);
+        }
     }
 
     @Override
@@ -570,13 +561,14 @@ public class BaseActivity extends AppCompatActivity {
         if (synthesizer != null && synthesizer.isSpeaking()) {
             synthesizer.stopSpeaking();
         }
+        enableListeningLoopCache = enableListeningLoop;
         enableListeningLoop = false;
         handler.removeCallbacks(mListening);
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer != null && recognizer.isListening()) {
             recognizer.stopListening();
         }
-        if(mMediaRecorder!=null){
+        if (mMediaRecorder != null) {
             isAlive = false;
             mMediaRecorder.release();
             mMediaRecorder = null;

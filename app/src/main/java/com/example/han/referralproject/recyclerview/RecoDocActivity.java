@@ -277,7 +277,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                         if (mlist.size() >= 9) {
                             mCurrPage += 9;
 
-                            NetworkApi.doctor_list(mCurrPage, mCurrPage + 8, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                            NetworkApi.doctor_list(0, mCurrPage + 8, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                                 @Override
                                 public void onSuccess(ArrayList<Docter> response) {
 
