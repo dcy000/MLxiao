@@ -106,7 +106,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 //获取Spinner控件的适配器
                 ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
                 Log.e("==============", adapter.getItem(position));
-                ;
+
             }
 
             //没有选中时的处理
@@ -137,6 +137,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
     public void getData() {
         NetworkApi.doctor_list(0, mCurrPage, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+
             @Override
             public void onSuccess(ArrayList<Docter> response) {
                 mlist.clear();
@@ -227,97 +228,13 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                         && lastVisibleItemPosition >= totalItemCount - 1
                         && visibleItemCount > 0) {
                     mCurrPage += 9;
-//                    NetworkApi.doctor_list(0, mCurrPage, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-//                        @Override
-//                        public void onSuccess(ArrayList<Docter> response) {
-//                            mlist.clear();
-//                            mlist.addAll(response);
-//                            mDoctorAdapter.notifyDataSetChanged();
-//                        }
-//
-//                    }, new NetworkManager.FailedCallback() {
-//                        @Override
-//                        public void onFailed(String message) {
-//
-//                        }
-//                    });
                     getData();
                 }
-
             }
 
 
         });
-
-
     }
-
-   /* public void loadMore() {
-
-        RetrofitService retrofitService = RetrofitClient.getClient();
-        // 创建有一个回调对象
-        Call<List<Doctors>> call = retrofitService.ShowDocMsg("ShowDocServlet", 9 * mCurrPage);
-        // 用回调对象发起请求
-        call.enqueue(new Callback<List<Doctors>>() {
-
-            // 回调方法
-            @Override
-            public void onResponse(Call<List<Doctors>> call, Response<List<Doctors>> response) {
-                if (response.isSuccessful()) {
-                    List<Doctors> list = new ArrayList<Doctors>();
-                    list = response.body();
-                    mlist.addAll(list);
-
-                    mDoctorAdapter.notifyDataSetChanged();
-                } else {
-
-                }
-            }
-
-            // 返回http状态码非成功的回调方法
-            @Override
-            public void onFailure(Call<List<Doctors>> call, Throwable t) {
-
-            }
-        });
-
-    }*/
-
-
-    /*public void initData() {
-        RetrofitService retrofitService = RetrofitClient.getClient();
-        // 创建有一个回调对象
-        Call<List<Doctors>> call = retrofitService.LoardMore("LoadMoreServlet", mCurrPage);
-        // 用回调对象发起请求
-        call.enqueue(new Callback<List<Doctors>>() {
-            // 回调方法
-            @Override
-            public void onResponse(Call<List<Doctors>> call, Response<List<Doctors>> response) {
-                if (response.isSuccessful()) {
-                    List<Doctors> list = new ArrayList<Doctors>();
-                    mlist.clear();
-                    list = response.body();
-                    mlist.addAll(list);
-                    mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
-                    mRecyclerView.setAdapter(mDoctorAdapter);
-
-                    setData();
-
-                    //    mContactAdapter.notifyDataSetChanged();
-
-                } else {
-
-                }
-            }
-
-            // 返回http状态码非成功的回调方法
-            @Override
-            public void onFailure(Call<List<Doctors>> call, Throwable t) {
-
-            }
-        });
-
-    }*/
 
 
     public static final String REGEX_IN_GO_BACK = ".*(shangyibu|houtui|fanhui).*";

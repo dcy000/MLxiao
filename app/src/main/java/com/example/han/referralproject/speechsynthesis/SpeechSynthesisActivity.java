@@ -195,6 +195,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (mPlayFragment != null && isPlayFragmentShow) {
+                    if (getPlayService().isPlaying()) {
+                        getPlayService().playPause();
+                    }
+                    hidePlayingFragment();
+                    mImageView.setClickable(true);
+                }
                 finish();
             }
         });
@@ -279,6 +287,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
+
+
         if (mPlayFragment != null && isPlayFragmentShow) {
             if (getPlayService().isPlaying()) {
                 getPlayService().playPause();
@@ -291,7 +302,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             return;
         }
 
-        super.onBackPressed();
     }
 
     private void hidePlayingFragment() {

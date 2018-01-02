@@ -249,9 +249,9 @@
         <activity
             android:name=".LoadingActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".WelcomeActivity"
-            android:screenOrientation="landscape">
+
+
+        <activity android:name=".recyclerview.RecoDocActivity" >
 
 
             <!--<intent-filter>-->
@@ -260,6 +260,16 @@
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
                 <!--<category android:name="android.intent.category.DEFAULT"/>-->
             <!--</intent-filter>-->
+
+
+        </activity>
+
+        <activity
+            android:name=".WelcomeActivity"
+            android:screenOrientation="landscape">
+
+
+
 
 
         </activity>
@@ -294,6 +304,7 @@
 
 
         </activity>
+<<<<<<< HEAD
         <activity android:name=".recyclerview.RecoDocActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -303,6 +314,9 @@
             </intent-filter>
 
         </activity>
+=======
+
+>>>>>>> 410aba7057a300066e998287514a3c76ca17a49f
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
