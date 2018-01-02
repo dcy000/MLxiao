@@ -421,6 +421,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mLowPressTv.setText(String.valueOf(notifyData[4] & 0xff));
                             mPulseTv.setText(String.valueOf(notifyData[8] & 0xff));
                             if (isGetResustFirst) {
+                                isGetResustFirst = false;
+                                mHandler.sendEmptyMessageDelayed(2, 30000);
                                 String xueyaResult;
                                 if ((notifyData[2] & 0xff) <= 140) {
                                     xueyaResult = mXueyaResults[0];
@@ -441,8 +443,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                                isGetResustFirst = false;
-                                mHandler.sendEmptyMessageDelayed(2, 30000);
                             }
                         }
                         StringBuilder mBuilder = new StringBuilder();
@@ -459,6 +459,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         //threadDisable = false;
                         if (isGetResustFirst) {
+                            isGetResustFirst = false;
 //                            float xuetangResut = ((float)((notifyData[10] << 8 + (notifyData[9] & 0xff))))/18;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
 //                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
@@ -508,7 +509,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                            isGetResustFirst = false;
                         }
                         break;
                     case Type_XueYang:
@@ -517,6 +517,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mXueYangTv.setText(String.valueOf(notifyData[5]));
                             mXueYangPulseTv.setText(String.valueOf(notifyData[6]));
                             if (isGetResustFirst) {
+                                isGetResustFirst = false;
+                                mHandler.sendEmptyMessageDelayed(2, 30000);
                                 DataInfoBean info = new DataInfoBean();
                                 info.blood_oxygen = String.format(String.valueOf(notifyData[5]));
                                 info.pulse = (int) notifyData[6];
@@ -533,8 +535,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                                isGetResustFirst = false;
-                                mHandler.sendEmptyMessageDelayed(2, 30000);
                             }
                         }
                         break;
@@ -566,6 +566,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             return;
                         }
                         if (isGetResustFirst){
+                            isGetResustFirst = false;
                             int result = ((notifyData[11] & 0xff) << 8) + (notifyData[10] & 0xff);
                             int basic = (int) Math.pow(16, 3);
                             int flag = result/basic;
@@ -599,7 +600,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                            }
 //                            int result = (notifyData[18] << 8) + (notifyData[17] & 0xff);
                             //mResultTv.setText(String.valueOf(result));
-                            isGetResustFirst = false;
                         }
                         break;
                 }

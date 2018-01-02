@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
@@ -83,6 +84,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
 
     public RelativeLayout mButton;
+    public boolean isTest = false;
 
 
     private Handler mHandler = new Handler(new Handler.Callback() {
@@ -184,10 +186,15 @@ public class RegisterVideoActivity extends BaseActivity {
 
       //  mediaPlayer.start();//播放音乐
 
+        isTest = getIntent().getBooleanExtra("isTest", false);
+
         mButton = (RelativeLayout) findViewById(R.id.tiao_guo);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isTest){
+                    startActivity(new Intent(mContext, MainActivity.class));
+                }
                 finish();
             }
         });
@@ -364,11 +371,10 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
+        if (isTest){
+            return;
+        }
         mHandler.sendEmptyMessageDelayed(0, 2500);
-
-
     }
 
     private RequestListener mRequestListener = new RequestListener() {
