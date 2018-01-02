@@ -463,7 +463,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
 //                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
-                            switch (seletTimeType){
+                            switch (time){
                                 case 0://空腹
                                     if(xuetangResut<3.61){
                                         speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
@@ -491,17 +491,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                         speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
                                         xuetangAbnormal=true;
                                     }else if(xuetangResut<=7.8){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
-                                    }else{
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
-                                        xuetangAbnormal=true;
-                                    }
-                                    break;
-                                case 3://饭后三小时
-                                    if(xuetangResut<3.61){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
-                                        xuetangAbnormal=true;
-                                    }else if(xuetangResut<=7.0){
                                         speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
                                     }else{
                                         speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
