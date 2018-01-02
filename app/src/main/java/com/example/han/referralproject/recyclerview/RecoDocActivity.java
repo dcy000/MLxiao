@@ -110,7 +110,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 //获取Spinner控件的适配器
                 ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
                 Log.e("==============", adapter.getItem(position));
-                ;
+
             }
 
             //没有选中时的处理
@@ -280,7 +280,6 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                             NetworkApi.doctor_list(mCurrPage, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                                 @Override
                                 public void onSuccess(ArrayList<Docter> response) {
-
                                     List<Docter> list = new ArrayList<Docter>();
                                     list.clear();
                                     list = response;
