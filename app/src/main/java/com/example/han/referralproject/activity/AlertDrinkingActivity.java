@@ -13,6 +13,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.ToastUtil;
 import com.medlink.danbogh.register.EatAdapter;
 import com.medlink.danbogh.register.EatModel;
 
@@ -167,6 +168,10 @@ public class AlertDrinkingActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
+        if(positionSelected==-1){
+            ToastUtil.showShort(this,"请选择其中一个");
+            return;
+        }
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, positionSelected+1+"", exercise, new NetworkManager.SuccessCallback<Object>() {
             @Override
             public void onSuccess(Object response) {
