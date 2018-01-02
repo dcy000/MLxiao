@@ -51,7 +51,16 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mToolbar.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.icon_refresh);
         mTitleText.setText("WiFi连接");
-        mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean iswifiConnected=cm != null
+                && cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
+        if(iswifiConnected){
+            mediaPlayer=MediaPlayer.create(this,R.raw.wifi_connected);
+        }else{
+            mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
+        }
+
         mediaPlayer.start();//播放音乐
 
         mRightView.setOnClickListener(this);

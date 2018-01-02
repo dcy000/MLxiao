@@ -153,7 +153,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:overScrollMode="never"/>
 
         <TextView
             android:id="@+id/tv_sign_up_go_back"
