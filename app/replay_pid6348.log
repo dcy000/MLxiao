@@ -1,0 +1,32 @@
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 0
+JvmtiExport can_post_on_exceptions 0
+# 223 ciObject found
+ciMethod java/lang/Object <init> ()V 4097 1 916150 0 0
+ciMethod java/lang/System arraycopy (Ljava/lang/Object;ILjava/lang/Object;II)V 7169 1 896 0 -1
+ciMethod java/util/Map values ()Ljava/util/Collection; 0 0 1 0 -1
+ciMethod java/util/Collection iterator ()Ljava/util/Iterator; 0 0 1 0 -1
+ciMethod java/util/ArrayList get (I)Ljava/lang/Object; 1977 1 1882044 0 -1
+ciMethod java/util/ArrayList add (Ljava/lang/Object;)Z 689 1 307655 0 -1
+ciMethodData java/lang/Object <init> ()V 2 916152 orig 264 88 66 79 99 0 0 0 0 128 4 74 27 0 0 0 0 32 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 193 197 111 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 3 0 1 0 0 0 0 0 0 0 255 255 255 255 0 0 0 0 0 0 0 0 data 0 oops 0
+ciMethod java/util/Iterator hasNext ()Z 0 0 1 0 -1
+ciMethod java/util/Iterator next ()Ljava/lang/Object; 0 0 1 0 -1
+ciMethod java/util/HashMap$HashIterator hasNext ()Z 28401 1 3361 0 0
+ciMethod java/util/HashMap$HashIterator nextNode ()Ljava/util/HashMap$Node; 21857 78937 2715 0 -1
+ciMethodData java/util/HashMap$HashIterator nextNode ()Ljava/util/HashMap$Node; 1 9712 orig 264 88 66 79 99 0 0 0 0 120 195 106 27 0 0 0 0 8 2 0 0 128 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 97 3 0 0 9 4 0 0 17 12 0 0 0 0 0 0 0 0 0 0 2 0 0 0 1 0 17 0 2 0 0 0 224 0 0 0 255 255 255 255 7 0 16 0 0 0 0 0 data 28 0x100007 0x81 0x30 0x0 0x170002 0x0 0x1c0007 0x81 0x30 0x0 0x230002 0x0 0x350007 0x4 0x80 0x7d 0x410007 0x0 0x60 0x7d 0x4a0007 0x1f 0x40 0x1e0 0x5f0007 0x182 0xffffffffffffffe0 0x5e oops 0
+ciMethodData java/util/HashMap$HashIterator hasNext ()Z 1 3361 orig 264 88 66 79 99 0 0 0 0 120 194 106 27 0 0 0 0 88 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 2 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 3 0 2 0 0 0 56 0 0 0 255 255 255 255 7 0 4 0 0 0 0 0 data 7 0x40007 0x0 0x38 0x0 0x80003 0x0 0x18 oops 0
+ciMethod java/util/HashMap$Values iterator ()Ljava/util/Iterator; 9 1 1 0 0
+ciMethod java/util/HashMap$ValueIterator <init> (Ljava/util/HashMap;)V 9 1 1 0 -1
+ciMethod java/util/HashMap$ValueIterator next ()Ljava/lang/Object; 9 1 1 0 0
+ciMethod com/android/dx/rop/type/TypeBearer getType ()Lcom/android/dx/rop/type/Type; 0 0 1 0 -1
+ciMethod com/android/dx/util/MutabilityControl <init> (Z)V 2113 1 45606 0 32
+ciMethod com/android/dx/util/MutabilityControl setImmutable ()V 3145 1 145779 0 0
+ciMethod com/android/dx/util/MutabilityControl throwIfImmutable ()V 2049 1 277334 0 64
+ciMethod com/android/dx/util/MutabilityControl throwIfMutable ()V 2049 1 47032 0 64
+ciMethod com/android/dx/util/FixedSizeList <init> (I)V 2129 1 5518 0 288
+ciMethod com/android/dx/util/FixedSizeList size ()I 2073 1 607881 0 0
+ciMethod com/android/dx/util/FixedSizeList get0 (I)Ljava/lang/Object; 3097 1 5507 0 128
+ciMethod com/android/dx/util/FixedSizeList set0 (ILjava/lang/Object;)V 2049 1 157871 0 224
+ciMethod com/android/dx/util/FixedSizeList throwIndex (I)Ljava/lang/Object; 0 0 1 0 -1
+ciMethodData com/android/dx/util/MutabilityControl throwIfImmutable ()V 2 277334 orig 264 88 66 79 99 0 0 0 0 136 116 142 27 0 0 0 0 80 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 177 210 33 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 5 0 2 0 0 0 48 0 0 0 255 255 255 255 7 0 4 0 0 0 0 0 data 6 0x40007 0x43a6e 0x30 0x0 0xd0002 0x0 oops 0
+ciMethodData com/android/dx/util/FixedSizeList set0 (ILjava/lang/Object;)V 2 157871 orig 264 88 66 79 99 0 0 0 0 200 254 142 27 0 0 0 0 224 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 17 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 121 61 19 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 11 0 2 0 0 0 136 0 0 0 255 255 255 255 5 0 1 0 0 0 0 0 data 17 0x10005 0x22e55 0x1f711b50 0x1e10 0x1d594ac0 0x1b66 0xa0004 0x0 0x1f711c00 0x296 0x1f711cb0 0x29e 0xb0003 0x267d3 0x28 0x110002 0x0 oops 4
