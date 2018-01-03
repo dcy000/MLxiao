@@ -63,8 +63,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
-
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
         mediaPlayer.start();//播放音乐*/
@@ -225,6 +223,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onResume() {
+        NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
         setEnableListeningLoop(false);
         super.onResume();
         NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
