@@ -73,6 +73,10 @@ public class NimCallActivity extends AppCompatActivity {
     public static final int SOURCE_BROADCAST = 0;
     public static final int SOURCE_INTERNAL = 1;
 
+    public static void launchNoCheck(final Context context, final String account) {
+        launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+    }
+
     public static void launch(final Context context, final String account) {
         final String deviceId = com.example.han.referralproject.util.Utils.getDeviceId();
         NetworkApi.Person_Amount(deviceId, new NetworkManager.SuccessCallback<RobotAmount>() {
