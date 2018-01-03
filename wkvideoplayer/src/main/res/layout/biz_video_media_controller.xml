@@ -35,7 +35,7 @@
             <SeekBar
                 android:id="@+id/media_controller_progress"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:progressDrawable="@drawable/biz_video_progressbar"
                 android:thumb="@drawable/progressbar"
                 android:thumbOffset="1.5dip" />
@@ -54,11 +54,13 @@
         <View
             android:id="@+id/view_menu_placeholder"
             android:layout_width="10dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="40dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/expand"
