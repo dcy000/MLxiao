@@ -1,5 +1,6 @@
 package com.example.han.referralproject.speechsynthesis;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -62,7 +63,6 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
@@ -214,7 +214,32 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
         mLottieView = (LottieAnimationView) findViewById(R.id.animation_view);
+        mLottieView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
 
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if(animationType!=0){
+                    mLottieView.clearAnimation();
+                    mLottieView.setAnimation("default.json");
+                    animationType = 0;
+                }
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                animationType = 0;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         mIat = SpeechRecognizer.createRecognizer(this, mInitListener);
@@ -336,6 +361,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mRelativeLayout.post(action);
     }
 
+    private int animationType;
+
     Runnable action = new Runnable() {
         @Override
         public void run() {
@@ -348,9 +375,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //            anim.setOneShot(true);
 //            mRelativeLayout.setBackground(anim);
 //            anim.start();
-            if (!mLottieView.isAnimating()) {
-                mLottieView.playAnimation();
+
+            mLottieView.clearAnimation();
+            switch (animationType) {
+                case -1:
+                    // no answer
+                    mLottieView.setAnimation("no_answer.json");
+                    break;
+                default:
+                    // animationType = 0
+                    mLottieView.setAnimation("default.json");
+                    break;
             }
+            mLottieView.playAnimation();
         }
     };
 
@@ -1001,6 +1038,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (str1 != null) {
 
             if (getString(R.string.speak_null).equals(str1)) {
+                animationType = -1;
                 startAnim();
                 int randNum = rand.nextInt(10) + 1;
 
