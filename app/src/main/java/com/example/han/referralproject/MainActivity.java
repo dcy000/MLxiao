@@ -33,6 +33,7 @@ import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 
 import org.litepal.crud.DataSupport;
 
@@ -198,7 +199,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.call_family://紧急呼叫家人
                 //呼叫
-                NimCallActivity.launch(this, MyApplication.getInstance().eqid);
+                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
                 break;
         }
     }
