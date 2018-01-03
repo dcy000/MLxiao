@@ -13,6 +13,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NimAccountHelper.getInstance().logout();
                 MyApplication.getInstance().userId = itemBean.bid;
                 MyApplication.getInstance().xfid=itemBean.xfid;
                 MyApplication.getInstance().eqid=itemBean.eqid;

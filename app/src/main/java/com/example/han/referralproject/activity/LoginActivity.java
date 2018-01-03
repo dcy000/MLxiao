@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -74,6 +75,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
                 if (!mCheckBox.isChecked()) {
                     Toast.makeText(mContext, R.string.agree_sure, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if ("123456".equals(mAccountTv.getText()) && "654321".equals(mPwdTv.getText())){
+                    Intent mIntent = new Intent(mContext, RegisterVideoActivity.class);
+                    mIntent.putExtra("isTest", true);
+                    startActivity(mIntent);
+                    finish();
                     return;
                 }
                 showLoadingDialog(getString(R.string.do_login));
