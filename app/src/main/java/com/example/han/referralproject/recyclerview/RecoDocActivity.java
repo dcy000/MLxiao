@@ -2,6 +2,7 @@ package com.example.han.referralproject.recyclerview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -24,6 +25,7 @@ import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.util.ToastUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,17 +34,10 @@ import java.util.List;
 
 public class RecoDocActivity extends BaseActivity implements View.OnClickListener {
 
-    private ListView mateListView;
-    private EditText editText;
-
-    public String keyWords;
-    private List<String> list = new ArrayList<String>();
-    private List<String> mInfoList = new ArrayList<String>();
-
     private RecyclerView mRecyclerView;
-    private List<Docter> mlist = new ArrayList<Docter>();
+    private List<Docter> mlist;
     DoctorAdapter mDoctorAdapter;
-    private int mCurrPage;
+    private int mCurrPage = 9;//默认加载9调数据
 
     public View mTvContractOffline;
     public TextView tvGoBack;
@@ -51,34 +46,37 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reco_doc);
+        //隐藏软键盘
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        mCurrPage = 0;
-
+         mlist= new ArrayList<>();
         tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
-        tvGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, RegisterVideoActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        tvGoBack.setOnClickListener(this);
 
         mTvContractOffline = findViewById(R.id.tv_sign_up_contract_offline);
         mTvContractOffline.setOnClickListener(this);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        //    initToolBar();
-
         mRecyclerView = (RecyclerView) findViewById(R.id.forum_list);
 
+
+        Spinner sp = (Spinner) findViewById(R.id.spinner);
+        Spinner sp1 = (Spinner) findViewById(R.id.spinner1);
+        Spinner sp2 = (Spinner) findViewById(R.id.spinner2);
+
+        setSpinner(sp,sp1,sp2);
+
+        setAdapter();
+        getData();
+
+    }
+
+    private void setSpinner(Spinner sp,Spinner sp1,Spinner sp2) {
         List<String> list = new ArrayList<String>();
         list.add("杭州");
         list.add("上海");
         list.add("北京");
+
         SpinnerAdapter adapter = new SpinnerAdapter(this, android.R.layout.simple_spinner_item, list);
-        Spinner sp = (Spinner) findViewById(R.id.spinner);
         sp.setAdapter(adapter);
 
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -87,21 +85,19 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 //获取Spinner控件的适配器
                 ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
                 Log.e("==============", adapter.getItem(position));
-                ;
             }
 
             //没有选中时的处理
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
-
 
         List<String> list1 = new ArrayList<String>();
         list1.add("萧山");
         list1.add("滨江");
         list1.add("西湖");
         SpinnerAdapter adapter1 = new SpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, list1);
-        Spinner sp1 = (Spinner) findViewById(R.id.spinner1);
         sp1.setAdapter(adapter1);
 
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -110,7 +106,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 //获取Spinner控件的适配器
                 ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
                 Log.e("==============", adapter.getItem(position));
-                ;
+
             }
 
             //没有选中时的处理
@@ -123,7 +119,6 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         list2.add("萧山第一人民医院");
         list2.add("萧山开发区医院");
         SpinnerAdapter adapter2 = new SpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, list2);
-        Spinner sp2 = (Spinner) findViewById(R.id.spinner2);
         sp2.setAdapter(adapter2);
 
         sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -138,54 +133,37 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
 
-        //   initData();
+    public void getData() {
+        NetworkApi.doctor_list(0, mCurrPage, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
 
-
-        NetworkApi.doctor_list(0, 8, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
             public void onSuccess(ArrayList<Docter> response) {
-
-                List<Docter> list = new ArrayList<Docter>();
                 mlist.clear();
-                list.addAll(response);
-                mlist.addAll(list);
-                mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
-                mRecyclerView.setAdapter(mDoctorAdapter);
-
-                setData();
+                mlist.addAll(response);
+                mDoctorAdapter.notifyDataSetChanged();
 
             }
 
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-
+                ToastUtil.showShort(RecoDocActivity.this, message);
             }
         });
-
-
     }
-
-   /* private void initToolBar() {
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        mTitleText = (TextView) findViewById(R.id.title_content);
-
-        mToolBar.setTitle("");
-        setSupportActionBar(mToolBar);
-        // 给左上角图标的左边加上一个返回的图标
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //    mTitleText.setText(str);
-        mTitleText.setTextSize(25);
-        //    mTitleText.setGravity(Gravity.CENTER);
-
-    }*/
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_sign_up_contract_offline:
                 startActivity(new Intent(mContext, OfflineActivity.class));
+                break;
+            case R.id.tv_sign_up_go_back:
+                Intent intent = new Intent(mContext, RegisterVideoActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
     }
@@ -214,20 +192,14 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         super.onStart();
     }
 
-    public void setData() {
-        /*  FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(this);
-        mRecyclerView.setNestedScrollingEnabled(false);
-        //设置布局管理器
-        mRecyclerView.setLayoutManager(linearLayoutManager);*/
-
+    public void setAdapter() {
         mRecyclerView.setHasFixedSize(true);
-        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         SpacesItemDecoration decoration = new SpacesItemDecoration(-1);
         mRecyclerView.addItemDecoration(decoration);
-
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(DensityUtils.dp2px(getApplicationContext(), -5)));
+        mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+        mRecyclerView.setAdapter(mDoctorAdapter);
 
         mDoctorAdapter.setOnItemClistListener(new DoctorAdapter.OnItemClickListener() {
             @Override
@@ -236,148 +208,33 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 intent.putExtra("docMsg", (Serializable) mlist.get(postion));
                 intent.putExtra("sign", "0");
                 startActivity(intent);
-//                finish();
 
             }
         });
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            boolean isSlidingUp;
-
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                // 表示在向上滑动
-                if (dy > 0) {
-                    isSlidingUp = true;
-                } else {
-                    isSlidingUp = false;
-                }
-            }
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {}
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                GridLayoutManager manager = (GridLayoutManager) recyclerView.getLayoutManager();
 
+                int totalItemCount = recyclerView.getAdapter().getItemCount();
+                int lastVisibleItemPosition = manager.findLastVisibleItemPosition();
+                int visibleItemCount = recyclerView.getChildCount();
                 // 屏幕滑动后停止（空闲状态）
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
-                    // manager.getSpanCount() 跨度-》列数
-                    int[] lastVisiblePosition = manager.findLastVisibleItemPositions(new int[manager.getSpanCount()]);
-
-                    // 获取recyclerview总共将会显示多少条数据（一共有多少个item）
-                    int countItem = manager.getItemCount();
-                    // 对数组进行升序排列
-                    Arrays.sort(lastVisiblePosition);
-
-                    // 获取数组中的最大值，即已显示的最大索引
-                    int maxPosition = lastVisiblePosition[lastVisiblePosition.length - 1];
-
-                    if ((countItem - 1) == maxPosition && isSlidingUp) {
-
-                        if (mlist.size() >= 9) {
-                            mCurrPage += 9;
-
-                            NetworkApi.doctor_list(mCurrPage, mCurrPage + 8, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-                                @Override
-                                public void onSuccess(ArrayList<Docter> response) {
-
-                                    List<Docter> list = new ArrayList<Docter>();
-                                    list.clear();
-                                    list = response;
-                                    mlist.addAll(list);
-                                    mDoctorAdapter.notifyDataSetChanged();
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-                                }
-                            });
-
-
-                        }
-
-
-                    }
-
-
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItemPosition >= totalItemCount - 1
+                        && visibleItemCount > 0) {
+                    mCurrPage += 9;
+                    getData();
                 }
             }
 
 
         });
-
-
     }
-
-   /* public void loadMore() {
-
-        RetrofitService retrofitService = RetrofitClient.getClient();
-        // 创建有一个回调对象
-        Call<List<Doctors>> call = retrofitService.ShowDocMsg("ShowDocServlet", 9 * mCurrPage);
-        // 用回调对象发起请求
-        call.enqueue(new Callback<List<Doctors>>() {
-
-            // 回调方法
-            @Override
-            public void onResponse(Call<List<Doctors>> call, Response<List<Doctors>> response) {
-                if (response.isSuccessful()) {
-                    List<Doctors> list = new ArrayList<Doctors>();
-                    list = response.body();
-                    mlist.addAll(list);
-
-                    mDoctorAdapter.notifyDataSetChanged();
-                } else {
-
-                }
-            }
-
-            // 返回http状态码非成功的回调方法
-            @Override
-            public void onFailure(Call<List<Doctors>> call, Throwable t) {
-
-            }
-        });
-
-    }*/
-
-
-    /*public void initData() {
-        RetrofitService retrofitService = RetrofitClient.getClient();
-        // 创建有一个回调对象
-        Call<List<Doctors>> call = retrofitService.LoardMore("LoadMoreServlet", mCurrPage);
-        // 用回调对象发起请求
-        call.enqueue(new Callback<List<Doctors>>() {
-            // 回调方法
-            @Override
-            public void onResponse(Call<List<Doctors>> call, Response<List<Doctors>> response) {
-                if (response.isSuccessful()) {
-                    List<Doctors> list = new ArrayList<Doctors>();
-                    mlist.clear();
-                    list = response.body();
-                    mlist.addAll(list);
-                    mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
-                    mRecyclerView.setAdapter(mDoctorAdapter);
-
-                    setData();
-
-                    //    mContactAdapter.notifyDataSetChanged();
-
-                } else {
-
-                }
-            }
-
-            // 返回http状态码非成功的回调方法
-            @Override
-            public void onFailure(Call<List<Doctors>> call, Throwable t) {
-
-            }
-        });
-
-    }*/
 
 
     public static final String REGEX_IN_GO_BACK = ".*(shangyibu|houtui|fanhui).*";

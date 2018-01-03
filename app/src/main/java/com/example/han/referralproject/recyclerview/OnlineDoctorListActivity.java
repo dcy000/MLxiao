@@ -37,6 +37,8 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
     private String mFlag;
 
 
+    private int limit = 9;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +52,11 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
         mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
-            NetworkApi.doctor_list(0, 12, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+            NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                 @Override
                 public void onSuccess(ArrayList<Docter> response) {
-                    List<Docter> list = new ArrayList<Docter>();
                     mlist.clear();
-                    list.addAll(response);
-                    mlist.addAll(list);
+                    mlist.addAll(response);
                     mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
                     mRecyclerView.setAdapter(mDoctorAdapter);
                     setData();
@@ -149,10 +149,6 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
             }
         });
 
-      /*  if ("contract".equals(mFlag)) {
-            return;
-        }*/
-
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             boolean isSlidingUp;
@@ -185,6 +181,24 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                     int maxPosition = lastVisiblePosition[lastVisiblePosition.length - 1];
 
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
+                        if ("contract".equals(mFlag)) {
+                            limit += 9;
+                            NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                                @Override
+                                public void onSuccess(ArrayList<Docter> response) {
+                                    mlist.clear();
+                                    mlist.addAll(response);
+                                    mDoctorAdapter.notifyDataSetChanged();
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
+                            });
+                            return;
+                        }
 
                         if (mlist.size() >= 9) {
                             page += 1;
@@ -192,10 +206,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                             NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                                 @Override
                                 public void onSuccess(ArrayList<Docter> response) {
-                                    List<Docter> list = new ArrayList<Docter>();
-                                    list.clear();
-                                    list = response;
-                                    mlist.addAll(list);
+                                    mlist.addAll(response);
                                     mDoctorAdapter.notifyDataSetChanged();
 
                                 }
