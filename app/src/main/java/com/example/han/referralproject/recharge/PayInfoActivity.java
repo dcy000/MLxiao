@@ -3,6 +3,7 @@ package com.example.han.referralproject.recharge;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
@@ -188,15 +191,45 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
      * 返回上一页
      */
     protected void backLastActivity() {
-        finish();
+        NDialog1 dialog = new NDialog1(this);
+        dialog.setMessageCenter(true)
+                .setMessage("您是否已支付成功?")
+                .setMessageSize(35)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#FFA200"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+                    @Override
+                    public void onClick(int which) {
+                        if (which == 1) {
+                            finish();
+                        }
+                    }
+                }).create(NDialog.CONFIRM).show();
     }
 
     /**
      * 返回到主页面
      */
     protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
+        NDialog1 dialog = new NDialog1(this);
+        dialog.setMessageCenter(true)
+                .setMessage("您是否已支付成功?")
+                .setMessageSize(35)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#FFA200"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+                    @Override
+                    public void onClick(int which) {
+                        if (which == 1) {
+                            startActivity(new Intent(mContext, MainActivity.class));
+                            finish();
+                        }
+                    }
+                }).create(NDialog.CONFIRM).show();
     }
 
 
@@ -228,7 +261,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         });
                     }
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
 
@@ -268,7 +301,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         });
                     }
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
 
