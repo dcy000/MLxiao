@@ -76,7 +76,7 @@ public class FindPasswordActivity extends BaseActivity {
                     public void onSuccess(String response) {
                         hideLoadingDialog();
                         Intent intent = new Intent(FindPasswordActivity.this, SetPasswordActivity.class);
-                        intent.putExtras(getIntent());
+                        intent.putExtra("phone", phone);
                         startActivity(intent);
                         finish();
                     }

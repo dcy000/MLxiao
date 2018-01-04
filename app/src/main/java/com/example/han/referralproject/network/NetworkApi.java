@@ -47,9 +47,9 @@ public class NetworkApi {
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.113:8080";
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
-    public static final String BasicUrl="http://192.168.200.111:8080";//文博本地
+//    public static final String BasicUrl="http://192.168.200.111:8080";//文博本地
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -123,8 +123,16 @@ public class NetworkApi {
     public static final String CHECK_CONTRACT = BasicUrl + "/ZZB/eq/selCountPaidAmountByEqid";
 
     public static final String GET_VIDEO_LIST = BasicUrl + "/ZZB/vc/selAllUpload";
-//  curl -XPOST http://192.168.200.117:8080/ZZB/vc/selAllUpload
-//  -d "tag1=2&tag2=1&flag=1&page=1&pagesize=8"
+    public static final String GET_CODE = BasicUrl + "/ZZB/docter/GainCode";
+
+    public static void getCode(
+            String phone,
+            NetworkManager.SuccessCallback<String> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("mobile", phone);
+        NetworkManager.getInstance().getResultString(GET_CODE, params, successCallback, failedCallback);
+    }
 
 
     public static void getVideoList(
