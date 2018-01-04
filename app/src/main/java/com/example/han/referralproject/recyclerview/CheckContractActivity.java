@@ -87,8 +87,7 @@ public class CheckContractActivity extends BaseActivity {
     }
 
     private void onCancelContract() {
-        NetworkApi.cancelContract(MyApplication.getInstance().userId,
-                new NetworkManager.SuccessCallback<Object>() {
+        NetworkApi.cancelContract(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
                         T.show("取消成功");

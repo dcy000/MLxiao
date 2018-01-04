@@ -203,7 +203,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     hidePlayingFragment();
                     mImageView.setClickable(true);
                 }
-              }
+
+                finish();
+            }
         });
         initLayout();
 
@@ -222,7 +224,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if(animationType!=0){
+                if (animationType != 0) {
                     mLottieView.clearAnimation();
                     mLottieView.setAnimation("default.json");
                     animationType = 0;
