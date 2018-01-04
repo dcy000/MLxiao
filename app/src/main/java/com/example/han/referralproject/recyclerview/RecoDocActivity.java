@@ -137,7 +137,6 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
     public void getData() {
         NetworkApi.doctor_list(0, mCurrPage, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-
             @Override
             public void onSuccess(ArrayList<Docter> response) {
                 mlist.clear();
@@ -224,9 +223,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 int lastVisibleItemPosition = manager.findLastVisibleItemPosition();
                 int visibleItemCount = recyclerView.getChildCount();
                 // 屏幕滑动后停止（空闲状态）
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItemPosition >= totalItemCount - 1
-                        && visibleItemCount > 0) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItemPosition >= totalItemCount - 1 && visibleItemCount > 0) {
                     mCurrPage += 9;
                     getData();
                 }

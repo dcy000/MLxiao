@@ -83,12 +83,16 @@ public class ReminderActivity extends BaseActivity {
             if (mAlarmCount < 5) {
                 mAlarmCount++;
                 speak(mContent);
-                Handlers.ui().postDelayed(this, 3000);
             } else {
                 mAlarmCount = 0;
             }
         }
     };
+
+    @Override
+    protected void onActivitySpeakFinish() {
+        Handlers.runOnUiThread(mAlarm);
+    }
 
     private static final int WAKELOCK_TIMEOUT = 30 * 1000;
 
