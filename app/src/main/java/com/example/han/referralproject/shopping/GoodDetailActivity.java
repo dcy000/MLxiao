@@ -88,8 +88,8 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
         Picasso.with(this)
                 .load(goods.getGoodsimage())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .tag(this)
                 .fit()
                 .into(mImageView1);
@@ -269,8 +269,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
             dialog2.create(NDialog.CONFIRM).cancel();
             dialog2 = null;
         }
-
-
         super.onDestroy();
 
     }
