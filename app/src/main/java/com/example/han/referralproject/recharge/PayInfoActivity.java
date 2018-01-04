@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -197,7 +198,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 .setMessageSize(35)
                 .setCancleable(false)
                 .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
+                .setPositiveTextColor(getResources().getColor(R.color.toolbar_bg))
+                .setNegativeTextColor(Color.parseColor("#999999"))
                 .setButtonSize(40)
                 .setOnConfirmListener(new NDialog1.OnConfirmListener() {
                     @Override
@@ -248,7 +250,9 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
                                 BCQueryBillResult billStatus = (BCQueryBillResult) result;
 
-
+                                //Log.e("支付信息",billStatus.getResultMsg() +"错误详情："+billStatus.getErrDetail()+"返回码"+billStatus.getResultCode()+"");
+                                Log.e("支付信息",billStatus.getBill().getTradeNum() + "\npayresult："+billStatus.getBill().getPayResult()+
+                                        "\nRevertResult"+billStatus.getBill().getRevertResult()+"\nRefundResult"+billStatus.getBill().getRefundResult());
                                 //表示支付成功
                                 if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
 

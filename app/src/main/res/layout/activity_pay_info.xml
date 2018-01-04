@@ -45,11 +45,12 @@
     <TextView
         android:textColor="#ff0000"
         android:textSize="30sp"
-        android:text="请确定支付完成之后再退出此页面,\n提前退出有可能导致支付不成功"
+        android:text="请确定支付完成之后再退出此页面\n提前退出有可能导致充值不成功"
         android:layout_above="@+id/ll_qrcode"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
 
 
     <LinearLayout
