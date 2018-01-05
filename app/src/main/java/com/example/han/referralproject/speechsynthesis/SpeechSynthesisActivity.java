@@ -203,6 +203,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     hidePlayingFragment();
                     mImageView.setClickable(true);
                 }
+
+                finish();
               }
         });
         initLayout();
