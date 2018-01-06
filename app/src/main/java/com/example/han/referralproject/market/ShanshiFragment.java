@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.GoodsBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.shopping.Goods;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 
 import java.util.ArrayList;
