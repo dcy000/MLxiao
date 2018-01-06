@@ -1,21 +1,23 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.0'
-
-
-
+    buildToolsVersion gradle.buildToolsVersion
+    compileSdkVersion gradle.compileSdkVersion
 
     defaultConfig {
         applicationId "com.example.han.referralproject"
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion gradle.minSdkVersion
+        targetSdkVersion gradle.targetSdkVersion
         versionCode 9
         versionName "1.0.8"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,9 +25,7 @@ android {
             zipAlignEnabled true
             shrinkResources false
         }
-        app {
-            debuggable false
-        }
+
         debug {
             debuggable false
         }
@@ -54,9 +54,6 @@ android {
             keyPassword RELEASE_KEY_PASSWORD
         }
     }
-    dataBinding {
-        enabled = true
-    }
 
 }
 
@@ -77,8 +74,8 @@ dependencies {
     compile project(':FaceppIDCardUI')
     compile project(':vmtools')
     compile files('libs/pinyin4j-2.5.0.jar')
-    compile name: 'SMSSDK-3.0.0', ext: 'aar'
-    compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
+//    compile name: 'SMSSDK-3.0.0', ext: 'aar'
+//    compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
     compile files('libs/commons-lang-2.3.jar')
     compile('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -118,16 +115,16 @@ dependencies {
     compile project(':lib-crash')
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
-    compile 'com.android.support:support-v4:27.0.0'
-    compile 'com.android.support:recyclerview-v7:27.0.0'
-    compile 'com.android.support:cardview-v7:27.0.0'
-    compile 'com.android.support:appcompat-v7:27.0.0'
-    compile 'com.android.support:design:27.0.0'
+
+    compile "com.android.support:support-v4:${gradle.supportVersion}"
+    compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
+    compile "com.android.support:cardview-v7:${gradle.supportVersion}"
+    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
+    compile "com.android.support:design:${gradle.supportVersion}"
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.facebook.fresco:fresco:1.7.1'
     compile 'com.afollestad.material-dialogs:core:0.9.5.0'
     compile 'com.nex3z:flow-layout:1.1.0'
     compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
-    //    compile name: 'mlrobot-release', ext: 'aar'
-    compile project(':mlrobot')
+    compile name: 'mlrobot-release', ext: 'aar'
 }

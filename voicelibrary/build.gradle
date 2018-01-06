@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 
 version = "1.0.6"                                //项目版本号
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion gradle.buildToolsVersion
+    compileSdkVersion gradle.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 23
+        minSdkVersion gradle.minSdkVersion
+        targetSdkVersion gradle.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }

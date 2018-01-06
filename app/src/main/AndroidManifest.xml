@@ -187,10 +187,10 @@
         <activity
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.RegisterActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
+        <!--<activity-->
+            <!--android:name=".activity.RegisterActivity"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:windowSoftInputMode="adjustPan" />-->
         <activity
             android:name=".activity.AgreementActivity"
             android:screenOrientation="landscape" />
@@ -485,7 +485,6 @@
         <activity android:name=".recyclerview.HistoryActivity" />
         <activity android:name=".recyclerview.CheckContractActivity" />
         <activity android:name=".activity.MarketActivity"></activity>
-        <activity android:name="com.witspring.unitbody.ChooseMemberActivity"/>
     </application>
 
 </manifest>
