@@ -14,14 +14,11 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
-import com.mob.MobSDK;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 public class SetPasswordActivity extends BaseActivity {
 

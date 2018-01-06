@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.witspring.unitbody.BodyPartActivity">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/ws_toolbar"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <CheckedTextView
+                    android:id="@+id/ctvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/wsbody_selector_body_part"
+                    android:checked="true"
+                    android:drawablePadding="4dp"
+                    android:drawableTop="@drawable/wsbody_selector_body_part_all"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="器官名称"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/ws_font_large"
+                    android:textColor="@color/ws_selector_white_to_black"
+                    android:onClick="ctvName"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/ws_white" />
+
+                <ExpandableListView
+                    android:id="@+id/elvContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/ws_gray_da"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@null"
+                    android:groupIndicator="@null" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/ws_white"
+                android:paddingLeft="8dp">
+
+                <ScrollView
+                    android:id="@+id/scrollview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/ivIcon"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            fresco:viewAspectRatio="1.5"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="12dp"
+                            fresco:actualImageScaleType="centerCrop"
+                            fresco:failureImage="@mipmap/ws_img_loading_fail"
+                            fresco:failureImageScaleType="centerCrop"
+                            fresco:placeholderImage="@mipmap/ws_img_loading"
+                            fresco:placeholderImageScaleType="centerCrop" />
+
+                        <com.nex3z.flowlayout.FlowLayout
+                            android:id="@+id/flowlayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            app:flChildSpacing="16dp"
+                            app:flChildSpacingForLastRow="align"
+                            app:flRowSpacing="16dp"/>
+
+                        <TextView
+                            android:id="@+id/tvSearch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="16dp"
+                            android:drawableRight="@mipmap/ws_btn_search"
+                            android:drawablePadding="8dp"
+                            android:gravity="center"
+                            android:text="没有想要的？试试搜索吧！"
+                            android:textColor="@color/ws_gray_99"
+                            android:textSize="@dimen/ws_font_medium"
+                            android:onClick="tvSearch"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                </ScrollView>
+
+                <LinearLayout
+                    android:id="@+id/llBlank"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/ws_white"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="12dp"
+                        android:drawableTop="@mipmap/ws_img_no_data"
+                        android:gravity="center"
+                        android:text="该部位暂无数据，我们正在更新"
+                        android:textColor="@color/ws_gray_55" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

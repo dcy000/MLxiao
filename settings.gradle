@@ -40,5 +40,5 @@ def initGradleEnvironment() {
 }
 initGradleEnvironment()
 
-include ':app', ':library', ':wkvideoplayer', ':FaceppIDCardUI', ':vmtools', ':sdk', ':lib-wheelrecyclerview', ':voicelibrary', ':lib-crash', ':mlrobot'
+include ':app', ':library', ':wkvideoplayer', ':FaceppIDCardUI', ':vmtools', ':sdk', ':lib-wheelrecyclerview', ':voicelibrary', ':lib-crash'
 

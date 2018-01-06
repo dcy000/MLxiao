@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_fade_out.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/popup_enter.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/anim/popup_enter.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/decelerate_cubic.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/anim/decelerate_cubic.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_popup_enter.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/design_snackbar_in.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/anim/design_snackbar_in.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_in.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/anim/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/tooltip_enter.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/tooltip_enter.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/popup_exit.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/anim/popup_exit.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_out.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/anim/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_slide_out_top.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_popup_exit.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/tooltip_exit.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/tooltip_exit.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/design_snackbar_out.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/anim/design_snackbar_out.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/anim/abc_fade_in.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/anim/abc_fade_in.xml"
+    }
+]

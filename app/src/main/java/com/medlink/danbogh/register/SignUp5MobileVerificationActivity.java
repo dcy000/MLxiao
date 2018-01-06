@@ -28,8 +28,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 /**
  * Created by lenovo on 2017/10/12.

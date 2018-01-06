@@ -1,0 +1,10 @@
+com.witspring.mlrobot.databinding.WsdiseFragmentDiseaseInfoBinding
+com.witspring.mlrobot.databinding.WsdiseFragmentDiseaseCureBinding
+com.witspring.mlrobot.databinding.WsbodyActivityChooseMemberBinding
+com.witspring.mlrobot.databinding.WsbodyActivityBodyBinding
+com.witspring.mlrobot.databinding.WsdiseFragmentDiseaseDrugBinding
+com.witspring.mlrobot.databinding.WsdiseActivityDiseaseBinding
+com.witspring.mlrobot.databinding.WsdiseFragmentDiseaseDiagBinding
+com.witspring.mlrobot.databinding.WsbodyActivityBodyPartBinding
+com.witspring.mlrobot.databinding.WsdiseActivityMedicineDetailBinding
+android.databinding.DataBindingComponent

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WSToolbar"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:background="@color/ws_transparent"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:src="@mipmap/ws_arrow_left_white" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/ws_txt_white_largest"
+            android:text="标题栏"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/btnRight"
+            style="@style/ws_txt_white_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/ws_transparent"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp" />
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>

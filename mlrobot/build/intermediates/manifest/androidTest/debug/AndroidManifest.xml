@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.witspring.mlrobot.test" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="26" />
+
+    <instrumentation
+        android:name="android.support.test.runner.AndroidJUnitRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Tests for com.witspring.mlrobot.test"
+        android:targetPackage="com.witspring.mlrobot.test" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application android:allowBackup="true" >
+        <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name="com.witspring.unitbody.ChooseMemberActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.BodyActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.BodyPartActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.InquiryActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.AddMemberActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitdisease.DiseaseActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitdisease.MedicineDetailActivity"
+            android:theme="@style/WSAppTheme" />
+
+        <meta-data
+            android:name="android.arch.lifecycle.VERSION"
+            android:value="27.0.0-SNAPSHOT" />
+    </application>
+
+</manifest>

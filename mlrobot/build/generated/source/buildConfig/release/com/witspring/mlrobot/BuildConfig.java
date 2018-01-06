@@ -1,0 +1,18 @@
+/**
+ * Automatically generated file. DO NOT MODIFY
+ */
+package com.witspring.mlrobot;
+
+public final class BuildConfig {
+  public static final boolean DEBUG = false;
+  public static final String APPLICATION_ID = "com.witspring.mlrobot";
+  public static final String BUILD_TYPE = "release";
+  public static final String FLAVOR = "";
+  public static final int VERSION_CODE = 1;
+  public static final String VERSION_NAME = "1.0";
+  // Fields from build type: release
+  public static final boolean LOGGING = true;
+  public static final String URL_SEARCH = "https://api.witspring.com/";
+  public static final String URL_SERVICE = "https://api.witspring.com/";
+  public static final int VERSION_TYPE = 2;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:orientation="horizontal"
+    android:background="@drawable/ws_selector_gray_line_bottom">
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/ws_txt_main_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvProbability"
+        style="@style/ws_txt_green_medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:drawablePadding="8dp"
+        android:drawableRight="@mipmap/ws_arrow_right_green"/>
+
+</LinearLayout>

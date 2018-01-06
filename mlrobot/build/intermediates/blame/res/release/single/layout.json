@@ -1,0 +1,382 @@
+[
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_navigation_item_header.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_navigation_item_header.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_activity_chooser_view.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_part_chronometer.xml",
+        "source": "/Users/dcy/.android/build-cache/8db1afcecd99c8f78541f6b81db7b36b6fa1609a/output/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_layout_snackbar.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_layout_snackbar.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_progress_indeterminate_horizontal.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_progress_indeterminate_horizontal.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_action_mode_bar.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsdise_item_medcine.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsdise_item_medcine.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_list.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_list.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_action_menu_layout.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/select_dialog_singlechoice_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/ws_toolbar.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/ws_toolbar.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_media_action.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_media_action.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_popup_menu_header_item_layout.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsdise_fragment_disease_diag.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsdise_fragment_disease_diag.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_layout_tab_icon.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_layout_tab_icon.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_media_custom.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_template_media_custom.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_action_bar_title_item.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_bottom_sheet_dialog.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_bottom_sheet_dialog.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_dialog_title_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsdise_fragment_disease_cure.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsdise_fragment_disease_cure.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_screen_content_include.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_screen_content_include.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_big_media_narrow.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_screen_simple_overlay_action_mode.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_navigation_item_subheader.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_navigation_menu_item.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_expanded_menu_layout.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_activity_choose_member.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_activity_choose_member.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_listitem_singlechoice.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_listitem_singlechoice.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_item_computer_ask_radio.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_item_computer_ask_radio.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_basic.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_basic.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_list_menu_item_icon.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_input.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_input.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_listitem.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_listitem.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_select_dialog_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_activity_body.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_activity_body.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_item_organ.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_item_organ.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_activity_add_member.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_activity_add_member.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_progress.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_progress.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_activity_inquiry.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_activity_inquiry.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsdise_activity_disease.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsdise_activity_disease.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_list_menu_item_radio.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_text_input_password_icon.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_text_input_password_icon.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_alert_dialog_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_big_media_narrow_custom.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_stub_actionbuttons.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_stub_actionbuttons.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsdise_activity_medicine_detail.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsdise_activity_medicine_detail.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_search_view.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_search_view.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_navigation_menu.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_navigation_menu.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_alert_dialog_button_bar_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_action_menu_item_layout.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_activity_body_part.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_activity_body_part.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_big_media.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_big_media_custom.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_layout_snackbar_include.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_navigation_item_separator.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_alert_dialog_title_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_menu_item_action_area.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_action_bar_up_container.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_action_mode_close_item_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_stub_titleframe_lesspadding.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_stub_titleframe_lesspadding.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsdise_fragment_disease_info.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsdise_fragment_disease_info.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_custom.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_custom.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_item_computer_ask_checkbox.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_item_computer_ask_checkbox.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_bottom_navigation_item.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_navigation_item.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_navigation_item.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_input_check.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_input_check.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_stub_titleframe.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_stub_titleframe.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_part_time.xml",
+        "source": "/Users/dcy/.android/build-cache/8db1afcecd99c8f78541f6b81db7b36b6fa1609a/output/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_icon_group.xml",
+        "source": "/Users/dcy/.android/build-cache/8db1afcecd99c8f78541f6b81db7b36b6fa1609a/output/res/layout/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_listitem_multichoice.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_listitem_multichoice.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_item_user_answer.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_item_user_answer.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_progress_indeterminate.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_progress_indeterminate.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_lines_media.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_template_lines_media.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/select_dialog_multichoice_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_screen_toolbar.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_screen_simple.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_screen_simple.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_list_check.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_list_check.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_template_media.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_template_media.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_action.xml",
+        "source": "/Users/dcy/.android/build-cache/8db1afcecd99c8f78541f6b81db7b36b6fa1609a/output/res/layout/notification_action.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/support_simple_spinner_dropdown_item.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_activity_chooser_view_list_item.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_media_cancel_action.xml",
+        "source": "/Users/dcy/.android/build-cache/1fb6236b01311432c6e410f5554d168783b027de/output/res/layout/notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_popup_menu_item_layout.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/tooltip.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/tooltip.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/select_dialog_item_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/select_dialog_item_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/md_dialog_basic_check.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/layout/md_dialog_basic_check.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/design_layout_tab_text.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/layout/design_layout_tab_text.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_list_menu_item_layout.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_item_member_avator.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_item_member_avator.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsdise_fragment_disease_drug.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsdise_fragment_disease_drug.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/notification_action_tombstone.xml",
+        "source": "/Users/dcy/.android/build-cache/8db1afcecd99c8f78541f6b81db7b36b6fa1609a/output/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/abc_search_dropdown_item_icons_2line.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/layout/abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_item_computer_disease_result.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_item_computer_disease_result.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/release/layout/wsbody_item_disease.xml",
+        "source": "/dcy/ML/MLxiao/mlrobot/src/main/res/layout/wsbody_item_disease.xml"
+    }
+]

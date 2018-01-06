@@ -1,0 +1,202 @@
+# view res/layout/wsbody_activity_body.xml #generated:6
+# view res/layout/wsbody_activity_choose_member.xml #generated:8
+-keep class android.support.constraint.ConstraintLayout { <init>(...); }
+
+# view res/layout/wsbody_activity_body.xml #generated:18
+-keep class android.support.constraint.Guideline { <init>(...); }
+
+# view res/layout/design_bottom_navigation_item.xml #generated:26
+-keep class android.support.design.internal.BaselineLayout { <init>(...); }
+
+# view res/layout/design_navigation_item.xml #generated:17
+-keep class android.support.design.internal.NavigationMenuItemView { <init>(...); }
+
+# view res/layout/design_navigation_menu.xml #generated:17
+-keep class android.support.design.internal.NavigationMenuView { <init>(...); }
+
+# view res/layout/design_layout_snackbar_include.xml #generated:18
+-keep class android.support.design.internal.SnackbarContentLayout { <init>(...); }
+
+# view res/layout/design_text_input_password_icon.xml #generated:18
+-keep class android.support.design.widget.CheckableImageButton { <init>(...); }
+
+# view res/layout/design_bottom_sheet_dialog.xml #generated:26
+-keep class android.support.design.widget.CoordinatorLayout { <init>(...); }
+
+# view res/layout/design_layout_snackbar.xml #generated:18
+# view sw600dp-v13/res/layout-sw600dp-v13/design_layout_snackbar.xml #generated:18
+-keep class android.support.design.widget.Snackbar$SnackbarLayout { <init>(...); }
+
+# view res/layout/abc_alert_dialog_material.xml #generated:41
+-keep class android.support.v4.widget.NestedScrollView { <init>(...); }
+
+# view res/layout/abc_alert_dialog_button_bar_material.xml #generated:43
+# view res/layout/abc_alert_dialog_material.xml #generated:52
+# view res/layout/abc_alert_dialog_material.xml #generated:66
+# view res/layout/abc_alert_dialog_title_material.xml #generated:56
+-keep class android.support.v4.widget.Space { <init>(...); }
+
+# view res/layout/abc_select_dialog_material.xml #generated:23
+-keep class android.support.v7.app.AlertController$RecycleListView { <init>(...); }
+
+# view res/layout/abc_action_menu_item_layout.xml #generated:17
+-keep class android.support.v7.view.menu.ActionMenuItemView { <init>(...); }
+
+# view res/layout/abc_expanded_menu_layout.xml #generated:17
+-keep class android.support.v7.view.menu.ExpandedMenuView { <init>(...); }
+
+# view res/layout/abc_list_menu_item_layout.xml #generated:17
+# view res/layout/abc_popup_menu_item_layout.xml #generated:17
+-keep class android.support.v7.view.menu.ListMenuItemView { <init>(...); }
+
+# view res/layout/abc_screen_toolbar.xml #generated:27
+# view v26/res/layout-v26/abc_screen_toolbar.xml #generated:27
+-keep class android.support.v7.widget.ActionBarContainer { <init>(...); }
+
+# view res/layout/abc_action_mode_bar.xml #generated:19
+# view res/layout/abc_screen_toolbar.xml #generated:43
+# view v26/res/layout-v26/abc_screen_toolbar.xml #generated:44
+-keep class android.support.v7.widget.ActionBarContextView { <init>(...); }
+
+# view res/layout/abc_screen_toolbar.xml #generated:17
+# view v26/res/layout-v26/abc_screen_toolbar.xml #generated:17
+-keep class android.support.v7.widget.ActionBarOverlayLayout { <init>(...); }
+
+# view res/layout/abc_action_menu_layout.xml #generated:17
+-keep class android.support.v7.widget.ActionMenuView { <init>(...); }
+
+# view res/layout/abc_activity_chooser_view.xml #generated:19
+-keep class android.support.v7.widget.ActivityChooserView$InnerLayout { <init>(...); }
+
+# view res/layout/abc_alert_dialog_material.xml #generated:18
+-keep class android.support.v7.widget.AlertDialogLayout { <init>(...); }
+
+# view ldrtl-v17/res/layout-ldrtl-v17/md_listitem_multichoice.xml #generated:29
+# view res/layout/md_listitem_multichoice.xml #generated:17
+-keep class android.support.v7.widget.AppCompatCheckBox { <init>(...); }
+
+# view ldrtl-v17/res/layout-ldrtl-v17/md_listitem_singlechoice.xml #generated:29
+# view res/layout/md_listitem_singlechoice.xml #generated:17
+-keep class android.support.v7.widget.AppCompatRadioButton { <init>(...); }
+
+# view res/layout/abc_alert_dialog_button_bar_material.xml #generated:26
+-keep class android.support.v7.widget.ButtonBarLayout { <init>(...); }
+
+# view res/layout/abc_screen_content_include.xml #generated:19
+-keep class android.support.v7.widget.ContentFrameLayout { <init>(...); }
+
+# view res/layout/abc_alert_dialog_title_material.xml #generated:45
+-keep class android.support.v7.widget.DialogTitle { <init>(...); }
+
+# view res/layout/abc_screen_simple_overlay_action_mode.xml #generated:23
+-keep class android.support.v7.widget.FitWindowsFrameLayout { <init>(...); }
+
+# view res/layout/abc_dialog_title_material.xml #generated:22
+# view res/layout/abc_screen_simple.xml #generated:17
+-keep class android.support.v7.widget.FitWindowsLinearLayout { <init>(...); }
+
+# view res/layout/md_dialog_list.xml #generated:39
+# view res/layout/md_dialog_list_check.xml #generated:39
+# view res/layout/wsbody_activity_inquiry.xml #generated:13
+-keep class android.support.v7.widget.RecyclerView { <init>(...); }
+
+# view res/layout/abc_search_view.xml #generated:75
+-keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
+
+# view res/layout/abc_screen_toolbar.xml #generated:36
+# view res/layout/ws_toolbar.xml #generated:2
+# view v26/res/layout-v26/abc_screen_toolbar.xml #generated:37
+-keep class android.support.v7.widget.Toolbar { <init>(...); }
+
+# view res/layout/abc_screen_simple.xml #generated:25
+# view res/layout/abc_screen_simple_overlay_action_mode.xml #generated:32
+-keep class android.support.v7.widget.ViewStubCompat { <init>(...); }
+
+# view res/layout/md_stub_actionbuttons.xml #generated:10
+# view res/layout/md_stub_actionbuttons.xml #generated:17
+# view res/layout/md_stub_actionbuttons.xml #generated:5
+-keep class com.afollestad.materialdialogs.internal.MDButton { <init>(...); }
+
+# view res/layout/md_dialog_basic.xml #generated:1
+# view res/layout/md_dialog_basic_check.xml #generated:1
+# view res/layout/md_dialog_custom.xml #generated:1
+# view res/layout/md_dialog_input.xml #generated:1
+# view res/layout/md_dialog_input_check.xml #generated:1
+# view res/layout/md_dialog_list.xml #generated:1
+# view res/layout/md_dialog_list_check.xml #generated:1
+# view res/layout/md_dialog_progress.xml #generated:1
+# view res/layout/md_dialog_progress_indeterminate.xml #generated:1
+# view res/layout/md_dialog_progress_indeterminate_horizontal.xml #generated:1
+-keep class com.afollestad.materialdialogs.internal.MDRootLayout { <init>(...); }
+
+# view res/layout/wsbody_activity_body_part.xml #generated:82
+# view res/layout/wsbody_item_member_avator.xml #generated:7
+# view res/layout/wsdise_activity_medicine_detail.xml #generated:30
+# view res/layout/wsdise_item_medcine.xml #generated:9
+-keep class com.facebook.drawee.view.SimpleDraweeView { <init>(...); }
+
+# view res/layout/wsbody_activity_body_part.xml #generated:95
+# view res/layout/wsbody_activity_choose_member.xml #generated:41
+-keep class com.nex3z.flowlayout.FlowLayout { <init>(...); }
+
+# view AndroidManifest.xml #generated:26
+-keep class com.witspring.unitbody.AddMemberActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:17
+-keep class com.witspring.unitbody.BodyActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:20
+-keep class com.witspring.unitbody.BodyPartActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:14
+-keep class com.witspring.unitbody.ChooseMemberActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:23
+-keep class com.witspring.unitbody.InquiryActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:29
+-keep class com.witspring.unitdisease.DiseaseActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:32
+-keep class com.witspring.unitdisease.MedicineDetailActivity { <init>(...); }
+
+# view res/layout/wsdise_activity_disease.xml #generated:29
+# view res/layout/wsdise_activity_disease.xml #generated:50
+# view res/layout/wsdise_activity_disease.xml #generated:71
+# view res/layout/wsdise_activity_disease.xml #generated:92
+-keep class com.witspring.view.CenterRadioButton { <init>(...); }
+
+# view res/layout/wsbody_item_computer_ask_checkbox.xml #generated:32
+# view res/layout/wsbody_item_computer_ask_radio.xml #generated:32
+-keep class com.witspring.view.FlowLayout { <init>(...); }
+
+# view res/layout/wsbody_activity_body.xml #generated:67
+-keep class com.witspring.view.TouchImageView { <init>(...); }
+
+# view res/layout/wsbody_activity_add_member.xml #generated:28
+# view res/layout/wsbody_activity_add_member.xml #generated:41
+# view res/layout/wsbody_activity_add_member.xml #generated:53
+-keep class com.witspring.view.WheelPicker { <init>(...); }
+
+# view res/layout/wsbody_activity_body.xml #generated:47
+-keep class com.witspring.view.pageflow.PageFlowView { <init>(...); }
+
+# onClick res/layout/wsbody_activity_add_member.xml #generated:73
+# onClick res/layout/wsbody_activity_add_member.xml #generated:89
+-keepclassmembers class * { *** btnEnsure(...); }
+
+# onClick res/layout/wsbody_activity_body.xml #generated:110
+-keepclassmembers class * { *** ctvAll(...); }
+
+# onClick res/layout/wsbody_activity_body_part.xml #generated:29
+-keepclassmembers class * { *** ctvName(...); }
+
+# onClick res/layout/wsbody_activity_body.xml #generated:99
+-keepclassmembers class * { *** ctvSwitch(...); }
+
+# onClick res/layout/wsbody_activity_choose_member.xml #generated:55
+-keepclassmembers class * { *** llOther(...); }
+
+# onClick res/layout/wsbody_activity_body_part.xml #generated:104
+-keepclassmembers class * { *** tvSearch(...); }
+

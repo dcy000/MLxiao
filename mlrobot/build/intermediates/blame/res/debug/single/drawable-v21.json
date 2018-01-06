@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/abc_action_bar_item_background_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/drawable-v21/abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/design_password_eye.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/drawable-v21/design_password_eye.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/avd_hide_password.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/drawable-v21/avd_hide_password.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/md_btn_selector_ripple_dark.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/drawable-v21/md_btn_selector_ripple_dark.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/md_btn_selector_ripple.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/drawable-v21/md_btn_selector_ripple.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/abc_btn_colored_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/drawable-v21/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/notification_action_background.xml",
+        "source": "/Users/dcy/.android/build-cache/8db1afcecd99c8f78541f6b81db7b36b6fa1609a/output/res/drawable-v21/notification_action_background.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/md_btn_shape.xml",
+        "source": "/Users/dcy/.android/build-cache/354c0aba034bfdaaa388b2cfbf52278dcee3d499/output/res/drawable-v21/md_btn_shape.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/abc_edit_text_material.xml",
+        "source": "/Users/dcy/.android/build-cache/75660b3f4b24941b8879261dc817477da4ac2d9d/output/res/drawable-v21/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/avd_show_password.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/drawable-v21/avd_show_password.xml"
+    },
+    {
+        "merged": "/dcy/ML/MLxiao/mlrobot/build/intermediates/res/merged/debug/drawable-v21/design_bottom_navigation_item_background.xml",
+        "source": "/Users/dcy/.android/build-cache/d046cc42745d6949828d5823b02e79a2e2ef0edc/output/res/drawable-v21/design_bottom_navigation_item_background.xml"
+    }
+]
