@@ -371,4 +371,12 @@ public class LocalShared {
     public void setXueyangMac(String xueyangMac) {
         mShared.edit().putString(MAC_Xueyang, xueyangMac).commit();
     }
+
+    public String getXinDianMac() {
+        return mShared.getString(MAC_Xindian, "");
+    }
+
+    public void setXinDianMac(String xindianMac) {
+        mShared.edit().putString(MAC_Xindian, xindianMac).commit();
+    }
 }

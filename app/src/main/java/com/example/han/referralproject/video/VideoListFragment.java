@@ -68,6 +68,7 @@ public class VideoListFragment extends Fragment {
         rvVideos.addItemDecoration(new GridViewDividerItemDecoration(30, 52));
         rvVideos.setAdapter(adapter);
 
+        //fetchVideos(position);
 
         rvVideos.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

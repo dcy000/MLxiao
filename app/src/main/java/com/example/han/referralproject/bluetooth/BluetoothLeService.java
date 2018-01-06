@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.List;
@@ -186,8 +187,7 @@ public class BluetoothLeService extends Service {
 
 
     public boolean connect(final String address) {
-        Log.i("mylog2", "address : " + address);
-        if (mBluetoothAdapter == null || address == null) {
+        if (mBluetoothAdapter == null || TextUtils.isEmpty(address)) {
             Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
             return false;
         }
