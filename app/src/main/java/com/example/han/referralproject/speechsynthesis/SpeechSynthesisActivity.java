@@ -205,7 +205,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
 
                 finish();
-              }
+            }
         });
         initLayout();
 
@@ -224,7 +224,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if(animationType!=0){
+                if (animationType != 0) {
                     mLottieView.clearAnimation();
                     mLottieView.setAnimation("default.json");
                     animationType = 0;
@@ -267,6 +267,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     }
 
+    private boolean isStoped = false;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -274,6 +276,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         mHandler.sendEmptyMessageDelayed(1, 3000);
 
+        isStoped = false;
     }
 
     @Override
@@ -410,6 +413,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onSuccess(SearchMusic response) {
+                if (isStoped){
+                    return;
+                }
                 if (response == null || response.getSong() == null) {
                     speak("抱歉，没找到这首歌");
                     mHandler.sendEmptyMessageDelayed(1, 3000);
@@ -426,6 +432,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onExecuteSuccess(Music music) {
+                        if (isStoped){
+                            return;
+                        }
                         getPlayService().play(music);
                         showPlayingFragment();
 
@@ -1349,7 +1358,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onStop() {
         super.onStop();
-
+        isStoped = true;
+        if (mIat != null && mIat.isListening()){
+            mIat.stopListening();
+        }
+        if (mTts != null && mTts.isSpeaking()){
+            mTts.stopSpeaking();
+        }
+        PlayService service = AppCache.getPlayService();
+        if (service != null) {
+            service.stop();
+        }
 //        if (null != mIat) {
 //            // 退出时释放连接
 //            mIat.cancel();

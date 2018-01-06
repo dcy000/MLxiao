@@ -64,14 +64,10 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         mToolbar.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
         initView();
-        initSms();
     }
 
     @Override
     protected void onDestroy() {
-        if (smsHandler != null) {
-            SMSSDK.unregisterEventHandler(smsHandler);
-        }
         if (countDown != null) {
             Handlers.ui().removeCallbacks(countDown);
         }
@@ -85,10 +81,6 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
     }
 
-    private void initSms() {
-        MobSDK.init(this, Utils.SMS_KEY, Utils.SMS_SECRETE);
-        SMSSDK.registerEventHandler(smsHandler);
-    }
 
     @Override
     protected void onResume() {
@@ -110,6 +102,8 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
     private volatile boolean inPhone = true;
 
+    private String mCode;
+
     @OnClick(R.id.tv_sign_up_fetch_code)
     public void onTvFetchCodeClicked() {
         final String phone = etPhone.getText().toString().trim();
@@ -120,13 +114,27 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             etPhone.requestFocus();
             return;
         }
+        tvFetchCode.setEnabled(false);
         NetworkApi.canRegister(phone, "3", new NetworkManager.SuccessCallback<Object>() {
             @Override
             public void onSuccess(Object response) {
                 etCode.requestFocus();
-                SMSSDK.getVerificationCode("86", phone);
+                NetworkApi.getCode(phone, new NetworkManager.SuccessCallback<String>() {
+                    @Override
+                    public void onSuccess(String code) {
+                        mCode = code;
+                        T.show("获取验证码成功");
+                        speak("获取验证码成功");
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        T.show("获取验证码失败");
+                        speak("获取验证码失败");
+                    }
+                });
+
                 i = 60;
-                tvFetchCode.setEnabled(false);
                 Handlers.ui().postDelayed(countDown, 1000);
             }
         }, new NetworkManager.FailedCallback() {
@@ -169,39 +177,17 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
             return;
         }
-        SMSSDK.submitVerificationCode("86", phone, code);
+
+        if (code.equals(mCode)) {
+            T.show("验证码正确");
+            navToNext();
+        } else {
+            T.show("验证码错误");
+            speak("验证码错误");
+        }
+
         LocalShared.getInstance(this.getApplicationContext()).setSignUpPhone(phone);
     }
-
-    private EventHandler smsHandler = new EventHandler() {
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                switch (event) {
-                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-                        T.show("正在获取验证码...");
-                        break;
-                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-                        T.show("验证码正确");
-                        navToNext();
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                switch (event) {
-                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-                        T.show("无法获取验证码");
-                        speak("主人,当前手机号的验证码获取次数已超过5次,请更换手机号码或改天再试");
-                        break;
-                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-                        T.show("验证码错误");
-                        speak("验证码错误,请重新输入");
-                        break;
-                }
-            }
-        }
-    };
 
     private void navToNext() {
         Intent intent = SignUp6PasswordActivity.newIntent(this);
@@ -235,7 +221,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         Matcher matcherInNumber = patternInNumber.matcher(in);
         if (matcherInNumber.find()) {
             EditText et = inPhone ? this.etPhone : this.etCode;
-            int length = inPhone ? 11 : 4;
+            int length = inPhone ? 11 : 6;
             String s = et.getText().toString() + matcherInNumber.group(matcherInNumber.groupCount());
             if (s.length() > length) {
                 s = s.substring(0, length);

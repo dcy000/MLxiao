@@ -1105,29 +1105,79 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void startSearch() {
-        if (detectType == Type_SanHeYi){
-            if (dialog == null){
-                dialog = new NDialog(this);
+        if (mBluetoothLeService == null) {
+            Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+            bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+            switch (detectType){
+                case Type_Xueya:
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mBluetoothLeService.connect("98:7B:F3:67:80:14")) {
+                                mBluetoothGatt = mBluetoothLeService.getGatt();
+                            }
+                        }
+                    }, 1000);
+                    break;
+                case Type_Wendu:
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mBluetoothLeService.connect("8B:00:00:00:00:00")) {
+                                mBluetoothGatt = mBluetoothLeService.getGatt();
+                            }
+                        }
+                    }, 1000);
+                    break;
             }
-            showNormal("设备连接中，请稍后...");
+        } else {
+            switch (detectType){
+                case Type_Xueya:
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mBluetoothLeService.connect("98:7B:F3:67:80:14")) {
+                                mBluetoothGatt = mBluetoothLeService.getGatt();
+                            }
+                        }
+                    }, 1000);
+                    break;
+                case Type_Wendu:
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mBluetoothLeService.connect("8B:00:00:00:00:00")) {
+                                mBluetoothGatt = mBluetoothLeService.getGatt();
+                            }
+                        }
+                    }, 1000);
+                    break;
+            }
         }
-        blueThreadDisable = true;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (blueThreadDisable){
-                    if (!mBluetoothAdapter.isDiscovering()){
-                        boolean flag = mBluetoothAdapter.startDiscovery();
-                        Log.i("mylog", "flag : " + flag);
-                    }
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
+
+//        if (detectType == Type_SanHeYi){
+//            if (dialog == null){
+//                dialog = new NDialog(this);
+//            }
+//            showNormal("设备连接中，请稍后...");
+//        }
+//        blueThreadDisable = true;
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (blueThreadDisable){
+//                    if (!mBluetoothAdapter.isDiscovering()){
+//                        boolean flag = mBluetoothAdapter.startDiscovery();
+//                        Log.i("mylog", "flag : " + flag);
+//                    }
+//                    try {
+//                        Thread.sleep(2000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }).start();
     }
 
     private void stopSearch() {

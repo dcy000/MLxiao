@@ -3,7 +3,6 @@ package com.example.han.referralproject.video;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,11 +15,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
-import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.UiUtils;
-import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,21 +67,76 @@ public class VideoListFragment extends Fragment {
         rvVideos.setLayoutManager(layoutManager);
         rvVideos.addItemDecoration(new GridViewDividerItemDecoration(30, 52));
         rvVideos.setAdapter(adapter);
-        fetchVideos(position);
+
+
+        rvVideos.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                GridLayoutManager manager = (GridLayoutManager) recyclerView.getLayoutManager();
+
+                int totalItemCount = recyclerView.getAdapter().getItemCount();
+                int lastVisibleItemPosition = manager.findLastVisibleItemPosition();
+                int visibleItemCount = recyclerView.getChildCount();
+                // 屏幕滑动后停止（空闲状态）
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItemPosition >= totalItemCount - 1
+                        && visibleItemCount > 0) {
+                    page++;
+                    getVideos();
+                }
+            }
+
+
+        });
+
+        getVideos();
+
     }
+
+    private void getVideos() {
+        NetworkApi.getVideoList(
+                position + 1, "0", "1", page, pageSize,
+                new NetworkManager.SuccessCallback<List<VideoEntity>>() {
+                    @Override
+                    public void onSuccess(List<VideoEntity> entities) {
+                        if (videos == null) {
+                            videos = new ArrayList<>();
+                        }
+                        videos.addAll(entities);
+                        adapter.notifyDataSetChanged();
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                }
+        );
+    }
+
+    private int page = 1;
+    private int pageSize = 9;
 
     private void fetchVideos(int position) {
         switch (position) {
             case 0:
+                //tag1=1
                 provideVideos("hypertension", "健康课堂");
                 break;
             case 1:
+                //tag1=2
                 provideVideos(/*"stroke"*/"opera", "曲艺天地");
                 break;
             case 2:
+                //tag1=3
                 provideVideos("lifetip", "生活助手");
                 break;
             case 3:
+                //tag1=4
                 provideVideos(/*"palsy"*/"cartoon", "动画片");
                 break;
             default:
@@ -94,11 +148,11 @@ public class VideoListFragment extends Fragment {
 
     private void provideVideos(String type, String extra) {
         int size = provideSize(type);
-        List<VideoDetailEntity> entities = new ArrayList<>();
+        List<VideoEntity> entities = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             String url = BASE_URL + type + i + ".mp4";
             String title = mTitleMap.get(type).get(i);
-            entities.add(new VideoDetailEntity(url, title));
+            entities.add(new VideoEntity(url, title));
         }
         showVideos(entities);
     }
@@ -106,11 +160,15 @@ public class VideoListFragment extends Fragment {
     private int provideSize(String type) {
         switch (type) {
             case "hypertension":
+                //tag1=1
                 return 18;
             case "opera":
+                //tag1=2
                 return 7;
             case "lifetip":
+                //tag1=3
                 return 21;
+                //tag1=4
             case "cartoon":
                 return 18;
         }
@@ -195,11 +253,7 @@ public class VideoListFragment extends Fragment {
         mTitleMap.put("lifetip", lifetips);
     }
 
-    private static String getVideoTitle(String type) {
-        return null;
-    }
-
-    private void showVideos(List<VideoDetailEntity> entities) {
+    private void showVideos(List<VideoEntity> entities) {
         videos = entities;
         adapter.notifyDataSetChanged();
     }
@@ -209,7 +263,7 @@ public class VideoListFragment extends Fragment {
         super.onDestroy();
     }
 
-    private List<VideoDetailEntity> videos;
+    private List<VideoEntity> videos;
 
     private Adapter adapter = new Adapter();
 
@@ -224,35 +278,17 @@ public class VideoListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(final Holder holder, int position) {
-            final VideoDetailEntity entity = videos.get(position);
+            final VideoEntity entity = videos.get(position);
             holder.tvTitle.setText(entity.getTitle());
-            Object tagObj = holder.ivThumbnail.getTag();
-            if (tagObj == null) {
+            String imageurl = entity.getImageurl();
+            if (imageurl == null) {
                 holder.ivThumbnail.setImageResource(R.drawable.ic_thumbnail_placeholder);
-            } else {
-                String tag = (String) tagObj;
-                if (entity.getUrl().equals(tag)) {
-                    return;
-                } else {
-                    holder.ivThumbnail.setImageResource(R.drawable.ic_thumbnail_placeholder);
-                }
+                return;
             }
-            holder.ivThumbnail.setTag(entity.getUrl());
-            Handlers.bg().post(new Runnable() {
-                @Override
-                public void run() {
-                    final Bitmap thumbnail = Utils.createVideoThumbnail(entity.getUrl(), UiUtils.pt(455), UiUtils.pt(255));
-                    Handlers.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String url = (String) holder.ivThumbnail.getTag();
-                            if (entity.getUrl().equals(url)) {
-                                holder.ivThumbnail.setImageBitmap(thumbnail);
-                            }
-                        }
-                    });
-                }
-            });
+            Glide.with(holder.ivThumbnail.getContext())
+                    .load(imageurl)
+                    .placeholder(R.drawable.ic_thumbnail_placeholder)
+                    .into(holder.ivThumbnail);
         }
 
         @Override
@@ -274,10 +310,10 @@ public class VideoListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    VideoDetailEntity entity = videos.get(position);
+                    VideoEntity entity = videos.get(position);
                     Context context = itemView.getContext();
                     Intent intent = new Intent(context, PlayVideoActivity.class);
-                    intent.putExtra("url", entity.getUrl());
+                    intent.putExtra("url", entity.getVideourl());
                     context.startActivity(intent);
                 }
             });

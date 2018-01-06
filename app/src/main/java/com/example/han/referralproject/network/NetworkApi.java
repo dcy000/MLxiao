@@ -33,11 +33,13 @@ import com.example.han.referralproject.shopping.Goods;
 import com.example.han.referralproject.shopping.Order;
 import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
@@ -45,10 +47,9 @@ public class NetworkApi {
 
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.113:8080";
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
-    public static final String BasicUrl="http://192.168.200.112:8080";//文博本地
-//        public static final String BasicUrl = "http://118.31.238.113:8080";
+//    public static final String BasicUrl="http://192.168.200.111:8080";//文博本地
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -120,6 +121,36 @@ public class NetworkApi {
     public static final String EQ_PRE_AMOUNT = BasicUrl + "/ZZB/eq/selPaidAmountByEqid";
     public static final String CANCEL_CONTRACT = BasicUrl + "/ZZB/br/updateUserState";
     public static final String CHECK_CONTRACT = BasicUrl + "/ZZB/eq/selCountPaidAmountByEqid";
+
+    public static final String GET_VIDEO_LIST = BasicUrl + "/ZZB/vc/selAllUpload";
+    public static final String GET_CODE = BasicUrl + "/ZZB/docter/GainCode";
+
+    public static void getCode(
+            String phone,
+            NetworkManager.SuccessCallback<String> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("mobile", phone);
+        NetworkManager.getInstance().getResultString(GET_CODE, params, successCallback, failedCallback);
+    }
+
+
+    public static void getVideoList(
+            int category,
+            String version,
+            String flag,
+            int page,
+            int pageSize,
+            NetworkManager.SuccessCallback<List<VideoEntity>> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("tag1", String.valueOf(category));
+        params.put("tag2", version);
+        params.put("flag", flag);
+        params.put("page", String.valueOf(page));
+        params.put("pagesize", String.valueOf(pageSize));
+        NetworkManager.getInstance().postResultClass(GET_VIDEO_LIST, params, new TypeToken<List<VideoEntity>>(){}.getType(), successCallback, failedCallback);
+    }
 
     public static void cancelContract(
             String bid,
