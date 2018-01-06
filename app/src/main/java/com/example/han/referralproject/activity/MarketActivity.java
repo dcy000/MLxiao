@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.market.BaojianpinFragment;
+import com.example.han.referralproject.market.GoodsFragment;
 import com.example.han.referralproject.market.KangfuFragment;
 import com.example.han.referralproject.market.ShanshiFragment;
 import com.example.han.referralproject.market.YaopinFragment;
@@ -59,7 +60,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
         vpGoods.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public int getCount() {
-                return fragments==null?0:fragments.size();
+                return fragments == null ? 0 : fragments.size();
             }
 
             @Override
@@ -72,24 +73,15 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
     }
 
     private void initFragment() {
-        fragments=new ArrayList<>();
-
-        ShanshiFragment shanshiFragment=new ShanshiFragment();
-        YaopinFragment yaopinFragment=new YaopinFragment();
-        YiliaoshebeiFragment yiliaoshebeiFragment=new YiliaoshebeiFragment();
-        BaojianpinFragment baojianpinFragment=new BaojianpinFragment();
-        KangfuFragment kangfuFragment=new KangfuFragment();
-
-        fragments.add(shanshiFragment);
-        fragments.add(yaopinFragment);
-        fragments.add(yiliaoshebeiFragment);
-        fragments.add(baojianpinFragment);
-        fragments.add(kangfuFragment);
+        fragments = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            fragments.add(GoodsFragment.newInstance(i + 1));
+        }
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId){
+        switch (checkedId) {
             case R.id.rb_shanshi:
                 vpGoods.setCurrentItem(0);
                 break;
@@ -115,7 +107,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
 
     @Override
     public void onPageSelected(int i) {
-        switch (i){
+        switch (i) {
             case 0:
                 rgHealthGoods.check(R.id.rb_shanshi);
                 break;
