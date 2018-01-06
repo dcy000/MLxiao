@@ -158,6 +158,9 @@ public class SignInActivity extends BaseActivity {
                 LocalShared.getInstance(mContext).addAccount(response.bid,response.xfid);
                 LocalShared.getInstance(getApplicationContext()).setXunfeiID(response.xfid);
                 LocalShared.getInstance(mContext).setEqID(response.eqid);
+                LocalShared.getInstance(mContext).setSex(response.sex);
+                LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
+                LocalShared.getInstance(mContext).setUserAge(response.age);
                 hideLoadingDialog();
                 startActivity(new Intent(mContext, MainActivity.class));
                 finish();

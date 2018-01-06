@@ -324,4 +324,25 @@ public class LocalShared {
     public String getEqID(){
         return mShared.getString(EQID,"");
     }
+
+    public void setSex(String sex) {
+        mShared.edit().putString("user_sex",sex).commit();
+    }
+    public String getSex(){
+        return mShared.getString("user_sex","");
+    }
+
+    public void setUserPhoto(String user_photo) {
+        mShared.edit().putString("user_photo",user_photo).commit();
+    }
+    public String getUserPhoto(){
+        return mShared.getString("user_photo","");
+    }
+
+    public void setUserAge(String age) {
+        mShared.edit().putString("user_age",age).commit();
+    }
+    public String getUserAge(){
+        return mShared.getString("user_age","");
+    }
 }

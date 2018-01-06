@@ -15,6 +15,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 ((Activity)mContext).finish();
                 break;
             case R.id.btn_logout:
+                NimAccountHelper.getInstance().logout();
                 LocalShared.getInstance(mContext).loginOut();
                 mContext.startActivity(new Intent(mContext, SignInActivity.class));
                 ((Activity)mContext).finish();
