@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.witspring.mlrobot"
+android:versionCode="1"
+android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application>
+        <activity android:name="com.witspring.unitbody.ChooseMemberActivity" android:theme="@style/WSAppTheme"/>
+        <activity android:name="com.witspring.unitbody.BodyActivity" android:theme="@style/WSAppTheme"/>
+        <activity android:name="com.witspring.unitbody.BodyPartActivity" android:theme="@style/WSAppTheme" />
+        <activity android:name="com.witspring.unitbody.InquiryActivity" android:theme="@style/WSAppTheme"/>
+        <activity android:name="com.witspring.unitbody.AddMemberActivity" android:theme="@style/WSAppTheme"/>
+        <activity android:name="com.witspring.unitdisease.DiseaseActivity" android:theme="@style/WSAppTheme"/>
+        <activity android:name="com.witspring.unitdisease.MedicineDetailActivity" android:theme="@style/WSAppTheme"/>
+    </application>
+
+
+</manifest>

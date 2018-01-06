@@ -346,7 +346,7 @@
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:clickable="true"
-                    android:src="@drawable/ic_jksc" />
+                    android:src="@drawable/ic_class" />
 
 
                 <TextView
@@ -355,7 +355,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="健康商城"
+                    android:text="健康课堂"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 

@@ -3,6 +3,7 @@ package com.example.han.referralproject.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -14,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -853,9 +855,37 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
 //                startSearch();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+//                finish();
+
+                new AlertDialog.Builder(mContext).setMessage("是否匹配新设备").setNegativeButton("取消", null).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mDeviceAddress = "";
+                        switch (detectType) {
+                            case Type_XueTang:
+                                mShared.setXuetangMac("");
+                                break;
+                            case Type_XueYang:
+                                mShared.setXueyangMac("");
+                                break;
+                            case Type_Wendu:
+                                mShared.setWenduMac("");
+                                break;
+                            case Type_SanHeYi:
+                                mShared.setSanheyiMac("");
+                                break;
+                            case Type_XinDian:
+                                mShared.setXinDianMac("");
+                                break;
+                            case Type_Xueya:
+                                mShared.setXueyaMac("");
+                                break;
+                        }
+                    }
+                }).show();
 
             }
         });

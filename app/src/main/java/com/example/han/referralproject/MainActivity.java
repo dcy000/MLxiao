@@ -16,6 +16,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
@@ -192,7 +193,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.health_class:
-                intent.setClass(getApplicationContext(), VideoListActivity.class);
+                intent.setClass(getApplicationContext(), MarketActivity.class);
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人

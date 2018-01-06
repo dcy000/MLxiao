@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.han.referralproject">
+    package="com.example.han.referralproject"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -134,7 +135,8 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon, android:label,android:theme">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -161,8 +163,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -214,7 +215,7 @@
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -224,9 +225,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -248,70 +247,54 @@
         <activity
             android:name=".LoadingActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".recyclerview.RecoDocActivity">
 
-
-        <activity android:name=".recyclerview.RecoDocActivity" >
-
-
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-                <!--<category android:name="android.intent.category.HOME"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-                <!--<category android:name="android.intent.category.DEFAULT"/>-->
-            <!--</intent-filter>-->
-
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+            <!-- <category android:name="android.intent.category.HOME"/> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+            <!-- </intent-filter> -->
 
         </activity>
-
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
-
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.HOME"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".xueya.AttentionActivity"
             android:largeHeap="true"
             android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.VideoDemo"
-            android:screenOrientation="landscape">
-
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
-            android:screenOrientation="landscape">
-
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
-        <activity android:name=".personal.PersonActivity"></activity>
+        <activity android:name=".personal.PersonActivity" />
         <activity
             android:name="com.medlink.danbogh.call.VideoCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -366,11 +349,10 @@
             </intent-filter>
         </receiver>
 
-
         <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
-        <activity android:name=".recyclerview.DoctorappoActivity"></activity>
-        <activity android:name=".recyclerview.AddAppoActivity"></activity>
+        <activity android:name=".recyclerview.DoctorappoActivity" />
+        <activity android:name=".recyclerview.AddAppoActivity" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
@@ -468,7 +450,7 @@
         <activity android:name=".activity.MyBaseDataActivity" />
         <activity android:name=".activity.SymptomsActivity" />
         <activity android:name=".activity.BodychartActivity" />
-        <activity android:name=".shopping.OrderListActivity"></activity>
+        <activity android:name=".shopping.OrderListActivity" />
         <activity android:name=".activity.DiseaseDetailsActivity" />
         <activity
             android:name=".recyclerview.OnlineDoctorListActivity"
@@ -477,16 +459,14 @@
         <activity
             android:name="com.medlink.danbogh.signin.SignInActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.medlink.danbogh.signin.FindPasswordActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.medlink.danbogh.signin.SetPasswordActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -494,8 +474,7 @@
 
         <service android:name=".floatingball.AssistiveTouchService" />
 
-
-        <activity android:name=".recyclerview.DoctorAlarmActivity"></activity>
+        <activity android:name=".recyclerview.DoctorAlarmActivity" />
         <activity android:name=".activity.AlertHeightActivity" />
         <activity android:name=".activity.AlertWeightActivity" />
         <activity android:name=".activity.AlertSportActivity" />
@@ -503,8 +482,10 @@
         <activity android:name=".activity.AlertEatingActivity" />
         <activity android:name=".activity.AlertDrinkingActivity" />
         <activity android:name=".activity.SelectXuetangTimeActivity" />
-        <activity android:name=".recyclerview.HistoryActivity"></activity>
-        <activity android:name=".recyclerview.CheckContractActivity"></activity>
+        <activity android:name=".recyclerview.HistoryActivity" />
+        <activity android:name=".recyclerview.CheckContractActivity" />
+        <activity android:name=".activity.MarketActivity"></activity>
+        <activity android:name="com.witspring.unitbody.ChooseMemberActivity"/>
     </application>
 
 </manifest>
