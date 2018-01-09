@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -213,6 +214,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                             @Override
                             public void done(BCResult result) {
 
+
+
                                 BCQueryBillResult billStatus = (BCQueryBillResult) result;
 
 
@@ -304,6 +307,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 //resultCode为0表示请求成功
                 if (bcqrCodeResult.getResultCode() == 0) {
                     billId = bcqrCodeResult.getId();
+
 
                     //如果你设置了生成二维码参数为true那么此处可以获取二维码
                     qrCodeBitMap = bcqrCodeResult.getQrCodeBitmap();

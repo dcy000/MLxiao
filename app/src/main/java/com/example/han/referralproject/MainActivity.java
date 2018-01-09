@@ -67,9 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mediaPlayer.start();//播放音乐*/
 
-        if (
-
-                isMyServiceRunning(AssistiveTouchService.class))
+        if (isMyServiceRunning(AssistiveTouchService.class))
 
         {
 
@@ -100,9 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView6.setOnClickListener(this);
         mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
 
-        sharedPreferences =
-
-                getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
 
         if (

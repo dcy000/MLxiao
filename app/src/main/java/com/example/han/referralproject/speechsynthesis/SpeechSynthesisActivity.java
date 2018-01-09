@@ -203,7 +203,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     hidePlayingFragment();
                     mImageView.setClickable(true);
                 }
-
                 finish();
             }
         });
@@ -265,14 +264,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         getPlayService().setOnPlayEventListener(this);
 
+
+
+        speak("主人,来和我聊天吧");
+
+        mHandler.sendEmptyMessageDelayed(1, 3000);
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        speak("主人,来和我聊天吧");
-
-        mHandler.sendEmptyMessageDelayed(1, 3000);
 
     }
 
@@ -311,11 +314,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
-
         if (mPlayFragment != null && isPlayFragmentShow) {
             if (getPlayService().isPlaying()) {
                 getPlayService().playPause();
@@ -324,11 +325,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             mImageView.setClickable(true);
 
-            //   finish();
             return;
         }
 
     }
+
 
     private void hidePlayingFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -1349,6 +1350,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onStop() {
         super.onStop();
+
+
 
 //        if (null != mIat) {
 //            // 退出时释放连接
