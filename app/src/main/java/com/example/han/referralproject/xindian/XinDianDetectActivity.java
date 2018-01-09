@@ -17,6 +17,9 @@ import android.widget.Toast;
 import com.creative.ecg.StatusMsg;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 
 import java.io.File;
 import java.util.List;
@@ -195,6 +198,18 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 							setGain(0);
 							setHR(data.getInt("nHR"));
 							setSmooth(false);
+
+							DataInfoBean ecgInfo = new DataInfoBean();
+							ecgInfo.ecg = data.getInt("nResult");
+							ecgInfo.heart_rate = data.getInt("nHR");
+							NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<String>() {
+								@Override
+								public void onSuccess(String response) {
+									//Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+								}
+							});
+							speak(String.format(getString(R.string.tips_result_xindian), ecgInfo.heart_rate, measureResult[ecgInfo.ecg]));
+
 						}
 						break;
 						case 7: {// 传输设置    setting data transmission mode
