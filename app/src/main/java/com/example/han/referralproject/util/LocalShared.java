@@ -22,10 +22,17 @@ public class LocalShared {
     private final String UserImg = "user_img";
     private final String XunfeiId = "Xunfei_Id";
     private final String UserPhoneNum = "user_phone_num";
+    private final String MAC_Xueya = "mac_xueya";
+    private final String MAC_Wendu = "mac_wendu";
+    private final String MAC_Xueyang = "mac_xueyang";
+    private final String MAC_Xindian = "mac_xindian";
+    private final String MAC_Sanheyi = "mac_sanheyi";
+    private final String MAC_Xuetang = "mac_xuetang";
 
     private final String Guide_Add_Click = "guide_add_click";
     private final String Guide_Create_Text = "guide_create_text";
     private final String Guide_Sign_In = "guide_sign_in_two";
+
 
     private LocalShared(Context context) {
         mShared = context.getSharedPreferences(SharedName, Context.MODE_PRIVATE);
@@ -323,6 +330,54 @@ public class LocalShared {
     }
     public String getEqID(){
         return mShared.getString(EQID,"");
+    }
+
+    public String getXueyaMac() {
+        return mShared.getString(MAC_Xueya, "");
+    }
+
+    public void setXueyaMac(String xueyaMac) {
+        mShared.edit().putString(MAC_Xueya, xueyaMac).commit();
+    }
+
+    public String getXuetangMac() {
+        return mShared.getString(MAC_Xuetang, "");
+    }
+
+    public void setXuetangMac(String xuetangMac) {
+        mShared.edit().putString(MAC_Xuetang, xuetangMac).commit();
+    }
+
+    public String getWenduMac() {
+        return mShared.getString(MAC_Wendu, "");
+    }
+
+    public void setWenduMac(String wenduMac) {
+        mShared.edit().putString(MAC_Wendu, wenduMac).commit();
+    }
+
+    public String getSanheyiMac() {
+        return mShared.getString(MAC_Sanheyi, "");
+    }
+
+    public void setSanheyiMac(String sanheyiMac) {
+        mShared.edit().putString(MAC_Sanheyi, sanheyiMac).commit();
+    }
+
+    public String getXueyangMac() {
+        return mShared.getString(MAC_Xueyang, "");
+    }
+
+    public void setXueyangMac(String xueyangMac) {
+        mShared.edit().putString(MAC_Xueyang, xueyangMac).commit();
+    }
+
+    public String getXinDianMac() {
+        return mShared.getString(MAC_Xindian, "");
+    }
+
+    public void setXinDianMac(String xindianMac) {
+        mShared.edit().putString(MAC_Xindian, xindianMac).commit();
     }
 
     public void setSex(String sex) {

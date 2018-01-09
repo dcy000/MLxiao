@@ -38,6 +38,7 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
@@ -172,7 +173,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View view) {
 //                Intent intent = new Intent(PersonActivity.this, ShopListActivity.class);
 //                startActivity(intent);
-                startActivity(new Intent(PersonActivity.this, MarketActivity.class));
+                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
 
             }
         });
@@ -356,7 +357,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 finish();
                 break;
             case R.id.iv_check://病症自查
-//                startActivity(new Intent(this, BodychartActivity.class));
                 DiseaseUser diseaseUser=new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
                         LocalShared.getInstance(this).getSex().equals("男")? 1:2,

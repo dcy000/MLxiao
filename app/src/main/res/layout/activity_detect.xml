@@ -1061,7 +1061,7 @@
         android:layout_gravity="right"
         android:scaleType="centerInside"
         android:clickable="true"
-        android:src="@drawable/icon_home" />
+        android:src="@drawable/icon_refresh" />
 
 
     <!--  <LinearLayout
