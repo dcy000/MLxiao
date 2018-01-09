@@ -5,26 +5,44 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
+import com.example.han.referralproject.util.ToastUtil;
 
 import java.util.Calendar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class Test_mainActivity extends BaseActivity implements View.OnClickListener {
-
-    ImageView mImageView1;
-    ImageView mImageView2;
-    ImageView mImageView3;
-    ImageView mImageView4;
-    ImageView mImageView5;
-    ImageView mImageView6;
-
     public static final int MIN_CLICK_DELAY_TIME = 1000;
+    @BindView(R.id.ll_xueya)
+    LinearLayout llXueya;
+    @BindView(R.id.ll_xueyang)
+    LinearLayout llXueyang;
+    @BindView(R.id.ll_tiwen)
+    LinearLayout llTiwen;
+    @BindView(R.id.ll_xuetang)
+    LinearLayout llXuetang;
+    @BindView(R.id.cl_1)
+    ConstraintLayout cl1;
+    @BindView(R.id.ll_xindian)
+    LinearLayout llXindian;
+    @BindView(R.id.ll_tizhong)
+    LinearLayout llTizhong;
+    @BindView(R.id.ll_san)
+    LinearLayout llSan;
+    @BindView(R.id.ll_more)
+    LinearLayout llMore;
+    @BindView(R.id.cl_2)
+    ConstraintLayout cl2;
     private long lastClickTime = 0;
 
 
@@ -47,49 +65,22 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_main);
-
+        setContentView(R.layout.activity_test_main2);
+        ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
 
 
-
-
-        mImageView1 = (ImageView) findViewById(R.id.test_xueya);
-        mImageView2 = (ImageView) findViewById(R.id.test_xueyang);
-        mImageView3 = (ImageView) findViewById(R.id.test_wendu);
-        mImageView4 = (ImageView) findViewById(R.id.test_xuetang);
-        mImageView5 = (ImageView) findViewById(R.id.test_xindian);
-        mImageView6 = (ImageView) findViewById(R.id.test_qita);
-
-        mImageView1.setOnClickListener(this);
-        mImageView2.setOnClickListener(this);
-        mImageView3.setOnClickListener(this);
-        mImageView4.setOnClickListener(this);
-        mImageView5.setOnClickListener(this);
-        mImageView6.setOnClickListener(this);
+        llXueya.setOnClickListener(this);
+        llXueyang.setOnClickListener(this);
+        llXuetang.setOnClickListener(this);
+        llXindian.setOnClickListener(this);
+        llTizhong.setOnClickListener(this);
+        llTiwen.setOnClickListener(this);
+        llSan.setOnClickListener(this);
+        llMore.setOnClickListener(this);
 
         speak(R.string.tips_test);
-        registerReceiver(mReceiver, new IntentFilter("change_account"));
 
-    }
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case "change_account":
-//                    if (mChangeAccountDialog != null) {
-//                        mChangeAccountDialog.dismiss();
-//                    }
-//                    getData();
-                    break;
-            }
-        }
-    };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -102,68 +93,48 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 
             Intent intent = new Intent();
             switch (v.getId()) {
-                case R.id.test_xueya:
+                case R.id.ll_xueya:
                     intent.setClass(mContext, DetectActivity.class);
                     intent.putExtra("type", "xueya");
                     startActivity(intent);
                     break;
-                case R.id.test_xueyang:
+                case R.id.ll_xueyang:
                     intent.setClass(getApplicationContext(), DetectActivity.class);
                     intent.putExtra("type", "xueyang");
                     startActivity(intent);
                     break;
-                case R.id.test_wendu:
+                case R.id.ll_tiwen:
                     intent.setClass(mContext, DetectActivity.class);
                     intent.putExtra("type", "wendu");
                     startActivity(intent);
                     break;
-                case R.id.test_xuetang:
+                case R.id.ll_xuetang:
                     intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
                     intent.putExtra("type", "xuetang");
                     startActivity(intent);
                     break;
-                case R.id.test_xindian:
-                    intent.setClass(getApplicationContext(), XinDianDetectActivity.class);
+                case R.id.ll_xindian:
+                    intent.setClass(mContext, XinDianDetectActivity.class);
                     startActivity(intent);
 //                    intent.setClass(mContext, DetectActivity.class);
 //                    intent.putExtra("type", "xindian");
 //                    startActivity(intent);
                     break;
-                case R.id.test_qita:
+                case R.id.ll_san:
                     //intent.setClass(getApplicationContext(), XueyaActivity.class);
                     intent.setClass(mContext, DetectActivity.class);
                     intent.putExtra("type", "sanheyi");
                     startActivity(intent);
                     break;
+                case R.id.ll_tizhong://体重
+
+                    break;
+                case R.id.ll_more://敬请期待
+                    ToastUtil.showShort(this,"敬请期待");
+                    break;
             }
         }
 
 
-    }
-
-    @Override
-    protected void onSpeakListenerResult(String result) {
-//        String inSpell = PinYinUtils.converterToSpell(result);
-//        Intent intent = new Intent();
-//        if(inSpell.matches(".*((xie|xue)ya).*")){
-//            intent.setClass(mContext, DetectActivity.class);
-//            intent.putExtra("type", "xueya");
-//        }else if(inSpell.matches(".*((xie|xue)yang).*")){
-//            intent.setClass(getApplicationContext(), DetectActivity.class);
-//            intent.putExtra("type", "xueyang");
-//        }else if(inSpell.matches(".*(tiwen).*")){
-//            intent.setClass(mContext, DetectActivity.class);
-//            intent.putExtra("type", "wendu");
-//
-//        }else if(inSpell.matches(".*((xie|xue)tang).*")){
-//            intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
-//            intent.putExtra("type", "xuetang");
-//        }else if(inSpell.matches(".*((xin|xing)dian).*")){
-//            intent.setClass(getApplicationContext(), XinDianDetectActivity.class);
-//        }else if(inSpell.matches(".*((san|shan)heyi|(xie|xue)niao(suan|shuan)|dangu(cun|chun)).*")){
-//            intent.setClass(mContext, DetectActivity.class);
-//            intent.putExtra("type", "sanheyi");
-//        }
-//        startActivity(intent);
     }
 }

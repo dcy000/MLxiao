@@ -10,6 +10,6 @@
     <dimen name="divider_height">0.5dp</dimen>
     <dimen name="toolbar_height">64dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-
+    <dimen name="test_img_hight">360px</dimen>
 
 </resources>

@@ -357,7 +357,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 finish();
                 break;
             case R.id.iv_check://病症自查
-//                startActivity(new Intent(this, BodychartActivity.class));
                 DiseaseUser diseaseUser=new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
                         LocalShared.getInstance(this).getSex().equals("男")? 1:2,
@@ -366,9 +365,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 );
                 String currentUser= new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
-//
                 intent.putExtra("currentUser", currentUser);
-//                intent.putExtra("members", members);
                 startActivity(intent);
                 break;
             case R.id.iv_message:
