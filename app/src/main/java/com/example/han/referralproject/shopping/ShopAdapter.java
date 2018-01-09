@@ -40,8 +40,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopVH> {
         holder.mPosition = position;
         Picasso.with(context)
                 .load(mList.get(position).getGoodsimage())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .tag(context)
                 .fit()
                 .into(holder.mImageView);

@@ -3,6 +3,7 @@ package com.example.han.referralproject.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -14,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -45,6 +47,7 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -74,7 +77,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XinDian;
+    private String detectType = Type_TiZhong;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -89,6 +92,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private String[] mEcgResults;
     private BluetoothGattCharacteristic mWriteCharacteristic;
     private View mOverView;
+    private LocalShared mShared;
 
 
     @SuppressLint("HandlerLeak")
@@ -278,6 +282,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 Log.e(TAG, "Unable to initialize Bluetooth");
                 finish();
             }
+            if (TextUtils.isEmpty(mDeviceAddress)){
+                return;
+            }
             if (mBluetoothLeService.connect(mDeviceAddress)) {
                 mBluetoothGatt = mBluetoothLeService.getGatt();
             }
@@ -298,6 +305,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
+                switch (detectType) {
+                    case Type_XueTang:
+                        mShared.setXuetangMac(mDeviceAddress);
+                        break;
+                    case Type_XueYang:
+                        mShared.setXueyangMac(mDeviceAddress);
+                        break;
+                    case Type_Wendu:
+                        mShared.setWenduMac(mDeviceAddress);
+                        break;
+                    case Type_SanHeYi:
+                        mShared.setSanheyiMac(mDeviceAddress);
+                        break;
+                    case Type_XinDian:
+                        mShared.setXinDianMac(mDeviceAddress);
+                        break;
+                    case Type_Xueya:
+                        mShared.setXueyaMac(mDeviceAddress);
+                        break;
+                }
 //                switch (detectType) {
 //                    case Type_XueTang:
 //                        XueTangGattAttributes.notify(mBluetoothGatt);
@@ -315,13 +342,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 Log.i("mylog", "gata disConnect 22222222222222222");
                 mConnected = false;
-                speak(R.string.tips_blue_unConnect);
+                //speak(R.string.tips_blue_unConnect);
                 isGetResustFirst = true;
                 if (mBluetoothAdapter != null) {
-                    if (detectType == Type_XinDian){
-                        dialog = new NDialog(mContext);
-                        showNormal("设备连接中，请稍后...");
-                    }
+//                    if (detectType == Type_XinDian){
+//                        dialog = new NDialog(mContext);
+//                        showNormal("设备连接中，请稍后...");
+//                    }
                     startSearch();
 //                    mBluetoothAdapter.startDiscovery();
                 }
@@ -762,6 +789,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+        mShared = LocalShared.getInstance(mContext);
         time=getIntent().getIntExtra("time",0);
         mToolbar.setVisibility(View.GONE);
         mButton = (Button) findViewById(R.id.history);
@@ -827,9 +855,37 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
 //                startSearch();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+//                finish();
+
+                new AlertDialog.Builder(mContext).setMessage("是否匹配新设备").setNegativeButton("取消", null).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mDeviceAddress = "";
+                        switch (detectType) {
+                            case Type_XueTang:
+                                mShared.setXuetangMac("");
+                                break;
+                            case Type_XueYang:
+                                mShared.setXueyangMac("");
+                                break;
+                            case Type_Wendu:
+                                mShared.setWenduMac("");
+                                break;
+                            case Type_SanHeYi:
+                                mShared.setSanheyiMac("");
+                                break;
+                            case Type_XinDian:
+                                mShared.setXinDianMac("");
+                                break;
+                            case Type_Xueya:
+                                mShared.setXueyaMac("");
+                                break;
+                        }
+                    }
+                }).show();
 
             }
         });
@@ -1105,20 +1161,103 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void startSearch() {
+//        if (mBluetoothLeService == null) {
+//            Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+//            bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+//            switch (detectType){
+//                case Type_Xueya:
+//                    mHandler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (mBluetoothLeService.connect("98:7B:F3:67:80:14")) {
+//                                mBluetoothGatt = mBluetoothLeService.getGatt();
+//                            }
+//                        }
+//                    }, 1000);
+//                    break;
+//                case Type_Wendu:
+//                    mHandler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (mBluetoothLeService.connect("8B:00:00:00:00:00")) {
+//                                mBluetoothGatt = mBluetoothLeService.getGatt();
+//                            }
+//                        }
+//                    }, 1000);
+//                    break;
+//            }
+//        } else {
+//            switch (detectType){
+//                case Type_Xueya:
+//                    mHandler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (mBluetoothLeService.connect("98:7B:F3:67:80:14")) {
+//                                mBluetoothGatt = mBluetoothLeService.getGatt();
+//                            }
+//                        }
+//                    }, 1000);
+//                    break;
+//                case Type_Wendu:
+//                    mHandler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (mBluetoothLeService.connect("8B:00:00:00:00:00")) {
+//                                mBluetoothGatt = mBluetoothLeService.getGatt();
+//                            }
+//                        }
+//                    }, 1000);
+//                    break;
+//            }
+//        }
+
         if (detectType == Type_SanHeYi){
             if (dialog == null){
                 dialog = new NDialog(this);
             }
             showNormal("设备连接中，请稍后...");
         }
+        switch (detectType) {
+            case Type_Wendu:
+                mDeviceAddress = mShared.getWenduMac();
+                break;
+            case Type_XinDian:
+                mDeviceAddress = mShared.getXinDianMac();
+                break;
+            case Type_Xueya:
+                mDeviceAddress = mShared.getXueyaMac();
+                break;
+            case Type_XueTang:
+                mDeviceAddress = mShared.getXuetangMac();
+                break;
+            case Type_SanHeYi:
+                mDeviceAddress = mShared.getSanheyiMac();
+                break;
+            case Type_XueYang:
+                mDeviceAddress = mShared.getXueyangMac();
+                break;
+        }
+        if (mBluetoothLeService == null) {
+            Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+            bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+        }
         blueThreadDisable = true;
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (blueThreadDisable){
-                    if (!mBluetoothAdapter.isDiscovering()){
-                        boolean flag = mBluetoothAdapter.startDiscovery();
-                        Log.i("mylog", "flag : " + flag);
+                    Log.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                    if (TextUtils.isEmpty(mDeviceAddress)){
+                        if (!mBluetoothAdapter.isDiscovering()){
+                            boolean flag = mBluetoothAdapter.startDiscovery();
+                            Log.i("mylog", "flag : " + flag);
+                        }
+                    } else {
+                        Log.i("mylog", "address : " + mDeviceAddress);
+                        if (mBluetoothLeService.connect(mDeviceAddress)) {
+                            mBluetoothGatt = mBluetoothLeService.getGatt();
+                            stopSearch();
+                        }
                     }
                     try {
                         Thread.sleep(2000);
@@ -1132,7 +1271,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     private void stopSearch() {
         blueThreadDisable = false;
-        if (mBluetoothAdapter != null) {
+        if (mBluetoothAdapter != null && mBluetoothAdapter.isDiscovering()) {
             mBluetoothAdapter.cancelDiscovery();
         }
     }

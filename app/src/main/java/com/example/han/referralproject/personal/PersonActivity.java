@@ -17,10 +17,12 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.BodychartActivity;
+import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
@@ -34,12 +36,17 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
+import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.video.VideoListActivity;
+import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.squareup.picasso.Picasso;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+
+import org.json.JSONObject;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener {
 
@@ -164,8 +171,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         mImageView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PersonActivity.this, ShopListActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(PersonActivity.this, ShopListActivity.class);
+//                startActivity(intent);
+                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
 
             }
         });
@@ -349,7 +357,16 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 finish();
                 break;
             case R.id.iv_check://病症自查
-                startActivity(new Intent(this, BodychartActivity.class));
+                DiseaseUser diseaseUser=new DiseaseUser(
+                        LocalShared.getInstance(this).getUserName(),
+                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getUserPhoto()
+                );
+                String currentUser= new Gson().toJson(diseaseUser);
+                Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
+                intent.putExtra("currentUser", currentUser);
+                startActivity(intent);
                 break;
             case R.id.iv_message:
                 startActivity(new Intent(this, MessageActivity.class));

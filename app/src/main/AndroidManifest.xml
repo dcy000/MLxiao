@@ -1,77 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.han.referralproject">
+    package="com.example.han.referralproject"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-
+    <permission
+        android:name="com.example.han.referralproject.permission.RECEIVE_MSG"
+        android:protectionLevel="signature" />
+    <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
+    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 读取网络信息状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-
-    <permission
-        android:name="com.example.han.referralproject.permission.RECEIVE_MSG"
-        android:protectionLevel="signature" />
-    <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <uses-feature
-        android:name="android.hardware.bluetooth_le"
-        android:required="true" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- 读取网络信息状态 -->
-
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-    <!-- ############### EM ################# -->
-    <!-- 相机 -->
-    <uses-permission android:name="android.permission.CAMERA" />
     <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <!-- 网络 -->
@@ -104,29 +63,13 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 悬浮窗权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
     <!-- Bugly -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
-    <!-- ############### EM ################# -->
-    <!-- 手机定位信息，用来为语义等功能提供定位，提供更精准的服务 -->
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -134,7 +77,8 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon, android:label,android:theme">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -186,10 +130,6 @@
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.RegisterActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".activity.AgreementActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -213,7 +153,7 @@
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -223,9 +163,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -262,15 +200,11 @@
 
 
         </activity>
-
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -287,31 +221,24 @@
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".xueya.AttentionActivity"
             android:largeHeap="true"
             android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.VideoDemo"
-            android:screenOrientation="landscape">
-
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
-            android:screenOrientation="landscape">
-
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity android:name=".recyclerview.DoctorMesActivity" />
         <activity android:name=".video.MainVideoActivity" />
         <activity android:name=".video.PlayVideoActivity" />
-        <activity android:name=".personal.PersonActivity"></activity>
+        <activity android:name=".personal.PersonActivity" />
         <activity
             android:name="com.medlink.danbogh.call.VideoCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -366,11 +293,10 @@
             </intent-filter>
         </receiver>
 
-
         <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
-        <activity android:name=".recyclerview.DoctorappoActivity"></activity>
-        <activity android:name=".recyclerview.AddAppoActivity"></activity>
+        <activity android:name=".recyclerview.DoctorappoActivity" />
+        <activity android:name=".recyclerview.AddAppoActivity" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
@@ -468,7 +394,7 @@
         <activity android:name=".activity.MyBaseDataActivity" />
         <activity android:name=".activity.SymptomsActivity" />
         <activity android:name=".activity.BodychartActivity" />
-        <activity android:name=".shopping.OrderListActivity"></activity>
+        <activity android:name=".shopping.OrderListActivity" />
         <activity android:name=".activity.DiseaseDetailsActivity" />
         <activity
             android:name=".recyclerview.OnlineDoctorListActivity"
@@ -477,16 +403,14 @@
         <activity
             android:name="com.medlink.danbogh.signin.SignInActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.medlink.danbogh.signin.FindPasswordActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.medlink.danbogh.signin.SetPasswordActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -494,8 +418,7 @@
 
         <service android:name=".floatingball.AssistiveTouchService" />
 
-
-        <activity android:name=".recyclerview.DoctorAlarmActivity"></activity>
+        <activity android:name=".recyclerview.DoctorAlarmActivity" />
         <activity android:name=".activity.AlertHeightActivity" />
         <activity android:name=".activity.AlertWeightActivity" />
         <activity android:name=".activity.AlertSportActivity" />
@@ -503,8 +426,9 @@
         <activity android:name=".activity.AlertEatingActivity" />
         <activity android:name=".activity.AlertDrinkingActivity" />
         <activity android:name=".activity.SelectXuetangTimeActivity" />
-        <activity android:name=".recyclerview.HistoryActivity"></activity>
-        <activity android:name=".recyclerview.CheckContractActivity"></activity>
+        <activity android:name=".recyclerview.HistoryActivity" />
+        <activity android:name=".recyclerview.CheckContractActivity" />
+        <activity android:name=".activity.MarketActivity"></activity>
     </application>
 
 </manifest>

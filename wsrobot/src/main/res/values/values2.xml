@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wsdise__price_demo">13.5元</string>
+    <string name="wsdise_adverse_effect">不良反应：</string>
+    <string name="wsdise_app_name">unitDisease</string>
+    <string name="wsdise_approval_doc">批准文号</string>
+    <string name="wsdise_attention">注意事项：</string>
+    <string name="wsdise_cf">成分：</string>
+    <string name="wsdise_disease_info">疾病详情</string>
+    <string name="wsdise_gg">规格：</string>
+    <string name="wsdise_gnzz">功能主治：</string>
+    <string name="wsdise_hello_blank_fragment">Hello blank fragment</string>
+    <string name="wsdise_interction">相互作用：</string>
+    <string name="wsdise_jbgs">疾病概述</string>
+    <string name="wsdise_jbzd">疾病诊断</string>
+    <string name="wsdise_jbzl">疾病治疗</string>
+    <string name="wsdise_medicine_detail">疾病详情</string>
+    <string name="wsdise_medicine_name">药名</string>
+    <string name="wsdise_other">其他 :</string>
+    <string name="wsdise_taboo">禁忌：</string>
+    <string name="wsdise_usage">用法用量：</string>
+    <string name="wsdise_xgyp">相关药品</string>
+    <style name="wsdise_tab_disease">
+        <item name="android:textSize">@dimen/ws_font_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/wsdise_selector_disease_btn</item>
+        <item name="android:textColor">@drawable/wsdise_selector_txt_green_withe</item>
+    </style>
+</resources>

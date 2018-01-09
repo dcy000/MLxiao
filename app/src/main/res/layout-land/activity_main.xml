@@ -93,7 +93,7 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/health_class" />
+        android:src="@drawable/ic_shop" />
 
     <RelativeLayout
         android:id="@+id/ll_anim"

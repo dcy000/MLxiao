@@ -26,11 +26,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
+import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
@@ -52,6 +52,7 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
@@ -202,8 +203,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
                     hidePlayingFragment();
                     mImageView.setClickable(true);
+                } else {
+                    finish();
                 }
+<<<<<<< HEAD
                 finish();
+=======
+>>>>>>> 03410cace268ffa7e3b7936a598f5aabdbc67a4c
             }
         });
         initLayout();
@@ -273,10 +279,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     }
 
+    private boolean isStoped = false;
+
     @Override
     protected void onStart() {
         super.onStart();
 
+        isStoped = false;
     }
 
     @Override
@@ -317,6 +326,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onBackPressed() {
+<<<<<<< HEAD
+=======
+        //super.onBackPressed();
+
+
+>>>>>>> 03410cace268ffa7e3b7936a598f5aabdbc67a4c
         if (mPlayFragment != null && isPlayFragmentShow) {
             if (getPlayService().isPlaying()) {
                 getPlayService().playPause();
@@ -324,8 +339,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             hidePlayingFragment();
 
             mImageView.setClickable(true);
+<<<<<<< HEAD
 
             return;
+=======
+        } else {
+            finish();
+>>>>>>> 03410cace268ffa7e3b7936a598f5aabdbc67a4c
         }
 
     }
@@ -411,6 +431,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onSuccess(SearchMusic response) {
+                if (isStoped){
+                    return;
+                }
                 if (response == null || response.getSong() == null) {
                     speak("抱歉，没找到这首歌");
                     mHandler.sendEmptyMessageDelayed(1, 3000);
@@ -427,6 +450,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onExecuteSuccess(Music music) {
+                        if (isStoped){
+                            return;
+                        }
                         getPlayService().play(music);
                         showPlayingFragment();
 
@@ -610,6 +636,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
             Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
+            if(inSpell.matches(".*((xin|xing)dian).*")){
+                startActivity(new Intent(SpeechSynthesisActivity.this,DetectActivity.class).putExtra("type", "xindian"));
+                return;
+            }
+            if(inSpell.matches(".*(sanheyi|(xie|xue)(niao|liao)(suan|shuan)|dangu(chun|cun)).*")){
+                startActivity(new Intent(SpeechSynthesisActivity.this,DetectActivity.class).putExtra("type","sanheyi"));
+                return;
+            }
             if (matcherWhenAlarm.find()) {
                 String am = matcherWhenAlarm.group(1);
                 String hourOfDay = matcherWhenAlarm.group(2);
@@ -641,13 +675,29 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-                Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
-                startActivity(intent1);
+                DiseaseUser diseaseUser=new DiseaseUser(
+                        LocalShared.getInstance(this).getUserName(),
+                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getUserPhoto()
+                );
+                String currentUser= new Gson().toJson(diseaseUser);
+                Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
+                intent.putExtra("currentUser", currentUser);
+                startActivity(intent);
                 return;
             }
             if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-                Intent intent1 = new Intent(SpeechSynthesisActivity.this, BodychartActivity.class);
-                startActivity(intent1);
+                DiseaseUser diseaseUser=new DiseaseUser(
+                        LocalShared.getInstance(this).getUserName(),
+                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getUserPhoto()
+                );
+                String currentUser= new Gson().toJson(diseaseUser);
+                Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
+                intent.putExtra("currentUser", currentUser);
+                startActivity(intent);
                 return;
             }
 
@@ -903,7 +953,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 finish();
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
+                DiseaseUser diseaseUser=new DiseaseUser(
+                        LocalShared.getInstance(this).getUserName(),
+                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getUserPhoto()
+                );
+                String currentUser= new Gson().toJson(diseaseUser);
+                Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
+                intent.putExtra("currentUser", currentUser);
+                startActivity(intent);
             } else if (inSpell.matches(".*chong.*qian.*") || result.contains("钱不够") || result.contains("没钱")) {
                 Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                 startActivity(intent);
@@ -919,7 +978,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
-                startActivity(new Intent(SpeechSynthesisActivity.this, BodychartActivity.class));
+                DiseaseUser diseaseUser=new DiseaseUser(
+                        LocalShared.getInstance(this).getUserName(),
+                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getUserPhoto()
+                );
+                String currentUser= new Gson().toJson(diseaseUser);
+                Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
+                intent.putExtra("currentUser", currentUser);
+                startActivity(intent);
             } else if (inSpell.matches(".*(li(si|shi)|(shu|su)ju|jilu).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
             } else if (inSpell.matches(".*(dangan).*")) {
@@ -986,6 +1054,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else {
                 onActivitySpeakFinish();
             }
+            return;
+        }
+
+        if (isStoped) {
             return;
         }
 
@@ -1089,6 +1161,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
 
             } else {
+                if (isStoped) {
+                    return;
+                }
                 mHandler.sendEmptyMessage(0);
 
             }
@@ -1350,9 +1425,30 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onStop() {
         super.onStop();
+<<<<<<< HEAD
 
 
 
+=======
+        isStoped = true;
+//        if (mIat != null && mIat.isListening()){
+//            mIat.stopListening();
+//        }
+//        if (mTts != null && mTts.isSpeaking()){
+//            mTts.stopSpeaking();
+//        }
+        if (mIat != null){
+            mIat.stopListening();
+        }
+        if (mTts != null){
+            mTts.stopSpeaking();
+        }
+        PlayService service = AppCache.getPlayService();
+        if (service != null) {
+            service.stop();
+            hidePlayingFragment();
+        }
+>>>>>>> 03410cace268ffa7e3b7936a598f5aabdbc67a4c
 //        if (null != mIat) {
 //            // 退出时释放连接
 //            mIat.cancel();

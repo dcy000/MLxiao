@@ -5,11 +5,12 @@ android {
         config {
         }
     }
-    compileSdkVersion 22
-    buildToolsVersion '25.0.3'
+    buildToolsVersion gradle.buildToolsVersion
+    compileSdkVersion gradle.compileSdkVersion
+
     defaultConfig {
-        minSdkVersion 10 //PayPal要求min至小10
-        targetSdkVersion 22
+        minSdkVersion gradle.minSdkVersion
+        targetSdkVersion gradle.targetSdkVersion
         versionCode 34
         versionName "2.9.4"
     }
@@ -35,7 +36,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile 'com.google.code.gson:gson:2.7'

@@ -1,19 +1,23 @@
 apply plugin: 'com.android.application'
-
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    buildToolsVersion gradle.buildToolsVersion
+    compileSdkVersion gradle.compileSdkVersion
 
     defaultConfig {
         applicationId "com.example.han.referralproject"
-        minSdkVersion 18
-        targetSdkVersion 25
-        versionCode 9
-        versionName "1.0.8"
+        minSdkVersion gradle.minSdkVersion
+        targetSdkVersion gradle.targetSdkVersion
+        versionCode 10
+        versionName "1.1.0"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,9 +25,7 @@ android {
             zipAlignEnabled true
             shrinkResources false
         }
-        app {
-            debuggable true
-        }
+
         debug {
             debuggable true
         }
@@ -52,14 +54,14 @@ android {
             keyPassword RELEASE_KEY_PASSWORD
         }
     }
+
 }
 
 
 repositories {
     flatDir {
-        dirs 'libs' //就是你放aar的目录地址
+        dirs 'libs'
     }
-
 
 }
 
@@ -69,11 +71,11 @@ dependencies {
     compile project(':wkvideoplayer')
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
-    compile project(':FaceppIDCardUI')
+//    compile project(':FaceppIDCardUI')
     compile project(':vmtools')
     compile files('libs/pinyin4j-2.5.0.jar')
-    compile name: 'SMSSDK-3.0.0', ext: 'aar'
-    compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
+//    compile name: 'SMSSDK-3.0.0', ext: 'aar'
+//    compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
     compile files('libs/commons-lang-2.3.jar')
     compile('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -82,14 +84,11 @@ dependencies {
     compile project(':lib-wheelrecyclerview')
     compile project(':voicelibrary')
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.hyphenate:hyphenate-sdk:3.3.2'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -102,7 +101,6 @@ dependencies {
     compile 'com.netease.nimlib:basesdk:4.3.0'
     compile 'com.netease.nimlib:avchat:4.3.0'
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
-    compile 'com.android.support:support-v4:25.3.1'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     testCompile 'junit:junit:4.12'
@@ -110,15 +108,24 @@ dependencies {
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     compile project(':voicelibrary')
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-
     compile 'com.wang.avi:library:2.1.3'
-
-    compile ('com.airbnb.android:lottie:2.2.5',{
+    compile('com.airbnb.android:lottie:2.2.5', {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     })
+    compile project(':lib-crash')
+    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 
-    compile project(":lib-crash")
-
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
-//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+    compile "com.android.support:support-v4:${gradle.supportVersion}"
+    compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
+    compile "com.android.support:cardview-v7:${gradle.supportVersion}"
+    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
+    compile "com.android.support:design:${gradle.supportVersion}"
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.facebook.fresco:fresco:1.7.1'
+    compile 'com.afollestad.material-dialogs:core:0.9.5.0'
+    compile 'com.nex3z:flow-layout:1.1.0'
+    compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
+    compile name: 'mlrobot-release', ext: 'aar'
+    compile name: 'FaceppIDCardUI', ext: 'aar'
 }

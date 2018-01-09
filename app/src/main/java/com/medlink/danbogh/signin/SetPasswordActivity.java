@@ -14,14 +14,11 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
-import com.mob.MobSDK;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 public class SetPasswordActivity extends BaseActivity {
 
@@ -45,12 +42,7 @@ public class SetPasswordActivity extends BaseActivity {
         mToolbar.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
         mPhone = getIntent().getStringExtra("phone");
-        initSms();
-    }
 
-    private void initSms() {
-        MobSDK.init(this, Utils.SMS_KEY, Utils.SMS_SECRETE);
-        SMSSDK.registerEventHandler(smsHandler);
     }
 
     @OnClick(R.id.cl_root)
@@ -61,11 +53,26 @@ public class SetPasswordActivity extends BaseActivity {
         }
     }
 
+    private String code;
+
     @OnClick(R.id.tv_set_password_fetch_code)
     public void onTvFetchCodeClicked() {
         tvFetchCode.setEnabled(false);
-        SMSSDK.getVerificationCode("86", mPhone);
-        i = 30;
+        NetworkApi.getCode(mPhone, new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String code) {
+                SetPasswordActivity.this.code = code;
+                T.show("获取验证码成功");
+                speak("获取验证码成功");
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show("获取验证码失败");
+                speak("获取验证码失败");
+            }
+        });
+        i = 60;
         Handlers.ui().postDelayed(countDown, 1000);
     }
 
@@ -100,43 +107,14 @@ public class SetPasswordActivity extends BaseActivity {
             speak(R.string.sign_up_code_tip);
             return;
         }
-        SMSSDK.submitVerificationCode("86", mPhone, code);
-    }
 
-    private EventHandler smsHandler = new EventHandler() {
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                switch (event) {
-                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-                        T.show("正在获取验证码...");
-                        break;
-                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-                        T.show("验证码正确");
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                onValidPhone();
-                            }
-                        });
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                switch (event) {
-                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-                        T.show("无法获取验证码");
-                        speak("主人,当前手机号的验证码获取次数已超过5次,请更换手机号码或改天再试");
-                        break;
-                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-                        T.show("验证码错误");
-                        speak("主人，您输入的验证码有误，请重新输入");
-                        break;
-                }
-            }
+        if (code.equals(this.code)) {
+            onValidPhone();
+        } else {
+            T.show("验证码错误");
+            speak("验证码错误");
         }
-    };
+    }
 
     private void onValidPhone() {
         showLoadingDialog("加载中...");
@@ -171,9 +149,6 @@ public class SetPasswordActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (smsHandler != null) {
-            SMSSDK.unregisterEventHandler(smsHandler);
-        }
         if (countDown != null) {
             Handlers.ui().removeCallbacks(countDown);
         }
