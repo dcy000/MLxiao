@@ -206,10 +206,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 } else {
                     finish();
                 }
-<<<<<<< HEAD
                 finish();
-=======
->>>>>>> 03410cace268ffa7e3b7936a598f5aabdbc67a4c
             }
         });
         initLayout();
@@ -326,12 +323,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onBackPressed() {
-<<<<<<< HEAD
-=======
         //super.onBackPressed();
 
 
->>>>>>> 03410cace268ffa7e3b7936a598f5aabdbc67a4c
         if (mPlayFragment != null && isPlayFragmentShow) {
             if (getPlayService().isPlaying()) {
                 getPlayService().playPause();
@@ -339,13 +333,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             hidePlayingFragment();
 
             mImageView.setClickable(true);
-<<<<<<< HEAD
 
             return;
-=======
         } else {
             finish();
->>>>>>> 03410cace268ffa7e3b7936a598f5aabdbc67a4c
         }
 
     }
@@ -1425,11 +1416,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onStop() {
         super.onStop();
-<<<<<<< HEAD
 
-
-
-=======
         isStoped = true;
 //        if (mIat != null && mIat.isListening()){
 //            mIat.stopListening();
@@ -1448,7 +1435,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             service.stop();
             hidePlayingFragment();
         }
->>>>>>> 03410cace268ffa7e3b7936a598f5aabdbc67a4c
 //        if (null != mIat) {
 //            // 退出时释放连接
 //            mIat.cancel();
