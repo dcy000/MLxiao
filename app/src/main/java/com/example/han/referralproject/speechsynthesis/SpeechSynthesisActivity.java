@@ -202,9 +202,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
                     hidePlayingFragment();
                     mImageView.setClickable(true);
+                } else {
+                    finish();
                 }
-
-                finish();
             }
         });
         initLayout();
@@ -316,7 +316,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
 
 
         if (mPlayFragment != null && isPlayFragmentShow) {
@@ -326,9 +326,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             hidePlayingFragment();
 
             mImageView.setClickable(true);
-
-            //   finish();
-            return;
+        } else {
+            finish();
         }
 
     }
@@ -997,6 +996,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             return;
         }
 
+        if (isStoped) {
+            return;
+        }
+
         if ("musicX".equals(results.get("service")) && TextUtils.isEmpty(audiopath)) {
             mAudioPath = audiopath;
             int index = text.indexOf("的歌曲");
@@ -1097,6 +1100,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
 
             } else {
+                if (isStoped) {
+                    return;
+                }
                 mHandler.sendEmptyMessage(0);
 
             }
@@ -1359,10 +1365,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onStop() {
         super.onStop();
         isStoped = true;
-        if (mIat != null && mIat.isListening()){
+//        if (mIat != null && mIat.isListening()){
+//            mIat.stopListening();
+//        }
+//        if (mTts != null && mTts.isSpeaking()){
+//            mTts.stopSpeaking();
+//        }
+        if (mIat != null){
             mIat.stopListening();
         }
-        if (mTts != null && mTts.isSpeaking()){
+        if (mTts != null){
             mTts.stopSpeaking();
         }
         PlayService service = AppCache.getPlayService();

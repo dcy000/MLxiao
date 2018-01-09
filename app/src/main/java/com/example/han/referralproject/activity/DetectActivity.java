@@ -77,7 +77,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_XinDian;
+    private String detectType = Type_TiZhong;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -342,13 +342,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 Log.i("mylog", "gata disConnect 22222222222222222");
                 mConnected = false;
-                speak(R.string.tips_blue_unConnect);
+                //speak(R.string.tips_blue_unConnect);
                 isGetResustFirst = true;
                 if (mBluetoothAdapter != null) {
-                    if (detectType == Type_XinDian){
-                        dialog = new NDialog(mContext);
-                        showNormal("设备连接中，请稍后...");
-                    }
+//                    if (detectType == Type_XinDian){
+//                        dialog = new NDialog(mContext);
+//                        showNormal("设备连接中，请稍后...");
+//                    }
                     startSearch();
 //                    mBluetoothAdapter.startDiscovery();
                 }
