@@ -37,13 +37,17 @@
                 android:scaleType="fitXY"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="血压检测"
-                android:textColor="#333"
+                android:textColor="@color/white"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/test_text_bg_xueya"
+                android:gravity="center"
+                android:padding="8dp"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -65,13 +69,16 @@
                 android:scaleType="fitXY"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="血氧检测"
-                android:textColor="#333"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:background="@drawable/test_text_bg_xueyang"/>
         </LinearLayout>
 
         <LinearLayout
@@ -93,13 +100,16 @@
                 android:scaleType="fitXY"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="体温检测"
-                android:textColor="#333"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:background="@drawable/test_text_bg_tiwen"/>
         </LinearLayout>
 
         <LinearLayout
@@ -121,13 +131,16 @@
                 android:scaleType="fitXY"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="血糖检测"
-                android:textColor="#333"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:background="@drawable/test_text_bg_xuetang"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
@@ -160,13 +173,16 @@
                 android:scaleType="fitXY"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="心电检测"
-                android:textColor="#333"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:background="@drawable/test_text_bg_xindian"/>
         </LinearLayout>
 
         <LinearLayout
@@ -188,13 +204,16 @@
                 android:scaleType="fitXY"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="体重检测"
-                android:textColor="#333"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:background="@drawable/test_text_bg_tizhong"/>
         </LinearLayout>
 
         <LinearLayout
@@ -216,13 +235,16 @@
                 android:scaleType="fitXY"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="三合一"
-                android:textColor="#333"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:background="@drawable/test_text_bg_snahe"/>
         </LinearLayout>
 
         <LinearLayout
@@ -244,13 +266,16 @@
                 android:scaleType="fitXY"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="敬请期待"
-                android:textColor="#333"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:background="@drawable/test_text_bg_gengduo"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
