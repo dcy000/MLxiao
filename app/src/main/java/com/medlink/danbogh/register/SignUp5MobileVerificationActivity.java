@@ -140,6 +140,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
                 inPhone = true;
                 etPhone.setText("");
                 etPhone.requestFocus();
+                tvFetchCode.setEnabled(true);
             }
         });
     }
