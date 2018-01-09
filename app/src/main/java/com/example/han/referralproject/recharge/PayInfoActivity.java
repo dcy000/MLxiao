@@ -160,7 +160,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
 */
         Intent intent = getIntent();
-        number = intent.getStringExtra("number");
+        number = intent.getStringExtra("number");//5000
 
 
         //对于二维码，微信使用 WX_NATIVE 作为channel参数
@@ -248,6 +248,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         BCQuery.getInstance().queryBillByIDAsync(billId, new BCCallback() {
                             @Override
                             public void done(BCResult result) {
+
+
 
                                 BCQueryBillResult billStatus = (BCQueryBillResult) result;
 
@@ -345,6 +347,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 //resultCode为0表示请求成功
                 if (bcqrCodeResult.getResultCode() == 0) {
                     billId = bcqrCodeResult.getId();
+
 
                     //如果你设置了生成二维码参数为true那么此处可以获取二维码
                     qrCodeBitMap = bcqrCodeResult.getQrCodeBitmap();

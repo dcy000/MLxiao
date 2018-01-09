@@ -86,6 +86,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
                 if (getActivity() != null) {
                     getActivity().onBackPressed();
                 }
+
             }
         });
         init();
@@ -251,9 +252,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener,
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
         if (progress == getPlayService().getPlayingMusic().getDuration()) {
-
-
-          //  onPlayerPause();
 
             getPlayService().stop();
 

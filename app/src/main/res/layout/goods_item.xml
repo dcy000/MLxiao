@@ -8,7 +8,7 @@
     >
     <LinearLayout
         android:layout_width="442px"
-        android:layout_height="wrap_content"
+        android:layout_height="680px"
         android:orientation="vertical"
         android:background="@drawable/goods_item"
         android:gravity="center_horizontal"
@@ -30,15 +30,17 @@
             android:text="耳温枪"
             android:textColor="#333"
             android:textSize="20sp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
         <TextView
             android:id="@+id/price"
             android:layout_width="376px"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="27sp"
             android:textColor="#FC1023"
-            android:layout_marginTop="12dp"
             android:layout_marginBottom="16dp"
+            android:gravity="bottom"
             android:text="￥0.1"/>
     </LinearLayout>
 </LinearLayout>
