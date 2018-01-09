@@ -1431,7 +1431,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mTts.stopSpeaking();
         }
         PlayService service = AppCache.getPlayService();
-        if (service != null) {
+        if (mPlayFragment!=null&&service != null) {
             service.stop();
             hidePlayingFragment();
         }
@@ -1456,10 +1456,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (mLottieView != null) {
             mLottieView.cancelAnimation();
         }
-        super.onDestroy();
         mIatDialog = null;
         mHandler.removeCallbacksAndMessages(null);
         if (null != mIat) {

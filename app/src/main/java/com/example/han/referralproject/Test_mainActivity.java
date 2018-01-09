@@ -124,7 +124,9 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.ll_tizhong://体重
-
+                    intent.setClass(mContext, DetectActivity.class);
+                    intent.putExtra("type", "tizhong");
+                    startActivity(intent);
                     break;
                 case R.id.ll_more://敬请期待
                     ToastUtil.showShort(this,"敬请期待");
