@@ -159,7 +159,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         mImageView2 = (ImageView) findViewById(R.id.icon_home);
 */
         Intent intent = getIntent();
-        number = intent.getStringExtra("number");
+        number = intent.getStringExtra("number");//5000
 
 
         //对于二维码，微信使用 WX_NATIVE 作为channel参数

@@ -365,9 +365,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 );
                 String currentUser= new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
-//
                 intent.putExtra("currentUser", currentUser);
-//                intent.putExtra("members", members);
                 startActivity(intent);
                 break;
             case R.id.iv_message:
