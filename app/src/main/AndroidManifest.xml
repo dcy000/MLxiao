@@ -177,15 +177,26 @@
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".LoadingActivity"
             android:screenOrientation="landscape" />
+
+
         <activity android:name=".recyclerview.RecoDocActivity">
+
+
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<category android:name="android.intent.category.HOME"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
 
 
         </activity>
@@ -194,11 +205,12 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"

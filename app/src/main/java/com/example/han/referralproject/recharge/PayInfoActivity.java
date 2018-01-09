@@ -248,6 +248,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                             @Override
                             public void done(BCResult result) {
 
+
+
                                 BCQueryBillResult billStatus = (BCQueryBillResult) result;
 
                                 //Log.e("支付信息",billStatus.getResultMsg() +"错误详情："+billStatus.getErrDetail()+"返回码"+billStatus.getResultCode()+"");
@@ -341,6 +343,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 //resultCode为0表示请求成功
                 if (bcqrCodeResult.getResultCode() == 0) {
                     billId = bcqrCodeResult.getId();
+
 
                     //如果你设置了生成二维码参数为true那么此处可以获取二维码
                     qrCodeBitMap = bcqrCodeResult.getQrCodeBitmap();
