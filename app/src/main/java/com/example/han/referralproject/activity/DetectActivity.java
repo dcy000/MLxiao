@@ -1254,7 +1254,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                     } else {
                         Log.i("mylog", "address : " + mDeviceAddress);
-                        if (mBluetoothLeService.connect(mDeviceAddress)) {
+                        if (mBluetoothLeService != null && mBluetoothLeService.connect(mDeviceAddress)) {
                             mBluetoothGatt = mBluetoothLeService.getGatt();
                             stopSearch();
                         }
