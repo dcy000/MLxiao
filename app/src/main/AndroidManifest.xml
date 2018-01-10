@@ -153,7 +153,9 @@
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+        </activity>
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -163,7 +165,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+
+        </activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />

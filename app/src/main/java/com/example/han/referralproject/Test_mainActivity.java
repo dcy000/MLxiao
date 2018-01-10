@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
+import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.util.ToastUtil;
 
 import java.util.Calendar;
@@ -113,9 +114,11 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.ll_xindian:
-                    intent.setClass(mContext, DetectActivity.class);
-                    intent.putExtra("type", "xindian");
+                    intent.setClass(mContext, XinDianDetectActivity.class);
                     startActivity(intent);
+//                    intent.setClass(mContext, DetectActivity.class);
+//                    intent.putExtra("type", "xindian");
+//                    startActivity(intent);
                     break;
                 case R.id.ll_san:
                     //intent.setClass(getApplicationContext(), XueyaActivity.class);

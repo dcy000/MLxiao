@@ -169,7 +169,7 @@ public class MyBluetooth {
 	 * start discovery bluetooth device in bluetooth version 2.0,3.0 
 	 */
 	public void startDiscovery() {
-		if (bluStatus == BLU_STATUS_NORMAL) {
+		//if (bluStatus == BLU_STATUS_NORMAL) {
 			bluSocket = null;
 			if (!openBluetooth())
 				return;
@@ -191,7 +191,7 @@ public class MyBluetooth {
 			mHandler.sendEmptyMessage(BLUETOOTH_MSG_DISCOVERYING);
 			bluetoothOper.discovery();
 			isDiscovery = true;
-		}
+		//}
 	}
 
 	/**
