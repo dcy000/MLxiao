@@ -24,6 +24,7 @@ import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.util.Base64;
@@ -69,7 +70,7 @@ public class RegisterVideoActivity extends BaseActivity {
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
     // 加速度感应器，用于获取手机的朝向
-  //  private Accelerometer mAcc;
+    //  private Accelerometer mAcc;
     // FaceDetector对象，集成了离线人脸识别：人脸检测、视频流检测功能
 //    private FaceDetector mFaceDetector;
     //private boolean mStopTrack;
@@ -99,6 +100,8 @@ public class RegisterVideoActivity extends BaseActivity {
                         public void run() {
                             while (sign) {
 
+                                Looper.prepare();
+
                                 try {
                                     Thread.sleep(2000);
                                 } catch (InterruptedException e) {
@@ -117,6 +120,7 @@ public class RegisterVideoActivity extends BaseActivity {
                         mImageData = baos.toByteArray();
 
                     }*/
+
 
 
                                 if (b3 != null) {
@@ -152,17 +156,16 @@ public class RegisterVideoActivity extends BaseActivity {
                                     mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
                                     mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
                                     mFaceRequest.sendRequest(mImageData, mRequestListener);
-                                    Log.e("发送前", mAuthid + "");
 
                                 }
 
+                                Looper.loop();
 
                             }
                         }
                     }
 
                     ).start();
-
 
                     break;
 
@@ -182,9 +185,9 @@ public class RegisterVideoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
 
-      //  mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
+        //  mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
-      //  mediaPlayer.start();//播放音乐
+        //  mediaPlayer.start();//播放音乐
 
         isTest = getIntent().getBooleanExtra("isTest", false);
 
@@ -192,7 +195,7 @@ public class RegisterVideoActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isTest){
+                if (isTest) {
                     startActivity(new Intent(mContext, MainActivity.class));
                 }
                 finish();
@@ -227,7 +230,24 @@ public class RegisterVideoActivity extends BaseActivity {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            openCamera();
+
+
+         //   openCamera();
+
+            // 启动相机
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    Looper.prepare();
+
+                    openCamera();
+
+                    Looper.loop();
+                }
+            }).start();
+
+
         }
 
         @Override
@@ -239,6 +259,8 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
+        sign = false;
 
         //mediaPlayer.pause();
     }
@@ -266,8 +288,9 @@ public class RegisterVideoActivity extends BaseActivity {
         mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         mFaceSurface.setZOrderOnTop(true);
         mFaceSurface.getHolder().setFormat(PixelFormat.TRANSLUCENT);
-
         setSurfaceSize();
+
+
         mToast = Toast.makeText(RegisterVideoActivity.this, "", Toast.LENGTH_SHORT);
     }
 
@@ -371,10 +394,10 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (isTest){
+        if (isTest) {
             return;
         }
-        mHandler.sendEmptyMessageDelayed(0, 2500);
+        mHandler.sendEmptyMessageDelayed(0, 3000);
     }
 
     private RequestListener mRequestListener = new RequestListener() {
@@ -588,13 +611,13 @@ public class RegisterVideoActivity extends BaseActivity {
       /*  if (null != mAcc) {
             mAcc.stop();
         }*/
-     //   mStopTrack = true;
+        //   mStopTrack = true;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sign = false;
+
 //        if (null != mFaceDetector) {
 //            // 销毁对象
 //            mFaceDetector.destroy();

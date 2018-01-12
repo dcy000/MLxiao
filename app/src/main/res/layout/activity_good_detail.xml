@@ -169,7 +169,7 @@
         android:layout_height="90dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/shape_buy"
+        android:background="@drawable/selector_buy"
         android:gravity="center"
         android:text="购买"
         android:textColor="#FFFFFF"
