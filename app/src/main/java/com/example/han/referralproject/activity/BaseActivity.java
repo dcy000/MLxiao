@@ -549,7 +549,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         enableListeningLoop = enableListeningLoopCache;
-        setDisableGlobalListen(false);
+        setDisableGlobalListen(disableGlobalListen);
         if (enableListeningLoop) {
             handler.postDelayed(mListening, 200);
         }

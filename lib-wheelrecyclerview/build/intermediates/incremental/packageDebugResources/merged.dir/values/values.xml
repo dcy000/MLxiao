@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text_black">#8A000000</color>
+    <declare-styleable name="WheelRecyclerView"><attr format="dimension" name="itemHeight"/><attr format="dimension" name="selectTextSize"/><attr format="dimension" name="unselectTextSize"/><attr format="color" name="selectTextColor"/><attr format="color" name="unselectTextColor"/><attr format="integer" name="wheelOffset"/><attr format="dimension" name="dividerWidth"/><attr format="dimension" name="dividerHeight"/><attr format="color" name="dividerColor"/></declare-styleable>
+    <string name="app_name">Library</string>
+</resources>
