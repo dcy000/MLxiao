@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -13,6 +14,7 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -33,10 +35,14 @@ import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.utils.Utils;
 
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class SignInActivity extends BaseActivity {
 
@@ -173,6 +179,11 @@ public class SignInActivity extends BaseActivity {
             }
         });
     }
+
+
+
+
+
 
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {

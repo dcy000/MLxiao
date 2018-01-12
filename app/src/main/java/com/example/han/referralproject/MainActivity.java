@@ -10,10 +10,13 @@ import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
@@ -27,6 +30,7 @@ import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
@@ -34,12 +38,17 @@ import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.signin.SignInActivity;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -102,18 +111,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
 
-        if (
-                isMyServiceRunning(AssistiveTouchService.class))
+        if (isMyServiceRunning(AssistiveTouchService.class)) {
 
-        {
-
-        } else
-
-        {
-
+        } else {
             Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
             startService(intent);
-
         }
 
 
@@ -134,12 +136,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                 //speak(getString(R.string.facc_register));
-                 speak(R.string.tips_splash);
+                //speak(getString(R.string.facc_register));
+                speak(R.string.tips_splash);
                 // speak(R.string.head_verify);
 
             }
         }, 1000);
+        if (!LocalShared.getInstance(this).getJPushStatus()) {
+            setAlias(LocalShared.getInstance(this).getUserId());
+        }
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -302,4 +307,58 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     }
+
+    // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
+    private void setAlias(String userId) {
+        if (TextUtils.isEmpty(userId)) {
+            Log.e(TAG, "setAlias:设置别名不能为空");
+            return;
+        }
+        // 调用 Handler 来异步设置别名
+        mHandler2.sendMessage(mHandler2.obtainMessage(MSG_SET_ALIAS, "user_" + userId));
+    }
+
+    private String TAG = "极光推送";
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs;
+            switch (code) {
+                case 0:
+                    Log.i(TAG, "设置别名成功");
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    LocalShared.getInstance(MainActivity.this).setJPushStatus(true);
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    Log.i(TAG, logs);
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    mHandler2.sendMessageDelayed(mHandler2.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+                    Log.e(TAG, logs);
+            }
+//            ExampleUtil.showToast(logs, getApplicationContext());
+        }
+    };
+    private static final int MSG_SET_ALIAS = 1001;
+    private final Handler mHandler2 = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    Log.d(TAG, "Set alias in handler.");
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(),
+                            (String) msg.obj,
+                            null,
+                            mAliasCallback);
+                    break;
+                default:
+                    Log.i(TAG, "Unhandled msg - " + msg.what);
+            }
+        }
+    };
 }

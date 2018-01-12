@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -18,10 +20,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,9 +33,12 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.jipush.MyReceiver;
 import com.example.han.referralproject.music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.Utils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -134,8 +141,72 @@ public class BaseActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         mMediaRecorder.start();
-    }
 
+    }
+    private PopupWindow window;
+    //收到推送消息后显示Popwindow
+    class JPushReceive implements MyReceiver.JPushLitener{
+
+        @Override
+        public void onReceive(String message) {
+            time = new TimeCount(5000, 1000);// 构造CountDownTimer对象
+//            ToastUtil.showShort(BaseActivity.this,message);
+            // 利用layoutInflater获得View
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.jpush_popwin, null);
+            if(window==null){
+                window = new PopupWindow(view,
+                        WindowManager.LayoutParams.WRAP_CONTENT,
+                        WindowManager.LayoutParams.WRAP_CONTENT);
+                // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+                window.setFocusable(true);
+
+                // 实例化一个ColorDrawable颜色为半透明
+                ColorDrawable dw = new ColorDrawable(0x00000000);
+                window.setBackgroundDrawable(dw);
+                Utils.backgroundAlpha(BaseActivity.this, 1f);
+
+                // 设置popWindow的显示和消失动画
+                window.setAnimationStyle(R.style.mypopwindow_anim_style);
+//            // 在底部显示
+//            window.showAtLocation(getWindow().getDecorView(),
+//                    Gravity.LEFT, 0, 0);
+
+            }
+
+            window.showAsDropDown(mToolbar,0,30);
+
+            //popWindow消失监听方法
+            window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    Utils.backgroundAlpha(BaseActivity.this, 1f);
+                }
+            });
+
+            TextView jpushText=view.findViewById(R.id.jpush_text);
+            jpushText.setText(message);
+            speak(message);
+            time.start();
+        }
+    }
+    private TimeCount time;
+    /* 定义一个倒计时的内部类 */
+    private class TimeCount extends CountDownTimer {
+        TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
+        }
+
+        @Override
+        public void onFinish() {// 计时完毕时触发
+//            window.dismiss();
+            time=null;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {// 计时过程显示
+        }
+    }
 
     private void initToolbar() {
         mllBack = (LinearLayout) mTitleView.findViewById(R.id.ll_back);
@@ -548,6 +619,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MyReceiver.jPushLitener= new JPushReceive();
         enableListeningLoop = enableListeningLoopCache;
         setDisableGlobalListen(false);
         if (enableListeningLoop) {
@@ -574,6 +646,9 @@ public class BaseActivity extends AppCompatActivity {
             mMediaRecorder = null;
         }
         Handlers.ui().removeCallbacks(updateVolumeAction);
+        if(MyReceiver.jPushLitener!=null){
+            MyReceiver.jPushLitener=null;
+        }
         super.onPause();
     }
 

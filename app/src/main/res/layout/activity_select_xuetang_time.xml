@@ -18,9 +18,10 @@
         app:layout_constraintRight_toLeftOf="@+id/one_hour"
         android:layout_marginLeft="30dp">
         <ImageView
+            android:id="@+id/kongfu_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_kf"/>
+            android:background="@drawable/kongfu_set"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,9 +41,10 @@
         app:layout_constraintLeft_toRightOf="@id/kongfu"
         app:layout_constraintRight_toLeftOf="@+id/two_hour">
         <ImageView
+            android:id="@+id/onehour_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_1h"/>
+            android:background="@drawable/onehour_set"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,9 +65,10 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="30dp">
         <ImageView
+            android:id="@+id/twohour_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_2h"/>
+            android:background="@drawable/twohour_set"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

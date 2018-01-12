@@ -10,6 +10,7 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.support.multidex.MultiDex;
 
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.ForegroundObserver;
@@ -27,11 +28,14 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.beecloud.BeeCloud;
+import cn.jpush.android.api.DefaultPushNotificationBuilder;
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
 
@@ -103,6 +107,9 @@ public class MyApplication extends Application {
 
         BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
 
+        //初始化极光
+        JPushInterface.setDebugMode(BuildConfig.DEBUG);
+        JPushInterface.init(this);
     }
 
     @Override

@@ -79,4 +79,7 @@
 
     <color name="time_color">#3F86FC</color>
 
+    <color name="toolbar_pressed">#33000000</color>
+    <color name="toolbar_normal">#00000000</color>
+
 </resources>
