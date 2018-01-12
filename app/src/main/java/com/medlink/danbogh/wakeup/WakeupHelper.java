@@ -7,7 +7,6 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
@@ -29,7 +28,7 @@ public class WakeupHelper {
     private static Context sContext;
 
     public static void init(Context context) {
-        sContext = context;
+        sContext = context.getApplicationContext();
     }
 
     public static WakeupHelper getInstance() {
@@ -42,7 +41,12 @@ public class WakeupHelper {
     }
 
     private WakeupHelper() {
-
+        VoiceWakeuper.createWakeuper(sContext, new InitListener() {
+            @Override
+            public void onInit(int code) {
+                Log.d(TAG, "onInit: " + code);
+            }
+        });
     }
 
     private volatile boolean inited;
@@ -55,23 +59,16 @@ public class WakeupHelper {
             VoiceWakeuper.createWakeuper(sContext, new InitListener() {
                 @Override
                 public void onInit(int code) {
-                    VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
-                    if (wakeuper == null || code != ErrorCode.SUCCESS) {
-                        Log.e(TAG, "WakeupHelper: wakeup create failed");
-                        return;
-                    }
-                    inited = true;
-                    setParameter(wakeuper);
-                    wakeuper.startListening(listener);
+                    Log.d(TAG, "onInit: " + code);
                 }
             });
-            return;
         }
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
         if (wakeuper == null) {
             Log.d(TAG, "startWakeuprListening: wakeuper == null");
             return;
         }
+        inited = true;
         setParameter(wakeuper);
         wakeuper.startListening(listener);
     }
@@ -109,13 +106,13 @@ public class WakeupHelper {
         }
     }
 
-    private volatile boolean enableWakeuper;
+    private volatile boolean enableCache;
 
     public synchronized void enableWakeuperListening(boolean enable) {
-        if (inited && enableWakeuper == enable) {
+        if (inited && enableCache == enable) {
             return;
         }
-        enableWakeuper = enable;
+        enableCache = enable;
         if (enable) {
             startWakeuprListening(wakeuperlistener());
         } else {
