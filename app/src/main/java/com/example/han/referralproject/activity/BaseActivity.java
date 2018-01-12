@@ -148,8 +148,7 @@ public class BaseActivity extends AppCompatActivity {
     class JPushReceive implements MyReceiver.JPushLitener{
 
         @Override
-        public void onReceive(String message) {
-            time = new TimeCount(5000, 1000);// 构造CountDownTimer对象
+        public void onReceive(String title,String message) {
 //            ToastUtil.showShort(BaseActivity.this,message);
             // 利用layoutInflater获得View
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -169,12 +168,12 @@ public class BaseActivity extends AppCompatActivity {
                 // 设置popWindow的显示和消失动画
                 window.setAnimationStyle(R.style.mypopwindow_anim_style);
 //            // 在底部显示
-//            window.showAtLocation(getWindow().getDecorView(),
-//                    Gravity.LEFT, 0, 0);
 
             }
+            window.showAtLocation(getWindow().getDecorView(),
+                    Gravity.TOP, 0,148 );
 
-            window.showAsDropDown(mToolbar,0,30);
+//            window.showAsDropDown(mToolbar,0,30);
 
             //popWindow消失监听方法
             window.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -185,26 +184,13 @@ public class BaseActivity extends AppCompatActivity {
             });
 
             TextView jpushText=view.findViewById(R.id.jpush_text);
+            TextView jpushTitle=view.findViewById(R.id.jpush_title);
+            if(!TextUtils.isEmpty(title)){
+                jpushTitle.setVisibility(View.VISIBLE);
+                jpushTitle.setText(title);
+            }
             jpushText.setText(message);
             speak(message);
-            time.start();
-        }
-    }
-    private TimeCount time;
-    /* 定义一个倒计时的内部类 */
-    private class TimeCount extends CountDownTimer {
-        TimeCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
-        }
-
-        @Override
-        public void onFinish() {// 计时完毕时触发
-//            window.dismiss();
-            time=null;
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {// 计时过程显示
         }
     }
 

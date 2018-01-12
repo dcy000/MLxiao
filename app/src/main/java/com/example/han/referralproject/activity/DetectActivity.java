@@ -28,7 +28,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +54,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+import android.support.v4.content.ContextCompat;
 
 public class DetectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -674,7 +675,23 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case Type_Xueya:
-                characteristic = gattServices.get(3).getCharacteristics().get(3);
+                Log.i("mylog", "size : " + gattServices.size());
+//                if (gattServices.size() == 5) {
+//                    characteristic = gattServices.get(3).getCharacteristics().get(3);
+//                } else {
+//                    characteristic = gattServices.get(2).getCharacteristics().get(3);
+//                }
+                if (gattServices.size() == 5 || gattServices.size() == 10){
+                    characteristic = gattServices.get(3).getCharacteristics().get(3);
+                } else {
+                    characteristic = gattServices.get(2).getCharacteristics().get(3);
+                }
+//                BluetoothGattService service = mBluetoothLeService.getGatt().getService(UUID
+//                        .fromString("0000fff0-0000-1000-8000-00805f9b34fb"));
+//                if (service != null){
+//                    characteristic = service
+//                            .getCharacteristic(UUID.fromString("0000fff4-0000-1000-8000-00805f9b34fb"));
+//                }
                 break;
             case Type_XueYang:
                 characteristic = gattServices.get(2).getCharacteristics().get(1);
@@ -1125,6 +1142,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
         mBluetoothLeService = null;
         XueyaUtils.stopThread();
+        if (mBluetoothGatt != null){
+            mBluetoothGatt.disconnect();
+        }
     }
 
     private int seletTimeType=0;
@@ -1254,7 +1274,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                     } else {
                         Log.i("mylog", "address : " + mDeviceAddress);
-                        if (mBluetoothLeService.connect(mDeviceAddress)) {
+                        if (mBluetoothLeService != null && mBluetoothLeService.connect(mDeviceAddress)) {
                             mBluetoothGatt = mBluetoothLeService.getGatt();
                             stopSearch();
                         }

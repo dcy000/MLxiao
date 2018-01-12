@@ -2,6 +2,7 @@ package com.example.han.referralproject.application;
 
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -28,13 +29,12 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.beecloud.BeeCloud;
-import cn.jpush.android.api.DefaultPushNotificationBuilder;
+import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
@@ -74,8 +74,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        NoCrash.init(this);
-//        NoCrash.getInstance().install();
+        NoCrash.init(this);
+        NoCrash.getInstance().install();
 //        LeakCanary.install(this);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);

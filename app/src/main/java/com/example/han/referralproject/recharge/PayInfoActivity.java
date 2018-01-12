@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.Bundle;
 import android.util.Log;
@@ -285,6 +286,9 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void run() {
                 while (sign1) {
+
+
+
 
                     if (type.startsWith("BC")) {
                         // BC的渠道通过id查询结果
