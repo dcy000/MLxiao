@@ -280,7 +280,9 @@ class BCHttpClientUtil {
         Response response = new Response();
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(BCCache.getInstance().connectTimeout, TimeUnit.MILLISECONDS).build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(BCCache.getInstance().connectTimeout, TimeUnit.MILLISECONDS)
+                .build();
 
         RequestBody body = RequestBody.create(JSON, jsonStr);
         Request request = new Request.Builder()

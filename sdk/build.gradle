@@ -5,12 +5,11 @@ android {
         config {
         }
     }
-    buildToolsVersion gradle.buildToolsVersion
-    compileSdkVersion gradle.compileSdkVersion
-
+    compileSdkVersion 22
+    buildToolsVersion '25.0.3'
     defaultConfig {
-        minSdkVersion gradle.minSdkVersion
-        targetSdkVersion gradle.targetSdkVersion
+        minSdkVersion 10 //PayPal要求min至小10
+        targetSdkVersion 22
         versionCode 34
         versionName "2.9.4"
     }
@@ -36,7 +35,7 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
+    compile 'com.android.support:appcompat-v7:22.0.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile 'com.google.code.gson:gson:2.7'
@@ -60,7 +59,7 @@ dependencies {
     //用于paypal
     compile 'com.paypal.sdk:paypal-android-sdk:2.13.3'
     //网络请求库
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
 
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.10.8"

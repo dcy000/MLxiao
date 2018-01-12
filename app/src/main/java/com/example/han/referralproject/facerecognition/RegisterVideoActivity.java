@@ -232,18 +232,20 @@ public class RegisterVideoActivity extends BaseActivity {
         public void surfaceCreated(SurfaceHolder holder) {
 
 
-            // 启动相机
+
+            openCamera();
+
+            /* // 启动相机
             new Thread(new Runnable() {
                 @Override
                 public void run() {
 
                     Looper.prepare();
 
-                    openCamera();
 
                     Looper.loop();
                 }
-            }).start();
+            }).start();*/
 
 
         }

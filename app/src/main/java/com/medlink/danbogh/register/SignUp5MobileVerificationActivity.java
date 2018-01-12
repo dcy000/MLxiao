@@ -19,8 +19,6 @@ import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
-import com.mob.MobSDK;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -142,6 +140,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
                 inPhone = true;
                 etPhone.setText("");
                 etPhone.requestFocus();
+                tvFetchCode.setEnabled(true);
             }
         });
     }

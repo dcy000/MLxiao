@@ -1431,6 +1431,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mTts.stopSpeaking();
         }
 
+
 //        if (null != mIat) {
 //            // 退出时释放连接
 //            mIat.cancel();
@@ -1452,10 +1453,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (mLottieView != null) {
             mLottieView.cancelAnimation();
         }
-        super.onDestroy();
         mIatDialog = null;
         mHandler.removeCallbacksAndMessages(null);
         if (null != mIat) {

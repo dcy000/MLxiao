@@ -15,7 +15,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.medlink.danbogh.call.XDialogFragment;
+import com.medlink.danbogh.XDialogFragment;
 import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
