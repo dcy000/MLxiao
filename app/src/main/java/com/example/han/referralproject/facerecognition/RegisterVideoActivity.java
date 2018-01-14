@@ -232,20 +232,20 @@ public class RegisterVideoActivity extends BaseActivity {
         public void surfaceCreated(SurfaceHolder holder) {
 
 
+         //   openCamera();
 
-            openCamera();
-
-            /* // 启动相机
+            // 启动相机
             new Thread(new Runnable() {
                 @Override
                 public void run() {
 
                     Looper.prepare();
 
+                    openCamera();
 
                     Looper.loop();
                 }
-            }).start();*/
+            }).start();
 
 
         }
@@ -259,6 +259,8 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
+        sign = false;
 
         //mediaPlayer.pause();
     }
@@ -395,7 +397,7 @@ public class RegisterVideoActivity extends BaseActivity {
         if (isTest) {
             return;
         }
-        mHandler.sendEmptyMessageDelayed(0, 2500);
+        mHandler.sendEmptyMessageDelayed(0, 3000);
     }
 
     private RequestListener mRequestListener = new RequestListener() {
@@ -615,7 +617,7 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sign = false;
+
 //        if (null != mFaceDetector) {
 //            // 销毁对象
 //            mFaceDetector.destroy();

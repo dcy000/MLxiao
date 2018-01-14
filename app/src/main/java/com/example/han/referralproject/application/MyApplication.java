@@ -74,8 +74,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        NoCrash.init(this);
-        NoCrash.getInstance().install();
+//        NoCrash.init(this);
+//        NoCrash.getInstance().install();
 //        LeakCanary.install(this);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);

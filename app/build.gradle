@@ -93,7 +93,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-//    compile 'com.hyphenate:hyphenate-sdk:3.3.2'
+    //    compile 'com.hyphenate:hyphenate-sdk:3.3.2'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.litepal.android:core:1.6.0'
@@ -117,7 +117,6 @@ dependencies {
     })
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
-
     compile "com.android.support:support-v4:${gradle.supportVersion}"
     compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
     compile "com.android.support:cardview-v7:${gradle.supportVersion}"
@@ -136,11 +135,12 @@ dependencies {
     compile name: 'vmtools', ext: 'aar'
     compile name: 'voicelibrary', ext: 'aar'
     compile name: 'wkvideoplayer', ext: 'aar'
-    compile name: 'sdk', ext: 'aar'
-
+//    compile name: 'sdk', ext: 'aar'
     //极光推送
-    compile 'cn.jiguang.sdk:jpush:3.1.1'  // 此处以JPush 3.1.1 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.9'  // 此处以JCore 1.1.9 版本为例。
-
+    compile 'cn.jiguang.sdk:jpush:3.1.1'
+    // 此处以JPush 3.1.1 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.1.9'
+    // 此处以JCore 1.1.9 版本为例。
     compile 'com.github.mmin18:realtimeblurview:1.1.0'
+    compile project(':sdk')
 }

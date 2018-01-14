@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.han.referralproject"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.han.referralproject">
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -14,6 +14,7 @@
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
@@ -26,6 +27,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
@@ -123,17 +125,17 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape"></activity>
         <!--<activity-->
-            <!--android:name="com.mob.tools.MobUIShell"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
-            <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
+        <!--android:name="com.mob.tools.MobUIShell"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+        <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
 
         <!--<meta-data-->
-            <!--android:name="Mob-AppKey"-->
-            <!--android:value="1d4fe3b73dbcb" />-->
+        <!--android:name="Mob-AppKey"-->
+        <!--android:value="1d4fe3b73dbcb" />-->
         <!--<meta-data-->
-            <!--android:name="Mob-AppSecret"-->
-            <!--android:value="00332d99822550c22e6b75297bfd4c2c" />-->
+        <!--android:name="Mob-AppSecret"-->
+        <!--android:value="00332d99822550c22e6b75297bfd4c2c" />-->
 
         <activity
             android:name=".temperature.TemperatureActivity"
@@ -169,7 +171,7 @@
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape">
 
         </activity>
         <activity
@@ -223,8 +225,10 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -254,11 +258,22 @@
         <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
+            android:screenOrientation="landscape">
+
+
+        </activity>
+        <activity
+            android:name=".recyclerview.DoctorMesActivity"
             android:screenOrientation="landscape"></activity>
-        <activity android:name=".recyclerview.DoctorMesActivity" />
-        <activity android:name=".video.MainVideoActivity" />
-        <activity android:name=".video.PlayVideoActivity" />
-        <activity android:name=".personal.PersonActivity" />
+        <activity
+            android:name=".video.MainVideoActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".video.PlayVideoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".personal.PersonActivity"
+            android:screenOrientation="landscape" />
 
         <service
             android:name="com.medlink.danbogh.alarm.AlarmService"
@@ -280,7 +295,6 @@
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape" />
-
 
 
         <activity android:name=".recyclerview.AppraiseActivity" />
@@ -408,7 +422,10 @@
 
         <service android:name=".floatingball.AssistiveTouchService" />
 
-        <activity android:name=".recyclerview.DoctorAlarmActivity" />
+        <activity android:name=".recyclerview.DoctorAlarmActivity">
+
+
+        </activity>
         <activity android:name=".activity.AlertHeightActivity" />
         <activity android:name=".activity.AlertWeightActivity" />
         <activity android:name=".activity.AlertSportActivity" />
