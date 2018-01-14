@@ -287,6 +287,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void onResume() {
+        setDisableGlobalListen(true);
         super.onResume();
         setEnableListeningLoop(false);
         mLottieView.resumeAnimation();
