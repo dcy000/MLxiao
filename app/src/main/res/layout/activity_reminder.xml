@@ -6,7 +6,7 @@
     android:id="@+id/cl_alarm_reminder_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
+    android:background="#ffffff"
     tools:context="com.medlink.danbogh.alarm.ReminderActivity">
 
     <TextView
@@ -68,7 +68,8 @@
     <FrameLayout
         android:id="@+id/alarm_reminder_ll_toolbar"
         android:layout_width="0dp"
-        android:layout_height="69dp"
+        android:layout_height="64dp"
+        android:background="@color/toolbar_bg"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
