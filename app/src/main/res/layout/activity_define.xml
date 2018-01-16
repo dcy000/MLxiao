@@ -69,11 +69,11 @@
             android:background="@drawable/shape_chongzhi"
             android:gravity="center"
             android:hint="单笔最高5000元"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:maxLength="4"
             android:maxLines="1"
             android:textColorHint="#999999"
-            android:textSize="50sp" />
+            android:textSize="50sp"/>
 
 
         <Button

@@ -41,11 +41,13 @@
             android:gravity="center"
             android:text="精细化膳食"
             android:textColor="@drawable/bg_rb_history_record"
+            android:visibility="gone"
             android:textSize="28sp"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/line"
+            android:visibility="gone"/>
         <RadioButton
             android:id="@+id/rb_yaopin"
             android:layout_width="match_parent"
@@ -54,11 +56,13 @@
             android:button="@null"
             android:gravity="center"
             android:text="药品"
+            android:visibility="gone"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
+            android:visibility="gone"
             android:background="@color/line" />
         <RadioButton
             android:id="@+id/rb_yiliaoshebei"
@@ -67,7 +71,7 @@
             android:background="@drawable/bg_rb_history_record"
             android:button="@null"
             android:gravity="center"
-            android:text="辅助医疗设备"
+            android:text="耗材"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
         <View
@@ -82,11 +86,13 @@
             android:button="@null"
             android:gravity="center"
             android:text="保健品"
+            android:visibility="gone"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
+            android:visibility="gone"
             android:background="@color/line" />
         <RadioButton
             android:id="@+id/rb_liliao"
@@ -96,6 +102,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="理疗康复"
+            android:visibility="gone"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
     </RadioGroup>

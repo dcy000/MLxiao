@@ -51,7 +51,9 @@ public class AlertHeightActivity extends BaseActivity {
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
         data = (UserInfoBean) getIntent().getSerializableExtra("data");
-        initView();
+        if(data!=null){
+            initView();
+        }
     }
 
     protected void initView() {

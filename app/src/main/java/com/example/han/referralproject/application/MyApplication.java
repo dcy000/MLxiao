@@ -2,14 +2,19 @@ package com.example.han.referralproject.application;
 
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.music.AppCache;
 import com.example.han.referralproject.music.ForegroundObserver;
@@ -32,6 +37,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.beecloud.BeeCloud;
+import cn.jpush.android.api.BasicPushNotificationBuilder;
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
 
@@ -70,8 +77,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        NoCrash.init(this);
-        NoCrash.getInstance().install();
+//        NoCrash.init(this);
+//        NoCrash.getInstance().install();
 //        LeakCanary.install(this);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);
@@ -103,6 +110,9 @@ public class MyApplication extends Application {
 
         BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
 
+        //初始化极光
+        JPushInterface.setDebugMode(BuildConfig.DEBUG);
+        JPushInterface.init(this);
     }
 
     @Override

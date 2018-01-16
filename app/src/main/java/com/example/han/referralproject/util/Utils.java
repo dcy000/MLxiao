@@ -40,6 +40,17 @@ public class Utils {
     }
 
     /**
+     * 时间格式转换
+     * @param s
+     * @return
+     */
+    public static String stampToDate2(long s){
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        Long time=new Long(s);
+        String d = format.format(time);
+        return d;
+    }
+    /**
      * 调节屏幕透明度
      * @param context
      * @param bgAlpha

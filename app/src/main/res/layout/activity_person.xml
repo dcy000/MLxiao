@@ -199,7 +199,7 @@
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:clickable="true"
-                    android:src="@drawable/ic_zzzc" />
+                    android:background="@drawable/zhengzhuang_set" />
 
 
                 <TextView
@@ -224,7 +224,7 @@
                     android:id="@+id/iv_record"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:src="@drawable/ic_clls" />
+                    android:background="@drawable/celiang_set" />
 
 
                 <TextView
@@ -250,7 +250,7 @@
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:clickable="true"
-                    android:src="@drawable/ic_ysjy" />
+                    android:background="@drawable/jianyi_set" />
 
 
                 <TextView
@@ -276,7 +276,7 @@
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:clickable="true"
-                    android:src="@drawable/ic_cytx" />
+                    android:background="@drawable/chiyao_set"/>
 
 
                 <TextView
@@ -320,7 +320,7 @@
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:clickable="true"
-                    android:src="@drawable/ic_zhcz" />
+                    android:background="@drawable/zhanghu_set" />
 
 
                 <TextView
@@ -346,7 +346,7 @@
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:clickable="true"
-                    android:src="@drawable/ic_class" />
+                    android:background="@drawable/jiankang_set"/>
 
 
                 <TextView
@@ -373,7 +373,8 @@
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:clickable="true"
-                    android:src="@drawable/ic_wddd" />
+                    android:background="@drawable/dingdan_set"
+                    />
 
 
                 <TextView

@@ -49,13 +49,13 @@ public class DefineActivity extends BaseActivity {
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(mEditText.getText().toString())) {
 
-                    if (Integer.parseInt(mEditText.getText().toString()) > 5000) {
+                    if (Float.parseFloat(mEditText.getText().toString()) > 5000) {
 
                         Toast.makeText(getApplicationContext(), "充值金额最大为5000元", Toast.LENGTH_SHORT).show();
 
                     } else {
                         Intent intent = new Intent(getApplicationContext(), PayInfoActivity.class);
-                        intent.putExtra("number", Integer.parseInt(mEditText.getText().toString()) * 100 + "");
+                        intent.putExtra("number", (int) (Float.parseFloat(mEditText.getText().toString()) * 100) + "");
                         startActivity(intent);
                         finish();
 

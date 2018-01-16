@@ -28,7 +28,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import android.support.v4.content.ContextCompat;
 
 public class DetectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -1231,12 +1231,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //            }
 //        }
 
-        if (detectType == Type_SanHeYi){
-            if (dialog == null){
-                dialog = new NDialog(this);
-            }
-            showNormal("设备连接中，请稍后...");
-        }
+//        if (detectType == Type_SanHeYi){
+//            if (dialog == null){
+//                dialog = new NDialog(this);
+//            }
+//            showNormal("设备连接中，请稍后...");
+//        }
         switch (detectType) {
             case Type_Wendu:
                 mDeviceAddress = mShared.getWenduMac();

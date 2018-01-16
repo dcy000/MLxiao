@@ -26,8 +26,7 @@
             android:gravity="center"
             android:textSize="40sp"
             android:clickable="true"
-
-            android:src="@drawable/doc_qianyue"
+            android:background="@drawable/qianyue_doc_set"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +56,7 @@
             android:gravity="center"
             android:textSize="40sp"
             android:clickable="true"
-            android:src="@drawable/doc_zaixian"
+            android:background="@drawable/online_doc_set"
             />
         <TextView
             android:layout_width="wrap_content"
