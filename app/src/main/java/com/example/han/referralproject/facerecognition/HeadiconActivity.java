@@ -51,7 +51,6 @@ public class HeadiconActivity extends BaseActivity {
         setShowVoiceView(true);
         setContentView(R.layout.activity_headicon);
         uploadManager = new UploadManager();
-
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
 
         mButton = (Button) findViewById(R.id.cancel);

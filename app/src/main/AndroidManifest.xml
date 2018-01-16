@@ -238,7 +238,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -263,7 +262,6 @@
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
             android:screenOrientation="landscape">
-
 
         </activity>
         <activity
@@ -328,7 +326,9 @@
         <activity android:name="com.medlink.danbogh.register.SignUp11SmokeActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp12DrinkActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity" />
+        <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity">
+
+        </activity>
         <activity android:name=".recharge.PayActivity" />
         <activity android:name=".recharge.PayInfoActivity" />
         <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity" />

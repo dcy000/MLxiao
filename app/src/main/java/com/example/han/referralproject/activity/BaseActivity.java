@@ -182,7 +182,7 @@ public class BaseActivity extends AppCompatActivity {
             });
             TextView jpushText = view.findViewById(R.id.jpush_text);
             TextView jpushTitle = view.findViewById(R.id.jpush_title);
-            TextView jpushTime=view.findViewById(R.id.jpush_time);
+            TextView jpushTime = view.findViewById(R.id.jpush_time);
             if (!TextUtils.isEmpty(title)) {
                 jpushTitle.setVisibility(View.VISIBLE);
                 jpushTitle.setText(title);
@@ -190,17 +190,17 @@ public class BaseActivity extends AppCompatActivity {
             jpushText.setText(message);
             jpushTime.setText(Utils.stampToDate2(System.currentTimeMillis()));
 
-            final LinearLayout jpushLl=view.findViewById(R.id.jpush_ll);
-            final RealtimeBlurView jpushRbv=view.findViewById(R.id.jpush_rbv);
+            final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
+            final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
             ViewTreeObserver vto = jpushLl.getViewTreeObserver();
-            final ViewGroup.LayoutParams lp=jpushRbv.getLayoutParams();
+            final ViewGroup.LayoutParams lp = jpushRbv.getLayoutParams();
             vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
                     jpushLl.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 //                    int width=jpushLl.getMeasuredWidth();
-                    int height=jpushLl.getMinimumHeight();
-                    lp.height=height;
+                    int height = jpushLl.getMinimumHeight();
+                    lp.height = height;
                     jpushRbv.setLayoutParams(lp);
                 }
             });
@@ -402,7 +402,6 @@ public class BaseActivity extends AppCompatActivity {
         public void run() {
             if (mMediaRecorder == null) return;
             double ratio = (double) mMediaRecorder.getMaxAmplitude() / 100;
-            Log.e("音量大小", ratio + "");
             if (ratio > 1) {
                 volume = (int) (20 * Math.log10(ratio));
             }
@@ -650,8 +649,8 @@ public class BaseActivity extends AppCompatActivity {
         Handlers.ui().removeCallbacks(updateVolumeAction);
         if (MyReceiver.jPushLitener != null) {
             MyReceiver.jPushLitener = null;
-            if (window!=null) {
-                window=null;
+            if (window != null) {
+                window = null;
             }
         }
         super.onPause();
