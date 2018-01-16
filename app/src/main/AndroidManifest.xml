@@ -91,6 +91,10 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <meta-data
+            android:name="com.gcml.version"
+            android:value="gcml_version_normal" />
+
         <service android:name=".music.PlayService" />
 
         <receiver android:name=".music.RemoteControlReceiver">

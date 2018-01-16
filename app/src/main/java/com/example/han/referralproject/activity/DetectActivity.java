@@ -1231,12 +1231,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //            }
 //        }
 
-        if (detectType == Type_SanHeYi){
-            if (dialog == null){
-                dialog = new NDialog(this);
-            }
-            showNormal("设备连接中，请稍后...");
-        }
+//        if (detectType == Type_SanHeYi){
+//            if (dialog == null){
+//                dialog = new NDialog(this);
+//            }
+//            showNormal("设备连接中，请稍后...");
+//        }
         switch (detectType) {
             case Type_Wendu:
                 mDeviceAddress = mShared.getWenduMac();

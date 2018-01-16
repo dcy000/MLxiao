@@ -5,11 +5,14 @@ import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
