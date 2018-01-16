@@ -22,16 +22,17 @@
         <ImageView
             android:id="@+id/robot_con"
             android:layout_width="370dp"
-            android:layout_height="wrap_content"
+            android:layout_height="460dp"
             android:clickable="true"
             android:src="@drawable/ic_robot"
             android:layout_marginTop="13dp"/>
         <ImageView
             android:id="@+id/call_family"
             android:layout_width="370dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_call_family"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
             />
     </LinearLayout>
 
