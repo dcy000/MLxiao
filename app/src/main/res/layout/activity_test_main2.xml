@@ -33,7 +33,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/test_img_hight"
-                android:src="@drawable/test_pres"
+                android:src="@drawable/ic_pressure"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -65,7 +65,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/test_img_hight"
-                android:src="@drawable/test_oxy"
+                android:src="@drawable/ic_oxygen"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -96,7 +96,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/test_img_hight"
-                android:src="@drawable/test_tem"
+                android:src="@drawable/ic_temperature"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -127,7 +127,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/test_img_hight"
-                android:src="@drawable/test_sua"
+                android:src="@drawable/ic_sugar"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -169,7 +169,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/test_img_hight"
-                android:src="@drawable/test_heart"
+                android:src="@drawable/ic_electrocardiogram"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -200,7 +200,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/test_img_hight"
-                android:src="@drawable/test_weight"
+                android:src="@drawable/ic_weight"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -231,7 +231,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/test_img_hight"
-                android:src="@drawable/test_san"
+                android:src="@drawable/ic_three_in_one"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -262,7 +262,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/test_img_hight"
-                android:src="@drawable/test_more"
+                android:src="@drawable/ic_more"
                 android:scaleType="fitXY"/>
 
             <TextView

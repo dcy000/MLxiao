@@ -102,6 +102,9 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_fetch_code)
     public void onTvFetchCodeClicked() {
+        inPhone = false;
+        etCode.requestFocus();
+        speak(R.string.sign_up_fetch_code_tip);
         final String phone = etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
             speak("主人，手机号码输入有误，请重新输入");
@@ -238,9 +241,6 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         }
 
         if (inSpell.matches(REGEX_FETCH_CODE) && tvFetchCode.isEnabled()) {
-            inPhone = false;
-            etCode.requestFocus();
-            speak(R.string.sign_up_fetch_code_tip);
             onTvFetchCodeClicked();
             return;
         }

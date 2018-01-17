@@ -567,9 +567,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_TiZhong:
-                        if (notifyData != null && notifyData.length == 20) {
+                        if (notifyData != null && notifyData.length == 14 && (notifyData[1] & 0xff) == 221) {
                             float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                             mResultTv.setText(String.valueOf(result));
+                            speak(String.format(getString(R.string.tips_result_tizhong), result));
                         }
                         break;
                     case Type_XinDian:
@@ -675,7 +676,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case Type_Xueya:
-                Log.i("mylog", "size : " + gattServices.size());
 //                if (gattServices.size() == 5) {
 //                    characteristic = gattServices.get(3).getCharacteristics().get(3);
 //                } else {
@@ -700,7 +700,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 characteristic = gattServices.get(0).getCharacteristics().get(0);
                 break;
             case Type_TiZhong:
-                characteristic = gattServices.get(3).getCharacteristics().get(2);
+                //characteristic = gattServices.get(3).getCharacteristics().get(2);
+
+//                BluetoothGattService service = mBluetoothLeService.getGatt().getService(UUID
+//                        .fromString("0000fff0-0000-1000-8000-00805f9b34fb"));
+//                //read
+//                BluetoothGattCharacteristic	characteristicRead = service
+//                        .getCharacteristic(UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb"));
+//                //notify
+//                BluetoothGattCharacteristic	characteristicNotify = service
+//                        .getCharacteristic(UUID.fromString("0000fff6-0000-1000-8000-00805f9b34fb"));
+//                setCharacterValue(characteristicRead, characteristicNotify , 0);
+
+                BluetoothGattService service = mBluetoothLeService.getGatt().getService(UUID
+                        .fromString("0000fff0-0000-1000-8000-00805f9b34fb"));
+                characteristic = service
+                        .getCharacteristic(UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb"));
                 break;
             case Type_SanHeYi:
                 characteristic = gattServices.get(4).getCharacteristics().get(0);
@@ -711,6 +726,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         if (characteristic == null) {
             return;
         }
+
+        if (detectType == Type_TiZhong) {
+            setCharacterValue(characteristic, characteristic , 0);
+            return;
+        }
+
 
         mWriteCharacteristic = characteristic;
 
@@ -737,6 +758,45 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //        boolean isSuccess = readMessage();
 //        Log.i("mylog1", "is Success " + isSuccess);
     }
+
+    private void setCharacterValue(BluetoothGattCharacteristic characteristic,
+                                   BluetoothGattCharacteristic characteristic1,int status){
+        // 激活通知
+        final int charaProp = characteristic.getProperties();
+        int charaProp_second = -1;
+        if (characteristic1!=null) {
+            charaProp_second = characteristic1.getProperties();
+        }
+        Log.i("mylog", "2222222222222222222");
+        if (status == BluetoothGatt.GATT_SUCCESS) {
+            if ((charaProp & BluetoothGattCharacteristic.PROPERTY_NOTIFY) >0) {
+                mBluetoothGatt.setCharacteristicNotification(
+                        characteristic, true);
+                BluetoothGattDescriptor descriptor = characteristic
+                        .getDescriptor(UUID
+                                .fromString("00002902-0000-1000-8000-00805f9b34fb"));
+                if (descriptor != null) {
+                    descriptor
+                            .setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                }
+                if(characteristic1==null)
+                    return;
+                if ((charaProp_second & BluetoothGattCharacteristic.PROPERTY_NOTIFY) >0) {
+                    mBluetoothGatt.setCharacteristicNotification(
+                            characteristic1, true);
+                    if (descriptor != null) {
+                        descriptor
+                                .setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                    }
+                }
+                if (descriptor != null){
+                    mBluetoothGatt.writeDescriptor(descriptor);
+                }
+                Log.i("mylog", "33333333333333333333333");
+            }
+        }
+    }
+
 
     //防止VedioView导致内存泄露
     @Override
@@ -1051,13 +1111,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mResultTv = (TextView) findViewById(R.id.tv_tizhong);
                 findViewById(R.id.rl_tizhong).setVisibility(View.VISIBLE);
                 dialog = new NDialog(this);
-                showNormal("设备连接中，请稍后...");
+                //showNormal("设备连接中，请稍后...");
                 break;
             case Type_SanHeYi:
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
+        mOverView = findViewById(R.id.view_over);
+        mOverView.setOnClickListener(this);
         if (resourceId != 0) {
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
@@ -1065,9 +1127,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mVideoView.setOnCompletionListener(mCompletionListener);
         } else {
             mVideoView.setVisibility(View.GONE);
+            mOverView.setVisibility(View.GONE);
         }
-        mOverView = findViewById(R.id.view_over);
-        mOverView.setOnClickListener(this);
         if (detectType == Type_SanHeYi){
             mOverView.setVisibility(View.GONE);
         }

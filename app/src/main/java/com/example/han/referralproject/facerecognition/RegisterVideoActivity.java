@@ -214,7 +214,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
         int width = metrics.widthPixels;
         int height = (int) (width * PREVIEW_WIDTH / (float) PREVIEW_HEIGHT);
-        RelativeLayout.LayoutParams params = new LayoutParams(width, height);
+        LayoutParams params = new LayoutParams(width, height);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mPreviewSurface.setLayoutParams(params);
 //        mFaceSurface.setLayoutParams(params);

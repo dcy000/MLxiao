@@ -26,12 +26,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:clickable="true"
-            android:src="@drawable/robot_con"
+            android:src="@drawable/ic_robot_normal"
             android:layout_marginTop="-13dp"/>
         <ImageView
             android:layout_width="370dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/call_family_icon"
+            android:src="@drawable/ic_call_family_normal"
             android:layout_marginTop="-10dp"/>
     </LinearLayout>
 
@@ -48,7 +48,7 @@
         android:layout_marginTop="25dp"
         android:layout_toLeftOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/person_info" />
+        android:src="@drawable/ic_person_info_normal" />
 
     <ImageView
         android:id="@+id/health_test"
@@ -63,7 +63,7 @@
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/health_test" />
+        android:src="@drawable/ic_health_test_normal" />
 
     <ImageView
         android:id="@+id/doctor_ask"
@@ -78,7 +78,7 @@
         android:layout_marginTop="25dp"
         android:layout_toRightOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/doctor_ask" />
+        android:src="@drawable/ic_doctor_ask_normal" />
 
     <ImageView
         android:id="@+id/health_class"
@@ -93,7 +93,7 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/ic_shop" />
+        android:src="@drawable/ic_shop_normal" />
 
     <RelativeLayout
         android:id="@+id/ll_anim"

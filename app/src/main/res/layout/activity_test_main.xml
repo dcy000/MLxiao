@@ -76,7 +76,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
-            android:src="@drawable/test_weight" />
+            android:src="@drawable/ic_weight_normal" />
 
     </LinearLayout>
     <LinearLayout
