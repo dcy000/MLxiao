@@ -1,6 +1,7 @@
 package com.medlink.danbogh.alarm;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -175,9 +176,16 @@ public class AlarmList2Activity extends BaseActivity {
     }
 
     public void setAlarmEnabled(long id, boolean enabled) {
-        AlarmHelper.cancelAlarms(this);
+//        AlarmHelper.cancelAlarms(this);
+
+//        ContentValues values = new ContentValues();
+//        values.put("enabled", enabled);
+//        int update = DataSupport.update(AlarmModel.class, values, id);
         AlarmModel model = DataSupport.find(AlarmModel.class, id);
         if (model != null) {
+            if (!model.isEnabled()) {
+                model.setToDefault("enabled");
+            }
             model.setEnabled(enabled);
             model.update(id);
         }
