@@ -46,6 +46,7 @@
     <string name="xueya">血压</string>
     <string name="xuetang">血糖</string>
     <string name="wendu">温度</string>
+    <string name="tizhong">体重</string>
     <string name="xueyang">血氧</string>
     <string name="logout">退出登录</string>
     <string name="speak_no_result">我还没学习到</string>
@@ -105,6 +106,7 @@
     <string name="tips_test">主人，请点击您需要测量的项目</string>
     <string name="tips_open_device">主人，您可以打开设备开始测量了</string>
     <string name="tips_result_wendu" formatted="false">主人，您的体温是%1$s度，%2$s</string>
+    <string name="tips_result_tizhong" formatted="false">主人，您的体温是%f度</string>
     <string name="tips_xueya">请将血压计佩戴在绑在左臂或者右臂上，高度与心脏平齐，手臂放松，手掌张开，按开始按钮开始测量</string>
     <string name="tips_result_xueya" formatted="false">主人，您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
     <string name="tips_result_xuetang">主人，您的血糖值为%1$s,%2$s</string>
@@ -426,6 +428,7 @@
     <string name="test_xueya">血&#160;&#160;压&#160;&#160;检&#160;&#160;测</string>
     <string name="test_temperature">体&#160;&#160;温&#160;&#160;检&#160;&#160;测</string>
     <string name="test_xuetang">血&#160;&#160;糖&#160;&#160;检&#160;&#160;测</string>
+    <string name="test_tizhong">体&#160;&#160;重&#160;&#160;检&#160;&#160;测</string>
     <string name="test_sanheyi">三&#160;&#160;合&#160;&#160;一&#160;&#160;检&#160;&#160;测</string>
     <string name="test_xueyang">血&#160;&#160;氧&#160;&#160;检&#160;&#160;测</string>
     <string name="test_xindian">心&#160;&#160;电&#160;&#160;检&#160;&#160;测</string>

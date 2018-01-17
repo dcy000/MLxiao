@@ -567,9 +567,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         break;
                     case Type_TiZhong:
-                        if (notifyData != null && notifyData.length == 20) {
+                        if (notifyData != null && notifyData.length == 14 && (notifyData[1] & 0xff) == 221) {
                             float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                             mResultTv.setText(String.valueOf(result));
+                            speak(String.format(getString(R.string.tips_result_tizhong), result));
                         }
                         break;
                     case Type_XinDian:
@@ -727,7 +728,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
 
         if (detectType == Type_TiZhong) {
-             setCharacterValue(characteristic, characteristic , 0);
+            setCharacterValue(characteristic, characteristic , 0);
             return;
         }
 
@@ -787,6 +788,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         descriptor
                                 .setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                     }
+                }
+                if (descriptor != null){
+                    mBluetoothGatt.writeDescriptor(descriptor);
                 }
                 Log.i("mylog", "33333333333333333333333");
             }
@@ -1107,13 +1111,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mResultTv = (TextView) findViewById(R.id.tv_tizhong);
                 findViewById(R.id.rl_tizhong).setVisibility(View.VISIBLE);
                 dialog = new NDialog(this);
-                showNormal("设备连接中，请稍后...");
+                //showNormal("设备连接中，请稍后...");
                 break;
             case Type_SanHeYi:
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
+        mOverView = findViewById(R.id.view_over);
+        mOverView.setOnClickListener(this);
         if (resourceId != 0) {
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
@@ -1121,9 +1127,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mVideoView.setOnCompletionListener(mCompletionListener);
         } else {
             mVideoView.setVisibility(View.GONE);
+            mOverView.setVisibility(View.GONE);
         }
-        mOverView = findViewById(R.id.view_over);
-        mOverView.setOnClickListener(this);
         if (detectType == Type_SanHeYi){
             mOverView.setVisibility(View.GONE);
         }
