@@ -122,7 +122,6 @@ public class RegisterVideoActivity extends BaseActivity {
                     }*/
 
 
-
                                 if (b3 != null) {
 
                                     Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
@@ -203,6 +202,14 @@ public class RegisterVideoActivity extends BaseActivity {
         });
 
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                speak(getString(R.string.facc_register));
+            }
+        }).start();
+
+
         initUI();
 
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
@@ -232,7 +239,7 @@ public class RegisterVideoActivity extends BaseActivity {
         public void surfaceCreated(SurfaceHolder holder) {
 
 
-         //   openCamera();
+            //   openCamera();
 
             // 启动相机
             new Thread(new Runnable() {
@@ -330,7 +337,6 @@ public class RegisterVideoActivity extends BaseActivity {
         mCamera.setDisplayOrientation(0);
 
         mCamera.setPreviewCallback(new PreviewCallback() {
-
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
                 System.arraycopy(data, 0, nv21, 0, data.length);
@@ -525,7 +531,6 @@ public class RegisterVideoActivity extends BaseActivity {
         super.onResume();
         setDisableGlobalListen(true);
 
-        speak(getString(R.string.facc_register));
 //            speak(R.string.tips_face);
 //        if (null != mAcc) {
 //            mAcc.start();

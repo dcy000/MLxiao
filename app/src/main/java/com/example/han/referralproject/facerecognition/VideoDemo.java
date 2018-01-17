@@ -23,6 +23,7 @@ import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.Process;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -210,7 +211,21 @@ public class VideoDemo extends BaseActivity {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            openCamera();
+
+            // 启动相机
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    Looper.prepare();
+
+                    openCamera();
+
+                    Looper.loop();
+                }
+            }).start();
+
+
         }
 
         @Override
@@ -366,10 +381,14 @@ public class VideoDemo extends BaseActivity {
                 public void run() {
                     while (sign) {
 
+                        Looper.prepare();
+
                         try {
                             Thread.sleep(2000);
                         } catch (InterruptedException e) {
                         }
+
+
 
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -401,6 +420,9 @@ public class VideoDemo extends BaseActivity {
                             mFaceRequest.sendRequest(mImageData, mRequestListener);
 
                         }
+
+                        Looper.loop();
+
 
 
                     }
