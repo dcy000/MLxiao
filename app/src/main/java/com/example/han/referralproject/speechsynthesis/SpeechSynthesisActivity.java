@@ -287,6 +287,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void onResume() {
+        setDisableGlobalListen(true);
         super.onResume();
         setEnableListeningLoop(false);
         mLottieView.resumeAnimation();
@@ -662,19 +663,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(REGEX_SET_ALARM)) {
                 Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
-                startActivity(intent);
-                return;
-            }
-            if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-                DiseaseUser diseaseUser=new DiseaseUser(
-                        LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
-                        LocalShared.getInstance(this).getUserPhoto()
-                );
-                String currentUser= new Gson().toJson(diseaseUser);
-                Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
-                intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
                 return;
             }
@@ -1101,6 +1089,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             str1 = string.getReceive().getOutput();
         }
+
         if (str1 != null) {
 
             if (getString(R.string.speak_null).equals(str1)) {

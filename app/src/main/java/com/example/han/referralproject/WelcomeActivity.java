@@ -5,6 +5,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -52,6 +54,16 @@ public class WelcomeActivity extends BaseActivity {
             startActivity(mIntent);
             finish();
         }
+
+//        ApplicationInfo appInfo = null;
+//        try {
+//            appInfo = this.getPackageManager()
+//                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+//            String msg=appInfo.metaData.getString("com.gcml.version");
+//            Log.i("mylog", "data : " + msg);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override

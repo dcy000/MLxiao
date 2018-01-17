@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
@@ -27,7 +28,7 @@ public class WakeupHelper {
     private static Context sContext;
 
     public static void init(Context context) {
-        sContext = context;
+        sContext = context.getApplicationContext();
     }
 
     public static WakeupHelper getInstance() {
@@ -40,28 +41,36 @@ public class WakeupHelper {
     }
 
     private WakeupHelper() {
-        VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
-        if (wakeuper == null) {
-            if (sContext == null) {
-                Log.d(TAG, "WakeupHelper: must init sContext");
+        VoiceWakeuper.createWakeuper(sContext, new InitListener() {
+            @Override
+            public void onInit(int code) {
+                Log.d(TAG, "onInit: " + code);
             }
-            wakeuper = VoiceWakeuper.createWakeuper(sContext, null);
-            if (wakeuper == null) {
-                Log.d(TAG, "WakeupHelper: wakeup create failed");
-            }
-        }
+        });
     }
 
-    public void startWakeuprListening(WakeuperListener listener) {
+    private volatile boolean inited;
+
+    public synchronized void startWakeuprListening(final WakeuperListener listener) {
+        if (VoiceWakeuper.getWakeuper() == null) {
+            if (sContext == null) {
+                Log.e(TAG, "WakeupHelper: must init sContext");
+            }
+            VoiceWakeuper.createWakeuper(sContext, new InitListener() {
+                @Override
+                public void onInit(int code) {
+                    Log.d(TAG, "onInit: " + code);
+                }
+            });
+        }
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
         if (wakeuper == null) {
             Log.d(TAG, "startWakeuprListening: wakeuper == null");
             return;
         }
-        if (!wakeuper.isListening()) {
-            setParameter(wakeuper);
-            wakeuper.startListening(listener);
-        }
+        inited = true;
+        setParameter(wakeuper);
+        wakeuper.startListening(listener);
     }
 
     private void setParameter(VoiceWakeuper wakeuper) {
@@ -83,7 +92,7 @@ public class WakeupHelper {
         return resPath;
     }
 
-    public void stopWakeuprListening() {
+    public synchronized void stopWakeuprListening() {
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
         if (wakeuper != null && wakeuper.isListening()) {
             wakeuper.stopListening();
@@ -97,7 +106,13 @@ public class WakeupHelper {
         }
     }
 
-    public void enableWakeuperListening(boolean enable) {
+    private volatile boolean enableCache;
+
+    public synchronized void enableWakeuperListening(boolean enable) {
+        if (inited && enableCache == enable) {
+            return;
+        }
+        enableCache = enable;
         if (enable) {
             startWakeuprListening(wakeuperlistener());
         } else {

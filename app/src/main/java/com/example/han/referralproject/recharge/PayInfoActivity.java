@@ -103,7 +103,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onFailed(String message) {
                             sign = false;
-
+                            Log.e("支付成功同步到我们的后台", "onFailed: "+message);
                         }
                     });
 
@@ -248,8 +248,6 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         BCQuery.getInstance().queryBillByIDAsync(billId, new BCCallback() {
                             @Override
                             public void done(BCResult result) {
-
-
 
                                 BCQueryBillResult billStatus = (BCQueryBillResult) result;
 

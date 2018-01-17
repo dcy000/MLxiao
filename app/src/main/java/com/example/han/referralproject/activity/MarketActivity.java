@@ -74,27 +74,30 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
 
     private void initFragment() {
         fragments = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
 
-            switch (i) {
-                case 0:
-                    fragments.add(GoodsFragment.newInstance(4));
-                    break;
-                case 1:
-                    fragments.add(GoodsFragment.newInstance(2));
-                    break;
-                case 2:
-                    fragments.add(GoodsFragment.newInstance(1));
-                    break;
-                case 3:
-                    fragments.add(GoodsFragment.newInstance(3));
-                    break;
-                case 4:
-                    fragments.add(GoodsFragment.newInstance(5));
-                    break;
-            }
+        fragments.add(GoodsFragment.newInstance(1));
 
-        }
+//        for (int i = 0; i < 5; i++) {
+//
+//            switch (i) {
+//                case 0:
+//                    fragments.add(GoodsFragment.newInstance(4));
+//                    break;
+//                case 1:
+//                    fragments.add(GoodsFragment.newInstance(2));
+//                    break;
+//                case 2:
+//                    fragments.add(GoodsFragment.newInstance(1));
+//                    break;
+//                case 3:
+//                    fragments.add(GoodsFragment.newInstance(3));
+//                    break;
+//                case 4:
+//                    fragments.add(GoodsFragment.newInstance(5));
+//                    break;
+//            }
+//
+//        }
     }
 
     @Override

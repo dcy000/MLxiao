@@ -135,7 +135,7 @@ public class VideoDemo extends BaseActivity {
         dialog2 = new NDialog2(VideoDemo.this);
 
 
-        mImageView = (RelativeLayout) findViewById(R.id.tiao_guo);
+        mImageView = (RelativeLayout) findViewById(R.id.rl_back);
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -72,8 +72,9 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 ((Activity)mContext).finish();
                 break;
             case R.id.btn_logout:
-                NimAccountHelper.getInstance().logout();
-                LocalShared.getInstance(mContext).loginOut();
+                NimAccountHelper.getInstance().logout();//退出网易IM
+                LocalShared.getInstance(mContext).loginOut();//清除SP中的信息
+                LocalShared.getInstance(mContext).setJPushStatus(false);//将极光别名绑定状态修改为false
                 mContext.startActivity(new Intent(mContext, SignInActivity.class));
                 ((Activity)mContext).finish();
 

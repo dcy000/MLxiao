@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -18,10 +20,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,9 +34,13 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.jipush.MyReceiver;
 import com.example.han.referralproject.music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.Utils;
+import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -108,8 +117,6 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             mIat = recognizer;
         }
-        SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
 
         if (mMediaRecorder == null)
@@ -134,8 +141,73 @@ public class BaseActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         mMediaRecorder.start();
+
     }
 
+    private PopupWindow window;
+
+    //收到推送消息后显示Popwindow
+    class JPushReceive implements MyReceiver.JPushLitener {
+
+        @Override
+        public void onReceive(String title, String message) {
+//            ToastUtil.showShort(BaseActivity.this,message);
+            // 利用layoutInflater获得View
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.jpush_popwin, null);
+            window = new PopupWindow(view,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT);
+            // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+            window.setFocusable(true);
+
+            // 实例化一个ColorDrawable颜色为半透明
+            ColorDrawable dw = new ColorDrawable(0x00000000);
+            window.setBackgroundDrawable(dw);
+            Utils.backgroundAlpha(BaseActivity.this, 1f);
+
+            // 设置popWindow的显示和消失动画
+            window.setAnimationStyle(R.style.mypopwindow_anim_style);
+//            // 在底部显示
+
+            window.showAtLocation(getWindow().getDecorView(),
+                    Gravity.TOP, 0, 148);
+
+            //popWindow消失监听方法
+            window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    Utils.backgroundAlpha(BaseActivity.this, 1f);
+                }
+            });
+            TextView jpushText = view.findViewById(R.id.jpush_text);
+            TextView jpushTitle = view.findViewById(R.id.jpush_title);
+            TextView jpushTime = view.findViewById(R.id.jpush_time);
+            if (!TextUtils.isEmpty(title)) {
+                jpushTitle.setVisibility(View.VISIBLE);
+                jpushTitle.setText(title);
+            }
+            jpushText.setText(message);
+            jpushTime.setText(Utils.stampToDate2(System.currentTimeMillis()));
+
+            final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
+            final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
+            ViewTreeObserver vto = jpushLl.getViewTreeObserver();
+            final ViewGroup.LayoutParams lp = jpushRbv.getLayoutParams();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    jpushLl.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                    int width=jpushLl.getMeasuredWidth();
+                    int height = jpushLl.getMinimumHeight();
+                    lp.height = height;
+                    jpushRbv.setLayoutParams(lp);
+                }
+            });
+
+            speak("主人，新消息。" + message);
+        }
+    }
 
     private void initToolbar() {
         mllBack = (LinearLayout) mTitleView.findViewById(R.id.ll_back);
@@ -330,7 +402,6 @@ public class BaseActivity extends AppCompatActivity {
         public void run() {
             if (mMediaRecorder == null) return;
             double ratio = (double) mMediaRecorder.getMaxAmplitude() / 100;
-            Log.e("音量大小", ratio + "");
             if (ratio > 1) {
                 volume = (int) (20 * Math.log10(ratio));
             }
@@ -548,8 +619,9 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MyReceiver.jPushLitener = new JPushReceive();
         enableListeningLoop = enableListeningLoopCache;
-        setDisableGlobalListen(false);
+        setDisableGlobalListen(disableGlobalListen);
         if (enableListeningLoop) {
             handler.postDelayed(mListening, 200);
         }
@@ -573,7 +645,14 @@ public class BaseActivity extends AppCompatActivity {
             mMediaRecorder.release();
             mMediaRecorder = null;
         }
+        //释放通知消息的资源
         Handlers.ui().removeCallbacks(updateVolumeAction);
+        if (MyReceiver.jPushLitener != null) {
+            MyReceiver.jPushLitener = null;
+            if (window != null) {
+                window = null;
+            }
+        }
         super.onPause();
     }
 

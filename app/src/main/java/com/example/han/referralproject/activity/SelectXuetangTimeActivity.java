@@ -3,6 +3,7 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.han.referralproject.R;
@@ -18,6 +19,12 @@ public class SelectXuetangTimeActivity extends BaseActivity implements View.OnCl
     LinearLayout oneHour;
     @BindView(R.id.two_hour)
     LinearLayout twoHour;
+    @BindView(R.id.kongfu_img)
+    ImageView kongfuImg;
+    @BindView(R.id.onehour_img)
+    ImageView onehourImg;
+    @BindView(R.id.twohour_img)
+    ImageView twohourImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +40,18 @@ public class SelectXuetangTimeActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.one_hour:
-                startActivity(new Intent(this,DetectActivity.class)
-                .putExtra("time",1).putExtra("type", "xuetang"));
+                startActivity(new Intent(this, DetectActivity.class)
+                        .putExtra("time", 1).putExtra("type", "xuetang"));
                 break;
             case R.id.two_hour:
-                startActivity(new Intent(this,DetectActivity.class)
-                        .putExtra("time",2).putExtra("type", "xuetang"));
+                startActivity(new Intent(this, DetectActivity.class)
+                        .putExtra("time", 2).putExtra("type", "xuetang"));
                 break;
             case R.id.kongfu:
-                startActivity(new Intent(this,DetectActivity.class)
-                        .putExtra("time",0).putExtra("type", "xuetang"));
+                startActivity(new Intent(this, DetectActivity.class)
+                        .putExtra("time", 0).putExtra("type", "xuetang"));
                 break;
         }
     }

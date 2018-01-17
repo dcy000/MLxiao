@@ -12,7 +12,9 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingRight="40dp">
+        android:paddingRight="40dp"
+        android:background="@drawable/toolbar_set"
+        >
         <ImageView
             android:id="@+id/iv_top_left"
             android:layout_width="wrap_content"
@@ -64,5 +66,6 @@
         android:src="@drawable/icon_home"
         android:paddingRight="30dp"
         android:paddingLeft="60dp"
+        android:background="@drawable/toolbar_set"
         />
 </RelativeLayout>
