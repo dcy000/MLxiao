@@ -102,62 +102,84 @@ public class RegisterVideoActivity extends BaseActivity {
                                 mFaceRequest = new FaceRequest(RegisterVideoActivity.this);
                                 currentBit = b3;
                                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                if (currentBit != null) {
-                                    Bitmap bitmap = centerSquareScaleBitmap(currentBit, 300);
-                                    //可根据流量及网络状况对图片进行压缩
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                    mImageData = baos.toByteArray();
-                                }
-                                if (null != mImageData) {
-                                    Date date = new Date();
-                                    SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
-                                    StringBuilder str = new StringBuilder();//定义变长字符串
-                                    Random random = new Random();
-                                    for (int i = 0; i < 8; i++) {
-                                        str.append(random.nextInt(10));
-                                    }
-                                    //将字符串转换为数字并输出
-                                    mAuthid = simple.format(date) + str;
-                                    mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-                                    mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
-                                    mFaceRequest.sendRequest(mImageData, mRequestListener);
-                                    //5秒之后如果上一次的图像还没有上传成功，多半原因是拍摄的图像不包含头像信息或者头像太模糊。这5秒是给用户重新调整姿态进行拍摄
 
-                                    try {
-                                        //如果3秒之后sign的状态仍然没有改变，极大可能上传头像失败，这时候有必要提醒用户重新调整姿态，进行一下一次拍摄
-                                        Thread.sleep(3000);
-                                        if (sign) {
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    ToastUtil.showShort(RegisterVideoActivity.this, "请调整您的姿态");
+
+                  /*  if (b3 != null) {
+
+                        Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+
+                        //可根据流量及网络状况对图片进行压缩
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        mImageData = baos.toByteArray();
+
+                    }*/
+
+
+                                if (b3 != null) {
+
+                                    Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+
+
+                                    if (currentBit != null) {
+                                        //可根据流量及网络状况对图片进行压缩
+                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                        mImageData = baos.toByteArray();
+                                    }
+                                    if (null != mImageData) {
+                                        Date date = new Date();
+                                        SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
+                                        StringBuilder str = new StringBuilder();//定义变长字符串
+                                        Random random = new Random();
+                                        for (int i = 0; i < 8; i++) {
+                                            str.append(random.nextInt(10));
+                                        }
+                                        //将字符串转换为数字并输出
+                                        mAuthid = simple.format(date) + str;
+                                        mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                                        mFaceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
+                                        mFaceRequest.sendRequest(mImageData, mRequestListener);
+                                        //5秒之后如果上一次的图像还没有上传成功，多半原因是拍摄的图像不包含头像信息或者头像太模糊。这5秒是给用户重新调整姿态进行拍摄
+
+                                        try {
+                                            //如果3秒之后sign的状态仍然没有改变，极大可能上传头像失败，这时候有必要提醒用户重新调整姿态，进行一下一次拍摄
+                                            Thread.sleep(3000);
+                                            if (sign) {
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ToastUtil.showShort(RegisterVideoActivity.this, "请调整您的姿态");
 //                                                    //再给用户2秒进行姿态调整
 //                                                    mHandler.sendEmptyMessageDelayed(0,2000);
-                                                }
-                                            });
+                                                    }
+                                                });
+                                            }
+
+                                        } catch (InterruptedException e) {
+
                                         }
 
-                                    } catch (InterruptedException e) {
-
-                                    }
-
-                                    try {
-                                        Thread.sleep(2000);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
+                                        try {
+                                            Thread.sleep(2000);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-
-                    ).start();
+                    }).start();
                     break;
             }
 
             return true;
+
+
         }
+
     });
+
+
+    RelativeLayout mRelativeLayout;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -165,6 +187,19 @@ public class RegisterVideoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
         isTest = getIntent().getBooleanExtra("isTest", false);
+
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.rl_back);
+        mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isTest) {
+                    startActivity(new Intent(mContext, MainActivity.class));
+                }
+                finish();
+            }
+        });
+
+
         initUI();
 
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
@@ -189,6 +224,9 @@ public class RegisterVideoActivity extends BaseActivity {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
+
+
+            //   openCamera();
 
             // 启动相机
             new Thread(new Runnable() {
@@ -497,6 +535,82 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
+
+//            speak(R.string.tips_face);
+//        if (null != mAcc) {
+//            mAcc.start();
+//        }
+//
+//        mStopTrack = false;
+//        new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                while (!mStopTrack) {
+//                    if (null == nv21) {
+//                        continue;
+//                    }
+//
+//                    synchronized (nv21) {
+//                        System.arraycopy(nv21, 0, buffer, 0, nv21.length);
+//                    }
+//
+//                    // 获取手机朝向，返回值0,1,2,3分别表示0,90,180和270度
+//                    int direction = Accelerometer.getDirection();
+//                    boolean frontCamera = (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId);
+//                    // 前置摄像头预览显示的是镜像，需要将手机朝向换算成摄相头视角下的朝向。
+//                    // 转换公式：a' = (360 - a)%360，a为人眼视角下的朝向（单位：角度）
+//                    if (frontCamera) {
+//                        // SDK中使用0,1,2,3,4分别表示0,90,180,270和360度
+//                        direction = (4 - direction) % 4;
+//                    }
+//
+//                    if (mFaceDetector == null) {
+//                        /**
+//                         * 离线视频流检测功能需要单独下载支持离线人脸的SDK
+//                         * 请开发者前往语音云官网下载对应SDK
+//                         */
+//                        // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
+//                        showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
+//                        break;
+//                    }
+//
+//                    String result = mFaceDetector.trackNV21(buffer, PREVIEW_WIDTH, PREVIEW_HEIGHT, isAlign, direction);
+//                    Log.d(TAG, "result:" + result);
+//
+//                    FaceRect[] faces = ParseResult.parseResult(result);
+//
+//                    Canvas canvas = mFaceSurface.getHolder().lockCanvas();
+//                    if (null == canvas) {
+//                        continue;
+//                    }
+//
+//                    canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+//                    canvas.setMatrix(mScaleMatrix);
+//
+//                    if (faces == null || faces.length <= 0) {
+//                        mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
+//                        continue;
+//                    }
+//
+//                    if (null != faces && frontCamera == (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId)) {
+//                        for (FaceRect face : faces) {
+//                            face.bound = FaceUtil.RotateDeg90(face.bound, PREVIEW_WIDTH, PREVIEW_HEIGHT);
+//                            if (face.point != null) {
+//                                for (int i = 0; i < face.point.length; i++) {
+//                                    face.point[i] = FaceUtil.RotateDeg90(face.point[i], PREVIEW_WIDTH, PREVIEW_HEIGHT);
+//                                }
+//                            }
+//                            FaceUtil.drawFaceRect(canvas, face, PREVIEW_WIDTH, PREVIEW_HEIGHT, frontCamera, false);
+//                        }
+//                    } else {
+//                        Log.d(TAG, "faces:0");
+//                    }
+//
+//                    mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
+//                }
+//            }
+//        }).start();
         speak(getString(R.string.facc_register));
     }
 
