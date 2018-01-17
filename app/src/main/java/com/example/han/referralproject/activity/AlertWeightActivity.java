@@ -33,7 +33,8 @@ public class AlertWeightActivity extends AlertHeightActivity {
     @Override
     public void onTvGoForwardClicked() {
         final String weight = mStrings.get(selectedPosition);
-        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, weight, eat, smoke, drink, exercise, new NetworkManager.SuccessCallback<Object>() {
+        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, weight, eat, smoke, drink, exercise,
+                buffer==null?"":buffer.substring(0,buffer.length()-1),data.dz,new NetworkManager.SuccessCallback<Object>() {
             @Override
             public void onSuccess(Object response) {
                 ToastUtils.show("修改成功");
