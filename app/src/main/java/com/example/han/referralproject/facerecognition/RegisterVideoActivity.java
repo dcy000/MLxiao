@@ -200,7 +200,7 @@ public class RegisterVideoActivity extends BaseActivity {
         });
 
 
-       
+
 
 
         initUI();
