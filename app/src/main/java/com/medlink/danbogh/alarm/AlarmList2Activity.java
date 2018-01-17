@@ -1,6 +1,7 @@
 package com.medlink.danbogh.alarm;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +24,8 @@ import com.example.han.referralproject.network.NetworkManager;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,6 +106,24 @@ public class AlarmList2Activity extends BaseActivity {
                     iterator.remove();
                 }
             }
+
+            Collections.sort(models, new Comparator<AlarmModel>() {
+                @Override
+                public int compare(AlarmModel model1, AlarmModel model2) {
+                    if (model1.getHourOfDay() > model2.getHourOfDay()
+                            || (model1.getHourOfDay() == model2.getHourOfDay() &&
+                            model1.getMinute() > model2.getMinute())) {
+                        return 1;
+                    }
+                    if (model1.getHourOfDay() < model2.getHourOfDay()
+                            || (model1.getHourOfDay() == model2.getHourOfDay() &&
+                            model1.getMinute() < model2.getMinute())) {
+                        return -1;
+                    }
+                    return 0;
+                }
+            });
+
             mAdapter.replaceAll(models);
         }
     }
@@ -131,6 +152,24 @@ public class AlarmList2Activity extends BaseActivity {
                         iterator.remove();
                     }
                 }
+
+                Collections.sort(models, new Comparator<AlarmModel>() {
+                    @Override
+                    public int compare(AlarmModel model1, AlarmModel model2) {
+                        if (model1.getHourOfDay() > model2.getHourOfDay()
+                                || (model1.getHourOfDay() == model2.getHourOfDay() &&
+                                model1.getMinute() > model2.getMinute())) {
+                            return 1;
+                        }
+                        if (model1.getHourOfDay() < model2.getHourOfDay()
+                                || (model1.getHourOfDay() == model2.getHourOfDay() &&
+                                model1.getMinute() < model2.getMinute())) {
+                            return -1;
+                        }
+                        return 0;
+                    }
+                });
+
                 mAdapter.replaceAll(models);
             }
         }
@@ -169,16 +208,41 @@ public class AlarmList2Activity extends BaseActivity {
                     iterator.remove();
                 }
             }
+
+            Collections.sort(models, new Comparator<AlarmModel>() {
+                @Override
+                public int compare(AlarmModel model1, AlarmModel model2) {
+                    if (model1.getHourOfDay() > model2.getHourOfDay()
+                            || (model1.getHourOfDay() == model2.getHourOfDay() &&
+                            model1.getMinute() > model2.getMinute())) {
+                        return 1;
+                    }
+                    if (model1.getHourOfDay() < model2.getHourOfDay()
+                            || (model1.getHourOfDay() == model2.getHourOfDay() &&
+                            model1.getMinute() < model2.getMinute())) {
+                        return -1;
+                    }
+                    return 0;
+                }
+            });
+
             mAdapter.replaceAll(models);
         }
         AlarmHelper.setupAlarms(this);
     }
 
     public void setAlarmEnabled(long id, boolean enabled) {
-        AlarmHelper.cancelAlarms(this);
+//        AlarmHelper.cancelAlarms(this);
+
+//        ContentValues values = new ContentValues();
+//        values.put("enabled", enabled);
+//        int update = DataSupport.update(AlarmModel.class, values, id);
         AlarmModel model = DataSupport.find(AlarmModel.class, id);
         if (model != null) {
             model.setEnabled(enabled);
+            if (!model.isEnabled()) {
+                model.setToDefault("enabled");
+            }
             model.update(id);
         }
         AlarmHelper.setupAlarms(this);

@@ -1,7 +1,5 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,9 +9,9 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -40,7 +38,6 @@ public class CheckContractActivity extends BaseActivity {
     @BindView(R.id.tv_cancel_contract)
     TextView tvCancelContract;
     private Unbinder mUnbinder;
-    private SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +46,31 @@ public class CheckContractActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("签  约  医  生");
-        mPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
-        if (!TextUtils.isEmpty(mPreferences.getString("docter_photo", ""))) {
-            Picasso.with(this)
-                    .load(mPreferences.getString("docter_photo", ""))
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
-                    .into(ivDoctorAvatar);
-        }
-        tvDoctorName.setText(String.format(getString(R.string.doctor_name), mPreferences.getString("name", "")));
-        tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), mPreferences.getString("position", "")));
-        tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), mPreferences.getString("feature", "")));
-        tvService.setText(String.format(getString(R.string.doctor_shoufei), mPreferences.getString("service_amount", "")));
+        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+            @Override
+            public void onSuccess(Doctor response) {
+                if (!TextUtils.isEmpty(response.getDocter_photo())) {
+                    Picasso.with(CheckContractActivity.this)
+                            .load(response.getDocter_photo())
+                            .placeholder(R.drawable.avatar_placeholder)
+                            .error(R.drawable.avatar_placeholder)
+                            .tag(this)
+                            .fit()
+                            .into(ivDoctorAvatar);
+                }
+                tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.getDoctername()));
+                tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), response.getDuty()));
+                tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), response.getDepartment()));
+                tvService.setText(String.format(getString(R.string.doctor_shoufei), response.getService_amount()));
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+            }
+        });
     }
 
     @OnClick(R.id.tv_cancel_contract)

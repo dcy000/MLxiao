@@ -2,6 +2,7 @@ package com.medlink.danbogh.alarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -99,6 +100,7 @@ public class AlarmHelper {
                 if (timestamp > nextCalendar.getTimeInMillis()) {
                     setupAlarm(context, timestamp, pi);
                 } else {
+                    model.setToDefault("enabled");
                     model.setEnabled(false);
                     model.update(model.getId());
                 }
