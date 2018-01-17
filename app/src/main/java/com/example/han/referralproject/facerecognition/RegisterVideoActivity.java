@@ -200,9 +200,6 @@ public class RegisterVideoActivity extends BaseActivity {
         });
 
 
-
-
-
         initUI();
 
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
