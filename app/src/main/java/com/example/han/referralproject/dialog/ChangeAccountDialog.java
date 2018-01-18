@@ -17,6 +17,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -72,6 +73,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 ((Activity)mContext).finish();
                 break;
             case R.id.btn_logout:
+                MobclickAgent.onProfileSignOff();
                 NimAccountHelper.getInstance().logout();//退出网易IM
                 LocalShared.getInstance(mContext).loginOut();//清除SP中的信息
                 LocalShared.getInstance(mContext).setJPushStatus(false);//将极光别名绑定状态修改为false

@@ -23,11 +23,12 @@ import com.example.han.referralproject.music.Preferences;
 import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-import com.medlink.crash.NoCrash;
+//import com.medlink.crash.NoCrash;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.wakeup.WakeupHelper;
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
@@ -80,6 +81,13 @@ public class MyApplication extends Application {
 //        NoCrash.init(this);
 //        NoCrash.getInstance().install();
 //        LeakCanary.install(this);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
+                this,
+                "5a604f5d8f4a9d02230001b1",
+                "GCML"
+        );
+        MobclickAgent.startWithConfigure(umConfig);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);
         T.init(this);
