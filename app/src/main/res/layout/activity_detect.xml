@@ -917,14 +917,13 @@
 
     </RelativeLayout>
 
-
     <!--三合一-->
     <RelativeLayout
         android:id="@+id/rl_sanheyi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/normal_bg"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -944,8 +943,8 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="170dp">
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="120dp">
 
                 <TextView
                     android:id="@+id/tv_san_tag"
@@ -979,7 +978,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
+                android:layout_marginLeft="80dp"
                 android:layout_marginTop="50dp">
 
                 <TextView
@@ -1014,7 +1013,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
+                android:layout_marginLeft="80dp"
                 android:layout_marginTop="50dp">
 
                 <TextView
@@ -1045,6 +1044,39 @@
                     android:text="0"
                     android:textSize="50sp" />
             </RelativeLayout>
+            <!--三合一 历史记录等两个按钮-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/history5"
+                    android:layout_width="200dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/shape_phone"
+                    android:gravity="center"
+                    android:text="历史记录"
+                    android:textColor="#FFFFFF"
+                    android:textSize="35sp" />
+
+
+                <Button
+                    android:id="@+id/sanheyi_video"
+                    android:layout_width="200dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@drawable/shape_show"
+                    android:gravity="center"
+                    android:text="使用演示"
+                    android:textColor="#FFFFFF"
+                    android:textSize="35sp" />
+
+
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -1094,7 +1126,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <VideoView
             android:id="@+id/vv_tips"

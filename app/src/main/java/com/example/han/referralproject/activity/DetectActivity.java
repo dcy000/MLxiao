@@ -841,6 +841,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     }
                 }
                 break;
+            case R.id.sanheyi_video:
+//                resourceId=R.raw.
+                break;
         }
         if (resourceId != 0) {
             mVideoView.setVisibility(View.VISIBLE);
@@ -918,7 +921,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
-
+        findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetectActivity.this,HealthRecordActivity.class));
+            }
+        });
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -1179,6 +1187,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
         findViewById(R.id.xindian_video).setOnClickListener(this);
+        findViewById(R.id.sanheyi_video).setOnClickListener(this);
         //选择血糖测量的时间
         setXuetangSelectTime();
     }

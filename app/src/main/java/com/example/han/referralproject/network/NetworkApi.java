@@ -25,6 +25,7 @@ import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.bean.WeightHistory;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.recyclerview.Docter;
@@ -45,9 +46,9 @@ import java.util.Map;
 public class NetworkApi {
 
 
-        public static final String BasicUrl = "http://116.62.36.12:8080";
+//        public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.113:8080";
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
@@ -747,6 +748,27 @@ public class NetworkApi {
                 successCallback, failedCallback);
     }
 
+    /**
+     * 体重
+     * @param start
+     * @param end
+     * @param temp
+     * @param successCallback
+     * @param failedCallback
+     */
+    public static void getWeight(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<WeightHistory>> successCallback, NetworkManager.FailedCallback failedCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("bid", MyApplication.getInstance().userId);
+//        params.put("bid","100001");
+        params.put("temp", temp);
+        params.put("starttime", start);
+        params.put("endtime", end);
+        NetworkManager.getInstance().getResultClass(Get_HealthRecord, params, new TypeToken<ArrayList<WeightHistory>>() {
+                }.getType(),
+                successCallback, failedCallback);
+    }
     /**
      * 获取所有医生
      *
