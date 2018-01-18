@@ -33,6 +33,9 @@ public class AlarmModel extends DataSupport{
 
     private boolean enabled;
 
+    //1 - enabled;
+    private int disabled;
+
     private Uri tone;
 
     public long getId() {
@@ -106,11 +109,11 @@ public class AlarmModel extends DataSupport{
     }
 
     public boolean isEnabled() {
-        return enabled;
+        return disabled == 1;
     }
 
     public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+        disabled = enabled ? 1 : 2;
     }
 
     public Uri getTone() {

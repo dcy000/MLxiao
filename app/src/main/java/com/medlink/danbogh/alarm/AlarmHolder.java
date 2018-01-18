@@ -77,7 +77,10 @@ public class AlarmHolder extends RecyclerView.ViewHolder
         mModel.setEnabled(isChecked);
         Context context = itemView.getContext();
         if (context != null) {
-            ((AlarmList2Activity) context).setAlarmEnabled(id, isChecked);
+//            ((AlarmList2Activity) context).setAlarmEnabled(id, isChecked);
+            mModel.update(id);
+            AlarmHelper.setupAlarms(context);
         }
+
     }
 }
