@@ -106,7 +106,7 @@
     <string name="tips_test">主人，请点击您需要测量的项目</string>
     <string name="tips_open_device">主人，您可以打开设备开始测量了</string>
     <string name="tips_result_wendu" formatted="false">主人，您的体温是%1$s度，%2$s</string>
-    <string name="tips_result_tizhong" formatted="false">主人，您的体温是%f度</string>
+    <string name="tips_result_tizhong" formatted="false">主人，您的体重是%f度</string>
     <string name="tips_xueya">请将血压计佩戴在绑在左臂或者右臂上，高度与心脏平齐，手臂放松，手掌张开，按开始按钮开始测量</string>
     <string name="tips_result_xueya" formatted="false">主人，您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
     <string name="tips_result_xuetang">主人，您的血糖值为%1$s,%2$s</string>

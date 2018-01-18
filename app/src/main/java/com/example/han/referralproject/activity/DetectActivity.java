@@ -572,13 +572,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 isGetResustFirst = false;
                                 float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                                 mResultTv.setText(String.valueOf(result));
+                                String  height_s=LocalShared.getInstance(DetectActivity.this).getUserHeight();
+                                float height=TextUtils.isEmpty(height_s)?0:Float.parseFloat(height_s)/100;
+                                if(height!=0)
+                                    ((TextView)findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f",result/(height*height)));
                                 speak(String.format(getString(R.string.tips_result_tizhong), result));
                                 DataInfoBean info = new DataInfoBean();
                                 info.weight = result;
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
-                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -938,7 +942,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(DetectActivity.this,HealthRecordActivity.class));
             }
         });
-
+        findViewById(R.id.history6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetectActivity.this,HealthRecordActivity.class));
+            }
+        });
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

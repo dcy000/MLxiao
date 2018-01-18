@@ -56,6 +56,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
                 LocalShared.getInstance(mContext).setSex(itemBean.sex);
                 LocalShared.getInstance(mContext).setUserPhoto(itemBean.user_photo);
                 LocalShared.getInstance(mContext).setUserAge(itemBean.age);
+                LocalShared.getInstance(mContext).setUserHeight(itemBean.height);
                 mContext.sendBroadcast(new Intent("change_account"));
             }
         });

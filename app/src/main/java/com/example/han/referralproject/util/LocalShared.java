@@ -407,4 +407,11 @@ public class LocalShared {
     public boolean getJPushStatus(){
         return mShared.getBoolean("jpush_status",false);
     }
+
+    public void setUserHeight(String height) {
+        mShared.edit().putString("user_height",height).commit();
+    }
+    public String getUserHeight(){
+        return mShared.getString("user_height","");
+    }
 }

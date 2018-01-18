@@ -734,7 +734,6 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 //        leftAxis.addLimitLine(ll2);
         leftAxis.resetAxisMaximum();
         leftAxis.resetAxisMinimum();
-        leftAxis.setAxisMinimum(35f);
         leftAxis.setTextSize(20f);
 
 
@@ -1559,7 +1558,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
             set1.setValueTextColors(colors);
             set1.setValueTextSize(18f);
-            set1.setValueFormatter(new MyFloatNumFormatter(temp));
+//            set1.setValueFormatter(new MyFloatNumFormatter(temp));
 
             //走势线的样式
 //            set1.enableDashedLine(10f, 0f, 0f);

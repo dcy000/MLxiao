@@ -52,7 +52,7 @@ public class DataInfoBean {
             paramsMap.put("sugar_time",sugar_time);
         }
         if (weight != 0){
-            paramsMap.put("weight", String.valueOf(weight));
+            paramsMap.put("weight", String.format("%.2f", weight));
         }
         return paramsMap;
     }

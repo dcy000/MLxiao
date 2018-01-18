@@ -189,6 +189,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                         LocalShared.getInstance(mContext).setSex(response.sex);
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                         LocalShared.getInstance(mContext).setUserAge(response.age);
+                        LocalShared.getInstance(mContext).setUserHeight(response.height);
                         navToNext();
                     }
                 }, new NetworkManager.FailedCallback() {
