@@ -46,7 +46,8 @@ import java.util.Map;
 public class NetworkApi {
 
 
-        public static final String BasicUrl = "http://116.62.36.12:8080";
+    public static final String BasicUrl = "http://116.62.36.12:8080";
+//        public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.113:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
@@ -750,6 +751,7 @@ public class NetworkApi {
 
     /**
      * 体重
+     *
      * @param start
      * @param end
      * @param temp
@@ -769,6 +771,7 @@ public class NetworkApi {
                 }.getType(),
                 successCallback, failedCallback);
     }
+
     /**
      * 获取所有医生
      *
@@ -823,7 +826,7 @@ public class NetworkApi {
      * @param successCallback
      * @param failedCallback
      */
-    public static void alertBasedata(String bid, String height, String weight, String eating_habits, String smoke, String drink, String exercise_habits,String mh,String dz,
+    public static void alertBasedata(String bid, String height, String weight, String eating_habits, String smoke, String drink, String exercise_habits, String mh, String dz,
                                      NetworkManager.SuccessCallback<Object> successCallback,
                                      NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
@@ -834,8 +837,8 @@ public class NetworkApi {
         params.put("smoke", smoke);
         params.put("drink", drink);
         params.put("exercise_habits", exercise_habits);
-        params.put("mh",mh);
-        params.put("dz",dz);
+        params.put("mh", mh);
+        params.put("dz", dz);
         NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
     }
 

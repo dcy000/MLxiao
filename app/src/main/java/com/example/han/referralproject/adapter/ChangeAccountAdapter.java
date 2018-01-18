@@ -2,21 +2,30 @@ package com.example.han.referralproject.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdapter.MyHolder> {
     private LayoutInflater mInflater;
@@ -48,6 +57,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                JPushInterface.deleteAlias(mContext,-200);
                 NimAccountHelper.getInstance().logout();
                 MyApplication.getInstance().userId = itemBean.bid;
                 MyApplication.getInstance().xfid=itemBean.xfid;
@@ -77,4 +87,5 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
             mHeaderIv = (CircleImageView) view.findViewById(R.id.iv_header);
         }
     }
+
 }
