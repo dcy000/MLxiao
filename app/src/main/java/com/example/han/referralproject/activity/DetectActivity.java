@@ -857,7 +857,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case R.id.sanheyi_video:
-//                resourceId=R.raw.
+                resourceId=R.raw.tips_sanheyi;
                 break;
         }
         if (resourceId != 0) {
@@ -1143,6 +1143,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case Type_SanHeYi:
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
+                resourceId = R.raw.tips_sanheyi;
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
@@ -1155,9 +1156,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mVideoView.setOnCompletionListener(mCompletionListener);
         } else {
             mVideoView.setVisibility(View.GONE);
-            mOverView.setVisibility(View.GONE);
-        }
-        if (detectType == Type_SanHeYi){
             mOverView.setVisibility(View.GONE);
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
