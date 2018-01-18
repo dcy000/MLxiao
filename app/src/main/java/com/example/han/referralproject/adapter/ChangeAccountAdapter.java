@@ -57,7 +57,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JPushInterface.deleteAlias(mContext,-200);
+                new JpushAliasUtils(mContext).setAlias("user_"+itemBean.bid);
                 NimAccountHelper.getInstance().logout();
                 MyApplication.getInstance().userId = itemBean.bid;
                 MyApplication.getInstance().xfid=itemBean.xfid;

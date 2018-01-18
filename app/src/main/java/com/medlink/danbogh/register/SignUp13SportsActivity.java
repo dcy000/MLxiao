@@ -15,6 +15,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -190,6 +191,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
+                        new JpushAliasUtils(SignUp13SportsActivity.this).setAlias("user_"+response.bid);
                         navToNext();
                     }
                 }, new NetworkManager.FailedCallback() {

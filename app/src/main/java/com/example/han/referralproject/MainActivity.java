@@ -143,7 +143,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         }, 1000);
-        new JpushAliasUtils(this).setAlias("user_"+LocalShared.getInstance(this).getUserId());
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
