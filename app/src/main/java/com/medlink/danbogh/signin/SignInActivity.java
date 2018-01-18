@@ -171,6 +171,7 @@ public class SignInActivity extends BaseActivity {
                 LocalShared.getInstance(mContext).setSex(response.sex);
                 LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                 LocalShared.getInstance(mContext).setUserAge(response.age);
+                LocalShared.getInstance(mContext).setUserHeight(response.height);
                 hideLoadingDialog();
                 startActivity(new Intent(mContext, MainActivity.class));
                 finish();

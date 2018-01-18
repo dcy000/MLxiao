@@ -572,13 +572,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 isGetResustFirst = false;
                                 float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                                 mResultTv.setText(String.valueOf(result));
+                                String  height_s=LocalShared.getInstance(DetectActivity.this).getUserHeight();
+                                float height=TextUtils.isEmpty(height_s)?0:Float.parseFloat(height_s)/100;
+                                if(height!=0)
+                                    ((TextView)findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f",result/(height*height)));
                                 speak(String.format(getString(R.string.tips_result_tizhong), result));
                                 DataInfoBean info = new DataInfoBean();
                                 info.weight = result;
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
-                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -852,6 +856,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     }
                 }
                 break;
+            case R.id.sanheyi_video:
+                resourceId=R.raw.tips_sanheyi;
+                break;
         }
         if (resourceId != 0) {
             mVideoView.setVisibility(View.VISIBLE);
@@ -929,8 +936,18 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
-
-
+        findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetectActivity.this,HealthRecordActivity.class));
+            }
+        });
+        findViewById(R.id.history6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetectActivity.this,HealthRecordActivity.class));
+            }
+        });
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1126,6 +1143,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case Type_SanHeYi:
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
+                resourceId = R.raw.tips_sanheyi;
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
@@ -1138,9 +1156,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mVideoView.setOnCompletionListener(mCompletionListener);
         } else {
             mVideoView.setVisibility(View.GONE);
-            mOverView.setVisibility(View.GONE);
-        }
-        if (detectType == Type_SanHeYi){
             mOverView.setVisibility(View.GONE);
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
@@ -1190,6 +1205,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.xuetang_video).setOnClickListener(this);
         findViewById(R.id.xueyang_video).setOnClickListener(this);
         findViewById(R.id.xindian_video).setOnClickListener(this);
+        findViewById(R.id.sanheyi_video).setOnClickListener(this);
         //选择血糖测量的时间
         setXuetangSelectTime();
     }
