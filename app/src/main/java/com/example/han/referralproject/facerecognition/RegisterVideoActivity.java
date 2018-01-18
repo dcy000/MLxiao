@@ -67,8 +67,8 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     private int PREVIEW_HEIGHT = 720;
 
     // 预览帧数据存储数组和缓存数组
-    private byte[] nv21;
-    private byte[] data;
+//    private byte[] nv21;
+//    private byte[] data;
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
     // 加速度感应器，用于获取手机的朝向
@@ -162,7 +162,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         isTest = getIntent().getBooleanExtra("isTest", false);
         initUI();
 
-        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
+//        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
 
         mPreviewSurface.getHolder().addCallback(mPreviewCallback);
