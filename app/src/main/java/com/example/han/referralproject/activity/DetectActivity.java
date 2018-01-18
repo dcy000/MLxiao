@@ -568,9 +568,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_TiZhong:
                         if (notifyData != null && notifyData.length == 14 && (notifyData[1] & 0xff) == 221) {
-                            float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
-                            mResultTv.setText(String.valueOf(result));
-                            speak(String.format(getString(R.string.tips_result_tizhong), result));
+                            if (isGetResustFirst){
+                                isGetResustFirst = false;
+                                float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
+                                mResultTv.setText(String.valueOf(result));
+                                speak(String.format(getString(R.string.tips_result_tizhong), result));
+                                DataInfoBean info = new DataInfoBean();
+                                info.weight = result;
+                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String response) {
+                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
                         }
                         break;
                     case Type_XinDian:
