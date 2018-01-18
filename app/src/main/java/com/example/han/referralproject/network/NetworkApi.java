@@ -45,13 +45,13 @@ import java.util.Map;
 public class NetworkApi {
 
 
-//        public static final String BasicUrl = "http://116.62.36.12:8080";
+        public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.113:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 //    public static final String BasicUrl="http://192.168.200.116:8080";//韩琦本地
-//    public static final String BasicUrl = "http://192.168.200.113:8080";//文博本地
+//    public static final String BasicUrl = "http://192.168.200.114:8080";//文博本地
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -801,7 +801,7 @@ public class NetworkApi {
      * @param successCallback
      * @param failedCallback
      */
-    public static void alertBasedata(String bid, String height, String weight, String eating_habits, String smoke, String drink, String exercise_habits,
+    public static void alertBasedata(String bid, String height, String weight, String eating_habits, String smoke, String drink, String exercise_habits,String mh,String dz,
                                      NetworkManager.SuccessCallback<Object> successCallback,
                                      NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
@@ -812,6 +812,8 @@ public class NetworkApi {
         params.put("smoke", smoke);
         params.put("drink", drink);
         params.put("exercise_habits", exercise_habits);
+        params.put("mh",mh);
+        params.put("dz",dz);
         NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
     }
 

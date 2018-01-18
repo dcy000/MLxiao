@@ -23,6 +23,7 @@ import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -56,7 +57,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class RegisterVideoActivity extends BaseActivity {
+public class RegisterVideoActivity extends BaseActivity implements PreviewCallback {
     private SurfaceView mPreviewSurface;
     //    private SurfaceView mFaceSurface;
     private Camera mCamera;
@@ -66,8 +67,8 @@ public class RegisterVideoActivity extends BaseActivity {
     private int PREVIEW_HEIGHT = 720;
 
     // 预览帧数据存储数组和缓存数组
-    private byte[] nv21;
-    private byte[] buffer;
+//    private byte[] nv21;
+//    private byte[] data;
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
     // 加速度感应器，用于获取手机的朝向
@@ -87,8 +88,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
     public RelativeLayout rlBack;
     public boolean isTest = false;
-    private Bitmap currentBit;
-
+    private ByteArrayOutputStream stream;
     private Handler mHandler = new Handler(new Handler.Callback() {
 
         @Override
@@ -100,14 +100,6 @@ public class RegisterVideoActivity extends BaseActivity {
                         public void run() {
                             while (sign) {
                                 mFaceRequest = new FaceRequest(RegisterVideoActivity.this);
-                                currentBit = b3;
-                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                if (currentBit != null) {
-                                    Bitmap bitmap = centerSquareScaleBitmap(currentBit, 300);
-                                    //可根据流量及网络状况对图片进行压缩
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                    mImageData = baos.toByteArray();
-                                }
                                 if (null != mImageData) {
                                     Date date = new Date();
                                     SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
@@ -125,24 +117,26 @@ public class RegisterVideoActivity extends BaseActivity {
 
                                     try {
                                         //如果3秒之后sign的状态仍然没有改变，极大可能上传头像失败，这时候有必要提醒用户重新调整姿态，进行一下一次拍摄
-                                        Thread.sleep(3000);
+                                        Thread.sleep(2000);
                                         if (sign) {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     ToastUtil.showShort(RegisterVideoActivity.this, "请调整您的姿态");
-//                                                    //再给用户2秒进行姿态调整
-//                                                    mHandler.sendEmptyMessageDelayed(0,2000);
                                                 }
                                             });
+
                                         }
 
                                     } catch (InterruptedException e) {
 
                                     }
-
+                                    //再给用户2秒进行姿态调整
                                     try {
                                         Thread.sleep(2000);
+                                        if(sign){
+                                            mCamera.setOneShotPreviewCallback(RegisterVideoActivity.this);
+                                        }
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
@@ -159,6 +153,7 @@ public class RegisterVideoActivity extends BaseActivity {
         }
     });
 
+
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,16 +162,13 @@ public class RegisterVideoActivity extends BaseActivity {
         isTest = getIntent().getBooleanExtra("isTest", false);
         initUI();
 
-        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
-        buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
+//        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
-//        mFaceSurface = (SurfaceView) findViewById(R.id.sfv_face);
 
         mPreviewSurface.getHolder().addCallback(mPreviewCallback);
         mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-//        mFaceSurface.setZOrderOnTop(true);
-//        mFaceSurface.getHolder().setFormat(PixelFormat.TRANSLUCENT);
         setSurfaceSize();
+        stream = new ByteArrayOutputStream();
     }
 
 
@@ -189,7 +181,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-
+            Log.e("Surface创建成功", "surfaceCreated: ");
             // 启动相机
             new Thread(new Runnable() {
                 @Override
@@ -205,6 +197,7 @@ public class RegisterVideoActivity extends BaseActivity {
 
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            Log.e("Surface改变回调", "surfaceChanged: " );
             mScaleMatrix.setScale(width / (float) PREVIEW_HEIGHT, height / (float) PREVIEW_WIDTH);
         }
     };
@@ -213,7 +206,6 @@ public class RegisterVideoActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         sign = false;
-
     }
 
     private void setSurfaceSize() {
@@ -222,9 +214,8 @@ public class RegisterVideoActivity extends BaseActivity {
 
         int width = metrics.widthPixels;
         int height = (int) (width * PREVIEW_WIDTH / (float) PREVIEW_HEIGHT);
-        RelativeLayout.LayoutParams params = new LayoutParams(width, height);
+        LayoutParams params = new LayoutParams(width, height);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-
         mPreviewSurface.setLayoutParams(params);
 //        mFaceSurface.setLayoutParams(params);
     }
@@ -276,15 +267,6 @@ public class RegisterVideoActivity extends BaseActivity {
 
         // 设置显示的偏转角度，大部分机器是顺时针90度，某些机器需要按情况设置
         mCamera.setDisplayOrientation(0);
-
-        mCamera.setPreviewCallback(new PreviewCallback() {
-            @Override
-            public void onPreviewFrame(byte[] data, Camera camera) {
-                System.arraycopy(data, 0, nv21, 0, data.length);
-                b3 = decodeToBitMap(nv21, camera);
-            }
-        });
-
         try {
             mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
             mCamera.startPreview();
@@ -333,16 +315,6 @@ public class RegisterVideoActivity extends BaseActivity {
         return result;
     }
 
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if (isTest) {
-//            return;
-//        }
-//
-//    }
-
     private RequestListener mRequestListener = new RequestListener() {
 
         @Override
@@ -358,7 +330,6 @@ public class RegisterVideoActivity extends BaseActivity {
                 JSONObject obj = new JSONObject(result);
                 String type = obj.optString("sst");
                 if ("reg".equals(type)) {
-//                    register(obj);
                     int ret = obj.getInt("ret");
                     if (ret != 0) {
                         if (sign == true) {
@@ -406,48 +377,12 @@ public class RegisterVideoActivity extends BaseActivity {
                         finish();
                         break;
                     default:
-                        //  showTip(error.getPlainDescription(true));
-                        //  sign = false;
-                        //   finish();
                         break;
                 }
             }
 
         }
     };
-
-
-//    private void register(JSONObject obj) throws JSONException {
-//        int ret = obj.getInt("ret");
-//        if (ret != 0) {
-//            if (sign == true) {
-//                showTip("注册失败");
-//                sign = false;
-//                finish();
-//                return;
-//            }
-//        }
-//        if ("success".equals(obj.get("rst")) && sign == true) {
-//            // showTip("注册成功");
-//            sign = false;
-//            LocalShared.getInstance(getApplicationContext()).setXunfeiID(mAuthid);
-//            String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
-//
-//            LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
-//
-//
-//            Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
-//            startActivity(intent);
-//            finish();
-//        } else {
-//            if (sign == true) {
-//                showTip("注册失败");
-//                sign = false;
-//                finish();
-//            }
-//
-//        }
-//    }
 
 
     /**
@@ -458,10 +393,9 @@ public class RegisterVideoActivity extends BaseActivity {
         try {
             YuvImage image = new YuvImage(data, ImageFormat.NV21, size.width, size.height, null);
             if (image != null) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                stream.reset();
                 image.compressToJpeg(new Rect(0, 0, size.width, size.height), 80, stream);
                 Bitmap bmp = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size());
-                stream.close();
                 Matrix matrix = new Matrix();
                 matrix.postRotate(0);
                 //上面得到的图片旋转了270度,下面将图片旋转回来,前置摄像头270度,后置只需要90度
@@ -510,6 +444,14 @@ public class RegisterVideoActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(stream!= null){
+            try {
+                stream.close();
+                stream=null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void showTip(final String str) {
@@ -519,12 +461,20 @@ public class RegisterVideoActivity extends BaseActivity {
 
     @Override
     protected void onActivitySpeakFinish() {
-//        Log.e("说完了", "onActivitySpeakFinish: ");
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        mCamera.setOneShotPreviewCallback(this);
+    }
+
+    @Override
+    public void onPreviewFrame(byte[] data, Camera camera) {
+        b3 = decodeToBitMap(data, camera);
+        if (b3 != null) {
+            stream.reset();
+            Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+            //可根据流量及网络状况对图片进行压缩
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            mImageData = stream.toByteArray();
+        }
         mHandler.sendEmptyMessage(0);
+        Log.e("测试该方法调用的次数", "onPreviewFrame: ");
     }
 }

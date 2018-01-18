@@ -31,11 +31,15 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.register.SignUp1NameActivity;
+import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -175,15 +179,10 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                T.show("手机号或密码错误");
             }
         });
     }
-
-
-
-
-
 
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
@@ -203,8 +202,8 @@ public class SignInActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        super.onResume();
         speak(R.string.tips_login);
     }
 
@@ -220,4 +219,73 @@ public class SignInActivity extends BaseActivity {
         Intent intent = new Intent(this, WifiConnectActivity.class);
         startActivity(intent);
     }
+
+    boolean inPhone = true;
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        T.show(result);
+
+        String inSpell = PinYinUtils.converterToSpell(result);
+
+        if (inSpell.matches("zhuche|zhuce|zuce|zuche")) {
+            onTvSignUpClicked();
+            return;
+        }
+
+        if (inSpell.matches("denglu")) {
+            onTvSignInClicked();
+            return;
+        }
+
+        Pattern patternInNumber = Pattern.compile("(\\d+)");
+        String in = Utils.isNumeric(result) ? result : Utils.removeNonnumeric(Utils.chineseMapToNumber(result));
+        Matcher matcherInNumber = patternInNumber.matcher(in);
+        if (matcherInNumber.find()) {
+            EditText et = inPhone ? this.etPhone : this.etPassword;
+            int length = inPhone ? 11 : 6;
+            String s = et.getText().toString() + matcherInNumber.group(matcherInNumber.groupCount());
+            if (s.length() > length) {
+                s = s.substring(0, length);
+            }
+            et.setText(s);
+            et.setSelection(s.length());
+            return;
+        }
+
+        if (inSpell.matches(REGEX_IN_PHONE) && !inPhone) {
+            inPhone = true;
+            etPhone.requestFocus();
+            speak(R.string.sign_up_phone_tip);
+            return;
+        }
+
+        if (inSpell.matches(REGEX_IN_PASSWORD) && inPhone) {
+            inPhone = false;
+            speak("请输入密码");
+            etPassword.requestFocus();
+            return;
+        }
+
+        if (inSpell.matches(REGEX_DEL_ALL)) {
+            EditText editText = inPhone ? etPhone : etPassword;
+            editText.setText("");
+            editText.setSelection(0);
+            return;
+        }
+
+        if (inSpell.matches(REGEX_DEL)) {
+            EditText editText = inPhone ? etPhone : etPassword;
+            String target = editText.getText().toString().trim();
+            if (!TextUtils.isEmpty(target)) {
+                editText.setText(target.substring(0, target.length() - 1));
+                editText.setSelection(target.length() - 1);
+            }
+        }
+    }
+
+    public static final String REGEX_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole)";
+    public static final String REGEX_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
+    public static final String REGEX_IN_PHONE = ".*(shu|su)(ru|lu|lv)(shou|sou)ji.*";
+    public static final String REGEX_IN_PASSWORD = ".*(shu|su)(ru|lu|lv)(mima)";
 }

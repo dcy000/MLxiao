@@ -71,9 +71,15 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
      */
     private TextView mEating;
     private TextView mDrinking;
-    private LinearLayout llHeight,llWeight,llExercise,llSmoke,llEating,llDrinking;
+    private LinearLayout llHeight, llWeight, llExercise, llSmoke, llEating, llDrinking;
     private UserInfoBean response;
-    private static String TAG="MyBaseDataActivity";
+    private static String TAG = "MyBaseDataActivity";
+    private LinearLayout mLlHeight;
+    private LinearLayout mLlWeight;
+    private TextView mAddress;
+    private TextView mHistory;
+    private LinearLayout mLlHistory;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +100,8 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         NetworkApi.getMyBaseData(new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
-                Log.e(TAG,response.toString());
-                MyBaseDataActivity.this.response=response;
+                Log.e(TAG, response.toString());
+                MyBaseDataActivity.this.response = response;
                 Picasso.with(MyBaseDataActivity.this)
                         .load(response.user_photo)
                         .placeholder(R.drawable.avatar_placeholder)
@@ -104,18 +110,20 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .fit()
                         .into(mHead);
                 mName.setText(response.bname);
-                mAge.setText(response.age+"岁");
+                mAge.setText(response.age + "岁");
                 mSex.setText(response.sex);
-                mHeight.setText(response.height+"cm");
-                mWeight.setText(response.weight+"Kg");
-                mBlood.setText(response.blood_type+"型");
+                mHeight.setText(response.height + "cm");
+                mWeight.setText(response.weight + "Kg");
+                mBlood.setText(response.blood_type + "型");
                 mPhone.setText(response.tel);
                 mNumber.setText(response.eqid);
                 mMotion.setText(response.exercise_habits);
                 mSmoke.setText(response.smoke);
                 mEating.setText(response.eating_habits);
                 mDrinking.setText(response.drink);
-                String shenfen=response.sfz.substring(0,5)+"********"+response.sfz.substring(response.sfz.length()-5,response.sfz.length());
+                mAddress.setText(response.dz);
+                mHistory.setText(response.mh);
+                String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
                 mIdcard.setText(shenfen);
             }
         }, new NetworkManager.FailedCallback() {
@@ -140,21 +148,43 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         mMotion = (TextView) findViewById(R.id.motion);
         mSmoke = (TextView) findViewById(R.id.smoke);
         mEating = (TextView) findViewById(R.id.eating);
-        mDrinking= (TextView) findViewById(R.id.drinking);
-        llHeight= (LinearLayout) findViewById(R.id.ll_height);
+        mDrinking = (TextView) findViewById(R.id.drinking);
+        llHeight = (LinearLayout) findViewById(R.id.ll_height);
         llHeight.setOnClickListener(this);
-        llWeight= (LinearLayout) findViewById(R.id.ll_weight);
+        llWeight = (LinearLayout) findViewById(R.id.ll_weight);
         llWeight.setOnClickListener(this);
-        llExercise= (LinearLayout) findViewById(R.id.ll_exercise);
+        llExercise = (LinearLayout) findViewById(R.id.ll_exercise);
         llExercise.setOnClickListener(this);
-        llSmoke= (LinearLayout) findViewById(R.id.ll_smoke);
-        llEating= (LinearLayout) findViewById(R.id.ll_eating);
-        llDrinking= (LinearLayout) findViewById(R.id.ll_drinking);
+        llSmoke = (LinearLayout) findViewById(R.id.ll_smoke);
+        llEating = (LinearLayout) findViewById(R.id.ll_eating);
+        llDrinking = (LinearLayout) findViewById(R.id.ll_drinking);
 
         llSmoke.setOnClickListener(this);
         llEating.setOnClickListener(this);
         llDrinking.setOnClickListener(this);
 
+        mHead.setOnClickListener(this);
+        mName.setOnClickListener(this);
+        mAge.setOnClickListener(this);
+        mSex.setOnClickListener(this);
+        mBlood.setOnClickListener(this);
+        mHeight.setOnClickListener(this);
+        mLlHeight = (LinearLayout) findViewById(R.id.ll_height);
+        mWeight.setOnClickListener(this);
+        mLlWeight = (LinearLayout) findViewById(R.id.ll_weight);
+        mPhone.setOnClickListener(this);
+        mIdcard.setOnClickListener(this);
+        mNumber.setOnClickListener(this);
+        mAddress = (TextView) findViewById(R.id.address);
+        mMotion.setOnClickListener(this);
+        mSmoke.setOnClickListener(this);
+        mEating.setOnClickListener(this);
+        mDrinking = (TextView) findViewById(R.id.drinking);
+        mDrinking.setOnClickListener(this);
+        mHistory = (TextView) findViewById(R.id.history);
+        mLlHistory = (LinearLayout) findViewById(R.id.ll_history);
+        mLlHistory.setOnClickListener(this);
+        mAddress.setOnClickListener(this);
     }
 
     @Override
@@ -166,22 +196,28 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.ll_height:
-                startActivity(new Intent(this,AlertHeightActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertHeightActivity.class).putExtra("data", response));
                 break;
             case R.id.ll_weight:
-                startActivity(new Intent(this,AlertWeightActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertWeightActivity.class).putExtra("data", response));
                 break;
             case R.id.ll_exercise:
-                startActivity(new Intent(this,AlertSportActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertSportActivity.class).putExtra("data", response));
                 break;
             case R.id.ll_smoke:
-                startActivity(new Intent(this,AlertSmokeActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertSmokeActivity.class).putExtra("data", response));
                 break;
             case R.id.ll_eating:
-                startActivity(new Intent(this,AlertEatingActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertEatingActivity.class).putExtra("data", response));
                 break;
             case R.id.ll_drinking:
-                startActivity(new Intent(this,AlertDrinkingActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertDrinkingActivity.class).putExtra("data", response));
+                break;
+            case R.id.ll_history:
+                startActivity(new Intent(this,AlertMHActivity.class).putExtra("data",response));
+                break;
+            case R.id.address:
+                startActivity(new Intent(this,AlertAddressActivity.class).putExtra("data",response));
                 break;
         }
     }

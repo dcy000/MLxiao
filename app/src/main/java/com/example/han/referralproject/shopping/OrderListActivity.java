@@ -57,7 +57,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         mSharedPreferences = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
 
 
-        NetworkApi.order_list("2", "1", "1", mSharedPreferences.getString("userName", ""), "1", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+        NetworkApi.order_list("2", "2", "1", mSharedPreferences.getString("userName", ""), "1", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
             @Override
             public void onSuccess(ArrayList<Orders> response) {
 
@@ -171,7 +171,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
                             mCurrPage += 1;
 
 
-                            NetworkApi.order_list("2", "1", "1", mSharedPreferences.getString("userName", ""), mCurrPage + "", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+                            NetworkApi.order_list("2", "2", "1", mSharedPreferences.getString("userName", ""), mCurrPage + "", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
                                 @Override
                                 public void onSuccess(ArrayList<Orders> response) {
 

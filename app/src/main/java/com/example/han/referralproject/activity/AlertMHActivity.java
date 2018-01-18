@@ -1,6 +1,8 @@
 package com.example.han.referralproject.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,11 +11,12 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.medlink.danbogh.register.SelectAdapter;
-import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.register.DiseaseHistoryAdapter;
+import com.medlink.danbogh.register.DiseaseHistoryModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,42 +24,38 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
-public class AlertHeightActivity extends BaseActivity {
+public class AlertMHActivity extends BaseActivity {
 
-    @BindView(R.id.tv_sign_up_height)
-    TextView tvSignUpHeight;
     @BindView(R.id.rv_sign_up_content)
     RecyclerView rvSignUpContent;
-    @BindView(R.id.tv_sign_up_unit)
-    TextView tvSignUpUnit;
     @BindView(R.id.tv_sign_up_go_back)
     TextView tvSignUpGoBack;
     @BindView(R.id.tv_sign_up_go_forward)
     TextView tvSignUpGoForward;
-    protected int selectedPosition = 1;
-    protected SelectAdapter adapter;
-    protected ArrayList<String> mStrings;
+    private DiseaseHistoryAdapter mAdapter;
+    public List<DiseaseHistoryModel> mModels;
+    public GridLayoutManager mLayoutManager;
     protected UserInfoBean data;
     protected String eat = "", smoke = "", drink = "", exercise = "";
-    protected StringBuffer buffer;
+    private StringBuffer buffer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert_height);
+        setContentView(R.layout.activity_alert_mh);
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("修改身高");
+        mTitleText.setText("修改病史");
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
         data = (UserInfoBean) getIntent().getSerializableExtra("data");
-        buffer = new StringBuffer();
-        if (data != null) {
+        buffer=new StringBuffer();
+        if(data!=null){
             initView();
         }
     }
+
 
     protected void initView() {
         if (!TextUtils.isEmpty(data.eating_habits)) {
@@ -145,42 +144,30 @@ public class AlertHeightActivity extends BaseActivity {
                     buffer.append(9 + ",");
             }
         }
-        tvSignUpUnit.setText("cm");
-        GalleryLayoutManager layoutManager = new GalleryLayoutManager(GalleryLayoutManager.VERTICAL);
-        layoutManager.attach(rvSignUpContent, selectedPosition);
-        layoutManager.setCallbackInFling(true);
-        layoutManager.setOnItemSelectedListener(new GalleryLayoutManager.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(RecyclerView recyclerView, View item, int position) {
-                selectedPosition = position;
-                select(mStrings == null ? String.valueOf(position) : mStrings.get(position));
-            }
-        });
-        adapter = new SelectAdapter();
-        adapter.setStrings(getStrings());
-        adapter.setOnItemClickListener(new SelectAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                rvSignUpContent.smoothScrollToPosition(position);
-            }
-        });
-        rvSignUpContent.setAdapter(adapter);
+        mLayoutManager = new GridLayoutManager(this, 3);
+        mLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        rvSignUpContent.setLayoutManager(mLayoutManager);
+        mModels = modals();
+        mAdapter = new DiseaseHistoryAdapter(mModels);
+        rvSignUpContent.setAdapter(mAdapter);
     }
 
-    protected List<String> getStrings() {
-        mStrings = new ArrayList<>();
-        for (int i = 150; i < 200; i++) {
-            mStrings.add(String.valueOf(i));
+
+    private List<DiseaseHistoryModel> modals() {
+        mModels = new ArrayList<>(9);
+        String[] diseaseTypes = getResources().getStringArray(R.array.disease_type);
+        for (String diseaseType : diseaseTypes) {
+            DiseaseHistoryModel model = new DiseaseHistoryModel(
+                    diseaseType,
+                    false,
+                    R.color.textColorDiseaseSelected,
+                    R.color.textColorDiseaseUnselected,
+                    R.drawable.bg_tv_disease_selected,
+                    R.drawable.bg_tv_disease
+            );
+            mModels.add(model);
         }
-        return mStrings;
-    }
-
-    private void select(String text) {
-        T.show(text);
-    }
-
-    protected int geTip() {
-        return R.string.sign_up_height_tip;
+        return mModels;
     }
 
     @OnClick(R.id.tv_sign_up_go_back)
@@ -190,27 +177,39 @@ public class AlertHeightActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        final String height = mStrings.get(selectedPosition);
+        String mh = getMh();
+        if (TextUtils.isEmpty(mh)) {
+            onTvGoBackClicked();
+            return;
+        }
 
-        NetworkApi.alertBasedata(MyApplication.getInstance().userId, height, data.weight, eat, smoke, drink, exercise,
-                buffer == null ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
+        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
+                mh,data.dz,new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
                         ToastUtils.show("修改成功");
-                        speak("主人，您的身高已经修改为" + height + "厘米");
-
+                        speak("主人，您的病史已经修改成功");
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        ToastUtils.show(message);
-//                speak("主人，出了一些小问题，未修改成功");
+
                     }
                 });
     }
 
-    @Override
-    protected void onActivitySpeakFinish() {
-        finish();
+
+    private String getMh() {
+        StringBuilder mhBuilder = new StringBuilder();
+        int size = mModels == null ? 0 : mModels.size();
+        for (int i = 0; i < size; i++) {
+            if (mModels.get(i).isSelected()) {
+                mhBuilder.append(i + 1);
+                mhBuilder.append(",");
+            }
+        }
+        int length = mhBuilder.length();
+        return length == 0 ? mhBuilder.toString() : mhBuilder.substring(0, length - 1);
     }
+
 }

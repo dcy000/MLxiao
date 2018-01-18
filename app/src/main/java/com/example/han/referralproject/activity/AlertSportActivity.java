@@ -39,7 +39,7 @@ public class AlertSportActivity extends BaseActivity {
     private int positionSelected = -1;
     private UserInfoBean data;
     private String eat = "", smoke = "", drink = "", exercise = "";
-
+    private StringBuffer buffer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +48,7 @@ public class AlertSportActivity extends BaseActivity {
         mTitleText.setText("修改运动情况");
         data = (UserInfoBean) getIntent().getSerializableExtra("data");
         ButterKnife.bind(this);
+        buffer=new StringBuffer();
         initView();
     }
 
@@ -114,7 +115,31 @@ public class AlertSportActivity extends BaseActivity {
             }
         }
 
-
+        if("尚未填写".equals(data.mh)){
+            buffer=null;
+        }else{
+            String[] mhs=data.mh.split("\\s+");
+            for (int i=0;i<mhs.length;i++){
+                if (mhs[i].equals("高血压"))
+                    buffer.append(1 + ",");
+                else if (mhs[i].equals("糖尿病"))
+                    buffer.append(2 + ",");
+                else if (mhs[i].equals("冠心病"))
+                    buffer.append(3 + ",");
+                else if (mhs[i].equals("慢阻肺"))
+                    buffer.append(4 + ",");
+                else if (mhs[i].equals("孕产妇"))
+                    buffer.append(5 + ",");
+                else if (mhs[i].equals("痛风"))
+                    buffer.append(6 + ",");
+                else if (mhs[i].equals("甲亢"))
+                    buffer.append(7 + ",");
+                else if (mhs[i].equals("高血脂"))
+                    buffer.append(8 + ",");
+                else if (mhs[i].equals("其他"))
+                    buffer.append(9 + ",");
+            }
+        }
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
@@ -178,7 +203,8 @@ public class AlertSportActivity extends BaseActivity {
             ToastUtil.showShort(this,"请选择其中一个");
             return;
         }
-        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, positionSelected + 1 + "", new NetworkManager.SuccessCallback<Object>() {
+        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, positionSelected + 1 + "",
+                buffer==null?"":buffer.substring(0,buffer.length()-1),data.dz,new NetworkManager.SuccessCallback<Object>() {
             @Override
             public void onSuccess(Object response) {
                 ToastUtils.show("修改成功");

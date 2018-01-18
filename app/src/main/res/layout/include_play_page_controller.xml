@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:text="@string/play_time_start"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:visibility="gone" />
 
         <SeekBar
             android:id="@+id/sb_progress"
@@ -28,7 +29,8 @@
             android:maxHeight="2dp"
             android:minHeight="2dp"
             android:progressDrawable="@drawable/seek_bar_progress_style"
-            android:thumb="@drawable/ic_seek_bar_progress_btn" />
+            android:thumb="@drawable/ic_seek_bar_progress_btn"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_total_time"
@@ -36,7 +38,8 @@
             android:layout_height="wrap_content"
             android:text="@string/play_time_start"
             android:textColor="@color/white_50p"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <RelativeLayout
