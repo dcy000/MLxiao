@@ -1126,6 +1126,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case Type_SanHeYi:
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
+                resourceId = R.raw.tips_sanheyi;
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
