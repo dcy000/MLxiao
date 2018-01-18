@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
     <permission
         android:name="com.example.han.referralproject.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
@@ -18,6 +19,7 @@
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -108,18 +110,17 @@
             </intent-filter>
         </receiver>
 
-
-        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
             android:name=".jipush.MyReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
-                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <category android:name="com.example.han.referralproject" />
             </intent-filter>
         </receiver>
@@ -127,19 +128,20 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"></activity>
-        <!--<activity-->
-        <!--android:name="com.mob.tools.MobUIShell"-->
-        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
-        <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
+            android:screenOrientation="landscape" />
+        <!-- <activity -->
+        <!-- android:name="com.mob.tools.MobUIShell" -->
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
+        <!-- android:windowSoftInputMode="stateHidden|adjustResize" /> -->
 
-        <!--<meta-data-->
-        <!--android:name="Mob-AppKey"-->
-        <!--android:value="1d4fe3b73dbcb" />-->
-        <!--<meta-data-->
-        <!--android:name="Mob-AppSecret"-->
-        <!--android:value="00332d99822550c22e6b75297bfd4c2c" />-->
+
+        <!-- <meta-data -->
+        <!-- android:name="Mob-AppKey" -->
+        <!-- android:value="1d4fe3b73dbcb" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="Mob-AppSecret" -->
+        <!-- android:value="00332d99822550c22e6b75297bfd4c2c" /> -->
 
         <activity
             android:name=".temperature.TemperatureActivity"
@@ -175,9 +177,7 @@
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
@@ -187,9 +187,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -205,30 +203,27 @@
             android:name=".speechsynthesis.SpeechSynthesisActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".LoadingActivity"
             android:screenOrientation="landscape" />
-
-
         <activity android:name=".recyclerview.RecoDocActivity">
 
-
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN"/>-->
-            <!--<category android:name="android.intent.category.HOME"/>-->
-            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--<category android:name="android.intent.category.DEFAULT"/>-->
-            <!--</intent-filter>-->
-
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+            <!-- <category android:name="android.intent.category.HOME"/> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+            <!-- </intent-filter> -->
 
         </activity>
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -236,16 +231,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-
-
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape" />
@@ -255,25 +247,20 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.VideoDemo"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
-            android:screenOrientation="landscape">
-
-
-
-
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.DoctorMesActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".video.MainVideoActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".video.PlayVideoActivity"
             android:screenOrientation="landscape" />
@@ -301,12 +288,21 @@
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape" />
-
-
         <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity" />
-        <activity android:name=".recyclerview.AddAppoActivity" />
+        <activity android:name=".recyclerview.AddAppoActivity" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
+
+        </activity>
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
@@ -330,9 +326,7 @@
         <activity android:name="com.medlink.danbogh.register.SignUp11SmokeActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp12DrinkActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity">
-
-        </activity>
+        <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity" />
         <activity android:name=".recharge.PayActivity" />
         <activity android:name=".recharge.PayInfoActivity" />
         <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity" />
@@ -430,10 +424,7 @@
 
         <service android:name=".floatingball.AssistiveTouchService" />
 
-        <activity android:name=".recyclerview.DoctorAlarmActivity">
-
-
-        </activity>
+        <activity android:name=".recyclerview.DoctorAlarmActivity" />
         <activity android:name=".activity.AlertHeightActivity" />
         <activity android:name=".activity.AlertWeightActivity" />
         <activity android:name=".activity.AlertSportActivity" />
@@ -443,7 +434,9 @@
         <activity android:name=".activity.SelectXuetangTimeActivity" />
         <activity android:name=".recyclerview.HistoryActivity" />
         <activity android:name=".recyclerview.CheckContractActivity" />
-        <activity android:name=".activity.MarketActivity"></activity>
+        <activity android:name=".activity.MarketActivity" />
+        <activity android:name=".activity.AlertMHActivity" />
+        <activity android:name=".activity.AlertAddressActivity"></activity>
     </application>
 
 </manifest>

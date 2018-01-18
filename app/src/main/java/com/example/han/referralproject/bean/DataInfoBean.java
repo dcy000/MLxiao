@@ -15,6 +15,7 @@ public class DataInfoBean {
     public String blood_sugar;
     public String blood_oxygen;
     public int heart_rate;
+    public double weight;
     public int ecg;//心电结果
     public String cholesterol;//胆固醇
     public String uric_acid;//尿酸
@@ -49,6 +50,9 @@ public class DataInfoBean {
         }
         if(!TextUtils.isEmpty(sugar_time)){
             paramsMap.put("sugar_time",sugar_time);
+        }
+        if (weight != 0){
+            paramsMap.put("weight", String.valueOf(weight));
         }
         return paramsMap;
     }
