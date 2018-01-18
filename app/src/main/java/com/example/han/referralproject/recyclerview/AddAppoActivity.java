@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -379,111 +380,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         mDay7.setText(simp8.format(date6));
 
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:20:00"))) {
-
-            mTextView1.setText("已预约");
-            mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView1.setEnabled(false);
-
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:40:00"))) {
-
-            mTextView8.setText("已预约");
-            mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView8.setEnabled(false);
-
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:00:00"))) {
-
-            mTextView15.setText("已预约");
-            mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView15.setEnabled(false);
-
-
-        }
-
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:20:00"))) {
-
-            mTextView22.setText("已预约");
-            mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView22.setEnabled(false);
-
-
-        }
-
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:40:00"))) {
-
-            mTextView29.setText("已预约");
-            mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView29.setEnabled(false);
-
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "11:00:00"))) {
-
-            mTextView36.setText("已预约");
-            mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView36.setEnabled(false);
-
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:20:00"))) {
-
-            mTextView1.setText("已预约");
-            mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView1.setEnabled(false);
-
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:40:00"))) {
-
-            mTextView8.setText("已预约");
-            mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView8.setEnabled(false);
-
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:00:00"))) {
-
-            mTextView15.setText("已预约");
-            mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView15.setEnabled(false);
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:20:00"))) {
-
-            mTextView22.setText("已预约");
-            mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView22.setEnabled(false);
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:40:00"))) {
-
-            mTextView29.setText("已预约");
-            mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView29.setEnabled(false);
-
-        }
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "17:00:00"))) {
-
-            mTextView36.setText("已预约");
-            mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView36.setEnabled(false);
-
-        }
+        judge();
 
 
         NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
@@ -1956,6 +1853,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 sign = 0;
 
+
                 mMornings.setTextColor(Color.parseColor("#3F86FC"));
                 mAfternoons.setTextColor(Color.parseColor("#757575"));
 
@@ -1963,6 +1861,10 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 LinearLayout2.setVisibility(View.VISIBLE);
                 LinearLayout3.setVisibility(View.GONE);
                 LinearLayout4.setVisibility(View.GONE);
+
+
+                judge();
+
 
             }
         });
@@ -1982,9 +1884,159 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 LinearLayout1.setVisibility(View.GONE);
                 LinearLayout2.setVisibility(View.GONE);
 
+
+                mTextView1.setEnabled(true);
+                mTextView1.setText("可预约");
+                mTextView1.setTextColor(Color.parseColor("#3F86FC"));
+
+                mTextView8.setEnabled(true);
+                mTextView8.setText("可预约");
+                mTextView8.setTextColor(Color.parseColor("#3F86FC"));
+
+                mTextView15.setEnabled(true);
+                mTextView15.setText("可预约");
+                mTextView15.setTextColor(Color.parseColor("#3F86FC"));
+
+
+                mTextView22.setEnabled(true);
+                mTextView22.setText("可预约");
+                mTextView22.setTextColor(Color.parseColor("#3F86FC"));
+
+                mTextView29.setEnabled(true);
+                mTextView29.setText("可预约");
+                mTextView29.setTextColor(Color.parseColor("#3F86FC"));
+
+                mTextView36.setEnabled(true);
+                mTextView36.setText("可预约");
+                mTextView36.setTextColor(Color.parseColor("#3F86FC"));
+
+                mTextView1.setEnabled(true);
+                mTextView1.setText("可预约");
+                mTextView1.setTextColor(Color.parseColor("#3F86FC"));
+
+
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:20:00"))) {
+
+                    mTextView1.setText("已预约");
+                    mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
+                    mTextView1.setEnabled(false);
+
+
+                }
+
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:40:00"))) {
+
+                    mTextView8.setText("已预约");
+                    mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
+                    mTextView8.setEnabled(false);
+
+
+                }
+
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:00:00"))) {
+
+                    mTextView15.setText("已预约");
+                    mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
+                    mTextView15.setEnabled(false);
+
+                }
+
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:20:00"))) {
+
+                    mTextView22.setText("已预约");
+                    mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
+                    mTextView22.setEnabled(false);
+
+                }
+
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:40:00"))) {
+
+                    mTextView29.setText("已预约");
+                    mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
+                    mTextView29.setEnabled(false);
+
+                }
+
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "17:00:00"))) {
+
+                    mTextView36.setText("已预约");
+                    mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
+                    mTextView36.setEnabled(false);
+
+                }
+
+
             }
         });
 
 
     }
+
+
+    public void judge() {
+
+
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:20:00"))) {
+
+            mTextView1.setText("已预约");
+            mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
+            mTextView1.setEnabled(false);
+
+
+        }
+
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:40:00"))) {
+
+            mTextView8.setText("已预约");
+            mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
+            mTextView8.setEnabled(false);
+
+        }
+
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:00:00"))) {
+
+
+            mTextView15.setText("已预约");
+            mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
+            mTextView15.setEnabled(false);
+
+
+        }
+
+
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:20:00"))) {
+
+
+            mTextView22.setText("已预约");
+            mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
+            mTextView22.setEnabled(false);
+
+
+        }
+
+
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:40:00"))) {
+
+
+            mTextView29.setText("已预约");
+            mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
+            mTextView29.setEnabled(false);
+
+
+        }
+
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "11:00:00"))) {
+
+
+            mTextView36.setText("已预约");
+            mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
+            mTextView36.setEnabled(false);
+
+
+        }
+
+
+    }
+
+
 }
