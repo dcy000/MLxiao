@@ -97,15 +97,9 @@ public class AlarmHelper {
             //一次性闹钟
             if (model.getInterval() == AlarmModel.INTERVAL_NONE) {
                 long timestamp = model.getTimestamp();
-                if (timestamp != -1) {
-                    if (timestamp > nextCalendar.getTimeInMillis()) {
+                if (timestamp != -1
+                        && timestamp > nextCalendar.getTimeInMillis()) {
                         setupAlarm(context, timestamp, pi);
-                    } else {
-                        model.setEnabled(false);
-                        ContentValues values = new ContentValues();
-                        values.put("disabled", 2);
-                        DataSupport.update(AlarmModel.class, values, model.getId());
-                    }
                 }
                 continue;
             }
