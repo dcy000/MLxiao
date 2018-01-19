@@ -25,6 +25,7 @@ import com.example.han.referralproject.bean.BloodSugarHistory;
 import com.example.han.referralproject.bean.CholesterolHistory;
 import com.example.han.referralproject.bean.ECGHistory;
 import com.example.han.referralproject.bean.TemperatureHistory;
+import com.example.han.referralproject.bean.WeightHistory;
 import com.example.han.referralproject.formatter.MyFloatNumFormatter;
 import com.example.han.referralproject.formatter.TimeFormatter;
 import com.example.han.referralproject.music.ToastUtils;
@@ -118,6 +119,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     RecyclerView xindianList;
     @BindView(R.id.rb_record_ecg)
     RadioButton getRbRecordECG;
+    @BindView(R.id.tizhong_chart)
+    LineChart tizhongChart;
+    @BindView(R.id.rb_record_weight)
+    RadioButton rbRecordWeight;
 
     private long currentTime = 0L, weekAgoTime = 0L, monthAgoTime, seasonAgoTime = 0L, yearAgoTime = 0L;
     private String temp = "1";//记录选择的标签,默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸，9：心电
@@ -148,6 +153,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         rbOneHour.setOnClickListener(this);
         rbTwoHour.setOnClickListener(this);
         getRbRecordECG.setOnClickListener(this);
+        rbRecordWeight.setOnClickListener(this);
+
 
         currentTime = System.currentTimeMillis();
         Calendar curr = Calendar.getInstance();
@@ -672,7 +679,78 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xueniaosuanChart.animateX(2500);
 
     }
+    /**
+     * 体温图的设置
+     */
+    private void setTizhongChart() {
 
+        //x轴右下角文字描述
+        tizhongChart.getDescription().setEnabled(false);
+        // enable touch gestures 启用触
+        tizhongChart.setTouchEnabled(true);
+
+        //启用坐标轴是否可以上下拖动
+        tizhongChart.setDragEnabled(true);
+        //启用缩放
+        tizhongChart.setScaleEnabled(true);
+        //禁止y轴缩放
+        tizhongChart.setScaleYEnabled(false);
+        tizhongChart.setExtraLeftOffset(40);
+        tizhongChart.setExtraRightOffset(80);
+        //20个数据以后不再显示注释标签
+        tizhongChart.setMaxVisibleValueCount(20);
+        tizhongChart.setNoDataText("");
+
+        XAxis xAxis = tizhongChart.getXAxis();
+        //绘制底部的X轴
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        //启用X轴的网格虚线
+        xAxis.setDrawGridLines(false);
+        //缩放时候的粒度
+        xAxis.setGranularity(1);
+        xAxis.setTextSize(20f);
+        //在可见范围只显示四个
+        xAxis.setLabelCount(4);
+
+//        LimitLine ll1 = new LimitLine(37.2f, "37.2℃");
+//        ll1.setLineWidth(2f);
+//        ll1.setLineColor(getResources().getColor(R.color.picket_line));
+//        ll1.enableDashedLine(10.0f, 10f, 0f);
+//        ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+//        ll1.setTextSize(18f);
+//
+//
+//        LimitLine ll2 = new LimitLine(36f, "36.0℃");
+//        ll2.setLineWidth(2f);
+//        ll2.setLineColor(getResources().getColor(R.color.picket_line));
+//        ll2.enableDashedLine(10f, 10f, 0f);
+//        ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+//        ll2.setTextSize(18f);
+
+        //Y轴设置
+        YAxis leftAxis = tizhongChart.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+//        leftAxis.addLimitLine(ll1);
+//        leftAxis.addLimitLine(ll2);
+        leftAxis.resetAxisMaximum();
+        leftAxis.resetAxisMinimum();
+        leftAxis.setTextSize(20f);
+
+
+        //网格线
+        leftAxis.setDrawGridLines(false);//不启用y轴的参考线
+        //启用零线
+        leftAxis.setDrawZeroLine(false);
+
+        //绘制警戒线在绘制数据之后
+        leftAxis.setDrawLimitLinesBehindData(false);
+
+        //禁用右边的Y轴
+        tizhongChart.getAxisRight().setEnabled(false);
+        //动画时间
+        tizhongChart.animateX(2500);
+
+    }
     private void getTiwen(String start, String end) {
         rgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
@@ -709,7 +787,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                if(tiwenChart!=null){
+                if (tiwenChart != null) {
                     tiwenChart.setNoDataText(getResources().getString(R.string.noData));
                     tiwenChart.setData(null);
                     tiwenChart.invalidate();
@@ -764,7 +842,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                if(xueyaChart!=null){
+                if (xueyaChart != null) {
                     xueyaChart.setNoDataText(getResources().getString(R.string.noData));
                     xueyaChart.setData(null);
                     xueyaChart.invalidate();
@@ -844,7 +922,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                if(xuetangChart!=null){
+                if (xuetangChart != null) {
                     xuetangChart.setNoDataText(getResources().getString(R.string.noData));
                     xuetangChart.setData(null);
                     xuetangChart.invalidate();
@@ -887,7 +965,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                if(xueyangChart!=null){
+                if (xueyangChart != null) {
                     xueyangChart.setNoDataText(getResources().getString(R.string.noData));
                     xueyangChart.setData(null);
                     xueyangChart.invalidate();
@@ -933,7 +1011,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                if(danguchunChart!=null){
+                if (danguchunChart != null) {
                     danguchunChart.setNoDataText(getResources().getString(R.string.noData));
                     danguchunChart.setData(null);
                     danguchunChart.invalidate();
@@ -978,7 +1056,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailed(String message) {
                 ToastUtils.show(message);
-                if(xueniaosuanChart!=null){
+                if (xueniaosuanChart != null) {
                     xueniaosuanChart.setNoDataText(getResources().getString(R.string.noData));
                     xueniaosuanChart.setData(null);
                     xueniaosuanChart.invalidate();
@@ -1002,7 +1080,50 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
+    private  void getTizhong(String start, String end) {
+        rgXuetangTime.setVisibility(View.GONE);
+        //指示器的颜色
+        color1.setBackgroundColor(getResources().getColor(R.color.node_color));
+        indicator1.setText("体重(Kg)");
+        llSecond.setVisibility(View.GONE);
+        setTizhongChart();
+        NetworkApi.getWeight(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<WeightHistory>>() {
+            @Override
+            public void onSuccess(ArrayList<WeightHistory> response) {
+                ArrayList<Entry> values = new ArrayList<Entry>();
+                ArrayList<Long> times = new ArrayList<>();
+                ArrayList<Integer> colors = new ArrayList<>();
+                for (int i = 0; i < response.size(); i++) {
 
+//                    if (response.get(i).temper_ature > 37.2 || response.get(i).temper_ature < 36.0) {//超出正常范围的数据用红色表明
+//                        colors.add(Color.RED);
+//                    } else {
+                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+//                    }
+                    values.add(new Entry(i, response.get(i).weight));
+                    times.add(response.get(i).time);
+                }
+                if (times.size() != 0) {
+
+                    tizhongChart.getXAxis().setValueFormatter(new TimeFormatter(times));
+                    MyMarkerView mv = new MyMarkerView(HealthRecordActivity.this, R.layout.custom_marker_view, temp, times);
+                    mv.setChartView(tizhongChart);
+                    tizhongChart.setMarker(mv);
+                    setTizhong(values, colors);
+                }
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.show(message);
+                if (tizhongChart != null) {
+                    tizhongChart.setNoDataText(getResources().getString(R.string.noData));
+                    tizhongChart.setData(null);
+                    tizhongChart.invalidate();
+                }
+            }
+        });
+    }
     /**
      * 设置体温的走势
      *
@@ -1414,7 +1535,71 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             xueniaosuanChart.setData(data);
         }
     }
+    private void setTizhong(ArrayList<Entry> values, ArrayList<Integer> colors) {
 
+        LineDataSet set1;
+        if (tizhongChart.getData() != null &&
+                tizhongChart.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet) tizhongChart.getData().getDataSetByIndex(0);
+            set1.setValues(values);
+            if (values.size() <= 3)
+                set1.setMode(LineDataSet.Mode.LINEAR);
+            tizhongChart.getData().notifyDataChanged();
+            tizhongChart.notifyDataSetChanged();
+        } else {
+            set1 = new LineDataSet(values, "");
+            //不画节点上的图案
+            set1.setDrawIcons(false);
+
+            //设置选中指示线的样式
+            set1.enableDashedHighlightLine(10f, 0f, 0f);
+            set1.setHighLightColor(Color.rgb(244, 117, 117));
+
+
+            set1.setValueTextColors(colors);
+            set1.setValueTextSize(18f);
+//            set1.setValueFormatter(new MyFloatNumFormatter(temp));
+
+            //走势线的样式
+//            set1.enableDashedLine(10f, 0f, 0f);
+            //走势线的颜色
+            set1.setColor(getResources().getColor(R.color.line_color));
+            //节点圆圈的颜色
+            set1.setCircleColor(getResources().getColor(R.color.node_color));
+
+            //走势线的粗细
+            set1.setLineWidth(6f);
+            //封顶圆圈的直径
+            set1.setCircleRadius(8f);
+            //是否镂空
+            set1.setDrawCircleHole(true);
+            set1.setCircleHoleRadius(4f);
+
+
+            //左下角指示器样式
+            set1.setFormLineWidth(0f);
+            set1.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
+            set1.setFormSize(0f);
+            //曲线区域颜色填充
+            set1.setDrawFilled(false);
+            if (values.size() <= 3)
+                set1.setMode(LineDataSet.Mode.LINEAR);
+            else
+                set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            if (Utils.getSDKInt() >= 18) {
+                // fill drawable only supported on api level 18 and above
+                Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_tiwen);
+                set1.setFillDrawable(drawable);
+            } else {
+                set1.setFillColor(Color.parseColor("#B3DCE2F3"));
+            }
+
+            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+            dataSets.add(set1);
+            LineData data = new LineData(dataSets);
+            tizhongChart.setData(data);
+        }
+    }
     @Override
     protected void onDestroy() {
         if (mUnbinder != null) {
@@ -1437,9 +1622,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
                 xindianList.setVisibility(View.GONE);
+                tizhongChart.setVisibility(View.GONE);
                 llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
-//                setTiwenChart();
                 getTiwen(weekAgoTime + "", currentTime + "");
                 break;
             case R.id.rb_record_blood_pressure://血压
@@ -1453,6 +1638,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
                 xindianList.setVisibility(View.GONE);
+                tizhongChart.setVisibility(View.GONE);
                 llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
                 getXueya(weekAgoTime + "", currentTime + "");
@@ -1468,6 +1654,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
                 xindianList.setVisibility(View.GONE);
+                tizhongChart.setVisibility(View.GONE);
                 llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
                 getXuetang(weekAgoTime + "", currentTime + "", eatedTime);
@@ -1483,6 +1670,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
                 xindianList.setVisibility(View.GONE);
+                tizhongChart.setVisibility(View.GONE);
                 llIndicator.setVisibility(View.VISIBLE);
                 llTime.check(R.id.one_week);
                 getXueyang(weekAgoTime + "", currentTime + "");
@@ -1499,6 +1687,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.VISIBLE);
                 xueniaosuanChart.setVisibility(View.GONE);
                 xindianList.setVisibility(View.GONE);
+                tizhongChart.setVisibility(View.GONE);
                 llIndicator.setVisibility(View.VISIBLE);
                 getDangucun(weekAgoTime + "", currentTime + "");
                 llTime.check(R.id.one_week);
@@ -1514,6 +1703,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.VISIBLE);
                 xindianList.setVisibility(View.GONE);
+                tizhongChart.setVisibility(View.GONE);
                 llIndicator.setVisibility(View.VISIBLE);
                 getXueniaosuan(weekAgoTime + "", currentTime + "");
                 llTime.check(R.id.one_week);
@@ -1529,8 +1719,25 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 danguchunChart.setVisibility(View.GONE);
                 xueniaosuanChart.setVisibility(View.GONE);
                 xindianList.setVisibility(View.VISIBLE);
+                tizhongChart.setVisibility(View.GONE);
                 llIndicator.setVisibility(View.GONE);
                 getXindian(weekAgoTime + "", currentTime + "");
+                llTime.check(R.id.one_week);
+                break;
+            case R.id.rb_record_weight://体重
+                temp="10";
+                tiwenChart.setVisibility(View.GONE);
+                xueyaChart.setVisibility(View.GONE);
+                xuetangChart.setVisibility(View.GONE);
+                xueyangChart.setVisibility(View.GONE);
+                xinlvChart.setVisibility(View.GONE);
+                maiboChart.setVisibility(View.GONE);
+                danguchunChart.setVisibility(View.GONE);
+                xueniaosuanChart.setVisibility(View.GONE);
+                xindianList.setVisibility(View.GONE);
+                tizhongChart.setVisibility(View.VISIBLE);
+                llIndicator.setVisibility(View.VISIBLE);
+                getTizhong(weekAgoTime + "", currentTime + "");
                 llTime.check(R.id.one_week);
                 break;
             case R.id.rb_kongfu:

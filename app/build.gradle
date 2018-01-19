@@ -129,7 +129,7 @@ dependencies {
     compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
     compile name: 'mlrobot-release', ext: 'aar'
     compile name: 'FaceppIDCardUI', ext: 'aar'
-    compile name: 'lib-crash', ext: 'aar'
+//    compile name: 'lib-crash', ext: 'aar'
     compile name: 'lib-wheelrecyclerview', ext: 'aar'
     compile name: 'library', ext: 'aar'
     compile name: 'vmtools', ext: 'aar'
@@ -143,4 +143,5 @@ dependencies {
     // 此处以JCore 1.1.9 版本为例。
     compile 'com.github.mmin18:realtimeblurview:1.1.0'
     compile project(':sdk')
+    compile 'com.umeng.analytics:analytics:6.1.2'
 }

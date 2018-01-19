@@ -17,8 +17,12 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.umeng.analytics.MobclickAgent;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import java.util.ArrayList;
+
+import cn.jpush.android.api.JPushInterface;
 
 
 public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
@@ -68,35 +72,18 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.view_login:
+                new JpushAliasUtils(mContext).deleteAlias();
                 mContext.startActivity(new Intent(mContext, SignInActivity.class));
                 ((Activity)mContext).finish();
                 break;
             case R.id.btn_logout:
+                new JpushAliasUtils(mContext).deleteAlias();
+                MobclickAgent.onProfileSignOff();
                 NimAccountHelper.getInstance().logout();//退出网易IM
                 LocalShared.getInstance(mContext).loginOut();//清除SP中的信息
                 LocalShared.getInstance(mContext).setJPushStatus(false);//将极光别名绑定状态修改为false
                 mContext.startActivity(new Intent(mContext, SignInActivity.class));
                 ((Activity)mContext).finish();
-
-//                if (mDataList == null){
-//                    return;
-//                }
-//                if (mDataList.size() == 1){
-//                    LocalShared.getInstance(mContext).loginOut();
-//                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
-//                    ((Activity)mContext).finish();
-//                    break;
-//                } else {
-//                    for (UserInfoBean itemBean : mDataList){
-//                        if (!itemBean.bid.equals(MyApplication.getInstance().userId)){
-//                            LocalShared.getInstance(mContext).loginOut();
-//                            MyApplication.getInstance().userId = itemBean.bid;
-//                            LocalShared.getInstance(mContext).setUserInfo(itemBean);
-//                            mContext.sendBroadcast(new Intent("change_account"));
-//                        }
-//                    }
-//                }
-
                 break;
         }
     }

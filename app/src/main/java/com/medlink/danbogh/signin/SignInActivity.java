@@ -34,6 +34,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.register.SignUp1NameActivity;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -164,6 +165,7 @@ public class SignInActivity extends BaseActivity {
         NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
+                new JpushAliasUtils(SignInActivity.this).setAlias("user_"+response.bid);
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid,response.xfid);
                 LocalShared.getInstance(getApplicationContext()).setXunfeiID(response.xfid);
@@ -171,6 +173,7 @@ public class SignInActivity extends BaseActivity {
                 LocalShared.getInstance(mContext).setSex(response.sex);
                 LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                 LocalShared.getInstance(mContext).setUserAge(response.age);
+                LocalShared.getInstance(mContext).setUserHeight(response.height);
                 hideLoadingDialog();
                 startActivity(new Intent(mContext, MainActivity.class));
                 finish();

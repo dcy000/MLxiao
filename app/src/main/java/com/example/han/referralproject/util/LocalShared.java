@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -136,6 +137,7 @@ public class LocalShared {
                 .putString(UserPhoneNum, infoBean.tel)
                 .putString(USER_NAME, infoBean.bname)
                 .commit();
+        MobclickAgent.onProfileSignIn(infoBean.bid);
         //.apply();
     }
 
@@ -406,5 +408,12 @@ public class LocalShared {
     }
     public boolean getJPushStatus(){
         return mShared.getBoolean("jpush_status",false);
+    }
+
+    public void setUserHeight(String height) {
+        mShared.edit().putString("user_height",height).commit();
+    }
+    public String getUserHeight(){
+        return mShared.getString("user_height","");
     }
 }

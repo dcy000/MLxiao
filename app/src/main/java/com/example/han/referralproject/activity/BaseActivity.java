@@ -52,6 +52,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.wakeup.WakeupHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -619,6 +620,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         MyReceiver.jPushLitener = new JPushReceive();
         enableListeningLoop = enableListeningLoopCache;
         setDisableGlobalListen(disableGlobalListen);
@@ -653,6 +655,7 @@ public class BaseActivity extends AppCompatActivity {
                 window = null;
             }
         }
+        MobclickAgent.onPause(this);
         super.onPause();
     }
 
