@@ -1419,6 +1419,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (mTts != null){
             mTts.stopSpeaking();
         }
+        PlayService service = AppCache.getPlayService();
+        if (service != null) {
+            service.stop();
+            hidePlayingFragment();
+        }
 
 
 //        if (null != mIat) {

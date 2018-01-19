@@ -891,6 +891,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mButton1 = (Button) findViewById(R.id.history1);
         mButton2 = (Button) findViewById(R.id.history2);
         mButton3 = (Button) findViewById(R.id.history3);
+        setEnableListeningLoop(false);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
