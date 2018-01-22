@@ -52,7 +52,12 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         id = getIntent().getLongExtra(AlarmHelper.ID, -1);
         model = DataSupport.find(AlarmModel.class, id);
-        startTime = String.valueOf(model.getTimestamp() + 60000);
+        if (model.getTimestamp() != 0) {
+
+            startTime = String.valueOf(model.getTimestamp() + 60000);
+
+        }
+
         mButton1 = (Button) findViewById(R.id.video_true);
         mButton2 = (Button) findViewById(R.id.video_cancel);
 
@@ -94,42 +99,50 @@ public class DoctorAlarmActivity extends BaseActivity {
         });
 
 
-        NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
-            @Override
-            public void onSuccess(ArrayList<AlreadyYuyue> response) {
+        if (model.getTimestamp() != 0) {
 
-                for (int i = 0; i < response.size(); i++) {
 
-                    if (startTime.equals(response.get(i).getStart_time())) {
+            NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
+                @Override
+                public void onSuccess(ArrayList<AlreadyYuyue> response) {
 
-                        NetworkApi.update_status(response.get(i).getRid(), "5", new NetworkManager.SuccessCallback<String>() {
-                            @Override
-                            public void onSuccess(String response) {
+                    for (int i = 0; i < response.size(); i++) {
 
-                            }
+                        if (startTime.equals(response.get(i).getStart_time())) {
 
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
+                            NetworkApi.update_status(response.get(i).getRid(), "5", new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
 
-                            }
-                        });
+                                }
 
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
+                            });
+
+
+                        }
 
                     }
 
                 }
 
-            }
+            }, new NetworkManager.FailedCallback()
 
-        }, new NetworkManager.FailedCallback()
+            {
+                @Override
+                public void onFailed(String message) {
 
-        {
-            @Override
-            public void onFailed(String message) {
+                }
+            });
 
-            }
-        });
+
+        }
+
+
 
 
         //Ensure wakelock release

@@ -78,6 +78,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         llTiwen.setOnClickListener(this);
         llSan.setOnClickListener(this);
         llMore.setOnClickListener(this);
+        setEnableListeningLoop(false);
 
         speak(R.string.tips_test);
 

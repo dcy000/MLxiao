@@ -72,13 +72,13 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.view_login:
+                new JpushAliasUtils(mContext).deleteAlias();
                 mContext.startActivity(new Intent(mContext, SignInActivity.class));
                 ((Activity)mContext).finish();
                 break;
             case R.id.btn_logout:
+                new JpushAliasUtils(mContext).deleteAlias();
                 MobclickAgent.onProfileSignOff();
-                JPushInterface.deleteAlias(mContext,-200);
-                new JpushAliasUtils(mContext).setAlias("");//将本次绑定的别名置空
                 NimAccountHelper.getInstance().logout();//退出网易IM
                 LocalShared.getInstance(mContext).loginOut();//清除SP中的信息
                 LocalShared.getInstance(mContext).setJPushStatus(false);//将极光别名绑定状态修改为false

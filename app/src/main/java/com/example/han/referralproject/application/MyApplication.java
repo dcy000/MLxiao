@@ -78,8 +78,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        NoCrash.init(this);
-//        NoCrash.getInstance().install();
+        NoCrash.init(this);
+        NoCrash.getInstance().install();
 //        LeakCanary.install(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
