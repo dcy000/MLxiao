@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -1219,6 +1220,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
 
+            //    Log.e("==============", list.toString());
                 if (list.size() < 3) {
                     Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class);
                     startActivity(intent);
@@ -1303,7 +1305,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             public void onSuccess(ArrayList<YuYueInfo> response) {
 
                 for (int i = 0; i < response.size(); i++) {
-                    if ("已完成".equals(response.get(i).getState())) {
+                    if ("已完成".equals(response.get(i).getState()) || "已过期".equals(response.get(i).getState())) {
                         response.remove(i);
                     }
                 }
