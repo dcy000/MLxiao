@@ -785,7 +785,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                     intent.putExtra("type", "xueya");
                     startActivity(intent);
-                    finish();
                 }
 
             } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*") || inSpell.matches(".*ce.*baohedu.*")) {
@@ -795,7 +794,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                     intent.putExtra("type", "xueyang");
                     startActivity(intent);
-                    finish();
                 }
 
             } else if (result.matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
@@ -805,7 +803,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                     intent.putExtra("type", "xuetang");
                     startActivity(intent);
-                    finish();
                 }
 
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
@@ -815,7 +812,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                     intent.putExtra("type", "wendu");
                     startActivity(intent);
-                    finish();
                 }
 
             } else if (inSpell.matches(".*ce.*xindian.*")) {
@@ -852,7 +848,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     mIatDialog.dismiss();
                     Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
                     startActivity(intent);
-                    finish();
                 }
 
                 /*}
@@ -882,7 +877,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), DoctorappoActivity.class);
                     startActivity(intent);
-                    finish();
                 }
 
 
@@ -981,7 +975,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*chongqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
                 Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                 startActivity(intent);
-                finish();
             } else if (inSpell.matches(".*maidongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
                     inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
                     inSpell.matches(".*shizhiyongwan.*") || inSpell.matches(".*shizhi.*meiyou") ||

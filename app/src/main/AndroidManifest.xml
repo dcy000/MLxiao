@@ -328,8 +328,12 @@
         <activity android:name="com.medlink.danbogh.register.SignUp12DrinkActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity" />
         <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity" />
-        <activity android:name=".recharge.PayActivity" />
-        <activity android:name=".recharge.PayInfoActivity" />
+        <activity
+            android:name=".recharge.PayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recharge.PayInfoActivity"
+            android:screenOrientation="landscape" />
         <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity" />
 
         <meta-data
@@ -421,6 +425,7 @@
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize" />
 
         <service android:name=".floatingball.AssistiveTouchService" />
