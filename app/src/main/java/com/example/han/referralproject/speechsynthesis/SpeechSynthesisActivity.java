@@ -59,6 +59,7 @@ import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -635,14 +636,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
             Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
-            if (inSpell.matches(".*((xin|xing)dian).*")) {
+            /*if (inSpell.matches(".*((xin|xing)dian).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "xindian"));
                 return;
             }
             if (inSpell.matches(".*(sanheyi|(xie|xue)(niao|liao)(suan|shuan)|dangu(chun|cun)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "sanheyi"));
                 return;
-            }
+            }*/
             if (matcherWhenAlarm.find()) {
                 String am = matcherWhenAlarm.group(1);
                 String hourOfDay = matcherWhenAlarm.group(2);
@@ -821,10 +822,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 if (sign == true) {
                     sign = false;
                     mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                    intent.putExtra("type", "xindian");
+                    Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
                     startActivity(intent);
-                    finish();
+
+
                 }
 
             } else if (inSpell.matches(".*ce.*xuezhi.*")) {
@@ -834,7 +835,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                     intent.putExtra("type", "sanheyi");
                     startActivity(intent);
-                    finish();
                 }
 
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
@@ -844,7 +844,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                     intent.putExtra("type", "tizhong");
                     startActivity(intent);
-                    finish();
                 }
 
             } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
@@ -985,19 +984,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 finish();
             } else if (inSpell.matches(".*maidongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
                     inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
-                    inSpell.matches(".*shizhiyongwan") || inSpell.matches(".*shizhi.*meiyou") ||
+                    inSpell.matches(".*shizhiyongwan.*") || inSpell.matches(".*shizhi.*meiyou") ||
                     result.contains("丢") || result.contains("商城") || result.contains("不能用")) {
 
                 Intent intent = new Intent(getApplicationContext(), MarketActivity.class);
                 startActivity(intent);
-                finish();
 
 
             } else if (inSpell.matches(".*dingdan.*")) {
 
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
-                finish();
 
 
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查

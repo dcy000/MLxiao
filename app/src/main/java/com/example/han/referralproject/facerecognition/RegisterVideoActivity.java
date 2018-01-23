@@ -186,9 +186,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Looper.prepare();
                     openCamera();
-                    Looper.loop();
                 }
             }).start();
 
