@@ -23,7 +23,7 @@ import com.example.han.referralproject.music.Preferences;
 import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-//import com.medlink.crash.NoCrash;
+import com.medlink.crash.NoCrash;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
@@ -78,8 +78,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        NoCrash.init(this);
-//        NoCrash.getInstance().install();
+        NoCrash.init(this);
+        NoCrash.getInstance().install();
 //        LeakCanary.install(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(

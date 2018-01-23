@@ -12,6 +12,8 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -344,11 +346,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
     private void hidePlayingFragment() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(0, R.anim.fragment_slide_down);
-        ft.hide(mPlayFragment);
-        ft.commitAllowingStateLoss();
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag("PlayFragment");
         isPlayFragmentShow = false;
+        if (fragment == null) {
+            return;
+        }
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(0, R.anim.fragment_slide_down);
+        ft.hide(fragment);
+        ft.commitAllowingStateLoss();
     }
 
     /**
@@ -475,7 +482,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         ft.setCustomAnimations(R.anim.fragment_slide_up, 0);
         if (mPlayFragment == null) {
             mPlayFragment = new PlayFragment();
-            ft.replace(android.R.id.content, mPlayFragment);
+            ft.replace(android.R.id.content, mPlayFragment, "PlayFragment");
         } else {
             ft.show(mPlayFragment);
         }
@@ -1459,7 +1466,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mLottieView.cancelAnimation();
         }
         mIatDialog = null;
-        mHandler.removeCallbacksAndMessages(null);
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
         if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();

@@ -129,7 +129,7 @@ dependencies {
     compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
     compile name: 'mlrobot-release', ext: 'aar'
     compile name: 'FaceppIDCardUI', ext: 'aar'
-//    compile name: 'lib-crash', ext: 'aar'
+    compile name: 'lib-crash', ext: 'aar'
     compile name: 'lib-wheelrecyclerview', ext: 'aar'
     compile name: 'library', ext: 'aar'
     compile name: 'vmtools', ext: 'aar'

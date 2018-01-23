@@ -52,13 +52,11 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         id = getIntent().getLongExtra(AlarmHelper.ID, -1);
         model = DataSupport.find(AlarmModel.class, id);
-
         if (model.getTimestamp() != 0) {
 
             startTime = String.valueOf(model.getTimestamp() + 60000);
 
         }
-
 
         mButton1 = (Button) findViewById(R.id.video_true);
         mButton2 = (Button) findViewById(R.id.video_cancel);
