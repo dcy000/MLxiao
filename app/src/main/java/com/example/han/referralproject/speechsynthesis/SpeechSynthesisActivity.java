@@ -963,7 +963,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 finish();
 
 
-            } else if (inSpell.matches(".*ding.*dan")) {
+            } else if (inSpell.matches(".*dingdan.*")) {
 
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
