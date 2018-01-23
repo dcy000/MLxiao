@@ -226,6 +226,7 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -288,13 +289,18 @@
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".recyclerview.AppraiseActivity" />
-        <activity android:name=".facerecognition.HeadiconActivity" />
-        <activity android:name=".recyclerview.DoctorappoActivity" />
-        <activity android:name=".recyclerview.AddAppoActivity" >
-
-
-
+        <activity
+            android:name=".recyclerview.AppraiseActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".facerecognition.HeadiconActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recyclerview.DoctorappoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recyclerview.AddAppoActivity"
+            android:screenOrientation="landscape">
 
 
         </activity>
