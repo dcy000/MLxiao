@@ -89,6 +89,8 @@ public class DefineActivity extends BaseActivity {
 
     public void init() {
         mEditText = (EditText) findViewById(R.id.deifine_mount);
+
+
         // 新建一个可以添加属性的文本对象
         SpannableString ss = new SpannableString("请输入充值金额");
         // 新建一个属性对象,设置文字的大小

@@ -817,6 +817,36 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
                 }
 
+            } else if (inSpell.matches(".*ce.*xindian.*")) {
+                if (sign == true) {
+                    sign = false;
+                    mIatDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "xindian");
+                    startActivity(intent);
+                    finish();
+                }
+
+            } else if (inSpell.matches(".*ce.*xuezhi.*")) {
+                if (sign == true) {
+                    sign = false;
+                    mIatDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "sanheyi");
+                    startActivity(intent);
+                    finish();
+                }
+
+            } else if (inSpell.matches(".*ce.*tizhong.*")) {
+                if (sign == true) {
+                    sign = false;
+                    mIatDialog.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "tizhong");
+                    startActivity(intent);
+                    finish();
+                }
+
             } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
                 if (sign == true) {
                     sign = false;
@@ -971,11 +1001,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
-                DiseaseUser diseaseUser = new DiseaseUser(
-                        LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
-                        LocalShared.getInstance(this).getUserPhoto()
+                DiseaseUser diseaseUser = new DiseaseUser(LocalShared.getInstance(this).getUserName(), LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2, Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12, LocalShared.getInstance(this).getUserPhoto()
                 );
                 String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
