@@ -461,9 +461,7 @@
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
 
-        <service android:name=".floatingball.AssistiveTouchService"
-            android:screenOrientation="landscape"/>
-
+        <service android:name=".floatingball.AssistiveTouchService"/>
         <activity android:name=".recyclerview.DoctorAlarmActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".activity.AlertHeightActivity"
