@@ -42,7 +42,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
         holder.mContext = context;
         holder.mPosition = position;
         Picasso.with(context)
-                .load(ConstantData.BASE_URL + "/referralProject/" + mList.get(position).getPhoto())
+                .load(mList.get(position).getPhoto())
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(context)
