@@ -28,6 +28,7 @@ import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
+import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
@@ -47,6 +48,7 @@ import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
@@ -268,7 +270,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         getPlayService().setOnPlayEventListener(this);
 
 
-
         speak("主人,来和我聊天吧");
 
         mHandler.sendEmptyMessageDelayed(1, 3000);
@@ -319,7 +320,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mPlayFragment.onPlayerPause();
         }
     }
-
 
 
     @Override
@@ -423,7 +423,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onSuccess(SearchMusic response) {
-                if (isStoped){
+                if (isStoped) {
                     return;
                 }
                 if (response == null || response.getSong() == null) {
@@ -442,7 +442,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onExecuteSuccess(Music music) {
-                        if (isStoped){
+                        if (isStoped) {
                             return;
                         }
                         getPlayService().play(music);
@@ -628,12 +628,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
             Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
-            if(inSpell.matches(".*((xin|xing)dian).*")){
-                startActivity(new Intent(SpeechSynthesisActivity.this,DetectActivity.class).putExtra("type", "xindian"));
+            if (inSpell.matches(".*((xin|xing)dian).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "xindian"));
                 return;
             }
-            if(inSpell.matches(".*(sanheyi|(xie|xue)(niao|liao)(suan|shuan)|dangu(chun|cun)).*")){
-                startActivity(new Intent(SpeechSynthesisActivity.this,DetectActivity.class).putExtra("type","sanheyi"));
+            if (inSpell.matches(".*(sanheyi|(xie|xue)(niao|liao)(suan|shuan)|dangu(chun|cun)).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "sanheyi"));
                 return;
             }
             if (matcherWhenAlarm.find()) {
@@ -667,13 +667,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-                DiseaseUser diseaseUser=new DiseaseUser(
+                DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
                         LocalShared.getInstance(this).getUserPhoto()
                 );
-                String currentUser= new Gson().toJson(diseaseUser);
+                String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
@@ -932,38 +932,45 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 finish();
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
-                DiseaseUser diseaseUser=new DiseaseUser(
+                DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
                         LocalShared.getInstance(this).getUserPhoto()
                 );
-                String currentUser= new Gson().toJson(diseaseUser);
+                String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
-            } else if (inSpell.matches(".*chong.*qian.*") || result.contains("钱不够") || result.contains("没钱")) {
+            } else if (inSpell.matches(".*chongqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
                 Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (inSpell.matches(".*mai.*dongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
+            } else if (inSpell.matches(".*maidongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
                     inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
-                    inSpell.matches(".*shizhi.*yongwan") || inSpell.matches(".*shizhi.*meiyou") ||
-                    result.contains("丢") || result.contains("不能用")) {
+                    inSpell.matches(".*shizhiyongwan") || inSpell.matches(".*shizhi.*meiyou") ||
+                    result.contains("丢") || result.contains("商城") || result.contains("不能用")) {
 
-                Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MarketActivity.class);
+                startActivity(intent);
+                finish();
+
+
+            } else if (inSpell.matches(".*ding.*dan")) {
+
+                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
                 finish();
 
 
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
-                DiseaseUser diseaseUser=new DiseaseUser(
+                DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
                         LocalShared.getInstance(this).getUserPhoto()
                 );
-                String currentUser= new Gson().toJson(diseaseUser);
+                String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
@@ -1413,10 +1420,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //        if (mTts != null && mTts.isSpeaking()){
 //            mTts.stopSpeaking();
 //        }
-        if (mIat != null){
+        if (mIat != null) {
             mIat.stopListening();
         }
-        if (mTts != null){
+        if (mTts != null) {
             mTts.stopSpeaking();
         }
         PlayService service = AppCache.getPlayService();
