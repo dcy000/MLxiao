@@ -192,20 +192,20 @@ public class BluetoothLeService extends Service {
             Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
             return false;
         }
-
         // Previously connected device.  Try to reconnect.
         if (mBluetoothDeviceAddress != null && address.equals(mBluetoothDeviceAddress)
                 && mBluetoothGatt != null) {
-            Log.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
-            if (mBluetoothGatt.connect()) {
-                mConnectionState = STATE_CONNECTING;
-                return true;
-            } else {
-                final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-                mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
-                mBluetoothDeviceAddress = address;
-                return false;
-            }
+            return true;
+//            Log.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
+//            if (mBluetoothGatt.connect()) {
+//                mConnectionState = STATE_CONNECTING;
+//                return true;
+//            } else {
+//                final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+//                mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
+//                mBluetoothDeviceAddress = address;
+//                return false;
+//            }
         }
 
         final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);

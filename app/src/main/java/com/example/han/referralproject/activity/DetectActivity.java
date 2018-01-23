@@ -345,6 +345,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mConnected = false;
                 //speak(R.string.tips_blue_unConnect);
                 isGetResustFirst = true;
+                if (mBluetoothLeService != null){
+                    mBluetoothLeService.disconnect();
+                    mBluetoothLeService.close();
+                }
                 if (mBluetoothAdapter != null) {
 //                    if (detectType == Type_XinDian){
 //                        dialog = new NDialog(mContext);
@@ -1233,6 +1237,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         XueyaUtils.stopThread();
         if (mBluetoothGatt != null){
             mBluetoothGatt.disconnect();
+            mBluetoothGatt.close();
         }
     }
 
