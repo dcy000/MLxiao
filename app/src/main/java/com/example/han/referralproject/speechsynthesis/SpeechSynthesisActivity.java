@@ -716,10 +716,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
                 return;
             }
-            if (inSpell.matches(".*(gaoxueya).*")) {
+            /*if (inSpell.matches(".*(gaoxueya).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "高血压"));
-            }
+            }*/
             if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "冠心病"));
@@ -778,77 +778,61 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
 
-            if (result.matches(".*测.*血压.*") || inSpell.matches(".*liang.*xueya.*")) {
-                if (sign == true) {
-                    sign = false;
-                    mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                    intent.putExtra("type", "xueya");
-                    startActivity(intent);
-                }
+            if (result.matches(".*测血压.*") || inSpell.matches(".*liang.*xueya.*")) {
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xueya");
+                startActivity(intent);
+
 
             } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*") || inSpell.matches(".*ce.*baohedu.*")) {
-                if (sign == true) {
-                    sign = false;
-                    mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                    intent.putExtra("type", "xueyang");
-                    startActivity(intent);
-                }
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xueyang");
+                startActivity(intent);
+
 
             } else if (result.matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
-                if (sign == true) {
-                    sign = false;
-                    mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                    intent.putExtra("type", "xuetang");
-                    startActivity(intent);
-                }
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xuetang");
+                startActivity(intent);
+
 
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
-                if (sign == true) {
-                    sign = false;
-                    mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                    intent.putExtra("type", "wendu");
-                    startActivity(intent);
-                }
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "wendu");
+                startActivity(intent);
+
 
             } else if (inSpell.matches(".*ce.*xindian.*")) {
-                if (sign == true) {
-                    sign = false;
-                    mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
-                    startActivity(intent);
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
+                startActivity(intent);
 
-
-                }
 
             } else if (inSpell.matches(".*ce.*xuezhi.*")) {
-                if (sign == true) {
-                    sign = false;
-                    mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                    intent.putExtra("type", "sanheyi");
-                    startActivity(intent);
-                }
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "sanheyi");
+                startActivity(intent);
+
 
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
-                if (sign == true) {
-                    sign = false;
-                    mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                    intent.putExtra("type", "tizhong");
-                    startActivity(intent);
-                }
+
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "tizhong");
+                startActivity(intent);
+
 
             } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
-                if (sign == true) {
-                    sign = false;
-                    mIatDialog.dismiss();
-                    Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
-                    startActivity(intent);
-                }
+
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
+                startActivity(intent);
+
 
                 /*}
                 else if (resultBuffer.toString().matches(".*歌.*") || resultBuffer.toString().matches(".*音乐.*")) {
@@ -1021,7 +1005,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
     };
 
-    public boolean sign = true;
+    //public boolean sign = true;
 
     private void printResult(RecognizerResult results) {
         String text = JsonParser.parseIatResult(results.getResultString());

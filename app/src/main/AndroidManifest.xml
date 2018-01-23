@@ -413,6 +413,23 @@
         <activity
             android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
             android:screenOrientation="landscape" />
+<<<<<<< HEAD
+        <activity android:name="com.medlink.danbogh.location.LocationActivity" />
+        <activity android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity" />
+        <activity android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity" />
+        <activity android:name="com.medlink.danbogh.register.ConfirmContractActivity" />
+        <activity android:name=".video.VideoListActivity" />
+        <activity android:name=".shopping.ShopListActivity" />
+        <activity android:name=".shopping.GoodDetailActivity" />
+        <activity android:name=".activity.MyBaseDataActivity" />
+        <activity android:name=".activity.SymptomsActivity" />
+        <activity android:name=".activity.BodychartActivity" />
+        <activity
+            android:name=".shopping.OrderListActivity"
+            android:screenOrientation="landscape" />
+
+        <activity android:name=".activity.DiseaseDetailsActivity" />
+=======
         <activity android:name="com.medlink.danbogh.location.LocationActivity"
             android:screenOrientation="landscape"/>
         <activity android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity"
@@ -437,6 +454,7 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".activity.DiseaseDetailsActivity"
             android:screenOrientation="landscape"/>
+>>>>>>> 3e7fe5c1c3778c5aad860ea0f8a1b3af5b9babb8
         <activity
             android:name=".recyclerview.OnlineDoctorListActivity"
             android:windowSoftInputMode="stateHidden"
