@@ -84,9 +84,30 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         });
 
 
-        NetworkApi.order_list("2", "1", "1", mSharedPreferences.getString("userName", ""), "1", "100", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+        NetworkApi.order_list("2", "1", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
             @Override
             public void onSuccess(ArrayList<Orders> response) {
+
+                List<Orders> list = new ArrayList<Orders>();
+                list.addAll(response);
+                mlist.addAll(list);
+
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
+
+
+        NetworkApi.order_list("2", "4", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+            @Override
+            public void onSuccess(ArrayList<Orders> response) {
+
 
                 List<Orders> list = new ArrayList<Orders>();
                 list.addAll(response);
@@ -193,11 +214,11 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
 
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
 
-                        if (mlist.size() >= 1100) {
+                        if (mlist.size() >= 1300) {
                             mCurrPage += 1;
 
 
-                            NetworkApi.order_list("2", "1", "1", mSharedPreferences.getString("userName", ""), mCurrPage + "", "100", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+                            NetworkApi.order_list("2", "4", "1", mSharedPreferences.getString("userName", ""), mCurrPage + "", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
                                 @Override
                                 public void onSuccess(ArrayList<Orders> response) {
 
