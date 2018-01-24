@@ -83,6 +83,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
+        <service android:name=".new_music.MusicService"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -223,10 +224,9 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -291,17 +291,14 @@
         <activity android:name=".recyclerview.AppraiseActivity" />
         <activity android:name=".facerecognition.HeadiconActivity" />
         <activity android:name=".recyclerview.DoctorappoActivity" />
-        <activity android:name=".recyclerview.AddAppoActivity" >
-
+        <activity android:name=".recyclerview.AddAppoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-
-
         </activity>
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
@@ -436,7 +433,8 @@
         <activity android:name=".recyclerview.CheckContractActivity" />
         <activity android:name=".activity.MarketActivity" />
         <activity android:name=".activity.AlertMHActivity" />
-        <activity android:name=".activity.AlertAddressActivity"></activity>
+        <activity android:name=".activity.AlertAddressActivity" />
+        <activity android:name=".new_music.MusicPlayActivity"></activity>
     </application>
 
 </manifest>

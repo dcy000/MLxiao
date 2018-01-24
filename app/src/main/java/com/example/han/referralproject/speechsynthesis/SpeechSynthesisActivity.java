@@ -2,29 +2,23 @@ package com.example.han.referralproject.speechsynthesis;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
@@ -34,16 +28,12 @@ import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.music.AppCache;
-import com.example.han.referralproject.music.HttpCallback;
-import com.example.han.referralproject.music.HttpClient;
-import com.example.han.referralproject.music.Music;
-import com.example.han.referralproject.music.OnPlayerEventListener;
-import com.example.han.referralproject.music.PlayFragment;
-import com.example.han.referralproject.music.PlaySearchedMusic;
-import com.example.han.referralproject.music.PlayService;
-import com.example.han.referralproject.music.SearchMusic;
-import com.example.han.referralproject.music.ToastUtils;
+import com.example.han.referralproject.new_music.HttpCallback;
+import com.example.han.referralproject.new_music.HttpClient;
+import com.example.han.referralproject.new_music.Music;
+import com.example.han.referralproject.new_music.MusicPlayActivity;
+import com.example.han.referralproject.new_music.PlaySearchedMusic;
+import com.example.han.referralproject.new_music.SearchMusic;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
@@ -63,7 +53,6 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
-import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
@@ -76,7 +65,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -90,7 +78,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener, OnPlayerEventListener {
+public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
 
     private static String TAG = SpeechSynthesisActivity.class.getSimpleName();
     // 语音听写对象
@@ -100,32 +88,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     // 用HashMap存储听写结果
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
 
-    private EditText mResultText;
     private Toast mToast;
     private SharedPreferences mSharedPreferences;
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
 
-    StringBuffer resultBuffer;
-
-    // 语音合成对象
-    private SpeechSynthesizer mTts;
-    // 缓冲进度
-    private int mPercentForBuffering = 0;
-    // 播放进度
-    private int mPercentForPlaying = 0;
-    // 默认发音人
-    private String voicer = "nannan";
-
-    private Toast mToast1;
-    RelativeLayout mRelativeLayout;
-
-
-    private PlayFragment mPlayFragment;
-    private AudioManager mAudioManagers;
-    private ComponentName mRemoteReceiver;
-    private boolean isPlayFragmentShow = false;
-    private AnimationDrawable faceAnim;
+    private StringBuffer resultBuffer;
+    private RelativeLayout mRelativeLayout;
+//    private AnimationDrawable faceAnim;
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -169,6 +139,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     ImageView mImageView;
     private LottieAnimationView mLottieView;
+    private static final int TO_MUSICPLAY=1;
+    private static final int TO_STORY=2;
 
 
     @Override
@@ -186,8 +158,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_speech_synthesis);
-        rand = new Random();
 
+        speak("主人,来和我聊天吧");
+
+        rand = new Random();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         mImageView = (ImageView) findViewById(R.id.iat_recognizes);
 
@@ -196,16 +170,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (mPlayFragment != null && isPlayFragmentShow) {
-                    if (getPlayService().isPlaying()) {
-                        getPlayService().playPause();
-                    }
-                    hidePlayingFragment();
-                    mImageView.setClickable(true);
-                } else {
-                    finish();
-                }
                 finish();
             }
         });
@@ -254,22 +218,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         mSharedPreferences = getSharedPreferences(IatSettings.PREFER_NAME, Activity.MODE_PRIVATE);
         mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-
-        // 初始化合成对象
-        // mTts = SpeechSynthesizer.createSynthesizer(this, mTtsInitListener);
-        mToast1 = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-        if (!checkServiceAlive()) {
-            return;
-        }
-
-        getPlayService().setOnPlayEventListener(this);
-
-
-
-        speak("主人,来和我聊天吧");
+//        speak("主人,来和我聊天吧");
 
         mHandler.sendEmptyMessageDelayed(1, 3000);
 
@@ -298,80 +250,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mLottieView.pauseAnimation();
         super.onPause();
     }
-
-    @Override
-    public void onChange(Music music) {
-        if (mPlayFragment != null) {
-            mPlayFragment.onChange(music);
-        }
-    }
-
-    @Override
-    public void onPlayerStart() {
-        if (mPlayFragment != null) {
-            mPlayFragment.onPlayerStart();
-        }
-    }
-
-    @Override
-    public void onPlayerPause() {
-        if (mPlayFragment != null) {
-            mPlayFragment.onPlayerPause();
-        }
-    }
-
-
-
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-
-
-        if (mPlayFragment != null && isPlayFragmentShow) {
-            if (getPlayService().isPlaying()) {
-                getPlayService().playPause();
-            }
-            hidePlayingFragment();
-
-            mImageView.setClickable(true);
-
-            return;
-        } else {
-            finish();
-        }
-
-    }
-
-
-    private void hidePlayingFragment() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(0, R.anim.fragment_slide_down);
-        ft.hide(mPlayFragment);
-        ft.commitAllowingStateLoss();
-        isPlayFragmentShow = false;
-    }
-
-    /**
-     * 更新播放进度
-     */
-    @Override
-    public void onPublish(int progress) {
-        if (mPlayFragment != null) {
-            mPlayFragment.onPublish(progress);
-        }
-    }
-
-    @Override
-    public void onBufferingUpdate(int percent) {
-        if (mPlayFragment != null) {
-            mPlayFragment.onBufferingUpdate(percent);
-        }
-    }
-
-    @Override
-    public void onTimer(long remain) {
-    }
-
     private void startAnim() {
         mRelativeLayout.post(action);
     }
@@ -381,16 +259,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     Runnable action = new Runnable() {
         @Override
         public void run() {
-//            AnimationDrawable anim = new AnimationDrawable();
-//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
-//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
-//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_three), 50);
-//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_two), 50);
-//            anim.addFrame(mResources.getDrawable(R.drawable.icon_face_one), 50);
-//            anim.setOneShot(true);
-//            mRelativeLayout.setBackground(anim);
-//            anim.start();
-
             mLottieView.clearAnimation();
             switch (animationType) {
                 case -1:
@@ -406,18 +274,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
     };
 
-    @Override
-    public void onMusicListUpdate() {
-
-    }
-
     private List<SearchMusic.Song> mSearchMusicList = new ArrayList<>();
 
 
     private void searchMusic(String keyword) {
-
-
-        //   mSearchMusicList.clear();
 
         HttpClient.searchMusic(keyword, new HttpCallback<SearchMusic>() {
 
@@ -438,6 +298,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 new PlaySearchedMusic(SpeechSynthesisActivity.this, mSearchMusicList.get(0)) {
                     @Override
                     public void onPrepare() {
+
                     }
 
                     @Override
@@ -445,15 +306,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         if (isStoped){
                             return;
                         }
-                        getPlayService().play(music);
-                        showPlayingFragment();
-
+                        //跳转到音乐播放界面去
+                        startActivityForResult(new Intent(SpeechSynthesisActivity.this, MusicPlayActivity.class)
+                                .putExtra("music",music),TO_MUSICPLAY);
                     }
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        //   mProgressDialog.cancel();
-                        ToastUtils.show(R.string.unable_to_play);
+                        ToastUtil.showShort(SpeechSynthesisActivity.this,R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -464,44 +324,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         });
     }
-
-
-    private void showPlayingFragment() {
-        if (isPlayFragmentShow) {
-            return;
-        }
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.fragment_slide_up, 0);
-        if (mPlayFragment == null) {
-            mPlayFragment = new PlayFragment();
-            ft.replace(android.R.id.content, mPlayFragment);
-        } else {
-            ft.show(mPlayFragment);
-        }
-        ft.commitAllowingStateLoss();
-        isPlayFragmentShow = true;
-    }
-
-
-    public PlayService getPlayService() {
-        PlayService playService = AppCache.getPlayService();
-        if (playService == null) {
-            throw new NullPointerException("play service is null");
-        }
-        return playService;
-    }
-
-    protected boolean checkServiceAlive() {
-        if (AppCache.getPlayService() == null) {
-            startActivity(new Intent(this, WelcomeActivity.class));
-            AppCache.clearStack();
-            return false;
-        }
-        return true;
-    }
-
-
     /**
      * 初始化Layout。
      */
@@ -562,16 +384,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mAudioPath = null;
             return;
         }
-        if (faceAnim != null && faceAnim.isRunning()) {
-            faceAnim.stop();
-        }
+//        if (faceAnim != null && faceAnim.isRunning()) {
+//            faceAnim.stop();
+//        }
         findViewById(R.id.iat_recognizes).performClick();
     }
 
     private void onPlayAudio(String audioPath) {
         Music music = new Music(audioPath);
-        getPlayService().play(music);
-        showPlayingFragment();
+        startActivityForResult(new Intent(SpeechSynthesisActivity.this, MusicPlayActivity.class)
+                .putExtra("music",music),TO_STORY);
     }
 
     /**
@@ -819,25 +641,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     finish();
                 }
 
-                /*}
-                else if (resultBuffer.toString().matches(".*歌.*") || resultBuffer.toString().matches(".*音乐.*")) {
-                    file = new File(Environment.getExternalStorageDirectory() + File.separator + getPackageName() + "/qfdy.mp3");
-                    //    mediaPlayer = MediaPlayer.create(this, R.raw.yeah);
-                    if (file.exists()) {
-                        try {
-                            mediaPlayer.reset();//从新设置要播放的音乐
-                            mediaPlayer.setDataSource(file.getAbsolutePath());
-                            mediaPlayer.prepare();//预加载音频
-                            mediaPlayer.start();//播放音乐
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-
-                }
-*/
-
             } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
@@ -888,45 +691,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
 
 
-            } /*else if (inSpell.contains("ting") || resultBuffer.toString().contains("播放") || inSpell.contains("fangyishou")) {
-
-                    mImageView.setClickable(false);
-
-                    try {
-                        if (resultBuffer.toString().matches(".*听.*的.*")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
-                        } else if (resultBuffer.toString().contains("听")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "听"));
-                        }
-                        if (resultBuffer.toString().matches(".*播放.*的.*")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
-                        } else if (resultBuffer.toString().contains("播放")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "放"));
-                        }
-                        if (resultBuffer.toString().matches(".*放.*首.*的.*")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
-                        } else if (resultBuffer.toString().contains("放一首")) {
-                            searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "首"));
-                        }
-
-
-                        // searchMusic(StringUtils.substringAfter(resultBuffer.toString(), "的"));
-
-                    } catch (Exception e) {
-                        runOnUiThread(
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        speak(R.string.speak_no_result);
-                                        //   findViewById(R.id.iat_recognizes).performClick();
-                                    }
-                                }
-                        );
-                        e.printStackTrace();
-                    }
-
-
-                } */ else if (inSpell.matches(".*bu.*liao.*") || result.contains("退出")
+            } else if (inSpell.matches(".*bu.*liao.*") || result.contains("退出")
                     || result.contains("返回") || result.contains("再见")
                     || result.contains("闭嘴") || inSpell.matches(".*baibai.*")) {
 
@@ -1052,7 +817,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             String music = "";
             if (index != -1) {
                 music = text.substring(index);
-                searchAndPlayMusic(music);
+                searchMusic(music);
             }
             return;
         }
@@ -1149,174 +914,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         } else {
         }
-//        pw.close();
-//        br.close();
-
-
     }
-
-    private void searchAndPlayMusic(String music) {
-
-        searchMusic(music);
-    }
-
-   /* private static String parseXffunQAResponse(String text) {
-    private void searchAndPlayMusic(String music) {
-
-    }
-
-    private static String parseXffunQAResponse(String text) {
-        try {
-            Log.i("mylog", text);
-            JSONObject apiResponseObj = new JSONObject(text);
-            text = apiResponseObj.optString("data");
-            JSONObject qaResponseObj = new JSONObject(text);
-            String code = qaResponseObj.optString("code");
-            if (text.equals("1")) {
-                return "我真的不知道了";
-            }
-            if (code == null || !code.equals("00000")) {
-                return "我真的不知道了";
-            }
-            JSONObject dataObj = qaResponseObj.optJSONObject("data");
-            if (dataObj == null) {
-                return "我真的不知道了";
-            }
-            JSONObject answerObj = dataObj.optJSONObject("answer");
-            if (answerObj == null) {
-                return "我真的不知道了";
-            }
-            String answer = answerObj.optString("text");
-            if (answer == null) {
-                return "我真的不知道了";
-            }
-            return answer;
-        } catch (JSONException e) {
-            Log.i("mylog", e.getMessage());
-            e.printStackTrace();
-            return "我真的不知道了";
-        }
-    }*/
-
-
-   /* public void startSynthesis(String str) {
-
-        //  mTts = SpeechSynthesizer.createSynthesizer(IatDemo.this, mTtsInitListener);
-
-        // 设置参数
-        setParams();
-        mTts.startSpeaking(str, mTtsListener);
-
-
-    }*/
-
-
-    /**
-     * 初始化监听。
-     */
-   /* private InitListener mTtsInitListener = new InitListener() {
-        @Override
-        public void onInit(int code) {
-            Log.d(TAG, "InitListener init() code = " + code);
-            if (code != ErrorCode.SUCCESS) {
-                showTip("初始化失败,错误码：" + code);
-            } else {
-                // 初始化成功，之后可以调用startSpeaking方法
-                // 注：有的开发者在onCreate方法中创建完合成对象之后马上就调用startSpeaking进行合成，
-                // 正确的做法是将onCreate中的startSpeaking调用移至这里
-            }
-        }
-    };*/
-
-
-    /**
-     * 合成回调监听。
-     */
-   /* private SynthesizerListener mTtsListener = new SynthesizerListener() {
-
-        @Override
-        public void onSpeakBegin() {
-            showTip("开始播放");
-        }
-
-        @Override
-        public void onSpeakPaused() {
-            showTip("暂停播放");
-        }
-
-        @Override
-        public void onSpeakResumed() {
-            showTip("继续播放");
-        }
-
-        @Override
-        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-            // 合成进度
-            mPercentForBuffering = percent;
-            //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
-        }
-
-        @Override
-        public void onSpeakProgress(int percent, int beginPos, int endPos) {
-            // 播放进度
-            mPercentForPlaying = percent;
-            //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
-        }
-
-        @Override
-        public void onCompleted(SpeechError error) {
-            if (error == null) {
-                showTip("播放完成");
-            } else if (error != null) {
-                showTip(error.getPlainDescription(true));
-            }
-            findViewById(R.id.iat_recognizes).performClick();
-        }
-
-        @Override
-        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-        }
-    };*/
-
-
-    /*private void setParams() {
-        // 清空参数
-        mTts.setParameter(SpeechConstant.PARAMS, null);
-        // 根据合成引擎设置相应参数
-        if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
-            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-            // 设置在线合成发音人
-            mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
-            //设置合成语速
-            mTts.setParameter(SpeechConstant.SPEED, mSharedPreferences.getString("speed_preference", "50"));
-            //设置合成音调
-            mTts.setParameter(SpeechConstant.PITCH, mSharedPreferences.getString("pitch_preference", "50"));
-            //设置合成音量
-            mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "50"));
-        } else {
-            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
-            // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
-            mTts.setParameter(SpeechConstant.VOICE_NAME, "");
-            */
-    /**
-     * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
-     * 开发者如需自定义参数，请参考在线合成参数设置
-     *//*
-        }
-        //设置播放器音频流类型
-        mTts.setParameter(SpeechConstant.STREAM_TYPE, mSharedPreferences.getString("stream_preference", "3"));
-        // 设置播放合成音频打断音乐播放，默认为true
-        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
-
-        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
-    }*/
-
-
-    //private MediaPlayer mediaPlayer;//MediaPlayer对象
-    private File file;//要播放的文件
 
 
     public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao).*";
@@ -1405,39 +1003,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onStop() {
         super.onStop();
-
         isStoped = true;
-//        if (mIat != null && mIat.isListening()){
-//            mIat.stopListening();
-//        }
-//        if (mTts != null && mTts.isSpeaking()){
-//            mTts.stopSpeaking();
-//        }
-        if (mIat != null){
-            mIat.stopListening();
-        }
-        if (mTts != null){
-            mTts.stopSpeaking();
-        }
-
-
-//        if (null != mIat) {
-//            // 退出时释放连接
-//            mIat.cancel();
-//            mIat.destroy();
-//        }
-//
-//        if (null != mTts) {
-//            mTts.stopSpeaking();
-//            // 退出时释放连接
-//            mTts.destroy();
-//        }
-//
-//        if (mediaPlayer.isPlaying()) {
-//            mediaPlayer.stop();
-//        }
-//        mediaPlayer.release();
-
     }
 
     @Override
@@ -1448,30 +1014,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
         mIatDialog = null;
         mHandler.removeCallbacksAndMessages(null);
-        if (null != mIat) {
-            // 退出时释放连接
-            mIat.cancel();
-            mIat.destroy();
-        }
+    }
 
-        if (null != mTts) {
-            mTts.stopSpeaking();
-            // 退出时释放连接
-            mTts.destroy();
-        }
-
-     /*   if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-        }
-        mediaPlayer.release();*/
-
-
-        if (mRemoteReceiver != null) {
-            mAudioManagers.unregisterMediaButtonEventReceiver(mRemoteReceiver);
-        }
-        PlayService service = AppCache.getPlayService();
-        if (service != null) {
-            service.setOnPlayEventListener(null);
-        }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            switch (requestCode){
+                case TO_MUSICPLAY:
+                    speak("主人，想听更多歌曲，请告诉我！");
+                    break;
+                case TO_STORY:
+                    speak("主人，我讲的故事好听吗？");
+                    break;
+            }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

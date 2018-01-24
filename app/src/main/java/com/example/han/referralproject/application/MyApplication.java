@@ -28,6 +28,7 @@ import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.wakeup.WakeupHelper;
+import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -80,7 +81,7 @@ public class MyApplication extends Application {
         super.onCreate();
 //        NoCrash.init(this);
 //        NoCrash.getInstance().install();
-//        LeakCanary.install(this);
+        LeakCanary.install(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 this,
@@ -106,9 +107,7 @@ public class MyApplication extends Application {
                 .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
 
         SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
-        NimInitHelper.getInstance().
-
-                init(this, true);
+        NimInitHelper.getInstance().init(this, true);
 
         AppCache.init(this);
         AppCache.updateNightMode(Preferences.isNightMode());

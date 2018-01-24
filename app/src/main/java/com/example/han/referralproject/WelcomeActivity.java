@@ -1,32 +1,18 @@
 package com.example.han.referralproject;
 
-import android.Manifest;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Looper;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.music.AppCache;
-import com.example.han.referralproject.music.EventCallback;
-import com.example.han.referralproject.music.PermissionReq;
-import com.example.han.referralproject.music.PlayService;
-import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
@@ -35,19 +21,12 @@ public class WelcomeActivity extends BaseActivity {
 
     private Chronometer ch;
 
-    private ServiceConnection mPlayServiceConnection;
-
-    private Handler mHandler = new Handler(Looper.getMainLooper());
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-//        mToolbar.setVisibility(View.GONE);
-        checkService();
+        //启动音乐服务
+        startService(new Intent(this, MusicService.class));
         if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {
             Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
             mIntent.putExtra("is_first_wifi", true);
@@ -55,22 +34,12 @@ public class WelcomeActivity extends BaseActivity {
             finish();
         }
 
-//        ApplicationInfo appInfo = null;
-//        try {
-//            appInfo = this.getPackageManager()
-//                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-//            String msg=appInfo.metaData.getString("com.gcml.version");
-//            Log.i("mylog", "data : " + msg);
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
                 try {
                     if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
-//                    if (true) {
                         new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
                     } else {
                         ch = (Chronometer) findViewById(R.id.chronometer);
@@ -130,87 +99,5 @@ public class WelcomeActivity extends BaseActivity {
             }
         });
     }
-
-    private void checkService() {
-        if (AppCache.getPlayService() == null) {
-            startService();
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    bindService();
-                }
-            }, 500);
-        }
-    }
-
-    private void bindService() {
-        Intent intent = new Intent();
-        intent.setClass(this, PlayService.class);
-        mPlayServiceConnection = new PlayServiceConnection();
-        bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    private class PlayServiceConnection implements ServiceConnection {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            final PlayService playService = ((PlayService.PlayBinder) service).getService();
-            AppCache.setPlayService(playService);
-            PermissionReq.with(WelcomeActivity.this).permissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .result(new PermissionReq.Result() {
-                        @Override
-                        public void onGranted() {
-                            //   scanMusic(playService);
-
-                            Log.e("==========", "PlayServiceConnection");
-
-                        }
-
-                        @Override
-                        public void onDenied() {
-                            ToastUtils.show(getString(R.string.no_permission, "存储空间", "扫描本地歌曲"));
-                            finish();
-                            playService.quit();
-                        }
-                    })
-                    .request();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    }
-
-    private void scanMusic(final PlayService playService) {
-        playService.updateMusicList(new EventCallback<Void>() {
-            @Override
-            public void onEvent(Void aVoid) {
-
-            }
-        });
-    }
-
-    @Override
-    public void onBackPressed() {
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        if (mPlayServiceConnection != null) {
-            unbindService(mPlayServiceConnection);
-            mPlayServiceConnection=null;
-        }
-        if(mHandler!=null){
-            mHandler.removeCallbacksAndMessages(null);
-            mHandler=null;
-        }
-        super.onDestroy();
-    }
-
-    private void startService() {
-        Intent intent = new Intent(this, PlayService.class);
-        startService(intent);
-    }
-
 
 }

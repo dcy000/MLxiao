@@ -476,6 +476,7 @@ public class VideoDemo extends BaseActivity {
 
         @Override
         public void onEvent(int eventType, Bundle params) {
+
         }
 
         @Override
