@@ -35,7 +35,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.jipush.MyReceiver;
-import com.example.han.referralproject.music.ScreenUtils;
+import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.ToastUtil;

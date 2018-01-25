@@ -1,21 +1,29 @@
 package com.example.han.referralproject.new_music;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import com.baidu.wallet.core.utils.LogUtil;
+
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Created by gzq on 2018/1/23.
  */
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
-    private MediaPlayer mediaPlayer=new MediaPlayer();
+    private MediaPlayer mediaPlayer=getMediaPlayer(this);
     private Music music;
     private AudioManager audioManager;
     @Override
@@ -123,5 +131,37 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     public interface MusicFinish{
         void onFinish();
+    }
+
+
+    private MediaPlayer getMediaPlayer(Context context) {
+        MediaPlayer mediaplayer = new MediaPlayer();
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+            return mediaplayer;
+        }
+        try {
+            Class<?> cMediaTimeProvider = Class.forName("android.media.MediaTimeProvider");
+            Class<?> cSubtitleController = Class.forName("android.media.SubtitleController");
+            Class<?> iSubtitleControllerAnchor = Class.forName("android.media.SubtitleController$Anchor");
+            Class<?> iSubtitleControllerListener = Class.forName("android.media.SubtitleController$Listener");
+            Constructor constructor = cSubtitleController.getConstructor(
+                    new Class[]{Context.class, cMediaTimeProvider, iSubtitleControllerListener});
+            Object subtitleInstance = constructor.newInstance(context, null, null);
+            Field f = cSubtitleController.getDeclaredField("mHandler");
+            f.setAccessible(true);
+            try {
+                f.set(subtitleInstance, new Handler());
+            } catch (IllegalAccessException e) {
+                return mediaplayer;
+            } finally {
+                f.setAccessible(false);
+            }
+            Method setsubtitleanchor = mediaplayer.getClass().getMethod("setSubtitleAnchor",
+                    cSubtitleController, iSubtitleControllerAnchor);
+            setsubtitleanchor.invoke(mediaplayer, subtitleInstance, null);
+        } catch (Exception e) {
+
+        }
+        return mediaplayer;
     }
 }

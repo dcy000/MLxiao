@@ -16,10 +16,9 @@ import android.util.Log;
 
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.music.AppCache;
-import com.example.han.referralproject.music.ForegroundObserver;
-import com.example.han.referralproject.music.HttpInterceptor;
-import com.example.han.referralproject.music.Preferences;
+import com.example.han.referralproject.new_music.HttpInterceptor;
+import com.example.han.referralproject.new_music.Preferences;
+import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -39,7 +38,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.beecloud.BeeCloud;
-import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
@@ -66,22 +64,12 @@ public class MyApplication extends Application {
     }
 
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-//        NoCrash.init(this);
-//        NoCrash.getInstance().install();
         LeakCanary.install(this);
+        Preferences.init(this);
+        ScreenUtils.init(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 this,
@@ -108,11 +96,6 @@ public class MyApplication extends Application {
 
         SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
         NimInitHelper.getInstance().init(this, true);
-
-        AppCache.init(this);
-        AppCache.updateNightMode(Preferences.isNightMode());
-        ForegroundObserver.init(this);
-
         initOkHttpUtils();
 
         BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
@@ -179,4 +162,5 @@ public class MyApplication extends Application {
     public Handler getBgHandler() {
         return mBgHandler == null ? new Handler(mBgThread.getLooper()) : mBgHandler;
     }
+
 }

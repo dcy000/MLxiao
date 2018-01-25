@@ -4,9 +4,9 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;

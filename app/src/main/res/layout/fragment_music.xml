@@ -67,7 +67,7 @@
             android:layout_weight="1"
             android:overScrollMode="never" />
 
-        <com.example.han.referralproject.music.IndicatorLayout
+        <com.example.han.referralproject.new_music.IndicatorLayout
             android:id="@+id/il_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
