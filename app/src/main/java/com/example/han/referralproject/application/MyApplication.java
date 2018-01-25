@@ -2,17 +2,12 @@ package com.example.han.referralproject.application;
 
 import android.app.ActivityManager;
 import android.app.Application;
-import android.app.Notification;
 import android.content.Context;
-import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
@@ -22,7 +17,7 @@ import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-//import com.medlink.crash.NoCrash;
+import com.medlink.crash.NoCrash;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
@@ -70,6 +65,8 @@ public class MyApplication extends Application {
         LeakCanary.install(this);
         Preferences.init(this);
         ScreenUtils.init(this);
+        NoCrash.init(this);
+        NoCrash.getInstance().install();
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 this,

@@ -217,11 +217,9 @@ public class VideoDemo extends BaseActivity {
                 @Override
                 public void run() {
 
-                    Looper.prepare();
 
                     openCamera();
 
-                    Looper.loop();
                 }
             }).start();
 
@@ -379,15 +377,14 @@ public class VideoDemo extends BaseActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    while (sign) {
 
-                        Looper.prepare();
+
+                    while (sign) {
 
                         try {
                             Thread.sleep(2000);
                         } catch (InterruptedException e) {
                         }
-
 
 
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -421,11 +418,8 @@ public class VideoDemo extends BaseActivity {
 
                         }
 
-                        Looper.loop();
-
-
-
                     }
+
                 }
             }
 

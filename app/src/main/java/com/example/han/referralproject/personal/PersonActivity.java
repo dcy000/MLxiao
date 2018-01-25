@@ -120,7 +120,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mImageView5 = (ImageView) findViewById(R.id.iv_order);
 
-
+        setEnableListeningLoop(false);
         mTextView4 = (TextView) findViewById(R.id.doctor_status);
         mTextView4.setOnClickListener(new View.OnClickListener() {
             @Override

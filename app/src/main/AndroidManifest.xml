@@ -98,19 +98,6 @@
             android:name="com.gcml.version"
             android:value="gcml_version_normal" />
 
-        <service android:name=".music.PlayService" />
-
-        <receiver android:name=".music.RemoteControlReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MEDIA_BUTTON" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".music.StatusBarReceiver">
-            <intent-filter>
-                <action android:name="me.wcy.music.STATUS_BAR_ACTIONS" />
-            </intent-filter>
-        </receiver>
-
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
             android:name=".jipush.MyReceiver"
@@ -211,7 +198,9 @@
         <activity
             android:name=".LoadingActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".recyclerview.RecoDocActivity">
+        <activity
+            android:name=".recyclerview.RecoDocActivity"
+            android:screenOrientation="landscape">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN"/> -->
@@ -231,6 +220,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -279,54 +269,92 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.medlink.danbogh.alarm.AlarmList2Activity" />
-        <activity android:name="com.medlink.danbogh.alarm.AlarmDetail2Activity" />
-        <activity android:name="com.medlink.danbogh.alarm.AlarmActivity" />
+        <activity
+            android:name="com.medlink.danbogh.alarm.AlarmList2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.alarm.AlarmDetail2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.alarm.AlarmActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SymptomAnalyseActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".recyclerview.AppraiseActivity" />
-        <activity android:name=".facerecognition.HeadiconActivity" />
-        <activity android:name=".recyclerview.DoctorappoActivity" />
-        <activity android:name=".recyclerview.AddAppoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".recyclerview.AppraiseActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".facerecognition.HeadiconActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recyclerview.DoctorappoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recyclerview.AddAppoActivity"
+            android:screenOrientation="landscape">
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
-        <activity android:name="com.medlink.danbogh.register.SignUp2GenderActivity" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp2GenderActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp3AddressActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp4IdCardActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp5MobileVerificationActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp6PasswordActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
-        <activity android:name="com.medlink.danbogh.register.SignUp7HeightActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp8WeightActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp9BloodTypeActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp10EatActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp11SmokeActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp12DrinkActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp13SportsActivity" />
-        <activity android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity" />
-        <activity android:name=".recharge.PayActivity" />
-        <activity android:name=".recharge.PayInfoActivity" />
-        <activity android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp8WeightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp9BloodTypeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp10EatActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp11SmokeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp12DrinkActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp13SportsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recharge.PayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recharge.PayInfoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity"
+            android:screenOrientation="landscape" />
 
         <meta-data
             android:name="com.netease.nim.appKey"
@@ -383,32 +411,63 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name="com.medlink.danbogh.alarm.ReminderActivity" />
+        <activity
+            android:name="com.medlink.danbogh.alarm.ReminderActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
             android:screenOrientation="landscape" />
-        <activity android:name="com.medlink.danbogh.location.LocationActivity" />
-        <activity android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity" />
-        <activity android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity" />
-        <activity android:name="com.medlink.danbogh.register.ConfirmContractActivity" />
-        <activity android:name=".video.VideoListActivity" />
-        <activity android:name=".shopping.ShopListActivity" />
-        <activity android:name=".shopping.GoodDetailActivity" />
-        <activity android:name=".activity.MyBaseDataActivity" />
-        <activity android:name=".activity.SymptomsActivity" />
-        <activity android:name=".activity.BodychartActivity" />
-        <activity android:name=".shopping.OrderListActivity" />
+
+
         <activity android:name=".activity.DiseaseDetailsActivity" />
         <activity
+            android:name="com.medlink.danbogh.location.LocationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.medlink.danbogh.register.ConfirmContractActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".video.VideoListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".shopping.ShopListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".shopping.GoodDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.MyBaseDataActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SymptomsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.BodychartActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".shopping.OrderListActivity"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name=".recyclerview.OnlineDoctorListActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".recyclerview.DoctorAskGuideActivity" />
+        <activity
+            android:name=".recyclerview.DoctorAskGuideActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.signin.SignInActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.medlink.danbogh.signin.FindPasswordActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.medlink.danbogh.signin.SetPasswordActivity"
@@ -417,24 +476,51 @@
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize" />
 
         <service android:name=".floatingball.AssistiveTouchService" />
 
-        <activity android:name=".recyclerview.DoctorAlarmActivity" />
-        <activity android:name=".activity.AlertHeightActivity" />
-        <activity android:name=".activity.AlertWeightActivity" />
-        <activity android:name=".activity.AlertSportActivity" />
-        <activity android:name=".activity.AlertSmokeActivity" />
-        <activity android:name=".activity.AlertEatingActivity" />
-        <activity android:name=".activity.AlertDrinkingActivity" />
-        <activity android:name=".activity.SelectXuetangTimeActivity" />
-        <activity android:name=".recyclerview.HistoryActivity" />
-        <activity android:name=".recyclerview.CheckContractActivity" />
-        <activity android:name=".activity.MarketActivity" />
-        <activity android:name=".activity.AlertMHActivity" />
-        <activity android:name=".activity.AlertAddressActivity" />
-        <activity android:name=".new_music.MusicPlayActivity"></activity>
+        <activity
+            android:name=".recyclerview.DoctorAlarmActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AlertHeightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AlertWeightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AlertSportActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AlertSmokeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AlertEatingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AlertDrinkingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SelectXuetangTimeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recyclerview.HistoryActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".recyclerview.CheckContractActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.MarketActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AlertMHActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AlertAddressActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".new_music.MusicPlayActivity"/>
     </application>
 
 </manifest>

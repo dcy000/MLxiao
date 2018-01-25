@@ -36,7 +36,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="25dp"
         android:focusable="true"
-        android:max="50"
+        android:max="60"
         android:maxHeight="30dp"
         android:minHeight="10dp"
         android:progress="3"
