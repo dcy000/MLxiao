@@ -324,6 +324,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                 String result = new String(buffer, "utf-8");
                 Log.e("上传头像返回的信息", "onBufferReceived: " + result);
                 JSONObject obj = new JSONObject(result);
+                Log.e("获取注册时候讯飞的信息", "onBufferReceived: " +obj.toString() );
                 String type = obj.optString("sst");
                 if ("reg".equals(type)) {
                     int ret = obj.getInt("ret");

@@ -122,7 +122,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String code) {
                         mCode = code;
-                        T.show("获取验证码成功");
+                         T.show("获取验证码成功");
                         speak("获取验证码成功");
                     }
                 }, new NetworkManager.FailedCallback() {

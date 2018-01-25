@@ -23,6 +23,7 @@ import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -178,14 +179,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.health_test://健康监测
 
-//                intent.setClass(getApplicationContext(), VideoDemo.class);
-//                intent.putExtra("sign", "0");
-//                intent.putExtra("orderid", "0");
-//                intent.putExtra("from", "Test");
-//                intent.putExtra("jump", "1");
-//                startActivity(intent);
+                intent.setClass(getApplicationContext(), VideoDemo.class);
+                intent.putExtra("sign", "0");
+                intent.putExtra("orderid", "0");
+                intent.putExtra("from", "Test");
+                intent.putExtra("jump", "1");
+                startActivity(intent);
 
-                startActivity(new Intent(mContext, Test_mainActivity.class));
+//                startActivity(new Intent(mContext, Test_mainActivity.class));
                 break;
             case R.id.doctor_ask://医生咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);

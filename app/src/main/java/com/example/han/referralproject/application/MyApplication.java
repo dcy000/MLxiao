@@ -65,8 +65,8 @@ public class MyApplication extends Application {
         LeakCanary.install(this);
         Preferences.init(this);
         ScreenUtils.init(this);
-        NoCrash.init(this);
-        NoCrash.getInstance().install();
+//        NoCrash.init(this);
+//        NoCrash.getInstance().install();
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 this,

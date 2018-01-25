@@ -49,6 +49,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.Utils;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
@@ -79,7 +80,6 @@ public class VideoDemo extends BaseActivity {
     private boolean mStopTrack;
     private Toast mToast;
     private byte[] mImageData = null;
-    private boolean sign = true;
     private String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
@@ -88,21 +88,19 @@ public class VideoDemo extends BaseActivity {
     private String signs;
     private String orderid;
     private NDialog2 dialog2;
-
     private MediaPlayer mediaPlayer;//MediaPlayer对象
-
-
-    private String[] xfid;//存放本地取得所有xfid
+    private String[] xfids;//存放本地取得所有xfid
     private String fromString;//标识从哪个页面过来的
     private int indexXfid;//记录讯飞id匹配到第几个了
+    private int xfTime = 10;//默认轮训的次数,如果需要修改，记得下面还有两个地方
     private String choosedXfid;//选中的讯飞id;
-    private HashMap<String, String> map;
+    private HashMap<String, String> xfid_userid;
     private String[] accounts;
-
     private Button mButton;
     private RelativeLayout mRelativeLayout;
-
     private String jump;
+    private ByteArrayOutputStream baos;
+    private int unDentified=10;//未识别的次数，最多10寸
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,31 +108,29 @@ public class VideoDemo extends BaseActivity {
         setContentView(R.layout.activity_video_demo);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
-
         mediaPlayer.start();//播放音乐
-        map = new HashMap<>();
+        xfid_userid = new HashMap<>();
         //获取所有账号
         accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts != null) {
-            indexXfid = accounts.length * 5;
-            xfid = new String[accounts.length];
+            xfids = new String[accounts.length];
             for (int i = 0; i < accounts.length; i++) {
-                xfid[i] = accounts[i].split(",")[1];
-                map.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
+                xfids[i] = accounts[i].split(",")[1];
+                xfid_userid.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
             }
         }
         choosedXfid = MyApplication.getInstance().xfid;//默认选中的是当前的讯飞id;
-
         Intent intent = getIntent();
         signs = intent.getStringExtra("sign");
         orderid = intent.getStringExtra("orderid");
         fromString = intent.getStringExtra("from");
+        if ("Test".equals(fromString)) {//测试
+            indexXfid=0;
+        }else{
+            indexXfid=xfids.length;//这样做的目的是为了在下面的判断中不走"测试"的分支
+        }
         jump = intent.getStringExtra("jump");
-
-
         dialog2 = new NDialog2(VideoDemo.this);
-
-
         mImageView = (RelativeLayout) findViewById(R.id.rl_back);
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
@@ -154,7 +150,6 @@ public class VideoDemo extends BaseActivity {
             mButton.setVisibility(View.VISIBLE);
 
         }
-
         mButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,7 +158,6 @@ public class VideoDemo extends BaseActivity {
                 finish();
             }
         });
-
         mRelativeLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,35 +165,14 @@ public class VideoDemo extends BaseActivity {
                 Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
                 startActivity(intent);
                 finish();
-
             }
         });
-
-
-        //   SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
-
-
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
-
         initUI();
-
-
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mAcc = new Accelerometer(VideoDemo.this);
-
         mFaceRequest = new FaceRequest(this);
-
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        sign = false;
-        mediaPlayer.pause();
-        mediaPlayer = null;
     }
 
     private Callback mPreviewCallback = new Callback() {
@@ -216,14 +189,9 @@ public class VideoDemo extends BaseActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-
-
                     openCamera();
-
                 }
             }).start();
-
-
         }
 
         @Override
@@ -255,50 +223,6 @@ public class VideoDemo extends BaseActivity {
         mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         mFaceSurface.setZOrderOnTop(true);
         mFaceSurface.getHolder().setFormat(PixelFormat.TRANSLUCENT);
-
-        // 点击SurfaceView，切换摄相头
-       /* mFaceSurface.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // 只有一个摄相头，不支持切换
-                if (Camera.getNumberOfCameras() == 1) {
-                    showTip("只有后置摄像头，不能切换");
-                    return;
-                }
-                closeCamera();
-                if (CameraInfo.CAMERA_FACING_FRONT == mCameraId) {
-                    mCameraId = CameraInfo.CAMERA_FACING_BACK;
-                } else {
-                    mCameraId = CameraInfo.CAMERA_FACING_FRONT;
-                }
-                openCamera();
-            }
-        });*/
-
-       /* // 长按SurfaceView 500ms后松开，摄相头聚集
-        mFaceSurface.setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        mLastClickTime = System.currentTimeMillis();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (System.currentTimeMillis() - mLastClickTime > 500) {
-                            mCamera.autoFocus(null);
-                            return true;
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });*/
-
         setSurfaceSize();
         mToast = Toast.makeText(VideoDemo.this, "", Toast.LENGTH_SHORT);
     }
@@ -309,7 +233,7 @@ public class VideoDemo extends BaseActivity {
         }
 
         if (!checkCameraPermission()) {
-            showTip("摄像头权限未打开，请打开后再试");
+            ToastUtil.showShort(this, "摄像头权限未打开，请打开后再试");
             mStopTrack = true;
             return;
         }
@@ -321,11 +245,6 @@ public class VideoDemo extends BaseActivity {
 
         try {
             mCamera = Camera.open(mCameraId);
-           /* if (CameraInfo.CAMERA_FACING_FRONT == mCameraId) {
-                showTip("前置摄像头已开启，点击可切换");
-            } else {
-                showTip("后置摄像头已开启，点击可切换");
-            }*/
         } catch (Exception e) {
             e.printStackTrace();
             closeCamera();
@@ -355,78 +274,48 @@ public class VideoDemo extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        if (mFaceDetector == null) {
-//            /**
-//             * 离线视频流检测功能需要单独下载支持离线人脸的SDK
-//             * 请开发者前往语音云官网下载对应SDK
-//             */
-//            // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
-//            showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
-//        }
     }
 
-    private int first_match = 3;//第一次匹配本机账号使用
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!isFor) {
+                //睡两秒钟让用户调整姿态
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            baos = new ByteArrayOutputStream();
+            if (b3 != null) {
+                Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                mImageData = baos.toByteArray();
+            }
+            if (mImageData != null) {
+                if ("Test".equals(fromString)) {//标识从MainActivity过来
+                    if (xfids != null && xfids.length > 0) {//把数组中第一个头像发送过去
+                        mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfids[indexXfid]);
+                        mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
+                        mFaceRequest.sendRequest(mImageData, mRequestListener);
+                        choosedXfid = xfids[indexXfid];
+                        Log.e(TAG, "run: " + xfids[indexXfid]);
+                        indexXfid++;
+                    }
+                } else if (mAuthid != null) {//支付走这个分支
+                    mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                    mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
+                    mFaceRequest.sendRequest(mImageData, mRequestListener);
+                }
+            }
+        }
+    };
 
     @Override
     protected void onStart() {
+        new Thread(runnable).start();
         super.onStart();
-
-        if (null != mAuthid) {
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-
-                    while (sign) {
-
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                        }
-
-
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-
-                        if (b3 != null) {
-
-                            Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
-
-                            //    Bitmap bitmap = getCircleBitmap(bitmap1);
-
-
-                            //可根据流量及网络状况对图片进行压缩
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                            mImageData = baos.toByteArray();
-
-                        }
-                        if (null != mImageData && null != mAuthid) {
-                            if ("Test".equals(fromString) && mAuthid != null && first_match > 0) {
-                                mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-                                first_match--;
-                            } else if ("Test".equals(fromString) && indexXfid > 0 && accounts != null) {
-                                mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfid[indexXfid % accounts.length]);
-                                choosedXfid = xfid[indexXfid % accounts.length];
-                                indexXfid--;
-                            } else {
-                                mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-                            }
-                            mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
-                            mFaceRequest.sendRequest(mImageData, mRequestListener);
-
-                        }
-
-                    }
-
-                }
-            }
-
-            ).start();
-
-
-        }
     }
 
     public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
@@ -466,130 +355,135 @@ public class VideoDemo extends BaseActivity {
         return result;
     }
 
+    private static final String TAG = "人脸验证";
+    private boolean isFor = false;//是不是正在轮询
     private RequestListener mRequestListener = new RequestListener() {
 
         @Override
         public void onEvent(int eventType, Bundle params) {
-
+            Log.e("讯飞onEvent", "onEvent: " + eventType + "");
         }
 
         @Override
         public void onBufferReceived(byte[] buffer) {
-
-
             try {
                 String result = new String(buffer, "utf-8");
-                Log.d("FaceDemo", result);
-
                 JSONObject object = new JSONObject(result);
-                String type = object.optString("sst");
-                if ("verify".equals(type)) {
-                    verify(object);
+                if (object.getInt("ret") != 0) {
+                    finish();
+                    Log.e(TAG, "讯飞出问题了");
+                    return;
+                }
+
+                if ("verify".equals(object.optString("sst"))) {//说明是在验证头像而不是注册或者其他
+                    if (!object.getBoolean("verf")) {//验证失败，进行下一次验证
+                        if (indexXfid == xfids.length) {//标识这一遍已经轮询到最后一个元素了
+                            if ("Test".equals(fromString)) {//测试
+                                if (xfTime > 0) {
+                                    Log.e(TAG, "onBufferReceived:xfTime " + xfTime + "");
+                                    xfTime--;
+                                    indexXfid = 0;//重置index，再次开始轮询
+                                    isFor=true;
+                                    onStart();
+                                } else {//10轮验证结束，验证失败
+                                    speak(getString(R.string.shop_yanzheng));
+                                    ToastUtil.showShort(VideoDemo.this, "验证不通过");
+                                    finish();
+                                }
+                            } else {//支付
+                                if (xfTime > 0) {
+                                    xfTime--;//再次发起查询
+                                    isFor=true;
+                                    onStart();
+                                } else {
+                                    //5轮验证结束，验证失败取消订单
+                                    NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
+                                        @Override
+                                        public void onSuccess(String response) {
+                                            speak(getString(R.string.shop_yanzheng));
+                                            ToastUtil.showShort(VideoDemo.this, "验证不通过");
+                                            finish();
+
+                                        }
+
+                                    }, new NetworkManager.FailedCallback() {
+                                        @Override
+                                        public void onFailed(String message) {
+
+
+                                        }
+                                    });
+                                }
+                            }
+
+                        } else {
+                            Log.e(TAG, "onBufferReceived:indexXfid" + "-------" + indexXfid + "");
+                            isFor = true;
+                            onStart();
+                        }
+                    } else {//验证通过 将所有flag初始化
+                        indexXfid = 0;
+                        xfTime = 10;
+                        Log.e(TAG, "onBufferReceived: 成功");
+                        closeCamera();
+                        if ("0".equals(signs)) {//测量验证成功
+                            ToastUtil.showShort(VideoDemo.this, "通过验证，欢迎回来！");
+                            if (!TextUtils.isEmpty(choosedXfid) && !MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id,已经改变，则切换账号
+                                //根据返回来的uid判断是哪一个账号匹配成功
+                                MyApplication.getInstance().userId = xfid_userid.get(choosedXfid);
+                                MyApplication.getInstance().xfid = choosedXfid;
+                                sendBroadcast(new Intent("change_account"));
+                            }
+                            startActivity(new Intent(getApplicationContext(), Test_mainActivity.class));
+                            finish();
+                        } else if ("1".equals(signs)) {//支付验证成功了
+                            NetworkApi.pay_status(MyApplication.getInstance().userId, Utils.getDeviceId(), orderid, new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    speak(getString(R.string.shop_success));
+                                    ShowNormal("支付成功", "1");
+                                    GoodDetailActivity.mActivity.finish();
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+                                    ShowNormal("支付失败", "0");
+                                }
+                            });
+
+                        }
+                    }
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
 
         @Override
         public void onCompleted(SpeechError error) {
-
-        }
-    };
-
-
-    private void verify(JSONObject obj) throws JSONException {
-        int ret = obj.getInt("ret");
-        if (ret != 0 && sign == true) {
-            showTip("验证失败");
-            sign = false;
-            finish();
-            return;
-        }
-        if ("success".equals(obj.get("rst"))) {
-            if (obj.getBoolean("verf") && sign == true) {
-
-                if ("0".equals(signs)) {
-                    showTip("通过验证，欢迎回来！");
-                    if (!TextUtils.isEmpty(choosedXfid) && !MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id,已经改变，则切换账号
-                        MyApplication.getInstance().userId = map.get(choosedXfid);
-                        MyApplication.getInstance().xfid = choosedXfid;
-                        sendBroadcast(new Intent("change_account"));
-                    }
-                    Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
-                    startActivity(intent);
-                    sign = false;
-                    finish();
-
-                } else if ("1".equals(signs)) {
-                    sign = false;
-                    NetworkApi.pay_status(MyApplication.getInstance().userId, Utils.getDeviceId(), orderid, new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            speak(getString(R.string.shop_success));
-                            ShowNormal("支付成功", "1");
-                            GoodDetailActivity.mActivity.finish();
-
-                        }
-
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-
-                            ShowNormal("支付失败", "0");
-
-
-                        }
-                    });
-
-
+            //未识别到人脸走这里
+            if (error != null&&unDentified>0) {
+                unDentified--;
+                ToastUtil.showShort(VideoDemo.this, error.getErrorDescription());
+                if("Test".equals(fromString)){
+                    indexXfid = 0;
+                }else{
+                    indexXfid=xfids.length;
                 }
-
-            } else {
-                if (sign == true) {
-
-                    if ("0".equals(signs)) {
-                        if (indexXfid <= 0) {
-                            showTip("验证不通过");
-                            sign = false;
-                            finish();
-                        }
-
-                    } else if ("1".equals(signs)) {
-
-
-                        NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
-                            @Override
-                            public void onSuccess(String response) {
-
-                                speak(getString(R.string.shop_yanzheng));
-                                showTip("验证不通过");
-                                finish();
-
-                            }
-
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-
-
-                            }
-                        });
-
-                    }
-
-
+                xfTime = 10;
+                isFor = false;
+                if (!VideoDemo.this.isDestroyed()) {
+                    onStart();
                 }
-            }
-        } else {
-            if (sign == true) {
-                showTip("验证失败");
-                sign = false;
+            }else{
                 finish();
             }
         }
-    }
+    };
 
 
     public void ShowNormal(String message, final String sign) {
@@ -604,26 +498,20 @@ public class VideoDemo extends BaseActivity {
                     @Override
                     public void onClick(int which) {
                         if (which == 1) {
-
                             if ("1".equals(sign)) {
                                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                                 startActivity(intent);
                                 finish();
-
                             } else {
 
                                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                                 startActivity(intent);
                                 finish();
-
                             }
-
-
                         }
 
                     }
                 }).create(NDialog.CONFIRM).show();
-
     }
 
 
@@ -671,86 +559,6 @@ public class VideoDemo extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-//        if (null != mAcc) {
-//            mAcc.start();
-//        }
-//
-//        mStopTrack = false;
-//        new Thread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                while (!mStopTrack) {
-//                    if (null == nv21) {
-//                        continue;
-//                    }
-//
-//                    synchronized (nv21) {
-//                        System.arraycopy(nv21, 0, buffer, 0, nv21.length);
-//                    }
-//
-//                    // 获取手机朝向，返回值0,1,2,3分别表示0,90,180和270度
-//                    int direction = Accelerometer.getDirection();
-//                    boolean frontCamera = (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId);
-//                    // 前置摄像头预览显示的是镜像，需要将手机朝向换算成摄相头视角下的朝向。
-//                    // 转换公式：a' = (360 - a)%360，a为人眼视角下的朝向（单位：角度）
-//                    if (frontCamera) {
-//                        // SDK中使用0,1,2,3,4分别表示0,90,180,270和360度
-//                        direction = (4 - direction) % 4;
-//                    }
-//
-//                    if (mFaceDetector == null) {
-//                        /**
-//                         * 离线视频流检测功能需要单独下载支持离线人脸的SDK
-//                         * 请开发者前往语音云官网下载对应SDK
-//                         */
-//                        // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
-//                        showTip("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
-//                        break;
-//                    }
-//
-//                    String result = mFaceDetector.trackNV21(buffer, PREVIEW_WIDTH, PREVIEW_HEIGHT, isAlign, direction);
-//                    Log.d(TAG, "result:" + result);
-//
-//                    FaceRect[] faces = ParseResult.parseResult(result);
-//
-//                    Canvas canvas = mFaceSurface.getHolder().lockCanvas();
-//                    if (null == canvas) {
-//                        continue;
-//                    }
-//
-//                    canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-//                    canvas.setMatrix(mScaleMatrix);
-//
-//                    if (faces == null || faces.length <= 0) {
-//                        mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
-//                        continue;
-//                    }
-//
-//                    if (null != faces && frontCamera == (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId)) {
-//                        for (FaceRect face : faces) {
-//                            face.bound = FaceUtil.RotateDeg90(face.bound, PREVIEW_WIDTH, PREVIEW_HEIGHT);
-//                            if (face.point != null) {
-//                                for (int i = 0; i < face.point.length; i++) {
-//                                    face.point[i] = FaceUtil.RotateDeg90(face.point[i], PREVIEW_WIDTH, PREVIEW_HEIGHT);
-//                                }
-//                            }
-//                            FaceUtil.drawFaceRect(canvas, face, PREVIEW_WIDTH, PREVIEW_HEIGHT, frontCamera, false);
-//                        }
-//                    } else {
-//                        Log.d(TAG, "faces:0");
-//                    }
-//
-//                    mFaceSurface.getHolder().unlockCanvasAndPost(canvas);
-//                }
-//            }
-//        }).start();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         closeCamera();
@@ -764,16 +572,20 @@ public class VideoDemo extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-//        if (null != mFaceDetector) {
-//            // 销毁对象
-//            mFaceDetector.destroy();
-//        }
+        if (mediaPlayer!=null) {
+            mediaPlayer.pause();
+            mediaPlayer = null;
+        }
+        if (baos != null) {
+            try {
+                baos.close();
+                baos = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (mFaceRequest!=null){
+            mFaceRequest.cancel();
+        }
     }
-
-    private void showTip(final String str) {
-        mToast.setText(str);
-        mToast.show();
-    }
-
 }
