@@ -158,7 +158,7 @@ public class BluetoothLeService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
-
+        disconnect();
         close();
         return super.onUnbind(intent);
     }

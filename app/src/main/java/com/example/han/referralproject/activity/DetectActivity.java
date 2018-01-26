@@ -68,6 +68,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private BluetoothLeService mBluetoothLeService;
     public boolean threadDisable = true;
     public boolean blueThreadDisable = true;
+    public boolean workSearchThread = true;
     public String str;
     public TextView mResultTv;
     public TextView mHighPressTv, mLowPressTv, mPulseTv;
@@ -94,7 +95,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private BluetoothGattCharacteristic mWriteCharacteristic;
     private View mOverView;
     private LocalShared mShared;
-
+    private Thread mSearchThread;
 
     @SuppressLint("HandlerLeak")
     Handler xueyaHandler = new Handler() {
@@ -105,7 +106,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:// TODO 设置显示点击查看按钮并上传数据
-
                     break;
                 // 测量成功
                 case 1:
@@ -580,13 +580,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 float height=TextUtils.isEmpty(height_s)?0:Float.parseFloat(height_s)/100;
                                 if(height!=0)
                                     ((TextView)findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f",result/(height*height)));
-                                speak(String.format(getString(R.string.tips_result_tizhong), result));
+                                speak(String.format(getString(R.string.tips_result_tizhong), String.format("%.1f", result)));
                                 DataInfoBean info = new DataInfoBean();
                                 info.weight = result;
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
-                                        Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -654,6 +654,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
     };
+
     public ImageView ivBack;
 
     @Override
@@ -741,19 +742,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                characteristic = gattServices.get(3).getCharacteristics().get(1);
                 break;
         }
-
         if (characteristic == null) {
             return;
         }
-
         if (detectType == Type_TiZhong) {
             setCharacterValue(characteristic, characteristic , 0);
             return;
         }
-
-
         mWriteCharacteristic = characteristic;
-
         switch (detectType) {
             case Type_XueYang:
                 mWriteCharacteristic.setValue(Commands.xueyangDatas);
@@ -786,7 +782,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         if (characteristic1!=null) {
             charaProp_second = characteristic1.getProperties();
         }
-        Log.i("mylog", "2222222222222222222");
+//        Log.i("mylog", "2222222222222222222");
         if (status == BluetoothGatt.GATT_SUCCESS) {
             if ((charaProp & BluetoothGattCharacteristic.PROPERTY_NOTIFY) >0) {
                 mBluetoothGatt.setCharacteristicNotification(
@@ -811,7 +807,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 if (descriptor != null){
                     mBluetoothGatt.writeDescriptor(descriptor);
                 }
-                Log.i("mylog", "33333333333333333333333");
+//                Log.i("mylog", "33333333333333333333333");
             }
         }
     }
@@ -1220,6 +1216,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         super.onStart();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         registerBltReceiver();
+        blueThreadDisable = true;
         startSearch();
     }
 
@@ -1230,6 +1227,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         unregisterReceiver(mGattUpdateReceiver);
         unregisterReceiver(searchDevices);
         stopSearch();
+        blueThreadDisable = false;
         if (mBluetoothLeService != null) {
             unbindService(mServiceConnection);
         }
@@ -1355,36 +1353,48 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         }
-        blueThreadDisable = true;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (blueThreadDisable){
-                    Log.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                    if (TextUtils.isEmpty(mDeviceAddress)){
-                        if (!mBluetoothAdapter.isDiscovering()){
-                            boolean flag = mBluetoothAdapter.startDiscovery();
-                            Log.i("mylog", "flag : " + flag);
+        workSearchThread = true;
+        if (mSearchThread == null){
+            mSearchThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (blueThreadDisable){
+//                        Log.i("mylog", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
+                        if (!workSearchThread){
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            continue;
                         }
-                    } else {
-                        Log.i("mylog", "address : " + mDeviceAddress);
-                        if (mBluetoothLeService != null && mBluetoothLeService.connect(mDeviceAddress)) {
-                            mBluetoothGatt = mBluetoothLeService.getGatt();
-                            stopSearch();
+//                        Log.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                        if (TextUtils.isEmpty(mDeviceAddress)){
+                            if (!mBluetoothAdapter.isDiscovering()){
+                                boolean flag = mBluetoothAdapter.startDiscovery();
+//                                Log.i("mylog", "flag : " + flag);
+                            }
+                        } else {
+//                            Log.i("mylog", "address : " + mDeviceAddress);
+                            if (mBluetoothLeService != null && mBluetoothLeService.connect(mDeviceAddress)) {
+                                mBluetoothGatt = mBluetoothLeService.getGatt();
+                                stopSearch();
+                            }
                         }
-                    }
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        }).start();
+            });
+            mSearchThread.start();
+        }
     }
 
     private void stopSearch() {
-        blueThreadDisable = false;
+        workSearchThread = false;
         if (mBluetoothAdapter != null && mBluetoothAdapter.isDiscovering()) {
             mBluetoothAdapter.cancelDiscovery();
         }
