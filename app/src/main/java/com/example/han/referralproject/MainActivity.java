@@ -23,6 +23,7 @@ import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.facerecognition.VideoDemo;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;

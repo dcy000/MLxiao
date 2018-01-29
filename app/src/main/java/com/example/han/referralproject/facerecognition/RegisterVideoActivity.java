@@ -134,7 +134,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                                     //再给用户2秒进行姿态调整
                                     try {
                                         Thread.sleep(2000);
-                                        if(sign){
+                                        if (sign) {
                                             mCamera.setOneShotPreviewCallback(RegisterVideoActivity.this);
                                         }
                                     } catch (InterruptedException e) {
@@ -186,18 +186,14 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Looper.prepare();
                     openCamera();
-                    Looper.loop();
                 }
             }).start();
-
-
         }
 
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            Log.e("Surface改变回调", "surfaceChanged: " );
+            Log.e("Surface改变回调", "surfaceChanged: ");
             mScaleMatrix.setScale(width / (float) PREVIEW_HEIGHT, height / (float) PREVIEW_WIDTH);
         }
     };
@@ -444,10 +440,10 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(stream!= null){
+        if (stream != null) {
             try {
                 stream.close();
-                stream=null;
+                stream = null;
             } catch (IOException e) {
                 e.printStackTrace();
             }

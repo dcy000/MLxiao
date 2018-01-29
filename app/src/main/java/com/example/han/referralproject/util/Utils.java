@@ -3,6 +3,8 @@ package com.example.han.referralproject.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.view.WindowManager;
@@ -27,6 +29,19 @@ public class Utils {
     public static String getMacAddress(){
         WifiManager wm = (WifiManager)MyApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         return wm.getConnectionInfo().getMacAddress();
+    }
+
+    public static String getLocalVersionName(Context context) {
+        String localVersion = "";
+        try {
+            PackageInfo packageInfo = context.getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            localVersion = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return localVersion;
     }
 
     /*

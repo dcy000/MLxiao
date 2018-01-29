@@ -8,13 +8,18 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.BodychartActivity;
 import com.example.han.referralproject.activity.MarketActivity;
@@ -27,6 +32,7 @@ import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
+import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
@@ -37,6 +43,7 @@ import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.shopping.ShopListActivity;
 import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
@@ -188,6 +195,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.btn_logout).setOnClickListener(this);
         findViewById(R.id.view_change).setOnClickListener(this);
         mImageView.setOnClickListener(this);
+        findViewById(R.id.tv_update).setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
         mIvAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,6 +215,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.btn_logout).setOnClickListener(this);
 
 
+        ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
     }
 
@@ -386,7 +395,32 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             case R.id.btn_record://测量历史
                 startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
-
+            case R.id.tv_update:
+                showLoadingDialog("检查更新中");
+                NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
+                    @Override
+                    public void onSuccess(VersionInfoBean response) {
+                        hideLoadingDialog();
+                        try {
+                            if (response != null && response.vid > getPackageManager().getPackageInfo(PersonActivity.this.getPackageName(), 0).versionCode) {
+                                new UpdateAppManager(PersonActivity.this).showNoticeDialog(response.url);
+                            } else {
+                                speak("当前已经是最新版本了");
+                                Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        hideLoadingDialog();
+                        speak("当前已经是最新版本了");
+                        Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
         }
     }
 }

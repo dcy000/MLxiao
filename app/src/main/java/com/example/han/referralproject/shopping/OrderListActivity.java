@@ -57,7 +57,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         mSharedPreferences = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
 
 
-        NetworkApi.order_list("2", "2", "1", mSharedPreferences.getString("userName", ""), "1", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+        NetworkApi.order_list("2", "2", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
             @Override
             public void onSuccess(ArrayList<Orders> response) {
 
@@ -66,8 +66,55 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
                 mlist.clear();
                 list.addAll(response);
                 mlist.addAll(list);
+                /*mOrderAdapter = new OrderAdapter(mlist, getApplicationContext());
+                mRecyclerView.setAdapter(mOrderAdapter);
+
+
+                setData();*/
+
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
+
+
+        NetworkApi.order_list("2", "1", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+            @Override
+            public void onSuccess(ArrayList<Orders> response) {
+
+                List<Orders> list = new ArrayList<Orders>();
+                list.addAll(response);
+                mlist.addAll(list);
+
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
+
+
+        NetworkApi.order_list("2", "4", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+            @Override
+            public void onSuccess(ArrayList<Orders> response) {
+
+
+                List<Orders> list = new ArrayList<Orders>();
+                list.addAll(response);
+                mlist.addAll(list);
                 mOrderAdapter = new OrderAdapter(mlist, getApplicationContext());
                 mRecyclerView.setAdapter(mOrderAdapter);
+
 
                 setData();
 
@@ -167,11 +214,11 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
 
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
 
-                        if (mlist.size() >= 4) {
+                        if (mlist.size() >= 1300) {
                             mCurrPage += 1;
 
 
-                            NetworkApi.order_list("2", "2", "1", mSharedPreferences.getString("userName", ""), mCurrPage + "", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+                            NetworkApi.order_list("2", "4", "1", mSharedPreferences.getString("userName", ""), mCurrPage + "", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
                                 @Override
                                 public void onSuccess(ArrayList<Orders> response) {
 
