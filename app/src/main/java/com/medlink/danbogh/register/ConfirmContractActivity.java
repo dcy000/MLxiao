@@ -85,7 +85,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
                 tvContractDoctor.setText("签约医生： " +  response.doctername);
                 tvDoctorPhone.setText("医生联系方式： " +  response.dtel);
                 tvContractOrganization.setText("签约机构： " +  response.hosname);
-                tvServiceType.setText("服务费用： " +  response.amount);
+                tvServiceType.setText("健康档案管理费： " +  response.amount);
             }
         }, new NetworkManager.FailedCallback() {
             @Override

@@ -279,7 +279,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.medlink.danbogh.alarm.AlarmList2Activity" />
+        <activity android:name="com.medlink.danbogh.alarm.AlarmList2Activity"
+            android:screenOrientation="landscape"/>
         <activity android:name="com.medlink.danbogh.alarm.AlarmDetail2Activity" />
         <activity android:name="com.medlink.danbogh.alarm.AlarmActivity" />
         <activity

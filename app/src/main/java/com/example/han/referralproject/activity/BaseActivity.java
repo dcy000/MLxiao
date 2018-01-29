@@ -36,6 +36,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.jipush.MyReceiver;
 import com.example.han.referralproject.music.ScreenUtils;
+import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.ToastUtil;
@@ -91,6 +92,7 @@ public class BaseActivity extends AppCompatActivity {
     protected boolean isShowVoiceView = false;//是否显示声音录入图像
     private MediaRecorder mMediaRecorder;
     private boolean isAlive = true;
+    private SharedPreferences mIatPreferences;
 
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
@@ -119,6 +121,7 @@ public class BaseActivity extends AppCompatActivity {
             mIat = recognizer;
         }
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
+        mIatPreferences = getSharedPreferences(IatSettings.PREFER_NAME, MODE_PRIVATE);
 
         if (mMediaRecorder == null)
             mMediaRecorder = new MediaRecorder();
@@ -566,6 +569,16 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    private String[] voicers;
+
+    private String[] voicers() {
+        if (voicers != null) {
+            return voicers;
+        }
+        voicers = getResources().getStringArray(R.array.voicer_values);
+        return voicers;
+    }
+
     /**
      * 参数设置
      */
@@ -578,7 +591,13 @@ public class BaseActivity extends AppCompatActivity {
             if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
                 synthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
                 // 设置在线合成发音人
-                synthesizer.setParameter(SpeechConstant.VOICE_NAME, voicer);
+                String[] voicers = voicers();
+                int index = mIatPreferences.getInt("language_index", 0);
+                if (index >= voicers.length || index < 0) {
+                    mIatPreferences.edit().putInt("language_index", 0).apply();
+                    index = 0;
+                }
+                synthesizer.setParameter(SpeechConstant.VOICE_NAME, voicers[index]);
                 //设置合成语速
                 synthesizer.setParameter(SpeechConstant.SPEED, mTtsSharedPreferences.getString("speed_preference", "50"));
                 //设置合成音调

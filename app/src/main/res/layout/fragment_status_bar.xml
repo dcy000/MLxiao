@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <TextView
+        android:id="@+id/tv_status_bar_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/status_bar_text_color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="上午12:32 1月26日 周五" />
+
+    <ImageView
+        android:id="@+id/iv_charging_indicator"
+        android:layout_width="9dp"
+        android:layout_height="18dp"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:src="@drawable/ic_charging"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_battery_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/status_bar_text_color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/iv_charging_indicator"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="88%" />
+
+    <ImageView
+        android:id="@+id/iv_battery_indicator"
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/bg_battery"
+        android:padding="3dp"
+        android:src="@drawable/ic_battery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_battery_percent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_battery_full_indicator"
+        android:layout_width="18dp"
+        android:layout_height="8dp"
+        android:src="@drawable/ic_battery_full"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_battery_indicator"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_battery_indicator"
+        app:layout_constraintRight_toRightOf="@+id/iv_battery_indicator"
+        app:layout_constraintTop_toTopOf="@+id/iv_battery_indicator" />
+</android.support.constraint.ConstraintLayout>
