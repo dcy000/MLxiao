@@ -105,7 +105,7 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="@+id/tv_contract_organization"
         app:layout_constraintTop_toBottomOf="@+id/tv_contract_organization"
-        tools:text="服务费用"/>
+        tools:text="健康档案管理费"/>
 
     <include layout="@layout/include_sign_up_tab"/>
 

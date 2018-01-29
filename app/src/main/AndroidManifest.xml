@@ -268,7 +268,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <activity
             android:name="com.medlink.danbogh.alarm.AlarmList2Activity"
             android:screenOrientation="landscape" />

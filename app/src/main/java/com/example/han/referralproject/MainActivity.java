@@ -62,6 +62,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
+
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
         mediaPlayer.start();//播放音乐*/

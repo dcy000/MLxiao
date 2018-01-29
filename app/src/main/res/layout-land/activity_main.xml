@@ -17,23 +17,24 @@
         android:id="@+id/ll_robot_con"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/robot_con"
             android:layout_width="370dp"
             android:layout_height="460dp"
+            android:layout_marginTop="13dp"
             android:clickable="true"
-            android:src="@drawable/ic_robot"
-            android:layout_marginTop="13dp"/>
+            android:src="@drawable/ic_robot" />
+
         <ImageView
             android:id="@+id/call_family"
             android:layout_width="370dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_call_family"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="30dp"
-            />
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_call_family" />
     </LinearLayout>
 
     <ImageView
@@ -112,10 +113,17 @@
     </RelativeLayout>
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_battery"
         android:layout_width="50dp"
         android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp" />
+
+    <FrameLayout
+        android:id="@+id/fl_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>
