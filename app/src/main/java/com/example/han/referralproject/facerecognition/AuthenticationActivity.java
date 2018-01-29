@@ -150,7 +150,7 @@ public class AuthenticationActivity extends BaseActivity {
 
         mRelativeLayout = (RelativeLayout) findViewById(R.id.tiao_RelativeLayout);
 
-        if ("Pay".equals(fromString)|| "Welcome".equals(fromString)) {//支付过来
+        if ("Pay".equals(fromString) || "Welcome".equals(fromString)) {//支付过来
             mRelativeLayout.setVisibility(View.GONE);
         }
         if ("Test".equals(fromString)) {
@@ -440,6 +440,7 @@ public class AuthenticationActivity extends BaseActivity {
                             choosedXfid = xfids[indexXfid];
                             indexXfid = 0;
                             ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
+                            boolean isInclude = false;
                             if (mDataList != null) {
                                 for (int i = 0; i < mDataList.size(); i++) {
                                     UserInfoBean user = mDataList.get(i);
@@ -453,10 +454,19 @@ public class AuthenticationActivity extends BaseActivity {
                                         LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
                                         LocalShared.getInstance(mContext).setUserAge(user.age);
                                         LocalShared.getInstance(mContext).setUserHeight(user.height);
+                                        isInclude = true;
                                         break;
+                                    } else {
+                                        isInclude = false;
                                     }
                                 }
-                                startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                                if (isInclude)
+                                    startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                                else {
+                                    ToastUtil.showLong(AuthenticationActivity.this, "该机器人没有此账号的人脸认证信息，请手动登录");
+                                    startActivity(new Intent(AuthenticationActivity.this, SignInActivity.class));
+                                    finish();
+                                }
                             }
 
                         }
