@@ -402,13 +402,6 @@ public class LocalShared {
     public String getUserAge(){
         return mShared.getString("user_age","");
     }
-    //设置极光推送别名时候绑定成功
-    public void setJPushStatus(boolean b) {
-        mShared.edit().putBoolean("jpush_status",b).commit();
-    }
-    public boolean getJPushStatus(){
-        return mShared.getBoolean("jpush_status",false);
-    }
 
     public void setUserHeight(String height) {
         mShared.edit().putString("user_height",height).commit();

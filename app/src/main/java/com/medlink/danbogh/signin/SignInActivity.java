@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -14,13 +13,11 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
@@ -28,17 +25,18 @@ import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastUtil;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,8 +44,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 public class SignInActivity extends BaseActivity {
 
@@ -79,7 +75,7 @@ public class SignInActivity extends BaseActivity {
         tvAgree.setMovementMethod(LinkMovementMethod.getInstance());
         tvAgree.setText(agreeBuilder);
         checkInput();
-        ((TextView)findViewById(R.id.tv_version)).setText(getLocalVersionName());
+        ((TextView) findViewById(R.id.tv_version)).setText(getLocalVersionName());
     }
 
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener =
@@ -154,7 +150,7 @@ public class SignInActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_in_sign_in)
     public void onTvSignInClicked() {
-        if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())){
+        if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())) {
             Intent mIntent = new Intent(mContext, RegisterVideoActivity.class);
             mIntent.putExtra("isTest", true);
             startActivity(mIntent);
@@ -165,9 +161,9 @@ public class SignInActivity extends BaseActivity {
         NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
-                new JpushAliasUtils(SignInActivity.this).setAlias("user_"+response.bid);
+                new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
                 LocalShared.getInstance(mContext).setUserInfo(response);
-                LocalShared.getInstance(mContext).addAccount(response.bid,response.xfid);
+                LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
                 LocalShared.getInstance(getApplicationContext()).setXunfeiID(response.xfid);
                 LocalShared.getInstance(mContext).setEqID(response.eqid);
                 LocalShared.getInstance(mContext).setSex(response.sex);
@@ -189,7 +185,8 @@ public class SignInActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
-        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
+        startActivity(new Intent(SignInActivity.this,AuthenticationActivity.class).putExtra("from","Welcome"));
+//        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
     }
 
     @OnClick(R.id.tv_sign_in_forget_password)

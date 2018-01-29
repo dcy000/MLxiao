@@ -3,6 +3,7 @@ package com.example.han.referralproject.facerecognition;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.Manifest.permission;
@@ -23,7 +24,6 @@ import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Looper;
 import android.os.Process;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -38,12 +38,14 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
@@ -55,14 +57,18 @@ import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.util.Accelerometer;
+import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 头像身份验证
+ */
 
-public class VideoDemo extends BaseActivity {
+public class AuthenticationActivity extends BaseActivity {
     private SurfaceView mPreviewSurface;
     private SurfaceView mFaceSurface;
     private Camera mCamera;
@@ -85,7 +91,6 @@ public class VideoDemo extends BaseActivity {
     private FaceRequest mFaceRequest;
     public RelativeLayout mImageView;
     private Bitmap b3;
-    private String signs;
     private String orderid;
     private NDialog2 dialog2;
     private MediaPlayer mediaPlayer;//MediaPlayer对象
@@ -95,12 +100,10 @@ public class VideoDemo extends BaseActivity {
     private int xfTime = 10;//默认轮训的次数,如果需要修改，记得下面还有两个地方
     private String choosedXfid;//选中的讯飞id;
     private HashMap<String, String> xfid_userid;
-    private String[] accounts;
-    private Button mButton;
     private RelativeLayout mRelativeLayout;
-    private String jump;
     private ByteArrayOutputStream baos;
-    private int unDentified=10;//未识别的次数，最多10寸
+    private int unDentified = 10;//未识别的次数，最多10寸
+    private ArrayList<UserInfoBean> mDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +113,8 @@ public class VideoDemo extends BaseActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
         mediaPlayer.start();//播放音乐
         xfid_userid = new HashMap<>();
-        //获取所有账号
-        accounts = LocalShared.getInstance(this).getAccounts();
+        //
+        String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts != null) {
             xfids = new String[accounts.length];
             for (int i = 0; i < accounts.length; i++) {
@@ -119,18 +122,24 @@ public class VideoDemo extends BaseActivity {
                 xfid_userid.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
             }
         }
-        choosedXfid = MyApplication.getInstance().xfid;//默认选中的是当前的讯飞id;
+        getAllUsersInfo(accounts);
         Intent intent = getIntent();
-        signs = intent.getStringExtra("sign");
         orderid = intent.getStringExtra("orderid");
         fromString = intent.getStringExtra("from");
         if ("Test".equals(fromString)) {//测试
-            indexXfid=0;
-        }else{
-            indexXfid=xfids.length;//这样做的目的是为了在下面的判断中不走"测试"的分支
+            indexXfid = 0;
+            xfTime = 10;
+            unDentified = 10;
+        } else if ("Pay".equals(fromString)) {
+            indexXfid = xfids.length;//这样做的目的是为了在下面的判断中不走"测试"的分支
+            xfTime = 10;
+            unDentified = 10;
+        } else if ("Welcome".equals(fromString)) {
+            indexXfid = 0;
+            xfTime = 5;
+            unDentified = 5;
         }
-        jump = intent.getStringExtra("jump");
-        dialog2 = new NDialog2(VideoDemo.this);
+        dialog2 = new NDialog2(AuthenticationActivity.this);
         mImageView = (RelativeLayout) findViewById(R.id.rl_back);
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
@@ -139,31 +148,23 @@ public class VideoDemo extends BaseActivity {
             }
         });
 
-        mButton = (Button) findViewById(R.id.tiao_guos);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.tiao_RelativeLayout);
 
-        if ("1".equals(signs)) {//支付过来
-
-            mButton.setVisibility(View.GONE);
+        if ("Pay".equals(fromString)|| "Welcome".equals(fromString)) {//支付过来
+            mRelativeLayout.setVisibility(View.GONE);
         }
-        if ("1".equals(jump)) {
-            mButton.setVisibility(View.VISIBLE);
-
+        if ("Test".equals(fromString)) {
+            mRelativeLayout.setVisibility(View.VISIBLE);
         }
-        mButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
         mRelativeLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
-                startActivity(intent);
+                if ("Test".equals(fromString)) {
+                    Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
+                    startActivity(intent);
+                } else if ("Welcome".equals(fromString)) {
+                    startActivity(new Intent(AuthenticationActivity.this, SignInActivity.class));
+                }
                 finish();
             }
         });
@@ -171,8 +172,27 @@ public class VideoDemo extends BaseActivity {
         initUI();
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
-        mAcc = new Accelerometer(VideoDemo.this);
+        mAcc = new Accelerometer(AuthenticationActivity.this);
         mFaceRequest = new FaceRequest(this);
+    }
+
+    private void getAllUsersInfo(String[] accounts) {
+        if (accounts == null) {
+            return;
+        }
+        StringBuilder mAccountIdBuilder = new StringBuilder();
+        for (String item : accounts) {
+            mAccountIdBuilder.append(item.split(",")[0]).append(",");
+        }
+        NetworkApi.getAllUsers(mAccountIdBuilder.substring(0, mAccountIdBuilder.length() - 1), new NetworkManager.SuccessCallback<ArrayList<UserInfoBean>>() {
+            @Override
+            public void onSuccess(ArrayList<UserInfoBean> response) {
+                if (response == null) {
+                    return;
+                }
+                mDataList = response;
+            }
+        });
     }
 
     private Callback mPreviewCallback = new Callback() {
@@ -224,7 +244,7 @@ public class VideoDemo extends BaseActivity {
         mFaceSurface.setZOrderOnTop(true);
         mFaceSurface.getHolder().setFormat(PixelFormat.TRANSLUCENT);
         setSurfaceSize();
-        mToast = Toast.makeText(VideoDemo.this, "", Toast.LENGTH_SHORT);
+        mToast = Toast.makeText(AuthenticationActivity.this, "", Toast.LENGTH_SHORT);
     }
 
     private void openCamera() {
@@ -263,8 +283,32 @@ public class VideoDemo extends BaseActivity {
 
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
+
                 System.arraycopy(data, 0, nv21, 0, data.length);
                 b3 = decodeToBitMap(nv21, camera);
+                baos = new ByteArrayOutputStream();
+                if (b3 != null) {
+                    Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    mImageData = baos.toByteArray();
+                }
+
+                if (isFirstSend) {
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    sendPipei();
+                    isFirstSend = false;
+                }
+                //每半秒钟刷一次图片
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.e(TAG, "onPreviewFrame: 预览刷新");
             }
         });
 
@@ -276,47 +320,178 @@ public class VideoDemo extends BaseActivity {
         }
     }
 
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            if (!isFor) {
-                //睡两秒钟让用户调整姿态
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            baos = new ByteArrayOutputStream();
-            if (b3 != null) {
-                Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                mImageData = baos.toByteArray();
-            }
-            if (mImageData != null) {
-                if ("Test".equals(fromString)) {//标识从MainActivity过来
-                    if (xfids != null && xfids.length > 0) {//把数组中第一个头像发送过去
-                        mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfids[indexXfid]);
-                        mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
-                        mFaceRequest.sendRequest(mImageData, mRequestListener);
-                        choosedXfid = xfids[indexXfid];
-                        Log.e(TAG, "run: " + xfids[indexXfid]);
-                        indexXfid++;
-                    }
-                } else if (mAuthid != null) {//支付走这个分支
-                    mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+    private boolean isFirstSend = true;
+
+    private void sendPipei() {
+        if (mImageData != null) {
+            if ("Test".equals(fromString) || "Welcome".equals(fromString)) {//标识从MainActivity过来
+                if (xfids != null && xfids.length > 0 && indexXfid < xfids.length) {//把数组中第一个头像发送过去
+                    mFaceRequest.setParameter(SpeechConstant.AUTH_ID, xfids[indexXfid]);
                     mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
                     mFaceRequest.sendRequest(mImageData, mRequestListener);
+                    Log.e(TAG, "run: " + "此前轮询下表：" + indexXfid + "讯飞id" + xfids[indexXfid]);
                 }
+            } else if ("Pay".equals(fromString) && mAuthid != null) {//支付走这个分支
+                mFaceRequest.setParameter(SpeechConstant.AUTH_ID, mAuthid);
+                mFaceRequest.setParameter(SpeechConstant.WFR_SST, "verify");
+                mFaceRequest.sendRequest(mImageData, mRequestListener);
             }
         }
-    };
-
-    @Override
-    protected void onStart() {
-        new Thread(runnable).start();
-        super.onStart();
     }
+
+
+    private static final String TAG = "人脸验证";
+    private RequestListener mRequestListener = new RequestListener() {
+
+        @Override
+        public void onEvent(int eventType, Bundle params) {
+            Log.e("讯飞onEvent", "onEvent: " + eventType + "");
+        }
+
+        @Override
+        public void onBufferReceived(byte[] buffer) {
+
+            try {
+                String result = new String(buffer, "utf-8");
+                JSONObject object = new JSONObject(result);
+                if (object.getInt("ret") != 0) {
+                    finish();
+                    Log.e(TAG, "讯飞出问题了");
+                    return;
+                }
+                if (!AuthenticationActivity.this.isFinishing() && !AuthenticationActivity.this.isDestroyed())
+                    if (!object.getBoolean("verf")) {//验证失败，进行下一次验证
+                        if (indexXfid == xfids.length) {//标识这一遍已经轮询到最后一个元素了
+                            if ("Test".equals(fromString) || "Welcome".equals(fromString)) {//测试或者是登录
+                                if (xfTime > 0) {
+                                    Log.e(TAG, "onBufferReceived:xfTime " + xfTime + "");
+                                    xfTime--;
+                                    indexXfid = 0;//重置index，再次开始轮询
+                                    sendPipei();
+
+                                } else {//10轮验证结束，验证失败
+                                    speak(getString(R.string.shop_yanzheng));
+                                    ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
+                                    finish();
+                                }
+                            } else if ("Pay".equals(fromString)) {//支付
+                                if (xfTime > 0) {
+                                    xfTime--;//再次发起查询
+                                    sendPipei();
+                                } else {
+                                    //10轮验证结束，验证失败取消订单
+                                    NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
+                                        @Override
+                                        public void onSuccess(String response) {
+                                            speak(getString(R.string.shop_yanzheng));
+                                            ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
+                                            finish();
+
+                                        }
+
+                                    }, new NetworkManager.FailedCallback() {
+                                        @Override
+                                        public void onFailed(String message) {
+
+
+                                        }
+                                    });
+                                }
+                            }
+
+                        } else {
+                            Log.e(TAG, "onBufferReceived:indexXfid" + "-------" + indexXfid + "");
+                            indexXfid++;
+                            sendPipei();
+                        }
+                    } else {//验证通过 将所有flag初始化
+                        xfTime = 10;
+                        Log.e(TAG, "onBufferReceived: 成功");
+                        closeCamera();
+                        if ("Test".equals(fromString)) {//测量验证成功
+                            choosedXfid = xfids[indexXfid];
+                            indexXfid = 0;
+                            ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
+                            if (!TextUtils.isEmpty(choosedXfid)) {
+                                MyApplication.getInstance().userId = xfid_userid.get(choosedXfid);
+                                MyApplication.getInstance().xfid = choosedXfid;
+                                sendBroadcast(new Intent("change_account"));
+                            }
+                            startActivity(new Intent(getApplicationContext(), Test_mainActivity.class));
+                            finish();
+                        } else if ("Pay".equals(fromString)) {//支付验证成功了
+                            NetworkApi.pay_status(MyApplication.getInstance().userId, Utils.getDeviceId(), orderid, new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    speak(getString(R.string.shop_success));
+                                    ShowNormal("支付成功", "1");
+                                    GoodDetailActivity.mActivity.finish();
+
+                                }
+
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+                                    ShowNormal("支付失败", "0");
+                                }
+                            });
+
+                        } else if ("Welcome".equals(fromString)) {//登录验证成功
+                            choosedXfid = xfids[indexXfid];
+                            indexXfid = 0;
+                            ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
+                            if (mDataList != null) {
+                                for (int i = 0; i < mDataList.size(); i++) {
+                                    UserInfoBean user = mDataList.get(i);
+                                    if (user.xfid.equals(choosedXfid)) {
+                                        new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
+                                        LocalShared.getInstance(mContext).setUserInfo(user);
+                                        LocalShared.getInstance(mContext).addAccount(user.bid, user.xfid);
+                                        LocalShared.getInstance(getApplicationContext()).setXunfeiID(user.xfid);
+                                        LocalShared.getInstance(mContext).setEqID(user.eqid);
+                                        LocalShared.getInstance(mContext).setSex(user.sex);
+                                        LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
+                                        LocalShared.getInstance(mContext).setUserAge(user.age);
+                                        LocalShared.getInstance(mContext).setUserHeight(user.height);
+                                        break;
+                                    }
+                                }
+                                startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                            }
+
+                        }
+                    }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void onCompleted(SpeechError error) {
+            //未识别到人脸走这里
+            if (!AuthenticationActivity.this.isFinishing() && !AuthenticationActivity.this.isDestroyed())
+                if (unDentified > 0) {
+                    unDentified--;
+                    if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
+                        if (indexXfid == xfids.length) {
+                            indexXfid = 0;
+                        }
+                        sendPipei();
+                        Log.e(TAG, "onCompleted: unDentified > 0");
+                    } else {
+                        indexXfid = xfids.length;
+                    }
+                    xfTime = 10;
+                } else {
+                    Log.e(TAG, "onCompleted: unDentified<0");
+                    ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
+                    finish();
+                }
+        }
+    };
 
     public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
         if (null == bitmap || edgeLength <= 0) {
@@ -355,137 +530,6 @@ public class VideoDemo extends BaseActivity {
         return result;
     }
 
-    private static final String TAG = "人脸验证";
-    private boolean isFor = false;//是不是正在轮询
-    private RequestListener mRequestListener = new RequestListener() {
-
-        @Override
-        public void onEvent(int eventType, Bundle params) {
-            Log.e("讯飞onEvent", "onEvent: " + eventType + "");
-        }
-
-        @Override
-        public void onBufferReceived(byte[] buffer) {
-            try {
-                String result = new String(buffer, "utf-8");
-                JSONObject object = new JSONObject(result);
-                if (object.getInt("ret") != 0) {
-                    finish();
-                    Log.e(TAG, "讯飞出问题了");
-                    return;
-                }
-
-                if ("verify".equals(object.optString("sst"))) {//说明是在验证头像而不是注册或者其他
-                    if (!object.getBoolean("verf")) {//验证失败，进行下一次验证
-                        if (indexXfid == xfids.length) {//标识这一遍已经轮询到最后一个元素了
-                            if ("Test".equals(fromString)) {//测试
-                                if (xfTime > 0) {
-                                    Log.e(TAG, "onBufferReceived:xfTime " + xfTime + "");
-                                    xfTime--;
-                                    indexXfid = 0;//重置index，再次开始轮询
-                                    isFor=true;
-                                    onStart();
-                                } else {//10轮验证结束，验证失败
-                                    speak(getString(R.string.shop_yanzheng));
-                                    ToastUtil.showShort(VideoDemo.this, "验证不通过");
-                                    finish();
-                                }
-                            } else {//支付
-                                if (xfTime > 0) {
-                                    xfTime--;//再次发起查询
-                                    isFor=true;
-                                    onStart();
-                                } else {
-                                    //5轮验证结束，验证失败取消订单
-                                    NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
-                                        @Override
-                                        public void onSuccess(String response) {
-                                            speak(getString(R.string.shop_yanzheng));
-                                            ToastUtil.showShort(VideoDemo.this, "验证不通过");
-                                            finish();
-
-                                        }
-
-                                    }, new NetworkManager.FailedCallback() {
-                                        @Override
-                                        public void onFailed(String message) {
-
-
-                                        }
-                                    });
-                                }
-                            }
-
-                        } else {
-                            Log.e(TAG, "onBufferReceived:indexXfid" + "-------" + indexXfid + "");
-                            isFor = true;
-                            onStart();
-                        }
-                    } else {//验证通过 将所有flag初始化
-                        indexXfid = 0;
-                        xfTime = 10;
-                        Log.e(TAG, "onBufferReceived: 成功");
-                        closeCamera();
-                        if ("0".equals(signs)) {//测量验证成功
-                            ToastUtil.showShort(VideoDemo.this, "通过验证，欢迎回来！");
-                            if (!TextUtils.isEmpty(choosedXfid) && !MyApplication.getInstance().xfid.equals(choosedXfid)) {//如果不是选中的讯飞id,已经改变，则切换账号
-                                //根据返回来的uid判断是哪一个账号匹配成功
-                                MyApplication.getInstance().userId = xfid_userid.get(choosedXfid);
-                                MyApplication.getInstance().xfid = choosedXfid;
-                                sendBroadcast(new Intent("change_account"));
-                            }
-                            startActivity(new Intent(getApplicationContext(), Test_mainActivity.class));
-                            finish();
-                        } else if ("1".equals(signs)) {//支付验证成功了
-                            NetworkApi.pay_status(MyApplication.getInstance().userId, Utils.getDeviceId(), orderid, new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    speak(getString(R.string.shop_success));
-                                    ShowNormal("支付成功", "1");
-                                    GoodDetailActivity.mActivity.finish();
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-                                    ShowNormal("支付失败", "0");
-                                }
-                            });
-
-                        }
-                    }
-                }
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onCompleted(SpeechError error) {
-            //未识别到人脸走这里
-            if (error != null&&unDentified>0) {
-                unDentified--;
-                ToastUtil.showShort(VideoDemo.this, error.getErrorDescription());
-                if("Test".equals(fromString)){
-                    indexXfid = 0;
-                }else{
-                    indexXfid=xfids.length;
-                }
-                xfTime = 10;
-                isFor = false;
-                if (!VideoDemo.this.isDestroyed()) {
-                    onStart();
-                }
-            }else{
-                finish();
-            }
-        }
-    };
-
-
     public void ShowNormal(String message, final String sign) {
         dialog2.setMessageCenter(true)
                 .setMessage(message)
@@ -503,7 +547,6 @@ public class VideoDemo extends BaseActivity {
                                 startActivity(intent);
                                 finish();
                             } else {
-
                                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -572,7 +615,7 @@ public class VideoDemo extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer!=null) {
+        if (mediaPlayer != null) {
             mediaPlayer.pause();
             mediaPlayer = null;
         }
@@ -584,7 +627,7 @@ public class VideoDemo extends BaseActivity {
                 e.printStackTrace();
             }
         }
-        if (mFaceRequest!=null){
+        if (mFaceRequest != null) {
             mFaceRequest.cancel();
         }
     }

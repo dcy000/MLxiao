@@ -10,7 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.WelcomeActivity;
+import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.adapter.ChangeAccountAdapter;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -80,9 +83,9 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 new JpushAliasUtils(mContext).deleteAlias();
                 MobclickAgent.onProfileSignOff();
                 NimAccountHelper.getInstance().logout();//退出网易IM
-                LocalShared.getInstance(mContext).loginOut();//清除SP中的信息
-                LocalShared.getInstance(mContext).setJPushStatus(false);//将极光别名绑定状态修改为false
-                mContext.startActivity(new Intent(mContext, SignInActivity.class));
+//                LocalShared.getInstance(mContext).loginOut();//清除SP中的信息
+                MyApplication.getInstance().userId=null;
+                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity)mContext).finish();
                 break;
         }

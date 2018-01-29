@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,7 +16,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
-import com.example.han.referralproject.facerecognition.VideoDemo;
+import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
@@ -193,10 +192,9 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(int which) {
                         if (which == 1) {
-                            Intent intent = new Intent(getApplicationContext(), VideoDemo.class);
+                            Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
                             intent.putExtra("orderid", orderid);
-                            intent.putExtra("sign", "1");
-                            intent.putExtra("jump", "0");
+                            intent.putExtra("from","Pay");
                             startActivity(intent);
 
 

@@ -86,6 +86,11 @@ public class MyMarkerView extends MarkerView {
                     time.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())));
                     break;
                 case "3"://心率
+                    ll2.setVisibility(GONE);
+                    color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
+                    title_1.setText("心率");
+                    text_1.setText(e.getY()+"");
+                    time.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())));
                     break;
                 case "4"://血糖
                     ll2.setVisibility(GONE);

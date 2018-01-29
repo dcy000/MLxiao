@@ -51,10 +51,16 @@ public class MusicPlayActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
+        super.onStop();
         if (musicService!=null) {
             musicService.release();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+
         //取消绑定的服务
         if (serviceConnection != null)
             unbindService(serviceConnection);
