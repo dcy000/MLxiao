@@ -1,0 +1,26 @@
+ext {
+    canRunAlone = true
+
+    versions = [
+            "versionCode"      : 1,
+            "versionName"      : "1.0",
+            "compileSdkVersion": 26,
+            "buildToolsVersion": "26.0.2",
+            "minSdkVersion"    : 14,
+            "targetSdkVersion" : 26
+    ]
+
+    androidManifests = [
+            "canRunAlone"   : "src/main/AndroidManifest.xml",
+            "cannotRunAlone": "src/main/LibAndroidManifest.xml"
+    ]
+
+    baseUrls = [
+            "debug"  : "\"http://118.31.238.207:8080\"",
+            "release": "\"http://116.62.36.12:8080\""
+    ]
+
+    dependencies = [
+
+    ]
+}

@@ -1,0 +1,64 @@
+apply from: "config.gradle"
+
+if (canRunAlone) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+
+android {
+    compileSdkVersion versions["compileSdkVersion"]
+    buildToolsVersion versions["buildToolsVersion"]
+
+    defaultConfig {
+        if (canRunAlone) {
+            applicationId "com.ml.edu"
+        }
+        minSdkVersion versions["minSdkVersion"]
+        targetSdkVersion versions["targetSdkVersion"]
+        versionCode versions["versionCode"]
+        versionName versions["versionName"]
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main {
+            if (canRunAlone.toBoolean()) {
+                manifest.srcFile androidManifests["canRunAlone"]
+            } else {
+                manifest.srcFile androidManifests["cannotRunAlone"]
+            }
+        }
+    }
+
+//    signingConfigs {}
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "String", "BASE_URL", baseUrls["debug"]
+            minifyEnabled false
+        }
+
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "String", "BASE_URL", baseUrls["release"]
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+}
