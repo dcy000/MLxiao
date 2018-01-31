@@ -95,7 +95,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_normal" />
+            android:value="gcml_version_henan" />
 
         <service android:name=".music.PlayService" />
 

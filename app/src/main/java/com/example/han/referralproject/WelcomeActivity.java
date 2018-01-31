@@ -55,15 +55,6 @@ public class WelcomeActivity extends BaseActivity {
             finish();
         }
 
-//        ApplicationInfo appInfo = null;
-//        try {
-//            appInfo = this.getPackageManager()
-//                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-//            String msg=appInfo.metaData.getString("com.gcml.version");
-//            Log.i("mylog", "data : " + msg);
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
