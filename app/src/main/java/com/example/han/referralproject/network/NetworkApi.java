@@ -1,5 +1,7 @@
 package com.example.han.referralproject.network;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
@@ -510,7 +512,18 @@ public class NetworkApi {
     }
 
     public static void getVersionInfo(NetworkManager.SuccessCallback<VersionInfoBean> callback, NetworkManager.FailedCallback failedCallback) {
-        NetworkManager.getInstance().getResultClass(GetVersionUrl, null, VersionInfoBean.class, callback, failedCallback);
+        ApplicationInfo appInfo = null;
+        String msg = "";
+        try {
+            appInfo = MyApplication.getInstance().getPackageManager()
+                    .getApplicationInfo(MyApplication.getInstance().getPackageName(), PackageManager.GET_META_DATA);
+            msg=appInfo.metaData.getString("com.gcml.version");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("vname", msg);
+        NetworkManager.getInstance().getResultClass(GetVersionUrl, paramsMap, VersionInfoBean.class, callback, failedCallback);
     }
 
     public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback) {
