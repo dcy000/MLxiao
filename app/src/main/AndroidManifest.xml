@@ -83,6 +83,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
+        <service android:name=".new_music.MusicService" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -95,20 +97,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_normal" />
-
-        <service android:name=".music.PlayService" />
-
-        <receiver android:name=".music.RemoteControlReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MEDIA_BUTTON" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".music.StatusBarReceiver">
-            <intent-filter>
-                <action android:name="me.wcy.music.STATUS_BAR_ACTIONS" />
-            </intent-filter>
-        </receiver>
+            android:value="gcml_version_henan" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -225,7 +214,6 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -233,7 +221,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -249,7 +236,7 @@
             android:largeHeap="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".facerecognition.VideoDemo"
+            android:name=".facerecognition.AuthenticationActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".login.PerInfoActivity"
@@ -307,10 +294,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.AddAppoActivity"
-            android:screenOrientation="landscape">
-
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:screenOrientation="landscape"
@@ -429,8 +413,6 @@
         <activity
             android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
             android:screenOrientation="landscape" />
-
-
         <activity android:name=".activity.DiseaseDetailsActivity" />
         <activity
             android:name="com.medlink.danbogh.location.LocationActivity"
@@ -465,7 +447,6 @@
         <activity
             android:name=".shopping.OrderListActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".recyclerview.OnlineDoctorListActivity"
             android:screenOrientation="landscape"
@@ -531,7 +512,11 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertAddressActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".new_music.MusicPlayActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".activity.ChooseLoginTypeActivity"></activity>
     </application>
 
 </manifest>

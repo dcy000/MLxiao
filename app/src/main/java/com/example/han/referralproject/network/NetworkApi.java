@@ -1,5 +1,7 @@
 package com.example.han.referralproject.network;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
@@ -48,7 +50,6 @@ public class NetworkApi {
 
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String BasicUrl = "http://118.31.238.207:8080";
-
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
 //    public static final String BasicUrl = "http://192.168.200.114:8080";//文博本地
@@ -511,7 +512,18 @@ public class NetworkApi {
     }
 
     public static void getVersionInfo(NetworkManager.SuccessCallback<VersionInfoBean> callback, NetworkManager.FailedCallback failedCallback) {
-        NetworkManager.getInstance().getResultClass(GetVersionUrl, null, VersionInfoBean.class, callback, failedCallback);
+        ApplicationInfo appInfo = null;
+        String msg = "";
+        try {
+            appInfo = MyApplication.getInstance().getPackageManager()
+                    .getApplicationInfo(MyApplication.getInstance().getPackageName(), PackageManager.GET_META_DATA);
+            msg=appInfo.metaData.getString("com.gcml.version");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("vname", msg);
+        NetworkManager.getInstance().getResultClass(GetVersionUrl, paramsMap, VersionInfoBean.class, callback, failedCallback);
     }
 
     public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback) {

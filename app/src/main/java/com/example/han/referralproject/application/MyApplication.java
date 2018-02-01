@@ -2,24 +2,19 @@ package com.example.han.referralproject.application;
 
 import android.app.ActivityManager;
 import android.app.Application;
-import android.app.Notification;
 import android.content.Context;
-import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.music.AppCache;
-import com.example.han.referralproject.music.ForegroundObserver;
-import com.example.han.referralproject.music.HttpInterceptor;
-import com.example.han.referralproject.music.Preferences;
+import com.example.han.referralproject.new_music.HttpInterceptor;
+import com.example.han.referralproject.new_music.Preferences;
+import com.example.han.referralproject.new_music.ScreenUtils;
+import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -28,6 +23,7 @@ import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.wakeup.WakeupHelper;
+import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -38,7 +34,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.beecloud.BeeCloud;
-import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
@@ -65,22 +60,15 @@ public class MyApplication extends Application {
     }
 
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
+        LeakCanary.install(this);
+        Preferences.init(this);
+        ScreenUtils.init(this);
+        ToastUtils.init(this);
 //        NoCrash.init(this);
 //        NoCrash.getInstance().install();
-//        LeakCanary.install(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 this,
@@ -106,14 +94,7 @@ public class MyApplication extends Application {
                 .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
 
         SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
-        NimInitHelper.getInstance().
-
-                init(this, true);
-
-        AppCache.init(this);
-        AppCache.updateNightMode(Preferences.isNightMode());
-        ForegroundObserver.init(this);
-
+        NimInitHelper.getInstance().init(this, true);
         initOkHttpUtils();
 
         BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
@@ -180,4 +161,5 @@ public class MyApplication extends Application {
     public Handler getBgHandler() {
         return mBgHandler == null ? new Handler(mBgThread.getLooper()) : mBgHandler;
     }
+
 }

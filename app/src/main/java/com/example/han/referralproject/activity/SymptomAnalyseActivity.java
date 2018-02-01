@@ -15,9 +15,9 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomRecyclerAdapter;
 import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
-import com.example.han.referralproject.music.ToastUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.ToastUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;

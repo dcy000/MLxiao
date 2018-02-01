@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
 
-    <com.example.han.referralproject.music.AlbumCoverView
+    <com.example.han.referralproject.new_music.AlbumCoverView
         android:id="@+id/album_cover_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -1,76 +1,54 @@
 package com.example.han.referralproject;
 
-import android.Manifest;
-import android.content.ComponentName;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Looper;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.music.AppCache;
-import com.example.han.referralproject.music.EventCallback;
-import com.example.han.referralproject.music.PermissionReq;
-import com.example.han.referralproject.music.PlayService;
-import com.example.han.referralproject.music.ToastUtils;
+import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.MusicService;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
+
+import java.util.ArrayList;
 
 public class WelcomeActivity extends BaseActivity {
 
     private Chronometer ch;
 
-    private ServiceConnection mPlayServiceConnection;
-
-    private Handler mHandler = new Handler(Looper.getMainLooper());
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-//        mToolbar.setVisibility(View.GONE);
-        checkService();
-        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {
+        //启动音乐服务
+        if (!isWorked("com.example.han.referralproject.MusicService")) {
+            startService(new Intent(this, MusicService.class));
+        }
+        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
             Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
             mIntent.putExtra("is_first_wifi", true);
             startActivity(mIntent);
             finish();
         }
 
-//        ApplicationInfo appInfo = null;
-//        try {
-//            appInfo = this.getPackageManager()
-//                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-//            String msg=appInfo.metaData.getString("com.gcml.version");
-//            Log.i("mylog", "data : " + msg);
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
                 try {
                     if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
-//                    if (true) {
                         new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
                     } else {
                         ch = (Chronometer) findViewById(R.id.chronometer);
@@ -85,8 +63,22 @@ public class WelcomeActivity extends BaseActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
+                                    //获取所有账号
+//                                    String[] accounts = LocalShared.getInstance(WelcomeActivity.this).getAccounts();
+//                                    if (!TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                        startActivity(intent);
+//                                    } else if (accounts != null) {
+//                                        startActivity(new Intent(WelcomeActivity.this, AuthenticationActivity.class)
+//                                                .putExtra("from", "Welcome"));
+//                                    } else {
+//                                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+//                                        startActivity(intent);
+//                                    }
+
+
                                     if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
                                         startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -131,86 +123,18 @@ public class WelcomeActivity extends BaseActivity {
         });
     }
 
-    private void checkService() {
-        if (AppCache.getPlayService() == null) {
-            startService();
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    bindService();
-                }
-            }, 500);
-        }
-    }
-
-    private void bindService() {
-        Intent intent = new Intent();
-        intent.setClass(this, PlayService.class);
-        mPlayServiceConnection = new PlayServiceConnection();
-        bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    private class PlayServiceConnection implements ServiceConnection {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            final PlayService playService = ((PlayService.PlayBinder) service).getService();
-            AppCache.setPlayService(playService);
-            PermissionReq.with(WelcomeActivity.this).permissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .result(new PermissionReq.Result() {
-                        @Override
-                        public void onGranted() {
-                            //   scanMusic(playService);
-
-                            Log.e("==========", "PlayServiceConnection");
-
-                        }
-
-                        @Override
-                        public void onDenied() {
-                            ToastUtils.show(getString(R.string.no_permission, "存储空间", "扫描本地歌曲"));
-                            finish();
-                            playService.quit();
-                        }
-                    })
-                    .request();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    }
-
-    private void scanMusic(final PlayService playService) {
-        playService.updateMusicList(new EventCallback<Void>() {
-            @Override
-            public void onEvent(Void aVoid) {
-
+    //判断服务是否已经启动
+    private boolean isWorked(String className) {
+        ActivityManager myManager = (ActivityManager) MyApplication.getInstance().getSystemService(
+                Context.ACTIVITY_SERVICE);
+        ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager
+                .getRunningServices(200);
+        for (int i = 0; i < runningService.size(); i++) {
+            if (runningService.get(i).service.getClassName().toString()
+                    .equals(className)) {
+                return true;
             }
-        });
-    }
-
-    @Override
-    public void onBackPressed() {
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        if (mPlayServiceConnection != null) {
-            unbindService(mPlayServiceConnection);
-            mPlayServiceConnection=null;
         }
-        if(mHandler!=null){
-            mHandler.removeCallbacksAndMessages(null);
-            mHandler=null;
-        }
-        super.onDestroy();
+        return false;
     }
-
-    private void startService() {
-        Intent intent = new Intent(this, PlayService.class);
-        startService(intent);
-    }
-
-
 }

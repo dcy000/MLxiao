@@ -10,20 +10,17 @@ import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.facerecognition.VideoDemo;
+import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -31,26 +28,17 @@ import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.video.VideoListActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.signin.SignInActivity;
-import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -65,7 +53,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
 
 
-    private MediaPlayer mediaPlayer;//MediaPlayer对象
     private ImageView mImageView6;
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
@@ -81,13 +68,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mediaPlayer.start();//播放音乐*/
 
-        if (isMyServiceRunning(AssistiveTouchService.class))
+        if (isMyServiceRunning(AssistiveTouchService.class)) {
 
-        {
-
-        } else
-
-        {
+        } else {
             Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
             startService(intent);
         }
@@ -181,14 +164,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.health_test://健康监测
 
-//                intent.setClass(getApplicationContext(), VideoDemo.class);
-//                intent.putExtra("sign", "0");
-//                intent.putExtra("orderid", "0");
-//                intent.putExtra("from", "Test");
-//                intent.putExtra("jump", "1");
-//                startActivity(intent);
+                intent.setClass(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("orderid", "0");
+                intent.putExtra("from", "Test");
+                startActivity(intent);
 
-                startActivity(new Intent(mContext, Test_mainActivity.class));
+//                startActivity(new Intent(mContext, Test_mainActivity.class));
                 break;
             case R.id.doctor_ask://医生咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
