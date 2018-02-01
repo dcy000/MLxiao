@@ -13,18 +13,14 @@ import com.example.han.referralproject.R;
  * A simple {@link Fragment} subclass.
  */
 public class XuetangFragment extends Fragment {
-
-
-    public XuetangFragment() {
-        // Required empty public constructor
-    }
-
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_xuetang, container, false);
+        view=inflater.inflate(R.layout.fragment_xuetang, container, false);
+        return view;
     }
 
 }

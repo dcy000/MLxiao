@@ -116,19 +116,14 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     break;
                 case R.id.ll_xuetang:
                     intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
-//                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "xuetang");
                     startActivity(intent);
                     break;
                 case R.id.ll_xindian:
                     intent.setClass(mContext, XinDianDetectActivity.class);
                     startActivity(intent);
-//                    intent.setClass(mContext, DetectActivity.class);
-//                    intent.putExtra("type", "xindian");
-//                    startActivity(intent);
                     break;
                 case R.id.ll_san:
-                    //intent.setClass(getApplicationContext(), XueyaActivity.class);
                     intent.setClass(mContext, DetectActivity.class);
 //                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "sanheyi");

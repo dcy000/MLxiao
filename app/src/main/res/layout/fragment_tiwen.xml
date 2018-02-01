@@ -91,7 +91,7 @@
 
 
         <Button
-            android:id="@+id/history"
+            android:id="@+id/btn_history"
             android:layout_width="200dp"
             android:layout_height="70dp"
             android:background="@drawable/shape_phone"
@@ -101,7 +101,7 @@
             android:textSize="35sp" />
 
         <Button
-            android:id="@+id/temperature_video"
+            android:id="@+id/btn_video"
             android:layout_width="200dp"
             android:layout_height="70dp"
             android:layout_marginLeft="50dp"
@@ -110,7 +110,5 @@
             android:text="使用演示"
             android:textColor="#FFFFFF"
             android:textSize="35sp" />
-
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

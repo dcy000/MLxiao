@@ -29,7 +29,7 @@ public class LocalShared {
     private final String MAC_Xindian = "mac_xindian";
     private final String MAC_Sanheyi = "mac_sanheyi";
     private final String MAC_Xuetang = "mac_xuetang";
-
+    private final String MAC_Tizhong="mac_tizhong";
     private final String Guide_Add_Click = "guide_add_click";
     private final String Guide_Create_Text = "guide_create_text";
     private final String Guide_Sign_In = "guide_sign_in_two";
@@ -350,6 +350,13 @@ public class LocalShared {
         mShared.edit().putString(MAC_Xuetang, xuetangMac).commit();
     }
 
+    public String getTizhongMac() {
+        return mShared.getString(MAC_Tizhong, "");
+    }
+
+    public void setTizhongMac(String xuetangMac) {
+        mShared.edit().putString(MAC_Tizhong, xuetangMac).commit();
+    }
     public String getWenduMac() {
         return mShared.getString(MAC_Wendu, "");
     }

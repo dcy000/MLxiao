@@ -168,7 +168,7 @@
 
 
         <Button
-            android:id="@+id/history5"
+            android:id="@+id/btn_history"
             android:layout_width="200dp"
             android:layout_height="70dp"
             android:background="@drawable/shape_phone"
@@ -179,7 +179,7 @@
 
 
         <Button
-            android:id="@+id/sanheyi_video"
+            android:id="@+id/btn_video"
             android:layout_width="200dp"
             android:layout_height="70dp"
             android:layout_marginLeft="50dp"
@@ -188,10 +188,6 @@
             android:text="使用演示"
             android:textColor="#FFFFFF"
             android:textSize="35sp" />
-
-
     </LinearLayout>
-
-
 
 </android.support.constraint.ConstraintLayout>

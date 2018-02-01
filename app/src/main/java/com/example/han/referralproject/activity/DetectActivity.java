@@ -254,7 +254,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
     };
 
-
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
