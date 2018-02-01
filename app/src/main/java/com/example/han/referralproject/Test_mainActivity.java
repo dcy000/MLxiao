@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
+import com.example.han.referralproject.measure.InstructionsActivity;
+import com.example.han.referralproject.measure.OnMeasureActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.util.ToastUtil;
 
@@ -96,21 +98,25 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
             switch (v.getId()) {
                 case R.id.ll_xueya:
                     intent.setClass(mContext, DetectActivity.class);
+//                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "xueya");
                     startActivity(intent);
                     break;
                 case R.id.ll_xueyang:
                     intent.setClass(getApplicationContext(), DetectActivity.class);
+//                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "xueyang");
                     startActivity(intent);
                     break;
                 case R.id.ll_tiwen:
                     intent.setClass(mContext, DetectActivity.class);
+//                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "wendu");
                     startActivity(intent);
                     break;
                 case R.id.ll_xuetang:
                     intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
+//                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "xuetang");
                     startActivity(intent);
                     break;
@@ -124,11 +130,13 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                 case R.id.ll_san:
                     //intent.setClass(getApplicationContext(), XueyaActivity.class);
                     intent.setClass(mContext, DetectActivity.class);
+//                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "sanheyi");
                     startActivity(intent);
                     break;
                 case R.id.ll_tizhong://体重
                     intent.setClass(mContext, DetectActivity.class);
+//                    intent.setClass(mContext, OnMeasureActivity.class);
                     intent.putExtra("type", "tizhong");
                     startActivity(intent);
 //                    ToastUtil.showShort(this,"暂未开通");

@@ -100,7 +100,7 @@ public class AuthenticationActivity extends BaseActivity {
     private int xfTime = 10;//默认轮训的次数,如果需要修改，记得下面还有两个地方
     private String choosedXfid;//选中的讯飞id;
     private HashMap<String, String> xfid_userid;
-    private RelativeLayout mRelativeLayout;
+    private Button mTiaoguo;
     private ByteArrayOutputStream baos;
     private int unDentified = 10;//未识别的次数，最多10寸
     private ArrayList<UserInfoBean> mDataList;
@@ -148,17 +148,24 @@ public class AuthenticationActivity extends BaseActivity {
             }
         });
 
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.tiao_RelativeLayout);
+        mTiaoguo = (Button) findViewById(R.id.tiao_guos);
 
         if ("Pay".equals(fromString) || "Welcome".equals(fromString)) {//支付过来
-            mRelativeLayout.setVisibility(View.GONE);
+            mTiaoguo.setVisibility(View.GONE);
         }
         if ("Test".equals(fromString)) {
-            mRelativeLayout.setVisibility(View.VISIBLE);
+            mTiaoguo.setVisibility(View.VISIBLE);
         }
-        mRelativeLayout.setOnClickListener(new OnClickListener() {
+        mTiaoguo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                }
+                if (mFaceRequest!=null){
+                    mFaceRequest.cancel();
+                }
+                closeCamera();
                 if ("Test".equals(fromString)) {
                     Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
                     startActivity(intent);

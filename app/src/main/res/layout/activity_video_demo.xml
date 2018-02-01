@@ -37,28 +37,19 @@
 
     </RelativeLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/tiao_RelativeLayout"
-        android:layout_width="230dp"
-        android:layout_height="120dp"
+    <Button
+        android:id="@+id/tiao_guos"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
-        android:clickable="true">
-
-        <Button
-            android:id="@+id/tiao_guos"
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape_tiaoguo"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="@string/tiaoguo"
-            android:textColor="#FFFFFF"
-            android:textSize="40sp"
-            android:visibility="visible"/>
-
-    </RelativeLayout>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_tiaoguo"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/tiaoguo"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:visibility="visible"/>
 
 </RelativeLayout>

@@ -299,6 +299,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     private boolean mConnected = false;
     private boolean xuetangAbnormal=false;//测量血糖异常标识，默认正常
+
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
