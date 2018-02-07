@@ -12,6 +12,7 @@ import android.support.multidex.MultiDex;
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.new_music.HttpInterceptor;
+import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.new_music.ToastUtils;
@@ -63,6 +64,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         LeakCanary.install(this);
+        LibMusicPlayer.init(this);
         Preferences.init(this);
         ScreenUtils.init(this);
         ToastUtils.init(this);
@@ -94,7 +96,7 @@ public class MyApplication extends Application {
 
         SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
         NimInitHelper.getInstance().init(this, true);
-        initOkHttpUtils();
+//        initOkHttpUtils();
 
         BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
 
@@ -109,15 +111,15 @@ public class MyApplication extends Application {
         UiUtils.compat(this, 1920);
     }
 
-    private void initOkHttpUtils() {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .addInterceptor(new HttpInterceptor())
-                .build();
-        OkHttpUtils.initClient(okHttpClient);
-    }
+//    private void initOkHttpUtils() {
+//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .connectTimeout(10, TimeUnit.SECONDS)
+//                .readTimeout(10, TimeUnit.SECONDS)
+//                .writeTimeout(10, TimeUnit.SECONDS)
+//                .addInterceptor(new HttpInterceptor())
+//                .build();
+//        OkHttpUtils.initClient(okHttpClient);
+//    }
 
     public static MyApplication getInstance() {
         return mInstance;

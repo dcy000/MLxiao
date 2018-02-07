@@ -40,5 +40,7 @@ def initGradleEnvironment() {
 }
 initGradleEnvironment()
 
-include ':app', ':sdk', ':circleprogress', ':RotateView'
+include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress'
+
+
 

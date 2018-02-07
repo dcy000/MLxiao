@@ -15,7 +15,7 @@
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_50p"
+        android:background="#80000000"
         android:orientation="vertical">
 
         <LinearLayout
@@ -46,8 +46,8 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="无音乐"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_common" />
+                    android:textColor="#ffffffff"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tv_artist"
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textColor="@color/grey"
+                    android:textColor="#9E9E9E"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
