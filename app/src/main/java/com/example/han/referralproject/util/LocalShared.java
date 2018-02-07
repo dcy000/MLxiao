@@ -9,6 +9,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
@@ -16,7 +17,7 @@ public class LocalShared {
     private SharedPreferences mShared;
 
     private final String UserAccounts = "user_accounts";
-    private final String UserAccounts_new="user_accounts_new";
+    private final String UserAccounts_new = "user_accounts_new";
     private final String UserId = "user_id";
     private static final String USER_NAME = "user_name";
     private static final String USER_ID_CARD = "user_id_card";
@@ -29,7 +30,7 @@ public class LocalShared {
     private final String MAC_Xindian = "mac_xindian";
     private final String MAC_Sanheyi = "mac_sanheyi";
     private final String MAC_Xuetang = "mac_xuetang";
-
+    private final String MAC_Tizhong = "mac_tizhong";
     private final String Guide_Add_Click = "guide_add_click";
     private final String Guide_Create_Text = "guide_create_text";
     private final String Guide_Sign_In = "guide_sign_in_two";
@@ -46,40 +47,40 @@ public class LocalShared {
         return mInstance;
     }
 
-    public void addAccount(String bid,String xfid) {
-        if (TextUtils.isEmpty(bid)||TextUtils.isEmpty(xfid)) {
+    public void addAccount(String bid, String xfid) {
+        if (TextUtils.isEmpty(bid) || TextUtils.isEmpty(xfid)) {
             return;
         }
         String accountsString = mShared.getString(UserAccounts_new, "");
-        if (TextUtils.isEmpty(accountsString)){
-                mShared.edit().putString(UserAccounts_new, bid + ","+xfid+";").commit();
+        if (TextUtils.isEmpty(accountsString)) {
+            mShared.edit().putString(UserAccounts_new, bid + "," + xfid + ";").commit();
         } else {
             String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(";");
-            if (!isContainAccount(accountsArray, bid,xfid)) {
-                mShared.edit().putString(UserAccounts_new, accountsString + bid + ","+xfid+";").commit();
+            if (!isContainAccount(accountsArray, bid, xfid)) {
+                mShared.edit().putString(UserAccounts_new, accountsString + bid + "," + xfid + ";").commit();
 
             }
         }
     }
 
-    public String deleteAccount(String bid,String xfid) {
+    public String deleteAccount(String bid, String xfid) {
         String[] accountsArray = getAccounts();
-        if (accountsArray == null || TextUtils.isEmpty(bid)||TextUtils.isEmpty(xfid)){
+        if (accountsArray == null || TextUtils.isEmpty(bid) || TextUtils.isEmpty(xfid)) {
             return "";
         }
         ArrayList<String> accountsList = new ArrayList<>();
-        for (String item : accountsArray){
-            if (item.equals(bid+","+xfid)){
+        for (String item : accountsArray) {
+            if (item.equals(bid + "," + xfid)) {
                 continue;
             }
             accountsList.add(item);
         }
-        if (accountsList.size() == 0){
+        if (accountsList.size() == 0) {
             return "";
             //mShared.edit().putString(UserAccounts, "").commit();
         } else {
             StringBuilder mBuilder = new StringBuilder();
-            for (String itemAccount : accountsList){
+            for (String itemAccount : accountsList) {
                 mBuilder.append(itemAccount).append(";");
             }
             return mBuilder.toString();
@@ -90,26 +91,26 @@ public class LocalShared {
     public String[] getAccounts() {
         String accountsString = mShared.getString(UserAccounts_new, "");
 
-        if (TextUtils.isEmpty(accountsString)){
-            String old_accountsString=mShared.getString(UserAccounts,"");
-            if(TextUtils.isEmpty(old_accountsString)){
+        if (TextUtils.isEmpty(accountsString)) {
+            String old_accountsString = mShared.getString(UserAccounts, "");
+            if (TextUtils.isEmpty(old_accountsString)) {
                 return null;
-            }else{
-                addAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);
-                mShared.edit().putString(UserAccounts,"").commit();
-                return new String[]{MyApplication.getInstance().userId+","+MyApplication.getInstance().xfid};
+            } else {
+                addAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
+                mShared.edit().putString(UserAccounts, "").commit();
+                return new String[]{MyApplication.getInstance().userId + "," + MyApplication.getInstance().xfid};
             }
 
         }
         return accountsString.substring(0, accountsString.length() - 1).split(";");
     }
 
-    public boolean isContainAccount(String[] accountsArray, String bid,String xfid){
-        if (TextUtils.isEmpty(bid) || accountsArray == null||TextUtils.isEmpty(xfid)){
+    public boolean isContainAccount(String[] accountsArray, String bid, String xfid) {
+        if (TextUtils.isEmpty(bid) || accountsArray == null || TextUtils.isEmpty(xfid)) {
             return false;
         }
-        for (String item : accountsArray){
-            if ((bid+","+xfid).equals(item)) {
+        for (String item : accountsArray) {
+            if ((bid + "," + xfid).equals(item)) {
                 return true;
             }
         }
@@ -152,6 +153,7 @@ public class LocalShared {
     public String getUserImg() {
         return mShared.getString(UserImg, "");
     }
+
     public void setXunfeiID(String imgUrl) {
         mShared.edit().putString(XunfeiId, imgUrl).commit();
     }
@@ -159,8 +161,9 @@ public class LocalShared {
     public String getXunfeiId() {
         return mShared.getString(XunfeiId, "");
     }
+
     public void loginOut() {
-        String accountHistory = deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);
+        String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
         MyApplication.getInstance().userId = null;
         mShared.edit().clear().putString(UserAccounts, accountHistory).commit();
     }
@@ -288,7 +291,7 @@ public class LocalShared {
         mShared.edit().putString(SIGN_UP_SMOKE, smoke).apply();
     }
 
-    public  String getSignUpSmoke() {
+    public String getSignUpSmoke() {
         return mShared.getString(SIGN_UP_SMOKE, "1");
     }
 
@@ -326,12 +329,15 @@ public class LocalShared {
     public String getNimToken() {
         return mShared.getString(NIM_TOKEN, "");
     }
-    private static final String EQID="eq_id";
-    public void setEqID(String eqid){
-        mShared.edit().putString(EQID,eqid).commit();
+
+    private static final String EQID = "eq_id";
+
+    public void setEqID(String eqid) {
+        mShared.edit().putString(EQID, eqid).commit();
     }
-    public String getEqID(){
-        return mShared.getString(EQID,"");
+
+    public String getEqID() {
+        return mShared.getString(EQID, "");
     }
 
     public String getXueyaMac() {
@@ -348,6 +354,14 @@ public class LocalShared {
 
     public void setXuetangMac(String xuetangMac) {
         mShared.edit().putString(MAC_Xuetang, xuetangMac).commit();
+    }
+
+    public String getTizhongMac() {
+        return mShared.getString(MAC_Tizhong, "");
+    }
+
+    public void setTizhongMac(String xuetangMac) {
+        mShared.edit().putString(MAC_Tizhong, xuetangMac).commit();
     }
 
     public String getWenduMac() {
@@ -383,30 +397,34 @@ public class LocalShared {
     }
 
     public void setSex(String sex) {
-        mShared.edit().putString("user_sex",sex).commit();
+        mShared.edit().putString("user_sex", sex).commit();
     }
-    public String getSex(){
-        return mShared.getString("user_sex","");
+
+    public String getSex() {
+        return mShared.getString("user_sex", "");
     }
 
     public void setUserPhoto(String user_photo) {
-        mShared.edit().putString("user_photo",user_photo).commit();
+        mShared.edit().putString("user_photo", user_photo).commit();
     }
-    public String getUserPhoto(){
-        return mShared.getString("user_photo","");
+
+    public String getUserPhoto() {
+        return mShared.getString("user_photo", "");
     }
 
     public void setUserAge(String age) {
-        mShared.edit().putString("user_age",age).commit();
+        mShared.edit().putString("user_age", age).commit();
     }
-    public String getUserAge(){
-        return mShared.getString("user_age","");
+
+    public String getUserAge() {
+        return mShared.getString("user_age", "");
     }
 
     public void setUserHeight(String height) {
-        mShared.edit().putString("user_height",height).commit();
+        mShared.edit().putString("user_height", height).commit();
     }
-    public String getUserHeight(){
-        return mShared.getString("user_height","");
+
+    public String getUserHeight() {
+        return mShared.getString("user_height", "");
     }
 }

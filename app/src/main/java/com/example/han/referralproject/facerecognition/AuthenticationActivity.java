@@ -70,7 +70,6 @@ import org.json.JSONObject;
 
 public class AuthenticationActivity extends BaseActivity {
     private SurfaceView mPreviewSurface;
-    private SurfaceView mFaceSurface;
     private Camera mCamera;
     private int mCameraId = CameraInfo.CAMERA_FACING_FRONT;
     // Camera nv21格式预览帧的尺寸，默认设置640*480  1280*720
@@ -78,13 +77,10 @@ public class AuthenticationActivity extends BaseActivity {
     private int PREVIEW_HEIGHT = 720;
     // 预览帧数据存储数组和缓存数组
     private byte[] nv21;
-    private byte[] buffer;
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
     // 加速度感应器，用于获取手机的朝向
     private Accelerometer mAcc;
-    private boolean mStopTrack;
-    private Toast mToast;
     private byte[] mImageData = null;
     private String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
@@ -100,7 +96,7 @@ public class AuthenticationActivity extends BaseActivity {
     private int xfTime = 10;//默认轮训的次数,如果需要修改，记得下面还有两个地方
     private String choosedXfid;//选中的讯飞id;
     private HashMap<String, String> xfid_userid;
-    private RelativeLayout mRelativeLayout;
+    private Button mTiaoguo;
     private ByteArrayOutputStream baos;
     private int unDentified = 10;//未识别的次数，最多10寸
     private ArrayList<UserInfoBean> mDataList;
@@ -109,11 +105,15 @@ public class AuthenticationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
+        Intent intent = getIntent();
+        orderid = intent.getStringExtra("orderid");
+        fromString = intent.getStringExtra("from");
+
 
         mediaPlayer = MediaPlayer.create(this, R.raw.face_validation);
         mediaPlayer.start();//播放音乐
         xfid_userid = new HashMap<>();
-        //
+        //获取本地所有账号
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts != null) {
             xfids = new String[accounts.length];
@@ -123,9 +123,6 @@ public class AuthenticationActivity extends BaseActivity {
             }
         }
         getAllUsersInfo(accounts);
-        Intent intent = getIntent();
-        orderid = intent.getStringExtra("orderid");
-        fromString = intent.getStringExtra("from");
         if ("Test".equals(fromString)) {//测试
             indexXfid = 0;
             xfTime = 10;
@@ -148,17 +145,32 @@ public class AuthenticationActivity extends BaseActivity {
             }
         });
 
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.tiao_RelativeLayout);
+        mTiaoguo = (Button) findViewById(R.id.tiao_guos);
 
         if ("Pay".equals(fromString) || "Welcome".equals(fromString)) {//支付过来
-            mRelativeLayout.setVisibility(View.GONE);
+            mTiaoguo.setVisibility(View.GONE);
         }
         if ("Test".equals(fromString)) {
-            mRelativeLayout.setVisibility(View.VISIBLE);
+            mTiaoguo.setVisibility(View.VISIBLE);
         }
-        mRelativeLayout.setOnClickListener(new OnClickListener() {
+        mTiaoguo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (faceThread!=null){
+                    Log.e(TAG, "onClick: "+"销毁子线程" );
+                    faceThread.interrupt();
+                }
+                if (mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                }
+                if (mFaceRequest!=null){
+                    mFaceRequest.cancel();
+                }
+                if (mAcc!=null){
+                    mAcc.stop();
+                }
+                closeCamera();
+
                 if ("Test".equals(fromString)) {
                     Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
                     startActivity(intent);
@@ -171,7 +183,6 @@ public class AuthenticationActivity extends BaseActivity {
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
         initUI();
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
-        buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mAcc = new Accelerometer(AuthenticationActivity.this);
         mFaceRequest = new FaceRequest(this);
     }
@@ -195,6 +206,7 @@ public class AuthenticationActivity extends BaseActivity {
         });
     }
 
+    private Thread faceThread;
     private Callback mPreviewCallback = new Callback() {
 
         @Override
@@ -204,14 +216,16 @@ public class AuthenticationActivity extends BaseActivity {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-
+            Log.e(TAG, "surfaceCreated: "+"创建预览对象" );
             // 启动相机
-            new Thread(new Runnable() {
+            faceThread=new Thread(new Runnable() {
                 @Override
                 public void run() {
+
                     openCamera();
                 }
-            }).start();
+            });
+            faceThread.start();
         }
 
         @Override
@@ -230,21 +244,15 @@ public class AuthenticationActivity extends BaseActivity {
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 
         mPreviewSurface.setLayoutParams(params);
-        mFaceSurface.setLayoutParams(params);
     }
 
     @SuppressLint("ShowToast")
     @SuppressWarnings("deprecation")
     private void initUI() {
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
-        mFaceSurface = (SurfaceView) findViewById(R.id.sfv_face);
-
         mPreviewSurface.getHolder().addCallback(mPreviewCallback);
         mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        mFaceSurface.setZOrderOnTop(true);
-        mFaceSurface.getHolder().setFormat(PixelFormat.TRANSLUCENT);
         setSurfaceSize();
-        mToast = Toast.makeText(AuthenticationActivity.this, "", Toast.LENGTH_SHORT);
     }
 
     private void openCamera() {
@@ -254,7 +262,6 @@ public class AuthenticationActivity extends BaseActivity {
 
         if (!checkCameraPermission()) {
             ToastUtil.showShort(this, "摄像头权限未打开，请打开后再试");
-            mStopTrack = true;
             return;
         }
 
@@ -497,7 +504,9 @@ public class AuthenticationActivity extends BaseActivity {
                     xfTime = 10;
                 } else {
                     Log.e(TAG, "onCompleted: unDentified<0");
-                    ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
+                    if ("Test".equals(fromString)||"Pay".equals(fromString)) {//因为人脸登录的容错机会只有5次，很容易出现成功提示信息和错误提示信息同时出现
+                        ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
+                    }
                     finish();
                 }
         }
@@ -618,7 +627,6 @@ public class AuthenticationActivity extends BaseActivity {
         if (null != mAcc) {
             mAcc.stop();
         }
-        mStopTrack = true;
     }
 
 

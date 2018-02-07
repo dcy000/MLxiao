@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,21 +31,28 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
+import com.example.han.referralproject.measure.MeasureChooseReason;
+import com.example.han.referralproject.measure.MeasureXuetangResultActivity;
+import com.example.han.referralproject.measure.MeasureXueyaResultActivity;
+import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
+import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -55,6 +61,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
 import android.support.v4.content.ContextCompat;
 
 public class DetectActivity extends BaseActivity implements View.OnClickListener {
@@ -96,6 +103,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private View mOverView;
     private LocalShared mShared;
     private Thread mSearchThread;
+    private FrameLayout container;
+
 
     @SuppressLint("HandlerLeak")
     Handler xueyaHandler = new Handler() {
@@ -201,28 +210,29 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                     byte[] result2 = (byte[]) msg.obj;
                     int num = 0;
-				/*numPosition = result2[5];
-				if (numPosition > 255) {
+                /*numPosition = result2[5];
+                if (numPosition > 255) {
 					numPosition = (((byte)numPosition)&0xff)+1+0xff;
 				}*/
-                    num = (result2[5]&0xff)|(result2[6]<<8&0xff00);
+                    num = (result2[5] & 0xff) | (result2[6] << 8 & 0xff00);
                     Log.i("mylog", "data " + num);
                     mHighPressTv.setText(String.valueOf(num));
                     break;
                 case 13://经典蓝牙测量结果
                     byte[] res = (byte[]) msg.obj;
-                    int getNew = (res[5]&0xff) + 30;
-                    int maibo = res[4]&0xff;int i = res[6];
+                    int getNew = (res[5] & 0xff) + 30;
+                    int maibo = res[4] & 0xff;
+                    int i = res[6];
                     int down = 0;
-                    if(((i & 0XFF)>0)||(i & 0XFF)<256){
+                    if (((i & 0XFF) > 0) || (i & 0XFF) < 256) {
                         down = (i & 0XFF) + 30;
-                    }else{
-                        down = (((byte)i) & 0XFF)+1+0xff + 30;
+                    } else {
+                        down = (((byte) i) & 0XFF) + 1 + 0xff + 30;
                     }
                     mHighPressTv.setText(String.valueOf(getNew));
                     mLowPressTv.setText(String.valueOf(down));
                     mPulseTv.setText(String.valueOf(maibo));
-                    Log.i("mylog", "gao " + getNew + " di "  + down + " pluse " + maibo);
+                    Log.i("mylog", "gao " + getNew + " di " + down + " pluse " + maibo);
                     String xueyaResult;
                     if (getNew <= 140) {
                         xueyaResult = mXueyaResults[0];
@@ -231,18 +241,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } else {
                         xueyaResult = mXueyaResults[2];
                     }
-                    speak(String.format(getString(R.string.tips_result_xueya),
-                            getNew, down, maibo, xueyaResult));
-                    DataInfoBean info = new DataInfoBean();
-                    info.high_pressure = getNew;
-                    info.low_pressure = down;
-                    info.pulse = maibo;
-                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    uploadXueyaResult(getNew, down, maibo, xueyaResult, false);
                     break;
                 case 14:
                     stopSearch();
@@ -255,50 +254,154 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     };
 
 
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 0:
-                    sendDataByte(Commands.CMD_LENGTH_TEN, Commands.CMD_CATEGORY_ZERO);
-                    break;
-                case 1:
-                    mResultTv.setText((String) msg.obj);
-                    break;
-                case 2:
-                    isGetResustFirst = true;//测量重置标志位
-                    break;
-            }
+    /**
+     * 上传血压的测量结果
+     */
+    private void uploadXueyaResult(final int getNew, final int down, final int maibo, final String xueyaResult, boolean status) {
+        DataInfoBean info = new DataInfoBean();
+        info.high_pressure = getNew;
+        info.low_pressure = down;
+        info.pulse = maibo;
+        if (status) {
+            info.state = true;
         }
-    };
+        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+            @Override
+            public void onSuccess(MeasureResult response) {
+                startActivity(new Intent(DetectActivity.this, MeasureXueyaResultActivity.class)
+                        .putExtra("measure_piangao_num", response.high)
+                        .putExtra("measure_zhengchang_num", response.regular)
+                        .putExtra("measure_piandi_num", response.low)
+                        .putExtra("measure_sum", response.zonggong)
+                        .putExtra("current_gaoya", getNew + "")
+                        .putExtra("current_diya", down + "")
+                        .putExtra("suggest", response.message)
+                        .putExtra("week_avg_gaoya", response.Recently_avg_high)
+                        .putExtra("week_avg_diya", response.Recently_avg_low)
+                        .putExtra("fenshu", response.exponent));
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                if (!TextUtils.isEmpty(message)){
+                    if (message.startsWith("血压超标")){
+                        MeasureXueyaWarningFragment warningFragment = new MeasureXueyaWarningFragment();
+                        getSupportFragmentManager().beginTransaction().add(R.id.container, warningFragment).commit();
 
-    private final ServiceConnection mServiceConnection = new ServiceConnection() {
+                        warningFragment.setOnChooseReason(new MeasureChooseReason() {
+                            @Override
+                            public void hasReason(int reason) {
+                                switch (reason) {
+                                    case -1://其他原因
+                                        break;
+                                    case 0://服用了降压药
+                                        break;
+                                    case 1://臂带佩戴不正确
+                                        break;
+                                    case 2://坐姿不正确
+                                        break;
+                                    case 3://测量过程说话了
+                                        break;
+                                    case 4://饮酒、咖啡之后
+                                        break;
+                                    case 5://沐浴之后
+                                        break;
+                                    case 6://运动之后
+                                        break;
+                                    case 7://饭后一小时
+                                        break;
+                                }
+                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                            }
 
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder service) {
-            Log.i("mylog", "service connected");
-            mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
-            if (!mBluetoothLeService.initialize()) {
-                Log.e(TAG, "Unable to initialize Bluetooth");
-                finish();
+                            @Override
+                            public void noReason() {//强制插入异常数据
+                                uploadXueyaResult(getNew,down,maibo,xueyaResult,true);
+                            }
+                        });
+                    }else{
+                        ToastUtil.showShort(DetectActivity.this,message);
+                    }
+                }else{
+                    ToastUtil.showShort(DetectActivity.this,"网络异常");
+                }
             }
-            if (TextUtils.isEmpty(mDeviceAddress)){
-                return;
-            }
-            if (mBluetoothLeService.connect(mDeviceAddress)) {
-                mBluetoothGatt = mBluetoothLeService.getGatt();
-            }
+        });
+    }
+
+    /**
+     * 处理血糖的测量结果
+     *
+     * @param xuetangResut
+     */
+    private void uploadXuetangResult(final float xuetangResut,boolean status) {
+        DataInfoBean info = new DataInfoBean();
+        info.blood_sugar = String.format("%.1f", xuetangResut);
+        info.sugar_time = xuetangTimeFlag + "";
+        if (status){
+            info.state=true;
         }
+        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+            @Override
+            public void onSuccess(MeasureResult response) {
+                startActivity(new Intent(DetectActivity.this, MeasureXuetangResultActivity.class)
+                        .putExtra("measure_piangao_num", response.high)
+                        .putExtra("measure_zhengchang_num", response.regular)
+                        .putExtra("measure_piandi_num", response.low)
+                        .putExtra("measure_sum", response.zonggong)
+                        .putExtra("result", xuetangResut + "")
+                        .putExtra("suggest", response.message)
+                        .putExtra("week_avg_one", response.oneHour_stomach)
+                        .putExtra("week_avg_two", response.twoHour_stomach)
+                        .putExtra("week_avg_empty", response.empty_stomach)
+                        .putExtra("fenshu", response.exponent));
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                if (!TextUtils.isEmpty(message)){//血糖暂时没有数据异常处理
+                    if (message.startsWith("血糖超标")) {
+                        MeasureXuetangFragment measureXuetangFragment=new MeasureXuetangFragment();
+                        getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
 
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            mBluetoothLeService = null;
-        }
-    };
+                        measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
+                            @Override
+                            public void hasReason(int reason) {
+                                switch (reason) {
+                                    case -1://其他原因
+                                        break;
+                                    case 0://选择时间错误
+                                        break;
+                                    case 1://未擦掉第一滴血
+                                        break;
+                                    case 2://试纸过期
+                                        break;
+                                    case 3://血液暴露时间太久
+                                        break;
+                                    case 4://彩雪方法不对
+                                        break;
+                                    case 5://血糖仪未清洁
+                                        break;
+                                }
+                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                            }
+
+                            @Override
+                            public void noReason() {
+                                uploadXuetangResult(xuetangResut,true);
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+
+    }
 
     private boolean mConnected = false;
-    private boolean xuetangAbnormal=false;//测量血糖异常标识，默认正常
+    private boolean xuetangAbnormal = false;//测量血糖异常标识，默认正常
+
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -345,7 +448,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mConnected = false;
                 //speak(R.string.tips_blue_unConnect);
                 isGetResustFirst = true;
-                if (mBluetoothLeService != null){
+                if (mBluetoothLeService != null) {
                     mBluetoothLeService.disconnect();
                     mBluetoothLeService.close();
                 }
@@ -433,10 +536,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mHandler.sendEmptyMessageDelayed(2, 5000);
                             DataInfoBean info = new DataInfoBean();
                             info.temper_ature = String.valueOf(wenduValue);
-                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                 @Override
-                                public void onSuccess(String response) {
+                                public void onSuccess(MeasureResult response) {
                                     //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                }
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
                                 }
                             });
                         }
@@ -463,18 +571,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyaResult = mXueyaResults[2];
                                 }
-                                speak(String.format(getString(R.string.tips_result_xueya),
-                                        notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
-                                DataInfoBean info = new DataInfoBean();
-                                info.high_pressure = notifyData[2] & 0xff;
-                                info.low_pressure = notifyData[4] & 0xff;
-                                info.pulse = notifyData[8] & 0xff;
-                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
-                                    @Override
-                                    public void onSuccess(String response) {
-                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                //上传数据到我们的服务器
+                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult,false);
                             }
                         }
                         StringBuilder mBuilder = new StringBuilder();
@@ -492,55 +590,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         //threadDisable = false;
                         if (isGetResustFirst) {
                             isGetResustFirst = false;
-//                            float xuetangResut = ((float)((notifyData[10] << 8 + (notifyData[9] & 0xff))))/18;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
-//                            float xuetangResut = ((float) (((notifyData[9] & 0xff)))) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
-                            switch (time){
-                                case 0://空腹
-                                    if(xuetangResut<3.61){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
-                                        xuetangAbnormal=true;
-                                    }else if(xuetangResut<=7.0){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
-                                    }else{
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
-                                        xuetangAbnormal=true;
-                                    }
-                                    break;
-                                case 1://饭后一小时
-                                    if(xuetangResut<3.61){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
-                                        xuetangAbnormal=true;
-                                    }else if(xuetangResut<=11.1){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
-                                    }else{
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
-                                        xuetangAbnormal=true;
-                                    }
-                                    break;
-                                case 2://饭后两小时
-                                    if(xuetangResut<3.61){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
-                                        xuetangAbnormal=true;
-                                    }else if(xuetangResut<=7.8){
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
-                                    }else{
-                                        speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
-                                        xuetangAbnormal=true;
-                                    }
-                                    break;
-                            }
-
-                            DataInfoBean info = new DataInfoBean();
-                            info.blood_sugar = String.format("%.1f", xuetangResut);
-                            info.sugar_time=time+"";
-                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            uploadXuetangResult(xuetangResut,false);
                         }
                         break;
                     case Type_XueYang:
@@ -561,10 +613,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyangResult = mXueYangResults[1];
                                 }
                                 speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, info.pulse, xueyangResult));
-                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
-                                    public void onSuccess(String response) {
+                                    public void onSuccess(MeasureResult response) {
                                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                    }
+                                }, new NetworkManager.FailedCallback() {
+                                    @Override
+                                    public void onFailed(String message) {
+
                                     }
                                 });
                             }
@@ -572,21 +629,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_TiZhong:
                         if (notifyData != null && notifyData.length == 14 && (notifyData[1] & 0xff) == 221) {
-                            if (isGetResustFirst){
+                            if (isGetResustFirst) {
                                 isGetResustFirst = false;
                                 float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                                 mResultTv.setText(String.valueOf(result));
-                                String  height_s=LocalShared.getInstance(DetectActivity.this).getUserHeight();
-                                float height=TextUtils.isEmpty(height_s)?0:Float.parseFloat(height_s)/100;
-                                if(height!=0)
-                                    ((TextView)findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f",result/(height*height)));
+                                String height_s = LocalShared.getInstance(DetectActivity.this).getUserHeight();
+                                float height = TextUtils.isEmpty(height_s) ? 0 : Float.parseFloat(height_s) / 100;
+                                if (height != 0)
+                                    ((TextView) findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f", result / (height * height)));
                                 speak(String.format(getString(R.string.tips_result_tizhong), String.format("%.1f", result)));
                                 DataInfoBean info = new DataInfoBean();
                                 info.weight = result;
-                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
-                                    public void onSuccess(String response) {
+                                    public void onSuccess(MeasureResult response) {
                                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                    }
+                                }, new NetworkManager.FailedCallback() {
+                                    @Override
+                                    public void onFailed(String message) {
+
                                     }
                                 });
                             }
@@ -597,32 +659,37 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             return;
                         }
                         //onDetectView.setVisibility(View.GONE);
-                        ((TextView)findViewById(R.id.tv_xindian)).setText(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
+                        ((TextView) findViewById(R.id.tv_xindian)).setText(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
                         DataInfoBean ecgInfo = new DataInfoBean();
                         ecgInfo.ecg = notifyData[17];
                         ecgInfo.heart_rate = notifyData[16] & 0xff;
-                        NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<String>() {
+                        NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
-                            public void onSuccess(String response) {
+                            public void onSuccess(MeasureResult response) {
                                 //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+
                             }
                         });
                         speak(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
                         break;
                     case Type_SanHeYi:
-                        if (notifyData == null || notifyData.length < 13){
+                        if (notifyData == null || notifyData.length < 13) {
                             return;
                         }
-                        if (isGetResustFirst){
+                        if (isGetResustFirst) {
                             isGetResustFirst = false;
                             int result = ((notifyData[11] & 0xff) << 8) + (notifyData[10] & 0xff);
                             int basic = (int) Math.pow(16, 3);
-                            int flag = result/basic;
+                            int flag = result / basic;
                             int number = result % basic;
                             double afterResult;
                             afterResult = number / Math.pow(10, 13 - flag);
                             DataInfoBean info = new DataInfoBean();
-                            if (notifyData[1] == 65){
+                            if (notifyData[1] == 65) {
                                 info.blood_sugar = String.valueOf(afterResult);
                                 mSanHeYiOneTv.setText(String.valueOf(afterResult));
                                 speak(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), "正常"));
@@ -635,19 +702,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 mSanHeYiThreeTv.setText(String.valueOf(afterResult));
                                 speak(String.format(getString(R.string.tips_result_danguchun), String.valueOf(afterResult), "正常"));
                             }
-                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                 @Override
-                                public void onSuccess(String response) {
+                                public void onSuccess(MeasureResult response) {
                                     //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                                 }
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
                             });
-//                            if (notifyData[1] == 65){
-//                                afterResult = number / Math.pow(10, 11 - flag);
-//                            } else {
-//                                afterResult = number / Math.pow(10, 13 - flag);
-//                            }
-//                            int result = (notifyData[18] << 8) + (notifyData[17] & 0xff);
-                            //mResultTv.setText(String.valueOf(result));
                         }
                         break;
                 }
@@ -659,7 +724,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onActivitySpeakFinish() {//语音播放完成后，如果血糖异常，则跳转到并发症页面
-        if(xuetangAbnormal){
+        if (xuetangAbnormal) {
 //            startActivity(new Intent(this,SymptomsActivity.class));
         }
     }
@@ -689,7 +754,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         switch (detectType) {
             case Type_Wendu:
                 List<BluetoothGattCharacteristic> characteristicsList = gattServices.get(3).getCharacteristics();
-                if (characteristicsList.size() == 3){
+                if (characteristicsList.size() == 3) {
                     characteristic = characteristicsList.get(1);//新版本耳温枪
                 } else {
                     characteristic = characteristicsList.get(3);//旧版本耳温枪
@@ -701,7 +766,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                } else {
 //                    characteristic = gattServices.get(2).getCharacteristics().get(3);
 //                }
-                if (gattServices.size() == 5 || gattServices.size() == 10){
+                if (gattServices.size() == 5 || gattServices.size() == 10) {
                     characteristic = gattServices.get(3).getCharacteristics().get(3);
                 } else {
                     characteristic = gattServices.get(2).getCharacteristics().get(3);
@@ -746,7 +811,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             return;
         }
         if (detectType == Type_TiZhong) {
-            setCharacterValue(characteristic, characteristic , 0);
+            setCharacterValue(characteristic, characteristic, 0);
             return;
         }
         mWriteCharacteristic = characteristic;
@@ -775,16 +840,16 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setCharacterValue(BluetoothGattCharacteristic characteristic,
-                                   BluetoothGattCharacteristic characteristic1,int status){
+                                   BluetoothGattCharacteristic characteristic1, int status) {
         // 激活通知
         final int charaProp = characteristic.getProperties();
         int charaProp_second = -1;
-        if (characteristic1!=null) {
+        if (characteristic1 != null) {
             charaProp_second = characteristic1.getProperties();
         }
 //        Log.i("mylog", "2222222222222222222");
         if (status == BluetoothGatt.GATT_SUCCESS) {
-            if ((charaProp & BluetoothGattCharacteristic.PROPERTY_NOTIFY) >0) {
+            if ((charaProp & BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
                 mBluetoothGatt.setCharacteristicNotification(
                         characteristic, true);
                 BluetoothGattDescriptor descriptor = characteristic
@@ -794,9 +859,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     descriptor
                             .setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 }
-                if(characteristic1==null)
+                if (characteristic1 == null)
                     return;
-                if ((charaProp_second & BluetoothGattCharacteristic.PROPERTY_NOTIFY) >0) {
+                if ((charaProp_second & BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
                     mBluetoothGatt.setCharacteristicNotification(
                             characteristic1, true);
                     if (descriptor != null) {
@@ -804,7 +869,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 .setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                     }
                 }
-                if (descriptor != null){
+                if (descriptor != null) {
                     mBluetoothGatt.writeDescriptor(descriptor);
                 }
 //                Log.i("mylog", "33333333333333333333333");
@@ -816,11 +881,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     //防止VedioView导致内存泄露
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(new ContextWrapper(newBase)
-        {
+        super.attachBaseContext(new ContextWrapper(newBase) {
             @Override
-            public Object getSystemService(String name)
-            {
+            public Object getSystemService(String name) {
                 if (Context.AUDIO_SERVICE.equals(name))
                     return getApplicationContext().getSystemService(name);
                 return super.getSystemService(name);
@@ -857,7 +920,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case R.id.sanheyi_video:
-                resourceId=R.raw.tips_sanheyi;
+                resourceId = R.raw.tips_sanheyi;
                 break;
         }
         if (resourceId != 0) {
@@ -877,7 +940,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public Button mButton2;
     public Button mButton3;
 
-    private int time;
+    private int xuetangTimeFlag;
     private AVLoadingIndicatorView onDetect;
 
     @Override
@@ -885,12 +948,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
         mShared = LocalShared.getInstance(mContext);
-        time=getIntent().getIntExtra("time",0);
+        xuetangTimeFlag = getIntent().getIntExtra("time", 0);
         mToolbar.setVisibility(View.GONE);
         mButton = (Button) findViewById(R.id.history);
         mButton1 = (Button) findViewById(R.id.history1);
         mButton2 = (Button) findViewById(R.id.history2);
         mButton3 = (Button) findViewById(R.id.history3);
+        container = findViewById(R.id.container);
         setEnableListeningLoop(false);
 
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -935,13 +999,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetectActivity.this,HealthRecordActivity.class));
+                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class));
             }
         });
         findViewById(R.id.history6).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetectActivity.this,HealthRecordActivity.class));
+                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class));
             }
         });
         ivBack = (ImageView) findViewById(R.id.iv_back);
@@ -1162,8 +1226,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mPulseTv = (TextView) findViewById(R.id.pulse);
         mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
         mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
-        onDetect= (AVLoadingIndicatorView) findViewById(R.id.onDetect);
-        if (detectType == Type_XinDian){
+        onDetect = (AVLoadingIndicatorView) findViewById(R.id.onDetect);
+        if (detectType == Type_XinDian) {
             onDetect.show();
 //            showAnimation();
         }
@@ -1228,40 +1292,41 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
         mBluetoothLeService = null;
         XueyaUtils.stopThread();
-        if (mBluetoothGatt != null){
+        if (mBluetoothGatt != null) {
             mBluetoothGatt.disconnect();
             mBluetoothGatt.close();
         }
     }
 
-    private int seletTimeType=0;
+    private int seletTimeType = 0;
+
     private void setXuetangSelectTime() {
         //空腹
         findViewById(R.id.tv_empty).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seletTimeType=0;
+                seletTimeType = 0;
                 findViewById(R.id.ll_selectTime).setVisibility(View.GONE);
             }
         });
         findViewById(R.id.tv_an_hour).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seletTimeType=1;
+                seletTimeType = 1;
                 findViewById(R.id.ll_selectTime).setVisibility(View.GONE);
             }
         });
         findViewById(R.id.tv_two_hour).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seletTimeType=2;
+                seletTimeType = 2;
                 findViewById(R.id.ll_selectTime).setVisibility(View.GONE);
             }
         });
         findViewById(R.id.tv_three_hour).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seletTimeType=3;
+                seletTimeType = 3;
                 findViewById(R.id.ll_selectTime).setVisibility(View.GONE);
             }
         });
@@ -1349,13 +1414,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         }
         workSearchThread = true;
-        if (mSearchThread == null){
+        if (mSearchThread == null) {
             mSearchThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    while (blueThreadDisable){
+                    while (blueThreadDisable) {
 //                        Log.i("mylog", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
-                        if (!workSearchThread){
+                        if (!workSearchThread) {
                             try {
                                 Thread.sleep(2000);
                             } catch (InterruptedException e) {
@@ -1364,8 +1429,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             continue;
                         }
 //                        Log.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                        if (TextUtils.isEmpty(mDeviceAddress)){
-                            if (!mBluetoothAdapter.isDiscovering()){
+                        if (TextUtils.isEmpty(mDeviceAddress)) {
+                            if (!mBluetoothAdapter.isDiscovering()) {
                                 boolean flag = mBluetoothAdapter.startDiscovery();
 //                                Log.i("mylog", "flag : " + flag);
                             }
@@ -1456,7 +1521,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                 }
 
-                if (detectType == Type_Xueya && "Dual-SPP".equals(device.getName())){
+                if (detectType == Type_Xueya && "Dual-SPP".equals(device.getName())) {
                     try {
                         stopSearch();
                         XueyaUtils.connect(device, xueyaHandler);
@@ -1501,22 +1566,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
     };
-
-    public void showNormal(String message) {
-        dialog.setMessageCenter(true)
-                .setMessage(message)
-                .setMessageSize(25)
-                .setCancleable(false)
-                .setNegativeTextColor(Color.parseColor("#0000FF"))
-                .setButtonCenter(false)
-                .setButtonSize(25)
-                .setOnConfirmListener(new NDialog.OnConfirmListener() {
-                    @Override
-                    public void onClick(int which) {
-                        finish();
-                    }
-                }).create(NDialog.CONFIRM).show();
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -1646,11 +1695,47 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         return intentFilter;
     }
 
-    /**
-     * 心电测量动画
-     */
-//    private void showAnimation(){
-//        Animation animation = AnimationUtils.loadAnimation(this,R.anim.heart_test);
-//        onDetect.startAnimation(animation);
-//    }
+
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    sendDataByte(Commands.CMD_LENGTH_TEN, Commands.CMD_CATEGORY_ZERO);
+                    break;
+                case 1:
+                    mResultTv.setText((String) msg.obj);
+                    break;
+                case 2:
+                    isGetResustFirst = true;//测量重置标志位
+                    break;
+            }
+        }
+    };
+
+    private final ServiceConnection mServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder service) {
+            Log.i("mylog", "service connected");
+            mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
+            if (!mBluetoothLeService.initialize()) {
+                Log.e(TAG, "Unable to initialize Bluetooth");
+                finish();
+            }
+            if (TextUtils.isEmpty(mDeviceAddress)) {
+                return;
+            }
+            if (mBluetoothLeService.connect(mDeviceAddress)) {
+                mBluetoothGatt = mBluetoothLeService.getGatt();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mBluetoothLeService = null;
+        }
+    };
 }

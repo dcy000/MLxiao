@@ -214,13 +214,13 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.HOME" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -414,7 +414,9 @@
         <activity
             android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.DiseaseDetailsActivity" />
+        <activity
+            android:name=".activity.DiseaseDetailsActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.location.LocationActivity"
             android:screenOrientation="landscape" />
@@ -517,8 +519,42 @@
         <activity
             android:name=".new_music.MusicPlayActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.ChooseLoginTypeActivity" />
-        <activity android:name=".video.TheOldVideoActivity"></activity>
+        <activity
+            android:name=".activity.ChooseLoginTypeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".measure.InstructionsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".measure.OnMeasureActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".measure.MeasureXueyaResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".measure.MeasureXuetangResultActivity"
+            android:screenOrientation="landscape">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.HOME" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".radio.RadioActivity">
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.HOME" />
+             <category android:name="android.intent.category.LAUNCHER" />
+             <category android:name="android.intent.category.DEFAULT" />
+             </intent-filter>
+        </activity>
+>>>>>>> 23033bfccaa669fcdafb573f899d4b464dc4664c
     </application>
 
 </manifest>

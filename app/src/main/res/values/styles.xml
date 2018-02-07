@@ -49,4 +49,16 @@
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
         <!-- 指定消失的动画xml -->
     </style>
+
+    <style name="jiaohu">
+
+        <item name="android:textColor">#b6b2b2</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">30dp</item>
+    </style>
 </resources>
