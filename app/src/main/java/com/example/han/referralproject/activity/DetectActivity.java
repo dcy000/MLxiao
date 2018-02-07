@@ -960,7 +960,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View view) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -969,7 +968,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View view) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -978,7 +976,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View view) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -987,7 +984,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View view) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -996,7 +992,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View v) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
