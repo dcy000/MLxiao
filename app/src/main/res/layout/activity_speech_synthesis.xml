@@ -83,27 +83,18 @@
         android:src="@drawable/face_back" />
 
     <TextView
-        android:background="@drawable/ic_normal"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_normal"
         android:id="@+id/tv_normal"
-        android:layout_marginBottom="30dp"
         android:layout_marginRight="165dp"
-         />
+        android:text="小E原声"
+        style="@style/jiaohu" />
 
     <TextView
-        android:background="@drawable/ic_whine"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/jiaohu"
+        android:text="随机变声"
+        android:drawableTop="@drawable/ic_whine"
         android:id="@+id/tv_whine"
-        android:layout_marginBottom="30dp"
         android:layout_marginRight="35dp"
-     />
+       />
 
 </RelativeLayout>
