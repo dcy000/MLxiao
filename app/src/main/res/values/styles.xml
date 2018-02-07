@@ -51,6 +51,7 @@
     </style>
 
     <style name="jiaohu">
+
         <item name="android:textColor">#b6b2b2</item>
         <item name="android:textSize">25dp</item>
         <item name="android:layout_alignParentRight">true</item>
