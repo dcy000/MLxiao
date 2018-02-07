@@ -40,6 +40,7 @@ import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -61,6 +62,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Random;
 
 public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
@@ -91,6 +93,8 @@ public class BaseActivity extends AppCompatActivity {
     protected boolean isShowVoiceView = false;//是否显示声音录入图像
     private MediaRecorder mMediaRecorder;
     private boolean isAlive = true;
+
+
 
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
@@ -324,6 +328,25 @@ public class BaseActivity extends AppCompatActivity {
             return;
         }
         setSynthesizerParams();
+        synthesizer.startSpeaking(text, mTtsListener);
+    }
+
+    protected void speak(String text,boolean isDefaultParam) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        stopListening();
+        synthesizer = SpeechSynthesizer.getSynthesizer();
+        if (synthesizer == null) {
+            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
+            return;
+        }
+        if (isDefaultParam) {
+            setSynthesizerParams();
+        }else {
+            SpeechSynthesizerHelper.setRandomParam();
+        }
+
         synthesizer.startSpeaking(text, mTtsListener);
     }
 
@@ -676,4 +699,12 @@ public class BaseActivity extends AppCompatActivity {
         }
         mDialog.dismiss();
     }
+
+
+
+    /**
+     * 发音人
+     */
+    public static final String[] VOICER={"xiaoyan","xiaoqi","xiaoli","xiaoyu","xiaofeng","xiaoxin","laosun"};
+
 }
