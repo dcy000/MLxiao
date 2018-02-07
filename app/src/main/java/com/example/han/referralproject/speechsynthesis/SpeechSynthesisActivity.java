@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
@@ -48,6 +49,7 @@ import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
@@ -107,7 +109,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             switch (msg.what) {
                 case 0:
                     //startSynthesis(str1);
-                    speak(str1);
+                    speak(str1, isDefaultParam);
                     startAnim();
 
                     break;
@@ -146,6 +148,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private LottieAnimationView mLottieView;
     private static final int TO_MUSICPLAY=1;
     private static final int TO_STORY=2;
+    private TextView voiceNormal;
+    private TextView voiceWhine;
+    private boolean isDefaultParam = true;
 
 
     @Override
@@ -163,9 +168,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_speech_synthesis);
-
-        speak("主人,来和我聊天吧");
-
         rand = new Random();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         mImageView = (ImageView) findViewById(R.id.iat_recognizes);
@@ -228,7 +230,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
 
-        speak("主人,来和我聊天吧");
+        speak("主人,来和我聊天吧", isDefaultParam);
 
         mHandler.sendEmptyMessageDelayed(1, 3000);
 
@@ -352,7 +354,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     return;
                 }
                 if (response == null || response.getSong() == null) {
-                    speak("抱歉，没找到这首歌");
+                    speak("抱歉，没找到这首歌", isDefaultParam);
                     mHandler.sendEmptyMessageDelayed(1, 3000);
                     return;
                 }
@@ -396,9 +398,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
      */
     private void initLayout() {
         findViewById(R.id.iat_recognizes).setOnClickListener(this);
-
         findViewById(R.id.iat_stop).setOnClickListener(this);
         findViewById(R.id.iat_cancel).setOnClickListener(this);
+        voiceNormal = findViewById(R.id.tv_normal);
+        voiceWhine = findViewById(R.id.tv_whine);
+        voiceNormal.setOnClickListener(this);
+        voiceWhine.setOnClickListener(this);
+
 
     }
 
@@ -436,6 +442,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         //showTip(getString(R.string.text_begin));
                     }
                 }
+                break;
+            case R.id.tv_normal:
+                SpeechSynthesizerHelper.setDefaultParam();
+                isDefaultParam = true;
+                break;
+            case R.id.tv_whine:
+                SpeechSynthesizerHelper.setRandomParam();
+                isDefaultParam = false;
                 break;
             default:
                 break;
@@ -534,7 +548,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         Integer.valueOf(minute));
                 String tip = String.format(Locale.CHINA,
                         "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
-                speak(tip);
+                speak(tip, isDefaultParam);
                 return;
             }
 
@@ -732,11 +746,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*yinliang.*shenggao.*") || inSpell.matches(".*shenggao.*yinliang.*")) {
                 volume += 3;
                 if (volume < maxVolume) {
-                    speak(getString(R.string.add_volume));
+                    speak(getString(R.string.add_volume), isDefaultParam);
                     mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
                     mHandler.sendEmptyMessageDelayed(1, 2000);
                 } else {
-                    speak(getString(R.string.max_volume));
+                    speak(getString(R.string.max_volume), isDefaultParam);
                     mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
                     mHandler.sendEmptyMessageDelayed(1, 3000);
 
@@ -751,13 +765,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 volume -= 3;
                 if (volume > 3) {
-                    speak(getString(R.string.reduce_volume));
+                    speak(getString(R.string.reduce_volume), isDefaultParam);
                     mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
                     mHandler.sendEmptyMessageDelayed(1, 2000);
 
 
                 } else {
-                    speak(getString(R.string.min_volume));
+                    speak(getString(R.string.min_volume), isDefaultParam);
                     mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
                     mHandler.sendEmptyMessageDelayed(1, 3000);
 
@@ -867,7 +881,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (!TextUtils.isEmpty(audiopath)) {
             mAudioPath = audiopath;
             if (!empty) {
-                speak(text);
+                speak(text, isDefaultParam);
             } else {
                 onActivitySpeakFinish();
             }
@@ -933,46 +947,71 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (getString(R.string.speak_null).equals(str1)) {
                 animationType = -1;
                 startAnim();
-                int randNum = rand.nextInt(10) + 1;
+                int randNum = rand.nextInt(30) + 1;
 
                 switch (randNum) {
 
                     case 1:
-                        speak(R.string.speak_1);
+                        speak(getString(R.string.speak_1), isDefaultParam);
                         break;
                     case 2:
-                        speak(R.string.speak_2);
+                        speak(getString(R.string.speak_2), isDefaultParam);
                         break;
                     case 3:
-                        speak(R.string.speak_3);
+                        speak(getString(R.string.speak_3), isDefaultParam);
 
                         break;
                     case 4:
-                        speak(R.string.speak_4);
+                        speak(getString(R.string.speak_4), isDefaultParam);
 
                         break;
                     case 5:
-                        speak(R.string.speak_5);
+                        speak(getString(R.string.speak_5), isDefaultParam);
 
                         break;
                     case 6:
-                        speak(R.string.speak_6);
+                        speak(getString(R.string.speak_6), isDefaultParam);
 
                         break;
                     case 7:
-                        speak(R.string.speak_7);
+                        speak(getString(R.string.speak_7), isDefaultParam);
 
                         break;
                     case 8:
-                        speak(R.string.speak_8);
+                        speak(getString(R.string.speak_8), isDefaultParam);
 
                         break;
                     case 9:
-                        speak(R.string.speak_9);
+                        speak(getString(R.string.speak_9), isDefaultParam);
 
                         break;
                     case 10:
-                        speak(R.string.speak_10);
+                        speak(getString(R.string.speak_10), isDefaultParam);
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                    case 23:
+                    case 24:
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                        //变声学舌
+                        SpeechSynthesizerHelper.setRandomParam();
+                        isDefaultParam = false;
+                        speak(resultBuffer.toString(), isDefaultParam);
+                        isDefaultParam = true;
                         break;
                     default:
                         break;
@@ -1256,16 +1295,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mIat.cancel();
             mIat.destroy();
         }
-
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             switch (requestCode){
                 case TO_MUSICPLAY:
-                    speak("主人，想听更多歌曲，请告诉我！");
+                    speak("主人，想听更多歌曲，请告诉我！",isDefaultParam);
                     break;
                 case TO_STORY:
-                    speak("主人，我讲的故事好听吗？");
+                    speak("主人，我讲的故事好听吗？",isDefaultParam);
                     break;
             }
         super.onActivityResult(requestCode, resultCode, data);
