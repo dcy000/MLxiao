@@ -80,4 +80,17 @@
         <attr name="outlineColor" format="color|reference" />
     </declare-styleable>
 
+
+    <declare-styleable name="RoundCornerProgress">
+        <attr name="rcReverse" format="boolean"/>
+        <attr name="rcProgress" format="float"/>
+        <attr name="rcMax" format="float"/>
+        <attr name="rcSecondaryProgress" format="float"/>
+        <attr name="rcBackgroundPadding" format="dimension"/>
+        <attr name="rcRadius" format="dimension"/>
+        <attr name="rcProgressColor" format="color"/>
+        <attr name="rcSecondaryProgressColor" format="color"/>
+        <attr name="rcBackgroundColor" format="color"/>
+    </declare-styleable>
+
 </resources>

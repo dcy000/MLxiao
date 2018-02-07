@@ -36,6 +36,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.Commands;
@@ -160,10 +161,15 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                     info.high_pressure = getNew;
                     info.low_pressure = down;
                     info.pulse = maibo;
-                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                         @Override
-                        public void onSuccess(String response) {
+                        public void onSuccess(MeasureResult response) {
                             //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+
                         }
                     });
                     break;
@@ -446,9 +452,14 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                     mHandler.sendEmptyMessageDelayed(2, 5000);
                     DataInfoBean info = new DataInfoBean();
                     info.temper_ature = String.valueOf(wenduValue);
-                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                         @Override
-                        public void onSuccess(String response) {
+                        public void onSuccess(MeasureResult response) {
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+
                         }
                     });
                 }
@@ -477,10 +488,15 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                         info.high_pressure = notifyData[2] & 0xff;
                         info.low_pressure = notifyData[4] & 0xff;
                         info.pulse = notifyData[8] & 0xff;
-                        NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
-                            public void onSuccess(String response) {
+                            public void onSuccess(MeasureResult response) {
                                 //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+
                             }
                         });
                     }
@@ -531,10 +547,15 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                     DataInfoBean info = new DataInfoBean();
                     info.blood_sugar = String.format("%.1f", xuetangResut);
                     info.sugar_time=time+"";
-                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                         @Override
-                        public void onSuccess(String response) {
+                        public void onSuccess(MeasureResult response) {
                             //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+
                         }
                     });
                 }
@@ -556,10 +577,15 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                             xueyangResult = mXueYangResults[1];
                         }
                         speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, info.pulse, xueyangResult));
-                        NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
-                            public void onSuccess(String response) {
+                            public void onSuccess(MeasureResult response) {
                                 //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+
                             }
                         });
                     }
@@ -578,10 +604,15 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                         speak(String.format(getString(R.string.tips_result_tizhong), String.format("%.1f", result)));
                         DataInfoBean info = new DataInfoBean();
                         info.weight = result;
-                        NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
-                            public void onSuccess(String response) {
+                            public void onSuccess(MeasureResult response) {
                                 //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+
                             }
                         });
                     }
@@ -596,10 +627,15 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                 DataInfoBean ecgInfo = new DataInfoBean();
                 ecgInfo.ecg = notifyData[17];
                 ecgInfo.heart_rate = notifyData[16] & 0xff;
-                NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<String>() {
+                NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
                     @Override
-                    public void onSuccess(String response) {
+                    public void onSuccess(MeasureResult response) {
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+
                     }
                 });
                 speak(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
@@ -630,9 +666,14 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                         measureListener.onSuccess(String.valueOf(afterResult),null,null,null);
                         speak(String.format(getString(R.string.tips_result_danguchun), String.valueOf(afterResult), "正常"));
                     }
-                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                         @Override
-                        public void onSuccess(String response) {
+                        public void onSuccess(MeasureResult response) {
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+
                         }
                     });
                 }

@@ -82,4 +82,8 @@
     <color name="toolbar_pressed">#33000000</color>
     <color name="toolbar_normal">#00000000</color>
 
+    <color name="round_corner_progress_bar_background_default">#5f5f5f</color>
+    <color name="round_corner_progress_bar_progress_default">#7f7f7f</color>
+    <color name="round_corner_progress_bar_secondary_progress_default">@android:color/transparent
+    </color>
 </resources>

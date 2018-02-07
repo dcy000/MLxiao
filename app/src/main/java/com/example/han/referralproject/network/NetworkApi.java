@@ -17,6 +17,7 @@ import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.ECGHistory;
 import com.example.han.referralproject.bean.HeartRateHistory;
+import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.bean.PulseHistory;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.SymptomBean;
@@ -48,7 +49,7 @@ public class NetworkApi {
 
     public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
-//    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
+//    public static final String BasicUrl = "http://192.168.200.190:8080";//孙高峰
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
 //    public static final String BasicUrl = "http://192.168.200.114:8080";//文博本地
 
@@ -513,11 +514,12 @@ public class NetworkApi {
         NetworkManager.getInstance().getResultClass(GetVersionUrl, null, VersionInfoBean.class, callback, failedCallback);
     }
 
-    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<String> successCallback) {
+    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<MeasureResult> successCallback,NetworkManager.FailedCallback failedCallback) {
         if (info == null) {
             return;
         }
-        NetworkManager.getInstance().postResultString(UploadDataUrl, info.getParamsMap(), successCallback);
+        NetworkManager.getInstance().postResultClass(UploadDataUrl,info.getParamsMap(),MeasureResult.class,successCallback,failedCallback);
+//        NetworkManager.getInstance().postResultString(UploadDataUrl, info.getParamsMap(), successCallback);
     }
 
 
