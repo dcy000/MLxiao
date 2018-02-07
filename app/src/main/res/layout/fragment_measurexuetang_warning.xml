@@ -28,8 +28,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="48pt"
-        android:layout_marginLeft="40pt"
-        android:layout_marginRight="40pt"
+        android:layout_marginLeft="288pt"
+        android:layout_marginRight="288pt"
         android:overScrollMode="never"
         >
 
@@ -50,7 +50,8 @@
             android:text="其他原因"
             android:textSize="56pt"
             android:gravity="center"
-            android:background="@drawable/measure_xuetang_result"/>
+            android:background="@drawable/measure_xuetang_result"
+            />
         <TextView
             android:id="@+id/measure_normal"
             android:layout_width="366pt"

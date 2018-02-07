@@ -168,9 +168,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_speech_synthesis);
-
-        speak("主人,来和我聊天吧");
-
         rand = new Random();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         mImageView = (ImageView) findViewById(R.id.iat_recognizes);
@@ -950,7 +947,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (getString(R.string.speak_null).equals(str1)) {
                 animationType = -1;
                 startAnim();
-                int randNum = rand.nextInt(10) + 1;
+                int randNum = rand.nextInt(30) + 1;
 
                 switch (randNum) {
 
@@ -1014,6 +1011,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         SpeechSynthesizerHelper.setRandomParam();
                         isDefaultParam = false;
                         speak(resultBuffer.toString(), isDefaultParam);
+                        isDefaultParam = true;
                         break;
                     default:
                         break;
@@ -1302,10 +1300,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             switch (requestCode){
                 case TO_MUSICPLAY:
-                    speak("主人，想听更多歌曲，请告诉我！");
+                    speak("主人，想听更多歌曲，请告诉我！",isDefaultParam);
                     break;
                 case TO_STORY:
-                    speak("主人，我讲的故事好听吗？");
+                    speak("主人，我讲的故事好听吗？",isDefaultParam);
                     break;
             }
         super.onActivityResult(requestCode, resultCode, data);

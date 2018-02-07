@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,16 +38,17 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
+import com.example.han.referralproject.measure.MeasureChooseReason;
 import com.example.han.referralproject.measure.MeasureXuetangResultActivity;
 import com.example.han.referralproject.measure.MeasureXueyaResultActivity;
-import com.example.han.referralproject.measure.fragment.MeasureWarningFragment;
+import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
+import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
@@ -254,37 +254,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
     };
 
-    /**
-     * 处理血压测量结果
-     *
-     * @param getNew
-     * @param down
-     * @param maibo
-     * @param xueyaResult
-     */
-    private void doXueyaResult(final int getNew, final int down, final int maibo, final String xueyaResult) {
-//        boolean isFirstMeasure = LocalShared.getInstance(this).getIsMeasureXueya(MyApplication.getInstance().userId);
-//        if (isFirstMeasure) {//第一次测量
-//            LocalShared.getInstance(this).setIsMeasureXueya(MyApplication.getInstance().userId, false);
-//            //如果是第一次，先把高压、低压、空腹、一小时、两小时的平均值保存下来
-//            LocalShared.getInstance(this).setAverageOfXueya$Xuetang(115, 75, 5.3f, 7.35f, 5.7f);
-//        }
-//
-//        float[] average = LocalShared.getInstance(this).getAverageOfXueya$Xuetang();//顺序：高压、低压、空腹、一小时、两小时
-//
-//        if (Math.abs(getNew - average[0]) / average[0] > 0.2 || Math.abs(down - average[1]) / average[1] > 0.2) {//如果误差超过20%则认为是异常数据
-//        if (getNew>average[0]||down<average[1]){
-
-
-
-
-        return;
-//        } else {//正常情况
-
-
-//        }
-
-    }
 
     /**
      * 上传血压的测量结果
@@ -317,10 +286,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onFailed(String message) {
                 if (!TextUtils.isEmpty(message)){
                     if (message.startsWith("血压超标")){
-                        MeasureWarningFragment warningFragment = new MeasureWarningFragment();
+                        MeasureXueyaWarningFragment warningFragment = new MeasureXueyaWarningFragment();
                         getSupportFragmentManager().beginTransaction().add(R.id.container, warningFragment).commit();
 
-                        warningFragment.setOnChooseReason(new MeasureWarningFragment.ChooseReason() {
+                        warningFragment.setOnChooseReason(new MeasureChooseReason() {
                             @Override
                             public void hasReason(int reason) {
                                 switch (reason) {
@@ -366,10 +335,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
      *
      * @param xuetangResut
      */
-    private void doXuetangResult(final float xuetangResut) {
+    private void uploadXuetangResult(final float xuetangResut,boolean status) {
         DataInfoBean info = new DataInfoBean();
         info.blood_sugar = String.format("%.1f", xuetangResut);
         info.sugar_time = xuetangTimeFlag + "";
+        if (status){
+            info.state=true;
+        }
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
             public void onSuccess(MeasureResult response) {
@@ -390,6 +362,36 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onFailed(String message) {
                 if (!TextUtils.isEmpty(message)){//血糖暂时没有数据异常处理
                     if (message.startsWith("血糖超标")) {
+                        MeasureXuetangFragment measureXuetangFragment=new MeasureXuetangFragment();
+                        getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
+
+                        measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
+                            @Override
+                            public void hasReason(int reason) {
+                                switch (reason) {
+                                    case -1://其他原因
+                                        break;
+                                    case 0://选择时间错误
+                                        break;
+                                    case 1://未擦掉第一滴血
+                                        break;
+                                    case 2://试纸过期
+                                        break;
+                                    case 3://血液暴露时间太久
+                                        break;
+                                    case 4://彩雪方法不对
+                                        break;
+                                    case 5://血糖仪未清洁
+                                        break;
+                                }
+                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                            }
+
+                            @Override
+                            public void noReason() {
+                                uploadXuetangResult(xuetangResut,true);
+                            }
+                        });
 
                     }
                 }
@@ -611,7 +613,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             isGetResustFirst = false;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
-                            doXuetangResult(xuetangResut);
+                            uploadXuetangResult(xuetangResut,false);
                         }
                         break;
                     case Type_XueYang:
