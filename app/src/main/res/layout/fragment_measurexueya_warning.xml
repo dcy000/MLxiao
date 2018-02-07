@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context="com.example.han.referralproject.measure.fragment.MeasureWarningFragment">
+    tools:context="com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment">
 
     <include layout="@layout/custom_title_layout" android:visibility="visible" android:id="@+id/toolbar"/>
 

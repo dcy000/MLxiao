@@ -19,8 +19,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.measure.MeasureChooseReason;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MeasureWarningFragment extends Fragment {
+public class MeasureXueyaWarningFragment extends Fragment {
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.list)
@@ -66,7 +66,7 @@ public class MeasureWarningFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_measure_warning, container, false);
+        view = inflater.inflate(R.layout.fragment_measurexueya_warning, container, false);
         unbinder = ButterKnife.bind(this, view);
         tvTopTitle.setText("测量异常");
         title.setText(titleString);
@@ -159,7 +159,7 @@ public class MeasureWarningFragment extends Fragment {
 
     private void removeFragment() {
         ((DetectActivity) getActivity()).getSupportFragmentManager()
-                .beginTransaction().remove(MeasureWarningFragment.this).commit();
+                .beginTransaction().remove(MeasureXueyaWarningFragment.this).commit();
     }
 
     @Override
@@ -168,14 +168,10 @@ public class MeasureWarningFragment extends Fragment {
         unbinder.unbind();
     }
 
-    private ChooseReason chooseReason;
+    private MeasureChooseReason chooseReason;
 
-    public void setOnChooseReason(ChooseReason chooseReason) {
+    public void setOnChooseReason(MeasureChooseReason chooseReason) {
         this.chooseReason = chooseReason;
     }
 
-    public interface ChooseReason {
-        void hasReason(int reason);
-        void noReason();
-    }
 }
