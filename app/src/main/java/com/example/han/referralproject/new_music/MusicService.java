@@ -88,7 +88,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mp) {
         music.setDuration(mp.getDuration());
-        musicPreParedOk.prepared(music);
+        if (musicPreParedOk != null) {
+            musicPreParedOk.prepared(music);
+        }
     }
 
     public boolean isPlaying() {

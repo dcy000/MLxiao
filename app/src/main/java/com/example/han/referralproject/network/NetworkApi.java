@@ -31,6 +31,7 @@ import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.WeightHistory;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
+import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.example.han.referralproject.recyclerview.OnlineTime;
 import com.example.han.referralproject.shopping.Goods;
@@ -49,11 +50,11 @@ import java.util.Map;
 public class NetworkApi {
 
 
-    public static final String BasicUrl = "http://116.62.36.12:8080";
+//    public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.190:8080";//孙高峰
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
-//    public static final String BasicUrl = "http://192.168.200.114:8080";//文博本地
+    public static final String BasicUrl = "http://192.168.200.191:8080";//文博本地
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
@@ -128,6 +129,23 @@ public class NetworkApi {
 
     public static final String GET_VIDEO_LIST = BasicUrl + "/ZZB/vc/selAllUpload";
     public static final String GET_CODE = BasicUrl + "/ZZB/docter/GainCode";
+
+    public static final String GET_FM = BasicUrl + "/ZZB/rep/selSomeImitate";
+
+    public static void getFM(
+            String type,
+            String page,
+            String limit,
+            NetworkManager.SuccessCallback<List<RadioEntity>> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", type);
+        params.put("page", page);
+        params.put("limit", limit);
+        params.put("mid","0");
+        NetworkManager.getInstance().getResultClass(GET_FM, params, new TypeToken<List<RadioEntity>>() {
+        }.getType(),successCallback, failedCallback);
+    }
 
     public static void getCode(
             String phone,
