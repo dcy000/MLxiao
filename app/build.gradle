@@ -135,7 +135,7 @@ dependencies {
     compile name: 'vmtools', ext: 'aar'
     compile name: 'voicelibrary', ext: 'aar'
     compile name: 'wkvideoplayer', ext: 'aar'
-//    compile name: 'sdk', ext: 'aar'
+    //    compile name: 'sdk', ext: 'aar'
     //极光推送
     compile 'cn.jiguang.sdk:jpush:3.1.1'
     // 此处以JPush 3.1.1 版本为例。
@@ -144,4 +144,6 @@ dependencies {
     compile 'com.github.mmin18:realtimeblurview:1.1.0'
     compile project(':sdk')
     compile 'com.umeng.analytics:analytics:6.1.2'
+    compile 'me.songning.CircleView:library:1.0.0'
+    compile project(':circleprogress')
 }

@@ -1,5 +1,6 @@
 package com.example.han.referralproject.xindian;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import com.creative.ecg.StatusMsg;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 
@@ -111,7 +113,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 			}
 		}
 	};
-
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -202,10 +204,15 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 							DataInfoBean ecgInfo = new DataInfoBean();
 							ecgInfo.ecg = data.getInt("nResult");
 							ecgInfo.heart_rate = data.getInt("nHR");
-							NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<String>() {
+							NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
 								@Override
-								public void onSuccess(String response) {
+								public void onSuccess(MeasureResult response) {
 									//Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+								}
+							}, new NetworkManager.FailedCallback() {
+								@Override
+								public void onFailed(String message) {
+
 								}
 							});
 							speak(String.format(getString(R.string.tips_result_xindian), ecgInfo.heart_rate, measureResult[ecgInfo.ecg]));

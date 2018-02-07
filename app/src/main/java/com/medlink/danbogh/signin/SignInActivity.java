@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
@@ -24,6 +25,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
@@ -31,8 +33,6 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastUtil;
-import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -57,6 +57,8 @@ public class SignInActivity extends BaseActivity {
     CheckBox cbAgree;
     @BindView(R.id.tv_sign_in_agree)
     TextView tvAgree;
+    @BindView(R.id.rl_back)
+    RelativeLayout rlBack;
     private Unbinder mUnbinder;
 
     @Override
@@ -162,6 +164,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onSuccess(UserInfoBean response) {
                 new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
+                MyApplication.getInstance().eqid=response.eqid;
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
                 LocalShared.getInstance(getApplicationContext()).setXunfeiID(response.xfid);
@@ -185,7 +188,7 @@ public class SignInActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
-        startActivity(new Intent(SignInActivity.this,AuthenticationActivity.class).putExtra("from","Welcome"));
+        startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
 //        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
     }
 
@@ -283,7 +286,10 @@ public class SignInActivity extends BaseActivity {
             }
         }
     }
-
+    @OnClick(R.id.rl_back)
+    public void backClick(){
+        finish();
+    }
     public static final String REGEX_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole)";
     public static final String REGEX_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
     public static final String REGEX_IN_PHONE = ".*(shu|su)(ru|lu|lv)(shou|sou)ji.*";

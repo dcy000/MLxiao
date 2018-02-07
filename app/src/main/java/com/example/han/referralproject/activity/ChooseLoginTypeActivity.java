@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
 import com.medlink.danbogh.register.SignUp1NameActivity;
@@ -24,7 +25,7 @@ import com.medlink.danbogh.signin.SignInActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChooseLoginTypeActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.tv_phone_sign_in)
     TextView tvPhoneSignIn;
@@ -48,6 +49,7 @@ public class ChooseLoginTypeActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_login_type);
         ButterKnife.bind(this);
+        speak("主人，想要登录，请说人脸登录或者手机登录。如果您还没有账号，请说我要注册。");
         tvPhoneSignIn.setOnClickListener(this);
         tvFaceSignIn.setOnClickListener(this);
         accountTip.setOnClickListener(this);
@@ -60,26 +62,27 @@ public class ChooseLoginTypeActivity extends AppCompatActivity implements View.O
         tvSignInAgree.setMovementMethod(LinkMovementMethod.getInstance());
         tvSignInAgree.setText(agreeBuilder);
     }
+
     private ClickableSpan agreeClickableSpan = new ClickableSpan() {
         @Override
         public void onClick(View widget) {
             startActivity(new Intent(ChooseLoginTypeActivity.this, AgreementActivity.class));
         }
     };
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_phone_sign_in:
-
                 startActivity(new Intent(this, SignInActivity.class));
                 break;
             case R.id.tv_face_sign_in:
                 //获取所有账号
                 String[] accounts = LocalShared.getInstance(ChooseLoginTypeActivity.this).getAccounts();
-                if (accounts==null) {
-                    ToastUtil.showShort(this,"未检测到登录记录，请输入账号和密码登录");
+                if (accounts == null) {
+                    ToastUtil.showLong(this, "未检测到您的登录历史，请输入账号和密码登录");
                     startActivity(new Intent(this, SignInActivity.class));
-                }else{
+                } else {
                     startActivity(new Intent(this, AuthenticationActivity.class)
                             .putExtra("from", "Welcome"));
                 }
@@ -92,4 +95,31 @@ public class ChooseLoginTypeActivity extends AppCompatActivity implements View.O
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setDisableGlobalListen(true);
+
+    }
+
+    @Override
+    protected void onSpeakListenerResult(String result) {
+        String inSpell = PinYinUtils.converterToSpell(result);
+        ToastUtil.showShort(this,result);
+        if (inSpell.matches(".*((shou|sou)ji).*")) {
+            tvPhoneSignIn.performClick();
+            return;
+        }
+        if (inSpell.matches(".*((ren|reng)lian).*")) {
+            tvFaceSignIn.performClick();
+            return;
+        }
+
+        if (inSpell.matches(".*((zu|zhu)ce).*")) {
+            regist.performClick();
+            return;
+        }
+    }
+
 }

@@ -1,0 +1,212 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.han.referralproject.measure.fragment.XueyaFragment">
+
+
+    <ImageView
+        android:id="@+id/iv_xueya1"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/xueyass"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_xueya2"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <ImageView
+        android:id="@+id/iv_xueya2"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignStart="@+id/video_xueya1"
+        android:layout_below="@+id/video_xueya1"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/xueyas"
+        app:layout_constraintTop_toBottomOf="@id/iv_xueya1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_xueya3"/>
+
+    <ImageView
+        android:id="@+id/iv_xueya3"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignStart="@+id/video_xueya2"
+        android:layout_below="@+id/video_xueya2"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/xuey"
+        app:layout_constraintTop_toBottomOf="@id/iv_xueya2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rl_xueya_hight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rl_xueya_low"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <TextView
+            android:id="@+id/high_pressure1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/high_pressure"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/high_pressure1"
+            android:layout_marginLeft="10sp"
+            android:gravity="center"
+            android:text="@string/high_pressure1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/high_pressure"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/high_pressure1"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="50sp" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_xueya_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RelativeLayout"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_xueya_hight"
+        app:layout_constraintBottom_toTopOf="@+id/rl_maibo">
+
+        <TextView
+            android:id="@+id/low_pressure1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/low_pressure"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/low_pressure1"
+            android:layout_marginLeft="10sp"
+            android:gravity="center"
+            android:text="@string/high_pressure1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/low_pressure"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/low_pressure1"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="50sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_maibo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RelativeLayout2"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_xueya_low"
+        app:layout_constraintBottom_toTopOf="@+id/ll_xueya">
+
+        <TextView
+            android:id="@+id/purse1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/purse"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/purse1"
+            android:layout_marginLeft="20sp"
+            android:gravity="center"
+            android:text="@string/purse1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/pulse"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/purse1"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="50sp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_xueya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_maibo">
+
+
+        <Button
+            android:id="@+id/history1"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:background="@drawable/shape_phone"
+            android:gravity="center"
+            android:text="历史记录"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp" />
+
+
+        <Button
+            android:id="@+id/xueya_video"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/shape_show"
+            android:gravity="center"
+            android:text="使用演示"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp" />
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

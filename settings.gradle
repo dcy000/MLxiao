@@ -40,5 +40,5 @@ def initGradleEnvironment() {
 }
 initGradleEnvironment()
 
-include ':app', ':sdk'
+include ':app', ':sdk', ':circleprogress'
 

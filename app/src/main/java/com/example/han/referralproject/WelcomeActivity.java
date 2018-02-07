@@ -109,7 +109,7 @@ public class WelcomeActivity extends BaseActivity {
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
                                 startActivity(intent);
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

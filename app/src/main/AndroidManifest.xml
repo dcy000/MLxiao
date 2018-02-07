@@ -273,6 +273,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name="com.medlink.danbogh.alarm.AlarmList2Activity"
             android:screenOrientation="landscape" />
@@ -299,7 +300,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.AddAppoActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:screenOrientation="landscape"
@@ -418,7 +419,8 @@
         <activity
             android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.DiseaseDetailsActivity" />
+        <activity android:name=".activity.DiseaseDetailsActivity"
+            android:screenOrientation="landscape"/>
         <activity
             android:name="com.medlink.danbogh.location.LocationActivity"
             android:screenOrientation="landscape" />
@@ -521,7 +523,25 @@
         <activity
             android:name=".new_music.MusicPlayActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.ChooseLoginTypeActivity"></activity>
+        <activity android:name=".activity.ChooseLoginTypeActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".measure.InstructionsActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".measure.OnMeasureActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".measure.MeasureXueyaResultActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".measure.MeasureXuetangResultActivity"
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.HOME" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        </activity>
+
     </application>
 
 </manifest>

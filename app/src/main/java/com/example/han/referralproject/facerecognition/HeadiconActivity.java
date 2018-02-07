@@ -138,7 +138,6 @@ public class HeadiconActivity extends BaseActivity {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject res) {
                 if (info.isOK()) {
-
                     Log.e("================", MyApplication.getInstance().userId + "=========" + LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                     String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
                     NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
@@ -146,7 +145,7 @@ public class HeadiconActivity extends BaseActivity {
                                 @Override
                                 public void onSuccess(Object response) {
                                     LocalShared shared = LocalShared.getInstance(mContext);
-                                    shared.addAccount(MyApplication.getInstance().userId,LocalShared.getInstance(getApplicationContext()).getXunfeiId());
+                                    shared.addAccount(MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                                     Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
                                     startActivity(intent);
                                     finish();

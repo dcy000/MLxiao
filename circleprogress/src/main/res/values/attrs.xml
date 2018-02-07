@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 是否开启抗锯齿 -->
+    <attr name="cp_antiAlias" format="boolean" />
+    <!-- 圆弧起始角度，3点钟方向为0，顺时针递增，小于0或大于360进行取余 -->
+    <attr name="cp_startAngle" format="float" />
+    <!-- 圆弧度数 -->
+    <attr name="cp_sweepAngle" format="float" />
+    <!-- 设置动画时间 -->
+    <attr name="cp_animTime" format="integer" />
+    <!-- 绘制内容的数值 -->
+    <attr name="cp_maxValue" format="float" />
+    <attr name="cp_value" format="float" />
+    <!-- 绘制内容的单位 -->
+    <attr name="cp_unit" format="string|reference" />
+    <attr name="cp_unitSize" format="dimension" />
+    <attr name="cp_unitColor" format="color|reference" />
+    <!-- 绘制内容相应的提示语 -->
+    <attr name="cp_hint" format="string|reference" />
+    <attr name="cp_hintSize" format="dimension" />
+    <attr name="cp_hintColor" format="color|reference" />
+    <!-- 精度，默认为0 -->
+    <attr name="cp_precision" format="integer" />
+    <attr name="cp_valueSize" format="dimension" />
+    <attr name="cp_valueColor" format="color|reference" />
+    <!-- 圆弧颜色，设置多个可实现渐变 -->
+    <attr name="cp_arcColor1" format="color|reference" />
+    <attr name="cp_arcColor2" format="color|reference" />
+    <attr name="cp_arcColor3" format="color|reference" />
+    <!-- 背景圆弧颜色，默认白色 -->
+    <attr name="cp_bgArcColor" format="color|reference" />
+    <!-- 圆弧宽度 -->
+    <attr name="cp_arcWidth" format="dimension" />
+    <!-- 圆弧颜色， -->
+    <attr name="cp_arcColors" format="color|reference" />
+    <!-- 文字的偏移量。相对于圆半径而言，默认三分之一 -->
+    <attr name="cp_textOffsetPercentInRadius" format="float" />
+
+    <!-- 圆形进度条 -->
+    <declare-styleable name="CircleProgressBar">
+        <attr name="cp_antiAlias" />
+        <attr name="cp_startAngle" />
+        <attr name="cp_sweepAngle" />
+        <attr name="cp_animTime" />
+        <attr name="cp_maxValue" />
+        <attr name="cp_value" />
+        <attr name="cp_precision" />
+        <attr name="cp_valueSize" />
+        <attr name="cp_valueColor" />
+        <attr name="cp_textOffsetPercentInRadius" />
+        <!-- 绘制内容相应的提示语 -->
+        <attr name="cp_hint" />
+        <attr name="cp_hintSize" />
+        <attr name="cp_hintColor" />
+        <!-- 绘制内容的单位 -->
+        <attr name="cp_unit" />
+        <attr name="cp_unitSize" />
+        <attr name="cp_unitColor" />
+        <!-- 圆弧宽度 -->
+        <attr name="cp_arcWidth" />
+        <attr name="cp_arcColors" />
+        <!-- 背景圆弧颜色 -->
+        <attr name="cp_bgArcColor" />
+        <!-- 背景圆弧宽度 -->
+        <attr name="cp_bgArcWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="DialProgress">
+        <attr name="cp_antiAlias" />
+        <attr name="cp_startAngle" />
+        <attr name="cp_sweepAngle" />
+        <attr name="cp_animTime" />
+        <attr name="cp_maxValue" />
+        <attr name="cp_value" />
+        <attr name="cp_precision" />
+        <attr name="cp_valueSize" />
+        <attr name="cp_valueColor" />
+        <attr name="cp_textOffsetPercentInRadius" />
+        <!-- 绘制内容的单位 -->
+        <attr name="cp_unit" />
+        <attr name="cp_unitSize" />
+        <attr name="cp_unitColor" />
+        <!-- 绘制内容相应的提示语 -->
+        <attr name="cp_hint" />
+        <attr name="cp_hintSize" />
+        <attr name="cp_hintColor" />
+        <!-- 圆弧的宽度 -->
+        <attr name="cp_arcWidth" />
+        <!-- 刻度的宽度 -->
+        <attr name="cp_dialWidth" format="dimension|reference" />
+        <!-- 刻度之间的间隔 -->
+        <attr name="cp_dialIntervalDegree" format="integer" />
+        <!-- 圆弧颜色， -->
+        <attr name="cp_arcColors" />
+        <!-- 背景圆弧线颜色 -->
+        <attr name="cp_bgArcColor" />
+        <!-- 刻度线颜色 -->
+        <attr name="cp_dialColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="WaveProgress">
+        <!-- 是否开启抗锯齿 -->
+        <attr name="cp_antiAlias" />
+        <!-- 深色水波动画时间 -->
+        <attr name="cp_darkWaveAnimTime" format="integer" />
+        <!-- 浅色水波动画时间 -->
+        <attr name="cp_lightWaveAnimTime" format="integer" />
+        <!-- 最大值 -->
+        <attr name="cp_maxValue" />
+        <!-- 当前值 -->
+        <attr name="cp_value" />
+        <attr name="cp_valueColor" />
+        <attr name="cp_valueSize" />
+        <!-- 绘制内容相应的提示语 -->
+        <attr name="cp_hint" />
+        <attr name="cp_hintSize" />
+        <attr name="cp_hintColor" />
+        <!-- 圆环宽度 -->
+        <attr name="cp_circleWidth" format="dimension" />
+        <!-- 圆环颜色 -->
+        <attr name="cp_circleColor" format="color|reference" />
+        <!-- 背景圆环颜色 -->
+        <attr name="cp_bgCircleColor" format="color|reference" />
+        <!-- 锁定水波不随圆环进度改变，默认锁定在50%处 -->
+        <attr name="cp_lockWave" format="boolean" />
+        <!-- 水波数量 -->
+        <attr name="cp_waveNum" format="integer" />
+        <!-- 水波高度，峰值和谷值之和 -->
+        <attr name="cp_waveHeight" format="dimension" />
+        <!-- 深色水波颜色 -->
+        <attr name="cp_darkWaveColor" format="color|reference" />
+        <!-- 是否显示浅色水波 -->
+        <attr name="cp_showLightWave" format="boolean" />
+        <!-- 浅色水波颜色 -->
+        <attr name="cp_lightWaveColor" format="color|reference" />
+        <!-- 浅色水波的方向 -->
+        <attr name="cp_lightWaveDirect" format="enum">
+            <enum name="L2R" value="0" />
+            <enum name="R2L" value="1" />
+        </attr>
+        <!--是否锁定圆环不随水波变化-->
+        <attr name="cp_lockCircle" format="boolean"/>
+    </declare-styleable>
+</resources>
