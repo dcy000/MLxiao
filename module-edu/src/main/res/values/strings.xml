@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">module-edu</string>
+    <string name="entertainment_child">儿童文娱</string>
+    <string name="entertainment_old">老人娱乐</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

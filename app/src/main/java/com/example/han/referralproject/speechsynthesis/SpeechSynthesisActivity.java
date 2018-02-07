@@ -860,6 +860,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
     private void post(String str) throws Exception {
+        if (str.matches("(.*)是谁")) {
+            str = "百科" + str.substring(0, str.length()-2);
+        }
+
         HashMap<String, String> results = QaApi.getQaFromXf(str);
         String audiopath = results.get("audiopath");
         String text = results.get("text");

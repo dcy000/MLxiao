@@ -19,6 +19,19 @@ public class TaskExecutor implements Executor {
 
     private final ThreadPoolExecutor threadPoolExecutor;
 
+    private static volatile TaskExecutor sInstance;
+
+    public static TaskExecutor getInstance() {
+        if (sInstance == null) {
+            synchronized (TaskExecutor.class) {
+                if (sInstance == null) {
+                    sInstance = new TaskExecutor();
+                }
+            }
+        }
+        return sInstance;
+    }
+
     @Inject
     public TaskExecutor() {
         threadPoolExecutor = new ThreadPoolExecutor(

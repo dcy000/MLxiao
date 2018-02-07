@@ -12,12 +12,16 @@ import io.reactivex.observers.DisposableObserver;
  * Created by afirez on 18-2-1.
  */
 
-public abstract class UseCase<P, R> {
+public abstract class UseCase<Params, Result> {
 
     private final TaskSchedulerFactory taskSchedulerFactory;
     private final PostSchedulerFactory postSchedulerFactory;
 
     private final CompositeDisposable disposables;
+
+    public UseCase() {
+        this(TaskSchedulerFactory.getInstance(), PostSchedulerFactory.getInstance());
+    }
 
     public UseCase(
             TaskSchedulerFactory taskSchedulerFactory,
@@ -27,10 +31,10 @@ public abstract class UseCase<P, R> {
         this.disposables = new CompositeDisposable();
     }
 
-    protected abstract Observable<R> rxResult(P params);
+    protected abstract Observable<Result> rxResult(Params params);
 
-    public void execute(P params, DisposableObserver<R> observer) {
-        Observable<R> observable = this.rxResult(params)
+    public void execute(Params params, DisposableObserver<Result> observer) {
+        Observable<Result> observable = this.rxResult(params)
                 .subscribeOn(taskSchedulerFactory.scheduler())
                 .observeOn(postSchedulerFactory.scheduler());
         addDisposable(observable.subscribeWith(observer));

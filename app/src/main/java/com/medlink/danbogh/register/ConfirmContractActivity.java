@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
@@ -77,15 +78,25 @@ public class ConfirmContractActivity extends AppCompatActivity {
         NetworkApi.getContractInfo(mDoctorId, new NetworkManager.SuccessCallback<ContractInfo>() {
             @Override
             public void onSuccess(ContractInfo response) {
-                tvName.setText("姓名： " +  response.bname);
+                tvName.setText("姓名： " + response.bname);
                 tvPhone.setText("联系方式: " + response.btel);
-                tvIdCard.setText("身份证： " +  response.sfz);
+                tvIdCard.setText("身份证： " + response.sfz);
                 //tvContractInterval.setText("签约周期： " +  response.sfz);
-                tvContractInterval.setText("签约周期： " +  "两年");
-                tvContractDoctor.setText("签约医生： " +  response.doctername);
-                tvDoctorPhone.setText("医生联系方式： " +  response.dtel);
-                tvContractOrganization.setText("签约机构： " +  response.hosname);
-                tvServiceType.setText("健康档案管理费： " +  response.amount);
+                tvContractInterval.setText("签约周期： " + "两年");
+                tvContractDoctor.setText("签约医生： " + response.doctername);
+                String dtel = response.dtel;
+                if (!TextUtils.isEmpty(dtel)) {
+                    char[] chars = dtel.toCharArray();
+                    if (chars.length == 11) {
+                        for (int i = 3; i < 8; i++) {
+                            chars[i] = '*';
+                        }
+                    }
+                    dtel = new String(chars);
+                }
+                tvDoctorPhone.setText("医生联系方式： " + dtel);
+                tvContractOrganization.setText("签约机构： " + response.hosname);
+                tvServiceType.setText("健康档案管理费： " + response.amount);
             }
         }, new NetworkManager.FailedCallback() {
             @Override

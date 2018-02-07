@@ -1,4 +1,4 @@
-package com.ml.edu.common;
+package com.ml.edu.common.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +14,19 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class FileHelper {
+
+    private static volatile FileHelper sInstance;
+
+    public static FileHelper getInstance() {
+        if (sInstance == null) {
+            synchronized (FileHelper.class) {
+                if (sInstance == null) {
+                    sInstance = new FileHelper();
+                }
+            }
+        }
+        return sInstance;
+    }
 
     @Inject
     public FileHelper() {
@@ -81,5 +94,24 @@ public class FileHelper {
             deleted = file.delete();
         }
         return deleted;
+    }
+
+    public long size(File file) {
+        if (file == null) {
+            return 0;
+        }
+        if (!file.isDirectory()) {
+            return file.length();
+        }
+
+        long size = 0;
+        File[] files = file.listFiles();
+        for (File temp : files) {
+            size += temp.length();
+            if (temp.isDirectory()) {
+                size += size(file);
+            }
+        }
+        return size;
     }
 }

@@ -13,6 +13,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 @Singleton
 public class PostSchedulerFactory implements SchedulerFactory {
 
+    private static volatile PostSchedulerFactory sInstance;
+
+    public static PostSchedulerFactory getInstance() {
+        if (sInstance == null) {
+            synchronized (PostSchedulerFactory.class) {
+                if (sInstance == null) {
+                    sInstance = new PostSchedulerFactory();
+                }
+            }
+        }
+        return sInstance;
+    }
+
     @Inject
     public PostSchedulerFactory() {
     }
