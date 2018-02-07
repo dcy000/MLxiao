@@ -79,7 +79,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     NDialog dialog;
     private BluetoothGatt mBluetoothGatt;
 
-    private String detectType = Type_TiZhong;
+    private String detectType = Type_Xueya;
     public static final String Type_Wendu = "wendu";
     public static final String Type_Xueya = "xueya";
     public static final String Type_XueTang = "xuetang";
@@ -96,6 +96,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private View mOverView;
     private LocalShared mShared;
     private Thread mSearchThread;
+    private boolean isYuyue = false;
 
     @SuppressLint("HandlerLeak")
     Handler xueyaHandler = new Handler() {
@@ -443,6 +444,32 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         speak(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
                         break;
                     case Type_Xueya:
+                        if (isYuyue && notifyData.length == 19){
+                            mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
+                            mLowPressTv.setText(String.valueOf(notifyData[3] & 0xff));
+                            mPulseTv.setText(String.valueOf(notifyData[14] & 0xff));
+                            String xueyaResult;
+                            if ((notifyData[1] & 0xff) <= 140) {
+                                xueyaResult = mXueyaResults[0];
+                            } else if ((notifyData[1] & 0xff) <= 160) {
+                                xueyaResult = mXueyaResults[1];
+                            } else {
+                                xueyaResult = mXueyaResults[2];
+                            }
+                            speak(String.format(getString(R.string.tips_result_xueya),
+                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
+                            DataInfoBean info = new DataInfoBean();
+                            info.high_pressure = notifyData[1] & 0xff;
+                            info.low_pressure = notifyData[3] & 0xff;
+                            info.pulse = notifyData[14] & 0xff;
+                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
+                                @Override
+                                public void onSuccess(String response) {
+                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            return;
+                        }
                         if ((int) notifyData[0] == 32 && notifyData.length == 2) {
                             mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
                             mLowPressTv.setText("0");
@@ -476,13 +503,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     }
                                 });
                             }
-                        }
-                        StringBuilder mBuilder = new StringBuilder();
-//                        for (char item : xueyaChars){
-//                            mBuilder.append(item).append("(").append((byte)item).append(")").append("    ");
-//                        }
-                        for (byte item : notifyData) {
-                            mBuilder.append(item).append("    ");
                         }
                         break;
                     case Type_XueTang://血糖测量
@@ -701,17 +721,30 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                } else {
 //                    characteristic = gattServices.get(2).getCharacteristics().get(3);
 //                }
-                if (gattServices.size() == 5 || gattServices.size() == 10){
-                    characteristic = gattServices.get(3).getCharacteristics().get(3);
-                } else {
-                    characteristic = gattServices.get(2).getCharacteristics().get(3);
-                }
+
 //                BluetoothGattService service = mBluetoothLeService.getGatt().getService(UUID
 //                        .fromString("0000fff0-0000-1000-8000-00805f9b34fb"));
 //                if (service != null){
 //                    characteristic = service
 //                            .getCharacteristic(UUID.fromString("0000fff4-0000-1000-8000-00805f9b34fb"));
+//                    break;
 //                }
+
+                BluetoothGattService xueyaService = mBluetoothLeService.getGatt().getService(UUID
+                        .fromString("00001810-0000-1000-8000-00805f9b34fb"));
+                if (xueyaService != null){
+                    characteristic = xueyaService
+                            .getCharacteristic(UUID.fromString("00002a35-0000-1000-8000-00805f9b34fb"));
+                    Log.i("mylog", "success sssssssssssssssssssssssssssssss");
+                    isYuyue = true;
+                    break;
+                }
+
+                if (gattServices.size() == 5 || gattServices.size() == 10){
+                    characteristic = gattServices.get(3).getCharacteristics().get(3);
+                } else {
+                    characteristic = gattServices.get(2).getCharacteristics().get(3);
+                }
                 break;
             case Type_XueYang:
                 characteristic = gattServices.get(2).getCharacteristics().get(1);
@@ -766,6 +799,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         if (descriptorList != null && descriptorList.size() > 0) {
             for (BluetoothGattDescriptor descriptor : descriptorList) {
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                if (isYuyue){
+                    descriptor.setValue(BluetoothGattDescriptor.ENABLE_INDICATION_VALUE);
+                }
                 mBluetoothGatt.writeDescriptor(descriptor);
             }
         }
@@ -1463,6 +1499,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    return;
+                }
+
+                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())){
+                    mDeviceAddress = device.getAddress();
+                    if (mBluetoothLeService == null) {
+                        Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+                        bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                    } else {
+                        if (mBluetoothLeService.connect(mDeviceAddress)) {
+                            mBluetoothGatt = mBluetoothLeService.getGatt();
+                        }
+                    }
+                    stopSearch();
                     return;
                 }
 
