@@ -21,16 +21,17 @@
         android:background="@drawable/bg_face">
         <ImageView
             android:id="@+id/iv_circle"
-            android:layout_width="450dp"
-            android:layout_height="450dp"
-            android:layout_centerInParent="true"
+            android:layout_width="495dp"
+            android:layout_height="495dp"
+            android:layout_marginTop="70dp"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/icon_circle"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="50dp"
             android:src="@drawable/tips_face_check"/>
     </RelativeLayout>
 

@@ -105,7 +105,7 @@ public class AuthenticationActivity extends BaseActivity {
     private ByteArrayOutputStream baos;
     private int unDentified = 10;//未识别的次数，最多10寸
     private ArrayList<UserInfoBean> mDataList;
-    private boolean isGetImageFlag = false;//获取图像标志位
+    private boolean isGetImageFlag = true;//获取图像标志位
 
     private Handler mHandler = new Handler(){
         @Override
@@ -329,7 +329,7 @@ public class AuthenticationActivity extends BaseActivity {
 
 
                 if (isFirstSend) {
-                    mHandler.sendEmptyMessageDelayed(1, 1500);
+                    mHandler.sendEmptyMessageDelayed(1, 2000);
                     isFirstSend = false;
                 }
 
@@ -369,11 +369,10 @@ public class AuthenticationActivity extends BaseActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            mHandler.sendEmptyMessageDelayed(2, 500);
+//            mHandler.sendEmptyMessageDelayed(2, 500);
             if (mData == null){
                 return null;
             }
-            Log.i("mylog", "111111111111111111111111111111111111");
             System.arraycopy(mData, 0, nv21, 0, mData.length);
             b3 = decodeToBitMap(nv21, mCamera);
             baos = new ByteArrayOutputStream();
@@ -382,7 +381,7 @@ public class AuthenticationActivity extends BaseActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 mImageData = baos.toByteArray();
             }
-            Log.i("mylog", "222222222222222222222222222222222222");
+            mHandler.sendEmptyMessage(2);
             return null;
         }
 
@@ -424,7 +423,6 @@ public class AuthenticationActivity extends BaseActivity {
 
         @Override
         public void onBufferReceived(byte[] buffer) {
-
             try {
                 String result = new String(buffer, "utf-8");
                 JSONObject object = new JSONObject(result);
@@ -648,8 +646,11 @@ public class AuthenticationActivity extends BaseActivity {
      * NV21格式(所有相机都支持的格式)转换为bitmap
      */
     public Bitmap decodeToBitMap(byte[] data, Camera mCamera) {
-        Camera.Size size = mCamera.getParameters().getPreviewSize();
+        if (mCamera == null){
+            return null;
+        }
         try {
+            Camera.Size size = mCamera.getParameters().getPreviewSize();
             YuvImage image = new YuvImage(data, ImageFormat.NV21, size.width, size.height, null);
             if (image != null) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
