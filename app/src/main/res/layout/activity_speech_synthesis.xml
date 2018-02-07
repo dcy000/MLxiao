@@ -90,4 +90,20 @@
         android:layout_height="90dp"
         android:scaleType="centerInside"
         android:src="@drawable/face_back" />
+
+    <TextView
+        android:drawableTop="@drawable/ic_normal"
+        android:id="@+id/tv_normal"
+        android:layout_marginRight="165dp"
+        android:text="小E原声"
+        style="@style/jiaohu" />
+
+    <TextView
+        style="@style/jiaohu"
+        android:text="随机变声"
+        android:drawableTop="@drawable/ic_whine"
+        android:id="@+id/tv_whine"
+        android:layout_marginRight="35dp"
+       />
+
 </RelativeLayout>
