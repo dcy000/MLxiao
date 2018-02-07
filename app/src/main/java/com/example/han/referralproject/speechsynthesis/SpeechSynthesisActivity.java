@@ -947,7 +947,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (getString(R.string.speak_null).equals(str1)) {
                 animationType = -1;
                 startAnim();
-                int randNum = rand.nextInt(10) + 1;
+                int randNum = rand.nextInt(30) + 1;
 
                 switch (randNum) {
 
@@ -1011,6 +1011,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         SpeechSynthesizerHelper.setRandomParam();
                         isDefaultParam = false;
                         speak(resultBuffer.toString(), isDefaultParam);
+                        isDefaultParam = true;
                         break;
                     default:
                         break;
