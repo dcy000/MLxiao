@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.video.TheOldVideoActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/old_cl_nav_video"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:background="@drawable/old_bg_music_nav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioGroup
+            android:id="@+id/old_rg_tabs_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/old_rb_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/old_ic_music_favorite"
+                android:gravity="center"
+                android:text="我的收藏"
+                android:textColor="@color/entertainment_old_music_tab_color"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/old_rb_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:button="@null"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/old_ic_music_home"
+                android:gravity="center"
+                android:text="音乐馆"
+                android:textColor="@color/entertainment_old_music_tab_color"
+                android:textSize="20sp"
+                tools:checked="true" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/old_tv_video_exit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="40dp"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/old_ic_music_exit"
+            android:gravity="center"
+            android:text="退出"
+            android:textColor="#BBBBBB"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/old_video_fl_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/old_cl_nav_video"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -1,5 +1,5 @@
 ext {
-    canRunAlone = true
+    canRunAlone = false
 
     versions = [
             "versionCode"      : 1,

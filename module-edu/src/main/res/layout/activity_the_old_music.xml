@@ -28,26 +28,27 @@
 
             <RadioButton
                 android:id="@+id/old_rb_favorite"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@null"
                 android:drawablePadding="10dp"
                 android:drawableTop="@drawable/old_ic_music_favorite"
                 android:gravity="center"
                 android:text="我的收藏"
+                android:visibility="gone"
                 android:textColor="@color/entertainment_old_music_tab_color"
                 android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/old_rb_music"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:button="@null"
                 android:drawablePadding="10dp"
                 android:drawableTop="@drawable/old_ic_music_home"
                 android:gravity="center"
-                android:text="音乐馆"
+                android:text="曲艺天地"
                 android:textColor="@color/entertainment_old_music_tab_color"
                 android:textSize="20sp"
                 tools:checked="true" />
@@ -55,11 +56,12 @@
 
         <TextView
             android:id="@+id/old_tv_exit"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="40dp"
             android:drawablePadding="10dp"
+
             android:drawableTop="@drawable/old_ic_music_exit"
             android:gravity="center"
             android:text="退出"

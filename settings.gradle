@@ -40,5 +40,5 @@ def initGradleEnvironment() {
 }
 initGradleEnvironment()
 
-include ':app', ':sdk', ':module-edu'
+include ':app', ':sdk', ':module-edu', ':lib-music-player'
 

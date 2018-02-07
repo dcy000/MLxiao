@@ -52,6 +52,22 @@ public class TheOldHomeActivity extends AppCompatActivity {
         public void onItemClick(int position) {
             if (position == 2) {
                 OldRouter.routeToOldMusicActivity(TheOldHomeActivity.this);
+                return;
+            }
+
+            if (position == 1) {
+                try {
+                    Class<?> aClass = Class.forName("com.example.han.referralproject.video.TheOldVideoActivity");
+                    Intent intent = new Intent();
+                    intent.setClass(TheOldHomeActivity.this, aClass);
+                    startActivity(intent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                return;
+            }
+            if (position == 0) {
+
             }
         }
     };

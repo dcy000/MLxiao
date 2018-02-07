@@ -1,6 +1,7 @@
 package com.ml.edu.old.music;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.example.han.referralproject.new_music.MusicUtils;
 import com.ml.edu.R;
 import com.ml.edu.data.ApiObserver;
 import com.ml.edu.data.entity.SongEntity;
@@ -143,7 +146,11 @@ public class SheetDetailFragment extends Fragment {
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(int position) {
-            // TODO: 18-2-6 music
+            SongEntity entity = entities.get(position);
+            Context context = getContext();
+            if (context != null) {
+                MusicUtils.searchAndPlayMusic(getContext(), entity.getName());
+            }
         }
     };
 
