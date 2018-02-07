@@ -1297,8 +1297,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mIat.cancel();
             mIat.destroy();
         }
-
-<<<<<<< HEAD
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -1311,27 +1309,5 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     break;
             }
         super.onActivityResult(requestCode, resultCode, data);
-=======
-        SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer != null) {
-            synthesizer.stopSpeaking();
-            // 退出时释放连接
-            synthesizer.destroy();
-        }
-
-     /*   if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-        }
-        mediaPlayer.release();*/
-
-
-        if (mRemoteReceiver != null) {
-            mAudioManagers.unregisterMediaButtonEventReceiver(mRemoteReceiver);
-        }
-        PlayService service = AppCache.getPlayService();
-        if (service != null) {
-            service.setOnPlayEventListener(null);
-        }
->>>>>>> new_branch
     }
 }
