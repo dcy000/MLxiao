@@ -168,6 +168,11 @@ public class LocalShared {
         mShared.edit().clear().putString(UserAccounts, accountHistory).commit();
     }
 
+    public void reset() {
+        MyApplication.getInstance().userId = null;
+        mShared.edit().clear().commit();
+    }
+
     public boolean isShowAddGuide() {
         return mShared.getBoolean(Guide_Add_Click, true);
     }

@@ -60,6 +60,7 @@ public class NetworkApi {
     public static final String BasicUrl = "http://192.168.200.114:8080";//文博本地
 
 
+
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
@@ -132,7 +133,7 @@ public class NetworkApi {
     public static final String CHECK_CONTRACT = BasicUrl + "/ZZB/eq/selCountPaidAmountByEqid";
 
     public static final String GET_VIDEO_LIST = BasicUrl + "/ZZB/vc/selAllUpload";
-    public static final String GET_CODE = BasicUrl + "/ZZB/docter/GainCode";
+    public static final String GET_CODE = BasicUrl + "/ZZB/br/GainCode";
 
     public static final String GET_FM = BasicUrl + "/ZZB/rep/selSomeImitate";
 

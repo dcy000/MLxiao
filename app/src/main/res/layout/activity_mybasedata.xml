@@ -543,6 +543,14 @@
                         android:textSize="28sp" />
                 </LinearLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:text="恢复出厂设置"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

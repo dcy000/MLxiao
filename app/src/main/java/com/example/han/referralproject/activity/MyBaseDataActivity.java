@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
+import com.example.han.referralproject.util.LocalShared;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -185,6 +188,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         mLlHistory = (LinearLayout) findViewById(R.id.ll_history);
         mLlHistory.setOnClickListener(this);
         mAddress.setOnClickListener(this);
+        findViewById(R.id.tv_reset).setOnClickListener(this);
     }
 
     @Override
@@ -218,6 +222,12 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.address:
                 startActivity(new Intent(this,AlertAddressActivity.class).putExtra("data",response));
+                break;
+            case R.id.tv_reset:
+                LocalShared.getInstance(mContext).reset();
+                Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
         }
     }
