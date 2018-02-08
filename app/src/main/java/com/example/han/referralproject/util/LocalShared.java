@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.speech.setting.IatSettings;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -35,8 +36,10 @@ public class LocalShared {
     private final String Guide_Create_Text = "guide_create_text";
     private final String Guide_Sign_In = "guide_sign_in_two";
 
+    private Context context;
 
     private LocalShared(Context context) {
+        this.context = context.getApplicationContext();
         mShared = context.getSharedPreferences(SharedName, Context.MODE_PRIVATE);
     }
 
@@ -171,6 +174,10 @@ public class LocalShared {
     public void reset() {
         MyApplication.getInstance().userId = null;
         mShared.edit().clear().commit();
+        if (context != null) {
+            context.getSharedPreferences(IatSettings.PREFER_NAME,Context.MODE_PRIVATE)
+                    .edit().clear().apply();
+        }
     }
 
     public boolean isShowAddGuide() {
