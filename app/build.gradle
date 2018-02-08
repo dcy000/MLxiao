@@ -91,7 +91,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     //    compile 'com.hyphenate:hyphenate-sdk:3.3.2'
     compile 'com.jakewharton:butterknife:8.4.0'
@@ -135,6 +135,10 @@ dependencies {
     compile name: 'vmtools', ext: 'aar'
     compile name: 'voicelibrary', ext: 'aar'
     compile name: 'wkvideoplayer', ext: 'aar'
+
+
+    compile project(":module-edu")
+//    compile name: 'sdk', ext: 'aar'
     //    compile name: 'sdk', ext: 'aar'
     //极光推送
     compile 'cn.jiguang.sdk:jpush:3.1.1'

@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.han.referralproject.new_music">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application>
+        <activity
+            android:name="com.example.han.referralproject.new_music.MusicPlayActivity"
+            android:screenOrientation="landscape" />
+        <service android:name="com.example.han.referralproject.new_music.MusicService" />
+    </application>
+</manifest>

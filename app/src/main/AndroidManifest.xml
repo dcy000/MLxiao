@@ -548,7 +548,13 @@
             <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".radio.RadioActivity">
+        <activity
+            android:name=".radio.RadioActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".video.TheOldVideoActivity"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

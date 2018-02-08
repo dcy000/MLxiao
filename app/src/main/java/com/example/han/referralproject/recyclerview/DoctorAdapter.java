@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.example.han.referralproject.R;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**

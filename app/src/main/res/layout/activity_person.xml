@@ -345,11 +345,11 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_shopping"
+                    android:id="@+id/main_iv_old"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:clickable="true"
-                    android:background="@drawable/jiankang_set"/>
+                    android:background="@drawable/main_ic_old"/>
 
 
                 <TextView
@@ -358,7 +358,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="健康课堂"
+                    android:text="老人娱乐"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 

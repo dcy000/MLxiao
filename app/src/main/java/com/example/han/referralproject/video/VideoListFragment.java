@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,12 +22,30 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.ml.edu.old.music.SheetListFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class VideoListFragment extends Fragment {
+
+
+    public static void addOrShow(FragmentManager fm, int id, int position) {
+        Fragment fragment = fm.findFragmentByTag(SheetListFragment.class.getSimpleName());
+        FragmentTransaction transaction = fm.beginTransaction();
+        if (fragment == null) {
+            transaction.add(
+                    id,
+                    VideoListFragment.newInstance(position),
+                    VideoListFragment.class.getSimpleName()
+            );
+        } else {
+            transaction.show(fragment);
+        }
+        transaction.commitNowAllowingStateLoss();
+    }
+
     private static final String ARG_POSITION = "position";
 
     private int position;

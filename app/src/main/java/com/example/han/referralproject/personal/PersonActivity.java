@@ -8,21 +8,14 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.BodychartActivity;
-import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -41,8 +34,6 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
-import com.example.han.referralproject.shopping.ShopListActivity;
-import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
@@ -50,10 +41,9 @@ import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-
-import org.json.JSONObject;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener {
 
@@ -153,7 +143,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });*/
-        mImageView4 = (ImageView) findViewById(R.id.iv_shopping);
+        mImageView4 = (ImageView) findViewById(R.id.main_iv_old);
         mTitleText.setText("个  人  中  心");
         mRightView.setImageResource(R.drawable.icon_wifi);
         mImageView5.setOnClickListener(new View.OnClickListener() {
@@ -180,8 +170,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View view) {
 //                Intent intent = new Intent(PersonActivity.this, ShopListActivity.class);
 //                startActivity(intent);
-                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
-
+//                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
+                OldRouter.routeToOldHomeActivity(PersonActivity.this);
             }
         });
 

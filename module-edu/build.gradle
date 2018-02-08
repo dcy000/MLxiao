@@ -1,0 +1,105 @@
+apply from: "config.gradle"
+
+if (canRunAlone) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+
+android {
+    compileSdkVersion versions["compileSdkVersion"]
+    buildToolsVersion versions["buildToolsVersion"]
+
+    defaultConfig {
+        if (canRunAlone) {
+            applicationId "com.ml.edu"
+        }
+        minSdkVersion versions["minSdkVersion"]
+        targetSdkVersion versions["targetSdkVersion"]
+        versionCode versions["versionCode"]
+        versionName versions["versionName"]
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main {
+            if (canRunAlone.toBoolean()) {
+                manifest.srcFile androidManifests["canRunAlone"]
+            } else {
+                manifest.srcFile androidManifests["cannotRunAlone"]
+            }
+        }
+    }
+
+//    signingConfigs {}
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "String", "BASE_URL", baseUrls["debug"]
+            minifyEnabled false
+        }
+
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "String", "BASE_URL", baseUrls["release"]
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile "com.android.support:recyclerview-v7:26.1.0"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+//    compile 'com.jakewharton.timber:timber:4.6.0'
+    //dagger2
+    compile 'com.google.dagger:dagger:2.14.1'
+    compile 'com.android.support:support-v4:26.1.0'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+    compile 'com.google.dagger:dagger-android:2.14.1'
+    compile 'com.google.dagger:dagger-android-support:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14.1'
+
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+
+    compile 'com.google.code.gson:gson:2.8.2'
+
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.9'
+
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+
+//    compile name:'lib-music-player-debug', ext:'aar'
+    compile project(':lib-music-player')
+
+    compile 'com.zhy:okhttputils:2.6.2'
+    compile 'me.wcy:lrcview:1.4.2'
+
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+}
