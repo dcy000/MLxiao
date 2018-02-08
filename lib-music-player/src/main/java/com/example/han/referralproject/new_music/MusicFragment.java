@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -228,6 +229,10 @@ public class MusicFragment extends Fragment implements View.OnClickListener, Mus
         }
         if (mLrcViewFull != null) {
             mLrcViewFull.updateTime(0);
+        }
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.finish();
         }
     }
 

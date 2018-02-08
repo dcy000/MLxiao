@@ -63,17 +63,13 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/old_tv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/old_ic_back"
-        android:drawablePadding="10dp"
-        android:text="返回"
-        android:textColor="#323E52"
-        android:textSize="32sp"
+    <ImageView
+        android:id="@+id/old_iv_home_back"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/old_ic_home_back"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

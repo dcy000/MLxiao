@@ -82,6 +82,7 @@ public class VideoListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvVideos = (RecyclerView) view.findViewById(R.id.rv_videos);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        rvVideos.setHasFixedSize(true);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvVideos.setLayoutManager(layoutManager);
         rvVideos.addItemDecoration(new GridViewDividerItemDecoration(30, 52));

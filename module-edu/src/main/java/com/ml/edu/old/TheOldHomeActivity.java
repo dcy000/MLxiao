@@ -38,7 +38,7 @@ public class TheOldHomeActivity extends AppCompatActivity {
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(rvItems);
         rvItems.setAdapter(new Adapter(onItemClickListener));
-        findViewById(R.id.old_tv_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.old_iv_home_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
