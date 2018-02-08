@@ -21,7 +21,7 @@ public class SongEntity {
     @SerializedName("type")
     private int type;         //类型,歌曲为3
     @SerializedName("flag")
-    private int flag;         //保留字段
+    private String flag;         //保留字段
 
     public String getId() {
         return id;
@@ -71,11 +71,11 @@ public class SongEntity {
         this.type = type;
     }
 
-    public int getFlag() {
+    public String getFlag() {
         return flag;
     }
 
-    public void setFlag(int flag) {
+    public void setFlag(String flag) {
         this.flag = flag;
     }
 

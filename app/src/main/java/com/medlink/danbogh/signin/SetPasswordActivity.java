@@ -108,7 +108,7 @@ public class SetPasswordActivity extends BaseActivity {
             return;
         }
 
-        if (code.equals(this.code)) {
+        if (this.code.contains(code)) {
             onValidPhone();
         } else {
             T.show("验证码错误");

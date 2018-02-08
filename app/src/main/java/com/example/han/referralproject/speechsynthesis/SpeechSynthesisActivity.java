@@ -32,6 +32,7 @@ import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.new_music.HttpCallback;
 import com.example.han.referralproject.new_music.HttpClient;
 import com.example.han.referralproject.new_music.Music;
@@ -39,6 +40,7 @@ import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
 import com.example.han.referralproject.personal.PersonActivity;
+import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
@@ -59,6 +61,7 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
@@ -552,7 +555,20 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches("gerenzhongxin")) {
+            if (inSpell.matches(".*jian(ce|che).*")) {
+                Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                startActivity(intent);
+                return;
+            }
+
+            if (inSpell.matches(".*shouyinji.*")) {
+                Intent intent = new Intent(SpeechSynthesisActivity.this, RadioActivity.class);
+                startActivity(intent);
+                return;
+            }
+
+            if (inSpell.matches(".*gerenzhongxin.*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
                 startActivity(intent);
                 return;
@@ -583,7 +599,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(jiankangketang|jiemu|shipin|dianshi).*")) {
+            if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiemu|shipin|dianshi).*")) {
                 VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
                 return;
             }
@@ -600,6 +616,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
+
+
+
                 startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
                 return;
             }
@@ -689,7 +708,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
 
-            if (result.matches(".*测血压.*") || inSpell.matches(".*liang.*xueya.*")) {
+            if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                 intent.putExtra("type", "xueya");
@@ -813,11 +832,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*chongqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
                 Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                 startActivity(intent);
-            } else if (inSpell.matches(".*maidongxi") || inSpell.matches(".*mai.*shizhi") || inSpell.matches(".*mai.*xueyaji") || inSpell.matches(".*mai.*xuetangyi") ||
-                    inSpell.matches(".*mai.*erwenqiang") || inSpell.matches(".*mai.*xueyangyi") || inSpell.matches(".*mai.*xindianyi") ||
-                    inSpell.matches(".*shizhiyongwan.*") || inSpell.matches(".*shizhi.*meiyou") ||
-                    result.contains("丢") || result.contains("商城") || result.contains("不能用")) {
-
+            } else if (inSpell.matches(".*maidongxi")
+                    || inSpell.matches(".*mai.*shizhi")
+                    || inSpell.matches(".*mai.*xueyaji")
+                    || inSpell.matches(".*mai.*xuetangyi")
+                    || inSpell.matches(".*mai.*erwenqiang")
+                    || inSpell.matches(".*mai.*xueyangyi")
+                    || inSpell.matches(".*mai.*xindianyi")
+                    || inSpell.matches(".*shizhiyongwan.*")
+                    || inSpell.matches(".*shizhi.*meiyou")
+                    || inSpell.matches(".*shangcheng")) {
                 Intent intent = new Intent(getApplicationContext(), MarketActivity.class);
                 startActivity(intent);
 
@@ -835,7 +859,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
-            } else if (inSpell.matches(".*(li(si|shi)|(shu|su)ju|jilu).*")) {
+            } else if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
             } else if (inSpell.matches(".*(dangan).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
@@ -1314,6 +1338,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             // 退出时释放连接
             mIat.cancel();
             mIat.destroy();
+        }
+        //退出页面不再说话
+        SpeechSynthesizer synthesizer=SpeechSynthesizer.getSynthesizer();
+        if (synthesizer!=null) {
+            synthesizer.stopSpeaking();
         }
     }
     @Override

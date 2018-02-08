@@ -38,13 +38,13 @@ android {
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField "String", "BASE_URL", baseUrls["debug"]
+            buildConfigField "String", "OLD_BASE_URL", baseUrls["debug"]
             minifyEnabled false
         }
 
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
-            buildConfigField "String", "BASE_URL", baseUrls["release"]
+            buildConfigField "String", "OLD_BASE_URL", baseUrls["release"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

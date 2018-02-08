@@ -19,20 +19,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_face">
+
         <ImageView
-            android:id="@+id/iv_circle"
-            android:layout_width="495dp"
-            android:layout_height="495dp"
-            android:layout_marginTop="70dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/icon_circle"/>
-        <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/iv_tip"
+            android:layout_width="504pt"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="50dp"
             android:src="@drawable/tips_face_check"/>
+        <ImageView
+            android:id="@+id/iv_circle"
+            android:layout_width="495dp"
+            android:layout_height="495dp"
+            android:src="@drawable/icon_circle"
+            android:layout_above="@id/iv_tip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="45dp"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -47,10 +51,9 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/face_back" />
+            android:src="@drawable/new_face_back" />
 
     </RelativeLayout>
-
     <Button
         android:id="@+id/tiao_guos"
         android:layout_width="200dp"
@@ -58,11 +61,11 @@
         android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/shape_tiaoguo"
+        android:background="@drawable/face_tiaoguo"
         android:clickable="true"
         android:gravity="center"
         android:text="@string/tiaoguo"
-        android:textColor="#FFFFFF"
+        android:textColor="#50ABFE"
         android:textSize="40sp"
         android:visibility="visible"/>
 

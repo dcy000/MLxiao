@@ -21,13 +21,14 @@ import java.lang.reflect.Method;
  */
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
-    private MediaPlayer mediaPlayer=getMediaPlayer(this);
+    private MediaPlayer mediaPlayer = getMediaPlayer(this);
     private Music music;
     private AudioManager audioManager;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        audioManager= (AudioManager) getSystemService(AUDIO_SERVICE);
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         mediaPlayer.setOnCompletionListener(this);
     }
 
@@ -37,9 +38,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return new MusicBind();
     }
 
-    public void setMusicResourse(Music music){
-        this.music=music;
-        if(music!=null&& !TextUtils.isEmpty(music.getPath())){
+    public void setMusicResourse(Music music) {
+        this.music = music;
+        if (music != null && !TextUtils.isEmpty(music.getPath())) {
             mediaPlayer.reset();
             try {
                 mediaPlayer.setDataSource(music.getPath());
@@ -50,38 +51,43 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             }
         }
     }
-    public void play(){
+
+    public void play() {
         //先请求焦点
         audioManager.requestAudioFocus(new AudioManager.OnAudioFocusChangeListener() {
             @Override
             public void onAudioFocusChange(int focusChange) {
-                if(audioChange!=null)
-                    audioChange.onAudioFocusChange(audioManager,focusChange);
+                if (audioChange != null)
+                    audioChange.onAudioFocusChange(audioManager, focusChange);
             }
-        },AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-        if(!mediaPlayer.isPlaying()){
+        }, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        if (!mediaPlayer.isPlaying()) {
             mediaPlayer.start();
         }
     }
-    public void pause(){
+
+    public void pause() {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
         }
     }
-    public  long getCurrentTime(){
+
+    public long getCurrentTime() {
         return mediaPlayer.getCurrentPosition();
     }
+
     /**
      * 释放资源
      */
-    public void release(){
-        if (mediaPlayer!=null) {
+    public void release() {
+        if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
                 mediaPlayer.reset();
             }
         }
     }
+
     //音乐文件准备好了，可以开始播放
     @Override
     public void onPrepared(MediaPlayer mp) {
@@ -97,32 +103,34 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        if (musicFinish == null){
-            return;
+        if (musicFinish != null) {
+            musicFinish.onFinish();
         }
-        musicFinish.onFinish();
     }
 
-    public class MusicBind extends Binder{
-        public MusicService getService(){
+    public class MusicBind extends Binder {
+        public MusicService getService() {
             return MusicService.this;
         }
     }
+
     private MusicPreParedOk musicPreParedOk;
+
     public void setOnMusicPreparedListener(MusicPreParedOk musicPreParedOk) {
         this.musicPreParedOk = musicPreParedOk;
     }
 
-    public interface MusicPreParedOk{
+    public interface MusicPreParedOk {
         void prepared(Music music);
     }
 
     private AudioChange audioChange;
+
     public void setOnnAudioFocusChangeListener(AudioChange audioChange) {
         this.audioChange = audioChange;
     }
 
-    public  interface AudioChange{
+    public interface AudioChange {
         void onAudioFocusChange(AudioManager manager, int focusChange);
     }
 
@@ -132,7 +140,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private MusicFinish musicFinish;
 
-    public interface MusicFinish{
+    public interface MusicFinish {
         void onFinish();
     }
 

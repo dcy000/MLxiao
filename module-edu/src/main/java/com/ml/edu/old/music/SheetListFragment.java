@@ -82,7 +82,7 @@ public class SheetListFragment extends Fragment {
             sheetListObserver = new SheetListObserver();
         }
         getSheetListUseCase.execute(
-                new GetSheetListUseCase.Params("", 1, 12),
+                new GetSheetListUseCase.Params(null, 1, 12),
                 sheetListObserver
         );
     }
@@ -193,6 +193,7 @@ public class SheetListFragment extends Fragment {
                 SheetHolder sheetHolder = (SheetHolder) holder;
                 Glide.with(sheetHolder.ivSheetCover.getContext())
                         .load(entity.getImageUrl())
+                        .placeholder(R.drawable.old_ic_placeholder)
                         .into(sheetHolder.ivSheetCover);
                 sheetHolder.tvSheetName.setText(entity.getName());
                 sheetHolder.tvSheetListenerCount.setText("9999人听过");

@@ -48,7 +48,7 @@
                 android:drawablePadding="10dp"
                 android:drawableTop="@drawable/old_ic_music_home"
                 android:gravity="center"
-                android:text="曲艺天地"
+                android:text="音乐馆"
                 android:textColor="@color/entertainment_old_music_tab_color"
                 android:textSize="20sp"
                 tools:checked="true" />
@@ -61,7 +61,6 @@
             android:layout_marginBottom="30dp"
             android:layout_marginTop="40dp"
             android:drawablePadding="10dp"
-
             android:drawableTop="@drawable/old_ic_music_exit"
             android:gravity="center"
             android:text="退出"

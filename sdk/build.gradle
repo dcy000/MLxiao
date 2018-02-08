@@ -39,7 +39,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.google.zxing:core:3.3.0'
 
     // 注意：因为微信SDK从4.0.2版本开始已改用gradle形式，后续Android开发工具包将不再更新，请开发者尽快改用gradle方式编译、更新微信SDK
