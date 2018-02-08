@@ -61,6 +61,7 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
@@ -1337,6 +1338,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             // 退出时释放连接
             mIat.cancel();
             mIat.destroy();
+        }
+        //退出页面不再说话
+        SpeechSynthesizer synthesizer=SpeechSynthesizer.getSynthesizer();
+        if (synthesizer!=null) {
+            synthesizer.stopSpeaking();
         }
     }
     @Override
