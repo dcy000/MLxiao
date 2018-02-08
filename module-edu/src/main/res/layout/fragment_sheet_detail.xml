@@ -64,9 +64,10 @@
     </android.support.constraint.ConstraintLayout>
 
     <ImageView
+        android:padding="30dp"
         android:id="@+id/old_iv_home_back"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
         android:layout_marginLeft="22dp"
         android:layout_marginTop="18dp"
         android:src="@drawable/old_ic_home_back"

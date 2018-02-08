@@ -22,10 +22,11 @@
 
     <ImageView
         android:id="@+id/old_iv_home_back"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
         android:layout_marginLeft="22dp"
         android:layout_marginTop="18dp"
+        android:padding="30dp"
         android:src="@drawable/old_ic_home_back"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,8 +40,8 @@
         android:ems="1"
         android:gravity="center"
         android:text="收\n音\n机"
-        android:textSize="20sp"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -51,10 +52,10 @@
         android:layout_marginRight="50dp"
         android:background="@drawable/old_ic_home_music_indicator"
         android:ems="1"
-        android:textSize="20sp"
         android:gravity="center"
         android:text="音\n乐\n播\n放"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
