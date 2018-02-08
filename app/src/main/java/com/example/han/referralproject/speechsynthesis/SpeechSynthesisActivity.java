@@ -615,6 +615,22 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "高血压"));
             }*/
+            if (inSpell.matches(".*(bian(sheng|shen|seng)).*")) {
+                voiceWhine.performClick();
+            }
+            if (inSpell.matches(".*(suijibiansheng|suijibianshen|shuijibiansheng|shuijibianseng).*")) {
+                voiceWhine.performClick();
+            }
+
+            if (inSpell.matches(".*(huifuzhengchang|heifuzhengchang|huifuzengcang|huifuzhengcang|huifu|zengchang).*")) {
+                voiceNormal.performClick();
+            }
+
+            if (inSpell.matches(".*(xiaoyiyuanshen|xiaoyiyuanshen|xiaoyi|yuansen|xiaoeyuansheng|xiaoeyuanshen).*")) {
+                voiceNormal.performClick();
+            }
+
+
             if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "冠心病"));
