@@ -23,7 +23,10 @@ import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Process;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -33,6 +36,8 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -100,6 +105,22 @@ public class AuthenticationActivity extends BaseActivity {
     private ByteArrayOutputStream baos;
     private int unDentified = 10;//未识别的次数，最多10寸
     private ArrayList<UserInfoBean> mDataList;
+    private boolean isGetImageFlag = true;//获取图像标志位
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    sendPipei();
+                    break;
+                case 2:
+                    isGetImageFlag = true;
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +206,9 @@ public class AuthenticationActivity extends BaseActivity {
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mAcc = new Accelerometer(AuthenticationActivity.this);
         mFaceRequest = new FaceRequest(this);
+
+        Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
+        findViewById(R.id.iv_circle).startAnimation(rotateAnim);
     }
 
     private void getAllUsersInfo(String[] accounts) {
@@ -290,31 +314,40 @@ public class AuthenticationActivity extends BaseActivity {
 
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
-
-                System.arraycopy(data, 0, nv21, 0, data.length);
-                b3 = decodeToBitMap(nv21, camera);
-                baos = new ByteArrayOutputStream();
-                if (b3 != null) {
-                    Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    mImageData = baos.toByteArray();
+                if (isGetImageFlag){
+                    isGetImageFlag = false;
+                    new GetImageTask(data).execute();
                 }
+//                System.arraycopy(data, 0, nv21, 0, data.length);
+//                b3 = decodeToBitMap(nv21, camera);
+//                baos = new ByteArrayOutputStream();
+//                if (b3 != null) {
+//                    Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//                    mImageData = baos.toByteArray();
+//                }
+
 
                 if (isFirstSend) {
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    sendPipei();
+                    mHandler.sendEmptyMessageDelayed(1, 2000);
                     isFirstSend = false;
                 }
-                //每半秒钟刷一次图片
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+//                if (isFirstSend) {
+//                    try {
+//                        Thread.sleep(1500);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    sendPipei();
+//                    isFirstSend = false;
+//                }
+//                //每半秒钟刷一次图片
+//                try {
+//                    Thread.sleep(500);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 Log.e(TAG, "onPreviewFrame: 预览刷新");
             }
         });
@@ -326,6 +359,39 @@ public class AuthenticationActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
+
+    private class GetImageTask extends AsyncTask<Void, Void, Void> {
+        private byte[] mData;
+
+        public GetImageTask(byte[] data){
+            mData = data;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+//            mHandler.sendEmptyMessageDelayed(2, 500);
+            if (mData == null){
+                return null;
+            }
+            System.arraycopy(mData, 0, nv21, 0, mData.length);
+            b3 = decodeToBitMap(nv21, mCamera);
+            baos = new ByteArrayOutputStream();
+            if (b3 != null) {
+                Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                mImageData = baos.toByteArray();
+            }
+            mHandler.sendEmptyMessage(2);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mHandler.sendEmptyMessage(2);
+        }
+    }
+
 
     private boolean isFirstSend = true;
 
@@ -357,7 +423,6 @@ public class AuthenticationActivity extends BaseActivity {
 
         @Override
         public void onBufferReceived(byte[] buffer) {
-
             try {
                 String result = new String(buffer, "utf-8");
                 JSONObject object = new JSONObject(result);
@@ -455,8 +520,6 @@ public class AuthenticationActivity extends BaseActivity {
                                         new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
                                         LocalShared.getInstance(mContext).setUserInfo(user);
                                         LocalShared.getInstance(mContext).addAccount(user.bid, user.xfid);
-                                        LocalShared.getInstance(getApplicationContext()).setXunfeiID(user.xfid);
-                                        LocalShared.getInstance(mContext).setEqID(user.eqid);
                                         LocalShared.getInstance(mContext).setSex(user.sex);
                                         LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
                                         LocalShared.getInstance(mContext).setUserAge(user.age);
@@ -581,8 +644,11 @@ public class AuthenticationActivity extends BaseActivity {
      * NV21格式(所有相机都支持的格式)转换为bitmap
      */
     public Bitmap decodeToBitMap(byte[] data, Camera mCamera) {
-        Camera.Size size = mCamera.getParameters().getPreviewSize();
+        if (mCamera == null){
+            return null;
+        }
         try {
+            Camera.Size size = mCamera.getParameters().getPreviewSize();
             YuvImage image = new YuvImage(data, ImageFormat.NV21, size.width, size.height, null);
             if (image != null) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();

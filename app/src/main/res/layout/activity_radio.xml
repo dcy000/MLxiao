@@ -75,7 +75,8 @@
             android:id="@+id/old_iv_prev"
             android:layout_width="66pt"
             android:layout_height="66pt"
-            android:src="@drawable/radio_last" />
+            android:src="@drawable/radio_last_sel"
+            android:clickable="true"/>
 
         <ImageView
             android:id="@+id/old_iv_pause_or_play"
@@ -83,13 +84,15 @@
             android:layout_height="160pt"
             android:layout_marginLeft="57pt"
             android:layout_marginRight="57pt"
-            android:src="@drawable/old_ic_radio_pause_or_play" />
+            android:src="@drawable/old_ic_radio_pause_or_play"
+            android:clickable="true"/>
 
         <ImageView
             android:id="@+id/old_iv_next"
             android:layout_width="66pt"
             android:layout_height="66pt"
-            android:src="@drawable/radio_next" />
+            android:src="@drawable/radio_next_sel"
+            android:clickable="true"/>
     </LinearLayout>
 
     <ImageView

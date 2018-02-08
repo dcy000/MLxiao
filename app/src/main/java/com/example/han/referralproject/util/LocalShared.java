@@ -132,14 +132,15 @@ public class LocalShared {
         MyApplication.getInstance().userId = infoBean.bid;
         MyApplication.getInstance().telphoneNum = infoBean.tel;
         MyApplication.getInstance().userName = infoBean.bname;
+        MyApplication.getInstance().eqid=infoBean.eqid;
         mShared.edit()
                 .putString(UserId, infoBean.bid)
                 .putString(EQID, infoBean.eqid)
                 .putString(UserPhoneNum, infoBean.tel)
                 .putString(USER_NAME, infoBean.bname)
+                .putString(XunfeiId,infoBean.xfid)
                 .commit();
         MobclickAgent.onProfileSignIn(infoBean.bid);
-        //.apply();
     }
 
     public String getUserName() {
@@ -166,6 +167,11 @@ public class LocalShared {
         String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
         MyApplication.getInstance().userId = null;
         mShared.edit().clear().putString(UserAccounts, accountHistory).commit();
+    }
+
+    public void reset() {
+        MyApplication.getInstance().userId = null;
+        mShared.edit().clear().commit();
     }
 
     public boolean isShowAddGuide() {

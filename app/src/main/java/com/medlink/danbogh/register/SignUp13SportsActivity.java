@@ -186,7 +186,6 @@ public class SignUp13SportsActivity extends BaseActivity {
                     public void onSuccess(UserInfoBean response) {
                         hideLoadingDialog();
                         shared.setUserInfo(response);
-                        shared.setEqID(response.eqid);
                         LocalShared.getInstance(mContext).setSex(response.sex);
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                         LocalShared.getInstance(mContext).setUserAge(response.age);

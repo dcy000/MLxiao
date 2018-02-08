@@ -33,7 +33,6 @@ public class RadioActivity extends AppCompatActivity {
 
 
     private RecyclerView rvRadios;
-    private LinearLayout llBack;
     private List<RadioEntity> entities = new ArrayList<>();
     private Adapter adapter;
     private TextView tvSelectedFm;
@@ -108,7 +107,13 @@ public class RadioActivity extends AppCompatActivity {
         tvSelectedFm = (TextView) findViewById(R.id.old_tv_selected_fm);
         tvSelectedName = (TextView) findViewById(R.id.old_tv_selected_name);
         rvRadios = (RecyclerView) findViewById(R.id.old_rv_radios);
-        llBack = (LinearLayout) findViewById(R.id.ll_back);
+
+        findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         ivPrev.setOnClickListener(new View.OnClickListener() {
             @Override

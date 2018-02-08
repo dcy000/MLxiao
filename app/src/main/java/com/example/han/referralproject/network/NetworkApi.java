@@ -132,7 +132,7 @@ public class NetworkApi {
     public static final String CHECK_CONTRACT = BasicUrl + "/ZZB/eq/selCountPaidAmountByEqid";
 
     public static final String GET_VIDEO_LIST = BasicUrl + "/ZZB/vc/selAllUpload";
-    public static final String GET_CODE = BasicUrl + "/ZZB/docter/GainCode";
+    public static final String GET_CODE = BasicUrl + "/ZZB/br/GainCode";
 
     public static final String GET_FM = BasicUrl + "/ZZB/rep/selSomeImitate";
 
