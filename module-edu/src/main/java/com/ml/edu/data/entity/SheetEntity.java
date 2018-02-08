@@ -17,7 +17,7 @@ public class SheetEntity {
     @SerializedName("mcontent")
     private String content;      //歌单详情介绍
     @SerializedName("flag")
-    private int flag;            //保留字段
+    private String flag;            //保留字段
 
     private String category;
 
@@ -53,11 +53,11 @@ public class SheetEntity {
         this.content = content;
     }
 
-    public int getFlag() {
+    public String getFlag() {
         return flag;
     }
 
-    public void setFlag(int flag) {
+    public void setFlag(String flag) {
         this.flag = flag;
     }
 

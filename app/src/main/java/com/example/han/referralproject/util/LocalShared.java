@@ -6,7 +6,9 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.speech.setting.IatSettings;
+import com.littlejie.circleprogress.utils.Constant;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -176,6 +178,8 @@ public class LocalShared {
         mShared.edit().clear().commit();
         if (context != null) {
             context.getSharedPreferences(IatSettings.PREFER_NAME,Context.MODE_PRIVATE)
+                    .edit().clear().apply();
+            context.getSharedPreferences(ConstantData.DOCTOR_MSG,Context.MODE_PRIVATE)
                     .edit().clear().apply();
         }
     }

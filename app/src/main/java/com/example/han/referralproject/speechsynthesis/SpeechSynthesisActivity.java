@@ -615,6 +615,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
+
+
+
                 startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
                 return;
             }

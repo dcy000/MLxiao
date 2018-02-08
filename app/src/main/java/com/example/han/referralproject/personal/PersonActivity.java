@@ -277,7 +277,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
 
                 if ("1".equals(response.getState())) {
-
                     mTextView4.setText("已签约");
                 } else if ("0".equals(response.getState()) && (TextUtils.isEmpty(response.getDoctername()))) {
 

@@ -15,6 +15,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -67,6 +68,10 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
                 LocalShared.getInstance(mContext).setUserPhoto(itemBean.user_photo);
                 LocalShared.getInstance(mContext).setUserAge(itemBean.age);
                 LocalShared.getInstance(mContext).setUserHeight(itemBean.height);
+                mContext.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE)
+                        .edit()
+                        .putString("name", itemBean.doct)
+                        .apply();
                 mContext.sendBroadcast(new Intent("change_account"));
             }
         });
