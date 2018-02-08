@@ -554,7 +554,9 @@
              <category android:name="android.intent.category.DEFAULT" />
              </intent-filter>
         </activity>
->>>>>>> 23033bfccaa669fcdafb573f899d4b464dc4664c
+
+        <activity android:name=".video.TheOldVideoActivity" />
+
     </application>
 
 </manifest>
