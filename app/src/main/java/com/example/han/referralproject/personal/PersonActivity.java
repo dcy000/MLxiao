@@ -105,6 +105,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         speak(getString(R.string.person_info));
         mToolbar.setVisibility(View.VISIBLE);
+
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) findViewById(R.id.per_image);
 
@@ -119,6 +120,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         setEnableListeningLoop(false);
         mTextView4 = (TextView) findViewById(R.id.doctor_status);
+        findViewById(R.id.main_iv_health_class).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
+            }
+        });
         mTextView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

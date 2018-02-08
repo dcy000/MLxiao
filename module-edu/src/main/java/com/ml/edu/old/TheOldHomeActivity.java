@@ -67,7 +67,14 @@ public class TheOldHomeActivity extends AppCompatActivity {
                 return;
             }
             if (position == 0) {
-
+                try {
+                    Class<?> aClass = Class.forName("com.example.han.referralproject.radio.RadioActivity");
+                    Intent intent = new Intent();
+                    intent.setClass(TheOldHomeActivity.this, aClass);
+                    startActivity(intent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
     };

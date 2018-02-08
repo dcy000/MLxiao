@@ -23,6 +23,7 @@ public class TheOldVideoActivity extends AppCompatActivity {
                 finish();
             }
         });
+        rgVideos.check(R.id.old_rb_video);
     }
 
     private RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
