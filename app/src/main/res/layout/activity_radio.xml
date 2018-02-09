@@ -7,30 +7,7 @@
     android:background="@drawable/radio_bg"
     tools:context="com.example.han.referralproject.radio.RadioActivity">
 
-    <LinearLayout
-        android:id="@+id/ll_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="32pt"
-        android:paddingLeft="60pt"
-        android:paddingRight="60pt"
-        android:paddingTop="44pt">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/radio_back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20pt"
-            android:text="返回"
-            android:textColor="@color/white"
-            android:textSize="64pt" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="740pt"
@@ -40,25 +17,25 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_back">
+        app:layout_constraintTop_toBottomOf="@+id/main_ll_back">
 
         <TextView
             android:id="@+id/old_tv_selected_fm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="50.4"
             android:textColor="#323E52"
             android:textSize="128pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="50.4" />
 
         <TextView
             android:id="@+id/old_tv_selected_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="中国之声"
             android:textColor="#323E52"
             android:textSize="48pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="中国之声" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,8 +52,8 @@
             android:id="@+id/old_iv_prev"
             android:layout_width="66pt"
             android:layout_height="66pt"
-            android:src="@drawable/radio_last_sel"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:src="@drawable/radio_last_sel" />
 
         <ImageView
             android:id="@+id/old_iv_pause_or_play"
@@ -84,15 +61,15 @@
             android:layout_height="160pt"
             android:layout_marginLeft="57pt"
             android:layout_marginRight="57pt"
-            android:src="@drawable/old_ic_radio_pause_or_play"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:src="@drawable/old_ic_radio_pause_or_play" />
 
         <ImageView
             android:id="@+id/old_iv_next"
             android:layout_width="66pt"
             android:layout_height="66pt"
-            android:src="@drawable/radio_next_sel"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:src="@drawable/radio_next_sel" />
     </LinearLayout>
 
     <ImageView
@@ -122,14 +99,41 @@
         </android.support.v7.widget.RecyclerView>
 
         <TextView
-            android:background="#3D4856"
             android:id="@+id/old_tv_title"
             android:layout_width="match_parent"
             android:layout_height="160pt"
             android:layout_gravity="center_horizontal"
+            android:background="#3D4856"
             android:gravity="center"
-            android:textColor="#FFFFFF"
             android:text="收音机电台"
+            android:textColor="#FFFFFF"
             android:textSize="64pt" />
     </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/main_ll_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="32pt"
+        android:paddingLeft="60pt"
+        android:paddingRight="60pt"
+        android:paddingTop="44pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/radio_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20pt"
+            android:text="返回"
+            android:textColor="@color/white"
+            android:textSize="64pt" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
