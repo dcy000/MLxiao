@@ -16,11 +16,12 @@ import retrofit2.http.Query;
 
 public interface MusicService {
 
-    //    curl -XPOST http://192.168.200.182:8080/ZZB/rep/sel_music_danforapp -d "sheetName=\"\"&page=1&limit=4"
+    //    curl -XPOST http://116.62.36.12:8080/ZZB/rep/sel_music_danforapp -d "&page=1&limit=4"
+    //    curl -XPOST http://116.62.36.12:8080/ZZB/rep/selSomeImitate -d "type=3&wr=&mid=3&page=1&limit=12"
 
     @GET("rep/sel_music_danforapp")
     Observable<ApiResult<List<SheetEntity>>> sheets(
-            @Query("sheetName") String name,
+            @Query("mname") String name,
             @Query("page") int page,
             @Query("limit") int limit
     );

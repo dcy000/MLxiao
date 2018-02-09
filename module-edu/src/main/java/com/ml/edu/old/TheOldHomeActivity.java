@@ -14,7 +14,6 @@ import android.widget.ImageView;
 
 import com.ml.edu.OldRouter;
 import com.ml.edu.R;
-import com.ml.edu.old.music.SheetListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class TheOldHomeActivity extends AppCompatActivity {
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(rvItems);
         rvItems.setAdapter(new Adapter(onItemClickListener));
-        findViewById(R.id.old_tv_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.old_iv_home_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

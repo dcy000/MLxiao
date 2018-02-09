@@ -23,6 +23,7 @@ import com.ml.edu.data.entity.SongEntity;
 import com.ml.edu.domain.GetSongListUseCase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SheetDetailFragment extends Fragment {
@@ -80,7 +81,7 @@ public class SheetDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sheet_detail, container, false);
 
-        view.findViewById(R.id.old_tv_back).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.old_iv_home_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
@@ -123,7 +124,7 @@ public class SheetDetailFragment extends Fragment {
             songListObserver = new SongListObserver();
         }
         getSongListUseCase.execute(
-                new GetSongListUseCase.Params(sheetId, 1, 12),
+                new GetSongListUseCase.Params(0, 1, 12),
                 songListObserver
         );
     }
@@ -133,6 +134,13 @@ public class SheetDetailFragment extends Fragment {
     private class SongListObserver extends ApiObserver<List<SongEntity>> {
         @Override
         public void onNext(List<SongEntity> songEntities) {
+            Iterator<SongEntity> iterator = songEntities.iterator();
+            while (iterator.hasNext()) {
+                SongEntity next = iterator.next();
+                if (!String.valueOf(sheetId).equals(next.getSheetId())) {
+                    iterator.remove();
+                }
+            }
             entities.addAll(songEntities);
             adapter.notifyItemRangeInserted(entities.size() - songEntities.size(), songEntities.size());
         }
@@ -190,7 +198,7 @@ public class SheetDetailFragment extends Fragment {
             SongEntity entity = entities.get(position);
             holder.tvSinger.setText(entity.getSinger());
             holder.tvSongName.setText(entity.getName());
-            String number = String.valueOf(position);
+            String number = String.valueOf(position + 1);
             holder.tvSongNumber.setText(number);
         }
 

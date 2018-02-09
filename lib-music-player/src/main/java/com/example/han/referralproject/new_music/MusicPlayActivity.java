@@ -18,15 +18,16 @@ public class MusicPlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //在刚进入此页面的时候就绑定音乐播放服务
         bindService(new Intent(this, MusicService.class), serviceConnection, BIND_AUTO_CREATE);
-        music= (Music) getIntent().getSerializableExtra("music");
+        music = (Music) getIntent().getSerializableExtra("music");
         CoverLoader.getInstance().init(this);
         showPlayingFragment();
 
     }
+
     private void showPlayingFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.mp_fragment_slide_up, 0);
-        musicFragment=new MusicFragment();
+        musicFragment = new MusicFragment();
         ft.add(android.R.id.content, musicFragment).commit();
     }
 
@@ -36,7 +37,7 @@ public class MusicPlayActivity extends AppCompatActivity {
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            musicService=((MusicService.MusicBind) service).getService();
+            musicService = ((MusicService.MusicBind) service).getService();
             //绑定好以后把要播放的文件set到服务中去
             musicService.setMusicResourse(music);
             //并且把服务set到Fragment中去
@@ -52,14 +53,13 @@ public class MusicPlayActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (musicService!=null) {
+        if (musicService != null) {
             musicService.release();
         }
     }
 
     @Override
     protected void onDestroy() {
-
         //取消绑定的服务
         if (serviceConnection != null)
             unbindService(serviceConnection);

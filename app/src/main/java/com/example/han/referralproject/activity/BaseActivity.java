@@ -345,8 +345,6 @@ public class BaseActivity extends AppCompatActivity {
         }
         if (isDefaultParam) {
             setSynthesizerParams();
-        }else {
-            SpeechSynthesizerHelper.setRandomParam();
         }
 
         synthesizer.startSpeaking(text, mTtsListener);
