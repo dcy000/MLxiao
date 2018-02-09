@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,7 +47,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     public ImageView mStar3;
     public ImageView mStar4;
     public ImageView mStar5;
-
+    private TextView goodat1, goodat2, goodat3;
     Button mButton;
 
 
@@ -109,9 +110,10 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         mStar3 = (ImageView) findViewById(R.id.star3);
         mStar4 = (ImageView) findViewById(R.id.star4);
         mStar5 = (ImageView) findViewById(R.id.star5);
-
+        goodat1 = findViewById(R.id.goodat1);
+        goodat2 = findViewById(R.id.goodat2);
+        goodat3 = findViewById(R.id.goodat3);
         mButton.setOnClickListener(this);
-
 
         if ("1".equals(sign)) {
 
@@ -140,57 +142,67 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         }
 
 
-        if (Integer.parseInt(doctor.getEvaluation()) <= 60) {
+        if (doctor != null) {
+            if (Integer.parseInt(doctor.getEvaluation()) <= 60) {
 
-            mStar1.setVisibility(View.VISIBLE);
+                mStar1.setVisibility(View.VISIBLE);
 
-        } else if (Integer.parseInt(doctor.getEvaluation()) <= 70 &&
-                Integer.parseInt(doctor.getEvaluation()) > 60) {
-            mStar1.setVisibility(View.VISIBLE);
-            mStar2.setVisibility(View.VISIBLE);
-
-
-        } else if (Integer.parseInt(doctor.getEvaluation()) <= 80 &&
-                Integer.parseInt(doctor.getEvaluation()) > 70) {
-            mStar1.setVisibility(View.VISIBLE);
-            mStar2.setVisibility(View.VISIBLE);
-            mStar3.setVisibility(View.VISIBLE);
+            } else if (Integer.parseInt(doctor.getEvaluation()) <= 70 &&
+                    Integer.parseInt(doctor.getEvaluation()) > 60) {
+                mStar1.setVisibility(View.VISIBLE);
+                mStar2.setVisibility(View.VISIBLE);
 
 
-        } else if (Integer.parseInt(doctor.getEvaluation()) <= 90 &&
-                Integer.parseInt(doctor.getEvaluation()) > 80) {
-            mStar1.setVisibility(View.VISIBLE);
-            mStar2.setVisibility(View.VISIBLE);
-            mStar3.setVisibility(View.VISIBLE);
-            mStar4.setVisibility(View.VISIBLE);
+            } else if (Integer.parseInt(doctor.getEvaluation()) <= 80 &&
+                    Integer.parseInt(doctor.getEvaluation()) > 70) {
+                mStar1.setVisibility(View.VISIBLE);
+                mStar2.setVisibility(View.VISIBLE);
+                mStar3.setVisibility(View.VISIBLE);
 
 
-        } else if (Integer.parseInt(doctor.getEvaluation()) > 90
-                ) {
-            mStar1.setVisibility(View.VISIBLE);
-            mStar2.setVisibility(View.VISIBLE);
-            mStar3.setVisibility(View.VISIBLE);
-            mStar4.setVisibility(View.VISIBLE);
-            mStar5.setVisibility(View.VISIBLE);
+            } else if (Integer.parseInt(doctor.getEvaluation()) <= 90 &&
+                    Integer.parseInt(doctor.getEvaluation()) > 80) {
+                mStar1.setVisibility(View.VISIBLE);
+                mStar2.setVisibility(View.VISIBLE);
+                mStar3.setVisibility(View.VISIBLE);
+                mStar4.setVisibility(View.VISIBLE);
 
 
+            } else if (Integer.parseInt(doctor.getEvaluation()) > 90
+                    ) {
+                mStar1.setVisibility(View.VISIBLE);
+                mStar2.setVisibility(View.VISIBLE);
+                mStar3.setVisibility(View.VISIBLE);
+                mStar4.setVisibility(View.VISIBLE);
+                mStar5.setVisibility(View.VISIBLE);
+
+
+            }
+
+            Picasso.with(this)
+                    .load(doctor.getDocter_photo())
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .tag(this)
+                    .fit()
+                    .into(mImageView1);
+
+
+            mTextView.setText(doctor.getDoctername());
+            mTextView1.setText(doctor.getDuty());
+            mTextView2.setText(doctor.getHosname());
+            mTextView3.setText(doctor.getDepartment());
+            mTextView4.setText(doctor.getPro());
+            if (!TextUtils.isEmpty(doctor.department)) {
+                if ("尚未开放,请勿签约".equals(doctor.department)) {
+                    goodat1.setText("暂未填写");
+                    return;
+                }
+                goodat1.setText(doctor.department);
+            } else {
+                goodat1.setText(doctor.department);
+            }
         }
-
-        Picasso.with(this)
-                .load(doctor.getDocter_photo())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(this)
-                .fit()
-                .into(mImageView1);
-
-
-        mTextView.setText(doctor.getDoctername());
-        mTextView1.setText(doctor.getDuty());
-        mTextView2.setText(doctor.getHosname());
-        mTextView3.setText(doctor.getDepartment());
-        mTextView4.setText(doctor.getPro());
-
 
     }
 
@@ -306,7 +318,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                             new NetworkManager.SuccessCallback<RobotAmount>() {
                                 @Override
                                 public void onSuccess(RobotAmount response) {
-                                    if (response == null){
+                                    if (response == null) {
                                         return;
                                     }
                                     final String amount = response.getAmount();

@@ -90,7 +90,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:scaleType="centerInside"
-        android:src="@drawable/face_back" />
+        android:src="@drawable/new_face_back" />
 
     <TextView
         android:textColor="@color/whine_txt"

@@ -134,7 +134,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                                     //再给用户2秒进行姿态调整
                                     try {
                                         Thread.sleep(2000);
-                                        if (sign) {
+                                        if (sign&&mCamera!=null) {
                                             mCamera.setOneShotPreviewCallback(RegisterVideoActivity.this);
                                         }
                                     } catch (InterruptedException e) {

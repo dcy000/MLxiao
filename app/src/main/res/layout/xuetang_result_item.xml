@@ -6,6 +6,8 @@
     <ImageView
         android:id="@+id/title"
         android:layout_width="430pt"
-        android:layout_height="wrap_content"
+        android:layout_height="325pt"
+        android:clickable="true"
+        android:scaleType="fitXY"
         />
 </android.support.constraint.ConstraintLayout>

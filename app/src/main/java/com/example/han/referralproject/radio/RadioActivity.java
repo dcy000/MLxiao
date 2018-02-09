@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.Music;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RadioActivity extends AppCompatActivity {
+public class RadioActivity extends BaseActivity {
     private RecyclerView rvRadios;
     private List<RadioEntity> entities = new ArrayList<>();
     private Adapter adapter;
@@ -48,6 +50,7 @@ public class RadioActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             bound = true;
+            Log.d("fm", "onServiceConnected: ");
             musicService = ((MusicService.MusicBind) service).getService();
             //绑定好以后把要播放的文件set到服务中去
             musicService.setOnMusicPreparedListener(onMusicPreparedListener);
@@ -56,11 +59,13 @@ public class RadioActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            Log.d("fm", "onServiceDisconnected: ");
             bound = false;
         }
 
         @Override
         public void onBindingDied(ComponentName name) {
+            Log.d("fm", "onBindingDied: ");
             bound = false;
         }
     };
@@ -68,6 +73,7 @@ public class RadioActivity extends AppCompatActivity {
     MusicService.MusicPreParedOk onMusicPreparedListener = new MusicService.MusicPreParedOk() {
         @Override
         public void prepared(Music music) {
+            Log.d("fm", "prepared: ");
             musicService.pause();
             musicService.play();
             Handlers.ui().post(updateUIAction);
@@ -121,6 +127,8 @@ public class RadioActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ivPauseOrPlay.setSelected(false);
 
         ivPrev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,8 +213,10 @@ public class RadioActivity extends AppCompatActivity {
         public void run() {
             RadioEntity entity = entities.get(adapter.getSelectedPosition());
             HashMap<String, String> results = QaApi.getQaFromXf(
-                    entity.getName() + entity.getFm());
+                    entity.getName());
             String audiopath = results.get("audiopath");
+            Log.d("fm", "audiopath: " + audiopath);
+            Log.d("fm", "bound: " + bound);
             if (!TextUtils.isEmpty(audiopath)) {
                 if (!bound) {
                     bindService(new Intent(RadioActivity.this, MusicService.class), serviceConnection, BIND_AUTO_CREATE);
@@ -216,7 +226,7 @@ public class RadioActivity extends AppCompatActivity {
                     musicService.setMusicResourse(music);
                 }
             } else {
-                T.show("服务器繁忙");
+                speak("主人，未搜索到该频道，请更换频道再试");
             }
 
         }

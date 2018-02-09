@@ -393,7 +393,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                         });
 
+                    }else{
+                        ToastUtil.showShort(DetectActivity.this,message);
                     }
+                }else{
+                    ToastUtil.showShort(DetectActivity.this,"网络异常");
                 }
             }
         });
@@ -710,6 +714,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             double afterResult;
                             afterResult = number / Math.pow(10, 13 - flag);
                             DataInfoBean info = new DataInfoBean();
+                            info.sugar_time = String.valueOf(xuetangTimeFlag);
                             if (notifyData[1] == 65) {
                                 info.blood_sugar = String.valueOf(afterResult);
                                 mSanHeYiOneTv.setText(String.valueOf(afterResult));
@@ -726,7 +731,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                 @Override
                                 public void onSuccess(MeasureResult response) {
-                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+
                                 }
                             }, new NetworkManager.FailedCallback() {
                                 @Override

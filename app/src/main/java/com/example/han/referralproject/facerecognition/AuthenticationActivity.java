@@ -520,8 +520,6 @@ public class AuthenticationActivity extends BaseActivity {
                                         new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
                                         LocalShared.getInstance(mContext).setUserInfo(user);
                                         LocalShared.getInstance(mContext).addAccount(user.bid, user.xfid);
-                                        LocalShared.getInstance(getApplicationContext()).setXunfeiID(user.xfid);
-                                        LocalShared.getInstance(mContext).setEqID(user.eqid);
                                         LocalShared.getInstance(mContext).setSex(user.sex);
                                         LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
                                         LocalShared.getInstance(mContext).setUserAge(user.age);

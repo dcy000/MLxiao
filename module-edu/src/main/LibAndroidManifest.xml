@@ -5,11 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application>
-        <activity android:name="com.ml.edu.old.TheOldHomeActivity">
+        <activity android:name="com.ml.edu.old.TheOldHomeActivity"
+            android:screenOrientation="landscape">
 
         </activity>
-
-        <activity android:name="com.ml.edu.old.music.TheOldMusicActivity">
+        <activity android:name="com.ml.edu.old.music.TheOldMusicActivity"
+            android:screenOrientation="landscape">
 
         </activity>
     </application>

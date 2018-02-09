@@ -76,9 +76,10 @@ public class MeasureXuetangFragment extends Fragment {
         list.setAdapter(adapter = new BaseQuickAdapter<Integer, BaseViewHolder>(R.layout.xuetang_result_item, reasons) {
             @Override
             protected void convert(BaseViewHolder helper, Integer item) {
-                Glide.with(getActivity())
-                        .load(item)
-                        .into((ImageView) helper.getView(R.id.title));
+//                Glide.with(getActivity())
+//                        .load(item)
+//                        .into((ImageView) helper.getView(R.id.title));
+                ((ImageView)helper.getView(R.id.title)).setImageResource(item);
             }
         });
 
@@ -145,12 +146,12 @@ public class MeasureXuetangFragment extends Fragment {
                 .beginTransaction().remove(MeasureXuetangFragment.this).commit();
     }
     private void initData() {
-        reasons.add(R.drawable.ic_xzsj);
-        reasons.add(R.drawable.ic_dydx);
-        reasons.add(R.drawable.ic_gq);
-        reasons.add(R.drawable.ic_bltj);
-        reasons.add(R.drawable.ic_cx);
-        reasons.add(R.drawable.ic_qj);
+        reasons.add(R.drawable.measure_xzsj_sel);
+        reasons.add(R.drawable.measure_dydx_sel);
+        reasons.add(R.drawable.measure_gq_sel);
+        reasons.add(R.drawable.measure_bltj_sel);
+        reasons.add(R.drawable.measure_cx_sel);
+        reasons.add(R.drawable.measure_qj_sel);
     }
     @Override
     public void onDestroyView() {

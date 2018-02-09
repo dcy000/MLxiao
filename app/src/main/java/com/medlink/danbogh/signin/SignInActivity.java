@@ -164,11 +164,8 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onSuccess(UserInfoBean response) {
                 new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
-                MyApplication.getInstance().eqid=response.eqid;
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
-                LocalShared.getInstance(getApplicationContext()).setXunfeiID(response.xfid);
-                LocalShared.getInstance(mContext).setEqID(response.eqid);
                 LocalShared.getInstance(mContext).setSex(response.sex);
                 LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                 LocalShared.getInstance(mContext).setUserAge(response.age);

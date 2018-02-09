@@ -32,7 +32,7 @@ public class VideoListFragment extends Fragment {
 
 
     public static void addOrShow(FragmentManager fm, int id, int position) {
-        Fragment fragment = fm.findFragmentByTag(SheetListFragment.class.getSimpleName());
+        Fragment fragment = fm.findFragmentByTag(VideoListFragment.class.getSimpleName());
         FragmentTransaction transaction = fm.beginTransaction();
         if (fragment == null) {
             transaction.add(

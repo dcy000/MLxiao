@@ -178,7 +178,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             return;
         }
 
-        if (code.equals(mCode)) {
+        if (mCode.contains(code)) {
             T.show("验证码正确");
             navToNext();
         } else {

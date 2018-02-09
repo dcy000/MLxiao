@@ -77,9 +77,10 @@ public class MeasureXueyaWarningFragment extends Fragment {
         list.setAdapter(adapter = new BaseQuickAdapter<Integer, BaseViewHolder>(R.layout.xuetang_result_item, reasons) {
             @Override
             protected void convert(BaseViewHolder helper, Integer item) {
-                Glide.with(getActivity())
-                        .load(item)
-                        .into((ImageView) helper.getView(R.id.title));
+//                Glide.with(getActivity())
+//                        .load(item)
+//                        .into((ImageView) helper.getView(R.id.title));
+                ((ImageView)helper.getView(R.id.title)).setImageResource(item);
             }
         });
 
@@ -147,14 +148,14 @@ public class MeasureXueyaWarningFragment extends Fragment {
     }
 
     private void initData() {
-        reasons.add(R.drawable.ic_jyy);
-        reasons.add(R.drawable.ic_bd);
-        reasons.add(R.drawable.ic_zs);
-        reasons.add(R.drawable.ic_sh);
-        reasons.add(R.drawable.ic_ykf);
-        reasons.add(R.drawable.ic_my);
-        reasons.add(R.drawable.ic_yd);
-        reasons.add(R.drawable.ic_fh);
+        reasons.add(R.drawable.measure_jyy_sel);
+        reasons.add(R.drawable.measure_bd_sel);
+        reasons.add(R.drawable.measure_zz_sel);
+        reasons.add(R.drawable.measure_sh_sel);
+        reasons.add(R.drawable.measure_ykf_sel);
+        reasons.add(R.drawable.measure_my_sel);
+        reasons.add(R.drawable.measure_yd_sel);
+        reasons.add(R.drawable.measure_fh_sel);
     }
 
     private void removeFragment() {
