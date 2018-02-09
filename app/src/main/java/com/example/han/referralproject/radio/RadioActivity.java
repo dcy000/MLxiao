@@ -4,9 +4,8 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
-import android.os.IBinder;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -121,7 +119,7 @@ public class RadioActivity extends BaseActivity {
         tvSelectedName = (TextView) findViewById(R.id.old_tv_selected_name);
         rvRadios = (RecyclerView) findViewById(R.id.old_rv_radios);
 
-        findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.main_ll_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
