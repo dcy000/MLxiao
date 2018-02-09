@@ -1,11 +1,14 @@
 package com.example.han.referralproject.video;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
+
+import java.util.List;
 
 public class TheOldVideoActivity extends AppCompatActivity {
 
