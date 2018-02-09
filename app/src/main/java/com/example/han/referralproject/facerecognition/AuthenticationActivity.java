@@ -567,9 +567,9 @@ public class AuthenticationActivity extends BaseActivity {
                     xfTime = 10;
                 } else {
                     Log.e(TAG, "onCompleted: unDentified<0");
-                    if ("Test".equals(fromString)||"Pay".equals(fromString)) {//因为人脸登录的容错机会只有5次，很容易出现成功提示信息和错误提示信息同时出现
+//                    if ("Test".equals(fromString)||"Pay".equals(fromString)) {//因为人脸登录的容错机会只有5次，很容易出现成功提示信息和错误提示信息同时出现
                         ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
-                    }
+//                    }
                     finish();
                 }
         }

@@ -50,14 +50,15 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
         findViewById(R.id.view_login).setOnClickListener(this);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
+
         if (mAccountIds == null) {
             return;
         }
-        StringBuilder mAccountIdBuilder = new StringBuilder();
+        StringBuilder userIds = new StringBuilder();
         for (String item : mAccountIds){
-            mAccountIdBuilder.append(item.split(",")[0]).append(",");
+            userIds.append(item.split(",")[0]).append(",");
         }
-        NetworkApi.getAllUsers(mAccountIdBuilder.substring(0, mAccountIdBuilder.length() - 1), mListener);
+        NetworkApi.getAllUsers(userIds.substring(0, userIds.length() - 1), mListener);
     }
 
     private NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> mListener = new NetworkManager.SuccessCallback<ArrayList<UserInfoBean>>() {
@@ -83,7 +84,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 new JpushAliasUtils(mContext).deleteAlias();
                 MobclickAgent.onProfileSignOff();
                 NimAccountHelper.getInstance().logout();//退出网易IM
-//                LocalShared.getInstance(mContext).loginOut();//清除SP中的信息
+                LocalShared.getInstance(mContext).deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);//删除当前这个人的账号
                 MyApplication.getInstance().userId=null;
                 mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity)mContext).finish();

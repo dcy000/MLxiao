@@ -68,10 +68,10 @@ public class LocalShared {
         }
     }
 
-    public String deleteAccount(String bid, String xfid) {
+    public void deleteAccount(String bid, String xfid) {
         String[] accountsArray = getAccounts();
         if (accountsArray == null || TextUtils.isEmpty(bid) || TextUtils.isEmpty(xfid)) {
-            return "";
+            return ;
         }
         ArrayList<String> accountsList = new ArrayList<>();
         for (String item : accountsArray) {
@@ -81,15 +81,14 @@ public class LocalShared {
             accountsList.add(item);
         }
         if (accountsList.size() == 0) {
-            return "";
-            //mShared.edit().putString(UserAccounts, "").commit();
+            mShared.edit().putString(UserAccounts_new, "").commit();
+            mShared.edit().putString(UserAccounts,"").commit();
         } else {
             StringBuilder mBuilder = new StringBuilder();
             for (String itemAccount : accountsList) {
                 mBuilder.append(itemAccount).append(";");
             }
-            return mBuilder.toString();
-            //mShared.edit().putString(UserAccounts, mBuilder.toString()).commit();
+            mShared.edit().putString(UserAccounts_new, mBuilder.toString()).commit();
         }
     }
 
@@ -168,11 +167,11 @@ public class LocalShared {
         return mShared.getString(XunfeiId, "");
     }
 
-    public void loginOut() {
-        String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
-        MyApplication.getInstance().userId = null;
-        mShared.edit().clear().putString(UserAccounts, accountHistory).commit();
-    }
+//    public void loginOut() {
+//        String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
+//        MyApplication.getInstance().userId = null;
+//        mShared.edit().clear().putString(UserAccounts, accountHistory).commit();
+//    }
 
     public void reset() {
         MyApplication.getInstance().userId = null;

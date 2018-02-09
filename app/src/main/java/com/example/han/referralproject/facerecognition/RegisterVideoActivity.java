@@ -36,6 +36,8 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -162,7 +164,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         isTest = getIntent().getBooleanExtra("isTest", false);
         initUI();
 
-//        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
 
         mPreviewSurface.getHolder().addCallback(mPreviewCallback);
@@ -217,7 +218,10 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     }
 
     private void initUI() {
+        Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
+        findViewById(R.id.iv_circle).startAnimation(rotateAnim);
         rlBack = (RelativeLayout) findViewById(R.id.rl_back);
+        findViewById(R.id.tiao_guos).setVisibility(View.GONE);
         rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
