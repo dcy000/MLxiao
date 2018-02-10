@@ -28,11 +28,15 @@ import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
+import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
 import com.example.han.referralproject.new_music.HttpClient;
 import com.example.han.referralproject.new_music.Music;
@@ -42,6 +46,7 @@ import com.example.han.referralproject.new_music.SearchMusic;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
@@ -66,9 +71,11 @@ import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -555,6 +562,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+            if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
+                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+                return;
+            }
+
             if (inSpell.matches(".*jian(ce|che).*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
                 intent.putExtra("from", "Test");
@@ -616,10 +628,34 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
+                NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+                    @Override
+                    public void onSuccess(UserInfo response) {
+                        if ("1".equals(response.getState())) {
+                            //已签约
+                            startActivity(new Intent(SpeechSynthesisActivity.this,
+                                    DoctorappoActivity.class));
+                        } else if ("0".equals(response.getState())
+                                && (TextUtils.isEmpty(response.getDoctername()))) {
+                            //未签约
+                            Intent intent = new Intent(SpeechSynthesisActivity.this,
+                                    OnlineDoctorListActivity.class);
+                            intent.putExtra("contract", "contract");
+                            startActivity(intent);
+                        } else {
+                            // 待审核
+                            Intent intent = new Intent(SpeechSynthesisActivity.this,
+                                    CheckContractActivity.class);
+                            startActivity(intent);
+                        }
+                    }
 
-
-
-                startActivity(new Intent(SpeechSynthesisActivity.this, DoctorappoActivity.class));
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        T.show(message);
+                    }
+                });
                 return;
             }
             if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
@@ -742,7 +778,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (inSpell.matches(".*ce.*xuezhi.*")) {
+            } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                 intent.putExtra("type", "sanheyi");
@@ -775,10 +811,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
 
 
-            } else if (inSpell.matches(".*da.*shengyin.*") || inSpell.matches(".*da.*yinliang.*")
-                    || inSpell.matches(".*yinliang.*da.*") || inSpell.matches(".*shengyin.*da.*")
-                    || inSpell.matches(".*tigao.*shengyin.*") || inSpell.matches(".*shengyin.*tigao.*")
-                    || inSpell.matches(".*yinliang.*shenggao.*") || inSpell.matches(".*shenggao.*yinliang.*")) {
+            } else if (inSpell.matches(".*dashengyin.*")
+                    || inSpell.matches(".*dayinliang.*")
+                    || inSpell.matches(".*yinliang.*da.*")
+                    || inSpell.matches(".*shengyin.*da.*")
+                    || inSpell.matches(".*tigao.*shengyin.*")
+                    || inSpell.matches(".*shengyin.*tigao.*")
+                    || inSpell.matches(".*yinliang.*shenggao.*")
+                    || inSpell.matches(".*shenggao.*yinliang.*")) {
                 volume += 3;
                 if (volume < maxVolume) {
                     speak(getString(R.string.add_volume), isDefaultParam);
@@ -793,10 +833,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
 
 
-            } else if (inSpell.matches(".*xiao.*shengyin.*") || inSpell.matches(".*xiao.*yinliang.*")
-                    || inSpell.matches(".*shengyin.*xiao.*") || inSpell.matches(".*yinliang.*xiao.*")
-                    || inSpell.matches(".*yinliang.*jiangdi.*") || inSpell.matches(".*jiangdi.*yinliang.*")
-                    || inSpell.matches(".*jiangdi.*shengyin.*") || inSpell.matches(".*shengyin.*jiangdi.*")) {
+            } else if (inSpell.matches(".*xiaoshengyin.*")
+                    || inSpell.matches(".*xiaoyinliang.*")
+                    || inSpell.matches(".*shengyin.*xiao.*")
+                    || inSpell.matches(".*yinliang.*xiao.*")
+                    || inSpell.matches(".*yinliang.*jiangdi.*")
+                    || inSpell.matches(".*jiangdi.*yinliang.*")
+                    || inSpell.matches(".*jiangdi.*shengyin.*")
+                    || inSpell.matches(".*shengyin.*jiangdi.*")) {
 
                 volume -= 3;
                 if (volume > 3) {
@@ -850,8 +894,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
-
-
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
                 DiseaseUser diseaseUser = new DiseaseUser(LocalShared.getInstance(this).getUserName(), LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2, Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12, LocalShared.getInstance(this).getUserPhoto()
                 );
