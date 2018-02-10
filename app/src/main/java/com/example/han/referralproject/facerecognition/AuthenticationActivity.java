@@ -410,8 +410,7 @@ public class AuthenticationActivity extends BaseActivity {
                                     Log.e(TAG, "onBufferReceived:xfTime " + xfTime + "");
                                     xfTime--;
                                     indexXfid = 0;//重置index，再次开始轮询
-                                    sendPipei();
-
+                                    mHandler.sendEmptyMessage(1);
                                 } else {//10轮验证结束，验证失败
                                     speak(getString(R.string.shop_yanzheng));
                                     ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
@@ -420,7 +419,7 @@ public class AuthenticationActivity extends BaseActivity {
                             } else if ("Pay".equals(fromString)) {//支付
                                 if (xfTime > 0) {
                                     xfTime--;//再次发起查询
-                                    sendPipei();
+                                    mHandler.sendEmptyMessage(1);
                                 } else {
                                     //10轮验证结束，验证失败取消订单
                                     NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
@@ -445,7 +444,7 @@ public class AuthenticationActivity extends BaseActivity {
                         } else {
                             Log.e(TAG, "onBufferReceived:indexXfid" + "-------" + indexXfid + "");
                             indexXfid++;
-                            sendPipei();
+                            mHandler.sendEmptyMessage(1);
                         }
                     } else {//验证通过 将所有flag初始化
                         xfTime = 10;
@@ -467,15 +466,14 @@ public class AuthenticationActivity extends BaseActivity {
                                 @Override
                                 public void onSuccess(String response) {
                                     speak(getString(R.string.shop_success));
-                                    ShowNormal("支付成功", "1");
+                                    showNormal("支付成功", "1");
                                     GoodDetailActivity.mActivity.finish();
-
                                 }
 
                             }, new NetworkManager.FailedCallback() {
                                 @Override
                                 public void onFailed(String message) {
-                                    ShowNormal("支付失败", "0");
+                                    showNormal("支付失败", "0");
                                 }
                             });
 
@@ -531,7 +529,7 @@ public class AuthenticationActivity extends BaseActivity {
                         if (indexXfid == xfids.length) {
                             indexXfid = 0;
                         }
-                        sendPipei();
+                        mHandler.sendEmptyMessage(1);
                         Log.e(TAG, "onCompleted: unDentified > 0");
                     } else {
                         indexXfid = xfids.length;
@@ -584,7 +582,7 @@ public class AuthenticationActivity extends BaseActivity {
         return result;
     }
 
-    public void ShowNormal(String message, final String sign) {
+    public void showNormal(String message, final String sign) {
         dialog2.setMessageCenter(true)
                 .setMessage(message)
                 .setMessageSize(50)
