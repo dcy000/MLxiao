@@ -348,6 +348,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mTextView1.setText(sharedPreferences.getString("name", ""));
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
