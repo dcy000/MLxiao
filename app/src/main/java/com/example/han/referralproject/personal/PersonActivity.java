@@ -182,14 +182,11 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
-        findViewById(R.id.btn_record).setOnClickListener(this);
         findViewById(R.id.iv_message).setOnClickListener(this);
-        findViewById(R.id.view_health).setOnClickListener(this);
         findViewById(R.id.iv_check).setOnClickListener(this);
         findViewById(R.id.view_wifi).setOnClickListener(this);
         findViewById(R.id.iv_record).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
-        findViewById(R.id.btn_logout).setOnClickListener(this);
         findViewById(R.id.view_change).setOnClickListener(this);
         mImageView.setOnClickListener(this);
         findViewById(R.id.tv_update).setOnClickListener(this);
@@ -208,9 +205,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
 
         mTextView1 = (TextView) findViewById(R.id.doctor_name);
-
-        findViewById(R.id.btn_logout).setOnClickListener(this);
-
 
         ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
@@ -362,11 +356,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_logout:
-                LocalShared.getInstance(this).loginOut();
-                startActivity(new Intent(this, SignInActivity.class));
-                finish();
-                break;
             case R.id.iv_check://病症自查
                 DiseaseUser diseaseUser=new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
@@ -390,11 +379,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 mChangeAccountDialog.show();
                 break;
             case R.id.per_image:
-            case R.id.view_health://健康档案
                 startActivity(new Intent(this, MyBaseDataActivity.class));
                 break;
             case R.id.iv_record:
-            case R.id.btn_record://测量历史
                 startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
             case R.id.tv_update:
