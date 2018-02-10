@@ -284,8 +284,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                if (!TextUtils.isEmpty(message)){
-                    if (message.startsWith("血压超标")){
+                if (!TextUtils.isEmpty(message)) {
+                    if (message.startsWith("血压超标")) {
                         MeasureXueyaWarningFragment warningFragment = new MeasureXueyaWarningFragment();
                         getSupportFragmentManager().beginTransaction().add(R.id.container, warningFragment).commit();
 
@@ -317,14 +317,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             @Override
                             public void noReason() {//强制插入异常数据
-                                uploadXueyaResult(getNew,down,maibo,xueyaResult,true);
+                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true);
                             }
                         });
-                    }else{
-                        ToastUtil.showShort(DetectActivity.this,message);
+                    } else {
+                        ToastUtil.showShort(DetectActivity.this, message);
                     }
-                }else{
-                    ToastUtil.showShort(DetectActivity.this,"网络异常");
+                } else {
+                    ToastUtil.showShort(DetectActivity.this, "网络异常");
                 }
             }
         });
@@ -335,12 +335,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
      *
      * @param xuetangResut
      */
-    private void uploadXuetangResult(final float xuetangResut,boolean status) {
+    private void uploadXuetangResult(final float xuetangResut, boolean status) {
         DataInfoBean info = new DataInfoBean();
         info.blood_sugar = String.format("%.1f", xuetangResut);
         info.sugar_time = xuetangTimeFlag + "";
-        if (status){
-            info.state=true;
+        if (status) {
+            info.state = true;
         }
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
@@ -360,9 +360,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                if (!TextUtils.isEmpty(message)){//血糖暂时没有数据异常处理
+                if (!TextUtils.isEmpty(message)) {//血糖暂时没有数据异常处理
                     if (message.startsWith("血糖超标")) {
-                        MeasureXuetangFragment measureXuetangFragment=new MeasureXuetangFragment();
+                        MeasureXuetangFragment measureXuetangFragment = new MeasureXuetangFragment();
                         getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
 
                         measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
@@ -389,15 +389,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             @Override
                             public void noReason() {
-                                uploadXuetangResult(xuetangResut,true);
+                                uploadXuetangResult(xuetangResut, true);
                             }
                         });
 
-                    }else{
-                        ToastUtil.showShort(DetectActivity.this,message);
+                    } else {
+                        ToastUtil.showShort(DetectActivity.this, message);
                     }
-                }else{
-                    ToastUtil.showShort(DetectActivity.this,"网络异常");
+                } else {
+                    ToastUtil.showShort(DetectActivity.this, "网络异常");
                 }
             }
         });
@@ -556,7 +556,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         speak(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
                         break;
                     case Type_Xueya:
-                        if (isYuyue && notifyData.length == 19){
+                        if (isYuyue && notifyData.length == 19) {
                             mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
                             mLowPressTv.setText(String.valueOf(notifyData[3] & 0xff));
                             mPulseTv.setText(String.valueOf(notifyData[14] & 0xff));
@@ -604,7 +604,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 //上传数据到我们的服务器
-                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult,false);
+                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false);
                             }
                         }
                         break;
@@ -617,7 +617,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             isGetResustFirst = false;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
-                            uploadXuetangResult(xuetangResut,false);
+                            uploadXuetangResult(xuetangResut, false);
                         }
                         break;
                     case Type_XueYang:
@@ -707,43 +707,83 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         if (isGetResustFirst) {
                             isGetResustFirst = false;
-                            int result = ((notifyData[11] & 0xff) << 8) + (notifyData[10] & 0xff);
-                            int basic = (int) Math.pow(16, 3);
-                            int flag = result / basic;
-                            int number = result % basic;
-                            double afterResult;
-                            afterResult = number / Math.pow(10, 13 - flag);
-                            DataInfoBean info = new DataInfoBean();
-                            if (notifyData[1] == 65) {
-                                info.blood_sugar = String.valueOf(afterResult);
-                                mSanHeYiOneTv.setText(String.valueOf(afterResult));
-                                speak(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), "正常"));
-                            } else if (notifyData[1] == 81) {//尿酸
-                                info.uric_acid = String.valueOf(afterResult);
-                                mSanHeYiTwoTv.setText(String.valueOf(afterResult));
-                                speak(String.format(getString(R.string.tips_result_niaosuan), String.valueOf(afterResult), "正常"));
-                            } else if (notifyData[1] == 97) {//胆固醇
-                                info.cholesterol = String.valueOf(afterResult);
-                                mSanHeYiThreeTv.setText(String.valueOf(afterResult));
-                                speak(String.format(getString(R.string.tips_result_danguchun), String.valueOf(afterResult), "正常"));
-                            }
-                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-                                @Override
-                                public void onSuccess(MeasureResult response) {
-
-                                }
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-                                }
-                            });
+                            doSanheyiResult(notifyData);
                         }
                         break;
                 }
             }
         }
     };
+
+    /**
+     * 处理三合一的测量结果
+     *
+     * @param notifyData
+     */
+    private void doSanheyiResult(byte[] notifyData) {
+        int result = ((notifyData[11] & 0xff) << 8) + (notifyData[10] & 0xff);
+        int basic = (int) Math.pow(16, 3);
+        int flag = result / basic;
+        int number = result % basic;
+        double afterResult;
+        afterResult = number / Math.pow(10, 13 - flag);
+        DataInfoBean info = new DataInfoBean();
+        String sex = LocalShared.getInstance(this).getSex();
+        String speakFlag;
+        if (notifyData[1] == 65) {//血糖
+            info.blood_sugar = String.valueOf(afterResult);
+            mSanHeYiOneTv.setText(String.valueOf(afterResult));
+            if (afterResult < 3.61)
+                speakFlag = "偏低";
+            else if (afterResult > 7.0)
+                speakFlag = "偏高";
+            else
+                speakFlag = "正常";
+            speak(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), speakFlag));
+
+        } else if (notifyData[1] == 81) {//尿酸
+            info.uric_acid = String.valueOf(afterResult);
+            mSanHeYiTwoTv.setText(String.valueOf(afterResult));
+            if ("男".equals(sex)) {
+                if (afterResult < 0.21)
+                    speakFlag = "偏低";
+                else if (afterResult > 0.44)
+                    speakFlag = "偏高";
+                else
+                    speakFlag = "正常";
+            } else {
+                if (afterResult < 0.15)
+                    speakFlag = "偏低";
+                else if (afterResult > 0.39)
+                    speakFlag = "偏高";
+                else
+                    speakFlag = "正常";
+            }
+            speak(String.format(getString(R.string.tips_result_niaosuan), String.valueOf(afterResult), speakFlag));
+        } else if (notifyData[1] == 97) {//胆固醇
+            info.cholesterol = String.valueOf(afterResult);
+            mSanHeYiThreeTv.setText(String.valueOf(afterResult));
+            if (result < 3.0)
+                speakFlag = "偏低";
+            else if (result > 6.0)
+                speakFlag = "偏高";
+            else
+                speakFlag = "正常";
+            speak(String.format(getString(R.string.tips_result_danguchun), String.valueOf(afterResult), speakFlag));
+        }
+
+        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+            @Override
+            public void onSuccess(MeasureResult response) {
+
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+    }
 
     public ImageView ivBack;
 
@@ -802,7 +842,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                 BluetoothGattService xueyaService = mBluetoothLeService.getGatt().getService(UUID
                         .fromString("00001810-0000-1000-8000-00805f9b34fb"));
-                if (xueyaService != null){
+                if (xueyaService != null) {
                     characteristic = xueyaService
                             .getCharacteristic(UUID.fromString("00002a35-0000-1000-8000-00805f9b34fb"));
                     Log.i("mylog", "success sssssssssssssssssssssssssssssss");
@@ -810,7 +850,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     break;
                 }
 
-                if (gattServices.size() == 5 || gattServices.size() == 10){
+                if (gattServices.size() == 5 || gattServices.size() == 10) {
                     characteristic = gattServices.get(3).getCharacteristics().get(3);
                 } else {
                     characteristic = gattServices.get(2).getCharacteristics().get(3);
@@ -869,7 +909,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         if (descriptorList != null && descriptorList.size() > 0) {
             for (BluetoothGattDescriptor descriptor : descriptorList) {
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-                if (isYuyue){
+                if (isYuyue) {
                     descriptor.setValue(BluetoothGattDescriptor.ENABLE_INDICATION_VALUE);
                 }
                 mBluetoothGatt.writeDescriptor(descriptor);
@@ -1572,7 +1612,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     return;
                 }
 
-                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())){
+                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())) {
                     mDeviceAddress = device.getAddress();
                     if (mBluetoothLeService == null) {
                         Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
