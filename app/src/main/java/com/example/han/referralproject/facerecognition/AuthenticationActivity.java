@@ -107,11 +107,11 @@ public class AuthenticationActivity extends BaseActivity {
     private ArrayList<UserInfoBean> mDataList;
     private boolean isGetImageFlag = true;//获取图像标志位
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
                     sendPipei();
                     break;
@@ -177,17 +177,17 @@ public class AuthenticationActivity extends BaseActivity {
         mTiaoguo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (faceThread!=null){
-                    Log.e(TAG, "onClick: "+"销毁子线程" );
+                if (faceThread != null) {
+                    Log.e(TAG, "onClick: " + "销毁子线程");
                     faceThread.interrupt();
                 }
-                if (mediaPlayer.isPlaying()){
+                if (mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
                 }
-                if (mFaceRequest!=null){
+                if (mFaceRequest != null) {
                     mFaceRequest.cancel();
                 }
-                if (mAcc!=null){
+                if (mAcc != null) {
                     mAcc.stop();
                 }
                 closeCamera();
@@ -240,12 +240,11 @@ public class AuthenticationActivity extends BaseActivity {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            Log.e(TAG, "surfaceCreated: "+"创建预览对象" );
+            Log.e(TAG, "surfaceCreated: " + "创建预览对象");
             // 启动相机
-            faceThread=new Thread(new Runnable() {
+            faceThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-
                     openCamera();
                 }
             });
@@ -283,17 +282,14 @@ public class AuthenticationActivity extends BaseActivity {
         if (null != mCamera) {
             return;
         }
-
         if (!checkCameraPermission()) {
             ToastUtil.showShort(this, "摄像头权限未打开，请打开后再试");
             return;
         }
-
         // 只有一个摄相头，打开后置
         if (Camera.getNumberOfCameras() == 1) {
             mCameraId = CameraInfo.CAMERA_FACING_BACK;
         }
-
         try {
             mCamera = Camera.open(mCameraId);
         } catch (Exception e) {
@@ -301,7 +297,6 @@ public class AuthenticationActivity extends BaseActivity {
             closeCamera();
             return;
         }
-
         Parameters params = mCamera.getParameters();
         params.setPreviewFormat(ImageFormat.NV21);
         params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
@@ -314,40 +309,16 @@ public class AuthenticationActivity extends BaseActivity {
 
             @Override
             public void onPreviewFrame(byte[] data, Camera camera) {
-                if (isGetImageFlag){
+                if (isGetImageFlag) {
                     isGetImageFlag = false;
                     new GetImageTask(data).execute();
                 }
-//                System.arraycopy(data, 0, nv21, 0, data.length);
-//                b3 = decodeToBitMap(nv21, camera);
-//                baos = new ByteArrayOutputStream();
-//                if (b3 != null) {
-//                    Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//                    mImageData = baos.toByteArray();
-//                }
 
 
                 if (isFirstSend) {
                     mHandler.sendEmptyMessageDelayed(1, 2000);
                     isFirstSend = false;
                 }
-
-//                if (isFirstSend) {
-//                    try {
-//                        Thread.sleep(1500);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    sendPipei();
-//                    isFirstSend = false;
-//                }
-//                //每半秒钟刷一次图片
-//                try {
-//                    Thread.sleep(500);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
                 Log.e(TAG, "onPreviewFrame: 预览刷新");
             }
         });
@@ -363,14 +334,13 @@ public class AuthenticationActivity extends BaseActivity {
     private class GetImageTask extends AsyncTask<Void, Void, Void> {
         private byte[] mData;
 
-        public GetImageTask(byte[] data){
+        public GetImageTask(byte[] data) {
             mData = data;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-//            mHandler.sendEmptyMessageDelayed(2, 500);
-            if (mData == null){
+            if (mData == null) {
                 return null;
             }
             System.arraycopy(mData, 0, nv21, 0, mData.length);
@@ -433,6 +403,7 @@ public class AuthenticationActivity extends BaseActivity {
                 }
                 if (!AuthenticationActivity.this.isFinishing() && !AuthenticationActivity.this.isDestroyed())
                     if (!object.getBoolean("verf")) {//验证失败，进行下一次验证
+                        isGetImageFlag = true;
                         if (indexXfid == xfids.length) {//标识这一遍已经轮询到最后一个元素了
                             if ("Test".equals(fromString) || "Welcome".equals(fromString)) {//测试或者是登录
                                 if (xfTime > 0) {
@@ -554,6 +525,7 @@ public class AuthenticationActivity extends BaseActivity {
             //未识别到人脸走这里
             if (!AuthenticationActivity.this.isFinishing() && !AuthenticationActivity.this.isDestroyed())
                 if (unDentified > 0) {
+                    isGetImageFlag = true;
                     unDentified--;
                     if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
                         if (indexXfid == xfids.length) {
@@ -568,7 +540,7 @@ public class AuthenticationActivity extends BaseActivity {
                 } else {
                     Log.e(TAG, "onCompleted: unDentified<0");
 //                    if ("Test".equals(fromString)||"Pay".equals(fromString)) {//因为人脸登录的容错机会只有5次，很容易出现成功提示信息和错误提示信息同时出现
-                        ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
+                    ToastUtil.showShort(AuthenticationActivity.this, "验证不通过");
 //                    }
                     finish();
                 }
@@ -644,7 +616,7 @@ public class AuthenticationActivity extends BaseActivity {
      * NV21格式(所有相机都支持的格式)转换为bitmap
      */
     public Bitmap decodeToBitMap(byte[] data, Camera mCamera) {
-        if (mCamera == null){
+        if (mCamera == null) {
             return null;
         }
         try {
