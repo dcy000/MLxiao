@@ -162,6 +162,8 @@ public class AuthenticationActivity extends BaseActivity {
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                finishActivity();
+
                 finish();
             }
         });
@@ -177,20 +179,7 @@ public class AuthenticationActivity extends BaseActivity {
         mTiaoguo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (faceThread != null) {
-                    Log.e(TAG, "onClick: " + "销毁子线程");
-                    faceThread.interrupt();
-                }
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                }
-                if (mFaceRequest != null) {
-                    mFaceRequest.cancel();
-                }
-                if (mAcc != null) {
-                    mAcc.stop();
-                }
-                closeCamera();
+                finishActivity();
 
                 if ("Test".equals(fromString)) {
                     Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
@@ -209,6 +198,23 @@ public class AuthenticationActivity extends BaseActivity {
 
         Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
         findViewById(R.id.iv_circle).startAnimation(rotateAnim);
+    }
+
+    private void finishActivity() {
+        if (faceThread != null) {
+            Log.e(TAG, "onClick: " + "销毁子线程");
+            faceThread.interrupt();
+        }
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+        if (mFaceRequest != null) {
+            mFaceRequest.cancel();
+        }
+        if (mAcc != null) {
+            mAcc.stop();
+        }
+        closeCamera();
     }
 
     private void getAllUsersInfo(String[] accounts) {
