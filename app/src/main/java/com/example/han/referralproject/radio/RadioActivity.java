@@ -207,7 +207,6 @@ public class RadioActivity extends BaseActivity {
 
     private Runnable fetchAction = new Runnable() {
         @Override
-
         public void run() {
             RadioEntity entity = entities.get(adapter.getSelectedPosition());
             HashMap<String, String> results = QaApi.getQaFromXf(

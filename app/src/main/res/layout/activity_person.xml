@@ -369,7 +369,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/main_iv_old"
@@ -447,34 +448,6 @@
         android:src="@drawable/icon_wifi"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="35dp"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <View
-            android:id="@+id/view_health"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:background="@drawable/icon_health" />
-
-        <View
-            android:id="@+id/btn_record"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/icon_history" />
-
-        <View
-            android:id="@+id/btn_logout"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/icon_account" />
-    </LinearLayout>
     <TextView
         android:id="@+id/tv_update"
         android:layout_width="wrap_content"
