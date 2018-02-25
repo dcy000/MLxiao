@@ -153,6 +153,34 @@ public class QaApi {
                 }
                 return results;
             }
+
+
+            if (service.equals("weather")) {
+                //天气
+                JSONObject exp = resultObj.getJSONObject("exp");
+                if (exp == null) {
+                    return results;
+                }
+                JSONObject ct = exp.getJSONObject("ct");
+                if (ct == null) {
+                    return results;
+                }
+                results.put("text", results.get("text") + "," + ct.getString("prompt"));
+
+                //明天天气
+                JSONObject tomorrow = resultArray.getJSONObject(1);
+                if (tomorrow == null) {
+                    return results;
+                }
+
+                results.put("text", results.get("text") + ","
+                        + "明天" + tomorrow.getString("weather") + ","
+                        + tomorrow.getString("tempRange") + ","
+                        + tomorrow.getString("wind")
+                );
+            }
+
+
             return results;
         } catch (JSONException e) {
             e.printStackTrace();
