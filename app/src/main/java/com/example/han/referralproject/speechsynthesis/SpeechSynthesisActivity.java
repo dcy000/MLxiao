@@ -33,6 +33,7 @@ import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.bean.UserInfo;
+import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -55,6 +56,7 @@ import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
@@ -562,14 +564,48 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+            if (inSpell.matches(".*gengxin.*")) {
+                showLoadingDialog("检查更新中");
+                NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
+                    @Override
+                    public void onSuccess(VersionInfoBean response) {
+                        hideLoadingDialog();
+                        try {
+                            if (response != null && response.vid > getPackageManager().getPackageInfo(SpeechSynthesisActivity.this.getPackageName(), 0).versionCode) {
+                                new UpdateAppManager(SpeechSynthesisActivity.this).showNoticeDialog(response.url);
+                            } else {
+                                speak("当前已经是最新版本了");
+                                Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        hideLoadingDialog();
+                        speak("当前已经是最新版本了");
+                        Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return;
+            }
+
             if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
                 NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
                 return;
             }
 
-            if (inSpell.matches(".*jian(ce|che).*")) {
+            if (inSpell.matches(".*jian(ce|che|ca|cha).*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
                 intent.putExtra("from", "Test");
+                startActivity(intent);
+                return;
+            }
+
+            if (inSpell.matches(".*xiaoxi.*")) {
+                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
                 startActivity(intent);
                 return;
             }
@@ -758,13 +794,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (result.matches(".*测.*血糖.*") || inSpell.matches(".*liang.*xuetang.*")) {
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xuetang");
+            } else if (result.matches(".*测.*血糖.*")
+                    || inSpell.matches(".*liang.*xuetang.*")
+                    || inSpell.matches(".*xuetangyi.*")
+                    ) {
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("orderid", "0");
+                intent.putExtra("from", "Test");
                 startActivity(intent);
-
-
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
@@ -772,7 +809,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (inSpell.matches(".*ce.*xindian.*")) {
+            } else if (inSpell.matches(".*ce.*xindian.*")
+                    ||inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
                 startActivity(intent);
@@ -890,7 +928,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (inSpell.matches(".*dingdan.*")) {
+            } else if (inSpell.matches(".*dingdan")) {
 
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
