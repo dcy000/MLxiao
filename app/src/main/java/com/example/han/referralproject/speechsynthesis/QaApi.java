@@ -57,6 +57,7 @@ public class QaApi {
         results.put("audiopath", "");
         results.put("q", "");
         results.put("service", "");
+        results.put("dreamUrl","");
         try {
             JSONObject apiResponseObj = new JSONObject(text);
             text = apiResponseObj.optString("data");
@@ -179,6 +180,15 @@ public class QaApi {
                         + tomorrow.getString("wind")
                 );
             }
+
+            if (service.equals("dream")) {
+                //解梦的网页url
+                String url = resultObj.getString("url");
+                results.put("dreamUrl",url);
+            }
+
+
+
 
 
             return results;
