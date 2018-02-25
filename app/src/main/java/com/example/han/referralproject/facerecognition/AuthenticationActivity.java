@@ -90,7 +90,6 @@ public class AuthenticationActivity extends BaseActivity {
     private String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
-    public RelativeLayout mImageView;
     private Bitmap b3;
     private String orderid;
     private NDialog2 dialog2;
@@ -158,12 +157,11 @@ public class AuthenticationActivity extends BaseActivity {
             unDentified = 5;
         }
         dialog2 = new NDialog2(AuthenticationActivity.this);
-        mImageView = (RelativeLayout) findViewById(R.id.rl_back);
-        mImageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finishActivity();
 
+        findViewById(R.id.iv_back).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishActivity();
                 finish();
             }
         });
