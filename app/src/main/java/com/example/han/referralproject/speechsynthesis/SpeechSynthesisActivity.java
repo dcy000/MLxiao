@@ -77,6 +77,7 @@ import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
+import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -597,7 +598,20 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*jian(ce|che|ca|cha).*")) {
+            if (inSpell.matches(".*yinyue.*")
+                    || inSpell.matches(".*shouyinji.*")
+                    ) {
+                OldRouter.routeToOldHomeActivity(this);
+                return;
+            }
+
+            if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
+                return;
+            }
+
+            if (inSpell.matches(".*jian(ce|che|ca|cha).*")
+                    ||inSpell.matches(".*(ce|che)(shi|si).*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
                 intent.putExtra("from", "Test");
                 startActivity(intent);
@@ -616,7 +630,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*gerenzhongxin.*")) {
+            if (inSpell.matches(".*gerenzhongxin.*")
+                    ||inSpell.matches(".*gerenshezhi.*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
                 startActivity(intent);
                 return;
@@ -787,7 +802,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (inSpell.matches(".*ce.*xueyang.*") || inSpell.matches(".*liang.*xueyang.*") || inSpell.matches(".*ce.*baohedu.*")) {
+            } else if (inSpell.matches(".*ce.*xueyang.*")
+                    || inSpell.matches(".*liang.*xueyang.*")
+                    || inSpell.matches(".*ce.*baohedu.*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                 intent.putExtra("type", "xueyang");
@@ -798,9 +815,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*liang.*xuetang.*")
                     || inSpell.matches(".*xuetangyi.*")
                     ) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("orderid", "0");
-                intent.putExtra("from", "Test");
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xuetang");
+                startActivity(intent);
                 startActivity(intent);
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
@@ -851,6 +868,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             } else if (inSpell.matches(".*dashengyin.*")
                     || inSpell.matches(".*dayinliang.*")
+                    || inSpell.matches(".*dashengdian.*")
                     || inSpell.matches(".*yinliang.*da.*")
                     || inSpell.matches(".*shengyin.*da.*")
                     || inSpell.matches(".*tigao.*shengyin.*")
@@ -873,6 +891,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             } else if (inSpell.matches(".*xiaoshengyin.*")
                     || inSpell.matches(".*xiaoyinliang.*")
+                    || inSpell.matches(".*xiaoshengdian.*")
                     || inSpell.matches(".*shengyin.*xiao.*")
                     || inSpell.matches(".*yinliang.*xiao.*")
                     || inSpell.matches(".*yinliang.*jiangdi.*")
@@ -939,8 +958,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
-            } else if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
             } else if (inSpell.matches(".*(dangan).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
             } else {

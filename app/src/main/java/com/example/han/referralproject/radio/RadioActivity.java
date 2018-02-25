@@ -119,7 +119,7 @@ public class RadioActivity extends BaseActivity {
         tvSelectedName = (TextView) findViewById(R.id.old_tv_selected_name);
         rvRadios = (RecyclerView) findViewById(R.id.old_rv_radios);
 
-        findViewById(R.id.main_ll_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.old_iv_radio_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
