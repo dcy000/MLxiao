@@ -331,7 +331,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
                 if (!"".equals(response.getDoctername())) {
 
-                    mTextView1.setText(sharedPreferences.getString("name", ""));
+                    mTextView1.setText(response.getDoctername());
 
                 }
 
@@ -341,8 +341,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-
-
+                mTextView1.setText("暂无");
             }
         });
     }
@@ -350,7 +349,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-        mTextView1.setText(sharedPreferences.getString("name", ""));
+//        mTextView1.setText(sharedPreferences.getString("name", ""));
     }
 
     @Override
