@@ -707,6 +707,38 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         if (isGetResustFirst) {
                             isGetResustFirst = false;
+//                            int result = ((notifyData[11] & 0xff) << 8) + (notifyData[10] & 0xff);
+//                            int basic = (int) Math.pow(16, 3);
+//                            int flag = result / basic;
+//                            int number = result % basic;
+//                            double afterResult;
+//                            afterResult = number / Math.pow(10, 13 - flag);
+//                            DataInfoBean info = new DataInfoBean();
+//                            info.sugar_time = String.valueOf(xuetangTimeFlag);
+//                            if (notifyData[1] == 65) {
+//                                info.blood_sugar = String.valueOf(afterResult);
+//                                mSanHeYiOneTv.setText(String.valueOf(afterResult));
+//                                speak(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), "正常"));
+//                            } else if (notifyData[1] == 81) {//尿酸
+//                                info.uric_acid = String.valueOf(afterResult);
+//                                mSanHeYiTwoTv.setText(String.valueOf(afterResult));
+//                                speak(String.format(getString(R.string.tips_result_niaosuan), String.valueOf(afterResult), "正常"));
+//                            } else if (notifyData[1] == 97) {//胆固醇
+//                                info.cholesterol = String.valueOf(afterResult);
+//                                mSanHeYiThreeTv.setText(String.valueOf(afterResult));
+//                                speak(String.format(getString(R.string.tips_result_danguchun), String.valueOf(afterResult), "正常"));
+//                            }
+//                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+//                                @Override
+//                                public void onSuccess(MeasureResult response) {
+//
+//                                }
+//                            }, new NetworkManager.FailedCallback() {
+//                                @Override
+//                                public void onFailed(String message) {
+//
+//                                }
+//                            });
                             doSanheyiResult(notifyData);
                         }
                         break;
