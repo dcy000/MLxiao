@@ -62,12 +62,12 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
         mRgDisease.setOnCheckedChangeListener(this);
         //默认第一个选中
         mRbReason.setChecked(true);
-        mData= (SymptomResultBean.bqs) getIntent().getSerializableExtra("data");
-        if(mData==null){
+        mData = (SymptomResultBean.bqs) getIntent().getSerializableExtra("data");
+        if (mData == null) {
             NetworkApi.getJibing(getIntent().getStringExtra("type"), new NetworkManager.SuccessCallback<DiseaseResult>() {
                 @Override
                 public void onSuccess(DiseaseResult response) {
-                    mData=new SymptomResultBean.bqs();
+                    mData = new SymptomResultBean.bqs();
                     mData.setBname(response.bname);
                     mData.setEat(response.eat);
                     mData.setReview(response.review);
@@ -76,7 +76,7 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
                     mData.setGl("0");
 
                     mContent.setText(mData.getReview());
-                    speak(response.review+"。"+response.getSuggest()+"。"+response.getSports());
+                    speak(response.review + "。" + response.getSuggest() + "。" + response.getSports());
                 }
             }, new NetworkManager.FailedCallback() {
                 @Override
@@ -84,16 +84,16 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
                     ToastUtils.show(message);
                 }
             });
-        }else{
+        } else {
             mContent.setText(mData.getReview());
-            speak(mData.getReview()+"。"+mData.getSuggest()+"。"+mData.getSports());
+            speak(mData.getReview() + "。" + mData.getSuggest() + "。" + mData.getSports());
         }
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
@@ -104,26 +104,30 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.rb_reason:
                 mRbReason.setChecked(true);
-                mContent.setText(mData.getReview());
+                if (mData != null)
+                    mContent.setText(mData.getReview());
                 break;
             case R.id.rb_suggest:
                 mRbSuggest.setChecked(true);
-                mContent.setText(mData.getSuggest());
+                if (mData != null)
+                    mContent.setText(mData.getSuggest());
                 break;
             case R.id.rb_eating:
                 mRbEating.setChecked(true);
-                mContent.setText(mData.getEat());
+                if (mData != null)
+                    mContent.setText(mData.getEat());
                 break;
             case R.id.rb_sport:
                 mRbSport.setChecked(true);
-                mContent.setText(mData.getSports());
+                if (mData != null)
+                    mContent.setText(mData.getSports());
                 break;
         }
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId){
+        switch (checkedId) {
             case R.id.rb_reason:
                 mRbReason.setTextColor(Color.WHITE);
                 mRbSuggest.setTextColor(Color.parseColor("#999999"));
