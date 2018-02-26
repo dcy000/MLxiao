@@ -56,7 +56,7 @@ public class DataInfoBean {
             paramsMap.put("weight", String.format("%.2f", weight));
         }
         if (upload_state){
-            paramsMap.put("state","true");
+            paramsMap.put("upload_state","true");
         }
         return paramsMap;
     }
