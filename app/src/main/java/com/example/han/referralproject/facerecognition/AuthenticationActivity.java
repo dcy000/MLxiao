@@ -64,6 +64,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.util.Accelerometer;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import org.json.JSONException;
@@ -670,7 +671,6 @@ public class AuthenticationActivity extends BaseActivity {
             mAcc.stop();
         }
     }
-
 
     @Override
     protected void onDestroy() {
