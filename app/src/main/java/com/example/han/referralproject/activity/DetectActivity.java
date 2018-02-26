@@ -264,7 +264,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         info.low_pressure = down;
         info.pulse = maibo;
         if (status) {
-            info.state = true;
+            info.upload_state = true;
         }
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
@@ -340,7 +340,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         info.blood_sugar = String.format("%.1f", xuetangResut);
         info.sugar_time = xuetangTimeFlag + "";
         if (status) {
-            info.state = true;
+            info.upload_state = true;
         }
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
