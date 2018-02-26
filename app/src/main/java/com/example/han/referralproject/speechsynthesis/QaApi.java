@@ -57,7 +57,7 @@ public class QaApi {
         results.put("audiopath", "");
         results.put("q", "");
         results.put("service", "");
-        results.put("dreamUrl","");
+        results.put("dreamUrl", "");
         try {
             JSONObject apiResponseObj = new JSONObject(text);
             text = apiResponseObj.optString("data");
@@ -155,6 +155,15 @@ public class QaApi {
                 return results;
             }
 
+            //评书
+            if (service.equals("storyTelling")) {
+                String url=resultObj.getString("url");
+                if (!TextUtils.isEmpty(url)) {
+                    results.put("audiopath", url);
+                }
+                return results;
+            }
+
 
             if (service.equals("weather")) {
                 //天气
@@ -184,11 +193,8 @@ public class QaApi {
             if (service.equals("dream")) {
                 //解梦的网页url
                 String url = resultObj.getString("url");
-                results.put("dreamUrl",url);
+                results.put("dreamUrl", url);
             }
-
-
-
 
 
             return results;
