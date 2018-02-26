@@ -155,8 +155,15 @@ public class QaApi {
                 return results;
             }
 
-            //评书
-            if (service.equals("storyTelling")) {
+            //评书,历史上的今天,搞笑段子,相声小品,公开课,名人演讲,戏曲
+            if (service.equals("storyTelling")
+                    ||service.equals("history")
+                    ||service.equals("LEIQIAO.funnyPassage")
+                    ||service.equals("crossTalk")
+                    ||service.equals("LEIQIAO.openClass")
+                    ||service.equals("LEIQIAO.speech")
+                    ||service.equals("drama")
+                    ){
                 String url=resultObj.getString("url");
                 if (!TextUtils.isEmpty(url)) {
                     results.put("audiopath", url);
