@@ -37,7 +37,7 @@ public class Main2Activity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textView5.setText(((List<WeatherBean>) anwser).toString());
+                        textView5.setText(anwser.toString());
                     }
                 });
             }

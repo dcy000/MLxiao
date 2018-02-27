@@ -1,6 +1,9 @@
 package com.example.han.referralproject.speechsynthesis;
 
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.BaiKeBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.CookbookBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.DreamBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.WeatherBean;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
@@ -30,6 +33,7 @@ import okhttp3.Response;
 public class XFSkillApi {
     public static OkHttpClient client;
     private static JSONObject xfContentData;
+    private static String service;
 
     /**
      * 成功的回调借口
@@ -52,31 +56,67 @@ public class XFSkillApi {
             return;
         }
         try {
-            JSONObject data = xfDataJSONObject.getJSONObject("data");
-            String service = xfDataJSONObject.getString("service");
+            service = xfDataJSONObject.getString("service");
             //直接回答anwser
             JSONObject answer = xfDataJSONObject.getJSONObject("answer");
-
             if (answer != null) {
                 if (listener != null) {
                     if ("datetime".equals(service)) {
                         listener.onSuccess(answer.getString("text"));
                     }
-
-                    if ("weather".equals(service)) {
-                        //解析result类 XFdada中的data数据
-                        if (data != null) {
-                            JSONArray result = data.getJSONArray("result");
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<WeatherBean>>() {
-                            }.getType();
-                            List<WeatherBean> weatherBeans = gson.fromJson(result.toString(), type);
-                            listener.onSuccess(weatherBeans);
-                        }
-                    }
-
                 }
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            JSONObject data = xfDataJSONObject.getJSONObject("data");
+            Gson gson = new Gson();
+            JSONArray result = null;
+            if (data != null) {
+                result = data.getJSONArray("result");
+            }
+
+            if ("weather".equals(service)) {
+                //解析result类 XFdada中的data数据
+                if (result != null) {
+                    Type type = new TypeToken<List<WeatherBean>>() {
+                    }.getType();
+                    List<WeatherBean> weatherBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(weatherBeans);
+                }
+            }
+
+
+            if ("cookbook".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<CookbookBean>>() {
+                    }.getType();
+                    List<CookbookBean> cookBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(cookBeans);
+                }
+            }
+
+            if ("dream".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<DreamBean>>() {
+                    }.getType();
+                    List<DreamBean> dreamBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(dreamBeans);
+                }
+            }
+
+            if ("baike".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<BaiKeBean>>() {
+                    }.getType();
+                    List<BaiKeBean> baikeBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(baikeBeans);
+                }
+            }
+
 
 
         } catch (JSONException e) {
@@ -104,7 +144,7 @@ public class XFSkillApi {
                         JSONObject XFDataObj = new JSONObject(data);
                         String code = XFDataObj.getString("code");
                         if (code.equals("00000")) {
-                            xfContentData = XFDataObj.getJSONObject("data");
+                            XFDataObj.getJSONObject("data");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
