@@ -20,6 +20,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.measure.MeasureChooseReason;
+import com.example.han.referralproject.measure.MeasureExceptionAdapter;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class MeasureXuetangFragment extends Fragment {
     private View view;
     private String titleString = "主人，您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
     private ArrayList<Integer> reasons;
-    private BaseQuickAdapter<Integer, BaseViewHolder> adapter;
+    private MeasureExceptionAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,15 +74,7 @@ public class MeasureXuetangFragment extends Fragment {
         initData();
         list.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         list.addItemDecoration(new GridViewDividerItemDecoration(15, 25));
-        list.setAdapter(adapter = new BaseQuickAdapter<Integer, BaseViewHolder>(R.layout.xuetang_result_item, reasons) {
-            @Override
-            protected void convert(BaseViewHolder helper, Integer item) {
-//                Glide.with(getActivity())
-//                        .load(item)
-//                        .into((ImageView) helper.getView(R.id.title));
-                ((ImageView)helper.getView(R.id.title)).setImageResource(item);
-            }
-        });
+        list.setAdapter(adapter = new MeasureExceptionAdapter(R.layout.xuetang_result_item, reasons));
 
         ivTopLeft.setOnClickListener(new View.OnClickListener() {
             @Override
