@@ -2,13 +2,16 @@ package com.example.han.referralproject.speechsynthesis;
 
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.BaiKeBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.ChineseZodiacBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.CookbookBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.DreamBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.HistoryBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.HolidayBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.IdiomBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.RiddleBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.TranslationBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.WeatherBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.WebsearchBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.WordFindingBean;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
@@ -68,6 +71,7 @@ public class XFSkillApi {
                 if (listener != null) {
                     if ("datetime".equals(service)
                             || "calc".equals(service)
+                            || "AIUI.guessNumber".equals(service)
                             ) {
                         listener.onSuccess(answer.getString("text"));
                         return;
@@ -167,6 +171,35 @@ public class XFSkillApi {
                     }.getType();
                     List<HolidayBean> holidayBeans = gson.fromJson(result.toString(), type);
                     listener.onSuccess(holidayBeans);
+                }
+            }
+
+
+            if ("chineseZodiac".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<ChineseZodiacBean>>() {
+                    }.getType();
+                    List<ChineseZodiacBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(chineseZodiacBeans);
+                }
+            }
+
+
+            if ("websearch".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<WebsearchBean>>() {
+                    }.getType();
+                    List<WebsearchBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(chineseZodiacBeans);
+                }
+            }
+
+            if ("LEIQIAO.historyToday".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<HistoryBean>>() {
+                    }.getType();
+                    List<HistoryBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(chineseZodiacBeans);
                 }
             }
 
