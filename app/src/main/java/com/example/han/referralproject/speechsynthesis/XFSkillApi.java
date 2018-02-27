@@ -4,11 +4,14 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.BaiKeBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.ChineseZodiacBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.CookbookBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.CrossTalkBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.DreamBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.HistoryBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.HistoryTodayBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.HolidayBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.IdiomBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.RiddleBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.StoryTellingBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.TranslationBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.WeatherBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.WebsearchBean;
@@ -16,7 +19,6 @@ import com.example.han.referralproject.speechsynthesis.xfparsebean.WordFindingBe
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.medlink.danbogh.utils.T;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -196,9 +198,39 @@ public class XFSkillApi {
 
             if ("LEIQIAO.historyToday".equals(service)) {
                 if (result != null) {
+                    Type type = new TypeToken<List<HistoryTodayBean>>() {
+                    }.getType();
+                    List<HistoryTodayBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(chineseZodiacBeans);
+                }
+            }
+
+
+            if ("history".equals(service)) {
+                if (result != null) {
                     Type type = new TypeToken<List<HistoryBean>>() {
                     }.getType();
                     List<HistoryBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(chineseZodiacBeans);
+                }
+            }
+
+
+            if ("crossTalk".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<CrossTalkBean>>() {
+                    }.getType();
+                    List<CrossTalkBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(chineseZodiacBeans);
+                }
+            }
+
+
+            if ("storyTelling".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<StoryTellingBean>>() {
+                    }.getType();
+                    List<StoryTellingBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
                     listener.onSuccess(chineseZodiacBeans);
                 }
             }

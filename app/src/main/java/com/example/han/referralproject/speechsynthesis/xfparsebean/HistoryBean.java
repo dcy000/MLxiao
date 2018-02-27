@@ -1,7 +1,6 @@
 package com.example.han.referralproject.speechsynthesis.xfparsebean;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by lenovo on 2018/2/27.
@@ -10,18 +9,24 @@ import java.util.List;
 public class HistoryBean implements Serializable {
 
     /**
-     * date : 02-27
-     * day : 1991年02月27日
-     * description : 1991年2月27日 (农历正月十三)，科威特恢复国家独立和主权。    1991年2月27日，科威特城这个近7个月来全球瞩目的城市，从早到晚到处响彻“自由科威特”的口号声。成百上千辆汽车装饰着标语、彩旗，喇叭长鸣，载着喜形于色、载歌载舞的科威特人在市中心来往穿行。年轻小伙子不时朝天鸣放机枪、冲锋枪，表示庆祝。妇女们则手持国旗和埃米尔画像，笑容满面。    科威特人民议会最高咨询局当日在吉达发表声明，号召科威特人民加强民族团结，以便重建遭受战争破坏的祖国。    科威特最高咨询局26和27日在科威特首相萨阿德王储主持下举行了为期两天的会议。包括内阁成员、议会议员、政治家和商人在内的36名科威特知名人士参加了大会。    声明还要求科威特人民为恢复祖国遭到战争破坏的基本建设而勤奋工作。    科威特的一些反对派领导人表示，支持政府最近宣布的“在特殊的环境中实施的”军事管制法。    28日，中华人民共和国主席杨尚昆打电报给科威特埃米尔贾比尔·艾哈迈德·萨巴赫殿下，热烈祝贺科威特的独立、主权、领土完整得以恢复。
-     * imgs : []
-     * source : juhe
-     * title : 科威特恢复国家独立和主权
+     * album : 乾隆皇帝
+     * content :
+     * description : 他是大清帝国的第四位皇帝，25岁登基，在位60年。他是中国历史上最长寿的皇帝，在世89年，使康乾盛世达到最高峰。他就是乾隆皇帝——爱新觉罗·弘历。小刚神款天，为您带来《乾隆皇帝》。励精图治，开疆拓宇，四征不庭，揆文奋武，於斯为盛。享祚之久，同符圣祖。搜索并关注微信公众号：“开心码头”即可和小刚在线互动哦~各位客官，小刚的节目还合您的胃口吧？那就请给小的些赏钱吧~
+     * duration : 1640
+     * dynasty :
+     * name : 乾隆皇帝第15集—权臣之争，平衡处之
+     * source : qingtingfm
+     * type : 1
+     * url : http://od.open.qingting.fm/m4a/58b7dd0a7cb8917262159a3d_6872289_64.m4a?u=786&channelId=208263&programId=6612480
      */
 
-    public String date;
-    public String day;
+    public String album;
+    public String content;
     public String description;
+    public String duration;
+    public String dynasty;
+    public String name;
     public String source;
-    public String title;
-    public List<String> imgs;
+    public String type;
+    public String url;
 }
