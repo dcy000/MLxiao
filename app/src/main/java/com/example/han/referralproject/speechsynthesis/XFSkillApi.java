@@ -4,7 +4,11 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.BaiKeBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.CookbookBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.DreamBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.IdiomBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.RiddleBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.TranslationBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.WeatherBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.WordFindingBean;
 import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -61,9 +65,12 @@ public class XFSkillApi {
             JSONObject answer = xfDataJSONObject.getJSONObject("answer");
             if (answer != null) {
                 if (listener != null) {
-                    if ("datetime".equals(service)) {
+                    if ("datetime".equals(service)
+                            || "calc".equals(service)
+                            ) {
                         listener.onSuccess(answer.getString("text"));
                     }
+                    return;
                 }
             }
         } catch (JSONException e) {
@@ -117,6 +124,40 @@ public class XFSkillApi {
                 }
             }
 
+            if ("translation".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<TranslationBean>>() {
+                    }.getType();
+                    List<TranslationBean> translationBeanBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(translationBeanBeans);
+                }
+            }
+
+            if ("riddle".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<RiddleBean>>() {
+                    }.getType();
+                    List<RiddleBean> riddleBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(riddleBeans);
+                }
+            }
+
+            if ("wordFinding".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<WordFindingBean>>() {
+                    }.getType();
+                    List<WordFindingBean> findingBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(findingBeans);
+                }
+            }
+            if ("idiom".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<IdiomBean>>() {
+                    }.getType();
+                    List<IdiomBean> idiomBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(idiomBeans);
+                }
+            }
 
 
         } catch (JSONException e) {
