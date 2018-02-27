@@ -21,6 +21,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.measure.MeasureChooseReason;
+import com.example.han.referralproject.measure.MeasureExceptionAdapter;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class MeasureXueyaWarningFragment extends Fragment {
     private ArrayList<Integer> reasons;
     private String firstTitle = "主人，您的测量数据与标准值相差较大，您是否存在以下情况：";
     private String titleString = "主人，您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
-    private BaseQuickAdapter<Integer, BaseViewHolder> adapter;
+    private MeasureExceptionAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,15 +75,7 @@ public class MeasureXueyaWarningFragment extends Fragment {
         initData();
         list.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         list.addItemDecoration(new GridViewDividerItemDecoration(15, 25));
-        list.setAdapter(adapter = new BaseQuickAdapter<Integer, BaseViewHolder>(R.layout.xuetang_result_item, reasons) {
-            @Override
-            protected void convert(BaseViewHolder helper, Integer item) {
-//                Glide.with(getActivity())
-//                        .load(item)
-//                        .into((ImageView) helper.getView(R.id.title));
-                ((ImageView)helper.getView(R.id.title)).setImageResource(item);
-            }
-        });
+        list.setAdapter(adapter = new MeasureExceptionAdapter(R.layout.xuetang_result_item, reasons));
 
         ivTopLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +91,7 @@ public class MeasureXueyaWarningFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

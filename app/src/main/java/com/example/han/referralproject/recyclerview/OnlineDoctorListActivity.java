@@ -121,7 +121,6 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                     Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
                     intent.putExtra("docMsg", (Serializable) mlist.get(postion));
                     startActivity(intent);
-                    finish();
                     return;
                 }
 

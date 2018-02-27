@@ -167,11 +167,11 @@ public class LocalShared {
         return mShared.getString(XunfeiId, "");
     }
 
-//    public void loginOut() {
-//        String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
-//        MyApplication.getInstance().userId = null;
-//        mShared.edit().clear().putString(UserAccounts, accountHistory).commit();
-//    }
+    public void loginOut() {
+        //String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
+        MyApplication.getInstance().userId = null;
+        mShared.edit().putString(UserId, "").commit();
+    }
 
     public void reset() {
         MyApplication.getInstance().userId = null;

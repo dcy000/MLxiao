@@ -84,8 +84,8 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener{
                 new JpushAliasUtils(mContext).deleteAlias();
                 MobclickAgent.onProfileSignOff();
                 NimAccountHelper.getInstance().logout();//退出网易IM
-                LocalShared.getInstance(mContext).deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);//删除当前这个人的账号
-                MyApplication.getInstance().userId=null;
+                //LocalShared.getInstance(mContext).deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);//删除当前这个人的账号
+                LocalShared.getInstance(mContext).loginOut();
                 mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity)mContext).finish();
                 break;

@@ -88,7 +88,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     private FaceRequest mFaceRequest;
 
 
-    public RelativeLayout rlBack;
+    public ImageView rlBack;
     public boolean isTest = false;
     private ByteArrayOutputStream stream;
     private Handler mHandler = new Handler(new Handler.Callback() {
@@ -220,7 +220,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     private void initUI() {
         Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
         findViewById(R.id.iv_circle).startAnimation(rotateAnim);
-        rlBack = (RelativeLayout) findViewById(R.id.rl_back);
+        rlBack = (ImageView) findViewById(R.id.iv_back);
         findViewById(R.id.tiao_guos).setVisibility(View.GONE);
         rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
