@@ -2,6 +2,7 @@ package com.example.han.referralproject.speechsynthesis;
 
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.Utils;
+import com.medlink.danbogh.utils.T;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,12 +23,13 @@ import okhttp3.Response;
 
 public class XFSkillApi {
     public static OkHttpClient client;
+    private static JSONObject xfContentData;
 
     /**
      * 成功的回调借口
      */
-    private interface getDataListener {
-        void onSuccess(String anwser);
+    public interface getDataListener {
+        void onSuccess(Object anwser);
     }
 
     /**
@@ -37,15 +39,34 @@ public class XFSkillApi {
      * @param skillType   技能类型
      * @return 直接anwser返回
      */
-    public static void getStringData(String contentText, String skillType, final getDataListener listener) {
-        String anwser = "";
+    public static void getSkillData(String contentText, String skillType, final getDataListener listener) {
+
+        JSONObject xfDataJSONObject = getXFDataJSONObject(contentText);
+        if (xfDataJSONObject == null) {
+            return;
+        }
+        try {
+            String service = xfDataJSONObject.getString("service");
+            JSONObject answer = xfDataJSONObject.getJSONObject("answer");
+            if (answer != null) {
+                if (listener != null) {
+                    listener.onSuccess(answer.getString("text"));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static JSONObject getXFDataJSONObject(String contentText) {
         Call call = initPostCall(contentText);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
@@ -53,16 +74,10 @@ public class XFSkillApi {
                     try {
                         JSONObject object = new JSONObject(string);
                         String data = object.getString("data");
-                        JSONObject XFDataObj = new JSONObject(string);
-                        //讯飞成功返回
-                        if (XFDataObj.get("code").equals("00000")) {
-                            JSONObject XFContentData = XFDataObj.getJSONObject("data");
-                            JSONObject answer = XFContentData.getJSONObject("answer");
-                            if (answer != null) {
-                                if (listener != null) {
-                                    listener.onSuccess(answer.getString("text"));
-                                }
-                            }
+                        JSONObject XFDataObj = new JSONObject(data);
+                        String code = XFDataObj.getString("code");
+                        if (code.equals("00000")) {
+                            xfContentData = XFDataObj.getJSONObject("data");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -70,6 +85,7 @@ public class XFSkillApi {
                 }
             }
         });
+        return xfContentData;
     }
 
     private static Call initPostCall(String contentText) {

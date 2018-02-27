@@ -117,8 +117,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" >
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <!-- <activity -->
         <!-- android:name="com.mob.tools.MobUIShell" -->
         <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
@@ -177,9 +176,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape" >
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
@@ -217,12 +214,13 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.HOME" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".facerecognition.OnlineFaceDemo"
@@ -239,9 +237,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.AuthenticationActivity"
-            android:screenOrientation="landscape" >
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
@@ -537,20 +533,25 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".measure.MeasureXuetangResultActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
-
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".radio.RadioActivity"
-            android:screenOrientation="landscape" >
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".video.TheOldVideoActivity"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".Main2Activity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
 
         </activity>
-
     </application>
 
 </manifest>
