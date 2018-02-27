@@ -4,6 +4,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.BaiKeBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.CookbookBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.DreamBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.HolidayBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.IdiomBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.RiddleBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.TranslationBean;
@@ -69,8 +70,8 @@ public class XFSkillApi {
                             || "calc".equals(service)
                             ) {
                         listener.onSuccess(answer.getString("text"));
+                        return;
                     }
-                    return;
                 }
             }
         } catch (JSONException e) {
@@ -150,12 +151,22 @@ public class XFSkillApi {
                     listener.onSuccess(findingBeans);
                 }
             }
+
             if ("idiom".equals(service)) {
                 if (result != null) {
                     Type type = new TypeToken<List<IdiomBean>>() {
                     }.getType();
                     List<IdiomBean> idiomBeans = gson.fromJson(result.toString(), type);
                     listener.onSuccess(idiomBeans);
+                }
+            }
+
+            if ("holiday".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<HolidayBean>>() {
+                    }.getType();
+                    List<HolidayBean> holidayBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(holidayBeans);
                 }
             }
 
@@ -185,7 +196,7 @@ public class XFSkillApi {
                         JSONObject XFDataObj = new JSONObject(data);
                         String code = XFDataObj.getString("code");
                         if (code.equals("00000")) {
-                            XFDataObj.getJSONObject("data");
+                            xfContentData = XFDataObj.getJSONObject("data");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
