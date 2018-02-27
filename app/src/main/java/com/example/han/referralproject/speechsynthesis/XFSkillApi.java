@@ -1,13 +1,19 @@
 package com.example.han.referralproject.speechsynthesis;
 
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.WeatherBean;
 import com.example.han.referralproject.util.Utils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.medlink.danbogh.utils.T;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -46,13 +52,33 @@ public class XFSkillApi {
             return;
         }
         try {
+            JSONObject data = xfDataJSONObject.getJSONObject("data");
             String service = xfDataJSONObject.getString("service");
+            //直接回答anwser
             JSONObject answer = xfDataJSONObject.getJSONObject("answer");
+
             if (answer != null) {
                 if (listener != null) {
-                    listener.onSuccess(answer.getString("text"));
+                    if ("datetime".equals(service)) {
+                        listener.onSuccess(answer.getString("text"));
+                    }
+
+                    if ("weather".equals(service)) {
+                        //解析result类 XFdada中的data数据
+                        if (data != null) {
+                            JSONArray result = data.getJSONArray("result");
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<List<WeatherBean>>() {
+                            }.getType();
+                            List<WeatherBean> weatherBeans = gson.fromJson(result.toString(), type);
+                            listener.onSuccess(weatherBeans);
+                        }
+                    }
+
                 }
             }
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -67,6 +93,7 @@ public class XFSkillApi {
             public void onFailure(Call call, IOException e) {
 
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {

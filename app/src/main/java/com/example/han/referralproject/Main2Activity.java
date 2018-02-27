@@ -6,6 +6,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.han.referralproject.speechsynthesis.XFSkillApi;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.WeatherBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +37,7 @@ public class Main2Activity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textView5.setText((String) anwser);
+                        textView5.setText(((List<WeatherBean>) anwser).toString());
                     }
                 });
             }
