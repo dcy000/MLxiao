@@ -20,7 +20,7 @@ public class DataInfoBean {
     public String cholesterol;//胆固醇
     public String uric_acid;//尿酸
     public String sugar_time;//测量血糖的时间：空腹，饭后一小时，饭后两小时
-    public boolean state;//是否强制插入异常数据表示
+    public boolean upload_state;//是否强制插入异常数据表示
     public Map<String, String> getParamsMap(){
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("time", String.valueOf(System.currentTimeMillis()));
@@ -55,8 +55,8 @@ public class DataInfoBean {
         if (weight != 0){
             paramsMap.put("weight", String.format("%.2f", weight));
         }
-        if (state){
-            paramsMap.put("state","true");
+        if (upload_state){
+            paramsMap.put("upload_state","true");
         }
         return paramsMap;
     }

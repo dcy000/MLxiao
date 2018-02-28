@@ -156,7 +156,7 @@ public class StatusBarFragment extends Fragment implements
         date.setTime(time);
         if (dateFormat == null) {
             //上午 12:32 1月26日 周五
-            dateFormat = new SimpleDateFormat("a hh:mm MM月dd日 E", Locale.CHINA);
+            dateFormat = new SimpleDateFormat("a hh:mm yyyy年MM月dd日 E", Locale.CHINA);
         }
         return dateFormat.format(date);
     }

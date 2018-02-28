@@ -64,6 +64,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.util.Accelerometer;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import org.json.JSONException;
@@ -90,7 +91,6 @@ public class AuthenticationActivity extends BaseActivity {
     private String mAuthid;
     // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
-    public RelativeLayout mImageView;
     private Bitmap b3;
     private String orderid;
     private NDialog2 dialog2;
@@ -158,10 +158,11 @@ public class AuthenticationActivity extends BaseActivity {
             unDentified = 5;
         }
         dialog2 = new NDialog2(AuthenticationActivity.this);
-        mImageView = (RelativeLayout) findViewById(R.id.rl_back);
-        mImageView.setOnClickListener(new OnClickListener() {
+
+        findViewById(R.id.iv_back).setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                finishActivity();
                 finish();
             }
         });
@@ -177,20 +178,7 @@ public class AuthenticationActivity extends BaseActivity {
         mTiaoguo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (faceThread != null) {
-                    Log.e(TAG, "onClick: " + "销毁子线程");
-                    faceThread.interrupt();
-                }
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                }
-                if (mFaceRequest != null) {
-                    mFaceRequest.cancel();
-                }
-                if (mAcc != null) {
-                    mAcc.stop();
-                }
-                closeCamera();
+                finishActivity();
 
                 if ("Test".equals(fromString)) {
                     Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
@@ -209,6 +197,23 @@ public class AuthenticationActivity extends BaseActivity {
 
         Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
         findViewById(R.id.iv_circle).startAnimation(rotateAnim);
+    }
+
+    private void finishActivity() {
+        if (faceThread != null) {
+            Log.e(TAG, "onClick: " + "销毁子线程");
+            faceThread.interrupt();
+        }
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+        if (mFaceRequest != null) {
+            mFaceRequest.cancel();
+        }
+        if (mAcc != null) {
+            mAcc.stop();
+        }
+        closeCamera();
     }
 
     private void getAllUsersInfo(String[] accounts) {
@@ -664,7 +669,6 @@ public class AuthenticationActivity extends BaseActivity {
             mAcc.stop();
         }
     }
-
 
     @Override
     protected void onDestroy() {

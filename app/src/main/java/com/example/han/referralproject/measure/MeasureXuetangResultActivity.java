@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -89,7 +90,7 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
         speak("主人，您本次测量的血糖值是" + intent.getStringExtra("result") +
                 "，本周空腹平均血糖值" + String.format("%.2f", Float.parseFloat(weekEmptyAvg)) + ",饭后一小时平均血糖值"
                 + String.format("%.2f", Float.parseFloat(weekOneAvg)) + ",饭后两小时平均血糖值" +
-                String.format("%.2f", Float.parseFloat(weekTwoAvg)) + ",健康分数" + String.format("%.0f",Float.parseFloat(fenshu)) + "分。" + suggest);
+                String.format("%.2f", Float.parseFloat(weekTwoAvg)) + ",健康分数" + String.format("%.0f", Float.parseFloat(fenshu)) + "分。" + suggest);
 
         tvSomethingAdvice.setOnClickListener(this);
         healthKnowledge.setOnClickListener(this);
@@ -141,9 +142,24 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
         tvGao.setText(measurePiangaoNum + "次");
         tvZhengchang.setText(measureZhengchangNum + "次");
         tvDi.setText(measurePiandiNum + "次");
-        tvEmpty.setText(String.format("%.2f", Float.parseFloat(weekEmptyAvg)));
-        tvOne.setText(String.format("%.2f", Float.parseFloat(weekOneAvg)));
-        tvTwo.setText(String.format("%.2f", Float.parseFloat(weekTwoAvg)));
+        if (!TextUtils.isEmpty(weekEmptyAvg))
+            if ("-1".equals(weekEmptyAvg)) {
+                tvEmpty.setText("未测量");
+            } else {
+                tvEmpty.setText(String.format("%.2f", Float.parseFloat(weekEmptyAvg)));
+            }
+        if (!TextUtils.isEmpty(weekOneAvg))
+            if ("-1".equals(weekOneAvg)) {
+                tvOne.setText("未测量");
+            } else {
+                tvOne.setText(String.format("%.2f", Float.parseFloat(weekOneAvg)));
+            }
+        if (!TextUtils.isEmpty(weekTwoAvg))
+            if ("-1".equals(weekTwoAvg)) {
+                tvTwo.setText("未测量");
+            } else {
+                tvTwo.setText(String.format("%.2f", Float.parseFloat(weekTwoAvg)));
+            }
 
         progressAnim = new Thread() {
             @Override

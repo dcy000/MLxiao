@@ -124,7 +124,7 @@ public class SheetDetailFragment extends Fragment {
             songListObserver = new SongListObserver();
         }
         getSongListUseCase.execute(
-                new GetSongListUseCase.Params(0, 1, 12),
+                new GetSongListUseCase.Params(sheetId, 1, 12),
                 songListObserver
         );
     }
@@ -134,15 +134,8 @@ public class SheetDetailFragment extends Fragment {
     private class SongListObserver extends ApiObserver<List<SongEntity>> {
         @Override
         public void onNext(List<SongEntity> songEntities) {
-            Iterator<SongEntity> iterator = songEntities.iterator();
-            while (iterator.hasNext()) {
-                SongEntity next = iterator.next();
-                if (!String.valueOf(sheetId).equals(next.getSheetId())) {
-                    iterator.remove();
-                }
-            }
             entities.addAll(songEntities);
-            adapter.notifyItemRangeInserted(entities.size() - songEntities.size(), songEntities.size());
+            adapter.notifyDataSetChanged();
         }
 
         @Override

@@ -58,21 +58,14 @@
             />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_back"
+    <ImageView
+        android:id="@+id/iv_back"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true">
+        android:src="@drawable/face_back_sel"
+        android:clickable="true"
+        android:scaleType="centerInside"/>
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/new_face_back" />
-
-    </RelativeLayout>
     <Button
         android:id="@+id/tiao_guos"
         android:layout_width="200dp"
@@ -80,12 +73,13 @@
         android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/face_tiaoguo"
+        android:background="@drawable/face_tiaoguo_sel"
         android:clickable="true"
         android:gravity="center"
         android:text="@string/tiaoguo"
         android:textColor="#50ABFE"
         android:textSize="40sp"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        />
 
 </RelativeLayout>
