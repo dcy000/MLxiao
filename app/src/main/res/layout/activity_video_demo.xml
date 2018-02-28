@@ -32,10 +32,10 @@
 
         <TextView
             android:id="@+id/tv_tip"
-            android:layout_width="504pt"
+            android:layout_width="wrap_content"
             android:textColor="#ffffffff"
             android:gravity="center"
-            android:textSize="28sp"
+            android:textSize="35sp"
             android:text="请将人脸对准识别框"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -54,7 +54,7 @@
             android:src="@drawable/icon_circle"
             android:layout_above="@id/tv_tip"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="35dp"
             />
     </RelativeLayout>
 

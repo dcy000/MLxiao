@@ -108,7 +108,9 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
                     mContent.setText(mData.getReview());
                 break;
             case R.id.rb_suggest:
-                mRbSuggest.setChecked(true);
+                if (mRbSuggest != null) {
+                    mRbSuggest.setChecked(true);
+                }
                 if (mData != null)
                     mContent.setText(mData.getSuggest());
                 break;

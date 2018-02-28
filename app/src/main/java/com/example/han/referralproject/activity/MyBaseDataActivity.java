@@ -3,6 +3,7 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,7 +18,14 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -113,7 +121,8 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .fit()
                         .into(mHead);
                 mName.setText(response.bname);
-                mAge.setText(response.age + "岁");
+
+                mAge.setText(Utils.age(response.sfz) + "岁");
                 mSex.setText(response.sex);
                 mHeight.setText(response.height + "cm");
                 mWeight.setText(response.weight + "Kg");

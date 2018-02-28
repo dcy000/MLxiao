@@ -150,7 +150,7 @@
         android:layout_marginLeft="22dp"
         android:layout_marginTop="18dp"
         android:padding="30dp"
-        android:src="@drawable/old_ic_home_back"
+        android:src="@drawable/old_ic_radio_back"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>
