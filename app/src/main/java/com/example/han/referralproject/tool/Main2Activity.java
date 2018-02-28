@@ -1,14 +1,12 @@
-package com.example.han.referralproject;
+package com.example.han.referralproject.tool;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.han.referralproject.speechsynthesis.XFSkillApi;
-import com.example.han.referralproject.speechsynthesis.xfparsebean.WeatherBean;
-
-import java.util.List;
+import com.example.han.referralproject.R;
+import com.example.han.referralproject.tool.XFSkillApi;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

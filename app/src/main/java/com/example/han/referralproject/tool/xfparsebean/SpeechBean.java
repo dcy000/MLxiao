@@ -1,4 +1,4 @@
-package com.example.han.referralproject.speechsynthesis.xfparsebean;
+package com.example.han.referralproject.tool.xfparsebean;
 
 import java.io.Serializable;
 
