@@ -56,10 +56,9 @@ public class XFSkillApi {
      * 查询日期
      *
      * @param contentText 输入的内容
-     * @param skillType   技能类型
      * @return 直接anwser返回
      */
-    public static void getSkillData(String contentText, String skillType, final getDataListener listener) {
+    public static void getSkillData(String contentText, final getDataListener listener) {
 
         JSONObject xfDataJSONObject = getXFDataJSONObject(contentText);
         if (xfDataJSONObject == null) {
