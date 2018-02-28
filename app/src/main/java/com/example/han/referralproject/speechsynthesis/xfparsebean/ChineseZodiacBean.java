@@ -59,7 +59,7 @@ public class ChineseZodiacBean implements Serializable {
          * name : 运势指数
          */
 
-        public int description;
+        public String description;
         public String name;
     }
 }

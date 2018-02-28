@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -178,9 +179,35 @@ public class XFSkillApi {
 
             if ("chineseZodiac".equals(service)) {
                 if (result != null) {
-                    Type type = new TypeToken<List<ChineseZodiacBean>>() {
-                    }.getType();
-                    List<ChineseZodiacBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
+//                    Type type = new TypeToken<List<ChineseZodiacBean>>() {
+//                    }.getType();
+//                    List<ChineseZodiacBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
+                    List<ChineseZodiacBean> chineseZodiacBeans = new ArrayList<>();
+                    for (int i = 0; i < result.length(); i++) {
+                        ChineseZodiacBean chineseZodiacBean = new ChineseZodiacBean();
+                        JSONObject jsonObject = result.getJSONObject(i);
+                        chineseZodiacBean.causes = jsonObject.getString("causes");
+                        chineseZodiacBean.summary = jsonObject.getString("summary");
+                        chineseZodiacBean.source = jsonObject.getString("source");
+                        chineseZodiacBean.name = jsonObject.getString("name");
+                        chineseZodiacBean.year = jsonObject.getString("year");
+                        chineseZodiacBean.url = jsonObject.getString("url");
+
+                        Type typeDetail = new TypeToken<List<ChineseZodiacBean.DetailBean>>() {
+                        }.getType();
+                        chineseZodiacBean.detail = gson.fromJson(jsonObject.getJSONArray("detail").toString(), typeDetail);
+
+                        Type typeFortune = new TypeToken<List<ChineseZodiacBean.FortuneBean>>() {
+                        }.getType();
+                        chineseZodiacBean.fortune = gson.fromJson(jsonObject.getJSONArray("fortune").toString(), typeFortune);
+
+                        Type typeNumerology= new TypeToken<List<ChineseZodiacBean.NumerologyBean>>() {
+                        }.getType();
+                        chineseZodiacBean.numerology = gson.fromJson(jsonObject.getJSONArray("numerology").toString(), typeNumerology);
+
+                        chineseZodiacBeans.add(chineseZodiacBean);
+                    }
+
                     listener.onSuccess(chineseZodiacBeans);
                 }
             }
@@ -214,7 +241,7 @@ public class XFSkillApi {
                 }
             }
 
-
+            //相声小品
             if ("crossTalk".equals(service)) {
                 if (result != null) {
                     Type type = new TypeToken<List<CrossTalkBean>>() {
@@ -224,7 +251,7 @@ public class XFSkillApi {
                 }
             }
 
-
+            //评书
             if ("storyTelling".equals(service)) {
                 if (result != null) {
                     Type type = new TypeToken<List<StoryTellingBean>>() {

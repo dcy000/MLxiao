@@ -30,7 +30,7 @@ public class Main2Activity extends AppCompatActivity {
 
     @OnClick(R.id.textView5)
     public void onViewClicked() {
-        XFSkillApi.getSkillData(textView4.getText().toString().trim(), "", new XFSkillApi.getDataListener() {
+        XFSkillApi.getSkillData(textView4.getText().toString().trim(), new XFSkillApi.getDataListener() {
 
             @Override
             public void onSuccess(final Object anwser) {
