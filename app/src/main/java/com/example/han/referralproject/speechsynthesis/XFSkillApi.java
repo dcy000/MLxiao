@@ -6,11 +6,14 @@ import com.example.han.referralproject.speechsynthesis.xfparsebean.ChineseZodiac
 import com.example.han.referralproject.speechsynthesis.xfparsebean.CookbookBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.CrossTalkBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.DreamBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.HealthBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.HistoryBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.HistoryTodayBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.HolidayBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.IdiomBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.OpenClassBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.RiddleBean;
+import com.example.han.referralproject.speechsynthesis.xfparsebean.SpeechBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.StoryTellingBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.TranslationBean;
 import com.example.han.referralproject.speechsynthesis.xfparsebean.WeatherBean;
@@ -260,6 +263,38 @@ public class XFSkillApi {
                     listener.onSuccess(chineseZodiacBeans);
                 }
             }
+
+            //名人演讲
+            if ("LEIQIAO.speech".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<SpeechBean>>() {
+                    }.getType();
+                    List<SpeechBean> speechBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(speechBeans);
+                }
+            }
+
+            //公开课
+            if ("LEIQIAO.openClass".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<OpenClassBean>>() {
+                    }.getType();
+                    List<OpenClassBean> openClassBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(openClassBeans);
+                }
+            }
+
+
+            //健康知识
+            if ("health".equals(service)) {
+                if (result != null) {
+                    Type type = new TypeToken<List<HealthBean>>() {
+                    }.getType();
+                    List<HealthBean> healthBeans = gson.fromJson(result.toString(), type);
+                    listener.onSuccess(healthBeans);
+                }
+            }
+
 
 
         } catch (JSONException e) {
