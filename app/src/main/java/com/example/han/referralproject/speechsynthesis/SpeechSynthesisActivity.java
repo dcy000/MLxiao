@@ -632,7 +632,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*shouyinji.*")) {
+            if (inSpell.matches(".*(guangbo|diantai|shouyinji).*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, RadioActivity.class);
                 startActivity(intent);
                 return;
@@ -699,7 +699,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                             //未签约
                             Intent intent = new Intent(SpeechSynthesisActivity.this,
                                     OnlineDoctorListActivity.class);
-                            intent.putExtra("contract", "contract");
+                            intent.putExtra("flag", "contract");
                             startActivity(intent);
                         } else {
                             // 待审核
@@ -743,7 +743,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (inSpell.matches(".*(xiaoyiyuanshen|xiaoyiyuanshen|xiaoyi|yuansen|xiaoeyuansheng|xiaoeyuanshen).*")) {
                 voiceNormal.performClick();
             }
-
 
             if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)

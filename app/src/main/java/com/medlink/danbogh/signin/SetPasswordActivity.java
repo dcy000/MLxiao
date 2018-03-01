@@ -119,9 +119,10 @@ public class SetPasswordActivity extends BaseActivity {
     private void onValidPhone() {
         showLoadingDialog("加载中...");
         String pwd = etPassword.getText().toString().trim();
-        if (TextUtils.isEmpty(pwd)) {
+        if (TextUtils.isEmpty(pwd) || pwd.length() != 6) {
             T.show("请输入6位数字密码");
             speak("请输入6位数字密码");
+            return;
         }
         NetworkApi.setPassword(mPhone, pwd, new NetworkManager.SuccessCallback<String>() {
             @Override
