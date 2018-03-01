@@ -91,16 +91,11 @@ public class PlayVideoActivity extends AppCompatActivity implements View.OnClick
          */
         @Override
         public void onCloseVideo() {
-            new AlertDialog.Builder(PlayVideoActivity.this)
-                    .setMessage("shipin")
-                    .create()
-                    .show();
-
-//            mSuperVideoPlayer.close();//关闭VideoView
-            //mPlayBtnView.setVisibility(View.VISIBLE);
-//            mSuperVideoPlayer.setVisibility(View.GONE);
+            mSuperVideoPlayer.close();//关闭VideoView
+//            mPlayBtnView.setVisibility(View.VISIBLE);
+            mSuperVideoPlayer.setVisibility(View.GONE);
 //            resetPageToPortrait();
-//            finish();
+            finish();
         }
 
         /**
