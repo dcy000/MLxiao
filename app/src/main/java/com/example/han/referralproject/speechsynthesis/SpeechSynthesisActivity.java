@@ -606,12 +606,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*yinyue.*")
-                    || inSpell.matches(".*shouyinji.*")
-                    ) {
-                OldRouter.routeToOldHomeActivity(this);
-                return;
-            }
+//            if (inSpell.matches(".*yinyue.*")
+//                    || inSpell.matches(".*shouyinji.*")
+//                    ) {
+//                OldRouter.routeToOldHomeActivity(this);
+//                return;
+//            }
 
             if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
