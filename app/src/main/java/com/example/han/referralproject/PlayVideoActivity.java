@@ -28,7 +28,6 @@ public class PlayVideoActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
-
         verifyStoragePermissions(this);
         mSuperVideoPlayer = (SuperVideoPlayer) findViewById(R.id.video_player_item_1);
         mPlayBtnView = findViewById(R.id.play_btn);

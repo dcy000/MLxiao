@@ -1158,9 +1158,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
-                finish();
             }
         });
 

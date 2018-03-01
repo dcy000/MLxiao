@@ -610,13 +610,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*jian(ce|che|ca|cha).*")
-                    ||inSpell.matches(".*(ce|che)(shi|si).*")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                startActivity(intent);
-                return;
-            }
+//            if (inSpell.matches(".*jian(ce|che|ca|cha).*")
+//                    ||inSpell.matches(".*(ce|che)(shi|si).*")) {
+//                Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                startActivity(intent);
+//                return;
+//            }
 
             if (inSpell.matches(".*xiaoxi.*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
@@ -832,7 +832,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi).*")) {
+            } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                 intent.putExtra("type", "sanheyi");
@@ -868,6 +868,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*dashengyin.*")
                     || inSpell.matches(".*dayinliang.*")
                     || inSpell.matches(".*dashengdian.*")
+                    || inSpell.matches(".*dadiansheng.*")
                     || inSpell.matches(".*yinliang.*da.*")
                     || inSpell.matches(".*shengyin.*da.*")
                     || inSpell.matches(".*tigao.*shengyin.*")
@@ -891,6 +892,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*xiaoshengyin.*")
                     || inSpell.matches(".*xiaoyinliang.*")
                     || inSpell.matches(".*xiaoshengdian.*")
+                    || inSpell.matches(".*xiaodiansheng.*")
                     || inSpell.matches(".*shengyin.*xiao.*")
                     || inSpell.matches(".*yinliang.*xiao.*")
                     || inSpell.matches(".*yinliang.*jiangdi.*")

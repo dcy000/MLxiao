@@ -2,6 +2,7 @@ package com.example.han.referralproject.video;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -45,6 +47,18 @@ public class PlayVideoActivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSuperVideoPlayer.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSuperVideoPlayer.pausePlay(true);
+    }
+
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -77,11 +91,16 @@ public class PlayVideoActivity extends AppCompatActivity implements View.OnClick
          */
         @Override
         public void onCloseVideo() {
-            mSuperVideoPlayer.close();//关闭VideoView
+            new AlertDialog.Builder(PlayVideoActivity.this)
+                    .setMessage("shipin")
+                    .create()
+                    .show();
+
+//            mSuperVideoPlayer.close();//关闭VideoView
             //mPlayBtnView.setVisibility(View.VISIBLE);
-            mSuperVideoPlayer.setVisibility(View.GONE);
-            resetPageToPortrait();
-            finish();
+//            mSuperVideoPlayer.setVisibility(View.GONE);
+//            resetPageToPortrait();
+//            finish();
         }
 
         /**

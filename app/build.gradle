@@ -134,7 +134,8 @@ dependencies {
     compile name: 'library', ext: 'aar'
     compile name: 'vmtools', ext: 'aar'
     compile name: 'voicelibrary', ext: 'aar'
-    compile name: 'wkvideoplayer', ext: 'aar'
+//    compile name: 'wkvideoplayer', ext: 'aar'
+    compile project(':wkvideoplayer')
 
     compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'

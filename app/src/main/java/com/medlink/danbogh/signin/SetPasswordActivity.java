@@ -122,6 +122,7 @@ public class SetPasswordActivity extends BaseActivity {
         if (TextUtils.isEmpty(pwd) || pwd.length() != 6) {
             T.show("请输入6位数字密码");
             speak("请输入6位数字密码");
+            hideLoadingDialog();
             return;
         }
         NetworkApi.setPassword(mPhone, pwd, new NetworkManager.SuccessCallback<String>() {

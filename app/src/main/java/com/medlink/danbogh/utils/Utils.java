@@ -332,7 +332,7 @@ public class Utils {
 
     public static int age(String idCard) {
         if (TextUtils.isEmpty(idCard)
-                || idCard.length() != 11) {
+                || idCard.length() != 18) {
             return 0;
         }
         try {
