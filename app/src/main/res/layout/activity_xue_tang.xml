@@ -41,7 +41,6 @@
         android:src="@drawable/video_xueya" />
 
     <ImageView
-        android:id="@+id/video_xuetang3"
         android:layout_width="550dp"
         android:layout_height="180dp"
         android:layout_alignStart="@+id/video_xuetang2"

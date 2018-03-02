@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fl_toolbar"
     android:layout_width="0dp"
     android:layout_height="146pt"
     android:background="@drawable/bg_toolbar"

@@ -102,7 +102,6 @@
         </android.support.v7.widget.RecyclerView>
 
         <TextView
-            android:id="@+id/old_tv_title"
             android:layout_width="match_parent"
             android:layout_height="160pt"
             android:layout_gravity="center_horizontal"

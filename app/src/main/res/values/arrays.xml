@@ -31,10 +31,6 @@
         <item>信号较差请重新测量</item>
         <item>分析结果出现错误</item>
     </string-array>
-    <string-array name="sex_array">
-        <item>男</item>
-        <item>女</item>
-    </string-array>
     <string-array name="result_xueya">
         <item>根据世界卫生组织标准，测量结果正常</item>
         <item>您的血压偏高，请咨询医生或再测一次</item>
@@ -50,30 +46,7 @@
         <item>根据世界卫生组织标准，测量结果正常</item>
         <item>您的血氧饱和度偏低，请尽快联系医生</item>
     </string-array>
-    <string-array name="result_xuetang">
-        <item>根据世界卫生组织标准，测量结果正常</item>
-        <item>您的血糖偏低</item>
-        <item>您的血糖偏高</item>
-    </string-array>
-    <string-array name="provinces">
-        <item>浙江</item>
-        <item>广东</item>
-        <item>山东</item>
-    </string-array>
-    <string-array name="cities">
-        <item>杭州</item>
-        <item>宁波</item>
-        <item>青岛</item>
-        <item>济南</item>
-    </string-array>
-    <string-array name="counties">
-        <item>西湖</item>
-        <item>萧山</item>
-        <item>市南</item>
-        <item>市北</item>
-        <item>四方</item>
-        <item>黄岛</item>
-    </string-array><string-array name="repeats">
+    <string-array name="repeats">
         <item>一次</item>
         <item>每天</item>
         <item>隔天</item>

@@ -97,7 +97,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         initLineChart();
         initOther();
         speak("主人，您本次测量的高压是" + intent.getStringExtra("current_gaoya") + ",低压是" + intent.getStringExtra("current_diya") +
-                "，本周平均高压" + String.format("%.0f", Float.parseFloat(weekGaoyaAvg)) + ",低压" + String.format("%.0f", Float.parseFloat(weekDiyaAvg)) + ",健康分数" + String.format("%.0f", Float.parseFloat(fenshu)) + "分。" + suggest);
+                "，本周平均高压" + String.format("%.0f",Float.parseFloat(weekGaoyaAvg)) + ",低压" + String.format("%.0f",Float.parseFloat(weekDiyaAvg)) + ",健康分数" + String.format("%1$.0f",Float.parseFloat(fenshu)) + "分。" + suggest);
         tvSomethingAdvice.setOnClickListener(this);
         healthKnowledge.setOnClickListener(this);
     }

@@ -6,37 +6,15 @@
     <color name="colorAccent">#3F51B5</color>
     <color name="backgd">#222A2A</color>
 
-    <color name="bg1">#D0E3F2</color>
-    <color name="bg2">#6AB7EB</color>
-    <color name="bgcolor">#CCFFFF</color>
     <color name="textcolor">#6AB7EB</color>
 
     <color name="white">@android:color/white</color>
-    <color name="white_8p">#14FFFFFF</color>
-    <color name="white_16p">#29FFFFFF</color>
-    <color name="white_24p">#3DFFFFFF</color>
-    <color name="white_50p">#80FFFFFF</color>
-    <color name="white_96p">#F5FFFFFF</color>
-    <color name="black">@android:color/black</color>
-    <color name="black_50p">#80000000</color>
-    <color name="red">#F44336</color>
-    <color name="red_30p">#4CF44336</color>
-    <color name="blue">#2196F3</color>
-    <color name="grey">#9E9E9E</color>
-    <color name="grey_50p">#809E9E9E</color>
-    <color name="grey_300">#E0E0E0</color>
-    <color name="grey_700_96p">#F5616161</color>
-    <color name="grey_300_96p">#F5E0E0E0</color>
-    <color name="grey_900">#212121</color>
-    <color name="grey_900_96p">#F5212121</color>
 
 
     <color name="name_color">#686868</color>
     <color name="name_good_at">#8c8c8c</color>
     <color name="name_pay">#327DFB</color>
 
-    <color name="cancel_yuyue">#06BB00</color>
-    <color name="true_yuyue">#FFA200</color>
     <color name="appraise">#676767</color>
 
 
@@ -47,13 +25,9 @@
 
     <color name="color_c2364b">#C2364B</color>
     <color name="color_f5455e">#F5455E</color>
-    <color name="healthy_shopping">#3E85FC</color>
-    <color name="healthy_shoppings">#999999</color>
     <!--导航栏的背景颜色-->
     <color name="toolbar_bg">#3F86FC</color>
     <color name="color_9cd793">#9CD793</color>
-    <color name="color_6d80e2">#6D80E2</color>
-    <color name="color_CFD8F1">#a8b9ec</color>
     <!--主推背景色-->
     <color name="main_bg">#f5f5f5</color>
     <color name="gray">#bbbbbb</color>
@@ -76,8 +50,6 @@
     <color name="line2_color">#9CE5B0</color>
     <!--第二条线的节点颜色-->
     <color name="node2_color">#3ACC61</color>
-
-    <color name="time_color">#3F86FC</color>
 
     <color name="toolbar_pressed">#33000000</color>
     <color name="toolbar_normal">#00000000</color>

@@ -87,14 +87,17 @@ public class MyApplication extends Application {
         xfid = mShared.getXunfeiId();
         telphoneNum = mShared.getPhoneNum();
         eqid = mShared.getEqID();
+
         WakeupHelper.init(this);
         StringBuilder builder = new StringBuilder();
         builder.append("appid=")
-                .append(getString(R.string.app_id))
+                .append("59196d96")
                 .append(",")
                 .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
 
-        SpeechUtility utility = SpeechUtility.createUtility(this, builder.toString());
+        SpeechUtility.createUtility(this, builder.toString());
+
+
         NimInitHelper.getInstance().init(this, true);
 //        initOkHttpUtils();
 
@@ -151,9 +154,7 @@ public class MyApplication extends Application {
         return null;
     }
 
-    private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);
-
-    {
+    private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);{
         mBgThread.start();
     }
 

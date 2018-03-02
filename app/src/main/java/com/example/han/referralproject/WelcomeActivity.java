@@ -63,20 +63,6 @@ public class WelcomeActivity extends BaseActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                    //获取所有账号
-//                                    String[] accounts = LocalShared.getInstance(WelcomeActivity.this).getAccounts();
-//                                    if (!TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                                        startActivity(intent);
-//                                    } else if (accounts != null) {
-//                                        startActivity(new Intent(WelcomeActivity.this, AuthenticationActivity.class)
-//                                                .putExtra("from", "Welcome"));
-//                                    } else {
-//                                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-//                                        startActivity(intent);
-//                                    }
-
-
                                     if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
                                         Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
                                         startActivity(intent);

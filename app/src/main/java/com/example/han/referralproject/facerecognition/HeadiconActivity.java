@@ -146,6 +146,7 @@ public class HeadiconActivity extends BaseActivity {
                                 public void onSuccess(Object response) {
                                     LocalShared shared = LocalShared.getInstance(mContext);
                                     shared.addAccount(MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId());
+                                    Log.e("注册储存讯飞id成功", "onSuccess: userID"+MyApplication.getInstance().userId+"-----xfid"+LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                                     Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -154,7 +155,7 @@ public class HeadiconActivity extends BaseActivity {
                             }, new NetworkManager.FailedCallback() {
                                 @Override
                                 public void onFailed(String message) {
-
+                                    Log.e("注册储存讯飞id失败", "onFailed: ");
                                 }
                             });
                 } else {

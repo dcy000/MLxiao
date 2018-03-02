@@ -6,12 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -36,7 +33,6 @@ import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
@@ -131,7 +127,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         }, 1000);
+
     }
+
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -239,6 +237,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
     }
+
 
     public static final String REGEX_GO_PERSONAL_CENTER = ".*(gerenzhongxin|wodeshuju).*";
     public static final String REGEX_GO_CLASS = ".*(jiankangketang|shipin).*";

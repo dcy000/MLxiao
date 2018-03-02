@@ -66,6 +66,17 @@ public class Utils {
         return d;
     }
     /**
+     * 时间格式转换
+     * @param s
+     * @return
+     */
+    public static String stampToDate3(long s){
+        SimpleDateFormat format =  new SimpleDateFormat("MMddHH");
+        Long time=new Long(s);
+        String d = format.format(time);
+        return d;
+    }
+    /**
      * 调节屏幕透明度
      * @param context
      * @param bgAlpha
