@@ -1,11 +1,12 @@
 package com.example.han.referralproject.radio;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
+
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -20,8 +21,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.Music;
-import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
@@ -30,7 +29,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RadioActivity extends BaseActivity {
+import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
+public class RadioActivity extends BaseActivity implements IMediaPlayer.OnPreparedListener, IMediaPlayer.OnErrorListener, IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.OnCompletionListener, IMediaPlayer.OnInfoListener, IMediaPlayer.OnSeekCompleteListener {
+    private static final String TAG = "radio";
     private RecyclerView rvRadios;
     private List<RadioEntity> entities = new ArrayList<>();
     private Adapter adapter;
@@ -40,47 +43,14 @@ public class RadioActivity extends BaseActivity {
     private ImageView ivPrev;
     private ImageView ivNext;
 
-    private MusicService musicService;
-    private Music music;
-    private boolean bound;
-
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            bound = true;
-            Log.d("fm", "onServiceConnected: ");
-            musicService = ((MusicService.MusicBind) service).getService();
-            //绑定好以后把要播放的文件set到服务中去
-            musicService.setOnMusicPreparedListener(onMusicPreparedListener);
-            musicService.setMusicResourse(music);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.d("fm", "onServiceDisconnected: ");
-            bound = false;
-        }
-
-        @Override
-        public void onBindingDied(ComponentName name) {
-            Log.d("fm", "onBindingDied: ");
-            bound = false;
-        }
-    };
-
-    MusicService.MusicPreParedOk onMusicPreparedListener = new MusicService.MusicPreParedOk() {
-        @Override
-        public void prepared(Music music) {
-            Log.d("fm", "prepared: ");
-            musicService.pause();
-            musicService.play();
-            Handlers.ui().post(updateUIAction);
-        }
-    };
-
     private Runnable updateUIAction = new Runnable() {
         @Override
         public void run() {
+            if (isBuffering) {
+                showLoadingDialog("缓冲中...");
+            } else {
+                hideLoadingDialog();
+            }
             RadioEntity entity = entities.get(adapter.getSelectedPosition());
             tvSelectedFm.setText(entity.getFm());
             tvSelectedName.setText(entity.getName());
@@ -89,21 +59,16 @@ public class RadioActivity extends BaseActivity {
     };
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        if (musicService != null) {
-            musicService.release();
-        }
-    }
-
-    @Override
     protected void onDestroy() {
-        //取消绑定的服务
-        if (serviceConnection != null && bound) {
-            unbindService(serviceConnection);
-        }
         Handlers.bg().removeCallbacksAndMessages(null);
         Handlers.ui().removeCallbacksAndMessages(null);
+        audioHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                audioHandler.removeCallbacksAndMessages(null);
+                stopPlay();
+            }
+        });
         super.onDestroy();
     }
 
@@ -126,7 +91,7 @@ public class RadioActivity extends BaseActivity {
             }
         });
 
-        ivPauseOrPlay.setSelected(false);
+        ivPauseOrPlay.setSelected(isPlaying);
 
         ivPrev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,24 +100,21 @@ public class RadioActivity extends BaseActivity {
                 if (selectedPosition == 0) {
                     return;
                 }
-                int position = selectedPosition - 1;
-                adapter.setSelectedPosition(position);
+                adapter.setSelectedPosition(selectedPosition - 1);
             }
         });
 
         ivPauseOrPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ivPauseOrPlay.isSelected()) {
-                    if (musicService != null) {
-                        musicService.pause();
-                    }
+                isPlaying = !isPlaying;
+                ivPauseOrPlay.setSelected(isPlaying);
+                if (isPlaying) {
+                    fetchFm();
                 } else {
-                    if (musicService != null) {
-                        musicService.play();
-                    }
+                    Handlers.bg().removeCallbacks(fetchAction);
+                    stopPlay();
                 }
-                ivPauseOrPlay.setSelected(!ivPauseOrPlay.isSelected());
             }
         });
 
@@ -163,8 +125,7 @@ public class RadioActivity extends BaseActivity {
                 if (selectedPosition > adapter.getItemCount() - 1) {
                     return;
                 }
-                int position = selectedPosition + 1;
-                adapter.setSelectedPosition(position);
+                adapter.setSelectedPosition(selectedPosition + 1);
             }
         });
 
@@ -188,6 +149,12 @@ public class RadioActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        stopPlay();
+        super.onPause();
+    }
+
     private OnItemSelectionChangedListener listener = new OnItemSelectionChangedListener() {
         @Override
         public void onItemSelectionChanged(int newPosition, int lastPosition) {
@@ -208,20 +175,19 @@ public class RadioActivity extends BaseActivity {
     private Runnable fetchAction = new Runnable() {
         @Override
         public void run() {
+            onBuffering();
             RadioEntity entity = entities.get(adapter.getSelectedPosition());
             HashMap<String, String> results = QaApi.getQaFromXf(
                     entity.getName());
-            String audiopath = results.get("audiopath");
+            final String audiopath = results.get("audiopath");
             Log.d("fm", "audiopath: " + audiopath);
-            Log.d("fm", "bound: " + bound);
             if (!TextUtils.isEmpty(audiopath)) {
-                if (!bound) {
-                    bindService(new Intent(RadioActivity.this, MusicService.class), serviceConnection, BIND_AUTO_CREATE);
-                } else {
-                    music = new Music(audiopath);
-                    musicService.setOnMusicPreparedListener(onMusicPreparedListener);
-                    musicService.setMusicResourse(music);
-                }
+                audioHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        startPlay(audiopath);
+                    }
+                });
             } else {
                 speak("主人，未搜索到该频道，请更换频道再试");
             }
@@ -326,5 +292,122 @@ public class RadioActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    private volatile IjkMediaPlayer mPlayer;
+
+    private volatile boolean isPlaying;
+
+    private Handler audioHandler;
+
+    {
+        HandlerThread handlerThread = new HandlerThread("audio", Process.THREAD_PRIORITY_AUDIO);
+        handlerThread.start();
+        audioHandler = new Handler(handlerThread.getLooper());
+    }
+
+    public void startPlay(String url) {
+        if (mPlayer != null) {
+            mPlayer.stop();
+            mPlayer.release();
+            mPlayer = null;
+        }
+        onPlaying();
+        mPlayer = new IjkMediaPlayer();
+        try {
+            mPlayer.setDataSource(url);
+            mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mPlayer.setOnPreparedListener(this);
+            mPlayer.setOnErrorListener(this);
+            mPlayer.setOnBufferingUpdateListener(this);
+            mPlayer.setOnCompletionListener(this);
+            mPlayer.setOnInfoListener(this);
+            mPlayer.setOnSeekCompleteListener(this);
+            mPlayer.prepareAsync();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            stopPlay();
+            onStopped();
+        }
+    }
+
+    private volatile boolean isBuffering;
+
+    private void onBuffering() {
+        isBuffering = true;
+        isPlaying = true;
+        Handlers.ui().post(updateUIAction);
+    }
+
+    private void onPlaying() {
+        isBuffering = false;
+        isPlaying = true;
+        Handlers.ui().post(updateUIAction);
+    }
+
+    private void onStopped() {
+        isBuffering = false;
+        isPlaying = false;
+        Handlers.ui().post(new Runnable() {
+            @Override
+            public void run() {
+                if (isBuffering) {
+                    showLoadingDialog("缓冲中...");
+                } else {
+                    hideLoadingDialog();
+                }
+                ivPauseOrPlay.setSelected(isPlaying);
+            }
+        });
+    }
+
+    private void stopPlay() {
+        if (mPlayer != null) {
+            audioHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPlayer.stop();
+                    mPlayer.release();
+                    mPlayer = null;
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onPrepared(IMediaPlayer player) {
+        Log.d(TAG, "onPrepared: ");
+        player.start();
+    }
+
+    @Override
+    public boolean onError(IMediaPlayer player, int i, int i1) {
+        Log.d(TAG, "onError: " + i + " " + i1);
+        stopPlay();
+        onStopped();
+        return true;
+    }
+
+    @Override
+    public void onBufferingUpdate(IMediaPlayer player, int i) {
+        Log.d(TAG, "onBufferingUpdate: " + i);
+    }
+
+    @Override
+    public void onCompletion(IMediaPlayer player) {
+        Log.d(TAG, "onCompletion: ");
+        stopPlay();
+        onStopped();
+    }
+
+    @Override
+    public boolean onInfo(IMediaPlayer player, int i, int i1) {
+        Log.d(TAG, "onInfo: " + i + " " + i1);
+        return true;
+    }
+
+    @Override
+    public void onSeekComplete(IMediaPlayer player) {
+        Log.d(TAG, "onSeekComplete: ");
     }
 }

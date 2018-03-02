@@ -15,6 +15,7 @@ public class SignUp9BloodTypeActivity extends SignUp7HeightActivity {
 
     @Override
     protected void initView() {
+        selectedPosition = 0;
         super.initView();
         tvTitle.setText("您的血型");
         tvUnit.setText("型");

@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.constant.ConstantData;
+import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by han on 2017/11/30.
@@ -50,11 +52,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
                 .into(holder.mImageView);
         //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
 
-        try {
-            holder.mTextView1.setText(dateToStamp(mList.get(position).getTime()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        String date = Utils.getDateToString(Long.parseLong(mList.get(position).getTime()), "yyyy-MM-dd");
+        holder.mTextView1.setText(date);
 
         holder.mTextView2.setText("订单号：" + mList.get(position).getOrderid());
 
@@ -72,15 +71,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
 
     }
 
-
-    public String dateToStamp(String s) throws ParseException {
-        String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = simpleDateFormat.parse(s);
-        long ts = date.getTime();
-        res = String.valueOf(ts);
-        return res;
-    }
 
 
     @Override

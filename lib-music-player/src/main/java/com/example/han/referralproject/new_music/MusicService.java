@@ -91,6 +91,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     //音乐文件准备好了，可以开始播放
     @Override
     public void onPrepared(MediaPlayer mp) {
+        if (music==null){
+            return;
+        }
         music.setDuration(mp.getDuration());
         if (musicPreParedOk != null) {
             musicPreParedOk.prepared(music);
