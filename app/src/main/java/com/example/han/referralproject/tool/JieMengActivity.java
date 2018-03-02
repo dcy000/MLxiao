@@ -182,20 +182,21 @@ public class JieMengActivity extends BaseActivity {
     @OnClick({R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin, R.id.tv_title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+
             case R.id.tv_demo1:
                 String demo1 = tvDemo1.getText().toString();
-                tvDemo1.setText(demo1);
+                tvDreamTitle.setText(demo1);
                 getDreamData(demo1);
                 break;
             case R.id.tv_demo2:
                 String demo2 = tvDemo2.getText().toString();
-                tvDemo2.setText(demo2);
                 getDreamData(demo2);
+                tvDreamTitle.setText(demo2);
                 break;
             case R.id.tv_demo3:
                 String demo3 = tvDemo3.getText().toString();
-                tvDemo1.setText(demo3);
                 getDreamData(demo3);
+                tvDreamTitle.setText(demo3);
                 break;
             case R.id.iv_yuyin:
                 startListener();
