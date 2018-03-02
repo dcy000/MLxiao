@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -115,7 +116,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private StringBuffer resultBuffer;
     private RelativeLayout mRelativeLayout;
-//    private AnimationDrawable faceAnim;
+    //    private AnimationDrawable faceAnim;
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -243,8 +244,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-
-
         speak("主人,来和我聊天吧", isDefaultParam);
 
         mHandler.sendEmptyMessageDelayed(1, 3000);
@@ -331,7 +330,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
-
     private void startAnim() {
         mRelativeLayout.post(action);
     }
@@ -390,12 +388,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         }
                         //跳转到音乐播放界面去
                         startActivityForResult(new Intent(SpeechSynthesisActivity.this, MusicPlayActivity.class)
-                                .putExtra("music",music),TO_MUSICPLAY);
+                                .putExtra("music", music), TO_MUSICPLAY);
                     }
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        ToastUtil.showShort(SpeechSynthesisActivity.this,R.string.unable_to_play);
+                        ToastUtil.showShort(SpeechSynthesisActivity.this, R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -606,12 +604,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-//            if (inSpell.matches(".*yinyue.*")
-//                    || inSpell.matches(".*shouyinji.*")
-//                    ) {
-//                OldRouter.routeToOldHomeActivity(this);
-//                return;
-//            }
+            if (inSpell.matches(".*yinyue.*")) {
+                OldRouter.routeToOldMusicActivity(this);
+                return;
+            }
 
             if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
@@ -639,7 +635,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*gerenzhongxin.*")
-                    ||inSpell.matches(".*gerenshezhi.*")) {
+                    || inSpell.matches(".*gerenshezhi.*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
                 startActivity(intent);
                 return;
@@ -802,7 +798,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
 
-            if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
+            if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                 intent.putExtra("type", "xueya");
@@ -834,7 +830,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             } else if (inSpell.matches(".*ce.*xindian.*")
-                    ||inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
+                    || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
                 startActivity(intent);
@@ -879,6 +875,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*dadiansheng.*")
                     || inSpell.matches(".*yinliang.*da.*")
                     || inSpell.matches(".*shengyin.*da.*")
+                    || inSpell.matches(".*shengyin.*xiang.*")
+                    || inSpell.matches(".*shengyin.*zhong.*")
                     || inSpell.matches(".*tigao.*shengyin.*")
                     || inSpell.matches(".*shengyin.*tigao.*")
                     || inSpell.matches(".*yinliang.*shenggao.*")
@@ -902,6 +900,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*xiaoshengdian.*")
                     || inSpell.matches(".*xiaodiansheng.*")
                     || inSpell.matches(".*shengyin.*xiao.*")
+                    || inSpell.matches(".*shengyin.*qing.*")
                     || inSpell.matches(".*yinliang.*xiao.*")
                     || inSpell.matches(".*yinliang.*jiangdi.*")
                     || inSpell.matches(".*jiangdi.*yinliang.*")

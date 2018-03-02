@@ -3,6 +3,7 @@ package com.example.han.referralproject.new_music;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
@@ -21,7 +22,6 @@ public class MusicPlayActivity extends AppCompatActivity {
         music = (Music) getIntent().getSerializableExtra("music");
         CoverLoader.getInstance().init(this);
         showPlayingFragment();
-
     }
 
     private void showPlayingFragment() {
@@ -38,6 +38,7 @@ public class MusicPlayActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             musicService = ((MusicService.MusicBind) service).getService();
+            onMusicServiceConnected(musicService);
             //绑定好以后把要播放的文件set到服务中去
             musicService.setMusicResourse(music);
             //并且把服务set到Fragment中去
@@ -46,15 +47,51 @@ public class MusicPlayActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
+            onMusicServiceDisconnected();
         }
     };
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    private void onMusicServiceDisconnected() {
         if (musicService != null) {
+            musicService.setOnAudioFocusChangeListener(null);
             musicService.release();
+            musicService = null;
+        }
+    }
+
+    private void onMusicServiceConnected(MusicService musicService) {
+        if (musicService == null) {
+            return;
+        }
+        musicService.setOnAudioFocusChangeListener(new MusicService.AudioChange() {
+            @Override
+            public void onAudioFocusChange(AudioManager manager, int focusChange) {
+                if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+                    // Pause playback
+                    if (musicFragment.ivPlay.isSelected()) {
+                        musicFragment.ivPlay.performClick();
+                    }
+                } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                    // Resume playback
+                    if (!musicFragment.ivPlay.isSelected()) {
+                        musicFragment.ivPlay.performClick();
+                    }
+                } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                    // Stop playback
+                    if (musicFragment.ivPlay.isSelected()) {
+                        musicFragment.ivPlay.performClick();
+                    }
+                }
+            }
+        });
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (musicFragment.ivPlay.isSelected()) {
+            musicFragment.ivPlay.performClick();
         }
     }
 

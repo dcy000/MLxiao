@@ -91,7 +91,7 @@ public class DoctorAlarmActivity extends BaseActivity {
         });
 
 
-        if (model.getTimestamp() != 0) {
+        if (model != null && model.getTimestamp() != 0) {
 
 
             NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {

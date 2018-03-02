@@ -336,7 +336,7 @@ public class Utils {
             return 0;
         }
         try {
-            int birthYear = Integer.valueOf(idCard.substring(6, 12));
+            int birthYear = Integer.valueOf(idCard.substring(6, 10));
             Calendar calendar = Calendar.getInstance();
             int currentYear = calendar.get(Calendar.YEAR);
             if (birthYear > currentYear) {

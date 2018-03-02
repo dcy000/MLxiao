@@ -32,7 +32,13 @@ import java.util.List;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
-public class RadioActivity extends BaseActivity implements IMediaPlayer.OnPreparedListener, IMediaPlayer.OnErrorListener, IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.OnCompletionListener, IMediaPlayer.OnInfoListener, IMediaPlayer.OnSeekCompleteListener {
+public class RadioActivity extends BaseActivity implements
+        IMediaPlayer.OnPreparedListener,
+        IMediaPlayer.OnErrorListener,
+        IMediaPlayer.OnBufferingUpdateListener,
+        IMediaPlayer.OnCompletionListener,
+        IMediaPlayer.OnInfoListener,
+        IMediaPlayer.OnSeekCompleteListener {
     private static final String TAG = "radio";
     private RecyclerView rvRadios;
     private List<RadioEntity> entities = new ArrayList<>();
@@ -72,10 +78,14 @@ public class RadioActivity extends BaseActivity implements IMediaPlayer.OnPrepar
         super.onDestroy();
     }
 
+    private AudioManager audioManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
+
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         ivPauseOrPlay = (ImageView) findViewById(R.id.old_iv_pause_or_play);
         ivPrev = (ImageView) findViewById(R.id.old_iv_prev);
@@ -150,7 +160,14 @@ public class RadioActivity extends BaseActivity implements IMediaPlayer.OnPrepar
     }
 
     @Override
+    protected void onResume() {
+        setEnableListeningLoop(false);
+        super.onResume();
+    }
+
+    @Override
     protected void onPause() {
+        onStopped();
         stopPlay();
         super.onPause();
     }
@@ -306,7 +323,66 @@ public class RadioActivity extends BaseActivity implements IMediaPlayer.OnPrepar
         audioHandler = new Handler(handlerThread.getLooper());
     }
 
+
+    private AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+                pausePlay();
+            }
+
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                onStopped();
+                stopPlay();
+                return;
+            }
+            if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                resumePlay();
+            }
+        }
+    };
+
+    private void pausePlay() {
+        String url = this.url;
+        if (url != null && mPlayer != null && mPlayer.isPlaying()) {
+            onStopped();
+            audioHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPlayer.pause();
+                }
+            });
+        }
+    }
+
+    private void resumePlay() {
+        String url = this.url;
+        if (url != null && mPlayer != null && !mPlayer.isPlaying()) {
+            onPlaying();
+            audioHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPlayer.start();
+                }
+            });
+        }
+    }
+
+    private String url;
+
     public void startPlay(String url) {
+        this.url = url;
+        int result = audioManager.requestAudioFocus(
+                onAudioFocusChangeListener,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN
+        );
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            startPlayActually(url);
+        }
+    }
+
+    private void startPlayActually(String url) {
         if (mPlayer != null) {
             mPlayer.stop();
             mPlayer.release();
@@ -362,6 +438,7 @@ public class RadioActivity extends BaseActivity implements IMediaPlayer.OnPrepar
     }
 
     private void stopPlay() {
+        audioManager.abandonAudioFocus(onAudioFocusChangeListener);
         if (mPlayer != null) {
             audioHandler.post(new Runnable() {
                 @Override
