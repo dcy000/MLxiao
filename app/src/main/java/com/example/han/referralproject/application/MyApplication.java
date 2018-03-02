@@ -91,7 +91,7 @@ public class MyApplication extends Application {
         WakeupHelper.init(this);
         StringBuilder builder = new StringBuilder();
         builder.append("appid=")
-                .append("5a98caf4")
+                .append("59196d96")
                 .append(",")
                 .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
 
