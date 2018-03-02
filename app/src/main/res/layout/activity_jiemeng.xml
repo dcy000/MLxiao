@@ -128,7 +128,7 @@
         <TextView
             android:id="@+id/tv_demo2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginTop="25dp"
             android:text="梦到鬼怎么办？"
             android:textColor="#FF62400E"

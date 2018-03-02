@@ -129,12 +129,17 @@ public class JieMengActivity extends BaseActivity {
     private void getDreamData(String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override
-            public void onSuccess(Object anwser) {
-                clDreamResult.setVisibility(View.VISIBLE);
-                clStart.setVisibility(View.GONE);
-                data.clear();
-                data.addAll((List<DreamBean>) anwser);
-                adapter.notifyDataSetChanged();
+            public void onSuccess(final Object anwser) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        clDreamResult.setVisibility(View.VISIBLE);
+                        clStart.setVisibility(View.GONE);
+                        data.clear();
+                        data.addAll((List<DreamBean>) anwser);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
     }
@@ -185,6 +190,7 @@ public class JieMengActivity extends BaseActivity {
             case R.id.tv_title:
                 clStart.setVisibility(View.VISIBLE);
                 clDreamResult.setVisibility(View.GONE);
+                data.clear();
                 break;
         }
     }
