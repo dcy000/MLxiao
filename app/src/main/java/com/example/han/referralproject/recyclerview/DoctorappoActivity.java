@@ -20,6 +20,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
@@ -1083,6 +1084,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             return true;
         }
     });
+    static ArrayList allReservationHistory = new ArrayList();
 
 
     public void enableVideo(long time, long time1) {
@@ -1158,9 +1160,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
-                finish();
             }
         });
 
@@ -1303,10 +1303,12 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
-
+                allReservationHistory.clear();
+                allReservationHistory.addAll(response);
                 for (int i = 0; i < response.size(); i++) {
                     if ("已完成".equals(response.get(i).getState()) || "已过期".equals(response.get(i).getState())) {
                         response.remove(i);
+                        i--;
                     }
                 }
 

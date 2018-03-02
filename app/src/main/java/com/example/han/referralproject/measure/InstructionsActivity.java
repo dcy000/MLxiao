@@ -72,10 +72,10 @@ public class InstructionsActivity extends AppCompatActivity {
         jump.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (video.isPlaying()){
+                if (video.isPlaying()) {
                     video.stopPlayback();
                 }
-                startActivity(new Intent(InstructionsActivity.this,OnMeasureActivity.class).putExtra("type",type));
+                startActivity(new Intent(InstructionsActivity.this, OnMeasureActivity.class).putExtra("type", type));
                 finish();
             }
         });
@@ -119,7 +119,7 @@ public class InstructionsActivity extends AppCompatActivity {
     private MediaPlayer.OnCompletionListener videoComplete = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
-            startActivity(new Intent(InstructionsActivity.this,OnMeasureActivity.class).putExtra("type",type));
+            startActivity(new Intent(InstructionsActivity.this, OnMeasureActivity.class).putExtra("type", type));
             finish();
         }
     };

@@ -98,7 +98,6 @@ public class SignUp6PasswordActivity extends BaseActivity {
 
     private void navToNext() {
         startActivity(new Intent(this, SignUp7HeightActivity.class));
-        finish();
     }
 
     public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";

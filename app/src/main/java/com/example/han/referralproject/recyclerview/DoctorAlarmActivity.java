@@ -52,7 +52,7 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         id = getIntent().getLongExtra(AlarmHelper.ID, -1);
         model = DataSupport.find(AlarmModel.class, id);
-        if (model.getTimestamp() != 0) {
+        if (model != null && model.getTimestamp() != 0) {
 
             startTime = String.valueOf(model.getTimestamp() + 60000);
 
@@ -86,15 +86,7 @@ public class DoctorAlarmActivity extends BaseActivity {
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int rows = DataSupport.delete(AlarmModel.class, id);
-
-                if (rows >= 1) {
-
-                    Intent intent = new Intent(DoctorAlarmActivity.this, DoctorappoActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
+                finish();
             }
         });
 
@@ -141,8 +133,6 @@ public class DoctorAlarmActivity extends BaseActivity {
 
 
         }
-
-
 
 
         //Ensure wakelock release

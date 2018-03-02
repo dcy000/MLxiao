@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
+import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 
 /**
  * Created by gzq on 2018/2/8.
@@ -16,7 +17,7 @@ public class TestActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_ex);
-        MeasureXuetangFragment warningFragme=new MeasureXuetangFragment();
+        MeasureXueyaWarningFragment warningFragme=new MeasureXueyaWarningFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.container,warningFragme).commit();
     }
 }

@@ -124,7 +124,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.ll_san:
-                    intent.setClass(mContext, DetectActivity.class);
+//                    intent.setClass(mContext, DetectActivity.class);
+                    intent.setClass(mContext, SelectXuetangTimeActivity.class);
 //                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "sanheyi");
                     startActivity(intent);

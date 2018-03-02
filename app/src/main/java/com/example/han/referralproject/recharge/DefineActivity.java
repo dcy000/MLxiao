@@ -48,22 +48,19 @@ public class DefineActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(mEditText.getText().toString())) {
-
-                    if (Float.parseFloat(mEditText.getText().toString()) > 5000) {
-
+                    float value = Float.parseFloat(mEditText.getText().toString());
+                    if (value > 5000) {
                         Toast.makeText(getApplicationContext(), "充值金额最大为5000元", Toast.LENGTH_SHORT).show();
-
+                    } else if (value <= 0.0f) {
+                        Toast.makeText(getApplicationContext(), "充值金额必须大于为0元", Toast.LENGTH_SHORT).show();
                     } else {
                         Intent intent = new Intent(getApplicationContext(), PayInfoActivity.class);
-                        intent.putExtra("number", (int) (Float.parseFloat(mEditText.getText().toString()) * 100) + "");
+                        intent.putExtra("number", (int) (value * 100) + "");
                         startActivity(intent);
                         finish();
-
                     }
-
                 } else {
                     Toast.makeText(getApplicationContext(), "请输入金额", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
@@ -89,8 +86,6 @@ public class DefineActivity extends BaseActivity {
 
     public void init() {
         mEditText = (EditText) findViewById(R.id.deifine_mount);
-
-
         // 新建一个可以添加属性的文本对象
         SpannableString ss = new SpannableString("请输入充值金额");
         // 新建一个属性对象,设置文字的大小
