@@ -53,6 +53,9 @@ public class XFSkillApi {
      * 成功的回调借口
      */
     public interface getDataListener {
+        //有result结果
+        void onSuccess(Object anwser,String briefly);
+        //直接anwser
         void onSuccess(Object anwser);
     }
 
@@ -141,7 +144,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<DreamBean>>() {
                                         }.getType();
                                         List<DreamBean> dreamBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(dreamBeans);
+                                        listener.onSuccess(dreamBeans,xfContentData.getJSONObject("answer").getString("text"));
                                     }
                                 }
 

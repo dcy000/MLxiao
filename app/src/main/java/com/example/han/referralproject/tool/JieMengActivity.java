@@ -121,15 +121,16 @@ public class JieMengActivity extends BaseActivity {
         Log.d("stringBuffer", "++++++++++++++++++" + stringBuffer.toString() + "++++++++++++++++++++++");
         if (isLast) {
             String result = stringBuffer.toString();
+            tvDreamTitle.setText(result);
             getDreamData(result);
         }
 
     }
 
-    private void getDreamData(String result) {
+    private void getDreamData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override
-            public void onSuccess(final Object anwser) {
+            public void onSuccess(final Object anwser, final String briefly) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -138,8 +139,14 @@ public class JieMengActivity extends BaseActivity {
                         data.clear();
                         data.addAll((List<DreamBean>) anwser);
                         adapter.notifyDataSetChanged();
+                        tvDreamYuyi.setText(briefly);
                     }
                 });
+            }
+
+            @Override
+            public void onSuccess(Object anwser) {
+
             }
         });
     }
@@ -176,13 +183,19 @@ public class JieMengActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_demo1:
-                getDreamData(tvDemo1.getText().toString());
+                String demo1 = tvDemo1.getText().toString();
+                tvDemo1.setText(demo1);
+                getDreamData(demo1);
                 break;
             case R.id.tv_demo2:
-                getDreamData(tvDemo2.getText().toString());
+                String demo2 = tvDemo2.getText().toString();
+                tvDemo2.setText(demo2);
+                getDreamData(demo2);
                 break;
             case R.id.tv_demo3:
-                getDreamData(tvDemo3.getText().toString());
+                String demo3 = tvDemo3.getText().toString();
+                tvDemo1.setText(demo3);
+                getDreamData(demo3);
                 break;
             case R.id.iv_yuyin:
                 startListener();

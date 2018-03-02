@@ -7,7 +7,7 @@
 
 
     <android.support.constraint.ConstraintLayout
-        android:visibility="gone"
+       android:visibility="gone"
         android:id="@+id/cl_dream_result"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
-            android:text="象征着你的学习成绩会步步高升。表明你"
             android:textColor="#FF333333"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="parent"
