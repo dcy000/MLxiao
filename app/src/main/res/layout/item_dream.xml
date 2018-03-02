@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/dream_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="15dp"
+        android:text="大学"
+        android:textColor="#FF333333"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/dream"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintStart_toEndOf="@+id/dream"
+        app:layout_constraintTop_toTopOf="@+id/dream"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/dream"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="梦见"
+        android:textColor="#FF99751F"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/item_dream_yuyi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="是成绩与成功的象征。"
+        android:textColor="#FF666666"
+        android:textSize="26sp"
+        app:layout_constraintTop_toBottomOf="@+id/dream_title"
+        tools:layout_editor_absoluteX="0dp" />
+</android.support.constraint.ConstraintLayout>
