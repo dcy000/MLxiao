@@ -10,6 +10,8 @@ import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -287,6 +289,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     mBatteryIv.setImageResource(R.drawable.battery_3);
                 }
             }
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacks(null);
         }
     }
 }

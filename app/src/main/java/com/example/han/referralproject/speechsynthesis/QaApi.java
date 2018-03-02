@@ -57,6 +57,7 @@ public class QaApi {
         results.put("audiopath", "");
         results.put("q", "");
         results.put("service", "");
+        results.put("dreamUrl", "");
         try {
             JSONObject apiResponseObj = new JSONObject(text);
             text = apiResponseObj.optString("data");
@@ -153,6 +154,56 @@ public class QaApi {
                 }
                 return results;
             }
+
+            //评书,历史上的今天,搞笑段子,相声小品,公开课,名人演讲,戏曲
+            if (service.equals("storyTelling")
+                    ||service.equals("history")
+                    ||service.equals("LEIQIAO.funnyPassage")
+                    ||service.equals("crossTalk")
+                    ||service.equals("LEIQIAO.openClass")
+                    ||service.equals("LEIQIAO.speech")
+                    ||service.equals("drama")
+                    ){
+                String url=resultObj.getString("url");
+                if (!TextUtils.isEmpty(url)) {
+                    results.put("audiopath", url);
+                }
+                return results;
+            }
+
+
+            if (service.equals("weather")) {
+                //天气
+                JSONObject exp = resultObj.getJSONObject("exp");
+                if (exp == null) {
+                    return results;
+                }
+                JSONObject ct = exp.getJSONObject("ct");
+                if (ct == null) {
+                    return results;
+                }
+                results.put("text", results.get("text") + "," + ct.getString("prompt"));
+
+                //明天天气
+                JSONObject tomorrow = resultArray.getJSONObject(1);
+                if (tomorrow == null) {
+                    return results;
+                }
+
+                results.put("text", results.get("text") + ","
+                        + "明天" + tomorrow.getString("weather") + ","
+                        + tomorrow.getString("tempRange") + ","
+                        + tomorrow.getString("wind")
+                );
+            }
+
+            if (service.equals("dream")) {
+                //解梦的网页url
+                String url = resultObj.getString("url");
+                results.put("dreamUrl", url);
+            }
+
+
             return results;
         } catch (JSONException e) {
             e.printStackTrace();

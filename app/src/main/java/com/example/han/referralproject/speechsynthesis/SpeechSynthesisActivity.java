@@ -159,11 +159,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     ImageView mImageView;
     private LottieAnimationView mLottieView;
-    private static final int TO_MUSICPLAY=1;
-    private static final int TO_STORY=2;
+    private static final int TO_MUSICPLAY = 1;
+    private static final int TO_STORY = 2;
+    private static final int TO_PING_SHU = 3;
     private TextView voiceNormal;
     private TextView voiceWhine;
     private boolean isDefaultParam = true;
+    private HashMap<String, String> results;
 
 
     @Override
@@ -474,7 +476,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
         if (!TextUtils.isEmpty(mAudioPath)) {
-            onPlayAudio(mAudioPath);
+
+            int tag = TO_STORY;
+            String service = results.get("service");
+            if ("storyTelling".equals(service)) {
+                tag = TO_PING_SHU;
+            }
+            onPlayAudio(mAudioPath, tag);
             mAudioPath = null;
             return;
         }
@@ -484,10 +492,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         findViewById(R.id.iat_recognizes).performClick();
     }
 
-    private void onPlayAudio(String audioPath) {
+    private void onPlayAudio(String audioPath, int tag) {
         Music music = new Music(audioPath);
         startActivityForResult(new Intent(SpeechSynthesisActivity.this, MusicPlayActivity.class)
-                .putExtra("music",music),TO_STORY);
+                .putExtra("music", music), tag);
     }
 
     /**
@@ -598,25 +606,25 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*yinyue.*")
-                    || inSpell.matches(".*shouyinji.*")
-                    ) {
-                OldRouter.routeToOldHomeActivity(this);
-                return;
-            }
+//            if (inSpell.matches(".*yinyue.*")
+//                    || inSpell.matches(".*shouyinji.*")
+//                    ) {
+//                OldRouter.routeToOldHomeActivity(this);
+//                return;
+//            }
 
             if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
                 return;
             }
 
-            if (inSpell.matches(".*jian(ce|che|ca|cha).*")
-                    ||inSpell.matches(".*(ce|che)(shi|si).*")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                startActivity(intent);
-                return;
-            }
+//            if (inSpell.matches(".*jian(ce|che|ca|cha).*")
+//                    ||inSpell.matches(".*(ce|che)(shi|si).*")) {
+//                Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                startActivity(intent);
+//                return;
+//            }
 
             if (inSpell.matches(".*xiaoxi.*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
@@ -832,7 +840,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi).*")) {
+            } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                 intent.putExtra("type", "sanheyi");
@@ -868,6 +876,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*dashengyin.*")
                     || inSpell.matches(".*dayinliang.*")
                     || inSpell.matches(".*dashengdian.*")
+                    || inSpell.matches(".*dadiansheng.*")
                     || inSpell.matches(".*yinliang.*da.*")
                     || inSpell.matches(".*shengyin.*da.*")
                     || inSpell.matches(".*tigao.*shengyin.*")
@@ -891,6 +900,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*xiaoshengyin.*")
                     || inSpell.matches(".*xiaoyinliang.*")
                     || inSpell.matches(".*xiaoshengdian.*")
+                    || inSpell.matches(".*xiaodiansheng.*")
                     || inSpell.matches(".*shengyin.*xiao.*")
                     || inSpell.matches(".*yinliang.*xiao.*")
                     || inSpell.matches(".*yinliang.*jiangdi.*")
@@ -1011,10 +1021,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private void post(String str) throws Exception {
         if (str.matches("(.*)是谁")) {
-            str = "百科" + str.substring(0, str.length()-2);
+            str = "百科" + str.substring(0, str.length() - 2);
         }
 
-        HashMap<String, String> results = QaApi.getQaFromXf(str);
+        results = QaApi.getQaFromXf(str);
         String audiopath = results.get("audiopath");
         String text = results.get("text");
         boolean empty = TextUtils.isEmpty(text);
@@ -1436,21 +1446,25 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mIat.destroy();
         }
         //退出页面不再说话
-        SpeechSynthesizer synthesizer=SpeechSynthesizer.getSynthesizer();
-        if (synthesizer!=null) {
+        SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
+        if (synthesizer != null) {
             synthesizer.stopSpeaking();
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            switch (requestCode){
-                case TO_MUSICPLAY:
-                    speak("主人，想听更多歌曲，请告诉我！",isDefaultParam);
-                    break;
-                case TO_STORY:
-                    speak("主人，我讲的故事好听吗？",isDefaultParam);
-                    break;
-            }
+        switch (requestCode) {
+            case TO_MUSICPLAY:
+                speak("主人，想听更多歌曲，请告诉我！", isDefaultParam);
+                break;
+            case TO_STORY:
+                speak("主人，我讲的故事好听吗？", isDefaultParam);
+                break;
+            case TO_PING_SHU:
+                speak("主人，想听更多评书，请告诉我！", isDefaultParam);
+                break;
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

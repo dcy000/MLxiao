@@ -332,7 +332,7 @@ public class Utils {
 
     public static int age(String idCard) {
         if (TextUtils.isEmpty(idCard)
-                || idCard.length() != 11) {
+                || idCard.length() != 18) {
             return 0;
         }
         try {
@@ -347,6 +347,12 @@ public class Utils {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public static String getDateToString(long milSecond, String pattern) {
+        Date date = new Date(milSecond);
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
     }
 }
 

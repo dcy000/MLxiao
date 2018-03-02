@@ -350,9 +350,6 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
 
                             @Override
                             public void onSuccess(String response) {
-
-                                Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
-                                startActivity(intent);
                                 finish();
 
                             }

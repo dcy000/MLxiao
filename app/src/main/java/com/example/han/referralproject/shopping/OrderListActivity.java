@@ -17,6 +17,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
+import com.example.han.referralproject.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,64 +48,10 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         speak(getString(R.string.order));
 
 
-        //   mImageView1 = (ImageView) findViewById(R.id.icon_back);
-
-
-        //   mImageView1.setOnClickListener(this);
-
         mRecyclerView = (RecyclerView) findViewById(R.id.order_list);
-
         mSharedPreferences = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
 
-
-        NetworkApi.order_list("2", "2", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
-            @Override
-            public void onSuccess(ArrayList<Orders> response) {
-
-
-                List<Orders> list = new ArrayList<Orders>();
-                mlist.clear();
-                list.addAll(response);
-                mlist.addAll(list);
-                /*mOrderAdapter = new OrderAdapter(mlist, getApplicationContext());
-                mRecyclerView.setAdapter(mOrderAdapter);
-
-
-                setData();*/
-
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-
-            }
-        });
-
-
-        NetworkApi.order_list("2", "1", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
-            @Override
-            public void onSuccess(ArrayList<Orders> response) {
-
-                List<Orders> list = new ArrayList<Orders>();
-                list.addAll(response);
-                mlist.addAll(list);
-
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-
-            }
-        });
-
-
-        NetworkApi.order_list("2", "4", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+        NetworkApi.order_list("2", "0", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
             @Override
             public void onSuccess(ArrayList<Orders> response) {
 
@@ -124,8 +71,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-
-
+                ToastUtil.showShort(OrderListActivity.this,message);
             }
         });
 

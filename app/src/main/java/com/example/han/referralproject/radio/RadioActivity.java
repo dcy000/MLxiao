@@ -149,6 +149,12 @@ public class RadioActivity extends BaseActivity implements IMediaPlayer.OnPrepar
         });
     }
 
+    @Override
+    protected void onPause() {
+        stopPlay();
+        super.onPause();
+    }
+
     private OnItemSelectionChangedListener listener = new OnItemSelectionChangedListener() {
         @Override
         public void onItemSelectionChanged(int newPosition, int lastPosition) {
