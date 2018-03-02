@@ -224,18 +224,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onResume() {
-        String groupId = LocalShared.getInstance(this).getGroupId();
-        xfids = FaceAuthenticationUtils.getInstance(MainActivity.this).getAllLocalXfids();
-        for (int i=0;i<xfids.length;i++) {
-            Log.e("所有讯飞的id", "onResume: " + xfids[i]);
-        }
-        if (TextUtils.isEmpty(groupId)) {
-            //创建讯飞人脸识别组,并且把所有已经在该机器上登录的账号加入到组中，该过程在后台执行Net
-            createGroup();
-        } else {
-            joinGroup();
-        }
-
         NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
         setEnableListeningLoop(false);
         super.onResume();
@@ -267,40 +255,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
-    private String[] xfids;
-
-    private void createGroup() {
-        Handlers.bg().post(new Runnable() {
-            @Override
-            public void run() {
-                FaceAuthenticationUtils.getInstance(MainActivity.this).createGroup(xfids);
-                FaceAuthenticationUtils.getInstance(MainActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
-                    @Override
-                    public void onResult(IdentityResult result, boolean islast) {
-                        try {
-                            JSONObject resObj = new JSONObject(result.getResultString());
-                            LocalShared.getInstance(MainActivity.this).setGroupId(resObj.getString("group_id"));
-                            Log.e("组id", "++++++ " + resObj.getString("group_id"));
-                            LocalShared.getInstance(MainActivity.this).setGroupFirstXfid(xfids[0]);
-                            joinGroup();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-                        Log.e("创建组", "onEvent: ");
-                    }
-
-                    @Override
-                    public void onError(SpeechError error) {
-                        Log.e("创建组", "onError: " + error.getPlainDescription(true));
-                    }
-                });
-            }
-        });
-    }
 
     public static final String REGEX_GO_PERSONAL_CENTER = ".*(gerenzhongxin|wodeshuju).*";
     public static final String REGEX_GO_CLASS = ".*(jiankangketang|shipin).*";
@@ -354,51 +308,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private int xfIdIndex = 0;//记录讯飞id数组的位置
 
-    private void joinGroup() {
-        Handlers.bg().post(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("创建组的执行线程", "handleMessage: " + Thread.currentThread().getName());
-                if (xfIdIndex < xfids.length)
-                    FaceAuthenticationUtils.getInstance(MainActivity.this).
-                            joinGroup(LocalShared.getInstance(MainActivity.this).getGroupId(), xfids[xfIdIndex]);
-
-                FaceAuthenticationUtils.getInstance(MainActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
-                    @Override
-                    public void onResult(IdentityResult result, boolean islast) {
-                        xfIdIndex++;
-                        if (xfIdIndex < xfids.length) {
-                            joinGroup();
-
-                        }
-                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + "添加成功" + "-----" + result.getResultString());
-                    }
-
-                    @Override
-                    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-                    }
-
-                    @Override
-                    public void onError(SpeechError error) {
-                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + error.getPlainDescription(true));
-                        if (error.getErrorCode() == 10121) {//该模型已经存在{
-                            xfIdIndex++;
-                            joinGroup();
-                        } else {
-                            joinGroup();
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
-    protected void onPause() {
-        xfIdIndex = 0;
-        super.onPause();
-    }
 }

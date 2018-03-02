@@ -229,14 +229,14 @@ public class FaceAuthenticationUtils {
      *
      * @param groupId
      */
-    public void deleteGroup(String groupId, String xfids) {
+    public void deleteGroup(String groupId, String xfid) {
 
         // sst=add，auth_id=eqhe，group_id=123456，scope=person
         mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
         // 设置会话场景
         mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ipt");
         // 用户id
-        mIdVerifier.setParameter(SpeechConstant.AUTH_ID, xfids);
+        mIdVerifier.setParameter(SpeechConstant.AUTH_ID, xfid);
 
         // 设置模型参数，若无可以传空字符传
         StringBuffer params2 = new StringBuffer();

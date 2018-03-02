@@ -20,7 +20,6 @@
 
 
         <RelativeLayout
-            android:id="@+id/rl_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp">
@@ -171,7 +170,6 @@
             android:id="@+id/rv_symptom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/ll_bottom"
             android:layout_alignParentTop="true"
             android:layout_marginRight="50dp"
             android:layout_marginTop="10dp"

@@ -434,19 +434,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         mShared.setXueyaMac(mDeviceAddress);
                         break;
                 }
-//                switch (detectType) {
-//                    case Type_XueTang:
-//                        XueTangGattAttributes.notify(mBluetoothGatt);
-//                        mHandler.sendEmptyMessageDelayed(0, 1000);
-//                        break;
-//                    case Type_XueYang:
-////                        mWriteCharacteristic.setValue(Commands.xueyangDatas);
-////                        mWriteCharacteristic
-////                                .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-////                        boolean issuccess = mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
-////                        Log.i("mylog", "success");
-//                        break;
-//                }
                 Log.i("mylog", "gata connect 11111111111111111111");
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 Log.i("mylog", "gata disConnect 22222222222222222");
@@ -458,12 +445,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     mBluetoothLeService.close();
                 }
                 if (mBluetoothAdapter != null) {
-//                    if (detectType == Type_XinDian){
-//                        dialog = new NDialog(mContext);
-//                        showNormal("设备连接中，请稍后...");
-//                    }
                     startSearch();
-//                    mBluetoothAdapter.startDiscovery();
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
@@ -475,38 +457,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         mHandler.sendEmptyMessageDelayed(0, 1000);
                         break;
                     case Type_XueYang:
-//                        mWriteCharacteristic.setValue(Commands.xueyangDatas);
-//                        mWriteCharacteristic
-//                                .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-//                        boolean issuccess = mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
-//                        Log.i("mylog", "success");
                         break;
 
                 }
-                switch (detectType) {
-                    case Type_XueYang:
-//                        new Thread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                while (threadDisable){
-//                                    mWriteCharacteristic.setValue(Commands.xueyangDatas);
-//                                    mWriteCharacteristic
-//                                            .setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-//                                    mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
-//                                    Log.i("mylog2", "血氧 write");
-//                                    try {
-//                                        Thread.sleep(1000);
-//                                    } catch (InterruptedException e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                }
-//                            }
-//                        }).start();
-                        break;
-                }
-//                if (detectType == Type_XueTang) {
-//                    mHandler.sendEmptyMessage(0);
-//                }
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 byte[] notifyData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
                 //Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + notifyData.length);
@@ -771,15 +724,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
             speak(String.format(getString(R.string.tips_result_niaosuan), formatString, speakFlag));
         } else if (notifyData[1] == 97) {//胆固醇
-            info.cholesterol = String.valueOf(afterResult);
-            mSanHeYiThreeTv.setText(String.valueOf(afterResult));
+            info.cholesterol = String.format("%.2f",afterResult);
+            mSanHeYiThreeTv.setText(String.format("%.2f",afterResult));
             if (result < 3.0)
                 speakFlag = "偏低";
             else if (result > 6.0)
                 speakFlag = "偏高";
             else
                 speakFlag = "正常";
-            speak(String.format(getString(R.string.tips_result_danguchun), String.valueOf(afterResult), speakFlag));
+            speak(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f",afterResult), speakFlag));
         }
 
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {

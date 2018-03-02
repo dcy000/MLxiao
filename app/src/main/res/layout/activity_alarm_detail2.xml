@@ -8,7 +8,6 @@
     tools:context="com.medlink.danbogh.alarm.AlarmDetail2Activity">
 
     <LinearLayout
-        android:id="@+id/alarm_ll_toolbar"
         android:layout_width="0dp"
         android:layout_height="69dp"
         android:visibility="gone"

@@ -51,7 +51,6 @@
         android:src="@drawable/xueyas" />
 
     <ImageView
-        android:id="@+id/video_xuetang3"
         android:layout_width="550dp"
         android:layout_height="180dp"
         android:layout_alignStart="@+id/video_xuetang2"
@@ -166,7 +165,6 @@
 
 
         <TextView
-            android:id="@+id/purse"
             android:layout_width="230dp"
             android:layout_height="100dp"
             android:layout_marginLeft="50dp"

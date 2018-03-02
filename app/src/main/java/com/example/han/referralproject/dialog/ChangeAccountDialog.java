@@ -64,15 +64,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
             userIds.append(item.split(",")[0]).append(",");
         }
         NetworkApi.getAllUsers(userIds.substring(0, userIds.length() - 1), mListener);
-        //手动删除组
-        findViewById(R.id.deleteGroup).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FaceAuthenticationUtils.getInstance(mContext).
-                        deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
-                FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
-            }
-        });
+
     }
 
     private NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> mListener = new NetworkManager.SuccessCallback<ArrayList<UserInfoBean>>() {
@@ -111,21 +103,4 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 break;
         }
     }
-
-    private DeleteGroupListener deleteGroupListener = new DeleteGroupListener() {
-        @Override
-        public void onResult(IdentityResult result, boolean islast) {
-            Log.e("删除成功", "onResult: ");
-        }
-
-        @Override
-        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-//            Log.e("删除", "onEvent:第一个参数 "+eventType+"第二个参数"+arg1+"第三个参数"+arg2+"第四个参数"+obj.toString());
-        }
-
-        @Override
-        public void onError(SpeechError error) {
-            Log.e("删除失败", "onError: " + error.getPlainDescription(true));
-        }
-    };
 }

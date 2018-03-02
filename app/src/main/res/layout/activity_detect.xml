@@ -41,7 +41,6 @@
             android:src="@drawable/video_temperature" />
 
         <ImageView
-            android:id="@+id/video_temperatures"
             android:layout_width="550dp"
             android:layout_height="180dp"
             android:layout_alignStart="@+id/video_temperature"
@@ -194,7 +193,6 @@
             android:src="@drawable/xueyas" />
 
         <ImageView
-            android:id="@+id/video_xueya3"
             android:layout_width="550dp"
             android:layout_height="180dp"
             android:layout_alignStart="@+id/video_xueya2"
@@ -445,7 +443,6 @@
             android:src="@drawable/video_xueya" />
 
         <ImageView
-            android:id="@+id/video_xuetang3"
             android:layout_width="550dp"
             android:layout_height="180dp"
             android:layout_alignStart="@+id/video_xuetang2"
@@ -663,7 +660,6 @@
               android:clickable="true" />-->
 
         <ImageView
-            android:id="@+id/video_xueyang"
             android:layout_width="550dp"
             android:layout_height="180dp"
             android:layout_alignParentRight="true"
@@ -985,7 +981,6 @@
             android:textSize="40sp" />
 
         <LinearLayout
-            android:id="@+id/left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">

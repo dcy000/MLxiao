@@ -166,7 +166,6 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_wifi"
         android:layout_width="90pt"
         android:layout_height="90pt"
         android:onClick="onWifiClick"

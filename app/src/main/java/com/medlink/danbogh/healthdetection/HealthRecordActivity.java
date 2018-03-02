@@ -130,45 +130,17 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时
     private int timeFlag = 1;//默认最近一周：1；一个月：2；一季度：3；一年：4；
     private int radioGroupPosition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_record);
         mToolbar.setVisibility(View.VISIBLE);
         mUnbinder = ButterKnife.bind(this);
-        radioGroupPosition=getIntent().getIntExtra("position",0);
+        radioGroupPosition = getIntent().getIntExtra("position", 0);
         speak("主人，请查看历史记录");
 //        tvTitle.setText("健康档案");
-        //默认选择第一个
-        switch (radioGroupPosition){
-            case 0:
-                rgHealthRecord.check(R.id.rb_record_temperature);
-                break;
-            case 1:
-                rgHealthRecord.check(R.id.rb_record_blood_pressure);
-                break;
-            case 2:
-                rgHealthRecord.check(R.id.rb_record_blood_glucose);
-                break;
-            case 3:
-                rgHealthRecord.check(R.id.rb_record_blood_oxygen);
-                break;
-            case 4:
-                rgHealthRecord.check(R.id.rb_record_heart_rate);
-                break;
-            case 5:
-                rgHealthRecord.check(R.id.rb_record_cholesterol);
-                break;
-            case 6:
-                rgHealthRecord.check(R.id.rb_record_bua);
-                break;
-            case 7:
-                rgHealthRecord.check(R.id.rb_record_ecg);
-                break;
-            case 8:
-                rgHealthRecord.check(R.id.rb_record_weight);
-                break;
-        }
+
         mTitleText.setText(R.string.history_celiang);
         rbRecordTemperature.setOnClickListener(this);
         rbRecordBloodPressure.setOnClickListener(this);
@@ -197,7 +169,46 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         curr.set(Calendar.YEAR, curr.get(Calendar.YEAR) - 1);
         yearAgoTime = curr.getTimeInMillis();
 
-        getTiwen(weekAgoTime + "", currentTime + "");
+        //默认选择第一个
+        switch (radioGroupPosition) {
+            case 0:
+                rgHealthRecord.check(R.id.rb_record_temperature);
+                clickTiwen();
+                break;
+            case 1:
+                rgHealthRecord.check(R.id.rb_record_blood_pressure);
+                clickXueya();
+                break;
+            case 2:
+                rgHealthRecord.check(R.id.rb_record_blood_glucose);
+                clickXuetang();
+                break;
+            case 3:
+                rgHealthRecord.check(R.id.rb_record_blood_oxygen);
+                clickXueyang();
+                break;
+            case 4:
+                rgHealthRecord.check(R.id.rb_record_heart_rate);
+                clickXinlv();
+                break;
+            case 5:
+                rgHealthRecord.check(R.id.rb_record_cholesterol);
+                clickDangu();
+                break;
+            case 6:
+                rgHealthRecord.check(R.id.rb_record_bua);
+                clickNiaosuan();
+                break;
+            case 7:
+                rgHealthRecord.check(R.id.rb_record_ecg);
+                clickXindian();
+                break;
+            case 8:
+                rgHealthRecord.check(R.id.rb_record_weight);
+                clickTizhong();
+                break;
+        }
+//        getTiwen(weekAgoTime + "", currentTime + "");
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -472,6 +483,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xuetangChart.animateX(2500);
 
     }
+
     private void setXinlvChart() {
 
         //x轴右下角文字描述
@@ -542,6 +554,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xinlvChart.animateX(2500);
 
     }
+
     /**
      * 血氧基本设置
      */
@@ -778,6 +791,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         xueniaosuanChart.animateX(2500);
 
     }
+
     /**
      * 体温图的设置
      */
@@ -850,6 +864,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         tizhongChart.animateX(2500);
 
     }
+
     private void getTiwen(String start, String end) {
         rgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
@@ -949,6 +964,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
+
     private void getXinlv(String start, String end) {
         rgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
@@ -992,6 +1008,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
+
     private void getXuetang(String start, String end, final int flag) {
         rgXuetangTime.setVisibility(View.VISIBLE);
         //指示器的颜色
@@ -1221,7 +1238,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
-    private  void getTizhong(String start, String end) {
+
+    private void getTizhong(String start, String end) {
         rgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
         color1.setBackgroundColor(getResources().getColor(R.color.node_color));
@@ -1239,7 +1257,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 //                    if (response.get(i).temper_ature > 37.2 || response.get(i).temper_ature < 36.0) {//超出正常范围的数据用红色表明
 //                        colors.add(Color.RED);
 //                    } else {
-                        colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                    colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
 //                    }
                     values.add(new Entry(i, response.get(i).weight));
                     times.add(response.get(i).time);
@@ -1265,6 +1283,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
+
     /**
      * 设置体温的走势
      *
@@ -1426,6 +1445,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             xueyaChart.setData(data);
         }
     }
+
     private void setXinlv(ArrayList<Entry> values, ArrayList<Integer> colors) {
 
         LineDataSet set1;
@@ -1491,6 +1511,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             xinlvChart.setData(data);
         }
     }
+
     /**
      * 设置血糖的走势
      *
@@ -1740,6 +1761,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             xueniaosuanChart.setData(data);
         }
     }
+
     private void setTizhong(ArrayList<Entry> values, ArrayList<Integer> colors) {
 
         LineDataSet set1;
@@ -1805,6 +1827,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             tizhongChart.setData(data);
         }
     }
+
     @Override
     protected void onDestroy() {
         if (mUnbinder != null) {
@@ -1813,153 +1836,189 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         super.onDestroy();
     }
 
+    private void clickTiwen() {
+        temp = "1";
+        tiwenChart.setVisibility(View.VISIBLE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.VISIBLE);
+        llTime.check(R.id.one_week);
+        getTiwen(weekAgoTime + "", currentTime + "");
+    }
+
+    private void clickXueya() {
+        temp = "2";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.VISIBLE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.VISIBLE);
+        llTime.check(R.id.one_week);
+        getXueya(weekAgoTime + "", currentTime + "");
+    }
+
+    private void clickXinlv() {
+        temp = "3";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.VISIBLE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.VISIBLE);
+        llTime.check(R.id.one_week);
+        getXinlv(weekAgoTime + "", currentTime + "");
+    }
+
+    private void clickXuetang() {
+        temp = "4";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.VISIBLE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.VISIBLE);
+        llTime.check(R.id.one_week);
+        getXuetang(weekAgoTime + "", currentTime + "", eatedTime);
+    }
+
+    private void clickXueyang() {
+        temp = "5";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.VISIBLE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.VISIBLE);
+        llTime.check(R.id.one_week);
+        getXueyang(weekAgoTime + "", currentTime + "");
+    }
+
+    private void clickDangu() {
+        temp = "7";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.VISIBLE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.VISIBLE);
+        getDangucun(weekAgoTime + "", currentTime + "");
+        llTime.check(R.id.one_week);
+    }
+
+    private void clickNiaosuan() {
+        temp = "8";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.VISIBLE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.VISIBLE);
+        getXueniaosuan(weekAgoTime + "", currentTime + "");
+        llTime.check(R.id.one_week);
+    }
+
+    private void clickXindian() {
+        temp = "9";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.VISIBLE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.GONE);
+        getXindian(weekAgoTime + "", currentTime + "");
+        llTime.check(R.id.one_week);
+    }
+
+    private void clickTizhong() {
+        temp = "10";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.VISIBLE);
+        llIndicator.setVisibility(View.VISIBLE);
+        getTizhong(weekAgoTime + "", currentTime + "");
+        llTime.check(R.id.one_week);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rb_record_temperature://体温
-                temp = "1";
-                tiwenChart.setVisibility(View.VISIBLE);
-                xueyaChart.setVisibility(View.GONE);
-                xuetangChart.setVisibility(View.GONE);
-                xueyangChart.setVisibility(View.GONE);
-                xinlvChart.setVisibility(View.GONE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.GONE);
-                xueniaosuanChart.setVisibility(View.GONE);
-                xindianList.setVisibility(View.GONE);
-                tizhongChart.setVisibility(View.GONE);
-                llIndicator.setVisibility(View.VISIBLE);
-                llTime.check(R.id.one_week);
-                getTiwen(weekAgoTime + "", currentTime + "");
+                clickTiwen();
                 break;
             case R.id.rb_record_blood_pressure://血压
-                temp = "2";
-                tiwenChart.setVisibility(View.GONE);
-                xueyaChart.setVisibility(View.VISIBLE);
-                xuetangChart.setVisibility(View.GONE);
-                xueyangChart.setVisibility(View.GONE);
-                xinlvChart.setVisibility(View.GONE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.GONE);
-                xueniaosuanChart.setVisibility(View.GONE);
-                xindianList.setVisibility(View.GONE);
-                tizhongChart.setVisibility(View.GONE);
-                llIndicator.setVisibility(View.VISIBLE);
-                llTime.check(R.id.one_week);
-                getXueya(weekAgoTime + "", currentTime + "");
+                clickXueya();
                 break;
             case R.id.rb_record_heart_rate:
-                temp = "3";
-                tiwenChart.setVisibility(View.GONE);
-                xueyaChart.setVisibility(View.GONE);
-                xuetangChart.setVisibility(View.GONE);
-                xueyangChart.setVisibility(View.GONE);
-                xinlvChart.setVisibility(View.VISIBLE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.GONE);
-                xueniaosuanChart.setVisibility(View.GONE);
-                xindianList.setVisibility(View.GONE);
-                tizhongChart.setVisibility(View.GONE);
-                llIndicator.setVisibility(View.VISIBLE);
-                llTime.check(R.id.one_week);
-                getXinlv(weekAgoTime + "", currentTime + "");
+                clickXinlv();
                 break;
             case R.id.rb_record_blood_glucose://血糖
-                temp = "4";
-                tiwenChart.setVisibility(View.GONE);
-                xueyaChart.setVisibility(View.GONE);
-                xuetangChart.setVisibility(View.VISIBLE);
-                xueyangChart.setVisibility(View.GONE);
-                xinlvChart.setVisibility(View.GONE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.GONE);
-                xueniaosuanChart.setVisibility(View.GONE);
-                xindianList.setVisibility(View.GONE);
-                tizhongChart.setVisibility(View.GONE);
-                llIndicator.setVisibility(View.VISIBLE);
-                llTime.check(R.id.one_week);
-                getXuetang(weekAgoTime + "", currentTime + "", eatedTime);
+                clickXuetang();
                 break;
             case R.id.rb_record_blood_oxygen://血氧
-                temp = "5";
-                tiwenChart.setVisibility(View.GONE);
-                xueyaChart.setVisibility(View.GONE);
-                xuetangChart.setVisibility(View.GONE);
-                xueyangChart.setVisibility(View.VISIBLE);
-                xinlvChart.setVisibility(View.GONE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.GONE);
-                xueniaosuanChart.setVisibility(View.GONE);
-                xindianList.setVisibility(View.GONE);
-                tizhongChart.setVisibility(View.GONE);
-                llIndicator.setVisibility(View.VISIBLE);
-                llTime.check(R.id.one_week);
-                getXueyang(weekAgoTime + "", currentTime + "");
+                clickXueyang();
                 break;
 
             case R.id.rb_record_cholesterol://胆固醇
-                temp = "7";
-                tiwenChart.setVisibility(View.GONE);
-                xueyaChart.setVisibility(View.GONE);
-                xuetangChart.setVisibility(View.GONE);
-                xueyangChart.setVisibility(View.GONE);
-                xinlvChart.setVisibility(View.GONE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.VISIBLE);
-                xueniaosuanChart.setVisibility(View.GONE);
-                xindianList.setVisibility(View.GONE);
-                tizhongChart.setVisibility(View.GONE);
-                llIndicator.setVisibility(View.VISIBLE);
-                getDangucun(weekAgoTime + "", currentTime + "");
-                llTime.check(R.id.one_week);
+                clickDangu();
                 break;
             case R.id.rb_record_bua://血尿酸
-                temp = "8";
-                tiwenChart.setVisibility(View.GONE);
-                xueyaChart.setVisibility(View.GONE);
-                xuetangChart.setVisibility(View.GONE);
-                xueyangChart.setVisibility(View.GONE);
-                xinlvChart.setVisibility(View.GONE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.GONE);
-                xueniaosuanChart.setVisibility(View.VISIBLE);
-                xindianList.setVisibility(View.GONE);
-                tizhongChart.setVisibility(View.GONE);
-                llIndicator.setVisibility(View.VISIBLE);
-                getXueniaosuan(weekAgoTime + "", currentTime + "");
-                llTime.check(R.id.one_week);
+                clickNiaosuan();
                 break;
             case R.id.rb_record_ecg://心电图
-                temp = "9";
-                tiwenChart.setVisibility(View.GONE);
-                xueyaChart.setVisibility(View.GONE);
-                xuetangChart.setVisibility(View.GONE);
-                xueyangChart.setVisibility(View.GONE);
-                xinlvChart.setVisibility(View.GONE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.GONE);
-                xueniaosuanChart.setVisibility(View.GONE);
-                xindianList.setVisibility(View.VISIBLE);
-                tizhongChart.setVisibility(View.GONE);
-                llIndicator.setVisibility(View.GONE);
-                getXindian(weekAgoTime + "", currentTime + "");
-                llTime.check(R.id.one_week);
+                clickXindian();
                 break;
             case R.id.rb_record_weight://体重
-                temp="10";
-                tiwenChart.setVisibility(View.GONE);
-                xueyaChart.setVisibility(View.GONE);
-                xuetangChart.setVisibility(View.GONE);
-                xueyangChart.setVisibility(View.GONE);
-                xinlvChart.setVisibility(View.GONE);
-                maiboChart.setVisibility(View.GONE);
-                danguchunChart.setVisibility(View.GONE);
-                xueniaosuanChart.setVisibility(View.GONE);
-                xindianList.setVisibility(View.GONE);
-                tizhongChart.setVisibility(View.VISIBLE);
-                llIndicator.setVisibility(View.VISIBLE);
-                getTizhong(weekAgoTime + "", currentTime + "");
-                llTime.check(R.id.one_week);
+                clickTizhong();
                 break;
             case R.id.rb_kongfu:
                 eatedTime = 0;
@@ -2029,7 +2088,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXueya(weekAgoTime + "", currentTime + "");
                         break;
                     case "3":
-                        getXinlv(weekAgoTime+"",currentTime+"");
+                        getXinlv(weekAgoTime + "", currentTime + "");
                         break;
                     case "4":
                         getXuetang(weekAgoTime + "", currentTime + "", eatedTime);

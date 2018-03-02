@@ -95,8 +95,8 @@ public class AuthenticationActivity extends BaseActivity {
     private byte[] nv21;
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
-    // 加速度感应器，用于获取手机的朝向
-    private Accelerometer mAcc;
+//    // 加速度感应器，用于获取手机的朝向
+//    private Accelerometer mAcc;
     private static byte[] mImageData = null;
     private Bitmap b3;
     private String orderid;
@@ -111,7 +111,7 @@ public class AuthenticationActivity extends BaseActivity {
     private ArrayList<UserInfoBean> mDataList;
     private boolean isInclude;
     private int authenticationNum = 0;
-
+    private int xfIdIndex = 0;//记录讯飞id数组的位置
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
 
@@ -142,14 +142,6 @@ public class AuthenticationActivity extends BaseActivity {
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                                     if (firstScore > 80) {
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
-//                                            ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
-//                                            MyApplication.getInstance().userId = FaceAuthenticationUtils.getInstance(weakReference.get()).getAllLocalXfid_Userid().get(firstXfid);
-//                                            MyApplication.getInstance().xfid = firstXfid;
-//
-//                                            sendBroadcast(new Intent("change_account"));
-//                                            finishActivity();
-//                                            startActivity(new Intent(weakReference.get(), Test_mainActivity.class));
-//                                            finish();
                                             ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
                                             if (mDataList != null) {
                                                 for (int i = 0; i < mDataList.size(); i++) {
@@ -220,8 +212,8 @@ public class AuthenticationActivity extends BaseActivity {
                             if (!AuthenticationActivity.this.isFinishing() && !AuthenticationActivity.this.isDestroyed())
                                 if (authenticationNum < 5) {
                                     authenticationNum++;
-                                    ToastUtil.showShort(weakReference.get(), "第" + getChineseNumber(authenticationNum) + "验证失败");
-                                    myHandler.sendEmptyMessage(1);
+                                    ToastUtil.showShort(weakReference.get(), "第" + getChineseNumber(authenticationNum) + "次验证失败");
+                                    myHandler.sendEmptyMessageDelayed(1,1000);
                                 } else {
                                     finishActivity();
                                     finish();
@@ -231,9 +223,6 @@ public class AuthenticationActivity extends BaseActivity {
                     });
 
                     break;
-//                case 2:
-//                    isGetImageFlag = true;
-//                    break;
             }
         }
     }
@@ -302,11 +291,107 @@ public class AuthenticationActivity extends BaseActivity {
         setContentView(R.layout.activity_video_demo);
 
         init();
-        setClick();
         openCameraPreview();
+        group();
+        setClick();
         getAllUsersInfo();
     }
 
+    private void group() {
+        String groupId = LocalShared.getInstance(this).getGroupId();
+        xfids = FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).getAllLocalXfids();
+        if (TextUtils.isEmpty(groupId)) {
+            //创建讯飞人脸识别组,并且把所有已经在该机器上登录的账号加入到组中，该过程在后台执行Net
+            createGroup();
+        } else {
+            joinGroup();
+        }
+    }
+    private void createGroup() {
+        Handlers.bg().post(createGroupRunnable=new Runnable() {
+            @Override
+            public void run() {
+                FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).createGroup(xfids);
+                FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
+                    @Override
+                    public void onResult(IdentityResult result, boolean islast) {
+                        try {
+                            JSONObject resObj = new JSONObject(result.getResultString());
+                            LocalShared.getInstance(AuthenticationActivity.this).setGroupId(resObj.getString("group_id"));
+                            Log.e("组id", "++++++ " + resObj.getString("group_id"));
+                            LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfids[0]);
+                            joinGroup();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+                        Log.e("创建组", "onEvent: ");
+                    }
+
+                    @Override
+                    public void onError(SpeechError error) {
+                        if (error.getErrorCode()==10144){//创建组的数量达到上限
+                            ToastUtil.showShort(AuthenticationActivity.this,"出现技术故障，请致电客服咨询");
+                        }
+                        Log.e("创建组", "onError: " + error.getPlainDescription(true));
+                    }
+                });
+            }
+        });
+    }
+    private  Runnable joinGroupRunable,createGroupRunnable;
+    private void joinGroup() {
+        Handlers.bg().post(joinGroupRunable=new Runnable() {
+            @Override
+            public void run() {
+                Log.e("创建组的执行线程", "handleMessage: " + Thread.currentThread().getName());
+                if (xfIdIndex < xfids.length)
+                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).
+                            joinGroup(LocalShared.getInstance(AuthenticationActivity.this).getGroupId(), xfids[xfIdIndex]);
+
+                FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+                    @Override
+                    public void onResult(IdentityResult result, boolean islast) {
+                        xfIdIndex++;
+                        if (xfIdIndex < xfids.length) {
+                            joinGroup();
+
+                        }else{
+                            //添加完成就移除消息
+                            Log.e("组成员全部添加完成", "onResult: " );
+
+                            if (isFirstSend) {
+                                myHandler.sendEmptyMessageDelayed(1, 1000);
+                                isFirstSend = false;
+                            }
+                            Handlers.bg().removeCallbacks(joinGroupRunable);
+                            Handlers.bg().removeCallbacks(createGroupRunnable);
+                        }
+                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + "添加成功" + "-----" + result.getResultString());
+                    }
+
+                    @Override
+                    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+                    }
+
+                    @Override
+                    public void onError(SpeechError error) {
+                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + error.getPlainDescription(true));
+                        if (error.getErrorCode() == 10121) {//该模型已经存在{
+                            xfIdIndex++;
+                            joinGroup();
+                        } else {
+                            joinGroup();
+                        }
+                    }
+                });
+            }
+        });
+    }
     private void getAllUsersInfo() {
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts == null) {
@@ -352,8 +437,6 @@ public class AuthenticationActivity extends BaseActivity {
 
     private void openCameraPreview() {
         nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
-        mAcc = new Accelerometer(AuthenticationActivity.this);
-
         mPreviewSurface = findViewById(R.id.sfv_preview);
         mPreviewSurface.getHolder().addCallback(new Callback() {
             @Override
@@ -414,18 +497,6 @@ public class AuthenticationActivity extends BaseActivity {
         });
     }
 
-    private void finishActivity() {
-        findViewById(R.id.iv_circle).clearAnimation();
-
-        if (mAcc != null) {
-            mAcc.stop();
-        }
-        closeCamera();
-
-        myHandler.removeCallbacksAndMessages(null);
-        FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
-    }
-
 
     private void openCamera() {
         if (null != mCamera) {
@@ -476,12 +547,6 @@ public class AuthenticationActivity extends BaseActivity {
                             isGetImageFlag = true;
                         }
                     });
-//                    new GetImageTask(data).execute();
-                }
-
-                if (isFirstSend) {
-                    myHandler.sendEmptyMessageDelayed(1, 2000);
-                    isFirstSend = false;
                 }
             }
         });
@@ -608,10 +673,21 @@ public class AuthenticationActivity extends BaseActivity {
         }
         return false;
     }
+    private void finishActivity() {
+        findViewById(R.id.iv_circle).clearAnimation();
+        Handlers.bg().removeCallbacksAndMessages(null);
+        closeCamera();
+        myHandler.removeCallbacksAndMessages(null);
+        FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //销毁组
+        FaceAuthenticationUtils.getInstance(mContext).
+                deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
+        FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
         if (baos != null) {
             try {
                 baos.close();
@@ -621,4 +697,27 @@ public class AuthenticationActivity extends BaseActivity {
             }
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        xfIdIndex=0;
+    }
+
+    private DeleteGroupListener deleteGroupListener = new DeleteGroupListener() {
+        @Override
+        public void onResult(IdentityResult result, boolean islast) {
+            Log.e("删除成功", "onResult: ");
+        }
+
+        @Override
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+//            Log.e("删除", "onEvent:第一个参数 "+eventType+"第二个参数"+arg1+"第三个参数"+arg2+"第四个参数"+obj.toString());
+        }
+
+        @Override
+        public void onError(SpeechError error) {
+            Log.e("删除失败", "onError: " + error.getPlainDescription(true));
+        }
+    };
 }
