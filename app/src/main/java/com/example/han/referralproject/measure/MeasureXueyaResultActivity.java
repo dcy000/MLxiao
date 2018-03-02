@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -96,7 +97,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         initLineChart();
         initOther();
         speak("主人，您本次测量的高压是" + intent.getStringExtra("current_gaoya") + ",低压是" + intent.getStringExtra("current_diya") +
-                "，本周平均高压" + String.format("%.0f",Float.parseFloat(weekGaoyaAvg)) + ",低压" + String.format("%.0f",Float.parseFloat(weekDiyaAvg)) + ",健康分数" + String.format("%.0f",Float.parseFloat(fenshu)) + "分。" + suggest);
+                "，本周平均高压" + String.format("%.0f", Float.parseFloat(weekGaoyaAvg)) + ",低压" + String.format("%.0f", Float.parseFloat(weekDiyaAvg)) + ",健康分数" + String.format("%.0f", Float.parseFloat(fenshu)) + "分。" + suggest);
         tvSomethingAdvice.setOnClickListener(this);
         healthKnowledge.setOnClickListener(this);
     }
@@ -179,8 +180,18 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         tvGao.setText(measurePiangaoNum + "次");
         tvZhengchang.setText(measureZhengchangNum + "次");
         tvDi.setText(measurePiandiNum + "次");
-        tvGaoya.setText(String.format("%.0f",Float.parseFloat(weekGaoyaAvg)));
-        tvDiya.setText(String.format("%.0f",Float.parseFloat(weekDiyaAvg)));
+        if (!TextUtils.isEmpty(weekGaoyaAvg)) {
+            if ("-1".equals(weekGaoyaAvg))
+                tvGaoya.setText("未测量");
+            else
+                tvGaoya.setText(String.format("%.0f", Float.parseFloat(weekGaoyaAvg)));
+        }
+        if (!TextUtils.isEmpty(weekDiyaAvg)) {
+            if ("-1".equals(weekDiyaAvg))
+                tvDiya.setText("未测量");
+            else
+                tvDiya.setText(String.format("%.0f", Float.parseFloat(weekDiyaAvg)));
+        }
 
         progressAnim = new Thread() {
             @Override
@@ -256,7 +267,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_something_advice:
                 startActivity(new Intent(this, DiseaseDetailsActivity.class)
                         .putExtra("type", "高血压"));
