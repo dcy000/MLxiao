@@ -129,6 +129,7 @@ public class MeasureXueyaWarningFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 chooseReason.hasReason(-1);
+                removeFragment();
             }
         });
         measureNormal.setOnClickListener(new View.OnClickListener() {

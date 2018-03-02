@@ -50,6 +50,7 @@
             android:text="其他原因"
             android:textSize="56pt"
             android:gravity="center"
+            android:clickable="true"
             android:background="@drawable/measure_xuetang_result"/>
         <TextView
             android:id="@+id/measure_normal"

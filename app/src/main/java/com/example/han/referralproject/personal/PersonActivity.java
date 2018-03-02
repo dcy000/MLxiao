@@ -59,9 +59,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     mTextView.setText(mUser.getBname());
                     break;
                 case 1:
-
                     LocalShared.getInstance(getApplicationContext()).setXunfeiID(msg.obj + "");
-
                     break;
             }
             super.handleMessage(msg);

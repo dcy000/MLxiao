@@ -3,6 +3,7 @@ package com.example.han.referralproject.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
@@ -61,9 +62,10 @@ public class LocalShared {
             mShared.edit().putString(UserAccounts_new, bid + "," + xfid + ";").commit();
         } else {
             String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(";");
+            Log.e("原来的账号", "addAccount: "+accountsString);
             if (!isContainAccount(accountsArray, bid, xfid)) {
                 mShared.edit().putString(UserAccounts_new, accountsString + bid + "," + xfid + ";").commit();
-
+                Log.e("现在", "addAccount: "+mShared.getString(UserAccounts_new, ""));
             }
         }
     }
@@ -137,6 +139,7 @@ public class LocalShared {
         MyApplication.getInstance().telphoneNum = infoBean.tel;
         MyApplication.getInstance().userName = infoBean.bname;
         MyApplication.getInstance().eqid=infoBean.eqid;
+        MyApplication.getInstance().xfid=infoBean.xfid;
         mShared.edit()
                 .putString(UserId, infoBean.bid)
                 .putString(EQID, infoBean.eqid)
@@ -442,5 +445,18 @@ public class LocalShared {
 
     public String getUserHeight() {
         return mShared.getString("user_height", "");
+    }
+    public void setGroupId(String groupid){
+        mShared.edit().putString("group_id", groupid).commit();
+    }
+    public String getGroupId(){
+        return mShared.getString("group_id","");
+    }
+
+    public void setGroupFirstXfid(String xfid){
+        mShared.edit().putString("group_first_xfid", xfid).commit();
+    }
+    public String getGroupFirstXfid(){
+        return mShared.getString("group_first_xfid","");
     }
 }

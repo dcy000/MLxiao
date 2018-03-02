@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -21,6 +25,9 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.facerecognition.CreateGroupListener;
+import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
+import com.example.han.referralproject.facerecognition.JoinGroupListener;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -28,15 +35,23 @@ import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
+import com.iflytek.cloud.IdentityResult;
+import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.utils.HandlerUtils;
+import com.medlink.danbogh.utils.Handlers;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +144,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         }, 1000);
+
     }
+
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -207,6 +224,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onResume() {
+        String groupId = LocalShared.getInstance(this).getGroupId();
+        xfids = FaceAuthenticationUtils.getInstance(MainActivity.this).getAllLocalXfids();
+        for (int i=0;i<xfids.length;i++) {
+            Log.e("所有讯飞的id", "onResume: " + xfids[i]);
+        }
+        if (TextUtils.isEmpty(groupId)) {
+            //创建讯飞人脸识别组,并且把所有已经在该机器上登录的账号加入到组中，该过程在后台执行Net
+            createGroup();
+        } else {
+            joinGroup();
+        }
+
         NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
         setEnableListeningLoop(false);
         super.onResume();
@@ -234,6 +263,41 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]), itemBean.medicine);
                     }
                 }
+            }
+        });
+    }
+
+    private String[] xfids;
+
+    private void createGroup() {
+        Handlers.bg().post(new Runnable() {
+            @Override
+            public void run() {
+                FaceAuthenticationUtils.getInstance(MainActivity.this).createGroup(xfids);
+                FaceAuthenticationUtils.getInstance(MainActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
+                    @Override
+                    public void onResult(IdentityResult result, boolean islast) {
+                        try {
+                            JSONObject resObj = new JSONObject(result.getResultString());
+                            LocalShared.getInstance(MainActivity.this).setGroupId(resObj.getString("group_id"));
+                            Log.e("组id", "++++++ " + resObj.getString("group_id"));
+                            LocalShared.getInstance(MainActivity.this).setGroupFirstXfid(xfids[0]);
+                            joinGroup();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+                        Log.e("创建组", "onEvent: ");
+                    }
+
+                    @Override
+                    public void onError(SpeechError error) {
+                        Log.e("创建组", "onError: " + error.getPlainDescription(true));
+                    }
+                });
             }
         });
     }
@@ -288,5 +352,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
         }
+    }
+
+    private int xfIdIndex = 0;//记录讯飞id数组的位置
+
+    private void joinGroup() {
+        Handlers.bg().post(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("创建组的执行线程", "handleMessage: " + Thread.currentThread().getName());
+                if (xfIdIndex < xfids.length)
+                    FaceAuthenticationUtils.getInstance(MainActivity.this).
+                            joinGroup(LocalShared.getInstance(MainActivity.this).getGroupId(), xfids[xfIdIndex]);
+
+                FaceAuthenticationUtils.getInstance(MainActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+                    @Override
+                    public void onResult(IdentityResult result, boolean islast) {
+                        xfIdIndex++;
+                        if (xfIdIndex < xfids.length) {
+                            joinGroup();
+
+                        }
+                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + "添加成功" + "-----" + result.getResultString());
+                    }
+
+                    @Override
+                    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+                    }
+
+                    @Override
+                    public void onError(SpeechError error) {
+                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + error.getPlainDescription(true));
+                        if (error.getErrorCode() == 10121) {//该模型已经存在{
+                            xfIdIndex++;
+                            joinGroup();
+                        } else {
+                            joinGroup();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        xfIdIndex = 0;
+        super.onPause();
     }
 }

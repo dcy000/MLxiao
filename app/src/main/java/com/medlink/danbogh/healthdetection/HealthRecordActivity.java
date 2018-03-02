@@ -129,17 +129,46 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     private String temp = "1";//记录选择的标签,默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸，9：心电
     private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时
     private int timeFlag = 1;//默认最近一周：1；一个月：2；一季度：3；一年：4；
-
+    private int radioGroupPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_record);
         mToolbar.setVisibility(View.VISIBLE);
         mUnbinder = ButterKnife.bind(this);
+        radioGroupPosition=getIntent().getIntExtra("position",0);
         speak("主人，请查看历史记录");
 //        tvTitle.setText("健康档案");
         //默认选择第一个
-        rgHealthRecord.check(R.id.rb_record_temperature);
+        switch (radioGroupPosition){
+            case 0:
+                rgHealthRecord.check(R.id.rb_record_temperature);
+                break;
+            case 1:
+                rgHealthRecord.check(R.id.rb_record_blood_pressure);
+                break;
+            case 2:
+                rgHealthRecord.check(R.id.rb_record_blood_glucose);
+                break;
+            case 3:
+                rgHealthRecord.check(R.id.rb_record_blood_oxygen);
+                break;
+            case 4:
+                rgHealthRecord.check(R.id.rb_record_heart_rate);
+                break;
+            case 5:
+                rgHealthRecord.check(R.id.rb_record_cholesterol);
+                break;
+            case 6:
+                rgHealthRecord.check(R.id.rb_record_bua);
+                break;
+            case 7:
+                rgHealthRecord.check(R.id.rb_record_ecg);
+                break;
+            case 8:
+                rgHealthRecord.check(R.id.rb_record_weight);
+                break;
+        }
         mTitleText.setText(R.string.history_celiang);
         rbRecordTemperature.setOnClickListener(this);
         rbRecordBloodPressure.setOnClickListener(this);
@@ -239,7 +268,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         leftAxis.addLimitLine(ll2);
         leftAxis.resetAxisMaximum();
         leftAxis.resetAxisMinimum();
-        leftAxis.setAxisMinimum(35f);
+        leftAxis.setAxisMinimum(32f);
         leftAxis.setTextSize(20f);
 
 
@@ -734,8 +763,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         leftAxis.addLimitLine(ll4);
         leftAxis.resetAxisMaximum();
         leftAxis.resetAxisMinimum();
-        leftAxis.setAxisMaximum(450);
-        leftAxis.setAxisMinimum(70);
+        leftAxis.setAxisMaximum(500);
+        leftAxis.setAxisMinimum(50);
         //网格线
         leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
