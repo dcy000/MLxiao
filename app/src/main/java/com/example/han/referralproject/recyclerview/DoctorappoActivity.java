@@ -1306,7 +1306,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                 allReservationHistory.clear();
                 allReservationHistory.addAll(response);
                 for (int i = 0; i < response.size(); i++) {
-                    if ("已完成".equals(response.get(i).getState()) || "已过期".equals(response.get(i).getState())) {
+                    if ("已完成".equals(response.get(i).getState()) || "已过期".equals(response.get(i).getState())||"未接受".equals(response.get(i).getState())) {
                         response.remove(i);
                         i--;
                     }
