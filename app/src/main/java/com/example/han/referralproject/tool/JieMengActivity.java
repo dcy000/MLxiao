@@ -1,5 +1,6 @@
 package com.example.han.referralproject.tool;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -202,9 +203,10 @@ public class JieMengActivity extends BaseActivity {
                 startListener();
                 break;
             case R.id.tv_title:
-                clStart.setVisibility(View.VISIBLE);
-                clDreamResult.setVisibility(View.GONE);
-                data.clear();
+//                clStart.setVisibility(View.VISIBLE);
+//                clDreamResult.setVisibility(View.GONE);
+//                data.clear();
+                startActivity(new Intent(this,DateInquireActivity.class));
                 break;
         }
     }

@@ -5,67 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_dream_result"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="70dp"
-        android:background="@drawable/bg_jimen_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_dream_result"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dream_yuyi"
-            app:layout_constraintVertical_bias="0.357" />
-
-        <TextView
-            android:id="@+id/tv_dream_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
-            android:textColor="#FF333333"
-            android:textSize="36dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_dream_yuyi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:textColor="#FF333333"
-            android:textSize="28dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dream_title" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <ImageView
+    <TextView
+        android:textColor="@color/white"
+        android:background="#333"
+        android:textSize="36sp"
+        android:text="日期查询"
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="66dp"
-        android:background="@drawable/bg_title_bar"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="70dp"
-        android:background="@drawable/bg_jimen_content"
+        android:background="#333"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -90,9 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="40dp"
-            android:text="请按下语音键，说出您的梦"
+            android:text="2018-03-01 星期四 11:43"
             android:textAlignment="viewStart"
-            android:textColor="#FF333333"
+            android:textColor="@color/white"
             android:textSize="32dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +53,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:text="您可以这样提问："
-            android:textColor="#FF333333"
+            android:textColor="@color/white"
             android:textSize="28dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,9 +63,9 @@
             android:id="@+id/tv_demo1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="解释一下梦见大学？"
-            android:textColor="#FF62400E"
+            android:layout_marginTop="28dp"
+            android:text="今天星期几？"
+            android:textColor="#FFEFE35A"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_notice_demo"
             app:layout_constraintTop_toBottomOf="@+id/tv_notice_demo" />
@@ -128,8 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginTop="25dp"
-            android:text="梦到鬼怎么办？"
-            android:textColor="#FF62400E"
+            android:text="距离春节还有多久？"
+            android:textColor="#FFEFE35A"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo1"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo1" />
@@ -138,9 +85,9 @@
             android:id="@+id/tv_demo3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="梦到飞机什么意思？"
-            android:textColor="#FF62400E"
+            android:layout_marginTop="24dp"
+            android:text="几点了？"
+            android:textColor="#FFEFE35A"
             android:textSize="32dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo2"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo2" />
@@ -162,7 +109,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="按下请说话"
-            android:textColor="#FF666666"
+            android:textColor="@color/white"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
