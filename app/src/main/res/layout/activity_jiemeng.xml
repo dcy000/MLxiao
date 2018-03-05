@@ -154,6 +154,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="按下请说话"
+            android:textColor="#FF666666"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_yuyin"
+            tools:layout_editor_absoluteX="410dp" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
