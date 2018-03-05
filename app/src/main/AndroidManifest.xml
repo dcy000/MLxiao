@@ -553,7 +553,8 @@
             <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".tool.DateInquireActivity"></activity>
+        <activity android:name=".tool.DateInquireActivity" />
+        <activity android:name=".tool.CookBookActivity"></activity>
     </application>
 
 </manifest>

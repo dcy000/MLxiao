@@ -1,8 +1,6 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +13,7 @@ import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
+import com.ml.edu.common.utils.PreferencesHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DateInquireActivity extends AppCompatActivity {
+public class CookBookActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -38,15 +37,12 @@ public class DateInquireActivity extends AppCompatActivity {
     TextView tvDemo3;
     @BindView(R.id.iv_yuyin)
     ImageView ivYuyin;
-    @BindView(R.id.tv_notice)
-    TextView tvNotice;
-    @BindView(R.id.cl_start)
-    ConstraintLayout clStart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_date_inquire);
+        setContentView(R.layout.activity_cook_book);
         ButterKnife.bind(this);
     }
 
@@ -54,7 +50,7 @@ public class DateInquireActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
-                startActivity(new Intent(this,CookBookActivity.class));
+                finish();
                 break;
             case R.id.tv_demo1:
                 getDateData(tvDemo1.getText().toString().trim());
@@ -63,13 +59,32 @@ public class DateInquireActivity extends AppCompatActivity {
                 getDateData(tvDemo2.getText().toString().trim());
                 break;
             case R.id.tv_demo3:
-                getDateData(tvDemo3.getText().toString().trim());
+                getDateData(tvDemo2.getText().toString().trim());
                 break;
             case R.id.iv_yuyin:
-                //语音识别-->请求数据-->解析返回结果
                 startListener();
                 break;
         }
+    }
+
+
+    private void getDateData(String result) {
+        XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
+            @Override
+            public void onSuccess(final Object anwser, final String briefly) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(final Object briefly) {
+
+            }
+        });
     }
 
     private void startListener() {
@@ -92,7 +107,6 @@ public class DateInquireActivity extends AppCompatActivity {
             @Override
             public void onResult(RecognizerResult recognizerResult, boolean b) {
                 dealData(recognizerResult, b);
-
             }
 
             @Override
@@ -105,19 +119,16 @@ public class DateInquireActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
-    private HashMap<String, String> xfResult = new LinkedHashMap<>();
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
-        StringBuffer stringBuffer = printResult(recognizerResult);
         if (isLast) {
-            String result = stringBuffer.toString();
-            getDateData(result);
+            getDateData(printResult(recognizerResult).toString());
         }
-
     }
+
+
+    private HashMap<String, String> xfResult = new LinkedHashMap<>();
 
     private StringBuffer printResult(RecognizerResult results) {
         String text = JsonParser.parseIatResult(results.getResultString());
@@ -137,23 +148,5 @@ public class DateInquireActivity extends AppCompatActivity {
         }
         return resultBuffer;
 
-    }
-
-    private void getDateData(String result) {
-        XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
-            @Override
-            public void onSuccess(final Object anwser, final String briefly) {
-            }
-
-            @Override
-            public void onSuccess(final Object briefly) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tvNotice.setText((String) briefly);
-                    }
-                });
-            }
-        });
     }
 }

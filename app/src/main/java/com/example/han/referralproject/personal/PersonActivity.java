@@ -34,6 +34,7 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
+import com.example.han.referralproject.tool.JieMengActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
@@ -371,7 +372,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(this, MessageActivity.class));
                 break;
             case R.id.iv_pay:
-                startActivity(new Intent(this, PayActivity.class));
+//                startActivity(new Intent(this, PayActivity.class));
+                startActivity(new Intent(this, JieMengActivity.class));
+
                 break;
             case R.id.view_change:
                 mChangeAccountDialog = new ChangeAccountDialog(mContext);
