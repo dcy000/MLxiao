@@ -3,9 +3,6 @@ package com.example.han.referralproject.tool;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +33,8 @@ import butterknife.OnClick;
 public class JieMengActivity extends BaseActivity {
 
 
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     @BindView(R.id.tv_notice)
     TextView tvNotice;
     @BindView(R.id.tv_notice_demo)
@@ -48,39 +47,20 @@ public class JieMengActivity extends BaseActivity {
     TextView tvDemo3;
     @BindView(R.id.iv_yuyin)
     ImageView ivYuyin;
-    @BindView(R.id.rv_dream_result)
-    RecyclerView rvDreamResult;
-    @BindView(R.id.tv_dream_title)
-    TextView tvDreamTitle;
-    @BindView(R.id.tv_dream_yuyi)
-    TextView tvDreamYuyi;
-    @BindView(R.id.cl_dream_result)
-    ConstraintLayout clDreamResult;
+    @BindView(R.id.textView4)
+    TextView textView4;
     @BindView(R.id.cl_start)
     ConstraintLayout clStart;
-    @BindView(R.id.tv_title)
-    ImageView tvTitle;
     private List<DreamBean> data = new ArrayList<>();
-    private DreamRVadapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jiemeng);
         ButterKnife.bind(this);
-        initView();
         speak("主人,欢迎来到周公解梦!");
-
-
     }
 
-    private void initView() {
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-        layout.setOrientation(LinearLayoutManager.VERTICAL);
-        rvDreamResult.setLayoutManager(layout);
-        adapter = new DreamRVadapter(R.layout.item_dream, data);
-        rvDreamResult.setAdapter(adapter);
-    }
 
     private void startListener() {
         SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
@@ -118,14 +98,9 @@ public class JieMengActivity extends BaseActivity {
     }
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
-        StringBuffer stringBuffer = printResult(recognizerResult);
-        Log.d("stringBuffer", "++++++++++++++++++" + stringBuffer.toString() + "++++++++++++++++++++++");
         if (isLast) {
-            String result = stringBuffer.toString();
-            tvDreamTitle.setText(result);
-            getDreamData(result);
+            getDreamData(printResult(recognizerResult).toString());
         }
-
     }
 
     private void getDreamData(final String result) {
@@ -135,12 +110,9 @@ public class JieMengActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        clDreamResult.setVisibility(View.VISIBLE);
-                        clStart.setVisibility(View.GONE);
                         data.clear();
                         data.addAll((List<DreamBean>) anwser);
-                        adapter.notifyDataSetChanged();
-                        tvDreamYuyi.setText(briefly);
+                        JieMengRetultActivity.startMe(JieMengActivity.this, data, result, briefly);
                     }
                 });
             }
@@ -186,18 +158,15 @@ public class JieMengActivity extends BaseActivity {
 
             case R.id.tv_demo1:
                 String demo1 = tvDemo1.getText().toString();
-                tvDreamTitle.setText(demo1);
                 getDreamData(demo1);
                 break;
             case R.id.tv_demo2:
                 String demo2 = tvDemo2.getText().toString();
                 getDreamData(demo2);
-                tvDreamTitle.setText(demo2);
                 break;
             case R.id.tv_demo3:
                 String demo3 = tvDemo3.getText().toString();
                 getDreamData(demo3);
-                tvDreamTitle.setText(demo3);
                 break;
             case R.id.iv_yuyin:
                 startListener();
@@ -206,7 +175,7 @@ public class JieMengActivity extends BaseActivity {
 //                clStart.setVisibility(View.VISIBLE);
 //                clDreamResult.setVisibility(View.GONE);
 //                data.clear();
-                startActivity(new Intent(this,DateInquireActivity.class));
+                startActivity(new Intent(this, DateInquireActivity.class));
                 break;
         }
     }
