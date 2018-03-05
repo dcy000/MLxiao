@@ -89,8 +89,12 @@ public class FileHelper {
                 || !directory.isDirectory()) {
             return false;
         }
+        File[] files = directory.listFiles();
+        if (files == null) {
+            return false;
+        }
         boolean deleted = false;
-        for (File file : directory.listFiles()) {
+        for (File file : files) {
             deleted = file.delete();
         }
         return deleted;
@@ -106,6 +110,9 @@ public class FileHelper {
 
         long size = 0;
         File[] files = file.listFiles();
+        if (files == null) {
+            return size;
+        }
         for (File temp : files) {
             size += temp.length();
             if (temp.isDirectory()) {
