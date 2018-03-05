@@ -58,10 +58,10 @@ public class DateInquireActivity extends AppCompatActivity {
                 getDateData(tvDemo1.getText().toString().trim());
                 break;
             case R.id.tv_demo2:
-                getDateData(tvDemo1.getText().toString().trim());
+                getDateData(tvDemo2.getText().toString().trim());
                 break;
             case R.id.tv_demo3:
-                getDateData(tvDemo1.getText().toString().trim());
+                getDateData(tvDemo3.getText().toString().trim());
                 break;
             case R.id.iv_yuyin:
                 //语音识别-->请求数据-->解析返回结果
@@ -144,8 +144,13 @@ public class DateInquireActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSuccess(Object briefly) {
-                tvNotice.setText((String)briefly);
+            public void onSuccess(final Object briefly) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvNotice.setText((String) briefly);
+                    }
+                });
             }
         });
     }
