@@ -92,10 +92,10 @@ public class AuthenticationActivity extends BaseActivity {
     private int PREVIEW_WIDTH = 1280;
     private int PREVIEW_HEIGHT = 720;
     // 预览帧数据存储数组和缓存数组
-    private byte[] nv21;
+//    private byte[] nv21;
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
-//    // 加速度感应器，用于获取手机的朝向
+    //    // 加速度感应器，用于获取手机的朝向
 //    private Accelerometer mAcc;
     private static byte[] mImageData = null;
     private Bitmap b3;
@@ -112,6 +112,8 @@ public class AuthenticationActivity extends BaseActivity {
     private boolean isInclude;
     private int authenticationNum = 0;
     private int xfIdIndex = 0;//记录讯飞id数组的位置
+    private long oldMillisecond, currentMillisecond, dMillisecond;
+
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
 
@@ -123,6 +125,7 @@ public class AuthenticationActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
+                    currentMillisecond = System.currentTimeMillis();
                     Log.e("组id", "++++++ " + LocalShared.getInstance(weakReference.get()).getGroupId());
                     FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, LocalShared.getInstance(weakReference.get()).getGroupId());
                     FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
@@ -137,11 +140,13 @@ public class AuthenticationActivity extends BaseActivity {
                                 JSONObject resultJson = new JSONObject(resultStr);
                                 if (ErrorCode.SUCCESS == resultJson.getInt("ret")) {//此处检验百分比
                                     Log.e("鉴别成功", "onResult: " + resultStr);
+                                    Log.e("鉴别成功花费的时间", "onResult: " + (System.currentTimeMillis() - currentMillisecond));
                                     JSONArray scoreList = resultJson.getJSONObject("ifv_result").getJSONArray("candidates");
                                     String firstXfid = scoreList.getJSONObject(0).optString("user");
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                                     if (firstScore > 80) {
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
+                                            finishActivity();
                                             ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
                                             if (mDataList != null) {
                                                 for (int i = 0; i < mDataList.size(); i++) {
@@ -159,6 +164,8 @@ public class AuthenticationActivity extends BaseActivity {
                                                         isInclude = false;
                                                     }
                                                 }
+                                                Log.e("关闭摄像头2", "onResult: " + (System.currentTimeMillis() - currentMillisecond));
+                                                currentMillisecond = System.currentTimeMillis();
                                                 if (isInclude) {
                                                     if ("Welcome".equals(fromString)) {
                                                         startActivity(new Intent(weakReference.get(), MainActivity.class));
@@ -169,7 +176,7 @@ public class AuthenticationActivity extends BaseActivity {
                                                     if ("Welcome".equals(fromString)) {
                                                         ToastUtil.showLong(weakReference.get(), "该机器人没有此账号的人脸认证信息，请手动登录");
                                                         startActivity(new Intent(weakReference.get(), SignInActivity.class));
-                                                    }else if ("Test".equals(fromString)){
+                                                    } else if ("Test".equals(fromString)) {
                                                         ToastUtil.showLong(weakReference.get(), "验证不通过!");
                                                     }
                                                 }
@@ -191,6 +198,7 @@ public class AuthenticationActivity extends BaseActivity {
                                             myHandler.sendEmptyMessage(1);
                                         } else {
                                             ToastUtil.showLong(weakReference.get(), "匹配度" + String.format("%.2f", firstScore) + "%,验证不通过!");
+                                            finishActivity();
                                             finish();
                                         }
                                     }
@@ -213,7 +221,7 @@ public class AuthenticationActivity extends BaseActivity {
                                 if (authenticationNum < 5) {
                                     authenticationNum++;
                                     ToastUtil.showShort(weakReference.get(), "第" + getChineseNumber(authenticationNum) + "次验证失败");
-                                    myHandler.sendEmptyMessageDelayed(1,1000);
+                                    myHandler.sendEmptyMessageDelayed(1, 1000);
                                 } else {
                                     finishActivity();
                                     finish();
@@ -307,14 +315,17 @@ public class AuthenticationActivity extends BaseActivity {
             joinGroup();
         }
     }
+
     private void createGroup() {
-        Handlers.bg().post(createGroupRunnable=new Runnable() {
+        currentMillisecond = System.currentTimeMillis();
+        Handlers.bg().post(createGroupRunnable = new Runnable() {
             @Override
             public void run() {
                 FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).createGroup(xfids);
                 FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
                     @Override
                     public void onResult(IdentityResult result, boolean islast) {
+                        Log.e("创建组成功耗时", "onResult:" + (System.currentTimeMillis() - currentMillisecond));
                         try {
                             JSONObject resObj = new JSONObject(result.getResultString());
                             LocalShared.getInstance(AuthenticationActivity.this).setGroupId(resObj.getString("group_id"));
@@ -333,8 +344,8 @@ public class AuthenticationActivity extends BaseActivity {
 
                     @Override
                     public void onError(SpeechError error) {
-                        if (error.getErrorCode()==10144){//创建组的数量达到上限
-                            ToastUtil.showShort(AuthenticationActivity.this,"出现技术故障，请致电客服咨询");
+                        if (error.getErrorCode() == 10144) {//创建组的数量达到上限
+                            ToastUtil.showShort(AuthenticationActivity.this, "出现技术故障，请致电客服咨询");
                         }
                         Log.e("创建组", "onError: " + error.getPlainDescription(true));
                     }
@@ -342,9 +353,12 @@ public class AuthenticationActivity extends BaseActivity {
             }
         });
     }
-    private  Runnable joinGroupRunable,createGroupRunnable;
+
+    private Runnable joinGroupRunable, createGroupRunnable;
+
     private void joinGroup() {
-        Handlers.bg().post(joinGroupRunable=new Runnable() {
+        currentMillisecond = System.currentTimeMillis();
+        Handlers.bg().post(joinGroupRunable = new Runnable() {
             @Override
             public void run() {
                 Log.e("创建组的执行线程", "handleMessage: " + Thread.currentThread().getName());
@@ -356,13 +370,13 @@ public class AuthenticationActivity extends BaseActivity {
                     @Override
                     public void onResult(IdentityResult result, boolean islast) {
                         xfIdIndex++;
+                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + "添加成功" + "-----" + result.getResultString());
                         if (xfIdIndex < xfids.length) {
                             joinGroup();
-
-                        }else{
-                            //添加完成就移除消息
-                            Log.e("组成员全部添加完成", "onResult: " );
-
+                        } else {
+                            Log.e("组成员全部添加完成", "onResult: ");
+                            Log.e("添加成员花费的时间", "onResult: " + (System.currentTimeMillis() - currentMillisecond));
+                            //添加完成以后，马上进行人脸匹配
                             if (isFirstSend) {
                                 myHandler.sendEmptyMessageDelayed(1, 1000);
                                 isFirstSend = false;
@@ -370,7 +384,7 @@ public class AuthenticationActivity extends BaseActivity {
                             Handlers.bg().removeCallbacks(joinGroupRunable);
                             Handlers.bg().removeCallbacks(createGroupRunnable);
                         }
-                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + "添加成功" + "-----" + result.getResultString());
+
                     }
 
                     @Override
@@ -392,6 +406,7 @@ public class AuthenticationActivity extends BaseActivity {
             }
         });
     }
+
     private void getAllUsersInfo() {
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts == null) {
@@ -430,14 +445,17 @@ public class AuthenticationActivity extends BaseActivity {
 
         Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
         findViewById(R.id.iv_circle).startAnimation(rotateAnim);
+        baos = new ByteArrayOutputStream();
         myHandler = new MyHandler(this);
+
 
     }
 
 
     private void openCameraPreview() {
-        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
+//        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mPreviewSurface = findViewById(R.id.sfv_preview);
+        currentMillisecond = System.currentTimeMillis();
         mPreviewSurface.getHolder().addCallback(new Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
@@ -445,6 +463,8 @@ public class AuthenticationActivity extends BaseActivity {
                 Handlers.bg().post(new Runnable() {
                     @Override
                     public void run() {
+                        Log.e("获取到相机Holder时间", "run: " + (System.currentTimeMillis() - currentMillisecond));
+                        currentMillisecond = System.currentTimeMillis();
                         openCamera();//启动相机
                     }
                 });
@@ -457,7 +477,7 @@ public class AuthenticationActivity extends BaseActivity {
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-                closeCamera();
+                finish();
             }
         });
         mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -514,7 +534,8 @@ public class AuthenticationActivity extends BaseActivity {
             mCamera = Camera.open(mCameraId);
         } catch (Exception e) {
             e.printStackTrace();
-            closeCamera();
+            finishActivity();
+            finish();
             return;
         }
         Parameters params = mCamera.getParameters();
@@ -534,14 +555,18 @@ public class AuthenticationActivity extends BaseActivity {
                     Handlers.bg().post(new Runnable() {
                         @Override
                         public void run() {
-                            System.arraycopy(data, 0, nv21, 0, data.length);
-                            b3 = decodeToBitMap(nv21, mCamera);
-                            baos = new ByteArrayOutputStream();
-                            if (b3 != null && baos != null) {
+//                            System.arraycopy(data, 0, nv21, 0, data.length);
+                            b3 = decodeToBitMap(data, mCamera);
+                            if (b3 != null) {
                                 Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
-                                if (bitmap != null && !AuthenticationActivity.this.isDestroyed()) {
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                    mImageData = baos.toByteArray();
+                                if (bitmap != null) {
+                                    if (null != baos) {
+                                        baos.reset();
+                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                    }
+                                    if (null != baos) {
+                                        mImageData = baos.toByteArray();
+                                    }
                                 }
                             }
                             isGetImageFlag = true;
@@ -640,10 +665,11 @@ public class AuthenticationActivity extends BaseActivity {
             Camera.Size size = mCamera.getParameters().getPreviewSize();
             YuvImage image = new YuvImage(data, ImageFormat.NV21, size.width, size.height, null);
             if (image != null) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                image.compressToJpeg(new Rect(0, 0, size.width, size.height), 80, stream);
-                Bitmap bmp = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size());
-                stream.close();
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                baos.reset();
+                image.compressToJpeg(new Rect(0, 0, size.width, size.height), 80, baos);
+                Bitmap bmp = BitmapFactory.decodeByteArray(baos.toByteArray(), 0, baos.size());
+//                baos.close();
                 Matrix matrix = new Matrix();
                 matrix.postRotate(0);
                 //上面得到的图片旋转了270度,下面将图片旋转回来,前置摄像头270度,后置只需要90度
@@ -664,6 +690,7 @@ public class AuthenticationActivity extends BaseActivity {
             mCamera.release();
             mCamera = null;
         }
+
     }
 
     private boolean checkCameraPermission() {
@@ -673,40 +700,51 @@ public class AuthenticationActivity extends BaseActivity {
         }
         return false;
     }
+
     private void finishActivity() {
-        findViewById(R.id.iv_circle).clearAnimation();
-        Handlers.bg().removeCallbacksAndMessages(null);
+        currentMillisecond = System.currentTimeMillis();
         closeCamera();
+        Handlers.bg().removeCallbacksAndMessages(null);
+        Log.e("关闭摄像头1", "finishActivity: " + (System.currentTimeMillis() - currentMillisecond));
+        currentMillisecond = System.currentTimeMillis();
         myHandler.removeCallbacksAndMessages(null);
-        FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
+        findViewById(R.id.iv_circle).clearAnimation();
+        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).cancelIdentityVerifier();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //销毁组
-        FaceAuthenticationUtils.getInstance(mContext).
-                deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
-        FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
-        if (baos != null) {
-            try {
-                baos.close();
-                baos = null;
-            } catch (IOException e) {
-                e.printStackTrace();
+        Handlers.bg().post(new Runnable() {
+            @Override
+            public void run() {
+                if (baos != null) {
+                    try {
+                        baos.close();
+                        baos = null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //销毁组
+                FaceAuthenticationUtils.getInstance(mContext).
+                        deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
+                FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
             }
-        }
+        });
+        Log.e("关闭摄像头3", "finishActivity: " + (System.currentTimeMillis() - currentMillisecond));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        xfIdIndex=0;
+        xfIdIndex = 0;
     }
 
     private DeleteGroupListener deleteGroupListener = new DeleteGroupListener() {
         @Override
         public void onResult(IdentityResult result, boolean islast) {
+            Handlers.bg().removeCallbacksAndMessages(null);
             Log.e("删除成功", "onResult: ");
         }
 
