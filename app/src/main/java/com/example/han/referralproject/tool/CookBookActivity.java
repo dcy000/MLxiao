@@ -1,31 +1,34 @@
 package com.example.han.referralproject.tool;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
-import com.ml.edu.common.utils.PreferencesHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CookBookActivity extends AppCompatActivity {
+public class CookBookActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -72,17 +75,12 @@ public class CookBookActivity extends AppCompatActivity {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override
             public void onSuccess(final Object anwser, final String briefly) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
 
-                    }
-                });
             }
 
             @Override
             public void onSuccess(final Object briefly) {
-
+                CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) briefly);
             }
         });
     }

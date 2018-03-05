@@ -554,7 +554,8 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".tool.DateInquireActivity" />
-        <activity android:name=".tool.CookBookActivity"></activity>
+        <activity android:name=".tool.CookBookActivity" />
+        <activity android:name=".tool.CookBookResultActivity"></activity>
     </application>
 
 </manifest>
