@@ -337,6 +337,9 @@ public class NimCallActivity extends AppCompatActivity {
     }
 
     private void initLargeSurfaceView(String account) {
+        if (flLargeContainer == null) {
+            return;
+        }
         mLargeAccount = account;
         if (account.equals(NimAccountHelper.getInstance().getAccount())) {
             AVChatManager.getInstance().setupLocalVideoRender(
