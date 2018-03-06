@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ml.edu.OldRouter;
 import com.ml.edu.R;
+import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
+import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +29,29 @@ public class TheOldHomeActivity extends AppCompatActivity {
     }
 
     private RecyclerView rvItems;
+    private TextView tvIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_old_home);
         rvItems = (RecyclerView) findViewById(R.id.old_rv_items);
-        LinearLayoutManager lm = new LinearLayoutManager(this);
-        lm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        tvIndicator = (TextView) findViewById(R.id.old_tv_home_indicator);
+        rvItems.addOnScrollListener(new CenterScrollListener());
+        OverFlyingLayoutManager lm = new OverFlyingLayoutManager(0.6f, 0, OverFlyingLayoutManager.HORIZONTAL);
+        lm.setAngle(0);
+        lm.setOnPageChangeListener(new OverFlyingLayoutManager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                tvIndicator.setText(indicatorTexts[position % 3]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         rvItems.setLayoutManager(lm);
-        PagerSnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(rvItems);
         rvItems.setAdapter(new Adapter(onItemClickListener));
         findViewById(R.id.old_iv_home_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +60,8 @@ public class TheOldHomeActivity extends AppCompatActivity {
             }
         });
     }
+
+    private final String[] indicatorTexts = new String[]{"收\n音\n机", "视\n频\n播\n放", "音\n乐\n播\n放"};
 
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
         @Override
@@ -103,10 +120,6 @@ public class TheOldHomeActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(Holder holder, int position) {
-            if (position != 1) {
-                holder.ivMedia.setScaleX(0.6f);
-                holder.ivMedia.setScaleY(0.6f);
-            }
             holder.ivMedia.setImageResource(imageResources.get(position));
         }
 
@@ -126,15 +139,15 @@ public class TheOldHomeActivity extends AppCompatActivity {
 
         private ImageView ivMedia;
 
-        public Holder(View itemView, final OnItemClickListener onItemClickListener) {
+        public Holder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
             ivMedia = (ImageView) itemView.findViewById(R.id.old_iv_media);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(getAdapterPosition());
+                    if (Holder.this.onItemClickListener != null) {
+                        Holder.this.onItemClickListener.onItemClick(getAdapterPosition());
                     }
                 }
             });

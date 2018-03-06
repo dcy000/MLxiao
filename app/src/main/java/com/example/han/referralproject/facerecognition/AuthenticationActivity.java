@@ -2,15 +2,10 @@ package com.example.han.referralproject.facerecognition;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.Manifest.permission;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -18,15 +13,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
-import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,13 +36,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
@@ -63,16 +53,10 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.FaceRequest;
-import com.iflytek.cloud.IdentityListener;
 import com.iflytek.cloud.IdentityResult;
-import com.iflytek.cloud.IdentityVerifier;
-import com.iflytek.cloud.InitListener;
-import com.iflytek.cloud.RequestListener;
-import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.util.Accelerometer;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
@@ -104,6 +88,7 @@ public class AuthenticationActivity extends BaseActivity {
     private NDialog2 dialog2;
     private String[] xfids;//存放本地取得所有xfid
     private String fromString;//标识从哪个页面过来的
+    private String fromType;
     private Button mTiaoguo;
     private ByteArrayOutputStream baos;
     private static boolean isGetImageFlag = true;
@@ -465,6 +450,7 @@ public class AuthenticationActivity extends BaseActivity {
         Intent intent = getIntent();
         orderid = intent.getStringExtra("orderid");
         fromString = intent.getStringExtra("from");
+        fromType = intent.getStringExtra("fromType");
 
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
 
@@ -541,7 +527,13 @@ public class AuthenticationActivity extends BaseActivity {
             public void onClick(View view) {
                 finishActivity();
                 if ("Test".equals(fromString)) {
-                    Intent intent = new Intent(getApplicationContext(), Test_mainActivity.class);
+                    Intent intent = new Intent();
+                    if ("xindian".equals(fromType)) {
+                        intent.setClass(AuthenticationActivity.this, XinDianDetectActivity.class);
+                    } else {
+                        intent.setClass(AuthenticationActivity.this, Test_mainActivity.class);
+                        intent.putExtra("type", fromType);
+                    }
                     startActivity(intent);
                 } else if ("Welcome".equals(fromString)) {
                     startActivity(new Intent(AuthenticationActivity.this, SignInActivity.class));
