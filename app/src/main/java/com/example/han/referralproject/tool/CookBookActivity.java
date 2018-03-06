@@ -71,7 +71,7 @@ public class CookBookActivity extends BaseActivity {
     }
 
 
-    private void getDateData(String result) {
+    private void getDateData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override
             public void onSuccess(final Object anwser, final String briefly) {
@@ -80,7 +80,7 @@ public class CookBookActivity extends BaseActivity {
 
             @Override
             public void onSuccess(final Object briefly) {
-                CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) briefly);
+                CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) briefly,result);
             }
         });
     }

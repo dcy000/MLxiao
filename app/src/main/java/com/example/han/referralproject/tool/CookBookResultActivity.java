@@ -29,6 +29,7 @@ public class CookBookResultActivity extends AppCompatActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     private List<CookbookBean> data;
+    private String question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +37,31 @@ public class CookBookResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recycle_view_demo);
         ButterKnife.bind(this);
         data = (List<CookbookBean>) getIntent().getSerializableExtra("data");
+        question = getIntent().getStringExtra("question");
         initView();
     }
 
-    public static void StartMe(Context context, List<CookbookBean> data) {
+    public static void StartMe(Context context, List<CookbookBean> data,String question) {
         Intent intent = new Intent(context, CookBookResultActivity.class);
         intent.putExtra("data", (Serializable) data);
+        intent.putExtra("question", question);
         context.startActivity(intent);
     }
 
     private void initView() {
+        //
+        tvQuestion.setText(question);
         LinearLayoutManager layout = new LinearLayoutManager(this);
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(layout);
         rv.setAdapter(new CookBookRVAdapter(R.layout.cook_item, data));
     }
 
-    @OnClick({R.id.tv_question, R.id.tv_title})
+    @OnClick({ R.id.tv_title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_question:
-                break;
             case R.id.tv_title:
+                finish();
                 break;
         }
     }
