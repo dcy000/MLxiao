@@ -55,7 +55,7 @@ public class DateInquireActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
-                startActivity(new Intent(this,CookBookActivity.class));
+                startActivity(new Intent(this, CookBookActivity.class));
                 break;
             case R.id.tv_demo1:
                 getDateData(tvDemo1.getText().toString().trim());
@@ -112,10 +112,8 @@ public class DateInquireActivity extends BaseActivity {
     private HashMap<String, String> xfResult = new LinkedHashMap<>();
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
-        StringBuffer stringBuffer = printResult(recognizerResult);
         if (isLast) {
-            String result = stringBuffer.toString();
-            getDateData(result);
+            getDateData(printResult(recognizerResult).toString());
         }
 
     }
@@ -140,7 +138,7 @@ public class DateInquireActivity extends BaseActivity {
 
     }
 
-    private void getDateData(String result) {
+    private void getDateData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override
             public void onSuccess(final Object anwser, final String briefly) {
@@ -151,7 +149,9 @@ public class DateInquireActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tvNotice.setText((String) briefly);
+//                        tvNotice.setText((String) briefly);
+                        //跳转页面显示
+                        DateInquireResultActivity.startMe(DateInquireActivity.this,result, (String) briefly);
                     }
                 });
             }
