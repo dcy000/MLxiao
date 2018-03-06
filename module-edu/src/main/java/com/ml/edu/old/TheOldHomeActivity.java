@@ -59,6 +59,8 @@ public class TheOldHomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+        lm.scrollToPosition(1);
+        tvIndicator.setText(indicatorTexts[1]);
     }
 
     private final String[] indicatorTexts = new String[]{"收\n音\n机", "视\n频\n播\n放", "音\n乐\n播\n放"};
