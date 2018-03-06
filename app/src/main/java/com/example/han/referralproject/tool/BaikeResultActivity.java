@@ -42,7 +42,7 @@ public class BaikeResultActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        Glide.with(this).load(data.get(0).url).into(imgPic);
+        Glide.with(this).load(data.get(0).img).into(imgPic);
         tvQuestion.setText(getIntent().getStringExtra("question"));
         mtResult.setText(data.get(0).summary);
     }

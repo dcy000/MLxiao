@@ -33,11 +33,11 @@
 
         <ImageView
             android:id="@+id/img_pic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:scaleType="center" />
+            android:scaleType="fitXY" />
 
     </com.example.han.referralproject.tool.MixtureTextView>
 
