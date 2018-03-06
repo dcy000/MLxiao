@@ -203,7 +203,9 @@ public class AuthenticationActivity extends BaseActivity {
                     startActivity(new Intent(weakReference.get(), MainActivity.class));
                 } else if ("Test".equals(fromString)) {
                     Intent intent = new Intent();
-                    if ("xindian".equals(fromType)) {
+                    if (TextUtils.isEmpty(fromType)) {
+                        intent.setClass(weakReference.get(), Test_mainActivity.class);
+                    } else if ("xindian".equals(fromType)) {
                         intent.setClass(weakReference.get(), XinDianDetectActivity.class);
                     } else {
                         intent.setClass(weakReference.get(), DetectActivity.class);
@@ -531,7 +533,9 @@ public class AuthenticationActivity extends BaseActivity {
                 finishActivity();
                 if ("Test".equals(fromString)) {
                     Intent intent = new Intent();
-                    if ("xindian".equals(fromType)) {
+                    if (TextUtils.isEmpty(fromType)) {
+                        intent.setClass(AuthenticationActivity.this, Test_mainActivity.class);
+                    } else if ("xindian".equals(fromType)) {
                         intent.setClass(AuthenticationActivity.this, XinDianDetectActivity.class);
                     } else {
                         intent.setClass(AuthenticationActivity.this, DetectActivity.class);
@@ -750,17 +754,17 @@ public class AuthenticationActivity extends BaseActivity {
             Handlers.bg().post(new Runnable() {
                 @Override
                 public void run() {
-                    NetworkApi.changeGroupStatus(deleteGroupId, "2", new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            Handlers.bg().removeCallbacksAndMessages(null);
-                        }
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-                            Handlers.bg().removeCallbacksAndMessages(null);
-                        }
-                    });
+//                    NetworkApi.changeGroupStatus(deleteGroupId, "2", new NetworkManager.SuccessCallback<String>() {
+//                        @Override
+//                        public void onSuccess(String response) {
+//                            Handlers.bg().removeCallbacksAndMessages(null);
+//                        }
+//                    }, new NetworkManager.FailedCallback() {
+//                        @Override
+//                        public void onFailed(String message) {
+//                            Handlers.bg().removeCallbacksAndMessages(null);
+//                        }
+//                    });
                 }
             });
         }
