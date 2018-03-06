@@ -79,5 +79,4 @@
         android:textSize="40sp"
         android:visibility="visible"
         />
-
 </RelativeLayout>
