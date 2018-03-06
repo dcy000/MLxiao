@@ -41,9 +41,9 @@ public class FaceAuthenticationUtils {
             @Override
             public void onInit(int i) {
                 if (i == ErrorCode.SUCCESS) {
-                    Log.e(TAG, "初始化引擎成功");
+                    Log.d(TAG, "初始化引擎成功");
                 } else {
-                    Log.e(TAG, "初始化引擎失败");
+                    Log.d(TAG, "初始化引擎失败");
                 }
             }
         });
