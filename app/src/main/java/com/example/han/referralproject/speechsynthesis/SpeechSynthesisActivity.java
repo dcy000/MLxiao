@@ -798,7 +798,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
 
-            if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
+            if (inSpell.matches(".*(liangxueya|chuquya|zuoxueya|cexueya|xueyajiance).*")) {
                 mIatDialog.dismiss();
 //                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
 //                intent.putExtra("type", "xueya");
