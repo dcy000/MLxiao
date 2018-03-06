@@ -202,7 +202,9 @@ public class AuthenticationActivity extends BaseActivity {
                     startActivity(new Intent(weakReference.get(), MainActivity.class));
                 } else if ("Test".equals(fromString)) {
                     Intent intent = new Intent();
-                    if ("xindian".equals(fromType)) {
+                    if (TextUtils.isEmpty(fromType)) {
+                        intent.setClass(weakReference.get(), Test_mainActivity.class);
+                    } else if ("xindian".equals(fromType)) {
                         intent.setClass(weakReference.get(), XinDianDetectActivity.class);
                     } else {
                         intent.setClass(weakReference.get(), DetectActivity.class);
@@ -530,7 +532,9 @@ public class AuthenticationActivity extends BaseActivity {
                 finishActivity();
                 if ("Test".equals(fromString)) {
                     Intent intent = new Intent();
-                    if ("xindian".equals(fromType)) {
+                    if (TextUtils.isEmpty(fromType)) {
+                        intent.setClass(AuthenticationActivity.this, Test_mainActivity.class);
+                    } else if ("xindian".equals(fromType)) {
                         intent.setClass(AuthenticationActivity.this, XinDianDetectActivity.class);
                     } else {
                         intent.setClass(AuthenticationActivity.this, DetectActivity.class);
