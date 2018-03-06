@@ -128,49 +128,7 @@ public class AuthenticationActivity extends BaseActivity {
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                                     if (firstScore > 80) {
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
-                                            finishActivity();
-                                            ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
-                                            if (mDataList != null) {
-                                                for (int i = 0; i < mDataList.size(); i++) {
-                                                    UserInfoBean user = mDataList.get(i);
-                                                    if (user.xfid.equals(firstXfid)) {
-                                                        new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
-                                                        LocalShared.getInstance(mContext).setUserInfo(user);
-                                                        LocalShared.getInstance(mContext).setSex(user.sex);
-                                                        LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
-                                                        LocalShared.getInstance(mContext).setUserAge(user.age);
-                                                        LocalShared.getInstance(mContext).setUserHeight(user.height);
-                                                        isInclude = true;
-                                                        break;
-                                                    } else {
-                                                        isInclude = false;
-                                                    }
-                                                }
-                                                if (isInclude) {
-                                                    if ("Welcome".equals(fromString)) {
-                                                        startActivity(new Intent(weakReference.get(), MainActivity.class));
-                                                    } else if ("Test".equals(fromString)) {
-                                                        Intent intent = new Intent();
-                                                        if ("xindian".equals(fromType)) {
-                                                            intent.setClass(weakReference.get(), XinDianDetectActivity.class);
-                                                        } else {
-                                                            intent.setClass(weakReference.get(), DetectActivity.class);
-                                                            intent.putExtra("type", fromType);
-                                                        }
-                                                        startActivity(intent);
-//                                                        startActivity(new Intent(weakReference.get(), Test_mainActivity.class));
-                                                    }
-                                                } else {
-                                                    if ("Welcome".equals(fromString)) {
-                                                        ToastUtil.showLong(weakReference.get(), "该机器人没有此账号的人脸认证信息，请手动登录");
-                                                        startActivity(new Intent(weakReference.get(), SignInActivity.class));
-                                                    } else if ("Test".equals(fromString)) {
-                                                        ToastUtil.showLong(weakReference.get(), "验证不通过!");
-                                                    }
-                                                }
-                                                finish();
-                                            }
-
+                                            authenticationSuccessForTest$Welcome(firstXfid,weakReference);
                                         } else if ("Pay".equals(fromString)) {
                                             if (mAuthid.equals(firstXfid)) {
                                                 paySuccess();
@@ -216,12 +174,71 @@ public class AuthenticationActivity extends BaseActivity {
                                 }
                         }
                     });
-
                     break;
             }
         }
     }
-
+    private void authenticationSuccessForTest$Welcome(String firstXfid,WeakReference<AuthenticationActivity> weakReference){
+        finishActivity();
+        ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
+        if (mDataList != null) {
+            for (int i = 0; i < mDataList.size(); i++) {
+                UserInfoBean user = mDataList.get(i);
+                if (user.xfid.equals(firstXfid)) {
+                    new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
+                    LocalShared.getInstance(mContext).setUserInfo(user);
+                    LocalShared.getInstance(mContext).setSex(user.sex);
+                    LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
+                    LocalShared.getInstance(mContext).setUserAge(user.age);
+                    LocalShared.getInstance(mContext).setUserHeight(user.height);
+                    isInclude = true;
+                    break;
+                } else {
+                    isInclude = false;
+                }
+            }
+            if (isInclude) {
+                if ("Welcome".equals(fromString)) {
+                    startActivity(new Intent(weakReference.get(), MainActivity.class));
+                } else if ("Test".equals(fromString)) {
+                    Intent intent = new Intent();
+                    if ("xindian".equals(fromType)) {
+                        intent.setClass(weakReference.get(), XinDianDetectActivity.class);
+                    } else {
+                        intent.setClass(weakReference.get(), DetectActivity.class);
+                        intent.putExtra("type", fromType);
+                    }
+                    startActivity(intent);
+                }
+            } else {
+                if ("Welcome".equals(fromString)) {
+                    ToastUtil.showLong(weakReference.get(), "该机器人没有此账号的人脸认证信息，请手动登录");
+                    startActivity(new Intent(weakReference.get(), SignInActivity.class));
+                } else if ("Test".equals(fromString)) {
+                    ToastUtil.showLong(weakReference.get(), "验证不通过!");
+                }
+            }
+            //因为在任何一种情况下，该activity最后都被finish，所以释放资源等操作全部提前到该方法中执行。
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    if (baos != null) {
+                        try {
+                            baos.close();
+                            baos = null;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    //销毁组
+                    FaceAuthenticationUtils.getInstance(mContext).
+                            deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
+                    FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
+                }
+            });
+            finish();
+        }
+    }
     private String getChineseNumber(int number) {
         String[] str = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九"};
         String ss[] = new String[]{"", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿"};
@@ -316,34 +333,7 @@ public class AuthenticationActivity extends BaseActivity {
                             groupId=resObj.getString("group_id");
                             LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
                             LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfids[0]);
-                            //将组的相关信息存到服务器上
-                            Handlers.bg().post(recordGroupRunnable=new Runnable() {
-                                @Override
-                                public void run() {
-                                    NetworkApi.recordGroup(groupId, xfids[0], new NetworkManager.SuccessCallback<String>() {
-                                        @Override
-                                        public void onSuccess(String response) {
-                                            NetworkApi.getXfGroupInfo(groupId, xfids[0], new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
-                                                @Override
-                                                public void onSuccess(ArrayList<XfGroupInfo> response) {
-                                                    for (XfGroupInfo xfGroupInfo:response){
-                                                        if (xfGroupInfo.gid.equals(groupId)){
-                                                            deleteGroupId=xfGroupInfo.grid;
-                                                            break;
-                                                        }
-                                                    }
-                                                    Handlers.bg().removeCallbacksAndMessages(null);
-                                                }
-                                            });
-                                        }
-                                    }, new NetworkManager.FailedCallback() {
-                                        @Override
-                                        public void onFailed(String message) {
-                                            Handlers.bg().removeCallbacks(recordGroupRunnable);
-                                        }
-                                    });
-                                }
-                            });
+                            updateGroupInformation();
                             joinGroup();
 
                         } catch (JSONException e) {
@@ -365,7 +355,36 @@ public class AuthenticationActivity extends BaseActivity {
             }
         });
     }
-
+    private void updateGroupInformation(){
+        //将组的相关信息存到服务器上
+        Handlers.bg().post(recordGroupRunnable=new Runnable() {
+            @Override
+            public void run() {
+                NetworkApi.recordGroup(groupId, xfids[0], new NetworkManager.SuccessCallback<String>() {
+                    @Override
+                    public void onSuccess(String response) {
+                        NetworkApi.getXfGroupInfo(groupId, xfids[0], new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
+                            @Override
+                            public void onSuccess(ArrayList<XfGroupInfo> response) {
+                                for (XfGroupInfo xfGroupInfo:response){
+                                    if (xfGroupInfo.gid.equals(groupId)){
+                                        deleteGroupId=xfGroupInfo.grid;
+                                        break;
+                                    }
+                                }
+                                Handlers.bg().removeCallbacksAndMessages(null);
+                            }
+                        });
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        Handlers.bg().removeCallbacks(recordGroupRunnable);
+                    }
+                });
+            }
+        });
+    }
     private Runnable joinGroupRunable, createGroupRunnable,recordGroupRunnable;
 
     private void joinGroup() {
@@ -564,7 +583,6 @@ public class AuthenticationActivity extends BaseActivity {
                     Handlers.bg().post(new Runnable() {
                         @Override
                         public void run() {
-//                            System.arraycopy(data, 0, nv21, 0, data.length);
                             b3 = decodeToBitMap(data, mCamera);
                             if (b3 != null) {
                                 Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
@@ -719,32 +737,9 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         xfIdIndex = 0;
-        //因为在任何一种情况下，该activity最后都被finish，所以释放资源等操作全部提前到该方法中执行。
-        Handlers.bg().post(new Runnable() {
-            @Override
-            public void run() {
-                if (baos != null) {
-                    try {
-                        baos.close();
-                        baos = null;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //销毁组
-                FaceAuthenticationUtils.getInstance(mContext).
-                        deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
-                FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
-            }
-        });
     }
 
     private DeleteGroupListener deleteGroupListener = new DeleteGroupListener() {
