@@ -313,14 +313,15 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void group() {
-        String groupId = LocalShared.getInstance(this).getGroupId();
+//        String groupId = LocalShared.getInstance(this).getGroupId();
         xfids = FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).getAllLocalXfids();
-        if (TextUtils.isEmpty(groupId)) {
-            //创建讯飞人脸识别组,并且把所有已经在该机器上登录的账号加入到组中，该过程在后台执行Net
-            createGroup();
-        } else {
-            joinGroup();
-        }
+//        if (TextUtils.isEmpty(groupId)) {
+//            //创建讯飞人脸识别组,并且把所有已经在该机器上登录的账号加入到组中，该过程在后台执行Net
+//
+//        } else {
+//            joinGroup();
+//        }
+        createGroup();
     }
 
     private void createGroup() {
@@ -394,7 +395,7 @@ public class AuthenticationActivity extends BaseActivity {
         Handlers.bg().post(joinGroupRunable = new Runnable() {
             @Override
             public void run() {
-                if (xfIdIndex < xfids.length)
+                if (xfIdIndex <xfids.length)
                     FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).
                             joinGroup(LocalShared.getInstance(AuthenticationActivity.this).getGroupId(), xfids[xfIdIndex]);
 
@@ -402,8 +403,10 @@ public class AuthenticationActivity extends BaseActivity {
                     @Override
                     public void onResult(IdentityResult result, boolean islast) {
                         xfIdIndex++;
-                        if (xfIdIndex < xfids.length) {
+                        Log.e("添加成功", "onResult: "+xfIdIndex+"-----------"+result);
+                        if (xfIdIndex <xfids.length) {
                             joinGroup();
+
                         } else {
                             //添加完成以后，马上进行人脸匹配
                             if (isFirstSend) {
