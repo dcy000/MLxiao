@@ -41,6 +41,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
@@ -156,7 +157,15 @@ public class AuthenticationActivity extends BaseActivity {
                                                     if ("Welcome".equals(fromString)) {
                                                         startActivity(new Intent(weakReference.get(), MainActivity.class));
                                                     } else if ("Test".equals(fromString)) {
-                                                        startActivity(new Intent(weakReference.get(), Test_mainActivity.class));
+                                                        Intent intent = new Intent();
+                                                        if ("xindian".equals(fromType)) {
+                                                            intent.setClass(weakReference.get(), XinDianDetectActivity.class);
+                                                        } else {
+                                                            intent.setClass(weakReference.get(), DetectActivity.class);
+                                                            intent.putExtra("type", fromType);
+                                                        }
+                                                        startActivity(intent);
+//                                                        startActivity(new Intent(weakReference.get(), Test_mainActivity.class));
                                                     }
                                                 } else {
                                                     if ("Welcome".equals(fromString)) {
@@ -531,7 +540,7 @@ public class AuthenticationActivity extends BaseActivity {
                     if ("xindian".equals(fromType)) {
                         intent.setClass(AuthenticationActivity.this, XinDianDetectActivity.class);
                     } else {
-                        intent.setClass(AuthenticationActivity.this, Test_mainActivity.class);
+                        intent.setClass(AuthenticationActivity.this, DetectActivity.class);
                         intent.putExtra("type", fromType);
                     }
                     startActivity(intent);
