@@ -14,10 +14,11 @@ import butterknife.ButterKnife;
 
 public class DateInquireResultActivity extends AppCompatActivity {
 
-    @BindView(R.id.tv_qestion)
-    TextView tvQestion;
+
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_question)
+    TextView tvQuestion;
     @BindView(R.id.tv_anwser)
     TextView tvAnwser;
     private Intent intent;
@@ -49,8 +50,8 @@ public class DateInquireResultActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        tvQestion.setText(intent.getStringExtra("quesiton"));
-        tvAnwser.setText(intent.getStringExtra("anwser"));
+        tvAnwser.setText(intent.getStringExtra("quesiton"));
+        tvQuestion.setText(intent.getStringExtra("anwser"));
     }
 
 }
