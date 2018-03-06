@@ -5,10 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.tool.DateInquireResultActivity">
+
+    <ScrollView
+        android:background="@drawable/bg_date_question"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="97dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_qestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FF333333"
+            android:textSize="32sp" />
+
+    </ScrollView>
+
     <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="66dp"
+        android:background="#333"
         android:gravity="center"
         android:text="日期查询"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_date_anwser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="227dp">
+
+        <TextView
+            android:id="@+id/tv_anwser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FF333333"
+            android:textSize="32sp" />
+
+    </ScrollView>
+
 
 </android.support.constraint.ConstraintLayout>
