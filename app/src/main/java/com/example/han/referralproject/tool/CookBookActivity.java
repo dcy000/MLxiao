@@ -53,7 +53,7 @@ public class CookBookActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
-                startActivity(new Intent(CookBookActivity.this,BaiKeActivtiy.class));
+                startActivity(new Intent(CookBookActivity.this, BaiKeActivtiy.class));
                 break;
             case R.id.tv_demo1:
                 getDateData(tvDemo1.getText().toString().trim());
@@ -80,7 +80,7 @@ public class CookBookActivity extends BaseActivity {
 
             @Override
             public void onSuccess(final Object briefly) {
-                CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) briefly,result);
+                CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) briefly, result);
             }
         });
     }
@@ -120,8 +120,9 @@ public class CookBookActivity extends BaseActivity {
     }
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
+        StringBuffer stringBuffer = printResult(recognizerResult);
         if (isLast) {
-            getDateData(printResult(recognizerResult).toString());
+            getDateData(stringBuffer.toString());
         }
     }
 

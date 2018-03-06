@@ -1,5 +1,6 @@
 package com.example.han.referralproject.tool;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -51,6 +52,7 @@ public class BaiKeActivtiy extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
+                startActivity(new Intent(this, CalculationActivity.class));
                 break;
             case R.id.tv_demo1:
                 String demo1 = tvDemo1.getText().toString();
@@ -106,8 +108,9 @@ public class BaiKeActivtiy extends AppCompatActivity {
     }
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
+        StringBuffer stringBuffer = printResult(recognizerResult);
         if (isLast) {
-            getDreamData(printResult(recognizerResult).toString());
+            getDreamData(stringBuffer.toString());
         }
     }
 
@@ -121,7 +124,7 @@ public class BaiKeActivtiy extends AppCompatActivity {
             @Override
             public void onSuccess(Object anwser) {
                 List<BaiKeBean> data = (List<BaiKeBean>) anwser;
-                BaikeResultActivity.startMe(BaiKeActivtiy.this,data,result);
+                BaikeResultActivity.startMe(BaiKeActivtiy.this, data, result);
             }
         });
     }

@@ -1,36 +1,40 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.tool.xfparsebean.DreamBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DateInquireActivity extends BaseActivity {
+public class CalculationActivity extends AppCompatActivity {
+
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_demo5)
+    TextView tvDemo5;
+    @BindView(R.id.tv_demo4)
+    TextView tvDemo4;
     @BindView(R.id.tv_demo1)
     TextView tvDemo1;
     @BindView(R.id.tv_demo2)
@@ -39,42 +43,64 @@ public class DateInquireActivity extends BaseActivity {
     TextView tvDemo3;
     @BindView(R.id.iv_yuyin)
     ImageView ivYuyin;
-    @BindView(R.id.tv_notice)
-    TextView tvNotice;
-    @BindView(R.id.cl_start)
-    ConstraintLayout clStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_date_inquire);
+        setContentView(R.layout.activity_calculation);
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_title, R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
+
+    @OnClick({R.id.tv_title, R.id.tv_demo5, R.id.tv_demo4, R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
-                startActivity(new Intent(this, CookBookActivity.class));
+                finish();
+                break;
+            case R.id.tv_demo5:
+                String demo5 = tvDemo5.getText().toString();
+                getDreamData(demo5);
+                break;
+            case R.id.tv_demo4:
+                String demo4 = tvDemo4.getText().toString();
+                getDreamData(demo4);
                 break;
             case R.id.tv_demo1:
-                getDateData(tvDemo1.getText().toString().trim());
+                String demo1 = tvDemo1.getText().toString();
+                getDreamData(demo1);
                 break;
             case R.id.tv_demo2:
-                getDateData(tvDemo2.getText().toString().trim());
+                String demo2 = tvDemo2.getText().toString();
+                getDreamData(demo2);
                 break;
             case R.id.tv_demo3:
-                getDateData(tvDemo3.getText().toString().trim());
+                String demo3 = tvDemo3.getText().toString();
+                getDreamData(demo3);
                 break;
             case R.id.iv_yuyin:
-                //语音识别-->请求数据-->解析返回结果
                 startListener();
                 break;
         }
     }
 
+    private void getDreamData(final String result) {
+        XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
+            @Override
+            public void onSuccess(final Object anwser, final String briefly) {
+
+            }
+
+            @Override
+            public void onSuccess(Object anwser) {
+
+            }
+        });
+    }
+
     private void startListener() {
-        SpeechRecognizerHelper.initSpeechRecognizer(this).startListening(new RecognizerListener() {
+        SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
+        speechRecognizer.startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
 
@@ -105,18 +131,16 @@ public class DateInquireActivity extends BaseActivity {
 
             }
         });
-
     }
-
-    private HashMap<String, String> xfResult = new LinkedHashMap<>();
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
         StringBuffer stringBuffer = printResult(recognizerResult);
         if (isLast) {
-            getDateData(stringBuffer.toString());
+            getDreamData(stringBuffer.toString());
         }
-
     }
+
+    private HashMap<String, String> xfResult = new LinkedHashMap<String, String>();
 
     private StringBuffer printResult(RecognizerResult results) {
         String text = JsonParser.parseIatResult(results.getResultString());
@@ -136,25 +160,5 @@ public class DateInquireActivity extends BaseActivity {
         }
         return resultBuffer;
 
-    }
-
-    private void getDateData(final String result) {
-        XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
-            @Override
-            public void onSuccess(final Object anwser, final String briefly) {
-            }
-
-            @Override
-            public void onSuccess(final Object briefly) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        tvNotice.setText((String) briefly);
-                        //跳转页面显示结果
-                        DateInquireResultActivity.startMe(DateInquireActivity.this, result, (String) briefly);
-                    }
-                });
-            }
-        });
     }
 }

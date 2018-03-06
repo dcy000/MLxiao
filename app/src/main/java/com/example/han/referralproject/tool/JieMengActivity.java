@@ -98,8 +98,9 @@ public class JieMengActivity extends BaseActivity {
     }
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
+        StringBuffer stringBuffer = printResult(recognizerResult);
         if (isLast) {
-            getDreamData(printResult(recognizerResult).toString());
+            getDreamData(stringBuffer.toString());
         }
     }
 

@@ -559,7 +559,8 @@
         <activity android:name=".tool.JieMengRetultActivity" />
         <activity android:name=".tool.DateInquireResultActivity" />
         <activity android:name=".tool.BaiKeActivtiy" />
-        <activity android:name=".tool.BaikeResultActivity"></activity>
+        <activity android:name=".tool.BaikeResultActivity" />
+        <activity android:name=".tool.CalculationActivity"></activity>
     </application>
 
 </manifest>
