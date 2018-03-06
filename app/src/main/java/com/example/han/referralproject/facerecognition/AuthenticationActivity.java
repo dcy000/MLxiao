@@ -749,17 +749,17 @@ public class AuthenticationActivity extends BaseActivity {
             Handlers.bg().post(new Runnable() {
                 @Override
                 public void run() {
-                    NetworkApi.changeGroupStatus(deleteGroupId, "2", new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            Handlers.bg().removeCallbacksAndMessages(null);
-                        }
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-                            Handlers.bg().removeCallbacksAndMessages(null);
-                        }
-                    });
+//                    NetworkApi.changeGroupStatus(deleteGroupId, "2", new NetworkManager.SuccessCallback<String>() {
+//                        @Override
+//                        public void onSuccess(String response) {
+//                            Handlers.bg().removeCallbacksAndMessages(null);
+//                        }
+//                    }, new NetworkManager.FailedCallback() {
+//                        @Override
+//                        public void onFailed(String message) {
+//                            Handlers.bg().removeCallbacksAndMessages(null);
+//                        }
+//                    });
                 }
             });
         }
