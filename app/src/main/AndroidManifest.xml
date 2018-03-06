@@ -557,7 +557,9 @@
         <activity android:name=".tool.CookBookActivity" />
         <activity android:name=".tool.CookBookResultActivity" />
         <activity android:name=".tool.JieMengRetultActivity" />
-        <activity android:name=".tool.DateInquireResultActivity"></activity>
+        <activity android:name=".tool.DateInquireResultActivity" />
+        <activity android:name=".tool.BaiKeActivtiy" />
+        <activity android:name=".tool.BaikeResultActivity"></activity>
     </application>
 
 </manifest>
