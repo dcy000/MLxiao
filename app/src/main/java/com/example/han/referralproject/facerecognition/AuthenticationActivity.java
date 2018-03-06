@@ -113,7 +113,6 @@ public class AuthenticationActivity extends BaseActivity {
     private boolean isInclude;
     private int authenticationNum = 0;
     private int xfIdIndex = 0;//记录讯飞id数组的位置
-    private long oldMillisecond, currentMillisecond, dMillisecond;
     private String groupId,deleteGroupId;
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
@@ -126,8 +125,6 @@ public class AuthenticationActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    currentMillisecond = System.currentTimeMillis();
-                    Log.e("组id", "++++++ " + LocalShared.getInstance(weakReference.get()).getGroupId());
                     FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, LocalShared.getInstance(weakReference.get()).getGroupId());
                     FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
                         @Override
@@ -140,8 +137,6 @@ public class AuthenticationActivity extends BaseActivity {
                                 String resultStr = result.getResultString();
                                 JSONObject resultJson = new JSONObject(resultStr);
                                 if (ErrorCode.SUCCESS == resultJson.getInt("ret")) {//此处检验百分比
-                                    Log.e("鉴别成功", "onResult: " + resultStr);
-                                    Log.e("鉴别成功花费的时间", "onResult: " + (System.currentTimeMillis() - currentMillisecond));
                                     JSONArray scoreList = resultJson.getJSONObject("ifv_result").getJSONArray("candidates");
                                     String firstXfid = scoreList.getJSONObject(0).optString("user");
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
@@ -165,8 +160,6 @@ public class AuthenticationActivity extends BaseActivity {
                                                         isInclude = false;
                                                     }
                                                 }
-                                                Log.e("关闭摄像头2", "onResult: " + (System.currentTimeMillis() - currentMillisecond));
-                                                currentMillisecond = System.currentTimeMillis();
                                                 if (isInclude) {
                                                     if ("Welcome".equals(fromString)) {
                                                         startActivity(new Intent(weakReference.get(), MainActivity.class));
@@ -213,7 +206,7 @@ public class AuthenticationActivity extends BaseActivity {
 
                         @Override
                         public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-                            Log.e("鉴别", "onEvent: ");
+
                         }
 
                         @Override
@@ -227,7 +220,6 @@ public class AuthenticationActivity extends BaseActivity {
                                     finishActivity();
                                     finish();
                                 }
-                            Log.e("鉴别失败", "onError: " + error.toString());
                         }
                     });
 
@@ -318,7 +310,6 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void createGroup() {
-        currentMillisecond = System.currentTimeMillis();
         Handlers.bg().post(createGroupRunnable = new Runnable() {
             @Override
             public void run() {
@@ -326,12 +317,10 @@ public class AuthenticationActivity extends BaseActivity {
                 FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
                     @Override
                     public void onResult(IdentityResult result, boolean islast) {
-                        Log.e("创建组成功耗时", "onResult:" + (System.currentTimeMillis() - currentMillisecond));
                         try {
                             JSONObject resObj = new JSONObject(result.getResultString());
                             groupId=resObj.getString("group_id");
                             LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
-                            Log.e("组id", "++++++ " + resObj.getString("group_id"));
                             LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfids[0]);
                             //将组的相关信息存到服务器上
                             Handlers.bg().post(recordGroupRunnable=new Runnable() {
@@ -340,7 +329,6 @@ public class AuthenticationActivity extends BaseActivity {
                                     NetworkApi.recordGroup(groupId, xfids[0], new NetworkManager.SuccessCallback<String>() {
                                         @Override
                                         public void onSuccess(String response) {
-                                            Log.e("记录组成功", "onSuccess: " + response);
                                             NetworkApi.getXfGroupInfo(groupId, xfids[0], new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
                                                 @Override
                                                 public void onSuccess(ArrayList<XfGroupInfo> response) {
@@ -350,7 +338,6 @@ public class AuthenticationActivity extends BaseActivity {
                                                             break;
                                                         }
                                                     }
-                                                    Log.e("删除组的id", "onSuccess: "+deleteGroupId);
                                                     Handlers.bg().removeCallbacksAndMessages(null);
                                                 }
                                             });
@@ -358,7 +345,6 @@ public class AuthenticationActivity extends BaseActivity {
                                     }, new NetworkManager.FailedCallback() {
                                         @Override
                                         public void onFailed(String message) {
-                                            Log.e("记录组失败", "onFailed: ");
                                             Handlers.bg().removeCallbacks(recordGroupRunnable);
                                         }
                                     });
@@ -373,7 +359,6 @@ public class AuthenticationActivity extends BaseActivity {
 
                     @Override
                     public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-                        Log.e("创建组", "onEvent: ");
                     }
 
                     @Override
@@ -381,7 +366,6 @@ public class AuthenticationActivity extends BaseActivity {
                         if (error.getErrorCode() == 10144) {//创建组的数量达到上限
                             ToastUtil.showShort(AuthenticationActivity.this, "出现技术故障，请致电客服咨询");
                         }
-                        Log.e("创建组", "onError: " + error.getPlainDescription(true));
                     }
                 });
             }
@@ -391,11 +375,9 @@ public class AuthenticationActivity extends BaseActivity {
     private Runnable joinGroupRunable, createGroupRunnable,recordGroupRunnable;
 
     private void joinGroup() {
-        currentMillisecond = System.currentTimeMillis();
         Handlers.bg().post(joinGroupRunable = new Runnable() {
             @Override
             public void run() {
-                Log.e("创建组的执行线程", "handleMessage: " + Thread.currentThread().getName());
                 if (xfIdIndex < xfids.length)
                     FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).
                             joinGroup(LocalShared.getInstance(AuthenticationActivity.this).getGroupId(), xfids[xfIdIndex]);
@@ -404,12 +386,9 @@ public class AuthenticationActivity extends BaseActivity {
                     @Override
                     public void onResult(IdentityResult result, boolean islast) {
                         xfIdIndex++;
-                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + "添加成功" + "-----" + result.getResultString());
                         if (xfIdIndex < xfids.length) {
                             joinGroup();
                         } else {
-                            Log.e("组成员全部添加完成", "onResult: ");
-                            Log.e("添加成员花费的时间", "onResult: " + (System.currentTimeMillis() - currentMillisecond));
                             //添加完成以后，马上进行人脸匹配
                             if (isFirstSend) {
                                 myHandler.sendEmptyMessageDelayed(1, 1000);
@@ -428,7 +407,6 @@ public class AuthenticationActivity extends BaseActivity {
 
                     @Override
                     public void onError(SpeechError error) {
-                        Log.e("添加成员", "xfIndex" + xfIdIndex + "------" + error.getPlainDescription(true));
                         if (error.getErrorCode() == 10121) {//该模型已经存在{
                             xfIdIndex++;
                             joinGroup();
@@ -489,16 +467,12 @@ public class AuthenticationActivity extends BaseActivity {
     private void openCameraPreview() {
 //        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
         mPreviewSurface = findViewById(R.id.sfv_preview);
-        currentMillisecond = System.currentTimeMillis();
         mPreviewSurface.getHolder().addCallback(new Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-                Log.e(TAG, "surfaceCreated: " + "创建预览对象");
                 Handlers.bg().post(new Runnable() {
                     @Override
                     public void run() {
-                        Log.e("获取到相机Holder时间", "run: " + (System.currentTimeMillis() - currentMillisecond));
-                        currentMillisecond = System.currentTimeMillis();
                         openCamera();//启动相机
                     }
                 });
@@ -736,11 +710,8 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void finishActivity() {
-        currentMillisecond = System.currentTimeMillis();
         closeCamera();
         Handlers.bg().removeCallbacksAndMessages(null);
-        Log.e("关闭摄像头1", "finishActivity: " + (System.currentTimeMillis() - currentMillisecond));
-        currentMillisecond = System.currentTimeMillis();
         myHandler.removeCallbacksAndMessages(null);
         findViewById(R.id.iv_circle).clearAnimation();
         FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).cancelIdentityVerifier();
@@ -749,8 +720,6 @@ public class AuthenticationActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        Log.e("关闭摄像头3", "finishActivity: " + (System.currentTimeMillis() - currentMillisecond));
     }
 
     @Override
@@ -781,22 +750,18 @@ public class AuthenticationActivity extends BaseActivity {
         @Override
         public void onResult(IdentityResult result, boolean islast) {
             Handlers.bg().removeCallbacksAndMessages(null);
-            Log.e("删除成功", "onResult: ");
             Handlers.bg().post(new Runnable() {
                 @Override
                 public void run() {
-                    Log.e("传入的删除组的id", "run: "+deleteGroupId );
                     NetworkApi.changeGroupStatus(deleteGroupId, "2", new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
                             Handlers.bg().removeCallbacksAndMessages(null);
-                            Log.e("更改组状态成功", "onSuccess: "+response );
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override
                         public void onFailed(String message) {
                             Handlers.bg().removeCallbacksAndMessages(null);
-                            Log.e("更改组状态失败", "onFailed: " );
                         }
                     });
                 }
@@ -805,12 +770,10 @@ public class AuthenticationActivity extends BaseActivity {
 
         @Override
         public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-//            Log.e("删除", "onEvent:第一个参数 "+eventType+"第二个参数"+arg1+"第三个参数"+arg2+"第四个参数"+obj.toString());
         }
 
         @Override
         public void onError(SpeechError error) {
-            Log.e("删除失败", "onError: " + error.getPlainDescription(true));
         }
     };
 }
