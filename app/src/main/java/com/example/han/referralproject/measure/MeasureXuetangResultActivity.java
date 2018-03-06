@@ -90,7 +90,7 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
         speak("主人，您本次测量的血糖值是" + intent.getStringExtra("result") +
                 "，本周空腹平均血糖值" + String.format("%.2f", Float.parseFloat(weekEmptyAvg)) + ",饭后一小时平均血糖值"
                 + String.format("%.2f", Float.parseFloat(weekOneAvg)) + ",饭后两小时平均血糖值" +
-                String.format("%.2f", Float.parseFloat(weekTwoAvg)) + ",健康分数" + String.format("%1$.0f", Float.parseFloat(fenshu)) + "分。" + suggest);
+                String.format("%.2f", Float.parseFloat(weekTwoAvg)) + ",健康分数" + fenshu + "分。" + suggest);
 
         tvSomethingAdvice.setOnClickListener(this);
         healthKnowledge.setOnClickListener(this);
@@ -104,7 +104,7 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
 //        result="8.5";
 //        fenshu="85";
 //        suggest="测试测试";
-
+        waveProgressBar.setHealthValue(fenshu+"分");
         waveProgressBar.setMaxValue(100);
         waveProgressBar.setValue(Float.parseFloat(fenshu));
         tvSuggest.setText(suggest);

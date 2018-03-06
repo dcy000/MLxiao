@@ -107,6 +107,8 @@ public class WaveProgress extends View {
     private ValueAnimator mDarkWaveAnimator;
     private long mLightWaveAnimTime;
     private ValueAnimator mLightWaveAnimator;
+    //健康分数
+    private String healthValue;
 
     public WaveProgress(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -345,7 +347,8 @@ public class WaveProgress extends View {
             mPercentValue = String.format("%1$.0f分", mPercent * 100);
             mPrePercent = mPercent;
         }
-        canvas.drawText(mPercentValue, mCenterPoint.x, y, mPercentPaint);
+//        canvas.drawText(mPercentValue, mCenterPoint.x, y, mPercentPaint);
+        canvas.drawText(healthValue, mCenterPoint.x, y, mPercentPaint);
 
         if (mHint != null) {
             float hy = mCenterPoint.y * 2 / 3 - (mHintPaint.descent() + mHintPaint.ascent()) / 2;
@@ -363,6 +366,14 @@ public class WaveProgress extends View {
 
     public float getValue() {
         return mValue;
+    }
+
+    public String getHealthValue() {
+        return healthValue;
+    }
+
+    public void setHealthValue(String healthValue) {
+        this.healthValue = healthValue;
     }
 
     /**

@@ -715,6 +715,14 @@ public class AuthenticationActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        Log.e("关闭摄像头3", "finishActivity: " + (System.currentTimeMillis() - currentMillisecond));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        xfIdIndex = 0;
         Handlers.bg().post(new Runnable() {
             @Override
             public void run() {
@@ -732,13 +740,6 @@ public class AuthenticationActivity extends BaseActivity {
                 FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
             }
         });
-        Log.e("关闭摄像头3", "finishActivity: " + (System.currentTimeMillis() - currentMillisecond));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        xfIdIndex = 0;
     }
 
     private DeleteGroupListener deleteGroupListener = new DeleteGroupListener() {
