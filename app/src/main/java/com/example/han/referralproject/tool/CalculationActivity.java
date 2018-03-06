@@ -92,7 +92,18 @@ public class CalculationActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSuccess(Object anwser) {
+            public void onSuccess(final Object anwser) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CalculationDialog calculationDialog = new CalculationDialog();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("question", result);
+                        bundle.putString("answer", (String) anwser);
+                        calculationDialog.setArguments(bundle);
+                        calculationDialog.show(getSupportFragmentManager(), "calculation");
+                    }
+                });
 
             }
         });

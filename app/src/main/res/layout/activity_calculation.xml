@@ -12,7 +12,7 @@
         android:layout_height="64dp"
         android:background="#666"
         android:gravity="center"
-        android:text="百科"
+        android:text="计算"
         android:textColor="#FFF"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
