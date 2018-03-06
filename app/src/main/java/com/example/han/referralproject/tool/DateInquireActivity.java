@@ -93,7 +93,6 @@ public class DateInquireActivity extends BaseActivity {
             @Override
             public void onResult(RecognizerResult recognizerResult, boolean b) {
                 dealData(recognizerResult, b);
-
             }
 
             @Override
@@ -150,7 +149,7 @@ public class DateInquireActivity extends BaseActivity {
                     @Override
                     public void run() {
 //                        tvNotice.setText((String) briefly);
-                        //跳转页面显示
+                        //跳转页面显示结果
                         DateInquireResultActivity.startMe(DateInquireActivity.this,result, (String) briefly);
                     }
                 });

@@ -14,7 +14,7 @@ public class DateInquireResultActivity extends AppCompatActivity {
     private Intent intent;
 
     public static void startMe(Context context, String quesiton, String anwser){
-        Intent intent = new Intent(context, CookBookResultActivity.class);
+        Intent intent = new Intent(context, DateInquireResultActivity.class);
         intent.putExtra("quesiton",quesiton);
         intent.putExtra("anwser",anwser);
         context.startActivity(intent);
