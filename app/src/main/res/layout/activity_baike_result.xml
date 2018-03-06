@@ -20,41 +20,49 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="0dp" />
-    <com.example.han.referralproject.tool.MixtureTextView
-        android:id="@+id/mt_result"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:padding="30dp"
-        android:textColor="#FF666666"
-        android:textSize="28dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_question"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintTop_toBottomOf="@+id/tv_question">
 
-        <ImageView
-            android:id="@+id/img_pic"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:scaleType="fitXY" />
+        <com.example.han.referralproject.tool.MixtureTextView
+            android:id="@+id/mt_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="30dp"
+            android:textColor="#FF666666"
+            android:textSize="28dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_question"
+            tools:layout_editor_absoluteX="0dp">
 
-    </com.example.han.referralproject.tool.MixtureTextView>
+            <ImageView
+                android:id="@+id/img_pic"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY" />
+
+        </com.example.han.referralproject.tool.MixtureTextView>
+
+    </ScrollView>
+
 
     <TextView
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        android:layout_marginTop="30dp"
         android:id="@+id/tv_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:text="周星驰的百科"
         android:textColor="#FF333333"
         android:textSize="36dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:layout_editor_absoluteY="95dp" />
 
 
