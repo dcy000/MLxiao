@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/textView9"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
