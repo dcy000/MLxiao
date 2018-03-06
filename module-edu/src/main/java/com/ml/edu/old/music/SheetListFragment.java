@@ -73,7 +73,6 @@ public class SheetListFragment extends Fragment {
         adapter.setOnItemClickListener(onItemClickListener);
         rvSheets.setAdapter(adapter);
         getSheetListUseCase = new GetSheetListUseCase();
-        getSheetList();
         return view;
     }
 
@@ -85,6 +84,21 @@ public class SheetListFragment extends Fragment {
                 new GetSheetListUseCase.Params(null, 1, 12),
                 sheetListObserver
         );
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getSheetList();
+    }
+
+
+    @Override
+    public void onStop() {
+        if (getSheetListUseCase != null) {
+            getSheetListUseCase.dispose();
+        }
+        super.onStop();
     }
 
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
