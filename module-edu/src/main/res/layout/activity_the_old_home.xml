@@ -32,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:visibility="gone"
         android:layout_width="64dp"
         android:layout_height="124dp"
         android:layout_marginBottom="93dp"
@@ -46,6 +47,7 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
+        android:visibility="gone"
         android:layout_width="64dp"
         android:layout_height="124dp"
         android:layout_marginBottom="93dp"
@@ -60,6 +62,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
+        android:id="@+id/old_tv_home_indicator"
         android:layout_width="75dp"
         android:layout_height="155dp"
         android:layout_marginBottom="30dp"
@@ -67,7 +70,7 @@
         android:background="@drawable/old_ic_home_video_indicator"
         android:ems="1"
         android:gravity="center"
-        android:text="视\n频\n播\n放"
+        tools:text="视\n频\n播\n放"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
