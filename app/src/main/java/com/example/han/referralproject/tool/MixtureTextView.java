@@ -46,7 +46,7 @@ public class MixtureTextView extends RelativeLayout
 
     private int mLineSpace;
 
-    private TextPaint mTextPaint;
+    private TextPaint mTextPaint  = new TextPaint();;
 
     private List<List<Rect>> mDestRects = new ArrayList<List<Rect>>();
     private List<Integer> mCorYs = null;
@@ -96,7 +96,7 @@ public class MixtureTextView extends RelativeLayout
         if (!mNeedRenderText) return;
 
 
-        mTextPaint = new TextPaint();
+
         mTextPaint.setDither(true);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setColor(mTextColor);

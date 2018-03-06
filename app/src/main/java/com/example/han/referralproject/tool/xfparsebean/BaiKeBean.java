@@ -25,7 +25,7 @@ public class BaiKeBean implements Serializable {
     public List<String> category;
     public List<SectionListBean> sectionList;
 
-    public static class SectionListBean {
+    public static class SectionListBean implements Serializable{
         /**
          * sectionTitle : 办学历史
          * sectionUrl : http://www.baike.com/gwiki/浙大&fr=xunfei#1

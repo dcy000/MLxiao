@@ -53,7 +53,7 @@ public class CookBookActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
-                finish();
+                startActivity(new Intent(CookBookActivity.this,BaiKeActivtiy.class));
                 break;
             case R.id.tv_demo1:
                 getDateData(tvDemo1.getText().toString().trim());
