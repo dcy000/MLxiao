@@ -800,8 +800,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xueya");
+//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                intent.putExtra("type", "xueya");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xueya");
                 startActivity(intent);
 
 
@@ -809,8 +812,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*liang.*xueyang.*")
                     || inSpell.matches(".*ce.*baohedu.*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xueyang");
+//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                intent.putExtra("type", "xueyang");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xueyang");
                 startActivity(intent);
 
 
@@ -818,36 +824,51 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*liang.*xuetang.*")
                     || inSpell.matches(".*xuetangyi.*")
                     ) {
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xuetang");
+//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                intent.putExtra("type", "xuetang");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xuetang");
                 startActivity(intent);
-                startActivity(intent);
+
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "wendu");
+//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                intent.putExtra("type", "wendu");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "wendu");
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*xindian.*")
                     || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
+//                Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xindian");
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "sanheyi");
+//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                intent.putExtra("type", "sanheyi");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "sanheyi");
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
 
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "tizhong");
+//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                intent.putExtra("type", "tizhong");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "tizhong");
                 startActivity(intent);
 
 
