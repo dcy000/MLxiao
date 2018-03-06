@@ -178,6 +178,7 @@ public class AuthenticationActivity extends BaseActivity {
             }
         }
     }
+
     private void authenticationSuccessForTest$Welcome(String firstXfid,WeakReference<AuthenticationActivity> weakReference){
         finishActivity();
         ToastUtil.showShort(AuthenticationActivity.this, "通过验证，欢迎回来！");
@@ -763,7 +764,6 @@ public class AuthenticationActivity extends BaseActivity {
                 }
             });
         }
-
         @Override
         public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
         }
