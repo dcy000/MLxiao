@@ -45,6 +45,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.bean.XfGroupInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
@@ -98,7 +99,7 @@ public class AuthenticationActivity extends BaseActivity {
     private int authenticationNum = 0;
     private int xfIdIndex = 0;//记录讯飞id数组的位置
     private long oldMillisecond, currentMillisecond, dMillisecond;
-
+    private String groupId,deleteGroupId;
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
 
@@ -313,10 +314,43 @@ public class AuthenticationActivity extends BaseActivity {
                         Log.e("创建组成功耗时", "onResult:" + (System.currentTimeMillis() - currentMillisecond));
                         try {
                             JSONObject resObj = new JSONObject(result.getResultString());
-                            LocalShared.getInstance(AuthenticationActivity.this).setGroupId(resObj.getString("group_id"));
+                            groupId=resObj.getString("group_id");
+                            LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
                             Log.e("组id", "++++++ " + resObj.getString("group_id"));
                             LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfids[0]);
+                            //将组的相关信息存到服务器上
+                            Handlers.bg().post(recordGroupRunnable=new Runnable() {
+                                @Override
+                                public void run() {
+                                    NetworkApi.recordGroup(groupId, xfids[0], new NetworkManager.SuccessCallback<String>() {
+                                        @Override
+                                        public void onSuccess(String response) {
+                                            Log.e("记录组成功", "onSuccess: " + response);
+                                            NetworkApi.getXfGroupInfo(groupId, xfids[0], new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
+                                                @Override
+                                                public void onSuccess(ArrayList<XfGroupInfo> response) {
+                                                    for (XfGroupInfo xfGroupInfo:response){
+                                                        if (xfGroupInfo.gid.equals(groupId)){
+                                                            deleteGroupId=xfGroupInfo.grid;
+                                                            break;
+                                                        }
+                                                    }
+                                                    Log.e("删除组的id", "onSuccess: "+deleteGroupId);
+                                                    Handlers.bg().removeCallbacksAndMessages(null);
+                                                }
+                                            });
+                                        }
+                                    }, new NetworkManager.FailedCallback() {
+                                        @Override
+                                        public void onFailed(String message) {
+                                            Log.e("记录组失败", "onFailed: ");
+                                            Handlers.bg().removeCallbacks(recordGroupRunnable);
+                                        }
+                                    });
+                                }
+                            });
                             joinGroup();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -339,7 +373,7 @@ public class AuthenticationActivity extends BaseActivity {
         });
     }
 
-    private Runnable joinGroupRunable, createGroupRunnable;
+    private Runnable joinGroupRunable, createGroupRunnable,recordGroupRunnable;
 
     private void joinGroup() {
         currentMillisecond = System.currentTimeMillis();
@@ -715,6 +749,7 @@ public class AuthenticationActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         xfIdIndex = 0;
+        //因为在任何一种情况下，该activity最后都被finish，所以释放资源等操作全部提前到该方法中执行。
         Handlers.bg().post(new Runnable() {
             @Override
             public void run() {
@@ -739,6 +774,25 @@ public class AuthenticationActivity extends BaseActivity {
         public void onResult(IdentityResult result, boolean islast) {
             Handlers.bg().removeCallbacksAndMessages(null);
             Log.e("删除成功", "onResult: ");
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("传入的删除组的id", "run: "+deleteGroupId );
+                    NetworkApi.changeGroupStatus(deleteGroupId, "2", new NetworkManager.SuccessCallback<String>() {
+                        @Override
+                        public void onSuccess(String response) {
+                            Handlers.bg().removeCallbacksAndMessages(null);
+                            Log.e("更改组状态成功", "onSuccess: "+response );
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+                            Handlers.bg().removeCallbacksAndMessages(null);
+                            Log.e("更改组状态失败", "onFailed: " );
+                        }
+                    });
+                }
+            });
         }
 
         @Override

@@ -29,6 +29,7 @@ import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.WeightHistory;
+import com.example.han.referralproject.bean.XfGroupInfo;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.radio.RadioEntity;
@@ -135,6 +136,10 @@ public class NetworkApi {
     public static final String GET_CODE = BasicUrl + "/ZZB/br/GainCode";
 
     public static final String GET_FM = BasicUrl + "/ZZB/rep/selSomeImitate";
+    public static final String Add_Group = BasicUrl + "/ZZB/xf/insert_group_record";
+    public static final String Change_Group_Status = BasicUrl + "/ZZB/xf/update_group_record";
+
+    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
 
     public static void getFM(
             String type,
@@ -888,5 +893,55 @@ public class NetworkApi {
         HashMap<String, String> params = new HashMap<>();
         params.put("bname", bname);
         NetworkManager.getInstance().getResultClass(Get_jibing, params, DiseaseResult.class, successCallback, failedCallback);
+    }
+
+    /**
+     * 添加组到后台
+     * @param callback
+     * @param failedCallback
+     */
+    public static void recordGroup(String gid,String xfid, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            return;
+        }
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("userid", MyApplication.getInstance().userId);
+        paramsMap.put("gid", gid);
+        paramsMap.put("xfid", xfid);
+        NetworkManager.getInstance().postResultString(Add_Group, paramsMap, callback, failedCallback);
+    }
+
+    /**
+     * 更改组的显示状态（是否成功从讯飞服务器上删除组）
+     * @param gid
+     * @param status
+     * @param callback
+     * @param failedCallback
+     */
+    public static void changeGroupStatus(String gid,String status, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("grid", gid);
+        paramsMap.put("state", status);
+        NetworkManager.getInstance().postResultString(Change_Group_Status, paramsMap, callback, failedCallback);
+    }
+
+    /**
+     * 查询所有储存在后台的组信息
+     * @param gid
+     * @param xfid
+     * @param successCallback
+     */
+    public static void getXfGroupInfo(String gid, String xfid, NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback
+    ) {
+        HashMap<String, String> params = new HashMap<>();
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            return;
+        }
+        params.put("userid", MyApplication.getInstance().userId);
+        params.put("gid", gid);
+        params.put("xfid", xfid);
+        params.put("state", "0");
+        NetworkManager.getInstance().getResultClass(Query_Group, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
+                successCallback);
     }
 }

@@ -283,10 +283,12 @@ public class SignInActivity extends BaseActivity {
             }
         }
     }
+
     @OnClick(R.id.rl_back)
-    public void backClick(){
+    public void backClick() {
         finish();
     }
+
     public static final String REGEX_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole)";
     public static final String REGEX_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
     public static final String REGEX_IN_PHONE = ".*(shu|su)(ru|lu|lv)(shou|sou)ji.*";
