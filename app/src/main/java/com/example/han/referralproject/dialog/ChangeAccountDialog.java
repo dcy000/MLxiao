@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,8 @@ import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.adapter.ChangeAccountAdapter;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.DeleteGroupListener;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
@@ -88,15 +91,40 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
         switch (v.getId()) {
 
             case R.id.view_login://添加账号
-
-                mContext.startActivity(new Intent(mContext, SignInActivity.class));
-                ((Activity) mContext).finish();
-
+                //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
+                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
+                    NDialog1 dialog = new NDialog1(mContext);
+                    dialog.setMessageCenter(true)
+                            .setMessage("本机登录账号数量达到上限，是否快速清理？")
+                            .setMessageSize(35)
+                            .setCancleable(false)
+                            .setButtonCenter(true)
+                            .setPositiveTextColor(mContext.getResources().getColor(R.color.toolbar_bg))
+                            .setNegativeTextColor(Color.parseColor("#999999"))
+                            .setButtonSize(40)
+                            .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+                                @Override
+                                public void onClick(int which) {
+                                    if (which == 1) {
+                                        LocalShared.getInstance(mContext).deleteAllAccount();
+                                        mContext.startActivity(new Intent(mContext, SignInActivity.class));
+                                        ((Activity) mContext).finish();
+                                    }
+                                }
+                            }).create(NDialog.CONFIRM).show();
+                }else{
+                    mContext.startActivity(new Intent(mContext, SignInActivity.class));
+                    ((Activity) mContext).finish();
+                }
                 break;
             case R.id.btn_logout:
                 MobclickAgent.onProfileSignOff();
                 NimAccountHelper.getInstance().logout();//退出网易IM
                 //LocalShared.getInstance(mContext).deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);//删除当前这个人的账号
+                //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
+                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
+                    LocalShared.getInstance(mContext).deleteAllAccount();
+                }
                 LocalShared.getInstance(mContext).loginOut();
                 mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();

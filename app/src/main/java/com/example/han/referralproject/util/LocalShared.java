@@ -53,6 +53,11 @@ public class LocalShared {
         return mInstance;
     }
 
+    /**
+     *
+     * @param bid
+     * @param xfid
+     */
     public void addAccount(String bid, String xfid) {
         if (TextUtils.isEmpty(bid) || TextUtils.isEmpty(xfid)) {
             return;
@@ -62,18 +67,30 @@ public class LocalShared {
             mShared.edit().putString(UserAccounts_new, bid + "," + xfid + ";").commit();
         } else {
             String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(";");
-            Log.e("原来的账号", "addAccount: "+accountsString);
             if (!isContainAccount(accountsArray, bid, xfid)) {
                 mShared.edit().putString(UserAccounts_new, accountsString + bid + "," + xfid + ";").commit();
-                Log.e("现在", "addAccount: "+mShared.getString(UserAccounts_new, ""));
             }
         }
     }
 
+    /**
+     * 本地缓存的账号是否满了5个
+     * @return
+     */
+    public boolean isAccountOverflow(){
+        String[] accountsArray = getAccounts();
+        if (accountsArray == null) {
+            return false;
+        }
+        if (accountsArray.length>5)
+            return true;
+        else
+            return false;
+    }
     public void deleteAccount(String bid, String xfid) {
         String[] accountsArray = getAccounts();
         if (accountsArray == null || TextUtils.isEmpty(bid) || TextUtils.isEmpty(xfid)) {
-            return ;
+            return;
         }
         ArrayList<String> accountsList = new ArrayList<>();
         for (String item : accountsArray) {
@@ -84,7 +101,7 @@ public class LocalShared {
         }
         if (accountsList.size() == 0) {
             mShared.edit().putString(UserAccounts_new, "").commit();
-            mShared.edit().putString(UserAccounts,"").commit();
+            mShared.edit().putString(UserAccounts, "").commit();
         } else {
             StringBuilder mBuilder = new StringBuilder();
             for (String itemAccount : accountsList) {
@@ -94,6 +111,16 @@ public class LocalShared {
         }
     }
 
+    /**
+     * 删除本机上所有缓存的账户
+     */
+    public void deleteAllAccount(){
+        String[] accountsArray = getAccounts();
+        if (accountsArray == null) {
+            return;
+        }
+        mShared.edit().putString(UserAccounts_new,"").commit();
+    }
     public String[] getAccounts() {
         String accountsString = mShared.getString(UserAccounts_new, "");
 
@@ -138,14 +165,14 @@ public class LocalShared {
         MyApplication.getInstance().userId = infoBean.bid;
         MyApplication.getInstance().telphoneNum = infoBean.tel;
         MyApplication.getInstance().userName = infoBean.bname;
-        MyApplication.getInstance().eqid=infoBean.eqid;
-        MyApplication.getInstance().xfid=infoBean.xfid;
+        MyApplication.getInstance().eqid = infoBean.eqid;
+        MyApplication.getInstance().xfid = infoBean.xfid;
         mShared.edit()
                 .putString(UserId, infoBean.bid)
                 .putString(EQID, infoBean.eqid)
                 .putString(UserPhoneNum, infoBean.tel)
                 .putString(USER_NAME, infoBean.bname)
-                .putString(XunfeiId,infoBean.xfid)
+                .putString(XunfeiId, infoBean.xfid)
                 .commit();
         MobclickAgent.onProfileSignIn(infoBean.bid);
     }
@@ -180,9 +207,9 @@ public class LocalShared {
         MyApplication.getInstance().userId = null;
         mShared.edit().clear().commit();
         if (context != null) {
-            context.getSharedPreferences(IatSettings.PREFER_NAME,Context.MODE_PRIVATE)
+            context.getSharedPreferences(IatSettings.PREFER_NAME, Context.MODE_PRIVATE)
                     .edit().clear().apply();
-            context.getSharedPreferences(ConstantData.DOCTOR_MSG,Context.MODE_PRIVATE)
+            context.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE)
                     .edit().clear().apply();
         }
     }
@@ -446,17 +473,20 @@ public class LocalShared {
     public String getUserHeight() {
         return mShared.getString("user_height", "");
     }
-    public void setGroupId(String groupid){
+
+    public void setGroupId(String groupid) {
         mShared.edit().putString("group_id", groupid).commit();
     }
-    public String getGroupId(){
-        return mShared.getString("group_id","");
+
+    public String getGroupId() {
+        return mShared.getString("group_id", "");
     }
 
-    public void setGroupFirstXfid(String xfid){
+    public void setGroupFirstXfid(String xfid) {
         mShared.edit().putString("group_first_xfid", xfid).commit();
     }
-    public String getGroupFirstXfid(){
-        return mShared.getString("group_first_xfid","");
+
+    public String getGroupFirstXfid() {
+        return mShared.getString("group_first_xfid", "");
     }
 }

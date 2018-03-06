@@ -144,8 +144,13 @@ public class HeadiconActivity extends BaseActivity {
                             new NetworkManager.SuccessCallback<Object>() {
                                 @Override
                                 public void onSuccess(Object response) {
-                                    LocalShared shared = LocalShared.getInstance(mContext);
-                                    shared.addAccount(MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId());
+                                    //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
+                                    if (LocalShared.getInstance(mContext).isAccountOverflow()){
+                                        LocalShared.getInstance(mContext).deleteAllAccount();
+                                    }
+                                    //将账号在本地缓存
+                                    LocalShared.getInstance(mContext).addAccount(MyApplication.getInstance().userId,
+                                            LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                                     Log.e("注册储存讯飞id成功", "onSuccess: userID"+MyApplication.getInstance().userId+"-----xfid"+LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                                     Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
                                     startActivity(intent);
