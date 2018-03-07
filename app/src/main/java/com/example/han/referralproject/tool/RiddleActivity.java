@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RiddleActivity extends BaseActivity {
+public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNextListener {
 
     @BindView(R.id.tv_question)
     TextView tvQuestion;
@@ -66,9 +66,15 @@ public class RiddleActivity extends BaseActivity {
             }
 
             @Override
-            public void onSuccess(Object anwser) {
-                data = (List<RiddleBean>) anwser;
-                tvQuestion.setText(data.get(0).title);
+            public void onSuccess(final Object anwser) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        data = (List<RiddleBean>) anwser;
+                        tvQuestion.setText(data.get(0).title);
+                    }
+                });
+
             }
         });
     }
@@ -77,16 +83,28 @@ public class RiddleActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_show_anwser:
-
+                showAnswer();
                 break;
             case R.id.tv_show_next:
-                index++;
-                tvQuestion.setText(data.get(index).title);
+                showNext();
                 break;
             case R.id.iv_yuyin:
                 startListener();
                 break;
         }
+    }
+
+    private void showAnswer() {
+        RiddleDialog riddleDialog = new RiddleDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("anwser", data.get(index).answer);
+        riddleDialog.setArguments(bundle);
+        riddleDialog.show(getSupportFragmentManager(), "riddleDialog");
+    }
+
+    private void showNext() {
+        index++;
+        tvQuestion.setText(data.get(index).title);
     }
 
     private void startListener() {
@@ -166,5 +184,10 @@ public class RiddleActivity extends BaseActivity {
         }
         return resultBuffer;
 
+    }
+
+    @Override
+    public void onNext() {
+        showNext();
     }
 }
