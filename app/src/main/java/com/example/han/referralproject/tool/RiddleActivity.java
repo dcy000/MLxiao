@@ -109,7 +109,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
     private void showNext() {
         index++;
-        tvQuestion.setText(data.get(index%5).title);
+        tvQuestion.setText(data.get(index%size).title);
     }
 
     private void startListener() {
@@ -159,7 +159,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
             }
 
             if (!data.isEmpty()) {
-                String answer = data.get(index%5).answer;
+                String answer = data.get(index%size).answer;
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("答对了!,您答对了");
                 } else {
