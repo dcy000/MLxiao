@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -54,7 +55,8 @@ public class XFSkillApi {
      */
     public interface getDataListener {
         //有result结果
-        void onSuccess(Object anwser,String briefly);
+        void onSuccess(Object anwser, String briefly);
+
         //直接anwser
         void onSuccess(Object anwser);
     }
@@ -69,7 +71,7 @@ public class XFSkillApi {
         getXFDataJSONObject(contentText, listener);
     }
 
-    public static void getXFDataJSONObject(String contentText , final getDataListener listener) {
+    public static void getXFDataJSONObject(String contentText, final getDataListener listener) {
         Call call = initPostCall(contentText);
         call.enqueue(new Callback() {
             @Override
@@ -144,7 +146,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<DreamBean>>() {
                                         }.getType();
                                         List<DreamBean> dreamBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(dreamBeans,xfContentData.getJSONObject("answer").getString("text"));
+                                        listener.onSuccess(dreamBeans, xfContentData.getJSONObject("answer").getString("text"));
                                     }
                                 }
 
@@ -345,9 +347,17 @@ public class XFSkillApi {
         return client.newCall(request);
     }
 
+    public final static int CONNECT_TIMEOUT = 15;
+    public final static int READ_TIMEOUT = 15;
+    public final static int WRITE_TIMEOUT = 15;
+
     private static void getClient() {
         if (client == null) {
-            client = new OkHttpClient();
+            client = new OkHttpClient.Builder()
+                    .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)//设置读取超时时间
+                    .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)//设置写的超时时间
+                    .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)//设置连接超时时间
+                    .build();
         }
     }
 

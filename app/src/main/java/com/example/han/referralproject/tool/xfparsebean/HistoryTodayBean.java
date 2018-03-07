@@ -24,4 +24,5 @@ public class HistoryTodayBean implements Serializable {
     public String source;
     public String title;
     public List<String> imgs;
+    public boolean flag;
 }
