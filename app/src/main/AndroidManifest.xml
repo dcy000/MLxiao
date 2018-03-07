@@ -560,7 +560,8 @@
         <activity android:name=".tool.DateInquireResultActivity" />
         <activity android:name=".tool.BaiKeActivtiy" />
         <activity android:name=".tool.BaikeResultActivity" />
-        <activity android:name=".tool.CalculationActivity"></activity>
+        <activity android:name=".tool.CalculationActivity" />
+        <activity android:name=".tool.RiddleActivity"></activity>
     </application>
 
 </manifest>

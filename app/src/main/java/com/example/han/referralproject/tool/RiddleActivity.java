@@ -1,15 +1,16 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.tool.xfparsebean.DreamBean;
+import com.example.han.referralproject.tool.xfparsebean.RiddleBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -22,93 +23,70 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CalculationActivity extends AppCompatActivity {
+public class RiddleActivity extends BaseActivity {
 
-
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_demo5)
-    TextView tvDemo5;
-    @BindView(R.id.tv_demo4)
-    TextView tvDemo4;
-    @BindView(R.id.tv_demo1)
-    TextView tvDemo1;
-    @BindView(R.id.tv_demo2)
-    TextView tvDemo2;
-    @BindView(R.id.tv_demo3)
-    TextView tvDemo3;
+    @BindView(R.id.tv_question)
+    TextView tvQuestion;
+    @BindView(R.id.tv_show_anwser)
+    TextView tvShowAnwser;
+    @BindView(R.id.tv_show_next)
+    TextView tvShowNext;
     @BindView(R.id.iv_yuyin)
     ImageView ivYuyin;
+
+    private int index;
+    private List<RiddleBean> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculation);
+        setContentView(R.layout.activity_riddle);
         ButterKnife.bind(this);
+        initData();
     }
 
+    /**
+     * 网络获取谜语数据
+     */
+    private void initData() {
+        String[] miti = {"猜谜语", "来一个字谜"};
+        Random random = new Random();
 
-    @OnClick({R.id.tv_title, R.id.tv_demo5, R.id.tv_demo4, R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
+        XFSkillApi.getSkillData(miti[random.nextInt(2)], new XFSkillApi.getDataListener() {
+
+            @Override
+            public void onSuccess(Object anwser, String briefly) {
+
+            }
+
+            @Override
+            public void onSuccess(Object anwser) {
+                data = (List<RiddleBean>) anwser;
+                tvQuestion.setText(data.get(0).title);
+            }
+        });
+    }
+
+    @OnClick({R.id.tv_show_anwser, R.id.tv_show_next, R.id.iv_yuyin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_title:
-//                finish();
-                startActivity(new Intent(CalculationActivity.this,RiddleActivity.class) );
+            case R.id.tv_show_anwser:
+
                 break;
-            case R.id.tv_demo5:
-                String demo5 = tvDemo5.getText().toString();
-                getDreamData(demo5);
-                break;
-            case R.id.tv_demo4:
-                String demo4 = tvDemo4.getText().toString();
-                getDreamData(demo4);
-                break;
-            case R.id.tv_demo1:
-                String demo1 = tvDemo1.getText().toString();
-                getDreamData(demo1);
-                break;
-            case R.id.tv_demo2:
-                String demo2 = tvDemo2.getText().toString();
-                getDreamData(demo2);
-                break;
-            case R.id.tv_demo3:
-                String demo3 = tvDemo3.getText().toString();
-                getDreamData(demo3);
+            case R.id.tv_show_next:
+                index++;
+                tvQuestion.setText(data.get(index).title);
                 break;
             case R.id.iv_yuyin:
                 startListener();
                 break;
         }
-    }
-
-    private void getDreamData(final String result) {
-        XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
-            @Override
-            public void onSuccess(final Object anwser, final String briefly) {
-
-            }
-
-            @Override
-            public void onSuccess(final Object anwser) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        CalculationDialog calculationDialog = new CalculationDialog();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("question", result);
-                        bundle.putString("answer", (String) anwser);
-                        calculationDialog.setArguments(bundle);
-                        calculationDialog.show(getSupportFragmentManager(), "calculation");
-                    }
-                });
-
-            }
-        });
     }
 
     private void startListener() {
@@ -148,12 +126,27 @@ public class CalculationActivity extends AppCompatActivity {
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
         StringBuffer stringBuffer = printResult(recognizerResult);
+        String result = stringBuffer.toString();
+
         if (isLast) {
-            getDreamData(stringBuffer.toString());
+
+            if (TextUtils.isEmpty(result)) {
+                speak("主人,我没听清,您能再说一遍吗");
+                return;
+            }
+
+            if (!data.isEmpty()) {
+                String answer = data.get(index).answer;
+                if (answer.equals(result) || answer.contains(result)) {
+                    speak("答对了!,您答对了");
+                } else {
+                    speak("主人,您再猜一下哦!");
+                }
+            }
         }
     }
 
-    private HashMap<String, String> xfResult = new LinkedHashMap<String, String>();
+    private HashMap<String, String> xfResult = new LinkedHashMap<>();
 
     private StringBuffer printResult(RecognizerResult results) {
         String text = JsonParser.parseIatResult(results.getResultString());
