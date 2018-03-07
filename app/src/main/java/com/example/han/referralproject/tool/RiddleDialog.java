@@ -54,12 +54,12 @@ public class RiddleDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.calculation_dialog, container, false);
+        View view = inflater.inflate(R.layout.riddle_dialog, container, false);
+        unbinder = ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         if (bundle != null) {
             tvAnwser.setText(bundle.getString("answer"));
         }
-        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -78,7 +78,7 @@ public class RiddleDialog extends DialogFragment {
                 break;
             case R.id.tv_next:
                 dismiss();
-                if (listener!=null){
+                if (listener != null) {
                     listener.onNext();
                 }
                 break;

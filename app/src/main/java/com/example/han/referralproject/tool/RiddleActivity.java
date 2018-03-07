@@ -42,6 +42,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
     private int index;
     private List<RiddleBean> data;
+    private int size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,10 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                     @Override
                     public void run() {
                         data = (List<RiddleBean>) anwser;
-                        tvQuestion.setText(data.get(0).title);
+                        if (!data.isEmpty()) {
+                            size = data.size();
+                            tvQuestion.setText(data.get(0).title);
+                        }
                     }
                 });
 
@@ -97,14 +101,15 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     private void showAnswer() {
         RiddleDialog riddleDialog = new RiddleDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("anwser", data.get(index).answer);
+        bundle.putString("anwser", data.get(index%size).answer);
         riddleDialog.setArguments(bundle);
+        riddleDialog.setListener(this);
         riddleDialog.show(getSupportFragmentManager(), "riddleDialog");
     }
 
     private void showNext() {
         index++;
-        tvQuestion.setText(data.get(index).title);
+        tvQuestion.setText(data.get(index%5).title);
     }
 
     private void startListener() {
@@ -154,7 +159,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
             }
 
             if (!data.isEmpty()) {
-                String answer = data.get(index).answer;
+                String answer = data.get(index%5).answer;
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("答对了!,您答对了");
                 } else {

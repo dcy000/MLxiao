@@ -22,58 +22,65 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="122dp"
             android:layout_marginStart="122dp"
-            android:layout_marginTop="94dp"
+            android:layout_marginTop="100dp"
             android:text="TextView"
-            android:textColor="#fff"
+            android:textColor="#666"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_show_anwser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
+            android:layout_marginStart="192dp"
             android:layout_marginTop="8dp"
             android:text="显示答案"
             android:textColor="#FF333333"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_show_next"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_show_next" />
+            app:layout_constraintTop_toTopOf="@+id/tv_show_next"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tv_show_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="200dp"
+            android:layout_marginEnd="196dp"
+            android:layout_marginTop="380dp"
             android:text="下一题"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="358dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_press_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="请按下回答"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="439dp" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_yuyin" />
 
         <ImageView
             android:id="@+id/iv_yuyin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="325dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_question"
-            app:layout_constraintVertical_bias="0.773"
-            app:srcCompat="@drawable/ic_yuyin"
-            tools:layout_editor_absoluteX="425dp" />
+            app:layout_constraintEnd_toStartOf="@+id/tv_show_next"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toEndOf="@+id/tv_show_anwser"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.19"
+            app:srcCompat="@drawable/ic_yuyin" />
     </android.support.constraint.ConstraintLayout>
 
     <TextView
