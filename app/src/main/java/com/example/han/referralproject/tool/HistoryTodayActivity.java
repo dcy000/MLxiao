@@ -48,11 +48,16 @@ public class HistoryTodayActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(Object anwser) {
-                List<HistoryTodayBean> resultData = (List<HistoryTodayBean>) anwser;
-                if (!resultData.isEmpty()) {
-                    data.addAll(resultData);
-                    adapter.notifyDataSetChanged();
-                }
+                final List<HistoryTodayBean> resultData = (List<HistoryTodayBean>) anwser;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!resultData.isEmpty()) {
+                            data.addAll(resultData);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
             }
         });
     }

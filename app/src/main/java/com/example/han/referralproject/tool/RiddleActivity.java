@@ -1,5 +1,6 @@
 package com.example.han.referralproject.tool;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -50,6 +51,16 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         setContentView(R.layout.activity_riddle);
         ButterKnife.bind(this);
         initData();
+        initEvent();
+    }
+
+    private void initEvent() {
+        findViewById(R.id.tv_title).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RiddleActivity.this,HistoryTodayActivity.class));
+            }
+        });
     }
 
     /**
@@ -95,6 +106,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
             case R.id.iv_yuyin:
                 startListener();
                 break;
+
         }
     }
 
