@@ -21,9 +21,16 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, HistoryTodayBean bean) {
+    protected void convert(final BaseViewHolder holder, HistoryTodayBean bean) {
         holder.setText(R.id.tv_content, bean.description);
         holder.setText(R.id.tv_title, bean.title);
-        ((ExpandableTextView)holder.getView(R.id.expandableTextView)).isOpen=bean.flag;
+        ExpandableTextView view =holder.getView(R.id.expandableTextView);
+        view.setClickListner(new ExpandableTextView.ClickListner() {
+            @Override
+            public void onclick(boolean open) {
+                getData().get(holder.getPosition()).flag=open;
+            }
+        });
+        view.isOpen=bean.flag;
     }
 }

@@ -16,6 +16,15 @@ public class ExpandableTextView extends LinearLayout {
     public boolean isOpen = false;
     private int foldLines = 3; //大于3行的时候折叠
     private int lineCounts;
+    private ClickListner clickListner;
+
+    public void setClickListner(ClickListner clickListner) {
+        this.clickListner = clickListner;
+    }
+
+    public interface ClickListner {
+        void onclick(boolean open);
+    }
 
     public ExpandableTextView(Context context) {
         this(context, null);
@@ -44,13 +53,16 @@ public class ExpandableTextView extends LinearLayout {
         mOpenBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (clickListner == null) {
+                    return;
+                }
                 if (isOpen) {
                     mTextView.setHeight(mTextView.getLineHeight() * foldLines);
-                    isOpen = false;
+                    clickListner.onclick(true);
 
                 } else {
                     mTextView.setHeight(mTextView.getLineHeight() * mTextView.getLineCount());
-                    isOpen = true;
+                    clickListner.onclick(true);
                 }
             }
         });
