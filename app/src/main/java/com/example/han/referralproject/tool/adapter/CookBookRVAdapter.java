@@ -20,17 +20,25 @@ public class CookBookRVAdapter extends BaseQuickAdapter<CookbookBean, BaseViewHo
     }
 
     @Override
-    protected void convert(final BaseViewHolder baseViewHolder, CookbookBean cookbookBean) {
+    protected void convert(final BaseViewHolder baseViewHolder, final CookbookBean cookbookBean) {
         baseViewHolder.setText(R.id.textView7, cookbookBean.title);
         baseViewHolder.setText(R.id.textView9, cookbookBean.steps);
+        final View view = baseViewHolder.getView(R.id.textView9);
+        if (cookbookBean.flag) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+
         baseViewHolder.getView(R.id.textView7).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = baseViewHolder.getView(R.id.textView9);
-                if (view.getVisibility() == View.GONE) {
-                    view.setVisibility(View.VISIBLE);
-                } else {
+                if (cookbookBean.flag) {
+                    getData().get(baseViewHolder.getPosition()).flag = false;
                     view.setVisibility(View.GONE);
+                } else {
+                    getData().get(baseViewHolder.getPosition()).flag = true;
+                    view.setVisibility(View.VISIBLE);
                 }
             }
         });

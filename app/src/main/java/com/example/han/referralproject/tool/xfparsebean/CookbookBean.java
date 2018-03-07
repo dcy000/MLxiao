@@ -30,4 +30,5 @@ public class CookbookBean implements Serializable {
     public String accessory;
     public String steps;
     public String status;
+    public boolean flag;
 }
