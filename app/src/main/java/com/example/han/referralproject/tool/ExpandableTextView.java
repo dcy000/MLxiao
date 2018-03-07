@@ -58,11 +58,13 @@ public class ExpandableTextView extends LinearLayout {
                 }
                 if (isOpen) {
                     mTextView.setHeight(mTextView.getLineHeight() * foldLines);
-                    clickListner.onclick(true);
+                    isOpen=false;
+                    clickListner.onclick(false);
 
                 } else {
                     mTextView.setHeight(mTextView.getLineHeight() * mTextView.getLineCount());
                     clickListner.onclick(true);
+                    isOpen=true;
                 }
             }
         });

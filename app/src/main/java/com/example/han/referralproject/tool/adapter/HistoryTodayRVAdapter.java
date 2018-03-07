@@ -25,12 +25,12 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
         holder.setText(R.id.tv_content, bean.description);
         holder.setText(R.id.tv_title, bean.title);
         ExpandableTextView view =holder.getView(R.id.expandableTextView);
+        view.isOpen=bean.flag;
         view.setClickListner(new ExpandableTextView.ClickListner() {
             @Override
             public void onclick(boolean open) {
                 getData().get(holder.getPosition()).flag=open;
             }
         });
-        view.isOpen=bean.flag;
     }
 }
