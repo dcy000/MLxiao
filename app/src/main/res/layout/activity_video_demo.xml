@@ -8,12 +8,24 @@
         android:id="@+id/sfv_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <SurfaceView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/door_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"/>
+        <ImageView
+            android:id="@+id/door_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_bg"
+            />
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

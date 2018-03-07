@@ -71,12 +71,12 @@ public class MeasureXueyaWarningFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         tvTopTitle.setText("测量异常");
         title.setText(titleString);
+        ((DetectActivity)getActivity()).speak(titleString);
         reasons = new ArrayList<>();
         initData();
         list.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         list.addItemDecoration(new GridViewDividerItemDecoration(15, 25));
         list.setAdapter(adapter = new MeasureExceptionAdapter(R.layout.xuetang_result_item, reasons));
-
         ivTopLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -10,8 +10,6 @@ import android.os.Process;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.new_music.HttpInterceptor;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
@@ -23,19 +21,20 @@ import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.wakeup.WakeupHelper;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
-import okhttp3.OkHttpClient;
 
 
 public class MyApplication extends Application {
@@ -106,6 +105,18 @@ public class MyApplication extends Application {
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
+        //初始化日志库
+        FormatStrategy formatStrategy= PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
+                .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
+                .build();
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy){
+            @Override
+            public boolean isLoggable(int priority, String tag) {
+                return BuildConfig.LOGGING;
+            }
+        });
+
     }
 
     @Override
@@ -114,15 +125,6 @@ public class MyApplication extends Application {
         UiUtils.compat(this, 1920);
     }
 
-//    private void initOkHttpUtils() {
-//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .connectTimeout(10, TimeUnit.SECONDS)
-//                .readTimeout(10, TimeUnit.SECONDS)
-//                .writeTimeout(10, TimeUnit.SECONDS)
-//                .addInterceptor(new HttpInterceptor())
-//                .build();
-//        OkHttpUtils.initClient(okHttpClient);
-//    }
 
     public static MyApplication getInstance() {
         return mInstance;

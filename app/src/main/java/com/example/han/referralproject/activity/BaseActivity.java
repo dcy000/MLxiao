@@ -319,7 +319,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-    protected void speak(String text) {
+    public void speak(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
@@ -333,7 +333,7 @@ public class BaseActivity extends AppCompatActivity {
         synthesizer.startSpeaking(text, mTtsListener);
     }
 
-    protected void speak(String text,boolean isDefaultParam) {
+    public void speak(String text,boolean isDefaultParam) {
         if (TextUtils.isEmpty(text)) {
             return;
         }

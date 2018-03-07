@@ -37,10 +37,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
+            buildConfigField "boolean", "LOGGING", gradle.logging
         }
 
         debug {
             debuggable true
+            buildConfigField "boolean", "LOGGING", gradle.logging
         }
     }
 
@@ -152,4 +154,6 @@ dependencies {
     compile 'com.umeng.analytics:analytics:6.1.2'
     compile 'me.songning.CircleView:library:1.0.0'
     compile project(':circleprogress')
+    //日志库
+    compile 'com.orhanobut:logger:2.1.1'
 }
