@@ -58,7 +58,8 @@ public class RiddleDialog extends DialogFragment {
         unbinder = ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            tvAnwser.setText(bundle.getString("answer"));
+            String answer = bundle.getString("answer");
+            tvAnwser.setText(answer);
         }
         return view;
     }

@@ -101,7 +101,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     private void showAnswer() {
         RiddleDialog riddleDialog = new RiddleDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("anwser", data.get(index%size).answer);
+        bundle.putString("answer", data.get(index%size).answer);
         riddleDialog.setArguments(bundle);
         riddleDialog.setListener(this);
         riddleDialog.show(getSupportFragmentManager(), "riddleDialog");
