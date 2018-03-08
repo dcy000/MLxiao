@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bar_bg_rq"
     tools:context="com.example.han.referralproject.tool.DateInquireResultActivity">
 
 
@@ -24,14 +25,13 @@
     <TextView
         android:background="@drawable/bg_date_question"
         android:id="@+id/tv_question"
-        android:layout_width="0dp"
+        android:layout_width="900dp"
         android:layout_height="340dp"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:padding="20dp"
-        android:text="TextView"
         android:textColor="#FF666666"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,14 +41,13 @@
     <TextView
         android:background="@drawable/bg_date_anwser"
         android:id="@+id/tv_anwser"
-        android:layout_width="0dp"
+        android:layout_width="900dp"
         android:layout_height="120dp"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:padding="20dp"
-        android:text="TextView"
         android:textColor="#FF333333"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
