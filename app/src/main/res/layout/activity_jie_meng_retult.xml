@@ -60,6 +60,9 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
+        android:text="周公解梦"
+        android:textSize="36sp"
+        android:textColor="@color/white"
         android:background="@drawable/bg_title_bar"
         android:id="@+id/tv_title"
         android:layout_width="0dp"

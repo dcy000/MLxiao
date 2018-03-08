@@ -8,6 +8,9 @@
 
 
     <TextView
+        android:textColor="@color/white"
+        android:text="周公解梦"
+        android:textSize="36sp"
         android:background="@drawable/bg_title_bar"
         android:id="@+id/tv_title"
         android:layout_width="0dp"
