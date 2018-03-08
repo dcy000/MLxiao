@@ -10,7 +10,7 @@
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:background="#666"
+        android:background="@drawable/bar_bk"
         android:gravity="center"
         android:text="计算"
         android:textColor="#FFF"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
-        android:background="@drawable/bg_bk"
+        android:background="@drawable/bg_js"
         android:id="@+id/cl_start"
         android:layout_width="0dp"
         android:layout_height="0dp"

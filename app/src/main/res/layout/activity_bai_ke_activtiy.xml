@@ -10,7 +10,7 @@
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:background="#666"
+        android:background="@drawable/bar_bk"
         android:gravity="center"
         android:text="百科"
         android:textColor="#FFF"

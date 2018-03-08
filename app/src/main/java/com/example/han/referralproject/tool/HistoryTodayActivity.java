@@ -88,7 +88,7 @@ public class HistoryTodayActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        String date = Utils.getDateToString(System.currentTimeMillis(), "yyyy-MM-dd");
+        String date = Utils.getDateToString(System.currentTimeMillis(), "MM月dd");
         tvDate.setText(date);
         LinearLayoutManager layout = new LinearLayoutManager(this);
         layout.setOrientation(LinearLayoutManager.VERTICAL);
