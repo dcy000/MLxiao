@@ -7,10 +7,10 @@
     tools:context="com.example.han.referralproject.tool.RiddleActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:background="@drawable/bg_cm"
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/bg_cm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,8 +23,10 @@
             android:layout_marginTop="40dp"
             android:foregroundGravity="center"
             android:src="@drawable/img_cmy"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_question"
@@ -41,13 +43,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:background="@drawable/but_xsda"
-            android:gravity="center"
             android:id="@+id/tv_show_anwser"
             android:layout_width="160dp"
             android:layout_height="62dp"
             android:layout_marginStart="192dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/but_xsda"
+            android:gravity="center"
             android:text="显示答案"
             android:textColor="#FF333333"
             android:textSize="24sp"
@@ -57,13 +59,13 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:background="@drawable/but_xyt"
-            android:gravity="center"
             android:id="@+id/tv_show_next"
             android:layout_width="160dp"
             android:layout_height="62dp"
             android:layout_marginEnd="196dp"
             android:layout_marginTop="380dp"
+            android:background="@drawable/but_xyt"
+            android:gravity="center"
             android:text="下一题"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
