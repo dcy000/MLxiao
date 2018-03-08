@@ -1,4 +1,4 @@
-package com.example.han.referralproject.tool;
+package com.example.han.referralproject.tool.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,7 +37,7 @@ public class RiddleDialog extends DialogFragment {
     ConstraintLayout constraintLayout;
     private ShowNextListener listener;
 
-    interface ShowNextListener {
+    public interface ShowNextListener {
         void onNext();
     }
 

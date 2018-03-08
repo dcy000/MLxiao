@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.xfparsebean.BaiKeBean;
-import com.example.han.referralproject.tool.xfparsebean.DreamBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;

@@ -1,4 +1,4 @@
-package com.example.han.referralproject.tool;
+package com.example.han.referralproject.tool.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

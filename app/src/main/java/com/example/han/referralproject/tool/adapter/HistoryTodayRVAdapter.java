@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.tool.ExpandableTextView;
-import com.example.han.referralproject.tool.MixtureTextView;
+import com.example.han.referralproject.tool.wrapview.ExpandableTextView;
+import com.example.han.referralproject.tool.wrapview.MixtureTextView;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
 
 import java.util.List;

@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
-        <com.example.han.referralproject.tool.ExpandableTextView
+        <com.example.han.referralproject.tool.wrapview.ExpandableTextView
             android:id="@+id/expandableTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,9 +62,9 @@
                 android:text="点击展开更多"
                 android:textColor="#FF666666"
                 android:textSize="28sp" />
-        </com.example.han.referralproject.tool.ExpandableTextView>
+        </com.example.han.referralproject.tool.wrapview.ExpandableTextView>
 
-        <com.example.han.referralproject.tool.MixtureTextView
+        <com.example.han.referralproject.tool.wrapview.MixtureTextView
             android:id="@+id/mt_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:scaleType="fitXY" />
-        </com.example.han.referralproject.tool.MixtureTextView>
+        </com.example.han.referralproject.tool.wrapview.MixtureTextView>
     </FrameLayout>
 
     <View

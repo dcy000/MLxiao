@@ -1,4 +1,4 @@
-package com.example.han.referralproject.tool;
+package com.example.han.referralproject.tool.other;
 
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.iflytek.cloud.RecognizerResult;
