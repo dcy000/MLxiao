@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
-
         android:id="@+id/cl_start"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -44,7 +43,7 @@
                 android:id="@+id/tv_notice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="18dp"
                 android:gravity="center"
                 android:text="菜谱查询"
                 android:textSize="32dp"
@@ -55,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="18dp"
                 android:text="您可以这样提问："
                 android:textColor="#FF333333"
                 android:textSize="28sp"
@@ -67,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="13dp"
                 android:text="茄子怎么烧？"
                 android:textColor="#FF885646"
                 android:textSize="28sp" />
@@ -78,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="13dp"
                 android:text="干锅土豆。"
                 android:textColor="#FF885646"
                 android:textSize="28sp" />
@@ -88,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="13dp"
                 android:text="尖椒炒鸡蛋怎么做?"
                 android:textColor="#FF885646"
                 android:textSize="28sp" />
