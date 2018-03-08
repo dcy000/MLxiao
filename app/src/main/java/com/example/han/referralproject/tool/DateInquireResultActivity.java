@@ -8,11 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DateInquireResultActivity extends AppCompatActivity {
+public class DateInquireResultActivity extends BaseActivity {
 
 
     @BindView(R.id.tv_title)
@@ -38,6 +39,7 @@ public class DateInquireResultActivity extends AppCompatActivity {
         intent = getIntent();
         initView();
         initEvent();
+        speak(intent.getStringExtra("anwser"));
     }
 
     private void initEvent() {
@@ -51,7 +53,8 @@ public class DateInquireResultActivity extends AppCompatActivity {
 
     private void initView() {
         tvAnwser.setText(intent.getStringExtra("quesiton"));
-        tvQuestion.setText(intent.getStringExtra("anwser"));
+        String anwser = intent.getStringExtra("anwser");
+        tvQuestion.setText(anwser);
     }
 
 }
