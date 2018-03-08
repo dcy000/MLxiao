@@ -80,6 +80,7 @@ public class HistoryTodayActivity extends AppCompatActivity {
                     "时候哈哈时候哈哈时候哈哈哈哈时候哈哈时候哈哈时候哈哈时" +
                     "候哈哈时候哈哈时候哈哈时候哈哈时候时候";
             bean.title="sdf";
+            bean.imgs=new ArrayList<>();
             bean.imgs.add("http://a0.att.hudong.com/32/26/20300542501236139721267074877_140.jpg");
             data.add(bean);
         }
