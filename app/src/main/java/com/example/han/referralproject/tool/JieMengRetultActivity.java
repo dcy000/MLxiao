@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.adapter.DreamRVadapter;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
@@ -21,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class JieMengRetultActivity extends AppCompatActivity {
+public class JieMengRetultActivity extends BaseActivity {
 
     @BindView(R.id.rv_dream_result)
     RecyclerView rvDreamResult;
@@ -47,6 +48,7 @@ public class JieMengRetultActivity extends AppCompatActivity {
         data = (List<DreamBean>) intent.getSerializableExtra("data");
         question = intent.getStringExtra("question");
         answer = intent.getStringExtra("anwser");
+        speak(question+","+answer);
         initView();
         initEvent();
     }
