@@ -9,30 +9,32 @@
     <TextView
         android:id="@+id/dream_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="大学"
         android:textColor="#FF333333"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/dream"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toEndOf="@+id/dream"
-        app:layout_constraintTop_toTopOf="@+id/dream"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/dream" />
 
     <TextView
         android:id="@+id/dream"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_bg_dream"
-        android:padding="5dp"
+        android:gravity="center"
+        android:padding="3dp"
         android:text="梦见"
         android:textColor="#FF99751F"
-        android:textSize="28sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,16 +43,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="是成绩与成功的象征。"
         android:textColor="#FF666666"
         android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dream_title"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintBottom_toTopOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/dream"
+        app:layout_constraintTop_toBottomOf="@+id/dream_title" />
 
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#FFBBBBBB"

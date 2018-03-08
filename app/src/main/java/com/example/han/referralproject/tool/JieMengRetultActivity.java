@@ -50,7 +50,7 @@ public class JieMengRetultActivity extends BaseActivity {
         answer = intent.getStringExtra("anwser");
         speak(question+","+answer);
         initView();
-        initEvent();
+//        initEvent();
     }
 
     private void initEvent() {
