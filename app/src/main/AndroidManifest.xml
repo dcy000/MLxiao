@@ -541,8 +541,13 @@
         <!-- <category android:name="android.intent.category.DEFAULT" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".children.ChildEduHomeActivity">
+        <activity android:name=".children.ChildEduHomeActivity"
+            android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".activity.MessageCenterActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".activity.MessageDetailsActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@ import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.ECGHistory;
 import com.example.han.referralproject.bean.HeartRateHistory;
 import com.example.han.referralproject.bean.MeasureResult;
+import com.example.han.referralproject.bean.MessagesOfCenter;
 import com.example.han.referralproject.bean.PulseHistory;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.SymptomBean;
@@ -140,6 +141,7 @@ public class NetworkApi {
     public static final String Change_Group_Status = BasicUrl + "/ZZB/xf/update_group_record";
 
     public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
+    public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
 
     public static void getFM(
             String type,
@@ -944,4 +946,22 @@ public class NetworkApi {
         NetworkManager.getInstance().getResultClass(Query_Group, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
                 successCallback);
     }
+
+    /**
+     * 消息中心的消息
+     */
+    public static void getMessages(String docterid, String dis_state, NetworkManager.SuccessCallback<ArrayList<MessagesOfCenter>> successCallback
+    ) {
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            return;
+        }
+        HashMap<String, String> params = new HashMap<>();
+//        params.put("userid", MyApplication.getInstance().userId);
+        params.put("userid", "100002");
+        params.put("docterid", docterid);
+        params.put("dis_state", dis_state);
+        NetworkManager.getInstance().getResultClass(Get_Message, params, new TypeToken<ArrayList<MessagesOfCenter>>() {}.getType(),
+                successCallback);
+    }
+
 }

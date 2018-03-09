@@ -1,6 +1,7 @@
 package com.example.han.referralproject.measure;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,14 +58,10 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     RxRoundProgressBar rpbDiya;
     @BindView(R.id.ll_left)
     LinearLayout llLeft;
-    @BindView(R.id.ll_gaodi)
-    LinearLayout llGaodi;
     @BindView(R.id.wave_progress_bar)
     WaveProgress waveProgressBar;
     @BindView(R.id.ll_fenshu)
-    LinearLayout llFenshu;
-    @BindView(R.id.line)
-    View line;
+    ConstraintLayout llFenshu;
     @BindView(R.id.tv_suggest_title)
     TextView tvSuggestTitle;
     @BindView(R.id.tv_something_advice)
@@ -75,16 +72,19 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     ConstraintLayout llRight;
     @BindView(R.id.tv_measure_title)
     TextView tvMeasureTitle;
-    @BindView(R.id.lc_xueya_result)
-    BarChart bcXueyaResult;
     @BindView(R.id.tv_suggest)
     TextView tvSuggest;
+    @BindView(R.id.tv_result_gaoya)
+    TextView tvResultGaoya;
+    @BindView(R.id.tv_result_diya)
+    TextView tvResultDiya;
+
     private String measureSum, measureZhengchangNum, measurePiangaoNum, measurePiandiNum;
     private Thread progressAnim;
     private Intent intent;
     private float cp_piangao, cp_zhengchang, cp_piandi, cp_gaoya, cp_diya;
     private String weekGaoyaAvg, weekDiyaAvg, fenshu, suggest;
-
+    private String currentGaoya,currentDiya;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,9 +94,8 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         mTitleText.setText("血压结果分析");
         intent = getIntent();
         initProgressBar();
-        initLineChart();
         initOther();
-        speak("主人，您本次测量的高压是" + intent.getStringExtra("current_gaoya") + ",低压是" + intent.getStringExtra("current_diya") +
+        speak("主人，您本次测量的高压是" + (TextUtils.isEmpty(currentGaoya)?"":currentGaoya) + ",低压是" + (TextUtils.isEmpty(currentDiya)?"":currentDiya) +
                 "，本周平均高压" + String.format("%.0f",Float.parseFloat(weekGaoyaAvg)) + ",低压" + String.format("%.0f",Float.parseFloat(weekDiyaAvg)) + ",健康分数" + fenshu+ "分。" + suggest);
         tvSomethingAdvice.setOnClickListener(this);
         healthKnowledge.setOnClickListener(this);
@@ -105,60 +104,31 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     private void initOther() {
         fenshu = intent.getStringExtra("fenshu");
         suggest = intent.getStringExtra("suggest");
+
         waveProgressBar.setHealthValue(fenshu+"分");
+        float fenshuNum=Float.parseFloat(fenshu);
+        if (fenshuNum>=80){
+            waveProgressBar.setWaveDarkColor(Color.parseColor("#5BD78C"));
+            waveProgressBar.setWaveLightColor(Color.parseColor("#86F77D"));
+            waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
+        }else if(fenshuNum>=60){
+            waveProgressBar.setWaveDarkColor(Color.parseColor("#F78237"));
+            waveProgressBar.setWaveLightColor(Color.parseColor("#FBBF81"));
+            waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
+        }else{
+            waveProgressBar.setWaveDarkColor(Color.parseColor("#FE5848"));
+            waveProgressBar.setWaveLightColor(Color.parseColor("#F88A78"));
+            waveProgressBar.setValueColor(Color.parseColor("#FE5848"));
+        }
         waveProgressBar.setMaxValue(100.0f);
         waveProgressBar.setValue(Float.parseFloat(fenshu));
         tvSuggest.setText(suggest);
-    }
 
-    private void initLineChart() {
-        bcXueyaResult.getDescription().setEnabled(false);
-        bcXueyaResult.setNoDataText("");
-        bcXueyaResult.setTouchEnabled(false);
-        XAxis xAxis = bcXueyaResult.getXAxis();
-        xAxis.setDrawGridLines(false);
-        xAxis.setValueFormatter(new MeasureFormatter());
-        //绘制底部的X轴
-        xAxis.setDrawAxisLine(false);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelCount(2);
-        xAxis.setTextSize(20);
-        YAxis yLeftAxis = bcXueyaResult.getAxisLeft();
-        yLeftAxis.setEnabled(false);
-        yLeftAxis.setDrawGridLines(false);
-        YAxis yRightAxis = bcXueyaResult.getAxisRight();
-        yRightAxis.setEnabled(false);
-        yRightAxis.setDrawGridLines(false);
+        currentGaoya=intent.getStringExtra("current_gaoya");
+        currentDiya=intent.getStringExtra("current_diya");
 
-        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-        yVals1.add(new BarEntry(0, Float.parseFloat(intent.getStringExtra("current_gaoya"))));
-        yVals1.add(new BarEntry(1, Float.parseFloat(intent.getStringExtra("current_diya"))));
-//        yVals1.add(new BarEntry(0, 115));
-//        yVals1.add(new BarEntry(1, 78));
-        BarDataSet set1;
-        if (bcXueyaResult.getData() != null &&
-                bcXueyaResult.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) bcXueyaResult.getData().getDataSetByIndex(0);
-            set1.setValues(yVals1);
-            bcXueyaResult.getData().notifyDataChanged();
-            bcXueyaResult.notifyDataSetChanged();
-        } else {
-            set1 = new BarDataSet(yVals1, "");
-            set1.setDrawIcons(false);
-            set1.setColors(ColorTemplate.MATERIAL_COLORS);
-            //去处左下角的指示器
-            set1.setFormLineWidth(0f);
-            set1.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
-            set1.setFormSize(0f);
-
-            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-            dataSets.add(set1);
-
-            BarData data = new BarData(dataSets);
-            data.setValueTextSize(20f);
-            data.setBarWidth(0.5f);
-            bcXueyaResult.setData(data);
-        }
+        tvResultGaoya.setText(currentGaoya);
+        tvResultDiya.setText(currentDiya);
     }
 
     private void initProgressBar() {

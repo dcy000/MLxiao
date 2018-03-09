@@ -181,7 +181,6 @@ public class WaveProgress extends View {
         mPercentPaint = new Paint();
         mPercentPaint.setTextAlign(Paint.Align.CENTER);
         mPercentPaint.setAntiAlias(antiAlias);
-        mPercentPaint.setColor(mValueColor);
         mPercentPaint.setTextSize(mValueSize);
     }
 
@@ -348,6 +347,7 @@ public class WaveProgress extends View {
             mPrePercent = mPercent;
         }
 //        canvas.drawText(mPercentValue, mCenterPoint.x, y, mPercentPaint);
+        mPercentPaint.setColor(mValueColor);
         canvas.drawText(healthValue, mCenterPoint.x, y, mPercentPaint);
 
         if (mHint != null) {
@@ -525,5 +525,14 @@ public class WaveProgress extends View {
             mProgressAnimator.removeAllUpdateListeners();
             mProgressAnimator = null;
         }
+    }
+    public void setWaveDarkColor(int darkColor){
+        mDarkWaveColor=darkColor;
+    }
+    public void setWaveLightColor(int lightColor){
+        mLightWaveColor=lightColor;
+    }
+    public void setValueColor(int valueColor){
+        mValueColor=valueColor;
     }
 }

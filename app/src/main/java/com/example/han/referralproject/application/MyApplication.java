@@ -15,6 +15,7 @@ import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastTool;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call2.NimInitHelper;
@@ -67,6 +68,7 @@ public class MyApplication extends Application {
         Preferences.init(this);
         ScreenUtils.init(this);
         ToastUtils.init(this);
+        ToastTool.init(this);
 //        NoCrash.init(this);
 //        NoCrash.getInstance().install();
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);

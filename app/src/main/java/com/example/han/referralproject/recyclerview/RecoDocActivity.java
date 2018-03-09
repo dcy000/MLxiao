@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,8 +11,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,11 +22,10 @@ import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.ToastTool;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecoDocActivity extends BaseActivity implements View.OnClickListener {
@@ -148,7 +144,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastUtil.showShort(RecoDocActivity.this, message);
+                ToastTool.showShort( message);
             }
         });
     }

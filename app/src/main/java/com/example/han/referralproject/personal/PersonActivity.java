@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MessageActivity;
+import com.example.han.referralproject.activity.MessageCenterActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -91,7 +92,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     private ChangeAccountDialog mChangeAccountDialog;
 
     SharedPreferences sharedPreferences1;
-
+    private String doctorName;
 
     double amount;
     double amounts;
@@ -328,7 +329,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
 
                 if (!"".equals(response.getDoctername())) {
-
+                    doctorName=response.getDoctername();
                     mTextView1.setText(response.getDoctername());
 
                 }
@@ -366,7 +367,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.iv_message:
-                startActivity(new Intent(this, MessageActivity.class));
+//                startActivity(new Intent(this, MessageActivity.class));
+                startActivity(new Intent(this, MessageCenterActivity.class).putExtra("doctorName",doctorName));
                 break;
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));
