@@ -562,7 +562,8 @@
         <activity android:name=".tool.BaikeResultActivity" />
         <activity android:name=".tool.CalculationActivity" />
         <activity android:name=".tool.RiddleActivity" />
-        <activity android:name=".tool.HistoryTodayActivity"></activity>
+        <activity android:name=".tool.HistoryTodayActivity" />
+        <activity android:name=".settting.activity.SettingActivity"></activity>
     </application>
 
 </manifest>
