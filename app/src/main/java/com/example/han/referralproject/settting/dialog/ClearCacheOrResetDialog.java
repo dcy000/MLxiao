@@ -90,6 +90,7 @@ public class ClearCacheOrResetDialog extends DialogFragment {
             return;
         }
         listener.onClickConfirm(type);
+        dismiss();
     }
 
     private void clickCancel() {

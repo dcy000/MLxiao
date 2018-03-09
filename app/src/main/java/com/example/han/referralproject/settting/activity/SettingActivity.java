@@ -6,10 +6,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.settting.EventType;
 import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
 
 import butterknife.BindView;
@@ -65,7 +67,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 break;
             case R.id.rl_about:
                 //关于
-
+                startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.rl_reset:
                 //恢复出厂设置
@@ -84,10 +86,11 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     public void onClickConfirm(EventType type) {
         if (type.getValue().equals(EventType.reset.getValue())) {
             //恢复出厂设置
-
+            LocalShared.getInstance(mContext).reset();
+            Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } else if (type.getValue().equals(EventType.clearCache.getValue())) {
-            //清理缓存
-            ToastUtil.showShort(this,"清理缓存了");
 
         }
     }
