@@ -6,10 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#5595FF"
-    tools:context="com.example.han.referralproject.children.ChildEduHomeActivity">
-
+    tools:context="com.example.han.referralproject.children.entertainment.ChildEduSheetListActivity">
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ce_home_rv_items"
+        android:id="@+id/ce_entertainment_rv_sheets"
         android:layout_width="0dp"
         android:layout_height="406dp"
         android:layout_marginLeft="30dp"

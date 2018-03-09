@@ -58,6 +58,7 @@ public class QaApi {
         results.put("q", "");
         results.put("service", "");
         results.put("dreamUrl", "");
+        results.put("resultJson", "");
         try {
             JSONObject apiResponseObj = new JSONObject(text);
             text = apiResponseObj.optString("data");
@@ -97,6 +98,9 @@ public class QaApi {
             if (resultArray == null) {
                 return results;
             }
+            String resultJson = resultArray.toString();
+            results.put("resultJson", resultJson);
+
             JSONObject resultObj = resultArray.getJSONObject(0);
             if (resultObj == null) {
                 return results;

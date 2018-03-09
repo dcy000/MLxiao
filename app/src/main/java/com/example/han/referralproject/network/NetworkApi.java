@@ -32,6 +32,8 @@ import com.example.han.referralproject.bean.WeightHistory;
 import com.example.han.referralproject.bean.XfGroupInfo;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
+import com.example.han.referralproject.children.model.SheetModel;
+import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.example.han.referralproject.recyclerview.OnlineTime;
@@ -51,9 +53,8 @@ import java.util.Map;
 public class NetworkApi {
 
 
-
-    public static final String BasicUrl = "http://116.62.36.12:8080";
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    //    public static final String BasicUrl = "http://116.62.36.12:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
@@ -139,7 +140,52 @@ public class NetworkApi {
     public static final String Add_Group = BasicUrl + "/ZZB/xf/insert_group_record";
     public static final String Change_Group_Status = BasicUrl + "/ZZB/xf/update_group_record";
 
-    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
+    public static final String Query_Group = BasicUrl + "/ZZB/xf/select_group_record";
+
+    public static final String GET_SHEET_LIST = BasicUrl + "/ZZB/rep/sel_music_danforapp";
+
+    private static final String GET_SONG_LIST = BasicUrl + "/ZZB/rep/selSomeImitate";
+
+    public static void getChildEduSheetList(
+            int page,
+            int limit,
+            NetworkManager.SuccessCallback<List<SheetModel>> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("page", String.valueOf(page));
+        params.put("limit", String.valueOf(limit));
+        NetworkManager.getInstance().getResultClass(
+                GET_SHEET_LIST,
+                params,
+                new TypeToken<List<SheetModel>>() {
+                }.getType(),
+                successCallback,
+                failedCallback
+        );
+    }
+
+    public static void getChildEduSongListBySheetId(
+            int page,
+            int limit,
+            int sheetId,
+            int type,
+            String singer,
+            NetworkManager.SuccessCallback<List<SongModel>> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("page", String.valueOf(page));
+        params.put("limit", String.valueOf(limit));
+        params.put("mid", String.valueOf(sheetId));
+        params.put("type", String.valueOf(type));
+        params.put("wr", singer);
+        NetworkManager.getInstance().getResultClass(
+                GET_SONG_LIST,
+                params,
+                new TypeToken<List<SongModel>>() {
+                }.getType(),
+                successCallback,
+                failedCallback);
+    }
 
     public static void getFM(
             String type,
@@ -151,9 +197,9 @@ public class NetworkApi {
         params.put("type", type);
         params.put("page", page);
         params.put("limit", limit);
-        params.put("mid","0");
+        params.put("mid", "0");
         NetworkManager.getInstance().getResultClass(GET_FM, params, new TypeToken<List<RadioEntity>>() {
-        }.getType(),successCallback, failedCallback);
+        }.getType(), successCallback, failedCallback);
     }
 
     public static void getCode(
@@ -545,7 +591,7 @@ public class NetworkApi {
         try {
             appInfo = MyApplication.getInstance().getPackageManager()
                     .getApplicationInfo(MyApplication.getInstance().getPackageName(), PackageManager.GET_META_DATA);
-            msg=appInfo.metaData.getString("com.gcml.version");
+            msg = appInfo.metaData.getString("com.gcml.version");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -554,11 +600,11 @@ public class NetworkApi {
         NetworkManager.getInstance().getResultClass(GetVersionUrl, paramsMap, VersionInfoBean.class, callback, failedCallback);
     }
 
-    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<MeasureResult> successCallback,NetworkManager.FailedCallback failedCallback) {
+    public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<MeasureResult> successCallback, NetworkManager.FailedCallback failedCallback) {
         if (info == null) {
             return;
         }
-        NetworkManager.getInstance().postResultClass(UploadDataUrl,info.getParamsMap(),MeasureResult.class,successCallback,failedCallback);
+        NetworkManager.getInstance().postResultClass(UploadDataUrl, info.getParamsMap(), MeasureResult.class, successCallback, failedCallback);
 //        NetworkManager.getInstance().postResultString(UploadDataUrl, info.getParamsMap(), successCallback);
     }
 
@@ -897,10 +943,11 @@ public class NetworkApi {
 
     /**
      * 添加组到后台
+     *
      * @param callback
      * @param failedCallback
      */
-    public static void recordGroup(String gid,String xfid, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
+    public static void recordGroup(String gid, String xfid, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
@@ -913,12 +960,13 @@ public class NetworkApi {
 
     /**
      * 更改组的显示状态（是否成功从讯飞服务器上删除组）
+     *
      * @param gid
      * @param status
      * @param callback
      * @param failedCallback
      */
-    public static void changeGroupStatus(String gid,String status, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
+    public static void changeGroupStatus(String gid, String status, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("grid", gid);
         paramsMap.put("state", status);
@@ -927,6 +975,7 @@ public class NetworkApi {
 
     /**
      * 查询所有储存在后台的组信息
+     *
      * @param gid
      * @param xfid
      * @param successCallback
@@ -941,7 +990,8 @@ public class NetworkApi {
         params.put("gid", gid);
         params.put("xfid", xfid);
         params.put("state", "0");
-        NetworkManager.getInstance().getResultClass(Query_Group, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
+        NetworkManager.getInstance().getResultClass(Query_Group, params, new TypeToken<ArrayList<XfGroupInfo>>() {
+                }.getType(),
                 successCallback);
     }
 }

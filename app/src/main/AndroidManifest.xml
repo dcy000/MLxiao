@@ -97,7 +97,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_normal" />
+            android:value="gcml_version_normal"/>
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -551,6 +551,30 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity android:name=".children.ChildEduHomeActivity">
+        </activity>
+        <activity android:name=".children.cartoon.ChildEduCartoonActivity">
+        </activity>
+        <activity android:name=".children.entertainment.ChildEduEntertainmentActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduStudyActivity">
+        </activity>
+        <activity android:name=".children.entertainment.ChildEduSheetListActivity">
+        </activity>
+        <activity android:name=".children.entertainment.ChildEduSheetDetailsActivity">
+        </activity>
+        <activity android:name=".children.ChildEduMusicPlayerActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduPoemListActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduWordsActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduStoriesActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduTurnOfMindActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduWhyActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduPoemDetailsActivity">
         </activity>
     </application>
 

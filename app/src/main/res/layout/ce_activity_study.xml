@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5595FF"
+    tools:context="com.example.han.referralproject.children.study.ChildEduStudyActivity">
+
+    <TextView
+        android:id="@+id/ce_study_tv_indicator_turn_of_mind"
+        android:layout_width="287dp"
+        android:layout_height="376dp"
+        android:layout_marginRight="30dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="脑经急转弯"
+        android:textColor="#333333"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/ce_study_tv_indicator_words"
+        android:layout_width="287dp"
+        android:layout_height="178dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="英文单词"
+        android:textColor="#333333"
+        android:textSize="36sp"
+        app:layout_constraintLeft_toRightOf="@+id/ce_study_tv_indicator_poems"
+        app:layout_constraintRight_toLeftOf="@+id/ce_study_tv_indicator_turn_of_mind"
+        app:layout_constraintTop_toTopOf="@+id/ce_study_tv_indicator_turn_of_mind"/>
+    <TextView
+        android:id="@+id/ce_study_tv_indicator_stories"
+        android:layout_width="287dp"
+        android:layout_height="178dp"
+        android:layout_marginRight="30dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="听故事"
+        android:textColor="#333333"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ce_study_tv_indicator_turn_of_mind"
+        app:layout_constraintLeft_toLeftOf="@+id/ce_study_tv_indicator_words"/>
+
+    <TextView
+        android:id="@+id/ce_study_tv_indicator_poets"
+        android:layout_width="287dp"
+        android:layout_height="178dp"
+        android:layout_marginRight="30dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="唐诗宋词"
+        android:textColor="#333333"
+        android:textSize="36sp"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ce_study_tv_indicator_turn_of_mind"/>
+
+    <TextView
+        android:id="@+id/ce_study_tv_indicator_why"
+        android:layout_width="287dp"
+        android:layout_height="178dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="听故事"
+        android:textColor="#333333"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ce_study_tv_indicator_turn_of_mind"
+        app:layout_constraintLeft_toLeftOf="@+id/ce_study_tv_indicator_poems"/>
+</android.support.constraint.ConstraintLayout>

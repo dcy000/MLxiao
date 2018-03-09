@@ -10,6 +10,7 @@
         android:id="@+id/old_music_iv_sheet_cover"
         android:layout_width="185dp"
         android:layout_height="185dp"
+        android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
