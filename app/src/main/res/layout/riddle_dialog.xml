@@ -25,7 +25,7 @@
         android:layout_height="422dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/ing_tc"
+        android:background="@mipmap/img_cm_tc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.682"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +61,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:gravity="center"
+            android:background="@drawable/but_xyt"
             android:id="@+id/tv_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

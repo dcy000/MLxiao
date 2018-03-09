@@ -101,11 +101,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.626"
-            app:voiceLineColor="#f00"
+            app:voiceLineColor="#BD7143"
             app:voiceLineWidth="3dp"
             android:visibility="gone"
-            app:voiceTextColor="#00f"
-            app:voiceTextSize="14dp" />
+            app:voiceTextColor="#333333"
+            app:voiceTextSize="24dp" />
 
 
         <ImageView
