@@ -8,12 +8,15 @@ import android.widget.RelativeLayout;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.settting.EventType;
+import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
+import com.example.han.referralproject.util.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity implements ClearCacheOrResetDialog.OnDialogClickListener {
     @BindView(R.id.rl_voice_set)
     RelativeLayout rlVoiceSet;
     @BindView(R.id.rl_wifi_set)
@@ -54,9 +57,11 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.rl_clear_cache:
                 //清理缓存
+                showDialog(EventType.clearCache);
                 break;
             case R.id.rl_update:
                 //检测更新
+
                 break;
             case R.id.rl_about:
                 //关于
@@ -64,7 +69,26 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.rl_reset:
                 //恢复出厂设置
+                showDialog(EventType.reset);
                 break;
+        }
+    }
+
+    private void showDialog(EventType type) {
+        ClearCacheOrResetDialog dialog = new ClearCacheOrResetDialog(type);
+        dialog.setListener(this);
+        dialog.show(getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onClickConfirm(EventType type) {
+        if (type.getValue().equals(EventType.reset.getValue())) {
+            //恢复出厂设置
+
+        } else if (type.getValue().equals(EventType.clearCache.getValue())) {
+            //清理缓存
+            ToastUtil.showShort(this,"清理缓存了");
+
         }
     }
 }
