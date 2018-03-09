@@ -28,6 +28,6 @@
         android:id="@+id/iv_max"
         android:layout_width="wrap_content"
         android:layout_height="54dp"
-        android:src="@drawable/ic_voice_min" />
+        android:src="@drawable/ic_voice_max" />
 
 </LinearLayout>
