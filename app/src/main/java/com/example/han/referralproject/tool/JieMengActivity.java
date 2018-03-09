@@ -2,6 +2,7 @@ package com.example.han.referralproject.tool;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
+import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
@@ -25,6 +28,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +56,14 @@ public class JieMengActivity extends BaseActivity {
     TextView textView4;
     @BindView(R.id.cl_start)
     ConstraintLayout clStart;
+    @BindView(R.id.vl_wave)
+    VoiceLineView vlWave;
+
+    private Timer timer;
+    private TimerTask timerTask;
+    private Handler mainHandler = new Handler();
     private List<DreamBean> data = new ArrayList<>();
+    private boolean isStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +79,7 @@ public class JieMengActivity extends BaseActivity {
         speechRecognizer.startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
-
+                vlWave.waveH = i/4;
             }
 
             @Override
@@ -77,7 +89,10 @@ public class JieMengActivity extends BaseActivity {
 
             @Override
             public void onEndOfSpeech() {
-
+                vlWave.setVisibility(View.GONE);
+                vlWave.stopRecord();
+                recordTotalTime = 0;
+                isStart = false;
             }
 
             @Override
@@ -95,6 +110,31 @@ public class JieMengActivity extends BaseActivity {
 
             }
         });
+    }
+
+    int recordTotalTime = 0;
+
+    private void initTimer() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+
+            public void run() {
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //每隔1000毫秒更新一次ui
+                        recordTotalTime += 1000;
+                        updateTimerUI();
+                    }
+                });
+            }
+        };
+    }
+
+    private void updateTimerUI() {
+        String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
+        vlWave.setText(string);
     }
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
@@ -171,6 +211,7 @@ public class JieMengActivity extends BaseActivity {
                 break;
             case R.id.iv_yuyin:
                 startListener();
+                showWave();
                 break;
             case R.id.tv_title:
 //                clStart.setVisibility(View.VISIBLE);
@@ -180,4 +221,17 @@ public class JieMengActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void showWave() {
+        if (isStart) {
+            return;
+        }
+        isStart = true;
+        vlWave.setVisibility(View.VISIBLE);
+        vlWave.setText("00:00");
+        vlWave.startRecord();
+        initTimer();
+        timer.schedule(timerTask, 0, 1000);
+    }
 }
+

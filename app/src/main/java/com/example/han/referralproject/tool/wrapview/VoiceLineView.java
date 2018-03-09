@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.tool.other.ThreadPool;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class VoiceLineView extends View {
     LinkedList<Integer> list = new LinkedList<>();
 
     private static final int UPDATE_INTERVAL_TIME = 100;//100ms更新一次
+    public Integer waveH=2;
 
     public VoiceLineView(Context context) {
         super(context);
@@ -101,6 +103,7 @@ public class VoiceLineView extends View {
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(lineWidth);
         paint.setAntiAlias(true);
+
         for (int i = 0; i < 10; i++) {
             //右边矩形
             rectRight.left = widthcentre + 2 * i * lineWidth + textWidth / 2 + lineWidth;
@@ -122,7 +125,7 @@ public class VoiceLineView extends View {
     private synchronized void refreshElement() {
 
 //        int waveH = MIN_WAVE_H + Math.round(100 * (MAX_WAVE_H -2));
-        int waveH = MIN_WAVE_H + Math.round(new Random().nextInt(2) * (MAX_WAVE_H - 2));
+//        int waveH = MIN_WAVE_H + Math.round(new Random().nextInt(2) * (MAX_WAVE_H - 2));
         list.add(0, waveH);
         list.removeLast();
     }
