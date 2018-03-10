@@ -48,6 +48,7 @@ public class LifeRecordWeeklyActivity extends BaseActivity {
         sport = new SportAdviceFragment();
         ft.add(R.id.fl_container, sport);
         ft.add(R.id.fl_container, diet);
+        ft.hide(sport);
         ft.commit();
     }
 

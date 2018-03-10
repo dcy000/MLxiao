@@ -22,9 +22,9 @@ public class DietAdviceFragment extends Fragment {
     @Override
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        View view=inflater.inflate(R.layout.fragment_diet_advice,container,false);
-        TextView text = new TextView(getContext());
-        text.setText(getClass().getSimpleName());
-        return text;
+        View view = inflater.inflate(R.layout.fragment_diet_advice, container, false);
+//        TextView view = new TextView(getContext());
+//        view.setText(getClass().getSimpleName());
+        return view;
     }
 }
