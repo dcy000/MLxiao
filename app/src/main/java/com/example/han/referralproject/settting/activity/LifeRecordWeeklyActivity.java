@@ -46,7 +46,9 @@ public class LifeRecordWeeklyActivity extends BaseActivity {
         FragmentTransaction ft = fm.beginTransaction();
         diet = new DietAdviceFragment();
         sport = new SportAdviceFragment();
-        ft.add(R.id.fl_container, diet).commit();
+        ft.add(R.id.fl_container, sport);
+        ft.add(R.id.fl_container, diet);
+        ft.commit();
     }
 
 
