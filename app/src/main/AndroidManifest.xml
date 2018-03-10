@@ -565,7 +565,8 @@
         <activity android:name=".tool.HistoryTodayActivity" />
         <activity android:name=".settting.activity.SettingActivity" />
         <activity android:name=".settting.activity.VoiceSettingActivity" />
-        <activity android:name=".settting.activity.AboutActivity"></activity>
+        <activity android:name=".settting.activity.AboutActivity" />
+        <activity android:name=".activity.Tool"></activity>
     </application>
 
 </manifest>
