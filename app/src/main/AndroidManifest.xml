@@ -566,7 +566,8 @@
         <activity android:name=".settting.activity.SettingActivity" />
         <activity android:name=".settting.activity.VoiceSettingActivity" />
         <activity android:name=".settting.activity.AboutActivity" />
-        <activity android:name=".activity.Tool"></activity>
+        <activity android:name=".activity.Tool" />
+        <activity android:name=".settting.activity.LifeRecordWeeklyActivity"></activity>
     </application>
 
 </manifest>
