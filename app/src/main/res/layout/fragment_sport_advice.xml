@@ -43,13 +43,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="健康状态"
+                android:text="运动状态"
                 android:textColor="#ff333333"
                 android:textSize="28dp"
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -98,6 +97,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_1" />
+                    android:src="@drawable/img_walk" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -174,7 +174,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_2" />
+                    android:src="@drawable/img_jogging" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -182,7 +182,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_3" />
+                    android:src="@drawable/img_riding" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -190,7 +190,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_4" />
+                    android:src="@drawable/img_badminton" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -198,7 +198,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_5" />
+                    android:src="@drawable/img_square_dance" />
 
 
             </LinearLayout>
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="谷类275g\n薯类75g"
+                    android:text="散步"
                     android:textColor="#ff999999"
                     android:textSize="28dp" />
 
@@ -223,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="蔬菜450g\n水果300g"
+                    android:text="适度慢跑"
                     android:textColor="#999999"
                     android:textSize="28dp" />
 
@@ -232,7 +232,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="畜禽肉75g\n水产品75g\n面类50g"
+                    android:text="适度骑行"
                     android:textColor="#ff999999"
                     android:textSize="28dp" />
 
@@ -241,7 +241,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="大豆25g\n坚果10g\n乳制品300g"
+                    android:text="打羽毛球30分"
                     android:textColor="#999999"
                     android:textSize="28dp" />
 
@@ -250,7 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="烹调油25g\n食盐5"
+                    android:text="广场舞"
                     android:textColor="#999999"
                     android:textSize="28dp" />
 
@@ -263,7 +263,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="        控制钠盐每天4克以下，不食动物内脏，少食肥肉、鱿鱼，墨鱼等含胆固醇高的食物。多食木耳、香菇、海带、西红柿、洋葱、芹菜等营养丰富有软化血管的食物；以清淡、无刺激的食物为宜，减少味精、鸡精、酱油、大酱等含钠盐的调味品和咸菜、腌菜、泡菜、卤菜、海米、虾皮、鱿鱼丝等高盐食物。"
+                android:text="        运动要遵循适量运动强度、适量运动频率、适量运动时间和适量运动方式的原则，以每周三次、每次30分钟左右为；运动时间尽量避免两个运动高峰，一个醒来的头几个小时（清晨6-9点），另外是下午4-6点；运动前测量血压，避免血压过高情况下运动，运动后至少1小时再监测血压变化"
                 android:textColor="#333333"
                 android:textSize="28sp" />
 
@@ -276,7 +276,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_bg_btn_blue"
                 android:gravity="center"
-                android:text="查看食谱"
+                android:text="运动建议"
                 android:textColor="@color/white"
                 android:textSize="28sp" />
 

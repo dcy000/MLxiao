@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.han.referralproject.R;
+
 /**
  * Created by lenovo on 2018/3/10.
  */
@@ -20,9 +22,7 @@ public class SportAdviceFragment extends Fragment {
     @Override
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        View view=inflater.inflate(R.layout.fragment_diet_advice,container,false);
-        TextView text = new TextView(getContext());
-        text.setText(getClass().getSimpleName());
-        return text;
+        View view=inflater.inflate(R.layout.fragment_sport_advice,container,false);
+        return view;
     }
 }
