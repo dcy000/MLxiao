@@ -33,6 +33,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.settting.activity.LifeRecordWeeklyActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.tool.JieMengActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
@@ -373,7 +374,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_pay:
 //                startActivity(new Intent(this, PayActivity.class));
-                startActivity(new Intent(this, JieMengActivity.class));
+//                startActivity(new Intent(this, JieMengActivity.class));
+                startActivity(new Intent(this, LifeRecordWeeklyActivity.class));
 
                 break;
             case R.id.view_change:
