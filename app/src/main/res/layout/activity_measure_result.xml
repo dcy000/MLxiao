@@ -492,7 +492,7 @@
                 android:layout_width="340pt"
                 android:layout_height="100pt"
                 android:background="@drawable/measure_result"
-                android:text="注意事项"
+                android:text="周生活报告"
                 android:textColor="@color/white"
                 android:textSize="48pt"
                 android:gravity="center"

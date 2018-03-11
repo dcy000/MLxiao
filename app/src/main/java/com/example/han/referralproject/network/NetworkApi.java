@@ -29,6 +29,7 @@ import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.bean.WeightHistory;
 import com.example.han.referralproject.bean.XfGroupInfo;
 import com.example.han.referralproject.bean.YuYueInfo;
@@ -142,6 +143,7 @@ public class NetworkApi {
 
     public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
     public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
+    public static final String Get_Week_Report=BasicUrl+"/AI/ai/selmap";
 
     public static void getFM(
             String type,
@@ -962,6 +964,18 @@ public class NetworkApi {
         params.put("dis_state", dis_state);
         NetworkManager.getInstance().getResultClass(Get_Message, params, new TypeToken<ArrayList<MessagesOfCenter>>() {}.getType(),
                 successCallback);
+    }
+
+    /**
+     * 获得周生活报告
+     * @param successCallback
+     * @param failedCallback
+     */
+    public static void getWeekReport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
+                                 NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userid", "100098");
+        NetworkManager.getInstance().getResultClass(Get_Week_Report, params, WeeklyReport.class, successCallback, failedCallback);
     }
 
 }

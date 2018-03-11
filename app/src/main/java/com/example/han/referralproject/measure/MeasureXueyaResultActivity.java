@@ -16,6 +16,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.formatter.MeasureFormatter;
+import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.video.VideoListActivity;
@@ -105,7 +106,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         fenshu = intent.getStringExtra("fenshu");
         suggest = intent.getStringExtra("suggest");
 
-        waveProgressBar.setHealthValue(fenshu+"分");
+
         float fenshuNum=Float.parseFloat(fenshu);
         if (fenshuNum>=80){
             waveProgressBar.setWaveDarkColor(Color.parseColor("#5BD78C"));
@@ -122,6 +123,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         }
         waveProgressBar.setMaxValue(100.0f);
         waveProgressBar.setValue(Float.parseFloat(fenshu));
+        waveProgressBar.setHealthValue(fenshu+"分");
         tvSuggest.setText(suggest);
 
         currentGaoya=intent.getStringExtra("current_gaoya");
@@ -240,8 +242,9 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_something_advice:
-                startActivity(new Intent(this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "高血压"));
+//                startActivity(new Intent(this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "高血压"));
+                startActivity(new Intent(this, WeeklyReportActivity.class));
                 break;
             case R.id.health_knowledge:
                 startActivity(new Intent(this, VideoListActivity.class));

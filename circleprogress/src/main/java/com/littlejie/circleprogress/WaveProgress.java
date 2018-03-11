@@ -13,6 +13,7 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.os.Build;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -280,9 +281,9 @@ public class WaveProgress extends View {
 
         //画圆环
         mCirclePaint.setColor(mCircleColor);
-        if (lockCircle){
+        if (lockCircle) {
             canvas.drawArc(mRectF, 0, 360, false, mCirclePaint);
-        }else{
+        } else {
             canvas.drawArc(mRectF, 0, currentAngle, false, mCirclePaint);
         }
         canvas.restore();
@@ -348,7 +349,10 @@ public class WaveProgress extends View {
         }
 //        canvas.drawText(mPercentValue, mCenterPoint.x, y, mPercentPaint);
         mPercentPaint.setColor(mValueColor);
-        canvas.drawText(healthValue, mCenterPoint.x, y, mPercentPaint);
+        if (!TextUtils.isEmpty(healthValue))
+            canvas.drawText(healthValue, mCenterPoint.x, y, mPercentPaint);
+        else
+            canvas.drawText("0分", mCenterPoint.x, y, mPercentPaint);
 
         if (mHint != null) {
             float hy = mCenterPoint.y * 2 / 3 - (mHintPaint.descent() + mHintPaint.ascent()) / 2;
@@ -526,13 +530,16 @@ public class WaveProgress extends View {
             mProgressAnimator = null;
         }
     }
-    public void setWaveDarkColor(int darkColor){
-        mDarkWaveColor=darkColor;
+
+    public void setWaveDarkColor(int darkColor) {
+        mDarkWaveColor = darkColor;
     }
-    public void setWaveLightColor(int lightColor){
-        mLightWaveColor=lightColor;
+
+    public void setWaveLightColor(int lightColor) {
+        mLightWaveColor = lightColor;
     }
-    public void setValueColor(int valueColor){
-        mValueColor=valueColor;
+
+    public void setValueColor(int valueColor) {
+        mValueColor = valueColor;
     }
 }
