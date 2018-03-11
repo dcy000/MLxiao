@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="42dp"
+            android:paddingRight="42dp">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:gravity="center"
+                android:text="饮食建议报告"
+                android:textColor="#ff333333"
+                android:textSize="36dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_person"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="适用人：小曾"
+                android:textColor="#ff333333"
+                android:textSize="28dp" />
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="健康状态"
+                android:textColor="#ff333333"
+                android:textSize="28dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="运动情况"
+                    android:textColor="#ff999999"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:id="@+id/tv_sprot_frequency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="-30dp"
+                    android:text="每周一次"
+                    android:textColor="#333333"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="30dp"
+                    android:text="吸烟情况"
+                    android:textColor="#ff999999"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:id="@+id/tv_smoke_frequency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="每天吸烟"
+                    android:textColor="#333333"
+                    android:textSize="28dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="饮食情况"
+                    android:textColor="#ff999999"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:id="@+id/tv_diet_state"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="-30dp"
+                    android:text="荤素搭配"
+                    android:textColor="#333333"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="30dp"
+                    android:text="饮酒情况"
+                    android:textColor="#ff999999"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:id="@+id/tv_drink_frequency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="偶尔喝酒"
+                    android:textColor="#333333"
+                    android:textSize="28dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="食物和摄入量"
+                android:textColor="#ff333333"
+                android:textSize="28dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_1" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_2" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_3" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_4" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_5" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="谷类275g\n薯类75g"
+                    android:textColor="#ff999999"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="蔬菜450g\n水果300g"
+                    android:textColor="#999999"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="畜禽肉75g\n水产品75g\n面类50g"
+                    android:textColor="#ff999999"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="大豆25g\n坚果10g\n乳制品300g"
+                    android:textColor="#999999"
+                    android:textSize="28dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="烹调油25g\n食盐5"
+                    android:textColor="#999999"
+                    android:textSize="28dp" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_marginBottom="30dp"
+                android:id="@+id/tv_advice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="        控制钠盐每天4克以下，不食动物内脏，少食肥肉、鱿鱼，墨鱼等含胆固醇高的食物。多食木耳、香菇、海带、西红柿、洋葱、芹菜等营养丰富有软化血管的食物；以清淡、无刺激的食物为宜，减少味精、鸡精、酱油、大酱等含钠盐的调味品和咸菜、腌菜、泡菜、卤菜、海米、虾皮、鱿鱼丝等高盐食物。"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/shape_bg_btn_blue"
+                android:gravity="center"
+                android:text="查看食谱"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

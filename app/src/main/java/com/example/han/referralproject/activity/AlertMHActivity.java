@@ -14,6 +14,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
+import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.register.DiseaseHistoryAdapter;
 import com.medlink.danbogh.register.DiseaseHistoryModel;
 
@@ -186,7 +187,7 @@ public class AlertMHActivity extends BaseActivity {
                 mh,data.dz,new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
-                        ToastUtils.show("修改成功");
+                        ToastTool.showShort("修改成功");
                         speak("主人，您的病史已经修改成功");
                     }
                 }, new NetworkManager.FailedCallback() {

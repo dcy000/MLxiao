@@ -33,6 +33,8 @@ import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.orhanobut.logger.Logger;
+
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;

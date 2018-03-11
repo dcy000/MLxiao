@@ -18,6 +18,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -141,7 +142,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastUtils.show(message);
+                ToastTool.showShort(message);
             }
         });
     }

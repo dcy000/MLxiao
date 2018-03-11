@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <!--android:background="@drawable/life_record_bg_selector"-->
+    <!--android:textColor="@color/life_record_selector"-->
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_diet_advice"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/bg_rb_history_record"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="饮食建议"
+            android:textColor="@drawable/bg_rb_history_record"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/rv_sport_advice"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/bg_rb_history_record"
+            android:button="@null"
+            android:gravity="center"
+            android:text="运动建议"
+            android:textColor="@drawable/bg_rb_history_record"
+            android:textSize="24sp" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+</LinearLayout>

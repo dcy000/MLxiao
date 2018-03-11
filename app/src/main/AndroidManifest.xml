@@ -195,9 +195,6 @@
             android:name=".activity.OfflineActivity"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".LoadingActivity"
-            android:screenOrientation="landscape"/>
-        <activity
             android:name=".recyclerview.RecoDocActivity"
             android:screenOrientation="landscape">
 
@@ -221,13 +218,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".facerecognition.OnlineFaceDemo"
-            android:screenOrientation="landscape"/>
-        <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name=".facerecognition.OnlineFaceDemo1"
             android:screenOrientation="landscape"/>
         <activity
             android:name=".xueya.AttentionActivity"
@@ -550,7 +541,8 @@
         <!-- <category android:name="android.intent.category.DEFAULT" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".children.ChildEduHomeActivity">
+        <activity android:name=".children.ChildEduHomeActivity"
+            android:screenOrientation="landscape">
         </activity>
         <activity android:name=".children.cartoon.ChildEduCartoonActivity">
         </activity>
@@ -583,6 +575,14 @@
         </activity>
         <activity android:name=".health.HealthDrinkDiaryActivity">
         </activity>
+        <activity android:name=".activity.MessageCenterActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".activity.MessageDetailsActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.DailyIntakeActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.WeeklyReportActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

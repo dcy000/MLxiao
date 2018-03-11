@@ -4,17 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     tools:context="com.example.han.referralproject.measure.MeasureXueyaResultActivity">
     <LinearLayout
         android:id="@+id/ll_left"
-        android:layout_width="594pt"
+        android:layout_width="562pt"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32pt"
+        android:layout_marginLeft="32pt"
+        android:layout_marginBottom="32pt">
         <TextView
             android:id="@+id/tv_measure_title"
             android:layout_width="wrap_content"
@@ -46,7 +50,7 @@
                 android:layout_width="24pt"
                 android:layout_height="24pt"
                 app:randomColor="false"
-                app:circleColor="#FF6100"
+                app:circleColor="#FF5A5A"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +64,7 @@
                 android:layout_width="130pt"
                 android:layout_height="24pt"
                 app:rcBackgroundColor="#eee"
-                app:rcProgressColor="#FF6100"
+                app:rcProgressColor="#FF5A5A"
                 app:rcRadius="12pt"
                 app:rcMax="100"
                 app:rcProgress="0"
@@ -91,7 +95,7 @@
                 android:layout_width="24pt"
                 android:layout_height="24pt"
                 app:randomColor="false"
-                app:circleColor="#5AC628"
+                app:circleColor="#3F86FC"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -105,7 +109,7 @@
                 android:layout_width="130pt"
                 android:layout_height="24pt"
                 app:rcBackgroundColor="#eee"
-                app:rcProgressColor="#5AC628"
+                app:rcProgressColor="#3F86FC"
                 app:rcRadius="12pt"
                 app:rcMax="100"
                 app:rcProgress="0"
@@ -134,7 +138,7 @@
                 android:layout_width="24pt"
                 android:layout_height="24pt"
                 app:randomColor="false"
-                app:circleColor="#FEB70F"
+                app:circleColor="#FED235"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -148,7 +152,7 @@
                 android:layout_width="130pt"
                 android:layout_height="24pt"
                 app:rcBackgroundColor="#eee"
-                app:rcProgressColor="#FEB70F"
+                app:rcProgressColor="#FED235"
                 app:rcRadius="12pt"
                 app:rcMax="100"
                 app:rcProgress="0"
@@ -184,7 +188,7 @@
                 android:layout_width="24pt"
                 android:layout_height="24pt"
                 app:randomColor="false"
-                app:circleColor="#3F86FC"
+                app:circleColor="#FF5A5A"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -198,7 +202,7 @@
                 android:layout_width="130pt"
                 android:layout_height="24pt"
                 app:rcBackgroundColor="#eee"
-                app:rcProgressColor="#3F86FC"
+                app:rcProgressColor="#FF5A5A"
                 app:rcRadius="12pt"
                 app:rcMax="100"
                 app:rcProgress="0"
@@ -227,7 +231,7 @@
                 android:layout_width="24pt"
                 android:layout_height="24pt"
                 app:randomColor="false"
-                app:circleColor="#3F86FC"
+                app:circleColor="#FED235"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -241,7 +245,7 @@
                 android:layout_width="130pt"
                 android:layout_height="24pt"
                 app:rcBackgroundColor="#eee"
-                app:rcProgressColor="#3F86FC"
+                app:rcProgressColor="#FED235"
                 app:rcRadius="12pt"
                 app:rcMax="100"
                 app:rcProgress="0"
@@ -258,53 +262,158 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/white"
         android:layout_marginLeft="32pt"
+        android:layout_marginTop="32pt"
+        android:layout_marginBottom="32pt"
+        android:layout_marginRight="32pt"
         >
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/ll_gaodi"
             android:layout_width="0pt"
-            android:layout_height="wrap_content"
+            android:layout_height="416pt"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/ll_fenshu"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:background="@color/white"
+            app:layout_constraintRight_toLeftOf="@+id/ll_fenshu">
             <TextView
+                android:id="@+id/tv_result_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="测量结果"
-                android:textColor="#333"
                 android:textSize="40pt"
-                android:layout_marginTop="50pt"/>
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/lc_xueya_result"
-                android:layout_width="400pt"
-                android:layout_height="360pt"
-                android:layout_marginTop="34pt">
+                android:textColor="#999"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="40pt"
+                android:layout_marginLeft="40pt"/>
+            <LinearLayout
+                android:id="@+id/ll_tip_gaoya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="40pt"
+                app:layout_constraintTop_toBottomOf="@id/tv_result_title"
+                android:layout_marginTop="41pt">
+                <me.songning.library.CircleView
+                    android:layout_width="24pt"
+                    android:layout_height="24pt"
+                    app:randomColor="false"
+                    app:circleColor="#FF5A5A"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="高压"
+                    android:textColor="#333"
+                    android:textSize="48pt"
+                    android:layout_marginLeft="16pt"/>
+            </LinearLayout>
 
-            </com.github.mikephil.charting.charts.BarChart>
-        </LinearLayout>
-        <LinearLayout
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="40pt"
+                app:layout_constraintTop_toBottomOf="@id/ll_tip_gaoya"
+                android:layout_marginTop="24pt">
+                <me.songning.library.CircleView
+                    android:layout_width="24pt"
+                    android:layout_height="24pt"
+                    app:randomColor="false"
+                    app:circleColor="#FED235"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="低压"
+                    android:textColor="#333"
+                    android:textSize="48pt"
+                    android:layout_marginLeft="16pt"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_bar_diya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="40pt"
+                android:layout_marginRight="53pt"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tv_result_diya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="48pt"
+                    android:textStyle="bold"
+                    android:text="80"
+                    />
+                <View
+                    android:id="@+id/view_diya"
+                    android:layout_width="80pt"
+                    android:layout_height="188pt"
+                    android:background="@drawable/bg_bar_diya"
+                    android:layout_marginTop="24pt"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintRight_toLeftOf="@id/ll_bar_diya"
+                app:layout_constraintBottom_toBottomOf="@id/ll_bar_diya"
+                android:layout_marginRight="60pt"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tv_result_gaoya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="48pt"
+                    android:textStyle="bold"
+                    android:text="120"
+                    />
+                <View
+                    android:id="@+id/view_gaoya"
+                    android:layout_width="80pt"
+                    android:layout_height="264pt"
+                    android:background="@drawable/bg_bar_gaoya"
+                    android:layout_marginTop="24pt"
+                    />
+            </LinearLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/ll_fenshu"
             android:layout_width="0pt"
-            android:layout_height="wrap_content"
+            android:layout_height="416pt"
             app:layout_constraintLeft_toRightOf="@id/ll_gaodi"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_marginLeft="32pt"
+            android:background="@color/white">
             <TextView
+                android:id="@+id/tv_score_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="健康分数"
-                android:textColor="#333"
+                android:textColor="#999"
                 android:textSize="40pt"
-                android:layout_marginTop="50pt"/>
+                android:layout_marginTop="41pt"
+                android:layout_marginLeft="40pt"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
             <com.littlejie.circleprogress.WaveProgress
                 android:id="@+id/wave_progress_bar"
-                android:layout_width="300pt"
-                android:layout_height="300pt"
+                android:layout_width="293pt"
+                android:layout_height="293pt"
                 android:layout_gravity="center_horizontal"
                 app:cp_darkWaveAnimTime="1000"
                 app:cp_darkWaveColor="#B372A7FC"
@@ -318,74 +427,93 @@
                 app:cp_circleColor="#eee"
                 app:cp_lockCircle="true"
                 app:cp_bgCircleColor="#F1F5FF"
-                android:layout_marginTop="34pt"
                 app:cp_circleWidth="3pt"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginRight="40pt"
+                android:layout_marginBottom="40pt"
                 />
-        </LinearLayout>
-        <View
-            android:id="@+id/line"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tv_score_title">
+                <ImageView
+                    android:layout_width="32pt"
+                    android:layout_height="44pt"
+                    android:layout_marginLeft="40pt"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="56pt"
+                    android:text="2分"
+                    android:layout_marginLeft="16pt"
+                    android:textColor="#333"/>
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            app:layout_constraintTop_toBottomOf="@id/ll_fenshu"
-            android:background="#bbbbbb"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="60pt"
-            android:layout_marginRight="60pt"
-            android:layout_marginTop="24pt"/>
-        <TextView
-            android:id="@+id/tv_suggest_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="健康建议"
-            app:layout_constraintTop_toBottomOf="@id/line"
-            android:textSize="56pt"
-            android:textColor="#333"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="36pt"
-            />
-        <TextView
-            android:id="@+id/tv_suggest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_suggest_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textColor="#333"
-            android:textSize="48pt"
-            android:layout_marginLeft="60pt"
-            android:layout_marginRight="60pt"
-            android:layout_marginTop="16pt"
-            android:text="主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。"
-            android:lineSpacingMultiplier="1.2"/>
-        <TextView
-            android:id="@+id/tv_something_advice"
-            android:layout_width="280pt"
-            android:layout_height="100pt"
-            android:background="@drawable/measure_result"
-            android:text="注意事项"
-            android:textColor="@color/white"
-            android:textSize="48pt"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/health_knowledge"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginBottom="50pt"/>
-        <TextView
-            android:id="@+id/health_knowledge"
-            android:layout_width="280pt"
-            android:layout_height="100pt"
-            android:background="@drawable/measure_result2"
-            android:text="健康知识"
-            android:textColor="@color/white"
-            android:textSize="48pt"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="@id/tv_something_advice"
-            app:layout_constraintLeft_toRightOf="@id/tv_something_advice"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="190pt"/>
+            android:layout_height="560pt"
+            app:layout_constraintTop_toBottomOf="@id/ll_gaodi"
+            android:background="@color/white"
+            android:layout_marginTop="32pt">
+            <TextView
+                android:id="@+id/tv_suggest_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="健康建议"
+
+                android:textSize="56pt"
+                android:textColor="#333"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="36pt"
+                />
+            <TextView
+                android:id="@+id/tv_suggest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_suggest_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="#333"
+                android:textSize="48pt"
+                android:layout_marginLeft="60pt"
+                android:layout_marginRight="60pt"
+                android:layout_marginTop="16pt"
+                android:text="主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。"
+                android:lineSpacingMultiplier="1.2"/>
+            <TextView
+                android:id="@+id/tv_something_advice"
+                android:layout_width="340pt"
+                android:layout_height="100pt"
+                android:background="@drawable/measure_result"
+                android:text="周生活报告"
+                android:textColor="@color/white"
+                android:textSize="48pt"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/health_knowledge"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginBottom="50pt"/>
+            <TextView
+                android:id="@+id/health_knowledge"
+                android:layout_width="340pt"
+                android:layout_height="100pt"
+                android:background="@drawable/measure_result2"
+                android:text="健康知识"
+                android:textColor="@color/white"
+                android:textSize="48pt"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@id/tv_something_advice"
+                app:layout_constraintLeft_toRightOf="@id/tv_something_advice"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="102pt"/>
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

@@ -8,14 +8,12 @@ import java.util.Date;
 import java.util.Random;
 
 import android.Manifest.permission;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
@@ -23,9 +21,7 @@ import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.util.Base64;
@@ -47,13 +43,12 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.ToastTool;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.util.Accelerometer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -124,7 +119,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    ToastUtil.showShort(RegisterVideoActivity.this, "请调整您的姿态");
+                                                    ToastTool.showShort( "请调整您的姿态");
                                                 }
                                             });
 

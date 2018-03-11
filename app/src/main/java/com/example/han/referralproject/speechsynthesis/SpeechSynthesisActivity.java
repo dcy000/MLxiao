@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
@@ -56,11 +55,10 @@ import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
-import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -79,7 +77,6 @@ import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -393,7 +390,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        ToastUtil.showShort(SpeechSynthesisActivity.this, R.string.unable_to_play);
+                        ToastTool.showShort( R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -545,7 +542,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         printResult(results);
         if (isLast) {
             String result = resultBuffer.toString();
-            ToastUtil.showShort(this, result);
+            ToastTool.showShort( result);
             String inSpell = PinYinUtils.converterToSpell(result);
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);

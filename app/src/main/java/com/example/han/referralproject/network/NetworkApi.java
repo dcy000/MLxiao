@@ -20,6 +20,7 @@ import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.ECGHistory;
 import com.example.han.referralproject.bean.HeartRateHistory;
 import com.example.han.referralproject.bean.MeasureResult;
+import com.example.han.referralproject.bean.MessagesOfCenter;
 import com.example.han.referralproject.bean.PulseHistory;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.SymptomBean;
@@ -28,6 +29,7 @@ import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.bean.WeightHistory;
 import com.example.han.referralproject.bean.XfGroupInfo;
 import com.example.han.referralproject.bean.YuYueInfo;
@@ -138,6 +140,7 @@ public class NetworkApi {
     public static final String Add_Group = BasicUrl + "/ZZB/xf/insert_group_record";
     public static final String Change_Group_Status = BasicUrl + "/ZZB/xf/update_group_record";
 
+<<<<<<< HEAD
     public static final String Query_Group = BasicUrl + "/ZZB/xf/select_group_record";
 
     public static final String GET_SHEET_LIST = BasicUrl + "/ZZB/rep/sel_music_danforapp";
@@ -184,6 +187,11 @@ public class NetworkApi {
                 successCallback,
                 failedCallback);
     }
+=======
+    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
+    public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
+    public static final String Get_Week_Report=BasicUrl+"/AI/ai/selmap";
+>>>>>>> 7a92fc52ec8ce09f5fc611fe3cce5441d67bd743
 
     public static void getFM(
             String type,
@@ -992,4 +1000,34 @@ public class NetworkApi {
                 }.getType(),
                 successCallback);
     }
+
+    /**
+     * 消息中心的消息
+     */
+    public static void getMessages(String docterid, String dis_state, NetworkManager.SuccessCallback<ArrayList<MessagesOfCenter>> successCallback
+    ) {
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            return;
+        }
+        HashMap<String, String> params = new HashMap<>();
+//        params.put("userid", MyApplication.getInstance().userId);
+        params.put("userid", "100002");
+        params.put("docterid", docterid);
+        params.put("dis_state", dis_state);
+        NetworkManager.getInstance().getResultClass(Get_Message, params, new TypeToken<ArrayList<MessagesOfCenter>>() {}.getType(),
+                successCallback);
+    }
+
+    /**
+     * 获得周生活报告
+     * @param successCallback
+     * @param failedCallback
+     */
+    public static void getWeekReport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
+                                 NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userid", "100098");
+        NetworkManager.getInstance().getResultClass(Get_Week_Report, params, WeeklyReport.class, successCallback, failedCallback);
+    }
+
 }
