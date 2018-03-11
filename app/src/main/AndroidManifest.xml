@@ -209,13 +209,13 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.HOME"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-                <!--<category android:name="android.intent.category.DEFAULT"/>-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".Test_mainActivity"
@@ -551,15 +551,7 @@
         <activity android:name=".intelligent_diagnosis.DailyIntakeActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".intelligent_diagnosis.WeeklyReportActivity"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.HOME"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
