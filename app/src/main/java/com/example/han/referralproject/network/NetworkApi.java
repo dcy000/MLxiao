@@ -140,12 +140,16 @@ public class NetworkApi {
     public static final String Add_Group = BasicUrl + "/ZZB/xf/insert_group_record";
     public static final String Change_Group_Status = BasicUrl + "/ZZB/xf/update_group_record";
 
-<<<<<<< HEAD
+
     public static final String Query_Group = BasicUrl + "/ZZB/xf/select_group_record";
 
     public static final String GET_SHEET_LIST = BasicUrl + "/ZZB/rep/sel_music_danforapp";
 
     private static final String GET_SONG_LIST = BasicUrl + "/ZZB/rep/selSomeImitate";
+
+    public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
+    public static final String Get_Week_Report=BasicUrl+"/AI/ai/selmap";
+
 
     public static void getChildEduSheetList(
             int page,
@@ -187,11 +191,7 @@ public class NetworkApi {
                 successCallback,
                 failedCallback);
     }
-=======
-    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
-    public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
-    public static final String Get_Week_Report=BasicUrl+"/AI/ai/selmap";
->>>>>>> 7a92fc52ec8ce09f5fc611fe3cce5441d67bd743
+
 
     public static void getFM(
             String type,
