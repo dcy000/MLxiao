@@ -34,6 +34,7 @@ public class WeeklyReportActivity extends BaseActivity {
     private WeeklyReport1Fragment fragment1;
     private WeeklyReport2Fragment fragment2;
     private WeeklyReport3Fragment fragment3;
+    private LifeRecordWeeklyFragment fragment4;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,12 @@ public class WeeklyReportActivity extends BaseActivity {
         fragment3 = new WeeklyReport3Fragment();
 //        fragment3.setArguments(bundle);
         fragments.add(fragment3);
-        viewpage.setOffscreenPageLimit(3);
+
+        fragment4 = new LifeRecordWeeklyFragment();
+//        fragment3.setArguments(bundle);
+        fragments.add(fragment4);
+
+        viewpage.setOffscreenPageLimit(4);
         viewpage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
