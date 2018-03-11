@@ -124,7 +124,7 @@ public class WeeklyReport3Fragment extends Fragment {
 
         tabSjYan.setText((int) sj_yan + "");
         tabSjYundong.setText((int) sj_yundong + "");
-        tabSjTizhong.setText((int) sj_yundong + "");
+        tabSjTizhong.setText((int) sj_tizhong + "");
         tabSjYinjiu.setText((int) sj_yinjiu + "");
 
         if (pc_yan > 0) {
@@ -171,7 +171,6 @@ public class WeeklyReport3Fragment extends Fragment {
         tips = "主人，您的生活目标总体完成"
                 + progress_percent + "%。食盐距离目标" + (int) pc_yan + "克，运动距离目标" + (int) pc_yundong +
                 "分钟，体重距离目标" + (int) pc_tizhong + "千克，饮酒距离目标" + (int) pc_yinjiu + "毫升。";
-        ((WeeklyReportActivity) getActivity()).speak(tips);
         tvAdvice.setText(tips);
     }
 
@@ -276,12 +275,13 @@ public class WeeklyReport3Fragment extends Fragment {
 
     }
 
-    private boolean isSpeaked = false;
 
+
+    public static boolean isSpeak=false;
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && !isSpeaked) {
-            isSpeaked = true;
+        if (isVisibleToUser &&isSpeak) {
+            isSpeak=false;
             ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }
