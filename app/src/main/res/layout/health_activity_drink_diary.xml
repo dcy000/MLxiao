@@ -72,7 +72,7 @@
         app:layout_constraintBottom_toTopOf="@+id/health_diary_line_ruler_top"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="0瓶"/>
+        android:text="0杯"/>
 
     <View
         android:id="@+id/health_diary_indicator_ruler"
@@ -134,7 +134,7 @@
         android:layout_marginRight="60pt"
         android:background="@drawable/health_diary_tv_confirm"
         android:gravity="center"
-        android:text="确定"
+        android:text="完成"
         android:textColor="#FFFFFF"
         android:textSize="56pt"
         app:layout_constraintBottom_toBottomOf="parent"

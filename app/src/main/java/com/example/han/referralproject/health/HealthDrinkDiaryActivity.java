@@ -33,6 +33,7 @@ public class HealthDrinkDiaryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_activity_drink_diary);
+        units = getUnits();
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健  康  日  记");
         tvTopic = (TextView) findViewById(R.id.health_diary_tv_topic);
@@ -77,7 +78,6 @@ public class HealthDrinkDiaryActivity extends BaseActivity {
 
         rvUnits = (RecyclerView) findViewById(R.id.health_diary_rv_units);
         rvUnits.addOnScrollListener(new CenterScrollListener());
-        units = getUnits();
         mUnitAdapter = new HealthSaltDiaryActivity.UnitAdapter(units);
         OverFlyingLayoutManager lm2 = new OverFlyingLayoutManager(this);
         lm2.setOrientation(OverFlyingLayoutManager.HORIZONTAL);
@@ -88,11 +88,11 @@ public class HealthDrinkDiaryActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 mUnitAdapter.setSelectedPosition(position);
                 if (position % 3 == 0) {
-                    rvRuler.setValue(0, 0, 5, 0.1f);
+                    rvRuler.setValue(0, 0, 10, 0.1f);
                 } else if (position % 3 == 1){
                     rvRuler.setValue(0, 0, 1000, 20);
                 } else {
-                    rvRuler.setValue(0, 0, 10, 0.1f);
+                    rvRuler.setValue(0, 0, 5, 0.1f);
                 }
             }
 
@@ -107,9 +107,9 @@ public class HealthDrinkDiaryActivity extends BaseActivity {
 
     private List<String> getUnits() {
         List<String> units = new ArrayList<>();
-        units.add("瓶");
-        units.add("毫升");
         units.add("杯");
+        units.add("毫升");
+        units.add("瓶");
         return units;
     }
 

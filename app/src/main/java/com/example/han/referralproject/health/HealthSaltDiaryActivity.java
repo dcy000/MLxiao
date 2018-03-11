@@ -34,6 +34,7 @@ public class HealthSaltDiaryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_activity_salt_diary);
+        mUnits = getUnits();
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健  康  日  记");
         tvSaltG = (TextView) findViewById(R.id.health_diary_tv_salt_g);
@@ -47,7 +48,11 @@ public class HealthSaltDiaryActivity extends BaseActivity {
             public void onValueChange(float value) {
                 int selectedPosition = mUnitAdapter.getSelectedPosition();
                 tvRulerIndicator.setText(value + mUnits.get(selectedPosition));
-                tvSaltG.setText(value * (selectedPosition + 1) + "g");
+                if (selectedPosition == 0) {
+                    tvSaltG.setText(value * 2 + "g");
+                } else {
+                    tvSaltG.setText(value  + "g");
+                }
             }
         });
         tvConfirm.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +72,6 @@ public class HealthSaltDiaryActivity extends BaseActivity {
 
         rvUnits = (RecyclerView) findViewById(R.id.health_diary_rv_units);
         rvUnits.addOnScrollListener(new CenterScrollListener());
-        mUnits = getUnits();
         mUnitAdapter = new UnitAdapter(mUnits);
         OverFlyingLayoutManager lm = new OverFlyingLayoutManager(this);
         lm.setOrientation(OverFlyingLayoutManager.HORIZONTAL);
@@ -92,7 +96,7 @@ public class HealthSaltDiaryActivity extends BaseActivity {
         List<String> units = new ArrayList<>();
         units.add("勺");
         units.add("克");
-        return mUnits;
+        return units;
     }
 
     interface OnItemClickListener {
@@ -106,7 +110,7 @@ public class HealthSaltDiaryActivity extends BaseActivity {
             mModels = models;
         }
 
-        private int selectedPosition;
+        private volatile int selectedPosition;
 
         public int getSelectedPosition() {
             return selectedPosition;
@@ -114,6 +118,7 @@ public class HealthSaltDiaryActivity extends BaseActivity {
 
         public void setSelectedPosition(int selectedPosition) {
             this.selectedPosition = selectedPosition;
+            notifyDataSetChanged();
         }
 
         private OnItemClickListener mOnItemClickListener;

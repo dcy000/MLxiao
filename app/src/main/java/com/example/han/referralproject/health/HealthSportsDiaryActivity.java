@@ -35,6 +35,7 @@ public class HealthSportsDiaryActivity extends BaseActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_activity_sports_diary);
+        units = getUnits();
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健  康  日  记");
         tvTopic = (TextView) findViewById(R.id.health_diary_tv_topic);
@@ -85,7 +86,6 @@ public class HealthSportsDiaryActivity extends BaseActivity {
 
         rvUnits = (RecyclerView) findViewById(R.id.health_diary_rv_units);
         rvUnits.addOnScrollListener(new CenterScrollListener());
-        units = getUnits();
         mUnitAdapter = new HealthSaltDiaryActivity.UnitAdapter(units);
         OverFlyingLayoutManager lm2 = new OverFlyingLayoutManager(this);
         lm2.setOrientation(OverFlyingLayoutManager.HORIZONTAL);
