@@ -50,7 +50,7 @@ public class ChildEduStudyActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduTurnOfMindActivity.class);
+                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduBrainTeaserActivity.class);
                 startActivity(intent);
             }
         });

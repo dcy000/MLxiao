@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -110,8 +111,6 @@ public class VideoListFragment extends Fragment {
                     getVideos();
                 }
             }
-
-
         });
 
         getVideos();
@@ -308,7 +307,7 @@ public class VideoListFragment extends Fragment {
             }
             Glide.with(holder.ivThumbnail.getContext())
                     .load(imageurl)
-                    .placeholder(R.drawable.ic_thumbnail_placeholder)
+                    .apply(RequestOptions.placeholderOf(R.drawable.ic_thumbnail_placeholder))
                     .into(holder.ivThumbnail);
         }
 

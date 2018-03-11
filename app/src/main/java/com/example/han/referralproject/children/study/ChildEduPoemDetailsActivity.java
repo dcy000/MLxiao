@@ -64,8 +64,8 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         lm = new OverFlyingLayoutManager(this);
         lm.setItemSpace(0);
         lm.setMinScale(1);
+        lm.setMaxVisibleItemCount(2);
         lm.setOrientation(OverFlyingLayoutManager.VERTICAL);
-        lm.setOnPageChangeListener(onPageChangeListener);
         mSentences = new ArrayList<>();
         mAdapter = new Adapter(mSentences);
         rvPoemSentences.setLayoutManager(lm);
@@ -86,21 +86,38 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         readAgain();
     }
 
+    @Override
+    protected void onActivitySpeakFinish() {
+        super.onActivitySpeakFinish();
+        if (isPlaying) {
+            nextSentence();
+        }
+    }
+
+    private volatile boolean isPlaying;
+
     private void nextSentence() {
         if (mSentences.isEmpty()) {
+            isPlaying = false;
             return;
         }
         int positionSelected = mAdapter.getPositionSelected();
         if (positionSelected == mSentences.size()) {
+            isPlaying = false;
             //complete
             return;
         }
+        isPlaying = true;
         positionSelected++;
+        mAdapter.setPositionSelected(positionSelected);
+        mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(positionSelected);
+        speak(mSentences.get(positionSelected));
     }
 
     private void lastSentence() {
         if (mSentences.isEmpty()) {
+            isPlaying = false;
             return;
         }
         int positionSelected = mAdapter.getPositionSelected();
@@ -109,28 +126,23 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
             return;
         }
         positionSelected--;
+        mAdapter.setPositionSelected(positionSelected);
+        mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(positionSelected);
+        speak(mSentences.get(positionSelected));
     }
 
     private void readAgain() {
-        if (!mSentences.isEmpty()) {
-            rvPoemSentences.scrollToPosition(0);
+        if (mSentences.isEmpty()) {
+            isPlaying = false;
+            return;
         }
+        isPlaying = true;
+        mAdapter.setPositionSelected(0);
+        mAdapter.notifyDataSetChanged();
+        rvPoemSentences.scrollToPosition(0);
+        speak(mSentences.get(0));
     }
-
-    private OverFlyingLayoutManager.OnPageChangeListener onPageChangeListener = new OverFlyingLayoutManager.OnPageChangeListener() {
-        @Override
-        public void onPageSelected(int position) {
-            mAdapter.setPositionSelected(position);
-            mAdapter.notifyDataSetChanged();
-            speak(mSentences.get(position));
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    };
 
     private interface OnItemClickListener {
         void onItemClick(int position);

@@ -26,8 +26,12 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
+import com.example.han.referralproject.health.HealthDrinkDiaryActivity;
+import com.example.han.referralproject.health.HealthSaltDiaryActivity;
+import com.example.han.referralproject.health.HealthSportsDiaryActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
@@ -152,12 +156,15 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         mTitleText.setText("个  人  中  心");
         mRightView.setImageResource(R.drawable.icon_wifi);
         mImageView5.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
 
+//                Intent intent = new Intent(getApplicationContext(), HealthSaltDiaryActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -177,6 +184,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 //                startActivity(intent);
 //                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
                 OldRouter.routeToOldHomeActivity(PersonActivity.this);
+//                Intent intent = new Intent(PersonActivity.this, ChildEduHomeActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -204,7 +213,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mTextView1 = (TextView) findViewById(R.id.doctor_name);
 
-        ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
+        ((TextView) findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
     }
 
@@ -354,19 +363,20 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
-                DiseaseUser diseaseUser=new DiseaseUser(
+                DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
                         LocalShared.getInstance(this).getUserPhoto()
                 );
-                String currentUser= new Gson().toJson(diseaseUser);
+                String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
                 break;
             case R.id.iv_message:
-                startActivity(new Intent(this, MessageActivity.class));
+//                startActivity(new Intent(this, MessageActivity.class));
+                startActivity(new Intent(this, HealthSaltDiaryActivity.class));
                 break;
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));

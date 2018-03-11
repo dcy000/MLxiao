@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lenovo on 2018/3/9.
+ * Created by afirez on 2018/3/9.
  */
 
 public class StoryModel implements Parcelable {

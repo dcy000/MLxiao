@@ -7,12 +7,36 @@
     android:layout_height="match_parent"
     android:background="#5595FF"
     tools:context="com.example.han.referralproject.children.cartoon.ChildEduCartoonActivity">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/ce_entertainment_rv_items"
-        android:layout_width="614dp"
-        android:layout_height="396dp"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <RadioGroup
+        android:id="@+id/ce_cartoon_rg_tabs"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <RadioButton
+            android:id="@+id/ce_cartoon_rb_tab_cartoon"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ce_stories_rb_tab"
+            android:button="@null"
+            android:gravity="center"
+            android:text="动画片"
+            android:textColor="@color/ce_stories_rb_tab_classical_stories"
+            android:textSize="28sp"/>
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/ce_cartoon_fl_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/ce_cartoon_rg_tabs"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

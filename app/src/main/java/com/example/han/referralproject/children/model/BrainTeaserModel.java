@@ -75,10 +75,23 @@ public class BrainTeaserModel implements Parcelable {
         }
     };
 
-    public BrainTeaserModel parseBrainTeaser(String parseBrain) {
-        if (TextUtils.isEmpty(parseBrain)) {
+    public static BrainTeaserModel parseBrainTeaser(String brainTeaser) {
+        if (TextUtils.isEmpty(brainTeaser)) {
             return null;
         }
-        return null;
+        if (!brainTeaser.contains("问题") || !brainTeaser.contains("答案")) {
+            return null;
+        }
+        int index1 = brainTeaser.indexOf("问题：");
+        int index2 = brainTeaser.indexOf("答案：");
+        if (index1 == -1 || index2 == -1) {
+            return null;
+        }
+        String question = brainTeaser.substring(index1 + 3, index2);
+        String answer = brainTeaser.substring(index2 + 3, brainTeaser.length() - 5);
+        if (TextUtils.isEmpty(question) || TextUtils.isEmpty(answer)) {
+            return null;
+        }
+        return new BrainTeaserModel(question, answer);
     }
 }

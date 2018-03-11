@@ -69,7 +69,12 @@ public class ChildEduPoemListActivity extends BaseActivity {
             }
             mModels.clear();
             mModels.addAll(models);
-            mAdapter.notifyDataSetChanged();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mAdapter.notifyDataSetChanged();
+                }
+            });
         }
     };
 

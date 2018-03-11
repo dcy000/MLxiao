@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200pt"
+    android:layout_height="198pt">
+
+    <TextView
+        android:id="@+id/health_diary_tv_item_unit"
+        android:layout_width="180pt"
+        android:layout_height="100pt"
+        android:gravity="center"
+        tools:textColor="#3F86FC"
+        android:textSize="80pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="慢跑"/>
+</android.support.constraint.ConstraintLayout>

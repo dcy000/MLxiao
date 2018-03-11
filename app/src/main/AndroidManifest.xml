@@ -562,19 +562,26 @@
         </activity>
         <activity android:name=".children.entertainment.ChildEduSheetDetailsActivity">
         </activity>
-        <activity android:name=".children.ChildEduMusicPlayerActivity">
-        </activity>
         <activity android:name=".children.study.ChildEduPoemListActivity">
         </activity>
         <activity android:name=".children.study.ChildEduWordsActivity">
         </activity>
-        <activity android:name=".children.study.ChildEduStoriesActivity">
+        <activity
+            android:name=".children.study.ChildEduStoriesActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustNothing|stateHidden">
         </activity>
-        <activity android:name=".children.study.ChildEduTurnOfMindActivity">
+        <activity android:name=".children.study.ChildEduBrainTeaserActivity">
         </activity>
         <activity android:name=".children.study.ChildEduWhyActivity">
         </activity>
         <activity android:name=".children.study.ChildEduPoemDetailsActivity">
+        </activity>
+        <activity android:name=".health.HealthSaltDiaryActivity">
+        </activity>
+        <activity android:name=".health.HealthSportsDiaryActivity">
+        </activity>
+        <activity android:name=".health.HealthDrinkDiaryActivity">
         </activity>
     </application>
 

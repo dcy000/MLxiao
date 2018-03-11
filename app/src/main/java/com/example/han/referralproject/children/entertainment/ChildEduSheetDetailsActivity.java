@@ -19,6 +19,7 @@ import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.MusicUtils;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         mModels = new ArrayList<>();
         mAdapter = new Adapter(mModels);
+        mAdapter.setOnItemClickListener(onItemClickListener);
         rvSongs.setLayoutManager(lm);
         rvSongs.setAdapter(mAdapter);
 
@@ -97,6 +99,14 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
             );
         }
     }
+
+    private OnItemClickListener onItemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(int position) {
+            SongModel model = mModels.get(position);
+            MusicUtils.searchAndPlayMusic(ChildEduSheetDetailsActivity.this, model.getName());
+        }
+    };
 
     private interface OnItemClickListener {
         void onItemClick(int position);
