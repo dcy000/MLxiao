@@ -61,7 +61,7 @@ public class WeeklyReportActivity extends BaseActivity {
 //        fragment3.setArguments(bundle);
         fragments.add(fragment4);
 
-        viewpage.setOffscreenPageLimit(4);
+        viewpage.setOffscreenPageLimit(3);
         viewpage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {

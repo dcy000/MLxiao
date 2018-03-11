@@ -108,7 +108,7 @@ public class WeeklyReport1Fragment extends Fragment {
             float progress_percent = Float.parseFloat(data.zongw) * 100;
             rpbSum.setProgress(progress_percent);
             tvProgress1.setText((int)progress_percent+"%");
-            String tips = "";
+            String tips="";
             if (sj_gaoya < mb_gaoya && sj_diya < mb_diya) {
                 tips = "主人，恭喜您本周血压降至目标值以下，请继续保持良好的生活习惯,积极锻炼。查看详细的报告，请向左滑动页面！";
 
@@ -122,17 +122,23 @@ public class WeeklyReport1Fragment extends Fragment {
                 tips = "主人，您的血压仍偏高。本周计划完成"
                         + (int)progress_percent + "%，未完成目标计划，请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             }
-            ((WeeklyReportActivity) getActivity()).speak(tips);
             tvAdvice.setText(tips);
+            ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }
-
 //    @Override
 //    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        if (getUserVisibleHint()){//显示
-//
+//        if (isVisibleToUser){//显示
+//            ((WeeklyReportActivity) getActivity()).speak(tips);
 //        }
 //    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        WeeklyReport2Fragment.isSpeak=true;
+        WeeklyReport3Fragment.isSpeak=true;
+    }
 
     @Override
     public void onDestroyView() {

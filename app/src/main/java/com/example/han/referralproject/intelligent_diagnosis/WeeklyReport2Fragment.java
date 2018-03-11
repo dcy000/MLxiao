@@ -143,11 +143,11 @@ public class WeeklyReport2Fragment extends Fragment {
             tvAdvice.setText(tips);
         }
     }
-    private boolean isSpeaked=false;
+    public static boolean isSpeak=false;
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser&&!isSpeaked){
-            isSpeaked=true;
+        if (isVisibleToUser&&isSpeak){
+            isSpeak=false;
             ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }
