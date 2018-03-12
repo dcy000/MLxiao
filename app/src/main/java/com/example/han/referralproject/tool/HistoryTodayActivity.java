@@ -40,16 +40,6 @@ public class HistoryTodayActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
         initData();
-        initEvent();
-    }
-
-    private void initEvent() {
-        tvTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HistoryTodayActivity.this, SettingActivity.class));
-            }
-        });
     }
 
     private void initData() {

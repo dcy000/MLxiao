@@ -48,12 +48,9 @@ public class BaiKeActivtiy extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_title, R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
+    @OnClick({ R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_title:
-                startActivity(new Intent(this, CalculationActivity.class));
-                break;
             case R.id.tv_demo1:
                 String demo1 = tvDemo1.getText().toString();
                 getDreamData(demo1);

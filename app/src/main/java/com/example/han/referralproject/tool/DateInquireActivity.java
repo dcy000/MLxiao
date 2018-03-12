@@ -50,12 +50,9 @@ public class DateInquireActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_title, R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
+    @OnClick({R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_title:
-                startActivity(new Intent(this, CookBookActivity.class));
-                break;
             case R.id.tv_demo1:
                 getDateData(tvDemo1.getText().toString().trim());
                 break;

@@ -53,13 +53,9 @@ public class CalculationActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.tv_title, R.id.tv_demo5, R.id.tv_demo4, R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
+    @OnClick({R.id.tv_demo5, R.id.tv_demo4, R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_title:
-//                finish();
-                startActivity(new Intent(CalculationActivity.this,RiddleActivity.class) );
-                break;
             case R.id.tv_demo5:
                 String demo5 = tvDemo5.getText().toString();
                 getDreamData(demo5);

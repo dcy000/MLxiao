@@ -193,7 +193,7 @@ public class JieMengActivity extends BaseActivity {
         stopListening();
     }
 
-    @OnClick({R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin, R.id.tv_title})
+    @OnClick({R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -213,12 +213,7 @@ public class JieMengActivity extends BaseActivity {
                 startListener();
                 showWave();
                 break;
-            case R.id.tv_title:
-//                clStart.setVisibility(View.VISIBLE);
-//                clDreamResult.setVisibility(View.GONE);
-//                data.clear();
-                startActivity(new Intent(this, DateInquireActivity.class));
-                break;
+
         }
     }
 

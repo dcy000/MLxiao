@@ -52,16 +52,6 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         setContentView(R.layout.activity_riddle);
         ButterKnife.bind(this);
         initData();
-        initEvent();
-    }
-
-    private void initEvent() {
-        findViewById(R.id.tv_title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RiddleActivity.this,HistoryTodayActivity.class));
-            }
-        });
     }
 
     /**
@@ -114,7 +104,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     private void showAnswer() {
         RiddleDialog riddleDialog = new RiddleDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("answer", data.get(index%size).answer);
+        bundle.putString("answer", data.get(index % size).answer);
         riddleDialog.setArguments(bundle);
         riddleDialog.setListener(this);
         riddleDialog.show(getSupportFragmentManager(), "riddleDialog");
@@ -122,7 +112,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
     private void showNext() {
         index++;
-        tvQuestion.setText(data.get(index%size).title);
+        tvQuestion.setText(data.get(index % size).title);
     }
 
     private void startListener() {
@@ -172,7 +162,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
             }
 
             if (!data.isEmpty()) {
-                String answer = data.get(index%size).answer;
+                String answer = data.get(index % size).answer;
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("答对了!,您答对了");
                 } else {
