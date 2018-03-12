@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.personal.PersonDetailActivity">
 
-    <FrameLayout
-        android:id="@+id/fl_content"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

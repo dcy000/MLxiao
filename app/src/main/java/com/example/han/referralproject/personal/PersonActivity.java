@@ -186,7 +186,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.view_wifi).setOnClickListener(this);
         findViewById(R.id.iv_record).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
-        findViewById(R.id.view_change).setOnClickListener(this);
+        findViewById(R.id.iv_change_account).setOnClickListener(this);
         mImageView.setOnClickListener(this);
         findViewById(R.id.tv_update).setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
@@ -374,7 +374,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(this, JieMengActivity.class));
 
                 break;
-            case R.id.view_change:
+            case R.id.iv_change_account:
                 mChangeAccountDialog = new ChangeAccountDialog(mContext);
                 mChangeAccountDialog.show();
                 break;

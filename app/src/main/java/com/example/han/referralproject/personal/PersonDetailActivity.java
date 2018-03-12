@@ -2,21 +2,26 @@ package com.example.han.referralproject.personal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    @BindView(R.id.fl_content)
-    FrameLayout flContent;
+
+    List<Fragment> fragments = new ArrayList<>();
+    @BindView(R.id.vp_content)
+    ViewPager vpContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +37,12 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         mRightView.setImageResource(R.drawable.icon_wifi);
         mRightView.setOnClickListener(this);
 
+        PersonDetailFragment detail = new PersonDetailFragment();
+        PersonDetail2Fragment detail2 = new PersonDetail2Fragment();
+        fragments.add(detail);
+        fragments.add(detail2);
 
-        PersonDetailFragment fragment = new PersonDetailFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fl_content, fragment).commit();
-
-
+        vpContent.setAdapter(new PersonDetailFragmentPagerAdapter(getSupportFragmentManager(), fragments));
     }
 
     @Override
