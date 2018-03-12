@@ -112,6 +112,20 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_yuyin" />
+        <com.example.han.referralproject.tool.wrapview.VoiceLineView
+            android:id="@+id/vl_wave"
+            android:layout_width="300dp"
+            android:layout_height="27dp"
+            android:visibility="gone"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:voiceLineColor="#ffeeeeee"
+            app:voiceLineWidth="3dp"
+            app:voiceTextColor="#333333"
+            app:voiceTextSize="24dp" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

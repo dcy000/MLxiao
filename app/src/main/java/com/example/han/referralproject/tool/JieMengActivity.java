@@ -60,9 +60,11 @@ public class JieMengActivity extends BaseActivity {
     VoiceLineView vlWave;
 
 
-    private Handler mainHandler = new Handler();
-    private List<DreamBean> data = new ArrayList<>();
     private boolean isStart;
+    int recordTotalTime = 0;
+    private Handler mainHandler = new Handler();
+
+    private List<DreamBean> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +115,6 @@ public class JieMengActivity extends BaseActivity {
         });
     }
 
-    int recordTotalTime = 0;
 
     private void updateTimerUI(int recordTotalTime) {
         String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
