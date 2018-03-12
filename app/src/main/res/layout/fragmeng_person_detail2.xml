@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayou2"
+    android:layout_width="match_parent"
+    android:layout_height="580dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_toRightOf="@+id/linearlayou1"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:drawableLeft="@drawable/shape_ic_blue"
+        android:drawablePadding="8dp"
+        android:text="其他"
+        android:textColor="#999999"
+        android:textSize="22sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_laoren_yule"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/laorenyule_set"
+                android:clickable="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="老人娱乐"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_youjiao_wenyu"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/youjiao_wenyu_set" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="幼教文娱"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_shezhi"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/shezhi_set"
+                android:clickable="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="设置"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_tools"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/tool_set"
+                android:clickable="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="小工具"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
