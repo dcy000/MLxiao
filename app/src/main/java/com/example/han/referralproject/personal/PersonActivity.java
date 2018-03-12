@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,22 +30,19 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
-import com.example.han.referralproject.settting.activity.LifeRecordWeeklyActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.tool.JieMengActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener {
 
@@ -208,7 +205,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mTextView1 = (TextView) findViewById(R.id.doctor_name);
 
-        ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
+        ((TextView) findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
     }
 
@@ -358,13 +355,13 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
-                DiseaseUser diseaseUser=new DiseaseUser(
+                DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
                         LocalShared.getInstance(this).getUserPhoto()
                 );
-                String currentUser= new Gson().toJson(diseaseUser);
+                String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
@@ -374,8 +371,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_pay:
 //                startActivity(new Intent(this, PayActivity.class));
-//                startActivity(new Intent(this, JieMengActivity.class));
-                startActivity(new Intent(this, LifeRecordWeeklyActivity.class));
+                startActivity(new Intent(this, JieMengActivity.class));
 
                 break;
             case R.id.view_change:
