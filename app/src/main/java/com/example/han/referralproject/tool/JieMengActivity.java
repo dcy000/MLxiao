@@ -1,8 +1,8 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageView;
@@ -59,8 +59,7 @@ public class JieMengActivity extends BaseActivity {
     @BindView(R.id.vl_wave)
     VoiceLineView vlWave;
 
-    private Timer timer;
-    private TimerTask timerTask;
+
     private Handler mainHandler = new Handler();
     private List<DreamBean> data = new ArrayList<>();
     private boolean isStart;
@@ -79,20 +78,22 @@ public class JieMengActivity extends BaseActivity {
         speechRecognizer.startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
-                vlWave.waveH = i/4;
+                vlWave.waveH = i / 6 + 2;
             }
 
             @Override
             public void onBeginOfSpeech() {
-
+                showWave();
             }
 
             @Override
             public void onEndOfSpeech() {
                 vlWave.setVisibility(View.GONE);
+                textView4.setVisibility(View.VISIBLE);
                 vlWave.stopRecord();
-                recordTotalTime = 0;
                 isStart = false;
+                recordTotalTime = 0;
+                mainHandler.removeCallbacksAndMessages(null);
             }
 
             @Override
@@ -114,25 +115,7 @@ public class JieMengActivity extends BaseActivity {
 
     int recordTotalTime = 0;
 
-    private void initTimer() {
-        timer = new Timer();
-        timerTask = new TimerTask() {
-            @Override
-
-            public void run() {
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //每隔1000毫秒更新一次ui
-                        recordTotalTime += 1000;
-                        updateTimerUI();
-                    }
-                });
-            }
-        };
-    }
-
-    private void updateTimerUI() {
+    private void updateTimerUI(int recordTotalTime) {
         String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
         vlWave.setText(string);
     }
@@ -211,7 +194,7 @@ public class JieMengActivity extends BaseActivity {
                 break;
             case R.id.iv_yuyin:
                 startListener();
-                showWave();
+//                showWave();
                 break;
 
         }
@@ -222,11 +205,20 @@ public class JieMengActivity extends BaseActivity {
             return;
         }
         isStart = true;
+        textView4.setVisibility(View.GONE);
         vlWave.setVisibility(View.VISIBLE);
         vlWave.setText("00:00");
         vlWave.startRecord();
-        initTimer();
-        timer.schedule(timerTask, 0, 1000);
+        mainHandler.removeCallbacksAndMessages(null);
+
+        mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recordTotalTime += 1000;
+                updateTimerUI(recordTotalTime);
+                mainHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
     }
 }
 
