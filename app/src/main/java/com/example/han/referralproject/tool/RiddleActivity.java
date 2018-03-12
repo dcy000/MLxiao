@@ -1,7 +1,7 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +11,9 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.dialog.RiddleDialog;
+import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
+import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.RiddleBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
@@ -41,6 +43,10 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     TextView tvShowNext;
     @BindView(R.id.iv_yuyin)
     ImageView ivYuyin;
+    @BindView(R.id.vl_wave)
+    VoiceLineView vlWave;
+    @BindView(R.id.tv_press_notice)
+    TextView tvPressNotice;
 
     private int index;
     private List<RiddleBean> data;
@@ -115,6 +121,36 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         tvQuestion.setText(data.get(index % size).title);
     }
 
+    private boolean isStart;
+    int recordTotalTime = 0;
+    private Handler mainHandler = new Handler();
+
+    private void showWave() {
+        if (isStart) {
+            return;
+        }
+        isStart = true;
+        tvPressNotice.setVisibility(View.GONE);
+        vlWave.setVisibility(View.VISIBLE);
+        vlWave.setText("00:00");
+        vlWave.startRecord();
+        mainHandler.removeCallbacksAndMessages(null);
+
+        mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recordTotalTime += 1000;
+                updateTimerUI(recordTotalTime);
+                mainHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+    private void updateTimerUI(int recordTotalTime) {
+        String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
+        vlWave.setText(string);
+    }
+
     private void startListener() {
         SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
         speechRecognizer.startListening(new RecognizerListener() {
@@ -130,7 +166,12 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
             @Override
             public void onEndOfSpeech() {
-
+                vlWave.setVisibility(View.GONE);
+                tvPressNotice.setVisibility(View.VISIBLE);
+                vlWave.stopRecord();
+                isStart = false;
+                recordTotalTime = 0;
+                mainHandler.removeCallbacksAndMessages(null);
             }
 
             @Override

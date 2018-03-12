@@ -1,7 +1,7 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.dialog.CalculationDialog;
+import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
+import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -44,6 +46,10 @@ public class CalculationActivity extends AppCompatActivity {
     TextView tvDemo3;
     @BindView(R.id.iv_yuyin)
     ImageView ivYuyin;
+    @BindView(R.id.textView4)
+    TextView textView4;
+    @BindView(R.id.vl_wave)
+    VoiceLineView vlWave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,22 +113,57 @@ public class CalculationActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isStart;
+    int recordTotalTime = 0;
+    private Handler mainHandler = new Handler();
+
+    private void showWave() {
+        if (isStart) {
+            return;
+        }
+        isStart = true;
+        textView4.setVisibility(View.GONE);
+        vlWave.setVisibility(View.VISIBLE);
+        vlWave.setText("00:00");
+        vlWave.startRecord();
+        mainHandler.removeCallbacksAndMessages(null);
+
+        mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recordTotalTime += 1000;
+                updateTimerUI(recordTotalTime);
+                mainHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+    private void updateTimerUI(int recordTotalTime) {
+        String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
+        vlWave.setText(string);
+    }
+
     private void startListener() {
         SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
         speechRecognizer.startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
-
+                vlWave.waveH = i / 6 + 2;
             }
 
             @Override
             public void onBeginOfSpeech() {
-
+                showWave();
             }
 
             @Override
             public void onEndOfSpeech() {
-
+                vlWave.setVisibility(View.GONE);
+                textView4.setVisibility(View.VISIBLE);
+                vlWave.stopRecord();
+                isStart = false;
+                recordTotalTime = 0;
+                mainHandler.removeCallbacksAndMessages(null);
             }
 
             @Override

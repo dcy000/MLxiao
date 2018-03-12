@@ -88,7 +88,7 @@
             android:layout_marginTop="25dp"
             android:text="看看成都的百科。"
             android:textColor="#FF678CFF"
-            android:textSize="32dp"
+            android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo2"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo2" />
 
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="80dp"
-            android:src="@drawable/ic_yuyin"
+            android:src="@drawable/iv_yuyin_baike"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -115,5 +115,19 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_yuyin" />
+        <com.example.han.referralproject.tool.wrapview.VoiceLineView
+            android:id="@+id/vl_wave"
+            android:layout_width="300dp"
+            android:layout_height="27dp"
+            android:visibility="gone"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:voiceLineColor="#FF87BDEF"
+            app:voiceLineWidth="3dp"
+            app:voiceTextColor="#333"
+            app:voiceTextSize="24dp" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

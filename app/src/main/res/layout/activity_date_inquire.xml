@@ -85,7 +85,7 @@
             android:layout_marginTop="24dp"
             android:text="几点了？"
             android:textColor="#FFEFE35A"
-            android:textSize="32dp"
+            android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo2"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo2" />
 
@@ -124,7 +124,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:voiceLineColor="#ffeeeeee"
             app:voiceLineWidth="3dp"
-            app:voiceTextColor="#333333"
+            app:voiceTextColor="#ffeeeeee"
             app:voiceTextSize="24dp" />
     </android.support.constraint.ConstraintLayout>
 

@@ -30,11 +30,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
         <LinearLayout
-            android:background="@drawable/bg_cookbook_sheet"
             android:layout_width="510dp"
             android:layout_height="309dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
+            android:background="@drawable/bg_cookbook_sheet"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="80dp"
-            android:src="@drawable/ic_yuyin"
+            android:src="@drawable/ic_yuyin_caipu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -116,6 +116,20 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_yuyin" />
+
+        <com.example.han.referralproject.tool.wrapview.VoiceLineView
+            android:id="@+id/vl_wave"
+            android:layout_width="300dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:voiceLineColor="#FF885646"
+            app:voiceLineWidth="3dp"
+            app:voiceTextColor="#FF885646"
+            app:voiceTextSize="24dp" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
