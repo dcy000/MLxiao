@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 android:gravity="center"
-                android:text="饮食建议报告"
+                android:text="运动建议报告"
                 android:textColor="#ff333333"
                 android:textSize="36dp"
                 android:textStyle="bold"
@@ -149,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="食物和摄入量"
+                android:text="运动项目建议"
                 android:textColor="#ff333333"
                 android:textSize="28dp"
                 android:textStyle="bold" />
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="散步"
+                    android:text="经常散步"
                     android:textColor="#ff999999"
                     android:textSize="28dp" />
 
