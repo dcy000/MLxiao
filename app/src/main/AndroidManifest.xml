@@ -567,6 +567,7 @@
         <activity android:name=".settting.activity.VoiceSettingActivity" />
         <activity android:name=".settting.activity.AboutActivity" />
         <activity android:name=".activity.Tool" />
+        <activity android:name=".personal.PersonDetailActivity"></activity>
     </application>
 
 </manifest>

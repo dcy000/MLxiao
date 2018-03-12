@@ -319,7 +319,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-    protected void speak(String text) {
+    public void speak(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
@@ -698,7 +698,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    protected void showLoadingDialog(String message) {
+    public void showLoadingDialog(String message) {
         if (mDialog == null) {
             mDialog = new ProgressDialog(mContext);
             mDialog.setCanceledOnTouchOutside(false);
@@ -709,7 +709,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    protected void hideLoadingDialog() {
+    public void hideLoadingDialog() {
         if (mDialog == null) {
             return;
         }
