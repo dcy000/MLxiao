@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 public class PersonDetailFragmentPagerAdapter extends FragmentPagerAdapter {
-    private FragmentManager mfragmentManager;
     private List<Fragment> data;
 
     public PersonDetailFragmentPagerAdapter(FragmentManager fm, List<Fragment> list) {
