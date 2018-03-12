@@ -35,6 +35,7 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
@@ -365,8 +366,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), MessageActivity.class));
                 break;
             case R.id.iv_pay:
-//                startActivity(new Intent(this, PayActivity.class));
-                startActivity(new Intent(getActivity(), JieMengActivity.class));
+                startActivity(new Intent(getActivity(), PayActivity.class));
+//                startActivity(new Intent(getActivity(), JieMengActivity.class));
 
                 break;
             case R.id.iv_change_account:

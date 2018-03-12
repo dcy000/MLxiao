@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
+    android:paddingRight="20dp"
     tools:context="com.example.han.referralproject.personal.PersonActivity">
 
 
@@ -49,7 +50,7 @@
         android:id="@+id/linearlayou1"
         android:layout_width="350dp"
         android:layout_height="580dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
         android:orientation="vertical">
@@ -221,7 +222,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical">
 
@@ -246,7 +247,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical">
 
@@ -272,7 +273,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical">
 
@@ -299,9 +300,9 @@
         </LinearLayout>
 
         <TextView
+            android:layout_margin="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:drawableLeft="@drawable/shape_ic_blue"
             android:drawablePadding="8dp"
             android:text="健康生活"
@@ -344,7 +345,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical">
 
@@ -370,7 +371,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -456,7 +457,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:gravity="center">
 
             <View

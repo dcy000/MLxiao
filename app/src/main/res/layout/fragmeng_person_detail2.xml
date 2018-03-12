@@ -3,15 +3,14 @@
     android:id="@+id/linearlayou2"
     android:layout_width="match_parent"
     android:layout_height="580dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="20dp"
+    android:paddingRight="20dp"
     android:layout_toRightOf="@+id/linearlayou1"
     android:background="#FFFFFF"
     android:orientation="vertical">
 
 
     <TextView
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="33dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -25,7 +24,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="75dp"
         android:orientation="horizontal">
 
 
