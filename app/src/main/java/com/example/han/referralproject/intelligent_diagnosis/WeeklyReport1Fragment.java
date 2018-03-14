@@ -53,8 +53,8 @@ public class WeeklyReport1Fragment extends Fragment {
     TextView yinjiuMubiao;
     @BindView(R.id.rpb_sum)
     RxTextRoundProgressBar rpbSum;
-    @BindView(R.id.tv_advice)
-    TextView tvAdvice;
+//    @BindView(R.id.tv_advice)
+//    TextView tvAdvice;
     Unbinder unbinder;
     @BindView(R.id.tv_progress1)
     TextView tvProgress1;
@@ -94,15 +94,15 @@ public class WeeklyReport1Fragment extends Fragment {
             waveProgressBar.setHealthValue(data.health + "分");
 
 
-            gaoyaMubiao.setText("120");
-            diyaMubiao.setText("80");
-            naMubiao.setText(String.format("%.0f", Float.parseFloat(data.nam)));
-            yundongMubiao.setText(String.format("%.0f", Float.parseFloat(data.sportsm)));
+            gaoyaMubiao.setText("<145");
+            diyaMubiao.setText("<92");
+            naMubiao.setText("<"+String.format("%.0f", Float.parseFloat(data.nam)));
+            yundongMubiao.setText(">"+String.format("%.0f", Float.parseFloat(data.sportsm)));
             String height_s = LocalShared.getInstance(getContext()).getUserHeight();
             float height_f = Float.parseFloat(height_s);
             float weight = Float.parseFloat(data.bmim) * (height_f / 100.0f) * (height_f / 100.0f);
-            tizhongMubiao.setText((int) weight + "");
-            yinjiuMubiao.setText(String.format("%.0f", Float.parseFloat(data.drinkm)));
+            tizhongMubiao.setText("<"+(int) weight + "");
+            yinjiuMubiao.setText("<"+String.format("%.0f", Float.parseFloat(data.drinkm)));
 
             rpbSum.setMax(100);
             float progress_percent = Float.parseFloat(data.zongw) * 100;
@@ -122,16 +122,10 @@ public class WeeklyReport1Fragment extends Fragment {
                 tips = "主人，您的血压仍偏高。本周计划完成"
                         + (int)progress_percent + "%，未完成目标计划，请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             }
-            tvAdvice.setText(tips);
+//            tvAdvice.setText(tips);
             ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        if (isVisibleToUser){//显示
-//            ((WeeklyReportActivity) getActivity()).speak(tips);
-//        }
-//    }
 
     @Override
     public void onPause() {

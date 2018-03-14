@@ -489,4 +489,11 @@ public class LocalShared {
     public String getGroupFirstXfid() {
         return mShared.getString("group_first_xfid", "");
     }
+
+    public void setHealthScore(int fenshuNum) {
+        mShared.edit().putInt("health_score",fenshuNum).commit();
+    }
+    public int getHealthScore(){
+        return mShared.getInt("health_score",0);
+    }
 }

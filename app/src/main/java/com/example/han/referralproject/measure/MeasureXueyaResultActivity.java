@@ -19,6 +19,7 @@ import com.example.han.referralproject.formatter.MeasureFormatter;
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.github.mikephil.charting.charts.BarChart;
@@ -108,6 +109,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
 
 
         float fenshuNum=Float.parseFloat(fenshu);
+
         if (fenshuNum>=80){
             waveProgressBar.setWaveDarkColor(Color.parseColor("#5BD78C"));
             waveProgressBar.setWaveLightColor(Color.parseColor("#86F77D"));
@@ -131,6 +133,11 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
 
         tvResultGaoya.setText(currentGaoya);
         tvResultDiya.setText(currentDiya);
+        int oldScore=LocalShared.getInstance(this).getHealthScore();
+        if (oldScore==0){
+            
+        }
+        LocalShared.getInstance(this).setHealthScore((int)fenshuNum);
     }
 
     private void initProgressBar() {

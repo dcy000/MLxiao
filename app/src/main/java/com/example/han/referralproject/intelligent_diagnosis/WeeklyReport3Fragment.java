@@ -85,7 +85,7 @@ public class WeeklyReport3Fragment extends Fragment {
     private WeeklyReport data;
     private float sj_tizhong, sj_yundong, sj_yinjiu, sj_yan;
     private float mb_tizhong, mb_yundong, mb_yinjiu, mb_yan;
-    private float pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
+    private int pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
     private String tips = "未初始化";
 
     @Override
@@ -111,10 +111,10 @@ public class WeeklyReport3Fragment extends Fragment {
         mb_yinjiu = Float.parseFloat(data.drinkm);
         mb_yan = Float.parseFloat(data.nam);
 
-        pc_tizhong = sj_tizhong - mb_tizhong;
-        pc_yundong = sj_yundong - mb_yundong;
-        pc_yinjiu = sj_yinjiu - mb_yinjiu;
-        pc_yan = sj_yan - mb_yan;
+        pc_tizhong = (int) (sj_tizhong - mb_tizhong);
+        pc_yundong = (int) (sj_yundong - mb_yundong);
+        pc_yinjiu = (int) (sj_yinjiu - mb_yinjiu);
+        pc_yan = (int) (sj_yan - mb_yan);
 
 
         tabMbYan.setText("<" + (int) mb_yan);
@@ -169,8 +169,8 @@ public class WeeklyReport3Fragment extends Fragment {
         tvProgress3.setText((int) progress_percent + "%");
 
         tips = "主人，您的生活目标总体完成"
-                + progress_percent + "%。食盐距离目标" + (int) pc_yan + "克，运动距离目标" + (int) pc_yundong +
-                "分钟，体重距离目标" + (int) pc_tizhong + "千克，饮酒距离目标" + (int) pc_yinjiu + "毫升。";
+                + progress_percent + "%。食盐距离目标" + pc_yan + "克，运动距离目标" + pc_yundong +
+                "分钟，体重距离目标" + pc_tizhong + "千克，饮酒距离目标" + pc_yinjiu + "毫升。";
         tvAdvice.setText(tips);
     }
 
@@ -276,12 +276,12 @@ public class WeeklyReport3Fragment extends Fragment {
     }
 
 
+    public static boolean isSpeak = false;
 
-    public static boolean isSpeak=false;
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser &&isSpeak) {
-            isSpeak=false;
+        if (isVisibleToUser && isSpeak) {
+            isSpeak = false;
             ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }

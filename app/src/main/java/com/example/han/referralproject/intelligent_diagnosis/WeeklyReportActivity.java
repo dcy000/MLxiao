@@ -1,14 +1,11 @@
 package com.example.han.referralproject.intelligent_diagnosis;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -22,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by gzq on 2018/3/9.
@@ -30,11 +28,14 @@ import butterknife.ButterKnife;
 public class WeeklyReportActivity extends BaseActivity {
     @BindView(R.id.viewpage)
     ViewPager viewpage;
+    @BindView(R.id.circleIndicator)
+    CircleIndicator circleIndicator;
     private List<Fragment> fragments;
     private WeeklyReport1Fragment fragment1;
     private WeeklyReport2Fragment fragment2;
     private WeeklyReport3Fragment fragment3;
     private LifeRecordWeeklyFragment fragment4;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class WeeklyReportActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("周生活记录");
         ButterKnife.bind(this);
-        fragments=new ArrayList<>();
+        fragments = new ArrayList<>();
         fragment1 = new WeeklyReport1Fragment();
 //        fragment1.setArguments(bundle);
         fragments.add(fragment1);
@@ -73,6 +74,7 @@ public class WeeklyReportActivity extends BaseActivity {
                 return fragments.size();
             }
         });
+        circleIndicator.setViewPager(viewpage);
         getData();
 
     }

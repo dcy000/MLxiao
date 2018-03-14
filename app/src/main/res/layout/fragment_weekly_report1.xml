@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginRight="115pt"
+            android:layout_marginRight="40pt"
             android:layout_marginTop="24pt"
             android:text="120"
             android:textColor="#333"
@@ -46,11 +46,10 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <me.songning.library.CircleView
-                android:layout_width="24pt"
-                android:layout_height="24pt"
-                app:circleColor="#FF5A5A"
-                app:randomColor="false" />
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#F4843E" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,14 +61,14 @@
 
             <com.example.han.referralproject.view.progress.RxRoundProgressBar
                 android:id="@+id/rpb_gao"
-                android:layout_width="130pt"
-                android:layout_height="24pt"
-                android:layout_marginLeft="148pt"
+                android:layout_width="302pt"
+                android:layout_height="48pt"
+                android:layout_marginLeft="36pt"
                 app:rcBackgroundColor="#eee"
                 app:rcMax="100"
                 app:rcProgress="0"
                 app:rcProgressColor="#FF5A5A"
-                app:rcRadius="12pt"
+                app:rcRadius="0pt"
 
                 />
 
@@ -80,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginRight="115pt"
+            android:layout_marginRight="40pt"
             android:layout_marginTop="40pt"
             android:text="80"
             android:textColor="#333"
@@ -89,15 +88,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-20pt"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <me.songning.library.CircleView
-                android:layout_width="24pt"
-                android:layout_height="24pt"
-                app:circleColor="#FED235"
-                app:randomColor="false" />
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#FED235"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -109,14 +106,14 @@
 
             <com.example.han.referralproject.view.progress.RxRoundProgressBar
                 android:id="@+id/rpb_diya"
-                android:layout_width="130pt"
-                android:layout_height="24pt"
-                android:layout_marginLeft="148pt"
+                android:layout_width="302pt"
+                android:layout_height="48pt"
+                android:layout_marginLeft="36pt"
                 app:rcBackgroundColor="#eee"
                 app:rcMax="100"
                 app:rcProgress="0"
                 app:rcProgressColor="#FED235"
-                app:rcRadius="12pt" />
+                app:rcRadius="0pt" />
         </LinearLayout>
 
         <TextView
@@ -165,17 +162,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="40pt"
+            android:layout_marginTop="56pt"
+            android:layout_marginLeft="40pt"
             android:text="本周目标"
-            android:textColor="#666"
-            android:textSize="48pt" />
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:textStyle="bold"/>
         <!--表格1-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="39pt"
             android:layout_marginRight="39pt"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="48pt">
 
             <View
                 android:layout_width="match_parent"
@@ -481,62 +481,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50pt"
-            android:layout_marginTop="30pt"
+            android:layout_marginTop="56pt"
             android:text="完成进度"
-            android:textColor="#999"
-            android:textSize="48pt" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_progress1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40pt"
+            android:text="72%"
+            android:textColor="#333"
+            android:textSize="72pt"
+            android:textStyle="bold"
+            android:layout_gravity="end"
             android:layout_marginRight="40pt"
-            android:layout_marginTop="28pt"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginTop="-16pt"/>
 
-            <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
-                android:id="@+id/rpb_sum"
-                android:layout_width="wrap_content"
-                android:layout_height="40pt"
-                android:layout_weight="1"
-                app:rcBackgroundColor="#eee"
-                app:rcMax="100"
-                app:rcProgress="70"
-                app:rcProgressColor="#5BD78C"
-                app:rcRadius="20pt"
-                app:rcTextProgressMargin="10dp" />
-
-            <TextView
-                android:id="@+id/tv_progress1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8pt"
-                android:text="72%"
-                android:textColor="#333"
-                android:textSize="56pt"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <ScrollView
+        <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
+            android:id="@+id/rpb_sum"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40pt"
+            app:rcBackgroundColor="#eee"
+            app:rcMax="100"
+            app:rcProgress="70"
+            app:rcProgressColor="#5BD78C"
+            app:rcRadius="20pt"
+            app:rcTextProgressMargin="10dp"
+            android:layout_marginTop="16pt"
             android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt">
+            android:layout_marginRight="40pt"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="40pt"-->
+            <!--android:layout_marginRight="40pt">-->
 
-                <TextView
-                    android:id="@+id/tv_advice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28pt"
-                    android:lineSpacingMultiplier="1.2"
-                    android:textColor="#333"
-                    android:textSize="48pt" />
-            </LinearLayout>
-        </ScrollView>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_advice"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="28pt"-->
+                    <!--android:lineSpacingMultiplier="1.2"-->
+                    <!--android:textColor="#333"-->
+                    <!--android:textSize="48pt" />-->
+            <!--</LinearLayout>-->
+        <!--</ScrollView>-->
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
