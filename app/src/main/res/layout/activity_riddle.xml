@@ -116,6 +116,7 @@
         app:layout_constraintVertical_bias="0.00999999" />
 
     <com.example.han.referralproject.tool.wrapview.VoiceLineView
+        android:visibility="gone"
         android:id="@+id/vl_wave"
         android:layout_width="300dp"
         android:layout_height="27dp"

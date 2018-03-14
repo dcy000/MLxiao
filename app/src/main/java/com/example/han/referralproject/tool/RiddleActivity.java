@@ -156,12 +156,12 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         speechRecognizer.startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
-
+                vlWave.waveH = i / 6 + 2;
             }
 
             @Override
             public void onBeginOfSpeech() {
-
+                showWave();
             }
 
             @Override
