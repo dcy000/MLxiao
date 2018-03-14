@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,4 +58,9 @@ public class DateInquireResultActivity extends BaseActivity {
         tvQuestion.setText(anwser);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpeechSynthesizerHelper.stop();
+    }
 }

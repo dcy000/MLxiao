@@ -52,6 +52,7 @@ public class CookBookActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_book);
         ButterKnife.bind(this);
+        speak("主人,欢迎来到菜谱");
     }
 
     @OnClick({R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})

@@ -54,6 +54,7 @@ public class DateInquireActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_inquire);
         ButterKnife.bind(this);
+        speak("主人,欢迎来到日期查询");
     }
 
     @OnClick({R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
@@ -191,5 +192,11 @@ public class DateInquireActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
     }
 }

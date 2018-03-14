@@ -14,6 +14,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.adapter.DreamRVadapter;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -82,4 +83,9 @@ public class JieMengRetultActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpeechSynthesizerHelper.stop();
+    }
 }

@@ -16,6 +16,7 @@ import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -71,7 +72,7 @@ public class JieMengActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jiemeng);
         ButterKnife.bind(this);
-        speak("主人,欢迎来到周公解梦!");
+        speak("主人,欢迎来到周公姐梦!");
     }
 
 
@@ -175,6 +176,7 @@ public class JieMengActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopListening();
+        SpeechSynthesizerHelper.stop();
     }
 
     @OnClick({R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})
@@ -221,5 +223,6 @@ public class JieMengActivity extends BaseActivity {
             }
         }, 1000);
     }
+
 }
 

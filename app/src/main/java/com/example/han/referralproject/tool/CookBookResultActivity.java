@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.tool.adapter.CookBookRVAdapter;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
+import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.cloud.SpeechRecognizer;
 
 import java.io.Serializable;
 import java.util.List;
@@ -39,9 +43,10 @@ public class CookBookResultActivity extends AppCompatActivity {
         data = (List<CookbookBean>) getIntent().getSerializableExtra("data");
         question = getIntent().getStringExtra("question");
         initView();
+        SpeechSynthesizerHelper.startSynthesize(this,question+","+data.get(0).title+","+data.get(0).steps);
     }
 
-    public static void StartMe(Context context, List<CookbookBean> data,String question) {
+    public static void StartMe(Context context, List<CookbookBean> data, String question) {
         Intent intent = new Intent(context, CookBookResultActivity.class);
         intent.putExtra("data", (Serializable) data);
         intent.putExtra("question", question);
@@ -64,5 +69,11 @@ public class CookBookResultActivity extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpeechSynthesizerHelper.stop();
     }
 }

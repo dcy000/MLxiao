@@ -8,12 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.BaiKeBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -30,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BaiKeActivtiy extends AppCompatActivity {
+public class BaiKeActivtiy extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -52,6 +54,7 @@ public class BaiKeActivtiy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_ke_activtiy);
         ButterKnife.bind(this);
+        speak("主人,欢迎来到百科");
     }
 
 
@@ -188,5 +191,12 @@ public class BaiKeActivtiy extends AppCompatActivity {
         }
         return resultBuffer;
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
+        SpeechSynthesizerHelper.stop();
     }
 }

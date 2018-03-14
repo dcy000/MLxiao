@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.wrapview.MixtureTextView;
 import com.example.han.referralproject.tool.xfparsebean.BaiKeBean;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BaikeResultActivity extends AppCompatActivity {
+public class BaikeResultActivity extends BaseActivity {
 
 
     @BindView(R.id.tv_title)
@@ -39,7 +41,7 @@ public class BaikeResultActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         data = (List<BaiKeBean>) getIntent().getSerializableExtra("data");
         initView();
-
+        speak(data.get(0).summary);
     }
 
     private void initView() {
@@ -49,7 +51,7 @@ public class BaikeResultActivity extends AppCompatActivity {
     }
 
 
-    public static void startMe(Context context, List<BaiKeBean> data,String question) {
+    public static void startMe(Context context, List<BaiKeBean> data, String question) {
         Intent intent = new Intent(context, BaikeResultActivity.class);
         intent.putExtra("data", (Serializable) data);
         intent.putExtra("question", question);
@@ -59,5 +61,10 @@ public class BaikeResultActivity extends AppCompatActivity {
     @OnClick(R.id.tv_title)
     public void onViewClicked() {
         finish();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpeechSynthesizerHelper.stop();
     }
 }

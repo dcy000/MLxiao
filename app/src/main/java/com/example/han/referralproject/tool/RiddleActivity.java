@@ -16,6 +16,7 @@ import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.RiddleBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -58,6 +59,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         setContentView(R.layout.activity_riddle);
         ButterKnife.bind(this);
         initData();
+        speak("主人,欢迎来到猜谜");
     }
 
     /**
@@ -82,7 +84,9 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                         data = (List<RiddleBean>) anwser;
                         if (!data.isEmpty()) {
                             size = data.size();
-                            tvQuestion.setText(data.get(0).title);
+                            String title = data.get(0).title;
+                            tvQuestion.setText(title);
+                            SpeechSynthesizerHelper.startSynthesize(getBaseContext(), title);
                         }
                     }
                 });
@@ -118,7 +122,11 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
     private void showNext() {
         index++;
-        tvQuestion.setText(data.get(index % size).title);
+        String title = data.get(index % size).title;
+        tvQuestion.setText(title);
+        SpeechSynthesizerHelper.stop();
+        SpeechSynthesizerHelper.startSynthesize(this, title);
+
     }
 
     private boolean isStart;
@@ -238,5 +246,12 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     @Override
     public void onNext() {
         showNext();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
+        SpeechSynthesizerHelper.stop();
     }
 }

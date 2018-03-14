@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ public class CalculationDialog extends DialogFragment {
     @BindView(R.id.tv_question)
     TextView tvQuestion;
     Unbinder unbinder;
+    private Bundle bundle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,13 +42,16 @@ public class CalculationDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.calculation_dialog, container, false);
         unbinder = ButterKnife.bind(this, view);
-        Bundle bundle = getArguments();
+        bundle = getArguments();
         if (bundle != null) {
             tvQuestion.setText(bundle.getString("question"));
             tvAnwser.setText(bundle.getString("answer"));
         }
+        SpeechSynthesizerHelper.stop();
+        SpeechSynthesizerHelper.startSynthesize(getContext(), bundle.getString("answer"));
         return view;
     }
+
 
     @Override
     public void onDestroyView() {
@@ -57,5 +62,11 @@ public class CalculationDialog extends DialogFragment {
     @OnClick(R.id.tvbutton)
     public void onViewClicked() {
         dismiss();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SpeechSynthesizerHelper.stop();
     }
 }

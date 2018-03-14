@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +37,7 @@ public class RiddleDialog extends DialogFragment {
     @BindView(R.id.constraintLayout)
     ConstraintLayout constraintLayout;
     private ShowNextListener listener;
+    private String answer;
 
     public interface ShowNextListener {
         void onNext();
@@ -58,9 +60,11 @@ public class RiddleDialog extends DialogFragment {
         unbinder = ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            String answer = bundle.getString("answer");
+            answer = bundle.getString("answer");
             tvAnwser.setText(answer);
         }
+        SpeechSynthesizerHelper.stop();
+        SpeechSynthesizerHelper.startSynthesize(getContext(),"答案是"+answer);
         return view;
     }
 
