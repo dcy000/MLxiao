@@ -39,7 +39,7 @@
             android:layout_marginTop="25dp"
             android:text="5÷2等于多少？"
             android:textColor="#FF678CFF"
-            android:textSize="32dp"
+            android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo4"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo4" />
 
@@ -111,7 +111,7 @@
             android:layout_marginTop="25dp"
             android:text="45与53的差是多少？"
             android:textColor="#FF678CFF"
-            android:textSize="32dp"
+            android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo2"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo2" />
 
