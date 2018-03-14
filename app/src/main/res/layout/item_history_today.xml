@@ -41,28 +41,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
-        <com.example.han.referralproject.tool.wrapview.ExpandableTextView
+        <com.hymane.expandtextview.ExpandTextView
             android:id="@+id/expandableTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#FF333333"
-                android:textSize="28sp" />
+            app:expandHint="点击展开"
+            app:foldHint="点击收回"
+            app:contentTextSize="28sp"
+            android:orientation="vertical"/>
 
-            <TextView
-                android:id="@+id/tv_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:text="点击展开更多"
-                android:textColor="#FF666666"
-                android:textSize="28sp" />
-        </com.example.han.referralproject.tool.wrapview.ExpandableTextView>
+
 
         <com.example.han.referralproject.tool.wrapview.MixtureTextView
             android:id="@+id/mt_result"

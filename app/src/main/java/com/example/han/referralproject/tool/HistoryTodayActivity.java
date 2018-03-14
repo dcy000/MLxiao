@@ -43,52 +43,52 @@ public class HistoryTodayActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        String[] question = {"历史上的今天发生了什么", "历史上的今天有什么大事", "今天的历史性事件有哪些"};
-        XFSkillApi.getSkillData(question[new Random().nextInt(3)], new XFSkillApi.getDataListener() {
-            @Override
-            public void onSuccess(Object anwser, String briefly) {
+//        String[] question = {"历史上的今天发生了什么", "历史上的今天有什么大事", "今天的历史性事件有哪些"};
+//        XFSkillApi.getSkillData(question[new Random().nextInt(3)], new XFSkillApi.getDataListener() {
+//            @Override
+//            public void onSuccess(Object anwser, String briefly) {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(Object anwser) {
+//                final List<HistoryTodayBean> resultData = (List<HistoryTodayBean>) anwser;
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (!resultData.isEmpty()) {
+//                            data.addAll(resultData);
+//                            adapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                });
+//            }
+//        });
 
-            }
-
-            @Override
-            public void onSuccess(Object anwser) {
-                final List<HistoryTodayBean> resultData = (List<HistoryTodayBean>) anwser;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!resultData.isEmpty()) {
-                            data.addAll(resultData);
-                            adapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-            }
-        });
-
-        //假数据
-//        for (int i = 0; i <10 ; i++) {
-//            HistoryTodayBean bean=new HistoryTodayBean();
-//            bean.description="哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
-//                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
-//                    "哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候" +
-//                    "哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
-//                    "时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈" +
-//                    "哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
-//                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈" +
-//                    "哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
-//                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈哈哈时" +
-//                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
-//                    "时候时候候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈哈" +
-//                    "哈时候哈哈时候哈哈时候哈哈时候哈哈" +
-//                    "时候哈哈时候哈哈时候哈哈时候时候候哈哈时候哈哈时候哈哈" +
-//                    "时候哈哈时候哈哈时候哈哈哈哈时候哈哈时候哈哈时候哈哈时" +
-//                    "候哈哈时候哈哈时候哈哈时候哈哈时候时候";
-//            bean.title="sdf";
-//            bean.imgs=new ArrayList<>();
-//            bean.imgs.add("http://a0.att.hudong.com/32/26/20300542501236139721267074877_140.jpg");
-//            data.add(bean);
-//        }
-//        adapter.notifyDataSetChanged();
+//        假数据
+        for (int i = 0; i <10 ; i++) {
+            HistoryTodayBean bean=new HistoryTodayBean();
+            bean.description="哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
+                    "哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候" +
+                    "哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+                    "时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈" +
+                    "哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
+                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈" +
+                    "哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
+                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈哈哈时" +
+                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+                    "时候时候候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈哈" +
+                    "哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+                    "时候哈哈时候哈哈时候哈哈时候时候候哈哈时候哈哈时候哈哈" +
+                    "时候哈哈时候哈哈时候哈哈哈哈时候哈哈时候哈哈时候哈哈时" +
+                    "候哈哈时候哈哈时候哈哈时候哈哈时候时候";
+            bean.title="sdf";
+            bean.imgs=new ArrayList<>();
+            bean.imgs.add("http://a0.att.hudong.com/32/26/20300542501236139721267074877_140.jpg");
+            data.add(bean);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void initView() {

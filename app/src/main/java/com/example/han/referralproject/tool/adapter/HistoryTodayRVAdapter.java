@@ -11,6 +11,8 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.tool.wrapview.ExpandableTextView;
 import com.example.han.referralproject.tool.wrapview.MixtureTextView;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
+import com.hymane.expandtextview.ExpandTextView;
+import com.hymane.expandtextview.OnReadMoreClickListener;
 
 import java.util.List;
 
@@ -25,37 +27,55 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
 
     @Override
     protected void convert(final BaseViewHolder holder, final HistoryTodayBean bean) {
-        holder.setText(R.id.tv_content, bean.description);
+//        holder.setText(R.id.tv_content, bean.description);
         holder.setText(R.id.tv_title, bean.title);
-        final ExpandableTextView close = holder.getView(R.id.expandableTextView);
-        final MixtureTextView open = holder.getView(R.id.mt_result);
-        open.setText(bean.description);
-        ImageView openImg = holder.getView(R.id.img_pic);
-        if (!bean.imgs.isEmpty()) {
-            Glide.with(openImg.getContext()).load(bean.imgs.get(0)).into(openImg);
-        }
-        close.isOpen = bean.flag;
-        if (bean.flag) {
-            close.setVisibility(View.GONE);
-            open.setVisibility(View.VISIBLE);
-        } else {
-            close.setVisibility(View.VISIBLE);
-            open.setVisibility(View.GONE);
-        }
+//        final ExpandableTextView close = holder.getView(R.id.expandableTextView);
+//        final MixtureTextView open = holder.getView(R.id.mt_result);
+//        open.setText(bean.description);
+//        ImageView openImg = holder.getView(R.id.img_pic);
+//        if (!bean.imgs.isEmpty()) {
+//            Glide.with(openImg.getContext()).load(bean.imgs.get(0)).into(openImg);
+//        }
+//        close.isOpen = bean.flag;
+//        if (bean.flag) {
+//            close.setVisibility(View.GONE);
+//            open.setVisibility(View.VISIBLE);
+//        } else {
+//            close.setVisibility(View.VISIBLE);
+//            open.setVisibility(View.GONE);
+//        }
+//
+//        close.setClickListner(new ExpandableTextView.ClickListner() {
+//            @Override
+//            public void onclick(boolean isOpen) {
+//                getData().get(holder.getPosition()).flag = isOpen;
+//                if (isOpen) {
+//                    close.setVisibility(View.GONE);
+//                    open.setVisibility(View.VISIBLE);
+//                } else {
+//                    close.setVisibility(View.VISIBLE);
+//                    open.setVisibility(View.VISIBLE);
+//                }
+//
+//            }
+//        });
 
-        close.setClickListner(new ExpandableTextView.ClickListner() {
+        holder.setText(R.id.tv_content, bean.description);
+        ExpandTextView expandTextView = holder.getView(R.id.expandableTextView);
+        expandTextView.flag=bean.flag;
+        expandTextView.performClick();
+
+        expandTextView.setOnReadMoreListener(new OnReadMoreClickListener() {
             @Override
-            public void onclick(boolean isOpen) {
-                getData().get(holder.getPosition()).flag = isOpen;
-                if (isOpen) {
-                    close.setVisibility(View.GONE);
-                    open.setVisibility(View.VISIBLE);
-                } else {
-                    close.setVisibility(View.VISIBLE);
-                    open.setVisibility(View.VISIBLE);
-                }
+            public void onExpand() {
+                getData().get(holder.getPosition()).flag = true;
+            }
 
+            @Override
+            public void onFold() {
+                getData().get(holder.getPosition()).flag = false;
             }
         });
+
     }
 }
