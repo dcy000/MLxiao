@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.tool.adapter.HistoryTodayRVAdapter;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HistoryTodayActivity extends AppCompatActivity {
+public class HistoryTodayActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -39,7 +41,9 @@ public class HistoryTodayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history_today);
         ButterKnife.bind(this);
         initView();
+        speak("主人,欢迎来到历史的今天");
         initData();
+
     }
 
     private void initData() {
@@ -66,9 +70,9 @@ public class HistoryTodayActivity extends AppCompatActivity {
 //        });
 
 //        假数据
-        for (int i = 0; i <10 ; i++) {
-            HistoryTodayBean bean=new HistoryTodayBean();
-            bean.description="哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+        for (int i = 0; i < 10; i++) {
+            HistoryTodayBean bean = new HistoryTodayBean();
+            bean.description = "哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
                     "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
                     "哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候" +
                     "哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
@@ -83,8 +87,8 @@ public class HistoryTodayActivity extends AppCompatActivity {
                     "时候哈哈时候哈哈时候哈哈时候时候候哈哈时候哈哈时候哈哈" +
                     "时候哈哈时候哈哈时候哈哈哈哈时候哈哈时候哈哈时候哈哈时" +
                     "候哈哈时候哈哈时候哈哈时候哈哈时候时候";
-            bean.title="sdf";
-            bean.imgs=new ArrayList<>();
+            bean.title = "sdf";
+            bean.imgs = new ArrayList<>();
             bean.imgs.add("http://a0.att.hudong.com/32/26/20300542501236139721267074877_140.jpg");
             data.add(bean);
         }
@@ -99,5 +103,12 @@ public class HistoryTodayActivity extends AppCompatActivity {
         rvHistoryEvent.setLayoutManager(layout);
         adapter = new HistoryTodayRVAdapter(R.layout.item_history_today, data);
         rvHistoryEvent.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
+        SpeechSynthesizerHelper.stop();
     }
 }

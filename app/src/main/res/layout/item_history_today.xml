@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             app:expandHint="点击展开"
             app:foldHint="点击收回"
+
             app:contentTextSize="28sp"
             android:orientation="vertical"/>
 
