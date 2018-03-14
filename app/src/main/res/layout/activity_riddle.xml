@@ -75,6 +75,7 @@
             android:id="@+id/tv_press_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="请按下回答"
@@ -116,11 +117,10 @@
         app:layout_constraintVertical_bias="0.00999999" />
 
     <com.example.han.referralproject.tool.wrapview.VoiceLineView
-        android:visibility="gone"
         android:id="@+id/vl_wave"
         android:layout_width="300dp"
         android:layout_height="27dp"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
