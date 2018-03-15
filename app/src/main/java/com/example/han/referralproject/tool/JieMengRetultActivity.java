@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.adapter.DreamRVadapter;
@@ -69,6 +70,13 @@ public class JieMengRetultActivity extends BaseActivity {
         rvDreamResult.setLayoutManager(layout);
         adapter = new DreamRVadapter(R.layout.item_dream, data);
         rvDreamResult.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                SpeechSynthesizerHelper.stop();
+                SpeechSynthesizerHelper.startSynthesize(view.getContext(),"梦见"+data.get(i).name+","+data.get(i).content);
+            }
+        });
 
         //标题,寓意
         tvDreamTitle.setText(question);
