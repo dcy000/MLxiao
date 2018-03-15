@@ -59,7 +59,16 @@ public class CalculationActivity extends BaseActivity {
         setContentView(R.layout.activity_calculation);
         ButterKnife.bind(this);
         speak("主人,欢迎来到计算");
+        initEvent();
+    }
 
+    private void initEvent() {
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

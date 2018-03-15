@@ -48,6 +48,8 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     VoiceLineView vlWave;
     @BindView(R.id.tv_press_notice)
     TextView tvPressNotice;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private int index;
     private List<RiddleBean> data;
@@ -60,6 +62,16 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         ButterKnife.bind(this);
         initData();
         speak("主人,欢迎来到猜谜");
+        initEvent();
+    }
+
+    private void initEvent() {
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     /**

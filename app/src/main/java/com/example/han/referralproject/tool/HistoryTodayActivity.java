@@ -43,8 +43,18 @@ public class HistoryTodayActivity extends BaseActivity {
         initView();
         speak("主人,欢迎来到历史的今天");
         initData();
-
+        initEvent();
     }
+
+    private void initEvent() {
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
 
     private void initData() {
         String[] question = {/*"历史上的今天发生了什么",*/ "历史上的今天有什么大事"/*, "今天的历史性事件有哪些"*/};
@@ -64,7 +74,7 @@ public class HistoryTodayActivity extends BaseActivity {
                             data.addAll(resultData);
                             adapter.notifyDataSetChanged();
                             speak(data.get(0).description);
-                        }else{
+                        } else {
                             speak("主人,我还不知道历史上的今天发生了什么事,我得去学习一下");
                         }
                     }

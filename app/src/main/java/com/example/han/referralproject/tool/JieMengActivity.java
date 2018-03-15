@@ -73,6 +73,16 @@ public class JieMengActivity extends BaseActivity {
         setContentView(R.layout.activity_jiemeng);
         ButterKnife.bind(this);
         speak("主人,欢迎来到周公姐梦!");
+        initEvent();
+    }
+
+    private void initEvent() {
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

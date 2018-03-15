@@ -55,6 +55,16 @@ public class BaiKeActivtiy extends BaseActivity {
         setContentView(R.layout.activity_bai_ke_activtiy);
         ButterKnife.bind(this);
         speak("主人,欢迎来到百科");
+        initEvent();
+    }
+
+    private void initEvent() {
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
