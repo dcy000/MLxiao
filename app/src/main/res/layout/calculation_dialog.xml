@@ -32,17 +32,33 @@
         app:layout_constraintTop_toBottomOf="@+id/tvbutton">
 
         <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="8dp"
+            android:text="等于"
+            android:textColor="#FF999999"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_anwser"
+            app:layout_constraintEnd_toStartOf="@+id/tv_anwser"
+            app:layout_constraintTop_toTopOf="@+id/tv_anwser" />
+
+        <TextView
             android:id="@+id/tv_anwser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="40dp"
             android:background="@color/white"
             android:text="TextView"
-            android:textSize="28sp"
+            android:textColor="#FF3F86FC"
+            android:textSize="80sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_question" />
 
