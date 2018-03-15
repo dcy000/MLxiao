@@ -120,6 +120,7 @@
         android:id="@+id/vl_wave"
         android:layout_width="300dp"
         android:layout_height="27dp"
+        android:visibility="gone"
         android:layout_marginBottom="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
