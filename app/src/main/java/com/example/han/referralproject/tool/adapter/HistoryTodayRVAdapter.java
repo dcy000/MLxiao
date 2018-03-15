@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.tool.wrapview.ExpandableTextView;
 import com.example.han.referralproject.tool.wrapview.MixtureTextView;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.hymane.expandtextview.ExpandTextView;
 import com.hymane.expandtextview.OnReadMoreClickListener;
 
@@ -61,7 +62,7 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
 //        });
 
         holder.setText(R.id.tv_content, bean.description);
-        ExpandTextView expandTextView = holder.getView(R.id.expandableTextView);
+        final ExpandTextView expandTextView = holder.getView(R.id.expandableTextView);
         expandTextView.flag = !bean.flag;
         expandTextView.expandWithNoAnimation();
         expandTextView.flag = bean.flag;
@@ -69,14 +70,21 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
         expandTextView.setOnReadMoreListener(new OnReadMoreClickListener() {
             @Override
             public void onExpand() {
-                getData().get(holder.getPosition()).flag = true;
+                HistoryTodayBean bean = getData().get(holder.getPosition());
+                bean.flag = true;
+                SpeechSynthesizerHelper.stop();
+                SpeechSynthesizerHelper.startSynthesize(expandTextView.getContext(),bean.description);
             }
 
             @Override
             public void onFold() {
                 getData().get(holder.getPosition()).flag = false;
+                SpeechSynthesizerHelper.stop();
             }
         });
+
+        //
+
 
     }
 }
