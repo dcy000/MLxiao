@@ -45,7 +45,7 @@ public class CalculationDialog extends DialogFragment {
         bundle = getArguments();
         if (bundle != null) {
             tvQuestion.setText(bundle.getString("question"));
-            tvAnwser.setText(bundle.getString("answer"));
+            tvAnwser.setText(bundle.getString("answer").substring(2));
         }
         SpeechSynthesizerHelper.stop();
         SpeechSynthesizerHelper.startSynthesize(getContext(), bundle.getString("answer"));

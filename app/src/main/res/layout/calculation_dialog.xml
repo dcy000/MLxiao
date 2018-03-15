@@ -35,15 +35,13 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="8dp"
             android:text="等于"
             android:textColor="#FF999999"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_anwser"
-            app:layout_constraintEnd_toStartOf="@+id/tv_anwser"
-            app:layout_constraintTop_toTopOf="@+id/tv_anwser" />
+            app:layout_constraintEnd_toStartOf="@+id/tv_anwser" />
 
         <TextView
             android:id="@+id/tv_anwser"
