@@ -34,7 +34,7 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
     public static final int DEFAULT_TITLE_TEXT_COLOR = 0X8A000000;
     public static final int DEFAULT_CONTENT_TEXT_COLOR = 0XDE000000;
     public static final int DEFAULT_HINT_TEXT_COLOR = 0XDE000000;
-    public static final int DEFAULT_MIN_LINES = 4;
+    public static final int DEFAULT_MIN_LINES = 3;
     public static final int DEFAULT_TITLE_TEXT_SIZE = 16;
     public static final int DEFAULT_CONTENT_TEXT_SIZE = 14;
     public static final int DEFAULT_HINT_TEXT_SIZE = 28;
