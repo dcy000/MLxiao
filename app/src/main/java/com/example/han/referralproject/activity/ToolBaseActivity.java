@@ -23,8 +23,10 @@ public abstract class ToolBaseActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tool);
+        initView();
     }
+
+    protected abstract void initView();
 
     public void dealData(RecognizerResult recognizerResult, boolean isLast) {
         StringBuffer stringBuffer = printResult(recognizerResult);
@@ -56,5 +58,6 @@ public abstract class ToolBaseActivity extends BaseActivity {
         return resultBuffer;
 
     }
+
 
 }
