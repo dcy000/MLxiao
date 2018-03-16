@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
@@ -115,6 +116,13 @@ public class HistoryTodayActivity extends BaseActivity {
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         rvHistoryEvent.setLayoutManager(layout);
         adapter = new HistoryTodayRVAdapter(R.layout.item_history_today, data);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                SpeechSynthesizerHelper.stop();
+                SpeechSynthesizerHelper.startSynthesize(view.getContext(),"事件"+data.get(i).title+","+data.get(i).description);
+            }
+        });
         rvHistoryEvent.setAdapter(adapter);
     }
 
