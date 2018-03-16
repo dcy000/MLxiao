@@ -4,21 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.EventType;
 import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
+import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.UpdateAppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingActivity extends BaseActivity implements ClearCacheOrResetDialog.OnDialogClickListener {
+public class SettingActivity extends BaseActivity implements ClearCacheOrResetDialog.OnDialogClickListener, UpDateDialog.OnDialogClickListener {
     @BindView(R.id.rl_voice_set)
     RelativeLayout rlVoiceSet;
     @BindView(R.id.rl_wifi_set)
@@ -31,6 +36,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     RelativeLayout rlAbout;
     @BindView(R.id.rl_reset)
     RelativeLayout rlReset;
+
+    public String upDateUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,36 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 break;
             case R.id.rl_update:
                 //检测更新
+                showLoadingDialog("检查更新中");
+                NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
+                    @Override
+                    public void onSuccess(VersionInfoBean response) {
+                        SettingActivity.this.upDateUrl=response.url;
+                        hideLoadingDialog();
+                        try {
+                            if (response != null && response.vid > getPackageManager().getPackageInfo(SettingActivity.this.getPackageName(), 0).versionCode) {
+//                                new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
+                                UpDateDialog upDateDialog = new UpDateDialog();
+                                upDateDialog.setListener(SettingActivity.this);
+                                upDateDialog.show(getFragmentManager(), "updatedialog");
+
+                            } else {
+                                speak("当前已经是最新版本了");
+                                Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        hideLoadingDialog();
+                        speak("当前已经是最新版本了");
+                        Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
                 break;
             case R.id.rl_about:
@@ -93,5 +130,12 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         } else if (type.getValue().equals(EventType.clearCache.getValue())) {
 
         }
+    }
+
+    @Override
+    public void onUpdateClick(UpDateDialog dialog) {
+        dialog.dismiss();
+        UpdateAppManager manager=new UpdateAppManager(this);
+        manager. showDownloadDialog(this.upDateUrl);
     }
 }
