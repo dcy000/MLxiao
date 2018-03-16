@@ -553,22 +553,54 @@
             <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".tool.DateInquireActivity" />
-        <activity android:name=".tool.CookBookActivity" />
-        <activity android:name=".tool.CookBookResultActivity" />
-        <activity android:name=".tool.JieMengRetultActivity" />
-        <activity android:name=".tool.DateInquireResultActivity" />
-        <activity android:name=".tool.BaiKeActivtiy" />
-        <activity android:name=".tool.BaikeResultActivity" />
-        <activity android:name=".tool.CalculationActivity" />
-        <activity android:name=".tool.RiddleActivity" />
-        <activity android:name=".tool.HistoryTodayActivity" />
-        <activity android:name=".settting.activity.SettingActivity" />
-        <activity android:name=".settting.activity.VoiceSettingActivity" />
-        <activity android:name=".settting.activity.AboutActivity" />
-        <activity android:name=".activity.Tool" />
-        <activity android:name=".personal.PersonDetailActivity" />
-        <activity android:name=".tool.ToolsActivity"></activity>
+        <activity
+            android:name=".tool.DateInquireActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.CookBookActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.CookBookResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.JieMengRetultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.DateInquireResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.BaiKeActivtiy"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.BaikeResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.CalculationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.RiddleActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.HistoryTodayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.SettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.VoiceSettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.AboutActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.Tool"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".personal.PersonDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tool.ToolsActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
