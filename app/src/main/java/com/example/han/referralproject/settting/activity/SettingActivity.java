@@ -17,6 +17,7 @@ import com.example.han.referralproject.settting.EventType;
 import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
 import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.UpdateAppManager;
 
 import butterknife.BindView;
@@ -85,7 +86,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
 
                             } else {
                                 speak("当前已经是最新版本了");
-                                Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                                ToastUtil.showShort(mContext,"当前已经是最新版本了");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -96,7 +97,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                     public void onFailed(String message) {
                         hideLoadingDialog();
                         speak("当前已经是最新版本了");
-                        Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                        ToastUtil.showShort(mContext,"当前已经是最新版本了");
                     }
                 });
 
@@ -128,6 +129,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (type.getValue().equals(EventType.clearCache.getValue())) {
+            //清理缓存
 
         }
     }

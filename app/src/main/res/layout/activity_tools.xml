@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="历史上的今天"
+                    android:text="历史今天"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
@@ -71,7 +71,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -97,7 +97,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -123,7 +123,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -149,7 +149,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
