@@ -147,7 +147,6 @@ public class JieMengActivity extends ToolBaseActivity {
     public void getData(String s) {
         getDreamData(s);
     }
-
     private void getDreamData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override

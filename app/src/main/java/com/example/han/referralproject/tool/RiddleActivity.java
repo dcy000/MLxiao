@@ -236,11 +236,12 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 String answerPinYin = PinYinUtils.converterToSpell(answer);
                 if (answerPinYin.contains(resultPinYin)) {
                     speak("答对了!,您答对了");
+                    return;
                 }
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("答对了!,您答对了");
                 } else {
-                    speak("主人,您再猜一下哦!");
+                    speak("主人,您再猜一下!");
                 }
             }
 
