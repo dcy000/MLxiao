@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.ToolBaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
@@ -29,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CookBookActivity extends BaseActivity {
+public class CookBookActivity extends ToolBaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -50,11 +51,16 @@ public class CookBookActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initView() {
         setContentView(R.layout.activity_cook_book);
         ButterKnife.bind(this);
         speak("主人,欢迎来到菜谱");
         initEvent();
     }
+
     private void initEvent() {
         tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,33 +178,8 @@ public class CookBookActivity extends BaseActivity {
         mainHandler.removeCallbacksAndMessages(null);
     }
 
-    private void dealData(RecognizerResult recognizerResult, boolean isLast) {
-        StringBuffer stringBuffer = printResult(recognizerResult);
-        if (isLast) {
-            getDateData(stringBuffer.toString());
-        }
-    }
-
-
-    private HashMap<String, String> xfResult = new LinkedHashMap<>();
-
-    private StringBuffer printResult(RecognizerResult results) {
-        String text = JsonParser.parseIatResult(results.getResultString());
-        String sn = null;
-        // 读取json结果中的sn字段
-        try {
-            JSONObject resultJson = new JSONObject(results.getResultString());
-            sn = resultJson.optString("sn");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        xfResult.put(sn, text);
-
-        StringBuffer resultBuffer = new StringBuffer();
-        for (String key : xfResult.keySet()) {
-            resultBuffer.append(xfResult.get(key));
-        }
-        return resultBuffer;
-
+    @Override
+    public void getData(String s) {
+        getDateData(s);
     }
 }
