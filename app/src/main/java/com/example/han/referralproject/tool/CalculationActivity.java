@@ -96,6 +96,7 @@ public class CalculationActivity extends BaseActivity {
                 getDreamData(demo3);
                 break;
             case R.id.iv_yuyin:
+                onEndOfSpeech();
                 startListener();
                 break;
         }
@@ -171,12 +172,8 @@ public class CalculationActivity extends BaseActivity {
 
             @Override
             public void onEndOfSpeech() {
-                vlWave.setVisibility(View.GONE);
+                CalculationActivity.this.onEndOfSpeech();
                 textView4.setVisibility(View.VISIBLE);
-                vlWave.stopRecord();
-                isStart = false;
-                recordTotalTime = 0;
-                mainHandler.removeCallbacksAndMessages(null);
             }
 
             @Override
@@ -194,6 +191,14 @@ public class CalculationActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void onEndOfSpeech() {
+        vlWave.setVisibility(View.GONE);
+        vlWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
     }
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {

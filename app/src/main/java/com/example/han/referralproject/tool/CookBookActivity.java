@@ -78,6 +78,7 @@ public class CookBookActivity extends BaseActivity {
                 getDateData(tvDemo2.getText().toString().trim());
                 break;
             case R.id.iv_yuyin:
+                onEndOfSpeech();
                 startListener();
                 break;
         }
@@ -142,12 +143,8 @@ public class CookBookActivity extends BaseActivity {
 
             @Override
             public void onEndOfSpeech() {
-                vlWave.setVisibility(View.GONE);
+                CookBookActivity.this.onEndOfSpeech();
                 textView4.setVisibility(View.VISIBLE);
-                vlWave.stopRecord();
-                isStart = false;
-                recordTotalTime = 0;
-                mainHandler.removeCallbacksAndMessages(null);
             }
 
             @Override
@@ -165,6 +162,14 @@ public class CookBookActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void onEndOfSpeech() {
+        vlWave.setVisibility(View.GONE);
+        vlWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
     }
 
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {

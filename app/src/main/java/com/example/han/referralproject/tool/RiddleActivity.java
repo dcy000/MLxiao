@@ -10,11 +10,13 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.tool.dialog.RiddleDialog;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.RiddleBean;
+import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
@@ -117,6 +119,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 showNext();
                 break;
             case R.id.iv_yuyin:
+                endOfSpeech();
                 startListener();
                 break;
 
@@ -124,6 +127,10 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     }
 
     private void showAnswer() {
+        if (data == null || data.size() == 0) {
+            ToastUtil.showShort(this, "主人,网络异常,请稍后重试");
+            return;
+        }
         RiddleDialog riddleDialog = new RiddleDialog();
         Bundle bundle = new Bundle();
         bundle.putString("answer", data.get(index % size).answer);
@@ -186,12 +193,8 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
             @Override
             public void onEndOfSpeech() {
-                vlWave.setVisibility(View.GONE);
+                endOfSpeech();
                 tvPressNotice.setVisibility(View.VISIBLE);
-                vlWave.stopRecord();
-                isStart = false;
-                recordTotalTime = 0;
-                mainHandler.removeCallbacksAndMessages(null);
             }
 
             @Override
@@ -211,6 +214,16 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         });
     }
 
+    private void endOfSpeech() {
+        stopListening();
+        vlWave.setVisibility(View.GONE);
+
+        vlWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
+    }
+
     private void dealData(RecognizerResult recognizerResult, boolean isLast) {
         StringBuffer stringBuffer = printResult(recognizerResult);
         String result = stringBuffer.toString();
@@ -224,14 +237,21 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
             if (!data.isEmpty()) {
                 String answer = data.get(index % size).answer;
+                String resultPinYin = PinYinUtils.converterToSpell(result);
+                String answerPinYin = PinYinUtils.converterToSpell(answer);
+                if (answerPinYin.contains(resultPinYin)) {
+                    speak("答对了!,您答对了");
+                }
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("答对了!,您答对了");
                 } else {
                     speak("主人,您再猜一下哦!");
                 }
             }
+
         }
     }
+
 
     private HashMap<String, String> xfResult = new LinkedHashMap<>();
 

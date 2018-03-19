@@ -83,6 +83,7 @@ public class DateInquireActivity extends BaseActivity {
                 break;
             case R.id.iv_yuyin:
                 //语音识别-->请求数据-->解析返回结果
+                onEndOfSpeech();
                 startListener();
                 break;
         }
@@ -106,12 +107,9 @@ public class DateInquireActivity extends BaseActivity {
 
             @Override
             public void onEndOfSpeech() {
-                vlWave.setVisibility(View.GONE);
+                DateInquireActivity.this.onEndOfSpeech();
                 textView4.setVisibility(View.VISIBLE);
-                vlWave.stopRecord();
-                isStart = false;
-                recordTotalTime = 0;
-                mainHandler.removeCallbacksAndMessages(null);
+
             }
 
             @Override
@@ -130,6 +128,14 @@ public class DateInquireActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void onEndOfSpeech() {
+        vlWave.setVisibility(View.GONE);
+        vlWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
     }
 
     private void showWave() {
@@ -202,11 +208,11 @@ public class DateInquireActivity extends BaseActivity {
                         if (count == 0) {
                             tvNotice.setText(((String) briefly).substring(3));
                         }
-                        count++;
                         //跳转页面显示结果
                         if (count > 0) {
                             DateInquireResultActivity.startMe(DateInquireActivity.this, result, (String) briefly);
                         }
+                        count++;
                     }
                 });
             }

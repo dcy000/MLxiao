@@ -107,12 +107,8 @@ public class JieMengActivity extends ToolBaseActivity {
 
             @Override
             public void onEndOfSpeech() {
-                vlWave.setVisibility(View.GONE);
+                JieMengActivity.this.onEndOfSpeech();
                 textView4.setVisibility(View.VISIBLE);
-                vlWave.stopRecord();
-                isStart = false;
-                recordTotalTime = 0;
-                mainHandler.removeCallbacksAndMessages(null);
             }
 
             @Override
@@ -130,6 +126,14 @@ public class JieMengActivity extends ToolBaseActivity {
 
             }
         });
+    }
+
+    private void onEndOfSpeech() {
+        vlWave.setVisibility(View.GONE);
+        vlWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
     }
 
 
@@ -189,8 +193,8 @@ public class JieMengActivity extends ToolBaseActivity {
                 getDreamData(demo3);
                 break;
             case R.id.iv_yuyin:
+                onEndOfSpeech();
                 startListener();
-//                showWave();
                 break;
 
         }
