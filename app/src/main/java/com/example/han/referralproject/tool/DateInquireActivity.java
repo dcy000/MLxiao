@@ -48,6 +48,7 @@ public class DateInquireActivity extends BaseActivity {
     VoiceLineView vlWave;
     @BindView(R.id.textView4)
     TextView textView4;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class DateInquireActivity extends BaseActivity {
         ButterKnife.bind(this);
         speak("主人,欢迎来到日期查询");
         initEvent();
+        getDateData(tvDemo1.getText().toString().trim());
     }
 
     private void initEvent() {
@@ -197,9 +199,14 @@ public class DateInquireActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        tvNotice.setText((String) briefly);
+                        if (count == 0) {
+                            tvNotice.setText(((String) briefly).substring(3));
+                        }
+                        count++;
                         //跳转页面显示结果
-                        DateInquireResultActivity.startMe(DateInquireActivity.this, result, (String) briefly);
+                        if (count > 0) {
+                            DateInquireResultActivity.startMe(DateInquireActivity.this, result, (String) briefly);
+                        }
                     }
                 });
             }
