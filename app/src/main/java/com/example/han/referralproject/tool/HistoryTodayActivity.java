@@ -67,7 +67,7 @@ public class HistoryTodayActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (resultData != null && !resultData.isEmpty()) {
+                        if (resultData != null && resultData.size()!=0) {
                             data.addAll(resultData);
                             adapter.notifyDataSetChanged();
                             speak(data.get(0).description);
