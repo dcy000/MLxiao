@@ -110,7 +110,7 @@ public class HistoryTodayActivity extends BaseActivity {
     }
 
     private void initView() {
-        String date = Utils.getDateToString(System.currentTimeMillis(), "MM月dd");
+        String date = Utils.getDateToString(System.currentTimeMillis(), "MM月dd日");
         tvDate.setText(date);
         LinearLayoutManager layout = new LinearLayoutManager(this);
         layout.setOrientation(LinearLayoutManager.VERTICAL);
