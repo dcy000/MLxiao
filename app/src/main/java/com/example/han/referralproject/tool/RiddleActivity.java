@@ -85,18 +85,12 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
         XFSkillApi.getSkillData(miti[random.nextInt(2)], new XFSkillApi.getDataListener() {
 
-            @Override
-            public void onSuccess(Object anwser, String briefly) {
-
-            }
-
-            @Override
-            public void onSuccess(final Object anwser) {
+            public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         data = (List<RiddleBean>) anwser;
-                        if (!data.isEmpty()) {
+                        if (data != null && !data.isEmpty()) {
                             size = data.size();
                             String title = data.get(0).title;
                             tvQuestion.setText(title);
@@ -119,6 +113,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 showNext();
                 break;
             case R.id.iv_yuyin:
+                SpeechSynthesizerHelper.stop();
                 endOfSpeech();
                 startListener();
                 break;

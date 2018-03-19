@@ -49,16 +49,23 @@ public class XFSkillApi {
     public static OkHttpClient client;
     private static JSONObject xfContentData;
     private static String service;
+    private static JSONObject answer;
+    private static String question;
+    private static String anwserText;
 
     /**
      * 成功的回调借口
      */
     public interface getDataListener {
         //有result结果
-        void onSuccess(Object anwser, String briefly);
 
-        //直接anwser
-        void onSuccess(Object anwser);
+        /**
+         * @param data     result data
+         * @param anwser   anwser text   可能没有
+         * @param service  service      可能没有
+         * @param question 问题
+         */
+        void onSuccess(Object data, String anwser, String service, String question);
     }
 
     /**
@@ -90,26 +97,30 @@ public class XFSkillApi {
                         String code = XFDataObj.getString("code");
                         if (code.equals("00000")) {
                             xfContentData = XFDataObj.getJSONObject("data");
+                            question = xfContentData.getString("text");
                             if (xfContentData == null) {
                                 return;
                             }
                             try {
                                 service = xfContentData.getString("service");
                                 //直接回答anwser
-                                JSONObject answer = xfContentData.getJSONObject("answer");
+                                answer = xfContentData.getJSONObject("answer");
+                                anwserText = answer.getString("text");
                                 if (answer != null) {
                                     if (listener != null) {
                                         if ("datetime".equals(service)
                                                 || "calc".equals(service)
                                                 || "AIUI.guessNumber".equals(service)
                                                 ) {
-                                            listener.onSuccess(answer.getString("text"));
+                                            listener.onSuccess(null, anwserText, service, question);
                                             return;
                                         }
                                     }
                                 }
                             } catch (JSONException e) {
-                                e.printStackTrace();
+                                //没有service  anwser的情况
+                                listener.onSuccess(null, "", "", question);
+                                return;
                             }
 
 
@@ -127,7 +138,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<WeatherBean>>() {
                                         }.getType();
                                         List<WeatherBean> weatherBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(weatherBeans);
+                                        listener.onSuccess(weatherBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -137,7 +148,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<CookbookBean>>() {
                                         }.getType();
                                         List<CookbookBean> cookBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(cookBeans);
+                                        listener.onSuccess(cookBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -146,7 +157,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<DreamBean>>() {
                                         }.getType();
                                         List<DreamBean> dreamBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(dreamBeans, xfContentData.getJSONObject("answer").getString("text"));
+                                        listener.onSuccess(dreamBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -155,7 +166,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<BaiKeBean>>() {
                                         }.getType();
                                         List<BaiKeBean> baikeBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(baikeBeans);
+                                        listener.onSuccess(baikeBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -164,7 +175,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<TranslationBean>>() {
                                         }.getType();
                                         List<TranslationBean> translationBeanBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(translationBeanBeans);
+                                        listener.onSuccess(translationBeanBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -173,7 +184,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<RiddleBean>>() {
                                         }.getType();
                                         List<RiddleBean> riddleBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(riddleBeans);
+                                        listener.onSuccess(riddleBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -182,7 +193,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<WordFindingBean>>() {
                                         }.getType();
                                         List<WordFindingBean> findingBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(findingBeans);
+                                        listener.onSuccess(findingBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -191,7 +202,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<IdiomBean>>() {
                                         }.getType();
                                         List<IdiomBean> idiomBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(idiomBeans);
+                                        listener.onSuccess(idiomBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -200,7 +211,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<HolidayBean>>() {
                                         }.getType();
                                         List<HolidayBean> holidayBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(holidayBeans);
+                                        listener.onSuccess(holidayBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -236,7 +247,7 @@ public class XFSkillApi {
                                             chineseZodiacBeans.add(chineseZodiacBean);
                                         }
 
-                                        listener.onSuccess(chineseZodiacBeans);
+                                        listener.onSuccess(chineseZodiacBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -246,7 +257,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<WebsearchBean>>() {
                                         }.getType();
                                         List<WebsearchBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(chineseZodiacBeans);
+                                        listener.onSuccess(chineseZodiacBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -255,7 +266,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<HistoryTodayBean>>() {
                                         }.getType();
                                         List<HistoryTodayBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(chineseZodiacBeans);
+                                        listener.onSuccess(chineseZodiacBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -265,7 +276,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<HistoryBean>>() {
                                         }.getType();
                                         List<HistoryBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(chineseZodiacBeans);
+                                        listener.onSuccess(chineseZodiacBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -275,7 +286,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<CrossTalkBean>>() {
                                         }.getType();
                                         List<CrossTalkBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(chineseZodiacBeans);
+                                        listener.onSuccess(chineseZodiacBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -285,7 +296,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<StoryTellingBean>>() {
                                         }.getType();
                                         List<StoryTellingBean> chineseZodiacBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(chineseZodiacBeans);
+                                        listener.onSuccess(chineseZodiacBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -295,7 +306,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<SpeechBean>>() {
                                         }.getType();
                                         List<SpeechBean> speechBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(speechBeans);
+                                        listener.onSuccess(speechBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -305,7 +316,7 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<OpenClassBean>>() {
                                         }.getType();
                                         List<OpenClassBean> openClassBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(openClassBeans);
+                                        listener.onSuccess(openClassBeans, anwserText, service, question);
                                     }
                                 }
 
@@ -316,13 +327,13 @@ public class XFSkillApi {
                                         Type type = new TypeToken<List<HealthBean>>() {
                                         }.getType();
                                         List<HealthBean> healthBeans = gson.fromJson(result.toString(), type);
-                                        listener.onSuccess(healthBeans);
+                                        listener.onSuccess(healthBeans, anwserText, service, question);
                                     }
                                 }
 
 
                             } catch (JSONException e) {
-                                e.printStackTrace();
+                                listener.onSuccess(null, "", "", question);
                             }
                         }
                     } catch (JSONException e) {

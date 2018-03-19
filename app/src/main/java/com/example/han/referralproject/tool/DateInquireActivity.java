@@ -15,6 +15,7 @@ import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -88,6 +89,7 @@ public class DateInquireActivity extends ToolBaseActivity {
                 break;
             case R.id.iv_yuyin:
                 //语音识别-->请求数据-->解析返回结果
+                SpeechSynthesizerHelper.stop();
                 onEndOfSpeech();
                 startListener();
                 break;
@@ -176,12 +178,13 @@ public class DateInquireActivity extends ToolBaseActivity {
 
     private void getDateData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
-            @Override
-            public void onSuccess(final Object anwser, final String briefly) {
-            }
 
             @Override
-            public void onSuccess(final Object briefly) {
+            public void onSuccess(Object anwser, final String briefly, String service, String question) {
+                if (!"datetime".equals(service)) {
+                    speak("主人,没有查到该日期");
+                    return;
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

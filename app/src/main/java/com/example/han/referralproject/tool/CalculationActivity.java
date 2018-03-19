@@ -14,6 +14,7 @@ import com.example.han.referralproject.tool.dialog.CalculationDialog;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
+import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
@@ -96,6 +97,7 @@ public class CalculationActivity extends BaseActivity {
                 getDreamData(demo3);
                 break;
             case R.id.iv_yuyin:
+                SpeechSynthesizerHelper.stop();
                 onEndOfSpeech();
                 startListener();
                 break;
@@ -104,20 +106,32 @@ public class CalculationActivity extends BaseActivity {
 
     private void getDreamData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
-            @Override
-            public void onSuccess(final Object anwser, final String briefly) {
+//            @Override
+//            public void onSuccess(final Object anwser, final String briefly) {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ToastUtil.showShort(CalculationActivity.this,(String) anwser);
+//                        speak((String) anwser);
+//                    }
+//                });
+//
+//            }
 
-            }
-
             @Override
-            public void onSuccess(final Object anwser) {
+            public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
+                if (!"calc".equals(service)) {
+//                    ToastUtil.showShort(CalculationActivity.this, "主人,我不会算" + question);
+                    speak("主人,我不会算了");
+                    return;
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         CalculationDialog calculationDialog = new CalculationDialog();
                         Bundle bundle = new Bundle();
                         bundle.putString("question", result);
-                        bundle.putString("answer", (String) anwser);
+                        bundle.putString("answer",anwserText);
                         calculationDialog.setArguments(bundle);
                         calculationDialog.show(getSupportFragmentManager(), "calculation");
                     }

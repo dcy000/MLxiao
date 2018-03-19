@@ -151,20 +151,18 @@ public class JieMengActivity extends ToolBaseActivity {
     private void getDreamData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override
-            public void onSuccess(final Object anwser, final String briefly) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        data.clear();
-                        data.addAll((List<DreamBean>) anwser);
-                        JieMengRetultActivity.startMe(JieMengActivity.this, data, result, briefly);
-                    }
-                });
-            }
-
-            @Override
-            public void onSuccess(Object anwser) {
-
+            public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
+                if (!"dream".equals(service)) {
+                    speak("主人,这个梦我还不会解了");
+                    return;
+                }
+                try {
+                    data.clear();
+                    data.addAll((List<DreamBean>) anwser);
+                    JieMengRetultActivity.startMe(JieMengActivity.this, data, result, anwserText);
+                } catch (Exception e) {
+                    speak("主人,这个梦我还不会解了");
+                }
             }
         });
     }
@@ -193,6 +191,7 @@ public class JieMengActivity extends ToolBaseActivity {
                 getDreamData(demo3);
                 break;
             case R.id.iv_yuyin:
+                SpeechSynthesizerHelper.stop();
                 onEndOfSpeech();
                 startListener();
                 break;

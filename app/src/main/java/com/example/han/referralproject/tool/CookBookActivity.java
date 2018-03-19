@@ -15,6 +15,7 @@ import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -84,6 +85,7 @@ public class CookBookActivity extends ToolBaseActivity {
                 getDateData(tvDemo2.getText().toString().trim());
                 break;
             case R.id.iv_yuyin:
+                SpeechSynthesizerHelper.stop();
                 onEndOfSpeech();
                 startListener();
                 break;
@@ -94,13 +96,16 @@ public class CookBookActivity extends ToolBaseActivity {
     private void getDateData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override
-            public void onSuccess(final Object anwser, final String briefly) {
-
-            }
-
-            @Override
-            public void onSuccess(final Object briefly) {
-                CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) briefly, result);
+            public void onSuccess(final Object anwser, final String anwserText, String service,String question) {
+                if (!"cookbook".equals(service)) {
+                    speak("主人,没有找到该菜谱");
+                    return;
+                }
+                try {
+                    CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) anwser, result);
+                } catch (Exception e) {
+                    speak("主人,没有找到该菜谱");
+                }
             }
         });
     }

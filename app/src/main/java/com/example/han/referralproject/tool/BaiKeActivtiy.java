@@ -89,6 +89,7 @@ public class BaiKeActivtiy extends ToolBaseActivity {
                 getDreamData(demo3);
                 break;
             case R.id.iv_yuyin:
+                SpeechSynthesizerHelper.stop();
                 onEndOfSpeech();
                 startListener();
                 break;
@@ -177,15 +178,19 @@ public class BaiKeActivtiy extends ToolBaseActivity {
 
     private void getDreamData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
-            @Override
-            public void onSuccess(final Object anwser, final String briefly) {
-
-            }
 
             @Override
-            public void onSuccess(Object anwser) {
-                List<BaiKeBean> data = (List<BaiKeBean>) anwser;
-                BaikeResultActivity.startMe(BaiKeActivtiy.this, data, result);
+            public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
+                if (!"datetime".equals(service)) {
+                    speak("主人,没有找到" + result);
+                    return;
+                }
+                try {
+                    List<BaiKeBean> data = (List<BaiKeBean>) anwser;
+                    BaikeResultActivity.startMe(BaiKeActivtiy.this, data, result);
+                } catch (Exception e) {
+                    speak("主人,没有找到" + result);
+                }
             }
         });
     }

@@ -58,15 +58,11 @@ public class HistoryTodayActivity extends BaseActivity {
 
 
     private void initData() {
-        String[] question = {/*"历史上的今天发生了什么",*/ "历史上的今天有什么大事"/*, "今天的历史性事件有哪些"*/};
+        String[] question = {"历史上的今天发生了什么", "历史上的今天有什么大事", "今天的历史性事件有哪些"};
         XFSkillApi.getSkillData(question[new Random().nextInt(1)], new XFSkillApi.getDataListener() {
-            @Override
-            public void onSuccess(Object anwser, String briefly) {
-
-            }
 
             @Override
-            public void onSuccess(Object anwser) {
+            public void onSuccess(Object anwser, final String anwserText, String service, String question) {
                 final List<HistoryTodayBean> resultData = (List<HistoryTodayBean>) anwser;
                 runOnUiThread(new Runnable() {
                     @Override
@@ -120,7 +116,7 @@ public class HistoryTodayActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 SpeechSynthesizerHelper.stop();
-                SpeechSynthesizerHelper.startSynthesize(view.getContext(),"事件"+data.get(i).title+","+data.get(i).description);
+                SpeechSynthesizerHelper.startSynthesize(view.getContext(), "事件" + data.get(i).title + "," + data.get(i).description);
             }
         });
         rvHistoryEvent.setAdapter(adapter);
