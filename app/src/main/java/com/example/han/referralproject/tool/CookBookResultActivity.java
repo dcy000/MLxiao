@@ -61,7 +61,7 @@ public class CookBookResultActivity extends AppCompatActivity {
         rv.setAdapter(new CookBookRVAdapter(R.layout.cook_item, data));
     }
 
-    @OnClick({R.id.tv_title})
+    @OnClick({R.id.tv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back:
