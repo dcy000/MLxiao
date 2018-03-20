@@ -417,17 +417,20 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
             animationDuration = DEFAULT_ANIMATION_DURATION;
         }
         final ViewGroup.LayoutParams layoutParams = mContentView.getLayoutParams();
-        ValueAnimator animator = ValueAnimator.ofInt(startHeight, targetHeight);
-        animator.setDuration(1);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                layoutParams.height = (int) animation.getAnimatedValue();
-                mContentView.setLayoutParams(layoutParams);
-            }
-        });
-        animator.start();
+//        ValueAnimator animator = ValueAnimator.ofInt(startHeight, targetHeight);
+//        animator.setDuration(1);
+//        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                layoutParams.height = (int) animation.getAnimatedValue();
+//                mContentView.setLayoutParams(layoutParams);
+//            }
+//        });
+//        animator.start();
+
+        layoutParams.height = targetHeight;
+        mContentView.setLayoutParams(layoutParams);
     }
 
 }

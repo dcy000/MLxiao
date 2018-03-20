@@ -107,7 +107,7 @@ public class JieMengRetultActivity extends BaseActivity {
     }
 
     private void addImageSpan() {
-        SpannableString spanString = new SpannableString("    "+answer);
+        SpannableString spanString = new SpannableString("   "+answer);
         Drawable d = getResources().getDrawable(R.drawable.span_bg_yuyi);
         d.setBounds(0, 0, 110, 64);
         ImageSpan span = new CenterAlignImageSpan(d);
