@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.tool.JieMengRetultActivity">
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_dream_result"
         android:layout_width="0dp"
@@ -64,16 +65,33 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:text="周公解梦"
-        android:textSize="36sp"
-        android:textColor="@color/white"
-        android:background="@drawable/bg_title_bar"
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="66dp"
+        android:background="@drawable/bg_title_bar"
         android:gravity="center"
+        android:text="周公解梦"
+        android:textColor="@color/white"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/icon_back"
+        android:drawablePadding="12dp"
+        android:gravity="center"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
 </android.support.constraint.ConstraintLayout>

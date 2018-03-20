@@ -3,7 +3,6 @@ package com.example.han.referralproject.tool;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +22,8 @@ public class DateInquireResultActivity extends BaseActivity {
     TextView tvQuestion;
     @BindView(R.id.tv_anwser)
     TextView tvAnwser;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
     private Intent intent;
 
     public static void startMe(Context context, String quesiton, String anwser) {
@@ -44,7 +45,7 @@ public class DateInquireResultActivity extends BaseActivity {
     }
 
     private void initEvent() {
-        tvTitle.setOnClickListener(new View.OnClickListener() {
+        tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

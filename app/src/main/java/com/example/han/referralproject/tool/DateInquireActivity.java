@@ -8,9 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.ToolBaseActivity;
-import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
@@ -19,12 +17,6 @@ import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +42,8 @@ public class DateInquireActivity extends ToolBaseActivity {
     VoiceLineView vlWave;
     @BindView(R.id.textView4)
     TextView textView4;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
     private int count = 0;
 
     @Override
@@ -67,7 +61,7 @@ public class DateInquireActivity extends ToolBaseActivity {
     }
 
     private void initEvent() {
-        tvTitle.setOnClickListener(new View.OnClickListener() {
+        tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

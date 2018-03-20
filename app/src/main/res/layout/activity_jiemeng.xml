@@ -6,31 +6,50 @@
     android:layout_height="match_parent">
 
     <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="66dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent">-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="66dp"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_title"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="64dp"-->
-            <!--android:background="@drawable/bg_title_bar"-->
-            <!--android:gravity="center"-->
-            <!--android:text="周公解梦"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="36sp" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv_title"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="64dp"-->
+    <!--android:background="@drawable/bg_title_bar"-->
+    <!--android:gravity="center"-->
+    <!--android:text="周公解梦"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="36sp" />-->
     <!--</android.support.v7.widget.CardView>-->
+
+
     <TextView
-    android:id="@+id/tv_title"
-    android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:background="@drawable/bg_title_bar"
-    android:gravity="center"
-    android:text="周公解梦"
-    android:textColor="@color/white"
-    android:textSize="36sp" />
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/bg_title_bar"
+        android:gravity="center"
+        android:text="周公解梦"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:drawableLeft="@drawable/icon_back"
+        android:drawablePadding="12dp"
+        android:gravity="center"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
 
     <android.support.constraint.ConstraintLayout

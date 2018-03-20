@@ -37,6 +37,8 @@ public class JieMengRetultActivity extends BaseActivity {
     TextView tvDreamYuyi;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
 
     private List<DreamBean> data = new ArrayList<>();
     private DreamRVadapter adapter;
@@ -59,7 +61,7 @@ public class JieMengRetultActivity extends BaseActivity {
     }
 
     private void initEvent() {
-        tvTitle.setOnClickListener(new View.OnClickListener() {
+        tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -102,7 +104,7 @@ public class JieMengRetultActivity extends BaseActivity {
     }
 
     private void addImageSpan() {
-        SpannableString spanString = new SpannableString("   "+answer);
+        SpannableString spanString = new SpannableString("   " + answer);
         Drawable d = getResources().getDrawable(R.drawable.span_bg_yuyi);
         d.setBounds(0, 0, 106, 64);
         ImageSpan span = new CenterAlignImageSpan(d);

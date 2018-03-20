@@ -1,8 +1,6 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.tool.adapter.HistoryTodayRVAdapter;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
@@ -33,6 +30,8 @@ public class HistoryTodayActivity extends BaseActivity {
     TextView tvDate;
     @BindView(R.id.tv_history_event)
     RecyclerView rvHistoryEvent;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
     private List<HistoryTodayBean> data = new ArrayList<>();
     private HistoryTodayRVAdapter adapter;
 
@@ -48,7 +47,7 @@ public class HistoryTodayActivity extends BaseActivity {
     }
 
     private void initEvent() {
-        tvTitle.setOnClickListener(new View.OnClickListener() {
+        tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -67,7 +66,7 @@ public class HistoryTodayActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (resultData != null && resultData.size()!=0) {
+                        if (resultData != null && resultData.size() != 0) {
                             data.addAll(resultData);
                             adapter.notifyDataSetChanged();
                             speak(data.get(0).description);

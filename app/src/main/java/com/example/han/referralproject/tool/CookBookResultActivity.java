@@ -6,16 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.tool.adapter.CookBookRVAdapter;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
-import com.iflytek.cloud.SpeechRecognizer;
 
 import java.io.Serializable;
 import java.util.List;
@@ -32,6 +29,8 @@ public class CookBookResultActivity extends AppCompatActivity {
     TextView tvQuestion;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
     private List<CookbookBean> data;
     private String question;
 
@@ -43,7 +42,7 @@ public class CookBookResultActivity extends AppCompatActivity {
         data = (List<CookbookBean>) getIntent().getSerializableExtra("data");
         question = getIntent().getStringExtra("question");
         initView();
-        SpeechSynthesizerHelper.startSynthesize(this,question+","+data.get(0).title+","+data.get(0).steps);
+        SpeechSynthesizerHelper.startSynthesize(this, question + "," + data.get(0).title + "," + data.get(0).steps);
     }
 
     public static void StartMe(Context context, List<CookbookBean> data, String question) {
@@ -62,10 +61,10 @@ public class CookBookResultActivity extends AppCompatActivity {
         rv.setAdapter(new CookBookRVAdapter(R.layout.cook_item, data));
     }
 
-    @OnClick({ R.id.tv_title})
+    @OnClick({R.id.tv_title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_title:
+            case R.id.tv_back:
                 finish();
                 break;
         }

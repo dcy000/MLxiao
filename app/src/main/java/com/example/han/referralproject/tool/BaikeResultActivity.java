@@ -3,7 +3,6 @@ package com.example.han.referralproject.tool;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +31,8 @@ public class BaikeResultActivity extends BaseActivity {
     ImageView imgPic;
     @BindView(R.id.mt_result)
     MixtureTextView mtResult;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
     private List<BaiKeBean> data;
 
     @Override
@@ -58,10 +59,11 @@ public class BaikeResultActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @OnClick(R.id.tv_title)
+    @OnClick(R.id.tv_back)
     public void onViewClicked() {
         finish();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

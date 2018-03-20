@@ -1,6 +1,5 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tool.dialog.RiddleDialog;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
@@ -25,7 +22,6 @@ import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,6 +51,8 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     TextView tvPressNotice;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
 
     private int index;
     private List<RiddleBean> data;
@@ -71,7 +69,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     }
 
     private void initEvent() {
-        tvTitle.setOnClickListener(new View.OnClickListener() {
+        tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

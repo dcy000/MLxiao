@@ -2,7 +2,7 @@ package com.example.han.referralproject.tool;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +14,6 @@ import com.example.han.referralproject.tool.dialog.CalculationDialog;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
-import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
@@ -53,6 +52,10 @@ public class CalculationActivity extends BaseActivity {
     TextView textView4;
     @BindView(R.id.vl_wave)
     VoiceLineView vlWave;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
+    @BindView(R.id.cl_start)
+    ConstraintLayout clStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class CalculationActivity extends BaseActivity {
     }
 
     private void initEvent() {
-        tvTitle.setOnClickListener(new View.OnClickListener() {
+        tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -131,7 +134,7 @@ public class CalculationActivity extends BaseActivity {
                         CalculationDialog calculationDialog = new CalculationDialog();
                         Bundle bundle = new Bundle();
                         bundle.putString("question", result);
-                        bundle.putString("answer",anwserText);
+                        bundle.putString("answer", anwserText);
                         calculationDialog.setArguments(bundle);
                         calculationDialog.show(getSupportFragmentManager(), "calculation");
                     }

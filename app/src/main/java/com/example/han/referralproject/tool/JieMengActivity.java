@@ -1,21 +1,14 @@
 package com.example.han.referralproject.tool;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.constraint.ConstraintLayout;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.ToolBaseActivity;
-import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
@@ -27,15 +20,8 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +50,8 @@ public class JieMengActivity extends ToolBaseActivity {
     ConstraintLayout clStart;
     @BindView(R.id.vl_wave)
     VoiceLineView vlWave;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
 
 
     private boolean isStart;
@@ -87,7 +75,7 @@ public class JieMengActivity extends ToolBaseActivity {
     }
 
     private void initEvent() {
-        tvTitle.setOnClickListener(new View.OnClickListener() {
+        tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -151,6 +139,7 @@ public class JieMengActivity extends ToolBaseActivity {
     public void getData(String s) {
         getDreamData(s);
     }
+
     private void getDreamData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
             @Override
