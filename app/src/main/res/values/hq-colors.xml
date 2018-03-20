@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="hq_common_color">#1dc549</color>
+
+    <color name="hq_common_toolbar_bg">@color/hq_common_color</color>
+    <color name="hq_health_testing_tv_item_bg">@color/hq_common_color</color>
+    <color name="hq_health_record_tab_bg">@color/hq_common_color</color>
+</resources>

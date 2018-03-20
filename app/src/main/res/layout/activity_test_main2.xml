@@ -44,7 +44,7 @@
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:background="@drawable/test_text_bg_xueya"
+                android:background="@drawable/hq_health_testing_tv_item_bg"
                 android:gravity="center"
                 android:padding="8dp"
                 />
@@ -78,7 +78,7 @@
                 android:padding="8dp"
                 android:textColor="@color/white"
                 android:gravity="center"
-                android:background="@drawable/test_text_bg_xueyang"/>
+                android:background="@drawable/hq_health_testing_tv_item_bg"/>
         </LinearLayout>
 
         <LinearLayout
@@ -109,7 +109,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/test_text_bg_tiwen"/>
+                android:background="@drawable/hq_health_testing_tv_item_bg"/>
         </LinearLayout>
 
         <LinearLayout
@@ -140,7 +140,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/test_text_bg_xuetang"/>
+                android:background="@drawable/hq_health_testing_tv_item_bg"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
@@ -182,7 +182,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/test_text_bg_xindian"/>
+                android:background="@drawable/hq_health_testing_tv_item_bg"/>
         </LinearLayout>
 
         <LinearLayout
@@ -213,7 +213,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/test_text_bg_tizhong"/>
+                android:background="@drawable/hq_health_testing_tv_item_bg"/>
         </LinearLayout>
 
         <LinearLayout
@@ -244,7 +244,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/test_text_bg_snahe"/>
+                android:background="@drawable/hq_health_testing_tv_item_bg"/>
         </LinearLayout>
 
         <LinearLayout

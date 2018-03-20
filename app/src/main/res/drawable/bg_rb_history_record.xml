@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:color="@color/toolbar_bg">
+    <item android:state_checked="true" android:color="@color/hq_health_record_tab_bg">
         <shape>
             <solid android:color="@color/main_bg"/>
         </shape>

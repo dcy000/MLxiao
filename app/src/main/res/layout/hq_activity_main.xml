@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hq_main_bg">
+
+    <ImageView
+        android:id="@+id/hq_main_iv_personal_center"
+        android:layout_width="598pt"
+        android:layout_height="500pt"
+        android:layout_marginLeft="40pt"
+        android:layout_marginTop="70pt"
+        android:src="@drawable/hq_main_ic_personal_center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/hq_main_iv_health_testing"
+        android:layout_width="598pt"
+        android:layout_height="500pt"
+        android:layout_marginBottom="70px"
+        android:layout_marginLeft="40pt"
+        android:src="@drawable/hq_main_ic_health_testing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ImageView
+        android:id="@+id/hq_main_iv_guidance_registration"
+        android:layout_width="584pt"
+        android:layout_height="670pt"
+        android:layout_marginTop="70px"
+        android:src="@drawable/hq_main_ic_guidance_registration"
+        app:layout_constraintLeft_toRightOf="@+id/hq_main_iv_personal_center"
+        app:layout_constraintRight_toLeftOf="@+id/hq_main_iv_contract_service"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/hq_main_iv_robot_dialog"
+        android:layout_width="584pt"
+        android:layout_height="334pt"
+        android:layout_marginBottom="70pt"
+        android:src="@drawable/hq_main_ic_robot_dialog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/hq_main_iv_guidance_registration"
+        app:layout_constraintRight_toRightOf="@+id/hq_main_iv_guidance_registration"/>
+
+    <ImageView
+        android:id="@+id/hq_main_iv_contract_service"
+        android:layout_width="598pt"
+        android:layout_height="500pt"
+        android:layout_marginRight="40pt"
+        android:layout_marginTop="70pt"
+        android:src="@drawable/hq_main_ic_contract_service"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/hq_main_iv_health_knowledge"
+        android:layout_width="598pt"
+        android:layout_height="500pt"
+        android:layout_marginBottom="70pt"
+        android:layout_marginRight="40pt"
+        android:src="@drawable/hq_main_ic_health_knowledge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="58pt"
+        android:text="个人中心"
+        android:textColor="#FFFFFF"
+        android:textSize="84pt"
+        app:layout_constraintBottom_toBottomOf="@+id/hq_main_iv_personal_center"
+        app:layout_constraintLeft_toLeftOf="@+id/hq_main_iv_personal_center"
+        app:layout_constraintRight_toRightOf="@+id/hq_main_iv_personal_center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="58pt"
+        android:text="健康检测"
+        android:textColor="#FFFFFF"
+        android:textSize="84pt"
+        app:layout_constraintBottom_toBottomOf="@+id/hq_main_iv_health_testing"
+        app:layout_constraintLeft_toLeftOf="@+id/hq_main_iv_health_testing"
+        app:layout_constraintRight_toRightOf="@+id/hq_main_iv_health_testing"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="74pt"
+        android:layout_marginRight="70pt"
+        android:minLines="2"
+        android:text="@string/hq_main_robot_dialog"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="72pt"
+        app:layout_constraintBottom_toBottomOf="@+id/hq_main_iv_robot_dialog"
+        app:layout_constraintRight_toRightOf="@+id/hq_main_iv_robot_dialog"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="98pt"
+        android:text="导诊挂号"
+        android:textColor="#FFFFFF"
+        android:textSize="84pt"
+        app:layout_constraintBottom_toBottomOf="@+id/hq_main_iv_guidance_registration"
+        app:layout_constraintLeft_toLeftOf="@+id/hq_main_iv_guidance_registration"
+        app:layout_constraintRight_toRightOf="@+id/hq_main_iv_guidance_registration"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="58pt"
+        android:text="签约服务"
+        android:textColor="#FFFFFF"
+        android:textSize="84pt"
+        app:layout_constraintBottom_toBottomOf="@+id/hq_main_iv_contract_service"
+        app:layout_constraintLeft_toLeftOf="@+id/hq_main_iv_contract_service"
+        app:layout_constraintRight_toRightOf="@+id/hq_main_iv_contract_service"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="58pt"
+        android:text="健康常识"
+        android:textColor="#FFFFFF"
+        android:textSize="84pt"
+        app:layout_constraintBottom_toBottomOf="@+id/hq_main_iv_health_knowledge"
+        app:layout_constraintLeft_toLeftOf="@+id/hq_main_iv_health_knowledge"
+        app:layout_constraintRight_toRightOf="@+id/hq_main_iv_health_knowledge"/>
+
+    <FrameLayout
+        android:id="@+id/hq_main_fl_status_bar"
+        android:layout_width="0pt"
+        android:layout_height="70pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</android.support.constraint.ConstraintLayout>

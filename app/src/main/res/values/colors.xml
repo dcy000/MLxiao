@@ -34,7 +34,8 @@
     <color name="line">#eeeeee</color>
     <!--###########################图表配色##################################-->
     <!--节点外圈的颜色-->
-    <color name="node_color">#3F86FC</color>
+    <!--<color name="node_color">#3F86FC</color>-->
+    <color name="node_color">@color/hq_common_color</color>
     <!--走势线的颜色-->
     <color name="line_color">#86B2FF</color>
     <!--在节点上显示文字的颜色-->

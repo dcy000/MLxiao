@@ -7,14 +7,11 @@
             <stroke android:color="#999999" android:width="2px"/>
         </shape>
     </item>
-
     <item android:state_checked="true">
         <shape>
-            <solid android:color="@color/toolbar_bg"/>
+            <solid android:color="@color/hq_health_record_tab_bg"/>
             <corners android:radius="20dp"/>
-            <stroke android:color="@color/toolbar_bg" android:width="2px"/>
+            <stroke android:color="@color/hq_health_record_tab_bg" android:width="2px"/>
         </shape>
     </item>
-
-
 </selector>

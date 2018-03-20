@@ -299,7 +299,7 @@
     <RadioGroup
         android:id="@+id/rg_health_record"
         android:layout_width="180dp"
-        android:layout_height="560dp"
+        android:layout_height="594dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">

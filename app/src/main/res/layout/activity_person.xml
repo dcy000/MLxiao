@@ -400,6 +400,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <ImageView

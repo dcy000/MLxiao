@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
@@ -11,49 +12,33 @@ import com.example.han.referralproject.activity.BaseActivity;
 
 public class PayActivity extends BaseActivity implements View.OnClickListener {
 
-    public Button mButton1;
-    public Button mButton2;
-    public Button mButton3;
-    public Button mButton4;
-    public Button mButton5;
-    public Button mButton6;
-
-    //public ImageView mImageView1;
-    //public ImageView mImageView2;
-
+    private ImageView ivCount50;
+    private ImageView ivCount100;
+    private ImageView ivCount200;
+    private ImageView ivCount500;
+    private ImageView ivCount1000;
+    private ImageView ivCountOther;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pay);
-
+        setContentView(R.layout.hq_activity_pay);
         speak(getString(R.string.chongzhi));
-
         mToolbar.setVisibility(View.VISIBLE);
-
         mTitleText.setText(getString(R.string.pay));
-
-        mButton1 = (Button) findViewById(R.id.pay_1);
-        mButton2 = (Button) findViewById(R.id.pay_2);
-        mButton3 = (Button) findViewById(R.id.pay_3);
-        mButton4 = (Button) findViewById(R.id.pay_4);
-        mButton5 = (Button) findViewById(R.id.pay_5);
-        mButton6 = (Button) findViewById(R.id.pay_6);
-
-       /* mImageView1 = (ImageView) findViewById(R.id.icon_back);
-        mImageView2 = (ImageView) findViewById(R.id.icon_home);
-*/
-        mButton1.setOnClickListener(this);
-        mButton2.setOnClickListener(this);
-        mButton3.setOnClickListener(this);
-        mButton4.setOnClickListener(this);
-        mButton5.setOnClickListener(this);
-        mButton6.setOnClickListener(this);
-
-      /*  mImageView1.setOnClickListener(this);
-        mImageView2.setOnClickListener(this);*/
+        ivCount50 = (ImageView) findViewById(R.id.hq_pay_iv_count_50);
+        ivCount100 = (ImageView) findViewById(R.id.hq_pay_iv_count_100);
+        ivCount200 = (ImageView) findViewById(R.id.hq_pay_iv_count_200);
+        ivCount500 = (ImageView) findViewById(R.id.hq_pay_iv_count_500);
+        ivCount1000 = (ImageView) findViewById(R.id.hq_pay_iv_count_1000);
+        ivCountOther = (ImageView) findViewById(R.id.hq_pay_iv_count_other);
+        ivCount50.setOnClickListener(this);
+        ivCount100.setOnClickListener(this);
+        ivCount200.setOnClickListener(this);
+        ivCount500.setOnClickListener(this);
+        ivCount1000.setOnClickListener(this);
+        ivCountOther.setOnClickListener(this);
     }
-
 
     /**
      * 返回上一页
@@ -74,49 +59,30 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         Intent intent = new Intent(getApplicationContext(), PayInfoActivity.class);
         switch (view.getId()) {
-            case R.id.pay_1:
+            case R.id.hq_pay_iv_count_50:
                 intent.putExtra("number", "5000");
                 startActivity(intent);
                 break;
-            case R.id.pay_2:
+            case R.id.hq_pay_iv_count_100:
                 intent.putExtra("number", "10000");
                 startActivity(intent);
-
                 break;
-            case R.id.pay_3:
+            case R.id.hq_pay_iv_count_200:
                 intent.putExtra("number", "20000");
-
                 startActivity(intent);
-
                 break;
-            case R.id.pay_4:
+            case R.id.hq_pay_iv_count_500:
                 intent.putExtra("number", "50000");
-
                 startActivity(intent);
-
                 break;
-            case R.id.pay_5:
+            case R.id.hq_pay_iv_count_1000:
                 intent.putExtra("number", "100000");
-
                 startActivity(intent);
-
                 break;
-            case R.id.pay_6:
-
-
-                Intent inten = new Intent(getApplicationContext(), DefineActivity.class);
-                startActivity(inten);
-
+            case R.id.hq_pay_iv_count_other:
+                Intent intent1 = new Intent(getApplicationContext(), DefineActivity.class);
+                startActivity(intent1);
                 break;
-           /* case R.id.icon_back:
-                finish();
-                break;
-            case R.id.icon_home:
-                Intent intents = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intents);
-                finish();
-                break;*/
         }
-
     }
 }
