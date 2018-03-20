@@ -1,5 +1,6 @@
 package com.example.han.referralproject.tool;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tool.dialog.RiddleDialog;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
@@ -23,6 +25,7 @@ import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,8 +116,8 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 showNext();
                 break;
             case R.id.iv_yuyin:
-                SpeechSynthesizerHelper.stop();
                 endOfSpeech();
+                SpeechSynthesizerHelper.stop();
                 startListener();
                 break;
 
@@ -199,7 +202,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
             @Override
             public void onError(SpeechError speechError) {
-
+                speak("主人,我没听清,您能再说一遍吗");
             }
 
             @Override
@@ -230,14 +233,35 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 return;
             }
 
+            if (result.equals("下一题") || result.contains("下一题")) {
+                tvShowNext.performClick();
+                return;
+            }
+
+            if (result.equals("显示答案") || result.contains("显示答案") || result.contains("看答案")) {
+                tvShowAnwser.performClick();
+                return;
+            }
+
             if (!data.isEmpty()) {
                 String answer = data.get(index % size).answer;
-                String resultPinYin = PinYinUtils.converterToSpell(result);
-                String answerPinYin = PinYinUtils.converterToSpell(answer);
-                if (answerPinYin.contains(resultPinYin)) {
-                    speak("恭喜主人答对了");
-                    return;
-                }
+//                String resultPinYin = PinYinUtils.converterToSpell(result);
+//                String answerPinYin = PinYinUtils.converterToSpell(answer);
+                //拦截处理 下一题 显示答案
+//                if (resultPinYin.matches(".*(xiayiti|xiayinti|xiayitin).*")) {
+//                    tvShowNext.performClick();
+//                    return;
+//                }
+//
+//                if (resultPinYin.matches(".*(xianshidaan|xiansidaan|xiangshidaan|xiansidaan|xiansidaang).*")) {
+//                    tvShowAnwser.performClick();
+//                    return;
+//                }
+
+//                if (answerPinYin.contains(resultPinYin)) {
+//                    speak("恭喜主人答对了");
+//                    return;
+//                }
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("恭喜主人答对了");
                 } else {
