@@ -2,10 +2,17 @@ package com.example.han.referralproject.tool;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +20,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.adapter.DreamRVadapter;
+import com.example.han.referralproject.tool.wrapview.CenterAlignImageSpan;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
@@ -50,7 +58,7 @@ public class JieMengRetultActivity extends BaseActivity {
         data = (List<DreamBean>) intent.getSerializableExtra("data");
         question = intent.getStringExtra("question");
         answer = intent.getStringExtra("anwser");
-        speak(question+","+answer);
+        speak(question + "," + answer);
         initView();
         initEvent();
     }
@@ -74,20 +82,21 @@ public class JieMengRetultActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 SpeechSynthesizerHelper.stop();
-                SpeechSynthesizerHelper.startSynthesize(view.getContext(),"梦见"+data.get(i).name+","+data.get(i).content);
+                SpeechSynthesizerHelper.startSynthesize(view.getContext(), "梦见" + data.get(i).name + "," + data.get(i).content);
             }
         });
 
         //标题,寓意
         tvDreamTitle.setText(question);
-        tvDreamYuyi.setText(answer);
+//        tvDreamYuyi.setText(answer);
+        addImageSpan();
     }
 
-    public static void startMe(Context context, List<DreamBean> data, String question,String anwser) {
+    public static void startMe(Context context, List<DreamBean> data, String question, String anwser) {
         Intent intent = new Intent(context, JieMengRetultActivity.class);
         intent.putExtra("data", (Serializable) data);
-        intent.putExtra("question",question);
-        intent.putExtra("anwser",anwser);
+        intent.putExtra("question", question);
+        intent.putExtra("anwser", anwser);
         context.startActivity(intent);
     }
 
@@ -96,4 +105,14 @@ public class JieMengRetultActivity extends BaseActivity {
         super.onDestroy();
         SpeechSynthesizerHelper.stop();
     }
+
+    private void addImageSpan() {
+        SpannableString spanString = new SpannableString("    "+answer);
+        Drawable d = getResources().getDrawable(R.drawable.span_bg_yuyi);
+        d.setBounds(0, 0, 110, 64);
+        ImageSpan span = new CenterAlignImageSpan(d);
+        spanString.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvDreamYuyi.append(spanString);
+    }
+
 }

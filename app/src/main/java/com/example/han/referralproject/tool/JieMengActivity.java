@@ -1,9 +1,13 @@
 package com.example.han.referralproject.tool;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -218,6 +222,5 @@ public class JieMengActivity extends ToolBaseActivity {
             }
         }, 1000);
     }
-
 }
 
