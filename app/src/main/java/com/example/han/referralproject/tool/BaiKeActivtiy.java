@@ -181,7 +181,7 @@ public class BaiKeActivtiy extends ToolBaseActivity {
 
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
-                if (!"datetime".equals(service)) {
+                if (!"baike".equals(service)) {
                     speak("主人,没有找到" + result);
                     return;
                 }

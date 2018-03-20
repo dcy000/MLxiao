@@ -2,16 +2,12 @@ package com.example.han.referralproject.tool;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.TextView;
@@ -21,7 +17,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.adapter.DreamRVadapter;
 import com.example.han.referralproject.tool.wrapview.CenterAlignImageSpan;
-import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 
@@ -109,7 +104,7 @@ public class JieMengRetultActivity extends BaseActivity {
     private void addImageSpan() {
         SpannableString spanString = new SpannableString("   "+answer);
         Drawable d = getResources().getDrawable(R.drawable.span_bg_yuyi);
-        d.setBounds(0, 0, 110, 64);
+        d.setBounds(0, 0, 106, 64);
         ImageSpan span = new CenterAlignImageSpan(d);
         spanString.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvDreamYuyi.append(spanString);
