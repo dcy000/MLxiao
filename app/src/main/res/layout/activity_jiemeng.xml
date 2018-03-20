@@ -5,23 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="66dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="66dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:background="@drawable/bg_title_bar"
-            android:gravity="center"
-            android:text="周公解梦"
-            android:textColor="@color/white"
-            android:textSize="36sp" />
-    </android.support.v7.widget.CardView>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_title"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="64dp"-->
+            <!--android:background="@drawable/bg_title_bar"-->
+            <!--android:gravity="center"-->
+            <!--android:text="周公解梦"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="36sp" />-->
+    <!--</android.support.v7.widget.CardView>-->
+    <TextView
+    android:id="@+id/tv_title"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@drawable/bg_title_bar"
+    android:gravity="center"
+    android:text="周公解梦"
+    android:textColor="@color/white"
+    android:textSize="36sp" />
 
 
     <android.support.constraint.ConstraintLayout
