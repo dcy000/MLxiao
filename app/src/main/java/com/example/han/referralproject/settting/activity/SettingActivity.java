@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
@@ -39,6 +38,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     RelativeLayout rlReset;
 
     public String upDateUrl;
+    @BindView(R.id.rl_set_keyword)
+    RelativeLayout rlSetKeyword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         mTitleText.setText("设置");
     }
 
-    @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_about, R.id.rl_reset})
+    @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_voice_set:
@@ -71,37 +72,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 break;
             case R.id.rl_update:
                 //检测更新
-                showLoadingDialog("检查更新中");
-                NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
-                    @Override
-                    public void onSuccess(VersionInfoBean response) {
-                        SettingActivity.this.upDateUrl=response.url;
-                        hideLoadingDialog();
-                        try {
-                            if (response != null && response.vid > getPackageManager().getPackageInfo(SettingActivity.this.getPackageName(), 0).versionCode) {
-//                                new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
-                                UpDateDialog upDateDialog = new UpDateDialog();
-                                upDateDialog.setListener(SettingActivity.this);
-                                upDateDialog.show(getFragmentManager(), "updatedialog");
-
-                            } else {
-                                speak("当前已经是最新版本了");
-                                ToastUtil.showShort(mContext,"当前已经是最新版本了");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        hideLoadingDialog();
-                        speak("当前已经是最新版本了");
-                        ToastUtil.showShort(mContext,"当前已经是最新版本了");
-                    }
-                });
-
-
+                checkAppInfo();
                 break;
             case R.id.rl_about:
                 //关于
@@ -111,7 +82,44 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 //恢复出厂设置
                 showDialog(EventType.reset);
                 break;
+
+            case R.id.rl_set_keyword:
+                //设置关键词
+                startActivity(new Intent(this, SetKeyWordActivity.class));
+                break;
         }
+    }
+
+    private void checkAppInfo() {
+        showLoadingDialog("检查更新中");
+        NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
+            @Override
+            public void onSuccess(VersionInfoBean response) {
+                SettingActivity.this.upDateUrl = response.url;
+                hideLoadingDialog();
+                try {
+                    if (response != null && response.vid > getPackageManager().getPackageInfo(SettingActivity.this.getPackageName(), 0).versionCode) {
+//                                new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
+                        UpDateDialog upDateDialog = new UpDateDialog();
+                        upDateDialog.setListener(SettingActivity.this);
+                        upDateDialog.show(getFragmentManager(), "updatedialog");
+
+                    } else {
+                        speak("当前已经是最新版本了");
+                        ToastUtil.showShort(mContext, "当前已经是最新版本了");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                hideLoadingDialog();
+                speak("当前已经是最新版本了");
+                ToastUtil.showShort(mContext, "当前已经是最新版本了");
+            }
+        });
     }
 
     private void showDialog(EventType type) {
@@ -137,7 +145,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     @Override
     public void onUpdateClick(UpDateDialog dialog) {
         dialog.dismiss();
-        UpdateAppManager manager=new UpdateAppManager(this);
-        manager. showDownloadDialog(this.upDateUrl);
+        UpdateAppManager manager = new UpdateAppManager(this);
+        manager.showDownloadDialog(this.upDateUrl);
     }
 }

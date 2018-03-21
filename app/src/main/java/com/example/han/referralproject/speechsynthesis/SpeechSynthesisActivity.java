@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -49,6 +50,8 @@ import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.settting.SharedPreferencesUtils;
+import com.example.han.referralproject.settting.bean.KeyWordBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
@@ -115,7 +118,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private StringBuffer resultBuffer;
     private RelativeLayout mRelativeLayout;
-//    private AnimationDrawable faceAnim;
+    //    private AnimationDrawable faceAnim;
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -243,8 +246,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-
-
         speak("主人,来和我聊天吧", isDefaultParam);
 
         mHandler.sendEmptyMessageDelayed(1, 3000);
@@ -331,7 +332,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
-
     private void startAnim() {
         mRelativeLayout.post(action);
     }
@@ -390,12 +390,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         }
                         //跳转到音乐播放界面去
                         startActivityForResult(new Intent(SpeechSynthesisActivity.this, MusicPlayActivity.class)
-                                .putExtra("music",music),TO_MUSICPLAY);
+                                .putExtra("music", music), TO_MUSICPLAY);
                     }
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        ToastUtil.showShort(SpeechSynthesisActivity.this,R.string.unable_to_play);
+                        ToastUtil.showShort(SpeechSynthesisActivity.this, R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -639,7 +639,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*gerenzhongxin.*")
-                    ||inSpell.matches(".*gerenshezhi.*")) {
+                    || inSpell.matches(".*gerenshezhi.*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
                 startActivity(intent);
                 return;
@@ -801,6 +801,20 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .putExtra("type", "癫痫"));
             }
 
+            KeyWordBean keyword = (KeyWordBean) SharedPreferencesUtils.getParam(this, "keyword", new KeyWordBean());
+            if (keyword.yueya.equals(resultBuffer.toString())) {
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xueya");
+                startActivity(intent);
+                return;
+            }
+            if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xueya");
+                startActivity(intent);
+            }
 
             if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
                 mIatDialog.dismiss();
@@ -834,7 +848,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             } else if (inSpell.matches(".*ce.*xindian.*")
-                    ||inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
+                    || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
                 startActivity(intent);

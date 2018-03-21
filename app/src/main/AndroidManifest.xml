@@ -600,7 +600,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".tool.ToolsActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".settting.activity.SetKeyWordActivity"></activity>
     </application>
 
 </manifest>
