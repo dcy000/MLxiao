@@ -19,12 +19,12 @@
     </string-array>
 
     <string-array name="voicer_values">
+        <item>xiaoyu</item>
         <item>nannan</item>
-        <!--<item>xiaomei</item>-->
-        <!--<item>nannan</item>-->
-        <!--<item>nannan</item>-->
-        <!--<item>x_xiaorong</item>-->
-        <item>x_xiaokun</item>
+        <item>xiaoyan</item>
+        <item>vixy</item>
+        <item>xiaoqi</item>
+        <item>vils</item>
     </string-array>
 
     <!--<string-array name="voicer_cloud_entries">-->
