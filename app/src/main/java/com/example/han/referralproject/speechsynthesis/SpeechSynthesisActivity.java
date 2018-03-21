@@ -459,7 +459,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
                 break;
             case R.id.tv_normal:
-                SpeechSynthesizerHelper.setDefaultParam();
                 isDefaultParam = true;
                 break;
             case R.id.tv_whine:

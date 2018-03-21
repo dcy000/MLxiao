@@ -47,6 +47,7 @@ public class SetKeyWordActivity extends ToolBaseActivity {
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("设置关键词");
+        speak("主人,请录入您的关键词");
     }
 
     @OnClick(R.id.tv_confirm)
