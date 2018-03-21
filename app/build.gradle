@@ -70,12 +70,11 @@ android {
 
 }
 
-
+def externalAar = rootDir.absolutePath + "/app/libs/mlroot/"
 repositories {
     flatDir {
-        dirs 'libs'
+        dirs 'libs', externalAar
     }
-
 }
 
 dependencies {
@@ -127,6 +126,8 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.5.0'
     compile 'com.nex3z:flow-layout:1.1.0'
     compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
+    compile 'com.zhy:base-rvadapter:3.0.3'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     compile name: 'mlrobot-release', ext: 'aar'
     compile name: 'FaceppIDCardUI', ext: 'aar'
     compile name: 'lib-crash', ext: 'aar'
@@ -152,4 +153,8 @@ dependencies {
     compile 'com.umeng.analytics:analytics:6.1.2'
     compile 'me.songning.CircleView:library:1.0.0'
     compile project(':circleprogress')
+    fileTree(dir: externalAar, include: '*.aar').each { File file ->
+        def name = file.name.split('\\.aa')[0]
+        compile(name: name, ext: 'aar')
+    }
 }
