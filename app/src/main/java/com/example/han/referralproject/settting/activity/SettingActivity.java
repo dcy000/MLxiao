@@ -1,7 +1,9 @@
 package com.example.han.referralproject.settting.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -40,6 +42,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     public String upDateUrl;
     @BindView(R.id.rl_set_keyword)
     RelativeLayout rlSetKeyword;
+    @BindView(R.id.rl_set_voice_name)
+    RelativeLayout rlSetVoiceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         mTitleText.setText("设置");
     }
 
-    @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword})
+    @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update,
+            R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_voice_set:
@@ -87,8 +92,41 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 //设置关键词
                 startActivity(new Intent(this, SetKeyWordActivity.class));
                 break;
+
+            case R.id.rl_set_voice_name:
+                //设置发音人
+                setVoiceName();
+                break;
         }
     }
+
+    private void setVoiceName() {
+        showSetVoiceNameDialog();
+    }
+
+    private void showSetVoiceNameDialog() {
+        final String[] voicers = voicers();
+        int index = mIatPreferences.getInt("language_index", 0);
+        new AlertDialog.Builder(this)
+                .setTitle("设置发音人")
+                .setSingleChoiceItems(
+                        voicers,
+                        index,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mIatPreferences.edit()
+                                        .putString("iat_language_preference", voicers[which])
+                                        .putInt("language_index", which)
+                                        .commit();
+                                dialog.dismiss();
+                            }
+                        }
+                )
+                .create()
+                .show();
+    }
+
 
     private void checkAppInfo() {
         showLoadingDialog("检查更新中");
