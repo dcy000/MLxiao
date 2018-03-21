@@ -16,6 +16,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.formatter.MeasureFormatter;
+import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
@@ -254,7 +255,8 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
                 startActivity(new Intent(this, WeeklyReportActivity.class));
                 break;
             case R.id.health_knowledge:
-                startActivity(new Intent(this, VideoListActivity.class));
+//                startActivity(new Intent(this, VideoListActivity.class));
+                startActivity(new Intent(this, MonthlyReportActivity.class));
                 break;
         }
     }

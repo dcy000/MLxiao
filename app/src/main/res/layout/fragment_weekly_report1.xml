@@ -25,6 +25,7 @@
             android:text="周平均血压"
             android:textSize="56pt"
             android:textStyle="bold"
+            android:textColor="#333"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +37,7 @@
             android:layout_gravity="end"
             android:layout_marginRight="40pt"
             android:layout_marginTop="24pt"
-            android:text="120"
+            android:text=""
             android:textColor="#333"
             android:textSize="48pt" />
 
@@ -81,7 +82,7 @@
             android:layout_gravity="end"
             android:layout_marginRight="40pt"
             android:layout_marginTop="40pt"
-            android:text="80"
+            android:text=""
             android:textColor="#333"
             android:textSize="48pt" />
 
@@ -160,6 +161,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56pt"
@@ -263,7 +265,7 @@
                     android:layout_width="462pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="120"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -278,7 +280,7 @@
                     android:layout_width="462pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="80"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -415,7 +417,7 @@
                     android:layout_width="230pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="6"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -430,7 +432,7 @@
                     android:layout_width="231pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="90"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -445,7 +447,7 @@
                     android:layout_width="230pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="65"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -460,7 +462,7 @@
                     android:layout_width="231pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="100"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -490,7 +492,7 @@
             android:id="@+id/tv_progress1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="72%"
+            android:text=""
             android:textColor="#333"
             android:textSize="72pt"
             android:textStyle="bold"
@@ -504,33 +506,12 @@
             android:layout_height="40pt"
             app:rcBackgroundColor="#eee"
             app:rcMax="100"
-            app:rcProgress="70"
+            app:rcProgress="0"
             app:rcProgressColor="#5BD78C"
             app:rcRadius="20pt"
             app:rcTextProgressMargin="10dp"
             android:layout_marginTop="16pt"
             android:layout_marginLeft="40pt"
             android:layout_marginRight="40pt"/>
-
-        <!--<ScrollView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="40pt"-->
-            <!--android:layout_marginRight="40pt">-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_advice"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="28pt"-->
-                    <!--android:lineSpacingMultiplier="1.2"-->
-                    <!--android:textColor="#333"-->
-                    <!--android:textSize="48pt" />-->
-            <!--</LinearLayout>-->
-        <!--</ScrollView>-->
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

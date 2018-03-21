@@ -77,8 +77,6 @@ public class WeeklyReport3Fragment extends Fragment {
     RxTextRoundProgressBar rpbSum;
     //    @BindView(R.id.tv_progress)
 //    TextView tvProgress;
-    @BindView(R.id.tv_advice)
-    TextView tvAdvice;
     @BindView(R.id.tv_progress3)
     TextView tvProgress3;
     private View view;
@@ -171,7 +169,6 @@ public class WeeklyReport3Fragment extends Fragment {
         tips = "主人，您的生活目标总体完成"
                 + progress_percent + "%。食盐距离目标" + pc_yan + "克，运动距离目标" + pc_yundong +
                 "分钟，体重距离目标" + pc_tizhong + "千克，饮酒距离目标" + pc_yinjiu + "毫升。";
-        tvAdvice.setText(tips);
     }
 
     private void setChart() {

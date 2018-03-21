@@ -13,6 +13,8 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.ToastUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,14 +85,20 @@ public class WeeklyReportActivity extends BaseActivity {
         NetworkApi.getWeekReport(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<WeeklyReport>() {
             @Override
             public void onSuccess(WeeklyReport response) {
-                fragment1.notifyData(response);
-                fragment2.notifyData(response);
-                fragment3.notifyData(response);
+                if (response != null) {
+                    fragment1.notifyData(response);
+                    fragment2.notifyData(response);
+                    fragment3.notifyData(response);
+                    Logger.e("返回测量数据成功" + response);
+                }else{
+                    ToastUtils.show("暂无数据");
+                }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-
+                Logger.e("返回测量数据失败"+message);
+                ToastUtils.show("暂无数据");
             }
         });
     }

@@ -29,7 +29,6 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA"/>
-
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-feature
@@ -552,6 +551,18 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".intelligent_diagnosis.WeeklyReportActivity"
             android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.MonthlyReportActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.DeleteGroupActivity"
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.HOME"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+        </activity>
     </application>
 
 </manifest>

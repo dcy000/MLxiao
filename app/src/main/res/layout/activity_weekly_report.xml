@@ -13,6 +13,10 @@
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/circleIndicator"
         android:layout_width="match_parent"
-        android:layout_height="100pt">
+        android:layout_height="100pt"
+        app:ci_drawable="@drawable/indicator_sel"
+        app:ci_drawable_unselected="@drawable/indicator_unsel"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20pt">
     </me.relex.circleindicator.CircleIndicator>
 </RelativeLayout>

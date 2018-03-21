@@ -506,7 +506,7 @@
                 android:layout_width="340pt"
                 android:layout_height="100pt"
                 android:background="@drawable/measure_result2"
-                android:text="健康知识"
+                android:text="月生活报告"
                 android:textColor="@color/white"
                 android:textSize="48pt"
                 android:gravity="center"

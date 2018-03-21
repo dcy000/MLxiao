@@ -207,6 +207,13 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
+
+//        findViewById(R.id.live_tv).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     @Override

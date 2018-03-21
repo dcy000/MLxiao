@@ -240,29 +240,9 @@ public class AuthenticationActivity extends BaseActivity {
                     ToastTool.showLong("验证不通过!");
                 }
             }
-            //因为在任何一种情况下，该activity最后都被finish，所以释放资源等操作全部提前到该方法中执行。
-            Handlers.bg().post(new Runnable() {
-                @Override
-                public void run() {
-                    if (baos != null) {
-                        try {
-                            baos.close();
-                            baos = null;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    //销毁组
-                    FaceAuthenticationUtils.getInstance(mContext).
-                            deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
-                    FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
-                }
-            });
             finish();
         }
     }
-
-
     /**
      * 支付成功
      */
@@ -330,6 +310,7 @@ public class AuthenticationActivity extends BaseActivity {
                 FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
                     @Override
                     public void onResult(IdentityResult result, boolean islast) {
+                        Logger.e("创建组成功"+result);
                         try {
                             JSONObject resObj = new JSONObject(result.getResultString());
                             groupId = resObj.getString("group_id");
@@ -351,6 +332,7 @@ public class AuthenticationActivity extends BaseActivity {
 
                     @Override
                     public void onError(SpeechError error) {
+                        Logger.e(error,"创建组失败");
                         if (error.getErrorCode() == 10144) {//创建组的数量达到上限
                             ToastTool.showShort("出现技术故障，请致电客服咨询");
                         }
@@ -368,18 +350,18 @@ public class AuthenticationActivity extends BaseActivity {
                 NetworkApi.recordGroup(groupId, xfids[0], new NetworkManager.SuccessCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
-                        NetworkApi.getXfGroupInfo(groupId, xfids[0], new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
-                            @Override
-                            public void onSuccess(ArrayList<XfGroupInfo> response) {
-                                for (XfGroupInfo xfGroupInfo : response) {
-                                    if (xfGroupInfo.gid.equals(groupId)) {
-                                        deleteGroupId = xfGroupInfo.grid;
-                                        break;
-                                    }
-                                }
-                                Handlers.bg().removeCallbacksAndMessages(null);
-                            }
-                        });
+//                        NetworkApi.getXfGroupInfo(groupId, xfids[0], new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
+//                            @Override
+//                            public void onSuccess(ArrayList<XfGroupInfo> response) {
+//                                for (XfGroupInfo xfGroupInfo : response) {
+//                                    if (xfGroupInfo.gid.equals(groupId)) {
+//                                        deleteGroupId = xfGroupInfo.grid;
+//                                        break;
+//                                    }
+//                                }
+//                                Handlers.bg().removeCallbacksAndMessages(null);
+//                            }
+//                        });
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
@@ -825,22 +807,7 @@ public class AuthenticationActivity extends BaseActivity {
         @Override
         public void onResult(IdentityResult result, boolean islast) {
             Handlers.bg().removeCallbacksAndMessages(null);
-//            Handlers.bg().post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    NetworkApi.changeGroupStatus(deleteGroupId, "2", new NetworkManager.SuccessCallback<String>() {
-//                        @Override
-//                        public void onSuccess(String response) {
-//                            Handlers.bg().removeCallbacksAndMessages(null);
-//                        }
-//                    }, new NetworkManager.FailedCallback() {
-//                        @Override
-//                        public void onFailed(String message) {
-//                            Handlers.bg().removeCallbacksAndMessages(null);
-//                        }
-//                    });
-//                }
-//            });
+            Logger.e("销毁组成功"+result.getResultString());
         }
 
         @Override
@@ -849,6 +816,35 @@ public class AuthenticationActivity extends BaseActivity {
 
         @Override
         public void onError(SpeechError error) {
+            Logger.e(error,"销毁组失败");
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        destroyRes();
+    }
+
+    //销毁组
+    private void destroyRes(){
+        //因为在任何一种情况下，该activity最后都被finish，所以释放资源等操作全部提前到该方法中执行。
+        Handlers.bg().post(new Runnable() {
+            @Override
+            public void run() {
+                if (baos != null) {
+                    try {
+                        baos.close();
+                        baos = null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //销毁组
+                FaceAuthenticationUtils.getInstance(mContext).
+                        deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
+                FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
+            }
+        });
+    }
 }

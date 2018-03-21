@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.WeeklyReport;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
 
 import butterknife.BindView;
@@ -24,22 +23,6 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class WeeklyReport2Fragment extends Fragment {
-    @BindView(R.id.sj_gaoya)
-    TextView sjGaoya;
-    @BindView(R.id.rpb_sj_gaoya)
-    RxRoundProgressBar rpbSjGaoya;
-    @BindView(R.id.mb_gaoya)
-    TextView mbGaoya;
-    @BindView(R.id.rpb_mb_gaoya)
-    RxRoundProgressBar rpbMbGaoya;
-    @BindView(R.id.sj_diya)
-    TextView sjDiya;
-    @BindView(R.id.rpb_sj_diya)
-    RxRoundProgressBar rpbSjDiya;
-    @BindView(R.id.mb_diya)
-    TextView mbDiya;
-    @BindView(R.id.rpb_mb_diya)
-    RxRoundProgressBar rpbMbDiya;
     @BindView(R.id.ll_left)
     LinearLayout llLeft;
     @BindView(R.id.tab_mb_gaoya)
@@ -65,11 +48,17 @@ public class WeeklyReport2Fragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.tv_progress2)
     TextView tvProgress2;
-    @BindView(R.id.tv_advice)
-    TextView tvAdvice;
+    @BindView(R.id.view_left)
+    View viewLeft;
+    @BindView(R.id.view_right)
+    View viewRight;
+    @BindView(R.id.tv_left)
+    TextView tvLeft;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
     private View view;
     private WeeklyReport data;
-    private String tips="未初始化";
+    private String tips = "未初始化";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,25 +78,11 @@ public class WeeklyReport2Fragment extends Fragment {
         if (data != null) {
             sj_gaoya = Float.parseFloat(data.gy_avg);
             sj_diya = Float.parseFloat(data.dy_avg);
-            mb_gaoya = 120;
-            mb_diya = 80;
+            mb_gaoya = Float.parseFloat(data.p_gy);
+            mb_diya = Float.parseFloat(data.p_dy);
             pc_gaoya = (int) (sj_gaoya - mb_gaoya);
             pc_diya = (int) (sj_diya - mb_diya);
-            sjGaoya.setText((int) sj_gaoya + "");
-            rpbSjGaoya.setMax(180);
-            rpbSjGaoya.setProgress(sj_gaoya);
 
-            sjDiya.setText((int) sj_diya + "");
-            rpbSjDiya.setMax(100);
-            rpbSjDiya.setProgress(sj_diya);
-
-            mbGaoya.setText("120");
-            rpbMbGaoya.setMax(180);
-            rpbMbGaoya.setProgress(120);
-
-            mbDiya.setText("80");
-            rpbMbDiya.setMax(100);
-            rpbMbDiya.setProgress(80);
 
             tabMbGaoya.setText("<120");
             tabMbDiya.setText("<80");
@@ -117,37 +92,42 @@ public class WeeklyReport2Fragment extends Fragment {
             if (sj_gaoya > mb_gaoya) {
                 imgGaoya.setImageResource(R.drawable.red_up);
                 pcGaoya.setText((pc_gaoya) + "");
+                viewLeft.setBackgroundColor(Color.parseColor("#FF5747"));
             } else {
                 imgGaoya.setVisibility(View.GONE);
                 pcGaoya.setText("达标");
                 pcGaoya.setTextColor(Color.GREEN);
+                viewLeft.setBackgroundColor(Color.parseColor("#49DF84"));
             }
 
             if (sj_diya > mb_diya) {
                 imgDiya.setImageResource(R.drawable.red_up);
                 pcDiya.setText((pc_diya) + "");
+                viewRight.setBackgroundColor(Color.parseColor("#FF5747"));
             } else {
                 imgDiya.setVisibility(View.GONE);
                 pcDiya.setText("达标");
                 pcDiya.setTextColor(Color.GREEN);
+                viewRight.setBackgroundColor(Color.parseColor("#49DF84"));
             }
 
             rpbSum.setMax(100);
             float progress_percent = Float.parseFloat(data.zongw) * 100;
             rpbSum.setProgress(progress_percent);
-            tvProgress2.setText((int)progress_percent+"%");
-            tips="主人，您的高压距离目标"
+            tvProgress2.setText((int) progress_percent + "%");
+            tips = "主人，您的高压距离目标"
                     + pc_gaoya + "毫米汞柱" + ",低压距离目标" + pc_diya + "毫米汞柱。上周整体计划完成"
-                    + (int)progress_percent + "%。请继续根据机器人的指导保持良好的生活习惯，积极锻炼。";
+                    + (int) progress_percent + "%。请继续根据机器人的指导保持良好的生活习惯，积极锻炼。";
 
-            tvAdvice.setText(tips);
         }
     }
-    public static boolean isSpeak=false;
+
+    public static boolean isSpeak = false;
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser&&isSpeak){
-            isSpeak=false;
+        if (isVisibleToUser && isSpeak) {
+            isSpeak = false;
             ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }
