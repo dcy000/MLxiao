@@ -1,14 +1,28 @@
 package com.medlink.danbogh.healthdetection;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -31,7 +45,6 @@ import com.example.han.referralproject.formatter.MyFloatNumFormatter;
 import com.example.han.referralproject.formatter.TimeFormatter;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.ToastTool;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -42,6 +55,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+import com.medlink.danbogh.utils.Handlers;
+import com.ml.zxing.QrCodeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -125,6 +140,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     LineChart tizhongChart;
     @BindView(R.id.rb_record_weight)
     RadioButton rbRecordWeight;
+    @BindView(R.id.tv_record_qrcode)
+    TextView tvRecordQrcode;
 
     private long currentTime = 0L, weekAgoTime = 0L, monthAgoTime, seasonAgoTime = 0L, yearAgoTime = 0L;
     private String temp = "1";//记录选择的标签,默认是1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸，9：心电
@@ -216,6 +233,14 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 Intent intent = new Intent(HealthRecordActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        tvRecordQrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "http://192.168.200.109:8080/ZZB/br/whole_informations?bid=100001&bname=用户二";
+                MyDialogFragment.newInstance(text).show(getSupportFragmentManager(), MyDialogFragment.TAG);
             }
         });
     }
@@ -1990,6 +2015,22 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         llTime.check(R.id.one_week);
     }
 
+    private void clickQrcode() {
+        temp = "11";
+        tiwenChart.setVisibility(View.GONE);
+        xueyaChart.setVisibility(View.GONE);
+        xuetangChart.setVisibility(View.GONE);
+        xueyangChart.setVisibility(View.GONE);
+        xinlvChart.setVisibility(View.GONE);
+        maiboChart.setVisibility(View.GONE);
+        danguchunChart.setVisibility(View.GONE);
+        xueniaosuanChart.setVisibility(View.GONE);
+        xindianList.setVisibility(View.GONE);
+        tizhongChart.setVisibility(View.GONE);
+        llIndicator.setVisibility(View.GONE);
+
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -2189,4 +2230,151 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+
+    public static class MyDialogFragment extends DialogFragment {
+        private static final String TAG = "QrcodeDialog";
+
+        private View mView;
+        private ImageView ivQrcode;
+
+        private String text;
+
+        private float dimAmount;
+        private boolean showBottom;
+        private boolean cancelable;
+
+        public static MyDialogFragment newInstance(String text) {
+            return newInstance(text, 0f, false, true);
+        }
+
+        public static MyDialogFragment newInstance(
+                String text,
+                float dimAmount,
+                boolean showBottom,
+                boolean cancelable) {
+            Bundle args = new Bundle();
+            args.putString("text", text);
+            args.putFloat("dimAmount", dimAmount);
+            args.putBoolean("showBottom", showBottom);
+            args.putBoolean("cancelable", cancelable);
+            MyDialogFragment fragment = new MyDialogFragment();
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        private DialogInterface.OnDismissListener onDismissListener;
+
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            try {
+                onDismissListener = (DialogInterface.OnDismissListener) context;
+            } catch (Throwable e) {
+                e.printStackTrace();
+                onDismissListener = null;
+            }
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setRetainInstance(true);
+            setStyle(DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
+            Bundle arguments = getArguments();
+            if (arguments != null) {
+                text = arguments.getString("text");
+                dimAmount = arguments.getFloat("dimAmount", 0f);
+                showBottom = arguments.getBoolean("showBottom", false);
+                cancelable = arguments.getBoolean("cancelable", true);
+            }
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(
+                @NonNull LayoutInflater inflater,
+                @Nullable ViewGroup container,
+                @Nullable Bundle savedInstanceState) {
+            mView = inflater.inflate(R.layout.health_dialog_fragment_qrcode, container, false);
+            ivQrcode = (ImageView) findViewById(R.id.health_record_iv_qrcode);
+            if (TextUtils.isEmpty(text)) {
+                return mView;
+            }
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    final Bitmap bitmap = QrCodeUtils.encodeQrCode(text, dp(260), dp(260));
+                    if (bitmap != null && ivQrcode != null) {
+                        Handlers.ui().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ivQrcode.setImageBitmap(bitmap);
+                            }
+                        });
+                    }
+                }
+            });
+            return mView;
+        }
+
+        @Override
+        public void onStart() {
+            // initWindowStyle
+            super.onStart();
+            initWindowParams();
+        }
+
+        private void initWindowParams() {
+            Window window = getDialog().getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams lp = window.getAttributes();
+                lp.dimAmount = dimAmount;
+                //是否在底部显示
+                if (showBottom) {
+                    lp.gravity = Gravity.BOTTOM;
+                } else {
+                    lp.gravity = Gravity.CENTER;
+                }
+
+                lp.width = dp(640);
+                lp.height = dp(360);
+
+                window.setAttributes(lp);
+            }
+            setCancelable(cancelable);
+        }
+
+        @Override
+        public void onStop() {
+            Handlers.ui().removeCallbacksAndMessages(null);
+            Handlers.bg().removeCallbacksAndMessages(null);
+            super.onStop();
+        }
+
+        public int dp(float value) {
+            float density = getResources().getDisplayMetrics().density;
+            return (int) (density * value + 0.5f);
+        }
+
+        public <V extends View> V findViewById(@IdRes int id) {
+            if (mView == null) {
+                return null;
+            }
+            return (V) mView.findViewById(id);
+        }
+
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            super.onDismiss(dialog);
+            if (onDismissListener != null) {
+                onDismissListener.onDismiss(dialog);
+            }
+        }
+
+        @Override
+        public void onDetach() {
+            onDismissListener = null;
+            super.onDetach();
+        }
+    }
 }

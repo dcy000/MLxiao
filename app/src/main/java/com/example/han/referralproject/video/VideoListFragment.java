@@ -24,6 +24,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.ml.edu.old.music.SheetListFragment;
+import com.ml.videoplayer.MlVideoPlayerActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -332,7 +333,7 @@ public class VideoListFragment extends Fragment {
                     int position = getAdapterPosition();
                     VideoEntity entity = videos.get(position);
                     Context context = itemView.getContext();
-                    Intent intent = new Intent(context, PlayVideoActivity.class);
+                    Intent intent = new Intent(context, MlVideoPlayerActivity.class);
                     intent.putExtra("url", entity.getVideourl());
                     context.startActivity(intent);
                 }
