@@ -52,14 +52,14 @@ public class CheckContractActivity extends BaseActivity {
             public void onSuccess(Doctor response) {
                 if (!TextUtils.isEmpty(response.getDocter_photo())) {
                     Picasso.with(CheckContractActivity.this)
-                            .load(response.getDocter_photo())
+                            .load(R.drawable.hq_ic_half_doctor)
                             .placeholder(R.drawable.avatar_placeholder)
                             .error(R.drawable.avatar_placeholder)
                             .tag(this)
                             .fit()
                             .into(ivDoctorAvatar);
                 }
-                tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.getDoctername()));
+                tvDoctorName.setText(String.format(getString(R.string.doctor_name), "半个医生"));
                 tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), response.getDuty()));
                 tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), response.getDepartment()));
                 tvService.setText(String.format(getString(R.string.doctor_shoufei), response.getService_amount()));

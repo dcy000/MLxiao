@@ -1192,7 +1192,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
             Picasso.with(this)
-                    .load(sharedPreferences1.getString("docter_photo", ""))
+                    .load(R.drawable.hq_ic_half_doctor)
                     .placeholder(R.drawable.avatar_placeholder)
                     .error(R.drawable.avatar_placeholder)
                     .tag(this)
@@ -1200,7 +1200,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                     .into(circleImageView);
         }
 
-        mTextView3.setText(String.format(getString(R.string.doctor_name), sharedPreferences1.getString("name", "")));
+        mTextView3.setText(String.format(getString(R.string.doctor_name),"半个医生客服"));
         mTextView4.setText(String.format(getString(R.string.doctor_zhiji), sharedPreferences1.getString("position", "")));
         mTextView5.setText(String.format(getString(R.string.doctor_shanchang), sharedPreferences1.getString("feature", "")));
         mTextView12.setText(String.format(getString(R.string.doctor_shoufei), sharedPreferences1.getString("service_amount", "")));
