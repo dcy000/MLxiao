@@ -57,10 +57,13 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.tool.other.StringUtil;
+import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.google.gson.Gson;
@@ -169,6 +172,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private TextView voiceWhine;
     private boolean isDefaultParam = true;
     private HashMap<String, String> results;
+    private ImageView yuyin;
+    private VoiceLineView lineWave;
+    private Boolean yuyinFlag;
+    private boolean isStart;
 
 
     @Override
@@ -247,9 +254,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
         speak("主人,来和我聊天吧", isDefaultParam);
+        yuyinFlag = (Boolean) SharedPreferencesUtils.getParam(this, "yuyin", false);
+        if (yuyinFlag) {
+            mHandler.sendEmptyMessageDelayed(1, 3000);
+            yuyin.setVisibility(View.GONE);
+        } else {
 
-        mHandler.sendEmptyMessageDelayed(1, 3000);
-
+        }
         findViewById(R.id.tv_setup_language).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -417,10 +428,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         findViewById(R.id.iat_cancel).setOnClickListener(this);
         voiceNormal = findViewById(R.id.tv_normal);
         voiceWhine = findViewById(R.id.tv_whine);
+        yuyin = findViewById(R.id.iv_yuyin);
+        lineWave = findViewById(R.id.vl_wave);
         voiceNormal.setOnClickListener(this);
         voiceWhine.setOnClickListener(this);
-
-
+        yuyin.setOnClickListener(this);
+        lineWave.setOnClickListener(this);
     }
 
     int ret = 0; // 函数调用返回值
@@ -453,8 +466,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     ret = mIat.startListening(mRecognizerListener);
                     if (ret != ErrorCode.SUCCESS) {
                         showTip("听写失败,错误码：" + ret);
-                    } else {
-                        //showTip(getString(R.string.text_begin));
                     }
                 }
                 break;
@@ -465,11 +476,26 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 SpeechSynthesizerHelper.setRandomParam();
                 isDefaultParam = false;
                 break;
+            case R.id.iv_yuyin:
+                onEndOfSpeech();
+                mImageView.performClick();
+                break;
             default:
                 break;
         }
 
     }
+
+    int recordTotalTime = 0;
+
+    private void onEndOfSpeech() {
+        lineWave.setVisibility(View.GONE);
+        lineWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
 
     @Override
     protected void onActivitySpeakFinish() {
@@ -488,7 +514,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //        if (faceAnim != null && faceAnim.isRunning()) {
 //            faceAnim.stop();
 //        }
-        findViewById(R.id.iat_recognizes).performClick();
+        if (yuyinFlag) {
+            findViewById(R.id.iat_recognizes).performClick();
+        }
     }
 
     private void onPlayAudio(String audioPath, int tag) {
@@ -496,6 +524,33 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         startActivityForResult(new Intent(SpeechSynthesisActivity.this, MusicPlayActivity.class)
                 .putExtra("music", music), tag);
     }
+
+    private void showWave() {
+        if (isStart) {
+            return;
+        }
+        isStart = true;
+        lineWave.setVisibility(View.VISIBLE);
+        lineWave.setText("00:00");
+        lineWave.startRecord();
+        mHandler.removeCallbacksAndMessages(null);
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recordTotalTime += 1000;
+                updateTimerUI(recordTotalTime);
+                mHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
+
+    }
+
+    private void updateTimerUI(int recordTotalTime) {
+        String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
+        lineWave.setText(string);
+    }
+
 
     /**
      * 听写监听器。
@@ -506,21 +561,34 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
             //   showTip("开始说话");
-            showWaveView(true);
+            if (yuyinFlag) {
+                showWaveView(true);
+            } else {
+                //直方图波形
+                showWave();
+            }
         }
 
         @Override
         public void onError(SpeechError error) {
             // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
             // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。
-            findViewById(R.id.iat_recognizes).performClick();
+            if (yuyinFlag) {
+                findViewById(R.id.iat_recognizes).performClick();
+            } else {
+                speak("主人,我没听清您能再说一遍吗", isDefaultParam);
+            }
         }
 
         @Override
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             //  showTip("结束说话");
-            showWaveView(false);
+            if (yuyinFlag) {
+                showWaveView(false);
+            } else {
+                SpeechSynthesisActivity.this.onEndOfSpeech();
+            }
         }
 
         @Override
@@ -533,7 +601,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         public void onVolumeChanged(int volume, byte[] data) {
             //    showTip("当前正在说话，音量大小：" + volume);
             //   Log.d(TAG, "返回音频数据：" + data.length);
-            updateVolume();
+            if (yuyinFlag) {
+                updateVolume();
+            } else {
+                lineWave.waveH = volume / 6 + 2;
+            }
         }
 
         @Override
@@ -1385,6 +1457,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
             return null;
         }
+
     }
 
     private void showTip(final String str) {

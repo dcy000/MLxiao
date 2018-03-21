@@ -31,6 +31,7 @@ public class SetKeyWordActivity extends ToolBaseActivity {
     EditText etKeyword;
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
+    private boolean flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,14 @@ public class SetKeyWordActivity extends ToolBaseActivity {
         bean.yueya=recognizerResult;
         SharedPreferencesUtils.setParam(this,"keyword",bean);
         ToastUtil.showShort(this, recognizerResult);
+
+        flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);
+        if (flag) {
+            SharedPreferencesUtils.setParam(SetKeyWordActivity.this, "yuyin", false);
+        } else {
+            SharedPreferencesUtils.setParam(SetKeyWordActivity.this, "yuyin", true);
+        }
+
     }
 
 
