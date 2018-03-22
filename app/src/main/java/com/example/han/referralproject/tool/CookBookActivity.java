@@ -80,7 +80,7 @@ public class CookBookActivity extends ToolBaseActivity {
                 getDateData(tvDemo2.getText().toString().trim());
                 break;
             case R.id.tv_demo3:
-                getDateData(tvDemo2.getText().toString().trim());
+                getDateData(tvDemo3.getText().toString().trim());
                 break;
             case R.id.iv_yuyin:
                 SpeechSynthesizerHelper.stop();

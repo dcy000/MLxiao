@@ -78,7 +78,7 @@ public class XFSkillApi {
         getXFDataJSONObject(contentText, listener);
     }
 
-    public static void getXFDataJSONObject(String contentText, final getDataListener listener) {
+    public static void getXFDataJSONObject(final String contentText, final getDataListener listener) {
         Call call = initPostCall(contentText);
         call.enqueue(new Callback() {
             @Override
@@ -339,6 +339,8 @@ public class XFSkillApi {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }else {
+                    listener.onSuccess(null, "", "", contentText);
                 }
             }
         });
