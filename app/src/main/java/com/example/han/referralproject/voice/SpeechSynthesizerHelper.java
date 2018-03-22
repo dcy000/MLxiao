@@ -255,8 +255,8 @@ public class SpeechSynthesizerHelper {
             synthesizer.setParameter(SpeechConstant.PITCH, sharedPreferences.getString("pitch_preference", "50"));
 //            设置合成音量
             synthesizer.setParameter(SpeechConstant.VOLUME, sharedPreferences.getString("volume_preference", "50"));
-
-            synthesizer.setParameter(SpeechConstant.SAMPLE_RATE, "16000");
+//采样率
+            synthesizer.setParameter(SpeechConstant.SAMPLE_RATE, sharedPreferences.getString("rate_preference", "16000"));
             //设置播放器音频流类型
             synthesizer.setParameter(SpeechConstant.STREAM_TYPE, sharedPreferences.getString("stream_preference", "3"));
             // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
