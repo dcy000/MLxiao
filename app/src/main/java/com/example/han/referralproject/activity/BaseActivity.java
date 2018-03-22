@@ -96,7 +96,6 @@ public class BaseActivity extends AppCompatActivity {
     public SharedPreferences mIatPreferences;
 
 
-
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
         enableListeningLoopCache = enableListeningLoop;
@@ -333,7 +332,7 @@ public class BaseActivity extends AppCompatActivity {
         synthesizer.startSpeaking(text, mTtsListener);
     }
 
-    protected void speak(String text,boolean isDefaultParam) {
+    protected void speak(String text, boolean isDefaultParam) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
@@ -624,6 +623,7 @@ public class BaseActivity extends AppCompatActivity {
                 synthesizer.setParameter(SpeechConstant.PITCH, mTtsSharedPreferences.getString("pitch_preference", "50"));
                 //设置合成音量
                 synthesizer.setParameter(SpeechConstant.VOLUME, mTtsSharedPreferences.getString("volume_preference", "50"));
+                synthesizer.setParameter(SpeechConstant.SAMPLE_RATE, mTtsSharedPreferences.getString("rate_preference", "16000"));
             } else {
                 synthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
                 // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
@@ -717,10 +717,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * 发音人
      */
-    public static final String[] VOICER={"xiaoyan","xiaoqi","xiaoli","xiaoyu","xiaofeng","xiaoxin","laosun"};
+    public static final String[] VOICER = {"xiaoyan", "xiaoqi", "xiaoli", "xiaoyu", "xiaofeng", "xiaoxin", "laosun"};
 
 }

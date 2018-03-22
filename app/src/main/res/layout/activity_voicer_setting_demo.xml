@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.han.referralproject.settting.activity.VoicerSettingDemo">
+
+    <SeekBar
+        android:id="@+id/sb_yusu"
+        android:layout_width="600dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+
+    <SeekBar
+        android:id="@+id/sb_yudiao"
+        android:layout_width="600dp"
+        android:layout_height="37dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+
+    <SeekBar
+        android:id="@+id/sb_rate"
+        android:layout_width="600dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_yusu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="语速"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_yudiao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="语调"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_rate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="采样率"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_shuo"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#999"
+        android:gravity="center"
+        android:text="说话"
+        android:textSize="30sp" />
+</LinearLayout>
