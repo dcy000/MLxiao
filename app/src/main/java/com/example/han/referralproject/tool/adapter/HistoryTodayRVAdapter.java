@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.tool.HistoryTodayActivity;
 import com.example.han.referralproject.tool.wrapview.ExpandableTextView;
 import com.example.han.referralproject.tool.wrapview.MixtureTextView;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
@@ -22,6 +23,9 @@ import java.util.List;
  */
 
 public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, BaseViewHolder> {
+
+    public int position;
+
     public HistoryTodayRVAdapter(int layoutResId, @Nullable List<HistoryTodayBean> data) {
         super(layoutResId, data);
     }
@@ -70,21 +74,30 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
         expandTextView.setOnReadMoreListener(new OnReadMoreClickListener() {
             @Override
             public void onExpand() {
-                HistoryTodayBean bean = getData().get(holder.getPosition());
+                //手动点击 由折叠到展开
+                if (bean.flag == false) {
+                    //记录手动点击展开的位置
+                    position = holder.getPosition();
+                    HistoryTodayBean bean = getData().get(position);
+                    SpeechSynthesizerHelper.stop();
+                    SpeechSynthesizerHelper.startSynthesize(expandTextView.getContext(),bean.title+","+ bean.description);
+                }
                 bean.flag = true;
-                SpeechSynthesizerHelper.stop();
-                SpeechSynthesizerHelper.startSynthesize(expandTextView.getContext(),bean.description);
             }
 
             @Override
             public void onFold() {
+                //手动点击 由展开到折叠
+                if (bean.flag) {
+                    int position = holder.getPosition();
+                    //仅仅点击折叠当前条目 停止播报
+                    if (position == HistoryTodayRVAdapter.this.position) {
+                        SpeechSynthesizerHelper.stop();
+                    }
+                }
                 getData().get(holder.getPosition()).flag = false;
-                SpeechSynthesizerHelper.stop();
             }
         });
-
-        //
-
 
     }
 }

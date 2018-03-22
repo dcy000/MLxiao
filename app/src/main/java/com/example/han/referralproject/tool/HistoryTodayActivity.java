@@ -69,7 +69,7 @@ public class HistoryTodayActivity extends BaseActivity {
                         if (resultData != null && resultData.size() != 0) {
                             data.addAll(resultData);
                             adapter.notifyDataSetChanged();
-                            speak(data.get(0).description);
+                            speak(data.get(0).title+","+data.get(0).description);
                         } else {
                             speak("主人,我还不知道历史上的今天发生了什么事,我得去学习一下");
                         }
@@ -115,7 +115,7 @@ public class HistoryTodayActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 SpeechSynthesizerHelper.stop();
-                SpeechSynthesizerHelper.startSynthesize(view.getContext(), "事件" + data.get(i).title + "," + data.get(i).description);
+                SpeechSynthesizerHelper.startSynthesize(view.getContext(),  data.get(i).title + "," + data.get(i).description);
             }
         });
         rvHistoryEvent.setAdapter(adapter);
