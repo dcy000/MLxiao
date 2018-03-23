@@ -146,7 +146,7 @@ public class NetworkApi {
     public static final String Query_Group_118="http://118.31.238.207:8080/ZZB/xf/select_group_record";
     public static final String Query_Group_116="http://116.62.36.12:8080/ZZB/xf/select_group_record";
     public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
-    public static final String Get_Week_or_Month_Report=BasicUrl+"/AI/ai/sel";
+    public static final String Get_Week_or_Month_Report=BasicUrl+"/ZZB/ai/sel";
 
     public static void getFM(
             String type,
@@ -982,7 +982,7 @@ public class NetworkApi {
     public static void getWeekReport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
                                  NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("userid", "10001");
+        params.put("userid", userId);
         params.put("state","1");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, WeeklyReport.class, successCallback, failedCallback);
     }
@@ -996,7 +996,7 @@ public class NetworkApi {
     public static void getMonthReport(String userId, NetworkManager.SuccessCallback<MonthlyReport> successCallback,
                                      NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("userid", "10001");
+        params.put("userid", userId);
         params.put("state","2");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, MonthlyReport.class, successCallback, failedCallback);
     }

@@ -1,6 +1,7 @@
 package com.example.han.referralproject.intelligent_diagnosis;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -90,13 +91,28 @@ public class WeeklyReport1Fragment extends Fragment {
             rpbDiya.setMax(100);
             rpbDiya.setProgress(sj_diya);
 
-            waveProgressBar.setMaxValue(100);
-            waveProgressBar.setValue(Float.parseFloat(data.health));
-            waveProgressBar.setHealthValue(data.health + "分");
+
+            float fenshu = Float.parseFloat(data.health);
+            if (fenshu>=0.8){
+                waveProgressBar.setWaveDarkColor(Color.parseColor("#5BD78C"));
+                waveProgressBar.setWaveLightColor(Color.parseColor("#86F77D"));
+                waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
+            }else if(fenshu>=0.6){
+                waveProgressBar.setWaveDarkColor(Color.parseColor("#F78237"));
+                waveProgressBar.setWaveLightColor(Color.parseColor("#FBBF81"));
+                waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
+            }else{
+                waveProgressBar.setWaveDarkColor(Color.parseColor("#FE5848"));
+                waveProgressBar.setWaveLightColor(Color.parseColor("#F88A78"));
+                waveProgressBar.setValueColor(Color.parseColor("#FE5848"));
+            }
+            waveProgressBar.setMaxValue(1);
+            waveProgressBar.setValue(fenshu);
+            waveProgressBar.setHealthValue(String.format("%.0f", fenshu * 100) + "分");
 
 
-            gaoyaMubiao.setText("<145");
-            diyaMubiao.setText("<92");
+            gaoyaMubiao.setText("<"+String.format("%.0f",mb_gaoya));
+            diyaMubiao.setText("<"+String.format("%.0f",mb_diya));
             naMubiao.setText("<" + String.format("%.0f", Float.parseFloat(data.nam)));
             yundongMubiao.setText(">" + String.format("%.0f", Float.parseFloat(data.sportsm)));
             String height_s = LocalShared.getInstance(getContext()).getUserHeight();
@@ -123,7 +139,6 @@ public class WeeklyReport1Fragment extends Fragment {
                 tips = "主人，您的血压仍偏高。本周计划完成"
                         + (int) progress_percent + "%，未完成目标计划，请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             }
-//            tvAdvice.setText(tips);
             ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }

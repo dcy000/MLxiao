@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="血压分析"
+            android:text="影响血压因素"
             android:textStyle="bold"
             android:textSize="64pt"
             android:textColor="#333"

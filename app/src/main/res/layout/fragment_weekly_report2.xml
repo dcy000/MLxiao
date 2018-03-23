@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="偏低"
+                android:text="异常"
                 android:textColor="#333"
                 android:textSize="48pt"
                 android:layout_marginLeft="16pt"/>
@@ -281,7 +281,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text=""
-                    android:textColor="#F4843E"
+                    android:textColor="#333333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
 
@@ -296,7 +296,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text=""
-                    android:textColor="#F4843E"
+                    android:textColor="#333333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
 

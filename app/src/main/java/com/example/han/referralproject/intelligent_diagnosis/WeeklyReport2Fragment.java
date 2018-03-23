@@ -84,8 +84,8 @@ public class WeeklyReport2Fragment extends Fragment {
             pc_diya = (int) (sj_diya - mb_diya);
 
 
-            tabMbGaoya.setText("<120");
-            tabMbDiya.setText("<80");
+            tabMbGaoya.setText("<"+String.format("%.0f",mb_gaoya));
+            tabMbDiya.setText("<"+String.format("%.0f",mb_diya));
             tabSjGaoya.setText((int) sj_gaoya + "");
             tabSjDiya.setText((int) sj_diya + "");
 
@@ -95,8 +95,8 @@ public class WeeklyReport2Fragment extends Fragment {
                 viewLeft.setBackgroundColor(Color.parseColor("#FF5747"));
             } else {
                 imgGaoya.setVisibility(View.GONE);
-                pcGaoya.setText("达标");
-                pcGaoya.setTextColor(Color.GREEN);
+                pcGaoya.setText("√");
+                pcGaoya.setTextColor(Color.parseColor("#3CD478"));
                 viewLeft.setBackgroundColor(Color.parseColor("#49DF84"));
             }
 
@@ -106,8 +106,8 @@ public class WeeklyReport2Fragment extends Fragment {
                 viewRight.setBackgroundColor(Color.parseColor("#FF5747"));
             } else {
                 imgDiya.setVisibility(View.GONE);
-                pcDiya.setText("达标");
-                pcDiya.setTextColor(Color.GREEN);
+                pcDiya.setText("√");
+                pcDiya.setTextColor(Color.parseColor("#3CD478"));
                 viewRight.setBackgroundColor(Color.parseColor("#49DF84"));
             }
 

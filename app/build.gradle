@@ -70,6 +70,11 @@ android {
         }
     }
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/beans.xml'
+    }
+
 }
 
 
@@ -157,5 +162,6 @@ dependencies {
     compile 'com.orhanobut:logger:2.1.1'
     //    compile 'me.relex:circleindicator:1.2.2@aar'
     compile project(':circleindicator')
-    compile project(':live_media')
+    //    compile project(':live_media')
+    compile project(':module_hykd')
 }

@@ -430,27 +430,27 @@
                 app:cp_circleWidth="3pt"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginRight="40pt"
+                android:layout_marginRight="60pt"
                 android:layout_marginBottom="40pt"
                 />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/tv_score_title">
-                <ImageView
-                    android:layout_width="32pt"
-                    android:layout_height="44pt"
-                    android:layout_marginLeft="40pt"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="56pt"
-                    android:text="2分"
-                    android:layout_marginLeft="16pt"
-                    android:textColor="#333"/>
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:gravity="center"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/tv_score_title">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="32pt"-->
+                    <!--android:layout_height="44pt"-->
+                    <!--android:layout_marginLeft="40pt"/>-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="56pt"-->
+                    <!--android:text="2分"-->
+                    <!--android:layout_marginLeft="16pt"-->
+                    <!--android:textColor="#333"/>-->
+            <!--</LinearLayout>-->
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout

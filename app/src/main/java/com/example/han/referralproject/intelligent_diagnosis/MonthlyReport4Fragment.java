@@ -139,8 +139,8 @@ public class MonthlyReport4Fragment extends Fragment {
             pcYan.setText((int) pc_yan + "");
         } else {
             imgYan.setVisibility(View.GONE);
-            pcYan.setText("达标");
-            pcYan.setTextColor(Color.GREEN);
+            pcYan.setText("√");
+            pcYan.setTextColor(Color.parseColor("#3CD478"));
         }
 
         if (pc_yundong < 0) {
@@ -148,8 +148,8 @@ public class MonthlyReport4Fragment extends Fragment {
             pcYundong.setText((int) pc_yundong + "");
         } else {
             imgYundong.setVisibility(View.GONE);
-            pcYundong.setText("达标");
-            pcYundong.setTextColor(Color.GREEN);
+            pcYundong.setText("√");
+            pcYundong.setTextColor(Color.parseColor("#3CD478"));
         }
 
         if (pc_tizhong > 0) {
@@ -157,8 +157,8 @@ public class MonthlyReport4Fragment extends Fragment {
             pcTizhong.setText((int) pc_tizhong + "");
         } else {
             imgTizhong.setVisibility(View.GONE);
-            pcTizhong.setText("达标");
-            pcTizhong.setTextColor(Color.GREEN);
+            pcTizhong.setText("√");
+            pcTizhong.setTextColor(Color.parseColor("#3CD478"));
         }
 
         if (pc_yinjiu > 0) {
@@ -166,8 +166,8 @@ public class MonthlyReport4Fragment extends Fragment {
             pcYinjiu.setText((int) pc_yinjiu + "");
         } else {
             imgYinjiu.setVisibility(View.GONE);
-            pcYinjiu.setText("达标");
-            pcYinjiu.setTextColor(Color.GREEN);
+            pcYinjiu.setText("√");
+            pcYinjiu.setTextColor(Color.parseColor("#3CD478"));
         }
 
         rpbSum.setMax(100);
