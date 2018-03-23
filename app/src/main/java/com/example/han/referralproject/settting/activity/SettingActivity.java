@@ -1,5 +1,6 @@
 package com.example.han.referralproject.settting.activity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.EventType;
 import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
 import com.example.han.referralproject.settting.dialog.UpDateDialog;
+import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.UpdateAppManager;
@@ -103,7 +105,13 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     }
 
     private void setVoiceName() {
-        showSetVoiceNameDialog();
+//        showSetVoiceNameDialog();
+        showVoicerChoiceDialog();
+    }
+
+    private void showVoicerChoiceDialog() {
+        VoicerSetDialog dialog = new VoicerSetDialog();
+        dialog.show(getFragmentManager(), "voicedialog");
     }
 
     private void showSetVoiceNameDialog() {
