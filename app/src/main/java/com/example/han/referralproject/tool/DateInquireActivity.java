@@ -120,7 +120,7 @@ public class DateInquireActivity extends ToolBaseActivity {
 
             @Override
             public void onError(SpeechError speechError) {
-
+                speak("主人,我没有听清,你能再说一遍吗?");
             }
 
             @Override

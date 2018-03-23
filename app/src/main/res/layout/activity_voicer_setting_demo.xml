@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.han.referralproject.settting.activity.VoicerSettingDemo">
+>
 
     <SeekBar
         android:id="@+id/sb_yusu"
