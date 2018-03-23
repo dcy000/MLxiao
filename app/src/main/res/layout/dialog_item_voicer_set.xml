@@ -30,7 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="#999" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#FFBBBBBB" />
 
 
     </RelativeLayout>
