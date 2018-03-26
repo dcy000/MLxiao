@@ -40,6 +40,7 @@ public class KeyWordEditActivity extends BaseActivity implements KeyWordDifineRV
         initTitle();
         initData();
         initRV();
+        speak("主人,你可以编辑的名义的关键字");
     }
 
     private void initData() {

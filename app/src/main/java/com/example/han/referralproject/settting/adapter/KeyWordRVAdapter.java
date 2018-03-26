@@ -1,5 +1,6 @@
 package com.example.han.referralproject.settting.adapter;
 
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +47,15 @@ public class KeyWordRVAdapter extends RecyclerView.Adapter<KeyWordRVAdapter.VH> 
         holder.name.setText(bean.itemName);
         if (bean.title) {
             holder.name.setBackground(null);
-            holder.name.setTextSize(28);
+            holder.name.setTextSize(32);
+            holder.name.setClickable(false);
             holder.name.setPadding(0, 0, 0, 0);
+            holder.name.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         } else {
             holder.name.setTextSize(28);
+            holder.name.setClickable(true);
             holder.name.setBackgroundResource(R.drawable.shape_item_key_word);
+            holder.name.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override

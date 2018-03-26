@@ -31,6 +31,7 @@ public class CustomKeyWordsActivity extends BaseActivity implements KeyWordRVAda
         initData();
         initTitle();
         initRV();
+        speak("主人,请选择要定义的关键词");
     }
 
     private int setSpanSize(int position, List<KeyWordBean> data) {
@@ -160,6 +161,6 @@ public class CustomKeyWordsActivity extends BaseActivity implements KeyWordRVAda
     @Override
     public void onItemClick(int position) {
         String itemName = data.get(position).itemName;
-        SetKeyWordActivity.StartMe(this,itemName);
+        SetKeyWordActivity.StartMe(this, itemName);
     }
 }

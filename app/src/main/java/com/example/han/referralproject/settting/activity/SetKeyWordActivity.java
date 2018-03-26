@@ -3,10 +3,10 @@ package com.example.han.referralproject.settting.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +16,8 @@ import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.adapter.KeyWordDifineRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.tool.other.StringUtil;
+import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.google.gson.Gson;
@@ -24,7 +26,6 @@ import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,8 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
     TextView textView7;
     @BindView(R.id.rv_keys)
     RecyclerView rvKeys;
+    @BindView(R.id.vl_wave)
+    VoiceLineView vlWave;
     private boolean flag;
     private String title;
     private List<KeyWordDefinevBean> data;
@@ -61,7 +64,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         initTitle();
         initData();
         initRV();
-        initRV();
+        speak("主人,你可以自定义" + title + "关键词");
     }
 
     private void initTitle() {
@@ -86,6 +89,9 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         List<KeyWordDefinevBean> list = new Gson().fromJson(jsonData, new TypeToken<List<KeyWordDefinevBean>>() {
         }.getType());
         if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).show = false;
+            }
             data.addAll(list);
         }
     }
@@ -98,23 +104,54 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
     }
 
 
+    private boolean isStart;
+    int recordTotalTime = 0;
+    private Handler mainHandler = new Handler();
+
+    private void showWave() {
+        if (isStart) {
+            return;
+        }
+        isStart = true;
+        tvNotice.setVisibility(View.GONE);
+        vlWave.setVisibility(View.VISIBLE);
+        vlWave.setText("00:00");
+        vlWave.startRecord();
+        mainHandler.removeCallbacksAndMessages(null);
+
+        mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recordTotalTime += 1000;
+                updateTimerUI(recordTotalTime);
+                mainHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+    private void updateTimerUI(int recordTotalTime) {
+        String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
+        vlWave.setText(string);
+    }
+
     @OnClick(R.id.iv_yuyin)
     public void onViewClicked() {
         //开始识别
         SpeechRecognizerHelper.initSpeechRecognizer(this).startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
-
+                vlWave.waveH = i / 6 + 2;
             }
 
             @Override
             public void onBeginOfSpeech() {
-
+                showWave();
             }
 
             @Override
             public void onEndOfSpeech() {
-
+                SetKeyWordActivity.this.onEndOfSpeech();
+                tvNotice.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -133,6 +170,15 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
             }
         });
     }
+
+    private void onEndOfSpeech() {
+        vlWave.setVisibility(View.GONE);
+        vlWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
+    }
+
 
     public void dealData(RecognizerResult recognizerResult, boolean isLast) {
         StringBuffer stringBuffer = printResult(recognizerResult);
@@ -155,6 +201,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         adapter.notifyDataSetChanged();
 //        SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
         ToastUtil.showShort(this, "保存:" + recognizerResult + "成功");
+        speak("保存:" + recognizerResult + "关键词成功");
 
 //        flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);
 //        if (flag) {
@@ -206,5 +253,12 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 //        }
         KeyWordEditActivity.StartMe(this, data, titlePinyin);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
+        stopSpeaking();
     }
 }
