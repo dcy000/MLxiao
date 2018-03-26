@@ -48,12 +48,13 @@ public class KeyWordRVAdapter extends RecyclerView.Adapter<KeyWordRVAdapter.VH> 
         if (bean.title) {
             holder.name.setBackground(null);
             holder.name.setTextSize(32);
-            holder.name.setClickable(false);
-            holder.name.setPadding(0, 0, 0, 0);
+            holder.name.setEnabled(false);
+            holder.name.setPadding(-30, 0, 0, 0);
             holder.name.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         } else {
             holder.name.setTextSize(28);
-            holder.name.setClickable(true);
+            holder.name.setEnabled(true);
+            holder.name.setPadding(0, 0, 0, 0);
             holder.name.setBackgroundResource(R.drawable.shape_item_key_word);
             holder.name.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
