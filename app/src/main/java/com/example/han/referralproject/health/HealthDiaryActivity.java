@@ -1,0 +1,210 @@
+package com.example.han.referralproject.health;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.SparseArray;
+import android.util.SparseIntArray;
+import android.view.View;
+
+import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.health.model.DetailsModel;
+import com.example.han.referralproject.health.model.ItemsModel;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.medlink.danbogh.utils.T;
+
+import java.util.ArrayList;
+
+public class HealthDiaryActivity extends BaseActivity
+        implements HealthDiaryDetailsFragment.OnActionListener {
+
+    private int what;
+
+    private DetailsModel[] mDetailsModels;
+
+    private Fragment[] mFragments;
+    private ItemsModel[] mItemsModels;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.health_activity_diary);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("健  康  日  记");
+
+        DetailsModel detailsModel0 = new DetailsModel();
+        detailsModel0.setWhat(0);
+        detailsModel0.setAction("下一步");
+        detailsModel0.setTitle("选择盐摄入");
+        detailsModel0.setUnitPosition(0);
+        detailsModel0.setUnits(new String[]{"勺", "克"});
+        detailsModel0.setUnitSum(new String[]{"勺(1勺约等于2克)", "克"});
+        detailsModel0.setSelectedValues(new float[]{0f, 0f});
+        detailsModel0.setMinValues(new float[]{0f, 0f});
+        detailsModel0.setMaxValues(new float[]{99f, 99f});
+        detailsModel0.setPerValues(new float[]{1f, 1f});
+        DetailsModel detailsModel1 = new DetailsModel();
+        detailsModel1.setWhat(1);
+        detailsModel1.setAction("下一步");
+        detailsModel1.setTitle("选择运动时间");
+        detailsModel1.setUnitPosition(0);
+        detailsModel1.setUnits(new String[]{"分钟", "小时"});
+        detailsModel1.setUnitSum(new String[]{"分钟", "小时"});
+        detailsModel1.setSelectedValues(new float[]{0f, 0f});
+        detailsModel1.setMinValues(new float[]{0f, 0f});
+        detailsModel1.setMaxValues(new float[]{999f, 99f});
+        detailsModel1.setPerValues(new float[]{1f, 1f});
+        DetailsModel detailsModel2 = new DetailsModel();
+        detailsModel2.setWhat(2);
+        detailsModel2.setAction("提交");
+        detailsModel2.setTitle("选择饮酒量");
+        detailsModel2.setUnitPosition(0);
+        detailsModel2.setUnits(new String[]{"杯", "瓶", "毫升"});
+        detailsModel2.setUnitSum(new String[]{"杯(一杯约等于100毫升)", "瓶(一瓶约等于500毫升)", "毫升"});
+        detailsModel2.setSelectedValues(new float[]{0f, 0f, 0f});
+        detailsModel2.setMinValues(new float[]{0f, 0f, 0f});
+        detailsModel2.setMaxValues(new float[]{99f, 99f, 9999f});
+        detailsModel2.setPerValues(new float[]{1f, 1f, 100f});
+//        DetailsModel model3 = new DetailsModel();
+//        model3.setWhat(3);
+//        model3.setAction("提交");
+//        model3.setTitle("选择您的体重，如果您有体重秤也可以连接蓝牙直接测量");
+//        model3.setUnitPosition(0);
+//        model3.setUnits(new String[]{"kg"});
+//        model3.setMinValues(new float[]{0f});
+//        model3.setMaxValues(new float[]{200f});
+//        model3.setPerValues(new float[]{1f});
+        ItemsModel itemsModel0 = new ItemsModel();
+        itemsModel0.setTitle("选择运动项目");
+        ArrayList<String> items0 = new ArrayList<>();
+        items0.add("足球");
+        items0.add("羽毛球");
+        items0.add("跑步");
+        items0.add("打篮球");
+        items0.add("乒乓球");
+        itemsModel0.setItems(items0);
+        ItemsModel itemsModel1 = new ItemsModel();
+        itemsModel1.setTitle("选择酒类与度数");
+        ArrayList<String> items1 = new ArrayList<>();
+        items1.add("白酒42度");
+        items1.add("白酒52度");
+        items1.add("白酒56度");
+        items1.add("啤酒6度");
+        items1.add("啤酒7度");
+        items1.add("啤酒8度");
+        items1.add("啤酒12度");
+        items1.add("啤酒13度");
+        items1.add("红酒13度");
+        itemsModel1.setItems(items1);
+        mItemsModels = new ItemsModel[]{itemsModel0, itemsModel1};
+        mDetailsModels = new DetailsModel[]{detailsModel0, detailsModel1, detailsModel2};
+        mFragments = new Fragment[]{
+                HealthDiaryDetailsFragment.newInstance(detailsModel0),
+                HealthDiaryDetails2Fragment.newInstance(itemsModel0, detailsModel1),
+                HealthDiaryDetails2Fragment.newInstance(itemsModel1, detailsModel2),
+        };
+        switchFragment(0);
+    }
+
+    private void switchFragment(int what) {
+        Fragment newFragment = mFragments[what];
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        if (what != 0) {
+            Fragment oldFragment = mFragments[what - 1];
+            if (oldFragment.isAdded()) {
+                transaction.hide(oldFragment);
+            }
+        }
+        if (newFragment.isAdded()) {
+            transaction.show(newFragment);
+        } else {
+            transaction.add(R.id.health_fl_container, newFragment, newFragment.getClass().getName() + what);
+        }
+        transaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onAction(int what, float selectedValue, int unitPosition, String item) {
+        ResultModel resultModel = new ResultModel();
+        resultModel.what = what;
+        resultModel.selectedValue = selectedValue;
+        resultModel.unitPosition = unitPosition;
+        resultModel.item = item;
+        resultModels.put(what, resultModel);
+        if (what == 2) {
+            double salt = resultModels.get(0).selectedValue * saltUnitValues.get(resultModels.get(0).unitPosition);
+            int sports = (int) (resultModels.get(1).selectedValue * saltUnitValues.get(resultModels.get(1).unitPosition));
+            int drink = (int) (resultModels.get(2).selectedValue * saltUnitValues.get(resultModels.get(2).unitPosition));
+            NetworkApi.postHealthDiary(
+                    salt,
+                    sports,
+                    drink,
+                    new NetworkManager.SuccessCallback<Object>() {
+                        @Override
+                        public void onSuccess(Object response) {
+                            if (isFinishing() || isDestroyed()) {
+                                return;
+                            }
+                            T.show("提交成功");
+                            finish();
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+                            if (isFinishing() || isDestroyed()) {
+                                return;
+                            }
+                            T.show("服务器繁忙");
+                        }
+                    }
+            );
+        } else {
+            switchFragment(what + 1);
+        }
+    }
+
+    private SparseIntArray saltUnitValues;
+
+    {
+        saltUnitValues = new SparseIntArray();
+        saltUnitValues.put(0, 2);
+        saltUnitValues.put(1, 1);
+    }
+
+    private SparseIntArray sportsUnitValues;
+
+    {
+        sportsUnitValues = new SparseIntArray();
+        sportsUnitValues.put(0, 1);
+        sportsUnitValues.put(1, 60);
+    }
+
+    private SparseIntArray drinkUnitValues;
+
+    {
+        sportsUnitValues = new SparseIntArray();
+        sportsUnitValues.put(0, 100);
+        sportsUnitValues.put(1, 500);
+        sportsUnitValues.put(2, 1);
+    }
+
+    private SparseArray<ResultModel> resultModels = new SparseArray<>();
+
+    public static class ResultModel {
+        public int what;
+        public float selectedValue;
+        public int unitPosition;
+        public String item;
+    }
+
+    @Override
+    protected void onResume() {
+        setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
+    }
+}

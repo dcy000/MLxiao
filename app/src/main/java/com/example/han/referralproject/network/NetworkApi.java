@@ -53,13 +53,13 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-        public static final String BasicUrl = "http://116.62.36.12:8080";
+    public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
 
-//    public static final String BasicUrl = "http://192.168.200.109:8080";//文博本地
+//    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
 
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
@@ -147,9 +147,30 @@ public class NetworkApi {
 
     private static final String GET_SONG_LIST = BasicUrl + "/ZZB/rep/selSomeImitate";
 
-    public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
-    public static final String Get_Week_Report=BasicUrl+"/AI/ai/selmap";
+    public static final String Get_Message = BasicUrl + "/ZZB/xf/select_tuisong";
+    public static final String Get_Week_Report = BasicUrl + "/AI/ai/selmap";
 
+    public static final String POST_HEAlTH_DIARY = BasicUrl + "/ZZB/ai/insert_influence";
+
+    public static final void postHealthDiary(
+            double salt,
+            int sports,
+            int drink,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userid", MyApplication.getInstance().userId);
+        params.put("na", String.valueOf(salt));
+        params.put("sports", String.valueOf(sports));
+        params.put("drink", String.valueOf(drink));
+        NetworkManager.getInstance().postResultClass(
+                POST_HEAlTH_DIARY,
+                params,
+                Object.class,
+                successCallback,
+                failedCallback
+        );
+    }
 
     public static void getChildEduSheetList(
             int page,
@@ -1014,17 +1035,19 @@ public class NetworkApi {
         params.put("userid", "100002");
         params.put("docterid", docterid);
         params.put("dis_state", dis_state);
-        NetworkManager.getInstance().getResultClass(Get_Message, params, new TypeToken<ArrayList<MessagesOfCenter>>() {}.getType(),
+        NetworkManager.getInstance().getResultClass(Get_Message, params, new TypeToken<ArrayList<MessagesOfCenter>>() {
+                }.getType(),
                 successCallback);
     }
 
     /**
      * 获得周生活报告
+     *
      * @param successCallback
      * @param failedCallback
      */
     public static void getWeekReport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
-                                 NetworkManager.FailedCallback failedCallback) {
+                                     NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", "100098");
         NetworkManager.getInstance().getResultClass(Get_Week_Report, params, WeeklyReport.class, successCallback, failedCallback);

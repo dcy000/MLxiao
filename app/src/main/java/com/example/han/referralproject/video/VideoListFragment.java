@@ -2,10 +2,11 @@ package com.example.han.referralproject.video;
 
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,8 +24,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
-import com.ml.edu.old.music.SheetListFragment;
-import com.ml.videoplayer.MlVideoPlayerActivity;
+import com.ml.videoplayer.MlVideoPlayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -189,7 +189,7 @@ public class VideoListFragment extends Fragment {
             case "lifetip":
                 //tag1=3
                 return 21;
-                //tag1=4
+            //tag1=4
             case "cartoon":
                 return 18;
         }
@@ -333,11 +333,27 @@ public class VideoListFragment extends Fragment {
                     int position = getAdapterPosition();
                     VideoEntity entity = videos.get(position);
                     Context context = itemView.getContext();
-                    Intent intent = new Intent(context, MlVideoPlayerActivity.class);
-                    intent.putExtra("url", entity.getVideourl());
-                    context.startActivity(intent);
+//                    Intent intent = new Intent(context, MlVideoPlayerActivity.class);
+//                    intent.putExtra("url", entity.getVideourl());
+//                    context.startActivity(intent);
+                    MlVideoPlayer.play(context, entity.getVideourl(), entity.getTitle());
                 }
             });
         }
+    }
+
+    @Override
+    public void onResume() {
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        MlVideoPlayer.release();
+        super.onPause();
     }
 }

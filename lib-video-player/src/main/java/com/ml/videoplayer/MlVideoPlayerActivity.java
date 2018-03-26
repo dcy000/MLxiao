@@ -16,7 +16,14 @@ public class MlVideoPlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initParams();
-        JZVideoPlayerStandard.startFullscreen(this, JZVideoPlayerStandard.class, mUrl, mTitle);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            JZVideoPlayerStandard.startFullscreen(this, JZVideoPlayerStandard.class, mUrl, mTitle);
+        }
     }
 
     @Override

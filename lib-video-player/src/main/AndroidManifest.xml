@@ -3,7 +3,9 @@
           package="com.ml.videoplayer">
 
     <application>
-        <activity android:name=".MlVideoPlayerActivity">
+        <activity android:name=".MlVideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

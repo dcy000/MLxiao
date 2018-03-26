@@ -102,7 +102,7 @@ public class RulerView extends View {
         mMaxValue = typedArray.getFloat(R.styleable.RulerView_ruler_maxValue, 100.0f);
         mPerValue = typedArray.getFloat(R.styleable.RulerView_ruler_perValue, 0.1f);
 
-
+        typedArray.recycle();
 
         mMinVelocity = ViewConfiguration.get(getContext()).getScaledMinimumFlingVelocity();
 

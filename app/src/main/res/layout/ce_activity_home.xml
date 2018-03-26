@@ -8,6 +8,13 @@
     android:background="#5595FF"
     tools:context="com.example.han.referralproject.children.ChildEduHomeActivity">
 
+    <ImageView
+        android:layout_marginLeft="20pt"
+        android:layout_marginTop="10pt"
+        android:padding="20pt"
+        android:layout_width="120pt"
+        android:layout_height="126pt"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ce_home_rv_items"
         android:layout_width="0dp"

@@ -3,6 +3,8 @@ package com.example.han.referralproject.video;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -77,7 +79,7 @@ public class VideoListActivity extends BaseActivity {
         });
         vpVideo.setOffscreenPageLimit(3);
         mFragments = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             mFragments.add(VideoListFragment.newInstance(i));
         }
         vpVideo.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -88,7 +90,7 @@ public class VideoListActivity extends BaseActivity {
 
             @Override
             public int getCount() {
-                return mFragments == null ? 0 : 4;
+                return mFragments == null ? 0 : mFragments.size();
             }
         });
         rgHealthVideo.check(provideCheckedId(position));
@@ -126,6 +128,9 @@ public class VideoListActivity extends BaseActivity {
             case 3:
                 checkedId = R.id.rb_video_palsy;
                 break;
+            case 4:
+                checkedId = R.id.rb_video_device_show;
+                break;
             default:
                 break;
         }
@@ -147,6 +152,9 @@ public class VideoListActivity extends BaseActivity {
             case R.id.rb_video_palsy:
                 position = 3;
                 break;
+            case R.id.rb_video_device_show:
+                position = 4;
+                break;
             default:
                 break;
         }
@@ -167,4 +175,5 @@ public class VideoListActivity extends BaseActivity {
         Handlers.ui().removeCallbacksAndMessages(null);
         super.onDestroy();
     }
+
 }

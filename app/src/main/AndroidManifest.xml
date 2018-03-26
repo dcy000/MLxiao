@@ -541,7 +541,8 @@
         <!-- <category android:name="android.intent.category.DEFAULT" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".children.ChildEduHomeActivity"
+        <activity
+            android:name=".children.ChildEduHomeActivity"
             android:screenOrientation="landscape">
         </activity>
         <activity android:name=".children.cartoon.ChildEduCartoonActivity">
@@ -575,14 +576,20 @@
         </activity>
         <activity android:name=".health.HealthDrinkDiaryActivity">
         </activity>
-        <activity android:name=".activity.MessageCenterActivity"
+        <activity
+            android:name=".activity.MessageCenterActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".activity.MessageDetailsActivity"
+        <activity
+            android:name=".activity.MessageDetailsActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".intelligent_diagnosis.DailyIntakeActivity"
+        <activity
+            android:name=".intelligent_diagnosis.DailyIntakeActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".intelligent_diagnosis.WeeklyReportActivity"
+        <activity
+            android:name=".intelligent_diagnosis.WeeklyReportActivity"
             android:screenOrientation="landscape"/>
+        <activity android:name=".health.HealthDiaryActivity">
+        </activity>
     </application>
 
 </manifest>

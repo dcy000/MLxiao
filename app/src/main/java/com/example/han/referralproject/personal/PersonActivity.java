@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.activity.MessageCenterActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -27,28 +25,24 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
-import com.example.han.referralproject.health.HealthDrinkDiaryActivity;
-import com.example.han.referralproject.health.HealthSaltDiaryActivity;
-import com.example.han.referralproject.health.HealthSportsDiaryActivity;
+import com.example.han.referralproject.health.HealthDiaryActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener {
 
@@ -378,7 +372,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
             case R.id.iv_message:
 //                startActivity(new Intent(this, MessageActivity.class));
 //                startActivity(new Intent(this, MessageCenterActivity.class).putExtra("doctorName",doctorName));
-                startActivity(new Intent(this, HealthSaltDiaryActivity.class));
+                startActivity(new Intent(this, HealthDiaryActivity.class));
                 break;
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));

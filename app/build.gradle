@@ -131,6 +131,7 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.5.0'
     compile 'com.nex3z:flow-layout:1.1.0'
     compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     compile name: 'mlrobot-release', ext: 'aar'
     compile name: 'FaceppIDCardUI', ext: 'aar'
     compile name: 'lib-crash', ext: 'aar'
