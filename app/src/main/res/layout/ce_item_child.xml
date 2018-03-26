@@ -3,26 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="280dp"
+    android:layout_width="800pt"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/ce_home_iv_item_indicator"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_width="716pt"
+        android:layout_height="716pt"
+        android:layout_marginTop="42pt"
         android:scaleType="centerCrop"
-        tools:src="@drawable/ce_home_iv_item_indicator"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ce_home_iv_item_indicator"/>
 
     <TextView
         android:id="@+id/ce_home_tv_item_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="62pt"
         android:textColor="#FFFFFF"
-        android:textSize="36sp"
+        android:textSize="64pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ce_home_iv_item_indicator"

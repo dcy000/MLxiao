@@ -30,12 +30,10 @@ public class ChildEduHomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_home);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("幼  教  文  娱");
         rvItems = (RecyclerView) findViewById(R.id.ce_home_rv_items);
         rvItems.addOnScrollListener(new CenterScrollListener());
         OverFlyingLayoutManager lm = new OverFlyingLayoutManager(this);
-        lm.setMinScale(0.8f);
+        lm.setMinScale(0.6f);
         lm.setItemSpace(0);
         lm.setOrientation(OverFlyingLayoutManager.HORIZONTAL);
         lm.setOnPageChangeListener(onPageChangeListener);
@@ -91,9 +89,9 @@ public class ChildEduHomeActivity extends BaseActivity {
         public Adapter() {
             imageReses = new ArrayList<Integer>();
             texts = new ArrayList<>();
-            imageReses.add(R.drawable.ce_home_iv_item_indicator);
-            imageReses.add(R.drawable.ce_home_iv_item_indicator);
-            imageReses.add(R.drawable.ce_home_iv_item_indicator);
+            imageReses.add(R.drawable.ce_home_ic_video);
+            imageReses.add(R.drawable.ce_home_ic_music);
+            imageReses.add(R.drawable.ce_home_ic_edu);
             texts.add("动画片");
             texts.add("儿童娱乐");
             texts.add("儿童幼教");
