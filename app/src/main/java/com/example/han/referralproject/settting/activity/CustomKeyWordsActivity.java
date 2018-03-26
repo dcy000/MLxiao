@@ -9,6 +9,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.settting.adapter.KeyWordRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordBean;
+import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +50,9 @@ public class CustomKeyWordsActivity extends BaseActivity {
             @Override
             public int getSpanSize(int position) {
                 return setSpanSize(position, data);
-//                return 2;
             }
         });
-
+        rvItems.addItemDecoration(new GridViewDividerItemDecoration(20, 20));
         rvItems.setAdapter(new KeyWordRVAdapter(data));
     }
 

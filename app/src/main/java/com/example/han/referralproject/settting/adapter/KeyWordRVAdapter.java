@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -37,7 +38,10 @@ public class KeyWordRVAdapter extends RecyclerView.Adapter<KeyWordRVAdapter.VH> 
         holder.name.setText(bean.itemName);
         if (bean.title) {
             holder.name.setBackground(null);
-            holder.name.setTextSize(36);
+            holder.name.setTextSize(32);
+            holder.name.setPadding(-100,0,0,0);
+        }else{
+            holder.name.setTextSize(28);
         }
     }
 
