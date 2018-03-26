@@ -1,0 +1,517 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg">
+    <!--左侧-->
+    <LinearLayout
+        android:id="@+id/cl_left"
+        android:layout_width="562pt"
+        android:layout_height="match_parent"
+        android:layout_margin="32pt"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_week_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            android:text="周平均血压"
+            android:textSize="56pt"
+            android:textStyle="bold"
+            android:textColor="#333"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_gaoya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="40pt"
+            android:layout_marginTop="24pt"
+            android:text=""
+            android:textColor="#333"
+            android:textSize="48pt" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#F4843E" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16pt"
+                android:text="高压"
+                android:textColor="#666666"
+                android:textSize="48pt" />
+
+            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+                android:id="@+id/rpb_gao"
+                android:layout_width="302pt"
+                android:layout_height="48pt"
+                android:layout_marginLeft="36pt"
+                app:rcBackgroundColor="#eee"
+                app:rcMax="100"
+                app:rcProgress="0"
+                app:rcProgressColor="#FF5A5A"
+                app:rcRadius="0pt"
+
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_diya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="40pt"
+            android:layout_marginTop="40pt"
+            android:text=""
+            android:textColor="#333"
+            android:textSize="48pt" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#FED235"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16pt"
+                android:text="低压"
+                android:textColor="#666666"
+                android:textSize="48pt" />
+
+            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+                android:id="@+id/rpb_diya"
+                android:layout_width="302pt"
+                android:layout_height="48pt"
+                android:layout_marginLeft="36pt"
+                app:rcBackgroundColor="#eee"
+                app:rcMax="100"
+                app:rcProgress="0"
+                app:rcProgressColor="#FED235"
+                app:rcRadius="0pt" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="172pt"
+            android:text="健康分数"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:textStyle="bold" />
+
+        <com.littlejie.circleprogress.WaveProgress
+            android:id="@+id/wave_progress_bar"
+            android:layout_width="293pt"
+            android:layout_height="293pt"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="36pt"
+            app:cp_bgCircleColor="#F1F5FF"
+            app:cp_circleColor="#eee"
+            app:cp_circleWidth="3pt"
+            app:cp_darkWaveAnimTime="1000"
+            app:cp_darkWaveColor="#B372A7FC"
+            app:cp_lightWaveAnimTime="2000"
+            app:cp_lightWaveColor="#B372A7FC"
+            app:cp_lightWaveDirect="R2L"
+            app:cp_lockCircle="true"
+            app:cp_lockWave="false"
+            app:cp_valueSize="105pt"
+            app:cp_waveHeight="30pt"
+            app:cp_waveNum="1" />
+    </LinearLayout>
+    <!--右侧-->
+    <LinearLayout
+        android:layout_width="1262pt"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32pt"
+        android:layout_marginRight="32pt"
+        android:layout_marginTop="32pt"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/cl_left"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56pt"
+            android:layout_marginLeft="40pt"
+            android:text="本周目标"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:textStyle="bold"/>
+        <!--表格1-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="39pt"
+            android:layout_marginRight="39pt"
+            android:orientation="vertical"
+            android:layout_marginTop="48pt">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+            <!--第一行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116pt"
+                android:background="#eee"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="256pt"
+                    android:layout_height="match_parent"
+                    android:text="" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="462pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="高压(mmHg)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="462pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="低压(mmHg)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+            <!--第二行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116pt"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="256pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="血压目标"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/gaoya_mubiao"
+                    android:layout_width="462pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/diya_mubiao"
+                    android:layout_width="462pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+        </LinearLayout>
+        <!--表格2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="39pt"
+            android:layout_marginRight="39pt"
+            android:layout_marginTop="24pt"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+            <!--第一行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116pt"
+                android:background="#eee"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="256pt"
+                    android:layout_height="match_parent"
+                    android:text="" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="盐(g)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="运动(min)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="体重(kg)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="饮酒(ml)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+            <!--第二行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116pt"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="256pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="生活目标"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/na_mubiao"
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/yundong_mubiao"
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/tizhong_mubiao"
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/yinjiu_mubiao"
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50pt"
+            android:layout_marginTop="56pt"
+            android:text="完成进度"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_progress1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#333"
+            android:textSize="72pt"
+            android:textStyle="bold"
+            android:layout_gravity="end"
+            android:layout_marginRight="40pt"
+            android:layout_marginTop="-16pt"/>
+
+        <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
+            android:id="@+id/rpb_sum"
+            android:layout_width="match_parent"
+            android:layout_height="40pt"
+            app:rcBackgroundColor="#eee"
+            app:rcMax="100"
+            app:rcProgress="0"
+            app:rcProgressColor="#5BD78C"
+            app:rcRadius="20pt"
+            app:rcTextProgressMargin="10dp"
+            android:layout_marginTop="16pt"
+            android:layout_marginLeft="40pt"
+            android:layout_marginRight="40pt"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

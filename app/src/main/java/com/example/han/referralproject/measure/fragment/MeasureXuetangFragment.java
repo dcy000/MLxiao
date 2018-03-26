@@ -69,7 +69,7 @@ public class MeasureXuetangFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         tvTopTitle.setText("测量异常");
         title.setText(titleString);
-
+        ((DetectActivity)getActivity()).speak(titleString);
         reasons = new ArrayList<>();
         initData();
         list.setLayoutManager(new GridLayoutManager(getActivity(), 3));

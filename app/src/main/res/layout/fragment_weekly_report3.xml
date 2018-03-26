@@ -1,0 +1,527 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/main_bg"
+    tools:context="com.example.han.referralproject.intelligent_diagnosis.WeeklyReport3Fragment">
+
+    <LinearLayout
+        android:layout_width="562pt"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="32pt"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="健康分析"
+            android:textStyle="bold"
+            android:textSize="56pt"
+            android:textColor="#333"
+            android:layout_marginLeft="40pt"
+            android:layout_marginTop="40pt"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="60pt"
+            android:layout_marginLeft="40pt">
+
+            <me.songning.library.CircleView
+                android:layout_width="24pt"
+                android:layout_height="24pt"
+                app:circleColor="#49DF84"
+                app:randomColor="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16pt"
+                android:text="目标值"
+                android:textColor="#666666"
+                android:textSize="48pt" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="32pt"
+            android:layout_marginLeft="40pt">
+
+            <me.songning.library.CircleView
+                android:layout_width="24pt"
+                android:layout_height="24pt"
+                app:circleColor="#FF5747"
+                app:randomColor="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16pt"
+                android:text="实际值"
+                android:textColor="#666666"
+                android:textSize="48pt" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="1262pt"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_alignParentRight="true"
+        android:layout_margin="32pt">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本周目标与进度"
+            android:textSize="56pt"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:layout_marginLeft="40pt"
+            android:layout_marginTop="56pt"/>
+        <!--表格-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="39pt"
+            android:layout_marginRight="39pt"
+            android:orientation="vertical"
+            android:layout_marginTop="48pt">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+            <!--第一行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116pt"
+                android:background="#eee"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="256pt"
+                    android:layout_height="match_parent"
+                    android:text="" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="盐(g)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="运动(min)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+                <TextView
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="体重(kg)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+                <TextView
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="饮酒(ml)"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+            <!--第二行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116pt"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="256pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="生活目标"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/tab_mb_yan"
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/tab_mb_yundong"
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+                <TextView
+                    android:id="@+id/tab_mb_tizhong"
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+                <TextView
+                    android:id="@+id/tab_mb_yinjiu"
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#333"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116pt"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="256pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="实际情况"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/tab_sj_yan"
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#F4843E"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:id="@+id/tab_sj_yundong"
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#F4843E"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+                <TextView
+                    android:id="@+id/tab_sj_tizhong"
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#F4843E"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+                <TextView
+                    android:id="@+id/tab_sj_yinjiu"
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#F4843E"
+                    android:textSize="56pt"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116pt"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <TextView
+                    android:layout_width="256pt"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="目标偏差"
+                    android:textColor="#333"
+                    android:textSize="48pt" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <LinearLayout
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/img_yan"
+                        android:layout_width="32pt"
+                        android:layout_height="44pt"/>
+                    <TextView
+                        android:id="@+id/pc_yan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#FF5747"
+                        android:textSize="56pt"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8pt"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+
+                <LinearLayout
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/img_yundong"
+                        android:layout_width="32pt"
+                        android:layout_height="44pt"/>
+                    <TextView
+                        android:id="@+id/pc_yundong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#FF5747"
+                        android:textSize="56pt"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8pt"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+                <LinearLayout
+                    android:layout_width="230pt"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/img_tizhong"
+                        android:layout_width="32pt"
+                        android:layout_height="44pt"/>
+                    <TextView
+                        android:id="@+id/pc_tizhong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#FF5747"
+                        android:textSize="56pt"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8pt"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+                <LinearLayout
+                    android:layout_width="231pt"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/img_yinjiu"
+                        android:layout_width="32pt"
+                        android:layout_height="44pt"/>
+                    <TextView
+                        android:id="@+id/pc_yinjiu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#FF5747"
+                        android:textSize="56pt"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8pt"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
+                android:background="@color/line3" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="完成进度"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:layout_marginTop="56pt"
+            android:layout_marginLeft="50pt"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_progress3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="72pt"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:text=""
+            android:layout_gravity="end"
+            android:layout_marginRight="40pt"
+            android:layout_marginTop="-16pt"/>
+
+        <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
+            android:id="@+id/rpb_sum"
+            android:layout_width="match_parent"
+            android:layout_height="40pt"
+            app:rcBackgroundColor="#eee"
+            android:layout_marginLeft="40pt"
+            android:layout_marginRight="40pt"
+            android:layout_marginTop="16pt"
+            app:rcMax="100"
+            app:rcProgress="0"
+            app:rcProgressColor="#F78237"
+            app:rcRadius="20pt"
+            app:rcTextProgressMargin="10dp" />
+    </LinearLayout>
+    <com.github.mikephil.charting.charts.RadarChart
+        android:id="@+id/chart"
+        android:layout_width="600pt"
+        android:layout_height="600pt"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

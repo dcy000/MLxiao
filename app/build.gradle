@@ -37,10 +37,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
+            buildConfigField "boolean", "LOGGING", gradle.logging
         }
 
         debug {
             debuggable true
+            buildConfigField "boolean", "LOGGING", gradle.logging
         }
     }
 
@@ -66,6 +68,11 @@ android {
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/beans.xml'
     }
 
 }
@@ -100,6 +107,7 @@ dependencies {
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.github.bumptech.glide:glide:3.8.0'
+    compile "jp.wasabeef:glide-transformations:3.1.1"
     compile 'me.wcy:lrcview:1.4.2'
     compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'
     compile 'com.netease.nimlib:basesdk:4.3.0'
@@ -127,6 +135,7 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.5.0'
     compile 'com.nex3z:flow-layout:1.1.0'
     compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     compile name: 'mlrobot-release', ext: 'aar'
     compile name: 'FaceppIDCardUI', ext: 'aar'
     compile name: 'lib-crash', ext: 'aar'
@@ -134,13 +143,20 @@ dependencies {
     compile name: 'library', ext: 'aar'
     compile name: 'vmtools', ext: 'aar'
     compile name: 'voicelibrary', ext: 'aar'
-//    compile name: 'wkvideoplayer', ext: 'aar'
+    //    compile name: 'wkvideoplayer', ext: 'aar'
     compile project(':wkvideoplayer')
-
     compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+<<<<<<< HEAD
+    compile project(':module-edu')
+    //    compile name: 'sdk', ext: 'aar'
+=======
     compile project(":module-edu")
+
+    compile project(":lib-video-player")
+    compile project(":lib-zxing")
 //    compile name: 'sdk', ext: 'aar'
+>>>>>>> 065bd090e1198a5542eb23cb1a24761734ad01d3
     //    compile name: 'sdk', ext: 'aar'
     //极光推送
     compile 'cn.jiguang.sdk:jpush:3.1.1'
@@ -152,4 +168,10 @@ dependencies {
     compile 'com.umeng.analytics:analytics:6.1.2'
     compile 'me.songning.CircleView:library:1.0.0'
     compile project(':circleprogress')
+    compile project(':lib-rulerview')
+    //日志库
+    compile 'com.orhanobut:logger:2.1.1'
+    //    compile 'me.relex:circleindicator:1.2.2@aar'
+    compile project(':circleindicator')
+//    compile project(':module_hykd')
 }

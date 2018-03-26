@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.ml.videoplayer.MlVideoPlayerActivity;
 
 import java.io.File;
 
@@ -294,7 +295,7 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent(getApplicationContext(), PlayVideoActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MlVideoPlayerActivity.class);
         switch (v.getId()) {
             case R.id.image1:
                 intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "com.example.han.referralproject" + "/pressure1.mp4");

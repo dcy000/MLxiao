@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FFFFFF"
+              android:orientation="vertical"
+              tools:context="com.example.han.referralproject.health.HealthDiaryMoreItemsFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="128pt"
+        android:background="#3F86FC">
+
+        <TextView
+            android:id="@+id/health_diary_more_items_tv_top_back"
+            android:layout_width="wrap_content"
+            android:layout_height="0pt"
+            android:background="@drawable/health_diary_tv_more_items_back"
+            android:drawableLeft="@drawable/icon_back"
+            android:drawablePadding="20pt"
+            android:gravity="center"
+            android:paddingLeft="60pt"
+            android:paddingRight="60pt"
+            android:text="返回"
+            android:textColor="#FFFFFF"
+            android:textSize="64pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/health_diary_tv_more_items_top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="健  康  日  记"
+            android:textColor="#FFFFFF"
+            android:textSize="64pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/health_diary_more_items_tv_top_action"
+            android:layout_width="wrap_content"
+            android:layout_height="0pt"
+            android:background="@drawable/health_diary_tv_more_items_back"
+            android:gravity="center"
+            android:paddingLeft="60pt"
+            android:paddingRight="60pt"
+            android:text="完成"
+            android:textColor="#FFFFFF"
+            android:textSize="64pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/health_diary_tv_more_items_the_items_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="64pt"
+        android:text="当前可选项目"
+        android:textColor="#333333"
+        android:textSize="72pt"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/health_diary_rv_more_items_the_items"
+        android:layout_width="wrap_content"
+        android:layout_height="320pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="28pt"
+        android:overScrollMode="never"/>
+
+    <TextView
+        android:id="@+id/health_diary_tv_more_items_more_items_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="44pt"
+        android:text="更多项目"
+        android:textColor="#333333"
+        android:textSize="72pt"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/health_diary_rv_more_items_more_items"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="28pt"
+        android:overScrollMode="never"/>
+</LinearLayout>

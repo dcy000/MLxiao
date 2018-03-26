@@ -3,9 +3,11 @@ package com.example.han.referralproject;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
@@ -21,12 +23,18 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.ml.videoplayer.MlVideoPlayer;
 
 import java.util.ArrayList;
+
+import cn.jzvd.JZVideoPlayerStandard;
 
 public class WelcomeActivity extends BaseActivity {
 
     private Chronometer ch;
+
+    public static final String VEDIO_URL = "http://oyptcv2pb.bkt.clouddn.com/abc_1521797390144";
+    public static final String IMAGE_URL = "http://oyptcv2pb.bkt.clouddn.com/abc_1521797325763";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +49,13 @@ public class WelcomeActivity extends BaseActivity {
             mIntent.putExtra("is_first_wifi", true);
             startActivity(mIntent);
             finish();
+            return;
         }
+        playVideo();
+//        checkVersion();
+    }
 
-
+    private void checkVersion() {
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
@@ -122,5 +134,68 @@ public class WelcomeActivity extends BaseActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onPause() {
+        JZVideoPlayerStandard.releaseAllVideos();
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JZVideoPlayerStandard.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    private void playVideo() {
+        boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
+        if (isFirstIn) {
+            JZVideoPlayerStandard.startFullscreen(this, MyVideoPlayer.class, VEDIO_URL, "迈联智慧");
+        } else {
+            checkVersion();
+        }
+    }
+
+    public static class MyVideoPlayer extends JZVideoPlayerStandard {
+        private WelcomeActivity mWelcomeActivity;
+
+        public MyVideoPlayer(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void init(Context context) {
+            super.init(context);
+            try {
+                mWelcomeActivity = (WelcomeActivity) context;
+            } catch (Exception e) {
+                mWelcomeActivity = null;
+                e.printStackTrace();
+            }
+
+            backButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MyVideoPlayer.this.onClick(v);
+                    mWelcomeActivity.onVideoPlayedComplete();
+                }
+            });
+        }
+
+        @Override
+        public void onStateAutoComplete() {
+            super.onStateAutoComplete();
+            backPress();
+            mWelcomeActivity.onVideoPlayedComplete();
+        }
+    }
+
+    private void onVideoPlayedComplete() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        LocalShared.getInstance(this).setIsFirstIn(false);
+        checkVersion();
     }
 }

@@ -1,22 +1,16 @@
 package com.example.han.referralproject;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
-import com.example.han.referralproject.measure.InstructionsActivity;
-import com.example.han.referralproject.measure.OnMeasureActivity;
+import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
-import com.example.han.referralproject.util.ToastUtil;
 
 import java.util.Calendar;
 
@@ -138,7 +132,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 //                    ToastUtil.showShort(this,"暂未开通");
                     break;
                 case R.id.ll_more://敬请期待
-                    ToastUtil.showShort(this,"敬请期待");
+                    ToastTool.showShort("敬请期待");
                     break;
             }
         }

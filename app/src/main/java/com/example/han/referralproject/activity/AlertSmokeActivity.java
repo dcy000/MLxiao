@@ -13,7 +13,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
-import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.register.EatAdapter;
 import com.medlink.danbogh.register.EatModel;
 
@@ -194,14 +194,14 @@ public class AlertSmokeActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         if(positionSelected==-1){
-            ToastUtil.showShort(this,"请选择其中一个");
+            ToastTool.showShort("请选择其中一个");
             return;
         }
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, positionSelected+1+"", drink, exercise,
                 buffer==null?"":buffer.substring(0,buffer.length()-1),data.dz,new NetworkManager.SuccessCallback<Object>() {
             @Override
             public void onSuccess(Object response) {
-                ToastUtils.show("修改成功");
+                ToastTool.showShort("修改成功");
                 switch (positionSelected+1){
                     case 1:
                         speak("主人，您的吸烟情况已经修改为"+"经常吸烟");

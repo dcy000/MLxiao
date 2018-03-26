@@ -3,7 +3,6 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -18,7 +17,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastUtil;
+import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 
@@ -80,7 +79,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 //获取所有账号
                 String[] accounts = LocalShared.getInstance(ChooseLoginTypeActivity.this).getAccounts();
                 if (accounts == null) {
-                    ToastUtil.showLong(this, "未检测到您的登录历史，请输入账号和密码登录");
+                    ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
                     startActivity(new Intent(this, SignInActivity.class));
                 } else {
                     startActivity(new Intent(this, AuthenticationActivity.class)
@@ -106,7 +105,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onSpeakListenerResult(String result) {
         String inSpell = PinYinUtils.converterToSpell(result);
-        ToastUtil.showShort(this,result);
+        ToastTool.showShort(result);
         if (inSpell.matches(".*((shou|sou)ji).*")) {
             tvPhoneSignIn.performClick();
             return;
