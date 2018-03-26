@@ -459,12 +459,12 @@
         android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
         android:textColor="#999999"/>
-    <Button
-        android:id="@+id/live_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TV"
-        android:layout_toRightOf="@id/tv_update"
-        android:layout_alignBottom="@id/tv_update"
-        android:layout_marginLeft="20dp"/>
+    <!--<Button-->
+        <!--android:id="@+id/live_tv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="TV"-->
+        <!--android:layout_toRightOf="@id/tv_update"-->
+        <!--android:layout_alignBottom="@id/tv_update"-->
+        <!--android:layout_marginLeft="20dp"/>-->
 </RelativeLayout>

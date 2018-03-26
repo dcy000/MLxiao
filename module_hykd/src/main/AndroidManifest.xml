@@ -26,16 +26,18 @@
 
         <activity
             android:name=".live_tv.TVListActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".live_tv.TVDisplayActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".live_tv.tv_list.TvChannelActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity
-            android:name=".live_tv.TVDisplayActivity"
-            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

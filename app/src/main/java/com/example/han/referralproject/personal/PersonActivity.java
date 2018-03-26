@@ -45,7 +45,6 @@ import com.medlink.danbogh.signin.SignInActivity;
 import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-import com.zane.androidupnpdemo.live_tv.TVListActivity;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener {
 
@@ -209,12 +208,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
 
-        findViewById(R.id.live_tv).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PersonActivity.this, TVListActivity.class));
-            }
-        });
+//        findViewById(R.id.live_tv).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(PersonActivity.this, TVListActivity.class));
+//            }
+//        });
     }
 
     @Override
