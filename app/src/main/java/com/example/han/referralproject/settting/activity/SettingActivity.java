@@ -93,7 +93,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
             case R.id.rl_set_keyword:
                 //设置关键词
 //                startActivity(new Intent(this, SetKeyWordActivity.class));
-                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
+//                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
+                startActivity(new Intent(this, CustomKeyWordsActivity.class));
 
                 break;
 
