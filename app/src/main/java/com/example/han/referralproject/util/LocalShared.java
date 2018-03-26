@@ -39,6 +39,8 @@ public class LocalShared {
     private final String Guide_Create_Text = "guide_create_text";
     private final String Guide_Sign_In = "guide_sign_in_two";
 
+    public static final String IS_FIRST_IN = "isFirstIn";
+
     private Context context;
 
     private LocalShared(Context context) {
@@ -51,6 +53,14 @@ public class LocalShared {
             mInstance = new LocalShared(context);
         }
         return mInstance;
+    }
+
+    public boolean getIsFirstIn() {
+        return mShared.getBoolean(IS_FIRST_IN, true);
+    }
+
+    public void setIsFirstIn(boolean isFirstIn) {
+        mShared.edit().putBoolean(IS_FIRST_IN, isFirstIn).apply();
     }
 
     /**

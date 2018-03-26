@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.activity.MessageCenterActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -29,22 +27,22 @@ import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
+import com.example.han.referralproject.health.HealthDiaryActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener {
 
@@ -153,12 +151,15 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         mTitleText.setText("个  人  中  心");
         mRightView.setImageResource(R.drawable.icon_wifi);
         mImageView5.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
 
+//                Intent intent = new Intent(getApplicationContext(), HealthSaltDiaryActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -178,6 +179,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 //                startActivity(intent);
 //                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
                 OldRouter.routeToOldHomeActivity(PersonActivity.this);
+//                Intent intent = new Intent(PersonActivity.this, ChildEduHomeActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -205,7 +208,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mTextView1 = (TextView) findViewById(R.id.doctor_name);
 
-        ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
+        ((TextView) findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
 
 //        findViewById(R.id.live_tv).setOnClickListener(new View.OnClickListener() {
@@ -362,20 +365,21 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
-                DiseaseUser diseaseUser=new DiseaseUser(
+                DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
+                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
                         LocalShared.getInstance(this).getUserPhoto()
                 );
-                String currentUser= new Gson().toJson(diseaseUser);
+                String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
                 break;
             case R.id.iv_message:
 //                startActivity(new Intent(this, MessageActivity.class));
-                startActivity(new Intent(this, MessageCenterActivity.class).putExtra("doctorName",doctorName));
+//                startActivity(new Intent(this, MessageCenterActivity.class).putExtra("doctorName",doctorName));
+                startActivity(new Intent(this, HealthDiaryActivity.class));
                 break;
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));

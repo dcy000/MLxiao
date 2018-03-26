@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.health.HealthSaltDiaryActivity">
+
+    <TextView
+        android:id="@+id/health_salt_diary_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64pt"
+        android:text="选择盐摄入"
+        android:textColor="#333333"
+        android:textSize="56pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/health_diary_tv_salt_g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116pt"
+        android:text="0g"
+        android:textColor="#333333"
+        android:textSize="72pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/health_salt_diary_tv_title"/>
+
+    <com.ml.rulerview.RulerView
+        android:id="@+id/health_diary_rv_ruler"
+        android:layout_width="0dp"
+        android:layout_height="220pt"
+        app:layout_constraintBottom_toTopOf="@+id/health_diary_line_ruler_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/health_diary_line_ruler_top"
+        app:ruler_alphaEnable="false"
+        app:ruler_lineColor="#BBBBBB"
+        app:ruler_lineMaxHeight="60pt"
+        app:ruler_lineMidHeight="50pt"
+        app:ruler_lineMinHeight="40pt"
+        app:ruler_lineSpaceWidth="40pt"
+        app:ruler_lineWidth="2pt"
+        app:ruler_maxValue="10.0"
+        app:ruler_minValue="0"
+        app:ruler_perValue="1"
+        app:ruler_selectorValue="2.0"
+        app:ruler_textColor="#666666"/>
+
+    <TextView
+        android:id="@+id/health_diary_tv_ruler_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25pt"
+        android:text="0.0勺"
+        android:textColor="#3F86FC"
+        android:textSize="120pt"
+        app:layout_constraintBottom_toTopOf="@+id/health_diary_line_ruler_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <View
+        android:id="@+id/health_diary_indicator_ruler"
+        android:layout_width="6pt"
+        android:layout_height="78pt"
+        android:layout_marginTop="12pt"
+        android:background="@drawable/health_diary_indicator_ruler"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/health_diary_line_ruler_top"/>
+
+    <View
+        android:id="@+id/health_diary_line_ruler_top"
+        android:layout_width="0dp"
+        android:layout_height="2pt"
+        android:layout_marginBottom="422pt"
+        android:background="@drawable/health_diary_line_ruler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <View
+        android:id="@+id/health_diary_line_ruler_bottom"
+        android:layout_width="0dp"
+        android:layout_height="2pt"
+        android:layout_marginBottom="198pt"
+        android:background="@drawable/health_diary_line_ruler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/health_diary_tv_cancel"
+        android:layout_width="240pt"
+        android:layout_height="120pt"
+        android:layout_marginLeft="60pt"
+        android:background="@drawable/health_salt_diary_tv_cancel"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="#FFFFFF"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/health_diary_line_ruler_bottom"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/health_diary_rv_units"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/health_diary_line_ruler_bottom"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="600pt"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/health_diary_tv_confirm"
+        android:layout_width="240pt"
+        android:layout_height="120pt"
+        android:layout_marginRight="60pt"
+        android:background="@drawable/health_diary_tv_confirm"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="#FFFFFF"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/health_diary_line_ruler_bottom"/>
+</android.support.constraint.ConstraintLayout>

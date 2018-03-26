@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5595FF"
+    tools:context="com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity">
+
+    <ImageView
+        android:id="@+id/ce_sheet_details_iv_sheet_cover"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="36dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ce_home_iv_item_indicator"/>
+
+    <TextView
+        android:id="@+id/ce_sheet_details_tv_sheet_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ce_sheet_details_iv_sheet_cover"
+        app:layout_constraintLeft_toRightOf="@+id/ce_sheet_details_iv_sheet_cover"
+        app:layout_constraintTop_toTopOf="@+id/ce_sheet_details_iv_sheet_cover"
+        tools:text="sheet"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ce_sheet_details_rv_songs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:paddingLeft="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ce_sheet_details_iv_sheet_cover"/>
+</android.support.constraint.ConstraintLayout>

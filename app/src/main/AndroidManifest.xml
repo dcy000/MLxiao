@@ -96,7 +96,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_normal" />
+            android:value="gcml_version_normal"/>
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -540,17 +540,54 @@
         <!-- <category android:name="android.intent.category.DEFAULT" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".children.ChildEduHomeActivity"
+        <activity
+            android:name=".children.ChildEduHomeActivity"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".activity.MessageCenterActivity"
+        <activity android:name=".children.cartoon.ChildEduCartoonActivity">
+        </activity>
+        <activity android:name=".children.entertainment.ChildEduEntertainmentActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduStudyActivity">
+        </activity>
+        <activity android:name=".children.entertainment.ChildEduSheetListActivity">
+        </activity>
+        <activity android:name=".children.entertainment.ChildEduSheetDetailsActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduPoemListActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduWordsActivity">
+        </activity>
+        <activity
+            android:name=".children.study.ChildEduStoriesActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustNothing|stateHidden">
+        </activity>
+        <activity android:name=".children.study.ChildEduBrainTeaserActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduWhyActivity">
+        </activity>
+        <activity android:name=".children.study.ChildEduPoemDetailsActivity">
+        </activity>
+        <activity android:name=".health.HealthSaltDiaryActivity">
+        </activity>
+        <activity android:name=".health.HealthSportsDiaryActivity">
+        </activity>
+        <activity android:name=".health.HealthDrinkDiaryActivity">
+        </activity>
+        <activity
+            android:name=".activity.MessageCenterActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".activity.MessageDetailsActivity"
+        <activity
+            android:name=".activity.MessageDetailsActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".intelligent_diagnosis.DailyIntakeActivity"
+        <activity
+            android:name=".intelligent_diagnosis.DailyIntakeActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".intelligent_diagnosis.WeeklyReportActivity"
+        <activity
+            android:name=".intelligent_diagnosis.WeeklyReportActivity"
             android:screenOrientation="landscape"/>
+<<<<<<< HEAD
         <activity android:name=".intelligent_diagnosis.MonthlyReportActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".intelligent_diagnosis.DeleteGroupActivity"
@@ -562,6 +599,9 @@
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
                 <!--<category android:name="android.intent.category.DEFAULT"/>-->
             <!--</intent-filter>-->
+=======
+        <activity android:name=".health.HealthDiaryActivity">
+>>>>>>> 065bd090e1198a5542eb23cb1a24761734ad01d3
         </activity>
     </application>
 
