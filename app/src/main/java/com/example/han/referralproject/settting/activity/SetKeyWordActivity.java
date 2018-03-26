@@ -20,6 +20,7 @@ import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.RecognizerListener;
@@ -136,6 +137,13 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
     @OnClick(R.id.iv_yuyin)
     public void onViewClicked() {
+        SpeechSynthesizerHelper.stop();
+        onEndOfSpeech();
+        startListener();
+
+    }
+
+    private void startListener() {
         //开始识别
         SpeechRecognizerHelper.initSpeechRecognizer(this).startListening(new RecognizerListener() {
             @Override
@@ -199,7 +207,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         bean.show = false;
         data.add(bean);
         adapter.notifyDataSetChanged();
-//        SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
+        SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
         ToastUtil.showShort(this, "保存:" + recognizerResult + "成功");
         speak("保存:" + recognizerResult + "关键词成功");
 

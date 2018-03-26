@@ -872,7 +872,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "癫痫"));
             }
-            keyWordDeal(resultBuffer.toString());
+            boolean dealKeyWord = keyWordDeal(resultBuffer.toString());
+            if (dealKeyWord){
+                return;
+            }
 //            KeyWordBean keyword = (KeyWordBean) SharedPreferencesUtils.getParam(this, "keyword", new KeyWordBean());
 //            if (keyword.yueya.equals(resultBuffer.toString())) {
 //                mIatDialog.dismiss();
@@ -1070,7 +1073,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
     }
 
-    private void keyWordDeal(String yuyin) {
+    private boolean keyWordDeal(String yuyin) {
         //健康自定义监测
         List<KeyWordDefinevBean> jiance = getDefineData("xueya");
         jiance.addAll(getDefineData("xueyang"));
@@ -1084,7 +1087,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                 intent.putExtra("type", "xueya");
                 startActivity(intent);
-                return;
+                return true;
             }
         }
 
@@ -1093,7 +1096,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < addVoice.size(); i++) {
             if (yuyin.equals(addVoice.get(i).name)) {
                 addVoice();
-                return;
+                return true;
             }
         }
 
@@ -1102,7 +1105,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < deleteVoice.size(); i++) {
             if (yuyin.equals(deleteVoice.get(i).name)) {
                 addVoice();
-                return;
+                return true;
             }
         }
 
@@ -1111,7 +1114,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < home.size(); i++) {
             if (yuyin.equals(home.get(i).name)) {
                 finish();
-                return;
+                return true;
             }
         }
 
@@ -1120,7 +1123,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < personCenter.size(); i++) {
             if (yuyin.equals(personCenter.get(i).name)) {
                 gotoPersonCenter();
-                return;
+                return true;
             }
         }
 
@@ -1129,7 +1132,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < check.size(); i++) {
             if (yuyin.equals(check.get(i).name)) {
                 gotoZhengzhuangCheck();
-                return;
+                return true;
             }
         }
 
@@ -1138,7 +1141,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < celianglishi.size(); i++) {
             if (yuyin.equals(celianglishi.get(i).name)) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
-                return;
+                return true;
             }
         }
 
@@ -1147,7 +1150,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < doctorJianyi.size(); i++) {
             if (yuyin.equals(doctorJianyi.get(i).name)) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, MessageActivity.class));
-                return;
+                return true;
             }
         }
 
@@ -1157,7 +1160,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyin.equals(chiyaoTixing.get(i).name)) {
                 Intent intent = AlarmList2Activity.newLaunchIntent(this);
                 startActivity(intent);
-                return;
+                return true;
             }
         }
 
@@ -1167,7 +1170,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyin.equals(zhanghuchongzhi.get(i).name)) {
                 Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                 startActivity(intent);
-                return;
+                return true;
             }
         }
 
@@ -1177,7 +1180,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyin.equals(dingdan.get(i).name)) {
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
-                return;
+                return true;
             }
         }
 
@@ -1194,7 +1197,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < zixunyisheng.size(); i++) {
             if (yuyin.equals(zixunyisheng.get(i).name)) {
                 startActivity(new Intent(getApplicationContext(), DoctorAskGuideActivity.class));
-                return;
+                return true;
             }
         }
 
@@ -1203,21 +1206,23 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < zaixianyisheng.size(); i++) {
             if (yuyin.equals(zaixianyisheng.get(i).name)) {
                 startActivity(new Intent(this, OnlineDoctorListActivity.class));
-                return;
+                return true;
             }
         }
 
         //签约医生
 
         //健康商城
-        List<KeyWordDefinevBean> jiankang = getDefineData("zaixianyisheng");
+        List<KeyWordDefinevBean> jiankang = getDefineData("jiankangshangcheng");
         for (int i = 0; i < jiankang.size(); i++) {
             if (yuyin.equals(jiankang.get(i).name)) {
                 startActivity(new Intent(this, MarketActivity.class
                 ));
-                return;
+                return true;
             }
         }
+
+        return false;
 
     }
 

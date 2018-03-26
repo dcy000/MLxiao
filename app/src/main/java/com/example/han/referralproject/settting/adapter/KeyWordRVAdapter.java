@@ -49,7 +49,7 @@ public class KeyWordRVAdapter extends RecyclerView.Adapter<KeyWordRVAdapter.VH> 
             holder.name.setBackground(null);
             holder.name.setTextSize(32);
             holder.name.setEnabled(false);
-            holder.name.setPadding(-30, 0, 0, 0);
+            holder.name.setPadding(-40, 0, 0, 0);
             holder.name.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         } else {
             holder.name.setTextSize(28);
@@ -58,12 +58,23 @@ public class KeyWordRVAdapter extends RecyclerView.Adapter<KeyWordRVAdapter.VH> 
             holder.name.setBackgroundResource(R.drawable.shape_item_key_word);
             holder.name.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
+
+//        if (bean.click) {
+//            holder.name.setBackgroundResource(R.drawable.shape_item_key_word_click);
+//        } else {
+//            holder.name.setBackgroundResource(R.drawable.shape_item_key_word);
+//        }
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
                     listener.onItemClick(position);
+                    for (int i = 0; i < data.size(); i++) {
+                        data.get(i).click = false;
+                    }
+                    data.get(position).click = true;
                 }
+                notifyDataSetChanged();
             }
         });
     }
