@@ -170,6 +170,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         super.onResume();
         data.clear();
         refreshData();
+        adapter.notifyDataSetChanged();
     }
 
     public static void StartMe(Context context, String title) {
