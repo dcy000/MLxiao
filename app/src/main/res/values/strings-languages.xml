@@ -28,43 +28,87 @@
     </string-array>
 
     <!--<string-array name="voicer_cloud_entries">-->
-        <!--<item>小燕</item>-->
-        <!--<item>小宇</item>-->
-        <!--<item>凯瑟琳</item>-->
-        <!--<item>亨利</item>-->
-        <!--<item>玛丽</item>-->
-        <!--<item>小研</item>-->
-        <!--<item>小琪</item>-->
-        <!--<item>小峰</item>-->
-        <!--<item>小梅</item>-->
-        <!--<item>小莉</item>-->
-        <!--<item>小蓉</item>-->
-        <!--<item>小芸</item>-->
-        <!--<item>小坤</item>-->
-        <!--<item>小强 </item>-->
-        <!--<item>小莹</item>-->
-        <!--<item>小新</item>-->
-        <!--<item>楠楠</item>-->
-        <!--<item>老孙</item>-->
+    <!--<item>小燕</item>-->
+    <!--<item>小宇</item>-->
+    <!--<item>凯瑟琳</item>-->
+    <!--<item>亨利</item>-->
+    <!--<item>玛丽</item>-->
+    <!--<item>小研</item>-->
+    <!--<item>小琪</item>-->
+    <!--<item>小峰</item>-->
+    <!--<item>小梅</item>-->
+    <!--<item>小莉</item>-->
+    <!--<item>小蓉</item>-->
+    <!--<item>小芸</item>-->
+    <!--<item>小坤</item>-->
+    <!--<item>小强 </item>-->
+    <!--<item>小莹</item>-->
+    <!--<item>小新</item>-->
+    <!--<item>楠楠</item>-->
+    <!--<item>老孙</item>-->
     <!--</string-array>-->
     <!--<string-array name="voicer_cloud_values">-->
-        <!--<item>xiaoyan</item>-->
-        <!--<item>xiaoyu</item>-->
-        <!--<item>catherine</item>-->
-        <!--<item>henry</item>-->
-        <!--<item>vimary</item>-->
-        <!--<item>vixy</item>-->
-        <!--<item>xiaoqi</item>-->
-        <!--<item>vixf</item>-->
-        <!--<item>xiaomei</item>-->
-        <!--<item>xiaolin</item>-->
-        <!--<item>xiaorong</item>-->
-        <!--<item>xiaoqian</item>-->
-        <!--<item>xiaokun</item>-->
-        <!--<item>xiaoqiang</item>-->
-        <!--<item>vixying</item>-->
-        <!--<item>xiaoxin</item>-->
-        <!--<item>nannan</item>-->
-        <!--<item>vils</item>-->
+    <!--<item>xiaoyan</item>-->
+    <!--<item>xiaoyu</item>-->
+    <!--<item>catherine</item>-->
+    <!--<item>henry</item>-->
+    <!--<item>vimary</item>-->
+    <!--<item>vixy</item>-->
+    <!--<item>xiaoqi</item>-->
+    <!--<item>vixf</item>-->
+    <!--<item>xiaomei</item>-->
+    <!--<item>xiaolin</item>-->
+    <!--<item>xiaorong</item>-->
+    <!--<item>xiaoqian</item>-->
+    <!--<item>xiaokun</item>-->
+    <!--<item>xiaoqiang</item>-->
+    <!--<item>vixying</item>-->
+    <!--<item>xiaoxin</item>-->
+    <!--<item>nannan</item>-->
+    <!--<item>vils</item>-->
     <!--</string-array>-->
+
+    <!--关键词自定义-->
+    <string-array name="key_jiankang_jiance">
+        <item>血压</item>
+        <item>血氧</item>
+        <item>体温</item>
+        <item>血糖</item>
+        <item>心电</item>
+        <item>体重</item>
+        <item>三合一</item>
+    </string-array>
+
+    <!--基本功能自定义-->
+    <string-array name="key_jiben_gongneng">
+        <item>调大声音</item>
+        <item>调小声音</item>
+        <item>回到主界面</item>
+        <item>删除</item>
+        <item>上一步</item>
+        <item>下一步</item>
+    </string-array>
+    <string-array name="key_geren_zhongxin">
+        <item>个人中心</item>
+        <item>症状自查</item>
+        <item>测量历史</item>
+        <item>医生建议</item>
+        <item>吃药提醒</item>
+        <item>账户充值</item>
+        <item>我的订单</item>
+        <item>健康课堂</item>
+        <item>娱乐</item>
+        <item>收音机</item>
+        <item>音乐</item>
+    </string-array>
+    <string-array name="key_yisheng_ziuxn">
+        <item>医生咨询</item>
+        <item>签约医生</item>
+        <item>在线医生</item>
+    </string-array>
+    <string-array name="key_jiankang_shangcheng">
+        <item>健康商城</item>
+    </string-array>
+
+
 </resources>

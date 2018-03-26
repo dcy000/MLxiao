@@ -11,6 +11,4 @@ public class KeyWordBean implements Serializable {
     public String yueya;
     public String itemName;
     public boolean title;//是否是标题
-    public List<String> keyWords;
-
 }

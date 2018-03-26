@@ -1,6 +1,7 @@
 package com.example.han.referralproject.settting.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,13 +14,17 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.ToolBaseActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.bean.KeyWordBean;
+import com.example.han.referralproject.tool.CookBookResultActivity;
+import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 
+import java.io.Serializable;
 import java.security.Key;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,8 +51,9 @@ public class SetKeyWordActivity extends ToolBaseActivity {
     }
 
     private void initTitle() {
+        String title = getIntent().getStringExtra("title");
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("设置关键词");
+        mTitleText.setText(title+"自定义");
         speak("主人,请录入您的关键词");
     }
 
@@ -97,9 +103,9 @@ public class SetKeyWordActivity extends ToolBaseActivity {
     @Override
     public void getData(String recognizerResult) {
         etKeyword.setText(recognizerResult);
-        KeyWordBean bean =new KeyWordBean();
-        bean.yueya=recognizerResult;
-        SharedPreferencesUtils.setParam(this,"keyword",bean);
+        KeyWordBean bean = new KeyWordBean();
+        bean.yueya = recognizerResult;
+        SharedPreferencesUtils.setParam(this, "keyword", bean);
         ToastUtil.showShort(this, recognizerResult);
 
         flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);
@@ -111,6 +117,11 @@ public class SetKeyWordActivity extends ToolBaseActivity {
 
     }
 
+    public static void StartMe(Context context, String title) {
+        Intent intent = new Intent(context, SetKeyWordActivity.class);
+        intent.putExtra("title", title);
+        context.startActivity(intent);
+    }
 
 
 }

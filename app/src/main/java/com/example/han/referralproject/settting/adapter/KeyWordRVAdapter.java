@@ -1,10 +1,8 @@
 package com.example.han.referralproject.settting.adapter;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -21,6 +19,15 @@ import butterknife.ButterKnife;
 
 public class KeyWordRVAdapter extends RecyclerView.Adapter<KeyWordRVAdapter.VH> {
     List<KeyWordBean> data;
+    ClickItemInterface listener;
+
+    public interface ClickItemInterface {
+        void onItemClick(int position);
+    }
+
+    public void setListener(ClickItemInterface listener) {
+        this.listener = listener;
+    }
 
     public KeyWordRVAdapter(List<KeyWordBean> data) {
         this.data = data;
@@ -33,16 +40,26 @@ public class KeyWordRVAdapter extends RecyclerView.Adapter<KeyWordRVAdapter.VH> 
     }
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(VH holder, final int position) {
         KeyWordBean bean = data.get(position);
+
         holder.name.setText(bean.itemName);
         if (bean.title) {
             holder.name.setBackground(null);
-            holder.name.setTextSize(32);
-            holder.name.setPadding(-100,0,0,0);
-        }else{
             holder.name.setTextSize(28);
+            holder.name.setPadding(0, 0, 0, 0);
+        } else {
+            holder.name.setTextSize(28);
+            holder.name.setBackgroundResource(R.drawable.shape_item_key_word);
         }
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
