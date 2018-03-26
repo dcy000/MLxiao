@@ -603,7 +603,8 @@
             android:screenOrientation="landscape" />
         <activity android:name=".settting.activity.SetKeyWordActivity" />
         <activity android:name=".settting.activity.VoicerSettingDemoActivity" />
-        <activity android:name=".settting.activity.CustomKeyWordsActivity"></activity>
+        <activity android:name=".settting.activity.CustomKeyWordsActivity" />
+        <activity android:name=".settting.activity.KeyWordEditActivity"></activity>
     </application>
 
 </manifest>

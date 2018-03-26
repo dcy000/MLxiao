@@ -2,41 +2,51 @@ package com.example.han.referralproject.settting.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.ToolBaseActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
-import com.example.han.referralproject.settting.bean.KeyWordBean;
-import com.example.han.referralproject.tool.CookBookResultActivity;
-import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
+import com.example.han.referralproject.settting.adapter.KeyWordDifineRVAdapter;
+import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 
-import java.io.Serializable;
-import java.security.Key;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SetKeyWordActivity extends ToolBaseActivity {
+public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifineRVAdapter.DeleteClickListener, View.OnClickListener {
 
-    @BindView(R.id.et_keyword)
-    EditText etKeyword;
-    @BindView(R.id.tv_confirm)
-    TextView tvConfirm;
+
+    @BindView(R.id.iv_yuyin)
+    ImageView ivYuyin;
+    @BindView(R.id.tv_notice)
+    TextView tvNotice;
+    @BindView(R.id.textView7)
+    TextView textView7;
+    @BindView(R.id.rv_keys)
+    RecyclerView rvKeys;
     private boolean flag;
+    private String title;
+    private List<KeyWordDefinevBean> data;
+    private String titlePinyin;
+    private KeyWordDifineRVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +58,41 @@ public class SetKeyWordActivity extends ToolBaseActivity {
         setContentView(R.layout.activity_set_key_word);
         ButterKnife.bind(this);
         initTitle();
+        initData();
+        initRV();
     }
 
     private void initTitle() {
-        String title = getIntent().getStringExtra("title");
+        title = getIntent().getStringExtra("title");
+        titlePinyin = PinYinUtils.converterToSpell(this.title);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText(title+"自定义");
+        mTitleText.setText(title + "自定义");
+        mRightText.setText("编辑");
+        mRightView.setVisibility(View.GONE);
+        mRightText.setOnClickListener(this);
         speak("主人,请录入您的关键词");
     }
 
-    @OnClick(R.id.tv_confirm)
+    private List<KeyWordDefinevBean> initData() {
+        data = new ArrayList<>();
+        String jsonData = (String) SharedPreferencesUtils.getParam(this, titlePinyin, "");
+        List<KeyWordDefinevBean> list = new Gson().fromJson(jsonData, new TypeToken<List<KeyWordDefinevBean>>() {
+        }.getType());
+        if (list != null) {
+            data.addAll(list);
+        }
+        return data;
+    }
+
+    private void initRV() {
+        rvKeys.setLayoutManager(new GridLayoutManager(this, 4));
+        adapter = new KeyWordDifineRVAdapter(R.layout.item_key_define, data);
+        adapter.setListener(this);
+        rvKeys.setAdapter(adapter);
+    }
+
+
+    @OnClick(R.id.iv_yuyin)
     public void onViewClicked() {
         //开始识别
         SpeechRecognizerHelper.initSpeechRecognizer(this).startListening(new RecognizerListener() {
@@ -83,7 +118,7 @@ public class SetKeyWordActivity extends ToolBaseActivity {
 
             @Override
             public void onError(SpeechError speechError) {
-
+                speak("主人,我没听清,你能再说一遍吗");
             }
 
             @Override
@@ -100,21 +135,36 @@ public class SetKeyWordActivity extends ToolBaseActivity {
         }
     }
 
+    /**
+     * 处理语音识别的数据
+     *
+     * @param recognizerResult
+     */
     @Override
     public void getData(String recognizerResult) {
-        etKeyword.setText(recognizerResult);
-        KeyWordBean bean = new KeyWordBean();
-        bean.yueya = recognizerResult;
-        SharedPreferencesUtils.setParam(this, "keyword", bean);
-        ToastUtil.showShort(this, recognizerResult);
+        KeyWordDefinevBean bean = new KeyWordDefinevBean();
+        bean.name = recognizerResult;
+        bean.show = false;
+        data.add(bean);
+        adapter.notifyDataSetChanged();
+//        SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
+        ToastUtil.showShort(this, "保存:" + recognizerResult + "成功");
 
-        flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);
-        if (flag) {
-            SharedPreferencesUtils.setParam(SetKeyWordActivity.this, "yuyin", false);
-        } else {
-            SharedPreferencesUtils.setParam(SetKeyWordActivity.this, "yuyin", true);
-        }
+//        flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);
+//        if (flag) {
+//            SharedPreferencesUtils.setParam(SetKeyWordActivity.this, "yuyin", false);
+//        } else {
+//            SharedPreferencesUtils.setParam(SetKeyWordActivity.this, "yuyin", true);
+//        }
 
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //保存
+        SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
     }
 
     public static void StartMe(Context context, String title) {
@@ -123,5 +173,31 @@ public class SetKeyWordActivity extends ToolBaseActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    public void onDeleteClick(int position) {
+        data.remove(position);
+        //点击删除回调
+        adapter.notifyDataSetChanged();
+    }
 
+    @Override
+    public void onClick(View v) {
+        TextView view = (TextView) v;
+        String right = view.getText().toString().trim();
+        if ("编辑".equals(right)) {
+            view.setText("完成");
+            mTitleText.setText("关键字编辑");
+            //点击编辑回调
+            for (int i = 0; i < data.size(); i++) {
+                data.get(i).show = false;
+            }
+            adapter.notifyDataSetChanged();
+
+        } else {
+            view.setText("编辑");
+            mTitleText.setText(title + "自定义");
+            finish();
+        }
+
+    }
 }

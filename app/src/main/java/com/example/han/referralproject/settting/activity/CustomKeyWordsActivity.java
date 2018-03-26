@@ -160,5 +160,6 @@ public class CustomKeyWordsActivity extends BaseActivity implements KeyWordRVAda
     @Override
     public void onItemClick(int position) {
         String itemName = data.get(position).itemName;
+        SetKeyWordActivity.StartMe(this,itemName);
     }
 }
