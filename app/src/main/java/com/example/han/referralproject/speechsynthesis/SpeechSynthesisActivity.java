@@ -52,6 +52,7 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.bean.KeyWordBean;
+import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
@@ -67,6 +68,7 @@ import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -711,8 +713,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(".*gerenzhongxin.*")
                     || inSpell.matches(".*gerenshezhi.*")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
-                startActivity(intent);
+                gotoPersonCenter();
                 return;
             }
 
@@ -871,15 +872,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "癫痫"));
             }
-
-            KeyWordBean keyword = (KeyWordBean) SharedPreferencesUtils.getParam(this, "keyword", new KeyWordBean());
-            if (keyword.yueya.equals(resultBuffer.toString())) {
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xueya");
-                startActivity(intent);
-                return;
-            }
+            keyWordDeal(resultBuffer.toString());
+//            KeyWordBean keyword = (KeyWordBean) SharedPreferencesUtils.getParam(this, "keyword", new KeyWordBean());
+//            if (keyword.yueya.equals(resultBuffer.toString())) {
+//                mIatDialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+//                intent.putExtra("type", "xueya");
+//                startActivity(intent);
+//                return;
+//            }
             if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
                 mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
@@ -968,20 +969,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*shengyin.*tigao.*")
                     || inSpell.matches(".*yinliang.*shenggao.*")
                     || inSpell.matches(".*shenggao.*yinliang.*")) {
-                volume += 3;
-                if (volume < maxVolume) {
-                    speak(getString(R.string.add_volume), isDefaultParam);
-                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
-                    mHandler.sendEmptyMessageDelayed(1, 2000);
-                } else {
-                    speak(getString(R.string.max_volume), isDefaultParam);
-                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
-                    mHandler.sendEmptyMessageDelayed(1, 3000);
-
-
-                }
-
-
+                addVoice();
             } else if (inSpell.matches(".*xiaoshengyin.*")
                     || inSpell.matches(".*xiaoyinliang.*")
                     || inSpell.matches(".*xiaoshengdian.*")
@@ -993,19 +981,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*jiangdi.*shengyin.*")
                     || inSpell.matches(".*shengyin.*jiangdi.*")) {
 
-                volume -= 3;
-                if (volume > 3) {
-                    speak(getString(R.string.reduce_volume), isDefaultParam);
-                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
-                    mHandler.sendEmptyMessageDelayed(1, 2000);
-
-
-                } else {
-                    speak(getString(R.string.min_volume), isDefaultParam);
-                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
-                    mHandler.sendEmptyMessageDelayed(1, 3000);
-
-                }
+                deleteVoice();
 
 
             } else if (inSpell.matches(".*bu.*liao.*") || result.contains("退出")
@@ -1058,6 +1034,216 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 new SpeechTask().execute();
             }
         }
+    }
+
+    private void gotoPersonCenter() {
+        Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
+        startActivity(intent);
+    }
+
+    private void deleteVoice() {
+        volume -= 3;
+        if (volume > 3) {
+            speak(getString(R.string.reduce_volume), isDefaultParam);
+            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+            mHandler.sendEmptyMessageDelayed(1, 2000);
+
+
+        } else {
+            speak(getString(R.string.min_volume), isDefaultParam);
+            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
+            mHandler.sendEmptyMessageDelayed(1, 3000);
+
+        }
+    }
+
+    private void addVoice() {
+        volume += 3;
+        if (volume < maxVolume) {
+            speak(getString(R.string.add_volume), isDefaultParam);
+            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+            mHandler.sendEmptyMessageDelayed(1, 2000);
+        } else {
+            speak(getString(R.string.max_volume), isDefaultParam);
+            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
+            mHandler.sendEmptyMessageDelayed(1, 3000);
+        }
+    }
+
+    private void keyWordDeal(String yuyin) {
+        //健康自定义监测
+        List<KeyWordDefinevBean> jiance = getDefineData("xueya");
+        jiance.addAll(getDefineData("xueyang"));
+        jiance.addAll(getDefineData("tiwen"));
+        jiance.addAll(getDefineData("xuetang"));
+        jiance.addAll(getDefineData("xindian"));
+        jiance.addAll(getDefineData("tizhong"));
+        jiance.addAll(getDefineData("sanheyi"));
+        for (int i = 0; i < jiance.size(); i++) {
+            if (yuyin.equals(jiance.get(i).name)) {
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xueya");
+                startActivity(intent);
+                return;
+            }
+        }
+
+        //调大声音
+        List<KeyWordDefinevBean> addVoice = getDefineData("tiaodashengyin");
+        for (int i = 0; i < addVoice.size(); i++) {
+            if (yuyin.equals(addVoice.get(i).name)) {
+                addVoice();
+                return;
+            }
+        }
+
+        //调小声音
+        List<KeyWordDefinevBean> deleteVoice = getDefineData("tiaoxiaoshengyin");
+        for (int i = 0; i < deleteVoice.size(); i++) {
+            if (yuyin.equals(deleteVoice.get(i).name)) {
+                addVoice();
+                return;
+            }
+        }
+
+        //回到主界面
+        List<KeyWordDefinevBean> home = getDefineData("huidaozhujiemian");
+        for (int i = 0; i < home.size(); i++) {
+            if (yuyin.equals(home.get(i).name)) {
+                finish();
+                return;
+            }
+        }
+
+        //个人中心
+        List<KeyWordDefinevBean> personCenter = getDefineData("gerenzhongxin");
+        for (int i = 0; i < personCenter.size(); i++) {
+            if (yuyin.equals(personCenter.get(i).name)) {
+                gotoPersonCenter();
+                return;
+            }
+        }
+
+        //症状自查
+        List<KeyWordDefinevBean> check = getDefineData("zhengzhuangzicha");
+        for (int i = 0; i < check.size(); i++) {
+            if (yuyin.equals(check.get(i).name)) {
+                gotoZhengzhuangCheck();
+                return;
+            }
+        }
+
+        //测量历史
+        List<KeyWordDefinevBean> celianglishi = getDefineData("celianglishi");
+        for (int i = 0; i < celianglishi.size(); i++) {
+            if (yuyin.equals(celianglishi.get(i).name)) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
+                return;
+            }
+        }
+
+        //医生建议
+        List<KeyWordDefinevBean> doctorJianyi = getDefineData("yishengjianyi");
+        for (int i = 0; i < doctorJianyi.size(); i++) {
+            if (yuyin.equals(doctorJianyi.get(i).name)) {
+                startActivity(new Intent(SpeechSynthesisActivity.this, MessageActivity.class));
+                return;
+            }
+        }
+
+        //吃药提醒
+        List<KeyWordDefinevBean> chiyaoTixing = getDefineData("chiyaotixing");
+        for (int i = 0; i < chiyaoTixing.size(); i++) {
+            if (yuyin.equals(chiyaoTixing.get(i).name)) {
+                Intent intent = AlarmList2Activity.newLaunchIntent(this);
+                startActivity(intent);
+                return;
+            }
+        }
+
+        //账户充值
+        List<KeyWordDefinevBean> zhanghuchongzhi = getDefineData("zhanghuchongzhi");
+        for (int i = 0; i < zhanghuchongzhi.size(); i++) {
+            if (yuyin.equals(zhanghuchongzhi.get(i).name)) {
+                Intent intent = new Intent(getApplicationContext(), PayActivity.class);
+                startActivity(intent);
+                return;
+            }
+        }
+
+        //我的订单
+        List<KeyWordDefinevBean> dingdan = getDefineData("wodedingdan");
+        for (int i = 0; i < dingdan.size(); i++) {
+            if (yuyin.equals(dingdan.get(i).name)) {
+                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
+                startActivity(intent);
+                return;
+            }
+        }
+
+        //健康课堂
+
+        //娱乐
+
+        //收音机
+
+        //音乐
+
+        //医生咨询
+        List<KeyWordDefinevBean> zixunyisheng = getDefineData("yishengzixun");
+        for (int i = 0; i < zixunyisheng.size(); i++) {
+            if (yuyin.equals(zixunyisheng.get(i).name)) {
+                startActivity(new Intent(getApplicationContext(), DoctorAskGuideActivity.class));
+                return;
+            }
+        }
+
+        //在线医生
+        List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianyisheng");
+        for (int i = 0; i < zaixianyisheng.size(); i++) {
+            if (yuyin.equals(zaixianyisheng.get(i).name)) {
+                startActivity(new Intent(this, OnlineDoctorListActivity.class));
+                return;
+            }
+        }
+
+        //签约医生
+
+        //健康商城
+        List<KeyWordDefinevBean> jiankang = getDefineData("zaixianyisheng");
+        for (int i = 0; i < jiankang.size(); i++) {
+            if (yuyin.equals(jiankang.get(i).name)) {
+                startActivity(new Intent(this, MarketActivity.class
+                ));
+                return;
+            }
+        }
+
+    }
+
+    private void gotoZhengzhuangCheck() {
+        DiseaseUser diseaseUser = new DiseaseUser(
+                LocalShared.getInstance(this).getUserName(),
+                LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+                Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
+                LocalShared.getInstance(this).getUserPhoto()
+        );
+        String currentUser = new Gson().toJson(diseaseUser);
+        Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
+        intent.putExtra("currentUser", currentUser);
+        startActivity(intent);
+    }
+
+
+    private List<KeyWordDefinevBean> getDefineData(String keyWord) {
+        String xueya = (String) SharedPreferencesUtils.getParam(this, keyWord, "");
+        List<KeyWordDefinevBean> list = new Gson().fromJson(xueya, new TypeToken<List<KeyWordDefinevBean>>() {
+        }.getType());
+        if (list != null) {
+            return list;
+        }
+
+        return new ArrayList<KeyWordDefinevBean>();
     }
 
     /**
