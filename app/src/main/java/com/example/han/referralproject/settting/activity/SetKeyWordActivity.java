@@ -24,6 +24,7 @@ import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         initTitle();
         initData();
         initRV();
+        initRV();
     }
 
     private void initTitle() {
@@ -75,13 +77,17 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
     private List<KeyWordDefinevBean> initData() {
         data = new ArrayList<>();
+        refreshData();
+        return data;
+    }
+
+    private void refreshData() {
         String jsonData = (String) SharedPreferencesUtils.getParam(this, titlePinyin, "");
         List<KeyWordDefinevBean> list = new Gson().fromJson(jsonData, new TypeToken<List<KeyWordDefinevBean>>() {
         }.getType());
         if (list != null) {
             data.addAll(list);
         }
-        return data;
     }
 
     private void initRV() {
@@ -159,12 +165,11 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
     }
 
-
     @Override
-    protected void onPause() {
-        super.onPause();
-        //保存
-        SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
+    protected void onResume() {
+        super.onResume();
+        data.clear();
+        refreshData();
     }
 
     public static void StartMe(Context context, String title) {
@@ -182,22 +187,23 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
     @Override
     public void onClick(View v) {
-        TextView view = (TextView) v;
-        String right = view.getText().toString().trim();
-        if ("编辑".equals(right)) {
-            view.setText("完成");
-            mTitleText.setText("关键字编辑");
-            //点击编辑回调
-            for (int i = 0; i < data.size(); i++) {
-                data.get(i).show = false;
-            }
-            adapter.notifyDataSetChanged();
-
-        } else {
-            view.setText("编辑");
-            mTitleText.setText(title + "自定义");
-            finish();
-        }
+//        TextView view = (TextView) v;
+//        String right = view.getText().toString().trim();
+//        if ("编辑".equals(right)) {
+//            view.setText("完成");
+//            mTitleText.setText("关键字编辑");
+//            //点击编辑回调
+//            for (int i = 0; i < data.size(); i++) {
+//                data.get(i).show = false;
+//            }
+//            adapter.notifyDataSetChanged();
+//
+//        } else {
+//            view.setText("编辑");
+//            mTitleText.setText(title + "自定义");
+//            finish();
+//        }
+        KeyWordEditActivity.StartMe(this, data, titlePinyin);
 
     }
 }
