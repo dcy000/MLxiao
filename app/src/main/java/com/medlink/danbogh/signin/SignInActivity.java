@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -28,14 +29,25 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.facerecognition.CreateGroupListener;
+import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
+import com.example.han.referralproject.facerecognition.HeadiconActivity;
+import com.example.han.referralproject.facerecognition.JoinGroupListener;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.cloud.IdentityResult;
+import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
+import com.orhanobut.logger.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -152,8 +164,9 @@ public class SignInActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_in_sign_in)
     public void onTvSignInClicked() {
+
         if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())) {
-            Intent mIntent = new Intent(mContext, RegisterVideoActivity.class);
+            Intent mIntent = new Intent(mContext, AuthenticationActivity.class);
             mIntent.putExtra("isTest", true);
             startActivity(mIntent);
             finish();
@@ -163,6 +176,7 @@ public class SignInActivity extends BaseActivity {
         NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
+                checkGroup(response.bid, response.xfid);
                 new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
@@ -173,12 +187,70 @@ public class SignInActivity extends BaseActivity {
                 hideLoadingDialog();
                 startActivity(new Intent(mContext, MainActivity.class));
                 finish();
+                Logger.e("本次登录人的userid"+response.bid);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
                 T.show("手机号或密码错误");
+            }
+        });
+    }
+
+    private void checkGroup(final String userid, final String xfid) {
+        //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
+        String groupId = LocalShared.getInstance(mContext).getGroupId();
+        String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
+        Logger.e("组id"+groupId);
+        if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
+            Log.e("组信息", "checkGroup: 该机器组已近存在" );
+            return;
+        }
+        FaceAuthenticationUtils.getInstance(SignInActivity.this).createGroup(xfid);
+        FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                Logger.e("组信息----》" + result+"======在登录的时候创建组成功");
+                try {
+                    JSONObject resObj = new JSONObject(result.getResultString());
+                    String groupId = resObj.getString("group_id");
+                    LocalShared.getInstance(SignInActivity.this).setGroupId(groupId);
+                    LocalShared.getInstance(SignInActivity.this).setGroupFirstXfid(xfid);
+                    //组创建好以后把自己加入到组中去
+                    FaceAuthenticationUtils.getInstance(SignInActivity.this).
+                            joinGroup(groupId, xfid);
+                    FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+                        @Override
+                        public void onResult(IdentityResult result, boolean islast) {
+                            Log.d("SignInActivity", "onResult:添加自己到组中成功");
+                        }
+
+                        @Override
+                        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+                        }
+
+                        @Override
+                        public void onError(SpeechError error) {
+
+                        }
+                    });
+                    FaceAuthenticationUtils.getInstance(SignInActivity.this).updateGroupInformation(groupId,xfid);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "创建组失败");
+                ToastTool.showShort("出现技术故障，请致电客服咨询"+error.getErrorCode());
             }
         });
     }

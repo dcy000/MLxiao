@@ -141,13 +141,10 @@ public class NetworkApi {
     public static final String Add_Group = BasicUrl + "/ZZB/xf/insert_group_record";
     public static final String Change_Group_Status = BasicUrl + "/ZZB/xf/update_group_record";
 
-<<<<<<< HEAD
-//    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
-    public static final String Query_Group_118="http://118.31.238.207:8080/ZZB/xf/select_group_record";
-    public static final String Query_Group_116="http://116.62.36.12:8080/ZZB/xf/select_group_record";
-    public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
-    public static final String Get_Week_or_Month_Report=BasicUrl+"/ZZB/ai/sel";
-=======
+    //    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
+    public static final String Query_Group_118 = "http://118.31.238.207:8080/ZZB/xf/select_group_record";
+    public static final String Query_Group_116 = "http://116.62.36.12:8080/ZZB/xf/select_group_record";
+    public static final String Get_Week_or_Month_Report = BasicUrl + "/ZZB/ai/sel";
 
     public static final String Query_Group = BasicUrl + "/ZZB/xf/select_group_record";
 
@@ -221,7 +218,6 @@ public class NetworkApi {
                 failedCallback);
     }
 
->>>>>>> 065bd090e1198a5542eb23cb1a24761734ad01d3
 
     public static void getFM(
             String type,
@@ -1017,7 +1013,7 @@ public class NetworkApi {
      * @param successCallback
      */
 
-    public static void getXfGroupInfo(String ip,String gid, String xfid, NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback
+    public static void getXfGroupInfo(String ip, String gid, String xfid, NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
@@ -1027,16 +1023,13 @@ public class NetworkApi {
 //        params.put("gid", gid);
 //        params.put("xfid", xfid);
         params.put("state", "0");
-<<<<<<< HEAD
         if ("116".equals(ip))
-        NetworkManager.getInstance().getResultClass(Query_Group_116, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
-=======
-        NetworkManager.getInstance().getResultClass(Query_Group, params, new TypeToken<ArrayList<XfGroupInfo>>() {
-                }.getType(),
->>>>>>> 065bd090e1198a5542eb23cb1a24761734ad01d3
-                successCallback);
+            NetworkManager.getInstance().getResultClass(Query_Group_116, params, new TypeToken<ArrayList<XfGroupInfo>>() {
+                    }.getType(),
+                    successCallback);
         if ("118".equals(ip))
-            NetworkManager.getInstance().getResultClass(Query_Group_118, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
+            NetworkManager.getInstance().getResultClass(Query_Group_118, params, new TypeToken<ArrayList<XfGroupInfo>>() {
+                    }.getType(),
                     successCallback);
     }
 
@@ -1068,21 +1061,22 @@ public class NetworkApi {
                                      NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", userId);
-        params.put("state","1");
+        params.put("state", "1");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, WeeklyReport.class, successCallback, failedCallback);
     }
 
     /**
      * 或得月报告
+     *
      * @param userId
      * @param successCallback
      * @param failedCallback
      */
     public static void getMonthReport(String userId, NetworkManager.SuccessCallback<MonthlyReport> successCallback,
-                                     NetworkManager.FailedCallback failedCallback) {
+                                      NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", userId);
-        params.put("state","2");
+        params.put("state", "2");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, MonthlyReport.class, successCallback, failedCallback);
     }
 }

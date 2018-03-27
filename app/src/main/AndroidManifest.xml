@@ -587,7 +587,6 @@
         <activity
             android:name=".intelligent_diagnosis.WeeklyReportActivity"
             android:screenOrientation="landscape"/>
-<<<<<<< HEAD
         <activity android:name=".intelligent_diagnosis.MonthlyReportActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".intelligent_diagnosis.DeleteGroupActivity"
@@ -599,9 +598,8 @@
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
                 <!--<category android:name="android.intent.category.DEFAULT"/>-->
             <!--</intent-filter>-->
-=======
+        </activity>
         <activity android:name=".health.HealthDiaryActivity">
->>>>>>> 065bd090e1198a5542eb23cb1a24761734ad01d3
         </activity>
     </application>
 

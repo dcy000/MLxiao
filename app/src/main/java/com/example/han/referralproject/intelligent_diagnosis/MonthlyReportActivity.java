@@ -14,6 +14,7 @@ import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
+import com.example.han.referralproject.util.ToastTool;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -85,14 +86,16 @@ public class MonthlyReportActivity extends BaseActivity {
                     fragment5.notifyData(response);
                     Logger.e("返回测量数据成功" + response);
                 } else {
-                    ToastUtils.show("暂无数据");
+                    ToastTool.showShort("暂无月报告");
+                    finish();
                 }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 Logger.e("返回测量数据失败" + message);
-                ToastUtils.show("暂无数据");
+                ToastTool.showShort("暂无月报告");
+                finish();
             }
         });
     }

@@ -130,6 +130,13 @@ public class MonthlyReport3Fragment extends Fragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser){
+            ((MonthlyReportActivity) getActivity()).speak(tips);
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();

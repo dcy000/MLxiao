@@ -180,6 +180,13 @@ public class MonthlyReport4Fragment extends Fragment {
                 "分钟，体重距离目标" + pc_tizhong + "千克，饮酒距离目标" + pc_yinjiu + "毫升。";
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser){
+            ((MonthlyReportActivity) getActivity()).speak(tips);
+        }
+    }
+
     private void setChart() {
         mChart.setBackgroundColor(Color.TRANSPARENT);
         mChart.getDescription().setEnabled(false);

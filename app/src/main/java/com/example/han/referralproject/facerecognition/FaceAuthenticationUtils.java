@@ -17,6 +17,7 @@ import com.iflytek.cloud.IdentityVerifier;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
+import com.medlink.danbogh.utils.Handlers;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -76,6 +77,37 @@ public class FaceAuthenticationUtils {
                 xfid_userid.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
             }
         }
+    }
+
+    public void updateGroupInformation(final String groupId, final String xfid) {
+        //将组的相关信息存到服务器上
+        Handlers.bg().post(new Runnable() {
+            @Override
+            public void run() {
+                NetworkApi.recordGroup(groupId, xfid, new NetworkManager.SuccessCallback<String>() {
+                    @Override
+                    public void onSuccess(String response) {
+//                        NetworkApi.getXfGroupInfo(groupId, xfids[0], new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
+//                            @Override
+//                            public void onSuccess(ArrayList<XfGroupInfo> response) {
+//                                for (XfGroupInfo xfGroupInfo : response) {
+//                                    if (xfGroupInfo.gid.equals(groupId)) {
+//                                        deleteGroupId = xfGroupInfo.grid;
+//                                        break;
+//                                    }
+//                                }
+//                                Handlers.bg().removeCallbacksAndMessages(null);
+//                            }
+//                        });
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        Handlers.bg().removeCallbacksAndMessages(null);
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -183,6 +215,44 @@ public class FaceAuthenticationUtils {
             }
         });
     }
+    public void createGroup(String xfid){
+        //默认将当前日期作为组名
+        String groupName = "gcml" + Utils.stampToDate3(System.currentTimeMillis());
+        // sst=add，scope=group，group_name=famil;
+        // 设置人脸模型操作参数
+        // 清空参数
+        mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
+        // 设置会话场景
+        mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ipt");
+        // 用户id
+        mIdVerifier.setParameter(SpeechConstant.AUTH_ID, xfid);
+
+        // 设置模型参数，若无可以传空字符传
+        StringBuffer params = new StringBuffer();
+        params.append("auth_id=" + xfid);
+        params.append(",scope=group");
+        params.append(",group_name=" + groupName);
+        // 执行模型操作
+        mIdVerifier.execute("ipt", "add", params.toString(), new IdentityListener() {
+            @Override
+            public void onResult(IdentityResult identityResult, boolean b) {
+                if (createListener != null)
+                    createListener.onResult(identityResult, b);
+            }
+
+            @Override
+            public void onError(SpeechError speechError) {
+                if (createListener != null)
+                    createListener.onError(speechError);
+            }
+
+            @Override
+            public void onEvent(int i, int i1, int i2, Bundle bundle) {
+                if (createListener != null)
+                    createListener.onEvent(i, i1, i2, bundle);
+            }
+        });
+    }
 
     /**
      * 加入组
@@ -250,6 +320,7 @@ public class FaceAuthenticationUtils {
                 if (deleteGroupListener != null)
                     deleteGroupListener.onResult(identityResult, b);
                 LocalShared.getInstance(contextWeakReference.get()).setGroupId("");
+                LocalShared.getInstance(contextWeakReference.get()).setGroupFirstXfid("");
             }
 
             @Override
@@ -257,6 +328,7 @@ public class FaceAuthenticationUtils {
                 if (deleteGroupListener != null)
                     deleteGroupListener.onError(speechError);
                 LocalShared.getInstance(contextWeakReference.get()).setGroupId("");
+                LocalShared.getInstance(contextWeakReference.get()).setGroupFirstXfid("");
             }
 
             @Override
@@ -264,6 +336,7 @@ public class FaceAuthenticationUtils {
                 if (deleteGroupListener != null)
                     deleteGroupListener.onEvent(i, i1, i2, bundle);
                 LocalShared.getInstance(contextWeakReference.get()).setGroupId("");
+                LocalShared.getInstance(contextWeakReference.get()).setGroupFirstXfid("");
             }
         });
     }

@@ -23,98 +23,54 @@
             android:id="@+id/tv_measure_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="周测量：20次"
+            android:text="本周目标血压"
             android:textSize="56pt"
             android:textColor="#333"
             android:textStyle="bold"
             android:layout_marginTop="48pt"
             />
+
         <TextView
             android:id="@+id/tv_gao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="48pt"
-            android:text="3次"
             android:layout_gravity="end"
-            android:layout_marginRight="115pt"
-            android:layout_marginTop="26pt"
-            />
+            android:layout_marginRight="50pt"
+            android:layout_marginTop="32pt"
+            android:text="120"
+            android:textColor="#333"
+            android:textSize="48pt" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="-20pt">
-            <me.songning.library.CircleView
-                android:layout_width="24pt"
-                android:layout_height="24pt"
-                app:randomColor="false"
-                app:circleColor="#FF5A5A"
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#F4843E"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="偏高"
+                android:text="高压"
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
             <com.example.han.referralproject.view.progress.RxRoundProgressBar
                 android:id="@+id/rpb_gao"
-                android:layout_width="130pt"
-                android:layout_height="24pt"
+                android:layout_width="302pt"
+                android:layout_height="48pt"
                 app:rcBackgroundColor="#eee"
-                app:rcProgressColor="#FF5A5A"
-                app:rcRadius="12pt"
+                app:rcProgressColor="#F4843E"
+                app:rcRadius="0pt"
                 app:rcMax="100"
                 app:rcProgress="0"
-                android:layout_marginLeft="148pt"
+                android:layout_marginLeft="36pt"
 
                 />
 
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_zhengchang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="48pt"
-            android:text="15次"
-            android:layout_gravity="end"
-            android:layout_marginRight="115pt"
-            android:layout_marginTop="20pt"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="-20pt">
-            <me.songning.library.CircleView
-                android:layout_width="24pt"
-                android:layout_height="24pt"
-                app:randomColor="false"
-                app:circleColor="#3F86FC"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="正常"
-                android:textSize="48pt"
-                android:textColor="#666666"
-                android:layout_marginLeft="16pt"/>
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
-                android:id="@+id/rpb_zhengchang"
-                android:layout_width="130pt"
-                android:layout_height="24pt"
-                app:rcBackgroundColor="#eee"
-                app:rcProgressColor="#3F86FC"
-                app:rcRadius="12pt"
-                app:rcMax="100"
-                app:rcProgress="0"
-                android:layout_marginLeft="148pt"
-                />
         </LinearLayout>
 
         <TextView
@@ -123,10 +79,10 @@
             android:layout_height="wrap_content"
             android:textColor="#333"
             android:textSize="48pt"
-            android:text="2次"
+            android:text="80"
             android:layout_gravity="end"
-            android:layout_marginRight="115pt"
-            android:layout_marginTop="20pt"
+            android:layout_marginRight="50pt"
+            android:layout_marginTop="24pt"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,39 +90,38 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="-20pt">
-            <me.songning.library.CircleView
-                android:layout_width="24pt"
-                android:layout_height="24pt"
-                app:randomColor="false"
-                app:circleColor="#FED235"
-                />
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#FED235"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="偏低"
+                android:text="低压"
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
             <com.example.han.referralproject.view.progress.RxRoundProgressBar
                 android:id="@+id/rpb_di"
-                android:layout_width="130pt"
-                android:layout_height="24pt"
+                android:layout_width="302pt"
+                android:layout_height="48pt"
                 app:rcBackgroundColor="#eee"
                 app:rcProgressColor="#FED235"
-                app:rcRadius="12pt"
+                app:rcRadius="0pt"
                 app:rcMax="100"
                 app:rcProgress="0"
-                android:layout_marginLeft="148pt"
+                android:layout_marginLeft="36pt"
                 />
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="周平均血压"
+            android:text="本周平均血压"
             android:textSize="56pt"
             android:textColor="#333"
             android:textStyle="bold"
-            android:layout_marginTop="60pt"/>
+            android:layout_marginTop="170pt"/>
         <TextView
             android:id="@+id/tv_gaoya"
             android:layout_width="wrap_content"
@@ -175,8 +130,8 @@
             android:textSize="48pt"
             android:text="120"
             android:layout_gravity="end"
-            android:layout_marginRight="115pt"
-            android:layout_marginTop="26pt"
+            android:layout_marginRight="50pt"
+            android:layout_marginTop="32pt"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -184,11 +139,10 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="-20pt">
-            <me.songning.library.CircleView
-                android:layout_width="24pt"
-                android:layout_height="24pt"
-                app:randomColor="false"
-                app:circleColor="#FF5A5A"
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#F4843E"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -199,14 +153,14 @@
                 android:layout_marginLeft="16pt"/>
             <com.example.han.referralproject.view.progress.RxRoundProgressBar
                 android:id="@+id/rpb_gaoya"
-                android:layout_width="130pt"
-                android:layout_height="24pt"
+                android:layout_width="302pt"
+                android:layout_height="48pt"
                 app:rcBackgroundColor="#eee"
-                app:rcProgressColor="#FF5A5A"
-                app:rcRadius="12pt"
+                app:rcProgressColor="#F4843E"
+                app:rcRadius="0pt"
                 app:rcMax="100"
                 app:rcProgress="0"
-                android:layout_marginLeft="148pt"
+                android:layout_marginLeft="36pt"
                 />
         </LinearLayout>
 
@@ -218,8 +172,8 @@
             android:textSize="48pt"
             android:text="80"
             android:layout_gravity="end"
-            android:layout_marginRight="115pt"
-            android:layout_marginTop="20pt"
+            android:layout_marginRight="50pt"
+            android:layout_marginTop="24pt"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -227,12 +181,10 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="-20pt">
-            <me.songning.library.CircleView
-                android:layout_width="24pt"
-                android:layout_height="24pt"
-                app:randomColor="false"
-                app:circleColor="#FED235"
-                />
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#FED235"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -242,14 +194,14 @@
                 android:layout_marginLeft="16pt"/>
             <com.example.han.referralproject.view.progress.RxRoundProgressBar
                 android:id="@+id/rpb_diya"
-                android:layout_width="130pt"
-                android:layout_height="24pt"
+                android:layout_width="302pt"
+                android:layout_height="48pt"
                 app:rcBackgroundColor="#eee"
                 app:rcProgressColor="#FED235"
-                app:rcRadius="12pt"
+                app:rcRadius="0pt"
                 app:rcMax="100"
                 app:rcProgress="0"
-                android:layout_marginLeft="148pt"
+                android:layout_marginLeft="36pt"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -279,115 +231,61 @@
                 android:id="@+id/tv_result_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="测量结果"
+                android:text="本次测量结果"
                 android:textSize="40pt"
                 android:textColor="#999"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="40pt"
+                android:layout_marginTop="56pt"
                 android:layout_marginLeft="40pt"/>
+
             <LinearLayout
-                android:id="@+id/ll_tip_gaoya"
+                android:id="@+id/ll_gaoya"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="40pt"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="@id/tv_result_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_result_title"
-                android:layout_marginTop="41pt">
-                <me.songning.library.CircleView
-                    android:layout_width="24pt"
-                    android:layout_height="24pt"
-                    app:randomColor="false"
-                    app:circleColor="#FF5A5A"
-                    />
+                android:layout_marginTop="67pt">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="高压"
+                    android:textSize="56pt"
                     android:textColor="#333"
-                    android:textSize="48pt"
-                    android:layout_marginLeft="16pt"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="40pt"
-                app:layout_constraintTop_toBottomOf="@id/ll_tip_gaoya"
-                android:layout_marginTop="24pt">
-                <me.songning.library.CircleView
-                    android:layout_width="24pt"
-                    android:layout_height="24pt"
-                    app:randomColor="false"
-                    app:circleColor="#FED235"
-                    />
+                    android:text="高压"/>
                 <TextView
+                    android:id="@+id/current_gao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="低压"
-                    android:textColor="#333"
-                    android:textSize="48pt"
-                    android:layout_marginLeft="16pt"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_bar_diya"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="40pt"
-                android:layout_marginRight="53pt"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tv_result_diya"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333"
-                    android:textSize="48pt"
-                    android:textStyle="bold"
-                    android:text="80"
-                    />
-                <View
-                    android:id="@+id/view_diya"
-                    android:layout_width="80pt"
-                    android:layout_height="188pt"
-                    android:background="@drawable/bg_bar_diya"
-                    android:layout_marginTop="24pt"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintRight_toLeftOf="@id/ll_bar_diya"
-                app:layout_constraintBottom_toBottomOf="@id/ll_bar_diya"
-                android:layout_marginRight="60pt"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tv_result_gaoya"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333"
-                    android:textSize="48pt"
-                    android:textStyle="bold"
                     android:text="120"
-                    />
-                <View
-                    android:id="@+id/view_gaoya"
-                    android:layout_width="80pt"
-                    android:layout_height="264pt"
-                    android:background="@drawable/bg_bar_gaoya"
-                    android:layout_marginTop="24pt"
-                    />
+                    android:textSize="120pt"
+                    android:textStyle="bold"
+                    android:textColor="#F4843E"/>
             </LinearLayout>
 
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toRightOf="@id/ll_gaoya"
+                app:layout_constraintTop_toBottomOf="@id/tv_result_title"
+                android:layout_marginLeft="95pt"
+                android:layout_marginTop="67pt">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="56pt"
+                    android:textColor="#333"
+                    android:text="低压"/>
+                <TextView
+                    android:id="@+id/current_di"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="80"
+                    android:textSize="120pt"
+                    android:textStyle="bold"
+                    android:textColor="#FFB517"/>
+            </LinearLayout>
         </android.support.constraint.ConstraintLayout>
         <android.support.constraint.ConstraintLayout
             android:id="@+id/ll_fenshu"
