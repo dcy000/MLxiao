@@ -3,10 +3,13 @@ package com.example.han.referralproject.facerecognition;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,10 +24,16 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.cloud.IdentityResult;
+import com.iflytek.cloud.SpeechError;
+import com.medlink.danbogh.utils.Handlers;
+import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -79,22 +88,10 @@ public class HeadiconActivity extends BaseActivity {
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
-                    @Override
-                    public void onSuccess(String response) {
-                        getImageUrl(response);
-                    }
-
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-
-
-                    }
-                });
-
-
+                //确定头像的时候就给该机器创建唯一的人脸识别组
+                final String userid = MyApplication.getInstance().userId;
+                final String xfid = LocalShared.getInstance(HeadiconActivity.this).getXunfeiId();
+                createGroup(userid, xfid);
             }
         });
 
@@ -121,53 +118,123 @@ public class HeadiconActivity extends BaseActivity {
 
     }
 
-
-    public void getImageUrl(String token) {
-        byte[] data = Base64.decode(imageData1.getBytes(), 1);
-        Date date = new Date();
-        SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
-        StringBuilder str = new StringBuilder();//定义变长字符串
-        Random random = new Random();
-        for (int i = 0; i < 8; i++) {
-            str.append(random.nextInt(10));
-        }
-        //将字符串转换为数字并输出
-        String key = simple.format(date) + str + ".jpg";
-
-        uploadManager.put(data, key, token, new UpCompletionHandler() {
+    private void uploadHeadToSelf(final String userid, final String xfid) {
+        NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
             @Override
-            public void complete(String key, ResponseInfo info, JSONObject res) {
-                if (info.isOK()) {
-                    Log.e("================", MyApplication.getInstance().userId + "=========" + LocalShared.getInstance(getApplicationContext()).getXunfeiId());
-                    String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-                    NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
-                            new NetworkManager.SuccessCallback<Object>() {
-                                @Override
-                                public void onSuccess(Object response) {
-//                                    //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
-//                                    if (LocalShared.getInstance(mContext).isAccountOverflow()){
-//                                        LocalShared.getInstance(mContext).deleteAllAccount();
-//                                    }
-                                    //将账号在本地缓存
-                                    LocalShared.getInstance(mContext).addAccount(MyApplication.getInstance().userId,
-                                            LocalShared.getInstance(getApplicationContext()).getXunfeiId());
-                                    Log.e("注册储存讯飞id成功", "onSuccess: userID" + MyApplication.getInstance().userId + "-----xfid" + LocalShared.getInstance(getApplicationContext()).getXunfeiId());
-                                    Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
+            public void onSuccess(String response) {
+                byte[] data = Base64.decode(imageData1.getBytes(), 1);
+                Date date = new Date();
+                SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
+                StringBuilder str = new StringBuilder();//定义变长字符串
+                Random random = new Random();
+                for (int i = 0; i < 8; i++) {
+                    str.append(random.nextInt(10));
+                }
+                //将字符串转换为数字并输出
+                String key = simple.format(date) + str + ".jpg";
 
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-                                    Log.e("注册储存讯飞id失败", "onFailed: ");
-                                }
-                            });
-                } else {
+                uploadManager.put(data, key, response, new UpCompletionHandler() {
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject res) {
+                        if (info.isOK()) {
+                            String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
+                            NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
+                                    new NetworkManager.SuccessCallback<Object>() {
+                                        @Override
+                                        public void onSuccess(Object response) {
+                                            //将账号在本地缓存
+                                            LocalShared.getInstance(mContext).addAccount(userid, xfid);
+                                            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
 
+                                    }, new NetworkManager.FailedCallback() {
+                                        @Override
+                                        public void onFailed(String message) {
+                                            Log.e("注册储存讯飞id失败", "onFailed: ");
+                                        }
+                                    });
+                        } else {
+
+                        }
+                    }
+                }, null);
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
+    }
+
+    private void createGroup(final String userid, final String xfid) {
+        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).createGroup(xfid);
+        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                Logger.e("创建组成功" + result);
+                try {
+                    JSONObject resObj = new JSONObject(result.getResultString());
+                    String groupId = resObj.getString("group_id");
+                    LocalShared.getInstance(HeadiconActivity.this).setGroupId(groupId);
+                    LocalShared.getInstance(HeadiconActivity.this).setGroupFirstXfid(xfid);
+                    //组创建好以后把自己加入到组中去
+                    joinGroup(groupId, xfid);
+                    //加组完成以后把头像上传到我们自己的服务器
+                    uploadHeadToSelf(userid, xfid);
+                    FaceAuthenticationUtils.getInstance(HeadiconActivity.this).updateGroupInformation(groupId,xfid);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-        }, null);
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "创建组失败");
+//                if (error.getErrorCode() == 10144) {//创建组的数量达到上限
+//                    ToastTool.showShort("出现技术故障，请致电客服咨询");
+//                }
+                //如果在此处创建组失败就跳过创建
+                uploadHeadToSelf(userid,xfid);
+            }
+        });
+    }
+
+    private static String TAG = "HeadiconActivity";
+
+    private void joinGroup(String groupid, String xfid) {
+        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).
+                joinGroup(groupid, xfid);
+        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                Log.d(TAG, "onResult:添加自己到组中成功");
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+
+            }
+        });
+    }
+
+
+    public void getImageUrl(String token, final String userid, final String xfid) {
+
 
     }
 

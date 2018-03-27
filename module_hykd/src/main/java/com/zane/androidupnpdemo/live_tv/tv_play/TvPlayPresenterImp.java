@@ -237,6 +237,8 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
     @Override
     public void onDestroy() {
+        videoPlayEnd();
+        timeCount.cancel();
         tvPlayActivity = null;
     }
 }

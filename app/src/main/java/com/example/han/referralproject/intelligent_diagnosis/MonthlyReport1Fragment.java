@@ -59,28 +59,32 @@ public class MonthlyReport1Fragment extends Fragment implements OnChartValueSele
 
         return view;
     }
-    private float bf_yinjiu,bf_yundong,bf_yan,bf_tizhong;
-    public void notifyData(MonthlyReport weeklyReport) {
-        bf_yinjiu=Float.parseFloat(weeklyReport.drinkx);
-        bf_yan=Float.parseFloat(weeklyReport.nax);
-        bf_yundong=Float.parseFloat(weeklyReport.sportsx);
-        bf_tizhong=Float.parseFloat(weeklyReport.bmix);
 
-        List<HealthCompare> healthCompares=new ArrayList<>();
-        healthCompares.add(new HealthCompare(bf_yinjiu,"饮酒"));
-        healthCompares.add(new HealthCompare(bf_yan,"钠盐摄入量"));
-        healthCompares.add(new HealthCompare(bf_yundong,"缺少运动"));
-        healthCompares.add(new HealthCompare(bf_tizhong,"体重超标"));
+    private float bf_yinjiu, bf_yundong, bf_yan, bf_tizhong;
+    private String tips = "";
+
+    public void notifyData(MonthlyReport weeklyReport) {
+        bf_yinjiu = Float.parseFloat(weeklyReport.drinkx);
+        bf_yan = Float.parseFloat(weeklyReport.nax);
+        bf_yundong = Float.parseFloat(weeklyReport.sportsx);
+        bf_tizhong = Float.parseFloat(weeklyReport.bmix);
+
+        List<HealthCompare> healthCompares = new ArrayList<>();
+        healthCompares.add(new HealthCompare(bf_yinjiu, "饮酒"));
+        healthCompares.add(new HealthCompare(bf_yan, "钠盐摄入量"));
+        healthCompares.add(new HealthCompare(bf_yundong, "缺少运动"));
+        healthCompares.add(new HealthCompare(bf_tizhong, "体重超标"));
         Collections.sort(healthCompares);
 
-        tvYinjiuPercent.setText(bf_yinjiu*100+"%");
-        tvYundongPercent.setText(bf_yundong*100+"%");
-        tvYanPercent.setText(bf_yan*100+"%");
-        tvTizhongPercent.setText(bf_tizhong*100+"%");
-        tvSuggest.setText("根据您这一个月的记录（健康日记）和测量数据，为您统计出影响血压的主要因素：\n1."
-                +healthCompares.get(0).tips+"\n2."+healthCompares.get(1).tips+"\n3."+healthCompares.get(2).tips
-                +"\n4."+healthCompares.get(3).tips);
+        tvYinjiuPercent.setText(bf_yinjiu * 100 + "%");
+        tvYundongPercent.setText(bf_yundong * 100 + "%");
+        tvYanPercent.setText(bf_yan * 100 + "%");
+        tvTizhongPercent.setText(bf_tizhong * 100 + "%");
+        tvSuggest.setText(tips = "主人，根据您这一个月的健康日记和测量数据，为您统计出影响血压的主要因素：\n1."
+                + healthCompares.get(0).tips + "\n2." + healthCompares.get(1).tips + "\n3." + healthCompares.get(2).tips
+                + "\n4." + healthCompares.get(3).tips);
         setChart(weeklyReport);
+        ((MonthlyReportActivity) getActivity()).speak(tips);
     }
 
     private void setChart(MonthlyReport weeklyReport) {

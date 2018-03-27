@@ -84,7 +84,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
 
     public ImageView rlBack;
-    public boolean isTest = false;
     private ByteArrayOutputStream stream;
     private Handler mHandler = new Handler(new Handler.Callback() {
 
@@ -156,7 +155,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
-        isTest = getIntent().getBooleanExtra("isTest", false);
         initUI();
 
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
@@ -220,9 +218,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isTest) {
-                    startActivity(new Intent(mContext, MainActivity.class));
-                }
                 finish();
             }
         });

@@ -23,13 +23,6 @@
         <service
             android:name=".connect_tv.service.SystemService"
             android:exported="false" />
-
-        <activity
-            android:name=".live_tv.TVListActivity"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name=".live_tv.TVDisplayActivity"
-            android:screenOrientation="landscape" />
         <activity android:name=".live_tv.tv_list.TvChannelActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +31,8 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".live_tv.tv_play.TvPlayActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
