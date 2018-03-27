@@ -33,6 +33,7 @@ import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
+import com.example.han.referralproject.health.HealthDiaryActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
@@ -110,7 +111,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_person, container, false);
-        ((BaseActivity)getActivity()).speak(getString(R.string.person_info));
+        ((BaseActivity) getActivity()).speak(getString(R.string.person_info));
 
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) view.findViewById(R.id.per_image);
@@ -124,7 +125,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
         mImageView5 = (ImageView) view.findViewById(R.id.iv_order);
 
-        ((BaseActivity)getActivity()).setEnableListeningLoop(false);
+        ((BaseActivity) getActivity()).setEnableListeningLoop(false);
         mTextView4 = (TextView) view.findViewById(R.id.doctor_status);
         view.findViewById(R.id.main_iv_health_class).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +191,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.iv_check).setOnClickListener(this);
         view.findViewById(R.id.view_wifi).setOnClickListener(this);
         view.findViewById(R.id.iv_record).setOnClickListener(this);
+        view.findViewById(R.id.iv_jiankang_riji).setOnClickListener(this);
         mTextView = (TextView) view.findViewById(R.id.per_name);
         view.findViewById(R.id.iv_change_account).setOnClickListener(this);
         mImageView.setOnClickListener(this);
@@ -202,6 +204,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(intent);
             }
         });
+
 
         sharedPreferences = getActivity().getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
@@ -380,17 +383,20 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             case R.id.iv_record:
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));
                 break;
+            case R.id.iv_jiankang_riji:
+                startActivity(new Intent(getActivity(), HealthDiaryActivity.class));
+                break;
             case R.id.tv_update:
-                ((BaseActivity)getActivity()).showLoadingDialog("检查更新中");
+                ((BaseActivity) getActivity()).showLoadingDialog("检查更新中");
                 NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
                     @Override
                     public void onSuccess(VersionInfoBean response) {
-                        ((BaseActivity)getActivity()).hideLoadingDialog();
+                        ((BaseActivity) getActivity()).hideLoadingDialog();
                         try {
                             if (response != null && response.vid > getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionCode) {
                                 new UpdateAppManager(getActivity()).showNoticeDialog(response.url);
                             } else {
-                                ((BaseActivity)getActivity()).speak("当前已经是最新版本了");
+                                ((BaseActivity) getActivity()).speak("当前已经是最新版本了");
                                 Toast.makeText(getActivity(), "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
@@ -400,8 +406,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        ((BaseActivity)getActivity()).hideLoadingDialog();
-                        ((BaseActivity)getActivity()).speak("当前已经是最新版本了");
+                        ((BaseActivity) getActivity()).hideLoadingDialog();
+                        ((BaseActivity) getActivity()).speak("当前已经是最新版本了");
                         Toast.makeText(getActivity(), "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.tool.ToolsActivity;
+import com.ml.edu.OldRouter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,10 +53,9 @@ public class PersonDetail2Fragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_laoren_yule:
-
+                OldRouter.routeToOldHomeActivity(getActivity());
                 break;
             case R.id.iv_youjiao_wenyu:
-
                 break;
             case R.id.iv_shezhi:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
