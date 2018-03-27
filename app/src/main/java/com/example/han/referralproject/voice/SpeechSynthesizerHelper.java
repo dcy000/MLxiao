@@ -96,8 +96,7 @@ public class SpeechSynthesizerHelper {
      */
     public static void setParam(Context context, SpeechSynthesizer synthesizer) {
         //语音选项设置
-//        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, context.MODE_PRIVATE);
-        SharedPreferences sharedPreferences = context.getSharedPreferences(IatSettings.PREFER_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
         initDefaultParam(synthesizer, sharedPreferences);
     }
 
