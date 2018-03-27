@@ -45,7 +45,6 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
@@ -123,7 +122,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private StringBuffer resultBuffer;
     private RelativeLayout mRelativeLayout;
-//    private AnimationDrawable faceAnim;
+    //    private AnimationDrawable faceAnim;
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -178,7 +177,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private VoiceLineView lineWave;
     private Boolean yuyinFlag;
     private boolean isStart;
-    private int recordTotalTime;
 
 
     @Override
@@ -346,7 +344,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
-
     private void startAnim() {
         mRelativeLayout.post(action);
     }
@@ -405,12 +402,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         }
                         //跳转到音乐播放界面去
                         startActivityForResult(new Intent(SpeechSynthesisActivity.this, MusicPlayActivity.class)
-                                .putExtra("music",music),TO_MUSICPLAY);
+                                .putExtra("music", music), TO_MUSICPLAY);
                     }
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        ToastUtils.show( R.string.unable_to_play);
+                        T.show( R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -432,10 +429,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         findViewById(R.id.iat_cancel).setOnClickListener(this);
         voiceNormal = findViewById(R.id.tv_normal);
         voiceWhine = findViewById(R.id.tv_whine);
+        yuyin = findViewById(R.id.iv_yuyin);
+        lineWave = findViewById(R.id.vl_wave);
         voiceNormal.setOnClickListener(this);
         voiceWhine.setOnClickListener(this);
-
-
+        yuyin.setOnClickListener(this);
+        lineWave.setOnClickListener(this);
     }
 
     int ret = 0; // 函数调用返回值
@@ -468,24 +467,36 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     ret = mIat.startListening(mRecognizerListener);
                     if (ret != ErrorCode.SUCCESS) {
                         showTip("听写失败,错误码：" + ret);
-                    } else {
-                        //showTip(getString(R.string.text_begin));
                     }
                 }
                 break;
             case R.id.tv_normal:
-                SpeechSynthesizerHelper.setDefaultParam();
                 isDefaultParam = true;
                 break;
             case R.id.tv_whine:
                 SpeechSynthesizerHelper.setRandomParam();
                 isDefaultParam = false;
                 break;
+            case R.id.iv_yuyin:
+                onEndOfSpeech();
+                mImageView.performClick();
+                break;
             default:
                 break;
         }
 
     }
+
+    int recordTotalTime = 0;
+
+    private void onEndOfSpeech() {
+        lineWave.setVisibility(View.GONE);
+        lineWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
 
     @Override
     protected void onActivitySpeakFinish() {
@@ -504,7 +515,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //        if (faceAnim != null && faceAnim.isRunning()) {
 //            faceAnim.stop();
 //        }
-        findViewById(R.id.iat_recognizes).performClick();
+        if (yuyinFlag) {
+            findViewById(R.id.iat_recognizes).performClick();
+        }
     }
 
     private void onPlayAudio(String audioPath, int tag) {
@@ -575,7 +588,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyinFlag) {
                 showWaveView(false);
             } else {
-//                SpeechSynthesisActivity.this.onEndOfSpeech();
+                SpeechSynthesisActivity.this.onEndOfSpeech();
             }
         }
 
@@ -606,7 +619,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         printResult(results);
         if (isLast) {
             String result = resultBuffer.toString();
-            ToastUtils.show(result);
+            T.show( result);
             String inSpell = PinYinUtils.converterToSpell(result);
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
@@ -868,15 +881,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                startActivity(intent);
 //                return;
 //            }
-
-
-            if (inSpell.matches(".*(liangxueya|chuquya|zuoxueya|cexueya|xueyajiance).*")) {
+            if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
                 mIatDialog.dismiss();
-//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-//                intent.putExtra("type", "xueya");
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueya");
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xueya");
+                startActivity(intent);
+            }
+
+            if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
+                mIatDialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xueya");
                 startActivity(intent);
 
 
@@ -884,11 +899,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*liang.*xueyang.*")
                     || inSpell.matches(".*ce.*baohedu.*")) {
                 mIatDialog.dismiss();
-//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-//                intent.putExtra("type", "xueyang");
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueyang");
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xueyang");
                 startActivity(intent);
 
 
@@ -896,51 +908,36 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*liang.*xuetang.*")
                     || inSpell.matches(".*xuetangyi.*")
                     ) {
-//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-//                intent.putExtra("type", "xuetang");
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xuetang");
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "xuetang");
                 startActivity(intent);
-
+                startActivity(intent);
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
-//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-//                intent.putExtra("type", "wendu");
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "wendu");
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "wendu");
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*xindian.*")
                     || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
-//                Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xindian");
+                Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
-//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-//                intent.putExtra("type", "sanheyi");
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "sanheyi");
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "sanheyi");
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
 
                 mIatDialog.dismiss();
-//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-//                intent.putExtra("type", "tizhong");
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "tizhong");
+                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
+                intent.putExtra("type", "tizhong");
                 startActivity(intent);
 
 
@@ -968,8 +965,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*dadiansheng.*")
                     || inSpell.matches(".*yinliang.*da.*")
                     || inSpell.matches(".*shengyin.*da.*")
-                    || inSpell.matches(".*shengyin.*xiang.*")
-                    || inSpell.matches(".*shengyin.*zhong.*")
                     || inSpell.matches(".*tigao.*shengyin.*")
                     || inSpell.matches(".*shengyin.*tigao.*")
                     || inSpell.matches(".*yinliang.*shenggao.*")
@@ -980,7 +975,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*xiaoshengdian.*")
                     || inSpell.matches(".*xiaodiansheng.*")
                     || inSpell.matches(".*shengyin.*xiao.*")
-                    || inSpell.matches(".*shengyin.*qing.*")
                     || inSpell.matches(".*yinliang.*xiao.*")
                     || inSpell.matches(".*yinliang.*jiangdi.*")
                     || inSpell.matches(".*jiangdi.*yinliang.*")
