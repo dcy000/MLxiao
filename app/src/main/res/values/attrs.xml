@@ -102,10 +102,15 @@
     </declare-styleable>
 
     <declare-styleable name="TextRoundCornerProgress">
-        <attr name="rcTextProgressColor" format="color"/>
-        <attr name="rcTextProgressSize" format="dimension"/>
-        <attr name="rcTextProgressMargin" format="dimension"/>
-        <attr name="rcTextProgress" format="string"/>
+        <attr name="rcTextProgressColor" format="color" />
+        <attr name="rcTextProgressSize" format="dimension" />
+        <attr name="rcTextProgressMargin" format="dimension" />
+        <attr name="rcTextProgress" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="width_space" format="dimension" />
+        <attr name="height_space" format="dimension" />
     </declare-styleable>
 
 </resources>
