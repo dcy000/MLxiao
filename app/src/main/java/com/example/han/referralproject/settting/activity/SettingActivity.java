@@ -20,7 +20,6 @@ import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
 import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.UpdateAppManager;
 
 import butterknife.BindView;
@@ -155,7 +154,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
 
                     } else {
                         speak("当前已经是最新版本了");
-                        ToastUtil.showShort(mContext, "当前已经是最新版本了");
+//                        ToastUtil.showShort(mContext, "当前已经是最新版本了");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -166,7 +165,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
             public void onFailed(String message) {
                 hideLoadingDialog();
                 speak("当前已经是最新版本了");
-                ToastUtil.showShort(mContext, "当前已经是最新版本了");
+//                ToastUtil.showShort(mContext, "当前已经是最新版本了");
             }
         });
     }

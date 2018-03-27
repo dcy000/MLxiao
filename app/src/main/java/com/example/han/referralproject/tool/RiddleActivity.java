@@ -15,7 +15,6 @@ import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.RiddleBean;
-import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
@@ -124,7 +123,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
     private void showAnswer() {
         if (data == null || data.size() == 0) {
-            ToastUtil.showShort(this, "主人,网络异常,请稍后重试");
+//            ToastUtil.showShort(this, "主人,网络异常,请稍后重试");
             return;
         }
         RiddleDialog riddleDialog = new RiddleDialog();

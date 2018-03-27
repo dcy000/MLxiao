@@ -93,7 +93,7 @@ public class BaseActivity extends AppCompatActivity {
     protected boolean isShowVoiceView = false;//是否显示声音录入图像
     private MediaRecorder mMediaRecorder;
     private boolean isAlive = true;
-    private SharedPreferences mIatPreferences;
+    public SharedPreferences mIatPreferences;
 
 
 
@@ -319,7 +319,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-    protected void speak(String text) {
+    public void speak(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
         }

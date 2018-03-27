@@ -45,6 +45,7 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
+import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
@@ -61,7 +62,6 @@ import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
@@ -178,6 +178,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private VoiceLineView lineWave;
     private Boolean yuyinFlag;
     private boolean isStart;
+    private int recordTotalTime;
 
 
     @Override
@@ -409,7 +410,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        ToastUtil.showShort(SpeechSynthesisActivity.this, R.string.unable_to_play);
+                        ToastUtils.show( R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -574,7 +575,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyinFlag) {
                 showWaveView(false);
             } else {
-                SpeechSynthesisActivity.this.onEndOfSpeech();
+//                SpeechSynthesisActivity.this.onEndOfSpeech();
             }
         }
 
@@ -605,7 +606,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         printResult(results);
         if (isLast) {
             String result = resultBuffer.toString();
-            ToastUtil.showShort(this, result);
+            ToastUtils.show(result);
             String inSpell = PinYinUtils.converterToSpell(result);
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);

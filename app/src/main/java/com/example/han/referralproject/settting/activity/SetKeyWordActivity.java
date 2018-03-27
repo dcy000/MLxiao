@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.ToolBaseActivity;
+import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.adapter.KeyWordDifineRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
-import com.example.han.referralproject.util.ToastUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.google.gson.Gson;
@@ -208,7 +208,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         data.add(bean);
         adapter.notifyDataSetChanged();
         SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
-        ToastUtil.showShort(this, "保存:" + recognizerResult + "成功");
+        ToastUtils.show( "保存:" + recognizerResult + "成功");
         speak("保存:" + recognizerResult + "关键词成功");
 
 //        flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);

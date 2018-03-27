@@ -141,13 +141,11 @@ public class NetworkApi {
     public static final String Add_Group = BasicUrl + "/ZZB/xf/insert_group_record";
     public static final String Change_Group_Status = BasicUrl + "/ZZB/xf/update_group_record";
 
-<<<<<<< HEAD
 //    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
     public static final String Query_Group_118="http://118.31.238.207:8080/ZZB/xf/select_group_record";
     public static final String Query_Group_116="http://116.62.36.12:8080/ZZB/xf/select_group_record";
     public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
     public static final String Get_Week_or_Month_Report=BasicUrl+"/ZZB/ai/sel";
-=======
 
     public static final String Query_Group = BasicUrl + "/ZZB/xf/select_group_record";
 
@@ -155,7 +153,6 @@ public class NetworkApi {
 
     private static final String GET_SONG_LIST = BasicUrl + "/ZZB/rep/selSomeImitate";
 
-    public static final String Get_Message = BasicUrl + "/ZZB/xf/select_tuisong";
     public static final String Get_Week_Report = BasicUrl + "/AI/ai/selmap";
 
     public static final String POST_HEAlTH_DIARY = BasicUrl + "/ZZB/ai/insert_influence";
@@ -221,7 +218,6 @@ public class NetworkApi {
                 failedCallback);
     }
 
->>>>>>> 065bd090e1198a5542eb23cb1a24761734ad01d3
 
     public static void getFM(
             String type,
@@ -1027,13 +1023,9 @@ public class NetworkApi {
 //        params.put("gid", gid);
 //        params.put("xfid", xfid);
         params.put("state", "0");
-<<<<<<< HEAD
         if ("116".equals(ip))
         NetworkManager.getInstance().getResultClass(Query_Group_116, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
-=======
-        NetworkManager.getInstance().getResultClass(Query_Group, params, new TypeToken<ArrayList<XfGroupInfo>>() {
-                }.getType(),
->>>>>>> 065bd090e1198a5542eb23cb1a24761734ad01d3
+
                 successCallback);
         if ("118".equals(ip))
             NetworkManager.getInstance().getResultClass(Query_Group_118, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),

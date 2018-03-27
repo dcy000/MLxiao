@@ -41,6 +41,7 @@ def initGradleEnvironment() {
 initGradleEnvironment()
 
 include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':lib-zxing'
-
+include ':expand-textview-library'
+include ':circleindicator'
 
 
