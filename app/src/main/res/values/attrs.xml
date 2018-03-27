@@ -2,29 +2,29 @@
 <resources>
 
     <declare-styleable name="DashboardView">
-        <attr name="radius" format="dimension"/>     <!--扇形半径-->
-        <attr name="startAngle" format="integer"/> <!-- 起始角度-->
-        <attr name="sweepAngle" format="integer"/>  <!--绘制角度-->
-        <attr name="bigSliceCount" format="integer"/> <!-- 长刻度条数-->
-        <attr name="sliceCountInOneBigSlice" format="integer"/> <!-- 长刻度条数-->
-        <attr name="arcColor" format="color"/> <!--弧度颜色-->
-        <attr name="measureTextSize" format="dimension"/> <!--刻度字体大小-->
-        <attr name="textColor" format="color"/> <!--字体颜色-->
-        <attr name="headerTitle" format="string"/> <!--表头-->
-        <attr name="headerTextSize" format="string"/> <!--表头字体大小-->
-        <attr name="headerRadius" format="dimension"/> <!--表头半径-->
-        <attr name="pointerRadius" format="dimension"/> <!--指针半径-->
-        <attr name="circleRadius" format="dimension"/> <!--中心圆半径-->
-        <attr name="minValue" format="integer"/> <!--最小值-->
-        <attr name="maxValue" format="integer"/> <!--最大值-->
-        <attr name="realTimeValue" format="float"/> <!--实时值-->
-        <attr name="stripeWidth" format="dimension"/> <!--色带宽度-->
-        <attr name="stripeMode" > <!--色条显示位置-->
-            <enum name="normal" value="0"/>
-            <enum name="inner" value="1"/>
-            <enum name="outer" value="2"/>
+        <attr name="radius" format="dimension" />     <!--扇形半径-->
+        <attr name="startAngle" format="integer" /> <!-- 起始角度-->
+        <attr name="sweepAngle" format="integer" />  <!--绘制角度-->
+        <attr name="bigSliceCount" format="integer" /> <!-- 长刻度条数-->
+        <attr name="sliceCountInOneBigSlice" format="integer" /> <!-- 长刻度条数-->
+        <attr name="arcColor" format="color" /> <!--弧度颜色-->
+        <attr name="measureTextSize" format="dimension" /> <!--刻度字体大小-->
+        <attr name="textColor" format="color" /> <!--字体颜色-->
+        <attr name="headerTitle" format="string" /> <!--表头-->
+        <attr name="headerTextSize" format="string" /> <!--表头字体大小-->
+        <attr name="headerRadius" format="dimension" /> <!--表头半径-->
+        <attr name="pointerRadius" format="dimension" /> <!--指针半径-->
+        <attr name="circleRadius" format="dimension" /> <!--中心圆半径-->
+        <attr name="minValue" format="integer" /> <!--最小值-->
+        <attr name="maxValue" format="integer" /> <!--最大值-->
+        <attr name="realTimeValue" format="float" /> <!--实时值-->
+        <attr name="stripeWidth" format="dimension" /> <!--色带宽度-->
+        <attr name="stripeMode"> <!--色条显示位置-->
+            <enum name="normal" value="0" />
+            <enum name="inner" value="1" />
+            <enum name="outer" value="2" />
         </attr>
-        <attr name="bgColor" format="color"/> <!--背景颜色-->
+        <attr name="bgColor" format="color" /> <!--背景颜色-->
     </declare-styleable>
 
 
@@ -43,17 +43,17 @@
     </declare-styleable>
     <declare-styleable name="ViewPagerIndicator">
         <!-- Style of the circle indicator. -->
-        <attr name="vpiCirclePageIndicatorStyle" format="reference"/>
+        <attr name="vpiCirclePageIndicatorStyle" format="reference" />
         <!-- Style of the icon indicator's views. -->
-        <attr name="vpiIconPageIndicatorStyle" format="reference"/>
+        <attr name="vpiIconPageIndicatorStyle" format="reference" />
         <!-- Style of the line indicator. -->
-        <attr name="vpiLinePageIndicatorStyle" format="reference"/>
+        <attr name="vpiLinePageIndicatorStyle" format="reference" />
         <!-- Style of the title indicator. -->
-        <attr name="vpiTitlePageIndicatorStyle" format="reference"/>
+        <attr name="vpiTitlePageIndicatorStyle" format="reference" />
         <!-- Style of the tab indicator's tabs. -->
-        <attr name="vpiTabPageIndicatorStyle" format="reference"/>
+        <attr name="vpiTabPageIndicatorStyle" format="reference" />
         <!-- Style of the underline indicator. -->
-        <attr name="vpiUnderlinePageIndicatorStyle" format="reference"/>
+        <attr name="vpiUnderlinePageIndicatorStyle" format="reference" />
     </declare-styleable>
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension" />
@@ -82,15 +82,23 @@
 
 
     <declare-styleable name="RoundCornerProgress">
-        <attr name="rcReverse" format="boolean"/>
-        <attr name="rcProgress" format="float"/>
-        <attr name="rcMax" format="float"/>
-        <attr name="rcSecondaryProgress" format="float"/>
-        <attr name="rcBackgroundPadding" format="dimension"/>
-        <attr name="rcRadius" format="dimension"/>
-        <attr name="rcProgressColor" format="color"/>
-        <attr name="rcSecondaryProgressColor" format="color"/>
-        <attr name="rcBackgroundColor" format="color"/>
+        <attr name="rcReverse" format="boolean" />
+        <attr name="rcProgress" format="float" />
+        <attr name="rcMax" format="float" />
+        <attr name="rcSecondaryProgress" format="float" />
+        <attr name="rcBackgroundPadding" format="dimension" />
+        <attr name="rcRadius" format="dimension" />
+        <attr name="rcProgressColor" format="color" />
+        <attr name="rcSecondaryProgressColor" format="color" />
+        <attr name="rcBackgroundColor" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="LineWaveVoiceView">
+        <attr name="voiceLineColor" format="color" />
+        <attr name="voiceLineWidth" format="dimension" />
+        <attr name="voiceTextColor" format="color" />
+        <attr name="voiceTextSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="TextRoundCornerProgress">

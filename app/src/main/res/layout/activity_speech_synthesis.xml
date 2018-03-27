@@ -38,6 +38,28 @@
         android:layout_marginRight="20dp"
         android:clickable="true" />
 
+    <ImageView
+        android:id="@+id/iv_yuyin"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/iv_yuyin_baike" />
+
+    <com.example.han.referralproject.tool.wrapview.VoiceLineView
+        android:id="@+id/vl_wave"
+        android:layout_width="300dp"
+        android:layout_height="27dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:visibility="gone"
+        app:voiceLineColor="#FF87BDEF"
+        app:voiceLineWidth="3dp"
+        app:voiceTextColor="#333"
+        app:voiceTextSize="24dp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,7 +95,6 @@
     </LinearLayout>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_setup_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,7 +102,8 @@
         android:layout_alignParentRight="true"
         android:padding="15dp"
         android:text="语言设置"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_back"
@@ -91,20 +113,19 @@
         android:src="@drawable/new_face_back" />
 
     <TextView
-        android:textColor="@color/whine_txt"
-        android:drawableTop="@drawable/ic_normal"
         android:id="@+id/tv_normal"
+        style="@style/jiaohu"
         android:layout_marginRight="165dp"
+        android:drawableTop="@drawable/ic_normal"
         android:text="小E原声"
-        style="@style/jiaohu" />
+        android:textColor="@color/whine_txt" />
 
     <TextView
-        android:textColor="@color/whine_txt"
-        style="@style/jiaohu"
-        android:text="随机变声"
-        android:drawableTop="@drawable/ic_whine"
         android:id="@+id/tv_whine"
+        style="@style/jiaohu"
         android:layout_marginRight="35dp"
-       />
+        android:drawableTop="@drawable/ic_whine"
+        android:text="随机变声"
+        android:textColor="@color/whine_txt" />
 
 </RelativeLayout>

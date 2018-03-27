@@ -113,7 +113,7 @@ public class UpdateAppManager {
     /**
      * 显示下载进度对话框
      */
-    private void showDownloadDialog(String downloadUrl) {
+    public void showDownloadDialog(String downloadUrl) {
         View view = LayoutInflater.from(context).inflate(R.layout.download_progressbar, null);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressPercentage = (TextView) view.findViewById(R.id.progress_percentage);
@@ -136,7 +136,7 @@ public class UpdateAppManager {
     /**
      * 下载新版本应用
      */
-    private void downloadApp(final String downloadUrl) {
+    public void downloadApp(final String downloadUrl) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -203,7 +203,7 @@ public class UpdateAppManager {
     /**
      * 安装新版本应用
      */
-    private void installApp() {
+    public void installApp() {
         File appFile = new File(FILE_NAME);
         if(!appFile.exists()) {
             return;
@@ -216,7 +216,7 @@ public class UpdateAppManager {
         android.os.Process.killProcess(android.os.Process.myPid());//自动跳转
     }
 
-    private boolean isValidAppLink(String url) {
+    public boolean isValidAppLink(String url) {
         if (TextUtils.isEmpty(url)) {
             return false;
         }

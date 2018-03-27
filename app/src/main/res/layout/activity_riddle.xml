@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.tool.RiddleActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_cm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="27dp"
+            android:foregroundGravity="center"
+            android:src="@drawable/img_cmy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="165dp"
+            android:layout_marginStart="165dp"
+            android:layout_marginTop="100dp"
+            android:textColor="#fff"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_show_anwser"
+            android:layout_width="160dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="192dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/but_xsda"
+            android:gravity="center"
+            android:text="显示答案"
+            android:textColor="#FF333333"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_show_next"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_show_next"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_show_next"
+            android:layout_width="160dp"
+            android:layout_height="62dp"
+            android:layout_marginEnd="196dp"
+            android:layout_marginTop="390dp"
+            android:background="@drawable/but_xyt"
+            android:gravity="center"
+            android:text="下一题"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_press_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="请按下回答"
+            android:textColor="#fff"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_yuyin" />
+
+        <ImageView
+            android:id="@+id/iv_yuyin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="325dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_show_next"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toEndOf="@+id/tv_show_anwser"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.19"
+            app:srcCompat="@drawable/iv_yuyin_caimi" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:background="@drawable/bar_cm"
+        android:gravity="center"
+        android:text="猜谜语"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.00999999" />
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/icon_back"
+        android:drawablePadding="12dp"
+        android:gravity="center"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+    <com.example.han.referralproject.tool.wrapview.VoiceLineView
+        android:id="@+id/vl_wave"
+        android:layout_width="300dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="95dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:voiceLineColor="#ffeeeeee"
+        app:voiceLineWidth="3dp"
+        app:voiceTextColor="#ffeeeeee"
+        app:voiceTextSize="24dp" />
+
+
+</android.support.constraint.ConstraintLayout>

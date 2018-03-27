@@ -143,20 +143,15 @@ dependencies {
     compile name: 'library', ext: 'aar'
     compile name: 'vmtools', ext: 'aar'
     compile name: 'voicelibrary', ext: 'aar'
-    //    compile name: 'wkvideoplayer', ext: 'aar'
+//    compile name: 'wkvideoplayer', ext: 'aar'
     compile project(':wkvideoplayer')
     compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
-<<<<<<< HEAD
-    compile project(':module-edu')
-    //    compile name: 'sdk', ext: 'aar'
-=======
     compile project(":module-edu")
 
     compile project(":lib-video-player")
     compile project(":lib-zxing")
 //    compile name: 'sdk', ext: 'aar'
->>>>>>> 065bd090e1198a5542eb23cb1a24761734ad01d3
     //    compile name: 'sdk', ext: 'aar'
     //极光推送
     compile 'cn.jiguang.sdk:jpush:3.1.1'
@@ -168,6 +163,7 @@ dependencies {
     compile 'com.umeng.analytics:analytics:6.1.2'
     compile 'me.songning.CircleView:library:1.0.0'
     compile project(':circleprogress')
+    compile project(':expand-textview-library')
     compile project(':lib-rulerview')
     //日志库
     compile 'com.orhanobut:logger:2.1.1'

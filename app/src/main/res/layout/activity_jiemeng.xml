@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="66dp"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_title"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="64dp"-->
+    <!--android:background="@drawable/bg_title_bar"-->
+    <!--android:gravity="center"-->
+    <!--android:text="周公解梦"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="36sp" />-->
+    <!--</android.support.v7.widget.CardView>-->
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/bg_title_bar"
+        android:gravity="center"
+        android:text="周公解梦"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:drawableLeft="@drawable/icon_back"
+        android:drawablePadding="12dp"
+        android:gravity="center"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_start"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/bg_jimen_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/tv_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="40dp"
+            android:text="请按下语音键，说出您的梦"
+            android:textAlignment="viewStart"
+            android:textColor="#FF333333"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_notice_demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:text="您可以这样提问："
+            android:textColor="#FF333333"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_notice" />
+
+        <TextView
+            android:id="@+id/tv_demo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="解释一下梦见大学？"
+            android:textColor="#FF62400E"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_notice_demo"
+            app:layout_constraintTop_toBottomOf="@+id/tv_notice_demo" />
+
+        <TextView
+            android:id="@+id/tv_demo2"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="25dp"
+            android:text="梦到鬼怎么办？"
+            android:textColor="#FF62400E"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_demo1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_demo1" />
+
+        <TextView
+            android:id="@+id/tv_demo3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="梦到飞机什么意思？"
+            android:textColor="#FF62400E"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_demo2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_demo2" />
+
+        <com.example.han.referralproject.tool.wrapview.VoiceLineView
+            android:id="@+id/vl_wave"
+            android:layout_width="300dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="25dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:voiceLineColor="#BD7143"
+            app:voiceLineWidth="3dp"
+            app:voiceTextColor="#333333"
+            app:voiceTextSize="24dp" />
+
+
+        <ImageView
+            android:id="@+id/iv_yuyin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/ic_yuyin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="按下请说话"
+            android:textColor="#FF666666"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_yuyin" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
