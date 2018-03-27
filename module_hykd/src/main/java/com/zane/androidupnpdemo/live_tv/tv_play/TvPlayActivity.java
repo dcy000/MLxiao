@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.ksyun.media.player.KSYTextureView;
 import com.zane.androidupnpdemo.R;
+import com.zane.androidupnpdemo.connect_tv.ui.TVConnectMainActivity;
 
 /**
  * Created by gzq on 2018/3/26.
@@ -35,7 +36,8 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_tv_display);
         initView();
         tvPlayPresenter=new TvPlayPresenterImp(this);
-        tvPlayPresenter.startPlay(getIntent().getStringExtra("url"));
+        url=getIntent().getStringExtra("url");
+        tvPlayPresenter.startPlay(url);
     }
 
     public static void startTvPlayActivity(Context context, Intent intent) {
@@ -92,7 +94,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void connectTv() {
-
+        startActivity(new Intent(this, TVConnectMainActivity.class).putExtra("url",url));
     }
 
     @Override

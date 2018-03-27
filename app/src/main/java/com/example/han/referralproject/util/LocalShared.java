@@ -484,6 +484,11 @@ public class LocalShared {
         return mShared.getString("user_height", "");
     }
 
+    /**
+     * 讯飞组id
+     * @param groupid
+     */
+
     public void setGroupId(String groupid) {
         mShared.edit().putString("group_id", groupid).commit();
     }
@@ -492,6 +497,10 @@ public class LocalShared {
         return mShared.getString("group_id", "");
     }
 
+    /**
+     * 讯飞组创建时候传入的xfid
+     * @param xfid
+     */
     public void setGroupFirstXfid(String xfid) {
         mShared.edit().putString("group_first_xfid", xfid).commit();
     }

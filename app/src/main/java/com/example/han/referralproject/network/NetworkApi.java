@@ -144,7 +144,6 @@ public class NetworkApi {
 //    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
     public static final String Query_Group_118="http://118.31.238.207:8080/ZZB/xf/select_group_record";
     public static final String Query_Group_116="http://116.62.36.12:8080/ZZB/xf/select_group_record";
-    public static final String Get_Message=BasicUrl+"/ZZB/xf/select_tuisong";
     public static final String Get_Week_or_Month_Report=BasicUrl+"/ZZB/ai/sel";
 
     public static final String Query_Group = BasicUrl + "/ZZB/xf/select_group_record";
@@ -153,6 +152,7 @@ public class NetworkApi {
 
     private static final String GET_SONG_LIST = BasicUrl + "/ZZB/rep/selSomeImitate";
 
+    public static final String Get_Message = BasicUrl + "/ZZB/xf/select_tuisong";
     public static final String Get_Week_Report = BasicUrl + "/AI/ai/selmap";
 
     public static final String POST_HEAlTH_DIARY = BasicUrl + "/ZZB/ai/insert_influence";
@@ -1025,7 +1025,6 @@ public class NetworkApi {
         params.put("state", "0");
         if ("116".equals(ip))
         NetworkManager.getInstance().getResultClass(Query_Group_116, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
-
                 successCallback);
         if ("118".equals(ip))
             NetworkManager.getInstance().getResultClass(Query_Group_118, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),

@@ -17,4 +17,6 @@ public class MeasureResult {
     public String empty_stomach;
     public String oneHour_stomach;
     public String twoHour_stomach;
+    public String Pdst;
+    public String Psst;
 }

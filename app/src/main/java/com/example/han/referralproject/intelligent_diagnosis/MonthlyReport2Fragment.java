@@ -60,7 +60,7 @@ public class MonthlyReport2Fragment extends Fragment {
     Unbinder unbinder;
     private View view;
     private MonthlyReport data;
-
+    private String tips = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,7 +123,7 @@ public class MonthlyReport2Fragment extends Fragment {
             float progress_percent = Float.parseFloat(data.zongw) * 100;
             rpbSum.setProgress(progress_percent);
             tvProgress1.setText((int) progress_percent + "%");
-            String tips = "";
+
             if (sj_gaoya < mb_gaoya && sj_diya < mb_diya) {
                 tips = "主人，恭喜您本月血压降至目标值以下，请继续保持良好的生活习惯,积极锻炼。查看详细的报告，请向左滑动页面！";
 
@@ -137,7 +137,13 @@ public class MonthlyReport2Fragment extends Fragment {
                 tips = "主人，您的血压仍偏高。本月计划完成"
                         + (int) progress_percent + "%，未完成目标计划，请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             }
-//            tvAdvice.setText(tips);
+
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser){
             ((MonthlyReportActivity) getActivity()).speak(tips);
         }
     }

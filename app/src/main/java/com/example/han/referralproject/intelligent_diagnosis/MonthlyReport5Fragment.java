@@ -58,6 +58,7 @@ public class MonthlyReport5Fragment extends Fragment {
     private float yundongs,yundongm,yundong_week1,yundong_week2,yundong_week3,yundong_week4,yundong_avg;
     private float tizhongs,tizhongm,tizhong_week1,tizhong_week2,tizhong_week3,tizhong_week4,tizhong_avg,bmis,bmim;
     private float yinjius,yinjium,yinjiu_week1,yinjiu_week2,yinjiu_week3,yinjiu_week4,yinjiu_avg;
+    private String tips="";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -150,7 +151,16 @@ public class MonthlyReport5Fragment extends Fragment {
             yinjiu3.setText(response.drinks);
             yinjiu4.setText(response.drinks);
         }
+        tips="主人，您下月的健康目标如下：吃盐应少于"+String.format("%.0f",nam)+
+                "克，运动应大于"+String.format("%.0f",yundongm)+"分钟，体重减少至"+
+                String.format("%.0f",tizhongm)+"千克以下,饮酒应少于"+String.format("%.0f",yinjium)+"毫升";
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser){
+            ((MonthlyReportActivity) getActivity()).speak(tips);
+        }
     }
 
     @Override
