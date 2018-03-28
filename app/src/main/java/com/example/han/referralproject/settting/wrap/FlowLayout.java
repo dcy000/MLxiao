@@ -42,8 +42,8 @@ public class FlowLayout extends ViewGroup {
 
         // 获取自定义属性
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.FlowLayout);
-        horizontal_space = array.getDimension(R.styleable.FlowLayout_width_space,0);
-        vertical_space =  array.getDimension(R.styleable.FlowLayout_height_space,0);
+        horizontal_space = array.getDimension(R.styleable.FlowLayout_width_space, 0);
+        vertical_space = array.getDimension(R.styleable.FlowLayout_height_space, 0);
         array.recycle();
 
     }
@@ -209,11 +209,12 @@ public class FlowLayout extends ViewGroup {
                 // 获取宽高
                 int measuredWidth = view.getMeasuredWidth();
                 int measuredHeight = view.getMeasuredHeight();
-                // 重新测量
-                view.measure(MeasureSpec.makeMeasureSpec(measuredWidth + avg, MeasureSpec.EXACTLY),
-                        MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY));
-                // 重新获取宽度值
-                measuredWidth = view.getMeasuredWidth();
+
+//                // 重新测量
+//                view.measure(MeasureSpec.makeMeasureSpec(measuredWidth + avg, MeasureSpec.EXACTLY),
+//                        MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY));
+//                // 重新获取宽度值
+//                measuredWidth = view.getMeasuredWidth();
 
 
                 int top = t;

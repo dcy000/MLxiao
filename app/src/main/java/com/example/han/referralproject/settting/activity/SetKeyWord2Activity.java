@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
+import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,24 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
 
     @Override
     public void getData(String s) {
+        KeyWordDefinevBean bean = new KeyWordDefinevBean();
+        bean.name = s;
+        bean.show = false;
+        data.add(bean);
+
+        ItemView view = new ItemView(this);
+        view.setText(s);
+        view.showICon(false);
+        view.setListener(this);
+        flow.addView(view);
+
+        if (TextUtils.isEmpty(s)) {
+            speak("主人,我没有听清你能再说一遍吗?");
+        } else {
+            SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
+            T.show("主人,保存关键词:" + s + "成功");
+        }
+
 
     }
 
@@ -101,14 +121,19 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
         mRightText.setText("编辑");
         mRightView.setVisibility(View.GONE);
         mRightText.setOnClickListener(this);
+        imageView.setOnClickListener(this);
         speak("主人,请录入您的关键词");
     }
 
     @Override
     public void onClick(View v) {
-        SpeechSynthesizerHelper.stop();
-        onEndOfSpeech();
-        startListener();
+        if (v == mRightText) {
+            KeyWordEdit2Activity.StartMe(this, data, titlePinyin);
+        } else if (v == imageView) {
+            SpeechSynthesizerHelper.stop();
+            onEndOfSpeech();
+            startListener();
+        }
 
     }
 
@@ -195,5 +220,14 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
     @Override
     public void onIcClick(View v) {
         flow.removeView(v);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        data.clear();
+        flow.removeAllViews();
+        refreshData();
+        initFlowLayout();
     }
 }

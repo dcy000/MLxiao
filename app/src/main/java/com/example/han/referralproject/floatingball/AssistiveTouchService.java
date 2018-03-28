@@ -56,7 +56,7 @@ public class AssistiveTouchService extends Service {
     private AlertDialog mAlertDialog;
     private View mScreenShotView;
 
-    private Timer mTimer;
+    //    private Timer mTimer;
     private Handler mHandler;
 
     private LayoutInflater mInflater;
@@ -71,6 +71,8 @@ public class AssistiveTouchService extends Service {
 
     public static final int MIN_CLICK_DELAY_TIME = 1000;
     private long lastClickTime = 0;
+    private int maxVolume;
+    private int currentVolume;
 
 
     // private CheckDoubleClickListener checkDoubleClickListener;
@@ -80,30 +82,14 @@ public class AssistiveTouchService extends Service {
 
     public void onCreate() {
         super.onCreate();
-
-        //checkDoubleClickListener = new CheckDoubleClickListener(this);
-
-
-        init();
-        calculateForMyPhone();
-        createAssistiveTouchView();
-        //初始化音频管理器
-       /* AudioManager mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-
-        int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
-        Log.e("============", maxVolume + "");
-*/
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-
-        int currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-        mSeekBar.setProgress(currentVolume);
-
+        init();
+        calculateForMyPhone();
+        createAssistiveTouchView();
         return super.onStartCommand(intent, flags, startId);
 
     }
@@ -114,11 +100,8 @@ public class AssistiveTouchService extends Service {
     }
 
 
-
-
-
     private void init() {
-        mTimer = new Timer();
+//        mTimer = new Timer();
         mHandler = new MyHandler();
         mBulider = new AlertDialog.Builder(AssistiveTouchService.this);
         mAlertDialog = mBulider.create();
@@ -132,29 +115,20 @@ public class AssistiveTouchService extends Service {
         //   mImageView.setOnClickListener(checkDoubleClickListener);
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
-
-        mSeekBar = (SeekBar) mInflateAssistiveTouchView.findViewById(R.id.seek);
-
-
         mImageView1 = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.image_volume);
 
         //初始化音频管理器
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-
+        mSeekBar = (SeekBar) mInflateAssistiveTouchView.findViewById(R.id.seek);
+        mSeekBar.setMax(maxVolume);
+        mSeekBar.setProgress(currentVolume);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // fromUser直接来自于用户拖动为true，否则为false
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, AudioManager.FLAG_PLAY_SOUND);
-
-
-                if (progress == 0) {
-                    mImageView1.setImageResource(R.drawable.ic_jy);
-                } else {
-                    mImageView1.setImageResource(R.drawable.ic_yl);
-
-                }
 
             }
 
@@ -164,8 +138,27 @@ public class AssistiveTouchService extends Service {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, seekBar.getProgress(), AudioManager.FLAG_PLAY_SOUND);
 
+                if (seekBar.getProgress() == 0) {
+                    mImageView1.setImageResource(R.drawable.ic_jy);
+                } else {
+                    mImageView1.setImageResource(R.drawable.ic_yl);
 
+                }
+
+//                mHandler.removeCallbacksAndMessages(null);
+//                mTimer.schedule(new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        mHandler.removeCallbacksAndMessages(null);
+//                        Message msg = mHandler.obtainMessage();
+//                        msg.what = 2;
+//                        mHandler.sendMessage(msg);
+//                    }
+//                }, 3000);
+                mHandler.removeCallbacksAndMessages(null);
+                mHandler.sendEmptyMessageDelayed(2, 5000);
             }
         });
 
@@ -255,6 +248,18 @@ public class AssistiveTouchService extends Service {
 
                     }
 
+//                    mTimer.schedule(new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            mHandler.removeCallbacksAndMessages(null);
+//                            Message msg = mHandler.obtainMessage();
+//                            msg.what = 2;
+//                            mHandler.sendMessage(msg);
+//                        }
+//                    }, 3000);
+                    mHandler.removeCallbacksAndMessages(null);
+                    mHandler.sendEmptyMessageDelayed(2, 5000);
+
 
                 }
             });
@@ -264,42 +269,6 @@ public class AssistiveTouchService extends Service {
 
 
     }
-
-
-   /* @Override
-    public void onCheckDoubleClick(View view) {
-        switch (view.getId()) {
-            case R.id.icon:
-                if (!isMoving) {
-                    mImageView.setEnabled(false);
-                    mAssistiveTouchView.setAlpha(0);
-                    lastAssistiveTouchViewX = mParams.x;
-                    lastAssistiveTouchViewY = mParams.y;
-                    myAssitiveTouchAnimator(mParams.x, mScreenWidth / 2 - mAssistiveTouchView.getMeasuredWidth() / 2, mParams.y, mScreenHeight / 2 - mAssistiveTouchView.getMeasuredHeight() / 2, true).start();
-                    mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.25));
-
-                    mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                        @Override
-                        public void onDismiss() {
-                            myAssitiveTouchAnimator(mParams.x, lastAssistiveTouchViewX, mParams.y, lastAssistiveTouchViewY, true).start();
-                            mAssistiveTouchView.setAlpha(1);
-                            mImageView.setAlpha(0.85f);
-                            mImageView.setEnabled(true);
-
-                        }
-                    });
-                    mPopupWindow.setFocusable(true);
-                    mPopupWindow.setTouchable(true);
-                    mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-                    mPopupWindow.showAtLocation(mAssistiveTouchView, Gravity.CENTER, 0, 0);
-
-                    mImageView.setAlpha(0.0f);
-
-                    break;
-                }
-        }
-    }*/
-
 
     private ValueAnimator myAssitiveTouchAnimator(final int fromx, final int tox, int fromy, final int toy, final boolean flag) {
         PropertyValuesHolder p1 = PropertyValuesHolder.ofInt("X", fromx, tox);
@@ -364,29 +333,15 @@ public class AssistiveTouchService extends Service {
         mAlertDialog.getWindow().setAttributes(alertDialogParams);
         mAlertDialog.getWindow().setContentView(mScreenShotView);
 
-        mTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Message msg = mHandler.obtainMessage();
-                msg.what = 2;
-                mHandler.sendMessage(msg);
-            }
-        }, 3000);
+//        mTimer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Message msg = mHandler.obtainMessage();
+//                msg.what = 2;
+//                mHandler.sendMessage(msg);
+//            }
+//        }, 3000);
 
-        /*mSceenShotAnimator().start();*/
-
-        /*ObjectAnimator.ofFloat(mScreenShotView, "translationX", 0, mScreenWidth-mScreenShotView.getX());
-        ObjectAnimator.ofFloat(mScreenShotView, "translationY", 0, mScreenHeight-mScreenShotView.getY());
-        ObjectAnimator.ofFloat(mScreenShotView, "scaleX", 1, 0);
-        ObjectAnimator.ofFloat(mScreenShotView, "scaleY", 1, 0);*/
-
-        /*mScreenShotView.setPivotX();
-        mScreenShotView.setPivotY();*/
-        /*PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("X", 0, mScreenWidth);
-        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("Y", 0, mScreenHeight/2);
-        PropertyValuesHolder p3 = PropertyValuesHolder.ofFloat("scaleX", 1, 0.5F);
-        PropertyValuesHolder p4 = PropertyValuesHolder.ofFloat("scaleY", 1, 0.5F);
-        ObjectAnimator.ofPropertyValuesHolder(mScreenShotView,p1,p2,p3,p4).setDuration(2000).start();*/
     }
 
 
