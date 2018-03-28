@@ -20,6 +20,7 @@
         android:height="60dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/shape_item_key_word"
         android:gravity="center"
         android:textColor="#FF333333"
