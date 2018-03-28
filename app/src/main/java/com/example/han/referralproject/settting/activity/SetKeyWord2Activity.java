@@ -74,7 +74,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
         if (TextUtils.isEmpty(s)) {
             speak("主人,我没有听清你能再说一遍吗?");
         } else {
-            SharedPreferencesUtils.setParam(this, getIntent().getStringExtra(titlePinyin), new Gson().toJson(data));
+            SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
             T.show("主人,保存关键词:" + s + "成功");
         }
 
