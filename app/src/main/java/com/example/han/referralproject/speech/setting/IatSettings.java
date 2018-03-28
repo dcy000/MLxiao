@@ -19,7 +19,7 @@ public class IatSettings extends PreferenceActivity implements OnPreferenceChang
 	public static final String PREFER_NAME = "com.iflytek.setting";
 	private EditTextPreference mVadbosPreference;
 	private EditTextPreference mVadeosPreference;
-	
+
 	@SuppressWarnings("deprecation")
 	public void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);

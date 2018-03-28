@@ -1379,7 +1379,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     return;
                 }
 
-                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())) {
+//                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())) {
+                if (detectType == Type_Xueya && device.getName().startsWith("Yuwell")) {
                     mDeviceAddress = device.getAddress();
                     if (mBluetoothLeService == null) {
                         Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);

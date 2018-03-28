@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -34,6 +35,8 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
+import com.example.han.referralproject.tool.JieMengActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
@@ -59,6 +62,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     break;
                 case 1:
                     LocalShared.getInstance(getApplicationContext()).setXunfeiID(msg.obj + "");
+
                     break;
             }
             super.handleMessage(msg);
@@ -189,7 +193,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.view_wifi).setOnClickListener(this);
         findViewById(R.id.iv_record).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
-        findViewById(R.id.view_change).setOnClickListener(this);
+        findViewById(R.id.iv_change_account).setOnClickListener(this);
         mImageView.setOnClickListener(this);
         findViewById(R.id.tv_update).setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
@@ -208,15 +212,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mTextView1 = (TextView) findViewById(R.id.doctor_name);
 
-        ((TextView) findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
+        ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
-
-//        findViewById(R.id.live_tv).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(PersonActivity.this, TVListActivity.class));
-//            }
-//        });
     }
 
     @Override
@@ -365,26 +362,24 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
-                DiseaseUser diseaseUser = new DiseaseUser(
+                DiseaseUser diseaseUser=new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
+                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
                         LocalShared.getInstance(this).getUserPhoto()
                 );
-                String currentUser = new Gson().toJson(diseaseUser);
+                String currentUser= new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
                 break;
             case R.id.iv_message:
-//                startActivity(new Intent(this, MessageActivity.class));
-//                startActivity(new Intent(this, MessageCenterActivity.class).putExtra("doctorName",doctorName));
-                startActivity(new Intent(this, HealthDiaryActivity.class));
+                startActivity(new Intent(this, MessageActivity.class));
                 break;
             case R.id.iv_pay:
                 startActivity(new Intent(this, PayActivity.class));
                 break;
-            case R.id.view_change:
+            case R.id.iv_change_account:
                 mChangeAccountDialog = new ChangeAccountDialog(mContext);
                 mChangeAccountDialog.show();
                 break;

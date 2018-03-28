@@ -40,8 +40,8 @@ def initGradleEnvironment() {
 }
 initGradleEnvironment()
 
-//include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer',
-include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':lib-zxing',':circleindicator', ':module_hykd'
-
+include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':lib-zxing'
+include ':expand-textview-library'
+include ':circleindicator'
 
 

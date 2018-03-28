@@ -24,6 +24,7 @@ import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonActivity;
+import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
@@ -161,7 +162,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.person_info:
-                intent.setClass(getApplicationContext(), PersonActivity.class);
+                intent.setClass(getApplicationContext(), PersonDetailActivity.class);
                 startActivity(intent);
                 break;
             case R.id.health_test://健康监测

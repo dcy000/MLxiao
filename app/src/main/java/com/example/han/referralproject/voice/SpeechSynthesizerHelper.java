@@ -1,6 +1,7 @@
 package com.example.han.referralproject.voice;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.text.TextUtils;
 
+import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -16,6 +18,8 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 
 import java.util.Random;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by lenovo on 2018/1/24.
@@ -92,7 +96,7 @@ public class SpeechSynthesizerHelper {
      */
     public static void setParam(Context context, SpeechSynthesizer synthesizer) {
         //语音选项设置
-        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
         initDefaultParam(synthesizer, sharedPreferences);
     }
 
@@ -245,15 +249,16 @@ public class SpeechSynthesizerHelper {
             synthesizer.setParameter(SpeechConstant.ENGINE_TYPE, ENGIEN_TYPE);
             synthesizer.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
             // 设置在线合成发音人
-            synthesizer.setParameter(SpeechConstant.VOICE_NAME, VOICE_NAME);
+//            synthesizer.setParameter(SpeechConstant.VOICE_NAME, VOICE_NAME);
+            synthesizer.setParameter(SpeechConstant.VOICE_NAME,sharedPreferences.getString("iat_language_preference", "nannan"));
 //            设置合成语速
             synthesizer.setParameter(SpeechConstant.SPEED, sharedPreferences.getString("speed_preference", "50"));
 //            设置合成音调
             synthesizer.setParameter(SpeechConstant.PITCH, sharedPreferences.getString("pitch_preference", "50"));
 //            设置合成音量
             synthesizer.setParameter(SpeechConstant.VOLUME, sharedPreferences.getString("volume_preference", "50"));
-
-            synthesizer.setParameter(SpeechConstant.SAMPLE_RATE, "16000");
+//采样率
+            synthesizer.setParameter(SpeechConstant.SAMPLE_RATE, sharedPreferences.getString("rate_preference", "16000"));
             //设置播放器音频流类型
             synthesizer.setParameter(SpeechConstant.STREAM_TYPE, sharedPreferences.getString("stream_preference", "3"));
             // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
