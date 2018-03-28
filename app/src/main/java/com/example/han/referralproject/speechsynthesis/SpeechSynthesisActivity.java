@@ -869,7 +869,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "癫痫"));
             }
-            boolean dealKeyWord = keyWordDeal(resultBuffer.toString());
+            boolean dealKeyWord = keyWordDeal(inSpell);
             if (dealKeyWord){
                 return;
             }
@@ -1080,7 +1080,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         jiance.addAll(getDefineData("tizhong"));
         jiance.addAll(getDefineData("sanheyi"));
         for (int i = 0; i < jiance.size(); i++) {
-            if (yuyin.equals(jiance.get(i).name)) {
+            if (yuyin.equals(jiance.get(i).pinyin)) {
                 Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
                 intent.putExtra("type", "xueya");
                 startActivity(intent);
@@ -1091,7 +1091,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //调大声音
         List<KeyWordDefinevBean> addVoice = getDefineData("tiaodashengyin");
         for (int i = 0; i < addVoice.size(); i++) {
-            if (yuyin.equals(addVoice.get(i).name)) {
+            if (yuyin.equals(addVoice.get(i).pinyin)) {
                 addVoice();
                 return true;
             }
@@ -1100,7 +1100,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //调小声音
         List<KeyWordDefinevBean> deleteVoice = getDefineData("tiaoxiaoshengyin");
         for (int i = 0; i < deleteVoice.size(); i++) {
-            if (yuyin.equals(deleteVoice.get(i).name)) {
+            if (yuyin.equals(deleteVoice.get(i).pinyin)) {
                 addVoice();
                 return true;
             }
@@ -1109,7 +1109,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //回到主界面
         List<KeyWordDefinevBean> home = getDefineData("huidaozhujiemian");
         for (int i = 0; i < home.size(); i++) {
-            if (yuyin.equals(home.get(i).name)) {
+            if (yuyin.equals(home.get(i).pinyin)) {
                 finish();
                 return true;
             }
@@ -1118,7 +1118,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //个人中心
         List<KeyWordDefinevBean> personCenter = getDefineData("gerenzhongxin");
         for (int i = 0; i < personCenter.size(); i++) {
-            if (yuyin.equals(personCenter.get(i).name)) {
+            if (yuyin.equals(personCenter.get(i).pinyin)) {
                 gotoPersonCenter();
                 return true;
             }
@@ -1127,7 +1127,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //症状自查
         List<KeyWordDefinevBean> check = getDefineData("zhengzhuangzicha");
         for (int i = 0; i < check.size(); i++) {
-            if (yuyin.equals(check.get(i).name)) {
+            if (yuyin.equals(check.get(i).pinyin)) {
                 gotoZhengzhuangCheck();
                 return true;
             }
@@ -1136,7 +1136,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //测量历史
         List<KeyWordDefinevBean> celianglishi = getDefineData("celianglishi");
         for (int i = 0; i < celianglishi.size(); i++) {
-            if (yuyin.equals(celianglishi.get(i).name)) {
+            if (yuyin.equals(celianglishi.get(i).pinyin)) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
                 return true;
             }
@@ -1145,7 +1145,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //医生建议
         List<KeyWordDefinevBean> doctorJianyi = getDefineData("yishengjianyi");
         for (int i = 0; i < doctorJianyi.size(); i++) {
-            if (yuyin.equals(doctorJianyi.get(i).name)) {
+            if (yuyin.equals(doctorJianyi.get(i).pinyin)) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, MessageActivity.class));
                 return true;
             }
@@ -1154,7 +1154,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //吃药提醒
         List<KeyWordDefinevBean> chiyaoTixing = getDefineData("chiyaotixing");
         for (int i = 0; i < chiyaoTixing.size(); i++) {
-            if (yuyin.equals(chiyaoTixing.get(i).name)) {
+            if (yuyin.equals(chiyaoTixing.get(i).pinyin)) {
                 Intent intent = AlarmList2Activity.newLaunchIntent(this);
                 startActivity(intent);
                 return true;
@@ -1164,7 +1164,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //账户充值
         List<KeyWordDefinevBean> zhanghuchongzhi = getDefineData("zhanghuchongzhi");
         for (int i = 0; i < zhanghuchongzhi.size(); i++) {
-            if (yuyin.equals(zhanghuchongzhi.get(i).name)) {
+            if (yuyin.equals(zhanghuchongzhi.get(i).pinyin)) {
                 Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                 startActivity(intent);
                 return true;
@@ -1174,7 +1174,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //我的订单
         List<KeyWordDefinevBean> dingdan = getDefineData("wodedingdan");
         for (int i = 0; i < dingdan.size(); i++) {
-            if (yuyin.equals(dingdan.get(i).name)) {
+            if (yuyin.equals(dingdan.get(i).pinyin)) {
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
                 return true;
@@ -1192,7 +1192,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //医生咨询
         List<KeyWordDefinevBean> zixunyisheng = getDefineData("yishengzixun");
         for (int i = 0; i < zixunyisheng.size(); i++) {
-            if (yuyin.equals(zixunyisheng.get(i).name)) {
+            if (yuyin.equals(zixunyisheng.get(i).pinyin)) {
                 startActivity(new Intent(getApplicationContext(), DoctorAskGuideActivity.class));
                 return true;
             }
@@ -1201,7 +1201,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //在线医生
         List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianyisheng");
         for (int i = 0; i < zaixianyisheng.size(); i++) {
-            if (yuyin.equals(zaixianyisheng.get(i).name)) {
+            if (yuyin.equals(zaixianyisheng.get(i).pinyin)) {
                 startActivity(new Intent(this, OnlineDoctorListActivity.class));
                 return true;
             }
@@ -1212,7 +1212,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         //健康商城
         List<KeyWordDefinevBean> jiankang = getDefineData("jiankangshangcheng");
         for (int i = 0; i < jiankang.size(); i++) {
-            if (yuyin.equals(jiankang.get(i).name)) {
+            if (yuyin.equals(jiankang.get(i).pinyin)) {
                 startActivity(new Intent(this, MarketActivity.class
                 ));
                 return true;

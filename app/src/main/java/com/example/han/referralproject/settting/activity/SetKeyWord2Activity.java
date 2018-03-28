@@ -20,6 +20,7 @@ import com.example.han.referralproject.settting.wrap.ItemView;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
+import com.example.han.referralproject.util.WiFiUtil;
 import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.google.gson.Gson;
@@ -60,9 +61,25 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
 
     @Override
     public void getData(String s) {
+
+        if (TextUtils.isEmpty(s)) {
+            speak("主人,我没有听清你能再说一遍吗?");
+            return;
+        }
+        if (containKeyWord(s, data)) {
+            speak("主人,你已添加了这个关键词");
+            return;
+        }
+        saveData(s);
+        SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
+        T.show("主人,保存关键词:" + s + "成功");
+    }
+
+    private void saveData(String s) {
         KeyWordDefinevBean bean = new KeyWordDefinevBean();
         bean.name = s;
         bean.show = false;
+        bean.pinyin = PinYinUtils.converterToSpell(s);
         data.add(bean);
 
         ItemView view = new ItemView(this);
@@ -70,15 +87,15 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
         view.showICon(false);
         view.setListener(this);
         flow.addView(view);
+    }
 
-        if (TextUtils.isEmpty(s)) {
-            speak("主人,我没有听清你能再说一遍吗?");
-        } else {
-            SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
-            T.show("主人,保存关键词:" + s + "成功");
+    private boolean containKeyWord(String s, List<KeyWordDefinevBean> data) {
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).name.equals(s)) {
+                return true;
+            }
         }
-
-
+        return false;
     }
 
     private void initFlowLayout() {

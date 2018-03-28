@@ -9,4 +9,5 @@ import java.io.Serializable;
 public class KeyWordDefinevBean implements Serializable {
     public String name;
     public boolean show;
+    public String pinyin;
 }
