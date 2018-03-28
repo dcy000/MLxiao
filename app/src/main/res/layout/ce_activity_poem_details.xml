@@ -5,18 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5595FF"
+    android:background="@drawable/ce_common_bg"
     tools:context="com.example.han.referralproject.children.study.ChildEduPoemDetailsActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ce_poem_details_cl_poem"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="45dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginRight="98dp"
-        android:layout_marginTop="45dp"
-        android:background="#FFFFFF"
+        android:layout_width="1532pt"
+        android:layout_height="906pt"
+        android:layout_marginTop="224pt"
+        android:background="@drawable/ce_study_bg_poem_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -26,9 +23,9 @@
             android:id="@+id/ce_poem_details_tv_poem_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="95pt"
             android:textColor="#333333"
-            android:textSize="36sp"
+            android:textSize="96pt"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,9 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:textColor="#999999"
-            android:textSize="24sp"
+            android:layout_marginTop="40pt"
+            android:textColor="#333333"
+            android:textSize="56pt"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ce_poem_details_tv_poem_title"
@@ -58,47 +55,49 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ce_poem_details_tv_poem_author_and_dynasty"/>
 
-        <TextView
-            android:id="@+id/ce_poem_details_tv_read_again"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/ce_poem_details_tv_read_again"
-            android:gravity="center"
-            android:text="重读"
-            android:textColor="#333333"
-            android:textSize="28sp"
+        <ImageView
+            android:id="@+id/ce_poem_details_iv_replay"
+            android:layout_width="208pt"
+            android:layout_height="208pt"
+            android:layout_marginBottom="70pt"
+            android:layout_marginLeft="50pt"
+            android:src="@drawable/ce_study_ic_poem_replay"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <TextView
-            android:id="@+id/ce_poem_details_tv_last_sentence"
-            android:layout_width="135dp"
-            android:layout_height="90dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/ce_poem_details_tv_read_again"
-            android:gravity="center"
-            android:text="下一句"
-            android:textColor="#333333"
-            android:textSize="28sp"
+        <ImageView
+            android:id="@+id/ce_poem_details_iv_next"
+            android:layout_width="160pt"
+            android:layout_height="220pt"
+            android:layout_marginBottom="64pt"
+            android:layout_marginRight="64pt"
+            android:src="@drawable/ce_study_ic_poem_next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/ce_poem_details_tv_next_sentence"
-            android:layout_width="135dp"
-            android:layout_height="90dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/ce_poem_details_tv_read_again"
-            android:gravity="center"
-            android:text="上一句"
-            android:textColor="#333333"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toTopOf="@+id/ce_poem_details_tv_last_sentence"
-            app:layout_constraintRight_toRightOf="parent"/>
-
     </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ce_common_iv_back"
+        android:layout_width="140pt"
+        android:layout_height="126pt"
+        android:layout_marginLeft="20pt"
+        android:layout_marginTop="10pt"
+        android:paddingBottom="20pt"
+        android:paddingLeft="30pt"
+        android:paddingRight="30pt"
+        android:paddingTop="20pt"
+        android:src="@drawable/ce_common_ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ce_common_iv_title"
+        android:layout_width="507pt"
+        android:layout_height="130pt"
+        android:layout_marginTop="30pt"
+        android:src="@drawable/ce_study_iv_poems_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

@@ -4,49 +4,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingLeft="5dp">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/ce_sheet_details_tv_item_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#999999"
-        android:textSize="28sp"
+        android:textColor="#FFFFFF"
+        android:textSize="56pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="01" />
+        tools:text="01"/>
 
     <TextView
         android:id="@+id/ce_sheet_details_iv_item_song_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="16dp"
-        android:textColor="#333333"
-        android:textSize="28sp"
+        android:layout_marginBottom="12pt"
+        android:layout_marginLeft="40pt"
+        android:layout_marginTop="45pt"
+        android:textColor="#FFFFFF"
+        android:textSize="56pt"
         app:layout_constraintBottom_toTopOf="@+id/ce_sheet_details_tv_item_singer"
         app:layout_constraintLeft_toRightOf="@+id/ce_sheet_details_tv_item_number"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="夜曲" />
+        tools:text="夜曲"/>
 
     <TextView
         android:id="@+id/ce_sheet_details_tv_item_singer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="6dp"
-        android:textColor="#333333"
-        android:textSize="28sp"
+        android:layout_marginBottom="45pt"
+        android:layout_marginLeft="40pt"
+        android:layout_marginTop="12pt"
+        android:textColor="#FFFFFF"
+        android:textSize="48pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/ce_sheet_details_tv_item_number"
         app:layout_constraintTop_toBottomOf="@+id/ce_sheet_details_iv_item_song_name"
-        tools:text="结巴" />
+        tools:text="结巴"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#BBBBBB" />
+        android:background="#FFFFFF"/>
 </android.support.constraint.ConstraintLayout>

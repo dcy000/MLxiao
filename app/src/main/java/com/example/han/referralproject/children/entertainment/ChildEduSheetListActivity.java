@@ -38,6 +38,7 @@ public class ChildEduSheetListActivity extends BaseActivity {
     private RecyclerView rvSheets;
     private Adapter mAdapter;
     private List<SheetModel> mModels;
+    private ImageView ivTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,26 +50,32 @@ public class ChildEduSheetListActivity extends BaseActivity {
         } else {
             sheetCategory = SHEET_CATEGORY_CHILD;
         }
-        mToolbar.setVisibility(View.VISIBLE);
+        ivTitle = (ImageView) findViewById(R.id.ce_common_iv_title);
         switch (sheetCategory) {
             case SHEET_CATEGORY_CHILD:
-                mTitleText.setText("儿  歌");
+                ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_child_sheets);
                 break;
             case SHEET_CATEGORY_LULLABY:
-                mTitleText.setText("摇  篮  曲");
+                ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_lullaby_sheets);
                 break;
             case SHEET_CATEGORY_BABY:
-                mTitleText.setText("胎  教  音  乐");
+                ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_baby_sheets);
                 break;
             default:
                 sheetCategory = SHEET_CATEGORY_CHILD;
-                mTitleText.setText("儿  歌");
+                ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_child_sheets);
                 break;
         }
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         rvSheets = (RecyclerView) findViewById(R.id.ce_entertainment_rv_sheets);
         rvSheets.addOnScrollListener(new CenterScrollListener());
         OverFlyingLayoutManager lm = new OverFlyingLayoutManager(this);
-        lm.setMinScale(0.8f);
+        lm.setMinScale(0.6f);
         lm.setItemSpace(0);
         lm.setOrientation(OverFlyingLayoutManager.HORIZONTAL);
         lm.setOnPageChangeListener(onPageChangeListener);

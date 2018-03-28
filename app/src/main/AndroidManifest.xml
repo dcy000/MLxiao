@@ -590,6 +590,8 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".health.HealthDiaryActivity">
         </activity>
+        <activity android:name=".children.study.ChildEduStories2Activity">
+        </activity>
     </application>
 
 </manifest>

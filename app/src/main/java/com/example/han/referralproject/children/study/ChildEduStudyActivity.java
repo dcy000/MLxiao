@@ -3,32 +3,39 @@ package com.example.han.referralproject.children.study;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 
 public class ChildEduStudyActivity extends BaseActivity {
 
-    private TextView tvTurnOfMind;
-    private TextView tvPoems;
-    private TextView tvStories;
-    private TextView tvWhy;
-    private TextView tvWords;
+    private ImageView ivBrainTeaser;
+    private ImageView ivPoems;
+    private ImageView ivStories;
+    private ImageView ivWhy;
+    private ImageView ivWords;
+    private ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_study);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("儿  童  幼  教");
-        tvTurnOfMind = (TextView) findViewById(R.id.ce_study_tv_indicator_turn_of_mind);
-        tvPoems = (TextView) findViewById(R.id.ce_study_tv_indicator_poems);
-        tvStories = (TextView) findViewById(R.id.ce_study_tv_indicator_stories);
-        tvWhy = (TextView) findViewById(R.id.ce_study_tv_indicator_why);
-        tvWords = (TextView) findViewById(R.id.ce_study_tv_indicator_words);
+        ivBack = (ImageView) findViewById(R.id.ce_common_iv_back);
+        ivBrainTeaser = (ImageView) findViewById(R.id.ce_study_iv_tab_brain_teaser);
+        ivPoems = (ImageView) findViewById(R.id.ce_study_iv_tab_poems);
+        ivStories = (ImageView) findViewById(R.id.ce_study_tv_tab_stories);
+        ivWhy = (ImageView) findViewById(R.id.ce_study_iv_tab_why);
+        ivWords = (ImageView) findViewById(R.id.ce_study_iv_tab_words);
 
-        tvPoems.setOnClickListener(new View.OnClickListener() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        ivPoems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -37,16 +44,16 @@ public class ChildEduStudyActivity extends BaseActivity {
             }
         });
 
-        tvWords.setOnClickListener(new View.OnClickListener() {
+        ivWords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent = intent.setClass(ChildEduStudyActivity.this, ChildEduWordsActivity.class);
-                startActivity(intent);
+//                startActivity(intent);
             }
         });
 
-        tvTurnOfMind.setOnClickListener(new View.OnClickListener() {
+        ivBrainTeaser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -55,22 +62,29 @@ public class ChildEduStudyActivity extends BaseActivity {
             }
         });
 
-        tvStories.setOnClickListener(new View.OnClickListener() {
+        ivStories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduStoriesActivity.class);
+                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduStories2Activity.class);
                 startActivity(intent);
             }
         });
 
-        tvWhy.setOnClickListener(new View.OnClickListener() {
+        ivWhy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent = intent.setClass(ChildEduStudyActivity.this, ChildEduWhyActivity.class);
-                startActivity(intent);
+//                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        setEnableListeningLoop(false);
+        setDisableGlobalListen(true);
+        super.onResume();
     }
 }

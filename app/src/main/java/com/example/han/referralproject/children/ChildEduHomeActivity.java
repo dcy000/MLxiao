@@ -42,6 +42,12 @@ public class ChildEduHomeActivity extends BaseActivity {
         rvItems.setLayoutManager(lm);
         rvItems.setAdapter(mAdapter);
         rvItems.scrollToPosition(1);
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private OverFlyingLayoutManager.OnPageChangeListener onPageChangeListener =
@@ -90,11 +96,11 @@ public class ChildEduHomeActivity extends BaseActivity {
             imageReses = new ArrayList<Integer>();
             texts = new ArrayList<>();
             imageReses.add(R.drawable.ce_home_ic_video);
-            imageReses.add(R.drawable.ce_home_ic_music);
             imageReses.add(R.drawable.ce_home_ic_edu);
+            imageReses.add(R.drawable.ce_home_ic_music);
             texts.add("动画片");
-            texts.add("儿童娱乐");
             texts.add("儿童幼教");
+            texts.add("儿童娱乐");
         }
 
         private OnItemClickListener mOnItemClickListener;
