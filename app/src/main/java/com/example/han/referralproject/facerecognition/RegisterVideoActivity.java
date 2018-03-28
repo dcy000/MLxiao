@@ -149,7 +149,12 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         }
     });
 
-
+    private void openAnimation() {
+        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
+        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
+        findViewById(R.id.door_left).startAnimation(left);
+        findViewById(R.id.door_right).startAnimation(right);
+    }
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +168,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         setSurfaceSize();
         stream = new ByteArrayOutputStream();
+        openAnimation();
     }
 
 
