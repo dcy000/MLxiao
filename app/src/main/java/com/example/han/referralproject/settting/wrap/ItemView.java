@@ -23,11 +23,11 @@ public class ItemView extends LinearLayout implements View.OnClickListener {
     }
 
     public void setTextColor(int white) {
-        text.setTextColor(Color.WHITE);
+        text.setTextColor(white);
     }
 
     public void setTextSize(int i) {
-        text.setTextSize(14);
+        text.setTextSize(i);
     }
 
     public String getText() {
@@ -75,4 +75,5 @@ public class ItemView extends LinearLayout implements View.OnClickListener {
     public void setText(String text) {
         this.text.setText(text);
     }
+
 }

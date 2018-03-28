@@ -128,7 +128,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v == mRightText) {
-            KeyWordEditActivity.StartMe(this, data, titlePinyin);
+            KeyWordEdit2Activity.StartMe(this, data, titlePinyin);
         } else if (v == imageView) {
             SpeechSynthesizerHelper.stop();
             onEndOfSpeech();
