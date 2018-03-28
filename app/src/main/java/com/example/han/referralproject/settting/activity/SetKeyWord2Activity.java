@@ -225,7 +225,9 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
+        data.clear();
+        flow.removeAllViews();
+        refreshData();
         initFlowLayout();
     }
 }

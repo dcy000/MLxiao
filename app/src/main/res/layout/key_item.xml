@@ -13,15 +13,17 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:background="@drawable/shape_item_key_word"
-        android:gravity="center"
         android:id="@+id/text"
-        android:padding="20dp"
-        android:textSize="28sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:text="你好" />]
+        android:height="60dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:background="@drawable/shape_item_key_word"
+        android:gravity="center"
+        android:textColor="#FF333333"
+        android:textSize="28sp"/>
 
 
 </LinearLayout>
