@@ -67,6 +67,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
 
         ItemView view = new ItemView(this);
         view.setText(s);
+        view.showICon(false);
         view.setListener(this);
         flow.addView(view);
 
@@ -125,9 +126,13 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        SpeechSynthesizerHelper.stop();
-        onEndOfSpeech();
-        startListener();
+        if (v == mRightText) {
+            KeyWordEditActivity.StartMe(this, data, titlePinyin);
+        } else if (v == imageView) {
+            SpeechSynthesizerHelper.stop();
+            onEndOfSpeech();
+            startListener();
+        }
 
     }
 
