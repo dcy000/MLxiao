@@ -255,7 +255,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
         speak("主人,来和我聊天吧", isDefaultParam);
-        yuyinFlag = (Boolean) SharedPreferencesUtils.getParam(this, "yuyin", false);
+        yuyinFlag = (Boolean) SharedPreferencesUtils.getParam(this, "yuyin", true);
         if (yuyinFlag) {
             mHandler.sendEmptyMessageDelayed(1, 3000);
             yuyin.setVisibility(View.GONE);
