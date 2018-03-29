@@ -42,6 +42,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
@@ -105,6 +106,7 @@ public class AuthenticationActivity extends BaseActivity {
     private int authenticationNum = 0;
     private TextView tvTips;
     private boolean isTest;
+    private LottieAnimationView lottAnimation;
 
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
@@ -387,10 +389,11 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void openAnimation() {
-        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
-        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
-        findViewById(R.id.door_left).startAnimation(left);
-        findViewById(R.id.door_right).startAnimation(right);
+//        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
+//        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
+//        findViewById(R.id.door_left).startAnimation(left);
+//        findViewById(R.id.door_right).startAnimation(right);
+
     }
 
     private void closeAnimation() {
@@ -442,6 +445,8 @@ public class AuthenticationActivity extends BaseActivity {
         baos = new ByteArrayOutputStream();
         myHandler = new MyHandler(this);
         tvTips = findViewById(R.id.tv_tip);
+        lottAnimation=findViewById(R.id.lott_animation);
+        lottAnimation.setAnimation("camera_pre.json");
 
     }
 
