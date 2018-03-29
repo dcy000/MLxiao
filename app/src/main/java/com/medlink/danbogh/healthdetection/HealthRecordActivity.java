@@ -1878,6 +1878,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         llIndicator.setVisibility(View.VISIBLE);
         llTime.check(R.id.one_week);
         getTiwen(weekAgoTime + "", currentTime + "");
+
     }
 
     private void clickXueya() {

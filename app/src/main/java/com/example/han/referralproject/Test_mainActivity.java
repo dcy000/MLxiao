@@ -139,7 +139,5 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     break;
             }
         }
-
-
     }
 }
