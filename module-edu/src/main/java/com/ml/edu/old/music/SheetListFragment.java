@@ -19,6 +19,7 @@ import com.ml.edu.R;
 import com.ml.edu.data.ApiObserver;
 import com.ml.edu.data.entity.SheetEntity;
 import com.ml.edu.domain.GetSheetListUseCase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,9 +206,11 @@ public class SheetListFragment extends Fragment {
             }
             if (holder instanceof SheetHolder) {
                 SheetHolder sheetHolder = (SheetHolder) holder;
-                Glide.with(sheetHolder.ivSheetCover.getContext())
+//                Glide.with(sheetHolder.ivSheetCover.getContext())
+//                        .load(entity.getImageUrl())
+//                        .into(sheetHolder.ivSheetCover);
+                Picasso.with(sheetHolder.ivSheetCover.getContext())
                         .load(entity.getImageUrl())
-                        .placeholder(R.drawable.old_ic_placeholder)
                         .into(sheetHolder.ivSheetCover);
                 sheetHolder.tvSheetName.setText(entity.getName());
                 sheetHolder.tvSheetListenerCount.setText("9999人听过");
