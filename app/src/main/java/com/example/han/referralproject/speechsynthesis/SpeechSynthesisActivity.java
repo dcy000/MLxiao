@@ -259,8 +259,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (yuyinFlag) {
             mHandler.sendEmptyMessageDelayed(1, 3000);
             yuyin.setVisibility(View.GONE);
-        } else {
 
+        } else {
+            mImageView.setVisibility(View.GONE);
         }
         findViewById(R.id.tv_setup_language).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -407,7 +408,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        T.show( R.string.unable_to_play);
+                        T.show(R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -619,7 +620,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         printResult(results);
         if (isLast) {
             String result = resultBuffer.toString();
-            T.show( result);
+            T.show(result);
             String inSpell = PinYinUtils.converterToSpell(result);
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
@@ -870,7 +871,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .putExtra("type", "癫痫"));
             }
             boolean dealKeyWord = keyWordDeal(inSpell);
-            if (dealKeyWord){
+            if (dealKeyWord) {
                 return;
             }
 //            KeyWordBean keyword = (KeyWordBean) SharedPreferencesUtils.getParam(this, "keyword", new KeyWordBean());
