@@ -177,6 +177,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private VoiceLineView lineWave;
     private Boolean yuyinFlag;
     private boolean isStart;
+    private TextView notice;
 
 
     @Override
@@ -255,11 +256,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
         speak("主人,来和我聊天吧", isDefaultParam);
+        //默认是时时聊天
         yuyinFlag = (Boolean) SharedPreferencesUtils.getParam(this, "yuyin", true);
         if (yuyinFlag) {
             mHandler.sendEmptyMessageDelayed(1, 3000);
             yuyin.setVisibility(View.GONE);
-
+            notice.setVisibility(View.GONE);
         } else {
             mImageView.setVisibility(View.GONE);
         }
@@ -431,6 +433,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         voiceNormal = findViewById(R.id.tv_normal);
         voiceWhine = findViewById(R.id.tv_whine);
         yuyin = findViewById(R.id.iv_yuyin);
+        notice = findViewById(R.id.tv_notice);
         lineWave = findViewById(R.id.vl_wave);
         voiceNormal.setOnClickListener(this);
         voiceWhine.setOnClickListener(this);
@@ -480,6 +483,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.iv_yuyin:
                 onEndOfSpeech();
+                notice.setVisibility(View.GONE);
                 mImageView.performClick();
                 break;
             default:
@@ -493,6 +497,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private void onEndOfSpeech() {
         lineWave.setVisibility(View.GONE);
         lineWave.stopRecord();
+        notice.setVisibility(View.VISIBLE);
         isStart = false;
         recordTotalTime = 0;
         mHandler.removeCallbacksAndMessages(null);

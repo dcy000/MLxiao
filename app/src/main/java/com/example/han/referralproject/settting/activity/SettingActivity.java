@@ -76,8 +76,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 break;
             case R.id.rl_clear_cache:
                 //清理缓存
-//                showDialog(EventType.clearCache);
-                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
+                showDialog(EventType.clearCache);
+//                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
 
                 break;
             case R.id.rl_update:

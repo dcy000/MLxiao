@@ -280,6 +280,7 @@
 
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rl_clear_cache"
             android:layout_width="match_parent"
             android:layout_height="75dp"

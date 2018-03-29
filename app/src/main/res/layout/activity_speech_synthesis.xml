@@ -44,8 +44,19 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="50dp"
         android:src="@drawable/iv_yuyin_baike" />
+
+    <TextView
+        android:id="@+id/tv_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="点击说话"
+        android:textColor="#b6b2b2"
+        android:textSize="25dp" />
 
     <com.example.han.referralproject.tool.wrapview.VoiceLineView
         android:id="@+id/vl_wave"
