@@ -9,6 +9,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +39,7 @@ public class VoicerSettingDemoActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
+        MLVoiceSynthetize.startSynthesize(this, "主人,请你选出一种声音", false);
     }
 
     private void initView() {
@@ -61,6 +63,7 @@ public class VoicerSettingDemoActivity extends BaseActivity {
                 getSharedPreferences(IatSettings.PREFER_NAME, MODE_PRIVATE).edit()
                         .putString("speed_preference", progress + "")
                         .commit();
+
             }
         });
 
@@ -122,7 +125,7 @@ public class VoicerSettingDemoActivity extends BaseActivity {
 
     @OnClick(R.id.tv_shuo)
     public void onViewClicked() {
-        speak("主人,你有什么事情尽管吩咐,我什么都能为你做好");
+        MLVoiceSynthetize.startSynthesize(this, "选择的音调是"+tvYudiao.getText().toString()+"", false);
     }
 
     @Override

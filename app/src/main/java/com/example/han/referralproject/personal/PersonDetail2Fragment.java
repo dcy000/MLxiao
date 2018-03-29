@@ -65,6 +65,7 @@ public class PersonDetail2Fragment extends Fragment {
                 break;
             case R.id.iv_tools:
                 startActivity(new Intent(getActivity(), ToolsActivity.class));
+                break;
             case R.id.main_iv_health_class:
                 startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;

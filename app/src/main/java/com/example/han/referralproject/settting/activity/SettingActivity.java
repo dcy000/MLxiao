@@ -63,7 +63,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     }
 
     @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update,
-            R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name,R.id.rl_set_talk_type})
+            R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name, R.id.rl_set_talk_type})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_voice_set:
@@ -77,6 +77,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
             case R.id.rl_clear_cache:
                 //清理缓存
                 showDialog(EventType.clearCache);
+//                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
+
                 break;
             case R.id.rl_update:
                 //检测更新
@@ -106,7 +108,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
 
             case R.id.rl_set_talk_type:
                 //设置聊天模式
-               setTalkType();
+                setTalkType();
                 break;
 
 
@@ -118,8 +120,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     }
 
     private void showTalkTypeDialog() {
-        TalkTypeDialog dialog=new TalkTypeDialog();
-        dialog.show(getFragmentManager(),"talkType");
+        TalkTypeDialog dialog = new TalkTypeDialog();
+        dialog.show(getFragmentManager(), "talkType");
 
     }
 
