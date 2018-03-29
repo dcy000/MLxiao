@@ -7,6 +7,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_voices"
         android:layout_width="700dp"
-        android:layout_height="450dp"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

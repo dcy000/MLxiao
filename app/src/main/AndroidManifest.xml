@@ -462,7 +462,8 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize" />
 
-        <service android:name=".floatingball.AssistiveTouchService" />
+        <service android:name=".floatingball.AssistiveTouchService"
+            android:process=":serviceY"/>
 
         <activity
             android:name=".recyclerview.DoctorAlarmActivity"
