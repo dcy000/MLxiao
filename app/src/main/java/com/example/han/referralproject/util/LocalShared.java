@@ -64,7 +64,6 @@ public class LocalShared {
     }
 
     /**
-     *
      * @param bid
      * @param xfid
      */
@@ -85,18 +84,20 @@ public class LocalShared {
 
     /**
      * 本地缓存的账号是否满了5个
+     *
      * @return
      */
-    public boolean isAccountOverflow(){
+    public boolean isAccountOverflow() {
         String[] accountsArray = getAccounts();
         if (accountsArray == null) {
             return false;
         }
-        if (accountsArray.length>5)
+        if (accountsArray.length > 5)
             return true;
         else
             return false;
     }
+
     public void deleteAccount(String bid, String xfid) {
         String[] accountsArray = getAccounts();
         if (accountsArray == null || TextUtils.isEmpty(bid) || TextUtils.isEmpty(xfid)) {
@@ -124,13 +125,14 @@ public class LocalShared {
     /**
      * 删除本机上所有缓存的账户
      */
-    public void deleteAllAccount(){
+    public void deleteAllAccount() {
         String[] accountsArray = getAccounts();
         if (accountsArray == null) {
             return;
         }
-        mShared.edit().putString(UserAccounts_new,"").commit();
+        mShared.edit().putString(UserAccounts_new, "").commit();
     }
+
     public String[] getAccounts() {
         String accountsString = mShared.getString(UserAccounts_new, "");
 
@@ -486,6 +488,7 @@ public class LocalShared {
 
     /**
      * 讯飞组id
+     *
      * @param groupid
      */
 
@@ -499,6 +502,7 @@ public class LocalShared {
 
     /**
      * 讯飞组创建时候传入的xfid
+     *
      * @param xfid
      */
     public void setGroupFirstXfid(String xfid) {
@@ -510,9 +514,55 @@ public class LocalShared {
     }
 
     public void setHealthScore(int fenshuNum) {
-        mShared.edit().putInt("health_score",fenshuNum).commit();
+        mShared.edit().putInt("health_score", fenshuNum).commit();
     }
-    public int getHealthScore(){
-        return mShared.getInt("health_score",0);
+
+    public int getHealthScore() {
+        return mShared.getInt("health_score", 0);
+    }
+
+    public void setMeasureXueyaFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_xueya_first", isFirst).commit();
+    }
+
+    public boolean getMeasureXueyaFirst() {
+        return mShared.getBoolean("measure_xueya_first", true);
+    }
+    public void setMeasureTiwenFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_tiwen_first", isFirst).commit();
+    }
+
+    public boolean getMeasureTiwenFirst() {
+        return mShared.getBoolean("measure_tiwen_first", true);
+    }
+    public void setMeasureXuetangFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_xuetang_first", isFirst).commit();
+    }
+
+    public boolean getMeasureXuetangFirst() {
+        return mShared.getBoolean("measure_xuetang_first", true);
+    }
+    public void setMeasureXueyangFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_xueyang_first", isFirst).commit();
+    }
+
+    public boolean getMeasureXueyangFirst() {
+        return mShared.getBoolean("measure_xueyang_first", true);
+    }
+
+    public void setMeasureXindianFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_xindian_first", isFirst).commit();
+    }
+
+    public boolean getMeasureXindianFirst() {
+        return mShared.getBoolean("measure_xindian_first", true);
+    }
+
+    public void setMeasureSanheyiFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_sanheyi_first", isFirst).commit();
+    }
+
+    public boolean getMeasureSanheyiFirst() {
+        return mShared.getBoolean("measure_sanheyi_first", true);
     }
 }

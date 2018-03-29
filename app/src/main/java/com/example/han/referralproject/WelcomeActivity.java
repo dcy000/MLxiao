@@ -15,15 +15,13 @@ import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
-import com.medlink.danbogh.signin.SignInActivity;
-import com.ml.videoplayer.MlVideoPlayer;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -52,10 +50,10 @@ public class WelcomeActivity extends BaseActivity {
             return;
         }
         playVideo();
-//        checkVersion();
     }
 
     private void checkVersion() {
+        Logger.e("检查版本调用次数");
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
@@ -181,6 +179,7 @@ public class WelcomeActivity extends BaseActivity {
                 public void onClick(View v) {
                     MyVideoPlayer.this.onClick(v);
                     mWelcomeActivity.onVideoPlayedComplete();
+                    Logger.e("backButton.setOnClickListener");
                 }
             });
         }
@@ -190,6 +189,7 @@ public class WelcomeActivity extends BaseActivity {
             super.onStateAutoComplete();
             backPress();
             mWelcomeActivity.onVideoPlayedComplete();
+            Logger.e("onStateAutoComplete");
         }
     }
 

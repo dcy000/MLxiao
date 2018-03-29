@@ -248,7 +248,7 @@ public class AuthenticationActivity extends BaseActivity {
             @Override
             public void onSuccess(String response) {
                 speak(getString(R.string.shop_success));
-                showNormal("支付成功", "1");
+                setResult(RESULT_OK);
                 finishActivity();
                 GoodDetailActivity.mActivity.finish();
             }
@@ -636,32 +636,7 @@ public class AuthenticationActivity extends BaseActivity {
     private boolean isFirstSend = true;
 
 
-    public void showNormal(String message, final String sign) {
-        dialog2.setMessageCenter(true)
-                .setMessage(message)
-                .setMessageSize(50)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#3F86FC"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
-                    @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            if ("1".equals(sign)) {
-                                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
 
-                    }
-                }).create(NDialog.CONFIRM).show();
-    }
 
 
     /**
