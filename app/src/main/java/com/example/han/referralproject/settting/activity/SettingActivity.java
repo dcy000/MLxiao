@@ -1,6 +1,5 @@
 package com.example.han.referralproject.settting.activity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.EventType;
 import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
+import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
@@ -45,6 +45,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     RelativeLayout rlSetKeyword;
     @BindView(R.id.rl_set_voice_name)
     RelativeLayout rlSetVoiceName;
+    @BindView(R.id.rl_set_talk_type)
+    RelativeLayout rlSetTalkType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     }
 
     @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update,
-            R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name})
+            R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name,R.id.rl_set_talk_type})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_voice_set:
@@ -101,7 +103,24 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 //设置发音人
                 setVoiceName();
                 break;
+
+            case R.id.rl_set_talk_type:
+                //设置聊天模式
+               setTalkType();
+                break;
+
+
         }
+    }
+
+    private void setTalkType() {
+        showTalkTypeDialog();
+    }
+
+    private void showTalkTypeDialog() {
+        TalkTypeDialog dialog=new TalkTypeDialog();
+        dialog.show(getFragmentManager(),"talkType");
+
     }
 
     private void setVoiceName() {

@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearlayou2"
-    android:background="#F5F5F5"
-    android:padding="20dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:background="#F5F5F5"
+    android:padding="20dp">
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toRightOf="@+id/linearlayou1"
-        android:orientation="vertical"
-        >
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -140,6 +138,32 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/main_iv_health_class"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/jiankang_set"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="健康课堂"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -162,6 +186,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/shape_blue_round" />
         </LinearLayout>
+
     </RelativeLayout>
 </FrameLayout>
 
