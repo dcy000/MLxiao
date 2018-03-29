@@ -138,7 +138,6 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/rl_set_talk_type"
         android:layout_width="match_parent"
         android:layout_height="75dp"

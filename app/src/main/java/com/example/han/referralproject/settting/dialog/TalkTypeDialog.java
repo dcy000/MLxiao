@@ -64,8 +64,8 @@ public class TalkTypeDialog extends DialogFragment {
         data.add(bean);
 
         TalkTypeBean bean2 = new TalkTypeBean();
-        bean.check = xunhuan;
-        bean.name = "实时聊天";
+        bean2.check = xunhuan;
+        bean2.name = "实时聊天";
         data.add(bean2);
 
 
@@ -117,7 +117,7 @@ public class TalkTypeDialog extends DialogFragment {
 
         private void saveData(int position) {
             boolean object = position == 1;
-            SharedPreferencesUtils.setParam(getContext(), "yuyin", object);
+            SharedPreferencesUtils.setParam(getActivity(), "yuyin", object);
         }
 
         @Override
