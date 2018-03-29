@@ -87,7 +87,11 @@ public class MonthlyReportActivity extends BaseActivity {
                     Logger.e("返回测量数据成功" + response);
                 } else {
                     ToastTool.showShort("暂无月报告");
-                    finish();
+                    fragment1.isNoReport=true;
+                    fragment2.isNoReport=true;
+                    fragment3.isNoReport=true;
+                    fragment4.isNoReport=true;
+                    fragment5.isNoReport=true;
                 }
             }
         }, new NetworkManager.FailedCallback() {

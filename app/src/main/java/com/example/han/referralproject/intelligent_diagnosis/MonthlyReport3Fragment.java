@@ -63,9 +63,7 @@ public class MonthlyReport3Fragment extends Fragment {
     private String tips;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    public MonthlyReport3Fragment() {
-        // Required empty public constructor
-    }
+    public static boolean isNoReport = false;
 
 
     @Override
@@ -91,8 +89,8 @@ public class MonthlyReport3Fragment extends Fragment {
             pc_diya = (int) (sj_diya - mb_diya);
 
 
-            tabMbGaoya.setText("<"+String.format("%.0f",mb_gaoya));
-            tabMbDiya.setText("<"+String.format("%.0f",mb_diya));
+            tabMbGaoya.setText("<" + String.format("%.0f", mb_gaoya));
+            tabMbDiya.setText("<" + String.format("%.0f", mb_diya));
             tabSjGaoya.setText((int) sj_gaoya + "");
             tabSjDiya.setText((int) sj_diya + "");
 
@@ -131,8 +129,11 @@ public class MonthlyReport3Fragment extends Fragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser){
-            ((MonthlyReportActivity) getActivity()).speak(tips);
+        if (isVisibleToUser) {
+            if (isNoReport)
+                ((MonthlyReportActivity) getActivity()).speak("主人，暂无月报告，请坚持测量，我们将在每月一号为您生成一份报告");
+            else
+                ((MonthlyReportActivity) getActivity()).speak(tips);
         }
     }
 

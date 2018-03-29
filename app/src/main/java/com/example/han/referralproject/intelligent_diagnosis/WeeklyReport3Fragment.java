@@ -85,6 +85,7 @@ public class WeeklyReport3Fragment extends Fragment {
     private float mb_tizhong, mb_yundong, mb_yinjiu, mb_yan;
     private int pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
     private String tips = "未初始化";
+    public static boolean isNoReport = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -281,7 +282,10 @@ public class WeeklyReport3Fragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && isSpeak) {
             isSpeak = false;
-            ((WeeklyReportActivity) getActivity()).speak(tips);
+            if (isNoReport)
+                ((WeeklyReportActivity) getActivity()).speak("主人，暂无周报告，请坚持每天测量，我们将在每周一为您生成一份新的报告");
+            else
+                ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }
 

@@ -83,10 +83,7 @@ public class MonthlyReport4Fragment extends Fragment {
     private float mb_tizhong, mb_yundong, mb_yinjiu, mb_yan;
     private int pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
     private String tips = "未初始化";
-
-    public MonthlyReport4Fragment() {
-        // Required empty public constructor
-    }
+    public static boolean isNoReport = false;
 
 
     @Override
@@ -105,6 +102,7 @@ public class MonthlyReport4Fragment extends Fragment {
             setChart();
         }
     }
+
     private void initData() {
         String height_s = LocalShared.getInstance(getActivity()).getUserHeight();
         float height_f = Float.parseFloat(height_s);
@@ -182,8 +180,11 @@ public class MonthlyReport4Fragment extends Fragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser){
-            ((MonthlyReportActivity) getActivity()).speak(tips);
+        if (isVisibleToUser) {
+            if (isNoReport)
+                ((MonthlyReportActivity) getActivity()).speak("主人，暂无月报告，请坚持测量，我们将在每月一号为您生成一份报告");
+            else
+                ((MonthlyReportActivity) getActivity()).speak(tips);
         }
     }
 
@@ -278,6 +279,7 @@ public class MonthlyReport4Fragment extends Fragment {
         mChart.setData(data);
         mChart.invalidate();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
