@@ -258,14 +258,29 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                     return;
                 }
 
+                if (result.equals("下一题") || result.contains("下一题")) {
+                    tvShowNext.performClick();
+                    return;
+                }
+
+                if (result.equals("显示答案") || result.contains("显示答案") || result.contains("看答案")) {
+                    tvShowAnwser.performClick();
+                    return;
+                }
 
                 anwserPinyin = PinYinUtils.converterToSpell(answer);
 
                 if (anwserPinyin.equals(resultPinYin) || anwserPinyin.contains(resultPinYin)) {
                     speak("恭喜主人答对了");
-                } else {
-                    speak("主人,您再猜一下!");
+                    return;
                 }
+
+                if (answer.equals(result) || answer.contains(result)) {
+                    speak("恭喜主人答对了");
+                    return;
+                }
+
+                speak("主人,您再猜一下!");
 
 
             } catch (Exception e) {
@@ -284,9 +299,9 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("恭喜主人答对了");
-                } else {
-                    speak("主人,您再猜一下!");
+                    return;
                 }
+                speak("主人,您再猜一下!");
 
             }
         }
