@@ -252,5 +252,6 @@ public class CalculationActivity extends BaseActivity {
         super.onDestroy();
         stopListening();
         SpeechSynthesizerHelper.stop();
+        mainHandler.removeCallbacksAndMessages(null);
     }
 }

@@ -200,5 +200,7 @@ public class DateInquireActivity extends ToolBaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopListening();
+        stopSpeaking();
+        mainHandler.removeCallbacksAndMessages(null);
     }
 }

@@ -185,4 +185,12 @@ public class CookBookActivity extends ToolBaseActivity {
     public void getData(String s) {
         getDateData(s);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
+        stopSpeaking();
+        mainHandler.removeCallbacksAndMessages(null);
+    }
 }

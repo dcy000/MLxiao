@@ -22,6 +22,8 @@ import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -180,39 +182,144 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     }
 
     private void startListener() {
-        SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
-        speechRecognizer.startListening(new RecognizerListener() {
+//        SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
+//        speechRecognizer.startListening(new RecognizerListener() {
+//            @Override
+//            public void onVolumeChanged(int i, byte[] bytes) {
+//                vlWave.waveH = i / 6 + 2;
+//            }
+//
+//            @Override
+//            public void onBeginOfSpeech() {
+//                showWave();
+//            }
+//
+//            @Override
+//            public void onEndOfSpeech() {
+//                endOfSpeech();
+//                tvPressNotice.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void onResult(RecognizerResult recognizerResult, boolean b) {
+//                dealData(recognizerResult, b);
+//            }
+//
+//            @Override
+//            public void onError(SpeechError speechError) {
+//                speak("主人,我没听清,您能再说一遍吗");
+//            }
+//
+//            @Override
+//            public void onEvent(int i, int i1, int i2, Bundle bundle) {
+//
+//            }
+//        });
+
+        MLVoiceRecognize.startRecognize(this, new MLRecognizerListener() {
             @Override
-            public void onVolumeChanged(int i, byte[] bytes) {
+            public void onMLVolumeChanged(int i, byte[] bytes) {
                 vlWave.waveH = i / 6 + 2;
             }
 
             @Override
-            public void onBeginOfSpeech() {
+            public void onMLBeginOfSpeech() {
                 showWave();
             }
 
             @Override
-            public void onEndOfSpeech() {
+            public void onMLEndOfSpeech() {
                 endOfSpeech();
                 tvPressNotice.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onResult(RecognizerResult recognizerResult, boolean b) {
-                dealData(recognizerResult, b);
+            public void onMLResult(String result) {
+                doData(result);
+
             }
 
             @Override
-            public void onError(SpeechError speechError) {
+            public void onMLError(SpeechError error) {
                 speak("主人,我没听清,您能再说一遍吗");
             }
-
-            @Override
-            public void onEvent(int i, int i1, int i2, Bundle bundle) {
-
-            }
         });
+    }
+
+    private void doData(String result) {
+
+        if (data == null || data.size() == 0) {
+            return;
+        }
+
+        if (TextUtils.isEmpty(result)) {
+            speak("主人,我没听清,您能再说一遍吗");
+            return;
+        }
+
+        String answer = data.get(index % size).answer;
+
+        try {
+
+            resultPinYin = PinYinUtils.converterToSpell(result);
+
+            //拦截处理 下一题 显示答案
+            if (resultPinYin.matches(".*(xiayiti|xiayinti|xiayitin).*")) {
+                tvShowNext.performClick();
+                return;
+            }
+
+            if (resultPinYin.matches(".*(xianshidaan|xiansidaan|xiangshidaan|xiansidaan|xiansidaang).*")) {
+                tvShowAnwser.performClick();
+                return;
+            }
+
+            if (result.equals("下一题") || result.contains("下一题")) {
+                tvShowNext.performClick();
+                return;
+            }
+
+            if (result.equals("显示答案") || result.contains("显示答案") || result.contains("看答案")) {
+                tvShowAnwser.performClick();
+                return;
+            }
+
+            anwserPinyin = PinYinUtils.converterToSpell(answer);
+
+            if (anwserPinyin.equals(resultPinYin) || anwserPinyin.contains(resultPinYin)) {
+                speak("恭喜主人答对了");
+                return;
+            }
+
+            if (answer.equals(result) || answer.contains(result)) {
+                speak("恭喜主人答对了");
+                return;
+            }
+
+            speak("主人,您再猜一下!");
+
+
+        } catch (Exception e) {
+
+
+            if (result.equals("下一题") || result.contains("下一题")) {
+                tvShowNext.performClick();
+                return;
+            }
+
+            if (result.equals("显示答案") || result.contains("显示答案") || result.contains("看答案")) {
+                tvShowAnwser.performClick();
+                return;
+            }
+
+
+            if (answer.equals(result) || answer.contains(result)) {
+                speak("恭喜主人答对了");
+                return;
+            }
+            speak("主人,您再猜一下!");
+
+        }
     }
 
     private void endOfSpeech() {
@@ -342,5 +449,6 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         super.onDestroy();
         stopListening();
         SpeechSynthesizerHelper.stop();
+        mainHandler.removeCallbacksAndMessages(null);
     }
 }

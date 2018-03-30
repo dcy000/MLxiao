@@ -164,6 +164,7 @@ public class JieMengActivity extends ToolBaseActivity {
         super.onDestroy();
         stopListening();
         SpeechSynthesizerHelper.stop();
+        mainHandler.removeCallbacksAndMessages(null);
     }
 
     @OnClick({R.id.tv_demo1, R.id.tv_demo2, R.id.tv_demo3, R.id.iv_yuyin})

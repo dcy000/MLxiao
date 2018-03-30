@@ -197,5 +197,6 @@ public class BaiKeActivtiy extends ToolBaseActivity {
         super.onDestroy();
         stopListening();
         SpeechSynthesizerHelper.stop();
+        mainHandler.removeCallbacksAndMessages(null);
     }
 }
