@@ -152,10 +152,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     private LottieAnimationView lottAnimation;
 
     private void openAnimation() {
-//        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
-//        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
-//        findViewById(R.id.door_left).startAnimation(left);
-//        findViewById(R.id.door_right).startAnimation(right);
         lottAnimation.playAnimation();
     }
     @SuppressWarnings("deprecation")

@@ -176,7 +176,7 @@ public class SignInActivity extends BaseActivity {
         NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
-                checkGroup(response.bid, response.xfid);
+                checkGroup(response.xfid);
                 new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
@@ -198,45 +198,54 @@ public class SignInActivity extends BaseActivity {
         });
     }
 
-    private void checkGroup(final String userid, final String xfid) {
+    private void checkGroup( final String xfid) {
         //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
         String groupId = LocalShared.getInstance(mContext).getGroupId();
         String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
         Logger.e("组id"+groupId);
         if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
             Log.e("组信息", "checkGroup: 该机器组已近存在" );
-            return;
+            joinGroup(groupId,xfid);
+        }else{
+            createGroup(xfid);
         }
-        FaceAuthenticationUtils.getInstance(SignInActivity.this).createGroup(xfid);
-        FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
+    }
+    private void joinGroup(String groupid, final String xfid) {
+        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
+        FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
-                Logger.e("组信息----》" + result+"======在登录的时候创建组成功");
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "添加成员出现异常");
+                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
+                    createGroup(xfid);
+                }
+
+            }
+        });
+    }
+
+    private void createGroup(final String xfid) {
+        FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
+        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
                 try {
                     JSONObject resObj = new JSONObject(result.getResultString());
                     String groupId = resObj.getString("group_id");
                     LocalShared.getInstance(SignInActivity.this).setGroupId(groupId);
                     LocalShared.getInstance(SignInActivity.this).setGroupFirstXfid(xfid);
                     //组创建好以后把自己加入到组中去
-                    FaceAuthenticationUtils.getInstance(SignInActivity.this).
-                            joinGroup(groupId, xfid);
-                    FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
-                        @Override
-                        public void onResult(IdentityResult result, boolean islast) {
-                            Log.d("SignInActivity", "onResult:添加自己到组中成功");
-                        }
-
-                        @Override
-                        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-                        }
-
-                        @Override
-                        public void onError(SpeechError error) {
-
-                        }
-                    });
-                    FaceAuthenticationUtils.getInstance(SignInActivity.this).updateGroupInformation(groupId,xfid);
+                    joinGroup(groupId,xfid);
+                    FaceAuthenticationUtils.getInstance(SignInActivity.this).updateGroupInformation(groupId, xfid);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -250,11 +259,10 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onError(SpeechError error) {
                 Logger.e(error, "创建组失败");
-                ToastTool.showShort("出现技术故障，请致电客服咨询"+error.getErrorCode());
+                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
             }
         });
     }
-
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
         startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));

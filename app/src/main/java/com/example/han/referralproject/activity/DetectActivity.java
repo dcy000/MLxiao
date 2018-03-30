@@ -911,6 +911,27 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if (mVideoView.isPlaying()) {
                         mVideoView.pause();
                     }
+
+                    switch (detectType){
+                        case Type_Wendu:
+                            LocalShared.getInstance(DetectActivity.this).setMeasureTiwenFirst(false);
+                            break;
+                        case Type_XinDian:
+                            LocalShared.getInstance(DetectActivity.this).setMeasureXindianFirst(false);
+                            break;
+                        case Type_Xueya:
+                            LocalShared.getInstance(DetectActivity.this).setMeasureXueyaFirst(false);
+                            break;
+                        case Type_XueTang:
+                            LocalShared.getInstance(DetectActivity.this).setMeasureXuetangFirst(false);
+                            break;
+                        case Type_SanHeYi:
+                            LocalShared.getInstance(DetectActivity.this).setMeasureSanheyiFirst(false);
+                            break;
+                        case Type_XueYang:
+                            LocalShared.getInstance(DetectActivity.this).setMeasureXueyangFirst(false);
+                            break;
+                    }
                 }
                 break;
             case R.id.sanheyi_video:
@@ -1325,27 +1346,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         public void onCompletion(MediaPlayer mp) {
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
-            switch (detectType){
-                case Type_Wendu:
-                    LocalShared.getInstance(DetectActivity.this).setMeasureTiwenFirst(false);
-                    break;
-                case Type_XinDian:
-                    LocalShared.getInstance(DetectActivity.this).setMeasureXindianFirst(false);
-                    break;
-                case Type_Xueya:
-                    LocalShared.getInstance(DetectActivity.this).setMeasureXueyaFirst(false);
-                    break;
-                case Type_XueTang:
-                    LocalShared.getInstance(DetectActivity.this).setMeasureXuetangFirst(false);
-                    break;
-                case Type_SanHeYi:
-                    LocalShared.getInstance(DetectActivity.this).setMeasureSanheyiFirst(false);
-                    break;
-                case Type_XueYang:
-                    LocalShared.getInstance(DetectActivity.this).setMeasureXueyangFirst(false);
-                    break;
-            }
-
         }
     };
 

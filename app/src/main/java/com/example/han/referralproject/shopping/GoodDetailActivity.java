@@ -246,6 +246,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
     }
     public void showPaySuccessDialog() {
+        speak(getString(R.string.shop_success));
         dialog2.setMessageCenter(true)
                 .setMessage("支付成功")
                 .setMessageSize(50)
