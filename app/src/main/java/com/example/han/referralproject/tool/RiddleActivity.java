@@ -58,6 +58,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     private List<RiddleBean> data;
     private int size;
     private String resultPinYin;
+    private String anwserPinyin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,7 +232,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
         if (isLast) {
 
-            if (data != null && data.size() != 0) {
+            if (data == null || data.size() == 0) {
                 return;
             }
 
@@ -239,11 +240,12 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 speak("主人,我没听清,您能再说一遍吗");
                 return;
             }
+
+            String answer = data.get(index % size).answer;
+
             try {
 
                 resultPinYin = PinYinUtils.converterToSpell(result);
-            } catch (Exception e) {
-
 
                 //拦截处理 下一题 显示答案
                 if (resultPinYin.matches(".*(xiayiti|xiayinti|xiayitin).*")) {
@@ -257,6 +259,18 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 }
 
 
+                anwserPinyin = PinYinUtils.converterToSpell(answer);
+
+                if (anwserPinyin.equals(resultPinYin) || anwserPinyin.contains(resultPinYin)) {
+                    speak("恭喜主人答对了");
+                } else {
+                    speak("主人,您再猜一下!");
+                }
+
+
+            } catch (Exception e) {
+
+
                 if (result.equals("下一题") || result.contains("下一题")) {
                     tvShowNext.performClick();
                     return;
@@ -267,8 +281,6 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                     return;
                 }
 
-
-                String answer = data.get(index % size).answer;
 
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("恭喜主人答对了");
