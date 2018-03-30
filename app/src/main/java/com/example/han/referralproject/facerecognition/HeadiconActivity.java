@@ -43,6 +43,7 @@ public class HeadiconActivity extends BaseActivity {
 
     ImageView mImageView1;
     ImageView mImageView2;
+    private boolean isFast;
 
 
     @Override
@@ -50,6 +51,7 @@ public class HeadiconActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_headicon);
+        isFast = getIntent().getBooleanExtra("isFast", false);
         uploadManager = new UploadManager();
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
 
@@ -139,7 +141,7 @@ public class HeadiconActivity extends BaseActivity {
             public void complete(String key, ResponseInfo info, JSONObject res) {
                 if (info.isOK()) {
                     Log.e("================", MyApplication.getInstance().userId + "=========" + LocalShared.getInstance(getApplicationContext()).getXunfeiId());
-                    String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
+                    final String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
                     NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
                             new NetworkManager.SuccessCallback<Object>() {
                                 @Override
@@ -152,7 +154,9 @@ public class HeadiconActivity extends BaseActivity {
                                     LocalShared.getInstance(mContext).addAccount(MyApplication.getInstance().userId,
                                             LocalShared.getInstance(getApplicationContext()).getXunfeiId());
                                     Log.e("注册储存讯飞id成功", "onSuccess: userID" + MyApplication.getInstance().userId + "-----xfid" + LocalShared.getInstance(getApplicationContext()).getXunfeiId());
-                                    Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                                    Intent intent = new Intent();
+                                    Class<? extends BaseActivity> aClass = !isFast ? RecoDocActivity.class : MainActivity.class;
+                                    intent.setClass(getApplicationContext(), aClass);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -173,8 +177,8 @@ public class HeadiconActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        super.onResume();
         startListening();
     }
 

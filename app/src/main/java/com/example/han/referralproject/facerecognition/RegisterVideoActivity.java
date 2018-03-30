@@ -119,7 +119,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    ToastTool.showShort( "请调整您的姿态");
+                                                    ToastTool.showShort("请调整您的姿态");
                                                 }
                                             });
 
@@ -131,7 +131,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                                     //再给用户2秒进行姿态调整
                                     try {
                                         Thread.sleep(2000);
-                                        if (sign&&mCamera!=null) {
+                                        if (sign && mCamera != null) {
                                             mCamera.setOneShotPreviewCallback(RegisterVideoActivity.this);
                                         }
                                     } catch (InterruptedException e) {
@@ -150,6 +150,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         }
     });
 
+    private boolean isFast;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -157,6 +158,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
         isTest = getIntent().getBooleanExtra("isTest", false);
+        isFast = getIntent().getBooleanExtra("isFast", false);
         initUI();
 
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
@@ -323,7 +325,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                 String result = new String(buffer, "utf-8");
                 Log.e("上传头像返回的信息", "onBufferReceived: " + result);
                 JSONObject obj = new JSONObject(result);
-                Log.e("获取注册时候讯飞的信息", "onBufferReceived: " +obj.toString() );
+                Log.e("获取注册时候讯飞的信息", "onBufferReceived: " + obj.toString());
                 String type = obj.optString("sst");
                 if ("reg".equals(type)) {
                     int ret = obj.getInt("ret");
@@ -345,6 +347,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
 
                         Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
+                        intent.putExtra("isFast", isFast);
                         startActivity(intent);
                         finish();
                     } else {

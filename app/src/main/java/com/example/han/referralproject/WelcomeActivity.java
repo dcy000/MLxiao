@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 
@@ -31,6 +32,8 @@ import cn.jzvd.JZVideoPlayerStandard;
 
 public class WelcomeActivity extends BaseActivity {
 
+    private static final String TAG = "afirez";
+
     private Chronometer ch;
 
     public static final String VEDIO_URL = "http://oyptcv2pb.bkt.clouddn.com/abc_1521797390144";
@@ -40,6 +43,7 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        Log.i(TAG, "onCreate: ");
         //启动音乐服务
         if (!isWorked("com.example.han.referralproject.MusicService")) {
             startService(new Intent(this, MusicService.class));
@@ -171,7 +175,7 @@ public class WelcomeActivity extends BaseActivity {
             super.init(context);
             try {
                 mWelcomeActivity = (WelcomeActivity) context;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 mWelcomeActivity = null;
                 e.printStackTrace();
             }
@@ -180,7 +184,9 @@ public class WelcomeActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     MyVideoPlayer.this.onClick(v);
-                    mWelcomeActivity.onVideoPlayedComplete();
+                    if (mWelcomeActivity != null) {
+                        mWelcomeActivity.onVideoPlayedComplete();
+                    }
                 }
             });
         }
@@ -189,7 +195,9 @@ public class WelcomeActivity extends BaseActivity {
         public void onStateAutoComplete() {
             super.onStateAutoComplete();
             backPress();
-            mWelcomeActivity.onVideoPlayedComplete();
+            if (mWelcomeActivity != null) {
+                mWelcomeActivity.onVideoPlayedComplete();
+            }
         }
     }
 

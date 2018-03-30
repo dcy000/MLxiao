@@ -292,7 +292,7 @@ public class LocalShared {
     }
 
     public String getSignUpIdCard() {
-        return mShared.getString(SIGN_UP_ID_CARD, "");
+        return mShared.getString(SIGN_UP_ID_CARD, "360311198803295218");
     }
 
     public void setSignUpPhone(String phone) {

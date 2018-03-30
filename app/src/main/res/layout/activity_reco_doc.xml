@@ -10,6 +10,7 @@
     <include layout="@layout/include_sign_up_contract_appbar" />
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginBottom="14dp"
@@ -113,6 +114,7 @@
     </LinearLayout>
 
     <ImageView
+        android:layout_marginTop="30dp"
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"

@@ -16,8 +16,12 @@ public class ChildEduCartoonActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_cartoon);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("动  画  片");
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         rgTabs = (RadioGroup) findViewById(R.id.ce_cartoon_rg_tabs);
         rgTabs.setOnCheckedChangeListener(onCheckedChangeListener);
         rgTabs.check(R.id.ce_cartoon_rb_tab_cartoon);

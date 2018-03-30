@@ -21,6 +21,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicUtils;
 import com.medlink.danbogh.utils.T;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -28,6 +28,9 @@ public class ChildEduStudyActivity extends BaseActivity {
         ivWhy = (ImageView) findViewById(R.id.ce_study_iv_tab_why);
         ivWords = (ImageView) findViewById(R.id.ce_study_iv_tab_words);
 
+        ivWhy.setEnabled(false);
+        ivWords.setEnabled(false);
+
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +52,7 @@ public class ChildEduStudyActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent = intent.setClass(ChildEduStudyActivity.this, ChildEduWordsActivity.class);
-//                startActivity(intent);
+                startActivity(intent);
             }
         });
 
@@ -76,7 +79,7 @@ public class ChildEduStudyActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent = intent.setClass(ChildEduStudyActivity.this, ChildEduWhyActivity.class);
-//                startActivity(intent);
+                startActivity(intent);
             }
         });
     }

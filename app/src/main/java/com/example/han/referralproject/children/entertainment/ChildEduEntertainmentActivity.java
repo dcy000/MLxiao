@@ -136,7 +136,7 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
             texts = new ArrayList<>();
             texts.add(R.drawable.ce_entertainment_ic_child);
             texts.add(R.drawable.ce_entertainment_ic_lullaby);
-            texts.add(R.drawable.ce_entertainment_ic_entertainment_baby);
+            texts.add(R.drawable.ce_entertainment_ic_baby);
             texts.add(R.drawable.ce_entertainment_ic_jokes);
         }
 

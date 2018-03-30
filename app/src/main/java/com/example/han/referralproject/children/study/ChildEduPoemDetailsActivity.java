@@ -47,7 +47,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         tvAuthorAndDynasty = (TextView) findViewById(R.id.ce_poem_details_tv_poem_author_and_dynasty);
         rvPoemSentences = (RecyclerView) findViewById(R.id.ce_poem_details_rv_poem_sentences);
         ivReplay = (ImageView) findViewById(R.id.ce_poem_details_iv_replay);
-        ivNext = (ImageView) findViewById(R.id.ce_poem_details_iv_next);
+        ivNext = (ImageView) findViewById(R.id.ce_poem_details_iv_next_normal);
 
         ivReplay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,4 +240,5 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         setEnableListeningLoop(false);
         super.onResume();
     }
+
 }
