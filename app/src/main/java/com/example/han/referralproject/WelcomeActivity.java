@@ -153,7 +153,7 @@ public class WelcomeActivity extends BaseActivity {
 
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
-        if (false) {
+        if (isFirstIn) {
             JZVideoPlayerStandard.startFullscreen(this, MyVideoPlayer.class, VEDIO_URL, "迈联智慧");
         } else {
             checkVersion();
@@ -201,6 +201,9 @@ public class WelcomeActivity extends BaseActivity {
             super.onClick(v);
             if (v.getId() == R.id.common_tv_action) {
                 backPress();
+                if (mWelcomeActivity != null) {
+                    mWelcomeActivity.onVideoPlayedComplete();
+                }
             }
         }
 
