@@ -100,4 +100,11 @@ public class VoiceSettingActivity extends BaseActivity implements SeekBar.OnSeek
         setVoice(0);
         seekBar.setProgress(0);
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        seekBar.setProgress(mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+    }
 }

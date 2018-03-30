@@ -18,6 +18,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
@@ -185,6 +186,30 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.call_family://紧急呼叫家人
                 //呼叫
                 NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
+//                    @Override
+//                    public void onSuccess(UserInfo response) {
+//                        if (isFinishing() || isDestroyed()) {
+//                            return;
+//                        }
+//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
+//                            @Override
+//                            public void onSuccess(Object response) {
+//
+//                            }
+//                        }, new NetworkManager.FailedCallback() {
+//                            @Override
+//                            public void onFailed(String message) {
+//
+//                            }
+//                        });
+//                    }
+//                }, new NetworkManager.FailedCallback() {
+//                    @Override
+//                    public void onFailed(String message) {
+//
+//                    }
+//                });
                 break;
         }
     }

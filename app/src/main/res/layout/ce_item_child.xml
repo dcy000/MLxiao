@@ -3,14 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="800pt"
+    android:layout_width="680pt"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/ce_home_iv_item_indicator"
-        android:layout_width="716pt"
-        android:layout_height="716pt"
-        android:layout_marginTop="42pt"
+        android:layout_width="680pt"
+        android:layout_height="680pt"
         android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

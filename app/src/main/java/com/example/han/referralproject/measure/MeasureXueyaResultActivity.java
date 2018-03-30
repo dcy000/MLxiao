@@ -69,7 +69,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     ConstraintLayout llRight;
 
     private Intent intent;
-    private String weekGaoyaAvg, weekDiyaAvg, fenshu, suggest, mb_gaoya, mb_diya;
+    private String weekGaoyaAvg, weekDiyaAvg, fenshu, suggest,mb_gaoya,mb_diya;
     private String currentGaoya, currentDiya;
 
     @Override
@@ -82,11 +82,8 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         intent = getIntent();
         initProgressBar();
         initOther();
-        String weekMeasureGaoya = String.format("%.0f", Float.parseFloat(weekGaoyaAvg));
-        String weekMeasureDiya = String.format("%.0f", Float.parseFloat(weekDiyaAvg));
-        speak("主人，您本次测量的高压是" + intent.getStringExtra("current_gaoya") + ",低压是" + intent.getStringExtra("current_diya") +
-                "，本周平均高压" + (weekMeasureGaoya.equals("-1") ? "暂无数据" : weekMeasureGaoya) + ",低压" +
-                (weekMeasureDiya.equals("-1") ? "暂无数据" : weekMeasureDiya) + ",健康分数" + fenshu + "分。" + suggest);
+        speak("主人，您本次测量的高压是" + (TextUtils.isEmpty(currentGaoya) ? "" : currentGaoya) + ",低压是" + (TextUtils.isEmpty(currentDiya) ? "" : currentDiya) +
+                "，本周平均高压" + String.format("%.0f", Float.parseFloat(weekGaoyaAvg)) + ",低压" + String.format("%.0f", Float.parseFloat(weekDiyaAvg)) + ",健康分数" + fenshu + "分。" + suggest);
         tvSomethingAdvice.setOnClickListener(this);
         healthKnowledge.setOnClickListener(this);
     }
@@ -132,33 +129,34 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
 
         weekGaoyaAvg = intent.getStringExtra("week_avg_gaoya");
         weekDiyaAvg = intent.getStringExtra("week_avg_diya");
-        mb_gaoya = intent.getStringExtra("mb_gaoya");
-        mb_diya = intent.getStringExtra("mb_diya");
+        mb_gaoya=intent.getStringExtra("mb_gaoya");
+        mb_diya=intent.getStringExtra("mb_diya");
 
         rpbGao.setMax(180);
         rpbDi.setMax(100);
-        float mb_gaoya_f = Float.parseFloat(mb_gaoya);
-        float mb_diya_f = Float.parseFloat(mb_diya);
+        float mb_gaoya_f=Float.parseFloat(mb_gaoya);
+        float mb_diya_f=Float.parseFloat(mb_diya);
         rpbGao.setProgress(mb_gaoya_f);
         rpbDi.setProgress(mb_diya_f);
         if (!TextUtils.isEmpty(mb_gaoya)) {
             if ("-1".equals(mb_gaoya))
                 tvGao.setText("未测量");
             else
-                tvGao.setText(String.format("%.0f", mb_gaoya_f));
+                tvGao.setText(String.format("%.0f",mb_gaoya_f));
         }
         if (!TextUtils.isEmpty(mb_diya)) {
             if ("-1".equals(mb_diya))
                 tvDi.setText("未测量");
             else
-                tvDi.setText(String.format("%.0f", mb_diya_f));
+                tvDi.setText(String.format("%.0f",mb_diya_f));
         }
+
 
 
         rpbGaoya.setMax(180);
         rpbDiya.setMax(100);
-        float avg_gaoya_f = Float.parseFloat(weekGaoyaAvg);
-        float avg_diya_f = Float.parseFloat(weekDiyaAvg);
+        float avg_gaoya_f=Float.parseFloat(weekGaoyaAvg);
+        float avg_diya_f=Float.parseFloat(weekDiyaAvg);
         rpbGaoya.setProgress(avg_gaoya_f);
         rpbDiya.setProgress(avg_diya_f);
         if (!TextUtils.isEmpty(weekGaoyaAvg)) {

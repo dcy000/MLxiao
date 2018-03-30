@@ -1,5 +1,6 @@
 package com.example.han.referralproject.facerecognition;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -93,7 +94,7 @@ public class HeadiconActivity extends BaseActivity {
                 //确定头像的时候就给该机器创建唯一的人脸识别组
                 final String userid = MyApplication.getInstance().userId;
                 final String xfid = LocalShared.getInstance(HeadiconActivity.this).getXunfeiId();
-                checkGroup(userid,xfid);
+                checkGroup(userid, xfid);
 //                createGroup(userid, xfid);
             }
         });
@@ -119,17 +120,22 @@ public class HeadiconActivity extends BaseActivity {
 
         speak(R.string.head_icon);
 
+        Intent intent = getIntent();
+        isFast = intent.getBooleanExtra("isFast", false);
     }
+
+    boolean isFast;
+
     private void checkGroup(final String userid, final String xfid) {
         //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
         String groupId = LocalShared.getInstance(mContext).getGroupId();
         String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
-        Logger.e("组id"+groupId);
+        Logger.e("组id" + groupId);
         if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
-            Log.e("组信息", "checkGroup: 该机器组已近存在" );
-            joinGroup(userid,groupId,xfid);
-        }else{
-            createGroup(userid,xfid);
+            Log.e("组信息", "checkGroup: 该机器组已近存在");
+            joinGroup(userid, groupId, xfid);
+        } else {
+            createGroup(userid, xfid);
         }
     }
     private void uploadHeadToSelf(final String userid, final String xfid) {
@@ -158,7 +164,8 @@ public class HeadiconActivity extends BaseActivity {
                                         public void onSuccess(Object response) {
                                             //将账号在本地缓存
                                             LocalShared.getInstance(mContext).addAccount(userid, xfid);
-                                            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                                            Class<? extends BaseActivity> aClass = isFast ? MainActivity.class : RecoDocActivity.class;
+                                            Intent intent = new Intent(getApplicationContext(), aClass);
                                             startActivity(intent);
                                             finish();
                                         }
@@ -197,10 +204,10 @@ public class HeadiconActivity extends BaseActivity {
                     LocalShared.getInstance(HeadiconActivity.this).setGroupId(groupId);
                     LocalShared.getInstance(HeadiconActivity.this).setGroupFirstXfid(xfid);
                     //组创建好以后把自己加入到组中去
-                    joinGroup(userid,groupId, xfid);
+                    joinGroup(userid, groupId, xfid);
                     //加组完成以后把头像上传到我们自己的服务器
                     uploadHeadToSelf(userid, xfid);
-                    FaceAuthenticationUtils.getInstance(HeadiconActivity.this).updateGroupInformation(groupId,xfid);
+                    FaceAuthenticationUtils.getInstance(HeadiconActivity.this).updateGroupInformation(groupId, xfid);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -218,7 +225,7 @@ public class HeadiconActivity extends BaseActivity {
 //                    ToastTool.showShort("出现技术故障，请致电客服咨询");
 //                }
                 //如果在此处创建组失败就跳过创建
-                uploadHeadToSelf(userid,xfid);
+                uploadHeadToSelf(userid, xfid);
             }
         });
     }
@@ -241,7 +248,7 @@ public class HeadiconActivity extends BaseActivity {
             public void onError(SpeechError error) {
                 Logger.e(error, "添加成员出现异常");
                 if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
-                    createGroup(userid,xfid);
+                    createGroup(userid, xfid);
                 }
 
             }

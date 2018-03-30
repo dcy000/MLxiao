@@ -3,20 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="287dp"
-    android:layout_height="178dp"
-    android:layout_margin="10dp"
-    android:background="#FFFFFF">
+    android:layout_width="608pt"
+    android:layout_height="388pt">
 
-    <TextView
-        android:id="@+id/ce_entertianment_tv_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#333333"
-        android:textSize="50sp"
+    <ImageView
+        android:id="@+id/ce_entertainment_iv_item"
+        android:layout_width="586pt"
+        android:layout_height="368pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="儿歌"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -31,8 +31,6 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_entertainment);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("儿  童  娱  乐");
         rvItems = (RecyclerView) findViewById(R.id.ce_entertainment_rv_items);
         mAdapter = new Adapter();
         mAdapter.setOnItemClickListener(onItemClickListener);
@@ -40,6 +38,12 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         rvItems.setLayoutManager(lm);
         rvItems.setAdapter(mAdapter);
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private OnItemClickListener onItemClickListener =
@@ -84,8 +88,11 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
     }
 
     private void tellJokes() {
-        Handlers.bg().removeCallbacks(fetchJokesRunnable);
-        Handlers.bg().post(fetchJokesRunnable);
+        Intent intent = new Intent(this, ChildEduJokesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+//        Handlers.bg().removeCallbacks(fetchJokesRunnable);
+//        Handlers.bg().post(fetchJokesRunnable);
     }
 
     private Runnable fetchJokesRunnable = new Runnable() {
@@ -126,14 +133,14 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
     }
 
     private static class Adapter extends RecyclerView.Adapter<VH> {
-        private List<String> texts;
+        private List<Integer> texts;
 
         public Adapter() {
             texts = new ArrayList<>();
-            texts.add("儿歌");
-            texts.add("摇篮曲");
-            texts.add("胎教音乐");
-            texts.add("讲笑话");
+            texts.add(R.drawable.ce_entertainment_ic_child);
+            texts.add(R.drawable.ce_entertainment_ic_lullaby);
+            texts.add(R.drawable.ce_entertainment_ic_baby);
+            texts.add(R.drawable.ce_entertainment_ic_jokes);
         }
 
         private OnItemClickListener mOnItemClickListener;
@@ -151,7 +158,7 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(VH vh, int position) {
-            vh.tvIndicator.setText(texts.get(position));
+            vh.ivIndicator.setImageResource(texts.get(position));
         }
 
         @Override
@@ -162,12 +169,12 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
 
     private static class VH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tvIndicator;
+        ImageView ivIndicator;
         private OnItemClickListener onItemClickListener;
 
         public VH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
-            tvIndicator = (TextView) itemView.findViewById(R.id.ce_entertianment_tv_indicator);
+            ivIndicator = (ImageView) itemView.findViewById(R.id.ce_entertainment_iv_item);
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
         }

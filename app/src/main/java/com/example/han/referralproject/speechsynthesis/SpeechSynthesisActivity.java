@@ -85,6 +85,7 @@ import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
+import com.ml.edu.old.music.TheOldMusicActivity;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -681,6 +682,30 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
                 NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
+//                    @Override
+//                    public void onSuccess(UserInfo response) {
+//                        if (isFinishing() || isDestroyed()) {
+//                            return;
+//                        }
+//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
+//                            @Override
+//                            public void onSuccess(Object response) {
+//
+//                            }
+//                        }, new NetworkManager.FailedCallback() {
+//                            @Override
+//                            public void onFailed(String message) {
+//
+//                            }
+//                        });
+//                    }
+//                }, new NetworkManager.FailedCallback() {
+//                    @Override
+//                    public void onFailed(String message) {
+//
+//                    }
+//                });
                 return;
             }
 
@@ -762,34 +787,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
-                NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
-                    @Override
-                    public void onSuccess(UserInfo response) {
-                        if ("1".equals(response.getState())) {
-                            //已签约
-                            startActivity(new Intent(SpeechSynthesisActivity.this,
-                                    DoctorappoActivity.class));
-                        } else if ("0".equals(response.getState())
-                                && (TextUtils.isEmpty(response.getDoctername()))) {
-                            //未签约
-                            Intent intent = new Intent(SpeechSynthesisActivity.this,
-                                    OnlineDoctorListActivity.class);
-                            intent.putExtra("flag", "contract");
-                            startActivity(intent);
-                        } else {
-                            // 待审核
-                            Intent intent = new Intent(SpeechSynthesisActivity.this,
-                                    CheckContractActivity.class);
-                            startActivity(intent);
-                        }
-                    }
-
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        T.show(message);
-                    }
-                });
+                gotoQianyueYiSheng();
                 return;
             }
             if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
@@ -1042,6 +1040,37 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
     }
 
+    private void gotoQianyueYiSheng() {
+        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo response) {
+                if ("1".equals(response.getState())) {
+                    //已签约
+                    startActivity(new Intent(SpeechSynthesisActivity.this,
+                            DoctorappoActivity.class));
+                } else if ("0".equals(response.getState())
+                        && (TextUtils.isEmpty(response.getDoctername()))) {
+                    //未签约
+                    Intent intent = new Intent(SpeechSynthesisActivity.this,
+                            OnlineDoctorListActivity.class);
+                    intent.putExtra("flag", "contract");
+                    startActivity(intent);
+                } else {
+                    // 待审核
+                    Intent intent = new Intent(SpeechSynthesisActivity.this,
+                            CheckContractActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+            }
+        });
+    }
+
     private void gotoPersonCenter() {
         Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
         startActivity(intent);
@@ -1188,12 +1217,44 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
         //健康课堂
+        List<KeyWordDefinevBean> jiankangketang = getDefineData("jiankangketang");
+        for (int i = 0; i < jiankangketang.size(); i++) {
+            if (yuyin.equals(jiankangketang.get(i).pinyin)) {
+                startActivity(new Intent(this, VideoListActivity.class));
+                return true;
+            }
+        }
+
 
         //娱乐
+        List<KeyWordDefinevBean> yule = getDefineData("yule");
+        for (int i = 0; i < yule.size(); i++) {
+            if (yuyin.equals(yule.get(i).pinyin)) {
+                //老人娱乐
+                OldRouter.routeToOldHomeActivity(this);
+                return true;
+            }
+        }
+
 
         //收音机
+        List<KeyWordDefinevBean> shouyinji = getDefineData("shouyinji");
+        for (int i = 0; i < shouyinji.size(); i++) {
+            if (yuyin.equals(shouyinji.get(i).pinyin)) {
+                startActivity(new Intent(this, RadioActivity.class));
+                return true;
+            }
+        }
 
         //音乐
+        List<KeyWordDefinevBean> yinyue = getDefineData("yinyue");
+        for (int i = 0; i < yinyue.size(); i++) {
+            if (yuyin.equals(yinyue.get(i).pinyin)) {
+                startActivity(new Intent(getApplicationContext(), TheOldMusicActivity.class));
+                return true;
+            }
+        }
+
 
         //医生咨询
         List<KeyWordDefinevBean> zixunyisheng = getDefineData("yishengzixun");
@@ -1214,6 +1275,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
         //签约医生
+        List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueyisheng");
+        for (int i = 0; i < qianyueyisheng.size(); i++) {
+            if (yuyin.equals(qianyueyisheng.get(i).pinyin)) {
+                gotoQianyueYiSheng();
+                return true;
+            }
+        }
+
 
         //健康商城
         List<KeyWordDefinevBean> jiankang = getDefineData("jiankangshangcheng");

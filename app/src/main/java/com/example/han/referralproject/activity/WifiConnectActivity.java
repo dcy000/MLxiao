@@ -56,12 +56,14 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
         if(iswifiConnected){
-            mediaPlayer=MediaPlayer.create(this,R.raw.wifi_connected);
+//            mediaPlayer=MediaPlayer.create(this,R.raw.wifi_connected);
+            speak("主人,您的wifi已连接,如果需要更换,请点击对应wifi名称");
         }else{
-            mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
+//            mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
+            speak("主人,请连接wifi,如果未找到,请点击右上角的刷新按钮");
         }
 
-        mediaPlayer.start();//播放音乐
+//        mediaPlayer.start();//播放音乐
 
         mRightView.setOnClickListener(this);
         isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);

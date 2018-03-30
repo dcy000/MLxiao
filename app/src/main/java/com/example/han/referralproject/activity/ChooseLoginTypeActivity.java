@@ -19,6 +19,7 @@ import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.register.SignUp1NameActivity;
+import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import butterknife.BindView;
@@ -36,6 +37,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     TextView accountTip;
     @BindView(R.id.regist)
     TextView regist;
+    @BindView(R.id.sign_up_fast)
+    TextView signUpFast;
     @BindView(R.id.cv_sign_in)
     CardView cvSignIn;
     @BindView(R.id.cb_sign_in_agree)
@@ -53,6 +56,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         tvFaceSignIn.setOnClickListener(this);
         accountTip.setOnClickListener(this);
         regist.setOnClickListener(this);
+        signUpFast.setOnClickListener(this);
 
         SpannableStringBuilder agreeBuilder = new SpannableStringBuilder("我同意用户协议");
         agreeBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#FF380000")),
@@ -91,6 +95,11 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.regist://注册
                 startActivity(new Intent(ChooseLoginTypeActivity.this, SignUp1NameActivity.class));
+                break;
+            case R.id.sign_up_fast://快速注册
+                Intent intent = new Intent(ChooseLoginTypeActivity.this, SignUp01NameActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
         }
     }

@@ -55,7 +55,7 @@ public class KeyWordRVAdapter extends RecyclerView.Adapter<KeyWordRVAdapter.VH> 
             holder.name.setTextSize(28);
             holder.name.setEnabled(true);
             holder.name.setPadding(0, 0, 0, 0);
-            holder.name.setBackgroundResource(R.drawable.shape_item_key_word);
+            holder.name.setBackgroundResource(R.drawable.shape_item_key_word_set);
             holder.name.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
 

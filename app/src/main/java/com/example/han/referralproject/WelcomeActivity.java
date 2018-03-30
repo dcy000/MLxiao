@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 
@@ -21,13 +22,14 @@ import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
 import cn.jzvd.JZVideoPlayerStandard;
 
 public class WelcomeActivity extends BaseActivity {
+
+    private static final String TAG = "afirez";
 
     private Chronometer ch;
 
@@ -38,6 +40,7 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        Log.i(TAG, "onCreate: ");
         //启动音乐服务
         if (!isWorked("com.example.han.referralproject.MusicService")) {
             startService(new Intent(this, MusicService.class));
@@ -50,10 +53,10 @@ public class WelcomeActivity extends BaseActivity {
             return;
         }
         playVideo();
+//        checkVersion();
     }
 
     private void checkVersion() {
-        Logger.e("检查版本调用次数");
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
@@ -165,11 +168,19 @@ public class WelcomeActivity extends BaseActivity {
         }
 
         @Override
+        public int getLayoutId() {
+            return R.layout.ml_player_splash;
+        }
+
+        @Override
         public void init(Context context) {
             super.init(context);
+            findViewById(R.id.common_tv_action).setOnClickListener(this);
+            backButton.setVisibility(GONE);
+            batteryTimeLayout.setVisibility(GONE);
             try {
                 mWelcomeActivity = (WelcomeActivity) context;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 mWelcomeActivity = null;
                 e.printStackTrace();
             }
@@ -178,18 +189,28 @@ public class WelcomeActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     MyVideoPlayer.this.onClick(v);
-                    mWelcomeActivity.onVideoPlayedComplete();
-                    Logger.e("backButton.setOnClickListener");
+                    if (mWelcomeActivity != null) {
+                        mWelcomeActivity.onVideoPlayedComplete();
+                    }
                 }
             });
+        }
+
+        @Override
+        public void onClick(View v) {
+            super.onClick(v);
+            if (v.getId() == R.id.common_tv_action) {
+                backPress();
+            }
         }
 
         @Override
         public void onStateAutoComplete() {
             super.onStateAutoComplete();
             backPress();
-            mWelcomeActivity.onVideoPlayedComplete();
-            Logger.e("onStateAutoComplete");
+            if (mWelcomeActivity != null) {
+                mWelcomeActivity.onVideoPlayedComplete();
+            }
         }
     }
 
@@ -197,5 +218,12 @@ public class WelcomeActivity extends BaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         LocalShared.getInstance(this).setIsFirstIn(false);
         checkVersion();
+    }
+
+    @Override
+    protected void onResume() {
+        setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
     }
 }

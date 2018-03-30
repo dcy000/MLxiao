@@ -314,20 +314,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_pay"
+                    android:id="@+id/iv_laoren_yule"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:background="@drawable/zhanghu_set"
+                    android:background="@drawable/laorenyule_set"
                     android:clickable="true" />
 
 
@@ -336,33 +335,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="账户充值"
-                    android:textColor="#333333"
-                    android:textSize="30sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="23dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_order"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:background="@drawable/dingdan_set"
-                    android:clickable="true" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="我的订单"
+                    android:text="娱乐"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
@@ -377,11 +350,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_change_account"
+                    android:id="@+id/iv_youjiao_wenyu"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:background="@drawable/qhzh_set"
-                    android:clickable="true" />
+                    android:background="@drawable/youjiao_wenyu_set" />
 
 
                 <TextView
@@ -389,11 +361,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="切换账号"
+                    android:text="幼教文娱"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
             </LinearLayout>
+
+
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -416,6 +391,32 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="健康日记"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_change_account"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/qhzh_set"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="切换账号"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 

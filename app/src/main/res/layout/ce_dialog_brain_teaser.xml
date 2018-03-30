@@ -3,33 +3,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="635dp"
-    android:layout_height="335dp"
-    android:background="#bb000000">
+    android:layout_width="1200pt"
+    android:layout_height="658pt"
+    android:background="@drawable/ce_study_bg_dialog_brain_teaser_answer">
+
+    <TextView
+        android:id="@+id/ce_brain_teaser_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50pt"
+        android:padding="5dp"
+        android:text="正确答案"
+        android:textColor="#333333"
+        android:textSize="72pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/ce_brain_teaser_tv_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50pt"
         android:padding="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#666666"
+        android:textSize="72pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        tools:text="正确答案"/>
+        app:layout_constraintTop_toBottomOf="@+id/ce_brain_teaser_tv_title"/>
 
     <TextView
-        android:id="@+id/ce_brain_teaser_tv_continue"
-        android:layout_width="90dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="50dp"
+        android:id="@+id/ce_brain_teaser_tv_confirm"
+        android:layout_width="600pt"
+        android:layout_height="160pt"
+        android:layout_marginBottom="10pt"
         android:background="@drawable/ce_poem_details_tv_read_again"
         android:gravity="center"
-        android:text="继续"
-        android:textColor="#333333"
-        android:textSize="30sp"
+        android:text="确定"
+        android:textColor="#3F86FC"
+        android:textSize="68pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>

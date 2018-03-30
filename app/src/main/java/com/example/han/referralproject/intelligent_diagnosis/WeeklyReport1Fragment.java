@@ -63,7 +63,6 @@ public class WeeklyReport1Fragment extends Fragment {
 //    TextView tvProgress;
     private View view;
     private WeeklyReport data;
-    public static boolean isNoReport=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,12 +139,7 @@ public class WeeklyReport1Fragment extends Fragment {
                 tips = "主人，您的血压仍偏高。本周计划完成"
                         + (int) progress_percent + "%，未完成目标计划，请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             }
-            if (isNoReport){
-                ((WeeklyReportActivity) getActivity()).speak("主人，暂无周报告，请坚持每天测量，我们将在每周一为您生成一份新的报告");
-            }else{
-
-                ((WeeklyReportActivity) getActivity()).speak(tips);
-            }
+            ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }
 

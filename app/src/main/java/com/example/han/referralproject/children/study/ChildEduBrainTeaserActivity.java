@@ -3,6 +3,8 @@ package com.example.han.referralproject.children.study;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,58 +17,205 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.BrainTeaserModel;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.example.han.referralproject.tool.other.StringUtil;
+import com.example.han.referralproject.tool.wrapview.VoiceLineView;
+import com.example.han.referralproject.voice.SpeechRecognizerHelper;
+import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.HashMap;
 
 public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogInterface.OnDismissListener {
 
-    private TextView tvQuestion;
-    private EditText etAnswer;
-    private TextView tvConfirm;
+    private TextView tvContent;
+
+    private ImageView ivShowAnswer;
+    private ImageView ivNext;
+    private VoiceLineView vlvWave;
+    private boolean isStart;
+    private TextView tvVoice;
+    private Handler mainHandler = new Handler(Looper.getMainLooper());
+    private ImageView ivVoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_brain_teaser);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("脑  筋  急  转  弯");
-        tvQuestion = (TextView) findViewById(R.id.ce_brain_teaser_tv_question);
-        etAnswer = (EditText) findViewById(R.id.ce_brain_teaser_et_answer);
-        tvConfirm = (TextView) findViewById(R.id.ce_brain_teaser_tv_confirm);
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String answer = etAnswer.getText().toString().trim();
-                if (TextUtils.isEmpty(answer)) {
-                    T.show("请输入答案");
-                    return;
-                }
-                BrainTeaserModel model = ChildEduBrainTeaserActivity.this.model;
+                finish();
+            }
+        });
+
+        tvContent = (TextView) findViewById(R.id.ce_brain_teaser_tv_content);
+        ivShowAnswer = (ImageView) findViewById(R.id.ce_brain_teaser_iv_show_answer);
+        ivNext = (ImageView) findViewById(R.id.ce_brain_teaser_iv_next);
+        vlvWave = (VoiceLineView) findViewById(R.id.ce_brain_teaser_vlv_voice_wave);
+        tvVoice = (TextView) findViewById(R.id.ce_brain_teaser_tv_voice);
+        ivVoice = (ImageView) findViewById(R.id.ce_brain_teaser_iv_voice);
+        ivVoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                endOfSpeech();
+                SpeechSynthesizerHelper.stop();
+                startListener();
+            }
+        });
+        ivShowAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (model == null) {
                     return;
                 }
-                String realAnswer = model.getAnswer();
-                if (answer.contains(realAnswer) || realAnswer.contains(answer)) {
-                   T.show("你真棒！");
-                   fetchBrainTeaser();
-                } else {
-                    //继续努力，你会更强的
-                    MyDialogFragment.newInstance(realAnswer)
-                            .show(getSupportFragmentManager(), "MyDialogFragment");
-                }
+                MyDialogFragment.newInstance(true, model.getAnswer())
+                        .show(getSupportFragmentManager(), "MyDialogFragment");
             }
         });
-        fetchBrainTeaser();
+        ivNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchBrainTeaser();
+            }
+        });
+    }
+
+    public int recordTotalTime;
+
+    private void updateTimerUI(int recordTotalTime) {
+        String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
+        vlvWave.setText(string);
+    }
+
+    private void showWave() {
+        if (isStart) {
+            return;
+        }
+        isStart = true;
+        tvVoice.setVisibility(View.GONE);
+        vlvWave.setVisibility(View.VISIBLE);
+        vlvWave.setText("00:00");
+        vlvWave.startRecord();
+        mainHandler.removeCallbacksAndMessages(null);
+
+        mainHandler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                recordTotalTime += 1000;
+                updateTimerUI(recordTotalTime);
+                mainHandler.postDelayed(this, 1000);
+            }
+
+        }, 1000);
+    }
+
+    private MLRecognizerListener recognizerListener = new MLRecognizerListener() {
+        @Override
+        public void onMLVolumeChanged(int i, byte[] bytes) {
+
+        }
+
+        @Override
+        public void onMLBeginOfSpeech() {
+            showWave();
+        }
+
+        @Override
+        public void onMLEndOfSpeech() {
+            endOfSpeech();
+            tvVoice.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onMLResult(String result) {
+            doData(result);
+        }
+
+        @Override
+        public void onMLError(SpeechError error) {
+            endOfSpeech();
+            speak("主人,我没听清,您能再说一遍吗");
+        }
+    };
+
+    private void startListener() {
+        MLVoiceRecognize.startRecognize(this, recognizerListener);
+    }
+
+    private void doData(String result) {
+        if (model == null || TextUtils.isEmpty(model.getAnswer())) {
+            return;
+        }
+
+        if (TextUtils.isEmpty(result)) {
+            speak("主人,我没听清,您能再说一遍吗");
+            return;
+        }
+
+        String inSpell = PinYinUtils.converterToSpell(result);
+        if (inSpell.matches(".*xiayiti.*")) {
+            ivNext.performClick();
+            return;
+        }
+
+        if (inSpell.matches(".*xianshidaan|kandaan.*")) {
+            ivShowAnswer.performClick();
+            return;
+        }
+
+        String answer = model.getAnswer();
+        if (answer.equals(result)
+                || answer.contains(result)
+                || result.contains(answer)) {
+            speak("恭喜主人答对了");
+        } else {
+            speak("主人,您再猜一下!");
+        }
+    }
+
+    private void endOfSpeech() {
+        stopListening();
+        vlvWave.setVisibility(View.GONE);
+        vlvWave.stopRecord();
+        tvVoice.setVisibility(View.VISIBLE);
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
+    }
+
+    private void confirm(String answer) {
+        if (TextUtils.isEmpty(answer)) {
+//            T.show("请输入答案");
+            return;
+        }
+        BrainTeaserModel model = ChildEduBrainTeaserActivity.this.model;
+        if (model == null) {
+            return;
+        }
+        String realAnswer = model.getAnswer();
+        boolean right = answer.contains(realAnswer) || realAnswer.contains(answer);
+        MyDialogFragment.newInstance(right, realAnswer)
+                .show(getSupportFragmentManager(), "MyDialogFragment");
+
     }
 
     private BrainTeaserModel model;
@@ -109,7 +258,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                tvQuestion.setText(finalQuestion);
+                tvContent.setText(finalQuestion);
             }
         });
     }
@@ -126,7 +275,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
     @Override
     protected void onResume() {
         setDisableGlobalListen(true);
-        setEnableListeningLoop(true);
+        setEnableListeningLoop(false);
         super.onResume();
     }
 
@@ -137,33 +286,42 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
-        fetchBrainTeaser();
+    protected void onSpeakListenerResult(String result) {
+        super.onSpeakListenerResult(result);
+        confirm(result);
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+//        fetchBrainTeaser();
+    }
 
     public static class MyDialogFragment extends DialogFragment {
 
         private View mView;
+        private TextView tvTitle;
         private TextView tvAnswer;
-        private TextView tvContinue;
+        private TextView tvConfirm;
 
+        private boolean right;
         private String answer;
 
         private float dimAmount;
         private boolean showBottom;
         private boolean cancelable;
 
-        public static MyDialogFragment newInstance(String answer) {
-            return newInstance(answer, 0f, false, true);
+        public static MyDialogFragment newInstance(boolean right, String answer) {
+            return newInstance(right, answer, 0f, false, true);
         }
 
         public static MyDialogFragment newInstance(
+                boolean right,
                 String answer,
                 float dimAmount,
                 boolean showBottom,
                 boolean cancelable) {
             Bundle args = new Bundle();
+            args.putBoolean("right", right);
             args.putString("answer", answer);
             args.putFloat("dimAmount", dimAmount);
             args.putBoolean("showBottom", showBottom);
@@ -193,6 +351,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
             setStyle(DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
             Bundle arguments = getArguments();
             if (arguments != null) {
+                right = arguments.getBoolean("right", false);
                 answer = arguments.getString("answer");
                 dimAmount = arguments.getFloat("dimAmount", 0f);
                 showBottom = arguments.getBoolean("showBottom", false);
@@ -207,10 +366,11 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
                 @Nullable ViewGroup container,
                 @Nullable Bundle savedInstanceState) {
             mView = inflater.inflate(R.layout.ce_dialog_brain_teaser, container, false);
+            tvTitle = (TextView) findViewById(R.id.ce_brain_teaser_tv_title);
             tvAnswer = (TextView) findViewById(R.id.ce_brain_teaser_tv_answer);
-            tvContinue = (TextView) findViewById(R.id.ce_brain_teaser_tv_continue);
+            tvConfirm = (TextView) findViewById(R.id.ce_brain_teaser_tv_confirm);
             tvAnswer.setText(answer);
-            tvContinue.setOnClickListener(new View.OnClickListener() {
+            tvConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
@@ -239,10 +399,8 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
                 }
 //                android:layout_width="635dp"
 //                android:layout_height="335dp"
-
-                lp.width = dp(635);
-                lp.height = dp(335);
-
+                lp.width = UiUtils.pt(1200);
+                lp.height = UiUtils.pt(658);
                 window.setAttributes(lp);
             }
             setCancelable(cancelable);

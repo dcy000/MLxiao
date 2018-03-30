@@ -61,8 +61,6 @@ public class MonthlyReport2Fragment extends Fragment {
     private View view;
     private MonthlyReport data;
     private String tips = "";
-    public static boolean isNoReport = false;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,15 +91,15 @@ public class MonthlyReport2Fragment extends Fragment {
             rpbDiya.setProgress(sj_diya);
 
             float fenshu = Float.parseFloat(data.health);
-            if (fenshu >= 0.8) {
+            if (fenshu>=0.8){
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#5BD78C"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#86F77D"));
                 waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
-            } else if (fenshu >= 0.6) {
+            }else if(fenshu>=0.6){
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#F78237"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#FBBF81"));
                 waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
-            } else {
+            }else{
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#FE5848"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#F88A78"));
                 waveProgressBar.setValueColor(Color.parseColor("#FE5848"));
@@ -111,8 +109,8 @@ public class MonthlyReport2Fragment extends Fragment {
             waveProgressBar.setHealthValue(String.format("%.0f", fenshu * 100) + "分");
 
 
-            gaoyaMubiao.setText("<" + String.format("%.0f", mb_gaoya));
-            diyaMubiao.setText("<" + String.format("%.0f", mb_diya));
+            gaoyaMubiao.setText("<"+String.format("%.0f",mb_gaoya));
+            diyaMubiao.setText("<"+String.format("%.0f",mb_diya));
             naMubiao.setText("<" + String.format("%.0f", Float.parseFloat(data.nam)));
             yundongMubiao.setText(">" + String.format("%.0f", Float.parseFloat(data.sportsm)));
             String height_s = LocalShared.getInstance(getContext()).getUserHeight();
@@ -145,11 +143,8 @@ public class MonthlyReport2Fragment extends Fragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser) {
-            if (isNoReport)
-                ((MonthlyReportActivity) getActivity()).speak("主人，暂无月报告，请坚持测量，我们将在每月一号为您生成一份报告");
-            else
-                ((MonthlyReportActivity) getActivity()).speak(tips);
+        if (isVisibleToUser){
+            ((MonthlyReportActivity) getActivity()).speak(tips);
         }
     }
 

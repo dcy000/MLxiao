@@ -5,89 +5,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5595FF"
+    android:background="@drawable/ce_common_bg"
     tools:context="com.example.han.referralproject.children.study.ChildEduBrainTeaserActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ce_brain_teaser_cl_question_container"
-        android:layout_width="900dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="35dp"
-        android:background="#FFFFFF"
+        android:layout_width="1684pt"
+        android:layout_height="984pt"
+        android:layout_marginTop="165pt"
+        android:background="@drawable/ce_study_bg_brain_teaser_answer"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/ce_brain_teaser_tv_question_indicator"
-            android:layout_width="84dp"
-            android:layout_height="39dp"
-            android:gravity="center"
-            android:text="问题"
-            android:textColor="#2E2E2E"
-            android:textSize="28sp"
+            android:id="@+id/ce_brain_teaser_tv_content"
+            android:layout_width="1110pt"
+            android:layout_height="400pt"
+            android:layout_marginLeft="200pt"
+            android:layout_marginTop="300pt"
+            android:textColor="#FFFFFF"
+            android:textSize="64pt"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="什么东西没吃的时候是绿的，吃的时候是红的，吐出来的是黑的？"/>
+
+        <ImageView
+            android:id="@+id/ce_brain_teaser_iv_show_answer"
+            android:layout_width="422pt"
+            android:layout_height="146pt"
+            android:layout_marginBottom="108pt"
+            android:layout_marginLeft="180pt"
+            android:src="@drawable/ce_study_iv_show_answer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <ImageView
+            android:id="@+id/ce_brain_teaser_iv_next"
+            android:layout_width="422pt"
+            android:layout_height="146pt"
+            android:layout_marginBottom="108pt"
+            android:layout_marginRight="210pt"
+            android:src="@drawable/ce_study_iv_show_next"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/ce_brain_teaser_tv_question"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:textColor="#333333"
-            android:textSize="30sp"
+        <ImageView
+            android:id="@+id/ce_brain_teaser_iv_voice"
+            android:layout_width="248pt"
+            android:layout_height="248pt"
+            android:layout_marginBottom="178pt"
+            android:src="@drawable/ce_study_iv_voice"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ce_brain_teaser_tv_question_indicator"
-            tools:text="什么东西没吃的时候是绿的，吃的时候是红的，吐出来的是黑的？"/>
+            app:layout_constraintLeft_toRightOf="@+id/ce_brain_teaser_iv_show_answer"
+            app:layout_constraintRight_toLeftOf="@+id/ce_brain_teaser_iv_next"/>
+
+        <TextView
+            android:id="@+id/ce_brain_teaser_tv_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="92pt"
+            android:text="请按下说话"
+            android:textColor="#63EEFF"
+            android:textSize="56pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/ce_brain_teaser_iv_show_answer"
+            app:layout_constraintRight_toLeftOf="@+id/ce_brain_teaser_iv_next"/>
+
+        <com.example.han.referralproject.tool.wrapview.VoiceLineView
+            android:id="@+id/ce_brain_teaser_vlv_voice_wave"
+            android:layout_width="600pt"
+            android:layout_height="56pt"
+            android:layout_marginBottom="92pt"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/ce_brain_teaser_iv_show_answer"
+            app:layout_constraintRight_toLeftOf="@+id/ce_brain_teaser_iv_next"
+            app:voiceLineColor="#ffeeeeee"
+            app:voiceLineWidth="3dp"
+            app:voiceTextColor="#ffeeeeee"
+            app:voiceTextSize="24dp"/>
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/ce_brain_teaser_cl_answer_container"
-        android:layout_width="900dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="35dp"
-        android:background="#FFFFFF"
+    <ImageView
+        android:id="@+id/ce_common_iv_back"
+        android:layout_width="185pt"
+        android:layout_height="154pt"
+        android:background="@drawable/ce_common_item_bg"
+        android:paddingLeft="60pt"
+        android:paddingRight="60pt"
+        android:paddingTop="42pt"
+        android:src="@drawable/ce_common_ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ce_common_iv_title"
+        android:layout_width="507pt"
+        android:layout_height="130pt"
+        android:layout_marginTop="30pt"
+        android:src="@drawable/ce_study_ic_brain_teaser_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ce_brain_teaser_cl_question_container">
-
-        <TextView
-            android:id="@+id/ce_brain_teaser_tv_answer_indicator"
-            android:layout_width="84dp"
-            android:layout_height="39dp"
-            android:gravity="center"
-            android:text="答案"
-            android:textColor="#2E2E2E"
-            android:textSize="28sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <EditText
-            android:id="@+id/ce_brain_teaser_et_answer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="#333333"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/ce_brain_teaser_tv_confirm"
-            app:layout_constraintTop_toBottomOf="@+id/ce_brain_teaser_tv_answer_indicator"
-            tools:text="西瓜!!"/>
-
-        <TextView
-            android:id="@+id/ce_brain_teaser_tv_confirm"
-            android:layout_width="90dp"
-            android:layout_height="60dp"
-            android:background="@drawable/ce_poem_details_tv_read_again"
-            android:gravity="center"
-            android:text="确定"
-            android:textColor="#333333"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ce_brain_teaser_et_answer"
-            app:layout_constraintLeft_toRightOf="@+id/ce_brain_teaser_et_answer"
-            app:layout_constraintRight_toRightOf="parent"/>
-    </android.support.constraint.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

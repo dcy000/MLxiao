@@ -420,7 +420,7 @@ public class AuthenticationActivity extends BaseActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
         int height = (int) (width * PREVIEW_WIDTH / (float) PREVIEW_HEIGHT);
-        RelativeLayout.LayoutParams params = new LayoutParams(width, height);
+        LayoutParams params = new LayoutParams(width, height);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mPreviewSurface.setLayoutParams(params);
 
@@ -539,10 +539,10 @@ public class AuthenticationActivity extends BaseActivity {
      * @param camera
      */
     private void setCameraDisplayOrientation(Activity activity,
-                                             int cameraId, android.hardware.Camera camera) {
-        android.hardware.Camera.CameraInfo info =
-                new android.hardware.Camera.CameraInfo();
-        android.hardware.Camera.getCameraInfo(cameraId, info);
+                                             int cameraId, Camera camera) {
+        CameraInfo info =
+                new CameraInfo();
+        Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
                 .getRotation();
         int degrees = 0;
@@ -561,7 +561,7 @@ public class AuthenticationActivity extends BaseActivity {
                 break;
         }
         int result;
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+        if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
             result = (info.orientation + degrees) % 360;
             result = (360 - result) % 360;  // compensate the mirror
         } else {  // back-facing
