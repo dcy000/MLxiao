@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -118,7 +119,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    ToastTool.showShort("请调整您的姿态");
+                                                    ToastTool.showShort( "请调整您的姿态");
                                                 }
                                             });
 
@@ -130,7 +131,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                                     //再给用户2秒进行姿态调整
                                     try {
                                         Thread.sleep(2000);
-                                        if (sign && mCamera != null) {
+                                        if (sign&&mCamera!=null) {
                                             mCamera.setOneShotPreviewCallback(RegisterVideoActivity.this);
                                         }
                                     } catch (InterruptedException e) {
@@ -148,23 +149,16 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             return true;
         }
     });
-
-    private boolean isFast;
+    private LottieAnimationView lottAnimation;
 
     private void openAnimation() {
-        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
-        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
-        findViewById(R.id.door_left).startAnimation(left);
-        findViewById(R.id.door_right).startAnimation(right);
+        lottAnimation.playAnimation();
     }
-
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
-        isFast = getIntent().getBooleanExtra("isFast", false);
-
         initUI();
 
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
@@ -232,6 +226,9 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                 finish();
             }
         });
+        lottAnimation=findViewById(R.id.lott_animation);
+        lottAnimation.setImageAssetsFolder("lav_imgs/");
+        lottAnimation.setAnimation("camera_pre.json");
     }
 
     Bitmap b3;
@@ -329,7 +326,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                 String result = new String(buffer, "utf-8");
                 Log.e("上传头像返回的信息", "onBufferReceived: " + result);
                 JSONObject obj = new JSONObject(result);
-                Log.e("获取注册时候讯飞的信息", "onBufferReceived: " + obj.toString());
+                Log.e("获取注册时候讯飞的信息", "onBufferReceived: " +obj.toString() );
                 String type = obj.optString("sst");
                 if ("reg".equals(type)) {
                     int ret = obj.getInt("ret");
@@ -351,7 +348,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
 
                         Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
-                        intent.putExtra("isFast", isFast);
                         startActivity(intent);
                         finish();
                     } else {
@@ -447,6 +443,9 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (lottAnimation != null){
+            lottAnimation.cancelAnimation();
+        }
         if (stream != null) {
             try {
                 stream.close();
