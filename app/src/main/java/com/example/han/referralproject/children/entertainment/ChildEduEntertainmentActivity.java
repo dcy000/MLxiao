@@ -88,8 +88,11 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
     }
 
     private void tellJokes() {
-        Handlers.bg().removeCallbacks(fetchJokesRunnable);
-        Handlers.bg().post(fetchJokesRunnable);
+        Intent intent = new Intent(this, ChildEduJokesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+//        Handlers.bg().removeCallbacks(fetchJokesRunnable);
+//        Handlers.bg().post(fetchJokesRunnable);
     }
 
     private Runnable fetchJokesRunnable = new Runnable() {

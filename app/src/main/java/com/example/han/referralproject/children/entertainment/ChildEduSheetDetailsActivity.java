@@ -15,13 +15,13 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.children.AutoLoadMoreHelper;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicUtils;
 import com.medlink.danbogh.utils.T;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
     private SheetModel sheetModel;
     private List<SongModel> mModels;
     private Adapter mAdapter;
+    private AutoLoadMoreHelper mAutoLoadMoreHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,39 +73,66 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(onItemClickListener);
         rvSongs.setLayoutManager(lm);
         rvSongs.setAdapter(mAdapter);
-
+        mAutoLoadMoreHelper = new AutoLoadMoreHelper();
+        mAutoLoadMoreHelper.attachToRecyclerView(rvSongs);
+        mAutoLoadMoreHelper.setOnAutoLoadMoreListener(onAutoLoadMoreListener);
         if (sheetModel != null) {
             showLoadingDialog("加载中...");
-            NetworkApi.getChildEduSongListBySheetId(
-                    1,
-                    12,
-                    sheetModel.getId(),
-                    3,
-                    "",
-                    new NetworkManager.SuccessCallback<List<SongModel>>() {
-                        @Override
-                        public void onSuccess(List<SongModel> response) {
-                            if (isFinishing()) {
-                                return;
-                            }
-                            hideLoadingDialog();
-                            mModels.clear();
-                            mModels.addAll(response);
-                            mAdapter.notifyDataSetChanged();
-                        }
-                    },
-                    new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-                            if (isFinishing()) {
-                                return;
-                            }
-                            hideLoadingDialog();
-                            T.show("服务器繁忙");
-                        }
-                    }
-            );
+            loadSheet(page, limit);
         }
+    }
+
+    private int page = 1;
+    private int limit = 12;
+
+    private AutoLoadMoreHelper.OnAutoLoadMoreListener onAutoLoadMoreListener = new AutoLoadMoreHelper.OnAutoLoadMoreListener() {
+        @Override
+        public void onAutoLoadMore(AutoLoadMoreHelper autoLoadMoreHelper) {
+            if (autoLoadMoreHelper.isLoading()) {
+                return;
+            }
+            autoLoadMoreHelper.setLoading(true);
+            page++;
+            loadSheet(page, limit);
+        }
+    };
+
+    private void loadSheet(int page, int limit) {
+        NetworkApi.getChildEduSongListBySheetId(
+                page,
+                limit,
+                sheetModel.getId(),
+                3,
+                "",
+                new NetworkManager.SuccessCallback<List<SongModel>>() {
+                    @Override
+                    public void onSuccess(List<SongModel> response) {
+                        if (isFinishing()) {
+                            return;
+                        }
+                        if (mAutoLoadMoreHelper != null) {
+                            mAutoLoadMoreHelper.setLoading(false);
+                        }
+                        hideLoadingDialog();
+                        mModels.clear();
+                        mModels.addAll(response);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                },
+                new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        if (isFinishing()) {
+                            return;
+                        }
+                        if (mAutoLoadMoreHelper != null) {
+                            mAutoLoadMoreHelper.setLoading(false);
+                        }
+                        hideLoadingDialog();
+                        T.show(message);
+                    }
+                }
+        );
     }
 
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {

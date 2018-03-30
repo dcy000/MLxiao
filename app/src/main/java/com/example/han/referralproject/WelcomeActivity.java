@@ -169,7 +169,7 @@ public class WelcomeActivity extends BaseActivity {
 
         @Override
         public int getLayoutId() {
-            return R.layout.ml_player;
+            return R.layout.ml_player_splash;
         }
 
         @Override
@@ -200,7 +200,7 @@ public class WelcomeActivity extends BaseActivity {
         public void onClick(View v) {
             super.onClick(v);
             if (v.getId() == R.id.common_tv_action) {
-
+                backPress();
             }
         }
 

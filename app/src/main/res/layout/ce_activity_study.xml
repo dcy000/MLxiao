@@ -30,6 +30,7 @@
         android:layout_width="586pt"
         android:layout_height="368pt"
         android:src="@drawable/ce_study_ic_words"
+        android:visibility="invisible"
         app:layout_constraintLeft_toRightOf="@+id/ce_study_iv_tab_poems"
         app:layout_constraintRight_toLeftOf="@+id/ce_study_iv_tab_why"
         app:layout_constraintTop_toTopOf="@+id/ce_study_iv_tab_why"/>
@@ -39,7 +40,7 @@
         android:layout_width="586pt"
         android:layout_height="368pt"
         android:src="@drawable/ce_study_ic_stories"
-        app:layout_constraintBottom_toBottomOf="@+id/ce_study_iv_tab_brain_teaser"
+        app:layout_constraintBottom_toBottomOf="@+id/ce_study_iv_tab_poems"
         app:layout_constraintLeft_toLeftOf="@+id/ce_study_iv_tab_words"/>
 
     <ImageView
@@ -48,20 +49,18 @@
         android:layout_height="754pt"
         android:layout_marginRight="50pt"
         android:layout_marginTop="256pt"
-        android:src="@drawable/ce_study_ic_why"
+        android:background="@drawable/ce_study_bg"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/ce_common_iv_back"
-        android:layout_width="140pt"
-        android:layout_height="126pt"
-        android:layout_marginLeft="20pt"
-        android:layout_marginTop="10pt"
-        android:paddingBottom="20pt"
-        android:paddingLeft="30pt"
-        android:paddingRight="30pt"
-        android:paddingTop="20pt"
+        android:layout_width="185pt"
+        android:layout_height="154pt"
+        android:background="@drawable/ce_common_item_bg"
+        android:paddingLeft="60pt"
+        android:paddingRight="60pt"
+        android:paddingTop="42pt"
         android:src="@drawable/ce_common_ic_back"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

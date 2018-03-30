@@ -2,6 +2,7 @@ package com.example.han.referralproject.children.study;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +29,8 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
 
     private List<String> mSentences;
     private Adapter mAdapter;
+    private LinearLayoutManager lm;
     private PoemModel mPoemModel;
-    private OverFlyingLayoutManager lm;
     private ArrayList<PoemModel> mPoems;
     private volatile int position;
 
@@ -62,10 +63,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
             }
         });
 
-        lm = new OverFlyingLayoutManager(this);
-        lm.setItemSpace(0);
-        lm.setMinScale(1);
-        lm.setMaxVisibleItemCount(2);
+        lm = new LinearLayoutManager(this);
         lm.setOrientation(OverFlyingLayoutManager.VERTICAL);
         mSentences = new ArrayList<>();
         mAdapter = new Adapter(mSentences);
@@ -90,7 +88,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
             tvPoemTitle.setText(poemModel.getTitle());
             tvAuthorAndDynasty.setText(String.format("%s·%s", poemModel.getAuthor(), poemModel.getDynasty()));
             String content = poemModel.getContent();
-            String[] sentences = content.split("。");
+            String[] sentences = content.split("[、，。；？！,.;?!]");
             mSentences.clear();
             Collections.addAll(mSentences, sentences);
             mAdapter.notifyDataSetChanged();

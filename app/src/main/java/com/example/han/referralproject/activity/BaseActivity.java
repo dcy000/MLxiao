@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -18,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -40,7 +40,6 @@ import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.Utils;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -62,7 +61,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Random;
 
 public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
@@ -94,7 +92,6 @@ public class BaseActivity extends AppCompatActivity {
     private MediaRecorder mMediaRecorder;
     private boolean isAlive = true;
     public SharedPreferences mIatPreferences;
-
 
 
     public void setEnableListeningLoop(boolean enable) {
@@ -149,6 +146,25 @@ public class BaseActivity extends AppCompatActivity {
         }
         mMediaRecorder.start();
 
+    }
+
+    private long lastTimeMillis = -1;
+    private static final long DURATION = 500L;
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            long currentTimeMillis = System.currentTimeMillis();
+            if (lastTimeMillis != -1) {
+                long elapsedTime = currentTimeMillis - lastTimeMillis;
+                if (elapsedTime < DURATION) {
+                    lastTimeMillis = currentTimeMillis;
+                    return true;
+                }
+            }
+            lastTimeMillis = currentTimeMillis;
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     private PopupWindow window;
@@ -333,7 +349,7 @@ public class BaseActivity extends AppCompatActivity {
         synthesizer.startSpeaking(text, mTtsListener);
     }
 
-    protected void speak(String text,boolean isDefaultParam) {
+    protected void speak(String text, boolean isDefaultParam) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
