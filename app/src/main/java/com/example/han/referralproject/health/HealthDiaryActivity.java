@@ -106,23 +106,31 @@ public class HealthDiaryActivity extends BaseActivity
                 HealthDiaryDetails2Fragment.newInstance(itemsModel0, detailsModel1),
                 HealthDiaryDetails2Fragment.newInstance(itemsModel1, detailsModel2),
         };
-        switchFragment(0);
+        switchFragment(0, 0);
     }
 
-    private void switchFragment(int what) {
-        Fragment newFragment = mFragments[what];
+    @Override
+    protected void backLastActivity() {
+        if (what <= 0) {
+            finish();
+            return;
+        }
+        switchFragment(what - 1, what);
+        what = what - 1;
+    }
+
+    private void switchFragment(int theWhat, int oldWhat) {
+        Fragment theFragment = mFragments[theWhat];
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        if (what != 0) {
-            Fragment oldFragment = mFragments[what - 1];
-            if (oldFragment.isAdded()) {
-                transaction.hide(oldFragment);
-            }
+        Fragment oldFragment = mFragments[oldWhat];
+        if (oldFragment.isAdded()) {
+            transaction.hide(oldFragment);
         }
-        if (newFragment.isAdded()) {
-            transaction.show(newFragment);
+        if (theFragment.isAdded()) {
+            transaction.show(theFragment);
         } else {
-            transaction.add(R.id.health_fl_container, newFragment, newFragment.getClass().getName() + what);
+            transaction.add(R.id.health_fl_container, theFragment, theFragment.getClass().getName() + theWhat);
         }
         transaction.commitAllowingStateLoss();
     }
@@ -163,7 +171,8 @@ public class HealthDiaryActivity extends BaseActivity
                     }
             );
         } else {
-            switchFragment(what + 1);
+            this.what++;
+            switchFragment(what + 1, what);
         }
     }
 

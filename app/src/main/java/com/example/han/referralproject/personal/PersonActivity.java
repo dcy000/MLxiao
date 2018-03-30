@@ -26,6 +26,7 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.health.HealthDiaryActivity;
@@ -182,9 +183,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 //                Intent intent = new Intent(PersonActivity.this, ShopListActivity.class);
 //                startActivity(intent);
 //                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
-                OldRouter.routeToOldHomeActivity(PersonActivity.this);
-//                Intent intent = new Intent(PersonActivity.this, ChildEduHomeActivity.class);
-//                startActivity(intent);
+//                OldRouter.routeToOldHomeActivity(PersonActivity.this);
+                Intent intent = new Intent(PersonActivity.this, ChildEduHomeActivity.class);
+                startActivity(intent);
             }
         });
 

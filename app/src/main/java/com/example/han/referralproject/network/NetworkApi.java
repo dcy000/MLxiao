@@ -157,7 +157,26 @@ public class NetworkApi {
 
     public static final String POST_HEAlTH_DIARY = BasicUrl + "/ZZB/ai/insert_influence";
 
-    public static final void postHealthDiary(
+    public static final String POST_TEL_MESSAGE = "ZZB/br/br_teltixing";
+
+    public static void postTelMessage(
+            String tel,
+            String name,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("tel", tel);
+        params.put("name", name);
+        NetworkManager.getInstance().postResultClass(
+                POST_TEL_MESSAGE,
+                params,
+                Object.class,
+                successCallback,
+                failedCallback
+        );
+    }
+
+    public static void postHealthDiary(
             double salt,
             int sports,
             int drink,

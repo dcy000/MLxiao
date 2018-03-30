@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -22,42 +23,42 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
     private TextView tvPoemTitle;
     private TextView tvAuthorAndDynasty;
     private RecyclerView rvPoemSentences;
-    private TextView tvReadAgain;
-    private TextView tvLastSentence;
-    private TextView tvNextSentence;
+    private ImageView ivReplay;
+    private ImageView ivNext;
+
     private List<String> mSentences;
     private Adapter mAdapter;
     private PoemModel mPoemModel;
     private OverFlyingLayoutManager lm;
+    private ArrayList<PoemModel> mPoems;
+    private volatile int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_poem_details);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("唐  诗  宋  词");
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tvPoemTitle = (TextView) findViewById(R.id.ce_poem_details_tv_poem_title);
         tvAuthorAndDynasty = (TextView) findViewById(R.id.ce_poem_details_tv_poem_author_and_dynasty);
         rvPoemSentences = (RecyclerView) findViewById(R.id.ce_poem_details_rv_poem_sentences);
-        tvReadAgain = (TextView) findViewById(R.id.ce_poem_details_tv_read_again);
-        tvLastSentence = (TextView) findViewById(R.id.ce_poem_details_tv_last_sentence);
-        tvNextSentence = (TextView) findViewById(R.id.ce_poem_details_tv_next_sentence);
-        tvReadAgain.setOnClickListener(new View.OnClickListener() {
+        ivReplay = (ImageView) findViewById(R.id.ce_poem_details_iv_replay);
+        ivNext = (ImageView) findViewById(R.id.ce_poem_details_iv_next_normal);
+
+        ivReplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                readAgain();
+                replay();
             }
         });
-        tvLastSentence.setOnClickListener(new View.OnClickListener() {
+        ivNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lastSentence();
-            }
-        });
-        tvNextSentence.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nextSentence();
+                next();
             }
         });
 
@@ -72,18 +73,28 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         rvPoemSentences.setAdapter(mAdapter);
         Intent intent = getIntent();
         if (intent != null) {
-            mPoemModel = intent.getParcelableExtra("poem");
+            mPoems = intent.getParcelableArrayListExtra("poems");
+            position = intent.getIntExtra("position", 0);
+            if (mPoems != null
+                    && mPoems.size() > 0
+                    && position < mPoems.size()) {
+                mPoemModel = mPoems.get(position);
+            }
         }
-        if (mPoemModel != null) {
-            tvPoemTitle.setText(mPoemModel.getTitle());
-            tvAuthorAndDynasty.setText(mPoemModel.getAuthor() + "·" + mPoemModel.getDynasty());
-            String content = mPoemModel.getContent();
+        showPoem(mPoemModel);
+        replay();
+    }
+
+    private void showPoem(PoemModel poemModel) {
+        if (poemModel != null) {
+            tvPoemTitle.setText(poemModel.getTitle());
+            tvAuthorAndDynasty.setText(String.format("%s·%s", poemModel.getAuthor(), poemModel.getDynasty()));
+            String content = poemModel.getContent();
             String[] sentences = content.split("。");
             mSentences.clear();
             Collections.addAll(mSentences, sentences);
             mAdapter.notifyDataSetChanged();
         }
-        readAgain();
     }
 
     @Override
@@ -132,7 +143,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         speak(mSentences.get(positionSelected));
     }
 
-    private void readAgain() {
+    private void replay() {
         if (mSentences.isEmpty()) {
             isPlaying = false;
             return;
@@ -142,6 +153,18 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(0);
         speak(mSentences.get(0));
+    }
+
+    private void next() {
+        if (mPoems == null
+                || mPoems.size() <= 1) {
+            return;
+        }
+        int position = (this.position + 1) % mPoems.size();
+        this.position = position;
+        PoemModel model = mPoems.get(position);
+        showPoem(model);
+        replay();
     }
 
     private interface OnItemClickListener {
@@ -217,4 +240,5 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         setEnableListeningLoop(false);
         super.onResume();
     }
+
 }

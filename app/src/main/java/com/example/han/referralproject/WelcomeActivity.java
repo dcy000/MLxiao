@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 
@@ -15,21 +16,20 @@ import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
-import com.medlink.danbogh.signin.SignInActivity;
-import com.ml.videoplayer.MlVideoPlayer;
 
 import java.util.ArrayList;
 
 import cn.jzvd.JZVideoPlayerStandard;
 
 public class WelcomeActivity extends BaseActivity {
+
+    private static final String TAG = "afirez";
 
     private Chronometer ch;
 
@@ -40,6 +40,7 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        Log.i(TAG, "onCreate: ");
         //启动音乐服务
         if (!isWorked("com.example.han.referralproject.MusicService")) {
             startService(new Intent(this, MusicService.class));
@@ -167,11 +168,19 @@ public class WelcomeActivity extends BaseActivity {
         }
 
         @Override
+        public int getLayoutId() {
+            return R.layout.ml_player;
+        }
+
+        @Override
         public void init(Context context) {
             super.init(context);
+            findViewById(R.id.common_tv_action).setOnClickListener(this);
+            backButton.setVisibility(GONE);
+            batteryTimeLayout.setVisibility(GONE);
             try {
                 mWelcomeActivity = (WelcomeActivity) context;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 mWelcomeActivity = null;
                 e.printStackTrace();
             }
@@ -180,16 +189,28 @@ public class WelcomeActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     MyVideoPlayer.this.onClick(v);
-                    mWelcomeActivity.onVideoPlayedComplete();
+                    if (mWelcomeActivity != null) {
+                        mWelcomeActivity.onVideoPlayedComplete();
+                    }
                 }
             });
+        }
+
+        @Override
+        public void onClick(View v) {
+            super.onClick(v);
+            if (v.getId() == R.id.common_tv_action) {
+
+            }
         }
 
         @Override
         public void onStateAutoComplete() {
             super.onStateAutoComplete();
             backPress();
-            mWelcomeActivity.onVideoPlayedComplete();
+            if (mWelcomeActivity != null) {
+                mWelcomeActivity.onVideoPlayedComplete();
+            }
         }
     }
 

@@ -52,6 +52,7 @@ public class HeadiconActivity extends BaseActivity {
 
     ImageView mImageView1;
     ImageView mImageView2;
+    private boolean isFast;
 
 
     @Override
@@ -59,6 +60,7 @@ public class HeadiconActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_headicon);
+        isFast = getIntent().getBooleanExtra("isFast", false);
         uploadManager = new UploadManager();
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
 
@@ -144,11 +146,11 @@ public class HeadiconActivity extends BaseActivity {
                                         public void onSuccess(Object response) {
                                             //将账号在本地缓存
                                             LocalShared.getInstance(mContext).addAccount(userid, xfid);
-                                            Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                                            Class<? extends BaseActivity> aClass = isFast ? MainActivity.class : RecoDocActivity.class;
+                                            Intent intent = new Intent(getApplicationContext(), aClass);
                                             startActivity(intent);
                                             finish();
                                         }
-
                                     }, new NetworkManager.FailedCallback() {
                                         @Override
                                         public void onFailed(String message) {
@@ -165,7 +167,6 @@ public class HeadiconActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-
 
             }
         });
@@ -232,16 +233,14 @@ public class HeadiconActivity extends BaseActivity {
         });
     }
 
-
     public void getImageUrl(String token, final String userid, final String xfid) {
-
 
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        super.onResume();
         startListening();
     }
 

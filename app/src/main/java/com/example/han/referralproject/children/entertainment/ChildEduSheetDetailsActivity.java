@@ -21,6 +21,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicUtils;
 import com.medlink.danbogh.utils.T;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,14 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
             sheetModel = intent.getParcelableExtra("sheet");
         }
 
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("歌  单");
+        ImageView ivTitle = (ImageView) findViewById(R.id.ce_common_iv_title);
+        ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_baby_sheets);
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ivSheetCover = (ImageView) findViewById(R.id.ce_sheet_details_iv_sheet_cover);
         tvSheetName = (TextView) findViewById(R.id.ce_sheet_details_tv_sheet_name);
         rvSongs = (RecyclerView) findViewById(R.id.ce_sheet_details_rv_songs);

@@ -5,15 +5,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5595FF"
+    android:background="@drawable/ce_common_bg"
     tools:context="com.example.han.referralproject.children.entertainment.ChildEduEntertainmentActivity">
+
+    <ImageView
+        android:layout_width="358pt"
+        android:layout_height="590pt"
+        android:layout_marginRight="160pt"
+        android:src="@drawable/ce_entertainment_ic_bg_right"
+        app:layout_constraintBottom_toBottomOf="@+id/ce_entertainment_rv_items"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ce_entertainment_rv_items"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ce_entertainment_rv_items"
-        android:layout_width="614dp"
-        android:layout_height="396dp"
-        android:layout_marginLeft="20dp"
+        android:layout_width="1212pt"
+        android:layout_height="776pt"
+        android:layout_marginLeft="40pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ce_common_iv_back"
+        android:layout_width="140pt"
+        android:layout_height="126pt"
+        android:layout_marginLeft="20pt"
+        android:layout_marginTop="10pt"
+        android:paddingBottom="20pt"
+        android:paddingLeft="30pt"
+        android:paddingRight="30pt"
+        android:paddingTop="20pt"
+        android:src="@drawable/ce_common_ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ce_common_iv_title"
+        android:layout_width="507pt"
+        android:layout_height="130pt"
+        android:layout_marginTop="30pt"
+        android:src="@drawable/ce_entertainment_ic_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

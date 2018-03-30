@@ -31,6 +31,7 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.health.HealthDiaryActivity;
@@ -161,8 +162,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         mImageView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2018/3/30 幼教文娱跳转入口
-
+                Intent intent = new Intent(getActivity(), ChildEduHomeActivity.class);
+                startActivity(intent);
             }
         });
 

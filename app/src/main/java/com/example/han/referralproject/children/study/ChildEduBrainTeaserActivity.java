@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -30,43 +29,39 @@ import java.util.HashMap;
 
 public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogInterface.OnDismissListener {
 
-    private TextView tvQuestion;
-    private EditText etAnswer;
-    private TextView tvConfirm;
+    private TextView tvContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_brain_teaser);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("脑  筋  急  转  弯");
-        tvQuestion = (TextView) findViewById(R.id.ce_brain_teaser_tv_question);
-        etAnswer = (EditText) findViewById(R.id.ce_brain_teaser_et_answer);
-        tvConfirm = (TextView) findViewById(R.id.ce_brain_teaser_tv_confirm);
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String answer = etAnswer.getText().toString().trim();
-                if (TextUtils.isEmpty(answer)) {
-                    T.show("请输入答案");
-                    return;
-                }
-                BrainTeaserModel model = ChildEduBrainTeaserActivity.this.model;
-                if (model == null) {
-                    return;
-                }
-                String realAnswer = model.getAnswer();
-                if (answer.contains(realAnswer) || realAnswer.contains(answer)) {
-                   T.show("你真棒！");
-                   fetchBrainTeaser();
-                } else {
-                    //继续努力，你会更强的
-                    MyDialogFragment.newInstance(realAnswer)
-                            .show(getSupportFragmentManager(), "MyDialogFragment");
-                }
+                finish();
             }
         });
+
+        tvContent = (TextView) findViewById(R.id.ce_brain_teaser_tv_content);
+
         fetchBrainTeaser();
+    }
+
+    private void confirm(String answer) {
+        if (TextUtils.isEmpty(answer)) {
+//            T.show("请输入答案");
+            return;
+        }
+        BrainTeaserModel model = ChildEduBrainTeaserActivity.this.model;
+        if (model == null) {
+            return;
+        }
+        String realAnswer = model.getAnswer();
+        boolean right = answer.contains(realAnswer) || realAnswer.contains(answer);
+        MyDialogFragment.newInstance(right, realAnswer)
+                .show(getSupportFragmentManager(), "MyDialogFragment");
+
     }
 
     private BrainTeaserModel model;
@@ -109,7 +104,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                tvQuestion.setText(finalQuestion);
+                tvContent.setText(finalQuestion);
             }
         });
     }
@@ -137,33 +132,42 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
     }
 
     @Override
+    protected void onSpeakListenerResult(String result) {
+        super.onSpeakListenerResult(result);
+        confirm(result);
+    }
+
+    @Override
     public void onDismiss(DialogInterface dialog) {
         fetchBrainTeaser();
     }
-
 
     public static class MyDialogFragment extends DialogFragment {
 
         private View mView;
         private TextView tvAnswer;
+        private TextView tvRight;
         private TextView tvContinue;
 
+        private boolean right;
         private String answer;
 
         private float dimAmount;
         private boolean showBottom;
         private boolean cancelable;
 
-        public static MyDialogFragment newInstance(String answer) {
-            return newInstance(answer, 0f, false, true);
+        public static MyDialogFragment newInstance(boolean right, String answer) {
+            return newInstance(right, answer, 0f, false, true);
         }
 
         public static MyDialogFragment newInstance(
+                boolean right,
                 String answer,
                 float dimAmount,
                 boolean showBottom,
                 boolean cancelable) {
             Bundle args = new Bundle();
+            args.putBoolean("right", right);
             args.putString("answer", answer);
             args.putFloat("dimAmount", dimAmount);
             args.putBoolean("showBottom", showBottom);
@@ -193,6 +197,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
             setStyle(DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
             Bundle arguments = getArguments();
             if (arguments != null) {
+                right = arguments.getBoolean("right", false);
                 answer = arguments.getString("answer");
                 dimAmount = arguments.getFloat("dimAmount", 0f);
                 showBottom = arguments.getBoolean("showBottom", false);
@@ -208,8 +213,10 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
                 @Nullable Bundle savedInstanceState) {
             mView = inflater.inflate(R.layout.ce_dialog_brain_teaser, container, false);
             tvAnswer = (TextView) findViewById(R.id.ce_brain_teaser_tv_answer);
+            tvRight = (TextView) findViewById(R.id.ce_brain_teaser_tv_right);
             tvContinue = (TextView) findViewById(R.id.ce_brain_teaser_tv_continue);
             tvAnswer.setText(answer);
+            tvRight.setText(right ? "恭喜你回答正确" : "继续努力，你会更强的");
             tvContinue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

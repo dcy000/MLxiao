@@ -84,7 +84,7 @@ public class StoryModel implements Parcelable {
         try {
             JSONArray storyArray = new JSONArray(storiesJson);
             return parseStories(storyArray);
-        } catch (JSONException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
             return null;
         }

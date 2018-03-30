@@ -23,15 +23,19 @@ import java.util.List;
 public class ChildEduPoemListActivity extends BaseActivity {
 
     private RecyclerView rvPoems;
-    private List<PoemModel> mModels;
+    private ArrayList<PoemModel> mModels;
     private Adapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_poem_list);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("唐  诗  宋  词");
+        findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         rvPoems = (RecyclerView) findViewById(R.id.ce_poems_rv_poems);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -86,7 +90,7 @@ public class ChildEduPoemListActivity extends BaseActivity {
             intent.setClass(
                     ChildEduPoemListActivity.this,
                     ChildEduPoemDetailsActivity.class
-            ).putExtra("poem", model);
+            ).putExtra("poems", mModels).putExtra("position", position);
             startActivity(intent);
         }
     };

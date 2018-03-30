@@ -258,7 +258,7 @@ public class SignInActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
         startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
-//        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
+//        startActivity(new Intent(SignInActivity.this, SignUp01NameActivity.class));
     }
 
     @OnClick(R.id.tv_sign_in_forget_password)
