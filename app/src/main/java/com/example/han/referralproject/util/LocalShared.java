@@ -516,5 +516,48 @@ public class LocalShared {
         return mShared.getInt("health_score",0);
     }
 
+    public void setMeasureXueyaFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_xueya_first", isFirst).commit();
+    }
 
+    public boolean getMeasureXueyaFirst() {
+        return mShared.getBoolean("measure_xueya_first", true);
+    }
+    public void setMeasureTiwenFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_tiwen_first", isFirst).commit();
+    }
+
+    public boolean getMeasureTiwenFirst() {
+        return mShared.getBoolean("measure_tiwen_first", true);
+    }
+    public void setMeasureXuetangFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_xuetang_first", isFirst).commit();
+    }
+
+    public boolean getMeasureXuetangFirst() {
+        return mShared.getBoolean("measure_xuetang_first", true);
+    }
+    public void setMeasureXueyangFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_xueyang_first", isFirst).commit();
+    }
+
+    public boolean getMeasureXueyangFirst() {
+        return mShared.getBoolean("measure_xueyang_first", true);
+    }
+
+    public void setMeasureXindianFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_xindian_first", isFirst).commit();
+    }
+
+    public boolean getMeasureXindianFirst() {
+        return mShared.getBoolean("measure_xindian_first", true);
+    }
+
+    public void setMeasureSanheyiFirst(boolean isFirst) {
+        mShared.edit().putBoolean("measure_sanheyi_first", isFirst).commit();
+    }
+
+    public boolean getMeasureSanheyiFirst() {
+        return mShared.getBoolean("measure_sanheyi_first", true);
+    }
 }

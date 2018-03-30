@@ -911,7 +911,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if (mVideoView.isPlaying()) {
                         mVideoView.pause();
                     }
-
                     switch (detectType){
                         case Type_Wendu:
                             LocalShared.getInstance(DetectActivity.this).setMeasureTiwenFirst(false);
@@ -1097,28 +1096,34 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
         int resourceId = 0;
+        boolean isFirst=false;
         switch (detectType) {
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_wendu;
+                isFirst=LocalShared.getInstance(this).getMeasureTiwenFirst();
                 break;
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xueya;
+                isFirst=LocalShared.getInstance(this).getMeasureXuetangFirst();
                 break;
             case Type_XueTang:
                 mResultTv = (TextView) findViewById(R.id.tv_xuetang);
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xuetang;
+                isFirst=LocalShared.getInstance(this).getMeasureXuetangFirst();
                 break;
             case Type_XueYang:
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xueyang;
+                isFirst=LocalShared.getInstance(this).getMeasureXueyangFirst();
                 break;
             case Type_XinDian:
                 findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xindian;
+                isFirst=LocalShared.getInstance(this).getMeasureXindianFirst();
                 break;
             case Type_TiZhong:
                 mResultTv = (TextView) findViewById(R.id.tv_tizhong);
@@ -1129,19 +1134,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_SanHeYi:
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_sanheyi;
+                isFirst=LocalShared.getInstance(this).getMeasureSanheyiFirst();
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
         mOverView = findViewById(R.id.view_over);
         mOverView.setOnClickListener(this);
-        if (resourceId != 0) {
-            String uri = "android.resource://" + getPackageName() + "/" + resourceId;
-            mVideoView.setVideoURI(Uri.parse(uri));
-            mVideoView.start();
-            mVideoView.setOnCompletionListener(mCompletionListener);
-        } else {
-            mVideoView.setVisibility(View.GONE);
-            mOverView.setVisibility(View.GONE);
+        if (isFirst) {
+            if (resourceId != 0) {
+                String uri = "android.resource://" + getPackageName() + "/" + resourceId;
+                mVideoView.setVideoURI(Uri.parse(uri));
+                mVideoView.start();
+                mVideoView.setOnCompletionListener(mCompletionListener);
+            } else {
+                mVideoView.setVisibility(View.GONE);
+                mOverView.setVisibility(View.GONE);
+            }
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
