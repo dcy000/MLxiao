@@ -116,14 +116,14 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         userId = MyApplication.getInstance().userId;
         mImageView = (ImageView) view.findViewById(R.id.per_image);
 
-        mImageView3 = (ImageView) view.findViewById(R.id.iv_pay);
+        mImageView3 = (ImageView) view.findViewById(R.id.iv_laoren_yule);
 
         mImageView3.setOnClickListener(this);
 
         mTextView3 = (TextView) view.findViewById(R.id.tv_balance);
 
 
-        mImageView5 = (ImageView) view.findViewById(R.id.iv_order);
+        mImageView5 = (ImageView) view.findViewById(R.id.iv_youjiao_wenyu);
 
         ((BaseActivity) getActivity()).setEnableListeningLoop(false);
         mTextView4 = (TextView) view.findViewById(R.id.doctor_status);
@@ -161,9 +161,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         mImageView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(getActivity(), OrderListActivity.class);
-                startActivity(intent);
+                // TODO: 2018/3/30 幼教文娱跳转入口
 
             }
         });
@@ -368,10 +366,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             case R.id.iv_message:
                 startActivity(new Intent(getActivity(), MessageActivity.class));
                 break;
-            case R.id.iv_pay:
-                startActivity(new Intent(getActivity(), PayActivity.class));
-//                startActivity(new Intent(getActivity(), JieMengActivity.class));
-
+            case R.id.iv_laoren_yule:
+                OldRouter.routeToOldHomeActivity(getActivity());
                 break;
             case R.id.iv_change_account:
                 mChangeAccountDialog = new ChangeAccountDialog(getActivity());

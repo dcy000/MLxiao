@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
+import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.tool.ToolsActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.ml.edu.OldRouter;
@@ -26,9 +28,9 @@ import butterknife.Unbinder;
  */
 
 public class PersonDetail2Fragment extends Fragment {
-    @BindView(R.id.iv_laoren_yule)
+    @BindView(R.id.iv_pay)
     ImageView ivLaorenYule;
-    @BindView(R.id.iv_youjiao_wenyu)
+    @BindView(R.id.iv_order)
     ImageView ivYoujiaoWenyu;
     @BindView(R.id.iv_shezhi)
     ImageView ivShezhi;
@@ -52,13 +54,14 @@ public class PersonDetail2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_laoren_yule, R.id.iv_youjiao_wenyu, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class})
+    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_laoren_yule:
-                OldRouter.routeToOldHomeActivity(getActivity());
+            case R.id.iv_order:
+                startActivity(new Intent(getActivity(), OrderListActivity.class));
                 break;
-            case R.id.iv_youjiao_wenyu:
+            case R.id.iv_pay:
+                startActivity(new Intent(getActivity(), PayActivity.class));
                 break;
             case R.id.iv_shezhi:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
