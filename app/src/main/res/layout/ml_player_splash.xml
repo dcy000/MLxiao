@@ -142,7 +142,7 @@
             android:layout_marginRight="12dp"
             android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/back"
-            android:layout_toLeftOf="@+id/afirez_tv_action"
+            android:layout_toLeftOf="@+id/ml_tv_action"
             android:layout_toRightOf="@+id/back"
             android:ellipsize="end"
             android:maxLines="2"
@@ -150,7 +150,7 @@
             android:textSize="30sp"/>
 
         <TextView
-            android:id="@+id/afirez_tv_action"
+            android:id="@+id/ml_tv_action"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"

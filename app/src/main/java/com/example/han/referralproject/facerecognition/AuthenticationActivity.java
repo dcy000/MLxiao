@@ -103,10 +103,8 @@ public class AuthenticationActivity extends BaseActivity {
     private ArrayList<UserInfoBean> mDataList;
     private boolean isInclude;
     private int authenticationNum = 0;
-    private int xfIdIndex = 0;//记录讯飞id数组的位置
-    private String groupId, deleteGroupId;
     private TextView tvTips;
-    private TimeCount timeCount;
+    private boolean isTest;
 
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
@@ -127,23 +125,19 @@ public class AuthenticationActivity extends BaseActivity {
                                 myHandler.sendEmptyMessage(1);
                                 return;
                             }
-                            Animation left = AnimationUtils.loadAnimation(weakReference.get(), R.anim.door_in_left);
-                            Animation right = AnimationUtils.loadAnimation(weakReference.get(), R.anim.door_in_right);
-                            findViewById(R.id.door_left).startAnimation(left);
-                            findViewById(R.id.door_right).startAnimation(right);
-
+                            closeAnimation();
                             try {
                                 String resultStr = result.getResultString();
                                 JSONObject resultJson = new JSONObject(resultStr);
                                 if (ErrorCode.SUCCESS == resultJson.getInt("ret")) {//此处检验百分比
                                     JSONArray scoreList = resultJson.getJSONObject("ifv_result").getJSONArray("candidates");
-                                    String firstXfid = scoreList.getJSONObject(0).optString("user");
+                                    String scoreFirstXfid = scoreList.getJSONObject(0).optString("user");
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                                     if (firstScore > 80) {
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
-                                            authenticationSuccessForTest$Welcome(firstXfid, weakReference);
+                                            authenticationSuccessForTest$Welcome(scoreFirstXfid, weakReference);
                                         } else if ("Pay".equals(fromString)) {
-                                            if (mAuthid.equals(firstXfid)) {
+                                            if (mAuthid.equals(scoreFirstXfid)) {
                                                 paySuccess();
                                             } else {
                                                 payFail();
@@ -180,7 +174,7 @@ public class AuthenticationActivity extends BaseActivity {
                                 if (authenticationNum < 5) {
                                     authenticationNum++;
                                     ToastTool.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
-                                    myHandler.sendEmptyMessageDelayed(1, 1000);
+                                    myHandler.sendEmptyMessageDelayed(1, 1500);
                                 } else {
                                     finishActivity();
                                     finish();
@@ -195,16 +189,16 @@ public class AuthenticationActivity extends BaseActivity {
     /**
      * 通过验证
      *
-     * @param firstXfid
+     * @param scoreFirstXfid
      * @param weakReference
      */
-    private void authenticationSuccessForTest$Welcome(String firstXfid, WeakReference<AuthenticationActivity> weakReference) {
+    private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<AuthenticationActivity> weakReference) {
         finishActivity();
         ToastTool.showShort("通过验证，欢迎回来！");
         if (mDataList != null) {
             for (int i = 0; i < mDataList.size(); i++) {
                 UserInfoBean user = mDataList.get(i);
-                if (user.xfid.equals(firstXfid)) {
+                if (user.xfid.equals(scoreFirstXfid)) {
                     new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
                     LocalShared.getInstance(mContext).setUserInfo(user);
                     LocalShared.getInstance(mContext).setSex(user.sex);
@@ -240,28 +234,9 @@ public class AuthenticationActivity extends BaseActivity {
                     ToastTool.showLong("验证不通过!");
                 }
             }
-            //因为在任何一种情况下，该activity最后都被finish，所以释放资源等操作全部提前到该方法中执行。
-            Handlers.bg().post(new Runnable() {
-                @Override
-                public void run() {
-                    if (baos != null) {
-                        try {
-                            baos.close();
-                            baos = null;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    //销毁组
-                    FaceAuthenticationUtils.getInstance(mContext).
-                            deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
-                    FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
-                }
-            });
             finish();
         }
     }
-
 
     /**
      * 支付成功
@@ -308,168 +283,121 @@ public class AuthenticationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
+        //工厂测试专用
+        isTest = getIntent().getBooleanExtra("isTest", false);
 
         init();
         openCameraPreview();
-        group();
+        if (isTest) {
+            openAnimation();
+        } else {
+            joinGroup();
+        }
         setClick();
         getAllUsersInfo();
     }
 
-    private void group() {
-        tvTips.setText("正在连接人脸库,请稍等...");
-        xfids = FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).getAllLocalXfids();
-        createGroup();
-    }
-
-    private void createGroup() {
-        Handlers.bg().post(createGroupRunnable = new Runnable() {
-            @Override
-            public void run() {
-                FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).createGroup(xfids);
-                FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
-                    @Override
-                    public void onResult(IdentityResult result, boolean islast) {
-                        try {
-                            JSONObject resObj = new JSONObject(result.getResultString());
-                            groupId = resObj.getString("group_id");
-                            LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
-                            LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfids[0]);
-                            updateGroupInformation();
-                            //开启加入组超时倒计时
-                            timeCount.start();
-                            joinGroup();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-                    }
-
-                    @Override
-                    public void onError(SpeechError error) {
-                        if (error.getErrorCode() == 10144) {//创建组的数量达到上限
-                            ToastTool.showShort("出现技术故障，请致电客服咨询");
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    private void updateGroupInformation() {
-        //将组的相关信息存到服务器上
-        Handlers.bg().post(recordGroupRunnable = new Runnable() {
-            @Override
-            public void run() {
-                NetworkApi.recordGroup(groupId, xfids[0], new NetworkManager.SuccessCallback<String>() {
-                    @Override
-                    public void onSuccess(String response) {
-                        NetworkApi.getXfGroupInfo(groupId, xfids[0], new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
-                            @Override
-                            public void onSuccess(ArrayList<XfGroupInfo> response) {
-                                for (XfGroupInfo xfGroupInfo : response) {
-                                    if (xfGroupInfo.gid.equals(groupId)) {
-                                        deleteGroupId = xfGroupInfo.grid;
-                                        break;
-                                    }
-                                }
-                                Handlers.bg().removeCallbacksAndMessages(null);
-                            }
-                        });
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        Handlers.bg().removeCallbacks(recordGroupRunnable);
-                    }
-                });
-            }
-        });
-    }
-
-    private Runnable joinGroupRunable, createGroupRunnable, recordGroupRunnable;
-
     private void joinGroup() {
-        Handlers.bg().post(joinGroupRunable = new Runnable() {
+        tvTips.setText("正在连接人脸库,请稍等...");
+        String groupid = LocalShared.getInstance(this).getGroupId();
+        String firstXfid = LocalShared.getInstance(this).getGroupFirstXfid();
+        final String currentXfid = LocalShared.getInstance(this).getXunfeiId();
+        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, currentXfid);
+        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
             @Override
-            public void run() {
-                if (xfIdIndex < xfids.length)
-                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).
-                            joinGroup(LocalShared.getInstance(AuthenticationActivity.this).getGroupId(), xfids[xfIdIndex]);
+            public void onResult(IdentityResult result, boolean islast) {
+                tvTips.setText("请将人脸对准识别框");
+                openAnimation();
+                //添加完成以后，马上进行人脸匹配
+                if (isFirstSend) {
+                    myHandler.sendEmptyMessageDelayed(1, 2000);
+                    isFirstSend = false;
+                }
+            }
 
-                FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
-                    @Override
-                    public void onResult(IdentityResult result, boolean islast) {
-                        xfIdIndex++;
-                        Logger.e("添加成员成功:xfIdIndex-->" + xfIdIndex + "******" + result);
-                        if (xfIdIndex < xfids.length) {
-                            //重新开始计时
-                            timeCount.start();
-                            joinGroup();
-                        } else {
-                            timeCount.cancel();
-                            Logger.e("成员全部添加完成");
-                            tvTips.setText("请将人脸对准识别框");
-                            Animation left = AnimationUtils.loadAnimation(AuthenticationActivity.this, R.anim.door_out_left);
-                            Animation right = AnimationUtils.loadAnimation(AuthenticationActivity.this, R.anim.door_out_right);
-                            findViewById(R.id.door_left).startAnimation(left);
-                            findViewById(R.id.door_right).startAnimation(right);
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
 
-                            //添加完成以后，马上进行人脸匹配
-                            if (isFirstSend) {
-                                myHandler.sendEmptyMessageDelayed(1, 1000);
-                                isFirstSend = false;
-                            }
-                            Handlers.bg().removeCallbacks(joinGroupRunable);
-                            Handlers.bg().removeCallbacks(createGroupRunnable);
-                        }
+            }
 
-                    }
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "添加成员出现异常");
+                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
+                    createGroup(currentXfid);
+                } else {
+                    openAnimation();
+                    myHandler.sendEmptyMessageDelayed(1, 2000);
+                }
 
-                    @Override
-                    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-                    }
-
-                    @Override
-                    public void onError(SpeechError error) {
-                        Logger.e(error, "添加成员出现异常");
-                        if (error.getErrorCode() == 10121) {//该模型已经存在
-                            xfIdIndex++;
-                            //重新开始计时
-                            timeCount.start();
-                            joinGroup();
-                        } else {
-                            //重新开始计时
-                            timeCount.start();
-                            joinGroup();
-                        }
-                    }
-                });
             }
         });
     }
 
-    /* 定义一个倒计时的内部类 */
-    private class TimeCount extends CountDownTimer {
-        TimeCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
-        }
+    private void createGroup(final String xfid) {
+        FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
+        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                try {
+                    JSONObject resObj = new JSONObject(result.getResultString());
+                    String groupId = resObj.getString("group_id");
+                    LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
+                    LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfid);
+                    //组创建好以后把自己加入到组中去
+                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).
+                            joinGroup(groupId, xfid);
+                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+                        @Override
+                        public void onResult(IdentityResult result, boolean islast) {
+                            Log.d("SignInActivity", "onResult:添加自己到组中成功");
+                            openAnimation();
+                            myHandler.sendEmptyMessageDelayed(1, 2000);
+                        }
 
-        @Override
-        public void onFinish() {// 计时完毕时触发
-            Toast.makeText(MyApplication.getInstance().getApplicationContext(), "连接人脸库失败，请稍后重试！", Toast.LENGTH_SHORT).show();
-            finishActivity();
-            finish();
-        }
+                        @Override
+                        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
 
-        @Override
-        public void onTick(long millisUntilFinished) {// 计时过程显示
-        }
+                        }
+
+                        @Override
+                        public void onError(SpeechError error) {
+                            finishActivity();
+                            finish();
+                            ToastTool.showShort("验证失败");
+                        }
+                    });
+                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).updateGroupInformation(groupId, xfid);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "创建组失败");
+                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
+            }
+        });
+    }
+
+    private void openAnimation() {
+        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
+        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
+        findViewById(R.id.door_left).startAnimation(left);
+        findViewById(R.id.door_right).startAnimation(right);
+    }
+
+    private void closeAnimation() {
+        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_in_left);
+        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_in_right);
+        findViewById(R.id.door_left).startAnimation(left);
+        findViewById(R.id.door_right).startAnimation(right);
     }
 
     private void getAllUsersInfo() {
@@ -514,7 +442,6 @@ public class AuthenticationActivity extends BaseActivity {
         baos = new ByteArrayOutputStream();
         myHandler = new MyHandler(this);
         tvTips = findViewById(R.id.tv_tip);
-        timeCount = new TimeCount(10000, 1000);
 
     }
 
@@ -569,6 +496,12 @@ public class AuthenticationActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 finishActivity();
+                if (isTest){
+                    startActivity(new Intent(AuthenticationActivity.this,Test_mainActivity.class)
+                            .putExtra("isTest",isTest));
+                    return;
+                }
+
                 if ("Test".equals(fromString)) {
                     Intent intent = new Intent();
                     if (TextUtils.isEmpty(fromType)) {
@@ -628,7 +561,7 @@ public class AuthenticationActivity extends BaseActivity {
                         public void run() {
                             b3 = decodeToBitMap(data, mCamera);
                             if (b3 != null) {
-                                Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+                                Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
                                 if (bitmap != null) {
                                     if (null != baos) {
                                         baos.reset();
@@ -695,42 +628,6 @@ public class AuthenticationActivity extends BaseActivity {
 
     private boolean isFirstSend = true;
 
-    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
-        if (null == bitmap || edgeLength <= 0) {
-            return null;
-        }
-
-        Bitmap result = bitmap;
-        int widthOrg = bitmap.getWidth();
-        int heightOrg = bitmap.getHeight();
-
-        if (widthOrg > edgeLength && heightOrg > edgeLength) {
-            //压缩到一个最小长度是edgeLength的bitmap
-            int longerEdge = (int) (edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg));
-            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
-            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
-            Bitmap scaledBitmap;
-
-            try {
-                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
-            } catch (Exception e) {
-                return null;
-            }
-
-            //从图中截取正中间的正方形部分。
-            int xTopLeft = (scaledWidth - edgeLength) / 2;
-            int yTopLeft = (scaledHeight - edgeLength) / 2;
-
-            try {
-                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength);
-                scaledBitmap.recycle();
-            } catch (Exception e) {
-                return null;
-            }
-        }
-
-        return result;
-    }
 
     public void showNormal(String message, final String sign) {
         dialog2.setMessageCenter(true)
@@ -812,43 +709,18 @@ public class AuthenticationActivity extends BaseActivity {
         Handlers.bg().removeCallbacksAndMessages(null);
         myHandler.removeCallbacksAndMessages(null);
         findViewById(R.id.iv_circle).clearAnimation();
-        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).cancelIdentityVerifier();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        xfIdIndex = 0;
+    protected void onDestroy() {
+        super.onDestroy();
+        if (baos != null) {
+            try {
+                baos.close();
+                baos = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
-    private DeleteGroupListener deleteGroupListener = new DeleteGroupListener() {
-        @Override
-        public void onResult(IdentityResult result, boolean islast) {
-            Handlers.bg().removeCallbacksAndMessages(null);
-//            Handlers.bg().post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    NetworkApi.changeGroupStatus(deleteGroupId, "2", new NetworkManager.SuccessCallback<String>() {
-//                        @Override
-//                        public void onSuccess(String response) {
-//                            Handlers.bg().removeCallbacksAndMessages(null);
-//                        }
-//                    }, new NetworkManager.FailedCallback() {
-//                        @Override
-//                        public void onFailed(String message) {
-//                            Handlers.bg().removeCallbacksAndMessages(null);
-//                        }
-//                    });
-//                }
-//            });
-        }
-
-        @Override
-        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-        }
-
-        @Override
-        public void onError(SpeechError error) {
-        }
-    };
 }

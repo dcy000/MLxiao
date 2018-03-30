@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_action.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\685f0b2c39146cc8531a5c2193ac40aceb07f2c8\\output\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\685f0b2c39146cc8531a5c2193ac40aceb07f2c8\\output\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_lines_media.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media_custom.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media_custom.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\685f0b2c39146cc8531a5c2193ac40aceb07f2c8\\output\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\685f0b2c39146cc8531a5c2193ac40aceb07f2c8\\output\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_action.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_lines_media.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\685f0b2c39146cc8531a5c2193ac40aceb07f2c8\\output\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\Users\\lenovo\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\3847ec0271ead6deff73c2bad17aa24de9fad057\\output\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\voice\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\layout\\notification_template_big_media_custom.xml"
+    }
+]

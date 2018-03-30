@@ -77,15 +77,13 @@ public class WeeklyReport3Fragment extends Fragment {
     RxTextRoundProgressBar rpbSum;
     //    @BindView(R.id.tv_progress)
 //    TextView tvProgress;
-    @BindView(R.id.tv_advice)
-    TextView tvAdvice;
     @BindView(R.id.tv_progress3)
     TextView tvProgress3;
     private View view;
     private WeeklyReport data;
     private float sj_tizhong, sj_yundong, sj_yinjiu, sj_yan;
     private float mb_tizhong, mb_yundong, mb_yinjiu, mb_yan;
-    private float pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
+    private int pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
     private String tips = "未初始化";
 
     @Override
@@ -111,10 +109,10 @@ public class WeeklyReport3Fragment extends Fragment {
         mb_yinjiu = Float.parseFloat(data.drinkm);
         mb_yan = Float.parseFloat(data.nam);
 
-        pc_tizhong = sj_tizhong - mb_tizhong;
-        pc_yundong = sj_yundong - mb_yundong;
-        pc_yinjiu = sj_yinjiu - mb_yinjiu;
-        pc_yan = sj_yan - mb_yan;
+        pc_tizhong = (int) (sj_tizhong - mb_tizhong);
+        pc_yundong = (int) (sj_yundong - mb_yundong);
+        pc_yinjiu = (int) (sj_yinjiu - mb_yinjiu);
+        pc_yan = (int) (sj_yan - mb_yan);
 
 
         tabMbYan.setText("<" + (int) mb_yan);
@@ -132,8 +130,8 @@ public class WeeklyReport3Fragment extends Fragment {
             pcYan.setText((int) pc_yan + "");
         } else {
             imgYan.setVisibility(View.GONE);
-            pcYan.setText("达标");
-            pcYan.setTextColor(Color.GREEN);
+            pcYan.setText("√");
+            pcYan.setTextColor(Color.parseColor("#3CD478"));
         }
 
         if (pc_yundong < 0) {
@@ -141,8 +139,8 @@ public class WeeklyReport3Fragment extends Fragment {
             pcYundong.setText((int) pc_yundong + "");
         } else {
             imgYundong.setVisibility(View.GONE);
-            pcYundong.setText("达标");
-            pcYundong.setTextColor(Color.GREEN);
+            pcYundong.setText("√");
+            pcYundong.setTextColor(Color.parseColor("#3CD478"));
         }
 
         if (pc_tizhong > 0) {
@@ -150,8 +148,8 @@ public class WeeklyReport3Fragment extends Fragment {
             pcTizhong.setText((int) pc_tizhong + "");
         } else {
             imgTizhong.setVisibility(View.GONE);
-            pcTizhong.setText("达标");
-            pcTizhong.setTextColor(Color.GREEN);
+            pcTizhong.setText("√");
+            pcTizhong.setTextColor(Color.parseColor("#3CD478"));
         }
 
         if (pc_yinjiu > 0) {
@@ -159,8 +157,8 @@ public class WeeklyReport3Fragment extends Fragment {
             pcYinjiu.setText((int) pc_yinjiu + "");
         } else {
             imgYinjiu.setVisibility(View.GONE);
-            pcYinjiu.setText("达标");
-            pcYinjiu.setTextColor(Color.GREEN);
+            pcYinjiu.setText("√");
+            pcYinjiu.setTextColor(Color.parseColor("#3CD478"));
         }
 
         rpbSum.setMax(100);
@@ -169,9 +167,8 @@ public class WeeklyReport3Fragment extends Fragment {
         tvProgress3.setText((int) progress_percent + "%");
 
         tips = "主人，您的生活目标总体完成"
-                + progress_percent + "%。食盐距离目标" + (int) pc_yan + "克，运动距离目标" + (int) pc_yundong +
-                "分钟，体重距离目标" + (int) pc_tizhong + "千克，饮酒距离目标" + (int) pc_yinjiu + "毫升。";
-        tvAdvice.setText(tips);
+                + progress_percent + "%。食盐距离目标" + pc_yan + "克，运动距离目标" + pc_yundong +
+                "分钟，体重距离目标" + pc_tizhong + "千克，饮酒距离目标" + pc_yinjiu + "毫升。";
     }
 
     private void setChart() {
@@ -244,6 +241,8 @@ public class WeeklyReport3Fragment extends Fragment {
 
         RadarDataSet set2 = new RadarDataSet(entries2, "");
 //        set2.setColor(Color.rgb(121, 162, 175));
+
+
         set2.setFillColor(Color.parseColor("#FF5747"));
         set2.setDrawFilled(true);
         set2.setFillAlpha(180);
@@ -276,12 +275,12 @@ public class WeeklyReport3Fragment extends Fragment {
     }
 
 
+    public static boolean isSpeak = false;
 
-    public static boolean isSpeak=false;
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser &&isSpeak) {
-            isSpeak=false;
+        if (isVisibleToUser && isSpeak) {
+            isSpeak = false;
             ((WeeklyReportActivity) getActivity()).speak(tips);
         }
     }

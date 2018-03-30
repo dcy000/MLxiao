@@ -83,16 +83,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="本周目标与进度"
-            android:textSize="48pt"
-            android:textColor="#666"
-            android:layout_margin="40pt"/>
+            android:textSize="56pt"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:layout_marginLeft="40pt"
+            android:layout_marginTop="56pt"/>
         <!--表格-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="39pt"
             android:layout_marginRight="39pt"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="48pt">
 
             <View
                 android:layout_width="match_parent"
@@ -204,7 +207,7 @@
                     android:layout_width="230pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="&lt;145"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -219,7 +222,7 @@
                     android:layout_width="231pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="&lt;92"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -233,7 +236,7 @@
                     android:layout_width="230pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="&lt;92"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -247,7 +250,7 @@
                     android:layout_width="231pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="&lt;92"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -290,7 +293,7 @@
                     android:layout_width="230pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="150"
+                    android:text=""
                     android:textColor="#F4843E"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -305,7 +308,7 @@
                     android:layout_width="231pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="95"
+                    android:text=""
                     android:textColor="#F4843E"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -319,7 +322,7 @@
                     android:layout_width="230pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="95"
+                    android:text=""
                     android:textColor="#F4843E"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -333,7 +336,7 @@
                     android:layout_width="231pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="95"
+                    android:text=""
                     android:textColor="#F4843E"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -379,14 +382,13 @@
                     <ImageView
                         android:id="@+id/img_yan"
                         android:layout_width="32pt"
-                        android:layout_height="44pt"
-                        android:src="@drawable/red_up"/>
+                        android:layout_height="44pt"/>
                     <TextView
                         android:id="@+id/pc_yan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="5"
+                        android:text=""
                         android:textColor="#FF5747"
                         android:textSize="56pt"
                         android:textStyle="bold"
@@ -406,14 +408,13 @@
                     <ImageView
                         android:id="@+id/img_yundong"
                         android:layout_width="32pt"
-                        android:layout_height="44pt"
-                        android:src="@drawable/red_up"/>
+                        android:layout_height="44pt"/>
                     <TextView
                         android:id="@+id/pc_yundong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="3"
+                        android:text=""
                         android:textColor="#FF5747"
                         android:textSize="56pt"
                         android:textStyle="bold"
@@ -432,14 +433,13 @@
                     <ImageView
                         android:id="@+id/img_tizhong"
                         android:layout_width="32pt"
-                        android:layout_height="44pt"
-                        android:src="@drawable/red_up"/>
+                        android:layout_height="44pt"/>
                     <TextView
                         android:id="@+id/pc_tizhong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="3"
+                        android:text=""
                         android:textColor="#FF5747"
                         android:textSize="56pt"
                         android:textStyle="bold"
@@ -458,14 +458,13 @@
                     <ImageView
                         android:id="@+id/img_yinjiu"
                         android:layout_width="32pt"
-                        android:layout_height="44pt"
-                        android:src="@drawable/red_up"/>
+                        android:layout_height="44pt"/>
                     <TextView
                         android:id="@+id/pc_yinjiu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="3"
+                        android:text=""
                         android:textColor="#FF5747"
                         android:textSize="56pt"
                         android:textStyle="bold"
@@ -487,57 +486,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="完成进度"
-            android:textColor="#666"
-            android:textSize="48pt"
-            android:layout_marginTop="50pt"
-            android:layout_marginLeft="50pt"/>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:layout_marginTop="56pt"
+            android:layout_marginLeft="50pt"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_progress3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:textSize="72pt"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:text=""
+            android:layout_gravity="end"
+            android:layout_marginRight="40pt"
+            android:layout_marginTop="-16pt"/>
+
+        <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
+            android:id="@+id/rpb_sum"
+            android:layout_width="match_parent"
+            android:layout_height="40pt"
+            app:rcBackgroundColor="#eee"
             android:layout_marginLeft="40pt"
             android:layout_marginRight="40pt"
-            android:layout_marginTop="28pt"
-            android:gravity="center">
-            <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
-                android:id="@+id/rpb_sum"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="40pt"
-                app:rcBackgroundColor="#eee"
-                app:rcMax="100"
-                app:rcProgress="70"
-                app:rcProgressColor="#F78237"
-                app:rcRadius="20pt"
-                app:rcTextProgressMargin="10dp" />
-            <TextView
-                android:id="@+id/tv_progress3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="56pt"
-                android:textColor="#333"
-                android:textStyle="bold"
-                android:text="72%"
-                android:layout_marginLeft="8pt"/>
-        </LinearLayout>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/tv_advice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28pt"
-                    android:lineSpacingMultiplier="1.2"
-                    android:textColor="#333"
-                    android:textSize="48pt" />
-            </LinearLayout>
-        </ScrollView>
+            android:layout_marginTop="16pt"
+            app:rcMax="100"
+            app:rcProgress="0"
+            app:rcProgressColor="#F78237"
+            app:rcRadius="20pt"
+            app:rcTextProgressMargin="10dp" />
     </LinearLayout>
     <com.github.mikephil.charting.charts.RadarChart
         android:id="@+id/chart"

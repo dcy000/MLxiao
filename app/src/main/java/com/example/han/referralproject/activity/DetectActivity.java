@@ -268,16 +268,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onSuccess(MeasureResult response) {
                 startActivity(new Intent(DetectActivity.this, MeasureXueyaResultActivity.class)
-                        .putExtra("measure_piangao_num", response.high)
-                        .putExtra("measure_zhengchang_num", response.regular)
-                        .putExtra("measure_piandi_num", response.low)
                         .putExtra("measure_sum", response.zonggong)
                         .putExtra("current_gaoya", getNew + "")
                         .putExtra("current_diya", down + "")
                         .putExtra("suggest", response.message)
                         .putExtra("week_avg_gaoya", response.Recently_avg_high)
                         .putExtra("week_avg_diya", response.Recently_avg_low)
-                        .putExtra("fenshu", response.exponent));
+                        .putExtra("fenshu", response.exponent)
+                        .putExtra("mb_gaoya", response.Psst)
+                        .putExtra("mb_diya", response.Pdst));
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -319,7 +318,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                         });
                     } else {
-                        ToastTool.showShort( message);
+                        ToastTool.showShort(message);
                     }
                 } else {
                     ToastTool.showShort("网络异常");
@@ -395,7 +394,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         ToastTool.showShort(message);
                     }
                 } else {
-                    ToastTool.showShort( "网络异常");
+                    ToastTool.showShort("网络异常");
                 }
             }
         });
@@ -722,15 +721,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
             speak(String.format(getString(R.string.tips_result_niaosuan), formatString, speakFlag));
         } else if (notifyData[1] == 97) {//胆固醇
-            info.cholesterol = String.format("%.2f",afterResult);
-            mSanHeYiThreeTv.setText(String.format("%.2f",afterResult));
+            info.cholesterol = String.format("%.2f", afterResult);
+            mSanHeYiThreeTv.setText(String.format("%.2f", afterResult));
             if (result < 3.0)
                 speakFlag = "偏低";
             else if (result > 6.0)
                 speakFlag = "偏高";
             else
                 speakFlag = "正常";
-            speak(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f",afterResult), speakFlag));
+            speak(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f", afterResult), speakFlag));
         }
 
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
@@ -956,7 +955,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position",0);
+                intent.putExtra("position", 0);
                 startActivity(intent);
             }
         });
@@ -965,7 +964,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position",1);
+                intent.putExtra("position", 1);
                 startActivity(intent);
             }
         });
@@ -974,7 +973,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position",2);
+                intent.putExtra("position", 2);
                 startActivity(intent);
             }
         });
@@ -983,7 +982,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position",3);
+                intent.putExtra("position", 3);
                 startActivity(intent);
             }
         });
@@ -992,20 +991,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position",7);
+                intent.putExtra("position", 7);
                 startActivity(intent);
             }
         });
         findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position",6));
+                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
             }
         });
         findViewById(R.id.history6).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position",8));
+                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 8));
             }
         });
         ivBack = (ImageView) findViewById(R.id.iv_back);
@@ -1380,7 +1379,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     return;
                 }
 
-                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())) {
+//                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())) {
+                if (detectType == Type_Xueya && device.getName().startsWith("Yuwell")) {
                     mDeviceAddress = device.getAddress();
                     if (mBluetoothLeService == null) {
                         Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);

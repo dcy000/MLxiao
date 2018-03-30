@@ -70,6 +70,11 @@ android {
         }
     }
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/beans.xml'
+    }
+
 }
 
 
@@ -82,7 +87,6 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
     compile files('libs/pinyin4j-2.5.0.jar')
     compile files('libs/commons-lang-2.3.jar')
@@ -102,7 +106,7 @@ dependencies {
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.github.bumptech.glide:glide:3.8.0'
-    compile "jp.wasabeef:glide-transformations:3.1.1"
+    compile 'jp.wasabeef:glide-transformations:3.1.1'
     compile 'me.wcy:lrcview:1.4.2'
     compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'
     compile 'com.netease.nimlib:basesdk:4.3.0'
@@ -110,7 +114,6 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
-    compile 'com.android.support:support-v4:26.1.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
@@ -139,16 +142,14 @@ dependencies {
     compile name: 'library', ext: 'aar'
     compile name: 'vmtools', ext: 'aar'
     compile name: 'voicelibrary', ext: 'aar'
-//    compile name: 'wkvideoplayer', ext: 'aar'
+    //    compile name: 'wkvideoplayer', ext: 'aar'
     compile project(':wkvideoplayer')
-
     compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
-    compile project(":module-edu")
-
-    compile project(":lib-video-player")
-    compile project(":lib-zxing")
-//    compile name: 'sdk', ext: 'aar'
+    compile project(':module-edu')
+    compile project(':lib-video-player')
+    compile project(':lib-zxing')
+    //    compile name: 'sdk', ext: 'aar'
     //    compile name: 'sdk', ext: 'aar'
     //极光推送
     compile 'cn.jiguang.sdk:jpush:3.1.1'
@@ -160,7 +161,12 @@ dependencies {
     compile 'com.umeng.analytics:analytics:6.1.2'
     compile 'me.songning.CircleView:library:1.0.0'
     compile project(':circleprogress')
+    compile project(':expand-textview-library')
     compile project(':lib-rulerview')
     //日志库
     compile 'com.orhanobut:logger:2.1.1'
+    //    compile 'me.relex:circleindicator:1.2.2@aar'
+    compile project(':circleindicator')
+    //    compile project(':module_hykd')
+    compile project(':voice')
 }

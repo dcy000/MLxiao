@@ -84,7 +84,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
 
     public ImageView rlBack;
-    public boolean isTest = false;
     private ByteArrayOutputStream stream;
     private Handler mHandler = new Handler(new Handler.Callback() {
 
@@ -152,13 +151,20 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
     private boolean isFast;
 
+    private void openAnimation() {
+        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
+        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
+        findViewById(R.id.door_left).startAnimation(left);
+        findViewById(R.id.door_right).startAnimation(right);
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
-        isTest = getIntent().getBooleanExtra("isTest", false);
         isFast = getIntent().getBooleanExtra("isFast", false);
+
         initUI();
 
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
@@ -167,6 +173,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         setSurfaceSize();
         stream = new ByteArrayOutputStream();
+        openAnimation();
     }
 
 
@@ -222,9 +229,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isTest) {
-                    startActivity(new Intent(mContext, MainActivity.class));
-                }
                 finish();
             }
         });

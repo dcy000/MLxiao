@@ -16,15 +16,12 @@ import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
-import com.medlink.danbogh.signin.SignInActivity;
-import com.ml.videoplayer.MlVideoPlayer;
 
 import java.util.ArrayList;
 
@@ -172,13 +169,13 @@ public class WelcomeActivity extends BaseActivity {
 
         @Override
         public int getLayoutId() {
-            return R.layout.ml_player_splash;
+            return R.layout.ml_player;
         }
 
         @Override
         public void init(Context context) {
             super.init(context);
-            findViewById(R.id.afirez_tv_action).setOnClickListener(this);
+            findViewById(R.id.common_tv_action).setOnClickListener(this);
             backButton.setVisibility(GONE);
             batteryTimeLayout.setVisibility(GONE);
             try {
@@ -197,6 +194,14 @@ public class WelcomeActivity extends BaseActivity {
                     }
                 }
             });
+        }
+
+        @Override
+        public void onClick(View v) {
+            super.onClick(v);
+            if (v.getId() == R.id.common_tv_action) {
+
+            }
         }
 
         @Override

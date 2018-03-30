@@ -16,172 +16,91 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="32pt">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="高压"
-            android:textColor="#333"
-            android:textSize="56pt"
-            android:textStyle="bold"
-            android:layout_marginLeft="40pt"
-            android:layout_marginTop="40pt"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt"
-            android:layout_marginTop="40pt"
-            android:gravity="bottom">
+            android:gravity="center_vertical"
+            android:layout_marginTop="56pt">
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#49DF84"
+                android:layout_marginLeft="40pt"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="实际血压"
+                android:text="正常"
                 android:textColor="#333"
-                android:textSize="48pt"/>
-            <TextView
-                android:id="@+id/sj_gaoya"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="150"
-                android:textSize="64pt"
-                android:textColor="#333"
-                android:textStyle="bold"/>
+                android:textSize="48pt"
+                android:layout_marginLeft="16pt"/>
         </LinearLayout>
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
-            android:id="@+id/rpb_sj_gaoya"
-            android:layout_width="match_parent"
-            android:layout_height="40pt"
-            app:rcBackgroundColor="#eee"
-            app:rcProgressColor="#FF5A5A"
-            app:rcRadius="20pt"
-            app:rcMax="100"
-            app:rcProgress="50"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt"
-            android:layout_marginTop="16pt"
-            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt"
-            android:layout_marginTop="48pt"
-            android:gravity="bottom">
+            android:gravity="center_vertical"
+            android:layout_marginTop="32pt">
+            <View
+                android:layout_width="32pt"
+                android:layout_height="32pt"
+                android:background="#FF5747"
+                android:layout_marginLeft="40pt"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="目标血压"
+                android:text="异常"
                 android:textColor="#333"
-                android:textSize="48pt"/>
-            <TextView
-                android:id="@+id/mb_gaoya"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="145"
-                android:textSize="64pt"
-                android:textColor="#333"
-                android:textStyle="bold"/>
+                android:textSize="48pt"
+                android:layout_marginLeft="16pt"/>
         </LinearLayout>
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
-            android:id="@+id/rpb_mb_gaoya"
-            android:layout_width="match_parent"
-            android:layout_height="40pt"
-            app:rcBackgroundColor="#eee"
-            app:rcProgressColor="#5BD78C"
-            app:rcRadius="20pt"
-            app:rcMax="100"
-            app:rcProgress="50"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt"
-            android:layout_marginTop="16pt"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="低压"
-            android:textColor="#333"
-            android:textSize="56pt"
-            android:textStyle="bold"
-            android:layout_marginLeft="40pt"
-            android:layout_marginTop="50pt"/>
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt"
-            android:layout_marginTop="40pt"
-            android:gravity="bottom">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="实际血压"
-                android:textColor="#333"
-                android:textSize="48pt"/>
-            <TextView
-                android:id="@+id/sj_diya"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="95"
-                android:textSize="64pt"
-                android:textColor="#333"
-                android:textStyle="bold"/>
-        </LinearLayout>
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
-            android:id="@+id/rpb_sj_diya"
-            android:layout_width="match_parent"
-            android:layout_height="40pt"
-            app:rcBackgroundColor="#eee"
-            app:rcProgressColor="#FF5A5A"
-            app:rcRadius="20pt"
-            app:rcMax="100"
-            app:rcProgress="50"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt"
-            android:layout_marginTop="16pt"
-            />
-        <LinearLayout
+            android:layout_marginTop="75pt">
+            <View
+                android:id="@+id/view_left"
+                android:layout_width="60pt"
+                android:layout_height="600pt"
+                android:background="#FF5747"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/view_right"/>
+            <View
+                android:id="@+id/view_right"
+                android:layout_width="60pt"
+                android:layout_height="282pt"
+                android:background="#49DF84"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/view_left"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt"
-            android:layout_marginTop="48pt"
-            android:gravity="bottom">
+            android:layout_marginTop="32pt">
             <TextView
+                android:id="@+id/tv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="目标血压"
+                android:text="高压"
+                android:textSize="56pt"
                 android:textColor="#333"
-                android:textSize="48pt"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tv_right"/>
             <TextView
-                android:id="@+id/mb_diya"
+                android:id="@+id/tv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="92"
-                android:textSize="64pt"
+                android:text="低压"
                 android:textColor="#333"
-                android:textStyle="bold"/>
-        </LinearLayout>
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
-            android:id="@+id/rpb_mb_diya"
-            android:layout_width="match_parent"
-            android:layout_height="40pt"
-            app:rcBackgroundColor="#eee"
-            app:rcProgressColor="#5BD78C"
-            app:rcRadius="20pt"
-            app:rcMax="100"
-            app:rcProgress="50"
-            android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt"
-            android:layout_marginTop="16pt"
-            />
+                android:textSize="56pt"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tv_left"/>
+
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_right"
@@ -198,19 +117,24 @@
         android:layout_marginRight="32pt">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="本周目标与进度"
-            android:textSize="48pt"
-            android:textColor="#666"
-            android:layout_margin="40pt"/>
+            android:textSize="56pt"
+            android:textColor="#333"
+            android:layout_marginLeft="40pt"
+            android:layout_marginTop="56pt"
+            android:textStyle="bold"
+            />
         <!--表格-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="39pt"
             android:layout_marginRight="39pt"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="48pt">
 
             <View
                 android:layout_width="match_parent"
@@ -298,7 +222,7 @@
                     android:layout_width="462pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="&lt;145"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -313,7 +237,7 @@
                     android:layout_width="462pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="&lt;92"
+                    android:text=""
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -356,8 +280,8 @@
                     android:layout_width="462pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="150"
-                    android:textColor="#F4843E"
+                    android:text=""
+                    android:textColor="#333333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
 
@@ -371,8 +295,8 @@
                     android:layout_width="462pt"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="95"
-                    android:textColor="#F4843E"
+                    android:text=""
+                    android:textColor="#333333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
 
@@ -417,14 +341,13 @@
                     <ImageView
                         android:id="@+id/img_gaoya"
                         android:layout_width="32pt"
-                        android:layout_height="44pt"
-                        android:src="@drawable/red_up"/>
+                        android:layout_height="44pt"/>
                     <TextView
                         android:id="@+id/pc_gaoya"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="5"
+                        android:text=""
                         android:textColor="#FF5747"
                         android:textSize="56pt"
                         android:textStyle="bold"
@@ -444,14 +367,13 @@
                     <ImageView
                         android:id="@+id/img_diya"
                         android:layout_width="32pt"
-                        android:layout_height="44pt"
-                        android:src="@drawable/red_up"/>
+                        android:layout_height="44pt"/>
                     <TextView
                         android:id="@+id/pc_diya"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="3"
+                        android:text=""
                         android:textColor="#FF5747"
                         android:textSize="56pt"
                         android:textStyle="bold"
@@ -473,57 +395,53 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="完成进度"
-            android:textColor="#666"
-            android:textSize="48pt"
-            android:layout_marginTop="50pt"
-            android:layout_marginLeft="50pt"/>
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal"
-           android:layout_marginLeft="40pt"
-           android:layout_marginRight="40pt"
-           android:layout_marginTop="28pt"
-           android:gravity="center">
-           <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
-               android:id="@+id/rpb_sum"
-               android:layout_width="wrap_content"
-               android:layout_weight="1"
-               android:layout_height="40pt"
-               app:rcBackgroundColor="#eee"
-               app:rcMax="100"
-               app:rcProgress="70"
-               app:rcProgressColor="#F78237"
-               app:rcRadius="20pt"
-               app:rcTextProgressMargin="10dp" />
-           <TextView
-               android:id="@+id/tv_progress2"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="56pt"
-               android:textColor="#333"
-               android:textStyle="bold"
-               android:text="72%"
-               android:layout_marginLeft="8pt"/>
-       </LinearLayout>
-        <ScrollView
-            android:layout_width="match_parent"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:layout_marginTop="56pt"
+            android:layout_marginLeft="50pt"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_progress2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="72pt"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:text=""
+            android:layout_gravity="end"
+            android:layout_marginRight="40pt"
+            android:layout_marginTop="-16pt"/>
+        <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
+            android:id="@+id/rpb_sum"
+            android:layout_width="match_parent"
+            android:layout_height="40pt"
+            app:rcBackgroundColor="#eee"
+            app:rcMax="100"
+            app:rcProgress="0"
+            app:rcProgressColor="#F78237"
+            app:rcRadius="20pt"
+            app:rcTextProgressMargin="10dp"
             android:layout_marginLeft="40pt"
-            android:layout_marginRight="40pt">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/tv_advice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28pt"
-                    android:lineSpacingMultiplier="1.2"
-                    android:textColor="#333"
-                    android:textSize="48pt" />
-            </LinearLayout>
-        </ScrollView>
+            android:layout_marginRight="40pt"
+            android:layout_marginTop="16pt"/>
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="40pt"-->
+            <!--android:layout_marginRight="40pt">-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_advice"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="28pt"-->
+                    <!--android:lineSpacingMultiplier="1.2"-->
+                    <!--android:textColor="#333"-->
+                    <!--android:textSize="48pt" />-->
+            <!--</LinearLayout>-->
+        <!--</ScrollView>-->
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

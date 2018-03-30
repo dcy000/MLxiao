@@ -27,4 +27,6 @@ public class WeeklyReport implements Serializable{
     public String nam;
     public String bmis;
     public String gy_avg;
+    public String p_gy;
+    public String p_dy;
 }

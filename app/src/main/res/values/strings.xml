@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">转诊宝</string>
+    <string name="app_name">健康管家</string>
 
     <string name="user_name">使用手机号码登录</string>
     <string name="user_pwd">请输入密码</string>
