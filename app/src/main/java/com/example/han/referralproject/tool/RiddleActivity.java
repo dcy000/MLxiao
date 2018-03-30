@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.tool.dialog.RiddleDialog;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
@@ -135,6 +136,9 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     }
 
     private void showNext() {
+        if (data == null || data.size() == 0) {
+            return;
+        }
         index++;
         String title = data.get(index % size).title;
         tvQuestion.setText(title);
@@ -224,6 +228,17 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         String result = stringBuffer.toString();
 
         if (isLast) {
+            String resultPinYin = PinYinUtils.converterToSpell(result);
+            //拦截处理 下一题 显示答案
+            if (resultPinYin.matches(".*(xiayiti|xiayinti|xiayitin).*")) {
+                tvShowNext.performClick();
+                return;
+            }
+
+            if (resultPinYin.matches(".*(xianshidaan|xiansidaan|xiangshidaan|xiansidaan|xiansidaang).*")) {
+                tvShowAnwser.performClick();
+                return;
+            }
 
             if (TextUtils.isEmpty(result)) {
                 speak("主人,我没听清,您能再说一遍吗");
@@ -240,25 +255,9 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 return;
             }
 
-            if (!data.isEmpty()) {
+            if (data != null && data.size() != 0) {
                 String answer = data.get(index % size).answer;
-//                String resultPinYin = PinYinUtils.converterToSpell(result);
-//                String answerPinYin = PinYinUtils.converterToSpell(answer);
-                //拦截处理 下一题 显示答案
-//                if (resultPinYin.matches(".*(xiayiti|xiayinti|xiayitin).*")) {
-//                    tvShowNext.performClick();
-//                    return;
-//                }
-//
-//                if (resultPinYin.matches(".*(xianshidaan|xiansidaan|xiangshidaan|xiansidaan|xiansidaang).*")) {
-//                    tvShowAnwser.performClick();
-//                    return;
-//                }
 
-//                if (answerPinYin.contains(resultPinYin)) {
-//                    speak("恭喜主人答对了");
-//                    return;
-//                }
                 if (answer.equals(result) || answer.contains(result)) {
                     speak("恭喜主人答对了");
                 } else {
