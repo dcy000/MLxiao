@@ -57,6 +57,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     private int index;
     private List<RiddleBean> data;
     private int size;
+    private String resultPinYin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,16 +228,10 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         StringBuffer stringBuffer = printResult(recognizerResult);
         String result = stringBuffer.toString();
 
-        if (isLast) {
-            String resultPinYin = PinYinUtils.converterToSpell(result);
-            //拦截处理 下一题 显示答案
-            if (resultPinYin.matches(".*(xiayiti|xiayinti|xiayitin).*")) {
-                tvShowNext.performClick();
-                return;
-            }
 
-            if (resultPinYin.matches(".*(xianshidaan|xiansidaan|xiangshidaan|xiansidaan|xiansidaang).*")) {
-                tvShowAnwser.performClick();
+        if (isLast) {
+
+            if (data != null && data.size() != 0) {
                 return;
             }
 
@@ -244,18 +239,35 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 speak("主人,我没听清,您能再说一遍吗");
                 return;
             }
+            try {
 
-            if (result.equals("下一题") || result.contains("下一题")) {
-                tvShowNext.performClick();
-                return;
-            }
+                resultPinYin = PinYinUtils.converterToSpell(result);
+            } catch (Exception e) {
 
-            if (result.equals("显示答案") || result.contains("显示答案") || result.contains("看答案")) {
-                tvShowAnwser.performClick();
-                return;
-            }
 
-            if (data != null && data.size() != 0) {
+                //拦截处理 下一题 显示答案
+                if (resultPinYin.matches(".*(xiayiti|xiayinti|xiayitin).*")) {
+                    tvShowNext.performClick();
+                    return;
+                }
+
+                if (resultPinYin.matches(".*(xianshidaan|xiansidaan|xiangshidaan|xiansidaan|xiansidaang).*")) {
+                    tvShowAnwser.performClick();
+                    return;
+                }
+
+
+                if (result.equals("下一题") || result.contains("下一题")) {
+                    tvShowNext.performClick();
+                    return;
+                }
+
+                if (result.equals("显示答案") || result.contains("显示答案") || result.contains("看答案")) {
+                    tvShowAnwser.performClick();
+                    return;
+                }
+
+
                 String answer = data.get(index % size).answer;
 
                 if (answer.equals(result) || answer.contains(result)) {
@@ -263,9 +275,11 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 } else {
                     speak("主人,您再猜一下!");
                 }
-            }
 
+            }
         }
+
+
     }
 
 
