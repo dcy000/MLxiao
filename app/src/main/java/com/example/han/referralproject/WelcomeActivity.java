@@ -171,8 +171,16 @@ public class WelcomeActivity extends BaseActivity {
         }
 
         @Override
+        public int getLayoutId() {
+            return R.layout.ml_player_splash;
+        }
+
+        @Override
         public void init(Context context) {
             super.init(context);
+            findViewById(R.id.afirez_tv_action).setOnClickListener(this);
+            backButton.setVisibility(GONE);
+            batteryTimeLayout.setVisibility(GONE);
             try {
                 mWelcomeActivity = (WelcomeActivity) context;
             } catch (Throwable e) {

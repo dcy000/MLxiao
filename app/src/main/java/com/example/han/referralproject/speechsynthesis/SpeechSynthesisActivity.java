@@ -598,30 +598,30 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
                 NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
-                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
-                    @Override
-                    public void onSuccess(UserInfo response) {
-                        if (isFinishing() || isDestroyed()) {
-                            return;
-                        }
-                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-                            @Override
-                            public void onSuccess(Object response) {
-
-                            }
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-
-                            }
-                        });
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-
-                    }
-                });
+//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
+//                    @Override
+//                    public void onSuccess(UserInfo response) {
+//                        if (isFinishing() || isDestroyed()) {
+//                            return;
+//                        }
+//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
+//                            @Override
+//                            public void onSuccess(Object response) {
+//
+//                            }
+//                        }, new NetworkManager.FailedCallback() {
+//                            @Override
+//                            public void onFailed(String message) {
+//
+//                            }
+//                        });
+//                    }
+//                }, new NetworkManager.FailedCallback() {
+//                    @Override
+//                    public void onFailed(String message) {
+//
+//                    }
+//                });
                 return;
             }
 
