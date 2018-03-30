@@ -240,7 +240,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         tvRecordQrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = "http://192.168.200.157:8080/ZZB/br/whole_informations?bid=" + MyApplication.getInstance().userId + "&bname=" + MyApplication.getInstance().userName;
+                String text = NetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + MyApplication.getInstance().userId + "&bname=" + MyApplication.getInstance().userName;
                 MyDialogFragment.newInstance(text).show(getSupportFragmentManager(), MyDialogFragment.TAG);
             }
         });

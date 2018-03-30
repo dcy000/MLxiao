@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Rect;
@@ -20,8 +19,8 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
@@ -40,22 +39,18 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.bean.XfGroupInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
-import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
@@ -79,25 +74,19 @@ import org.json.JSONObject;
 public class AuthenticationActivity extends BaseActivity {
     private SurfaceView mPreviewSurface;
     private Camera mCamera;
-    // Camera nv21格式预览帧的尺寸，默认设置640*480  1280*720
     private int PREVIEW_WIDTH = 1280;
     private int PREVIEW_HEIGHT = 720;
-    // 预览帧数据存储数组和缓存数组
-//    private byte[] nv21;
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
-    //    // 加速度感应器，用于获取手机的朝向
-//    private Accelerometer mAcc;
     private static byte[] mImageData = null;
     private Bitmap b3;
     private String orderid;
-    private NDialog2 dialog2;
     private String[] xfids;//存放本地取得所有xfid
     private String fromString;//标识从哪个页面过来的
     private String fromType;
     private Button mTiaoguo;
     private ByteArrayOutputStream baos;
-    private static boolean isGetImageFlag = true;
+    private static boolean isGetImageFlag = false;
     private String mAuthid;
     private MyHandler myHandler;
     private ArrayList<UserInfoBean> mDataList;
@@ -105,6 +94,8 @@ public class AuthenticationActivity extends BaseActivity {
     private int authenticationNum = 0;
     private TextView tvTips;
     private boolean isTest;
+    private LottieAnimationView lottAnimation;
+    private Animation rotateAnim;
 
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
@@ -117,6 +108,7 @@ public class AuthenticationActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
+                    findViewById(R.id.iv_circle).startAnimation(rotateAnim);
                     FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, LocalShared.getInstance(weakReference.get()).getGroupId());
                     FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
                         @Override
@@ -148,11 +140,11 @@ public class AuthenticationActivity extends BaseActivity {
                                         if (firstScore > 30) {
                                             authenticationNum = 0;
                                             ToastTool.showShort("请将您的面孔靠近摄像头，再试一次");
-                                            myHandler.sendEmptyMessage(1);
+                                            myHandler.sendEmptyMessage(2);
+                                            myHandler.sendEmptyMessageDelayed(1, 2000);
                                         } else {
                                             ToastTool.showLong("匹配度" + String.format("%.2f", firstScore) + "%,验证不通过!");
                                             finishActivity();
-                                            finish();
                                         }
                                     }
                                 } else {
@@ -174,13 +166,16 @@ public class AuthenticationActivity extends BaseActivity {
                                 if (authenticationNum < 5) {
                                     authenticationNum++;
                                     ToastTool.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
-                                    myHandler.sendEmptyMessageDelayed(1, 1500);
+                                    myHandler.sendEmptyMessage(2);
+                                    myHandler.sendEmptyMessageDelayed(1, 2000);
                                 } else {
                                     finishActivity();
-                                    finish();
                                 }
                         }
                     });
+                    break;
+                case 2:
+                    isGetImageFlag = true;
                     break;
             }
         }
@@ -193,7 +188,7 @@ public class AuthenticationActivity extends BaseActivity {
      * @param weakReference
      */
     private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<AuthenticationActivity> weakReference) {
-        finishActivity();
+
         ToastTool.showShort("通过验证，欢迎回来！");
         if (mDataList != null) {
             for (int i = 0; i < mDataList.size(); i++) {
@@ -234,7 +229,7 @@ public class AuthenticationActivity extends BaseActivity {
                     ToastTool.showLong("验证不通过!");
                 }
             }
-            finish();
+            finishActivity();
         }
     }
 
@@ -245,10 +240,8 @@ public class AuthenticationActivity extends BaseActivity {
         NetworkApi.pay_status(MyApplication.getInstance().userId, Utils.getDeviceId(), orderid, new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                speak(getString(R.string.shop_success));
-                showNormal("支付成功", "1");
+                setResult(RESULT_OK);
                 finishActivity();
-                GoodDetailActivity.mActivity.finish();
             }
 
         }, new NetworkManager.FailedCallback() {
@@ -298,7 +291,6 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void joinGroup() {
-        tvTips.setText("正在连接人脸库,请稍等...");
         String groupid = LocalShared.getInstance(this).getGroupId();
         String firstXfid = LocalShared.getInstance(this).getGroupFirstXfid();
         final String currentXfid = LocalShared.getInstance(this).getXunfeiId();
@@ -310,6 +302,7 @@ public class AuthenticationActivity extends BaseActivity {
                 openAnimation();
                 //添加完成以后，马上进行人脸匹配
                 if (isFirstSend) {
+                    myHandler.sendEmptyMessage(2);
                     myHandler.sendEmptyMessageDelayed(1, 2000);
                     isFirstSend = false;
                 }
@@ -327,6 +320,7 @@ public class AuthenticationActivity extends BaseActivity {
                     createGroup(currentXfid);
                 } else {
                     openAnimation();
+                    myHandler.sendEmptyMessage(2);
                     myHandler.sendEmptyMessageDelayed(1, 2000);
                 }
 
@@ -344,29 +338,7 @@ public class AuthenticationActivity extends BaseActivity {
                     String groupId = resObj.getString("group_id");
                     LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
                     LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfid);
-                    //组创建好以后把自己加入到组中去
-                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).
-                            joinGroup(groupId, xfid);
-                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
-                        @Override
-                        public void onResult(IdentityResult result, boolean islast) {
-                            Log.d("SignInActivity", "onResult:添加自己到组中成功");
-                            openAnimation();
-                            myHandler.sendEmptyMessageDelayed(1, 2000);
-                        }
-
-                        @Override
-                        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-                        }
-
-                        @Override
-                        public void onError(SpeechError error) {
-                            finishActivity();
-                            finish();
-                            ToastTool.showShort("验证失败");
-                        }
-                    });
+                    joinGroup();
                     FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).updateGroupInformation(groupId, xfid);
 
                 } catch (JSONException e) {
@@ -387,17 +359,12 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void openAnimation() {
-        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
-        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
-        findViewById(R.id.door_left).startAnimation(left);
-        findViewById(R.id.door_right).startAnimation(right);
+        lottAnimation.playAnimation();
     }
 
     private void closeAnimation() {
-        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_in_left);
-        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_in_right);
-        findViewById(R.id.door_left).startAnimation(left);
-        findViewById(R.id.door_right).startAnimation(right);
+        lottAnimation.reverseAnimation();
+        findViewById(R.id.iv_circle).clearAnimation();
     }
 
     private void getAllUsersInfo() {
@@ -435,29 +402,82 @@ public class AuthenticationActivity extends BaseActivity {
         if ("Test".equals(fromString)) {
             mTiaoguo.setVisibility(View.VISIBLE);
         }
-        dialog2 = new NDialog2(AuthenticationActivity.this);
+        mPreviewSurface = findViewById(R.id.sfv_preview);
 
-        Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
-        findViewById(R.id.iv_circle).startAnimation(rotateAnim);
+        rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
         baos = new ByteArrayOutputStream();
         myHandler = new MyHandler(this);
         tvTips = findViewById(R.id.tv_tip);
+        lottAnimation = findViewById(R.id.lott_animation);
+        lottAnimation.setImageAssetsFolder("lav_imgs/");
+        lottAnimation.setAnimation("camera_pre.json");
 
     }
 
 
     private void openCameraPreview() {
-//        nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
-        mPreviewSurface = findViewById(R.id.sfv_preview);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = (int) (width * PREVIEW_WIDTH / (float) PREVIEW_HEIGHT);
+        LayoutParams params = new LayoutParams(width, height);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        mPreviewSurface.setLayoutParams(params);
+
         mPreviewSurface.getHolder().addCallback(new Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
+                Logger.e("getHolder().addCallback所在线程");
                 Handlers.bg().post(new Runnable() {
                     @Override
                     public void run() {
-                        openCamera();//启动相机
+                        try {
+                            mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
+                        } catch (Exception e) {
+                        }
+                        Parameters params = mCamera.getParameters();
+                        params.setPreviewFormat(ImageFormat.NV21);
+                        params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+                        mCamera.setParameters(params);
+                        setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
+                        mCamera.addCallbackBuffer(new byte[((PREVIEW_WIDTH * PREVIEW_HEIGHT) * ImageFormat.getBitsPerPixel(ImageFormat.NV21)) / 8]);
+                        mCamera.setPreviewCallbackWithBuffer(new PreviewCallback() {
+                            @Override
+                            public void onPreviewFrame(final byte[] data, Camera camera) {
+                                mCamera.addCallbackBuffer(data);
+                                if (isGetImageFlag) {
+                                    isGetImageFlag = false;
+                                    Handlers.bg().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            b3 = decodeToBitMap(data, mCamera);
+                                            if (b3 != null) {
+                                                Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
+                                                if (bitmap != null) {
+                                                    if (null != baos) {
+                                                        baos.reset();
+                                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                                    }
+                                                    if (null != baos) {
+                                                        mImageData = baos.toByteArray();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                        try {
+                            mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
+                            mCamera.startPreview();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
+
             }
 
             @Override
@@ -470,15 +490,6 @@ public class AuthenticationActivity extends BaseActivity {
                 finish();
             }
         });
-        mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int width = metrics.widthPixels;
-        int height = (int) (width * PREVIEW_WIDTH / (float) PREVIEW_HEIGHT);
-        RelativeLayout.LayoutParams params = new LayoutParams(width, height);
-        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        mPreviewSurface.setLayoutParams(params);
 
 
     }
@@ -488,17 +499,16 @@ public class AuthenticationActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finishActivity();
-                finish();
             }
         });
 
         mTiaoguo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                finishActivity();
-                if (isTest){
-                    startActivity(new Intent(AuthenticationActivity.this,Test_mainActivity.class)
-                            .putExtra("isTest",isTest));
+
+                if (isTest) {
+                    startActivity(new Intent(AuthenticationActivity.this, Test_mainActivity.class)
+                            .putExtra("isTest", isTest));
                     return;
                 }
 
@@ -516,75 +526,9 @@ public class AuthenticationActivity extends BaseActivity {
                 } else if ("Welcome".equals(fromString)) {
                     startActivity(new Intent(AuthenticationActivity.this, SignInActivity.class));
                 }
-                finish();
+                finishActivity();
             }
         });
-    }
-
-
-    private void openCamera() {
-        if (null != mCamera) {
-            return;
-        }
-        if (!checkCameraPermission()) {
-            ToastTool.showShort("摄像头权限未打开，请打开后再试");
-            return;
-        }
-        int mCameraId = CameraInfo.CAMERA_FACING_BACK;
-        // 只有一个摄相头，打开后置
-        if (Camera.getNumberOfCameras() == 1) {
-            mCameraId = CameraInfo.CAMERA_FACING_BACK;
-        }
-        try {
-            mCamera = Camera.open(mCameraId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            finishActivity();
-            finish();
-            return;
-        }
-        Parameters params = mCamera.getParameters();
-        params.setPreviewFormat(ImageFormat.NV21);
-        params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
-        mCamera.setParameters(params);
-
-        // 设置显示的偏转角度，大部分机器是顺时针90度，某些机器需要按情况设置
-        setCameraDisplayOrientation(AuthenticationActivity.this, mCameraId, mCamera);
-        mCamera.setPreviewCallback(new PreviewCallback() {
-
-            @Override
-            public void onPreviewFrame(final byte[] data, Camera camera) {
-                if (isGetImageFlag) {
-                    isGetImageFlag = false;
-                    Handlers.bg().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            b3 = decodeToBitMap(data, mCamera);
-                            if (b3 != null) {
-                                Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
-                                if (bitmap != null) {
-                                    if (null != baos) {
-                                        baos.reset();
-                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                    }
-                                    if (null != baos) {
-                                        mImageData = baos.toByteArray();
-                                    }
-                                }
-                            }
-                            isGetImageFlag = true;
-                        }
-                    });
-                }
-            }
-        });
-
-        try {
-            mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
-            mCamera.startPreview();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -595,10 +539,10 @@ public class AuthenticationActivity extends BaseActivity {
      * @param camera
      */
     private void setCameraDisplayOrientation(Activity activity,
-                                             int cameraId, android.hardware.Camera camera) {
-        android.hardware.Camera.CameraInfo info =
-                new android.hardware.Camera.CameraInfo();
-        android.hardware.Camera.getCameraInfo(cameraId, info);
+                                             int cameraId, Camera camera) {
+        CameraInfo info =
+                new CameraInfo();
+        Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
                 .getRotation();
         int degrees = 0;
@@ -617,7 +561,7 @@ public class AuthenticationActivity extends BaseActivity {
                 break;
         }
         int result;
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+        if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
             result = (info.orientation + degrees) % 360;
             result = (360 - result) % 360;  // compensate the mirror
         } else {  // back-facing
@@ -627,34 +571,6 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private boolean isFirstSend = true;
-
-
-    public void showNormal(String message, final String sign) {
-        dialog2.setMessageCenter(true)
-                .setMessage(message)
-                .setMessageSize(50)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#3F86FC"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
-                    @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            if ("1".equals(sign)) {
-                                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-
-                    }
-                }).create(NDialog.CONFIRM).show();
-    }
 
 
     /**
@@ -685,35 +601,13 @@ public class AuthenticationActivity extends BaseActivity {
         return null;
     }
 
-
-    private void closeCamera() {
+    private void finishActivity() {
         if (null != mCamera) {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
         }
-
-    }
-
-    private boolean checkCameraPermission() {
-        int status = checkPermission(permission.CAMERA, Process.myPid(), Process.myUid());
-        if (PackageManager.PERMISSION_GRANTED == status) {
-            return true;
-        }
-        return false;
-    }
-
-    private void finishActivity() {
-        closeCamera();
-        Handlers.bg().removeCallbacksAndMessages(null);
-        myHandler.removeCallbacksAndMessages(null);
-        findViewById(R.id.iv_circle).clearAnimation();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
         if (baos != null) {
             try {
                 baos.close();
@@ -722,5 +616,15 @@ public class AuthenticationActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+        Handlers.bg().removeCallbacksAndMessages(null);
+        myHandler.removeCallbacksAndMessages(null);
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (lottAnimation != null)
+            lottAnimation.cancelAnimation();
     }
 }

@@ -107,6 +107,8 @@ public class VideoListActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
+        setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
         super.onResume();
         speak("主人，欢迎观看健康课堂");
     }

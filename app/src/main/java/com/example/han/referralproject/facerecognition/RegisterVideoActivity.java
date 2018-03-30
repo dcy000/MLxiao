@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -148,14 +149,10 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             return true;
         }
     });
-
-    private boolean isFast;
+    private LottieAnimationView lottAnimation;
 
     private void openAnimation() {
-        Animation left = AnimationUtils.loadAnimation(this, R.anim.door_out_left);
-        Animation right = AnimationUtils.loadAnimation(this, R.anim.door_out_right);
-        findViewById(R.id.door_left).startAnimation(left);
-        findViewById(R.id.door_right).startAnimation(right);
+        lottAnimation.playAnimation();
     }
 
     @SuppressWarnings("deprecation")
@@ -163,8 +160,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
-        isFast = getIntent().getBooleanExtra("isFast", false);
-
         initUI();
 
         mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
@@ -174,7 +169,13 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         setSurfaceSize();
         stream = new ByteArrayOutputStream();
         openAnimation();
+        Intent intent = getIntent();
+        if (intent != null) {
+            isFast = intent.getBooleanExtra("isFast", false);
+        }
     }
+
+    private boolean isFast;
 
 
     private Callback mPreviewCallback = new Callback() {
@@ -232,6 +233,9 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                 finish();
             }
         });
+        lottAnimation = findViewById(R.id.lott_animation);
+        lottAnimation.setImageAssetsFolder("lav_imgs/");
+        lottAnimation.setAnimation("camera_pre.json");
     }
 
     Bitmap b3;
@@ -351,7 +355,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
 
                         Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
-                        intent.putExtra("isFast", isFast);
+                        intent.putExtras(getIntent());
                         startActivity(intent);
                         finish();
                     } else {
@@ -447,6 +451,9 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (lottAnimation != null) {
+            lottAnimation.cancelAnimation();
+        }
         if (stream != null) {
             try {
                 stream.close();

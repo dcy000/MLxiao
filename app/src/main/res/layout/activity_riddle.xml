@@ -50,7 +50,7 @@
             android:layout_height="62dp"
             android:layout_marginStart="192dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/but_xsda"
+            android:background="@drawable/but_xsda_set"
             android:gravity="center"
             android:text="显示答案"
             android:textColor="#FF333333"
@@ -66,7 +66,7 @@
             android:layout_height="62dp"
             android:layout_marginEnd="196dp"
             android:layout_marginTop="390dp"
-            android:background="@drawable/but_xyt"
+            android:background="@drawable/but_xyt_set"
             android:gravity="center"
             android:text="下一题"
             android:textSize="24sp"
@@ -99,7 +99,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_show_anwser"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.19"
-            app:srcCompat="@drawable/iv_yuyin_caimi" />
+            android:background="@drawable/iv_yuyin_caimi_set" />
     </android.support.constraint.ConstraintLayout>
 
     <TextView

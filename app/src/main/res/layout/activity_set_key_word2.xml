@@ -38,7 +38,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="70dp"
-        android:src="@drawable/iv_yuyin_baike" />
+        android:background="@drawable/iv_yuyin_baike_set" />
 
     <TextView
         android:id="@+id/textView"

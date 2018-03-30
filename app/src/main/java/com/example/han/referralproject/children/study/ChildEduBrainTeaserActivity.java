@@ -149,6 +149,12 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         public void onMLResult(String result) {
             doData(result);
         }
+
+        @Override
+        public void onMLError(SpeechError error) {
+            endOfSpeech();
+            speak("主人,我没听清,您能再说一遍吗");
+        }
     };
 
     private void startListener() {

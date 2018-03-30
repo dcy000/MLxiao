@@ -219,4 +219,11 @@ public class WelcomeActivity extends BaseActivity {
         LocalShared.getInstance(this).setIsFirstIn(false);
         checkVersion();
     }
+
+    @Override
+    protected void onResume() {
+        setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
+    }
 }

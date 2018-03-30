@@ -1,10 +1,12 @@
 package com.example.han.referralproject.facerecognition;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
+import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
@@ -52,7 +55,6 @@ public class HeadiconActivity extends BaseActivity {
 
     ImageView mImageView1;
     ImageView mImageView2;
-    private boolean isFast;
 
 
     @Override
@@ -60,7 +62,6 @@ public class HeadiconActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_headicon);
-        isFast = getIntent().getBooleanExtra("isFast", false);
         uploadManager = new UploadManager();
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
 
@@ -93,7 +94,8 @@ public class HeadiconActivity extends BaseActivity {
                 //确定头像的时候就给该机器创建唯一的人脸识别组
                 final String userid = MyApplication.getInstance().userId;
                 final String xfid = LocalShared.getInstance(HeadiconActivity.this).getXunfeiId();
-                createGroup(userid, xfid);
+                checkGroup(userid, xfid);
+//                createGroup(userid, xfid);
             }
         });
 
@@ -118,6 +120,23 @@ public class HeadiconActivity extends BaseActivity {
 
         speak(R.string.head_icon);
 
+        Intent intent = getIntent();
+        isFast = intent.getBooleanExtra("isFast", false);
+    }
+
+    boolean isFast;
+
+    private void checkGroup(final String userid, final String xfid) {
+        //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
+        String groupId = LocalShared.getInstance(mContext).getGroupId();
+        String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
+        Logger.e("组id" + groupId);
+        if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
+            Log.e("组信息", "checkGroup: 该机器组已近存在");
+            joinGroup(userid, groupId, xfid);
+        } else {
+            createGroup(userid, xfid);
+        }
     }
 
     private void uploadHeadToSelf(final String userid, final String xfid) {
@@ -151,6 +170,7 @@ public class HeadiconActivity extends BaseActivity {
                                             startActivity(intent);
                                             finish();
                                         }
+
                                     }, new NetworkManager.FailedCallback() {
                                         @Override
                                         public void onFailed(String message) {
@@ -168,6 +188,7 @@ public class HeadiconActivity extends BaseActivity {
             @Override
             public void onFailed(String message) {
 
+
             }
         });
     }
@@ -184,10 +205,10 @@ public class HeadiconActivity extends BaseActivity {
                     LocalShared.getInstance(HeadiconActivity.this).setGroupId(groupId);
                     LocalShared.getInstance(HeadiconActivity.this).setGroupFirstXfid(xfid);
                     //组创建好以后把自己加入到组中去
-                    joinGroup(groupId, xfid);
+                    joinGroup(userid, groupId, xfid);
                     //加组完成以后把头像上传到我们自己的服务器
                     uploadHeadToSelf(userid, xfid);
-                    FaceAuthenticationUtils.getInstance(HeadiconActivity.this).updateGroupInformation(groupId,xfid);
+                    FaceAuthenticationUtils.getInstance(HeadiconActivity.this).updateGroupInformation(groupId, xfid);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -205,20 +226,18 @@ public class HeadiconActivity extends BaseActivity {
 //                    ToastTool.showShort("出现技术故障，请致电客服咨询");
 //                }
                 //如果在此处创建组失败就跳过创建
-                uploadHeadToSelf(userid,xfid);
+                uploadHeadToSelf(userid, xfid);
             }
         });
     }
 
     private static String TAG = "HeadiconActivity";
 
-    private void joinGroup(String groupid, String xfid) {
-        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).
-                joinGroup(groupid, xfid);
+    private void joinGroup(final String userid, String groupid, final String xfid) {
+        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
         FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
-                Log.d(TAG, "onResult:添加自己到组中成功");
             }
 
             @Override
@@ -228,19 +247,25 @@ public class HeadiconActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
+                Logger.e(error, "添加成员出现异常");
+                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
+                    createGroup(userid, xfid);
+                }
 
             }
         });
     }
 
+
     public void getImageUrl(String token, final String userid, final String xfid) {
+
 
     }
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
         super.onResume();
+        setDisableGlobalListen(true);
         startListening();
     }
 
