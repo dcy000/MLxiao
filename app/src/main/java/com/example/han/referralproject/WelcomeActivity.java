@@ -153,7 +153,7 @@ public class WelcomeActivity extends BaseActivity {
 
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
-        if (isFirstIn) {
+        if (false) {
             JZVideoPlayerStandard.startFullscreen(this, MyVideoPlayer.class, VEDIO_URL, "迈联智慧");
         } else {
             checkVersion();
