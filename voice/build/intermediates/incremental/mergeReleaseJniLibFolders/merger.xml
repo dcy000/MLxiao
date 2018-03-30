@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\working\MLxiao\voice\libs"><file name="armeabi-v7a/libmsc.so" path="E:\working\MLxiao\voice\libs\armeabi-v7a\libmsc.so"/><file name="Msc.jar" path="E:\working\MLxiao\voice\libs\Msc.jar"/><file name="x86/libmsc.so" path="E:\working\MLxiao\voice\libs\x86\libmsc.so"/></source></dataSet><dataSet config="release"><source path="E:\working\MLxiao\voice\src\release\jniLibs"/></dataSet></merger>
