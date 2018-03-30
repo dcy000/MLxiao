@@ -7,6 +7,7 @@ import android.os.Environment;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.constant.TtsSettings;
 
@@ -179,6 +180,11 @@ public class MLVoiceRecognize {
 
                     @Override
                     public void onMLResult(String result) {
+
+                    }
+
+                    @Override
+                    public void onMLError(SpeechError error) {
 
                     }
                 };

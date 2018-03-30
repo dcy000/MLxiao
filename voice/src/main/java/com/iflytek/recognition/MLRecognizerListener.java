@@ -35,7 +35,7 @@ public abstract class MLRecognizerListener implements RecognizerListener {
 
     @Override
     public void onError(SpeechError speechError) {
-
+        onMLError(speechError);
     }
 
     @Override
@@ -58,6 +58,8 @@ public abstract class MLRecognizerListener implements RecognizerListener {
     public abstract void onMLEndOfSpeech();
 
     public abstract void onMLResult(String result);
+
+    public abstract void onMLError(SpeechError error);
 
 
 }
