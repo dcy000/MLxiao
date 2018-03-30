@@ -206,8 +206,8 @@
         </activity>
         <activity
             android:name=".WelcomeActivity"
-            android:launchMode="singleTask"
             android:configChanges="screenSize|keyboardHidden|orientation"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -234,7 +234,7 @@
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
             android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recyclerview.DoctorMesActivity"
             android:screenOrientation="landscape" />
@@ -280,7 +280,7 @@
         <activity
             android:name=".facerecognition.HeadiconActivity"
             android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recyclerview.DoctorappoActivity"
             android:screenOrientation="landscape" />
@@ -466,8 +466,9 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize" />
 
-        <service android:name=".floatingball.AssistiveTouchService"
-            android:process=":serviceY"/>
+        <service
+            android:name=".floatingball.AssistiveTouchService"
+            android:process=":serviceY" />
 
         <activity
             android:name=".recyclerview.DoctorAlarmActivity"
@@ -600,17 +601,16 @@
             <!-- <category android:name="android.intent.category.DEFAULT"/> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".children.study.ChildEduStories2Activity">
-        </activity>
+        <activity android:name=".children.study.ChildEduStories2Activity"></activity>
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".tool.DateInquireActivity"
             android:screenOrientation="landscape" />
@@ -651,20 +651,32 @@
             android:name=".settting.activity.AboutActivity"
             android:screenOrientation="landscape" />
         <!--<activity-->
-            <!--android:name=".activity.Tool"-->
-            <!--android:screenOrientation="landscape" />-->
+        <!--android:name=".activity.Tool"-->
+        <!--android:screenOrientation="landscape" />-->
         <activity
             android:name=".personal.PersonDetailActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".tool.ToolsActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".settting.activity.SetKeyWordActivity" />
-        <activity android:name=".settting.activity.VoicerSettingDemoActivity" />
-        <activity android:name=".settting.activity.CustomKeyWordsActivity" />
-        <activity android:name=".settting.activity.KeyWordEditActivity" />
-        <activity android:name=".settting.activity.SetKeyWord2Activity" />
-        <activity android:name=".settting.activity.KeyWordEdit2Activity"/>
+        <activity
+            android:name=".settting.activity.SetKeyWordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.VoicerSettingDemoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.CustomKeyWordsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.KeyWordEditActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.SetKeyWord2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.KeyWordEdit2Activity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
