@@ -885,26 +885,20 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                startActivity(intent);
 //                return;
 //            }
-            if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
+            if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xueya");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xueya");
                 startActivity(intent);
-            }
-
-            if (inSpell.matches(".*(liangxueya|cexueya|yueyajiance).*")) {
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xueya");
-                startActivity(intent);
-
 
             } else if (inSpell.matches(".*ce.*xueyang.*")
                     || inSpell.matches(".*liang.*xueyang.*")
                     || inSpell.matches(".*ce.*baohedu.*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xueyang");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xueyang");
                 startActivity(intent);
 
 
@@ -912,36 +906,41 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*liang.*xuetang.*")
                     || inSpell.matches(".*xuetangyi.*")
                     ) {
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xuetang");
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xuetang");
                 startActivity(intent);
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "wendu");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "wendu");
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*xindian.*")
                     || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), XinDianDetectActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xindian");
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "sanheyi");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "sanheyi");
                 startActivity(intent);
 
 
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
 
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "tizhong");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "tizhong");
                 startActivity(intent);
 
 
@@ -1106,22 +1105,96 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private boolean keyWordDeal(String yuyin) {
-        //健康自定义监测
+        //血压
+//        jiance.addAll(getDefineData("xueyang"));
+//        jiance.addAll(getDefineData("tiwen"));
+//        jiance.addAll(getDefineData("xuetang"));
+//        jiance.addAll(getDefineData("xindian"));
+//        jiance.addAll(getDefineData("tizhong"));
+//        jiance.addAll(getDefineData("sanheyi"));
         List<KeyWordDefinevBean> jiance = getDefineData("xueya");
-        jiance.addAll(getDefineData("xueyang"));
-        jiance.addAll(getDefineData("tiwen"));
-        jiance.addAll(getDefineData("xuetang"));
-        jiance.addAll(getDefineData("xindian"));
-        jiance.addAll(getDefineData("tizhong"));
-        jiance.addAll(getDefineData("sanheyi"));
         for (int i = 0; i < jiance.size(); i++) {
             if (yuyin.equals(jiance.get(i).pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-                intent.putExtra("type", "xueya");
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xueya");
                 startActivity(intent);
                 return true;
             }
         }
+
+        //血氧
+        List<KeyWordDefinevBean> xueyang = getDefineData("xueyang");
+        for (int i = 0; i < xueyang.size(); i++) {
+            if (yuyin.equals(xueyang.get(i).pinyin)) {
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xueyang");
+                startActivity(intent);
+                return true;
+            }
+        }
+        //体温
+
+        List<KeyWordDefinevBean> tiwen = getDefineData("tiwen");
+        for (int i = 0; i < tiwen.size(); i++) {
+            if (yuyin.equals(tiwen.get(i).pinyin)) {
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "wendu");
+                startActivity(intent);
+                return true;
+            }
+        }
+
+        //血糖
+
+        List<KeyWordDefinevBean> xuetang = getDefineData("xuetang");
+        for (int i = 0; i < xuetang.size(); i++) {
+            if (yuyin.equals(xuetang.get(i).pinyin)) {
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xuetang");
+                startActivity(intent);
+                return true;
+            }
+        }
+
+        //心电
+        List<KeyWordDefinevBean> xindian = getDefineData("xindian");
+        for (int i = 0; i < xindian.size(); i++) {
+            if (yuyin.equals(xindian.get(i).pinyin)) {
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xindian");
+                return true;
+            }
+        }
+
+        //体重
+        List<KeyWordDefinevBean> tizhong = getDefineData("tizhong");
+        for (int i = 0; i < tizhong.size(); i++) {
+            if (yuyin.equals(tizhong.get(i).pinyin)) {
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "tizhong");
+                startActivity(intent);
+                return true;
+            }
+        }
+
+
+        //三合一
+        List<KeyWordDefinevBean> sanheyi = getDefineData("sanheyi");
+        for (int i = 0; i < sanheyi.size(); i++) {
+            if (yuyin.equals(sanheyi.get(i).pinyin)) {
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "sanheyi");
+                return true;
+            }
+        }
+
 
         //调大声音
         List<KeyWordDefinevBean> addVoice = getDefineData("tiaodashengyin");
