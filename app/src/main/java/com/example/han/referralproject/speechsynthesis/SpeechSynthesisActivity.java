@@ -1192,6 +1192,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
                 intent.putExtra("from", "Test");
                 intent.putExtra("fromType", "sanheyi");
+                startActivity(intent);
                 return true;
             }
         }
