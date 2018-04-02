@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values\\values.xml",
+        "outputFile": "E:\\working\\MLxiao\\voice\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 185
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 134,
                         "startColumn": 4,
@@ -33,7 +33,7 @@
                     "endOffset": 348
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 139,
                         "startColumn": 4,
@@ -54,7 +54,7 @@
                     "endOffset": 454
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 157,
                         "startColumn": 4,
@@ -75,7 +75,7 @@
                     "endOffset": 609
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 80,
                         "startColumn": 4,
@@ -96,7 +96,7 @@
                     "endOffset": 775
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 86,
                         "startColumn": 4,
@@ -117,7 +117,7 @@
                     "endOffset": 888
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -138,7 +138,7 @@
                     "endOffset": 1002
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 36,
                         "startColumn": 4,
@@ -159,7 +159,7 @@
                     "endOffset": 1117
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 126,
                         "startColumn": 4,
@@ -180,7 +180,7 @@
                     "endOffset": 1237
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 130,
                         "startColumn": 4,
@@ -201,7 +201,7 @@
                     "endOffset": 1373
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 110,
                         "startColumn": 4,
@@ -222,7 +222,7 @@
                     "endOffset": 1523
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 115,
                         "startColumn": 4,
@@ -243,7 +243,7 @@
                     "endOffset": 1632
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 149,
                         "startColumn": 4,
@@ -264,7 +264,7 @@
                     "endOffset": 1736
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 153,
                         "startColumn": 4,
@@ -285,7 +285,7 @@
                     "endOffset": 1860
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 144,
                         "startColumn": 4,
@@ -306,7 +306,7 @@
                     "endOffset": 2065
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 92,
                         "startColumn": 4,
@@ -327,7 +327,7 @@
                     "endOffset": 2263
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 100,
                         "startColumn": 4,
@@ -348,7 +348,7 @@
                     "endOffset": 2921
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 40,
                         "startColumn": 4,
@@ -369,7 +369,7 @@
                     "endOffset": 3500
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 60,
                         "startColumn": 4,
@@ -389,7 +389,7 @@
                     "endOffset": 3548
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -408,7 +408,7 @@
                     "endOffset": 3603
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -427,7 +427,7 @@
                     "endOffset": 3672
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -446,7 +446,7 @@
                     "endOffset": 3735
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -465,7 +465,7 @@
                     "endOffset": 3824
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -484,7 +484,7 @@
                     "endOffset": 3895
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -503,7 +503,7 @@
                     "endOffset": 3953
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -522,7 +522,7 @@
                     "endOffset": 4026
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -541,7 +541,7 @@
                     "endOffset": 4100
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -560,7 +560,7 @@
                     "endOffset": 4146
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -579,7 +579,7 @@
                     "endOffset": 4186
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -598,7 +598,7 @@
                     "endOffset": 5060
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -617,7 +617,7 @@
                     "endOffset": 5130
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -636,7 +636,7 @@
                     "endOffset": 5198
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -655,7 +655,7 @@
                     "endOffset": 5270
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -674,7 +674,7 @@
                     "endOffset": 5340
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -693,7 +693,7 @@
                     "endOffset": 5401
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -712,7 +712,7 @@
                     "endOffset": 5443
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -731,7 +731,7 @@
                     "endOffset": 5482
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -750,7 +750,7 @@
                     "endOffset": 5543
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -769,7 +769,7 @@
                     "endOffset": 5604
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -788,7 +788,7 @@
                     "endOffset": 5666
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -807,7 +807,7 @@
                     "endOffset": 5730
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -826,7 +826,7 @@
                     "endOffset": 5792
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -845,7 +845,7 @@
                     "endOffset": 5853
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -864,7 +864,7 @@
                     "endOffset": 5921
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -883,7 +883,7 @@
                     "endOffset": 6021
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
@@ -902,7 +902,7 @@
                     "endOffset": 6081
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -921,7 +921,7 @@
                     "endOffset": 6147
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 33,
                         "startColumn": 4,
@@ -940,7 +940,7 @@
                     "endOffset": 6220
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,
@@ -959,7 +959,7 @@
                     "endOffset": 6289
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
@@ -978,7 +978,7 @@
                     "endOffset": 6346
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 36,
                         "startColumn": 4,
@@ -997,7 +997,7 @@
                     "endOffset": 6398
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 4,
@@ -1016,7 +1016,7 @@
                     "endOffset": 6460
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 38,
                         "startColumn": 4,
@@ -1035,7 +1035,7 @@
                     "endOffset": 6498
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -1054,7 +1054,7 @@
                     "endOffset": 6538
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\dimen.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -1073,7 +1073,7 @@
                     "endOffset": 6595
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -1092,7 +1092,7 @@
                     "endOffset": 6651
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\colors.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -1111,7 +1111,7 @@
                     "endOffset": 6723
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 4,
@@ -1130,7 +1130,7 @@
                     "endOffset": 6799
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 40,
                         "startColumn": 4,
@@ -1149,7 +1149,7 @@
                     "endOffset": 6834
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 41,
                         "startColumn": 4,
@@ -1168,7 +1168,7 @@
                     "endOffset": 6869
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 42,
                         "startColumn": 4,
@@ -1187,7 +1187,7 @@
                     "endOffset": 6903
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 43,
                         "startColumn": 4,
@@ -1206,7 +1206,7 @@
                     "endOffset": 6938
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 44,
                         "startColumn": 4,
@@ -1225,7 +1225,7 @@
                     "endOffset": 6973
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 45,
                         "startColumn": 4,
@@ -1244,7 +1244,7 @@
                     "endOffset": 7033
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -1263,7 +1263,7 @@
                     "endOffset": 7103
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 46,
                         "startColumn": 4,
@@ -1282,7 +1282,7 @@
                     "endOffset": 7147
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -1301,7 +1301,7 @@
                     "endOffset": 7191
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -1320,7 +1320,7 @@
                     "endOffset": 7312
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -1339,7 +1339,7 @@
                     "endOffset": 7365
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -1358,7 +1358,7 @@
                     "endOffset": 7420
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -1377,7 +1377,7 @@
                     "endOffset": 7477
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -1396,7 +1396,7 @@
                     "endOffset": 7532
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -1415,7 +1415,7 @@
                     "endOffset": 7584
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -1434,7 +1434,7 @@
                     "endOffset": 7655
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 47,
                         "startColumn": 4,
@@ -1453,7 +1453,7 @@
                     "endOffset": 7701
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -1472,7 +1472,7 @@
                     "endOffset": 7752
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -1491,7 +1491,7 @@
                     "endOffset": 7810
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -1510,7 +1510,7 @@
                     "endOffset": 7899
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 125,
                         "startColumn": 4,
@@ -1529,7 +1529,7 @@
                     "endOffset": 7952
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 123,
                         "startColumn": 4,
@@ -1548,7 +1548,7 @@
                     "endOffset": 8010
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 124,
                         "startColumn": 4,
@@ -1567,7 +1567,7 @@
                     "endOffset": 8065
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -1586,7 +1586,7 @@
                     "endOffset": 8157
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 122,
                         "startColumn": 4,
@@ -1605,7 +1605,7 @@
                     "endOffset": 8230
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 121,
                         "startColumn": 4,
@@ -1624,7 +1624,7 @@
                     "endOffset": 8445
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -1643,7 +1643,7 @@
                     "endOffset": 8602
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -1662,7 +1662,7 @@
                     "endOffset": 9017
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -1681,7 +1681,7 @@
                     "endOffset": 9163
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -1700,7 +1700,7 @@
                     "endOffset": 9218
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -1719,7 +1719,7 @@
                     "endOffset": 9271
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -1738,7 +1738,7 @@
                     "endOffset": 9328
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -1757,7 +1757,7 @@
                     "endOffset": 9388
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -1776,7 +1776,7 @@
                     "endOffset": 9441
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -1795,7 +1795,7 @@
                     "endOffset": 9495
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -1814,7 +1814,7 @@
                     "endOffset": 9578
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 108,
                         "startColumn": 4,
@@ -1833,7 +1833,7 @@
                     "endOffset": 9695
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 48,
                         "startColumn": 4,
@@ -1853,7 +1853,7 @@
                     "endOffset": 9896
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 49,
                         "startColumn": 4,
@@ -1873,7 +1873,7 @@
                     "endOffset": 9962
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -1892,7 +1892,7 @@
                     "endOffset": 10072
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 53,
                         "startColumn": 4,
@@ -1911,7 +1911,7 @@
                     "endOffset": 10194
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -1930,7 +1930,7 @@
                     "endOffset": 10255
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -1950,7 +1950,7 @@
                     "endOffset": 10456
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 54,
                         "startColumn": 4,
@@ -1970,7 +1970,7 @@
                     "endOffset": 10522
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -1989,7 +1989,7 @@
                     "endOffset": 10651
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 58,
                         "startColumn": 4,
@@ -2008,7 +2008,7 @@
                     "endOffset": 10718
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\a2a3887c1429ecce1d10ce0442d52cd7f40e3c09\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\73b3798d01ea8b64581f8411ed767cdb6dfa6f1a\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -2027,7 +2027,7 @@
                     "endOffset": 10790
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 59,
                         "startColumn": 4,
@@ -2046,7 +2046,7 @@
                     "endOffset": 10857
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\lenovo\\.android\\build-cache\\6752e91f8a1daf2561a96c08742987de37ab7d44\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 60,
                         "startColumn": 4,
@@ -2066,7 +2066,7 @@
                     "endOffset": 11386
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\styles.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 6,
@@ -2087,7 +2087,7 @@
                     "endOffset": 11478
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\src\\main\\res\\values\\styles.xml",
+                    "file": "E:\\working\\MLxiao\\voice\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,

@@ -3,6 +3,7 @@ package com.example.han.referralproject.application;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -10,6 +11,7 @@ import android.os.Process;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
+import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
@@ -108,17 +110,33 @@ public class MyApplication extends Application {
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
         //初始化日志库
-        FormatStrategy formatStrategy= PrettyFormatStrategy.newBuilder()
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
                 .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
                 .build();
-        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy){
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, String tag) {
                 return BuildConfig.LOGGING;
             }
         });
 
+
+        if (!isMyServiceRunning(AssistiveTouchService.class)) {
+            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
+            startService(intent);
+        }
+
+    }
+
+    public boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -158,7 +176,9 @@ public class MyApplication extends Application {
         return null;
     }
 
-    private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);{
+    private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);
+
+    {
         mBgThread.start();
     }
 
