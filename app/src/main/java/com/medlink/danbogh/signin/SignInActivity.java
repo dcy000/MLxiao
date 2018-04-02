@@ -254,6 +254,7 @@ public class SignInActivity extends BaseActivity {
 
             @Override
             public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
             }
 
             @Override
