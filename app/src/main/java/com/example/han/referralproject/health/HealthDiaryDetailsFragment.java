@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.health.model.DetailsModel;
 import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
@@ -105,6 +107,10 @@ public class HealthDiaryDetailsFragment extends Fragment {
         rvRuler = (RulerView) findViewById(R.id.health_diary_rv_ruler);
         rvUnits = (RecyclerView) findViewById(R.id.health_diary_rv_units);
         tvAction = (TextView) findViewById(R.id.health_diary_tv_action);
+        FragmentActivity activity = getActivity();
+        if (activity != null && activity instanceof BaseActivity) {
+            ((BaseActivity) activity).speak("主人，请" + mModel.getTitle());
+        }
         tvTitle.setText(mModel.getTitle());
         tvCount.setText(getCount(
                 mModel.getSelectedValues()[mModel.getUnitPosition()],

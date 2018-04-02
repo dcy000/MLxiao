@@ -114,7 +114,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
                             mAutoLoadMoreHelper.setLoading(false);
                         }
                         hideLoadingDialog();
-                        mModels.clear();
+//                        mModels.clear();
                         mModels.addAll(response);
                         mAdapter.notifyDataSetChanged();
                     }

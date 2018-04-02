@@ -16,9 +16,12 @@ public class AutoLoadMoreHelper extends RecyclerView.OnScrollListener {
         recyclerView.addOnScrollListener(this);
     }
 
+    private int dy;
+
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
+        this.dy = dy;
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if (layoutManager != null && layoutManager instanceof LinearLayoutManager) {
             position = ((LinearLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
@@ -42,6 +45,7 @@ public class AutoLoadMoreHelper extends RecyclerView.OnScrollListener {
         super.onScrollStateChanged(recyclerView, newState);
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (newState == RecyclerView.SCROLL_STATE_IDLE
+                && dy < 0
                 && adapter != null
                 && adapter.getItemCount() != 0
                 && position + 2 == adapter.getItemCount()) {

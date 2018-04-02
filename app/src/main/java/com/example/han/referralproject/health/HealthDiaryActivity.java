@@ -38,7 +38,7 @@ public class HealthDiaryActivity extends BaseActivity
         DetailsModel detailsModel0 = new DetailsModel();
         detailsModel0.setWhat(0);
         detailsModel0.setAction("下一步");
-        detailsModel0.setTitle("选择盐摄入");
+        detailsModel0.setTitle("选择盐摄入量");
         detailsModel0.setUnitPosition(0);
         detailsModel0.setUnits(new String[]{"勺", "克"});
         detailsModel0.setUnitSum(new String[]{"勺(1勺约等于2克)", "克"});

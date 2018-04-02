@@ -25,6 +25,7 @@ import com.example.han.referralproject.util.WiFiUtil;
 
 import java.util.ArrayList;
 
+import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
 public class WelcomeActivity extends BaseActivity {
@@ -154,6 +155,8 @@ public class WelcomeActivity extends BaseActivity {
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
         if (isFirstIn) {
+            JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+            JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
             JZVideoPlayerStandard.startFullscreen(this, MyVideoPlayer.class, VEDIO_URL, "迈联智慧");
         } else {
             checkVersion();

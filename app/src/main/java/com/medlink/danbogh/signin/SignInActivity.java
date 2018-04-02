@@ -259,7 +259,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onError(SpeechError error) {
                 Logger.e(error, "创建组失败");
-                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
+//                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
             }
         });
     }

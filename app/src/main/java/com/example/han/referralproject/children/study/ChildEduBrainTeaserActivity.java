@@ -259,6 +259,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                speak(finalQuestion);
                 tvContent.setText(finalQuestion);
             }
         });
