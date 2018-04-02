@@ -23,13 +23,14 @@ import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ChildEduSheetListActivity extends BaseActivity {
 
-    public static final String SHEET_CATEGORY_CHILD = "child";
-    public static final String SHEET_CATEGORY_LULLABY = "lullaby";
-    public static final String SHEET_CATEGORY_BABY = "baby";
+    public static final String SHEET_CATEGORY_CHILD = "儿童歌曲";
+    public static final String SHEET_CATEGORY_LULLABY = "摇篮曲";
+    public static final String SHEET_CATEGORY_BABY = "胎教音乐";
 
     public static final String EXTRA_SHEET_CATEGORY = "sheetCategory";
 
@@ -44,7 +45,7 @@ public class ChildEduSheetListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_sheet_list);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         if (intent != null) {
             sheetCategory = intent.getStringExtra(EXTRA_SHEET_CATEGORY);
         } else {
@@ -97,6 +98,13 @@ public class ChildEduSheetListActivity extends BaseActivity {
                 hideLoadingDialog();
                 mModels.clear();
                 mModels.addAll(response);
+                Iterator<SheetModel> iterator = mModels.iterator();
+                while (iterator.hasNext()) {
+                    SheetModel model = iterator.next();
+                    if (!sheetCategory.equals(model.getFlag())) {
+                        iterator.remove();
+                    }
+                }
                 mAdapter.notifyDataSetChanged();
             }
         }, new NetworkManager.FailedCallback() {
