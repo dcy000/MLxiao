@@ -96,6 +96,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
                 fetchBrainTeaser();
             }
         });
+        ivNext.performClick();
     }
 
     public int recordTotalTime;

@@ -138,7 +138,6 @@ public class HeadiconActivity extends BaseActivity {
             createGroup(userid, xfid);
         }
     }
-
     private void uploadHeadToSelf(final String userid, final String xfid) {
         NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
             @Override

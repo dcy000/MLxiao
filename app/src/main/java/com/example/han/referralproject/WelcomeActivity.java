@@ -201,6 +201,9 @@ public class WelcomeActivity extends BaseActivity {
             super.onClick(v);
             if (v.getId() == R.id.common_tv_action) {
                 backPress();
+                if (mWelcomeActivity != null) {
+                    mWelcomeActivity.onVideoPlayedComplete();
+                }
             }
         }
 
