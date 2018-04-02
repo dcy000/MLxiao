@@ -1150,6 +1150,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mVideoView.setVisibility(View.GONE);
                 mOverView.setVisibility(View.GONE);
             }
+        }else{
+            mVideoView.setVisibility(View.GONE);
+            mOverView.setVisibility(View.GONE);
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);

@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\main_setting_btn_np.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\bundles\\debug\\res\\drawable\\main_setting_btn_np.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\user.png",
+        "source": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\bundles\\debug\\res\\drawable\\user.png"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\setting.png",
+        "source": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\bundles\\debug\\res\\drawable\\setting.png"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\list_bg_color.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\bundles\\debug\\res\\drawable\\list_bg_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\setting_p.png",
+        "source": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\bundles\\debug\\res\\drawable\\setting_p.png"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\voice\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\3a721c84f3294c5633bdb6aa35e9ed729c9e54bb\\output\\res\\drawable\\notification_icon_background.xml"
+    }
+]
