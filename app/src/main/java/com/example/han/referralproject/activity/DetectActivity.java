@@ -1125,7 +1125,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xueya;
-                isFirst=LocalShared.getInstance(this).getMeasureXuetangFirst();
+                isFirst=LocalShared.getInstance(this).getMeasureXueyaFirst();
                 break;
             case Type_XueTang:
                 mResultTv = (TextView) findViewById(R.id.tv_xuetang);
