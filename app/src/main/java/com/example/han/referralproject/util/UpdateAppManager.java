@@ -85,6 +85,7 @@ public class UpdateAppManager {
         }
         new AlertDialog.Builder(context)
                 .setTitle(R.string.version_update_title)
+                .setCancelable(false)
                 .setMessage(R.string.version_update_new_verion_message)
                 .setPositiveButton(R.string.version_update_action_download, new OnClickListener() {
                     @Override

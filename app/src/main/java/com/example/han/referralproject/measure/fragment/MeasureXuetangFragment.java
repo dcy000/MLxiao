@@ -80,7 +80,7 @@ public class MeasureXuetangFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 chooseReason.noReason();
-                removeFragment();
+//                removeFragment();
             }
         });
         ivTopRight.setOnClickListener(new View.OnClickListener() {
@@ -114,31 +114,31 @@ public class MeasureXuetangFragment extends Fragment {
                         break;
 
                 }
-                removeFragment();
+//                removeFragment();
             }
         });
         otherReason.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseReason.hasReason(-1);
-                removeFragment();
+//                removeFragment();
             }
         });
         measureNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseReason.noReason();
-                removeFragment();
+//                removeFragment();
             }
         });
 
 
         return view;
     }
-    private void removeFragment() {
-        ((DetectActivity) getActivity()).getSupportFragmentManager()
-                .beginTransaction().remove(MeasureXuetangFragment.this).commit();
-    }
+//    private void removeFragment() {
+//        ((DetectActivity) getActivity()).getSupportFragmentManager()
+//                .beginTransaction().remove(MeasureXuetangFragment.this).commit();
+//    }
     private void initData() {
         reasons.add(R.drawable.measure_xzsj_sel);
         reasons.add(R.drawable.measure_dydx_sel);

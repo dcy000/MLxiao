@@ -112,7 +112,7 @@ public class MyMarkerView extends MarkerView {
                     ll2.setVisibility(GONE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
                     title_1.setText("胆固醇");
-                    text_1.setText(e.getY()+"");
+                    text_1.setText(String.format("%.2f",e.getY()));
                     time.setText(com.example.han.referralproject.util.Utils.stampToDate(times.get((int) e.getX())));
                     break;
                 case "8":

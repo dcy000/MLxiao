@@ -579,15 +579,14 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".intelligent_diagnosis.DeleteGroupActivity"
-            android:screenOrientation="landscape"/>
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN"/> -->
-
-
-        <!-- <category android:name="android.intent.category.HOME"/> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-        <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-        <!-- </intent-filter> -->
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.HOME" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity android:name=".health.HealthDiaryActivity"/>
         <activity
             android:name=".tool.JieMengActivity"
@@ -678,7 +677,6 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
-
     </application>
 
 </manifest>

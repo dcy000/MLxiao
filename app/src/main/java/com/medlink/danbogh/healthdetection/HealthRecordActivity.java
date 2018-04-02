@@ -709,6 +709,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
         //Y轴设置
         YAxis leftAxis = danguchunChart.getAxisLeft();
+        leftAxis.setGranularity(0.01f);
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
@@ -1692,6 +1693,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
             set1.setValueTextColors(colors);
             //走势线的粗细
+            set1.setValueFormatter(new MyFloatNumFormatter(temp));
             set1.setLineWidth(6f);
             //封顶圆圈的直径
             set1.setCircleRadius(8f);
@@ -2149,6 +2151,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     case "9":
                         getXindian(weekAgoTime + "", currentTime + "");
                         break;
+                    case "10":
+                        getTizhong(weekAgoTime+"",currentTime+"");
+                        break;
                 }
                 break;
             case R.id.one_month:
@@ -2159,6 +2164,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         break;
                     case "2":
                         getXueya(monthAgoTime + "", currentTime + "");
+                        break;
+                    case "3":
+                        getXinlv(monthAgoTime+"",currentTime+"");
                         break;
                     case "4":
                         getXuetang(monthAgoTime + "", currentTime + "", eatedTime);
@@ -2175,6 +2183,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     case "9":
                         getXindian(monthAgoTime + "", currentTime + "");
                         break;
+                    case "10":
+                        getTizhong(monthAgoTime+"",currentTime+"");
+                        break;
                 }
                 break;
             case R.id.one_season:
@@ -2185,6 +2196,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         break;
                     case "2":
                         getXueya(seasonAgoTime + "", currentTime + "");
+                        break;
+                    case "3":
+                        getXinlv(seasonAgoTime+"",currentTime+"");
                         break;
                     case "4":
                         getXuetang(seasonAgoTime + "", currentTime + "", eatedTime);
@@ -2199,7 +2213,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXueniaosuan(seasonAgoTime + "", currentTime + "");
                         break;
                     case "9":
-                        getXindian(monthAgoTime + "", currentTime + "");
+                        getXindian(seasonAgoTime + "", currentTime + "");
+                        break;
+                    case "10":
+                        getTizhong(seasonAgoTime+"",currentTime+"");
                         break;
                 }
                 break;
@@ -2211,6 +2228,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         break;
                     case "2":
                         getXueya(yearAgoTime + "", currentTime + "");
+                        break;
+                    case "3":
+                        getXinlv(yearAgoTime+"",currentTime+"");
                         break;
                     case "4":
                         getXuetang(yearAgoTime + "", currentTime + "", eatedTime);
@@ -2226,6 +2246,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         break;
                     case "9":
                         getXindian(yearAgoTime + "", currentTime + "");
+                        break;
+                    case "10":
+                        getTizhong(yearAgoTime+"",currentTime+"");
                         break;
                 }
                 break;

@@ -97,7 +97,7 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
         Handlers.bg().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (i < 300) {
+                if (i < 1000) {
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
                 }else{
@@ -126,7 +126,7 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
         Handlers.bg().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (i < 300) {
+                if (i < 1000) {
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
                 }else{
