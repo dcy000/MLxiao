@@ -1,8 +1,13 @@
 package com.ml.videoplayer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Environment;
 import android.view.View;
+
+import java.io.File;
+import java.util.concurrent.Callable;
 
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
@@ -13,9 +18,17 @@ import cn.jzvd.JZVideoPlayerStandard;
 
 public class MlVideoPlayer {
     public static void play(Context context, String url, String title) {
-        JZVideoPlayerStandard.startFullscreen(context, Player.class, url, title);
-        JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-        JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        try {
+            Class<?> aClass = Class.forName("com.example.han.referralproject.video.PlayVideoActivity");
+            Intent intent = new Intent(context, aClass);
+            intent.putExtra("url", url);
+            context.startActivity(intent);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+//        JZVideoPlayerStandard.startFullscreen(context, Player.class, url, title);
+//        JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+//        JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
     }
 
     public static boolean onBackPressed() {

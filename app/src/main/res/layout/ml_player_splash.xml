@@ -141,23 +141,10 @@
             android:layout_marginRight="12dp"
             android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/back"
-            android:layout_toLeftOf="@+id/common_tv_action"
+            android:layout_toLeftOf="@+id/battery_time_layout"
             android:layout_toRightOf="@+id/back"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="#ffffff"
-            android:textSize="30sp"/>
-
-        <TextView
-            android:id="@+id/common_tv_action"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/battery_time_layout"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="跳过"
             android:textColor="#ffffff"
             android:textSize="30sp"/>
 
@@ -191,6 +178,20 @@
                 android:textSize="20sp"/>
         </LinearLayout>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/common_tv_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="60dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="跳过"
+        android:textColor="#ffffff"
+        android:textSize="30sp"/>
 
     <ProgressBar
         android:id="@+id/loading"
