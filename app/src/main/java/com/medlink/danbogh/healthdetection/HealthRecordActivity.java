@@ -2151,6 +2151,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     case "9":
                         getXindian(weekAgoTime + "", currentTime + "");
                         break;
+                    case "10":
+                        getTizhong(weekAgoTime+"",currentTime+"");
+                        break;
                 }
                 break;
             case R.id.one_month:
@@ -2177,6 +2180,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     case "9":
                         getXindian(monthAgoTime + "", currentTime + "");
                         break;
+                    case "10":
+                        getTizhong(monthAgoTime+"",currentTime+"");
+                        break;
                 }
                 break;
             case R.id.one_season:
@@ -2201,7 +2207,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXueniaosuan(seasonAgoTime + "", currentTime + "");
                         break;
                     case "9":
-                        getXindian(monthAgoTime + "", currentTime + "");
+                        getXindian(seasonAgoTime + "", currentTime + "");
+                        break;
+                    case "10":
+                        getTizhong(seasonAgoTime+"",currentTime+"");
                         break;
                 }
                 break;
@@ -2228,6 +2237,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         break;
                     case "9":
                         getXindian(yearAgoTime + "", currentTime + "");
+                        break;
+                    case "10":
+                        getTizhong(yearAgoTime+"",currentTime+"");
                         break;
                 }
                 break;
