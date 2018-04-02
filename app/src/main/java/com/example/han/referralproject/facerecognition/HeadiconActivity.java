@@ -237,6 +237,7 @@ public class HeadiconActivity extends BaseActivity {
         FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
+                uploadHeadToSelf(userid,xfid);
             }
 
             @Override
@@ -249,6 +250,8 @@ public class HeadiconActivity extends BaseActivity {
                 Logger.e(error, "添加成员出现异常");
                 if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
                     createGroup(userid, xfid);
+                }else{
+                    uploadHeadToSelf(userid,xfid);
                 }
 
             }

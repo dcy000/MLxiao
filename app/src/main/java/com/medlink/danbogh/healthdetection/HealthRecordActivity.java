@@ -709,6 +709,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
         //Y轴设置
         YAxis leftAxis = danguchunChart.getAxisLeft();
+        leftAxis.setGranularity(0.01f);
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
@@ -1692,6 +1693,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
             set1.setValueTextColors(colors);
             //走势线的粗细
+            set1.setValueFormatter(new MyFloatNumFormatter(temp));
             set1.setLineWidth(6f);
             //封顶圆圈的直径
             set1.setCircleRadius(8f);
