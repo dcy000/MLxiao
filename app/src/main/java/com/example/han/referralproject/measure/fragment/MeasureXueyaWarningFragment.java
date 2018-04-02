@@ -81,7 +81,6 @@ public class MeasureXueyaWarningFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 chooseReason.noReason();
-                removeFragment();
             }
         });
         ivTopRight.setOnClickListener(new View.OnClickListener() {
@@ -122,21 +121,18 @@ public class MeasureXueyaWarningFragment extends Fragment {
                         break;
 
                 }
-                removeFragment();
             }
         });
         otherReason.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseReason.hasReason(-1);
-                removeFragment();
             }
         });
         measureNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseReason.noReason();
-                removeFragment();
             }
         });
         return view;
@@ -153,10 +149,7 @@ public class MeasureXueyaWarningFragment extends Fragment {
         reasons.add(R.drawable.measure_fh_sel);
     }
 
-    private void removeFragment() {
-        ((DetectActivity) getActivity()).getSupportFragmentManager()
-                .beginTransaction().remove(MeasureXueyaWarningFragment.this).commit();
-    }
+
 
     @Override
     public void onDestroyView() {
