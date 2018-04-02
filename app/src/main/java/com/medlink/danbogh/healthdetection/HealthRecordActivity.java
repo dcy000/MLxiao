@@ -2165,6 +2165,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     case "2":
                         getXueya(monthAgoTime + "", currentTime + "");
                         break;
+                    case "3":
+                        getXinlv(monthAgoTime+"",currentTime+"");
+                        break;
                     case "4":
                         getXuetang(monthAgoTime + "", currentTime + "", eatedTime);
                         break;
@@ -2194,6 +2197,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     case "2":
                         getXueya(seasonAgoTime + "", currentTime + "");
                         break;
+                    case "3":
+                        getXinlv(seasonAgoTime+"",currentTime+"");
+                        break;
                     case "4":
                         getXuetang(seasonAgoTime + "", currentTime + "", eatedTime);
                         break;
@@ -2222,6 +2228,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         break;
                     case "2":
                         getXueya(yearAgoTime + "", currentTime + "");
+                        break;
+                    case "3":
+                        getXinlv(yearAgoTime+"",currentTime+"");
                         break;
                     case "4":
                         getXuetang(yearAgoTime + "", currentTime + "", eatedTime);

@@ -84,7 +84,9 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         initOther();
         float weekGaoyaAvg_f = Float.parseFloat(weekGaoyaAvg);
         float weekDiyaAvg_f = Float.parseFloat(weekDiyaAvg);
-        speak("主人，您本次测量的高压是" + (TextUtils.isEmpty(currentGaoya) ? "" : currentGaoya) + ",低压是" + (TextUtils.isEmpty(currentDiya) ? "" : currentDiya) +
+        float currentGaoya_f = TextUtils.isEmpty(currentGaoya) ? 0 : Float.parseFloat(currentGaoya);
+        float currentDiya_f = TextUtils.isEmpty(currentDiya) ? 0 : Float.parseFloat(currentDiya);
+        speak("主人，您本次测量的高压是" + String.format("%.0f", currentGaoya_f) + ",低压是" + String.format("%.0f", currentDiya_f) +
                 "，本周平均高压" + (weekGaoyaAvg_f == -1 ? "未测量" : String.format("%.0f", weekGaoyaAvg_f)) +
                 ",低压" + (weekDiyaAvg_f == -1 ? "未测量" : String.format("%.0f", weekDiyaAvg_f)) + ",健康分数" + fenshu + "分。" + suggest);
         tvSomethingAdvice.setOnClickListener(this);

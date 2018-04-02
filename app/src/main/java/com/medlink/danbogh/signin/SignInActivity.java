@@ -25,6 +25,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
@@ -266,7 +267,13 @@ public class SignInActivity extends BaseActivity {
     }
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
-        startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
+        //获取所有账号
+        String[] accounts = LocalShared.getInstance(this).getAccounts();
+        if (accounts == null) {
+            ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
+        }else {
+            startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
+        }
 //        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
     }
 
