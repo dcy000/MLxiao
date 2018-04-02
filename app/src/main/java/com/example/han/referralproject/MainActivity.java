@@ -70,12 +70,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mediaPlayer.start();//播放音乐*/
 
-//        if (isMyServiceRunning(AssistiveTouchService.class)) {
-//
-//        } else {
-//            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
-//            startService(intent);
-//        }
+        if (!isMyServiceRunning(AssistiveTouchService.class)) {
+            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
+            startService(intent);
+        }
 
         mToolbar.setVisibility(View.GONE);
         mImageView1 = (ImageView) findViewById(R.id.robot_con);
@@ -98,16 +96,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-
-
-//        if (isMyServiceRunning(AssistiveTouchService.class)) {
-//
-//        } else {
-//            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
-//            startService(intent);
-//        }
-
-
         findViewById(R.id.ll_anim).setOnClickListener(this);
 
         float pivotX = .5f; // 取自身区域在X轴上的中心点
@@ -132,6 +120,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }, 1000);
 
+    }
+
+
+    public boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
