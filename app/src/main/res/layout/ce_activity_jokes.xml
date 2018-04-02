@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ce_common_bg"
     tools:context="com.example.han.referralproject.children.entertainment.ChildEduJokesActivity">
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ce_poem_details_cl_poem"
         android:layout_width="1532pt"
@@ -25,6 +26,7 @@
             android:layout_marginTop="95pt"
             android:textColor="#333333"
             android:textSize="96pt"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +40,7 @@
             android:layout_marginTop="40pt"
             android:textColor="#333333"
             android:textSize="56pt"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ce_poem_details_tv_poem_title"
@@ -80,10 +83,10 @@
         android:id="@+id/ce_common_iv_back"
         android:layout_width="185pt"
         android:layout_height="154pt"
+        android:background="@drawable/ce_common_item_bg"
         android:paddingLeft="60pt"
         android:paddingRight="60pt"
         android:paddingTop="42pt"
-        android:background="@drawable/ce_common_item_bg"
         android:src="@drawable/ce_common_ic_back"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
