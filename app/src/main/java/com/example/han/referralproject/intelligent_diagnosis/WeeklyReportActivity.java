@@ -93,7 +93,7 @@ public class WeeklyReportActivity extends BaseActivity {
                     Logger.e("返回测量数据成功" + response);
                 } else {
                     ToastTool.showShort("暂无周报告");
-                    finish();
+                    speak("主人，您的测量数据太少，我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
                 }
             }
         }, new NetworkManager.FailedCallback() {
@@ -101,7 +101,7 @@ public class WeeklyReportActivity extends BaseActivity {
             public void onFailed(String message) {
                 Logger.e("返回测量数据失败" + message);
                 ToastTool.showShort("暂无周报告");
-                finish();
+                speak("主人，您的测量数据太少，我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
             }
         });
     }

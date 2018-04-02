@@ -162,6 +162,7 @@ public class AuthenticationActivity extends BaseActivity {
 
                         @Override
                         public void onError(SpeechError error) {
+                            Logger.e(error,"验证出错");
                             if (!AuthenticationActivity.this.isFinishing() && !AuthenticationActivity.this.isDestroyed())
                                 if (authenticationNum < 5) {
                                     authenticationNum++;
@@ -284,79 +285,79 @@ public class AuthenticationActivity extends BaseActivity {
         if (isTest) {
             openAnimation();
         } else {
-            joinGroup();
+//            joinGroup();
+            openAnimation();
+            myHandler.sendEmptyMessage(2);
+            myHandler.sendEmptyMessageDelayed(1,2000);
         }
         setClick();
         getAllUsersInfo();
     }
 
-    private void joinGroup() {
-        String groupid = LocalShared.getInstance(this).getGroupId();
-        String firstXfid = LocalShared.getInstance(this).getGroupFirstXfid();
-        final String currentXfid = LocalShared.getInstance(this).getXunfeiId();
-        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, currentXfid);
-        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
-            @Override
-            public void onResult(IdentityResult result, boolean islast) {
-                tvTips.setText("请将人脸对准识别框");
-                openAnimation();
-                //添加完成以后，马上进行人脸匹配
-                if (isFirstSend) {
-                    myHandler.sendEmptyMessage(2);
-                    myHandler.sendEmptyMessageDelayed(1, 2000);
-                    isFirstSend = false;
-                }
-            }
+//    private void joinGroup() {
+//        String groupid = LocalShared.getInstance(this).getGroupId();
+//        String firstXfid = LocalShared.getInstance(this).getGroupFirstXfid();
+//        final String currentXfid = LocalShared.getInstance(this).getXunfeiId();
+//        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, currentXfid);
+//        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+//            @Override
+//            public void onResult(IdentityResult result, boolean islast) {
+//                tvTips.setText("请将人脸对准识别框");
+//                openAnimation();
+//                //添加完成以后，马上进行人脸匹配
+//                myHandler.sendEmptyMessage(2);
+//                myHandler.sendEmptyMessageDelayed(1, 1000);
+//            }
+//
+//            @Override
+//            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+//
+//            }
+//
+//            @Override
+//            public void onError(SpeechError error) {
+//                Logger.e(error, "添加成员出现异常");
+//                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
+//                    createGroup(currentXfid);
+//                } else {
+//                    openAnimation();
+//                    myHandler.sendEmptyMessage(2);
+//                    myHandler.sendEmptyMessageDelayed(1, 1000);
+//                }
+//
+//            }
+//        });
+//    }
 
-            @Override
-            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-            }
-
-            @Override
-            public void onError(SpeechError error) {
-                Logger.e(error, "添加成员出现异常");
-                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
-                    createGroup(currentXfid);
-                } else {
-                    openAnimation();
-                    myHandler.sendEmptyMessage(2);
-                    myHandler.sendEmptyMessageDelayed(1, 2000);
-                }
-
-            }
-        });
-    }
-
-    private void createGroup(final String xfid) {
-        FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
-        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
-            @Override
-            public void onResult(IdentityResult result, boolean islast) {
-                try {
-                    JSONObject resObj = new JSONObject(result.getResultString());
-                    String groupId = resObj.getString("group_id");
-                    LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
-                    LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfid);
-                    joinGroup();
-                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).updateGroupInformation(groupId, xfid);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-            }
-
-            @Override
-            public void onError(SpeechError error) {
-                Logger.e(error, "创建组失败");
-                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
-            }
-        });
-    }
+//    private void createGroup(final String xfid) {
+//        FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
+//        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
+//            @Override
+//            public void onResult(IdentityResult result, boolean islast) {
+//                try {
+//                    JSONObject resObj = new JSONObject(result.getResultString());
+//                    String groupId = resObj.getString("group_id");
+//                    LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
+//                    LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfid);
+//                    joinGroup();
+//                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).updateGroupInformation(groupId, xfid);
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+//            }
+//
+//            @Override
+//            public void onError(SpeechError error) {
+//                Logger.e(error, "创建组失败");
+//                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
+//            }
+//        });
+//    }
 
     private void openAnimation() {
         lottAnimation.playAnimation();
@@ -368,21 +369,27 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void getAllUsersInfo() {
-        String[] accounts = LocalShared.getInstance(this).getAccounts();
-        if (accounts == null) {
-            return;
-        }
-        StringBuilder mAccountIdBuilder = new StringBuilder();
-        for (String item : accounts) {
-            mAccountIdBuilder.append(item.split(",")[0]).append(",");
-        }
-        NetworkApi.getAllUsers(mAccountIdBuilder.substring(0, mAccountIdBuilder.length() - 1), new NetworkManager.SuccessCallback<ArrayList<UserInfoBean>>() {
+        Handlers.bg().post(new Runnable() {
             @Override
-            public void onSuccess(ArrayList<UserInfoBean> response) {
-                if (response == null) {
+            public void run() {
+                String[] accounts = LocalShared.getInstance(AuthenticationActivity.this).getAccounts();
+                if (accounts == null) {
                     return;
                 }
-                mDataList = response;
+                StringBuilder mAccountIdBuilder = new StringBuilder();
+                for (String item : accounts) {
+                    mAccountIdBuilder.append(item.split(",")[0]).append(",");
+                }
+                NetworkApi.getAllUsers(mAccountIdBuilder.substring(0, mAccountIdBuilder.length() - 1),
+                        new NetworkManager.SuccessCallback<ArrayList<UserInfoBean>>() {
+                            @Override
+                            public void onSuccess(ArrayList<UserInfoBean> response) {
+                                if (response == null) {
+                                    return;
+                                }
+                                mDataList = response;
+                            }
+                        });
             }
         });
     }
@@ -450,6 +457,7 @@ public class AuthenticationActivity extends BaseActivity {
                                     Handlers.bg().post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            Logger.e("setPreviewCallbackWithBuffer");
                                             b3 = decodeToBitMap(data, mCamera);
                                             if (b3 != null) {
                                                 Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
@@ -569,8 +577,6 @@ public class AuthenticationActivity extends BaseActivity {
         }
         camera.setDisplayOrientation(result);
     }
-
-    private boolean isFirstSend = true;
 
 
     /**

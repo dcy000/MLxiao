@@ -27,6 +27,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -240,7 +241,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } else {
                         xueyaResult = mXueyaResults[2];
                     }
-                    uploadXueyaResult(getNew, down, maibo, xueyaResult, false);
+                    uploadXueyaResult(getNew, down, maibo, xueyaResult, false,null);
                     break;
                 case 14:
                     stopSearch();
@@ -256,7 +257,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     /**
      * 上传血压的测量结果
      */
-    private void uploadXueyaResult(final int getNew, final int down, final int maibo, final String xueyaResult, boolean status) {
+    private void uploadXueyaResult(final int getNew, final int down, final int maibo, final String xueyaResult, final boolean status, final Fragment fragment) {
         DataInfoBean info = new DataInfoBean();
         info.high_pressure = getNew;
         info.low_pressure = down;
@@ -277,18 +278,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         .putExtra("fenshu", response.exponent)
                         .putExtra("mb_gaoya", response.Psst)
                         .putExtra("mb_diya", response.Pdst));
+                if (status&&fragment!=null){
+                    removeFragment(fragment);
+                }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 if (!TextUtils.isEmpty(message)) {
                     if (message.startsWith("血压超标")) {
-                        MeasureXueyaWarningFragment warningFragment = new MeasureXueyaWarningFragment();
+                        final MeasureXueyaWarningFragment warningFragment = new MeasureXueyaWarningFragment();
                         getSupportFragmentManager().beginTransaction().add(R.id.container, warningFragment).commit();
 
                         warningFragment.setOnChooseReason(new MeasureChooseReason() {
                             @Override
                             public void hasReason(int reason) {
+                                removeFragment(warningFragment);
                                 switch (reason) {
                                     case -1://其他原因
                                         break;
@@ -314,7 +319,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             @Override
                             public void noReason() {//强制插入异常数据
-                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true);
+                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true,warningFragment);
                             }
                         });
                     } else {
@@ -322,17 +327,23 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     }
                 } else {
                     ToastTool.showShort("网络异常");
+                    if (fragment!=null){
+                        removeFragment(fragment);
+                    }
                 }
             }
         });
     }
-
+    private void removeFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction().remove(fragment).commit();
+    }
     /**
      * 处理血糖的测量结果
      *
      * @param xuetangResut
      */
-    private void uploadXuetangResult(final float xuetangResut, boolean status) {
+    private void uploadXuetangResult(final float xuetangResut, final boolean status, final Fragment fragment) {
         DataInfoBean info = new DataInfoBean();
         info.blood_sugar = String.format("%.1f", xuetangResut);
         info.sugar_time = xuetangTimeFlag + "";
@@ -353,18 +364,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         .putExtra("week_avg_two", response.twoHour_stomach)
                         .putExtra("week_avg_empty", response.empty_stomach)
                         .putExtra("fenshu", response.exponent));
+                if (status&&fragment!=null){
+                    removeFragment(fragment);
+                }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 if (!TextUtils.isEmpty(message)) {//血糖暂时没有数据异常处理
                     if (message.startsWith("血糖超标")) {
-                        MeasureXuetangFragment measureXuetangFragment = new MeasureXuetangFragment();
+                        final MeasureXuetangFragment measureXuetangFragment = new MeasureXuetangFragment();
                         getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
 
                         measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
                             @Override
                             public void hasReason(int reason) {
+                                removeFragment(measureXuetangFragment);
                                 switch (reason) {
                                     case -1://其他原因
                                         break;
@@ -386,7 +401,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             @Override
                             public void noReason() {
-                                uploadXuetangResult(xuetangResut, true);
+                                uploadXuetangResult(xuetangResut, true,measureXuetangFragment);
                             }
                         });
 
@@ -395,6 +410,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     }
                 } else {
                     ToastTool.showShort("网络异常");
+                    if (fragment!=null){
+                        removeFragment(fragment);
+                    }
                 }
             }
         });
@@ -518,7 +536,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             } else {
                                 xueyaResult = mXueyaResults[2];
                             }
-                            uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false);
+                            uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false,null);
 //                            speak(String.format(getString(R.string.tips_result_xueya),
 //                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
 //                            DataInfoBean info = new DataInfoBean();
@@ -554,7 +572,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 //上传数据到我们的服务器
-                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false);
+                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false,null);
                             }
                         }
                         break;
@@ -567,7 +585,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             isGetResustFirst = false;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
-                            uploadXuetangResult(xuetangResut, false);
+                            uploadXuetangResult(xuetangResut, false,null);
                         }
                         break;
                     case Type_XueYang:
@@ -1107,7 +1125,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xueya;
-                isFirst=LocalShared.getInstance(this).getMeasureXuetangFirst();
+                isFirst=LocalShared.getInstance(this).getMeasureXueyaFirst();
                 break;
             case Type_XueTang:
                 mResultTv = (TextView) findViewById(R.id.tv_xuetang);

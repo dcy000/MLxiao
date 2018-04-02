@@ -21,6 +21,9 @@ public class MyFloatNumFormatter implements IValueFormatter {
             case "3"://心率
                 mFormat=new DecimalFormat("#0.0");
                 break;
+            case "7"://胆固醇
+                mFormat=new DecimalFormat("#0.00");
+                break;
         }
 
     }
