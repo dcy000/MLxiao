@@ -378,7 +378,10 @@ public class BaseActivity extends AppCompatActivity {
             if (code == ErrorCode.SUCCESS) {
                 setSynthesizerParams();
                 if (!TextUtils.isEmpty(mText)) {
-                    SpeechSynthesizer.getSynthesizer().startSpeaking(mText, mTtsListener);
+                    SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
+                    if (synthesizer != null) {
+                        synthesizer.startSpeaking(mText, mTtsListener);
+                    }
                 }
             }
         }
