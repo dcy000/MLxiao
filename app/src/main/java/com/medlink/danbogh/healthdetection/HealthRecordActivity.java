@@ -194,39 +194,39 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
         //默认选择第一个
         switch (radioGroupPosition) {
-            case 0:
+            case 0://体温
                 rgHealthRecord.check(R.id.rb_record_temperature);
                 clickTiwen();
                 break;
-            case 1:
+            case 1://血压
                 rgHealthRecord.check(R.id.rb_record_blood_pressure);
                 clickXueya();
                 break;
-            case 2:
+            case 2://血糖
                 rgHealthRecord.check(R.id.rb_record_blood_glucose);
                 clickXuetang();
                 break;
-            case 3:
+            case 3://血氧
                 rgHealthRecord.check(R.id.rb_record_blood_oxygen);
                 clickXueyang();
                 break;
-            case 4:
+            case 4://心跳
                 rgHealthRecord.check(R.id.rb_record_heart_rate);
                 clickXinlv();
                 break;
-            case 5:
+            case 5://胆固醇
                 rgHealthRecord.check(R.id.rb_record_cholesterol);
                 clickDangu();
                 break;
-            case 6:
+            case 6://血尿酸
                 rgHealthRecord.check(R.id.rb_record_bua);
                 clickNiaosuan();
                 break;
-            case 7:
+            case 7://心电图
                 rgHealthRecord.check(R.id.rb_record_ecg);
                 clickXindian();
                 break;
-            case 8:
+            case 8://体重
                 rgHealthRecord.check(R.id.rb_record_weight);
                 clickTizhong();
                 break;
