@@ -1038,12 +1038,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
+                String s_one=mSanHeYiOneTv.getText().toString();
+                String s_two=mSanHeYiTwoTv.getText().toString();
+                String s_three=mSanHeYiThreeTv.getText().toString();
+
+                if (!s_one.equals("0")){
+                    startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 2));
+                }else if (!s_two.equals("0")){
+                    startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
+                }else if (!s_three.equals("0")){
+                    startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 5));
+                }else{
+                    startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 2));
+                }
+//                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
             }
         });
         findViewById(R.id.history6).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 8));
             }
         });
