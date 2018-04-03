@@ -195,6 +195,13 @@ public class HealthDiaryActivity extends BaseActivity
         FragmentTransaction transaction = fm.beginTransaction();
         String tag = HealthReportFragment.class.getName();
         Fragment fragment = fm.findFragmentByTag(tag);
+        if (mFragments != null) {
+            for (Fragment fragment1 : mFragments) {
+                if (fragment1 != null && fragment1.isAdded() && !fragment1.isHidden()) {
+                    transaction.hide(fragment1);
+                }
+            }
+        }
         if (fragment == null) {
             fragment = HealthReportFragment.newInstance();
             transaction.add(android.R.id.content, fragment, tag);
