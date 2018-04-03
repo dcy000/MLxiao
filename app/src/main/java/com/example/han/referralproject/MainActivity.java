@@ -69,11 +69,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
         mediaPlayer.start();//播放音乐*/
-
-        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
-            startService(intent);
-        }
+//
+//        if (!isMyServiceRunning(AssistiveTouchService.class)) {
+//            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
+//            startService(intent);
+//        }
 
         mToolbar.setVisibility(View.GONE);
         mImageView1 = (ImageView) findViewById(R.id.robot_con);
