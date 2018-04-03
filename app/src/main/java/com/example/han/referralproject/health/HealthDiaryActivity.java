@@ -180,7 +180,7 @@ public class HealthDiaryActivity extends BaseActivity
                             if (isFinishing() || isDestroyed()) {
                                 return;
                             }
-                            T.show("服务器繁忙");
+                            T.show(message);
                         }
                     }
             );

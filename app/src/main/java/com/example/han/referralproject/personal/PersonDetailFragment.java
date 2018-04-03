@@ -261,7 +261,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 SharedPreferences.Editor editor = sharedPreferences1.edit();
                 editor.putString("userName", response.getBname());
                 editor.commit();
-
+                MyApplication.getInstance().userName = response.getBname();
                 mTextView.setText(response.getBname());
                 //    mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount())+"元");
                 Picasso.with(getActivity())

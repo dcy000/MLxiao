@@ -22,6 +22,8 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +36,15 @@ public class QrCodeUtils {
     public static Bitmap encodeWifiQrCode(String ssid, String password, int width, int height) {
         String content = String.format("WIFI:T:PWA;S:%s;P:%s", ssid, password);
         return encodeQrCode(content, width, height);
+    }
+
+    public static String urlEncode(String text) {
+        try {
+            return URLEncoder.encode(text, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return text;
     }
 
     public static Bitmap encodeQrCode(String content, int width, int height) {
