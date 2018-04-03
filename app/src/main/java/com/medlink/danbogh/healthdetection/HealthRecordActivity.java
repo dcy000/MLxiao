@@ -12,6 +12,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +45,8 @@ import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.bean.WeightHistory;
 import com.example.han.referralproject.formatter.MyFloatNumFormatter;
 import com.example.han.referralproject.formatter.TimeFormatter;
+import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.ToastTool;
@@ -57,6 +60,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.UiUtils;
 import com.ml.zxing.QrCodeUtils;
 
 import java.util.ArrayList;
@@ -2322,6 +2326,28 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 @Nullable Bundle savedInstanceState) {
             mView = inflater.inflate(R.layout.health_dialog_fragment_qrcode, container, false);
             ivQrcode = (ImageView) findViewById(R.id.health_record_iv_qrcode);
+            findViewById(R.id.health_diary_tv_week_report).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentActivity activity = getActivity();
+                    if (activity == null) {
+                        return;
+                    }
+                    Intent intent = new Intent(activity, WeeklyReportActivity.class);
+                    activity.startActivity(intent);
+                }
+            });
+            findViewById(R.id.health_diary_tv_month_report).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentActivity activity = getActivity();
+                    if (activity == null) {
+                        return;
+                    }
+                    Intent intent = new Intent(activity, MonthlyReportActivity.class);
+                    activity.startActivity(intent);
+                }
+            });
             if (TextUtils.isEmpty(text)) {
                 return mView;
             }
@@ -2361,8 +2387,8 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                     lp.gravity = Gravity.CENTER;
                 }
 
-                lp.width = dp(640);
-                lp.height = dp(360);
+                lp.width = UiUtils.pt(1280);
+                lp.height = UiUtils.pt(840);
 
                 window.setAttributes(lp);
             }

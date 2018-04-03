@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.han.referralproject.health.HealthDrinkDiaryActivity">
+    tools:context="com.example.han.referralproject.health.old.HealthDrinkDiaryActivity">
 
     <TextView
         android:id="@+id/health_diary_tv_topic"
