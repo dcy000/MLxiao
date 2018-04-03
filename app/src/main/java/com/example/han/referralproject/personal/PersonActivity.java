@@ -264,6 +264,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
                 SharedPreferences.Editor editor = sharedPreferences1.edit();
                 editor.putString("userName", response.getBname());
+                MyApplication.getInstance().userName = response.getBname();
                 editor.commit();
 
                 mTextView.setText(response.getBname());

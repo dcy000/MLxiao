@@ -104,8 +104,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private Thread mSearchThread;
     private boolean isYuyue = false;
     private FrameLayout container;
-
-
+    private boolean errorStatus=false;
+    private MeasureXueyaWarningFragment warningXueyaFragment;
+    private MeasureXuetangFragment measureXuetangFragment;
     @SuppressLint("HandlerLeak")
     Handler xueyaHandler = new Handler() {
         private byte i;
@@ -254,6 +255,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     };
 
 
+
     /**
      * 上传血压的测量结果
      */
@@ -279,7 +281,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         .putExtra("mb_gaoya", response.Psst)
                         .putExtra("mb_diya", response.Pdst));
                 if (status&&fragment!=null){
-                    removeFragment(fragment);
+                    errorStatus=true;
                 }
             }
         }, new NetworkManager.FailedCallback() {
@@ -287,13 +289,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onFailed(String message) {
                 if (!TextUtils.isEmpty(message)) {
                     if (message.startsWith("血压超标")) {
-                        final MeasureXueyaWarningFragment warningFragment = new MeasureXueyaWarningFragment();
-                        getSupportFragmentManager().beginTransaction().add(R.id.container, warningFragment).commit();
+                        warningXueyaFragment = new MeasureXueyaWarningFragment();
+                        getSupportFragmentManager().beginTransaction().add(R.id.container, warningXueyaFragment).commit();
 
-                        warningFragment.setOnChooseReason(new MeasureChooseReason() {
+                        warningXueyaFragment.setOnChooseReason(new MeasureChooseReason() {
                             @Override
                             public void hasReason(int reason) {
-                                removeFragment(warningFragment);
+                                removeFragment(warningXueyaFragment);
                                 switch (reason) {
                                     case -1://其他原因
                                         break;
@@ -319,7 +321,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             @Override
                             public void noReason() {//强制插入异常数据
-                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true,warningFragment);
+                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true,warningXueyaFragment);
                             }
                         });
                     } else {
@@ -365,7 +367,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         .putExtra("week_avg_empty", response.empty_stomach)
                         .putExtra("fenshu", response.exponent));
                 if (status&&fragment!=null){
-                    removeFragment(fragment);
+                    errorStatus=true;
                 }
             }
         }, new NetworkManager.FailedCallback() {
@@ -373,7 +375,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             public void onFailed(String message) {
                 if (!TextUtils.isEmpty(message)) {//血糖暂时没有数据异常处理
                     if (message.startsWith("血糖超标")) {
-                        final MeasureXuetangFragment measureXuetangFragment = new MeasureXuetangFragment();
+                        measureXuetangFragment = new MeasureXuetangFragment();
                         getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
 
                         measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
@@ -1036,12 +1038,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
+                String s_one=mSanHeYiOneTv.getText().toString();
+                String s_two=mSanHeYiTwoTv.getText().toString();
+                String s_three=mSanHeYiThreeTv.getText().toString();
+
+                if (!s_one.equals("0")){
+                    startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 2));
+                }else if (!s_two.equals("0")){
+                    startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
+                }else if (!s_three.equals("0")){
+                    startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 5));
+                }else{
+                    startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 2));
+                }
+//                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
             }
         });
         findViewById(R.id.history6).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 8));
             }
         });
@@ -1240,7 +1256,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         unregisterReceiver(mGattUpdateReceiver);
         unregisterReceiver(searchDevices);
         stopSearch();
-        blueThreadDisable = false;
         if (mBluetoothLeService != null) {
             unbindService(mServiceConnection);
         }
@@ -1250,6 +1265,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mBluetoothGatt.disconnect();
             mBluetoothGatt.close();
         }
+
     }
 
     private int seletTimeType = 0;
@@ -1311,6 +1327,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         }
+//        Log.i("mylog2", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
         workSearchThread = true;
         if (mSearchThread == null) {
             mSearchThread = new Thread(new Runnable() {
@@ -1499,12 +1516,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
+
+        if (errorStatus){
+            if (warningXueyaFragment!=null){
+                removeFragment(warningXueyaFragment);
+            }
+            if (measureXuetangFragment!=null){
+                removeFragment(measureXuetangFragment);
+            }
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mVideoView.pause();
+
     }
 
     /**
@@ -1561,6 +1588,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        blueThreadDisable = false;
     }
 
     // Device scan callback.

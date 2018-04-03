@@ -99,17 +99,9 @@ public class HealthDiaryActivity extends BaseActivity
         ItemsModel itemsModel1 = new ItemsModel();
         itemsModel1.setTitle("选择酒类与度数");
         ArrayList<String> items1 = new ArrayList<>();
-        items1.add("白酒38度");
-        items1.add("白酒42度");
-        items1.add("白酒52度");
-        items1.add("白酒56度");
-        items1.add("白酒68度");
-        items1.add("啤酒6度");
-        items1.add("啤酒7度");
-        items1.add("啤酒8度");
-        items1.add("啤酒12度");
-        items1.add("啤酒13度");
-        items1.add("红酒13度");
+        items1.add("白酒");
+        items1.add("啤酒");
+        items1.add("红酒");
         items1.add("黄酒");
         items1.add("威士忌");
         itemsModel1.setItems(items1);
@@ -180,7 +172,8 @@ public class HealthDiaryActivity extends BaseActivity
                             if (isFinishing() || isDestroyed()) {
                                 return;
                             }
-                            T.show("服务器繁忙");
+                            T.show(message);
+                            speak(message);
                         }
                     }
             );

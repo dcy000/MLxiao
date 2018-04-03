@@ -194,39 +194,39 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
 
         //默认选择第一个
         switch (radioGroupPosition) {
-            case 0:
+            case 0://体温
                 rgHealthRecord.check(R.id.rb_record_temperature);
                 clickTiwen();
                 break;
-            case 1:
+            case 1://血压
                 rgHealthRecord.check(R.id.rb_record_blood_pressure);
                 clickXueya();
                 break;
-            case 2:
+            case 2://血糖
                 rgHealthRecord.check(R.id.rb_record_blood_glucose);
                 clickXuetang();
                 break;
-            case 3:
+            case 3://血氧
                 rgHealthRecord.check(R.id.rb_record_blood_oxygen);
                 clickXueyang();
                 break;
-            case 4:
+            case 4://心跳
                 rgHealthRecord.check(R.id.rb_record_heart_rate);
                 clickXinlv();
                 break;
-            case 5:
+            case 5://胆固醇
                 rgHealthRecord.check(R.id.rb_record_cholesterol);
                 clickDangu();
                 break;
-            case 6:
+            case 6://血尿酸
                 rgHealthRecord.check(R.id.rb_record_bua);
                 clickNiaosuan();
                 break;
-            case 7:
+            case 7://心电图
                 rgHealthRecord.check(R.id.rb_record_ecg);
                 clickXindian();
                 break;
-            case 8:
+            case 8://体重
                 rgHealthRecord.check(R.id.rb_record_weight);
                 clickTizhong();
                 break;
@@ -244,7 +244,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         tvRecordQrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = NetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + MyApplication.getInstance().userId + "&bname=" + MyApplication.getInstance().userName;
+                String text = NetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + MyApplication.getInstance().userId + "&bname=" + QrCodeUtils.urlEncode(MyApplication.getInstance().userName);
                 MyDialogFragment.newInstance(text).show(getSupportFragmentManager(), MyDialogFragment.TAG);
             }
         });
@@ -2156,7 +2156,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXindian(weekAgoTime + "", currentTime + "");
                         break;
                     case "10":
-                        getTizhong(weekAgoTime+"",currentTime+"");
+                        getTizhong(weekAgoTime + "", currentTime + "");
                         break;
                 }
                 break;
@@ -2170,7 +2170,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXueya(monthAgoTime + "", currentTime + "");
                         break;
                     case "3":
-                        getXinlv(monthAgoTime+"",currentTime+"");
+                        getXinlv(monthAgoTime + "", currentTime + "");
                         break;
                     case "4":
                         getXuetang(monthAgoTime + "", currentTime + "", eatedTime);
@@ -2188,7 +2188,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXindian(monthAgoTime + "", currentTime + "");
                         break;
                     case "10":
-                        getTizhong(monthAgoTime+"",currentTime+"");
+                        getTizhong(monthAgoTime + "", currentTime + "");
                         break;
                 }
                 break;
@@ -2202,7 +2202,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXueya(seasonAgoTime + "", currentTime + "");
                         break;
                     case "3":
-                        getXinlv(seasonAgoTime+"",currentTime+"");
+                        getXinlv(seasonAgoTime + "", currentTime + "");
                         break;
                     case "4":
                         getXuetang(seasonAgoTime + "", currentTime + "", eatedTime);
@@ -2220,7 +2220,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXindian(seasonAgoTime + "", currentTime + "");
                         break;
                     case "10":
-                        getTizhong(seasonAgoTime+"",currentTime+"");
+                        getTizhong(seasonAgoTime + "", currentTime + "");
                         break;
                 }
                 break;
@@ -2234,7 +2234,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXueya(yearAgoTime + "", currentTime + "");
                         break;
                     case "3":
-                        getXinlv(yearAgoTime+"",currentTime+"");
+                        getXinlv(yearAgoTime + "", currentTime + "");
                         break;
                     case "4":
                         getXuetang(yearAgoTime + "", currentTime + "", eatedTime);
@@ -2252,7 +2252,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                         getXindian(yearAgoTime + "", currentTime + "");
                         break;
                     case "10":
-                        getTizhong(yearAgoTime+"",currentTime+"");
+                        getTizhong(yearAgoTime + "", currentTime + "");
                         break;
                 }
                 break;
@@ -2354,6 +2354,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             Handlers.bg().post(new Runnable() {
                 @Override
                 public void run() {
+//                    if (text.startsWith("http")){
+//                        text = MyDialogFragment.this.text.replaceFirst("https://|http://", "");
+//                    }
                     final Bitmap bitmap = QrCodeUtils.encodeQrCode(text, dp(260), dp(260));
                     if (bitmap != null && ivQrcode != null) {
                         Handlers.ui().post(new Runnable() {
