@@ -1240,7 +1240,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         unregisterReceiver(mGattUpdateReceiver);
         unregisterReceiver(searchDevices);
         stopSearch();
-        blueThreadDisable = false;
         if (mBluetoothLeService != null) {
             unbindService(mServiceConnection);
         }
@@ -1311,13 +1310,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         }
+        Log.i("mylog2", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
         workSearchThread = true;
         if (mSearchThread == null) {
             mSearchThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     while (blueThreadDisable) {
-//                        Log.i("mylog", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
+                        Log.i("mylog", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
                         if (!workSearchThread) {
                             try {
                                 Thread.sleep(2000);
@@ -1326,14 +1326,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                             continue;
                         }
-//                        Log.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                        Log.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                         if (TextUtils.isEmpty(mDeviceAddress)) {
                             if (!mBluetoothAdapter.isDiscovering()) {
                                 boolean flag = mBluetoothAdapter.startDiscovery();
-//                                Log.i("mylog", "flag : " + flag);
+                                Log.i("mylog", "flag : " + flag);
                             }
                         } else {
-//                            Log.i("mylog", "address : " + mDeviceAddress);
+                            Log.i("mylog", "address : " + mDeviceAddress);
                             if (mBluetoothLeService != null && mBluetoothLeService.connect(mDeviceAddress)) {
                                 mBluetoothGatt = mBluetoothLeService.getGatt();
                                 stopSearch();
@@ -1561,6 +1561,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        blueThreadDisable = false;
     }
 
     // Device scan callback.
