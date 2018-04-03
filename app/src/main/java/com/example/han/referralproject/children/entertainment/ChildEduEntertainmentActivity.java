@@ -77,10 +77,10 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
             Intent intent = new Intent();
             intent.setClass(
                     ChildEduEntertainmentActivity.this,
-                    ChildEduSheetListActivity.class
+                    ChildEduSheetDetailsActivity.class
             );
             intent.putExtra(
-                    ChildEduSheetListActivity.EXTRA_SHEET_CATEGORY,
+                    ChildEduSheetDetailsActivity.EXTRA_SHEET_CATEGORY,
                     sheetCategory
             );
             startActivity(intent);

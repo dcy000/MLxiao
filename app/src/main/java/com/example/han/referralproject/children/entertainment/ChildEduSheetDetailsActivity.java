@@ -24,9 +24,17 @@ import com.example.han.referralproject.new_music.MusicUtils;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ChildEduSheetDetailsActivity extends BaseActivity {
+
+    public static final String SHEET_CATEGORY_CHILD = "儿童歌曲";
+    public static final String SHEET_CATEGORY_LULLABY = "摇篮曲";
+    public static final String SHEET_CATEGORY_BABY = "胎教音乐";
+
+    public static final String EXTRA_SHEET_CATEGORY = "sheetCategory";
+    private String sheetCategory;
 
     private ImageView ivSheetCover;
     private TextView tvSheetName;
@@ -44,6 +52,12 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             sheetModel = intent.getParcelableExtra("sheet");
+        }
+
+        if (intent != null) {
+            sheetCategory = intent.getStringExtra(EXTRA_SHEET_CATEGORY);
+        } else {
+            sheetCategory = SHEET_CATEGORY_CHILD;
         }
 
         ImageView ivTitle = (ImageView) findViewById(R.id.ce_common_iv_title);
@@ -77,6 +91,50 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
         mAutoLoadMoreHelper.attachToRecyclerView(rvSongs);
         mAutoLoadMoreHelper.setOnAutoLoadMoreListener(onAutoLoadMoreListener);
         if (sheetModel != null) {
+            showLoadingDialog("加载中...");
+            loadSheet(page, limit);
+        }
+
+        NetworkApi.getChildEduSheetList(1, 12, new NetworkManager.SuccessCallback<List<SheetModel>>() {
+            @Override
+            public void onSuccess(List<SheetModel> response) {
+                if (isFinishing()) {
+                    return;
+                }
+                hideLoadingDialog();
+                if (response == null || response.isEmpty()) {
+                    T.show("服务器繁忙");
+                    return;
+                }
+                Iterator<SheetModel> iterator = response.iterator();
+                while (iterator.hasNext()) {
+                    SheetModel model = iterator.next();
+                    if (sheetCategory.equals(model.getFlag())) {
+                        sheetModel = model;
+                        onSheetModel(sheetModel);
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                if (isFinishing()) {
+                    return;
+                }
+                hideLoadingDialog();
+                T.show("服务器繁忙");
+            }
+        });
+    }
+
+    private void onSheetModel(SheetModel sheetModel) {
+        if (sheetModel != null) {
+            Glide.with(this)
+                    .load(sheetModel.getImageUrl())
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .into(ivSheetCover);
+            tvSheetName.setText(sheetModel.getName());
             showLoadingDialog("加载中...");
             loadSheet(page, limit);
         }
@@ -114,7 +172,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
                             mAutoLoadMoreHelper.setLoading(false);
                         }
                         hideLoadingDialog();
-                        mModels.clear();
+//                        mModels.clear();
                         mModels.addAll(response);
                         mAdapter.notifyDataSetChanged();
                     }

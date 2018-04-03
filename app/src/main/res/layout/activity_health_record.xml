@@ -303,7 +303,7 @@
         android:layout_height="560dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tv_record_qrcode">
 
         <RadioButton
             android:id="@+id/rb_record_temperature"
@@ -490,5 +490,5 @@
         android:textColor="@drawable/bg_rb_history_record"
         android:textSize="28sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_health_record"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

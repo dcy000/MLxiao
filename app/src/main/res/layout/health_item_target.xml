@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="912pt"
+    android:layout_height="428pt"
+    tools:background="@drawable/health_ic_drink">
+
+    <TextView
+        android:id="@+id/health_diary_tv_analysis_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40pt"
+        android:layout_marginTop="60pt"
+        android:textColor="#999999"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="本周盐摄入量"/>
+
+    <TextView
+        android:id="@+id/health_diary_tv_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="132pt"
+        android:layout_marginLeft="40pt"
+        android:textColor="#666666"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="少于40克"/>
+
+    <TextView
+        android:id="@+id/health_diary_tv_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52pt"
+        android:layout_marginLeft="40pt"
+        android:textColor="#666666"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="摄入20克"/>
+</android.support.constraint.ConstraintLayout>
