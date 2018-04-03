@@ -6,6 +6,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import android.Manifest.permission;
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -78,24 +80,25 @@ public class AuthenticationActivity extends BaseActivity {
     private int PREVIEW_HEIGHT = 720;
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
-    private static byte[] mImageData = null;
+    private byte[] mImageData = null;
     private Bitmap b3;
     private String orderid;
-    private String[] xfids;//存放本地取得所有xfid
     private String fromString;//标识从哪个页面过来的
     private String fromType;
     private Button mTiaoguo;
     private ByteArrayOutputStream baos;
-    private static boolean isGetImageFlag = false;
     private String mAuthid;
     private MyHandler myHandler;
     private ArrayList<UserInfoBean> mDataList;
-    private boolean isInclude;
+    private boolean isInclude_PassPerson=false;
     private int authenticationNum = 0;
     private TextView tvTips;
     private boolean isTest;
     private LottieAnimationView lottAnimation;
     private Animation rotateAnim;
+    //    private byte[] cacheCamera;
+    private static final int TO_FACE_AUTHENTICATION = 1;
+    private static final int TO_CAMERA_PRE_RESOLVE = 2;
 
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
@@ -107,25 +110,28 @@ public class AuthenticationActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1:
+                case TO_FACE_AUTHENTICATION://开始验证头像
                     findViewById(R.id.iv_circle).startAnimation(rotateAnim);
                     FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, LocalShared.getInstance(weakReference.get()).getGroupId());
                     FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
                         @Override
                         public void onResult(IdentityResult result, boolean islast) {
                             if (null == result) {
-                                myHandler.sendEmptyMessage(1);
+                                myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
                                 return;
                             }
-                            closeAnimation();
+
                             try {
                                 String resultStr = result.getResultString();
                                 JSONObject resultJson = new JSONObject(resultStr);
                                 if (ErrorCode.SUCCESS == resultJson.getInt("ret")) {//此处检验百分比
                                     JSONArray scoreList = resultJson.getJSONObject("ifv_result").getJSONArray("candidates");
+                                    Logger.e(scoreList.toString());
                                     String scoreFirstXfid = scoreList.getJSONObject(0).optString("user");
+                                    Logger.e("最高分数的讯飞id" + scoreFirstXfid);
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                                     if (firstScore > 80) {
+                                        closeAnimation();
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
                                             authenticationSuccessForTest$Welcome(scoreFirstXfid, weakReference);
                                         } else if ("Pay".equals(fromString)) {
@@ -140,8 +146,7 @@ public class AuthenticationActivity extends BaseActivity {
                                         if (firstScore > 30) {
                                             authenticationNum = 0;
                                             ToastTool.showShort("请将您的面孔靠近摄像头，再试一次");
-                                            myHandler.sendEmptyMessage(2);
-                                            myHandler.sendEmptyMessageDelayed(1, 2000);
+                                            myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE,1000);
                                         } else {
                                             ToastTool.showLong("匹配度" + String.format("%.2f", firstScore) + "%,验证不通过!");
                                             finishActivity();
@@ -149,6 +154,7 @@ public class AuthenticationActivity extends BaseActivity {
                                     }
                                 } else {
                                     ToastTool.showShort("识别失败");
+                                    finishActivity();
                                 }
                             } catch (JSONException e) {
                                 Logger.e(e, "验证失败");
@@ -162,21 +168,37 @@ public class AuthenticationActivity extends BaseActivity {
 
                         @Override
                         public void onError(SpeechError error) {
-                            Logger.e(error,"验证出错");
-                            if (!AuthenticationActivity.this.isFinishing() && !AuthenticationActivity.this.isDestroyed())
-                                if (authenticationNum < 5) {
-                                    authenticationNum++;
-                                    ToastTool.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
-                                    myHandler.sendEmptyMessage(2);
-                                    myHandler.sendEmptyMessageDelayed(1, 2000);
-                                } else {
-                                    finishActivity();
-                                }
+                            Logger.e(error, "验证出错");
+                            if (authenticationNum < 5) {
+                                authenticationNum++;
+                                ToastTool.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
+//                                    myHandler.sendEmptyMessage(2);
+//                                    myHandler.sendEmptyMessageDelayed(1, 2000);
+                                myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE, 1000);
+                            } else {
+                                finishActivity();
+                            }
                         }
                     });
                     break;
-                case 2:
-                    isGetImageFlag = true;
+                case TO_CAMERA_PRE_RESOLVE://解析图像
+                    if (mCamera != null) {
+                        mCamera.setOneShotPreviewCallback(new PreviewCallback() {
+                            @Override
+                            public void onPreviewFrame(byte[] data, Camera camera) {
+                                b3 = decodeToBitMap(data, mCamera);
+                                if (b3 != null) {
+                                    Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
+                                    if (bitmap != null) {
+                                        baos.reset();
+                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                        mImageData = baos.toByteArray();
+                                        myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
+                                    }
+                                }
+                            }
+                        });
+                    }
                     break;
             }
         }
@@ -195,19 +217,20 @@ public class AuthenticationActivity extends BaseActivity {
             for (int i = 0; i < mDataList.size(); i++) {
                 UserInfoBean user = mDataList.get(i);
                 if (user.xfid.equals(scoreFirstXfid)) {
+                    Logger.e("识别到的讯飞id" + user.xfid + "++++识别到的人" + user.bname);
                     new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
                     LocalShared.getInstance(mContext).setUserInfo(user);
                     LocalShared.getInstance(mContext).setSex(user.sex);
                     LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
                     LocalShared.getInstance(mContext).setUserAge(user.age);
                     LocalShared.getInstance(mContext).setUserHeight(user.height);
-                    isInclude = true;
+                    isInclude_PassPerson = true;
                     break;
                 } else {
-                    isInclude = false;
+                    isInclude_PassPerson = false;
                 }
             }
-            if (isInclude) {
+            if (isInclude_PassPerson) {
                 if ("Welcome".equals(fromString)) {
                     startActivity(new Intent(weakReference.get(), MainActivity.class));
                 } else if ("Test".equals(fromString)) {
@@ -248,8 +271,7 @@ public class AuthenticationActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-//                payFail();
-//                showNormal("支付失败", "0");
+
             }
         });
     }
@@ -285,79 +307,70 @@ public class AuthenticationActivity extends BaseActivity {
         if (isTest) {
             openAnimation();
         } else {
-//            joinGroup();
-            openAnimation();
-            myHandler.sendEmptyMessage(2);
-            myHandler.sendEmptyMessageDelayed(1,2000);
+            joinGroup();
         }
         setClick();
         getAllUsersInfo();
     }
 
-//    private void joinGroup() {
-//        String groupid = LocalShared.getInstance(this).getGroupId();
-//        String firstXfid = LocalShared.getInstance(this).getGroupFirstXfid();
-//        final String currentXfid = LocalShared.getInstance(this).getXunfeiId();
-//        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, currentXfid);
-//        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
-//            @Override
-//            public void onResult(IdentityResult result, boolean islast) {
-//                tvTips.setText("请将人脸对准识别框");
-//                openAnimation();
-//                //添加完成以后，马上进行人脸匹配
-//                myHandler.sendEmptyMessage(2);
-//                myHandler.sendEmptyMessageDelayed(1, 1000);
-//            }
-//
-//            @Override
-//            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-//
-//            }
-//
-//            @Override
-//            public void onError(SpeechError error) {
-//                Logger.e(error, "添加成员出现异常");
-//                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
-//                    createGroup(currentXfid);
-//                } else {
-//                    openAnimation();
-//                    myHandler.sendEmptyMessage(2);
-//                    myHandler.sendEmptyMessageDelayed(1, 1000);
-//                }
-//
-//            }
-//        });
-//    }
+    private void joinGroup() {
+        String groupid = LocalShared.getInstance(this).getGroupId();
+        String firstXfid = LocalShared.getInstance(this).getGroupFirstXfid();
+        final String currentXfid = LocalShared.getInstance(this).getXunfeiId();
+        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, currentXfid);
+        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                tvTips.setText("请将人脸对准识别框");
+                openAnimation();
+            }
 
-//    private void createGroup(final String xfid) {
-//        FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
-//        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
-//            @Override
-//            public void onResult(IdentityResult result, boolean islast) {
-//                try {
-//                    JSONObject resObj = new JSONObject(result.getResultString());
-//                    String groupId = resObj.getString("group_id");
-//                    LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
-//                    LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfid);
-//                    joinGroup();
-//                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).updateGroupInformation(groupId, xfid);
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-//            }
-//
-//            @Override
-//            public void onError(SpeechError error) {
-//                Logger.e(error, "创建组失败");
-//                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
-//            }
-//        });
-//    }
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "添加成员出现异常");
+                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
+                    createGroup(currentXfid);
+                } else {
+                    openAnimation();
+                }
+
+            }
+        });
+    }
+
+    private void createGroup(final String xfid) {
+        FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
+        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                try {
+                    JSONObject resObj = new JSONObject(result.getResultString());
+                    String groupId = resObj.getString("group_id");
+                    LocalShared.getInstance(AuthenticationActivity.this).setGroupId(groupId);
+                    LocalShared.getInstance(AuthenticationActivity.this).setGroupFirstXfid(xfid);
+                    joinGroup();
+                    FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).updateGroupInformation(groupId, xfid);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "创建组失败");
+            }
+        });
+    }
 
     private void openAnimation() {
         lottAnimation.playAnimation();
@@ -399,9 +412,7 @@ public class AuthenticationActivity extends BaseActivity {
         orderid = intent.getStringExtra("orderid");
         fromString = intent.getStringExtra("from");
         fromType = intent.getStringExtra("fromType");
-
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
-
         mTiaoguo = (Button) findViewById(R.id.tiao_guos);
         if ("Pay".equals(fromString) || "Welcome".equals(fromString)) {//支付过来
             mTiaoguo.setVisibility(View.GONE);
@@ -410,7 +421,6 @@ public class AuthenticationActivity extends BaseActivity {
             mTiaoguo.setVisibility(View.VISIBLE);
         }
         mPreviewSurface = findViewById(R.id.sfv_preview);
-
         rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
         baos = new ByteArrayOutputStream();
         myHandler = new MyHandler(this);
@@ -418,7 +428,6 @@ public class AuthenticationActivity extends BaseActivity {
         lottAnimation = findViewById(R.id.lott_animation);
         lottAnimation.setImageAssetsFolder("lav_imgs/");
         lottAnimation.setAnimation("camera_pre.json");
-
     }
 
 
@@ -440,48 +449,20 @@ public class AuthenticationActivity extends BaseActivity {
                     public void run() {
                         try {
                             mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
-                        } catch (Exception e) {
-                        }
-                        Parameters params = mCamera.getParameters();
-                        params.setPreviewFormat(ImageFormat.NV21);
-                        params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
-                        mCamera.setParameters(params);
-                        setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
-                        mCamera.addCallbackBuffer(new byte[((PREVIEW_WIDTH * PREVIEW_HEIGHT) * ImageFormat.getBitsPerPixel(ImageFormat.NV21)) / 8]);
-                        mCamera.setPreviewCallbackWithBuffer(new PreviewCallback() {
-                            @Override
-                            public void onPreviewFrame(final byte[] data, Camera camera) {
-                                mCamera.addCallbackBuffer(data);
-                                if (isGetImageFlag) {
-                                    isGetImageFlag = false;
-                                    Handlers.bg().post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Logger.e("setPreviewCallbackWithBuffer");
-                                            b3 = decodeToBitMap(data, mCamera);
-                                            if (b3 != null) {
-                                                Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
-                                                if (bitmap != null) {
-                                                    if (null != baos) {
-                                                        baos.reset();
-                                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                                    }
-                                                    if (null != baos) {
-                                                        mImageData = baos.toByteArray();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    });
-                                }
+                            if (mCamera==null) {
+                                runOnUiThreadWithOpenCameraFail();
+                                return;
                             }
-                        });
-
-                        try {
+                            Parameters params = mCamera.getParameters();
+                            params.setPreviewFormat(ImageFormat.NV21);
+                            params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+                            mCamera.setParameters(params);
+                            setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
                             mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
                             mCamera.startPreview();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+
+                        } catch (Exception e) {
+                            runOnUiThreadWithOpenCameraFail();
                         }
                     }
                 });
@@ -501,7 +482,15 @@ public class AuthenticationActivity extends BaseActivity {
 
 
     }
-
+    private void runOnUiThreadWithOpenCameraFail(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastTool.showShort("启动相机失败");
+                finishActivity();
+            }
+        });
+    }
     private void setClick() {
         findViewById(R.id.iv_back).setOnClickListener(new OnClickListener() {
             @Override
@@ -535,6 +524,28 @@ public class AuthenticationActivity extends BaseActivity {
                     startActivity(new Intent(AuthenticationActivity.this, SignInActivity.class));
                 }
                 finishActivity();
+            }
+        });
+        lottAnimation.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                //动画结束
+                myHandler.sendEmptyMessage(TO_CAMERA_PRE_RESOLVE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
             }
         });
     }
@@ -590,14 +601,11 @@ public class AuthenticationActivity extends BaseActivity {
             Camera.Size size = mCamera.getParameters().getPreviewSize();
             YuvImage image = new YuvImage(data, ImageFormat.NV21, size.width, size.height, null);
             if (image != null) {
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 baos.reset();
                 image.compressToJpeg(new Rect(0, 0, size.width, size.height), 80, baos);
                 Bitmap bmp = BitmapFactory.decodeByteArray(baos.toByteArray(), 0, baos.size());
-//                baos.close();
                 Matrix matrix = new Matrix();
                 matrix.postRotate(0);
-                //上面得到的图片旋转了270度,下面将图片旋转回来,前置摄像头270度,后置只需要90度
                 Bitmap nbmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
                 return nbmp;
             }
@@ -608,12 +616,6 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void finishActivity() {
-        if (null != mCamera) {
-            mCamera.setPreviewCallback(null);
-            mCamera.stopPreview();
-            mCamera.release();
-            mCamera = null;
-        }
         if (baos != null) {
             try {
                 baos.close();
@@ -622,6 +624,13 @@ public class AuthenticationActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+        if (null != mCamera) {
+            mCamera.setPreviewCallback(null);
+            mCamera.stopPreview();
+            mCamera.release();
+            mCamera = null;
+        }
+        mImageData = null;
         Handlers.bg().removeCallbacksAndMessages(null);
         myHandler.removeCallbacksAndMessages(null);
         finish();
@@ -630,6 +639,7 @@ public class AuthenticationActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Logger.e("onDestroy");
         if (lottAnimation != null)
             lottAnimation.cancelAnimation();
     }
