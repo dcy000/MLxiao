@@ -90,7 +90,7 @@ public class AuthenticationActivity extends BaseActivity {
     private String mAuthid;
     private MyHandler myHandler;
     private ArrayList<UserInfoBean> mDataList;
-    private boolean isInclude_PassPerson=false;
+    private boolean isInclude_PassPerson = false;
     private int authenticationNum = 0;
     private TextView tvTips;
     private boolean isTest;
@@ -146,7 +146,7 @@ public class AuthenticationActivity extends BaseActivity {
                                         if (firstScore > 30) {
                                             authenticationNum = 0;
                                             ToastTool.showShort("请将您的面孔靠近摄像头，再试一次");
-                                            myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE,1000);
+                                            myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE, 1000);
                                         } else {
                                             ToastTool.showLong("匹配度" + String.format("%.2f", firstScore) + "%,验证不通过!");
                                             finishActivity();
@@ -189,7 +189,7 @@ public class AuthenticationActivity extends BaseActivity {
                                 b3 = decodeToBitMap(data, mCamera);
                                 if (b3 != null) {
                                     Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
-                                    if (bitmap != null) {
+                                    if (bitmap != null&&baos!=null) {
                                         baos.reset();
                                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                                         mImageData = baos.toByteArray();
@@ -449,7 +449,7 @@ public class AuthenticationActivity extends BaseActivity {
                     public void run() {
                         try {
                             mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
-                            if (mCamera==null) {
+                            if (mCamera == null) {
                                 runOnUiThreadWithOpenCameraFail();
                                 return;
                             }
@@ -482,7 +482,8 @@ public class AuthenticationActivity extends BaseActivity {
 
 
     }
-    private void runOnUiThreadWithOpenCameraFail(){
+
+    private void runOnUiThreadWithOpenCameraFail() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -491,6 +492,7 @@ public class AuthenticationActivity extends BaseActivity {
             }
         });
     }
+
     private void setClick() {
         findViewById(R.id.iv_back).setOnClickListener(new OnClickListener() {
             @Override
@@ -616,6 +618,16 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void finishActivity() {
+
+        mImageData = null;
+        Handlers.bg().removeCallbacksAndMessages(null);
+        myHandler.removeCallbacksAndMessages(null);
+        if (null != mCamera) {
+            mCamera.setPreviewCallback(null);
+            mCamera.stopPreview();
+            mCamera.release();
+            mCamera = null;
+        }
         if (baos != null) {
             try {
                 baos.close();
@@ -624,15 +636,6 @@ public class AuthenticationActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
-        if (null != mCamera) {
-            mCamera.setPreviewCallback(null);
-            mCamera.stopPreview();
-            mCamera.release();
-            mCamera = null;
-        }
-        mImageData = null;
-        Handlers.bg().removeCallbacksAndMessages(null);
-        myHandler.removeCallbacksAndMessages(null);
         finish();
     }
 
