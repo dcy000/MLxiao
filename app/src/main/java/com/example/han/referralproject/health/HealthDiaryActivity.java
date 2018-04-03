@@ -172,7 +172,7 @@ public class HealthDiaryActivity extends BaseActivity
                                 return;
                             }
                             T.show("提交成功");
-                            finish();
+                            showWeekTarget();
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override
@@ -188,6 +188,27 @@ public class HealthDiaryActivity extends BaseActivity
             this.what++;
             switchFragment(what + 1, what);
         }
+    }
+
+    private void showWeekTarget() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        String tag = HealthReportFragment.class.getName();
+        Fragment fragment = fm.findFragmentByTag(tag);
+        if (mFragments != null) {
+            for (Fragment fragment1 : mFragments) {
+                if (fragment1 != null && fragment1.isAdded() && !fragment1.isHidden()) {
+                    transaction.hide(fragment1);
+                }
+            }
+        }
+        if (fragment == null) {
+            fragment = HealthReportFragment.newInstance();
+            transaction.add(android.R.id.content, fragment, tag);
+        } else {
+            transaction.show(fragment);
+        }
+        transaction.commitAllowingStateLoss();
     }
 
     private SparseIntArray saltUnitValues;

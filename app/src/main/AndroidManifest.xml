@@ -559,9 +559,9 @@
         <activity android:name=".children.study.ChildEduBrainTeaserActivity"/>
         <activity android:name=".children.study.ChildEduWhyActivity"/>
         <activity android:name=".children.study.ChildEduPoemDetailsActivity"/>
-        <activity android:name=".health.HealthSaltDiaryActivity"/>
-        <activity android:name=".health.HealthSportsDiaryActivity"/>
-        <activity android:name=".health.HealthDrinkDiaryActivity"/>
+        <activity android:name=".health.old.HealthSaltDiaryActivity"/>
+        <activity android:name=".health.old.HealthSportsDiaryActivity"/>
+        <activity android:name=".health.old.HealthDrinkDiaryActivity"/>
         <activity
             android:name=".activity.MessageCenterActivity"
             android:screenOrientation="landscape"/>

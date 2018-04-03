@@ -14,6 +14,10 @@ public class TargetModel implements Parcelable {
 
     private String source;
 
+    private int targetLength;
+
+    private int sourceLength;
+
     public TargetModel() {
     }
 
@@ -41,6 +45,22 @@ public class TargetModel implements Parcelable {
         this.source = source;
     }
 
+    public int getTargetLength() {
+        return targetLength;
+    }
+
+    public void setTargetLength(int targetLength) {
+        this.targetLength = targetLength;
+    }
+
+    public int getSourceLength() {
+        return sourceLength;
+    }
+
+    public void setSourceLength(int sourceLength) {
+        this.sourceLength = sourceLength;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,6 +68,8 @@ public class TargetModel implements Parcelable {
 
         TargetModel that = (TargetModel) o;
 
+        if (targetLength != that.targetLength) return false;
+        if (sourceLength != that.sourceLength) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (target != null ? !target.equals(that.target) : that.target != null) return false;
         return source != null ? source.equals(that.source) : that.source == null;
@@ -58,6 +80,8 @@ public class TargetModel implements Parcelable {
         int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (target != null ? target.hashCode() : 0);
         result = 31 * result + (source != null ? source.hashCode() : 0);
+        result = 31 * result + targetLength;
+        result = 31 * result + sourceLength;
         return result;
     }
 
@@ -67,6 +91,8 @@ public class TargetModel implements Parcelable {
                 "title='" + title + '\'' +
                 ", target='" + target + '\'' +
                 ", source='" + source + '\'' +
+                ", targetLength=" + targetLength +
+                ", sourceLength=" + sourceLength +
                 '}';
     }
 
@@ -80,12 +106,16 @@ public class TargetModel implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.target);
         dest.writeString(this.source);
+        dest.writeInt(this.targetLength);
+        dest.writeInt(this.sourceLength);
     }
 
     protected TargetModel(Parcel in) {
         this.title = in.readString();
         this.target = in.readString();
         this.source = in.readString();
+        this.targetLength = in.readInt();
+        this.sourceLength = in.readInt();
     }
 
     public static final Parcelable.Creator<TargetModel> CREATOR = new Parcelable.Creator<TargetModel>() {
