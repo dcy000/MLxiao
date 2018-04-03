@@ -173,6 +173,7 @@ public class HealthDiaryActivity extends BaseActivity
                                 return;
                             }
                             T.show(message);
+                            speak(message);
                         }
                     }
             );
