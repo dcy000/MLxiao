@@ -82,7 +82,7 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
                     SpeechSynthesizerHelper.stop();
                     SpeechSynthesizerHelper.startSynthesize(expandTextView.getContext(),bean.title+","+ bean.description);
                 }
-                bean.flag = true;
+                getData().get(holder.getPosition()).flag = true;
             }
 
             @Override
