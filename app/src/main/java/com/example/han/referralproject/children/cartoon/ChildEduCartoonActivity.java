@@ -38,7 +38,7 @@ public class ChildEduCartoonActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
+        setDisableGlobalListen(false);
         setEnableListeningLoop(false);
         super.onResume();
     }

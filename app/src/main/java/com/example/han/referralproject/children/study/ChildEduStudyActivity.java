@@ -87,7 +87,7 @@ public class ChildEduStudyActivity extends BaseActivity {
     @Override
     protected void onResume() {
         setEnableListeningLoop(false);
-        setDisableGlobalListen(true);
+        setDisableGlobalListen(false);
         super.onResume();
     }
 }

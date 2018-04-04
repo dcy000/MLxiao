@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.new_music.MusicUtils;
 import com.ml.edu.R;
+import com.ml.edu.common.widget.recycleyview.AutoLoadMoreHelper;
 import com.ml.edu.data.ApiObserver;
 import com.ml.edu.data.entity.SongEntity;
 import com.ml.edu.domain.GetSongListUseCase;
@@ -27,6 +28,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class SheetDetailFragment extends Fragment {
+
+    private AutoLoadMoreHelper mAutoLoadMoreHelper;
 
     public static void remove(FragmentManager fm) {
         Fragment fragment = fm.findFragmentByTag(SheetDetailFragment.class.getSimpleName());
@@ -99,17 +102,26 @@ public class SheetDetailFragment extends Fragment {
         adapter.setOnItemClickListener(onItemClickListener);
         rvSongs.setAdapter(adapter);
         getSongListUseCase = new GetSongListUseCase();
+        mAutoLoadMoreHelper = new AutoLoadMoreHelper();
+        mAutoLoadMoreHelper.attachToRecyclerView(rvSongs);
+        mAutoLoadMoreHelper.setOnAutoLoadMoreListener(onAutoLoadMoreListener);
+        if (onAutoLoadMoreListener != null) {
+            onAutoLoadMoreListener.onAutoLoadMore(mAutoLoadMoreHelper);
+        }
         return view;
     }
 
+    private AutoLoadMoreHelper.OnAutoLoadMoreListener onAutoLoadMoreListener = new AutoLoadMoreHelper.OnAutoLoadMoreListener() {
+        @Override
+        public void onAutoLoadMore(AutoLoadMoreHelper autoLoadMoreHelper) {
+            if (autoLoadMoreHelper.isLoading()) {
+                return;
+            }
+            autoLoadMoreHelper.setLoading(true);
+            getSheetList();
+        }
+    };
     private GetSongListUseCase getSongListUseCase;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        getSheetList();
-    }
-
 
     @Override
     public void onStop() {
@@ -119,12 +131,16 @@ public class SheetDetailFragment extends Fragment {
         }
     }
 
+    private int page = 1;
+    private int limit = 12;
+
     private void getSheetList() {
         if (songListObserver == null) {
             songListObserver = new SongListObserver();
         }
+        page++;
         getSongListUseCase.execute(
-                new GetSongListUseCase.Params(sheetId, 1, 12),
+                new GetSongListUseCase.Params(sheetId, page, limit),
                 songListObserver
         );
     }
@@ -136,10 +152,16 @@ public class SheetDetailFragment extends Fragment {
         public void onNext(List<SongEntity> songEntities) {
             entities.addAll(songEntities);
             adapter.notifyDataSetChanged();
+            if (mAutoLoadMoreHelper != null) {
+                mAutoLoadMoreHelper.setLoading(false);
+            }
         }
 
         @Override
         public void onError(String message) {
+            if (mAutoLoadMoreHelper != null) {
+                mAutoLoadMoreHelper.setLoading(false);
+            }
             Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
         }
     }

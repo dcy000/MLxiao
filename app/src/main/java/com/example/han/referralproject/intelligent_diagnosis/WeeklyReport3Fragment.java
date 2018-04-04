@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.WeeklyReport;
+import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
 import com.github.mikephil.charting.animation.Easing;
@@ -80,7 +81,7 @@ public class WeeklyReport3Fragment extends Fragment {
     @BindView(R.id.tv_progress3)
     TextView tvProgress3;
     private View view;
-    private WeeklyReport data;
+    private WeekReportModel.LastWeek data;
     private float sj_tizhong, sj_yundong, sj_yinjiu, sj_yan;
     private float mb_tizhong, mb_yundong, mb_yinjiu, mb_yan;
     private int pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
@@ -265,7 +266,7 @@ public class WeeklyReport3Fragment extends Fragment {
         mChart.invalidate();
     }
 
-    public void notifyData(WeeklyReport weeklyReport) {
+    public void notifyData(WeekReportModel.LastWeek weeklyReport) {
         this.data = weeklyReport;
         if (data != null) {
             initData();

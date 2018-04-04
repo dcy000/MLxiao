@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.WeeklyReport;
+import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
@@ -83,13 +84,13 @@ public class WeeklyReportActivity extends BaseActivity {
     }
 
     private void getData() {
-        NetworkApi.getWeekReport(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<WeeklyReport>() {
+        NetworkApi.getWeekReport(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<WeekReportModel>() {
             @Override
-            public void onSuccess(WeeklyReport response) {
+            public void onSuccess(WeekReportModel response) {
                 if (response != null) {
-                    fragment1.notifyData(response);
-                    fragment2.notifyData(response);
-                    fragment3.notifyData(response);
+                    fragment1.notifyData(response.lastWeek);
+                    fragment2.notifyData(response.lastWeek);
+                    fragment3.notifyData(response.lastWeek);
                     Logger.e("返回测量数据成功" + response);
                 } else {
                     ToastTool.showShort("暂无周报告");
