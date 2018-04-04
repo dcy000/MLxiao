@@ -1,4 +1,4 @@
-package com.example.han.referralproject.children;
+package com.ml.edu.common.widget.recycleyview;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

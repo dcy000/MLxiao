@@ -20,8 +20,10 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.health.model.TargetModel;
+import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 
@@ -99,9 +101,9 @@ public class HealthReportFragment extends Fragment {
     public void onResume() {
         super.onResume();
         NetworkApi.getWeekReport(MyApplication.getInstance().userId,
-                new NetworkManager.SuccessCallback<WeeklyReport>() {
+                new NetworkManager.SuccessCallback<WeekReportModel>() {
                     @Override
-                    public void onSuccess(WeeklyReport response) {
+                    public void onSuccess(WeekReportModel response) {
                         if (response == null
                                 || getActivity() == null
                                 || getActivity().isFinishing()
@@ -119,44 +121,90 @@ public class HealthReportFragment extends Fragment {
                                 || getActivity().isDestroyed()) {
                             return;
                         }
+                        onWeekReport(null);
                         T.show(message);
                     }
                 });
     }
 
-    private void onWeekReport(WeeklyReport response) {
+    private void onWeekReport(WeekReportModel response) {
+        if (response == null) {
+            response = new WeekReportModel();
+        }
+        if (response.currentWeek == null) {
+            response.currentWeek = new WeekReportModel.CurrentWeek();
+        }
+        if (response.lastWeek == null) {
+            response.lastWeek = new WeekReportModel.LastWeek();
+        }
         mTargetModels.clear();
         TargetModel targetModel = new TargetModel();
         targetModel.setTitle("本周盐摄入量");
-        String target = Float.parseFloat(response.nas) < Float.parseFloat(response.nam) ? "少于" : "大于";
-        targetModel.setTarget(target + response.nam + "克");
-        targetModel.setTargetLength(response.nam == null ? 0 : response.nam.length());
-        targetModel.setSourceLength(response.nas == null ? 0 : response.nas.length());
-        targetModel.setSource("摄入" + response.nas + "克");
+        if (response.lastWeek.nam == null || response.lastWeek.nam.equals("-1")) {
+            response.lastWeek.nam = "42.00";
+        }
+        if (response.currentWeek.na == null || response.currentWeek.na.equals("-1")) {
+            response.currentWeek.na = "0.00";
+        }
+        String target = Float.parseFloat(response.currentWeek.na) < Float.parseFloat(response.lastWeek.nam) ? "少于" : "少于";
+        targetModel.setTarget(target + response.lastWeek.nam + "克");
+        targetModel.setTargetLength(response.lastWeek.nam.length());
+        targetModel.setSourceLength(response.currentWeek.na == null ? 0 : response.currentWeek.na.length());
+        targetModel.setSource("摄入" + response.currentWeek.na + "克");
         mTargetModels.add(targetModel);
         targetModel = new TargetModel();
         targetModel.setTitle("本周酒精摄入量");
-        target = Float.parseFloat(response.drinks) < Float.parseFloat(response.drinkm) ? "少于" : "大于";
-        targetModel.setTarget(target + Float.parseFloat(response.drinks) + "ml");
-        targetModel.setTargetLength(response.drinkm == null ? 0 : response.drinkm.length());
-        targetModel.setSourceLength(response.drinks == null ? 0 : response.drinks.length());
-        targetModel.setSource("已饮" + Float.parseFloat(response.drinks) + "ml");
+        if (response.lastWeek.drinkm == null || response.lastWeek.drinkm.equals("-1")) {
+            response.lastWeek.drinkm = "0.00";
+        }
+        if (response.currentWeek.drink == null || response.currentWeek.drink.equals("-1")) {
+            response.currentWeek.drink = "0.00";
+        }
+        target = Float.parseFloat(response.currentWeek.drink) < Float.parseFloat(response.lastWeek.drinkm) ? "少于" : "少于";
+        targetModel.setTarget(target + response.lastWeek.drinkm + "ml");
+        targetModel.setTargetLength(response.lastWeek.drinkm.length());
+        targetModel.setSourceLength(response.lastWeek.drinkm.length());
+        targetModel.setSource("已饮" + response.currentWeek.drink + "ml");
         mTargetModels.add(targetModel);
         targetModel = new TargetModel();
-        target = Float.parseFloat(response.sportss) < Float.parseFloat(response.sportsm) ? "少于" : "大于";
+        if (response.lastWeek.sportsm == null || response.lastWeek.sportsm.equals("-1")) {
+            response.lastWeek.sportsm = "100.00";
+        }
+        if (response.currentWeek.sports == null || response.currentWeek.sports.equals("-1")) {
+            response.currentWeek.sports = "0.00";
+        }
+        target = Float.parseFloat(response.currentWeek.sports) < Float.parseFloat(response.lastWeek.sportsm) ? "大于" : "大于";
         targetModel.setTitle("本周运动时间");
-        targetModel.setTarget(target + Float.parseFloat(response.sportsm) + "分钟");
-        targetModel.setTargetLength(response.sportsm == null ? 0 : response.sportsm.length());
-        targetModel.setSourceLength(response.sportss == null ? 0 : response.sportss.length());
-        targetModel.setSource("运动" + Float.parseFloat(response.sportss) + "分钟");
+        targetModel.setTarget(target + response.lastWeek.sportsm + "分钟");
+        targetModel.setTargetLength(response.lastWeek.sportsm.length());
+        targetModel.setSourceLength(response.currentWeek.sports.length());
+        targetModel.setSource("运动" + response.currentWeek.sports + "分钟");
         mTargetModels.add(targetModel);
         targetModel = new TargetModel();
-        targetModel.setTitle("本周BMI");
-        target = Float.parseFloat(response.bmis) < Float.parseFloat(response.bmim) ? "少于" : "大于";
-        targetModel.setTarget(target + Float.parseFloat(response.bmim));
-        targetModel.setTargetLength(response.bmim == null ? 0 : response.bmim.length());
-        targetModel.setSourceLength(response.bmis == null ? 0 : response.bmis.length());
-        targetModel.setSource("BMI" + Float.parseFloat(response.bmis));
+        targetModel.setTitle("体重");
+        float targetWeight = 0.00f;
+        float weight = 0.00f;
+        if (response.lastWeek.bmim == null || response.lastWeek.bmim.equals("-1")) {
+            response.lastWeek.bmim = "0.00";
+        }
+        if (response.lastWeek.bmis == null || response.lastWeek.bmis.equals("-1")) {
+            response.lastWeek.bmis = "0.00";
+        }
+        float bmi = Float.parseFloat(response.lastWeek.bmis);
+        float targetBmi = Float.parseFloat(response.lastWeek.bmim);
+        LocalShared shared = LocalShared.getInstance(getContext());
+        float height = shared == null ? 0 : Float.parseFloat(shared.getUserHeight());
+        if (height > 0) {
+            targetWeight = targetBmi / height / height * 10000;
+            weight = bmi / height / height * 10000;
+        }
+        target = bmi < targetBmi ? "少于" : "少于";
+        String s = String.valueOf(targetWeight);
+        String s1 = String.valueOf(weight);
+        targetModel.setTarget(target + s + "kg");
+        targetModel.setTargetLength(s.length());
+        targetModel.setSourceLength(s1.length());
+        targetModel.setSource("体重" + s1 + "kg");
         mTargetModels.add(targetModel);
         mAdapter.notifyDataSetChanged();
     }
@@ -209,7 +257,7 @@ public class HealthReportFragment extends Fragment {
         public void onBind(int position) {
             itemView.setBackgroundResource(backgroudReses[position % 4]);
             TargetModel model = mTargetModels.get(position);
-            int startSource = position == 3 ? 3 : 2;
+            int startSource = 2;
             tvTitle.setText(model.getTitle());
             SpannableString targetStyle = new SpannableString(model.getTarget());
             targetStyle.setSpan(new ForegroundColorSpan(Color.parseColor("#333333")),
@@ -220,7 +268,7 @@ public class HealthReportFragment extends Fragment {
             SpannableString sourceStyle = new SpannableString(model.getSource());
             sourceStyle.setSpan(new ForegroundColorSpan(Color.parseColor("#FF5747")),
                     startSource, startSource + model.getSourceLength(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            tvSource.setText(model.getSource());
+            tvSource.setText(sourceStyle);
         }
     }
 }

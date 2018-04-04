@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.WeeklyReport;
+import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
@@ -62,7 +63,7 @@ public class WeeklyReport1Fragment extends Fragment {
     //    @BindView(R.id.tv_progress)
 //    TextView tvProgress;
     private View view;
-    private WeeklyReport data;
+    private WeekReportModel.LastWeek data;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +75,7 @@ public class WeeklyReport1Fragment extends Fragment {
         return view;
     }
 
-    public void notifyData(WeeklyReport weeklyReport) {
+    public void notifyData(WeekReportModel.LastWeek weeklyReport) {
         this.data = weeklyReport;
         float sj_gaoya, sj_diya, mb_gaoya, mb_diya;
         if (data != null) {

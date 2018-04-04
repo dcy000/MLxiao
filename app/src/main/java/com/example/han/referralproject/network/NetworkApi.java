@@ -37,6 +37,7 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
+import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.example.han.referralproject.recyclerview.OnlineTime;
@@ -141,10 +142,11 @@ public class NetworkApi {
     public static final String Add_Group = BasicUrl + "/ZZB/xf/insert_group_record";
     public static final String Change_Group_Status = BasicUrl + "/ZZB/xf/update_group_record";
 
-//    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
-    public static final String Query_Group_118="http://118.31.238.207:8080/ZZB/xf/select_group_record";
-    public static final String Query_Group_116="http://116.62.36.12:8080/ZZB/xf/select_group_record";
-    public static final String Get_Week_or_Month_Report=BasicUrl+"/ZZB/ai/sel";
+    //    public static final String Query_Group=BasicUrl+"/ZZB/xf/select_group_record";
+    public static final String Query_Group_118 = "http://118.31.238.207:8080/ZZB/xf/select_group_record";
+    public static final String Query_Group_116 = "http://116.62.36.12:8080/ZZB/xf/select_group_record";
+    public static final String Get_Week_or_Month_Report = BasicUrl + "/ZZB/ai/sel";
+    public static final String Get_Eat_And_Sport = BasicUrl + "/ZZB/ai//EatAndSport";
 
     public static final String Query_Group = BasicUrl + "/ZZB/xf/select_group_record";
 
@@ -158,6 +160,14 @@ public class NetworkApi {
     public static final String POST_HEAlTH_DIARY = BasicUrl + "/ZZB/ai/insert_influence";
 
     public static final String POST_TEL_MESSAGE = "ZZB/br/br_teltixing";
+
+    public static void getEatAndSport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
+                                      NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userid", userId);
+        params.put("state", "1");
+        NetworkManager.getInstance().getResultClass(Get_Eat_And_Sport, params, WeekReportModel.class, successCallback, failedCallback);
+    }
 
     public static void postTelMessage(
             String tel,
@@ -1032,7 +1042,7 @@ public class NetworkApi {
      * @param successCallback
      */
 
-    public static void getXfGroupInfo(String ip,String gid, String xfid, NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback
+    public static void getXfGroupInfo(String ip, String gid, String xfid, NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
@@ -1043,10 +1053,12 @@ public class NetworkApi {
 //        params.put("xfid", xfid);
         params.put("state", "0");
         if ("116".equals(ip))
-        NetworkManager.getInstance().getResultClass(Query_Group_116, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
-                successCallback);
+            NetworkManager.getInstance().getResultClass(Query_Group_116, params, new TypeToken<ArrayList<XfGroupInfo>>() {
+                    }.getType(),
+                    successCallback);
         if ("118".equals(ip))
-            NetworkManager.getInstance().getResultClass(Query_Group_118, params, new TypeToken<ArrayList<XfGroupInfo>>() {}.getType(),
+            NetworkManager.getInstance().getResultClass(Query_Group_118, params, new TypeToken<ArrayList<XfGroupInfo>>() {
+                    }.getType(),
                     successCallback);
     }
 
@@ -1074,25 +1086,26 @@ public class NetworkApi {
      * @param successCallback
      * @param failedCallback
      */
-    public static void getWeekReport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
+    public static void getWeekReport(String userId, NetworkManager.SuccessCallback<WeekReportModel> successCallback,
                                      NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", userId);
-        params.put("state","1");
-        NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, WeeklyReport.class, successCallback, failedCallback);
+        params.put("state", "1");
+        NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, WeekReportModel.class, successCallback, failedCallback);
     }
 
     /**
      * 或得月报告
+     *
      * @param userId
      * @param successCallback
      * @param failedCallback
      */
     public static void getMonthReport(String userId, NetworkManager.SuccessCallback<MonthlyReport> successCallback,
-                                     NetworkManager.FailedCallback failedCallback) {
+                                      NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", userId);
-        params.put("state","2");
+        params.put("state", "2");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, MonthlyReport.class, successCallback, failedCallback);
     }
 }

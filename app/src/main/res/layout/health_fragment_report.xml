@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#F5F5F5"
     tools:context="com.example.han.referralproject.health.HealthReportFragment">
 
     <android.support.constraint.ConstraintLayout

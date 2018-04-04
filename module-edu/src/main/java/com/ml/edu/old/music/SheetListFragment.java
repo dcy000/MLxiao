@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ml.edu.R;
+import com.ml.edu.common.widget.recycleyview.AutoLoadMoreHelper;
 import com.ml.edu.data.ApiObserver;
 import com.ml.edu.data.entity.SheetEntity;
 import com.ml.edu.domain.GetSheetListUseCase;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SheetListFragment extends Fragment {
+
+    private AutoLoadMoreHelper mAutoLoadMoreHelper;
 
     public static void addOrShow(FragmentManager fm, int id) {
         Fragment fragment = fm.findFragmentByTag(SheetListFragment.class.getSimpleName());
@@ -75,6 +78,18 @@ public class SheetListFragment extends Fragment {
         adapter.setOnItemClickListener(onItemClickListener);
         rvSheets.setAdapter(adapter);
         getSheetListUseCase = new GetSheetListUseCase();
+        mAutoLoadMoreHelper = new AutoLoadMoreHelper();
+        mAutoLoadMoreHelper.attachToRecyclerView(rvSheets);
+        mAutoLoadMoreHelper.setOnAutoLoadMoreListener(new AutoLoadMoreHelper.OnAutoLoadMoreListener() {
+            @Override
+            public void onAutoLoadMore(AutoLoadMoreHelper autoLoadMoreHelper) {
+                if (autoLoadMoreHelper.isLoading()) {
+                    return;
+                }
+                autoLoadMoreHelper.setLoading(true);
+                getSheetList();
+            }
+        });
         return view;
     }
 
@@ -118,10 +133,16 @@ public class SheetListFragment extends Fragment {
         public void onNext(List<SheetEntity> sheetEntities) {
             entities.addAll(sheetEntities);
             adapter.notifyDataSetChanged();
+            if (mAutoLoadMoreHelper != null) {
+                mAutoLoadMoreHelper.setLoading(false);
+            }
         }
 
         @Override
         public void onError(String message) {
+            if (mAutoLoadMoreHelper != null) {
+                mAutoLoadMoreHelper.setLoading(false);
+            }
             Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
         }
     }

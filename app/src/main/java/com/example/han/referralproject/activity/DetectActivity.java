@@ -104,7 +104,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private Thread mSearchThread;
     private boolean isYuyue = false;
     private FrameLayout container;
-    private boolean errorStatus=false;
+    private boolean errorStatus = false;
     private MeasureXueyaWarningFragment warningXueyaFragment;
     private MeasureXuetangFragment measureXuetangFragment;
     @SuppressLint("HandlerLeak")
@@ -242,7 +242,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } else {
                         xueyaResult = mXueyaResults[2];
                     }
-                    uploadXueyaResult(getNew, down, maibo, xueyaResult, false,null);
+                    uploadXueyaResult(getNew, down, maibo, xueyaResult, false, null);
                     break;
                 case 14:
                     stopSearch();
@@ -253,7 +253,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             super.handleMessage(msg);
         }
     };
-
 
 
     /**
@@ -280,8 +279,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         .putExtra("fenshu", response.exponent)
                         .putExtra("mb_gaoya", response.Psst)
                         .putExtra("mb_diya", response.Pdst));
-                if (status&&fragment!=null){
-                    errorStatus=true;
+                if (status && fragment != null) {
+                    errorStatus = true;
                 }
             }
         }, new NetworkManager.FailedCallback() {
@@ -321,7 +320,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             @Override
                             public void noReason() {//强制插入异常数据
-                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true,warningXueyaFragment);
+                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true, warningXueyaFragment);
                             }
                         });
                     } else {
@@ -329,17 +328,19 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     }
                 } else {
                     ToastTool.showShort("网络异常");
-                    if (fragment!=null){
+                    if (fragment != null) {
                         removeFragment(fragment);
                     }
                 }
             }
         });
     }
+
     private void removeFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction().remove(fragment).commit();
     }
+
     /**
      * 处理血糖的测量结果
      *
@@ -366,8 +367,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         .putExtra("week_avg_two", response.twoHour_stomach)
                         .putExtra("week_avg_empty", response.empty_stomach)
                         .putExtra("fenshu", response.exponent));
-                if (status&&fragment!=null){
-                    errorStatus=true;
+                if (status && fragment != null) {
+                    errorStatus = true;
                 }
             }
         }, new NetworkManager.FailedCallback() {
@@ -403,7 +404,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             @Override
                             public void noReason() {
-                                uploadXuetangResult(xuetangResut, true,measureXuetangFragment);
+                                uploadXuetangResult(xuetangResut, true, measureXuetangFragment);
                             }
                         });
 
@@ -412,7 +413,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     }
                 } else {
                     ToastTool.showShort("网络异常");
-                    if (fragment!=null){
+                    if (fragment != null) {
                         removeFragment(fragment);
                     }
                 }
@@ -538,7 +539,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             } else {
                                 xueyaResult = mXueyaResults[2];
                             }
-                            uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false,null);
+                            uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
 //                            speak(String.format(getString(R.string.tips_result_xueya),
 //                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
 //                            DataInfoBean info = new DataInfoBean();
@@ -574,7 +575,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 //上传数据到我们的服务器
-                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false,null);
+                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
                             }
                         }
                         break;
@@ -587,7 +588,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             isGetResustFirst = false;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
-                            uploadXuetangResult(xuetangResut, false,null);
+                            uploadXuetangResult(xuetangResut, false, null);
                         }
                         break;
                     case Type_XueYang:
@@ -931,7 +932,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if (mVideoView.isPlaying()) {
                         mVideoView.pause();
                     }
-                    switch (detectType){
+                    switch (detectType) {
                         case Type_Wendu:
                             LocalShared.getInstance(DetectActivity.this).setMeasureTiwenFirst(false);
                             break;
@@ -1038,17 +1039,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s_one=mSanHeYiOneTv.getText().toString();
-                String s_two=mSanHeYiTwoTv.getText().toString();
-                String s_three=mSanHeYiThreeTv.getText().toString();
+                String s_one = mSanHeYiOneTv.getText().toString();
+                String s_two = mSanHeYiTwoTv.getText().toString();
+                String s_three = mSanHeYiThreeTv.getText().toString();
 
-                if (!s_one.equals("0")){
+                if (!s_one.equals("0")) {
                     startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 2));
-                }else if (!s_two.equals("0")){
+                } else if (!s_two.equals("0")) {
                     startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
-                }else if (!s_three.equals("0")){
+                } else if (!s_three.equals("0")) {
                     startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 5));
-                }else{
+                } else {
                     startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 2));
                 }
 //                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
@@ -1130,34 +1131,34 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
         int resourceId = 0;
-        boolean isFirst=false;
+        boolean isFirst = false;
         switch (detectType) {
             case Type_Wendu:
                 mResultTv = (TextView) findViewById(R.id.tv_result);
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_wendu;
-                isFirst=LocalShared.getInstance(this).getMeasureTiwenFirst();
+                isFirst = LocalShared.getInstance(this).getMeasureTiwenFirst();
                 break;
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xueya;
-                isFirst=LocalShared.getInstance(this).getMeasureXueyaFirst();
+                isFirst = LocalShared.getInstance(this).getMeasureXueyaFirst();
                 break;
             case Type_XueTang:
                 mResultTv = (TextView) findViewById(R.id.tv_xuetang);
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xuetang;
-                isFirst=LocalShared.getInstance(this).getMeasureXuetangFirst();
+                isFirst = LocalShared.getInstance(this).getMeasureXuetangFirst();
                 break;
             case Type_XueYang:
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xueyang;
-                isFirst=LocalShared.getInstance(this).getMeasureXueyangFirst();
+                isFirst = LocalShared.getInstance(this).getMeasureXueyangFirst();
                 break;
             case Type_XinDian:
                 findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xindian;
-                isFirst=LocalShared.getInstance(this).getMeasureXindianFirst();
+                isFirst = LocalShared.getInstance(this).getMeasureXindianFirst();
                 break;
             case Type_TiZhong:
                 mResultTv = (TextView) findViewById(R.id.tv_tizhong);
@@ -1168,7 +1169,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             case Type_SanHeYi:
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_sanheyi;
-                isFirst=LocalShared.getInstance(this).getMeasureSanheyiFirst();
+                isFirst = LocalShared.getInstance(this).getMeasureSanheyiFirst();
                 break;
         }
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
@@ -1184,7 +1185,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mVideoView.setVisibility(View.GONE);
                 mOverView.setVisibility(View.GONE);
             }
-        }else{
+        } else {
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
         }
@@ -1447,7 +1448,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
 
 //                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())) {
-                if (detectType == Type_Xueya && device.getName().startsWith("Yuwell")) {
+                if (detectType == Type_Xueya
+                        && device != null
+                        && device.getName() != null
+                        && device.getName().startsWith("Yuwell")) {
                     mDeviceAddress = device.getAddress();
                     if (mBluetoothLeService == null) {
                         Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
@@ -1517,11 +1521,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
-        if (errorStatus){
-            if (warningXueyaFragment!=null){
+        if (errorStatus) {
+            if (warningXueyaFragment != null) {
                 removeFragment(warningXueyaFragment);
             }
-            if (measureXuetangFragment!=null){
+            if (measureXuetangFragment != null) {
                 removeFragment(measureXuetangFragment);
             }
         }
