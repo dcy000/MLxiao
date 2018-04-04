@@ -70,13 +70,13 @@ public class VoicerSetDialog extends DialogFragment {
 //        <item>xiaoqi</item>
 //        <item>vils</item>
         data = new ArrayList<>();
-        data.add(new VoicerBean().setName("小楠").setVoicerName("nannan").setPitch("50").setSpeed("50").setRate("16000"));
-        data.add(new VoicerBean().setName("小燕").setVoicerName("xiaoyan").setPitch("42").setSpeed("40").setRate("7029").setCheck(true));
-        data.add(new VoicerBean().setName("小宇").setVoicerName("xiaoyu").setPitch("52").setSpeed("72").setRate("7227"));
-        data.add(new VoicerBean().setName("小研").setVoicerName("vixy").setPitch("42").setSpeed("50").setRate("7855"));
-        data.add(new VoicerBean().setName("小琪").setVoicerName("xiaoqi").setPitch("48").setSpeed("48").setRate("7806"));
-        data.add(new VoicerBean().setName("老孙").setVoicerName("vils").setPitch("46").setSpeed("70").setRate("8756"));
-        data.add(new VoicerBean().setName("小莉").setVoicerName("nannan").setPitch("34").setSpeed("69").setRate("8450"));
+        data.add(new VoicerBean().setName("小E/小E原声").setVoicerName("nannan").setPitch("50").setSpeed("50").setRate("16000"));
+        data.add(new VoicerBean().setName("小E/小燕女声").setVoicerName("xiaoyan").setPitch("42").setSpeed("40").setRate("7029").setCheck(true));
+        data.add(new VoicerBean().setName("小E/小宇男声").setVoicerName("xiaoyu").setPitch("52").setSpeed("72").setRate("7227"));
+        data.add(new VoicerBean().setName("小E/小研女声").setVoicerName("vixy").setPitch("42").setSpeed("50").setRate("7855"));
+        data.add(new VoicerBean().setName("小E/小琪女声").setVoicerName("xiaoqi").setPitch("48").setSpeed("48").setRate("7806"));
+        data.add(new VoicerBean().setName("小E/小孙男声").setVoicerName("vils").setPitch("46").setSpeed("70").setRate("8756"));
+        data.add(new VoicerBean().setName("小E/小莉女声").setVoicerName("nannan").setPitch("34").setSpeed("69").setRate("8450"));
         return data;
     }
 
@@ -116,11 +116,13 @@ public class VoicerSetDialog extends DialogFragment {
                     data.get(position).setCheck(true);
                     notifyDataSetChanged();
                     saveData(position);
-                    MLVoiceSynthetize.startSynthesize(getActivity(),"主人,我是"+data.get(position).name,false);
+                    String name = data.get(position).name;
+                    MLVoiceSynthetize.startSynthesize(getActivity(), "主人,我是" + name.replaceAll("/", ""), false);
                 }
             });
         }
-//        synthesizer.setParameter(SpeechConstant.SPEED, sharedPreferences.getString("speed_preference", "50"));
+
+        //        synthesizer.setParameter(SpeechConstant.SPEED, sharedPreferences.getString("speed_preference", "50"));
 ////            设置合成音调
 //            synthesizer.setParameter(SpeechConstant.PITCH, sharedPreferences.getString("pitch_preference", "50"));
 ////            设置合成音量
