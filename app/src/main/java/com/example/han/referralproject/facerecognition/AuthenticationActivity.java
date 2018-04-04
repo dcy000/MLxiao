@@ -99,7 +99,7 @@ public class AuthenticationActivity extends BaseActivity {
     //    private byte[] cacheCamera;
     private static final int TO_FACE_AUTHENTICATION = 1;
     private static final int TO_CAMERA_PRE_RESOLVE = 2;
-
+    private boolean openOrcloseAnimation=true;
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
 
@@ -189,10 +189,13 @@ public class AuthenticationActivity extends BaseActivity {
                                 b3 = decodeToBitMap(data, mCamera);
                                 if (b3 != null) {
                                     Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
-                                    if (bitmap != null&&baos!=null) {
-                                        baos.reset();
-                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                        mImageData = baos.toByteArray();
+                                    if (bitmap != null) {
+                                        if (baos != null)
+                                            baos.reset();
+                                        if (baos != null)
+                                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                        if (baos != null)
+                                            mImageData = baos.toByteArray();
                                         myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
                                     }
                                 }
@@ -537,7 +540,11 @@ public class AuthenticationActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 //动画结束
-                myHandler.sendEmptyMessage(TO_CAMERA_PRE_RESOLVE);
+                if (openOrcloseAnimation) {
+                    myHandler.sendEmptyMessage(TO_CAMERA_PRE_RESOLVE);
+                    openOrcloseAnimation=false;
+                }
+                Logger.e("动画结束");
             }
 
             @Override
@@ -622,6 +629,7 @@ public class AuthenticationActivity extends BaseActivity {
         mImageData = null;
         Handlers.bg().removeCallbacksAndMessages(null);
         myHandler.removeCallbacksAndMessages(null);
+
         if (null != mCamera) {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
