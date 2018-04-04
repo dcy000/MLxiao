@@ -215,8 +215,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.Rela);
-        mLottieView = (LottieAnimationView) findViewById(R.id.animation_view);
+        mRelativeLayout = findViewById(R.id.Rela);
+        mLottieView = findViewById(R.id.animation_view);
         mLottieView.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
