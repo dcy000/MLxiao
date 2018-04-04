@@ -141,12 +141,12 @@ public class HealthReportFragment extends Fragment {
         TargetModel targetModel = new TargetModel();
         targetModel.setTitle("本周盐摄入量");
         if (response.lastWeek.nam == null || response.lastWeek.nam.equals("-1")) {
-            response.lastWeek.nam = "0.00";
+            response.lastWeek.nam = "42.00";
         }
         if (response.currentWeek.na == null || response.currentWeek.na.equals("-1")) {
             response.currentWeek.na = "0.00";
         }
-        String target = Float.parseFloat(response.currentWeek.na) < Float.parseFloat(response.lastWeek.nam) ? "少于" : "大于";
+        String target = Float.parseFloat(response.currentWeek.na) < Float.parseFloat(response.lastWeek.nam) ? "少于" : "少于";
         targetModel.setTarget(target + response.lastWeek.nam + "克");
         targetModel.setTargetLength(response.lastWeek.nam.length());
         targetModel.setSourceLength(response.currentWeek.na == null ? 0 : response.currentWeek.na.length());
@@ -160,7 +160,7 @@ public class HealthReportFragment extends Fragment {
         if (response.currentWeek.drink == null || response.currentWeek.drink.equals("-1")) {
             response.currentWeek.drink = "0.00";
         }
-        target = Float.parseFloat(response.currentWeek.drink) < Float.parseFloat(response.lastWeek.drinkm) ? "少于" : "大于";
+        target = Float.parseFloat(response.currentWeek.drink) < Float.parseFloat(response.lastWeek.drinkm) ? "少于" : "少于";
         targetModel.setTarget(target + response.lastWeek.drinkm + "ml");
         targetModel.setTargetLength(response.lastWeek.drinkm.length());
         targetModel.setSourceLength(response.lastWeek.drinkm.length());
@@ -168,12 +168,12 @@ public class HealthReportFragment extends Fragment {
         mTargetModels.add(targetModel);
         targetModel = new TargetModel();
         if (response.lastWeek.sportsm == null || response.lastWeek.sportsm.equals("-1")) {
-            response.lastWeek.sportsm = "0.00";
+            response.lastWeek.sportsm = "100.00";
         }
         if (response.currentWeek.sports == null || response.currentWeek.sports.equals("-1")) {
             response.currentWeek.sports = "0.00";
         }
-        target = Float.parseFloat(response.currentWeek.sports) < Float.parseFloat(response.lastWeek.sportsm) ? "少于" : "大于";
+        target = Float.parseFloat(response.currentWeek.sports) < Float.parseFloat(response.lastWeek.sportsm) ? "大于" : "大于";
         targetModel.setTitle("本周运动时间");
         targetModel.setTarget(target + response.lastWeek.sportsm + "分钟");
         targetModel.setTargetLength(response.lastWeek.sportsm.length());
@@ -198,7 +198,7 @@ public class HealthReportFragment extends Fragment {
             targetWeight = targetBmi / height / height * 10000;
             weight = bmi / height / height * 10000;
         }
-        target = bmi < targetBmi ? "少于" : "大于";
+        target = bmi < targetBmi ? "少于" : "少于";
         String s = String.valueOf(targetWeight);
         String s1 = String.valueOf(weight);
         targetModel.setTarget(target + s + "kg");
