@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 
 version = "1.0.3"
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion gradle.compileSdkVersion
+    buildToolsVersion gradle.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdkVersion gradle.minSdkVersion
+        targetSdkVersion gradle.targetSdkVersion
         versionCode 3
         versionName version
     }
@@ -22,8 +22,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
+    compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
 }
 
 def siteUrl = 'https://github.com/Hymanme/ExpandTextView' // 项目的主页
