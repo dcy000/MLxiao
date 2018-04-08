@@ -100,6 +100,8 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                             String title = data.get(0).title;
                             tvQuestion.setText(title);
                             SpeechSynthesizerHelper.startSynthesize(getBaseContext(), title);
+                        } else {
+                            SpeechSynthesizerHelper.startSynthesize(getBaseContext(), "主人,我暂时还没想到什么谜语");
                         }
                     }
                 });
