@@ -1,5 +1,6 @@
 package com.gzq.administrator.idcardreader;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -24,64 +25,55 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.kaer.sdk.IDCardItem;
-import com.kaer.sdk.OnClientCallback;
 import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
-import com.kaer.sdk.utils.CardCode;
-import com.kaer.sdk.utils.LogUtils;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class ReadIdCardActivity extends AppCompatActivity {
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothDevice targetDevice;
     private boolean isSearching = false;//标识当前是否正在进行设备的搜索
     private BtReadClient mBtReadClient;
     private ReadIdCardTask readIdCardTask;
-    private volatile boolean isLoop=true;
-    private boolean isFirstConnectBlue=true;//防止开启多个读卡子线程
-    private Handler mHandler = new Handler() {
+    private volatile boolean isLoop = true;
+    private boolean isFirstConnectBlue = true;//防止开启多个读卡子线程
+    private MyHandler myHandler;
+
+    class MyHandler extends Handler {
+        private WeakReference<Activity> weakReference;
+
+        public MyHandler(Activity activity) {
+            weakReference = new WeakReference<>(activity);
+        }
+
+        @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 500) {
-//                postResult((IDCardItem) msg.obj);
-                //print("蓝牙已断开!");
-//                btnConnect.setText("连接");
-            } else if (msg.what == 600) {
-                if (msg.arg1 == 101) {
-//                    intensityTv.setText("蓝牙未连接");
-                } else if (msg.arg1 != 100 && msg.arg1 != 102) {
-//                    intensityTv.setText("信号强度:" + msg.arg1);
-                }
-            } else if (msg.what == 700) {
+            if (msg.what == 100) {
                 if (msg.arg1 == 1) {
-                    MLVoiceSynthetize.startSynthesize(MainActivity.this, "蓝牙连接成功", false);
-                    if (isFirstConnectBlue){
-                        isFirstConnectBlue=false;
+                    MLVoiceSynthetize.startSynthesize(weakReference.get(), "蓝牙连接成功", false);
+                    if (isFirstConnectBlue) {
+                        isFirstConnectBlue = false;
                         //开启一个异步线程读取卡信息
                         readIdCardTask = new ReadIdCardTask();
                         readIdCardTask.execute();
                     }
                 } else {
-                    MLVoiceSynthetize.startSynthesize(MainActivity.this, "蓝牙连接断开", false);
+                    MLVoiceSynthetize.startSynthesize(weakReference.get(), "蓝牙连接断开", false);
                 }
-            } else if (msg.what == 800) {
-//                timeTv.setText(msg.obj.toString());
-            } else if (msg.what == 900) {
-//                print(getEInfoByCode(msg.arg1));
-
-            } else if (msg.what == 1000) {
-//                print(msg.obj.toString());
-
             }
         }
-    };
+    }
+
     private TextView mMessage;
     private ImageView mImg;
 
     private void initView() {
         mMessage = (TextView) findViewById(R.id.message);
         mImg = (ImageView) findViewById(R.id.img);
+        myHandler = new MyHandler(this);
     }
 
     private class ReadIdCardTask extends AsyncTask<Void, Void, IDCardItem> {
@@ -90,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
         protected IDCardItem doInBackground(Void... voids) {
             IDCardItem item = null;
             if (mBtReadClient != null) {
-                while (isLoop) {
+                while (isLoop&&!isCancelled()) {
                     connectDevice();
-                    Log.e("开始读卡","ddddd");
+                    Log.e("开始读卡", "ddddd");
                     item = mBtReadClient.readCert(0);
                     if (item != null && item.retCode == 1) {
                         isLoop = false;
@@ -101,23 +93,20 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                MLVoiceSynthetize.startSynthesize(MainActivity.this,"主人，未识别到身份证，请将您的二代身份证放置到读卡器上",false);
+                                MLVoiceSynthetize.startSynthesize(ReadIdCardActivity.this, "主人，未识别到身份证", false);
                             }
                         });
-                        Log.e("未读到卡","1111");
                         try {
-                            Thread.sleep(20000);
+                            Thread.sleep(7000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Log.e("未读到卡","22222");
                         disConnectDevice();
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep(3000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Log.e("未读到卡","33333");
 
                     }
                 }
@@ -129,14 +118,14 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(IDCardItem idCardItem) {
             if (idCardItem != null) {
                 if (idCardItem.retCode == 1) {
-                    Log.e("读卡成功","ggg");
+                    Log.e("读卡成功", "ggg");
                     updateView(idCardItem);
                 } else if (idCardItem.retCode == 128) {
 
                 }
             } else {
-                Log.e("读卡失败","ffff");
-                MLVoiceSynthetize.startSynthesize(MainActivity.this, "读卡失败，请重启读卡器", false);
+                Log.e("读卡失败", "ffff");
+                MLVoiceSynthetize.startSynthesize(ReadIdCardActivity.this, "读卡失败，请重启读卡器", false);
             }
         }
     }
@@ -182,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_read_idcard);
         initView();
         StringBuilder builder = new StringBuilder();
         builder.append("appid=")
@@ -209,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         if (devices.size() > 0) {
             for (BluetoothDevice bluetoothDevice : devices) {
                 if (bluetoothDevice.getName().toUpperCase().startsWith("KT8000")) {
+                    Log.e("该设备的物理地址", bluetoothDevice.getAddress());
                     targetDevice = bluetoothDevice;
                     break;
                 }
@@ -225,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
     //连接设备
     private void connectDevice() {
-        if (mBtReadClient.getBtState() == 0) {
+        if (mBtReadClient.getBtState() == 0) {//0是断开状态，2是连接状态
             mBtReadClient.connectBt(targetDevice.getAddress());
         }
     }
@@ -298,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                         //	loading.show();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(MainActivity.this, "无法执行配对",
+                        Toast.makeText(ReadIdCardActivity.this, "无法执行配对",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -311,13 +301,13 @@ public class MainActivity extends AppCompatActivity {
                     case BluetoothDevice.BOND_BONDED:
                         Log.d("BOND_BONDED", "完成配对");
                         //		loading.dismiss();
-                        Toast.makeText(MainActivity.this, "配对完成",
+                        Toast.makeText(ReadIdCardActivity.this, "配对完成",
                                 Toast.LENGTH_SHORT).show();
                         connectDevice();
                         break;
                     case BluetoothDevice.BOND_NONE:
                         Log.d("BOND_NONE", "取消配对");
-                        Toast.makeText(MainActivity.this, "配对已取消",
+                        Toast.makeText(ReadIdCardActivity.this, "配对已取消",
                                 Toast.LENGTH_SHORT).show();
 
                         //	loading.dismiss();
@@ -338,13 +328,14 @@ public class MainActivity extends AppCompatActivity {
     private OnBluetoothListener bluetoothListener = new OnBluetoothListener() {
         @Override
         public void connectResult(boolean result) {
+            Log.e("connectResult",result+"");
             int what = result ? 1 : 0;
-            mHandler.obtainMessage(700, what, what).sendToTarget();
+            myHandler.obtainMessage(100, what, what).sendToTarget();
         }
 
         @Override
         public void connectionLost() {
-
+            Log.e("connectionLost","");
         }
     };
 
@@ -352,6 +343,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregistBroadcastReceiver();
-        readIdCardTask.cancel(true);
+        if (readIdCardTask != null&& !readIdCardTask.isCancelled()) {
+            readIdCardTask.cancel(true);
+            readIdCardTask=null;
+        }
+        if (targetDevice!=null)
+            unpairDevice(targetDevice);
+    }
+
+    //反射来调用BluetoothDevice.removeBond取消设备的配对
+    private void unpairDevice(BluetoothDevice device) {
+        try {
+            Method m = device.getClass()
+                    .getMethod("removeBond", (Class[]) null);
+            m.invoke(device, (Object[]) null);
+        } catch (Exception e) {
+            Log.e("解除配对出错", e.getMessage());
+        }
     }
 }
