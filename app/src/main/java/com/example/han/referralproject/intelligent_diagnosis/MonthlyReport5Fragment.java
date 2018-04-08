@@ -68,7 +68,7 @@ public class MonthlyReport5Fragment extends Fragment {
         return view;
     }
 
-    public void notifyData(MonthlyReport response) {
+    public void notifyData(MonthlyReport.MAPQ response) {
         nas=Float.parseFloat(response.nas);
         nam=Float.parseFloat(response.nam);
         if (nas>nam) {

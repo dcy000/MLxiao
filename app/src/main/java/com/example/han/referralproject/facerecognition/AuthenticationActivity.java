@@ -627,23 +627,26 @@ public class AuthenticationActivity extends BaseActivity {
     private void finishActivity() {
 
         mImageData = null;
-        Handlers.bg().removeCallbacksAndMessages(null);
         myHandler.removeCallbacksAndMessages(null);
-
-        if (null != mCamera) {
-            mCamera.setPreviewCallback(null);
-            mCamera.stopPreview();
-            mCamera.release();
-            mCamera = null;
-        }
-        if (baos != null) {
-            try {
-                baos.close();
-                baos = null;
-            } catch (IOException e) {
-                e.printStackTrace();
+        Handlers.bg().post(new Runnable() {
+            @Override
+            public void run() {
+                if (null != mCamera) {
+                    mCamera.setPreviewCallback(null);
+                    mCamera.stopPreview();
+                    mCamera.release();
+                    mCamera = null;
+                }
+                if (baos != null) {
+                    try {
+                        baos.close();
+                        baos = null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        }
+        });
         finish();
     }
 
@@ -651,6 +654,7 @@ public class AuthenticationActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         Logger.e("onDestroy");
+        Handlers.bg().removeCallbacksAndMessages(null);
         if (lottAnimation != null)
             lottAnimation.cancelAnimation();
     }

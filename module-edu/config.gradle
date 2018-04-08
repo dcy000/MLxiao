@@ -4,10 +4,10 @@ ext {
     versions = [
             "versionCode"      : 1,
             "versionName"      : "1.0",
-            "compileSdkVersion": 26,
-            "buildToolsVersion": "26.0.2",
-            "minSdkVersion"    : 14,
-            "targetSdkVersion" : 26
+            "compileSdkVersion": gradle.compileSdkVersion,
+            "buildToolsVersion": gradle.buildToolsVersion,
+            "minSdkVersion"    : gradle.minSdkVersion,
+            "targetSdkVersion" : gradle.targetSdkVersion
     ]
 
     androidManifests = [

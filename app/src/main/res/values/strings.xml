@@ -110,7 +110,7 @@
     <string name="tips_xueya">请将血压计佩戴在绑在左臂或者右臂上，高度与心脏平齐，手臂放松，手掌张开，按开始按钮开始测量</string>
     <string name="tips_result_xueya" formatted="false">主人，您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
     <string name="tips_result_xuetang">主人，您的血糖值为%1$s,%2$s</string>
-    <string name="tips_result_xueyang" formatted="false">主人，您的血氧饱和度为%1$s，脉搏为%2$d，%3$s</string>
+    <string name="tips_result_xueyang" formatted="false">主人，您的血氧饱和度为%1$s，%2$s</string>
     <string name="tips_result_niaosuan" formatted="false">主人，您的尿酸为%1$s,%2$s</string>
     <string name="tips_result_danguchun" formatted="false">主人，您的胆固醇为%1$s,%2$s</string>
     <string name="tips_result_xindian" formatted="false">主人，您的心率为%1$d, %2$s</string>

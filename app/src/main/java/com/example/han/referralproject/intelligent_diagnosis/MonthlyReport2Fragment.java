@@ -59,7 +59,7 @@ public class MonthlyReport2Fragment extends Fragment {
     TextView tvTitle;
     Unbinder unbinder;
     private View view;
-    private MonthlyReport data;
+    private MonthlyReport.MAPQ data;
     private String tips = "";
 
     @Override
@@ -73,7 +73,7 @@ public class MonthlyReport2Fragment extends Fragment {
         return view;
     }
 
-    public void notifyData(MonthlyReport weeklyReport) {
+    public void notifyData(MonthlyReport.MAPQ weeklyReport) {
         this.data = weeklyReport;
         float sj_gaoya, sj_diya, mb_gaoya, mb_diya;
         if (data != null) {

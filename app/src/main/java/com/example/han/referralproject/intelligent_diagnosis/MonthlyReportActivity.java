@@ -79,11 +79,11 @@ public class MonthlyReportActivity extends BaseActivity {
             @Override
             public void onSuccess(MonthlyReport response) {
                 if (response != null) {
-                    fragment1.notifyData(response);
-                    fragment2.notifyData(response);
-                    fragment3.notifyData(response);
-                    fragment4.notifyData(response);
-                    fragment5.notifyData(response);
+                    fragment1.notifyData(response.mapq);
+                    fragment2.notifyData(response.mapq);
+                    fragment3.notifyData(response.mapq);
+                    fragment4.notifyData(response.mapq);
+                    fragment5.notifyData(response.mapq);
                     Logger.e("返回测量数据成功" + response);
                 } else {
                     ToastTool.showShort("暂无月报告");

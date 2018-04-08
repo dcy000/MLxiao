@@ -59,7 +59,7 @@ public class WeeklyReport2Fragment extends Fragment {
     TextView tvRight;
     private View view;
     private WeekReportModel.LastWeek data;
-    private String tips = "未初始化";
+    private String tips = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
