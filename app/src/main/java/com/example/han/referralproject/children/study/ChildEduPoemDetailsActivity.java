@@ -142,6 +142,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
     }
 
     private void replay() {
+
         if (mSentences.isEmpty()) {
             isPlaying = false;
             return;
@@ -150,7 +151,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         mAdapter.setPositionSelected(0);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(0);
-        speak(mSentences.get(0));
+        speak(mPoemModel.getTitle()+mPoemModel.getAuthor()+mPoemModel.getDynasty()+mSentences.get(0));
     }
 
     private void next() {

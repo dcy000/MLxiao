@@ -256,7 +256,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-        speak("主人,来和我聊天吧", isDefaultParam);
+//        speak("主人,来和我聊天吧", isDefaultParam);
         //默认是时时聊天
         yuyinFlag = (Boolean) SharedPreferencesUtils.getParam(this, "yuyin", true);
         if (yuyinFlag) {
@@ -273,6 +273,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         });
     }
+
 
     private void onChoiceLanguages() {
         String[] languages = languages();
@@ -337,6 +338,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         setDisableGlobalListen(true);
         super.onResume();
+        speak("主人,来和我聊天吧", isDefaultParam);
         setEnableListeningLoop(false);
         mLottieView.resumeAnimation();
     }
