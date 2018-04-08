@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:color="@color/toolbar_bg"
-        android:state_checked="true">
+          android:state_checked="true"
+          android:state_pressed="true">
         <shape>
-            <solid android:color="@color/main_bg" />
+            <solid android:color="@color/main_bg"/>
         </shape>
     </item>
 
-    <item android:color="@color/gray"
-        android:state_checked="false">
+    <item android:color="@color/gray">
         <shape>
-            <solid android:color="@color/white" />
+            <solid android:color="@color/white"/>
         </shape>
     </item>
 </selector>

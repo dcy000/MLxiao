@@ -2,12 +2,7 @@ package com.ml.videoplayer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.os.Environment;
 import android.view.View;
-
-import java.io.File;
-import java.util.concurrent.Callable;
 
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;

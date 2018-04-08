@@ -11,27 +11,26 @@
         android:id="@+id/vp_video"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/rg_health_video"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:overScrollMode="never"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rg_health_video"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <RadioGroup
         android:id="@+id/rg_health_video"
         android:layout_width="220dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         android:background="@color/main_bg"
+        android:orientation="vertical"
+        android:paddingRight="22dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/vp_video"
-        android:paddingRight="22dp">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <RadioButton
@@ -44,10 +43,12 @@
             android:text="健康课堂"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/line"/>
+
         <RadioButton
             android:id="@+id/rb_video_stroke"
             android:layout_width="match_parent"
@@ -58,10 +59,12 @@
             android:text="曲艺天地"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/line"/>
+
         <RadioButton
             android:id="@+id/rb_video_psychosis"
             android:layout_width="match_parent"
@@ -72,10 +75,12 @@
             android:text="生活助手"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/line"/>
+
         <RadioButton
             android:id="@+id/rb_video_palsy"
             android:layout_width="match_parent"
@@ -86,10 +91,12 @@
             android:text="动画片"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/line"/>
+
         <RadioButton
             android:id="@+id/rb_video_device_show"
             android:layout_width="match_parent"
@@ -101,4 +108,18 @@
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/lude_tv_loop_video"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="22dp"
+        android:background="@drawable/bg_rb_history_record"
+        android:gravity="center"
+        android:text="演示视频"
+        android:textColor="@drawable/bg_rb_history_record"
+        android:textSize="28sp"
+        app:layout_constraintLeft_toLeftOf="@+id/rg_health_video"
+        app:layout_constraintRight_toRightOf="@+id/rg_health_video"
+        app:layout_constraintTop_toBottomOf="@+id/rg_health_video"/>
 </android.support.constraint.ConstraintLayout>

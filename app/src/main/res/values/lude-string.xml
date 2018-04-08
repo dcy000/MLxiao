@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lude_sign_copy">\&#064;上海鹿得医疗器械贸易有限公司</string>
+    <string name="lude_high_pressure">收缩压</string>
+    <string name="lude_low_pressure">舒张压</string>
+</resources>

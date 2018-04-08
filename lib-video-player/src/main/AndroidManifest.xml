@@ -6,9 +6,15 @@
         <activity
             android:name=".MlVideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".MlLoopActivity">
+        <activity android:name=".MlLoopActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".LudeLoopVideoActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="landscape">
         </activity>
     </application>
 

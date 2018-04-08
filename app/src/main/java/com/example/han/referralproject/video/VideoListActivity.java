@@ -17,6 +17,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.medlink.danbogh.utils.Handlers;
+import com.ml.videoplayer.LudeLoopVideoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,14 @@ public class VideoListActivity extends BaseActivity {
                 Intent intent = new Intent(VideoListActivity.this, WifiConnectActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        findViewById(R.id.lude_tv_loop_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoListActivity.this, LudeLoopVideoActivity.class);
+                startActivity(intent);
             }
         });
     }
