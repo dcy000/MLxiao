@@ -104,6 +104,7 @@ public class HeadiconActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterVideoActivity.class);
+                intent.putExtras(getIntent());
                 startActivity(intent);
                 finish();
             }
