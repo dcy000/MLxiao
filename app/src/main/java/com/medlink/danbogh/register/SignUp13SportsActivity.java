@@ -65,7 +65,7 @@ public class SignUp13SportsActivity extends BaseActivity {
         tvTab2HealthInfo.setTextColor(getResources().getColor(R.color.textColorSelected));
     }
 
-    private int positionSelected = -1;
+    private int positionSelected = 2;
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
@@ -99,11 +99,13 @@ public class SignUp13SportsActivity extends BaseActivity {
                 R.color.colorSaltyPreference,
                 R.drawable.bg_tv_salty_preference_selected,
                 R.drawable.bg_tv_salty_preference));
-        mModels.add(new EatModel(getString(R.string.sometimes_sports),
+        EatModel e = new EatModel(getString(R.string.sometimes_sports),
                 R.drawable.ic_sometimes_sports,
                 R.color.colorSaltyPreference,
                 R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
+                R.drawable.bg_tv_salty_preference);
+        e.setSelected(true);
+        mModels.add(e);
         mModels.add(new EatModel(getString(R.string.never_sports),
                 R.drawable.ic_never_sports,
                 R.color.colorSaltyPreference,
