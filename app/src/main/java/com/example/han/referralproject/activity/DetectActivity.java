@@ -608,7 +608,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyangResult = mXueYangResults[1];
                                 }
-                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, info.pulse, xueyangResult));
+                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen,xueyangResult));
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
                                     public void onSuccess(MeasureResult response) {

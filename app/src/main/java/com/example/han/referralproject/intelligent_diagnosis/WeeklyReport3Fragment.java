@@ -85,7 +85,7 @@ public class WeeklyReport3Fragment extends Fragment {
     private float sj_tizhong, sj_yundong, sj_yinjiu, sj_yan;
     private float mb_tizhong, mb_yundong, mb_yinjiu, mb_yan;
     private int pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
-    private String tips = "未初始化";
+    private String tips = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
