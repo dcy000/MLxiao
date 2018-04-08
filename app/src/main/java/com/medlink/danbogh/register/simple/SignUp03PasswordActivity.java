@@ -123,17 +123,6 @@ public class SignUp03PasswordActivity extends BaseActivity {
         String smoke = shared.getSignUpSmoke();
         String drink = shared.getSignUpDrink();
         String sport = shared.getSignUpSport();
-        NetworkApi.setUserMh("11", new NetworkManager.SuccessCallback<String>() {
-            @Override
-            public void onSuccess(String response) {
-
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
         NetworkApi.registerUser(
                 name,
                 gender,
@@ -161,8 +150,19 @@ public class SignUp03PasswordActivity extends BaseActivity {
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
                         new JpushAliasUtils(SignUp03PasswordActivity.this).setAlias("user_" + response.bid);
-                        navToNext();
-                        finishAffinity();
+                        NetworkApi.setUserMh("11", new NetworkManager.SuccessCallback<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+                                navToNext();
+                                finishAffinity();
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+                                navToNext();
+                                finishAffinity();
+                            }
+                        });
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
