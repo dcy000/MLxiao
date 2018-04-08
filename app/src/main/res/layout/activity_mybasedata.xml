@@ -349,14 +349,14 @@
                         android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="22dp"
+                        android:paddingRight="22dp"
                         android:drawablePadding="5dp"
                         android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:maxLines="2"
                         android:textColor="#333333"
                         android:textSize="28sp"
-                        android:layout_marginLeft="40dp"/>
+                        android:paddingLeft="40dp"/>
                 </LinearLayout>
 
             </LinearLayout>

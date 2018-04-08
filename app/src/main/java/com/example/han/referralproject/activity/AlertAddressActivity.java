@@ -66,7 +66,7 @@ public class AlertAddressActivity extends BaseActivity {
         setContentView(R.layout.activity_alert_address);
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("修改病史");
+        mTitleText.setText("修改住址");
         tvGoBack.setText("取消");
         tvGoForward.setText("确定");
         data = (UserInfoBean) getIntent().getSerializableExtra("data");
