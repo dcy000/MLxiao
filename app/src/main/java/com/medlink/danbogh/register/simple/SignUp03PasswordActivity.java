@@ -123,6 +123,17 @@ public class SignUp03PasswordActivity extends BaseActivity {
         String smoke = shared.getSignUpSmoke();
         String drink = shared.getSignUpDrink();
         String sport = shared.getSignUpSport();
+        NetworkApi.setUserMh("11", new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
         NetworkApi.registerUser(
                 name,
                 gender,

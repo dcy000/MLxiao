@@ -103,8 +103,9 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         String mh = getMh();
         if (TextUtils.isEmpty(mh)) {
-            navToNext();
-            return;
+            mh = "11";
+//            navToNext();
+//            return;
         }
 
         showLoadingDialog(getString(R.string.do_uploading));
