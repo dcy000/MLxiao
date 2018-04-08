@@ -59,7 +59,7 @@ public class MonthlyReport3Fragment extends Fragment {
     @BindView(R.id.ll_right)
     LinearLayout llRight;
     Unbinder unbinder;
-    private MonthlyReport data;
+    private MonthlyReport.MAPQ data;
     private String tips;
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -78,7 +78,7 @@ public class MonthlyReport3Fragment extends Fragment {
         return view;
     }
 
-    public void notifyData(MonthlyReport weeklyReport) {
+    public void notifyData(MonthlyReport.MAPQ weeklyReport) {
         this.data = weeklyReport;
         float sj_gaoya, sj_diya, mb_gaoya, mb_diya;
         int pc_gaoya = 0, pc_diya = 0;

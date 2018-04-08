@@ -63,7 +63,7 @@ public class MonthlyReport1Fragment extends Fragment implements OnChartValueSele
     private float bf_yinjiu, bf_yundong, bf_yan, bf_tizhong;
     private String tips = "";
 
-    public void notifyData(MonthlyReport weeklyReport) {
+    public void notifyData(MonthlyReport.MAPQ weeklyReport) {
         bf_yinjiu = Float.parseFloat(weeklyReport.drinkx);
         bf_yan = Float.parseFloat(weeklyReport.nax);
         bf_yundong = Float.parseFloat(weeklyReport.sportsx);
@@ -87,7 +87,7 @@ public class MonthlyReport1Fragment extends Fragment implements OnChartValueSele
         ((MonthlyReportActivity) getActivity()).speak(tips);
     }
 
-    private void setChart(MonthlyReport weeklyReport) {
+    private void setChart(MonthlyReport.MAPQ weeklyReport) {
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
 
@@ -117,7 +117,7 @@ public class MonthlyReport1Fragment extends Fragment implements OnChartValueSele
         mChart.setDrawEntryLabels(false);
     }
 
-    private void setData(MonthlyReport weeklyReport) {
+    private void setData(MonthlyReport.MAPQ weeklyReport) {
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
         entries.add(new PieEntry(bf_yinjiu));
