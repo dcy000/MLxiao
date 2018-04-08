@@ -84,7 +84,7 @@ public class LudeLoopVideoActivity extends AppCompatActivity {
                 }
             });
             if (i == R.id.lude_tv_action) {
-                backPress();
+                backButton.performClick();
             }
         }
 
