@@ -45,7 +45,7 @@ public class AutoLoadMoreHelper extends RecyclerView.OnScrollListener {
         super.onScrollStateChanged(recyclerView, newState);
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (newState == RecyclerView.SCROLL_STATE_IDLE
-                && dy < 0
+                && dy > 0
                 && adapter != null
                 && adapter.getItemCount() != 0
                 && position + 3 >= adapter.getItemCount()) {

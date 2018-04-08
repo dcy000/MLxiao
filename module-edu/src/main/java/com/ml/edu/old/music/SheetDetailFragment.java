@@ -131,13 +131,14 @@ public class SheetDetailFragment extends Fragment {
         }
     }
 
-    private int page = 1;
+    private int page = 0;
     private int limit = 12;
 
     private void getSheetList() {
-        if (songListObserver == null) {
-            songListObserver = new SongListObserver();
+        if (songListObserver != null) {
+            songListObserver.dispose();
         }
+        songListObserver = new SongListObserver();
         page++;
         getSongListUseCase.execute(
                 new GetSongListUseCase.Params(sheetId, page, limit),
@@ -162,7 +163,7 @@ public class SheetDetailFragment extends Fragment {
             if (mAutoLoadMoreHelper != null) {
                 mAutoLoadMoreHelper.setLoading(false);
             }
-            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "没有更多了", Toast.LENGTH_LONG).show();
         }
     }
 

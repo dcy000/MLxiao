@@ -105,9 +105,18 @@ public class MLVoiceSynthetize {
     /**
      * 开始合成
      */
+    public static void startSynthesize(Context context, String text,SynthesizerListener synthesizerListener,boolean whine) {
+        startSynthesize(context, whine, synthesizerListener, text);
+    }
+
+    /**
+     * 开始合成
+     */
     public static void startSynthesize(Context context, boolean isDefaultParam, String text) {
         startSynthesize(context, isDefaultParam, null, text);
     }
+
+
 
     /**
      * 开始合成
