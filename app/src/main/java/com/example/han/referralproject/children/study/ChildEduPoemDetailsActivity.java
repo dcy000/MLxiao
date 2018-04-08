@@ -151,7 +151,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         mAdapter.setPositionSelected(0);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(0);
-        speak(mPoemModel.getTitle()+","+mPoemModel.getAuthor()+","+mPoemModel.getDynasty()+","+mSentences.get(0));
+        speak(mPoemModel.getTitle() + "," + mPoemModel.getAuthor() + "," + mPoemModel.getDynasty() + "," + mSentences.get(0));
 
     }
 
@@ -241,4 +241,10 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         super.onResume();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
+        stopSpeaking();
+    }
 }
