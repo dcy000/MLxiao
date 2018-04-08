@@ -180,7 +180,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="100dp"
-            android:src="@drawable/xueyass" />
+            android:src="@drawable/xueya_normal" />
 
         <ImageView
             android:id="@+id/video_xueya2"
@@ -190,7 +190,7 @@
             android:layout_below="@+id/video_xueya1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/xueyas" />
+            android:src="@drawable/xueya_high" />
 
         <ImageView
             android:layout_width="550dp"
@@ -199,7 +199,7 @@
             android:layout_below="@+id/video_xueya2"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/xuey" />
+            android:src="@drawable/xueya_low" />
 
 
         <LinearLayout
