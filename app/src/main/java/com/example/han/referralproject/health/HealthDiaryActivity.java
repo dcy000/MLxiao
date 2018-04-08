@@ -151,8 +151,8 @@ public class HealthDiaryActivity extends BaseActivity
         resultModels.put(what, resultModel);
         if (what == 2) {
             double salt = resultModels.get(0).selectedValue * saltUnitValues.get(resultModels.get(0).unitPosition);
-            int sports = (int) (resultModels.get(1).selectedValue * saltUnitValues.get(resultModels.get(1).unitPosition));
-            int drink = (int) (resultModels.get(2).selectedValue * saltUnitValues.get(resultModels.get(2).unitPosition));
+            int sports = (int) (resultModels.get(1).selectedValue * sportsUnitValues.get(resultModels.get(1).unitPosition));
+            int drink = (int) (resultModels.get(2).selectedValue * drinkUnitValues.get(resultModels.get(2).unitPosition));
             NetworkApi.postHealthDiary(
                     salt,
                     sports,
@@ -223,10 +223,10 @@ public class HealthDiaryActivity extends BaseActivity
     private SparseIntArray drinkUnitValues;
 
     {
-        sportsUnitValues = new SparseIntArray();
-        sportsUnitValues.put(0, 100);
-        sportsUnitValues.put(1, 500);
-        sportsUnitValues.put(2, 1);
+        drinkUnitValues = new SparseIntArray();
+        drinkUnitValues.put(0, 100);
+        drinkUnitValues.put(1, 500);
+        drinkUnitValues.put(2, 1);
     }
 
     private SparseArray<ResultModel> resultModels = new SparseArray<>();

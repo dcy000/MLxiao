@@ -78,25 +78,26 @@ public class SheetListFragment extends Fragment {
         adapter.setOnItemClickListener(onItemClickListener);
         rvSheets.setAdapter(adapter);
         getSheetListUseCase = new GetSheetListUseCase();
-        mAutoLoadMoreHelper = new AutoLoadMoreHelper();
-        mAutoLoadMoreHelper.attachToRecyclerView(rvSheets);
-        mAutoLoadMoreHelper.setOnAutoLoadMoreListener(new AutoLoadMoreHelper.OnAutoLoadMoreListener() {
-            @Override
-            public void onAutoLoadMore(AutoLoadMoreHelper autoLoadMoreHelper) {
-                if (autoLoadMoreHelper.isLoading()) {
-                    return;
-                }
-                autoLoadMoreHelper.setLoading(true);
-                getSheetList();
-            }
-        });
+//        mAutoLoadMoreHelper = new AutoLoadMoreHelper();
+//        mAutoLoadMoreHelper.attachToRecyclerView(rvSheets);
+//        mAutoLoadMoreHelper.setOnAutoLoadMoreListener(new AutoLoadMoreHelper.OnAutoLoadMoreListener() {
+//            @Override
+//            public void onAutoLoadMore(AutoLoadMoreHelper autoLoadMoreHelper) {
+//                if (autoLoadMoreHelper.isLoading()) {
+//                    return;
+//                }
+//                autoLoadMoreHelper.setLoading(true);
+//                getSheetList();
+//            }
+//        });
         return view;
     }
 
     private void getSheetList() {
-        if (sheetListObserver == null) {
-            sheetListObserver = new SheetListObserver();
+        if (sheetListObserver != null) {
+            sheetListObserver.dispose();
         }
+        sheetListObserver = new SheetListObserver();
         getSheetListUseCase.execute(
                 new GetSheetListUseCase.Params(null, 1, 12),
                 sheetListObserver
