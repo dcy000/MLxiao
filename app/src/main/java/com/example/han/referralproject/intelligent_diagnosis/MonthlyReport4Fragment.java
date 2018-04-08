@@ -78,7 +78,7 @@ public class MonthlyReport4Fragment extends Fragment {
     @BindView(R.id.chart)
     RadarChart mChart;
     Unbinder unbinder;
-    private MonthlyReport data;
+    private MonthlyReport.MAPQ data;
     private float sj_tizhong, sj_yundong, sj_yinjiu, sj_yan;
     private float mb_tizhong, mb_yundong, mb_yinjiu, mb_yan;
     private int pc_tizhong, pc_yundong, pc_yinjiu, pc_yan;
@@ -98,7 +98,7 @@ public class MonthlyReport4Fragment extends Fragment {
         return view;
     }
 
-    public void notifyData(MonthlyReport weeklyReport) {
+    public void notifyData(MonthlyReport.MAPQ weeklyReport) {
         this.data = weeklyReport;
         if (data != null) {
             initData();
