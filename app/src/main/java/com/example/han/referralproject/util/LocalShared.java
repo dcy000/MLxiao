@@ -348,7 +348,7 @@ public class LocalShared {
     }
 
     public String getSignUpSmoke() {
-        return mShared.getString(SIGN_UP_SMOKE, "2");
+        return mShared.getString(SIGN_UP_SMOKE, "1");
     }
 
     public void setSignUpDrink(String drink) {
@@ -364,7 +364,7 @@ public class LocalShared {
     }
 
     public String getSignUpSport() {
-        return mShared.getString(SIGN_UP_SPORT, "2");
+        return mShared.getString(SIGN_UP_SPORT, "1");
     }
 
     private static final String NIM_ACCOUNT = "nim_account";
