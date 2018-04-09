@@ -26,6 +26,15 @@ public class LudeLoopVideoActivity extends AppCompatActivity {
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
         JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
         if (mPaths == null || mPaths.size() == 0) {
+            try {
+                mDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lude";
+                File file = new File(mDirPath);
+                mPaths = Arrays.asList(file.list());
+            } catch (Throwable throwable) {
+
+            }
+        }
+        if (mPaths == null || mPaths.size() == 0) {
             finish();
             return;
         }
@@ -37,16 +46,6 @@ public class LudeLoopVideoActivity extends AppCompatActivity {
 
     private static List<String> mPaths;
     private static String mDirPath;
-
-    static {
-        try {
-            mDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lude";
-            File file = new File(mDirPath);
-            mPaths = Arrays.asList(file.list());
-        } catch (Throwable throwable) {
-
-        }
-    }
 
     private static int position; //4,6,7
 

@@ -69,7 +69,7 @@ public class VideoListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             position = getArguments().getInt(ARG_POSITION);
-            position  = position == 4 ? 6 : position;
+            position = position == 4 ? 6 : position;
         }
     }
 
@@ -121,7 +121,9 @@ public class VideoListFragment extends Fragment {
 
     private void getVideos() {
         if (position + 1 == 7) {
-            fetchLudeVideos();
+            if (page == 1) {
+                fetchLudeVideos();
+            }
             return;
         }
         NetworkApi.getVideoList(
@@ -210,6 +212,9 @@ public class VideoListFragment extends Fragment {
                 "心电检测"
         );
         entities.add(entity);
+        if (videos == null) {
+            videos = new ArrayList<>();
+        }
         videos.addAll(entities);
         adapter.notifyDataSetChanged();
     }
