@@ -69,6 +69,7 @@ public class VideoListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             position = getArguments().getInt(ARG_POSITION);
+            position  = position == 4 ? 6 : position;
         }
     }
 
