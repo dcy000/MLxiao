@@ -120,6 +120,10 @@ public class VideoListFragment extends Fragment {
     }
 
     private void getVideos() {
+        if (position + 1 == 7) {
+            fetchLudeVideos();
+            return;
+        }
         NetworkApi.getVideoList(
                 position + 1, "0", "1", page, pageSize,
                 new NetworkManager.SuccessCallback<List<VideoEntity>>() {
@@ -167,6 +171,48 @@ public class VideoListFragment extends Fragment {
     }
 
     public static final String BASE_URL = "http://oyptcv2pb.bkt.clouddn.com/";
+
+    public void fetchLudeVideos() {
+        ArrayList<VideoEntity> entities = new ArrayList<>();
+        VideoEntity entity;
+        entity = new VideoEntity(
+                "http://oyptcv2pb.bkt.clouddn.com/abc_1523253982752",
+                "血糖检测"
+        );
+        entities.add(entity);
+        entity = new VideoEntity(
+                "http://oyptcv2pb.bkt.clouddn.com/abc_1523254078371",
+                "体温检测"
+        );
+        entities.add(entity);
+        entity = new VideoEntity(
+                "http://oyptcv2pb.bkt.clouddn.com/abc_1523254171768",
+                "血氧检测"
+        );
+        entities.add(entity);
+        entity = new VideoEntity(
+                "http://oyptcv2pb.bkt.clouddn.com/abc_1523252979909",
+                "三合一检测"
+        );
+        entities.add(entity);
+        entity = new VideoEntity(
+                "http://oyptcv2pb.bkt.clouddn.com/abc_1523253897647",
+                "体重检测"
+        );
+        entities.add(entity);
+        entity = new VideoEntity(
+                "http://oyptcv2pb.bkt.clouddn.com/abc_1523253953743",
+                "血压检测"
+        );
+        entities.add(entity);
+        entity = new VideoEntity(
+                "http://oyptcv2pb.bkt.clouddn.com/abc_1523253945001",
+                "心电检测"
+        );
+        entities.add(entity);
+        videos.addAll(entities);
+        adapter.notifyDataSetChanged();
+    }
 
     private void provideVideos(String type, String extra) {
         int size = provideSize(type);

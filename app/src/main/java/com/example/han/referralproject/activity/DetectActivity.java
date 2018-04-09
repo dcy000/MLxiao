@@ -554,30 +554,59 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                            });
                             return;
                         }
-                        if ((int) notifyData[0] == 32 && notifyData.length == 2) {
-                            mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
+                        if (notifyData.length == 11 && (notifyData[3] & 0xff) == 10 &&
+                                (notifyData[4] & 0xff) == 2){
+                            mHighPressTv.setText(String.valueOf((notifyData[6] & 0xff) | (notifyData[7] << 8 & 0xff00)));
                             mLowPressTv.setText("0");
                             mPulseTv.setText("0");
                         }
-                        if ((int) notifyData[0] == 12) {
-                            mHighPressTv.setText(String.valueOf(notifyData[2] & 0xff));
-                            mLowPressTv.setText(String.valueOf(notifyData[4] & 0xff));
-                            mPulseTv.setText(String.valueOf(notifyData[8] & 0xff));
+                        if (notifyData.length == 9 && (notifyData[3] & 0xff) == 73 &&
+                                (notifyData[4] & 0xff) == 3) {
+                            int highPress = (notifyData[6] & 0xff) + 30;
+                            int lowPress = (notifyData[7] & 0xff) + 30;
+                            mHighPressTv.setText(String.valueOf(highPress));
+                            mLowPressTv.setText(String.valueOf(lowPress));
+                            mPulseTv.setText(String.valueOf(notifyData[5] & 0xff));
                             if (isGetResustFirst) {
                                 isGetResustFirst = false;
-                                mHandler.sendEmptyMessageDelayed(2, 30000);
+                                mHandler.sendEmptyMessageDelayed(2, 10000);
                                 String xueyaResult;
-                                if ((notifyData[2] & 0xff) <= 140) {
+                                if (highPress <= 140) {
                                     xueyaResult = mXueyaResults[0];
-                                } else if ((notifyData[2] & 0xff) <= 160) {
+                                } else if (highPress <= 160) {
                                     xueyaResult = mXueyaResults[1];
                                 } else {
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 //上传数据到我们的服务器
-                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
+                                uploadXueyaResult(highPress, lowPress, notifyData[5] & 0xff, xueyaResult, false, null);
                             }
                         }
+
+//                        if ((int) notifyData[0] == 32 && notifyData.length == 2) {
+//                            mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
+//                            mLowPressTv.setText("0");
+//                            mPulseTv.setText("0");
+//                        }
+//                        if ((int) notifyData[0] == 12) {
+//                            mHighPressTv.setText(String.valueOf(notifyData[2] & 0xff));
+//                            mLowPressTv.setText(String.valueOf(notifyData[4] & 0xff));
+//                            mPulseTv.setText(String.valueOf(notifyData[8] & 0xff));
+//                            if (isGetResustFirst) {
+//                                isGetResustFirst = false;
+//                                mHandler.sendEmptyMessageDelayed(2, 30000);
+//                                String xueyaResult;
+//                                if ((notifyData[2] & 0xff) <= 140) {
+//                                    xueyaResult = mXueyaResults[0];
+//                                } else if ((notifyData[2] & 0xff) <= 160) {
+//                                    xueyaResult = mXueyaResults[1];
+//                                } else {
+//                                    xueyaResult = mXueyaResults[2];
+//                                }
+//                                //上传数据到我们的服务器
+//                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
+//                            }
+//                        }
                         break;
                     case Type_XueTang://血糖测量
                         if (notifyData == null || notifyData.length < 12) {
@@ -789,22 +818,39 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case Type_Xueya:
 
+//                BluetoothGattService xueyaService = mBluetoothLeService.getGatt().getService(UUID
+//                        .fromString("00001810-0000-1000-8000-00805f9b34fb"));
+//                if (xueyaService != null) {
+//                    characteristic = xueyaService
+//                            .getCharacteristic(UUID.fromString("00002a35-0000-1000-8000-00805f9b34fb"));
+//                    Log.i("mylog", "success sssssssssssssssssssssssssssssss");
+//                    isYuyue = true;
+//                    break;
+//                }
+//
+//                if (gattServices.size() == 5 || gattServices.size() == 10) {
+//                    characteristic = gattServices.get(3).getCharacteristics().get(3);
+//                } else {
+//                    characteristic = gattServices.get(2).getCharacteristics().get(3);
+//                }
                 BluetoothGattService xueyaService = mBluetoothLeService.getGatt().getService(UUID
-                        .fromString("00001810-0000-1000-8000-00805f9b34fb"));
-                if (xueyaService != null) {
-                    characteristic = xueyaService
-                            .getCharacteristic(UUID.fromString("00002a35-0000-1000-8000-00805f9b34fb"));
-                    Log.i("mylog", "success sssssssssssssssssssssssssssssss");
-                    isYuyue = true;
-                    break;
-                }
+                        .fromString("01000000-0000-0000-0000-000000000080"));
+                mWriteCharacteristic = xueyaService
+                        .getCharacteristic(UUID.fromString("05000000-0000-0000-0000-000000000080"));
+                //mBluetoothLeService.writeCharacteristic(mWriteCharacteristic);
+                BluetoothGattCharacteristic mNotifyCharacteristic = xueyaService
+                        .getCharacteristic(UUID.fromString("02000000-0000-0000-0000-000000000080"));
+                mBluetoothLeService.readCharacteristic(mNotifyCharacteristic);
+                mBluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, true);
 
-                if (gattServices.size() == 5 || gattServices.size() == 10) {
-                    characteristic = gattServices.get(3).getCharacteristics().get(3);
-                } else {
-                    characteristic = gattServices.get(2).getCharacteristics().get(3);
+                List<BluetoothGattDescriptor> descriptorList = mNotifyCharacteristic.getDescriptors();
+                if (descriptorList != null && descriptorList.size() > 0) {
+                    for (BluetoothGattDescriptor descriptor : descriptorList) {
+                        descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                        mBluetoothGatt.writeDescriptor(descriptor);
+                    }
                 }
-                break;
+                return;
             case Type_XueYang:
                 characteristic = gattServices.get(2).getCharacteristics().get(1);
                 break;
@@ -915,7 +961,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.xueya_video:
                 resourceId = R.raw.tips_xueya;
-                break;
+                if (mWriteCharacteristic == null || mBluetoothLeService == null){
+                    speak("请打开血压计");
+                    return;
+                }
+                byte[] commands = {(byte)0xff, (byte)0xff, 0x05, 0x01, (byte) 0xfa };
+                mWriteCharacteristic.setValue(commands);
+                mBluetoothLeService.writeCharacteristic(mWriteCharacteristic);
+                return;
             case R.id.xuetang_video:
                 resourceId = R.raw.tips_xuetang;
                 break;
@@ -1414,7 +1467,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         deviceName = "FSRKB-EWQ01";
                         break;
                     case Type_Xueya:
-                        deviceName = "eBlood-Pressure";
+                        deviceName = "LD";
 //                        deviceName = "Dual-SPP";
                         break;
                     case Type_XueTang:

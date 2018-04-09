@@ -426,7 +426,7 @@
     <string name="high_pressure1">(mmHG)</string>
     <string name="low_pressure">@string/lude_low_pressure</string>
     <!--<string name="low_pressure">低压</string>-->
-    <string name="purse">脉搏</string>
+    <string name="purse">脉&#160;&#160;搏</string>
     <string name="purse1">(bpm)</string>
     <string name="test_xueya">血&#160;&#160;压&#160;&#160;检&#160;&#160;测</string>
     <string name="test_temperature">体&#160;&#160;温&#160;&#160;检&#160;&#160;测</string>

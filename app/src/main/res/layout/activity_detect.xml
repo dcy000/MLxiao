@@ -229,7 +229,7 @@
                 android:layout_marginLeft="50dp"
                 android:background="@drawable/shape_show"
                 android:gravity="center"
-                android:text="使用演示"
+                android:text="开始测量"
                 android:textColor="#FFFFFF"
                 android:textSize="35sp" />
 
