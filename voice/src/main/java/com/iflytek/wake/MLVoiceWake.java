@@ -1,11 +1,9 @@
 package com.iflytek.wake;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Environment;
 import android.widget.Toast;
 
-import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
@@ -23,7 +21,7 @@ public class MLVoiceWake {
         MLVoiceWake.context = context;
     }
 
-    public static VoiceWakeuper initVoiceWakeuper() {
+    private static VoiceWakeuper initVoiceWakeuper() {
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
         if (wakeuper == null) {
             wakeuper = VoiceWakeuper.createWakeuper(context, null);
@@ -39,7 +37,7 @@ public class MLVoiceWake {
     }
 
 
-    public static VoiceWakeuper setParams() {
+    private static VoiceWakeuper setParams() {
         VoiceWakeuper voiceWakeuper = initVoiceWakeuper();
         voiceWakeuper.setParameter(SpeechConstant.PARAMS, null);
         voiceWakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:10");
@@ -53,7 +51,7 @@ public class MLVoiceWake {
         return voiceWakeuper;
     }
 
-    public static String getResource() {
+    private static String getResource() {
         return ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "ivw/59196d96.jet");
     }
 
@@ -80,6 +78,14 @@ public class MLVoiceWake {
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
         if (wakeuper != null && wakeuper.isListening()) {
             wakeuper.stopListening();
+        }
+    }
+
+
+    public void destroy() {
+        VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
+        if (wakeuper != null) {
+            wakeuper.destroy();
         }
     }
 }
