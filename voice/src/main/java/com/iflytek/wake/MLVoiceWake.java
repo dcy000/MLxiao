@@ -66,7 +66,7 @@ public class MLVoiceWake {
 
                 @Override
                 public void onMLResult() {
-                    Toast.makeText(context, "已经唤醒", Toast.LENGTH_LONG);
+                    Toast.makeText(context, "小E被唤醒", Toast.LENGTH_LONG).show();
                 }
             };
         }
