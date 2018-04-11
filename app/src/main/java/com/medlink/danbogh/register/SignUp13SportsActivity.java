@@ -65,7 +65,7 @@ public class SignUp13SportsActivity extends BaseActivity {
         tvTab2HealthInfo.setTextColor(getResources().getColor(R.color.textColorSelected));
     }
 
-    private int positionSelected = 2;
+    private int positionSelected = -1;
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
@@ -104,7 +104,6 @@ public class SignUp13SportsActivity extends BaseActivity {
                 R.color.colorSaltyPreference,
                 R.drawable.bg_tv_salty_preference_selected,
                 R.drawable.bg_tv_salty_preference);
-        e.setSelected(true);
         mModels.add(e);
         mModels.add(new EatModel(getString(R.string.never_sports),
                 R.drawable.ic_never_sports,
@@ -192,7 +191,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
-                        new JpushAliasUtils(SignUp13SportsActivity.this).setAlias("user_"+response.bid);
+                        new JpushAliasUtils(SignUp13SportsActivity.this).setAlias("user_" + response.bid);
                         navToNext();
                     }
                 }, new NetworkManager.FailedCallback() {
@@ -233,7 +232,8 @@ public class SignUp13SportsActivity extends BaseActivity {
     }
 
     public SparseArrayCompat<String> map;
-     {
+
+    {
         map = new SparseArrayCompat<>(4);
         map.put(0, "天");
         map.put(1, "周");
