@@ -16,7 +16,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.zane.androidupnpdemo.R;
 import com.zane.androidupnpdemo.live_tv.GridViewDividerItemDecoration;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
-import com.zane.androidupnpdemo.live_tv.TVDisplayActivity;
 
 import java.util.List;
 

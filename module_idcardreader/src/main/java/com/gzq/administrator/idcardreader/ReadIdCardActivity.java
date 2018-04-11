@@ -22,7 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
@@ -76,20 +78,26 @@ public class ReadIdCardActivity extends AppCompatActivity {
         myHandler = new MyHandler(this);
     }
 
+
     private class ReadIdCardTask extends AsyncTask<Void, Void, IDCardItem> {
 
         @Override
         protected IDCardItem doInBackground(Void... voids) {
             IDCardItem item = null;
             if (mBtReadClient != null) {
-                while (isLoop&&!isCancelled()) {
+                while (isLoop && !isCancelled()) {
                     connectDevice();
-                    Log.e("开始读卡", "ddddd");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     item = mBtReadClient.readCert(0);
                     if (item != null && item.retCode == 1) {
                         isLoop = false;
                         break;
                     } else {
+                        Log.e("未识别到身份证", "");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -97,7 +105,7 @@ public class ReadIdCardActivity extends AppCompatActivity {
                             }
                         });
                         try {
-                            Thread.sleep(7000);
+                            Thread.sleep(5000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -107,7 +115,6 @@ public class ReadIdCardActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
             }
@@ -125,7 +132,7 @@ public class ReadIdCardActivity extends AppCompatActivity {
                 }
             } else {
                 Log.e("读卡失败", "ffff");
-                MLVoiceSynthetize.startSynthesize(ReadIdCardActivity.this, "读卡失败，请重启读卡器", false);
+//                MLVoiceSynthetize.startSynthesize(ReadIdCardActivity.this, "读卡失败，请重启读卡器", false);
             }
         }
     }
@@ -328,14 +335,14 @@ public class ReadIdCardActivity extends AppCompatActivity {
     private OnBluetoothListener bluetoothListener = new OnBluetoothListener() {
         @Override
         public void connectResult(boolean result) {
-            Log.e("connectResult",result+"");
+            Log.e("connectResult", result + "");
             int what = result ? 1 : 0;
             myHandler.obtainMessage(100, what, what).sendToTarget();
         }
 
         @Override
         public void connectionLost() {
-            Log.e("connectionLost","");
+            Log.e("connectionLost", "");
         }
     };
 
@@ -343,15 +350,17 @@ public class ReadIdCardActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregistBroadcastReceiver();
-        if (readIdCardTask != null&& !readIdCardTask.isCancelled()) {
+        if (readIdCardTask != null && !readIdCardTask.isCancelled()) {
             readIdCardTask.cancel(true);
-            readIdCardTask=null;
+            readIdCardTask = null;
         }
-        if (targetDevice!=null)
+        if (targetDevice != null)
             unpairDevice(targetDevice);
     }
 
-    //反射来调用BluetoothDevice.removeBond取消设备的配对
+    //反射来调用BluetoothDevice.removeBond取消设备的配对(
+    // 调用此方法是为了在演示的过程中会连接会多同种品牌的读卡器而导致连接不上，
+    // 因为同型号的读卡器都是KT8000开头的)
     private void unpairDevice(BluetoothDevice device) {
         try {
             Method m = device.getClass()
