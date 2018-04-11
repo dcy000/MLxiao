@@ -4,6 +4,7 @@ package com.example.han.referralproject.video;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -172,43 +173,45 @@ public class VideoListFragment extends Fragment {
         }
     }
 
+    public static final String BASE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+
     public static final String BASE_URL = "http://oyptcv2pb.bkt.clouddn.com/";
 
     public void fetchLudeVideos() {
         ArrayList<VideoEntity> entities = new ArrayList<>();
         VideoEntity entity;
         entity = new VideoEntity(
-                "http://oyptcv2pb.bkt.clouddn.com/abc_1523253982752",
+                BASE_PATH + "/lude1/血糖检测.mp4",
                 "血糖检测"
         );
         entities.add(entity);
         entity = new VideoEntity(
-                "http://oyptcv2pb.bkt.clouddn.com/abc_1523254078371",
+                BASE_PATH + "/lude1/体温检测.mp4",
                 "体温检测"
         );
         entities.add(entity);
         entity = new VideoEntity(
-                "http://oyptcv2pb.bkt.clouddn.com/abc_1523254171768",
+                BASE_PATH + "/lude1/血氧检测.mp4",
                 "血氧检测"
         );
         entities.add(entity);
         entity = new VideoEntity(
-                "http://oyptcv2pb.bkt.clouddn.com/abc_1523252979909",
+                BASE_PATH + "/lude1/三合一检测.mp4",
                 "三合一检测"
         );
         entities.add(entity);
         entity = new VideoEntity(
-                "http://oyptcv2pb.bkt.clouddn.com/abc_1523253897647",
+                BASE_PATH + "/lude1/体重检测.mp4",
                 "体重检测"
         );
         entities.add(entity);
         entity = new VideoEntity(
-                "http://oyptcv2pb.bkt.clouddn.com/abc_1523253953743",
+                BASE_PATH + "/lude1/血压检测.mp4",
                 "血压检测"
         );
         entities.add(entity);
         entity = new VideoEntity(
-                "http://oyptcv2pb.bkt.clouddn.com/abc_1523253945001",
+                BASE_PATH + "/lude1/心电检测.mp4",
                 "心电检测"
         );
         entities.add(entity);
