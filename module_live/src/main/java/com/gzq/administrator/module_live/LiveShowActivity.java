@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ksyun.media.streamer.capture.camera.CameraTouchHelper;
 import com.ksyun.media.streamer.encoder.VideoEncodeFormat;
 import com.ksyun.media.streamer.filter.imgtex.ImgFilterBase;
 import com.ksyun.media.streamer.filter.imgtex.ImgTexFilterBase;
@@ -45,6 +46,7 @@ public class LiveShowActivity extends AppCompatActivity implements View.OnClickL
     protected String mBgImagePath = "assets://bg.jpg";
     protected static final int PERMISSION_REQUEST_CAMERA_AUDIOREC = 1;
     private ImageView mIvBack;
+    private CameraHintView mCameraHintView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -192,7 +194,6 @@ public class LiveShowActivity extends AppCompatActivity implements View.OnClickL
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             mStreamer.setRotateDegrees(0);
         }
-
         // 选择前后摄像头
         mStreamer.setCameraFacing(mConfig.mCameraFacing);
 
@@ -203,6 +204,15 @@ public class LiveShowActivity extends AppCompatActivity implements View.OnClickL
         mStreamer.setOnErrorListener(mOnErrorListener);
         // 禁用后台推流时重复最后一帧的逻辑（这里我们选择切后台使用背景图推流的方式）
         mStreamer.setEnableRepeatLastFrame(false);
+        //设置可触摸对焦
+        CameraTouchHelper cameraTouchHelper = new CameraTouchHelper();
+        cameraTouchHelper.setCameraCapture(mStreamer.getCameraCapture());
+        if ( mGsvLiveView!= null) {
+            mGsvLiveView.setOnTouchListener(cameraTouchHelper);
+        }
+        // set CameraHintView to show focus rect and zoom ratio
+        mCameraHintView.setVisibility(View.VISIBLE);
+        cameraTouchHelper.setCameraHintView(mCameraHintView);
     }
 
     private KSYStreamer.OnInfoListener mOnInfoListener = new KSYStreamer.OnInfoListener() {
@@ -329,6 +339,7 @@ public class LiveShowActivity extends AppCompatActivity implements View.OnClickL
         mMainHandler = new Handler();
         mIvBack = (ImageView) findViewById(R.id.iv_back);
         mIvBack.setOnClickListener(this);
+        mCameraHintView = (CameraHintView) findViewById(R.id.cameraHintView);
     }
 
     @Override

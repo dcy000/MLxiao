@@ -46,7 +46,6 @@ public class ReadIdCardActivity extends AppCompatActivity {
 
     class MyHandler extends Handler {
         private WeakReference<Activity> weakReference;
-
         public MyHandler(Activity activity) {
             weakReference = new WeakReference<>(activity);
         }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +50,7 @@ public class LivePlayActivity extends AppCompatActivity implements View.OnClickL
     private TextView mTvPausePlay;
     private boolean isOnPlaying;
     private ImageView mIvBack;
-
+    private Handler mHandler;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +86,12 @@ public class LivePlayActivity extends AppCompatActivity implements View.OnClickL
         public boolean onError(IMediaPlayer iMediaPlayer, int i, int i1) {
             Log.d("播放异常", "onError: " + i);
             Toast.makeText(LivePlayActivity.this, "网络连接不稳定", Toast.LENGTH_SHORT).show();
-            videoPlayEnd();
-            finish();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startPlay(playUrl);
+                }
+            }, 3000);
             return false;
         }
     };
@@ -228,11 +233,13 @@ public class LivePlayActivity extends AppCompatActivity implements View.OnClickL
         mTvPausePlay.setOnClickListener(this);
         mIvBack = (ImageView) findViewById(R.id.iv_back);
         mIvBack.setOnClickListener(this);
+        mHandler=new Handler();
     }
 
     private void videoPlayEnd() {
         if (ksyTextureView != null) {
-            FloatingPlayer.getInstance().destroy();
+            ksyTextureView.stop();
+            ksyTextureView.release();
         }
     }
 
