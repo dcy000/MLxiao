@@ -97,8 +97,8 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
         });
 
 
-       /* mImageView = (ImageView) findViewById(R.id.icon_back);
-        mImageView.setOnClickListener(new View.OnClickListener() {
+       /* headImg = (ImageView) findViewById(R.id.icon_back);
+        headImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

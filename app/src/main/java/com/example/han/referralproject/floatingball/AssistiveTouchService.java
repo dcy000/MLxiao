@@ -112,7 +112,7 @@ public class AssistiveTouchService extends Service {
 
         mImageView = (ImageView) mAssistiveTouchView.findViewById(R.id.icons);
 
-        //   mImageView.setOnClickListener(checkDoubleClickListener);
+        //   headImg.setOnClickListener(checkDoubleClickListener);
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
         mImageView1 = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.image_volume);

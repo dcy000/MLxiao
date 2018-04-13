@@ -29,15 +29,12 @@ import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
-import com.example.han.referralproject.health.HealthDiaryActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
-import com.example.han.referralproject.tool.JieMengActivity;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
@@ -45,7 +42,6 @@ import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener {
@@ -75,14 +71,14 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     User mUser;
 
     public TextView mTextView;
-    public ImageView mImageView;
+    public ImageView headImg;
     public ImageView mIvAlarm;
 
     SharedPreferences sharedPreferences;
-    public TextView mTextView1;
-    public TextView mTextView3;
+    public TextView tvSignDoctorName;
+    public TextView tvBalance;
 
-    public TextView mTextView4;
+    public TextView tvIsSign;
     //public ImageView mImageView1;
     //public ImageView mImageView2;
     public ImageView mImageView3;
@@ -95,10 +91,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     private ChangeAccountDialog mChangeAccountDialog;
 
     SharedPreferences sharedPreferences1;
-    private String doctorName;
-
-    double amount;
-    double amounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,49 +101,41 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         mToolbar.setVisibility(View.VISIBLE);
 
         userId = MyApplication.getInstance().userId;
-        mImageView = (ImageView) findViewById(R.id.per_image);
+        headImg = (ImageView) findViewById(R.id.per_image);
 
         mImageView3 = (ImageView) findViewById(R.id.iv_pay);
 
         mImageView3.setOnClickListener(this);
 
-        mTextView3 = (TextView) findViewById(R.id.tv_balance);
+        tvBalance = (TextView) findViewById(R.id.tv_balance);
 
 
         mImageView5 = (ImageView) findViewById(R.id.iv_order);
 
         setEnableListeningLoop(false);
-        mTextView4 = (TextView) findViewById(R.id.doctor_status);
+        tvIsSign = (TextView) findViewById(R.id.doctor_status);
         findViewById(R.id.main_iv_health_class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
             }
         });
-        mTextView4.setOnClickListener(new View.OnClickListener() {
+        tvIsSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("未签约".equals(mTextView4.getText())) {
+                if ("未签约".equals(tvIsSign.getText())) {
                     Intent intent = new Intent(PersonActivity.this, OnlineDoctorListActivity.class);
                     intent.putExtra("flag", "contract");
                     startActivity(intent);
                     return;
                 }
-                if ("待审核".equals(mTextView4.getText())) {
+                if ("待审核".equals(tvIsSign.getText())) {
                     Intent intent = new Intent(PersonActivity.this, CheckContractActivity.class);
                     startActivity(intent);
                 }
             }
         });
 
-        /*mImageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), WifiConnectActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });*/
         mImageView4 = (ImageView) findViewById(R.id.main_iv_old);
         mTitleText.setText("个  人  中  心");
         mRightView.setImageResource(R.drawable.icon_wifi);
@@ -162,28 +146,13 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
-
-//                Intent intent = new Intent(getApplicationContext(), HealthSaltDiaryActivity.class);
-//                startActivity(intent);
             }
         });
 
-      /*  String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
-
-        if (imageData1 != null) {
-            byte[] bytes = Base64.decode(imageData1.getBytes(), 1);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            mImageView.setImageBitmap(bitmap);
-
-        }*/
 
         mImageView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(PersonActivity.this, ShopListActivity.class);
-//                startActivity(intent);
-//                startActivity(new Intent(PersonActivity.this, VideoListActivity.class));
-//                OldRouter.routeToOldHomeActivity(PersonActivity.this);
                 Intent intent = new Intent(PersonActivity.this, ChildEduHomeActivity.class);
                 startActivity(intent);
             }
@@ -195,7 +164,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.iv_record).setOnClickListener(this);
         mTextView = (TextView) findViewById(R.id.per_name);
         findViewById(R.id.iv_change_account).setOnClickListener(this);
-        mImageView.setOnClickListener(this);
+        headImg.setOnClickListener(this);
         findViewById(R.id.tv_update).setOnClickListener(this);
         mIvAlarm = (ImageView) findViewById(R.id.iv_alarm);
         mIvAlarm.setOnClickListener(new View.OnClickListener() {
@@ -211,7 +180,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         sharedPreferences1 = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
 
 
-        mTextView1 = (TextView) findViewById(R.id.doctor_name);
+        tvSignDoctorName = (TextView) findViewById(R.id.doctor_name);
 
         ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
@@ -268,24 +237,24 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 editor.commit();
 
                 mTextView.setText(response.getBname());
-                //    mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount())+"元");
+                //    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount())+"元");
                 Picasso.with(PersonActivity.this)
                         .load(response.getuser_photo())
                         .placeholder(R.drawable.avatar_placeholder)
                         .error(R.drawable.avatar_placeholder)
                         .tag(this)
                         .fit()
-                        .into(mImageView);
+                        .into(headImg);
 
 
                 if ("1".equals(response.getState())) {
-                    mTextView4.setText("已签约");
+                    tvIsSign.setText("已签约");
                 } else if ("0".equals(response.getState()) && (TextUtils.isEmpty(response.getDoctername()))) {
 
-                    mTextView4.setText("未签约");
+                    tvIsSign.setText("未签约");
 
                 } else {
-                    mTextView4.setText("待审核");
+                    tvIsSign.setText("待审核");
 
                 }
 
@@ -307,7 +276,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
                 if (response.getAmount() != null) {
 
-                    mTextView3.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
+                    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
 
                 }
 
@@ -338,8 +307,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
 
                 if (!"".equals(response.getDoctername())) {
-                    doctorName=response.getDoctername();
-                    mTextView1.setText(response.getDoctername());
+                    tvSignDoctorName.setText(response.getDoctername());
 
                 }
 
@@ -349,15 +317,9 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                mTextView1.setText("暂无");
+                tvSignDoctorName.setText("暂无");
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        mTextView1.setText(sharedPreferences.getString("name", ""));
     }
 
     @Override
