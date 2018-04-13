@@ -3,7 +3,6 @@ package com.example.han.referralproject.application;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -11,7 +10,6 @@ import android.os.Process;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
@@ -28,7 +26,6 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.LitePal;
@@ -65,7 +62,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
         ScreenUtils.init(this);

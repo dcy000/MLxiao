@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gzq.administrator.lib_common.base.CommonBaseActivity;
 import com.zane.androidupnpdemo.R;
 import com.zane.androidupnpdemo.live_tv.GridViewDividerItemDecoration;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
+import com.zane.androidupnpdemo.utils.AesUtil;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ import java.util.List;
  * Created by gzq on 2018/3/26.
  */
 
-public class TvChannelActivity extends AppCompatActivity implements ITvList, View.OnClickListener {
+public class TvChannelActivity extends CommonBaseActivity implements ITvList, View.OnClickListener {
     private TextView mHykdBack;
     private RecyclerView mTvList;
     private BaseQuickAdapter<LiveBean, BaseViewHolder> adapter;
