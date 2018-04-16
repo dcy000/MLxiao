@@ -17,6 +17,7 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.tool.ToolsActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.ml.edu.OldRouter;
+import com.zane.androidupnpdemo.base_information_of_residents.HY_HomeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +40,8 @@ public class PersonDetail2Fragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.main_iv_health_class)
     ImageView mainIvHealthClass;
-
+    @BindView(R.id.iv_jiankangdangan)
+    ImageView ivJiankang;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class PersonDetail2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class})
+    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class,R.id.iv_jiankangdangan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_order:
@@ -71,6 +73,9 @@ public class PersonDetail2Fragment extends Fragment {
                 break;
             case R.id.main_iv_health_class:
                 startActivity(new Intent(getActivity(), VideoListActivity.class));
+                break;
+            case R.id.iv_jiankangdangan:
+                startActivity(new Intent(getContext(), HY_HomeActivity.class));
                 break;
         }
     }

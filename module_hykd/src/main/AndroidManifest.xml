@@ -14,7 +14,6 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".LiveMediaApplication"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >
         <activity android:name=".connect_tv.ui.TVConnectMainActivity" />
@@ -32,12 +31,17 @@
         <activity android:name=".live_tv.tv_play.TvPlayActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".base_information_of_residents.HY_HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
+        <activity android:name=".base_information_of_residents.MySignInfomationActivity"/>
+        <activity android:name=".base_information_of_residents.MyServicedHistoryActivity"/>
+        <activity android:name=".base_information_of_residents.MyBaseInformationActivity"/>
+        <activity android:name=".base_information_of_residents.HYServiceAgreementActivity"/>
+        <activity android:name=".base_information_of_residents.MySignAgreementActivity"/>
     </application>
 
 </manifest>

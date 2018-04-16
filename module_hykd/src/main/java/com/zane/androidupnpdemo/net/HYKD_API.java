@@ -5,7 +5,7 @@ package com.zane.androidupnpdemo.net;
  */
 
 public class HYKD_API {
-    private static final String DOMAIN_NAME = "http://61.161.70.27:9020/resident";
+    public static final String DOMAIN_NAME = "http://61.161.70.27:9020/resident";
     public static final String RESIDENT_NAME="罗正碧";
     public static final String RESIDENT_IDCARD="510229193402151985";
     /**

@@ -1,11 +1,11 @@
-apply plugin: 'com.android.application'
-//apply plugin: 'com.android.library'
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion gradle.compileSdkVersion
     buildToolsVersion gradle.buildToolsVersion
     defaultConfig {
-        applicationId "com.zane.androidupnpdemo"
+//        applicationId "com.zane.androidupnpdemo"
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
         versionCode 1
@@ -50,7 +50,7 @@ dependencies {
     compile 'org.eclipse.jetty:jetty-server:8.1.12.v20130726'
     compile 'org.eclipse.jetty:jetty-servlet:8.1.12.v20130726'
     compile 'org.eclipse.jetty:jetty-client:8.1.12.v20130726'
-    compile 'org.slf4j:slf4j-simple:1.7.21'
+//    compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'com.koushikdutta.urlimageviewhelper:urlimageviewhelper:1.0.4'
 
     compile 'com.wang.avi:library:2.1.3'

@@ -57,13 +57,13 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.connectTv:
-                connectTv();
-                break;
-            case R.id.livemedia_back:
-                closeTv();
-                break;
+        int i = v.getId();
+        if (i == R.id.connectTv) {
+            connectTv();
+
+        } else if (i == R.id.livemedia_back) {
+            closeTv();
+
         }
     }
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/hy_ll_service_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#777"
+            android:textSize="16sp"
+            android:text="服务时间:"
+            android:layout_margin="15dp"/>
+        <TextView
+            android:id="@+id/hy_tv_service_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017年2月18日"
+            android:textSize="16sp"
+            android:textColor="#333"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/hy_ll_service_doctor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_below="@id/hy_ll_service_time">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#777"
+            android:textSize="16sp"
+            android:text="服务医生:"
+            android:layout_margin="15dp"/>
+        <TextView
+            android:id="@+id/hy_tv_service_doctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名"
+            android:textSize="16sp"
+            android:textColor="#333"/>
+    </LinearLayout>
+</RelativeLayout>

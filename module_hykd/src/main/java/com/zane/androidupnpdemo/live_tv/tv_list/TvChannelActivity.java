@@ -88,10 +88,10 @@ public class TvChannelActivity extends CommonBaseActivity implements ITvList, Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.hykd_back:
-                finish();
-                break;
+        int i = v.getId();
+        if (i == R.id.hykd_back) {
+            finish();
+
         }
     }
 }

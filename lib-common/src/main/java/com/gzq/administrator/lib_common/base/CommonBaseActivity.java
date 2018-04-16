@@ -33,7 +33,6 @@ public abstract class CommonBaseActivity extends AppCompatActivity implements Vi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG,"onCreate");
     }
 
     @Override
