@@ -626,7 +626,6 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void finishActivity() {
-
         mImageData = null;
         myHandler.removeCallbacksAndMessages(null);
         Handlers.bg().post(new Runnable() {
