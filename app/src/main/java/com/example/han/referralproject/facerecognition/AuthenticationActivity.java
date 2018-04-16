@@ -100,6 +100,7 @@ public class AuthenticationActivity extends BaseActivity {
     private static final int TO_FACE_AUTHENTICATION = 1;
     private static final int TO_CAMERA_PRE_RESOLVE = 2;
     private boolean openOrcloseAnimation=true;
+    private boolean isOnPause=false;
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
 
@@ -135,7 +136,7 @@ public class AuthenticationActivity extends BaseActivity {
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
                                             authenticationSuccessForTest$Welcome(scoreFirstXfid, weakReference);
                                         } else if ("Pay".equals(fromString)) {
-                                            if (mAuthid.equals(scoreFirstXfid)) {
+                                            if (mAuthid.equals(scoreFirstXfid)&&!isOnPause) {
                                                 paySuccess();
                                             } else {
                                                 payFail();
@@ -648,6 +649,18 @@ public class AuthenticationActivity extends BaseActivity {
             }
         });
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isOnPause=false;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isOnPause=true;
     }
 
     @Override
