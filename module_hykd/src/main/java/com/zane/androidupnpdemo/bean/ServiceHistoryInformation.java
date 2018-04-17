@@ -40,11 +40,11 @@ public class ServiceHistoryInformation {
     private String interviewSign;
     private String otherServices;
     private String residentAge;
-    private int residentId;
-    private String residentName;
-    private String residentPhone;
-    private String residentSex;
-    private String serviceTime;
+    private int residentId;//居民id
+    private String residentName;//姓名
+    private String residentPhone;//联系电话
+    private String residentSex;//性别
+    private String serviceTime;//服务时间
     private List<String> crowdSpecial;
     private List<ServiceContentBean> serviceContent;
 
