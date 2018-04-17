@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -30,6 +32,7 @@ public class MyServicedHistoryActivity extends CommonBaseActivity {
     private PageInformation pageInformation;
     private TextView mHyTvServiceTime;
     private TextView mHyTvServiceDoctor;
+    private LinearLayout mHyLlServiceDoctor;
 
     public static void startActivity(Context context, Class<?> clazz) {
         context.startActivity(new Intent(context, clazz));
@@ -68,11 +71,11 @@ public class MyServicedHistoryActivity extends CommonBaseActivity {
                                 JSONObject data = object.optJSONObject("data");
                                 JSONObject pageInfo = data.optJSONObject("pageInfo");
                                 pageInformation = new Gson().fromJson(pageInfo.toString(), PageInformation.class);
-                                String doctorName=pageInformation.list.get(0).doctorName;
+                                String doctorName = pageInformation.list.get(0).doctorName;
                                 String serviceTime = pageInformation.list.get(0).serviceTime;
                                 mHyTvServiceDoctor.setText(doctorName);
                                 String[] time_s = serviceTime.split("\\s+")[0].split("-");
-                                mHyTvServiceTime.setText(time_s[0]+"年"+time_s[1]+"月"+time_s[2]+"日");
+                                mHyTvServiceTime.setText(time_s[0] + "年" + time_s[1] + "月" + time_s[2] + "日");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -81,8 +84,21 @@ public class MyServicedHistoryActivity extends CommonBaseActivity {
                 });
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.hy_ll_service_doctor:
+                startActivity(new Intent(this,HY_MyServiceHistoryDetailsActivity.class)
+                .putExtra("serviceId",pageInformation.list.get(0).serviceId));
+                break;
+        }
+    }
+
     private void initView() {
         mHyTvServiceTime = (TextView) findViewById(R.id.hy_tv_service_time);
         mHyTvServiceDoctor = (TextView) findViewById(R.id.hy_tv_service_doctor);
+        mHyLlServiceDoctor = (LinearLayout) findViewById(R.id.hy_ll_service_doctor);
+        mHyLlServiceDoctor.setOnClickListener(this);
     }
 }

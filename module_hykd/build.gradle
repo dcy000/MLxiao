@@ -1,11 +1,11 @@
-//apply plugin: 'com.android.application'
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
+//apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion gradle.compileSdkVersion
     buildToolsVersion gradle.buildToolsVersion
     defaultConfig {
-//        applicationId "com.zane.androidupnpdemo"
+        applicationId "com.zane.androidupnpdemo"
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
         versionCode 1

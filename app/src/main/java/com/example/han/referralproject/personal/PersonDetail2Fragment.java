@@ -17,7 +17,10 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.tool.ToolsActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.ml.edu.OldRouter;
+import com.zane.androidupnpdemo.base_information_of_residents.HY_HealthArchivesActivity;
+import com.zane.androidupnpdemo.base_information_of_residents.HY_HealthServiceActivity;
 import com.zane.androidupnpdemo.base_information_of_residents.HY_HomeActivity;
+import com.zane.androidupnpdemo.base_information_of_residents.MySignAgreementActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +45,8 @@ public class PersonDetail2Fragment extends Fragment {
     ImageView mainIvHealthClass;
     @BindView(R.id.iv_jiankangdangan)
     ImageView ivJiankang;
+    @BindView(R.id.iv_jiankangfuwu)
+    ImageView ivFuwu;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +61,7 @@ public class PersonDetail2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class,R.id.iv_jiankangdangan})
+    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class,R.id.iv_jiankangdangan,R.id.iv_jiankangfuwu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_order:
@@ -75,7 +80,10 @@ public class PersonDetail2Fragment extends Fragment {
                 startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;
             case R.id.iv_jiankangdangan:
-                startActivity(new Intent(getContext(), HY_HomeActivity.class));
+                startActivity(new Intent(getContext(), HY_HealthArchivesActivity.class));
+                break;
+            case R.id.iv_jiankangfuwu:
+                startActivity(new Intent(getContext(), HY_HealthServiceActivity.class));
                 break;
         }
     }

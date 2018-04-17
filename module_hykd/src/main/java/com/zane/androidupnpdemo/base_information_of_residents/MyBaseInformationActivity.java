@@ -20,6 +20,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.zane.androidupnpdemo.R;
 import com.zane.androidupnpdemo.bean.MyBaseInformation;
+import com.zane.androidupnpdemo.bean.PageInfo;
 import com.zane.androidupnpdemo.net.HYKD_API;
 import com.zane.androidupnpdemo.utils.AesUtil;
 import com.zane.androidupnpdemo.utils.Utils;
@@ -243,14 +244,5 @@ public class MyBaseInformationActivity extends CommonBaseActivity {
     private void initView() {
         mHyUserBaseInformationList = (RecyclerView) findViewById(R.id.hy_user_base_information_list);
         pageInfos=new ArrayList<>();
-    }
-    public static class PageInfo{
-        public String title;
-        public String content;
-
-        public PageInfo(String title, String content) {
-            this.title = title;
-            this.content = content;
-        }
     }
 }
