@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.gzq.administrator.module_live.MainActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="直播或者播放的rtmp地址："
+        android:layout_margin="15dp"/>
+    <EditText
+        android:id="@+id/tv_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="rtmp://mobile.kscvbu.cn/live/user_100001"/>
+    <Button
+        android:id="@+id/btn_live"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我要直播"
+        android:layout_margin="20dp"/>
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="我要观看"/>
+</LinearLayout>

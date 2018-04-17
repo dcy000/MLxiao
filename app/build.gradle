@@ -169,4 +169,5 @@ dependencies {
     compile project(':circleindicator')
     //    compile project(':module_hykd')
     compile project(':voice')
+    compile project(':lib-idcard-reader')
 }

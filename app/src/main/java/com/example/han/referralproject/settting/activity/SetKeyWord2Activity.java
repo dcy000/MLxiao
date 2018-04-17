@@ -77,6 +77,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
         bean.name = s;
         bean.show = false;
         bean.pinyin = PinYinUtils.converterToSpell(s);
+        bean.pinyin = bean.pinyin == null ? "" : bean.pinyin;
         data.add(bean);
 
         ItemView view = new ItemView(this);
