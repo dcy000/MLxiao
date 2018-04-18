@@ -16,11 +16,6 @@ import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.tool.ToolsActivity;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.ml.edu.OldRouter;
-import com.zane.androidupnpdemo.base_information_of_residents.HY_HealthArchivesActivity;
-import com.zane.androidupnpdemo.base_information_of_residents.HY_HealthServiceActivity;
-import com.zane.androidupnpdemo.base_information_of_residents.HY_HomeActivity;
-import com.zane.androidupnpdemo.base_information_of_residents.MySignAgreementActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,10 +75,10 @@ public class PersonDetail2Fragment extends Fragment {
                 startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;
             case R.id.iv_jiankangdangan:
-                startActivity(new Intent(getContext(), HY_HealthArchivesActivity.class));
+//                startActivity(new Intent(getContext(), HY_HealthArchivesActivity.class));
                 break;
             case R.id.iv_jiankangfuwu:
-                startActivity(new Intent(getContext(), HY_HealthServiceActivity.class));
+//                startActivity(new Intent(getContext(), HY_HealthServiceActivity.class));
                 break;
         }
     }

@@ -1,5 +1,6 @@
 package com.zane.androidupnpdemo.base_information_of_residents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.zane.androidupnpdemo.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.Context;
 
 /**
  * Created by gzq on 2018/4/17.
@@ -26,6 +28,9 @@ import org.json.JSONObject;
 
 public class HY_MyServiceHistoryDetailsActivity extends CommonBaseActivity{
     private int serviceId;
+    public static void startActivity(Context context,int serviceId,Class<?> clazz){
+        context.startActivity(new Intent(context,clazz).putExtra("serviceId",serviceId));
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

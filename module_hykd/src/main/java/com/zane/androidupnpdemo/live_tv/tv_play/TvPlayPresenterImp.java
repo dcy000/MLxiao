@@ -55,8 +55,6 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             tvPlayActivity.showLoadingDialog();
             tvPlayActivity.hideStatusBar();
             tvPlayActivity.addVideoView(ksyTextureView);
-
-
             ksyTextureView.setOnTouchListener(mTouchListener);
             ksyTextureView.setOnPreparedListener(mOnPreparedListener);
             ksyTextureView.setOnErrorListener(mOnErrorListener);

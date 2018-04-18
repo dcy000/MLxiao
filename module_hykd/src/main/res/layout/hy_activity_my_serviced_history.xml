@@ -1,48 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/hy_main_bg">
     <LinearLayout
-        android:id="@+id/hy_ll_service_time"
+        android:id="@+id/ll_sign_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#777"
-            android:textSize="16sp"
-            android:text="服务时间:"
-            android:layout_margin="15dp"/>
-        <TextView
-            android:id="@+id/hy_tv_service_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2017年2月18日"
-            android:textSize="16sp"
-            android:textColor="#333"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/hy_ll_service_doctor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140pt"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_below="@id/hy_ll_service_time">
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="64pt"
+            android:layout_height="64pt"
+            android:src="@drawable/hy_service_time"
+            android:layout_marginLeft="60pt"/>
         <TextView
+            android:id="@+id/tv_sign_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#777"
-            android:textSize="16sp"
-            android:text="服务医生:"
-            android:layout_margin="15dp"/>
+            android:text="签约时间：2017年2月12日"
+            android:textSize="48pt"
+            android:textColor="#999"
+            android:layout_marginLeft="24pt"/>
         <TextView
-            android:id="@+id/hy_tv_service_doctor"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_see_agreements"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="姓名"
-            android:textSize="16sp"
-            android:textColor="#333"/>
+            android:layout_weight="1"
+            android:text="查看签约协议"
+            android:textColor="#3F86FC"
+            android:textSize="48pt"
+            android:gravity="end"
+            android:paddingRight="60pt"
+            />
     </LinearLayout>
+    <RadioGroup
+        android:id="@+id/rg_menu"
+        android:layout_width="360pt"
+        android:layout_height="420pt"
+        android:layout_below="@id/ll_sign_time"
+        android:layout_marginTop="32pt"
+        android:orientation="vertical"
+        >
+        <RadioButton
+            android:id="@+id/rb_health_service"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/hy_bg_rb_archives"
+            android:textColor="@drawable/hy_bg_rb_archives"
+            android:textSize="56pt"
+            android:text="卫生服务"
+            android:gravity="center"
+            />
+        <RadioButton
+            android:id="@+id/rb_door_to_door_diagnosis"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/hy_bg_rb_archives"
+            android:textColor="@drawable/hy_bg_rb_archives"
+            android:textSize="56pt"
+            android:text="上门诊疗"
+            android:gravity="center"
+            />
+        <RadioButton
+            android:id="@+id/rb_pay_service"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/hy_bg_rb_archives"
+            android:textColor="@drawable/hy_bg_rb_archives"
+            android:textSize="56pt"
+            android:text="付费服务包"
+            android:gravity="center"
+            />
+    </RadioGroup>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_service_history_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_sign_time"
+        android:layout_toRightOf="@id/rg_menu"
+        android:layout_marginTop="32pt"
+        android:layout_marginLeft="46pt"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
