@@ -1,5 +1,6 @@
 package com.example.han.referralproject.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -163,7 +164,8 @@ public class BaseActivity extends AppCompatActivity {
                 new String[]{
                         android.Manifest.permission.READ_EXTERNAL_STORAGE,
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.RECORD_AUDIO
+                        android.Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.CAMERA
                 }
         );
 
@@ -178,7 +180,8 @@ public class BaseActivity extends AppCompatActivity {
                 new String[]{
                         android.Manifest.permission.READ_EXTERNAL_STORAGE,
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.RECORD_AUDIO
+                        android.Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.CAMERA
                 },
                 007
         );
