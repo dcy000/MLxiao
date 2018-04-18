@@ -1,18 +1,31 @@
 package com.zane.androidupnpdemo.live_tv.tv_play;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gzq.administrator.lib_common.utils.PinYinUtils;
+import com.gzq.administrator.lib_common.utils.ToastTool;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLSynthesizerListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.iflytek.wake.MLVoiceWake;
+import com.iflytek.wake.MLWakeuperListener;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
 import com.ksyun.media.player.KSYTextureView;
 import com.zane.androidupnpdemo.live_tv.FloatingPlayer;
+import com.zane.androidupnpdemo.live_tv.LiveBean;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.zane.androidupnpdemo.live_tv.MediaHelper.getCurrentSpan;
 import static com.zane.androidupnpdemo.live_tv.MediaHelper.getFocusX;
@@ -40,12 +53,185 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
     private float deltaRatio;
     private double lastSpan;
     private TimeCount timeCount;
-
-    public TvPlayPresenterImp(ITvPlayView tvPlayActivity) {
+    private List<LiveBean> tvs;
+    private static final String TAG=TvPlayPresenterImp.class.getSimpleName();
+    public TvPlayPresenterImp(ITvPlayView tvPlayActivity, List<LiveBean> tvs) {
         this.tvPlayActivity = tvPlayActivity;
+        this.tvs=tvs;
         FloatingPlayer.getInstance().init((Context) tvPlayActivity);
         ksyTextureView = FloatingPlayer.getInstance().getKSYTextureView();
         timeCount = new TimeCount(5000, 1000);
+        startListenWakeup();
+    }
+
+    private void startListenWakeup() {
+        MLVoiceWake.initGlobalContext((TvPlayActivity)tvPlayActivity);
+        MLVoiceWake.startWakeUp(new MLWakeuperListener() {
+            @Override
+            public void onMLError(int errorCode) {
+
+            }
+
+            @Override
+            public void onMLResult() {
+               if (ksyTextureView.isPlaying()){
+                   ksyTextureView.pause();
+               }
+                MLVoiceSynthetize.startSynthesize((TvPlayActivity)tvPlayActivity,"主人,您想看哪个电视台？",speakFinishListener ,false);
+            }
+        });
+
+    }
+    private SynthesizerListener speakFinishListener=new SynthesizerListener() {
+        @Override
+        public void onSpeakBegin() {
+
+        }
+
+        @Override
+        public void onBufferProgress(int i, int i1, int i2, String s) {
+
+        }
+
+        @Override
+        public void onSpeakPaused() {
+
+        }
+
+        @Override
+        public void onSpeakResumed() {
+
+        }
+
+        @Override
+        public void onSpeakProgress(int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            //说完之后开始识别
+            startListenSpeak();
+        }
+
+        @Override
+        public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+        }
+    };
+
+    private void startListenSpeak() {
+        MLVoiceRecognize.startRecognize((TvPlayActivity) tvPlayActivity, new MLRecognizerListener() {
+            @Override
+            public void onMLVolumeChanged(int i, byte[] bytes) {
+                Log.e(TAG, "onMLVolumeChanged: ");
+            }
+
+            @Override
+            public void onMLBeginOfSpeech() {
+                Log.e(TAG, "onMLBeginOfSpeech: " );
+            }
+
+            @Override
+            public void onMLEndOfSpeech() {
+                Log.e(TAG, "onMLEndOfSpeech: " );
+            }
+
+            @Override
+            public void onMLResult(String result) {
+                Log.e(TAG, "onMLResult: -----------"+result );
+                ToastTool.showShort(result);
+                String inSpell=PinYinUtils.converterToSpell(result);
+                if (inSpell.matches(".*((zhong|zong)yangyi)|(yitai).*")){
+                    ksyTextureView.reload(tvs.get(0).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV1")){
+                    ksyTextureView.reload(tvs.get(0).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+
+                if (inSpell.matches(".*((zhong|zong)yang(san|shan))|((san|shan)tai).*")){
+                    ksyTextureView.reload(tvs.get(1).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV3")){
+                    ksyTextureView.reload(tvs.get(1).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches(".*((zhong|zong)yangsi)|(sitai).*")){
+                    ksyTextureView.reload(tvs.get(2).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV4")){
+                    ksyTextureView.reload(tvs.get(2).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches(".*((zhong|zong)yangqi)|(qitai).*")){
+                    ksyTextureView.reload(tvs.get(3).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV7")){
+                    ksyTextureView.reload(tvs.get(3).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches(".*((zhong|zong)yangjiu)|(jiutai).*")){
+                    ksyTextureView.reload(tvs.get(4).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV9")){
+                    ksyTextureView.reload(tvs.get(4).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches(".*((zhong|zong)yangshi)|(shitai).*")){
+                    ksyTextureView.reload(tvs.get(5).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV10")){
+                    ksyTextureView.reload(tvs.get(5).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches(".*((zhong|zong)yangshiyi)|(shiyitai).*")){
+                    ksyTextureView.reload(tvs.get(6).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV11")){
+                    ksyTextureView.reload(tvs.get(6).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches(".*((zhong|zong)yangshier)|(shiertai).*")){
+                    ksyTextureView.reload(tvs.get(7).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV12")){
+                    ksyTextureView.reload(tvs.get(7).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches(".*((zhong|zong)yangshiwu)|(shiwutai).*")){
+                    ksyTextureView.reload(tvs.get(8).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (result.contains("CCTV15")){
+                    ksyTextureView.reload(tvs.get(8).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+
+
+                if (!ksyTextureView.isPlaying()){
+                    ksyTextureView.start();
+                }
+            }
+
+            @Override
+            public void onMLError(SpeechError error) {
+                Log.e(TAG, "onMLError: "+error.getErrorCode()+"===="+error.getErrorDescription() );
+                if (error.getErrorCode()==10118){//没有听到讲话
+                    if (!ksyTextureView.isPlaying()){
+                        ksyTextureView.start();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -55,6 +241,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             tvPlayActivity.showLoadingDialog();
             tvPlayActivity.hideStatusBar();
             tvPlayActivity.addVideoView(ksyTextureView);
+
             ksyTextureView.setOnTouchListener(mTouchListener);
             ksyTextureView.setOnPreparedListener(mOnPreparedListener);
             ksyTextureView.setOnErrorListener(mOnErrorListener);
@@ -238,5 +425,8 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         videoPlayEnd();
         timeCount.cancel();
         tvPlayActivity = null;
+    }
+    public KSYTextureView getKsyTextureView(){
+        return ksyTextureView;
     }
 }

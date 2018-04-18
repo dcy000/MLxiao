@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -13,9 +14,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gzq.administrator.lib_common.base.CommonBaseActivity;
+import com.gzq.administrator.lib_common.utils.ToastTool;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.iflytek.wake.MLVoiceWake;
+import com.iflytek.wake.MLWakeuperListener;
 import com.ksyun.media.player.KSYTextureView;
 import com.zane.androidupnpdemo.R;
 import com.zane.androidupnpdemo.connect_tv.ui.TVConnectMainActivity;
+import com.zane.androidupnpdemo.live_tv.LiveBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by gzq on 2018/3/26.
@@ -28,16 +41,19 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     private TextView mLiveTitle;
     private RelativeLayout mLiveControl;
     private LinearLayout mLoaddingView;
-    private String url;
+    private List<LiveBean> tvs;
+    private int playFirstPosition=0;
     private ITvPlayPresenter tvPlayPresenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tv_display);
         initView();
-        tvPlayPresenter=new TvPlayPresenterImp(this);
-        url=getIntent().getStringExtra("url");
-        tvPlayPresenter.startPlay(url);
+        tvs= getIntent().getParcelableArrayListExtra("tvs");
+
+        playFirstPosition=getIntent().getIntExtra("position",0);
+        tvPlayPresenter=new TvPlayPresenterImp(this,tvs);
+        tvPlayPresenter.startPlay(tvs.get(playFirstPosition).getTvUrl());
     }
 
     public static void startTvPlayActivity(Context context, Intent intent) {
@@ -94,7 +110,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void connectTv() {
-        startActivity(new Intent(this, TVConnectMainActivity.class).putExtra("url",url));
+        startActivity(new Intent(this, TVConnectMainActivity.class).putExtra("url",tvs.get(playFirstPosition).getTvUrl()));
     }
 
     @Override

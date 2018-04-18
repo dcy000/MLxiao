@@ -15,7 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:name="com.gzq.administrator.lib_common.base.BaseApplication"
         >
         <activity android:name=".connect_tv.ui.TVConnectMainActivity" />
         <service
@@ -36,11 +35,11 @@
         </activity>
         <activity android:name=".base_information_of_residents.MySignInfomationActivity"/>
         <activity android:name=".base_information_of_residents.MyServicedHistoryActivity">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".base_information_of_residents.MyBaseInformationActivity"/>
         <activity android:name=".base_information_of_residents.HYServiceAgreementActivity"/>

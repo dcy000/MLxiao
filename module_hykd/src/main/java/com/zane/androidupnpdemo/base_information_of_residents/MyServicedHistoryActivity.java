@@ -168,19 +168,19 @@ public class MyServicedHistoryActivity extends CommonBaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.rb_health_service:
-                getHealthServiceData();
-                break;
-            case R.id.rb_door_to_door_diagnosis:
-                getDoor2doorData();
-                break;
-            case R.id.rb_pay_service:
-                getPayServiceData();
-                break;
-            case R.id.tv_see_agreements:
-                MySignAgreementActivity.startActivity(this,serviceAndTeamInformation.getSignInfoFlow().getId(),MySignAgreementActivity.class);
-                break;
+        int i = v.getId();
+        if (i == R.id.rb_health_service) {
+            getHealthServiceData();
+
+        } else if (i == R.id.rb_door_to_door_diagnosis) {
+            getDoor2doorData();
+
+        } else if (i == R.id.rb_pay_service) {
+            getPayServiceData();
+
+        } else if (i == R.id.tv_see_agreements) {
+            MySignAgreementActivity.startActivity(this, serviceAndTeamInformation.getSignInfoFlow().getId(), MySignAgreementActivity.class);
+
         }
     }
 
