@@ -38,10 +38,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile "com.android.support:support-v4:${gradle.supportVersion}"
-    compile "com.android.support:cardview-v7:${gradle.supportVersion}"
-    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
-    compile "com.android.support:design:${gradle.supportVersion}"
+//    compile "com.android.support:support-v4:${gradle.supportVersion}"
+//    compile "com.android.support:cardview-v7:${gradle.supportVersion}"
+//    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
+//    compile "com.android.support:design:${gradle.supportVersion}"
     testCompile 'junit:junit:4.12'
     // Cling library
     compile 'org.fourthline.cling:cling-core:2.1.1'

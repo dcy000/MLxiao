@@ -216,5 +216,13 @@ public class ServiceHistoryInformation {
         public void setList(List<String> list) {
             this.list = list;
         }
+
+        public ServiceContentBean(String title, List<String> list) {
+            this.title = title;
+            this.list = list;
+        }
+
+        public ServiceContentBean() {
+        }
     }
 }
