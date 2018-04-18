@@ -146,6 +146,7 @@ dependencies {
     compile project(':wkvideoplayer')
     compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
     compile project(':module-edu')
     compile project(':lib-video-player')
     compile project(':lib-zxing')
