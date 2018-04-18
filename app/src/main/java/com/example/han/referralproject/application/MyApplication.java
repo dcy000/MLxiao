@@ -16,6 +16,7 @@ import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.gzq.administrator.lib_common.base.BaseApplication;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call2.NimInitHelper;
@@ -37,7 +38,7 @@ import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
 
 
-public class MyApplication extends Application {
+public class MyApplication extends BaseApplication {
     private static MyApplication mInstance;
     public String userId;
     public String xfid;
