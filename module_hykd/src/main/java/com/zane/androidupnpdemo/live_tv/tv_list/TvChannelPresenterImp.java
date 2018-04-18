@@ -3,13 +3,16 @@ package com.zane.androidupnpdemo.live_tv.tv_list;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
 import com.zane.androidupnpdemo.live_tv.tv_play.TvPlayActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,7 +62,8 @@ public class TvChannelPresenterImp implements ITvChannelInteractor.OnParseExcelL
     public void tvListItemClick(BaseQuickAdapter adapter, View view, int position) {
         TvPlayActivity.startTvPlayActivity((Context) tvChannelActivity,
                 new Intent((Context) tvChannelActivity, TvPlayActivity.class)
-                        .putExtra("url", mData.get(position).getTvUrl()));
+        .putParcelableArrayListExtra("tvs", (ArrayList<? extends Parcelable>) mData)
+        .putExtra("position",position));
     }
 
     @Override
@@ -67,4 +71,5 @@ public class TvChannelPresenterImp implements ITvChannelInteractor.OnParseExcelL
         tvChannelActivity = null;
         Log.e("看视图的引用是否被消除", "onDestroy: ");
     }
+
 }

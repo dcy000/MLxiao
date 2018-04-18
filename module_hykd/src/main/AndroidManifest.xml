@@ -26,17 +26,17 @@
             android:name=".connect_tv.service.SystemService"
             android:exported="false" />
         <activity android:name=".live_tv.tv_list.TvChannelActivity">
-
-
-        </activity>
-        <activity android:name=".live_tv.tv_play.TvPlayActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".base_information_of_residents.HY_HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".live_tv.tv_play.TvPlayActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".base_information_of_residents.HY_HomeActivity">
+
         </activity>
     </application>
 

@@ -25,8 +25,7 @@ import java.util.List;
  * Created by gzq on 2018/3/26.
  */
 
-public class TvChannelActivity extends CommonBaseActivity implements ITvList, View.OnClickListener {
-    private TextView mHykdBack;
+public class TvChannelActivity extends CommonBaseActivity implements ITvList {
     private RecyclerView mTvList;
     private BaseQuickAdapter<LiveBean, BaseViewHolder> adapter;
     private ITvChannelPresenter tvChannelPresenter;
@@ -75,23 +74,12 @@ public class TvChannelActivity extends CommonBaseActivity implements ITvList, Vi
     }
 
     private void initView() {
-        mHykdBack = (TextView) findViewById(R.id.hykd_back);
         mTvList = (RecyclerView) findViewById(R.id.tv_list);
-        mHykdBack.setOnClickListener(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         tvChannelPresenter.onDestroy();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.hykd_back:
-                finish();
-                break;
-        }
     }
 }

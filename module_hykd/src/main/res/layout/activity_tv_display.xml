@@ -13,7 +13,8 @@
     <RelativeLayout
         android:id="@+id/live_control"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
         <TextView
             android:id="@+id/connectTv"
             android:layout_width="wrap_content"
@@ -65,4 +66,5 @@
             android:textColor="#fff"
             android:layout_marginTop="5dp"/>
     </LinearLayout>
+
 </RelativeLayout>
