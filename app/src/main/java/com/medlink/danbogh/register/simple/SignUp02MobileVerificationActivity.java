@@ -53,9 +53,15 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         return intent;
     }
 
+    private boolean forResult;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        if (intent != null) {
+            forResult = intent.getBooleanExtra("forResult", false);
+        }
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up5_mobile_verification);
         mToolbar.setVisibility(View.GONE);
@@ -81,8 +87,8 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        super.onResume();
         speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
         EditText editText = inPhone ? etPhone : etCode;
         editText.requestFocus();
@@ -123,7 +129,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String code) {
                         mCode = code;
-                         T.show("获取验证码成功");
+                        T.show("获取验证码成功");
                         speak("获取验证码成功");
                     }
                 }, new NetworkManager.FailedCallback() {
@@ -167,6 +173,9 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
+        if (forResult) {
+            setResult(RESULT_CANCELED);
+        }
         finish();
     }
 
@@ -181,12 +190,16 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
 
         if (mCode.contains(code)) {
             T.show("验证码正确");
-            navToNext();
+            if (!forResult) {
+                navToNext();
+            } else {
+                setResult(RESULT_OK, new Intent().putExtra("phone", phone));
+                finish();
+            }
         } else {
             T.show("验证码错误");
             speak("验证码错误");
         }
-
         LocalShared.getInstance(this.getApplicationContext()).setSignUpPhone(phone);
     }
 

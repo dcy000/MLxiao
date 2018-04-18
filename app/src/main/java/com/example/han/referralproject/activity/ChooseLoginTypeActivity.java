@@ -19,6 +19,7 @@ import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.register.SignUp1NameActivity;
+import com.medlink.danbogh.register.idcard.SignInIdCardActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 
@@ -33,6 +34,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     TextView etSignInPassword;
     @BindView(R.id.tv_face_sign_in)
     TextView tvFaceSignIn;
+    @BindView(R.id.tv_id_card_sign_in)
+    TextView tvIdCardSignIn;
     @BindView(R.id.account_tip)
     TextView accountTip;
     @BindView(R.id.regist)
@@ -54,6 +57,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         speak("主人，想要登录，请说人脸登录或者手机登录。如果您还没有账号，请说我要注册。");
         tvPhoneSignIn.setOnClickListener(this);
         tvFaceSignIn.setOnClickListener(this);
+        tvIdCardSignIn.setOnClickListener(this);
         accountTip.setOnClickListener(this);
         regist.setOnClickListener(this);
         signUpFast.setOnClickListener(this);
@@ -89,6 +93,9 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                     startActivity(new Intent(this, AuthenticationActivity.class)
                             .putExtra("from", "Welcome"));
                 }
+                break;
+            case R.id.tv_id_card_sign_in:
+                startActivity(new Intent(this, SignInIdCardActivity.class));
                 break;
             case R.id.account_tip://注册
                 startActivity(new Intent(ChooseLoginTypeActivity.this, SignUp1NameActivity.class));

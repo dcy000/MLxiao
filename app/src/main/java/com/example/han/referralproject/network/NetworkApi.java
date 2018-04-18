@@ -159,7 +159,16 @@ public class NetworkApi {
 
     public static final String POST_HEAlTH_DIARY = BasicUrl + "/ZZB/ai/insert_influence";
 
-    public static final String POST_TEL_MESSAGE = "ZZB/br/br_teltixing";
+    public static final String POST_TEL_MESSAGE = BasicUrl + "/ZZB/br/br_teltixing";
+
+    public static final String AUTH_IS_REGISTERED_ID_CARD = BasicUrl + "/ZZB/login/user_sfz_login";
+
+    public static void isRegisteredByIdCard(String idCard, NetworkManager.SuccessCallback<UserInfoBean> successCallback,
+                                      NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("sfz", idCard);
+        NetworkManager.getInstance().getResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
+    }
 
     public static void getEatAndSport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
                                       NetworkManager.FailedCallback failedCallback) {

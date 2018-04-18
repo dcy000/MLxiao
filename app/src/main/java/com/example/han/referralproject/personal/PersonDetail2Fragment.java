@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
@@ -34,6 +35,8 @@ public class PersonDetail2Fragment extends Fragment {
     ImageView ivYoujiaoWenyu;
     @BindView(R.id.iv_shezhi)
     ImageView ivShezhi;
+    @BindView(R.id.iv_detect)
+    ImageView ivDetect;
     @BindView(R.id.iv_tools)
     ImageView ivTools;
     Unbinder unbinder;
@@ -54,7 +57,7 @@ public class PersonDetail2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class})
+    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_detect, R.id.iv_tools, R.id.main_iv_health_class})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_order:
@@ -65,6 +68,13 @@ public class PersonDetail2Fragment extends Fragment {
                 break;
             case R.id.iv_shezhi:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
+            case R.id.iv_detect:
+                Intent intent = new Intent(getActivity(), DetectActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("type", "wendu");
+                intent.putExtra("isDetect", true);
+                startActivity(intent);
                 break;
             case R.id.iv_tools:
                 startActivity(new Intent(getActivity(), ToolsActivity.class));
