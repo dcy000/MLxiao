@@ -11,9 +11,10 @@ import android.view.WindowManager;
 import com.android.tedcoder.wkvideoplayer.util.DensityUtil;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
 public class MyService extends Service implements DragFloatActionButton.onClickListener {
-    private static MainActivity context;
+    public static BaseActivity context;
 
     public MyService() {
 

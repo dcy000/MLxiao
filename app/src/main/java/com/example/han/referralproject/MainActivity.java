@@ -63,7 +63,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView6;
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
-    private PopupWindow popupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -321,26 +320,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    public void showWindow() {
-        if (popupWindow == null) {
-            popupWindow = new PopupWindow(this);
-        }
-        popupWindow.setWidth(960);
-        popupWindow.setHeight(480);
-
-        popupWindow.setContentView(LayoutInflater.from(this).inflate(R.layout.assistive_touch_inflate_layout, null));
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
-        if (!popupWindow.isShowing()) {
-            popupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    popupWindow.dismiss();
-//                }
-//            },3000);
-        }
-
-    }
 }

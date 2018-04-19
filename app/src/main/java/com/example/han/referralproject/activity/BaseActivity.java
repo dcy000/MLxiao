@@ -822,4 +822,28 @@ public class BaseActivity extends AppCompatActivity {
      */
     public static final String[] VOICER = {"xiaoyan", "xiaoqi", "xiaoli", "xiaoyu", "xiaofeng", "xiaoxin", "laosun"};
 
+    PopupWindow popupWindow;
+
+    public void showWindow() {
+        if (popupWindow == null) {
+            popupWindow = new PopupWindow(this);
+        }
+        popupWindow.setWidth(960);
+        popupWindow.setHeight(480);
+        popupWindow.setContentView(LayoutInflater.from(this).inflate(R.layout.assistive_touch_inflate_layout, null));
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setFocusable(true);
+        if (!popupWindow.isShowing()) {
+            popupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    popupWindow.dismiss();
+//                }
+//            },3000);
+        }
+
+    }
+
 }
