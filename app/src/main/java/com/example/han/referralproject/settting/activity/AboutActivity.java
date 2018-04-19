@@ -29,6 +29,5 @@ public class AboutActivity extends BaseActivity {
         mTitleText.setText("关于");
         mToolbar.setVisibility(View.VISIBLE);
         tvVersion.setText("版本:" + Utils.getLocalVersionName(this));
-
     }
 }

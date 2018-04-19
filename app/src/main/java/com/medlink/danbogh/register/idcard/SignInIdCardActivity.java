@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -34,9 +35,7 @@ import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
 import com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity;
-import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -45,6 +44,9 @@ import com.qiniu.android.storage.UploadManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,10 +71,16 @@ public class SignInIdCardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_activity_id_card);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("身  份  证  登  录");
         registerReceiver();
+        mTitleText.setText("身  份  证  登  录");
         client = BtReadClient.getInstance();
         client.setBluetoothListener(onBluetoothListener);
+        if (bluetoothAdapter == null) {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
+        if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled()) {
+            bluetoothAdapter.enable();
+        }
         btHandler().postDelayed(oneShutRunnable, 1000);
     }
 
@@ -82,12 +90,6 @@ public class SignInIdCardActivity extends BaseActivity {
         @Override
         public void run() {
             startTime = System.currentTimeMillis();
-            if (bluetoothAdapter == null) {
-                bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            }
-            if (!bluetoothAdapter.isEnabled()) {
-                bluetoothAdapter.enable();
-            }
             initDevice();
         }
     };
@@ -101,7 +103,9 @@ public class SignInIdCardActivity extends BaseActivity {
         initializing = true;
         if (targetDevice == null) {
             if (!findBoundTargetDevice()) {
-                findTargetDevice();
+                if (!findTargetDevice()) {
+                    onDeviceInitialized();
+                }
             } else {
                 Log.i(TAG, "Target Device Bound: named start with " + FILTER);
                 onDeviceInitialized();
@@ -124,14 +128,21 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
 
-    private void findTargetDevice() {
+    private boolean findTargetDevice() {
         if (bluetoothAdapter == null) {
-            return;
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
+        if (bluetoothAdapter == null) {
+            return false;
+        }
+        if (!bluetoothAdapter.isEnabled()) {
+            bluetoothAdapter.enable();
         }
         if (bluetoothAdapter.isDiscovering()) {
             bluetoothAdapter.cancelDiscovery();
         }
         bluetoothAdapter.startDiscovery();
+        return true;
     }
 
 
@@ -149,6 +160,9 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private boolean findBoundTargetDevice() {
+        if (bluetoothAdapter == null) {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
         if (bluetoothAdapter == null) {
             return false;
         }
@@ -211,7 +225,6 @@ public class SignInIdCardActivity extends BaseActivity {
                                 }
                                 targetDevice = device;
                                 createBond(device);
-                                onDeviceInitialized();
                             }
                         }
                     }
@@ -220,7 +233,9 @@ public class SignInIdCardActivity extends BaseActivity {
                     if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
                         bluetoothAdapter.cancelDiscovery();
                     }
-                    onDeviceInitialized();
+                    if (targetDevice == null) {
+                        onDeviceInitialized();
+                    }
                     break;
                 case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
                     device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
@@ -230,12 +245,15 @@ public class SignInIdCardActivity extends BaseActivity {
                     switch (device.getBondState()) {
                         case BluetoothDevice.BOND_NONE:
                             Log.d(TAG, "BOND_NONE: ");
+                            targetDevice = null;
+                            onDeviceInitialized();
                             break;
                         case BluetoothDevice.BOND_BONDING:
                             Log.d(TAG, "BOND_BONDING: ");
                             break;
                         case BluetoothDevice.BOND_BONDED:
                             Log.d(TAG, "BOND_BONDED: ");
+                            onDeviceInitialized();
                             break;
                     }
                     break;
@@ -302,7 +320,6 @@ public class SignInIdCardActivity extends BaseActivity {
                             onReadFailed();
                         }
                     });
-
                 }
             } else {
                 runOnUiThread(new Runnable() {
@@ -425,14 +442,14 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private void onReadFailed() {
         item = null;
-        speak("请重新刷身份证");
-        btHandler().postDelayed(readRunnable, 1000);
+        speak("请刷身份证");
+        btHandler().postDelayed(readRunnable, 1500);
     }
 
     private void onDeviceNotFound() {
         item = null;
         speak("找不到设备");
-        btHandler().postDelayed(readRunnable, 1000);
+        btHandler().postDelayed(oneShutRunnable, 1000);
     }
 
     private IDCardItem item;
@@ -485,6 +502,7 @@ public class SignInIdCardActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: " + requestCode + " " + resultCode);
         switch (requestCode) {
             case 18:
                 if (resultCode == RESULT_OK
@@ -493,6 +511,7 @@ public class SignInIdCardActivity extends BaseActivity {
                     String phone = data.getStringExtra("phone");
                     onRegister(phone);
                 } else {
+                    Log.d(TAG, "onActivityResult: " + resultCode);
                     onReadFailed();
                 }
                 break;
@@ -504,10 +523,10 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onRegister(String phone) {
         showLoadingDialog("加载中");
         final LocalShared shared = LocalShared.getInstance(this);
-        String name = shared.getSignUpName();
-        String gender = shared.getSignUpGender();
-        String address = shared.getSignUpAddress();
-        String idCard = shared.getSignUpIdCard();
+        String name = item.partyName;
+        String gender = item.gender;
+        String address = item.certAddress;
+        String idCard = item.certNumber;
         float height = shared.getSignUpHeight();
         float weight = shared.getSignUpWeight();
         String bloodType = shared.getSignUpBloodType();
@@ -553,6 +572,7 @@ public class SignInIdCardActivity extends BaseActivity {
                         }, new NetworkManager.FailedCallback() {
                             @Override
                             public void onFailed(String message) {
+                                Log.d(TAG, "onRegisterFailed: " + message);
                                 if (isFinishing() || isDestroyed()) {
                                     return;
                                 }
@@ -563,6 +583,7 @@ public class SignInIdCardActivity extends BaseActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
+                        Log.d(TAG, "onRegisterFailed: " + message);
                         hideLoadingDialog();
                         if (isFinishing() || isDestroyed()) {
                             return;
@@ -619,20 +640,24 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onLoginFailed() {
+        Log.d(TAG, "onLoginFailed: ");
         onReadFailed();
     }
 
     private Runnable faceRegisterRunnable;
 
     private void onFaceAlreadyExist() {
+        Log.d(TAG, "onFaceAlreadyExist: ");
         onReadFailed();
     }
 
     private void onFaceRegisterSuccess() {
+        Log.d(TAG, "onFaceRegisterSuccess: ");
         uploadProfile(MyApplication.getInstance().userId, authId);
     }
 
     private void onFaceRegisterFailed() {
+        Log.d(TAG, "onFaceRegisterFailed: ");
         onReadFailed();
     }
 
@@ -641,24 +666,38 @@ public class SignInIdCardActivity extends BaseActivity {
             faceRegisterRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    if (item == null) {
+                    if (item == null || item.picBitmap == null) {
+                        onFaceRegisterFailed();
                         return;
                     }
-                    byte[] data = item.picData;
-                    if (data == null) {
-                        return;
+
+                    ByteArrayOutputStream stream = null;
+                    try {
+                        stream = new ByteArrayOutputStream();
+                        item.picBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                        if (faceRequest == null) {
+                            faceRequest = new FaceRequest(SignInIdCardActivity.this);
+                        }
+                        faceRequest.setParameter(SpeechConstant.AUTH_ID, buildAuthId());
+                        faceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
+                        jpgData = stream.toByteArray();
+                        faceRequest.sendRequest(jpgData, faceRequestListener());
+                    } finally {
+                        try {
+                            if (stream != null) {
+                                stream.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    if (faceRequest == null) {
-                        faceRequest = new FaceRequest(SignInIdCardActivity.this);
-                    }
-                    faceRequest.setParameter(SpeechConstant.AUTH_ID, buildAuthId());
-                    faceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
-                    faceRequest.sendRequest(data, faceRequestListener());
                 }
             };
         }
         return faceRegisterRunnable;
     }
+
+    private volatile byte[] jpgData;
 
     private FaceRequest faceRequest;
 
@@ -703,6 +742,7 @@ public class SignInIdCardActivity extends BaseActivity {
                             case ErrorCode.MSP_ERROR_ALREADY_EXIST:
                                 onFaceAlreadyExist();
                             default:
+                                onFaceRegisterFailed();
                                 break;
                         }
                     }
@@ -742,7 +782,8 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void uploadProfile(final String userid, final String xfid) {
-        if (item.picData == null) {
+        if (jpgData == null) {
+            onUploadToServerFailed();
             return;
         }
         showLoadingDialog("加载中");
@@ -751,6 +792,10 @@ public class SignInIdCardActivity extends BaseActivity {
             public void onSuccess(String response) {
                 hideLoadingDialog();
                 if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                if (jpgData == null) {
+                    onUploadToServerFailed();
                     return;
                 }
                 String key = buildAuthId() + ".jpg";
@@ -777,15 +822,17 @@ public class SignInIdCardActivity extends BaseActivity {
                                             if (isFinishing() || isDestroyed()) {
                                                 return;
                                             }
+                                            Log.d(TAG, "onUploadToServerFailed: " + message);
                                             onUploadToServerFailed();
                                         }
                                     });
                         } else {
+                            Log.d(TAG, "onUploadToServerFailed: " + info.isOK());
                             onUploadToServerFailed();
                         }
                     }
                 };
-                uploadManager().put(item.picData, key, response, completionHandler, null);
+                uploadManager().put(jpgData, key, response, completionHandler, null);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -794,12 +841,14 @@ public class SignInIdCardActivity extends BaseActivity {
                 if (isDestroyed() || isFinishing()) {
                     return;
                 }
+                Log.d(TAG, "onUploadToServerFailed: " + message);
                 onUploadToServerFailed();
             }
         });
     }
 
     private void onUpLoadToServerSuccess(String userid, String xfid) {
+        Log.d(TAG, "onUpLoadToServerSuccess: ");
         LocalShared.getInstance(mContext).addAccount(userid, xfid);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -807,6 +856,7 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onUploadToServerFailed() {
+        Log.d(TAG, "onUploadToServerFailed: ");
         onReadFailed();
     }
 
@@ -874,5 +924,9 @@ public class SignInIdCardActivity extends BaseActivity {
         setDisableGlobalListen(true);
         setEnableListeningLoop(false);
         super.onResume();
+    }
+
+    public void onRootClick(View view) {
+        onReadFailed();
     }
 }

@@ -72,7 +72,7 @@ public class PersonDetail2Fragment extends Fragment {
             case R.id.iv_detect:
                 Intent intent = new Intent(getActivity(), DetectActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("type", "wendu");
+                intent.putExtra("type", "tizhong");
                 intent.putExtra("isDetect", true);
                 startActivity(intent);
                 break;

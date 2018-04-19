@@ -11,6 +11,7 @@ import android.os.Process;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
@@ -48,6 +49,7 @@ public class MyApplication extends Application {
 
     public String emDoctorId = "gcml_doctor_18940866148";
     public String userName;
+    public UserInfoBean account;
 
     public String nimUserId() {
         return "user_" + userId;

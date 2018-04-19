@@ -172,6 +172,8 @@ public class LocalShared {
         if (infoBean == null) {
             return;
         }
+
+        MyApplication.getInstance().account = infoBean;
         MyApplication.getInstance().userId = infoBean.bid;
         MyApplication.getInstance().telphoneNum = infoBean.tel;
         MyApplication.getInstance().userName = infoBean.bname;
@@ -481,7 +483,7 @@ public class LocalShared {
     }
 
     public String getUserHeight() {
-        return mShared.getString("user_height", "");
+        return mShared.getString("user_height", "175cm");
     }
 
     /**
