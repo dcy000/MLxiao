@@ -88,7 +88,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                 public void onClick(View v) {
                     Intent intent3 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                     intent3.putExtras(getIntent());
-                    intent3.putExtra("ecg", "波形未见异常");
+                    intent3.putExtra("ecg", "--");
                     intent3.putExtra("type", "xueya");
                     intent3.putExtra("isDetect", true);
                     startActivity(intent3);
@@ -101,7 +101,8 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                     Intent intent3 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                     intent3.putExtras(getIntent());
                     intent3.putExtra("type", "xuetang");
-                    intent3.putExtra("ecg", "波形未见异常");
+                    String ecg = tv_MSG == null ? "--" : tv_MSG.getText().toString();
+                    intent3.putExtra("ecg", ecg);
                     intent3.putExtra("isDetect", true);
                     startActivity(intent3);
                     finish();
