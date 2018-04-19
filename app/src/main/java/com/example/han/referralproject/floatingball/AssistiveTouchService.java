@@ -175,7 +175,7 @@ public class AssistiveTouchService extends Service {
     }
 
     public void createAssistiveTouchView() {
-        mParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        mParams.type = WindowManager.LayoutParams.TYPE_TOAST;
         mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         mParams.x = mScreenWidth;
@@ -325,7 +325,7 @@ public class AssistiveTouchService extends Service {
         ImageView imageView = (ImageView) mScreenShotView.findViewById(R.id.screenshot);
         imageView.setImageBitmap(bitmap);
 
-        mAlertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        mAlertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
         mAlertDialog.show();
         WindowManager.LayoutParams alertDialogParams = mAlertDialog.getWindow().getAttributes();
         alertDialogParams.width = mScreenWidth;

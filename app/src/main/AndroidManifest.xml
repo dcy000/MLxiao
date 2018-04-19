@@ -472,6 +472,10 @@
             android:name=".floatingball.AssistiveTouchService"
             android:process=":serviceY" />
 
+        <service
+            android:name=".floatball.MyService"
+            />
+
 
         <activity
             android:name=".recyclerview.DoctorAlarmActivity"

@@ -6,13 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
@@ -21,6 +25,7 @@ import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.floatball.MyService;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -58,6 +63,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView6;
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
+    private PopupWindow popupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +75,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
         mediaPlayer.start();//播放音乐*/
-//
-//        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-//            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
-//            startService(intent);
-//        }
-
         mToolbar.setVisibility(View.GONE);
         mImageView1 = (ImageView) findViewById(R.id.robot_con);
 
@@ -120,10 +120,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }, 1000);
 
-        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
-            startService(intent);
-        }
+//        if (!isMyServiceRunning(MyService.class)) {
+            MyService.StartMe(this);
+//        }
 
     }
 
@@ -320,5 +319,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (mHandler != null) {
             mHandler.removeCallbacks(null);
         }
+    }
+
+    public void showWindow() {
+        if (popupWindow == null) {
+            popupWindow = new PopupWindow(this);
+        }
+        popupWindow.setWidth(960);
+        popupWindow.setHeight(480);
+
+        popupWindow.setContentView(LayoutInflater.from(this).inflate(R.layout.assistive_touch_inflate_layout, null));
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setFocusable(true);
+        if (!popupWindow.isShowing()) {
+            popupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    popupWindow.dismiss();
+//                }
+//            },3000);
+        }
+
     }
 }
