@@ -62,6 +62,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 //	private int batteryRes[] = { R.drawable.battery_0, R.drawable.battery_1,
 //			R.drawable.battery_2, R.drawable.battery_3 };
     private boolean isDetect;
+    private View mNavView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,25 +83,25 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
         android6_RequestLocation();
         if (isDetect) {
-            View view = getLayoutInflater().inflate(R.layout.detect_activity_nav, (FrameLayout) findViewById(android.R.id.content));
-            view.findViewById(R.id.detect_tv_result_last).setOnClickListener(new View.OnClickListener() {
+            mNavView = getLayoutInflater().inflate(R.layout.detect_activity_nav, (FrameLayout) findViewById(android.R.id.content));
+            mNavView.findViewById(R.id.detect_tv_result_last).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent3 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                     intent3.putExtras(getIntent());
                     intent3.putExtra("ecg", "--");
-                    intent3.putExtra("type", "xueya");
+                    intent3.putExtra("type", "wendu");
                     intent3.putExtra("isDetect", true);
                     startActivity(intent3);
                     finish();
                 }
             });
-            view.findViewById(R.id.detect_tv_result_next).setOnClickListener(new View.OnClickListener() {
+            mNavView.findViewById(R.id.detect_tv_result_next).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent3 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                     intent3.putExtras(getIntent());
-                    intent3.putExtra("type", "xuetang");
+                    intent3.putExtra("type", "tizhong");
                     String ecg = tv_MSG == null ? "--" : tv_MSG.getText().toString();
                     intent3.putExtra("ecg", ecg);
                     intent3.putExtra("isDetect", true);
@@ -109,6 +110,15 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                 }
             });
         }
+    }
+
+    @Override
+    protected void backLastActivity() {
+        if (isDetect || mNavView != null) {
+            mNavView.findViewById(R.id.detect_tv_result_last).performClick();
+            return;
+        }
+        super.backLastActivity();
     }
 
     private void init() {

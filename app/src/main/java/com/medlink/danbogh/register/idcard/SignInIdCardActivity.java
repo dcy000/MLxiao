@@ -46,7 +46,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,7 +58,7 @@ import java.util.Set;
  */
 public class SignInIdCardActivity extends BaseActivity {
 
-    private static final String TAG = "Bluetooth";
+    private static final String TAG = "MyBluetooth";
     private static final String FILTER = "KT8000";
     private static final int PROTOCOL_TYPE = 0;
 
@@ -71,6 +70,7 @@ public class SignInIdCardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_activity_id_card);
         mToolbar.setVisibility(View.VISIBLE);
+        mRightView.setImageResource(R.drawable.icon_refresh);
         registerReceiver();
         mTitleText.setText("身  份  证  登  录");
         client = BtReadClient.getInstance();
@@ -80,8 +80,20 @@ public class SignInIdCardActivity extends BaseActivity {
         }
         if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled()) {
             bluetoothAdapter.enable();
+        } else {
+            onTurnOn();
         }
-        btHandler().postDelayed(oneShutRunnable, 1000);
+    }
+
+    @Override
+    protected void backMainActivity() {
+        LocalShared.getInstance(this).setString(FILTER, "");
+        targetDevice = null;
+        btHandler().post(oneShutRunnable);
+    }
+
+    private void onTurnOn() {
+        btHandler().post(oneShutRunnable);
     }
 
     private long startTime;
@@ -102,10 +114,30 @@ public class SignInIdCardActivity extends BaseActivity {
         }
         initializing = true;
         if (targetDevice == null) {
-            if (!findBoundTargetDevice()) {
-                if (!findTargetDevice()) {
-                    onDeviceInitialized();
+            if (!bluetoothAdapter.isEnabled()) {
+                bluetoothAdapter.enable();
+                initializing = false;
+                return;
+            }
+            String address = LocalShared.getInstance(this).getString(FILTER);
+            if (!TextUtils.isEmpty(address) && BluetoothAdapter.checkBluetoothAddress(address)) {
+                Log.d(TAG, "initDevice: LocalShared");
+                BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
+                if (device != null) {
+                    if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
+                        Log.d(TAG, "initDevice: Bound");
+                        targetDevice = device;
+                        onDeviceInitialized();
+                        return;
+                    }
+                    Log.d(TAG, "initDevice: not Bound");
+//                    onDeviceInitialized();
+                    createBond(device);
+                    return;
                 }
+            }
+            if (!findBoundTargetDevice()) {
+                findTargetDevice();
             } else {
                 Log.i(TAG, "Target Device Bound: named start with " + FILTER);
                 onDeviceInitialized();
@@ -119,7 +151,7 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onDeviceInitialized() {
         initializing = false;
         String address = targetDevice == null ? "targetDevice == null" : targetDevice.getAddress();
-        Log.i(TAG, "Found Device: " + address);
+        Log.i(TAG, "initDevice: onDeviceInitialized" + address);
         if (targetDevice == null) {
             onDeviceNotFound();
             return;
@@ -128,25 +160,17 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
 
-    private boolean findTargetDevice() {
-        if (bluetoothAdapter == null) {
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        }
-        if (bluetoothAdapter == null) {
-            return false;
-        }
-        if (!bluetoothAdapter.isEnabled()) {
-            bluetoothAdapter.enable();
-        }
+    private void findTargetDevice() {
+        Log.d(TAG, "initDevice: findTargetDevice");
         if (bluetoothAdapter.isDiscovering()) {
             bluetoothAdapter.cancelDiscovery();
         }
         bluetoothAdapter.startDiscovery();
-        return true;
     }
 
 
     private boolean ensureDeviceConnected() {
+        Log.i(TAG, "connectDevice: start");
         boolean success = false;
         if (client != null && targetDevice != null) {
             if (client.getBtState() == 0) {//0是断开状态，2是连接状态
@@ -155,11 +179,12 @@ public class SignInIdCardActivity extends BaseActivity {
                 success = true;
             }
         }
-        Log.i(TAG, "ensureDeviceConnected: " + success);
+        Log.i(TAG, "connectDevice: " + success);
         return success;
     }
 
     private boolean findBoundTargetDevice() {
+        Log.d(TAG, "initDevice: findBoundTargetDevice");
         if (bluetoothAdapter == null) {
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         }
@@ -194,6 +219,7 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private void registerReceiver() {
         IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
@@ -214,6 +240,25 @@ public class SignInIdCardActivity extends BaseActivity {
             }
             BluetoothDevice device;
             switch (action) {
+                case BluetoothAdapter.ACTION_STATE_CHANGED:
+                    int blueState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, 0);
+                    switch (blueState) {
+                        case BluetoothAdapter.STATE_TURNING_ON:
+                            Log.e(TAG, "TURNING_ON");
+                            break;
+                        case BluetoothAdapter.STATE_ON:
+                            onTurnOn();
+                            Log.e(TAG, "initDevice : STATE_ON");
+                            break;
+                        case BluetoothAdapter.STATE_TURNING_OFF:
+                            Log.e(TAG, "STATE_TURNING_OFF");
+                            break;
+                        case BluetoothAdapter.STATE_OFF:
+                            Log.e(TAG, "initDevice : STATE_OFF");
+                            break;
+                    }
+                    break;
+
                 case BluetoothDevice.ACTION_FOUND:
                     device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     if (device != null) {
@@ -244,7 +289,7 @@ public class SignInIdCardActivity extends BaseActivity {
                     }
                     switch (device.getBondState()) {
                         case BluetoothDevice.BOND_NONE:
-                            Log.d(TAG, "BOND_NONE: ");
+                            Log.d(TAG, "initDevice: BOND_NONE: ");
                             targetDevice = null;
                             onDeviceInitialized();
                             break;
@@ -252,7 +297,8 @@ public class SignInIdCardActivity extends BaseActivity {
                             Log.d(TAG, "BOND_BONDING: ");
                             break;
                         case BluetoothDevice.BOND_BONDED:
-                            Log.d(TAG, "BOND_BONDED: ");
+                            targetDevice = device;
+                            Log.d(TAG, "initDevice: BOND_BONDED: ");
                             onDeviceInitialized();
                             break;
                     }
@@ -299,13 +345,32 @@ public class SignInIdCardActivity extends BaseActivity {
             }
             isRead = true;
             boolean connected = ensureDeviceConnected();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    speak("");
+                }
+            });
             if (connected && client != null && !isFinishing() && !isDestroyed()) {
                 readStartTime = System.currentTimeMillis();
-                final IDCardItem item = client.readCert(PROTOCOL_TYPE);
+                IDCardItem temp;
+                try {
+                    temp = client.readCert(PROTOCOL_TYPE);
+                } catch (Throwable e) {
+                    temp = null;
+                    e.printStackTrace();
+                }
                 isRead = false;
                 if (isFinishing() && isDestroyed()) {
                     return;
                 }
+                item = temp;
+                long currentTimeMillis = System.currentTimeMillis();
+                long totalTime = currentTimeMillis - startTime;
+                long readTime = currentTimeMillis - readStartTime;
+                Log.d(TAG, "onReadSuccess: totalTime = " + totalTime);
+                Log.d(TAG, "onReadSuccess: readTime = " + readTime);
+                Log.d(TAG, "onReadSuccess: " + item.toString());
                 if (item != null && item.retCode == 1) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -457,12 +522,27 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onReadSuccess(IDCardItem item) {
         this.item = item;
         speak("读取成功");
-        long currentTimeMillis = System.currentTimeMillis();
-        long totalTime = currentTimeMillis - startTime;
-        long readTime = currentTimeMillis - readStartTime;
-        Log.d(TAG, "onReadSuccess: totalTime = " + totalTime);
-        Log.d(TAG, "onReadSuccess: readTime = " + readTime);
-        Log.d(TAG, "onReadSuccess: " + item.toString());
+        onCheckRegistered();
+    }
+
+    private void onConfirmIdCardInfo() {
+        if (item == null) {
+            return;
+        }
+        Intent intent = new Intent(this, IdCardInfoActivity.class);
+        intent.putExtra("name", item.partyName);
+        intent.putExtra("gender", item.gender);
+        intent.putExtra("nation", item.nation);
+        intent.putExtra("address", item.certAddress);
+        intent.putExtra("profile", item.picBitmap);
+        intent.putExtra("idCard", item.certNumber);
+        startActivityForResult(intent, 17);
+    }
+
+    private void onCheckRegistered() {
+        if (item == null) {
+            return;
+        }
         showLoadingDialog("加载中");
         NetworkApi.isRegisteredByIdCard(item.certNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
@@ -492,6 +572,10 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onAccountNotRegistered() {
+        onConfirmIdCardInfo();
+    }
+
+    private void onInputPhoneInfo() {
         Intent intent = new Intent().setClass(
                 this,
                 SignUp02MobileVerificationActivity.class)
@@ -510,6 +594,14 @@ public class SignInIdCardActivity extends BaseActivity {
                         && !TextUtils.isEmpty(data.getStringExtra("phone"))) {
                     String phone = data.getStringExtra("phone");
                     onRegister(phone);
+                } else {
+                    Log.d(TAG, "onActivityResult: " + resultCode);
+                    onReadFailed();
+                }
+                break;
+            case 17:
+                if (resultCode == RESULT_OK) {
+                    onInputPhoneInfo();
                 } else {
                     Log.d(TAG, "onActivityResult: " + resultCode);
                     onReadFailed();
@@ -804,7 +896,7 @@ public class SignInIdCardActivity extends BaseActivity {
                     public void complete(String key, ResponseInfo info, JSONObject res) {
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-                            NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
+                            NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, xfid,
                                     new NetworkManager.SuccessCallback<Object>() {
                                         @Override
                                         public void onSuccess(Object response) {
@@ -871,14 +963,18 @@ public class SignInIdCardActivity extends BaseActivity {
             client.disconnect();
             client.setBluetoothListener(null);
         }
-        removeBond(targetDevice);
+        if (targetDevice != null) {
+            String address = targetDevice.getAddress();
+            LocalShared.getInstance(this).setString(FILTER, address);
+        }
+//        removeBond(targetDevice);
         if (bluetoothAdapter != null) {
             if (bluetoothAdapter.isDiscovering()) {
                 bluetoothAdapter.cancelDiscovery();
             }
-            if (bluetoothAdapter.isEnabled()) {
-                bluetoothAdapter.disable();
-            }
+//            if (bluetoothAdapter.isEnabled()) {
+//                bluetoothAdapter.disable();
+//            }
         }
         if (btHandler != null) {
             btHandler.removeCallbacksAndMessages(null);

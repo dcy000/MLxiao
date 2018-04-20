@@ -47,6 +47,8 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
         mContext = context;
     }
 
+    private static final String TAG = "ChangeAccountDialog";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,8 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
         findViewById(R.id.view_login).setOnClickListener(this);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
+
+        Log.d(TAG, "onCreate: " + mAccountIds);
 
         if (mAccountIds == null) {
             return;

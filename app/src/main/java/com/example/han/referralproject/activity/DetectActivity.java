@@ -257,6 +257,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             super.handleMessage(msg);
         }
     };
+    private View mNavView;
 
 
     /**
@@ -780,7 +781,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void displayGattServices(List<BluetoothGattService> gattServices) {
-        if (gattServices == null) return;
+        if (gattServices == null || gattServices.size() == 0) return;
         BluetoothGattCharacteristic characteristic = null;
         switch (detectType) {
             case Type_Wendu:
@@ -1076,6 +1077,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isDetect) {
+                    backOnClickListener.onClick(v);
+                }
                 finish();
             }
         });
@@ -1148,6 +1152,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
                 if (isDetect) {
                     findViewById(R.id.detect_ll_nav1).setVisibility(View.GONE);
+                } else {
+                    findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
                 }
                 resourceId = R.raw.tips_wendu;
                 isFirst = LocalShared.getInstance(this).getMeasureTiwenFirst();
@@ -1156,6 +1162,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
                 if (isDetect) {
                     findViewById(R.id.detect_ll_nav2).setVisibility(View.GONE);
+                } else {
+                    findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
                 }
                 resourceId = R.raw.tips_xueya;
                 isFirst = LocalShared.getInstance(this).getMeasureXueyaFirst();
@@ -1165,6 +1173,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
                 if (isDetect) {
                     findViewById(R.id.detect_ll_nav3).setVisibility(View.GONE);
+                } else {
+                    findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
                 }
                 resourceId = R.raw.tips_xuetang;
                 isFirst = LocalShared.getInstance(this).getMeasureXuetangFirst();
@@ -1173,16 +1183,24 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 findViewById(R.id.rl_xueyang).setVisibility(View.VISIBLE);
                 if (isDetect) {
                     findViewById(R.id.detect_ll_nav4).setVisibility(View.GONE);
+                } else {
+                    findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
                 }
                 resourceId = R.raw.tips_xueyang;
                 isFirst = LocalShared.getInstance(this).getMeasureXueyangFirst();
                 break;
             case Type_XinDian:
+                if (!isDetect) {
+                    findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
+                }
                 findViewById(R.id.rl_xindian).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xindian;
                 isFirst = LocalShared.getInstance(this).getMeasureXindianFirst();
                 break;
             case Type_TiZhong:
+                if (!isDetect) {
+                    findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
+                }
                 mResultTv = (TextView) findViewById(R.id.tv_tizhong);
                 findViewById(R.id.rl_tizhong).setVisibility(View.VISIBLE);
                 if (isDetect) {
@@ -1193,6 +1211,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 //showNormal("设备连接中，请稍后...");
                 break;
             case Type_SanHeYi:
+                if (!isDetect) {
+                    findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
+                }
                 findViewById(R.id.rl_sanheyi).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_sanheyi;
                 isFirst = LocalShared.getInstance(this).getMeasureSanheyiFirst();
@@ -1267,57 +1288,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         setXuetangSelectTime();
 
         if (isDetect) {
-            View view = getLayoutInflater().inflate(R.layout.detect_activity_nav, (FrameLayout) findViewById(android.R.id.content));
-            view.findViewById(R.id.detect_tv_result_last).setOnClickListener(new View.OnClickListener() {
+            findViewById(R.id.detect_tv_result_next).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     switch (type) {
                         case "tizhong":
-                            break;
-                        case "xueyang":
-                            Intent intent1 = new Intent(DetectActivity.this, DetectActivity.class);
+                            Intent intent1 = new Intent(DetectActivity.this, DetectResultActivity.class);
                             intent1.putExtras(getIntent());
-                            intent1.putExtra("oxygen", "0.0");
-                            intent1.putExtra("type", "tizhong");
-                            intent1.putExtra("isDetect", true);
-                            startActivity(intent1);
-                            break;
-                        case "wendu":
-                            Intent intent2 = new Intent(DetectActivity.this, DetectActivity.class);
-                            intent2.putExtras(getIntent());
-                            intent2.putExtra("tem", "0.0");
-                            intent2.putExtra("type", "xueyang");
-                            intent2.putExtra("isDetect", true);
-                            startActivity(intent2);
-                            break;
-                        case "xueya":
-                            Intent intent3 = new Intent(DetectActivity.this, DetectActivity.class);
-                            intent3.putExtras(getIntent());
-                            intent3.putExtra("type", "wendu");
-                            intent3.putExtra("highPressure", "0.0");
-                            intent3.putExtra("lowPressure", "0.0");
-                            intent3.putExtra("isDetect", true);
-                            startActivity(intent3);
-                            break;
-                        case "xuetang":
-                            Intent intent5 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
-                            intent5.putExtras(getIntent());
-                            intent5.putExtra("sugar", "");
-                            intent5.putExtra("isDetect", true);
-                            startActivity(intent5);
-                            break;
-                    }
-                    finish();
-                }
-            });
-            view.findViewById(R.id.detect_tv_result_next).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    switch (type) {
-                        case "tizhong":
-                            Intent intent1 = new Intent(DetectActivity.this, DetectActivity.class);
                             intent1.putExtra("weight", mResultTv.getText().toString());
-                            intent1.putExtra("type", "xueyang");
                             intent1.putExtra("isDetect", true);
                             startActivity(intent1);
                             break;
@@ -1333,24 +1311,23 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             Intent intent3 = new Intent(DetectActivity.this, DetectActivity.class);
                             intent3.putExtras(getIntent());
                             intent3.putExtra("tem", mResultTv.getText().toString());
-                            intent3.putExtra("type", "xueya");
+                            intent3.putExtra("type", "tizhong");
                             intent3.putExtra("isDetect", true);
                             startActivity(intent3);
                             break;
                         case "xueya":
-                            Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
-                            intent4.putExtras(getIntent());
+                            Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
                             intent4.putExtra("highPressure", mHighPressTv.getText().toString());
                             intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
-                            intent4.putExtra("type", "");
+                            intent4.putExtra("type", "xuetang");
                             intent4.putExtra("isDetect", true);
                             startActivity(intent4);
                             break;
                         case "xuetang":
-                            Intent intent5 = new Intent(DetectActivity.this, DetectResultActivity.class);
+                            Intent intent5 = new Intent(DetectActivity.this, DetectActivity.class);
                             intent5.putExtras(getIntent());
                             intent5.putExtra("sugar", mResultTv.getText().toString());
-                            intent5.putExtra("type", "");
+                            intent5.putExtra("type", "xueyang");
                             intent5.putExtra("isDetect", true);
                             startActivity(intent5);
                             break;
@@ -1360,6 +1337,49 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             });
         }
     }
+
+    View.OnClickListener backOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (getIntent().getStringExtra("type")) {
+                case "tizhong":
+                    Intent intent5 = new Intent(DetectActivity.this, DetectActivity.class);
+                    intent5.putExtras(getIntent());
+                    intent5.putExtra("type", "wendu");
+                    intent5.putExtra("weight", "");
+                    intent5.putExtra("isDetect", true);
+                    startActivity(intent5);
+                    break;
+                case "xueyang":
+                    Intent intent1 = new Intent(DetectActivity.this, DetectActivity.class);
+                    intent1.putExtras(getIntent());
+                    intent1.putExtra("oxygen", "0.0");
+                    intent1.putExtra("type", "xuetang");
+                    intent1.putExtra("isDetect", true);
+                    startActivity(intent1);
+                    break;
+                case "wendu":
+                    Intent intent2 = new Intent(DetectActivity.this, DetectActivity.class);
+                    intent2.putExtras(getIntent());
+                    intent2.putExtra("tem", "0.0");
+                    intent2.putExtra("type", "xueyang");
+                    intent2.putExtra("isDetect", true);
+                    startActivity(intent2);
+                    break;
+                case "xueya":
+                    break;
+                case "xuetang":
+                    Intent intent3 = new Intent(DetectActivity.this, DetectActivity.class);
+                    intent3.putExtras(getIntent());
+                    intent3.putExtra("type", "xueya");
+                    intent3.putExtra("sugar", "");
+                    intent3.putExtra("isDetect", true);
+                    startActivity(intent3);
+                    break;
+            }
+            finish();
+        }
+    };
 
     @Override
     protected void onStart() {

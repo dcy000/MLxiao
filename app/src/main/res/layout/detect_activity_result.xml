@@ -212,6 +212,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="132pt"
                     android:background="#FFE7E7"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_oxygen_info"
                     app:layout_constraintTop_toTopOf="@+id/detect_tv_result_oxygen_info"/>
 
@@ -267,9 +268,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
                     android:textSize="72pt"
-                    tools:text="0.0"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_high_pressure"
-                    app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_high_pressure"/>
+                    app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_high_pressure"
+                    tools:text="0.0"/>
 
                 <TextView
                     android:id="@+id/detect_tv_result_high_pressure_info_indicator"
@@ -300,9 +301,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="#D13B39"
                     android:textSize="72pt"
-                    tools:text="0.0"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_low_pressure"
-                    app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_low_pressure"/>
+                    app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_low_pressure"
+                    tools:text="0.0"/>
 
                 <TextView
                     android:id="@+id/detect_tv_result_temperate"
@@ -350,12 +351,13 @@
                     android:id="@+id/detect_tv_result_ecg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="40pt"
                     android:layout_marginLeft="60pt"
                     android:layout_marginTop="60pt"
                     android:text="心电： "
                     android:textColor="#999999"
                     android:textSize="72pt"
-                    android:layout_marginBottom="40pt"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_sugar"/>
@@ -366,6 +368,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
                     android:textSize="72pt"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_ecg"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_ecg"/>
             </android.support.constraint.ConstraintLayout>

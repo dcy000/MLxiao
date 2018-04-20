@@ -1172,6 +1172,19 @@
     <!--</RelativeLayout>-->
 
 
+    <Button
+        android:id="@+id/detect_tv_result_next"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:background="@drawable/shape_phone"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="40dp"/>
+
     <!--视频播放界面-->
     <RelativeLayout
         android:layout_width="match_parent"

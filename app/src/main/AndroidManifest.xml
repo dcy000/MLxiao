@@ -681,6 +681,8 @@
         <activity android:name="com.medlink.danbogh.register.idcard.SignInIdCardActivity"/>
         <activity android:name=".health.DetectResultActivity">
         </activity>
+        <activity android:name="com.medlink.danbogh.register.idcard.IdCardInfoActivity">
+        </activity>
     </application>
 
 </manifest>

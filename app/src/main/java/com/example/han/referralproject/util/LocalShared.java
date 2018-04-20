@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
     private static LocalShared mInstance;
-    private SharedPreferences mShared;
+    public SharedPreferences mShared;
 
     private final String UserAccounts = "user_accounts";
     private final String UserAccounts_new = "user_accounts_new";
@@ -46,6 +46,14 @@ public class LocalShared {
     private LocalShared(Context context) {
         this.context = context.getApplicationContext();
         mShared = context.getSharedPreferences(SharedName, Context.MODE_PRIVATE);
+    }
+
+    public void setString(String key, String value) {
+        mShared.edit().putString(key, value).commit();
+    }
+
+    public String getString(String key) {
+        return mShared.getString(key, "");
     }
 
     public static LocalShared getInstance(Context context) {

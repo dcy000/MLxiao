@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/id_card_cl_root"
+    tools:context="com.medlink.danbogh.register.idcard.IdCardInfoActivity">
+
+    <ImageView
+        android:id="@+id/id_card_iv_bg"
+        android:layout_width="1218pt"
+        android:layout_height="765pt"
+        android:layout_marginTop="48pt"
+        android:src="@drawable/id_card_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="78pt"
+        android:layout_marginTop="120pt"
+        android:text="姓  名"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_name_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30pt"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/id_card_tv_name"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tv_name"
+        tools:text="陈奕迅"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="78pt"
+        android:layout_marginTop="220pt"
+        android:text="性  别"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_gender_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30pt"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/id_card_tv_gender"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tv_gender"
+        tools:text="男"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_native"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="350pt"
+        android:layout_marginTop="220pt"
+        android:text="性  别"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_nation_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30pt"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/id_card_tv_native"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tv_native"
+        tools:text="汉"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="78pt"
+        android:layout_marginTop="310pt"
+        android:text="出  生"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_birth_year_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30pt"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/id_card_tv_birth"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tv_birth"
+        tools:text="1984"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_birth_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="350pt"
+        android:layout_marginTop="310pt"
+        android:text="年"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_birth_month_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15pt"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/id_card_tv_birth"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tv_birth_year"
+        tools:text="11"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_birth_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="470pt"
+        android:layout_marginTop="310pt"
+        android:text="月"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_birth_day_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15pt"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/id_card_tv_birth"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tv_birth_month"
+        tools:text="18"/>
+
+
+    <TextView
+        android:id="@+id/id_card_tv_birth_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="590pt"
+        android:layout_marginTop="310pt"
+        android:text="月"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="78pt"
+        android:layout_marginTop="395pt"
+        android:text="住 址"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_address_info"
+        android:layout_width="530pt"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30pt"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tv_address"
+        app:layout_constraintTop_toTopOf="@+id/id_card_tv_address"
+        tools:text="浙江杭州市萧山区建设2路957号"/>
+
+    <ImageView
+        android:id="@+id/id_card_iv_profile"
+        android:layout_width="370pt"
+        android:layout_height="540pt"
+        android:layout_marginRight="78pt"
+        android:layout_marginTop="55pt"
+        app:layout_constraintRight_toRightOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="78pt"
+        android:layout_marginTop="655pt"
+        android:text="公民身份证号码"
+        android:textColor="#29ACE2"
+        android:textSize="40pt"
+        app:layout_constraintLeft_toLeftOf="@+id/id_card_iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/id_card_iv_bg"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_number_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30pt"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/id_card_tv_number"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tv_number"
+        tools:text="3 3 0 3 8 2 1 9 9 5 0 2 2 0 5 7 1"/>
+
+    <TextView
+        android:id="@+id/id_card_tv_action"
+        android:layout_width="360pt"
+        android:layout_height="120pt"
+        android:layout_marginTop="70pt"
+        android:background="@drawable/id_card_tv_action"
+        android:gravity="center"
+        android:text="确认是本人"
+        android:textColor="#ffffff"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_card_iv_bg"/>
+</android.support.constraint.ConstraintLayout>
