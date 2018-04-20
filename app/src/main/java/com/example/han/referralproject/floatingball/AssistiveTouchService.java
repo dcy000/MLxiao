@@ -226,8 +226,14 @@ public class AssistiveTouchService extends Service {
                         mAssistiveTouchView.setAlpha(0);
                         lastAssistiveTouchViewX = mParams.x;
                         lastAssistiveTouchViewY = mParams.y;
+                        mImageView.setAlpha(0.0f);
                         myAssitiveTouchAnimator(mParams.x, mScreenWidth / 2 - mAssistiveTouchView.getMeasuredWidth() / 2, mParams.y, mScreenHeight / 2 - mAssistiveTouchView.getMeasuredHeight() / 2, true).start();
                         mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.25));
+
+                        mPopupWindow.setFocusable(true);
+                        mPopupWindow.setTouchable(true);
+                        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+                        mPopupWindow.showAtLocation(mAssistiveTouchView, Gravity.CENTER, 0, 0);
 
                         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                             @Override
@@ -238,12 +244,6 @@ public class AssistiveTouchService extends Service {
 
                             }
                         });
-                        mPopupWindow.setFocusable(true);
-                        mPopupWindow.setTouchable(true);
-                        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-                        mPopupWindow.showAtLocation(mAssistiveTouchView, Gravity.CENTER, 0, 0);
-
-                        mImageView.setAlpha(0.0f);
 
 
                     }

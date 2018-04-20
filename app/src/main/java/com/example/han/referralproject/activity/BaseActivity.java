@@ -72,7 +72,7 @@ import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 
-public class BaseActivity extends AppCompatActivity  {
+public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -835,7 +835,13 @@ public class BaseActivity extends AppCompatActivity  {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    popupWindow.dismiss();
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            popupWindow.dismiss();
+                        }
+                    });
                 }
             }, 3000);
         }

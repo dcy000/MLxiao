@@ -119,11 +119,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }, 1000);
 
-        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-            startService(new Intent(this, AssistiveTouchService.class));
-        }
+//        if (!isMyServiceRunning(AssistiveTouchService.class)) {
+//            startService(new Intent(this, AssistiveTouchService.class));
+//        }
 
-//            MyService.StartMe(this);
+            MyService.StartMe(this);
     }
 
 
