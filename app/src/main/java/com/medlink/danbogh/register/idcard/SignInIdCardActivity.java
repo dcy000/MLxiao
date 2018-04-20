@@ -348,7 +348,7 @@ public class SignInIdCardActivity extends BaseActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    speak("");
+                    speak("请刷身份证");
                 }
             });
             if (connected && client != null && !isFinishing() && !isDestroyed()) {
