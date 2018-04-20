@@ -6,10 +6,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
@@ -69,6 +71,10 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
         LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);

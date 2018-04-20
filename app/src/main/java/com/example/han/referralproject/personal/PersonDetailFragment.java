@@ -104,10 +104,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     SharedPreferences sharedPreferences1;
 
-
-    double amount;
-    double amounts;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
