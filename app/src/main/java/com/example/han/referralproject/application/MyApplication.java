@@ -137,7 +137,10 @@ public class MyApplication extends Application {
 
             @Override
             public void onActivityResumed(Activity activity) {
-                MyService.context= (BaseActivity) activity;
+                if (activity != null) {
+                    if (activity instanceof BaseActivity)
+                        MyService.context = (BaseActivity) activity;
+                }
             }
 
             @Override
