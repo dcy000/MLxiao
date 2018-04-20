@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.carlos.voiceline.mylibrary.VoiceLineView;
@@ -68,7 +70,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class BaseActivity extends AppCompatActivity {
+import butterknife.BindView;
+
+public class BaseActivity extends AppCompatActivity  {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -162,9 +166,9 @@ public class BaseActivity extends AppCompatActivity {
 
         boolean isAllGranted = checkPermissionAllGranted(
                 new String[]{
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.CAMERA,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.BLUETOOTH_ADMIN,
@@ -180,9 +184,9 @@ public class BaseActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(
                 this,
                 new String[]{
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.CAMERA,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.BLUETOOTH_ADMIN,
@@ -248,6 +252,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private PopupWindow window;
+
 
     //收到推送消息后显示Popwindow
     class JPushReceive implements MyReceiver.JPushLitener {
@@ -822,28 +827,20 @@ public class BaseActivity extends AppCompatActivity {
      */
     public static final String[] VOICER = {"xiaoyan", "xiaoqi", "xiaoli", "xiaoyu", "xiaofeng", "xiaoxin", "laosun"};
 
-    PopupWindow popupWindow;
 
-    public void showWindow() {
-        if (popupWindow == null) {
-            popupWindow = new PopupWindow(this);
-        }
-        popupWindow.setWidth(960);
-        popupWindow.setHeight(480);
-        popupWindow.setContentView(LayoutInflater.from(this).inflate(R.layout.assistive_touch_inflate_layout, null));
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
+    public void showWindow(final PopupWindow popupWindow) {
+        handler.removeCallbacksAndMessages(null);
         if (!popupWindow.isShowing()) {
             popupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    popupWindow.dismiss();
-//                }
-//            },3000);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    popupWindow.dismiss();
+                }
+            }, 3000);
         }
 
     }
+
 
 }
