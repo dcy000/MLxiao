@@ -76,6 +76,7 @@ public class TvChannelInteractorImp implements ITvChannelInteractor{
                 LiveBean countryModel = new LiveBean();
                 countryModel.setTvName(sheet.getCell(0, i).getContents());
                 countryModel.setTvUrl(sheet.getCell(6, i).getContents());
+                countryModel.setTvImgUrl(sheet.getCell(7,i).getContents());
                 countryList.add(countryModel);
             }
 

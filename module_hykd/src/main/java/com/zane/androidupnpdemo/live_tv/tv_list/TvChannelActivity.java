@@ -1,24 +1,21 @@
 package com.zane.androidupnpdemo.live_tv.tv_list;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gzq.administrator.lib_common.base.CommonBaseActivity;
 import com.zane.androidupnpdemo.R;
 import com.zane.androidupnpdemo.live_tv.GridViewDividerItemDecoration;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
-import com.zane.androidupnpdemo.utils.AesUtil;
-
 import java.util.List;
 
 /**
@@ -51,12 +48,16 @@ public class TvChannelActivity extends CommonBaseActivity implements ITvList, Vi
 
     @Override
     public void fillData(List<LiveBean> channels) {
-        mTvList.setLayoutManager(new GridLayoutManager(this, 2));
-        mTvList.addItemDecoration(new GridViewDividerItemDecoration(10, 10));
+        mTvList.setLayoutManager(new GridLayoutManager(this, 4));
+        mTvList.addItemDecoration(new GridViewDividerItemDecoration(20, 20));
         mTvList.setAdapter(adapter = new BaseQuickAdapter<LiveBean, BaseViewHolder>(R.layout.tv_item, channels) {
             @Override
             protected void convert(BaseViewHolder helper, LiveBean item) {
                 helper.setText(R.id.tv_name, item.getTvName());
+                Glide.with(TvChannelActivity.this)
+                        .load("file:///android_asset/"+item.getTvImgUrl())
+                        .into((ImageView) helper.getView(R.id.iv_img));
+
             }
         });
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

@@ -1,14 +1,16 @@
 package com.zane.androidupnpdemo.live_tv.tv_play;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.gzq.administrator.lib_common.utils.PinYinUtils;
 import com.gzq.administrator.lib_common.utils.ToastTool;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
@@ -23,8 +25,10 @@ import com.ksyun.media.player.KSYMediaPlayer;
 import com.ksyun.media.player.KSYTextureView;
 import com.zane.androidupnpdemo.live_tv.FloatingPlayer;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
+import com.zane.androidupnpdemo.utils.PinyinHelper;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import static com.zane.androidupnpdemo.live_tv.MediaHelper.getCurrentSpan;
@@ -36,9 +40,9 @@ import static com.zane.androidupnpdemo.live_tv.MediaHelper.getFocusY;
  */
 
 public class TvPlayPresenterImp implements ITvPlayPresenter {
+    private static final int LOOP_MONITOR_LISTENER = 100;
     private KSYTextureView ksyTextureView;
     private ITvPlayView tvPlayActivity;
-
     /**
      * 视频设置
      */
@@ -53,19 +57,25 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
     private float deltaRatio;
     private double lastSpan;
     private TimeCount timeCount;
+    private MonitorSpeakingTimeCount timeCountMonitorSpeaking;
     private List<LiveBean> tvs;
-    private static final String TAG=TvPlayPresenterImp.class.getSimpleName();
+    private boolean isMonitorUserSpeaking = false;
+    private MyHandler myHandler;
+    private static final String TAG = TvPlayPresenterImp.class.getSimpleName();
+
     public TvPlayPresenterImp(ITvPlayView tvPlayActivity, List<LiveBean> tvs) {
         this.tvPlayActivity = tvPlayActivity;
-        this.tvs=tvs;
+        this.tvs = tvs;
         FloatingPlayer.getInstance().init((Context) tvPlayActivity);
         ksyTextureView = FloatingPlayer.getInstance().getKSYTextureView();
         timeCount = new TimeCount(5000, 1000);
+        timeCountMonitorSpeaking = new MonitorSpeakingTimeCount(5000, 1000);
+        myHandler = new MyHandler((Activity) tvPlayActivity);
         startListenWakeup();
     }
 
     private void startListenWakeup() {
-        MLVoiceWake.initGlobalContext((TvPlayActivity)tvPlayActivity);
+        MLVoiceWake.initGlobalContext((TvPlayActivity) tvPlayActivity);
         MLVoiceWake.startWakeUp(new MLWakeuperListener() {
             @Override
             public void onMLError(int errorCode) {
@@ -74,15 +84,16 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
             @Override
             public void onMLResult() {
-               if (ksyTextureView.isPlaying()){
-                   ksyTextureView.pause();
-               }
-                MLVoiceSynthetize.startSynthesize((TvPlayActivity)tvPlayActivity,"主人,您想看哪个电视台？",speakFinishListener ,false);
+                if (ksyTextureView.isPlaying()) {
+                    ksyTextureView.pause();
+                }
+                MLVoiceSynthetize.startSynthesize((TvPlayActivity) tvPlayActivity, "主人,您想看哪个电视台？", speakFinishListener, false);
             }
         });
 
     }
-    private SynthesizerListener speakFinishListener=new SynthesizerListener() {
+
+    private SynthesizerListener speakFinishListener = new SynthesizerListener() {
         @Override
         public void onSpeakBegin() {
 
@@ -110,8 +121,10 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
         @Override
         public void onCompleted(SpeechError speechError) {
+            isMonitorUserSpeaking = true;
+            timeCountMonitorSpeaking.start();
             //说完之后开始识别
-            startListenSpeak();
+            myHandler.sendEmptyMessage(LOOP_MONITOR_LISTENER);
         }
 
         @Override
@@ -120,8 +133,27 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         }
     };
 
+    private class MyHandler extends Handler {
+        private WeakReference<Activity> weakReference;
+
+        public MyHandler(Activity activity) {
+            weakReference = new WeakReference<Activity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case LOOP_MONITOR_LISTENER:
+                    Log.e(TAG, "handleMessage: 循环监听说话");
+                    startListenSpeak();
+                    break;
+            }
+        }
+    }
+
     private void startListenSpeak() {
-        MLVoiceRecognize.startRecognize((TvPlayActivity) tvPlayActivity, new MLRecognizerListener() {
+        MLVoiceRecognize.startRecognize(((TvPlayActivity) tvPlayActivity).getApplicationContext(), new MLRecognizerListener() {
             @Override
             public void onMLVolumeChanged(int i, byte[] bytes) {
                 Log.e(TAG, "onMLVolumeChanged: ");
@@ -129,106 +161,284 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
             @Override
             public void onMLBeginOfSpeech() {
-                Log.e(TAG, "onMLBeginOfSpeech: " );
+                Log.e(TAG, "onMLBeginOfSpeech: ");
+                tvPlayActivity.showVoiceView();
             }
 
             @Override
             public void onMLEndOfSpeech() {
-                Log.e(TAG, "onMLEndOfSpeech: " );
+                Log.e(TAG, "onMLEndOfSpeech: ");
+                if (isMonitorUserSpeaking) {
+                    myHandler.sendEmptyMessage(LOOP_MONITOR_LISTENER);
+                }
+                tvPlayActivity.hideVoiceView();
             }
 
             @Override
             public void onMLResult(String result) {
-                Log.e(TAG, "onMLResult: -----------"+result );
+                isMonitorUserSpeaking = false;
+                Log.e(TAG, "onMLResult: -----------" + result);
                 ToastTool.showShort(result);
-                String inSpell=PinYinUtils.converterToSpell(result);
-                if (inSpell.matches(".*((zhong|zong)yangyi)|(yitai).*")){
-                    ksyTextureView.reload(tvs.get(0).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
+                String inSpell = PinyinHelper.getPinYin(result);
+                if (inSpell.matches("(.*)fanhui(.*)")) {
+                    tvPlayActivity.closeTv();
                 }
-                if (result.contains("CCTV1")){
-                    ksyTextureView.reload(tvs.get(0).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-
-                if (inSpell.matches(".*((zhong|zong)yang(san|shan))|((san|shan)tai).*")){
-                    ksyTextureView.reload(tvs.get(1).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (result.contains("CCTV3")){
-                    ksyTextureView.reload(tvs.get(1).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (inSpell.matches(".*((zhong|zong)yangsi)|(sitai).*")){
-                    ksyTextureView.reload(tvs.get(2).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (result.contains("CCTV4")){
-                    ksyTextureView.reload(tvs.get(2).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (inSpell.matches(".*((zhong|zong)yangqi)|(qitai).*")){
-                    ksyTextureView.reload(tvs.get(3).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (result.contains("CCTV7")){
-                    ksyTextureView.reload(tvs.get(3).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (inSpell.matches(".*((zhong|zong)yangjiu)|(jiutai).*")){
-                    ksyTextureView.reload(tvs.get(4).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (result.contains("CCTV9")){
-                    ksyTextureView.reload(tvs.get(4).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (inSpell.matches(".*((zhong|zong)yangshi)|(shitai).*")){
-                    ksyTextureView.reload(tvs.get(5).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (result.contains("CCTV10")){
-                    ksyTextureView.reload(tvs.get(5).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (inSpell.matches(".*((zhong|zong)yangshiyi)|(shiyitai).*")){
-                    ksyTextureView.reload(tvs.get(6).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (result.contains("CCTV11")){
-                    ksyTextureView.reload(tvs.get(6).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (inSpell.matches(".*((zhong|zong)yangshier)|(shiertai).*")){
-                    ksyTextureView.reload(tvs.get(7).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (result.contains("CCTV12")){
-                    ksyTextureView.reload(tvs.get(7).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (inSpell.matches(".*((zhong|zong)yangshiwu)|(shiwutai).*")){
-                    ksyTextureView.reload(tvs.get(8).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
-                if (result.contains("CCTV15")){
-                    ksyTextureView.reload(tvs.get(8).getTvUrl(),true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                if (inSpell.matches("(.*)yitai|cctvyi(.*)")) {//CCTV1
+                    ksyTextureView.reload(tvs.get(0).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
                     return;
                 }
 
+                if (inSpell.matches("(.*)ertai|cctver|cctvcai(jin|jing)|cai(jin|jing)(.*)")) {//CCTV2
+                    ksyTextureView.reload(tvs.get(1).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(san|shan)tai|cctv(san|shan)(.*)")) {//CCTV3
+                    ksyTextureView.reload(tvs.get(2).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
 
-                if (!ksyTextureView.isPlaying()){
+                if (inSpell.matches("(.*)sitai|cctvsi(.*)")) {//CCTV4
+                    ksyTextureView.reload(tvs.get(3).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+
+                if (inSpell.matches("(.*)qitai|cctvqi(.*)")) {//CCTV7
+                    ksyTextureView.reload(tvs.get(4).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)jiu|cctvjiu(.*)")) {//CCTV9
+                    ksyTextureView.reload(tvs.get(5).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)shitai|cctvshi(.*)")) {//CCTV10
+                    ksyTextureView.reload(tvs.get(6).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(si|shi)yitai|cctv(si|shi)yi(.*)")) {//CCTV11
+                    ksyTextureView.reload(tvs.get(7).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(si|shi)ertai|cctv(si|shi)er(.*)")) {//CCTV12
+                    ksyTextureView.reload(tvs.get(8).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(si|shi)wutai|cctv(si|shi)wu(.*)")) {//CCTV15
+                    ksyTextureView.reload(tvs.get(9).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)wenhua(jin|jing)(pin|ping)(.*)")) {//CCTV-文化精品
+                    ksyTextureView.reload(tvs.get(10).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(shao|sao)er(.*)")) {//CCTV-少儿
+                    ksyTextureView.reload(tvs.get(11).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(zu|zhu)qiu(.*)")) {//CCTV-风云足球
+                    ksyTextureView.reload(tvs.get(12).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                //====================================
+                if (inSpell.matches("(.*)di(li|ni)(.*)")) {//CCTV-世界地理
+                    ksyTextureView.reload(tvs.get(13).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)jun(si|shi)(.*)")) {//CCTV-国防军事
+                    ksyTextureView.reload(tvs.get(14).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)tiyue|cctvwu|wutai(.*)")) {//CCTV-体育
+                    ksyTextureView.reload(tvs.get(15).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)fengyunju(chang|cang)(.*)")) {//CCTV-风云剧场
+                    ksyTextureView.reload(tvs.get(16).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(yin|ying)yue(.*)")) {//CCTV-风云音乐
+                    ksyTextureView.reload(tvs.get(17).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)huaijiu(.*)")) {//CCTV-怀旧剧场
+                    ksyTextureView.reload(tvs.get(18).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(lao|nao)gu(si|shi)(.*)")) {//CCTV-老故事
+                    ksyTextureView.reload(tvs.get(19).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)gaoerfu|wangqiu(.*)")) {//CCTV-高尔夫·网球
+                    ksyTextureView.reload(tvs.get(20).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(fu|hu)(nan|lan)(.*)")) {//湖南
+                    ksyTextureView.reload(tvs.get(21).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)jiang(su|shu)(.*)")) {//江苏
+                    ksyTextureView.reload(tvs.get(22).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(zhe|ze)jiang(.*)")) {//浙江
+                    ksyTextureView.reload(tvs.get(23).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(shang|sang)hai|dongfang(.*)")) {//上海
+                    ksyTextureView.reload(tvs.get(24).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)yun(nan|lan)(.*)")) {//云南
+                    ksyTextureView.reload(tvs.get(25).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)dong(nan|lan)(.*)")) {//东南
+                    ksyTextureView.reload(tvs.get(26).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(liao|niao)(ning|ling|nin|lin)(.*)")) {//辽宁
+                    ksyTextureView.reload(tvs.get(27).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(chong|cong)(qin|qing)(.*)")) {//重庆
+                    ksyTextureView.reload(tvs.get(28).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)hei(long|nong)jiang(.*)")) {//黑龙江
+                    ksyTextureView.reload(tvs.get(29).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)gui(zhou|zou)(.*)")) {//贵州
+                    ksyTextureView.reload(tvs.get(30).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)jiangxi(.*)")) {//江西
+                    ksyTextureView.reload(tvs.get(31).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)guangxi(.*)")) {//广西
+                    ksyTextureView.reload(tvs.get(32).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)guangdong(.*)")) {//广东
+                    ksyTextureView.reload(tvs.get(33).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)ji(lin|ling)(.*)")) {//吉林
+                    ksyTextureView.reload(tvs.get(34).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(shan|san)dong(.*)")) {//山东
+                    ksyTextureView.reload(tvs.get(35).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(si|shi)(chuan|cuan)(.*)")) {//四川
+                    ksyTextureView.reload(tvs.get(36).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)xi(zang|zhang)(.*)")) {//西藏
+                    ksyTextureView.reload(tvs.get(37).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(nei|lei)(men|meng)gu(.*)")) {//内蒙古
+                    ksyTextureView.reload(tvs.get(38).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(xin|xing)jiang(.*)")) {//新疆
+                    ksyTextureView.reload(tvs.get(39).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(shen|sen|seng|sheng)(zhen|zheng|zen|zeng)(.*)")) {//深圳
+                    ksyTextureView.reload(tvs.get(40).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)bei(jin|jing)(.*)")) {//北京纪实
+                    ksyTextureView.reload(tvs.get(41).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)yidong(.*)")) {//重庆移动
+                    ksyTextureView.reload(tvs.get(42).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(long|nong)cun(.*)")) {//重庆公共农村
+                    ksyTextureView.reload(tvs.get(43).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)dao(si|shi)(.*)")) {//重庆导视
+                    ksyTextureView.reload(tvs.get(44).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)dong(zuo|zhuo)(.*)")) {//CHC-动作电影
+                    ksyTextureView.reload(tvs.get(45).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)huanxiao(.*)")) {//欢笑剧场
+                    ksyTextureView.reload(tvs.get(46).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+
+                if (inSpell.matches("(.*)(shi|si)(shang|sang)(.*)")) {//生活时尚
+                    ksyTextureView.reload(tvs.get(47).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)jiating(yin|ying)yuan(.*)")) {//CHC-家庭影院
+
+                    ksyTextureView.reload(tvs.get(48).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)gouwu(.*)")) {//家有购物
+                    ksyTextureView.reload(tvs.get(49).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)rexiao|(jin|jing)(pin|ping)(.*)")) {//热销精选
+                    ksyTextureView.reload(tvs.get(50).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(shou|sou)cang(.*)")) {//天下收藏
+                    ksyTextureView.reload(tvs.get(51).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)jia(zhen|zheng|zen|zeng)(.*)")) {//家政
+                    ksyTextureView.reload(tvs.get(52).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)gaoerfu(.*)")) {//高尔夫
+                    ksyTextureView.reload(tvs.get(53).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)wanluo|qipai(.*)")) {//网络棋牌
+                    ksyTextureView.reload(tvs.get(54).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)katong|(jin|jing)(yin|ying)(.*)")) {//金鹰卡通
+                    ksyTextureView.reload(tvs.get(55).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)dongman(.*)")) {//新动漫
+                    ksyTextureView.reload(tvs.get(56).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(li|ni)cai(.*)")) {//家庭理财
+                    ksyTextureView.reload(tvs.get(57).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(cai|chai)fu(.*)")) {//财富天下
+                    ksyTextureView.reload(tvs.get(58).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+
+                if (!ksyTextureView.isPlaying()) {
                     ksyTextureView.start();
                 }
             }
 
             @Override
             public void onMLError(SpeechError error) {
-                Log.e(TAG, "onMLError: "+error.getErrorCode()+"===="+error.getErrorDescription() );
-                if (error.getErrorCode()==10118){//没有听到讲话
-                    if (!ksyTextureView.isPlaying()){
+                Log.e(TAG, "onMLError: " + error.getErrorCode() + "====" + error.getErrorDescription());
+                if (error.getErrorCode() == 10118) {//没有听到讲话
+                    if (!ksyTextureView.isPlaying()) {
                         ksyTextureView.start();
                     }
+                    myHandler.sendEmptyMessage(LOOP_MONITOR_LISTENER);
                 }
             }
         });
@@ -241,7 +451,6 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             tvPlayActivity.showLoadingDialog();
             tvPlayActivity.hideStatusBar();
             tvPlayActivity.addVideoView(ksyTextureView);
-
             ksyTextureView.setOnTouchListener(mTouchListener);
             ksyTextureView.setOnPreparedListener(mOnPreparedListener);
             ksyTextureView.setOnErrorListener(mOnErrorListener);
@@ -414,6 +623,22 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         }
     }
 
+    private class MonitorSpeakingTimeCount extends CountDownTimer {
+        MonitorSpeakingTimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
+        }
+
+        @Override
+        public void onFinish() {// 计时完毕时触发
+            isMonitorUserSpeaking = false;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {// 计时过程显示
+
+        }
+    }
+
     private void videoPlayEnd() {
         if (ksyTextureView != null) {
             FloatingPlayer.getInstance().destroy();
@@ -426,7 +651,9 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         timeCount.cancel();
         tvPlayActivity = null;
     }
-    public KSYTextureView getKsyTextureView(){
+
+    public KSYTextureView getKsyTextureView() {
         return ksyTextureView;
     }
+
 }

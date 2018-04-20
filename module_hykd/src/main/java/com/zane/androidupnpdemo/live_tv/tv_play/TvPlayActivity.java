@@ -1,12 +1,10 @@
 package com.zane.androidupnpdemo.live_tv.tv_play;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -14,27 +12,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gzq.administrator.lib_common.base.CommonBaseActivity;
-import com.gzq.administrator.lib_common.utils.ToastTool;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.recognition.MLRecognizerListener;
-import com.iflytek.recognition.MLVoiceRecognize;
-import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.iflytek.wake.MLVoiceWake;
-import com.iflytek.wake.MLWakeuperListener;
 import com.ksyun.media.player.KSYTextureView;
 import com.zane.androidupnpdemo.R;
 import com.zane.androidupnpdemo.connect_tv.ui.TVConnectMainActivity;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by gzq on 2018/3/26.
  */
 
-public class TvPlayActivity extends AppCompatActivity implements View.OnClickListener,ITvPlayView {
+public class TvPlayActivity extends AppCompatActivity implements View.OnClickListener, ITvPlayView {
     private LinearLayout mVideoPlay;
     private TextView mConnectTv;
     private ImageView mLivemediaBack;
@@ -42,17 +31,19 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     private RelativeLayout mLiveControl;
     private LinearLayout mLoaddingView;
     private List<LiveBean> tvs;
-    private int playFirstPosition=0;
+    private int playFirstPosition = 0;
     private ITvPlayPresenter tvPlayPresenter;
+    private View mViewVoice;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tv_display);
         initView();
-        tvs= getIntent().getParcelableArrayListExtra("tvs");
+        tvs = getIntent().getParcelableArrayListExtra("tvs");
 
-        playFirstPosition=getIntent().getIntExtra("position",0);
-        tvPlayPresenter=new TvPlayPresenterImp(this,tvs);
+        playFirstPosition = getIntent().getIntExtra("position", 0);
+        tvPlayPresenter = new TvPlayPresenterImp(this, tvs);
         tvPlayPresenter.startPlay(tvs.get(playFirstPosition).getTvUrl());
     }
 
@@ -69,6 +60,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         mLiveTitle = (TextView) findViewById(R.id.live_title);
         mLiveControl = (RelativeLayout) findViewById(R.id.live_control);
         mLoaddingView = (LinearLayout) findViewById(R.id.loadding_view);
+        mViewVoice = (View) findViewById(R.id.view_voice);
     }
 
     @Override
@@ -110,7 +102,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void connectTv() {
-        startActivity(new Intent(this, TVConnectMainActivity.class).putExtra("url",tvs.get(playFirstPosition).getTvUrl()));
+        startActivity(new Intent(this, TVConnectMainActivity.class).putExtra("url", tvs.get(playFirstPosition).getTvUrl()));
     }
 
     @Override
@@ -154,6 +146,16 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public int getControlBarVisibility() {
         return mLiveControl.getVisibility();
+    }
+
+    @Override
+    public void showVoiceView() {
+        mViewVoice.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideVoiceView() {
+        mViewVoice.setVisibility(View.GONE);
     }
 
     @Override

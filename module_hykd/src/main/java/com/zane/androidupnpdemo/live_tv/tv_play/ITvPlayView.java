@@ -18,4 +18,6 @@ public interface ITvPlayView {
     void addVideoView(KSYTextureView ksyTextureView);
     void removeVideoView(KSYTextureView ksyTextureView);
     int getControlBarVisibility();
+    void showVoiceView();
+    void hideVoiceView();
 }

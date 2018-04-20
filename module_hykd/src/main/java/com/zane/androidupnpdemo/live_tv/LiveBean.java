@@ -6,10 +6,21 @@ import android.os.Parcelable;
 public class LiveBean implements Parcelable{
     private String tvName;
     private String tvUrl;
+    private String tvImgUrl;
+
+    public LiveBean() {
+    }
+
+    public LiveBean(String tvName, String tvUrl, String tvImgUrl) {
+        this.tvName = tvName;
+        this.tvUrl = tvUrl;
+        this.tvImgUrl = tvImgUrl;
+    }
 
     protected LiveBean(Parcel in) {
         tvName = in.readString();
         tvUrl = in.readString();
+        tvImgUrl = in.readString();
     }
 
     public static final Creator<LiveBean> CREATOR = new Creator<LiveBean>() {
@@ -40,13 +51,12 @@ public class LiveBean implements Parcelable{
         this.tvUrl = tvUrl;
     }
 
-    public LiveBean() {
-
+    public String getTvImgUrl() {
+        return tvImgUrl;
     }
 
-    public LiveBean(String tvName, String tvUrl) {
-        this.tvName = tvName;
-        this.tvUrl = tvUrl;
+    public void setTvImgUrl(String tvImgUrl) {
+        this.tvImgUrl = tvImgUrl;
     }
 
     @Override
@@ -58,5 +68,6 @@ public class LiveBean implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(tvName);
         dest.writeString(tvUrl);
+        dest.writeString(tvImgUrl);
     }
 }

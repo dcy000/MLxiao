@@ -12,7 +12,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -26,6 +26,7 @@ android {
             dirs 'libs'
         }
     }
+
 }
 
 dependencies {
@@ -52,4 +53,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     //recycleview的万能适配器
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    //图片加载库
+    compile 'com.github.bumptech.glide:glide:4.6.1'
+    //解决方法数64K的办法
+    compile 'com.android.support:multidex:1.0.0'
 }
