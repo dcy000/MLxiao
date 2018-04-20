@@ -45,12 +45,19 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initPermision();
-        super.onCreate(null);
+        boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
+        if (isFirstIn) {
+            initPermision();
+            super.onCreate(null);
+        } else {
+            super.onCreate(null);
+            initContentView();
+        }
 
     }
 
     private void initPermision() {
+
         if (Build.VERSION.SDK_INT < 23) {
             return;
         }
@@ -68,23 +75,23 @@ public class WelcomeActivity extends BaseActivity {
 
 
         if (isAllGranted) {
+            initContentView();
             return;
+        } else {
+
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            android.Manifest.permission.RECORD_AUDIO,
+                            android.Manifest.permission.CAMERA,
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.BLUETOOTH_ADMIN,
+                    },
+                    007
+            );
         }
-
-        // 一次请求多个权限, 如果其他有权限是已经授予的将会自动忽略掉
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.RECORD_AUDIO,
-                        android.Manifest.permission.CAMERA,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.BLUETOOTH_ADMIN,
-                },
-                007
-        );
-
 
     }
 
@@ -105,24 +112,27 @@ public class WelcomeActivity extends BaseActivity {
             }
 
             if (isAllGranted) {
-                setContentView(R.layout.activity_welcome);
-                Log.i(TAG, "onCreate: ");
-                //启动音乐服务
-                if (!isWorked("com.example.han.referralproject.MusicService")) {
-                    startService(new Intent(this, MusicService.class));
-                }
-                if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
-                    Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
-                    mIntent.putExtra("is_first_wifi", true);
-                    startActivity(mIntent);
-                    finish();
-                    return;
-                }
-
-                playVideo();
-
+                initContentView();
             }
         }
+    }
+
+    private void initContentView() {
+        setContentView(R.layout.activity_welcome);
+        Log.i(TAG, "onCreate: ");
+        //启动音乐服务
+        if (!isWorked("com.example.han.referralproject.MusicService")) {
+            startService(new Intent(this, MusicService.class));
+        }
+        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
+            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
+            mIntent.putExtra("is_first_wifi", true);
+            startActivity(mIntent);
+            finish();
+            return;
+        }
+
+        playVideo();
     }
 
     public boolean checkPermissionAllGranted(String[] permissions) {
