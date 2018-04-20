@@ -221,7 +221,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkPermissionAllGranted(String[] permissions) {
+    public boolean checkPermissionAllGranted(String[] permissions) {
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 // 只要有一个权限没有被授予, 则直接返回 false

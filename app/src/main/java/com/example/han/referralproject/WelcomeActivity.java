@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.*;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +56,21 @@ public class WelcomeActivity extends BaseActivity {
             return;
         }
 //        checkVersion();
-        playVideo();
+
+
+        if (checkPermissionAllGranted(
+                new String[]{
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.RECORD_AUDIO,
+                        android.Manifest.permission.CAMERA,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        android.Manifest.permission.BLUETOOTH_ADMIN,
+                }
+        )) {
+            playVideo();
+        }
+
 
     }
 

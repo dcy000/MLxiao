@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -119,11 +120,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }, 1000);
 
-//        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-//            startService(new Intent(this, AssistiveTouchService.class));
-//        }
-
+        if (Build.VERSION.SDK_INT < 23) {
+            if (!isMyServiceRunning(AssistiveTouchService.class)) {
+                startService(new Intent(this, AssistiveTouchService.class));
+            }
+        } else {
             MyService.StartMe(this);
+
+        }
+
     }
 
 
