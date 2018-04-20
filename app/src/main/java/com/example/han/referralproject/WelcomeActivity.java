@@ -1,12 +1,17 @@
 package com.example.han.referralproject;
 
-import android.*;
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.SystemClock;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +22,6 @@ import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
@@ -41,6 +45,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initPermision();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         Log.i(TAG, "onCreate: ");
@@ -55,10 +60,17 @@ public class WelcomeActivity extends BaseActivity {
             finish();
             return;
         }
-//        checkVersion();
 
+        playVideo();
 
-        if (checkPermissionAllGranted(
+    }
+
+    private void initPermision() {
+        if (Build.VERSION.SDK_INT < 23) {
+            return;
+        }
+
+        boolean isAllGranted = checkPermissionAllGranted(
                 new String[]{
                         android.Manifest.permission.READ_EXTERNAL_STORAGE,
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -67,11 +79,59 @@ public class WelcomeActivity extends BaseActivity {
                         android.Manifest.permission.ACCESS_COARSE_LOCATION,
                         android.Manifest.permission.BLUETOOTH_ADMIN,
                 }
-        )) {
-            playVideo();
+        );
+
+
+        if (isAllGranted) {
+            return;
         }
 
+        // 一次请求多个权限, 如果其他有权限是已经授予的将会自动忽略掉
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.RECORD_AUDIO,
+                        android.Manifest.permission.CAMERA,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.BLUETOOTH_ADMIN,
+                },
+                007
+        );
 
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 007) {
+            boolean isAllGranted = true;
+
+            // 判断是否所有的权限都已经授予了
+            for (int grant : grantResults) {
+                if (grant != PackageManager.PERMISSION_GRANTED) {
+                    isAllGranted = false;
+                    break;
+                }
+            }
+
+            if (isAllGranted) {
+
+            }
+        }
+    }
+
+    public boolean checkPermissionAllGranted(String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                // 只要有一个权限没有被授予, 则直接返回 false
+                return false;
+            }
+        }
+        return true;
     }
 
     private void checkVersion() {
