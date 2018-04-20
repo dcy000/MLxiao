@@ -46,22 +46,7 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initPermision();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        Log.i(TAG, "onCreate: ");
-        //启动音乐服务
-        if (!isWorked("com.example.han.referralproject.MusicService")) {
-            startService(new Intent(this, MusicService.class));
-        }
-        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
-            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
-            mIntent.putExtra("is_first_wifi", true);
-            startActivity(mIntent);
-            finish();
-            return;
-        }
-
-        playVideo();
+        super.onCreate(null);
 
     }
 
@@ -114,11 +99,27 @@ public class WelcomeActivity extends BaseActivity {
             for (int grant : grantResults) {
                 if (grant != PackageManager.PERMISSION_GRANTED) {
                     isAllGranted = false;
+                    finish();
                     break;
                 }
             }
 
             if (isAllGranted) {
+                setContentView(R.layout.activity_welcome);
+                Log.i(TAG, "onCreate: ");
+                //启动音乐服务
+                if (!isWorked("com.example.han.referralproject.MusicService")) {
+                    startService(new Intent(this, MusicService.class));
+                }
+                if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
+                    Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
+                    mIntent.putExtra("is_first_wifi", true);
+                    startActivity(mIntent);
+                    finish();
+                    return;
+                }
+
+                playVideo();
 
             }
         }
