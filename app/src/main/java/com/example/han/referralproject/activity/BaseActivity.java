@@ -830,22 +830,28 @@ public class BaseActivity extends AppCompatActivity {
 
     public void showWindow(final PopupWindow popupWindow) {
         handler.removeCallbacksAndMessages(null);
-        if (!popupWindow.isShowing()) {
+        if (popupWindow != null && !popupWindow.isShowing()) {
             popupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            popupWindow.dismiss();
-                        }
-                    });
-                }
-            }, 3000);
+            autoDismiss(popupWindow);
         }
 
+    }
+
+    public void autoDismiss(final PopupWindow popupWindow) {
+        handler.removeCallbacksAndMessages(null);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (popupWindow != null)
+                            popupWindow.dismiss();
+                    }
+                });
+            }
+        }, 5000);
     }
 
 

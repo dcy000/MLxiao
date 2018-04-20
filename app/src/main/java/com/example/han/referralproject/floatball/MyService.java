@@ -23,6 +23,8 @@ public class MyService extends Service implements DragFloatActionButton.onClickL
     public static BaseActivity context;
     private int maxVolume;
     private int currentVolume;
+    private PopupWindow popupWindow;
+    private AudioManager mAudioManager;
 
     public MyService() {
 
@@ -82,19 +84,6 @@ public class MyService extends Service implements DragFloatActionButton.onClickL
     }
 
 
-    @Override
-    public void onclick() {
-        context.showWindow(popupWindow);
-    }
-
-    public static void StartMe(BaseActivity context) {
-        MyService.context = context;
-        Intent service = new Intent(context, MyService.class);
-        context.startService(service);
-    }
-
-    PopupWindow popupWindow;
-
     private void initPupubWindow() {
         if (popupWindow == null) {
             popupWindow = new PopupWindow(this);
@@ -110,9 +99,10 @@ public class MyService extends Service implements DragFloatActionButton.onClickL
         popupWindow.setFocusable(true);
     }
 
-    AudioManager mAudioManager;
 
     private void setSeekbar(SeekBar seekBar) {
+        if (seekBar == null)
+            return;
         //初始化音频管理器
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         //获取系统最大音量
@@ -138,7 +128,20 @@ public class MyService extends Service implements DragFloatActionButton.onClickL
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, seekBar.getProgress(), AudioManager.FLAG_PLAY_SOUND);
+        if (context != null)
+            context.autoDismiss(popupWindow);
+    }
 
+    @Override
+    public void onclick() {
+        if (context != null)
+            context.showWindow(popupWindow);
+    }
+
+    public static void StartMe(BaseActivity context) {
+        MyService.context = context;
+        Intent service = new Intent(context, MyService.class);
+        context.startService(service);
     }
 
 
