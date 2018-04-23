@@ -1,6 +1,10 @@
 package com.zane.androidupnpdemo.live_tv.tv_play;
 
 import com.ksyun.media.player.KSYTextureView;
+import com.zane.androidupnpdemo.connect_tv.entity.ClingDevice;
+import com.zane.androidupnpdemo.connect_tv.entity.IDevice;
+
+import java.util.Collection;
 
 /**
  * Created by gzq on 2018/3/26.
@@ -20,4 +24,7 @@ public interface ITvPlayView {
     int getControlBarVisibility();
     void showVoiceView();
     void hideVoiceView();
+    void findNewDevice(IDevice device);
+    void removeDevice(IDevice device);
+    void refreshDeices(Collection<ClingDevice> devices);
 }

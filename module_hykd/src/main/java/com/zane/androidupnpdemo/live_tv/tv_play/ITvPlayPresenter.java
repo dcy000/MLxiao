@@ -8,5 +8,10 @@ public interface ITvPlayPresenter {
     void startPlay(String url);
     void onResume();
     void onPause();
+    void playLast(String url);
+    void playNext(String url);
     void onDestroy();
+    int getOnPlayingPosition();
+    void onBehindWakeuped();
+    void refreshDevices();
 }

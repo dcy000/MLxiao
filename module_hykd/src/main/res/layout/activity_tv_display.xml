@@ -14,25 +14,14 @@
         android:id="@+id/live_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/connectTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="投屏"
-            android:textColor="#fff"
-            android:textSize="28sp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"/>
         <ImageView
             android:id="@+id/livemedia_back"
-            android:layout_alignParentRight="true"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100pt"
+            android:layout_height="100pt"
             android:clickable="true"
             android:src="@drawable/livemedia_cancel_video"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginLeft="100pt"
+            android:layout_marginTop="100pt"/>
         <TextView
             android:id="@+id/live_title"
             android:layout_width="wrap_content"
@@ -43,6 +32,73 @@
             android:textSize="14sp"
             android:visibility="gone"
             android:layout_centerInParent="true"/>
+        <LinearLayout
+            android:id="@+id/connectTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="60pt"
+            android:layout_toLeftOf="@+id/startVoice"
+            android:layout_marginRight="40pt"
+            android:clickable="true">
+            <ImageView
+                android:layout_width="160pt"
+                android:layout_height="160pt"
+                android:src="@drawable/hy_connect_tv_set"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="投屏"
+                android:textSize="48pt"
+                android:textColor="@color/white"
+                android:layout_marginTop="16pt"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/startVoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="60pt"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60pt"
+            android:clickable="true">
+            <ImageView
+                android:layout_width="160pt"
+                android:layout_height="160pt"
+                android:src="@drawable/hy_start_speak_set"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="唤醒"
+                android:textSize="48pt"
+                android:textColor="@color/white"
+                android:layout_marginTop="16pt"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/live_control2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <ImageView
+            android:id="@+id/iv_btn_last"
+            android:layout_width="84pt"
+            android:layout_height="92pt"
+            android:src="@drawable/hy_btn_last_set"
+            android:layout_marginLeft="100pt"
+            android:layout_marginBottom="80pt"
+            android:clickable="true"/>
+        <ImageView
+            android:id="@+id/iv_btn_next"
+            android:layout_width="84pt"
+            android:layout_height="92pt"
+            android:src="@drawable/hy_btn_next_set"
+            android:layout_toRightOf="@id/iv_btn_last"
+            android:layout_marginLeft="64pt"
+            android:clickable="true"
+            />
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/loadding_view"

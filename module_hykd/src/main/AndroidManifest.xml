@@ -51,6 +51,7 @@
 
         </activity>
         <activity android:name=".base_information_of_residents.HY_MyServiceHistoryDetailsActivity" />
+        <activity android:name=".connect_tv.ui.TestActivity"/>
     </application>
 
 </manifest>

@@ -1,14 +1,22 @@
 package com.zane.androidupnpdemo.live_tv.tv_play;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.gzq.administrator.lib_common.utils.ToastTool;
@@ -23,12 +31,31 @@ import com.iflytek.wake.MLWakeuperListener;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
 import com.ksyun.media.player.KSYTextureView;
+import com.zane.androidupnpdemo.R;
+import com.zane.androidupnpdemo.connect_tv.Intents;
+import com.zane.androidupnpdemo.connect_tv.control.ClingPlayControl;
+import com.zane.androidupnpdemo.connect_tv.control.callback.ControlCallback;
+import com.zane.androidupnpdemo.connect_tv.entity.ClingDevice;
+import com.zane.androidupnpdemo.connect_tv.entity.ClingDeviceList;
+import com.zane.androidupnpdemo.connect_tv.entity.DLANPlayState;
+import com.zane.androidupnpdemo.connect_tv.entity.IDevice;
+import com.zane.androidupnpdemo.connect_tv.entity.IResponse;
+import com.zane.androidupnpdemo.connect_tv.listener.BrowseRegistryListener;
+import com.zane.androidupnpdemo.connect_tv.listener.DeviceListChangedListener;
+import com.zane.androidupnpdemo.connect_tv.service.ClingUpnpService;
+import com.zane.androidupnpdemo.connect_tv.service.manager.ClingManager;
+import com.zane.androidupnpdemo.connect_tv.service.manager.DeviceManager;
+import com.zane.androidupnpdemo.connect_tv.ui.TVConnectMainActivity;
+import com.zane.androidupnpdemo.connect_tv.util.Utils;
 import com.zane.androidupnpdemo.live_tv.FloatingPlayer;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
 import com.zane.androidupnpdemo.utils.PinyinHelper;
 
+import org.fourthline.cling.model.meta.Device;
+
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.Collection;
 import java.util.List;
 
 import static com.zane.androidupnpdemo.live_tv.MediaHelper.getCurrentSpan;
@@ -62,7 +89,57 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
     private boolean isMonitorUserSpeaking = false;
     private MyHandler myHandler;
     private static final String TAG = TvPlayPresenterImp.class.getSimpleName();
+    /** 连接设备状态: 播放状态 */
+    public static final int PLAY_ACTION = 0xa1;
+    /** 连接设备状态: 暂停状态 */
+    public static final int PAUSE_ACTION = 0xa2;
+    /** 连接设备状态: 停止状态 */
+    public static final int STOP_ACTION = 0xa3;
+    /** 连接设备状态: 转菊花状态 */
+    public static final int TRANSITIONING_ACTION = 0xa4;
+    /** 获取进度 */
+    public static final int GET_POSITION_INFO_ACTION = 0xa5;
+    /** 投放失败 */
+    public static final int ERROR_ACTION = 0xa5;
+    private BroadcastReceiver mTransportStateBroadcastReceiver;
+    /**
+     * 投屏控制器
+     */
+    private ClingPlayControl mClingPlayControl = new ClingPlayControl();
+    private Handler mHandler = new InnerHandler();
+    private final class InnerHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case PLAY_ACTION:
+                    Log.i(TAG, "Execute PLAY_ACTION");
+                    Toast.makeText((TvPlayActivity)tvPlayActivity, "播放", Toast.LENGTH_SHORT).show();
+                    mClingPlayControl.setCurrentState(DLANPlayState.PLAY);
 
+                    break;
+                case PAUSE_ACTION:
+                    Log.i(TAG, "Execute PAUSE_ACTION");
+                    Toast.makeText((TvPlayActivity)tvPlayActivity, "暂停", Toast.LENGTH_SHORT).show();
+                    mClingPlayControl.setCurrentState(DLANPlayState.PAUSE);
+
+                    break;
+                case STOP_ACTION:
+                    Log.i(TAG, "Execute STOP_ACTION");
+                    mClingPlayControl.setCurrentState(DLANPlayState.STOP);
+                    Toast.makeText((TvPlayActivity)tvPlayActivity, "停止", Toast.LENGTH_SHORT).show();
+                    break;
+                case TRANSITIONING_ACTION:
+                    Log.i(TAG, "Execute TRANSITIONING_ACTION");
+                    Toast.makeText((TvPlayActivity)tvPlayActivity, "正在连接", Toast.LENGTH_SHORT).show();
+                    break;
+                case ERROR_ACTION:
+                    Log.e(TAG, "Execute ERROR_ACTION");
+                    Toast.makeText((TvPlayActivity)tvPlayActivity, "投放失败", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
     public TvPlayPresenterImp(ITvPlayView tvPlayActivity, List<LiveBean> tvs) {
         this.tvPlayActivity = tvPlayActivity;
         this.tvs = tvs;
@@ -72,8 +149,98 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         timeCountMonitorSpeaking = new MonitorSpeakingTimeCount(5000, 1000);
         myHandler = new MyHandler((Activity) tvPlayActivity);
         startListenWakeup();
+        bindServices();
+        initConnectTvListener();
+        registerReceivers();
     }
+    private void registerReceivers() {
+        //Register play status broadcast
+        mTransportStateBroadcastReceiver = new TransportStateBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intents.ACTION_PLAYING);
+        filter.addAction(Intents.ACTION_PAUSED_PLAYBACK);
+        filter.addAction(Intents.ACTION_STOPPED);
+        filter.addAction(Intents.ACTION_TRANSITIONING);
+        ((TvPlayActivity)tvPlayActivity).registerReceiver(mTransportStateBroadcastReceiver, filter);
+    }
+    /**
+     * 接收状态改变信息
+     */
+    private class TransportStateBroadcastReceiver extends BroadcastReceiver {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            Log.e(TAG, "Receive playback intent:" + action);
+            if (Intents.ACTION_PLAYING.equals(action)) {
+                mHandler.sendEmptyMessage(PLAY_ACTION);
+
+            } else if (Intents.ACTION_PAUSED_PLAYBACK.equals(action)) {
+                mHandler.sendEmptyMessage(PAUSE_ACTION);
+
+            } else if (Intents.ACTION_STOPPED.equals(action)) {
+                mHandler.sendEmptyMessage(STOP_ACTION);
+
+            } else if (Intents.ACTION_TRANSITIONING.equals(action)) {
+                mHandler.sendEmptyMessage(TRANSITIONING_ACTION);
+            }
+        }
+    }
+    private void initConnectTvListener() {
+
+        // 设置发现设备监听
+        mBrowseRegistryListener.setOnDeviceListChangedListener(new DeviceListChangedListener() {
+            @Override
+            public void onDeviceAdded(final IDevice device) {
+                tvPlayActivity.findNewDevice(device);
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        mDevicesAdapter.add((ClingDevice) device);
+//                    }
+//                });
+            }
+
+            @Override
+            public void onDeviceRemoved(final IDevice device) {
+                tvPlayActivity.removeDevice(device);
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        mDevicesAdapter.remove((ClingDevice) device);
+//                    }
+//                });
+            }
+        });
+    }
+    private void bindServices() {
+        Intent upnpServiceIntent = new Intent((TvPlayActivity)tvPlayActivity, ClingUpnpService.class);
+        ((TvPlayActivity) tvPlayActivity).bindService(upnpServiceIntent, mUpnpServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+    private ServiceConnection mUpnpServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            Log.e(TAG, "mUpnpServiceConnection onServiceConnected");
+
+            ClingUpnpService.LocalBinder binder = (ClingUpnpService.LocalBinder) service;
+            ClingUpnpService beyondUpnpService = binder.getService();
+
+            ClingManager clingUpnpServiceManager = ClingManager.getInstance();
+            clingUpnpServiceManager.setUpnpService(beyondUpnpService);
+            clingUpnpServiceManager.setDeviceManager(new DeviceManager());
+
+            clingUpnpServiceManager.getRegistry().addListener(mBrowseRegistryListener);
+            //Search on service created.
+            clingUpnpServiceManager.searchDevices();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName className) {
+            Log.e(TAG, "mUpnpServiceConnection onServiceDisconnected");
+
+            ClingManager.getInstance().setUpnpService(null);
+        }
+    };
+    /** 用于监听发现设备 */
+    private BrowseRegistryListener mBrowseRegistryListener =new BrowseRegistryListener();
     private void startListenWakeup() {
         MLVoiceWake.initGlobalContext((TvPlayActivity) tvPlayActivity);
         MLVoiceWake.startWakeUp(new MLWakeuperListener() {
@@ -84,10 +251,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
             @Override
             public void onMLResult() {
-                if (ksyTextureView.isPlaying()) {
-                    ksyTextureView.pause();
-                }
-                MLVoiceSynthetize.startSynthesize((TvPlayActivity) tvPlayActivity, "主人,您想看哪个电视台？", speakFinishListener, false);
+                onBehindWakeuped();
             }
         });
 
@@ -485,6 +649,16 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             ksyTextureView.runInBackground(false);
     }
 
+    @Override
+    public void playLast(String url) {
+        ksyTextureView.reload(url, true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+    }
+
+    @Override
+    public void playNext(String url) {
+        ksyTextureView.reload(url, true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+    }
+
     //事件监听
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
@@ -649,7 +823,45 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
     public void onDestroy() {
         videoPlayEnd();
         timeCount.cancel();
+
+        mHandler.removeCallbacksAndMessages(null);
+        // Unbind UPnP service
+        ((TvPlayActivity)tvPlayActivity).unbindService(mUpnpServiceConnection);
+        // Unbind System service
+        //        unbindService(mSystemServiceConnection);
+        // UnRegister Receiver
+        ((TvPlayActivity)tvPlayActivity).unregisterReceiver(mTransportStateBroadcastReceiver);
+
+        ClingManager.getInstance().destroy();
+        ClingDeviceList.getInstance().destroy();
         tvPlayActivity = null;
+    }
+
+    @Override
+    public int getOnPlayingPosition() {
+        for (int i=0;i<tvs.size();i++){
+            if (tvs.get(i).getTvUrl().equals(ksyTextureView.getDataSource())) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public void onBehindWakeuped() {
+        if (ksyTextureView.isPlaying()) {
+            ksyTextureView.pause();
+        }
+        MLVoiceSynthetize.startSynthesize((TvPlayActivity) tvPlayActivity, "主人,您想看哪个电视台？", speakFinishListener, false);
+    }
+
+    @Override
+    public void refreshDevices() {
+        Collection<ClingDevice> devices = ClingManager.getInstance().getDmrDevices();
+        ClingDeviceList.getInstance().setClingDeviceList(devices);
+        if (devices != null){
+            tvPlayActivity.refreshDeices(devices);
+        }
     }
 
     public KSYTextureView getKsyTextureView() {

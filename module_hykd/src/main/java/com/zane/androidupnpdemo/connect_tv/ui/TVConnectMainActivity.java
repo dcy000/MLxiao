@@ -107,26 +107,6 @@ public class TVConnectMainActivity extends AppCompatActivity implements SwipeRef
         }
     };
 
-    //    private ServiceConnection mSystemServiceConnection = new ServiceConnection() {
-    //        @Override
-    //        public void onServiceConnected(ComponentName className, IBinder service) {
-    //            Log.e(TAG, "mSystemServiceConnection onServiceConnected");
-    //
-    //            SystemService.LocalBinder systemServiceBinder = (SystemService.LocalBinder) service;
-    //            //Set binder to SystemManager
-    //            ClingManager clingUpnpServiceManager = ClingManager.getInstance();
-    ////            clingUpnpServiceManager.setSystemService(systemServiceBinder.getService());
-    //        }
-    //
-    //        @Override
-    //        public void onServiceDisconnected(ComponentName className) {
-    //            Log.e(TAG, "mSystemServiceConnection onServiceDisconnected");
-    //
-    //            ClingUpnpServiceManager.getInstance().setSystemService(null);
-    //        }
-    //    };
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

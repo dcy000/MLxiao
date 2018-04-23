@@ -87,5 +87,6 @@ public class TvChannelActivity extends CommonBaseActivity implements ITvList, Vi
     @Override
     public void onClick(View v) {
         super.onClick(v);
+
     }
 }
