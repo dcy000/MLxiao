@@ -9,7 +9,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/livemedia_content_background"/>
-
+    <LinearLayout
+        android:id="@+id/loadding_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center">
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:indicatorName="BallClipRotatePulseIndicator"
+            app:indicatorColor="#fff"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在连接..."
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
     <RelativeLayout
         android:id="@+id/live_control"
         android:layout_width="match_parent"
@@ -100,27 +120,55 @@
             android:clickable="true"
             />
     </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/loadding_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:gravity="center">
-        <com.wang.avi.AVLoadingIndicatorView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:indicatorName="BallClipRotatePulseIndicator"
-            app:indicatorColor="#fff"
-            />
+    <RelativeLayout
+        android:id="@+id/rl_onplaying_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#010101"
+        android:visibility="gone"
+        >
         <TextView
+            android:id="@+id/tv_device_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="正在连接..."
-            android:textSize="18sp"
+            android:text="设备"
+            android:textSize="72pt"
+            android:textColor="@color/white"
+            android:layout_marginTop="28pt"
+            android:layout_centerHorizontal="true"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hy_dark_default_tv"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:id="@+id/tv_current_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在连接设备..."
             android:textColor="#fff"
-            android:layout_marginTop="5dp"/>
-    </LinearLayout>
+            android:textSize="56pt"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:id="@+id/btn_cancel_cast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="56pt"
+            android:text="退出"
+            android:textColor="#fff"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="144pt"
+            android:background="@drawable/hy_btn_tv_cancel_set"
+            android:paddingLeft="124pt"
+            android:paddingRight="124pt"
+            android:paddingTop="32pt"
+            android:paddingBottom="32pt"
+            android:clickable="true"/>
+    </RelativeLayout>
     <View
         android:id="@+id/view_voice"
         android:layout_width="50dp"
