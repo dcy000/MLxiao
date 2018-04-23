@@ -30,7 +30,7 @@ public class DevicesAdapter extends ArrayAdapter<ClingDevice> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null)
-            convertView = mInflater.inflate(R.layout.devices_items, null);
+            convertView = mInflater.inflate(R.layout.hy_devices_items, null);
 
         ClingDevice item = getItem(position);
         if (item == null || item.getDevice() == null) {
@@ -38,11 +38,7 @@ public class DevicesAdapter extends ArrayAdapter<ClingDevice> {
         }
 
         Device device = item.getDevice();
-
-        ImageView imageView = (ImageView)convertView.findViewById(R.id.listview_item_image);
-        imageView.setBackgroundResource(R.drawable.ic_action_dock);
-
-        TextView textView = (TextView) convertView.findViewById(R.id.listview_item_line_one);
+        TextView textView = (TextView) convertView.findViewById(R.id.tv_device_name);
         textView.setText(device.getDetails().getFriendlyName());
         return convertView;
     }

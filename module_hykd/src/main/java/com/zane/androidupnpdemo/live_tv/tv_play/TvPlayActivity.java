@@ -26,6 +26,7 @@ import com.gzq.administrator.lib_common.utils.UiUtils;
 import com.ksyun.media.player.KSYTextureView;
 import com.zane.androidupnpdemo.R;
 import com.zane.androidupnpdemo.connect_tv.entity.ClingDevice;
+import com.zane.androidupnpdemo.connect_tv.entity.DLANPlayState;
 import com.zane.androidupnpdemo.connect_tv.entity.IDevice;
 import com.zane.androidupnpdemo.connect_tv.service.manager.ClingManager;
 import com.zane.androidupnpdemo.connect_tv.ui.DevicesAdapter;
@@ -58,6 +59,19 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     private LinearLayout mConnectTv;
     private DevicesAdapter mDevicesAdapter;
     private PopupWindow popupWindow;
+    /**
+     * 设备
+     */
+    private TextView mTvDeviceName;
+    /**
+     * 正在播放中...
+     */
+    private TextView mTvCurrentState;
+    /**
+     * 退出
+     */
+    private TextView mBtnCancelCast;
+    private RelativeLayout mRlOnplayingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +106,11 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         mStartVoice.setOnClickListener(this);
         mIvBtnLast.setOnClickListener(this);
         mIvBtnNext.setOnClickListener(this);
+        mTvDeviceName = (TextView) findViewById(R.id.tv_device_name);
+        mTvCurrentState = (TextView) findViewById(R.id.tv_current_state);
+        mBtnCancelCast = (TextView) findViewById(R.id.btn_cancel_cast);
+        mBtnCancelCast.setOnClickListener(this);
+        mRlOnplayingView = (RelativeLayout) findViewById(R.id.rl_onplaying_view);
     }
 
     @Override
@@ -103,18 +122,21 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         } else if (i == R.id.livemedia_back) {
             closeTv();
 
-        }else if(i==R.id.iv_btn_last){
-            int playNewPosition=tvPlayPresenter.getOnPlayingPosition()-1;
-            if (playNewPosition>=0) {
+        } else if (i == R.id.iv_btn_last) {
+            int playNewPosition = tvPlayPresenter.getOnPlayingPosition() - 1;
+            if (playNewPosition >= 0) {
                 tvPlayPresenter.playLast(tvs.get(playNewPosition).getTvUrl());
             }
-        }else if (i==R.id.iv_btn_next){
-            int playNewPosition=tvPlayPresenter.getOnPlayingPosition()+1;
-            if (playNewPosition<tvs.size()) {
+        } else if (i == R.id.iv_btn_next) {
+            int playNewPosition = tvPlayPresenter.getOnPlayingPosition() + 1;
+            if (playNewPosition < tvs.size()) {
                 tvPlayPresenter.playNext(tvs.get(playNewPosition).getTvUrl());
             }
-        }else if (i==R.id.startVoice){
+        } else if (i == R.id.startVoice) {
             tvPlayPresenter.onBehindWakeuped();
+        }else if (i==R.id.btn_cancel_cast){
+            tvPlayPresenter.stopCastTv();
+            mRlOnplayingView.setVisibility(View.GONE);
         }
     }
 
@@ -142,7 +164,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void closeTv() {
-//        finish();
+        finish();
     }
 
     @Override
@@ -153,10 +175,8 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showPopWindow() {
-        View popupView = null;
-        TranslateAnimation animation = null;
+        View popupView = View.inflate(this, R.layout.hy_search_devices, null);
         if (popupWindow == null) {
-            popupView = View.inflate(this, R.layout.hy_search_devices, null);
             // 参数2,3：指明popupwindow的宽度和高度
             popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT,
                     UiUtils.pt(600));
@@ -165,26 +185,35 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
             popupWindow.setFocusable(true);
             // 设置点击popupwindow外屏幕其它地方消失
             popupWindow.setOutsideTouchable(true);
-            // 平移动画相对于手机屏幕的底部开始，X轴不变，Y轴从1变0
-            animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0,
-                    Animation.RELATIVE_TO_PARENT, 1, Animation.RELATIVE_TO_PARENT, 0);
-            animation.setInterpolator(new AccelerateInterpolator());
-            animation.setDuration(200);
-        }
-        // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
-        popupWindow.showAtLocation(TvPlayActivity.this.findViewById(R.id.live_control2), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
-        popupView.startAnimation(animation);
-        ImageView ivRefresh=popupView.findViewById(R.id.iv_refresh);
-        ListView devicesList=popupView.findViewById(R.id.list);
-        TextView tvCancle=popupView.findViewById(R.id.tv_cancle);
-        Animation animation1=AnimationUtils.loadAnimation(this,R.anim.hy_rotate);
 
+        }
+        // 平移动画相对于手机屏幕的底部开始，X轴不变，Y轴从1变0
+        TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0,
+                Animation.RELATIVE_TO_PARENT, 1, Animation.RELATIVE_TO_PARENT, 0);
+        animation.setInterpolator(new AccelerateInterpolator());
+        animation.setDuration(200);
+        // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
+        popupWindow.showAtLocation(TvPlayActivity.this.findViewById(R.id.live_control2), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popupView.startAnimation(animation);
+
+        ImageView ivRefresh = popupView.findViewById(R.id.iv_refresh);
+        ListView devicesList = popupView.findViewById(R.id.list);
+        TextView tvCancle = popupView.findViewById(R.id.tv_cancle);
+        Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.hy_rotate);
         animation1.setInterpolator(new LinearInterpolator());
-        ivRefresh.setAnimation(animation1);
+        ivRefresh.startAnimation(animation1);
+
         mDevicesAdapter = new DevicesAdapter(this);
         devicesList.setAdapter(mDevicesAdapter);
         tvPlayPresenter.refreshDevices();
-
+        tvCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (popupWindow != null) {
+                    popupWindow.dismiss();
+                }
+            }
+        });
         devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -200,8 +229,12 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
                 if (Utils.isNull(device)) {
                     return;
                 }
-
-                String selectedDeviceName = String.format(getString(R.string.selectedText), device.getDetails().getFriendlyName());
+                tvPlayPresenter.startCastTv(tvs.get(tvPlayPresenter.getOnPlayingPosition()).getTvUrl());
+                mTvDeviceName.setText( device.getDetails().getFriendlyName());
+                if (popupWindow != null) {
+                    popupWindow.dismiss();
+                }
+                mRlOnplayingView.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -260,13 +293,28 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void findNewDevice(IDevice device) {
-
+    public void findNewDevice(final IDevice device) {
+        if (mDevicesAdapter != null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mDevicesAdapter.add((ClingDevice) device);
+                }
+            });
+        }
     }
 
     @Override
-    public void removeDevice(IDevice device) {
+    public void removeDevice(final IDevice device) {
+        if (mDevicesAdapter != null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mDevicesAdapter.remove((ClingDevice) device);
+                }
+            });
 
+        }
     }
 
     @Override
@@ -276,9 +324,20 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void changeCastTvState(int state) {
+        if (state == DLANPlayState.PLAY) {
+            mTvCurrentState.setText("正在播放中...");
+        } else if (state == DLANPlayState.BUFFER) {
+            mTvCurrentState.setText("正在连接设备...");
+        } else if (state == DLANPlayState.ERROR) {
+            mTvCurrentState.setText("出错!请退出重连");
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (popupWindow!=null&&popupWindow.isShowing()){
+        if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
         tvPlayPresenter.onDestroy();

@@ -27,4 +27,5 @@ public interface ITvPlayView {
     void findNewDevice(IDevice device);
     void removeDevice(IDevice device);
     void refreshDeices(Collection<ClingDevice> devices);
+    void changeCastTvState(int state);
 }

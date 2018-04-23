@@ -40,7 +40,9 @@ public class ClingDeviceList {
     }
 
     public void addDevice(ClingDevice device){
-        mClingDeviceList.add(device);
+        if (Utils.isNotNull(device)) {
+            mClingDeviceList.add(device);
+        }
     }
 
     @Nullable

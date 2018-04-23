@@ -14,4 +14,6 @@ public interface ITvPlayPresenter {
     int getOnPlayingPosition();
     void onBehindWakeuped();
     void refreshDevices();
+    void startCastTv(String url);
+    void stopCastTv();
 }

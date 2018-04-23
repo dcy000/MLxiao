@@ -32,6 +32,7 @@ import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
 import com.ksyun.media.player.KSYTextureView;
 import com.zane.androidupnpdemo.R;
+import com.zane.androidupnpdemo.connect_tv.Config;
 import com.zane.androidupnpdemo.connect_tv.Intents;
 import com.zane.androidupnpdemo.connect_tv.control.ClingPlayControl;
 import com.zane.androidupnpdemo.connect_tv.control.callback.ControlCallback;
@@ -114,28 +115,33 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             switch (msg.what) {
                 case PLAY_ACTION:
                     Log.i(TAG, "Execute PLAY_ACTION");
-                    Toast.makeText((TvPlayActivity)tvPlayActivity, "播放", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText((TvPlayActivity)tvPlayActivity, "播放", Toast.LENGTH_SHORT).show();
                     mClingPlayControl.setCurrentState(DLANPlayState.PLAY);
-
+                    tvPlayActivity.changeCastTvState(DLANPlayState.PLAY);
                     break;
                 case PAUSE_ACTION:
                     Log.i(TAG, "Execute PAUSE_ACTION");
-                    Toast.makeText((TvPlayActivity)tvPlayActivity, "暂停", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText((TvPlayActivity)tvPlayActivity, "暂停", Toast.LENGTH_SHORT).show();
                     mClingPlayControl.setCurrentState(DLANPlayState.PAUSE);
-
+                    tvPlayActivity.changeCastTvState(DLANPlayState.PAUSE);
                     break;
                 case STOP_ACTION:
                     Log.i(TAG, "Execute STOP_ACTION");
                     mClingPlayControl.setCurrentState(DLANPlayState.STOP);
-                    Toast.makeText((TvPlayActivity)tvPlayActivity, "停止", Toast.LENGTH_SHORT).show();
+                    tvPlayActivity.changeCastTvState(DLANPlayState.STOP);
+//                    Toast.makeText((TvPlayActivity)tvPlayActivity, "停止", Toast.LENGTH_SHORT).show();
                     break;
                 case TRANSITIONING_ACTION:
                     Log.i(TAG, "Execute TRANSITIONING_ACTION");
-                    Toast.makeText((TvPlayActivity)tvPlayActivity, "正在连接", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText((TvPlayActivity)tvPlayActivity, "正在连接", Toast.LENGTH_SHORT).show();
+                    mClingPlayControl.setCurrentState(DLANPlayState.BUFFER);
+                    tvPlayActivity.changeCastTvState(DLANPlayState.BUFFER);
                     break;
                 case ERROR_ACTION:
                     Log.e(TAG, "Execute ERROR_ACTION");
-                    Toast.makeText((TvPlayActivity)tvPlayActivity, "投放失败", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText((TvPlayActivity)tvPlayActivity, "投放失败", Toast.LENGTH_SHORT).show();
+                    mClingPlayControl.setCurrentState(DLANPlayState.ERROR);
+                    tvPlayActivity.changeCastTvState(DLANPlayState.ERROR);
                     break;
             }
         }
@@ -192,22 +198,17 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         mBrowseRegistryListener.setOnDeviceListChangedListener(new DeviceListChangedListener() {
             @Override
             public void onDeviceAdded(final IDevice device) {
-                tvPlayActivity.findNewDevice(device);
-//                runOnUiThread(new Runnable() {
-//                    public void run() {
-//                        mDevicesAdapter.add((ClingDevice) device);
-//                    }
-//                });
+                Log.e(TAG, "发现新设备onDeviceAdded: "+device.toString() );
+                if (device!=null) {
+                    tvPlayActivity.findNewDevice(device);
+                }
             }
 
             @Override
             public void onDeviceRemoved(final IDevice device) {
-                tvPlayActivity.removeDevice(device);
-//                runOnUiThread(new Runnable() {
-//                    public void run() {
-//                        mDevicesAdapter.remove((ClingDevice) device);
-//                    }
-//                });
+                if (device != null) {
+                    tvPlayActivity.removeDevice(device);
+                }
             }
         });
     }
@@ -858,14 +859,81 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
     @Override
     public void refreshDevices() {
         Collection<ClingDevice> devices = ClingManager.getInstance().getDmrDevices();
-        ClingDeviceList.getInstance().setClingDeviceList(devices);
         if (devices != null){
+            ClingDeviceList.getInstance().setClingDeviceList(devices);
             tvPlayActivity.refreshDeices(devices);
         }
     }
 
-    public KSYTextureView getKsyTextureView() {
-        return ksyTextureView;
+    @Override
+    public void startCastTv(String url) {
+        if (ksyTextureView.isPlaying()){
+            ksyTextureView.pause();
+        }
+        play(url);
     }
 
+    @Override
+    public void stopCastTv() {
+        //本机恢复播放
+        if (!ksyTextureView.isPlaying()){
+            ksyTextureView.start();
+        }
+        stop();
+    }
+
+    /**
+     * 播放视频
+     */
+    private void play(String url) {
+        @DLANPlayState.DLANPlayStates int currentState = mClingPlayControl.getCurrentState();
+
+        /**
+         * 通过判断状态 来决定 是继续播放 还是重新播放
+         */
+        if (currentState == DLANPlayState.STOP) {
+            mClingPlayControl.playNew(url, new ControlCallback() {
+
+                @Override
+                public void success(IResponse response) {
+                    ClingManager.getInstance().registerAVTransport((TvPlayActivity)tvPlayActivity);
+                    ClingManager.getInstance().registerRenderingControl((TvPlayActivity)tvPlayActivity);
+                }
+
+                @Override
+                public void fail(IResponse response) {
+                    Log.e(TAG, "play fail");
+                    mHandler.sendEmptyMessage(ERROR_ACTION);
+                }
+            });
+        } else {
+            mClingPlayControl.play(new ControlCallback() {
+                @Override
+                public void success(IResponse response) {
+                    Log.e(TAG, "play success");
+                }
+
+                @Override
+                public void fail(IResponse response) {
+                    Log.e(TAG, "play fail");
+                    mHandler.sendEmptyMessage(ERROR_ACTION);
+                }
+            });
+        }
+    }
+    /**
+     * 停止
+     */
+    private void stop() {
+        mClingPlayControl.stop(new ControlCallback() {
+            @Override
+            public void success(IResponse response) {
+                Log.e(TAG, "stop success");
+            }
+            @Override
+            public void fail(IResponse response) {
+                Log.e(TAG, "stop fail");
+            }
+        });
+    }
 }
