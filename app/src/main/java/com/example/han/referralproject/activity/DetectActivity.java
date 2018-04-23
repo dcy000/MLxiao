@@ -1179,7 +1179,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             if (resourceId != 0) {
                 String uri = "android.resource://" + getPackageName() + "/" + resourceId;
                 mVideoView.setVideoURI(Uri.parse(uri));
-                mVideoView.start();
+//                mVideoView.start();
+                mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mp.start();
+                    }
+                });
                 mVideoView.setOnCompletionListener(mCompletionListener);
             } else {
                 mVideoView.setVisibility(View.GONE);
