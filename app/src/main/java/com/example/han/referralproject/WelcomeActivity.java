@@ -45,22 +45,25 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
-        if (isFirstIn) {
-            initPermision();
-            super.onCreate(null);
-        } else {
-            super.onCreate(null);
+        if (Build.VERSION.SDK_INT < 23) {
+            super.onCreate(savedInstanceState);
             initContentView();
+
+        } else {
+            boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
+            if (isFirstIn) {
+                initPermision();
+                super.onCreate(savedInstanceState);
+            } else {
+                super.onCreate(savedInstanceState);
+                initContentView();
+            }
+
         }
 
     }
 
     private void initPermision() {
-
-        if (Build.VERSION.SDK_INT < 23) {
-            return;
-        }
 
         boolean isAllGranted = checkPermissionAllGranted(
                 new String[]{
