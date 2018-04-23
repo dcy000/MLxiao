@@ -51,7 +51,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     private List<LiveBean> tvs;
     private int playFirstPosition = 0;
     private ITvPlayPresenter tvPlayPresenter;
-    private View mViewVoice;
+    private LinearLayout mViewVoice;
     private LinearLayout mStartVoice;
     private ImageView mIvBtnLast;
     private ImageView mIvBtnNext;
@@ -96,7 +96,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         mLiveTitle = (TextView) findViewById(R.id.live_title);
         mLiveControl = (RelativeLayout) findViewById(R.id.live_control);
         mLoaddingView = (LinearLayout) findViewById(R.id.loadding_view);
-        mViewVoice = (View) findViewById(R.id.view_voice);
+        mViewVoice = (LinearLayout) findViewById(R.id.view_voice);
         mConnectTv = (LinearLayout) findViewById(R.id.connectTv);
         mConnectTv.setOnClickListener(this);
         mStartVoice = (LinearLayout) findViewById(R.id.startVoice);
@@ -229,12 +229,18 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
                 if (Utils.isNull(device)) {
                     return;
                 }
-                tvPlayPresenter.startCastTv(tvs.get(tvPlayPresenter.getOnPlayingPosition()).getTvUrl());
+                int po=tvPlayPresenter.getOnPlayingPosition();
+                if (po==0&&position==0){
+                    tvPlayPresenter.startCastTv(tvs.get(0).getTvUrl());
+                }else{
+                    tvPlayPresenter.startCastTv(tvs.get(po).getTvUrl());
+                }
                 mTvDeviceName.setText( device.getDetails().getFriendlyName());
                 if (popupWindow != null) {
                     popupWindow.dismiss();
                 }
                 mRlOnplayingView.setVisibility(View.VISIBLE);
+                mTvCurrentState.setText("正在连接设备...");
             }
         });
     }

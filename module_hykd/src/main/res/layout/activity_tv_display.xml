@@ -169,11 +169,24 @@
             android:paddingBottom="32pt"
             android:clickable="true"/>
     </RelativeLayout>
-    <View
+    <LinearLayout
         android:id="@+id/view_voice"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="#33c776"
+        android:layout_width="690pt"
+        android:layout_height="500pt"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:background="#010101">
+        <ImageView
+            android:layout_width="125pt"
+            android:layout_height="194pt"
+            android:src="@drawable/hy_voice_input_img"/>
+        <ImageView
+            android:layout_width="86pt"
+            android:layout_height="182pt"
+            android:src="@drawable/hy_voice_volume"
+            android:layout_marginLeft="60pt"
+            android:layout_marginTop="12pt"/>
+    </LinearLayout>
 </RelativeLayout>

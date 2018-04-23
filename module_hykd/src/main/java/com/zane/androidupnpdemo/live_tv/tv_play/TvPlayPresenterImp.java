@@ -12,6 +12,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -90,17 +91,29 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
     private boolean isMonitorUserSpeaking = false;
     private MyHandler myHandler;
     private static final String TAG = TvPlayPresenterImp.class.getSimpleName();
-    /** 连接设备状态: 播放状态 */
+    /**
+     * 连接设备状态: 播放状态
+     */
     public static final int PLAY_ACTION = 0xa1;
-    /** 连接设备状态: 暂停状态 */
+    /**
+     * 连接设备状态: 暂停状态
+     */
     public static final int PAUSE_ACTION = 0xa2;
-    /** 连接设备状态: 停止状态 */
+    /**
+     * 连接设备状态: 停止状态
+     */
     public static final int STOP_ACTION = 0xa3;
-    /** 连接设备状态: 转菊花状态 */
+    /**
+     * 连接设备状态: 转菊花状态
+     */
     public static final int TRANSITIONING_ACTION = 0xa4;
-    /** 获取进度 */
+    /**
+     * 获取进度
+     */
     public static final int GET_POSITION_INFO_ACTION = 0xa5;
-    /** 投放失败 */
+    /**
+     * 投放失败
+     */
     public static final int ERROR_ACTION = 0xa5;
     private BroadcastReceiver mTransportStateBroadcastReceiver;
     /**
@@ -108,6 +121,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
      */
     private ClingPlayControl mClingPlayControl = new ClingPlayControl();
     private Handler mHandler = new InnerHandler();
+
     private final class InnerHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -146,6 +160,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             }
         }
     }
+
     public TvPlayPresenterImp(ITvPlayView tvPlayActivity, List<LiveBean> tvs) {
         this.tvPlayActivity = tvPlayActivity;
         this.tvs = tvs;
@@ -159,6 +174,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         initConnectTvListener();
         registerReceivers();
     }
+
     private void registerReceivers() {
         //Register play status broadcast
         mTransportStateBroadcastReceiver = new TransportStateBroadcastReceiver();
@@ -167,8 +183,9 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         filter.addAction(Intents.ACTION_PAUSED_PLAYBACK);
         filter.addAction(Intents.ACTION_STOPPED);
         filter.addAction(Intents.ACTION_TRANSITIONING);
-        ((TvPlayActivity)tvPlayActivity).registerReceiver(mTransportStateBroadcastReceiver, filter);
+        ((TvPlayActivity) tvPlayActivity).registerReceiver(mTransportStateBroadcastReceiver, filter);
     }
+
     /**
      * 接收状态改变信息
      */
@@ -192,14 +209,15 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             }
         }
     }
+
     private void initConnectTvListener() {
 
         // 设置发现设备监听
         mBrowseRegistryListener.setOnDeviceListChangedListener(new DeviceListChangedListener() {
             @Override
             public void onDeviceAdded(final IDevice device) {
-                Log.e(TAG, "发现新设备onDeviceAdded: "+device.toString() );
-                if (device!=null) {
+                Log.e(TAG, "发现新设备onDeviceAdded: " + device.toString());
+                if (device != null) {
                     tvPlayActivity.findNewDevice(device);
                 }
             }
@@ -212,10 +230,12 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             }
         });
     }
+
     private void bindServices() {
-        Intent upnpServiceIntent = new Intent((TvPlayActivity)tvPlayActivity, ClingUpnpService.class);
+        Intent upnpServiceIntent = new Intent((TvPlayActivity) tvPlayActivity, ClingUpnpService.class);
         ((TvPlayActivity) tvPlayActivity).bindService(upnpServiceIntent, mUpnpServiceConnection, Context.BIND_AUTO_CREATE);
     }
+
     private ServiceConnection mUpnpServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
@@ -240,8 +260,11 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             ClingManager.getInstance().setUpnpService(null);
         }
     };
-    /** 用于监听发现设备 */
-    private BrowseRegistryListener mBrowseRegistryListener =new BrowseRegistryListener();
+    /**
+     * 用于监听发现设备
+     */
+    private BrowseRegistryListener mBrowseRegistryListener = new BrowseRegistryListener();
+
     private void startListenWakeup() {
         MLVoiceWake.initGlobalContext((TvPlayActivity) tvPlayActivity);
         MLVoiceWake.startWakeUp(new MLWakeuperListener() {
@@ -287,9 +310,9 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         @Override
         public void onCompleted(SpeechError speechError) {
             isMonitorUserSpeaking = true;
-            timeCountMonitorSpeaking.start();
             //说完之后开始识别
             myHandler.sendEmptyMessage(LOOP_MONITOR_LISTENER);
+            timeCountMonitorSpeaking.start();
         }
 
         @Override
@@ -333,14 +356,26 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             @Override
             public void onMLEndOfSpeech() {
                 Log.e(TAG, "onMLEndOfSpeech: ");
-                if (isMonitorUserSpeaking) {
+                if (!isMonitorUserSpeaking){
+                    tvPlayActivity.hideVoiceView();
+                }
+                if (!isMonitorUserSpeaking&& !ksyTextureView.isPlaying()){
+                    ksyTextureView.start();
+                }
+            }
+            @Override
+            public void onMLError(SpeechError error) {
+                Log.e(TAG, "onMLError: " + error.getErrorCode() + "====" + error.getErrorDescription());
+                if (error.getErrorCode() == 10118 && isMonitorUserSpeaking) {//没有听到讲话
                     myHandler.sendEmptyMessage(LOOP_MONITOR_LISTENER);
                 }
-                tvPlayActivity.hideVoiceView();
             }
-
             @Override
             public void onMLResult(String result) {
+                if (TextUtils.isEmpty(result) && isMonitorUserSpeaking) {
+                    myHandler.sendEmptyMessage(LOOP_MONITOR_LISTENER);
+                    return;
+                }
                 isMonitorUserSpeaking = false;
                 Log.e(TAG, "onMLResult: -----------" + result);
                 ToastTool.showShort(result);
@@ -387,16 +422,16 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
                     ksyTextureView.reload(tvs.get(8).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
                     return;
                 }
-                if (inSpell.matches("(.*)(si|shi)wutai|cctv(si|shi)wu(.*)")) {//CCTV15
-                    ksyTextureView.reload(tvs.get(9).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
-                    return;
-                }
                 if (inSpell.matches("(.*)wenhua(jin|jing)(pin|ping)(.*)")) {//CCTV-文化精品
                     ksyTextureView.reload(tvs.get(10).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
                     return;
                 }
                 if (inSpell.matches("(.*)(shao|sao)er(.*)")) {//CCTV-少儿
                     ksyTextureView.reload(tvs.get(11).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
+                    return;
+                }
+                if (inSpell.matches("(.*)(si|shi)wutai|cctv(si|shi)wu(.*)")) {//CCTV15
+                    ksyTextureView.reload(tvs.get(9).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
                     return;
                 }
                 if (inSpell.matches("(.*)(zu|zhu)qiu(.*)")) {//CCTV-风云足球
@@ -412,7 +447,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
                     ksyTextureView.reload(tvs.get(14).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
                     return;
                 }
-                if (inSpell.matches("(.*)tiyue|cctvwu|wutai(.*)")) {//CCTV-体育
+                if (inSpell.matches("(.*)wutai|tiyue|cctvwu(.*)")) {//CCTV-体育
                     ksyTextureView.reload(tvs.get(15).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
                     return;
                 }
@@ -456,7 +491,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
                     ksyTextureView.reload(tvs.get(25).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
                     return;
                 }
-                if (inSpell.matches("(.*)dong(nan|lan)(.*)")) {//东南
+                if (inSpell.matches("(.*)dong(nan|lan)|(fu|hu)jian(.*)")) {//东南
                     ksyTextureView.reload(tvs.get(26).getTvUrl(), true, KSYMediaPlayer.KSYReloadMode.KSY_RELOAD_MODE_ACCURATE);
                     return;
                 }
@@ -593,17 +628,6 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
                 if (!ksyTextureView.isPlaying()) {
                     ksyTextureView.start();
-                }
-            }
-
-            @Override
-            public void onMLError(SpeechError error) {
-                Log.e(TAG, "onMLError: " + error.getErrorCode() + "====" + error.getErrorDescription());
-                if (error.getErrorCode() == 10118) {//没有听到讲话
-                    if (!ksyTextureView.isPlaying()) {
-                        ksyTextureView.start();
-                    }
-                    myHandler.sendEmptyMessage(LOOP_MONITOR_LISTENER);
                 }
             }
         });
@@ -751,7 +775,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         @Override
         public void onPrepared(IMediaPlayer iMediaPlayer) {
             tvPlayActivity.hideLoadingDialog();
-            ksyTextureView.setVideoScalingMode(KSYMediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+            ksyTextureView.setVideoScalingMode(KSYMediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT);
             ksyTextureView.start();
             timeCount.start();
         }
@@ -827,20 +851,22 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
         mHandler.removeCallbacksAndMessages(null);
         // Unbind UPnP service
-        ((TvPlayActivity)tvPlayActivity).unbindService(mUpnpServiceConnection);
+        ((TvPlayActivity) tvPlayActivity).unbindService(mUpnpServiceConnection);
         // Unbind System service
         //        unbindService(mSystemServiceConnection);
         // UnRegister Receiver
-        ((TvPlayActivity)tvPlayActivity).unregisterReceiver(mTransportStateBroadcastReceiver);
+        ((TvPlayActivity) tvPlayActivity).unregisterReceiver(mTransportStateBroadcastReceiver);
 
         ClingManager.getInstance().destroy();
         ClingDeviceList.getInstance().destroy();
+        MLVoiceRecognize.destroy();
+        MLVoiceSynthetize.destory();
         tvPlayActivity = null;
     }
 
     @Override
     public int getOnPlayingPosition() {
-        for (int i=0;i<tvs.size();i++){
+        for (int i = 0; i < tvs.size(); i++) {
             if (tvs.get(i).getTvUrl().equals(ksyTextureView.getDataSource())) {
                 return i;
             }
@@ -854,12 +880,13 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             ksyTextureView.pause();
         }
         MLVoiceSynthetize.startSynthesize((TvPlayActivity) tvPlayActivity, "主人,您想看哪个电视台？", speakFinishListener, false);
+
     }
 
     @Override
     public void refreshDevices() {
         Collection<ClingDevice> devices = ClingManager.getInstance().getDmrDevices();
-        if (devices != null){
+        if (devices != null) {
             ClingDeviceList.getInstance().setClingDeviceList(devices);
             tvPlayActivity.refreshDeices(devices);
         }
@@ -867,7 +894,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
     @Override
     public void startCastTv(String url) {
-        if (ksyTextureView.isPlaying()){
+        if (ksyTextureView.isPlaying()) {
             ksyTextureView.pause();
         }
         play(url);
@@ -876,7 +903,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
     @Override
     public void stopCastTv() {
         //本机恢复播放
-        if (!ksyTextureView.isPlaying()){
+        if (!ksyTextureView.isPlaying()) {
             ksyTextureView.start();
         }
         stop();
@@ -896,8 +923,9 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
                 @Override
                 public void success(IResponse response) {
-                    ClingManager.getInstance().registerAVTransport((TvPlayActivity)tvPlayActivity);
-                    ClingManager.getInstance().registerRenderingControl((TvPlayActivity)tvPlayActivity);
+                    ClingManager.getInstance().registerAVTransport((TvPlayActivity) tvPlayActivity);
+                    ClingManager.getInstance().registerRenderingControl((TvPlayActivity) tvPlayActivity);
+                    tvPlayActivity.changeCastTvState(DLANPlayState.PLAY);
                 }
 
                 @Override
@@ -921,6 +949,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             });
         }
     }
+
     /**
      * 停止
      */
@@ -930,6 +959,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             public void success(IResponse response) {
                 Log.e(TAG, "stop success");
             }
+
             @Override
             public void fail(IResponse response) {
                 Log.e(TAG, "stop fail");
