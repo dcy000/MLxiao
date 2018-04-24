@@ -64,6 +64,7 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private BluetoothAdapter bluetoothAdapter;
     private BtReadClient client;
+    private volatile boolean isRegistered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,35 @@ public class SignInIdCardActivity extends BaseActivity {
     protected void backMainActivity() {
         LocalShared.getInstance(this).setString(FILTER, "");
         targetDevice = null;
+        removeBounds();
         btHandler().post(oneShutRunnable);
+    }
+
+    private void removeBounds() {
+        if (isRegistered && receiver != null) {
+            unregisterReceiver(receiver);
+            isRegistered = false;
+        }
+        if (bluetoothAdapter == null) {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
+        Set<BluetoothDevice> devices = bluetoothAdapter.getBondedDevices();
+        Log.i(TAG, "bondedDevices: " + devices);
+        if (devices != null && devices.size() > 0) {
+            String name;
+            for (BluetoothDevice device : devices) {
+                if (device == null) {
+                    continue;
+                }
+                name = device.getName();
+                if (TextUtils.isEmpty(name)) {
+                    continue;
+                }
+                if (name.toUpperCase().startsWith(FILTER)) {
+                    removeBond(device);
+                }
+            }
+        }
     }
 
     private void onTurnOn() {
@@ -112,6 +141,7 @@ public class SignInIdCardActivity extends BaseActivity {
         if (initializing) {
             return;
         }
+        registerReceiver();
         initializing = true;
         if (targetDevice == null) {
             if (!bluetoothAdapter.isEnabled()) {
@@ -218,6 +248,10 @@ public class SignInIdCardActivity extends BaseActivity {
     private volatile BluetoothDevice targetDevice;
 
     private void registerReceiver() {
+        if (isRegistered) {
+            return;
+        }
+        isRegistered = true;
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         filter.addAction(BluetoothDevice.ACTION_FOUND);
@@ -955,8 +989,9 @@ public class SignInIdCardActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (receiver != null) {
+        if (isRegistered && receiver != null) {
             unregisterReceiver(receiver);
+            isRegistered = false;
         }
         if (client != null) {
             client.disconnectBt();
