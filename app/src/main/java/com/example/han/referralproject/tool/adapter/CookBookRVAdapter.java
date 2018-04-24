@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;
 
@@ -38,13 +38,13 @@ public class CookBookRVAdapter extends BaseQuickAdapter<CookbookBean, BaseViewHo
                 if (cookbookBean.flag) {
                     getData().get(baseViewHolder.getPosition()).flag = false;
                     view.setVisibility(View.GONE);
-                    SpeechSynthesizerHelper.stop();
+                    MLVoiceSynthetize.stop();
                 } else {
                     getData().get(baseViewHolder.getPosition()).flag = true;
                     view.setVisibility(View.VISIBLE);
-                    SpeechSynthesizerHelper.stop();
+                    MLVoiceSynthetize.stop();
                     CookbookBean bean = getData().get(baseViewHolder.getPosition());
-                    SpeechSynthesizerHelper.startSynthesize(v.getContext(), bean.title + "," + bean.steps);
+                    MLVoiceSynthetize.startSynthesize(v.getContext(), bean.title + "," + bean.steps,false);
                 }
             }
         });

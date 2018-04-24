@@ -12,7 +12,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.adapter.HistoryTodayRVAdapter;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
@@ -114,8 +114,8 @@ public class HistoryTodayActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                SpeechSynthesizerHelper.stop();
-                SpeechSynthesizerHelper.startSynthesize(view.getContext(),  data.get(i).title + "," + data.get(i).description);
+                MLVoiceSynthetize.stop();
+                MLVoiceSynthetize.startSynthesize(view.getContext(),  data.get(i).title + "," + data.get(i).description,false);
             }
         });
         rvHistoryEvent.setAdapter(adapter);
@@ -125,6 +125,6 @@ public class HistoryTodayActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopListening();
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
     }
 }

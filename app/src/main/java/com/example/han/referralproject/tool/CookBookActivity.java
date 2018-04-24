@@ -13,11 +13,11 @@ import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;
 
@@ -83,7 +83,7 @@ public class CookBookActivity extends ToolBaseActivity {
                 getDateData(tvDemo3.getText().toString().trim());
                 break;
             case R.id.iv_yuyin:
-                SpeechSynthesizerHelper.stop();
+                MLVoiceSynthetize.stop();
                 onEndOfSpeech();
                 startListener();
                 break;
@@ -139,7 +139,7 @@ public class CookBookActivity extends ToolBaseActivity {
     }
 
     private void startListener() {
-        SpeechRecognizerHelper.initSpeechRecognizer(this).startListening(new RecognizerListener() {
+        MLVoiceRecognize.initSpeechRecognizer(this).startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
                 vlWave.waveH = i / 6 + 2;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.tool.adapter.CookBookRVAdapter;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
 import java.util.List;
@@ -42,7 +42,7 @@ public class CookBookResultActivity extends AppCompatActivity {
         data = (List<CookbookBean>) getIntent().getSerializableExtra("data");
         question = getIntent().getStringExtra("question");
         initView();
-        SpeechSynthesizerHelper.startSynthesize(this, question + "," + data.get(0).title + "," + data.get(0).steps);
+        MLVoiceSynthetize.startSynthesize(this, question + "," + data.get(0).title + "," + data.get(0).steps,false);
     }
 
     public static void StartMe(Context context, List<CookbookBean> data, String question) {
@@ -73,6 +73,6 @@ public class CookBookResultActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
     }
 }

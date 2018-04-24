@@ -11,7 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.wrapview.MixtureTextView;
 import com.example.han.referralproject.tool.xfparsebean.BaiKeBean;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
 import java.util.List;
@@ -67,6 +67,6 @@ public class BaikeResultActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
     }
 }

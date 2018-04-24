@@ -16,14 +16,11 @@ import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.RiddleBean;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
-import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -99,9 +96,9 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                             size = data.size();
                             String title = data.get(0).title;
                             tvQuestion.setText(title);
-                            SpeechSynthesizerHelper.startSynthesize(getBaseContext(), title);
+                            MLVoiceSynthetize.startSynthesize(getBaseContext(), title, false);
                         } else {
-                            SpeechSynthesizerHelper.startSynthesize(getBaseContext(), "主人,我暂时还没想到什么谜语");
+                            MLVoiceSynthetize.startSynthesize(getBaseContext(), "主人,我暂时还没想到什么谜语", false);
                         }
                     }
                 });
@@ -121,7 +118,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 break;
             case R.id.iv_yuyin:
                 endOfSpeech();
-                SpeechSynthesizerHelper.stop();
+                MLVoiceSynthetize.stop();
                 startListener();
                 break;
 
@@ -148,8 +145,8 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         index++;
         String title = data.get(index % size).title;
         tvQuestion.setText(title);
-        SpeechSynthesizerHelper.stop();
-        SpeechSynthesizerHelper.startSynthesize(this, title);
+        MLVoiceSynthetize.stop();
+        MLVoiceSynthetize.startSynthesize(this, title,false);
 
     }
 
@@ -450,7 +447,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     protected void onDestroy() {
         super.onDestroy();
         stopListening();
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
         mainHandler.removeCallbacksAndMessages(null);
     }
 }

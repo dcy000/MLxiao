@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,8 +63,8 @@ public class RiddleDialog extends DialogFragment {
             answer = bundle.getString("answer");
             tvAnwser.setText(answer);
         }
-        SpeechSynthesizerHelper.stop();
-        SpeechSynthesizerHelper.startSynthesize(getContext(),"答案是"+answer);
+        MLVoiceSynthetize.stop();
+        MLVoiceSynthetize.startSynthesize(getContext(),"答案是"+answer,false);
         return view;
     }
 

@@ -61,7 +61,6 @@ import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.ErrorCode;
@@ -74,6 +73,7 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimCallActivity;
@@ -476,7 +476,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 isDefaultParam = true;
                 break;
             case R.id.tv_whine:
-                SpeechSynthesizerHelper.setRandomParam();
+                MLVoiceSynthetize.setRandomParam();
                 isDefaultParam = false;
                 break;
             case R.id.iv_yuyin:
@@ -1642,7 +1642,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     case 29:
                     case 30:
                         //变声学舌
-                        SpeechSynthesizerHelper.setRandomParam();
+                        MLVoiceSynthetize.setRandomParam();
                         isDefaultParam = false;
                         speak(resultBuffer.toString(), isDefaultParam);
                         isDefaultParam = true;

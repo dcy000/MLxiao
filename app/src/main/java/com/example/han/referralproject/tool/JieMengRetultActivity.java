@@ -18,7 +18,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.adapter.DreamRVadapter;
 import com.example.han.referralproject.tool.wrapview.CenterAlignImageSpan;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -78,8 +78,8 @@ public class JieMengRetultActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                SpeechSynthesizerHelper.stop();
-                SpeechSynthesizerHelper.startSynthesize(view.getContext(), "梦见" + data.get(i).name + "," + data.get(i).content);
+                MLVoiceSynthetize.stop();
+                MLVoiceSynthetize.startSynthesize(view.getContext(), "梦见" + data.get(i).name + "," + data.get(i).content,false);
             }
         });
 
@@ -100,7 +100,7 @@ public class JieMengRetultActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
     }
 
     private void addImageSpan() {

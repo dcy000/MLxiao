@@ -18,13 +18,13 @@ import com.example.han.referralproject.settting.wrap.ItemView;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -145,7 +145,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
         if (v == mRightText) {
             KeyWordEdit2Activity.StartMe(this, data, titlePinyin);
         } else if (v == imageView) {
-            SpeechSynthesizerHelper.stop();
+            MLVoiceSynthetize.stop();
             onEndOfSpeech();
             startListener();
         }
@@ -154,7 +154,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
 
     private void startListener() {
         //开始识别
-        SpeechRecognizerHelper.initSpeechRecognizer(this).startListening(new RecognizerListener() {
+        MLVoiceRecognize.initSpeechRecognizer(this).startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
                 vlWave.waveH = i / 6 + 2;

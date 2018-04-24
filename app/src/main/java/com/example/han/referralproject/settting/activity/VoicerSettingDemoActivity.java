@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
@@ -131,7 +130,7 @@ public class VoicerSettingDemoActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
     }
 
 //    //设置合成语速

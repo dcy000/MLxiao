@@ -19,13 +19,13 @@ import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,7 +137,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
     @OnClick(R.id.iv_yuyin)
     public void onViewClicked() {
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
         onEndOfSpeech();
         startListener();
 
@@ -145,7 +145,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
     private void startListener() {
         //开始识别
-        SpeechRecognizerHelper.initSpeechRecognizer(this).startListening(new RecognizerListener() {
+        MLVoiceRecognize.initSpeechRecognizer(this).startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
                 vlWave.waveH = i / 6 + 2;
