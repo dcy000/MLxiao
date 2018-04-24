@@ -712,38 +712,4 @@ public class BaseActivity extends AppCompatActivity {
         mDialog.dismiss();
     }
 
-
-    /**
-     * 发音人
-     */
-    public static final String[] VOICER = {"xiaoyan", "xiaoqi", "xiaoli", "xiaoyu", "xiaofeng", "xiaoxin", "laosun"};
-
-
-    public void showWindow(final PopupWindow popupWindow) {
-        handler.removeCallbacksAndMessages(null);
-        if (popupWindow != null && !popupWindow.isShowing()) {
-            popupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-            autoDismiss(popupWindow);
-        }
-
-    }
-
-    public void autoDismiss(final PopupWindow popupWindow) {
-        handler.removeCallbacksAndMessages(null);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        if (popupWindow != null)
-                            popupWindow.dismiss();
-                    }
-                });
-            }
-        }, 5000);
-    }
-
-
 }

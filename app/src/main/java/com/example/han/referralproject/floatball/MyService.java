@@ -1,5 +1,6 @@
 package com.example.han.referralproject.floatball;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -15,12 +16,10 @@ import android.widget.PopupWindow;
 import android.widget.SeekBar;
 
 import com.android.tedcoder.wkvideoplayer.util.DensityUtil;
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 
 public class MyService extends Service implements DragFloatActionButton.onClickListener, SeekBar.OnSeekBarChangeListener {
-    public static BaseActivity context;
+    public static Activity context;
     private int maxVolume;
     private int currentVolume;
     private PopupWindow popupWindow;
@@ -128,17 +127,19 @@ public class MyService extends Service implements DragFloatActionButton.onClickL
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, seekBar.getProgress(), AudioManager.FLAG_PLAY_SOUND);
-        if (context != null)
-            context.autoDismiss(popupWindow);
+        if (context != null) {
+            FloatBallHelper.autoDismiss(popupWindow, context);
+        }
+
     }
 
     @Override
     public void onclick() {
         if (context != null)
-            context.showWindow(popupWindow);
+            FloatBallHelper.showWindow(popupWindow, context);
     }
 
-    public static void StartMe(BaseActivity context) {
+    public static void StartMe(Activity context) {
         MyService.context = context;
         Intent service = new Intent(context, MyService.class);
         context.startService(service);

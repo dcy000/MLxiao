@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,9 +14,7 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.floatball.MyService;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
@@ -34,7 +31,6 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.LitePal;
@@ -75,7 +71,7 @@ public class MyApplication extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
         ScreenUtils.init(this);
@@ -144,8 +140,7 @@ public class MyApplication extends Application {
             @Override
             public void onActivityResumed(Activity activity) {
                 if (activity != null) {
-                    if (activity instanceof BaseActivity)
-                        MyService.context = (BaseActivity) activity;
+                    MyService.context = activity;
                 }
             }
 
