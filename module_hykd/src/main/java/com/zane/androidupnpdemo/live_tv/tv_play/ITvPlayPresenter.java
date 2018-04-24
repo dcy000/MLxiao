@@ -5,11 +5,11 @@ package com.zane.androidupnpdemo.live_tv.tv_play;
  */
 
 public interface ITvPlayPresenter {
-    void startPlay(String url);
+    void startPlay(String url,int position);
     void onResume();
     void onPause();
-    void playLast(String url);
-    void playNext(String url);
+    void playLast(String url,int position);
+    void playNext(String url,int position);
     void onDestroy();
     int getOnPlayingPosition();
     void onBehindWakeuped();

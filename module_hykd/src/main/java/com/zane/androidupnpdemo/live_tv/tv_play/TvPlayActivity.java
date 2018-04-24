@@ -84,7 +84,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
         playFirstPosition = getIntent().getIntExtra("position", 0);
         tvPlayPresenter = new TvPlayPresenterImp(this, tvs);
-        tvPlayPresenter.startPlay(tvs.get(playFirstPosition).getTvUrl());
+        tvPlayPresenter.startPlay(tvs.get(playFirstPosition).getTvUrl(),playFirstPosition);
     }
 
     private void initPopView() {
@@ -176,12 +176,12 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         } else if (i == R.id.iv_btn_last) {
             int playNewPosition = tvPlayPresenter.getOnPlayingPosition() - 1;
             if (playNewPosition >= 0) {
-                tvPlayPresenter.playLast(tvs.get(playNewPosition).getTvUrl());
+                tvPlayPresenter.playLast(tvs.get(playNewPosition).getTvUrl(),playNewPosition);
             }
         } else if (i == R.id.iv_btn_next) {
             int playNewPosition = tvPlayPresenter.getOnPlayingPosition() + 1;
             if (playNewPosition < tvs.size()) {
-                tvPlayPresenter.playNext(tvs.get(playNewPosition).getTvUrl());
+                tvPlayPresenter.playNext(tvs.get(playNewPosition).getTvUrl(),playNewPosition);
             }
         } else if (i == R.id.startVoice) {
             tvPlayPresenter.onBehindWakeuped();
@@ -215,7 +215,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void closeTv() {
-//        finish();
+        finish();
     }
 
     @Override
