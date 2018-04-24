@@ -8,10 +8,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
@@ -45,17 +44,16 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
-import com.example.han.referralproject.personal.PersonActivity;
+import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
-import com.example.han.referralproject.settting.bean.KeyWordBean;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
-import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
@@ -63,9 +61,7 @@ import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
-import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.ErrorCode;
@@ -86,7 +82,6 @@ import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.music.TheOldMusicActivity;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -1073,7 +1068,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void gotoPersonCenter() {
-        Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
+        Intent intent = new Intent(SpeechSynthesisActivity.this, PersonDetailActivity.class);
         startActivity(intent);
     }
 
