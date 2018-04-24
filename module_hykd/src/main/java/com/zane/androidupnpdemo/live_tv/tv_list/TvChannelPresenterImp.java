@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.recognition.MLVoiceRecognize;
+import com.zane.androidupnpdemo.connect_tv.ui.TVConnectMainActivity;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
 import com.zane.androidupnpdemo.live_tv.tv_play.TvPlayActivity;
 

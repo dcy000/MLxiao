@@ -377,6 +377,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
                     return;
                 }
                 isMonitorUserSpeaking = false;
+                tvPlayActivity.hideVoiceView();
                 Log.e(TAG, "onMLResult: -----------" + result);
                 ToastTool.showShort(result);
                 String inSpell = PinyinHelper.getPinYin(result);

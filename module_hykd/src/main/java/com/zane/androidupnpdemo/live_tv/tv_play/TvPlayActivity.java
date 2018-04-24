@@ -72,17 +72,68 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
      */
     private TextView mBtnCancelCast;
     private RelativeLayout mRlOnplayingView;
+    private View popupView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tv_display);
         initView();
+        initPopView();
         tvs = getIntent().getParcelableArrayListExtra("tvs");
 
         playFirstPosition = getIntent().getIntExtra("position", 0);
         tvPlayPresenter = new TvPlayPresenterImp(this, tvs);
         tvPlayPresenter.startPlay(tvs.get(playFirstPosition).getTvUrl());
+    }
+
+    private void initPopView() {
+        popupView = View.inflate(this, R.layout.hy_search_devices, null);
+        ImageView ivRefresh = popupView.findViewById(R.id.iv_refresh);
+        ListView devicesList = popupView.findViewById(R.id.list);
+        TextView tvCancle = popupView.findViewById(R.id.tv_cancle);
+        Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.hy_rotate);
+        animation1.setInterpolator(new LinearInterpolator());
+        ivRefresh.startAnimation(animation1);
+        mDevicesAdapter = new DevicesAdapter(this);
+        devicesList.setAdapter(mDevicesAdapter);
+        tvCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (popupWindow != null) {
+                    popupWindow.dismiss();
+                }
+            }
+        });
+        devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 选择连接设备
+                ClingDevice item = mDevicesAdapter.getItem(position);
+                if (Utils.isNull(item)) {
+                    return;
+                }
+
+                ClingManager.getInstance().setSelectedDevice(item);
+
+                Device device = item.getDevice();
+                if (Utils.isNull(device)) {
+                    return;
+                }
+                int po=tvPlayPresenter.getOnPlayingPosition();
+                if (po==0&&position==0){
+                    tvPlayPresenter.startCastTv(tvs.get(0).getTvUrl());
+                }else{
+                    tvPlayPresenter.startCastTv(tvs.get(po).getTvUrl());
+                }
+                mTvDeviceName.setText( device.getDetails().getFriendlyName());
+                if (popupWindow != null) {
+                    popupWindow.dismiss();
+                }
+                mRlOnplayingView.setVisibility(View.VISIBLE);
+                mTvCurrentState.setText("正在连接设备...");
+            }
+        });
     }
 
     public static void startTvPlayActivity(Context context, Intent intent) {
@@ -164,7 +215,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void closeTv() {
-        finish();
+//        finish();
     }
 
     @Override
@@ -175,7 +226,6 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showPopWindow() {
-        View popupView = View.inflate(this, R.layout.hy_search_devices, null);
         if (popupWindow == null) {
             // 参数2,3：指明popupwindow的宽度和高度
             popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT,
@@ -195,54 +245,6 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         // 设置popupWindow的显示位置，此处是在手机屏幕底部且水平居中的位置
         popupWindow.showAtLocation(TvPlayActivity.this.findViewById(R.id.live_control2), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         popupView.startAnimation(animation);
-
-        ImageView ivRefresh = popupView.findViewById(R.id.iv_refresh);
-        ListView devicesList = popupView.findViewById(R.id.list);
-        TextView tvCancle = popupView.findViewById(R.id.tv_cancle);
-        Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.hy_rotate);
-        animation1.setInterpolator(new LinearInterpolator());
-        ivRefresh.startAnimation(animation1);
-
-        mDevicesAdapter = new DevicesAdapter(this);
-        devicesList.setAdapter(mDevicesAdapter);
-        tvPlayPresenter.refreshDevices();
-        tvCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (popupWindow != null) {
-                    popupWindow.dismiss();
-                }
-            }
-        });
-        devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 选择连接设备
-                ClingDevice item = mDevicesAdapter.getItem(position);
-                if (Utils.isNull(item)) {
-                    return;
-                }
-
-                ClingManager.getInstance().setSelectedDevice(item);
-
-                Device device = item.getDevice();
-                if (Utils.isNull(device)) {
-                    return;
-                }
-                int po=tvPlayPresenter.getOnPlayingPosition();
-                if (po==0&&position==0){
-                    tvPlayPresenter.startCastTv(tvs.get(0).getTvUrl());
-                }else{
-                    tvPlayPresenter.startCastTv(tvs.get(po).getTvUrl());
-                }
-                mTvDeviceName.setText( device.getDetails().getFriendlyName());
-                if (popupWindow != null) {
-                    popupWindow.dismiss();
-                }
-                mRlOnplayingView.setVisibility(View.VISIBLE);
-                mTvCurrentState.setText("正在连接设备...");
-            }
-        });
     }
 
     @Override
