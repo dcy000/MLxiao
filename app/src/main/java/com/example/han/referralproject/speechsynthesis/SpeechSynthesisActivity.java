@@ -174,6 +174,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private Boolean yuyinFlag;
     private boolean isStart;
     private TextView notice;
+    private Gson gson;
 
 
     @Override
@@ -1450,7 +1451,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private List<KeyWordDefinevBean> getDefineData(String keyWord) {
         String xueya = (String) SharedPreferencesUtils.getParam(this, keyWord, "");
-        List<KeyWordDefinevBean> list = new Gson().fromJson(xueya, new TypeToken<List<KeyWordDefinevBean>>() {
+        if (gson == null) {
+            gson = new Gson();
+        }
+        List<KeyWordDefinevBean> list = gson.fromJson(xueya, new TypeToken<List<KeyWordDefinevBean>>() {
         }.getType());
         if (list != null) {
             return list;

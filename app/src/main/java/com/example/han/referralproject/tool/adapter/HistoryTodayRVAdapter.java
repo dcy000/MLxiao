@@ -1,16 +1,10 @@
 package com.example.han.referralproject.tool.adapter;
 
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.tool.HistoryTodayActivity;
-import com.example.han.referralproject.tool.wrapview.ExpandableTextView;
-import com.example.han.referralproject.tool.wrapview.MixtureTextView;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
 import com.hymane.expandtextview.ExpandTextView;
 import com.hymane.expandtextview.OnReadMoreClickListener;

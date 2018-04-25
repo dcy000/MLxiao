@@ -40,6 +40,7 @@ public class AlertSportActivity extends BaseActivity {
     private UserInfoBean data;
     private String eat = "", smoke = "", drink = "", exercise = "";
     private StringBuffer buffer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +49,14 @@ public class AlertSportActivity extends BaseActivity {
         mTitleText.setText("修改运动情况");
         data = (UserInfoBean) getIntent().getSerializableExtra("data");
         ButterKnife.bind(this);
-        buffer=new StringBuffer();
+        buffer = new StringBuffer();
         initView();
     }
 
     private void initView() {
+        if (data == null) {
+            data = new UserInfoBean();
+        }
         if (!TextUtils.isEmpty(data.eating_habits)) {
             switch (data.eating_habits) {
                 case "荤素搭配":
@@ -115,11 +119,11 @@ public class AlertSportActivity extends BaseActivity {
             }
         }
 
-        if("尚未填写".equals(data.mh)){
-            buffer=null;
-        }else{
-            String[] mhs=data.mh.split("\\s+");
-            for (int i=0;i<mhs.length;i++){
+        if ("尚未填写".equals(data.mh)) {
+            buffer = null;
+        } else {
+            String[] mhs = data.mh.split("\\s+");
+            for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
                 else if (mhs[i].equals("糖尿病"))
@@ -199,36 +203,36 @@ public class AlertSportActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        if(positionSelected==-1){
+        if (positionSelected == -1) {
             ToastTool.showShort("请选择其中一个");
             return;
         }
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, positionSelected + 1 + "",
-                buffer==null?"":buffer.substring(0,buffer.length()-1),data.dz,new NetworkManager.SuccessCallback<Object>() {
-            @Override
-            public void onSuccess(Object response) {
-                ToastTool.showShort("修改成功");
-                switch (positionSelected + 1) {
-                    case 1:
-                        speak("主人，您的运动情况已经修改为" + "每天一次");
-                        break;
-                    case 2:
-                        speak("主人，您的运动情况已经修改为" + "每周几次");
-                        break;
-                    case 3:
-                        speak("主人，您的运动情况已经修改为" + "偶尔运动");
-                        break;
-                    case 4:
-                        speak("主人，您的运动情况已经修改为" + "从不运动");
-                        break;
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
+                buffer == null ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        ToastTool.showShort("修改成功");
+                        switch (positionSelected + 1) {
+                            case 1:
+                                speak("主人，您的运动情况已经修改为" + "每天一次");
+                                break;
+                            case 2:
+                                speak("主人，您的运动情况已经修改为" + "每周几次");
+                                break;
+                            case 3:
+                                speak("主人，您的运动情况已经修改为" + "偶尔运动");
+                                break;
+                            case 4:
+                                speak("主人，您的运动情况已经修改为" + "从不运动");
+                                break;
+                        }
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
 
-            }
-        });
+                    }
+                });
     }
 
     @Override
