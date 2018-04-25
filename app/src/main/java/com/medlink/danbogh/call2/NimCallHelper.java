@@ -136,6 +136,7 @@ public class NimCallHelper {
         this.callingState = (chatType == AVChatType.VIDEO ? CallState.VIDEO : CallState.AUDIO);
         AVChatManager.getInstance().setParameters(avChatParameters);
         if (chatType == AVChatType.VIDEO) {
+            AVChatManager.getInstance().setVideoQualityStrategy(true);
             AVChatManager.getInstance().enableVideo();
             AVChatManager.getInstance().startVideoPreview();
         }
@@ -309,6 +310,7 @@ public class NimCallHelper {
         }
         AVChatManager.getInstance().setParameters(avChatParameters);
         if (callingState == CallState.VIDEO_CONNECTING) {
+            AVChatManager.getInstance().setVideoQualityStrategy(true);
             AVChatManager.getInstance().enableVideo();
             AVChatManager.getInstance().startVideoPreview();
         }
@@ -449,6 +451,11 @@ public class NimCallHelper {
         showQuitToast(exitCode);
         mCallEstablished.set(false);
         canSwitchCamera = false;
+        try {
+            Thread.sleep(1800);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (mOnCloseSessionListener != null) {
             mOnCloseSessionListener.onCloseSession();
             mOnCloseSessionListener = null;
