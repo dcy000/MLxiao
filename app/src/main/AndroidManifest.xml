@@ -610,7 +610,8 @@
         <activity android:name=".children.study.ChildEduStories2Activity"></activity>
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
+            android:taskAffinity="com.medlink.fastsignup"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
             android:taskAffinity="com.medlink.fastsignup" />
