@@ -32,9 +32,9 @@ public class ReceiveService extends Service {
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
 		unregisterReceiver();
 		myBluetooth.disConnected();
+		super.onDestroy();
 	}
 
 	@Override

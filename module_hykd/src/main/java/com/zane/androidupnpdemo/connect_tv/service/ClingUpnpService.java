@@ -36,6 +36,7 @@ public class ClingUpnpService extends AndroidUpnpServiceImpl {
         return binder;
     }
 
+
     public LocalDevice getLocalDevice() {
         return mLocalDevice;
     }
@@ -58,3 +59,4 @@ public class ClingUpnpService extends AndroidUpnpServiceImpl {
         }
     }
 }
+

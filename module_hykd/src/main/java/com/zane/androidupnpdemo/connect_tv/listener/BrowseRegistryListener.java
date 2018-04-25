@@ -37,17 +37,20 @@ public class BrowseRegistryListener extends DefaultRegistryListener {
     public void remoteDeviceDiscoveryFailed(Registry registry, final RemoteDevice device, final Exception ex) {
         Log.e(TAG, "remoteDeviceDiscoveryFailed device: " + device.getDisplayString());
         deviceRemoved(device);
+        super.remoteDeviceDiscoveryFailed(registry,device,ex);
     }
     /* End of optimization, you can remove the whole block if your Android handset is fast (>= 600 Mhz) */
 
     @Override
     public void remoteDeviceAdded(Registry registry, RemoteDevice device) {
         deviceAdded(device);
+        super.remoteDeviceAdded(registry,device);
     }
 
     @Override
     public void remoteDeviceRemoved(Registry registry, RemoteDevice device) {
         deviceRemoved(device);
+        super.remoteDeviceRemoved(registry,device);
     }
 
     @Override

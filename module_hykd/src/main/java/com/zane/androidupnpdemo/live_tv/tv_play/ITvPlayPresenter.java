@@ -16,4 +16,6 @@ public interface ITvPlayPresenter {
     void refreshDevices();
     void startCastTv(String url);
     void stopCastTv();
+    void searchTvDevices();
+    boolean isBindedService();
 }

@@ -136,6 +136,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+
     public static void startTvPlayActivity(Context context, Intent intent) {
         context.startActivity(intent);
     }
@@ -226,6 +227,11 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showPopWindow() {
+        tvPlayPresenter.refreshDevices();
+        if (!tvPlayPresenter.isBindedService()){
+            tvPlayPresenter.searchTvDevices();
+        }
+
         if (popupWindow == null) {
             // 参数2,3：指明popupwindow的宽度和高度
             popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT,
@@ -277,6 +283,7 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void addVideoView(KSYTextureView ksyTextureView) {
+        mVideoPlay.removeAllViews();
         mVideoPlay.addView(ksyTextureView);
     }
 

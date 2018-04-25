@@ -364,7 +364,7 @@ public class AssistiveTouchService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mWindowManager.removeView(mAssistiveTouchView);
+        super.onDestroy();
     }
 }

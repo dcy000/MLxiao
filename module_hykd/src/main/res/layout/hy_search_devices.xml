@@ -36,7 +36,8 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/view_1">
+        android:layout_below="@id/view_1"
+        android:layout_above="@+id/view_2">
 
     </ListView>
     <View
@@ -55,5 +56,6 @@
         android:layout_centerHorizontal="true"
         android:textColor="#3F86FC"
         android:gravity="center"
+
         />
 </RelativeLayout>

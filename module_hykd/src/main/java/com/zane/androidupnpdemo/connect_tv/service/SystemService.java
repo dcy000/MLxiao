@@ -51,7 +51,6 @@ public class SystemService extends Service {
         //End all subscriptions
         if (mAVTransportSubscriptionCallback != null)mAVTransportSubscriptionCallback.run();
             mAVTransportSubscriptionCallback.end();
-
         super.onDestroy();
     }
 
