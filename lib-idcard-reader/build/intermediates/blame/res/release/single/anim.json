@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\tooltip_exit.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\tooltip_exit.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\MLxiao\\lib-idcard-reader\\build\\intermediates\\res\\merged\\release\\anim\\tooltip_enter.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\02bc0a945180ba97725b89ad3642e1965b5405a6\\output\\res\\anim\\tooltip_enter.xml"
+    }
+]
