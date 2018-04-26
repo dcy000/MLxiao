@@ -99,7 +99,8 @@ public class AuthenticationActivity extends BaseActivity {
     //    private byte[] cacheCamera;
     private static final int TO_FACE_AUTHENTICATION = 1;
     private static final int TO_CAMERA_PRE_RESOLVE = 2;
-    private boolean openOrcloseAnimation=true;
+    private boolean openOrcloseAnimation = true;
+
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
 
@@ -433,6 +434,7 @@ public class AuthenticationActivity extends BaseActivity {
         lottAnimation.setAnimation("camera_pre.json");
     }
 
+    private Callback callback;
 
     private void openCameraPreview() {
         DisplayMetrics metrics = new DisplayMetrics();
@@ -443,7 +445,7 @@ public class AuthenticationActivity extends BaseActivity {
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mPreviewSurface.setLayoutParams(params);
 
-        mPreviewSurface.getHolder().addCallback(new Callback() {
+        callback = new Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 Logger.e("getHolder().addCallback所在线程");
@@ -465,6 +467,7 @@ public class AuthenticationActivity extends BaseActivity {
                             mCamera.startPreview();
 
                         } catch (Exception e) {
+                            e.printStackTrace();
                             runOnUiThreadWithOpenCameraFail();
                         }
                     }
@@ -481,7 +484,8 @@ public class AuthenticationActivity extends BaseActivity {
             public void surfaceDestroyed(SurfaceHolder holder) {
                 finish();
             }
-        });
+        };
+        mPreviewSurface.getHolder().addCallback(callback);
 
 
     }
@@ -542,7 +546,7 @@ public class AuthenticationActivity extends BaseActivity {
                 //动画结束
                 if (openOrcloseAnimation) {
                     myHandler.sendEmptyMessage(TO_CAMERA_PRE_RESOLVE);
-                    openOrcloseAnimation=false;
+                    openOrcloseAnimation = false;
                 }
                 Logger.e("动画结束");
             }
@@ -632,6 +636,14 @@ public class AuthenticationActivity extends BaseActivity {
             @Override
             public void run() {
                 if (null != mCamera) {
+                    if (callback != null) {
+                        if (mPreviewSurface != null) {
+                            SurfaceHolder holder = mPreviewSurface.getHolder();
+                            if (holder != null) {
+                                holder.removeCallback(callback);
+                            }
+                        }
+                    }
                     mCamera.setPreviewCallback(null);
                     mCamera.stopPreview();
                     mCamera.release();
