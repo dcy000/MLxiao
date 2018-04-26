@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
     private static LocalShared mInstance;
-    private SharedPreferences mShared;
+    public SharedPreferences mShared;
 
     private final String UserAccounts = "user_accounts";
     private final String UserAccounts_new = "user_accounts_new";
@@ -46,6 +46,14 @@ public class LocalShared {
     private LocalShared(Context context) {
         this.context = context.getApplicationContext();
         mShared = context.getSharedPreferences(SharedName, Context.MODE_PRIVATE);
+    }
+
+    public void setString(String key, String value) {
+        mShared.edit().putString(key, value).commit();
+    }
+
+    public String getString(String key) {
+        return mShared.getString(key, "");
     }
 
     public static LocalShared getInstance(Context context) {
@@ -172,6 +180,8 @@ public class LocalShared {
         if (infoBean == null) {
             return;
         }
+
+        MyApplication.getInstance().account = infoBean;
         MyApplication.getInstance().userId = infoBean.bid;
         MyApplication.getInstance().telphoneNum = infoBean.tel;
         MyApplication.getInstance().userName = infoBean.bname;
@@ -348,7 +358,7 @@ public class LocalShared {
     }
 
     public String getSignUpSmoke() {
-        return mShared.getString(SIGN_UP_SMOKE, "2");
+        return mShared.getString(SIGN_UP_SMOKE, "3");
     }
 
     public void setSignUpDrink(String drink) {
@@ -356,7 +366,7 @@ public class LocalShared {
     }
 
     public String getSignUpDrink() {
-        return mShared.getString(SIGN_UP_DRINK, "1");
+        return mShared.getString(SIGN_UP_DRINK, "2");
     }
 
     public void setSignUpSport(String sport) {
@@ -364,7 +374,7 @@ public class LocalShared {
     }
 
     public String getSignUpSport() {
-        return mShared.getString(SIGN_UP_SPORT, "2");
+        return mShared.getString(SIGN_UP_SPORT, "3");
     }
 
     private static final String NIM_ACCOUNT = "nim_account";
@@ -473,7 +483,7 @@ public class LocalShared {
     }
 
     public String getUserAge() {
-        return mShared.getString("user_age", "");
+        return mShared.getString("user_age", "0");
     }
 
     public void setUserHeight(String height) {
@@ -481,7 +491,7 @@ public class LocalShared {
     }
 
     public String getUserHeight() {
-        return mShared.getString("user_height", "");
+        return mShared.getString("user_height", "175cm");
     }
 
     /**

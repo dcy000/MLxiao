@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sign_in_idcard_cl_root"
+    android:onClick="onRootClick"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/sign_in_idcard_iv_tip"
+        android:layout_width="1292pt"
+        android:layout_height="752pt"
+        android:layout_marginTop="100pt"
+        android:src="@drawable/signin_ic_idcard_reader"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68pt"
+        android:text="@string/sign_in_idcard_reader"
+        android:textColor="#333333"
+        android:textSize="56pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_idcard_iv_tip"/>
+</android.support.constraint.ConstraintLayout>

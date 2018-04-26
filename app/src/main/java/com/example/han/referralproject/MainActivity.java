@@ -15,16 +15,15 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -34,8 +33,6 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.call2.NimCallActivity;
-import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
 
@@ -85,7 +82,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
 
         mImageView5 = (ImageView) findViewById(R.id.health_class);
-        mImageView6 = (ImageView) findViewById(R.id.call_family);
+        mImageView6 = (ImageView) findViewById(R.id.health_detect);
 
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
@@ -177,33 +174,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 intent.setClass(getApplicationContext(), MarketActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.call_family://紧急呼叫家人
+            case R.id.health_detect://紧急呼叫家人
                 //呼叫
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
-//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
-//                    @Override
-//                    public void onSuccess(UserInfo response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
+                intent.setClass(this, DetectActivity.class);
+                intent.putExtra("type", "xueya");
+                intent.putExtra("isDetect", true);
+                startActivity(intent);
                 break;
         }
     }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_gravity="bottom"
+    android:layout_height="wrap_content">
+    <Button
+        android:visibility="gone"
+        android:id="@+id/detect_tv_result_last"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:background="@drawable/shape_phone"
+        android:gravity="center"
+        android:text="上一步"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"/>
+    <Button
+        android:id="@+id/detect_tv_result_next"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:background="@drawable/shape_phone"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"
+        android:layout_below="@id/rl_ti2"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"/>
+</LinearLayout>

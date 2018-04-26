@@ -29,12 +29,12 @@
             android:src="@drawable/ic_robot" />
 
         <ImageView
-            android:id="@+id/call_family"
+            android:id="@+id/health_detect"
             android:layout_width="370dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_call_family" />
+            android:src="@drawable/main_ic_detect" />
     </LinearLayout>
 
     <ImageView
