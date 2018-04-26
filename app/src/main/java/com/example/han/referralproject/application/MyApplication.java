@@ -79,6 +79,7 @@ public class MyApplication extends Application {
                 "5a604f5d8f4a9d02230001b1",
                 "GCML"
         );
+        MobclickAgent.setCatchUncaughtExceptions(true);
         MobclickAgent.startWithConfigure(umConfig);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);

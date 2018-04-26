@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="高压"
+                android:text="@string/high_pressure"
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
@@ -97,7 +97,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="低压"
+                android:text="@string/low_pressure"
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
@@ -147,7 +147,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="高压"
+                android:text="@string/high_pressure"
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
@@ -188,7 +188,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="低压"
+                android:text="@string/low_pressure"
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
@@ -252,7 +252,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="56pt"
                     android:textColor="#333"
-                    android:text="高压"/>
+                    android:text="@string/high_pressure"/>
                 <TextView
                     android:id="@+id/current_gao"
                     android:layout_width="wrap_content"
@@ -276,7 +276,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="56pt"
                     android:textColor="#333"
-                    android:text="低压"/>
+                    android:text="@string/low_pressure"/>
                 <TextView
                     android:id="@+id/current_di"
                     android:layout_width="wrap_content"

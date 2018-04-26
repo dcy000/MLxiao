@@ -449,6 +449,11 @@ public class NimCallHelper {
         showQuitToast(exitCode);
         mCallEstablished.set(false);
         canSwitchCamera = false;
+        try {
+            Thread.sleep(1800);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (mOnCloseSessionListener != null) {
             mOnCloseSessionListener.onCloseSession();
             mOnCloseSessionListener = null;
