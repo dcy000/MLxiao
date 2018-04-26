@@ -45,79 +45,8 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT < 23) {
             super.onCreate(savedInstanceState);
             initContentView();
-
-        } else {
-            boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
-            if (isFirstIn) {
-                initPermision();
-                super.onCreate(savedInstanceState);
-            } else {
-                super.onCreate(savedInstanceState);
-                initContentView();
-            }
-
-        }
-
-    }
-
-    private void initPermision() {
-
-        boolean isAllGranted = checkPermissionAllGranted(
-                new String[]{
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.RECORD_AUDIO,
-                        android.Manifest.permission.CAMERA,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                        android.Manifest.permission.BLUETOOTH_ADMIN,
-                }
-        );
-
-
-        if (isAllGranted) {
-            initContentView();
-            return;
-        } else {
-
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            android.Manifest.permission.RECORD_AUDIO,
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.BLUETOOTH_ADMIN,
-                    },
-                    007
-            );
-        }
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 007) {
-            boolean isAllGranted = true;
-
-            // 判断是否所有的权限都已经授予了
-            for (int grant : grantResults) {
-                if (grant != PackageManager.PERMISSION_GRANTED) {
-                    isAllGranted = false;
-                    finish();
-                    break;
-                }
-            }
-
-            if (isAllGranted) {
-                initContentView();
-            }
-        }
     }
 
     private void initContentView() {
@@ -136,16 +65,6 @@ public class WelcomeActivity extends BaseActivity {
         }
 
         playVideo();
-    }
-
-    public boolean checkPermissionAllGranted(String[] permissions) {
-        for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                // 只要有一个权限没有被授予, 则直接返回 false
-                return false;
-            }
-        }
-        return true;
     }
 
     private void checkVersion() {
