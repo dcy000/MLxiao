@@ -71,10 +71,6 @@ public class LocationActivity extends AppCompatActivity {
             T.show(addrStr);
         }
 
-        @Override
-        public void onConnectHotSpotMessage(String s, int i) {
-
-        }
     };
 
     @Override

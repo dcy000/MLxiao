@@ -243,11 +243,6 @@ public class AlertAddressActivity extends BaseActivity {
                 }
             }
         }
-
-        @Override
-        public void onConnectHotSpotMessage(String s, int i) {
-
-        }
     };
 
     @Override
