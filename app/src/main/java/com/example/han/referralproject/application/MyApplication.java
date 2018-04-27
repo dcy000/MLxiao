@@ -1,12 +1,10 @@
 package com.example.han.referralproject.application;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
@@ -14,7 +12,6 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.floatball.MyService;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;

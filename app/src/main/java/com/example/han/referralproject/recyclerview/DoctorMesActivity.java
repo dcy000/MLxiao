@@ -297,7 +297,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             startActivity(intent);
             finish();
 
-            //  mImageView.performClick();
+            //  headImg.performClick();
         }
     }
 

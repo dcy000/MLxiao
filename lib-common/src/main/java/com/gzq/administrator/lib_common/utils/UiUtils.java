@@ -15,7 +15,7 @@ public class UiUtils {
     @SuppressLint("StaticFieldLeak")
     private static Context sContext;
 
-    private static float sDesignWidth = 1980;
+    private static float sDesignWidth = 1920;
 
     private static float sDesignHeight = 1200;
 
@@ -36,8 +36,9 @@ public class UiUtils {
     }
 
     public static void compatWithOrientation(Configuration config) {
+        //设计图如果是横着的按宽度算，如何设计图是竖着的按高度算
         if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            compat(sContext, sDesignHeight);
+            compat(sContext, sDesignWidth);
             return;
         }
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {

@@ -96,6 +96,7 @@ public class AuthenticationActivity extends BaseActivity {
     private static final int TO_CAMERA_PRE_RESOLVE = 2;
     private boolean openOrcloseAnimation = true;
     private boolean isOnPause = false;
+    private SurfaceHolder holder;
 
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
@@ -128,7 +129,6 @@ public class AuthenticationActivity extends BaseActivity {
                                     Logger.e("最高分数的讯飞id" + scoreFirstXfid);
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                                     if (firstScore > 80) {
-                                        closeAnimation();
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
                                             authenticationSuccessForTest$Welcome(scoreFirstXfid, weakReference);
                                         } else if ("Pay".equals(fromString)) {
@@ -442,49 +442,50 @@ public class AuthenticationActivity extends BaseActivity {
         LayoutParams params = new LayoutParams(width, height);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mPreviewSurface.setLayoutParams(params);
-        mPreviewSurface.getHolder().addCallback(new Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                Logger.e("getHolder().addCallback所在线程");
-                Handlers.bg().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
-                            if (mCamera == null) {
-                                runOnUiThreadWithOpenCameraFail();
-                                return;
-                            }
-                            Parameters params = mCamera.getParameters();
-                            params.setPreviewFormat(ImageFormat.NV21);
-                            params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
-                            mCamera.setParameters(params);
-                            setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
-                            mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
-                            mCamera.startPreview();
-
-                        } catch (Exception e) {
-                            runOnUiThreadWithOpenCameraFail();
-                        }
-                    }
-                });
-
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                mScaleMatrix.setScale(width / (float) PREVIEW_HEIGHT, height / (float) PREVIEW_WIDTH);
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                finish();
-            }
-        });
+        holder = mPreviewSurface.getHolder();
+        holder.addCallback(callback);
 
 
     }
+    private Callback callback = new Callback() {
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            Logger.e("getHolder().addCallback所在线程");
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
+                        if (mCamera == null) {
+                            runOnUiThreadWithOpenCameraFail();
+                            return;
+                        }
+                        Parameters params = mCamera.getParameters();
+                        params.setPreviewFormat(ImageFormat.NV21);
+                        params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+                        mCamera.setParameters(params);
+                        setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
+                        mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
+                        mCamera.startPreview();
 
+                    } catch (Exception e) {
+                        runOnUiThreadWithOpenCameraFail();
+                    }
+                }
+            });
+
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            mScaleMatrix.setScale(width / (float) PREVIEW_HEIGHT, height / (float) PREVIEW_WIDTH);
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+            finish();
+        }
+    };
     private void runOnUiThreadWithOpenCameraFail() {
         runOnUiThread(new Runnable() {
             @Override
@@ -646,6 +647,9 @@ public class AuthenticationActivity extends BaseActivity {
                     mCamera.stopPreview();
                     mCamera.release();
                     mCamera = null;
+                    if (holder != null){
+                        holder.removeCallback(callback);
+                    }
                 }
                 if (baos != null) {
                     try {
@@ -664,6 +668,7 @@ public class AuthenticationActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         isOnPause = false;
+        closeAnimation();
     }
     private long currentTimeWithLong;
     @Override

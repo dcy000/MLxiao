@@ -1,2 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gzq.administrator.lib_common" />
+    package="com.gzq.administrator.lib_common"
+    />
