@@ -40,8 +40,8 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
     private BroadcastReceiver wifiChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("网络强度发生变化", "onReceive: " );
             int level = obtainWifiInfo();
+            Log.e("网络强度发生变化", "onReceive: " +level);
             if (level <= 0 && level >= -50) {
                 mRightView.setImageResource(R.drawable.white_wifi_3);
             } else if (level < -50 && level >= -70) {

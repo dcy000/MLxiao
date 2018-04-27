@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -91,7 +92,7 @@ public class SignUp3AddressActivity extends BaseActivity {
     private int finalK = -1;
     private String finalDetailAddress = "";
 
-    private BDLocationListener mListener = new BDLocationListener() {
+    private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             stopLocation();
@@ -154,11 +155,6 @@ public class SignUp3AddressActivity extends BaseActivity {
                     });
                 }
             }
-        }
-
-        @Override
-        public void onConnectHotSpotMessage(String s, int i) {
-
         }
     };
 

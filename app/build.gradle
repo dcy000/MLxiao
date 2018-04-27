@@ -100,15 +100,12 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/Sunflower.jar')
-    compile files('libs/pinyin4j-2.5.0.jar')
-    compile files('libs/commons-lang-2.3.jar')
     compile('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+//    compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
@@ -135,11 +132,11 @@ dependencies {
     compile('com.airbnb.android:lottie:2.2.5', {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     })
-    compile "com.android.support:support-v4:${gradle.supportVersion}"
-    compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
-    compile "com.android.support:cardview-v7:${gradle.supportVersion}"
-    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
-    compile "com.android.support:design:${gradle.supportVersion}"
+//    compile "com.android.support:support-v4:${gradle.supportVersion}"
+//    compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
+//    compile "com.android.support:cardview-v7:${gradle.supportVersion}"
+//    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
+//    compile "com.android.support:design:${gradle.supportVersion}"
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.facebook.fresco:fresco:1.7.1'
     compile 'com.afollestad.material-dialogs:core:0.9.5.0'
@@ -180,4 +177,5 @@ dependencies {
     //    compile 'me.relex:circleindicator:1.2.2@aar'
     compile project(':circleindicator')
     compile project(':voice')
+    compile project(':lib-common')
 }

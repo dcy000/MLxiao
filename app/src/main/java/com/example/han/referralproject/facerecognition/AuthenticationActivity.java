@@ -41,6 +41,7 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.MainActivity;
+import com.example.han.referralproject.Manifest;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -60,6 +61,8 @@ import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.orhanobut.logger.Logger;
+import com.permissions.PermissionsManager;
+import com.permissions.PermissionsResultAction;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,7 +100,7 @@ public class AuthenticationActivity extends BaseActivity {
     private boolean openOrcloseAnimation = true;
     private boolean isOnPause = false;
     private SurfaceHolder holder;
-
+    private static final String[] persissions=new String[]{android.Manifest.permission.CAMERA};
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
 
@@ -306,14 +309,32 @@ public class AuthenticationActivity extends BaseActivity {
         //工厂测试专用
         isTest = getIntent().getBooleanExtra("isTest", false);
         init();
-        openCameraPreview();
-        if (isTest) {
-            openAnimation();
-        } else {
-            joinGroup();
-        }
         setClick();
         getAllUsersInfo();
+        if (PermissionsManager.getInstance().hasAllPermissions(this,persissions)) {
+            openCameraPreview();
+            if (isTest) {
+                openAnimation();
+            } else {
+                joinGroup();
+            }
+        }else {
+            PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(this, new String[]{android.Manifest.permission.CAMERA}, new PermissionsResultAction() {
+                @Override
+                public void onGranted() {
+                    openCameraPreview();
+                    if (isTest) {
+                        openAnimation();
+                    } else {
+                        joinGroup();
+                    }
+                }
+                @Override
+                public void onDenied(String permission) {
+
+                }
+            });
+        }
     }
 
     private void joinGroup() {
@@ -469,6 +490,7 @@ public class AuthenticationActivity extends BaseActivity {
                         mCamera.startPreview();
 
                     } catch (Exception e) {
+                        Log.e("启动相机异常", "run: "+e.getMessage() );
                         runOnUiThreadWithOpenCameraFail();
                     }
                 }
@@ -668,7 +690,6 @@ public class AuthenticationActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         isOnPause = false;
-
     }
     private long currentTimeWithLong;
     @Override
@@ -677,6 +698,7 @@ public class AuthenticationActivity extends BaseActivity {
         isOnPause = true;
         closeAnimation();
         currentTimeWithLong=System.currentTimeMillis();
+        closeAnimation();
     }
 
     @Override
