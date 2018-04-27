@@ -11,9 +11,11 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
@@ -24,9 +26,9 @@ import com.medlink.danbogh.signin.SignInActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClickListener {
-
     @BindView(R.id.tv_phone_sign_in)
     TextView tvPhoneSignIn;
     @BindView(R.id.et_sign_in_password)
@@ -45,6 +47,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     CheckBox cbSignInAgree;
     @BindView(R.id.tv_sign_in_agree)
     TextView tvSignInAgree;
+    @BindView(R.id.rl_back)
+    RelativeLayout mRlBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         accountTip.setOnClickListener(this);
         regist.setOnClickListener(this);
         signUpFast.setOnClickListener(this);
+        mRlBack.setOnClickListener(this);
 
         SpannableStringBuilder agreeBuilder = new SpannableStringBuilder("我同意用户协议");
         agreeBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#FF380000")),
@@ -101,6 +106,9 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
+            case R.id.rl_back:
+                finish();
+                break;
         }
     }
 
@@ -108,7 +116,11 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-
+        if (MyApplication.isLoginout){
+            mRlBack.setVisibility(View.VISIBLE);
+        }else{
+            mRlBack.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -129,5 +141,4 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
             return;
         }
     }
-
 }

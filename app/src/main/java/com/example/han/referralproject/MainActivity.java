@@ -6,24 +6,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatball.MyService;
@@ -35,13 +30,13 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.yunlian.EntertainmentCenterActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
 
@@ -51,17 +46,13 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    ImageView mImageView1;
-    ImageView mImageView2;
-    ImageView mImageView3;
-    ImageView mImageView4;
-    ImageView mImageView5;
+    private ImageView speak2Robot;
+    private ImageView personInfomation;
+    private ImageView healthMeasure;
+    private ImageView askDoctor;
+    private ImageView shoppingMall;
     private Handler mHandler = new Handler();
-
-    SharedPreferences sharedPreferences;
-
-
-    private ImageView mImageView6;
+    private ImageView callFamily;
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
 
@@ -69,65 +60,45 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
-
-     /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
-
-        mediaPlayer.start();//播放音乐*/
         mToolbar.setVisibility(View.GONE);
-        mImageView1 = (ImageView) findViewById(R.id.robot_con);
-
-        mImageView2 = (ImageView) findViewById(R.id.person_info);
-
-        mImageView3 = (ImageView) findViewById(R.id.health_test);
-
-        mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
-
-        mImageView5 = (ImageView) findViewById(R.id.health_class);
-        mImageView6 = (ImageView) findViewById(R.id.call_family);
-
-        mImageView1.setOnClickListener(this);
-        mImageView2.setOnClickListener(this);
-        mImageView3.setOnClickListener(this);
-        mImageView4.setOnClickListener(this);
-        mImageView5.setOnClickListener(this);
-        mImageView6.setOnClickListener(this);
-        mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
-
-        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        findViewById(R.id.ll_anim).setOnClickListener(this);
-
-        float pivotX = .5f; // 取自身区域在X轴上的中心点
-        float pivotY = .5f; // 取自身区域在Y轴上的中心点
-        //    new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 围绕自身的中心点进行旋转
-
-        RotateAnimation tranAnimation = new RotateAnimation(-30, 30, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        tranAnimation.setDuration(1000);
-        tranAnimation.setRepeatCount(Animation.INFINITE);
-        tranAnimation.setRepeatMode(Animation.REVERSE);
-
-        findViewById(R.id.iv_anim).setAnimation(tranAnimation);
-        tranAnimation.start();
-
+        initView();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //speak(getString(R.string.facc_register));
                 speak(R.string.tips_splash);
-                // speak(R.string.head_verify);
-
             }
         }, 1000);
 
-        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-            startService(new Intent(this, AssistiveTouchService.class));
+        if (Build.VERSION.SDK_INT < 23) {
+            if (!isMyServiceRunning(AssistiveTouchService.class)) {
+                startService(new Intent(this, AssistiveTouchService.class));
+            }
+        } else {
+            MyService.StartMe(this);
+
         }
 
     }
 
+    private void initView() {
+        speak2Robot = (ImageView) findViewById(R.id.robot_con);
+        speak2Robot.setOnClickListener(this);
+        personInfomation = (ImageView) findViewById(R.id.person_info);
+        personInfomation.setOnClickListener(this);
+        healthMeasure = (ImageView) findViewById(R.id.health_test);
+        healthMeasure.setOnClickListener(this);
+        askDoctor = (ImageView) findViewById(R.id.doctor_ask);
+        askDoctor.setOnClickListener(this);
+        shoppingMall = (ImageView) findViewById(R.id.health_class);
+        shoppingMall.setOnClickListener(this);
+        callFamily = (ImageView) findViewById(R.id.call_family);
+        callFamily.setOnClickListener(this);
+        mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
+    }
 
-    public boolean isMyServiceRunning(Class<?> serviceClass) {
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
@@ -139,34 +110,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     @Override
-    protected void onActivitySpeakFinish() {
-        super.onActivitySpeakFinish();
-        findViewById(R.id.ll_anim).setVisibility(View.GONE);
-    }
-
-    @Override
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.ll_anim:
-                v.setVisibility(View.GONE);
-                break;
             case R.id.robot_con:
                 intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.person_info:
+            case R.id.person_info://个人中心
                 intent.setClass(getApplicationContext(), PersonDetailActivity.class);
                 startActivity(intent);
                 break;
             case R.id.health_test://健康监测
-
                 intent.setClass(getApplicationContext(), AuthenticationActivity.class);
                 intent.putExtra("orderid", "0");
                 intent.putExtra("from", "Test");
                 startActivity(intent);
-
-//                startActivity(new Intent(mContext, Test_mainActivity.class));
                 break;
             case R.id.doctor_ask://医生咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
@@ -178,39 +137,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.call_family://紧急呼叫家人
                 //呼叫
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
-//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
-//                    @Override
-//                    public void onSuccess(UserInfo response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
+//                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+                startActivity(new Intent(this, EntertainmentCenterActivity.class));
                 break;
         }
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        //main activity no back
     }
 
     @Override
@@ -278,17 +208,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-            mImageView4.performClick();
+            askDoctor.performClick();
             return;
         }
 
         if (inSpell.matches(REGEX_GO_CLASS)) {
-            mImageView5.performClick();
+            shoppingMall.performClick();
             return;
         }
 
         if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
-            mImageView2.performClick();
+            personInfomation.performClick();
         }
     }
 

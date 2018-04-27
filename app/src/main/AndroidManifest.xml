@@ -685,7 +685,8 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
-        <activity android:name="com.medlink.danbogh.register.idcard.SignInIdCardActivity"/>
+        <activity android:name=".yunlian.EntertainmentCenterActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

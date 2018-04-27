@@ -44,16 +44,13 @@ public class MyApplication extends Application {
     public String userId;
     public String xfid;
     public String telphoneNum;
-
     public String emDoctorId = "gcml_doctor_18940866148";
     public String userName;
-
     public String nimUserId() {
         return "user_" + userId;
     }
-
     public String eqid;
-
+    public static boolean isLoginout=false;
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

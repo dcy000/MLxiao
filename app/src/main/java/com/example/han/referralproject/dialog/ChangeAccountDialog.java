@@ -120,16 +120,13 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 ((Activity) mContext).finish();
                 break;
             case R.id.btn_logout:
+                MyApplication.isLoginout=true;
                 MobclickAgent.onProfileSignOff();
-                NimAccountHelper.getInstance().logout();//退出网易IM
-                //LocalShared.getInstance(mContext).deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);//删除当前这个人的账号
-//                //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
-//                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
-//                    LocalShared.getInstance(mContext).deleteAllAccount();
-//                }
-                LocalShared.getInstance(mContext).loginOut();
                 mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
-                ((Activity) mContext).finish();
+                this.dismiss();
+//                NimAccountHelper.getInstance().logout();//退出网易IM
+//                LocalShared.getInstance(mContext).loginOut();
+//                ((Activity) mContext).finish();
                 break;
         }
     }

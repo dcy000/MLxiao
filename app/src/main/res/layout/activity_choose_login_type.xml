@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             tools:context="com.example.han.referralproject.activity.ChooseLoginTypeActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.activity.ChooseLoginTypeActivity">
+    <RelativeLayout
+        android:id="@+id/rl_back"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/face_back" />
+
+    </RelativeLayout>
     <android.support.v7.widget.CardView
         android:id="@+id/cv_sign_in"
         android:layout_width="wrap_content"
@@ -37,7 +52,7 @@
                 android:textSize="50pt"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/et_sign_in_password"
@@ -53,7 +68,7 @@
                 android:textSize="36pt"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_phone_sign_in"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_phone_sign_in" />
 
             <TextView
                 android:id="@+id/tv_face_sign_in"
@@ -67,7 +82,7 @@
                 android:textSize="50pt"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_sign_in_password"/>
+                app:layout_constraintTop_toBottomOf="@+id/et_sign_in_password" />
 
             <TextView
                 android:id="@+id/account_tip"
@@ -80,7 +95,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/regist"
-                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in" />
 
             <TextView
                 android:id="@+id/regist"
@@ -92,7 +107,7 @@
                 android:textSize="44pt"
                 app:layout_constraintLeft_toRightOf="@id/account_tip"
                 app:layout_constraintRight_toLeftOf="@+id/sign_up_fast"
-                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in" />
 
             <TextView
                 android:id="@+id/sign_up_fast"
@@ -105,7 +120,7 @@
                 android:textSize="44pt"
                 app:layout_constraintLeft_toRightOf="@id/regist"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
@@ -117,7 +132,7 @@
         android:checked="true"
         android:textSize="36pt"
         app:layout_constraintLeft_toLeftOf="@+id/cv_sign_in"
-        app:layout_constraintTop_toBottomOf="@+id/cv_sign_in"/>
+        app:layout_constraintTop_toBottomOf="@+id/cv_sign_in" />
 
     <TextView
         android:id="@+id/tv_sign_in_agree"
@@ -128,7 +143,7 @@
         android:text="我同意用户协议"
         android:textSize="36pt"
         app:layout_constraintLeft_toRightOf="@+id/cb_sign_in_agree"
-        app:layout_constraintTop_toBottomOf="@+id/cv_sign_in"/>
+        app:layout_constraintTop_toBottomOf="@+id/cv_sign_in" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -138,5 +153,5 @@
         android:textSize="36pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

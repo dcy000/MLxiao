@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayou2"
+    android:layout_width="match_parent"
+    android:layout_height="580dp"
+    android:layout_marginLeft="20dp"
+    android:layout_toRightOf="@+id/linearlayou1"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:drawableLeft="@drawable/shape_ic_blue"
+        android:drawablePadding="8dp"
+        android:text="娱乐"
+        android:textColor="#999999"
+        android:textSize="22sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/old_man_happy"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/laorenyule_set"
+                android:clickable="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="休闲时光"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/children_happy"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/youjiao_wenyu_set" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="儿童世界"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/health_classroom"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/jiankang_set"
+                android:clickable="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="健康课堂"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:drawableLeft="@drawable/shape_ic_blue"
+        android:drawablePadding="8dp"
+        android:text="小工具"
+        android:textColor="#999999"
+        android:textSize="22sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/zhougongjiemeng"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/jimeng_set"
+                android:clickable="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="周公解梦"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="23dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/lishijintian"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/lishi_jintian_set"
+                android:clickable="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="历史今天"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/riqichaxun"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/riqi_chaxun_set"
+                android:clickable="true" />
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="日期查询"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/caipu"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/caipu_set"
+                android:clickable="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="菜谱"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/baike"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/baike_set"
+                android:clickable="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="百科"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/caimi"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/caimi_set"
+                android:clickable="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="猜谜"
+                android:textColor="#333333"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

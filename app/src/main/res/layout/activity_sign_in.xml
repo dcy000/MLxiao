@@ -19,8 +19,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/face_back" />
 
     </RelativeLayout>
@@ -166,8 +166,8 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
-        android:layout_width="90pt"
-        android:layout_height="90pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="onWifiClick"
         android:padding="19pt"
         android:layout_marginRight="30pt"
