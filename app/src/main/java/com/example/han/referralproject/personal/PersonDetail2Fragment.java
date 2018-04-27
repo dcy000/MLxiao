@@ -58,7 +58,7 @@ public class PersonDetail2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_call_family, R.id.iv_tools, R.id.main_iv_health_class})
+    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_order:

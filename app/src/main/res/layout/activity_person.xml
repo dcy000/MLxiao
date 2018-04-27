@@ -341,31 +341,31 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="23dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:layout_marginRight="23dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:orientation="vertical">-->
 
-                <ImageView
-                    android:id="@+id/iv_youjiao_wenyu"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:background="@drawable/youjiao_wenyu_set" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_youjiao_wenyu"-->
+                    <!--android:layout_width="130dp"-->
+                    <!--android:layout_height="130dp"-->
+                    <!--android:background="@drawable/youjiao_wenyu_set" />-->
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="幼教文娱"
-                    android:textColor="#333333"
-                    android:textSize="30sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="幼教文娱"-->
+                    <!--android:textColor="#333333"-->
+                    <!--android:textSize="30sp" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
 
 

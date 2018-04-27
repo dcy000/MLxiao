@@ -124,7 +124,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         mTextView3 = (TextView) view.findViewById(R.id.tv_balance);
 
 
-        mImageView5 = (ImageView) view.findViewById(R.id.iv_youjiao_wenyu);
+//        mImageView5 = (ImageView) view.findViewById(R.id.iv_youjiao_wenyu);
 
         ((BaseActivity) getActivity()).setEnableListeningLoop(false);
         mTextView4 = (TextView) view.findViewById(R.id.doctor_status);
@@ -159,13 +159,13 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             }
         });*/
         mImageView4 = (ImageView) view.findViewById(R.id.main_iv_old);
-        mImageView5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ChildEduHomeActivity.class);
-                startActivity(intent);
-            }
-        });
+//        mImageView5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), ChildEduHomeActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
       /*  String imageData1 = LocalShared.getInstance(getApplicationContext()).getUserImg();
 

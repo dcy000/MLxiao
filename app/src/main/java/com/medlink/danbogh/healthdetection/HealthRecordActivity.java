@@ -946,9 +946,9 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         rgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
         color1.setBackgroundColor(getResources().getColor(R.color.node_color));
-        indicator1.setText("高压(mmHg)");
+        indicator1.setText("收缩压(mmHg)");
         color2.setBackgroundColor(getResources().getColor(R.color.node2_color));
-        indicator2.setText("低压(mmHg)");
+        indicator2.setText("舒张压(mmHg)");
         llSecond.setVisibility(View.VISIBLE);
         setXueyaChart();
         NetworkApi.getBloodpressureHistory(start, end, temp, new NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>>() {

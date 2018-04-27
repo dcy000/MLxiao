@@ -60,6 +60,7 @@ import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.widget.BloodPressureSurfaceView;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
@@ -221,6 +222,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 				}*/
                     num = (result2[5] & 0xff) | (result2[6] << 8 & 0xff00);
                     Log.i("mylog", "data " + num);
+                    if (mSvValue != null) {
+                        mSvValue.setTargetValue(num);
+                    }
                     mHighPressTv.setText(String.valueOf(num));
                     break;
                 case 13://经典蓝牙测量结果
@@ -233,6 +237,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         down = (i & 0XFF) + 30;
                     } else {
                         down = (((byte) i) & 0XFF) + 1 + 0xff + 30;
+                    }
+
+                    if (mSvValue != null) {
+                        mSvValue.setTargetValue(getNew);
                     }
                     mHighPressTv.setText(String.valueOf(getNew));
                     mLowPressTv.setText(String.valueOf(down));
@@ -258,6 +266,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
     };
     private View mNavView;
+    private BloodPressureSurfaceView mSvValue;
 
 
     /**
@@ -533,6 +542,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         break;
                     case Type_Xueya:
                         if (isYuyue && notifyData.length == 19) {
+                            if (mSvValue != null) {
+                                mSvValue.setTargetValue(notifyData[1] & 0xff);
+                            }
                             mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
                             mLowPressTv.setText(String.valueOf(notifyData[3] & 0xff));
                             mPulseTv.setText(String.valueOf(notifyData[14] & 0xff));
@@ -560,7 +572,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             return;
                         }
                         if (notifyData.length == 11 && (notifyData[3] & 0xff) == 10 &&
-                                (notifyData[4] & 0xff) == 2){
+                                (notifyData[4] & 0xff) == 2) {
+                            if (mSvValue != null) {
+                                mSvValue.setTargetValue((notifyData[6] & 0xff) | (notifyData[7] << 8 & 0xff00));
+                            }
                             mHighPressTv.setText(String.valueOf((notifyData[6] & 0xff) | (notifyData[7] << 8 & 0xff00)));
                             mLowPressTv.setText("0");
                             mPulseTv.setText("0");
@@ -569,6 +584,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 (notifyData[4] & 0xff) == 3) {
                             int highPress = (notifyData[6] & 0xff) + 30;
                             int lowPress = (notifyData[7] & 0xff) + 30;
+                            if (mSvValue != null) {
+                                mSvValue.setTargetValue(highPress);
+                            }
                             mHighPressTv.setText(String.valueOf(highPress));
                             mLowPressTv.setText(String.valueOf(lowPress));
                             mPulseTv.setText(String.valueOf(notifyData[5] & 0xff));
@@ -838,6 +856,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                } else {
 //                    characteristic = gattServices.get(2).getCharacteristics().get(3);
 //                }
+                if (mBluetoothLeService == null) {
+                    return;
+                }
                 BluetoothGattService xueyaService = mBluetoothLeService.getGatt().getService(UUID
                         .fromString("01000000-0000-0000-0000-000000000080"));
                 mWriteCharacteristic = xueyaService
@@ -966,11 +987,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.xueya_video:
                 resourceId = R.raw.tips_xueya;
-                if (mWriteCharacteristic == null || mBluetoothLeService == null){
+                if (mWriteCharacteristic == null || mBluetoothLeService == null) {
                     speak("请打开血压计");
                     return;
                 }
-                byte[] commands = {(byte)0xff, (byte)0xff, 0x05, 0x01, (byte) 0xfa };
+                byte[] commands = {(byte) 0xff, (byte) 0xff, 0x05, 0x01, (byte) 0xfa};
                 mWriteCharacteristic.setValue(commands);
                 mBluetoothLeService.writeCharacteristic(mWriteCharacteristic);
                 return;
@@ -1213,6 +1234,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
             case Type_Xueya:
                 findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
+                findViewById(R.id.pressure_sv_value).setVisibility(View.VISIBLE);
                 if (isDetect) {
                     findViewById(R.id.detect_ll_nav2).setVisibility(View.GONE);
                 } else {
@@ -1289,6 +1311,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
         }
+        mSvValue = (BloodPressureSurfaceView) findViewById(R.id.pressure_sv_value);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
         mSanHeYiOneTv = (TextView) findViewById(R.id.tv_san_one);

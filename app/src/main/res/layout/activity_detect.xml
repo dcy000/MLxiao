@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
     <!--温度检测-->
     <RelativeLayout
         android:id="@+id/rl_temp"
@@ -19,7 +19,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/test_temperature"
             android:textColor="@color/white"
-            android:textSize="40sp" />
+            android:textSize="40sp"/>
 
         <!--  <ImageView
               android:id="@+id/temperature_video"
@@ -38,7 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="150dp"
-            android:src="@drawable/video_temperature" />
+            android:src="@drawable/video_temperature"/>
 
         <ImageView
             android:layout_width="550dp"
@@ -47,7 +47,7 @@
             android:layout_below="@+id/video_temperature"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/video_temperatures" />
+            android:src="@drawable/video_temperatures"/>
 
 
         <LinearLayout
@@ -68,7 +68,7 @@
                 android:gravity="center"
                 android:text="历史记录"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
 
             <Button
                 android:id="@+id/temperature_video"
@@ -79,7 +79,7 @@
                 android:gravity="center"
                 android:text="使用演示"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
 
 
         </LinearLayout>
@@ -99,7 +99,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/temperature"
-                android:textSize="45sp" />
+                android:textSize="45sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
                 android:layout_marginLeft="30sp"
                 android:gravity="center"
                 android:text="@string/temperature1"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
 
             <TextView
@@ -120,7 +120,7 @@
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="00.0"
-                android:textSize="50sp" />
+                android:textSize="50sp"/>
 
         </RelativeLayout>
 
@@ -144,7 +144,7 @@
             android:layout_marginLeft="200dp"
             android:clickable="true"
             android:src="@drawable/tests"
-            android:visibility="gone" />
+            android:visibility="gone"/>
     </RelativeLayout>
     <!--血压检测-->
     <RelativeLayout
@@ -161,7 +161,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/test_xueya"
             android:textColor="@color/white"
-            android:textSize="40sp" />
+            android:textSize="40sp"/>
 
         <!--<ImageView
             android:id="@+id/xueya_video"
@@ -181,7 +181,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="100dp"
-            android:src="@drawable/xueya_normal" />
+            android:src="@drawable/xueya_normal"/>
 
         <ImageView
             android:id="@+id/video_xueya2"
@@ -191,7 +191,7 @@
             android:layout_below="@+id/video_xueya1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/xueya_high" />
+            android:src="@drawable/xueya_high"/>
 
         <ImageView
             android:layout_width="550dp"
@@ -200,7 +200,7 @@
             android:layout_below="@+id/video_xueya2"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/xueya_low" />
+            android:src="@drawable/xueya_low"/>
 
 
         <LinearLayout
@@ -221,7 +221,7 @@
                 android:gravity="center"
                 android:text="历史记录"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
 
 
             <Button
@@ -233,18 +233,28 @@
                 android:gravity="center"
                 android:text="开始测量"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
-
-
+                android:textSize="35sp"/>
         </LinearLayout>
 
+
+        <com.medlink.danbogh.widget.BloodPressureSurfaceView
+            android:id="@+id/pressure_sv_value"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/detect_ll_nav2"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="100dp"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:id="@+id/RelativeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="170dp">
+            android:layout_alignTop="@+id/pressure_sv_value"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/pressure_sv_value">
 
             <TextView
                 android:id="@+id/high_pressure1"
@@ -252,39 +262,38 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/high_pressure"
-                android:textSize="45sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/high_pressure1"
+                android:layout_alignBottom="@+id/high_pressure1"
                 android:layout_marginLeft="10sp"
+                android:layout_toRightOf="@+id/high_pressure1"
                 android:gravity="center"
                 android:text="@string/high_pressure1"
-                android:textSize="20sp" />
-
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/high_pressure"
-                android:layout_width="230dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="50dp"
-                android:layout_toRightOf="@+id/high_pressure1"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/high_pressure1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="0"
-                android:textSize="50sp" />
-
+                android:textSize="35sp"/>
 
         </RelativeLayout>
-
 
         <RelativeLayout
             android:id="@+id/RelativeLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/RelativeLayout"
             android:layout_below="@+id/RelativeLayout"
-            android:layout_marginLeft="100dp"
             android:layout_marginTop="50dp">
 
             <TextView
@@ -293,36 +302,37 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/low_pressure"
-                android:textSize="45sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/low_pressure1"
-                android:layout_marginLeft="10sp"
+                android:layout_alignBottom="@+id/low_pressure1"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/low_pressure1"
                 android:gravity="center"
                 android:text="@string/high_pressure1"
-                android:textSize="20sp" />
-
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/low_pressure"
-                android:layout_width="230dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="50dp"
-                android:layout_toRightOf="@+id/low_pressure1"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/low_pressure1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="0"
-                android:textSize="50sp" />
+                android:textSize="35sp"/>
         </RelativeLayout>
 
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/RelativeLayout2"
             android:layout_below="@+id/RelativeLayout2"
-            android:layout_marginLeft="100dp"
             android:layout_marginTop="50dp">
 
             <TextView
@@ -331,28 +341,29 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/purse"
-                android:textSize="45sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/purse1"
-                android:layout_marginLeft="20sp"
+                android:layout_alignBottom="@+id/purse1"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/purse1"
                 android:gravity="center"
                 android:text="@string/purse1"
-                android:textSize="20sp" />
-
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/pulse"
-                android:layout_width="230dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="50dp"
-                android:layout_toRightOf="@+id/purse1"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/purse1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="0"
-                android:textSize="50sp" />
+                android:textSize="35sp"/>
         </RelativeLayout>
 
 
@@ -393,7 +404,7 @@
             android:layout_marginLeft="200dp"
             android:clickable="true"
             android:src="@drawable/tests"
-            android:visibility="gone" />
+            android:visibility="gone"/>
     </RelativeLayout>
     <!--血糖监测-->
     <RelativeLayout
@@ -411,7 +422,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/test_xuetang"
             android:textColor="@color/white"
-            android:textSize="40sp" />
+            android:textSize="40sp"/>
 
         <!--   <ImageView
                android:id="@+id/xuetang_video"
@@ -432,7 +443,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="100dp"
             android:src="@drawable/video_xueyas"
-            android:visibility="visible" />
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/video_xuetang2"
@@ -442,7 +453,7 @@
             android:layout_below="@+id/video_xuetang1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/video_xueya" />
+            android:src="@drawable/video_xueya"/>
 
         <ImageView
             android:layout_width="550dp"
@@ -451,7 +462,7 @@
             android:layout_below="@+id/video_xuetang2"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/video_xueyass" />
+            android:src="@drawable/video_xueyass"/>
 
         <LinearLayout
             android:id="@+id/detect_ll_nav3"
@@ -472,7 +483,7 @@
                 android:gravity="center"
                 android:text="历史记录"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
 
 
             <Button
@@ -484,7 +495,7 @@
                 android:gravity="center"
                 android:text="使用演示"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
 
 
         </LinearLayout>
@@ -503,7 +514,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="@string/xuetang"
-                android:textSize="45sp" />
+                android:textSize="45sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -512,7 +523,7 @@
                 android:layout_marginLeft="5sp"
                 android:gravity="center"
                 android:text="@string/xue_tang1"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
 
             <TextView
@@ -524,7 +535,7 @@
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="0.0"
-                android:textSize="50sp" />
+                android:textSize="50sp"/>
 
 
         </RelativeLayout>
@@ -593,7 +604,7 @@
                     android:gravity="center"
                     android:text="@string/kongfu"
                     android:textColor="#6bb7eb"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
 
                 <TextView
                     android:id="@+id/tv_an_hour"
@@ -606,7 +617,7 @@
                     android:gravity="center"
                     android:text="@string/an_hour_later"
                     android:textColor="#6bb7eb"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
 
                 <TextView
                     android:id="@+id/tv_two_hour"
@@ -619,7 +630,7 @@
                     android:gravity="center"
                     android:text="@string/two_hour_later"
                     android:textColor="#6bb7eb"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
             </LinearLayout>
 
             <TextView
@@ -632,7 +643,7 @@
                 android:gravity="center"
                 android:text="@string/three_hour_later"
                 android:textColor="#6bb7eb"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
         </LinearLayout>
     </RelativeLayout>
     <!--血氧监测-->
@@ -650,7 +661,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/test_xueyang"
             android:textColor="@color/white"
-            android:textSize="40sp" />
+            android:textSize="40sp"/>
 
         <!--  <ImageView
               android:id="@+id/xueyang_video"
@@ -668,7 +679,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/video_xueyang" />
+            android:src="@drawable/video_xueyang"/>
 
 
         <LinearLayout
@@ -689,7 +700,7 @@
                 android:gravity="center"
                 android:text="历史记录"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
 
 
             <Button
@@ -701,7 +712,7 @@
                 android:gravity="center"
                 android:text="使用演示"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
 
 
         </LinearLayout>
@@ -721,7 +732,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/xue_yang"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -730,7 +741,7 @@
                 android:layout_marginLeft="50dp"
                 android:gravity="center"
                 android:text="@string/xue_yang1"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
 
             <TextView
@@ -742,16 +753,16 @@
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="0.0"
-                android:textSize="50sp" />
+                android:textSize="50sp"/>
         </RelativeLayout>
 
         <RelativeLayout
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/RelativeLayout_xueyang"
             android:layout_marginLeft="70dp"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="50dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/test_maibo"
@@ -761,7 +772,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/maibo"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -770,7 +781,7 @@
                 android:layout_marginLeft="50dp"
                 android:gravity="center"
                 android:text="@string/maibo1"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
 
             <TextView
@@ -782,7 +793,7 @@
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="0.0"
-                android:textSize="50sp" />
+                android:textSize="50sp"/>
 
 
         </RelativeLayout>
@@ -795,6 +806,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/normal_bg"
         android:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -816,17 +828,18 @@
             style="@style/AVLoadingIndicatorView"
             android:layout_width="180dp"
             android:layout_height="120dp"
+            android:layout_centerInParent="true"
             app:indicatorColor="@color/toolbar_bg"
-            app:indicatorName="LineScaleIndicator"
-            android:layout_centerInParent="true"/>
+            app:indicatorName="LineScaleIndicator"/>
 
         <TextView
             android:id="@+id/tv_xindian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
             android:layout_centerHorizontal="true"
-            android:textSize="40sp" />
+            android:layout_marginTop="150dp"
+            android:textSize="40sp"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -834,6 +847,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="100dp"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/history4"
                 android:layout_width="200dp"
@@ -842,7 +856,8 @@
                 android:gravity="center"
                 android:text="历史记录"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
+
             <Button
                 android:id="@+id/xindian_video"
                 android:layout_width="200dp"
@@ -852,7 +867,7 @@
                 android:gravity="center"
                 android:text="使用演示"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
         </LinearLayout>
     </RelativeLayout>
     <!--体重监测-->
@@ -870,7 +885,8 @@
             android:layout_marginTop="15dp"
             android:text="@string/test_tizhong"
             android:textColor="@color/white"
-            android:textSize="40sp" />
+            android:textSize="40sp"/>
+
         <RelativeLayout
             android:id="@+id/rl_ti"
             android:layout_width="wrap_content"
@@ -885,7 +901,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="@string/tizhong"
-                android:textSize="45sp" />
+                android:textSize="45sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -894,7 +910,7 @@
                 android:layout_marginLeft="5sp"
                 android:gravity="center"
                 android:text="(kg)"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
 
             <TextView
@@ -906,15 +922,16 @@
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="0.0"
-                android:textSize="50sp" />
+                android:textSize="50sp"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rl_ti2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/rl_ti"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="50dp"
-            android:layout_below="@id/rl_ti">
+            android:layout_marginTop="50dp">
 
             <TextView
                 android:id="@+id/test_tizhi"
@@ -923,7 +940,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="体脂"
-                android:textSize="45sp" />
+                android:textSize="45sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -932,7 +949,7 @@
                 android:layout_marginLeft="5sp"
                 android:gravity="center"
                 android:text="(kg/㎡)"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
 
             <TextView
@@ -944,27 +961,29 @@
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
                 android:text="0.0"
-                android:textSize="50sp" />
+                android:textSize="50sp"/>
         </RelativeLayout>
+
         <Button
             android:id="@+id/history6"
             android:layout_width="200dp"
             android:layout_height="70dp"
+            android:layout_below="@id/rl_ti2"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/shape_phone"
             android:gravity="center"
             android:text="历史记录"
             android:textColor="#FFFFFF"
-            android:textSize="35sp"
-            android:layout_below="@id/rl_ti2"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="200dp"/>
+            android:textSize="35sp"/>
+
         <ImageView
             android:layout_width="550dp"
             android:layout_height="180dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/video_tizhong" />
+            android:src="@drawable/device_ic_weight_tips"/>
 
     </RelativeLayout>
 
@@ -983,7 +1002,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/test_sanheyi"
             android:textColor="@color/white"
-            android:textSize="40sp" />
+            android:textSize="40sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -1002,7 +1021,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="血&#160;&#160;&#160;&#160;糖"
-                    android:textSize="45sp" />
+                    android:textSize="45sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -1011,7 +1030,7 @@
                     android:layout_marginLeft="10sp"
                     android:gravity="center"
                     android:text="@string/xue_tang1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/tv_san_one"
@@ -1022,7 +1041,7 @@
                     android:background="@drawable/celiang_shape"
                     android:gravity="center"
                     android:text="0"
-                    android:textSize="50sp" />
+                    android:textSize="50sp"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -1037,7 +1056,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="尿&#160;&#160;&#160;&#160;酸"
-                    android:textSize="45sp" />
+                    android:textSize="45sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -1046,7 +1065,7 @@
                     android:layout_marginLeft="10sp"
                     android:gravity="center"
                     android:text="@string/xue_tang1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/tv_san_two"
@@ -1057,7 +1076,7 @@
                     android:background="@drawable/celiang_shape"
                     android:gravity="center"
                     android:text="0"
-                    android:textSize="50sp" />
+                    android:textSize="50sp"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -1072,7 +1091,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="胆固醇"
-                    android:textSize="45sp" />
+                    android:textSize="45sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -1081,7 +1100,7 @@
                     android:layout_marginLeft="10sp"
                     android:gravity="center"
                     android:text="@string/xue_tang1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/tv_san_three"
@@ -1092,7 +1111,7 @@
                     android:background="@drawable/celiang_shape"
                     android:gravity="center"
                     android:text="0"
-                    android:textSize="50sp" />
+                    android:textSize="50sp"/>
             </RelativeLayout>
             <!--三合一 历史记录等两个按钮-->
             <LinearLayout
@@ -1102,7 +1121,6 @@
                 android:layout_marginTop="50dp"
                 android:orientation="horizontal">
 
-
                 <Button
                     android:id="@+id/history5"
                     android:layout_width="200dp"
@@ -1111,7 +1129,7 @@
                     android:gravity="center"
                     android:text="历史记录"
                     android:textColor="#FFFFFF"
-                    android:textSize="35sp" />
+                    android:textSize="35sp"/>
 
 
                 <Button
@@ -1123,35 +1141,39 @@
                     android:gravity="center"
                     android:text="使用演示"
                     android:textColor="#FFFFFF"
-                    android:textSize="35sp" />
+                    android:textSize="35sp"/>
 
 
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="100dp"
-            android:layout_marginRight="10dp">
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="550dp"
                 android:layout_height="180dp"
-                android:src="@drawable/xxtang"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/xxtang"/>
+
             <ImageView
                 android:layout_width="550dp"
                 android:layout_height="180dp"
-                android:src="@drawable/xxniaosuan"
                 android:layout_marginTop="10dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/xxniaosuan"/>
+
             <ImageView
                 android:layout_width="550dp"
                 android:layout_height="180dp"
-                android:src="@drawable/ddguchun"
                 android:layout_marginTop="10dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/ddguchun"/>
         </LinearLayout>
     </RelativeLayout>
     <!--<RelativeLayout-->
@@ -1176,14 +1198,14 @@
         android:id="@+id/detect_tv_result_next"
         android:layout_width="200dp"
         android:layout_height="70dp"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="40dp"
         android:background="@drawable/shape_phone"
         android:gravity="center"
         android:text="下一步"
         android:textColor="#FFFFFF"
-        android:textSize="35sp"
-        android:layout_gravity="left|bottom"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="40dp"/>
+        android:textSize="35sp"/>
 
     <!--视频播放界面-->
     <RelativeLayout
@@ -1194,28 +1216,31 @@
         <VideoView
             android:id="@+id/vv_tips"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
+
         <FrameLayout
             android:id="@+id/view_over"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true">
+
             <TextView
                 android:layout_width="160dp"
                 android:layout_height="100dp"
-                android:padding="10dp"
+                android:layout_gravity="center"
                 android:background="@drawable/selector_bg_btn"
                 android:gravity="center"
+                android:padding="10dp"
                 android:text="@string/tiao_zhuan"
                 android:textColor="#FFFFFF"
-                android:layout_gravity="center"
-                android:textSize="35sp" />
+                android:textSize="35sp"/>
+
             <View
                 android:layout_width="200dp"
                 android:layout_height="120dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"/>
         </FrameLayout>
     </RelativeLayout>
 
@@ -1224,16 +1249,16 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:scaleType="centerInside"
-        android:src="@drawable/icon_back" />
+        android:src="@drawable/icon_back"/>
 
     <ImageView
         android:id="@+id/icon_home"
         android:layout_width="120dp"
         android:layout_height="90dp"
         android:layout_gravity="right"
-        android:scaleType="centerInside"
         android:clickable="true"
-        android:src="@drawable/icon_refresh" />
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_refresh"/>
 
     <FrameLayout
         android:id="@+id/container"

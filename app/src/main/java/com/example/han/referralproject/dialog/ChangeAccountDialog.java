@@ -27,6 +27,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.register.lude.LudeAuthActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.medlink.danbogh.utils.JpushAliasUtils;
@@ -120,7 +121,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    mContext.startActivity(new Intent(mContext, SignInActivity.class));
 //                    ((Activity) mContext).finish();
 //                }
-                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                mContext.startActivity(new Intent(mContext, LudeAuthActivity.class));
                 ((Activity) mContext).finish();
                 break;
             case R.id.btn_logout:
@@ -132,7 +133,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
                 LocalShared.getInstance(mContext).loginOut();
-                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                mContext.startActivity(new Intent(mContext, LudeAuthActivity.class));
                 ((Activity) mContext).finish();
                 break;
         }

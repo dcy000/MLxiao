@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/main_ic_detect" />
+            android:src="@drawable/ic_call_family" />
     </LinearLayout>
 
     <ImageView
@@ -86,16 +86,10 @@
         android:id="@+id/health_class"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@id/ll_robot_con"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/line_cv"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/ll_robot_con"
+        android:layout_alignStart="@+id/doctor_ask"
+        android:layout_below="@+id/line_cv"
         android:clickable="true"
-        android:src="@drawable/ic_shop" />
+        android:src="@drawable/main_ic_health_class"/>
 
     <RelativeLayout
         android:id="@+id/ll_anim"

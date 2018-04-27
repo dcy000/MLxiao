@@ -27,7 +27,7 @@ import com.medlink.danbogh.signin.SignInActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClickListener {
+public class ChooseRegisterTypeActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.tv_phone_sign_in)
     TextView tvPhoneSignIn;
@@ -55,7 +55,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_login_type);
+        setContentView(R.layout.activity_choose_register_type);
         ButterKnife.bind(this);
         speak("主人，想要登录，请说人脸登录或者手机登录。如果您还没有账号，请说我要注册。");
         tvPhoneSignIn.setOnClickListener(this);
@@ -77,7 +77,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     private ClickableSpan agreeClickableSpan = new ClickableSpan() {
         @Override
         public void onClick(View widget) {
-            startActivity(new Intent(ChooseLoginTypeActivity.this, AgreementActivity.class));
+            startActivity(new Intent(ChooseRegisterTypeActivity.this, AgreementActivity.class));
         }
     };
 
@@ -88,30 +88,33 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 finish();
                 break;
             case R.id.tv_phone_sign_in:
-                startActivity(new Intent(this, SignInActivity.class));
+                startActivity(new Intent(ChooseRegisterTypeActivity.this, SignUp1NameActivity.class));
+//                startActivity(new Intent(this, SignInActivity.class));
                 break;
             case R.id.tv_face_sign_in:
-                //获取所有账号
-                String[] accounts = LocalShared.getInstance(ChooseLoginTypeActivity.this).getAccounts();
-                if (accounts == null) {
-                    ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
-                    startActivity(new Intent(this, SignInActivity.class));
-                } else {
-                    startActivity(new Intent(this, AuthenticationActivity.class)
-                            .putExtra("from", "Welcome"));
-                }
+                startActivity(new Intent(ChooseRegisterTypeActivity.this, SignUp01NameActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+//                //获取所有账号
+//                String[] accounts = LocalShared.getInstance(ChooseRegisterTypeActivity.this).getAccounts();
+//                if (accounts == null) {
+//                    ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
+//                    startActivity(new Intent(this, SignInActivity.class));
+//                } else {
+//                    startActivity(new Intent(this, AuthenticationActivity.class)
+//                            .putExtra("from", "Welcome"));
+//                }
                 break;
             case R.id.tv_id_card_sign_in:
                 startActivity(new Intent(this, SignInIdCardActivity.class));
                 break;
             case R.id.account_tip://注册
-                startActivity(new Intent(ChooseLoginTypeActivity.this, SignUp1NameActivity.class));
+                startActivity(new Intent(ChooseRegisterTypeActivity.this, SignUp1NameActivity.class));
                 break;
             case R.id.regist://注册
-                startActivity(new Intent(ChooseLoginTypeActivity.this, SignUp1NameActivity.class));
+                startActivity(new Intent(ChooseRegisterTypeActivity.this, SignUp1NameActivity.class));
                 break;
             case R.id.sign_up_fast://快速注册
-                Intent intent = new Intent(ChooseLoginTypeActivity.this, SignUp01NameActivity.class);
+                Intent intent = new Intent(ChooseRegisterTypeActivity.this, SignUp01NameActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
@@ -132,10 +135,10 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
             tvPhoneSignIn.performClick();
             return;
         }
-        if (inSpell.matches(".*((ren|reng)lian).*")) {
-            tvFaceSignIn.performClick();
-            return;
-        }
+//        if (inSpell.matches(".*((ren|reng)lian).*")) {
+//            tvFaceSignIn.performClick();
+//            return;
+//        }
 
         if (inSpell.matches(".*((zu|zhu)ce).*")) {
             regist.performClick();

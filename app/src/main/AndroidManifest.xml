@@ -683,6 +683,9 @@
         </activity>
         <activity android:name="com.medlink.danbogh.register.idcard.IdCardInfoActivity">
         </activity>
+        <activity android:name="com.medlink.danbogh.register.lude.LudeAuthActivity">
+        </activity>
+        <activity android:name=".activity.ChooseRegisterTypeActivity"/>
     </application>
 
 </manifest>

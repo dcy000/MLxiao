@@ -28,11 +28,13 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.video.VideoListActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -171,15 +173,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.health_class:
-                intent.setClass(getApplicationContext(), MarketActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, VideoListActivity.class));
                 break;
             case R.id.health_detect://紧急呼叫家人
                 //呼叫
-                intent.setClass(this, DetectActivity.class);
-                intent.putExtra("type", "xueya");
-                intent.putExtra("isDetect", true);
-                startActivity(intent);
+                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+//                intent.setClass(this, DetectActivity.class);
+//                intent.putExtra("type", "xueya");
+//                intent.putExtra("isDetect", true);
+//                startActivity(intent);
                 break;
         }
     }

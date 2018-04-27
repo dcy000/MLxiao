@@ -379,12 +379,12 @@ public class SignInIdCardActivity extends BaseActivity {
             }
             isRead = true;
             boolean connected = ensureDeviceConnected();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    speak("请刷身份证");
-                }
-            });
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    speak("请刷身份证");
+//                }
+//            });
             if (connected && client != null && !isFinishing() && !isDestroyed()) {
                 readStartTime = System.currentTimeMillis();
                 IDCardItem temp;
@@ -541,7 +541,7 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private void onReadFailed() {
         item = null;
-        speak("请刷身份证");
+//        speak("请刷身份证");
         btHandler().postDelayed(readRunnable, 1500);
     }
 
@@ -555,7 +555,7 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private void onReadSuccess(IDCardItem item) {
         this.item = item;
-        speak("读取成功");
+        speak("欢迎使用西恩智能医生");
         onCheckRegistered();
     }
 

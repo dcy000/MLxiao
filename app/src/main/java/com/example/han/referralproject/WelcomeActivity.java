@@ -23,6 +23,7 @@ import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.medlink.danbogh.register.lude.LudeAuthActivity;
 
 import java.util.ArrayList;
 
@@ -81,7 +82,7 @@ public class WelcomeActivity extends BaseActivity {
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
                                     if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                        Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), LudeAuthActivity.class);
                                         startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -112,7 +113,7 @@ public class WelcomeActivity extends BaseActivity {
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), LudeAuthActivity.class);
                                 startActivity(intent);
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
