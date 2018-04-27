@@ -211,13 +211,13 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.HOME" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Test_mainActivity"
@@ -236,15 +236,7 @@
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
             android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recyclerview.DoctorMesActivity"
             android:screenOrientation="landscape" />
@@ -693,7 +685,6 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
-        <activity android:name="com.medlink.danbogh.register.idcard.SignInIdCardActivity"/>
     </application>
 
 </manifest>
