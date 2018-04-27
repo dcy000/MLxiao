@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="@color/main_bg"
-                                             tools:context="com.medlink.danbogh.healthdetection.HealthRecordActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    tools:context="com.medlink.danbogh.healthdetection.HealthRecordActivity">
 
     <RadioGroup
         android:id="@+id/ll_time"
@@ -29,8 +29,7 @@
             android:gravity="center"
             android:text="最近一周"
             android:textColor="@drawable/healthhistory_time_text"
-            android:textSize="22sp"
-            />
+            android:textSize="22sp" />
 
         <RadioButton
             android:id="@+id/one_month"
@@ -43,7 +42,7 @@
             android:gravity="center"
             android:text="最近一月"
             android:textColor="@drawable/healthhistory_time_text"
-            android:textSize="22sp"/>
+            android:textSize="22sp" />
 
         <RadioButton
             android:id="@+id/one_season"
@@ -56,7 +55,7 @@
             android:gravity="center"
             android:text="最近一季"
             android:textColor="@drawable/healthhistory_time_text"
-            android:textSize="22sp"/>
+            android:textSize="22sp" />
 
         <RadioButton
             android:id="@+id/one_year"
@@ -69,7 +68,7 @@
             android:gravity="center"
             android:text="最近一年"
             android:textColor="@drawable/healthhistory_time_text"
-            android:textSize="22sp"/>
+            android:textSize="22sp" />
     </RadioGroup>
 
     <android.support.constraint.ConstraintLayout
@@ -99,7 +98,7 @@
                 android:id="@+id/color_1"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@color/color_9cd793"/>
+                android:background="@color/color_9cd793" />
             />
 
             <TextView
@@ -109,7 +108,7 @@
                 android:layout_marginLeft="5dp"
                 android:text="颜色1"
                 android:textColor="#999999"
-                android:textSize="22sp"/>
+                android:textSize="22sp" />
 
             <LinearLayout
                 android:id="@+id/ll_second"
@@ -123,7 +122,7 @@
                     android:id="@+id/color_2"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@color/color_c2364b"/>
+                    android:background="@color/color_c2364b" />
 
                 <TextView
                     android:id="@+id/indicator_2"
@@ -132,7 +131,7 @@
                     android:layout_marginLeft="5dp"
                     android:text="颜色2"
                     android:textColor="#999999"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp" />
             </LinearLayout>
 
             <RadioGroup
@@ -154,7 +153,7 @@
                     android:gravity="center"
                     android:text="空腹"
                     android:textColor="@drawable/healthhistory_time_text"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/rb_one_hour"
@@ -167,7 +166,7 @@
                     android:gravity="center"
                     android:text="饭后一小时"
                     android:textColor="@drawable/healthhistory_time_text"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/rb_two_hour"
@@ -180,7 +179,7 @@
                     android:gravity="center"
                     android:text="饭后2小时"
                     android:textColor="@drawable/healthhistory_time_text"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
             </RadioGroup>
         </LinearLayout>
         <!--体温图-->
@@ -193,8 +192,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"
-            />
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
         <!--血压图-->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/xueya_chart"
@@ -205,7 +203,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
         <!--血糖-->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/xuetang_chart"
@@ -216,7 +214,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
         <!--血氧-->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/xueyang_chart"
@@ -227,7 +225,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
         <!--心率-->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/xinlv_chart"
@@ -238,7 +236,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
         <!--脉搏-->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/maibo_chart"
@@ -249,7 +247,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
         <!--胆固醇-->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/danguchun_chart"
@@ -260,7 +258,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
         <!--血尿酸-->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/xueniaosuan_chart"
@@ -271,7 +269,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/xindiantu"
@@ -283,7 +281,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
         <!--体重-->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/tizhong_chart"
@@ -294,7 +292,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_indicator"/>
+            app:layout_constraintTop_toBottomOf="@id/ll_indicator" />
     </android.support.constraint.ConstraintLayout>
 
     <RadioGroup
@@ -315,12 +313,12 @@
             android:gravity="center"
             android:text="体  温"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"/>
+            android:background="@color/line" />
 
         <RadioButton
             android:id="@+id/rb_record_blood_pressure"
@@ -332,12 +330,12 @@
             android:gravity="center"
             android:text="血  压"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"/>
+            android:background="@color/line" />
 
         <RadioButton
             android:id="@+id/rb_record_blood_glucose"
@@ -349,12 +347,12 @@
             android:gravity="center"
             android:text="血  糖"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"/>
+            android:background="@color/line" />
 
         <RadioButton
             android:id="@+id/rb_record_blood_oxygen"
@@ -366,12 +364,12 @@
             android:gravity="center"
             android:text="血  氧"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"/>
+            android:background="@color/line" />
 
         <RadioButton
             android:id="@+id/rb_record_heart_rate"
@@ -384,13 +382,13 @@
             android:text="心  率"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"
-            android:visibility="visible"/>
+            android:visibility="visible" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <RadioButton
             android:id="@+id/rb_record_pulse"
@@ -403,13 +401,13 @@
             android:text="脉  搏"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <RadioButton
             android:id="@+id/rb_record_cholesterol"
@@ -421,12 +419,12 @@
             android:gravity="center"
             android:text="胆固醇"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"/>
+            android:background="@color/line" />
 
         <RadioButton
             android:id="@+id/rb_record_bua"
@@ -438,12 +436,12 @@
             android:gravity="center"
             android:text="血尿酸"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"/>
+            android:background="@color/line" />
 
         <RadioButton
             android:id="@+id/rb_record_ecg"
@@ -455,12 +453,12 @@
             android:gravity="center"
             android:text="心电图"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"/>
+            android:background="@color/line" />
 
         <RadioButton
             android:id="@+id/rb_record_weight"
@@ -472,12 +470,12 @@
             android:gravity="center"
             android:text="体重"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"/>
+            android:background="@color/line" />
     </RadioGroup>
 
     <TextView
@@ -490,5 +488,5 @@
         android:textColor="@drawable/bg_rb_history_record"
         android:textSize="28sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

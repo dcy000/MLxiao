@@ -43,5 +43,7 @@ initGradleEnvironment()
 include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':lib-zxing', ':voice', ':lib-common'
 include ':expand-textview-library'
 include ':circleindicator'
+include 'lib-idcard-reader'
+include 'module_hykd'
 
 

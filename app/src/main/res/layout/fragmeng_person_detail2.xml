@@ -31,6 +31,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_line1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
@@ -167,9 +168,117 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/iv_jiankangdangan"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/jiankangdangan_set"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="健康档案"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="75dp"
+            android:layout_below="@id/ll_line1">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_jiankangfuwu"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/jiankangfuwu_set"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="服务团队"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_fuwulishi"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/service_history_set"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="服务历史"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_dianshijiemu"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/tv_live_set"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="电视节目"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="25dp"

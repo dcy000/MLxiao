@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="textNormalColor">#666</color>
+    <color name="livemedia_content_background">#18181d</color>
+    <color name="hy_line">#eeeeee</color>
+    <color name="hy_main_bg">#f5f5f5</color>
+    <color name="hy_toolbar">#3F86FC</color>
+    <color name="hy_gray">#bbbbbb</color>
+    <color name="item_pressed">#eeeeee</color>
+</resources>

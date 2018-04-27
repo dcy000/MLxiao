@@ -1,7 +1,9 @@
 package com.gzq.administrator.lib_common.base;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Configuration;
+import android.support.multidex.MultiDex;
 
 import com.gzq.administrator.lib_common.utils.ScreenUtils;
 import com.gzq.administrator.lib_common.utils.ToastTool;
@@ -47,7 +49,12 @@ public class BaseApplication extends Application{
         super.onConfigurationChanged(newConfig);
         UiUtils.compatWithOrientation(newConfig);
     }
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        //解决方法数64K
+        MultiDex.install(this);
+    }
     public static BaseApplication getInstance() {
         return mInstance;
     }

@@ -16,7 +16,10 @@ import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.tool.ToolsActivity;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.ml.edu.OldRouter;
+import com.zane.androidupnpdemo.base_information_of_residents.HY_HealthArchivesActivity;
+import com.zane.androidupnpdemo.base_information_of_residents.HY_HealthServiceActivity;
+import com.zane.androidupnpdemo.base_information_of_residents.MyServicedHistoryActivity;
+import com.zane.androidupnpdemo.live_tv.tv_list.TvChannelActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +42,10 @@ public class PersonDetail2Fragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.main_iv_health_class)
     ImageView mainIvHealthClass;
+    @BindView(R.id.iv_jiankangdangan)
+    ImageView ivJiankang;
+    @BindView(R.id.iv_jiankangfuwu)
+    ImageView ivFuwu;
 
     @Nullable
     @Override
@@ -54,7 +61,7 @@ public class PersonDetail2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class})
+    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class,R.id.iv_jiankangdangan,R.id.iv_jiankangfuwu,R.id.iv_fuwulishi,R.id.iv_dianshijiemu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_order:
@@ -71,6 +78,18 @@ public class PersonDetail2Fragment extends Fragment {
                 break;
             case R.id.main_iv_health_class:
                 startActivity(new Intent(getActivity(), VideoListActivity.class));
+                break;
+            case R.id.iv_jiankangdangan:
+                startActivity(new Intent(getContext(), HY_HealthArchivesActivity.class));
+                break;
+            case R.id.iv_jiankangfuwu:
+                startActivity(new Intent(getContext(), HY_HealthServiceActivity.class));
+                break;
+            case R.id.iv_fuwulishi:
+                startActivity(new Intent(getContext(),MyServicedHistoryActivity.class));
+                break;
+            case R.id.iv_dianshijiemu:
+                startActivity(new Intent(getContext(),TvChannelActivity.class));
                 break;
         }
     }

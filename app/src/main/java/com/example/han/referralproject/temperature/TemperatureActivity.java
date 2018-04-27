@@ -333,8 +333,8 @@ public class TemperatureActivity extends BaseActivity {
 
         setChartData(_lineChart1);*/
 
-       /* mImageView = (ImageView) findViewById(R.id.temperature_video);
-        mImageView.setOnClickListener(new View.OnClickListener() {
+       /* headImg = (ImageView) findViewById(R.id.temperature_video);
+        headImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PlayVideoActivity.class);

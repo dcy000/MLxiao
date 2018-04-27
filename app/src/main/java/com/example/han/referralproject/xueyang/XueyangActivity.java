@@ -345,8 +345,8 @@ public class XueyangActivity extends BaseActivity {
         });
 
 
-      /*  mImageView = (ImageView) findViewById(R.id.xueyang_video);
-        mImageView.setOnClickListener(new View.OnClickListener() {
+      /*  headImg = (ImageView) findViewById(R.id.xueyang_video);
+        headImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PlayVideoActivity.class);
