@@ -302,7 +302,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             } catch (JSONException e) {
             }
         }
-
         @Override
         public void onCompleted(SpeechError error) {
 
