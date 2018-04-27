@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\MLxiao\module_hykd\libs"><file name="armeabi-v7a/libksyplayer.so" path="E:\MLxiao\module_hykd\libs\armeabi-v7a\libksyplayer.so"/><file name="jxl.jar" path="E:\MLxiao\module_hykd\libs\jxl.jar"/><file name="libksyplayer.jar" path="E:\MLxiao\module_hykd\libs\libksyplayer.jar"/><file name="libksystat.jar" path="E:\MLxiao\module_hykd\libs\libksystat.jar"/></source></dataSet><dataSet config="release"><source path="E:\MLxiao\module_hykd\src\release\jniLibs"/></dataSet></merger>
