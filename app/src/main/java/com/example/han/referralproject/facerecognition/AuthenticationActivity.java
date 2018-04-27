@@ -668,13 +668,14 @@ public class AuthenticationActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         isOnPause = false;
-        closeAnimation();
+
     }
     private long currentTimeWithLong;
     @Override
     protected void onPause() {
         super.onPause();
         isOnPause = true;
+        closeAnimation();
         currentTimeWithLong=System.currentTimeMillis();
     }
 
