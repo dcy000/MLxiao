@@ -28,6 +28,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.LitePal;
@@ -44,8 +45,6 @@ public class MyApplication extends Application {
     public String userId;
     public String xfid;
     public String telphoneNum;
-
-    public String emDoctorId = "gcml_doctor_18940866148";
     public String userName;
 
     public String nimUserId() {
@@ -68,7 +67,7 @@ public class MyApplication extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
-//        LeakCanary.install(this);
+        LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
         ScreenUtils.init(this);

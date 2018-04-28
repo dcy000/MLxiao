@@ -668,7 +668,6 @@ public class AuthenticationActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         isOnPause = false;
-        closeAnimation();
     }
     private long currentTimeWithLong;
     @Override
@@ -676,6 +675,7 @@ public class AuthenticationActivity extends BaseActivity {
         super.onPause();
         isOnPause = true;
         currentTimeWithLong=System.currentTimeMillis();
+        closeAnimation();
     }
 
     @Override

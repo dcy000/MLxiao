@@ -45,6 +45,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.example.han.referralproject.util.Utils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
@@ -57,35 +58,23 @@ import org.json.JSONObject;
 
 public class RegisterVideoActivity extends BaseActivity implements PreviewCallback {
     private SurfaceView mPreviewSurface;
-    //    private SurfaceView mFaceSurface;
     private Camera mCamera;
     private int mCameraId = CameraInfo.CAMERA_FACING_FRONT;
     // Camera nv21格式预览帧的尺寸，默认设置640*480
     private int PREVIEW_WIDTH = 1280;
     private int PREVIEW_HEIGHT = 720;
-
-    // 预览帧数据存储数组和缓存数组
-//    private byte[] nv21;
-//    private byte[] data;
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
-    // 加速度感应器，用于获取手机的朝向
-    //  private Accelerometer mAcc;
-    // FaceDetector对象，集成了离线人脸识别：人脸检测、视频流检测功能
-//    private FaceDetector mFaceDetector;
-    //private boolean mStopTrack;
-    private Toast mToast;
-    //private int isAlign = 0;
     private byte[] mImageData = null;
     boolean sign = true;
-
     String mAuthid;
-    // FaceRequest对象，集成了人脸识别的各种功能
     private FaceRequest mFaceRequest;
-
-
     public ImageView rlBack;
     private ByteArrayOutputStream stream;
+    private LottieAnimationView lottAnimation;
+    private SurfaceHolder holder;
+
+
     private Handler mHandler = new Handler(new Handler.Callback() {
 
         @Override
@@ -149,11 +138,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             return true;
         }
     });
-    private LottieAnimationView lottAnimation;
-
-    private void openAnimation() {
-        lottAnimation.playAnimation();
-    }
 
     @SuppressWarnings("deprecation")
     @Override
@@ -161,22 +145,8 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_demo);
         initUI();
-
-        mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
-
-        mPreviewSurface.getHolder().addCallback(mPreviewCallback);
-        mPreviewSurface.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         setSurfaceSize();
-        stream = new ByteArrayOutputStream();
-        openAnimation();
-        Intent intent = getIntent();
-        if (intent != null) {
-            isFast = intent.getBooleanExtra("isFast", false);
-        }
     }
-
-    private boolean isFast;
-
 
     private Callback mPreviewCallback = new Callback() {
 
@@ -211,9 +181,11 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     }
 
     private void setSurfaceSize() {
+        holder = mPreviewSurface.getHolder();
+        holder.addCallback(mPreviewCallback);
+        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
         int width = metrics.widthPixels;
         int height = (int) (width * PREVIEW_WIDTH / (float) PREVIEW_HEIGHT);
         LayoutParams params = new LayoutParams(width, height);
@@ -223,6 +195,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     }
 
     private void initUI() {
+        mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
         Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
         findViewById(R.id.iv_circle).startAnimation(rotateAnim);
         rlBack = (ImageView) findViewById(R.id.iv_back);
@@ -236,17 +209,17 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         lottAnimation = findViewById(R.id.lott_animation);
         lottAnimation.setImageAssetsFolder("lav_imgs/");
         lottAnimation.setAnimation("camera_pre.json");
+        stream = new ByteArrayOutputStream();
+        lottAnimation.playAnimation();
     }
 
-    Bitmap b3;
 
     private void openCamera() {
         if (null != mCamera) {
             return;
         }
-
         if (!checkCameraPermission()) {
-            showTip("摄像头权限未打开，请打开后再试");
+            ToastTool.showShort("摄像头权限未打开，请打开后再试");
             //mStopTrack = true;
             return;
         }
@@ -273,7 +246,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         // 设置显示的偏转角度，大部分机器是顺时针90度，某些机器需要按情况设置
         mCamera.setDisplayOrientation(0);
         try {
-            mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
+            mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
         } catch (IOException e) {
             e.printStackTrace();
@@ -281,47 +254,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
 
     }
-
-
-    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
-        if (null == bitmap || edgeLength <= 0) {
-            return null;
-        }
-
-        Bitmap result = bitmap;
-        int widthOrg = bitmap.getWidth();
-        int heightOrg = bitmap.getHeight();
-
-        if (widthOrg > edgeLength && heightOrg > edgeLength) {
-            //压缩到一个最小长度是edgeLength的bitmap
-            int longerEdge = (int) (edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg));
-            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
-            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
-            Bitmap scaledBitmap;
-
-            try {
-                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
-            } catch (Exception e) {
-                return null;
-            }
-
-            //从图中截取正中间的正方形部分。
-            int xTopLeft = (scaledWidth - edgeLength) / 2;
-            int yTopLeft = (scaledHeight - edgeLength) / 2;
-
-            try {
-                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength - 50);
-                scaledBitmap.recycle();
-            } catch (Exception e) {
-                return null;
-            }
-        }
-
-        return result;
-    }
-
     private RequestListener mRequestListener = new RequestListener() {
-
         @Override
         public void onEvent(int eventType, Bundle params) {
             Log.e("上传头像的测试", "onEvent: ");
@@ -339,7 +272,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                     int ret = obj.getInt("ret");
                     if (ret != 0) {
                         if (sign == true) {
-                            showTip("注册失败");
+                            ToastTool.showShort("注册失败");
                             sign = false;
                             finish();
                             return;
@@ -357,7 +290,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                         finish();
                     } else {
                         if (sign == true) {
-                            showTip("注册失败");
+                            ToastTool.showShort("注册失败");
                             sign = false;
                             finish();
                         }
@@ -376,7 +309,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             if (error != null) {
                 switch (error.getErrorCode()) {
                     case ErrorCode.MSP_ERROR_ALREADY_EXIST:
-                        showTip("账号已经被注册，请更换后再试");
+                        ToastTool.showShort("账号已经被注册，请更换后再试");
                         sign = false;
                         finish();
                         break;
@@ -387,7 +320,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
         }
     };
-
 
     /**
      * NV21格式(所有相机都支持的格式)转换为bitmap
@@ -411,14 +343,15 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         }
         return null;
     }
-
-
     private void closeCamera() {
         if (null != mCamera) {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
+            if (holder != null) {
+                holder.removeCallback(mPreviewCallback);
+            }
         }
     }
 
@@ -461,11 +394,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         }
     }
 
-    private void showTip(final String str) {
-        mToast.setText(str);
-        mToast.show();
-    }
-
     @Override
     protected void onActivitySpeakFinish() {
         mCamera.setOneShotPreviewCallback(this);
@@ -473,10 +401,10 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
-        b3 = decodeToBitMap(data, camera);
+        Bitmap b3 = decodeToBitMap(data, camera);
         if (b3 != null) {
             stream.reset();
-            Bitmap bitmap = centerSquareScaleBitmap(b3, 300);
+            Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
             //可根据流量及网络状况对图片进行压缩
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             mImageData = stream.toByteArray();
