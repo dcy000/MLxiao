@@ -1382,19 +1382,25 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mOverView.setOnClickListener(this);
         if (isFirst) {
             if (resourceId != 0) {
-                findViewById(R.id.device_cl_pressure).setVisibility(View.GONE);
+                if (Type_Xueya.equals(detectType)) {
+                    findViewById(R.id.device_cl_pressure).setVisibility(View.GONE);
+                }
                 String uri = "android.resource://" + getPackageName() + "/" + resourceId;
                 mVideoView.setZOrderOnTop(true);
                 mVideoView.setZOrderMediaOverlay(true);
                 mVideoView.setVideoURI(Uri.parse(uri));
                 mVideoView.setOnCompletionListener(mCompletionListener);
             } else {
-                findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
+                if (Type_Xueya.equals(detectType)) {
+                    findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
+                }
                 mVideoView.setVisibility(View.GONE);
                 mOverView.setVisibility(View.GONE);
             }
         } else {
-            findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
+            if (Type_Xueya.equals(detectType)) {
+                findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
+            }
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
         }
@@ -1819,6 +1825,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onResume() {
+        setDisableGlobalListen(false);
+        setEnableListeningLoop(false);
         super.onResume();
 //        speak(getString(R.string.now_eating_state));
         if (!mBluetoothAdapter.isEnabled()) {

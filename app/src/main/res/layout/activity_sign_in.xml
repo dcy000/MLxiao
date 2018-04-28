@@ -21,7 +21,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/face_back" />
+            android:src="@drawable/common_ic_back" />
 
     </RelativeLayout>
 
@@ -171,7 +171,7 @@
         android:onClick="onWifiClick"
         android:padding="19pt"
         android:layout_marginRight="30pt"
-        android:src="@drawable/ic_wifi2"
+        android:src="@drawable/common_ic_wifi"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

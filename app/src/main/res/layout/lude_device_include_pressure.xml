@@ -5,7 +5,8 @@
     android:id="@+id/device_cl_pressure"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/normal_bg">
+    android:background="@drawable/normal_bg"
+    android:visibility="gone">
 
     <com.medlink.danbogh.widget.BloodPressureSurfaceView
         android:id="@+id/pressure_sv_value"
@@ -28,9 +29,11 @@
         android:layout_marginTop="100dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/pressure_sv_value"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
 
     <TextView
         android:id="@+id/high_pressure1"
@@ -41,6 +44,7 @@
         android:text="@string/high_pressure"
         android:textColor="#333333"
         android:textSize="56pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
         app:layout_constraintTop_toTopOf="@+id/pressure_bg_value_1"/>
 
@@ -63,6 +67,7 @@
         android:text="0"
         android:textColor="#333333"
         android:textSize="96pt"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/high_pressure1"
         app:layout_constraintLeft_toRightOf="@+id/high_pressure_unit_1"/>
 
@@ -75,6 +80,7 @@
         android:text="@string/low_pressure"
         android:textColor="#333333"
         android:textSize="56pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
         app:layout_constraintTop_toTopOf="@+id/pressure_bg_value_1"/>
 
@@ -97,6 +103,7 @@
         android:text="0"
         android:textColor="#333333"
         android:textSize="96pt"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/low_pressure_unit_1"
         app:layout_constraintLeft_toRightOf="@+id/low_pressure_unit_1"/>
 
@@ -109,6 +116,7 @@
         android:text="@string/purse"
         android:textColor="#333333"
         android:textSize="56pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
         app:layout_constraintTop_toTopOf="@+id/pressure_bg_value_1"/>
 
@@ -131,13 +139,14 @@
         android:text="0"
         android:textColor="#333333"
         android:textSize="96pt"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/pulse1"
         app:layout_constraintLeft_toRightOf="@+id/low_pressure_unit_1"/>
 
     <ImageView
         android:id="@+id/pressure_iv_high_low"
         android:layout_width="325pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:layout_marginLeft="50pt"
         android:layout_marginTop="180pt"
         android:background="#FF6C5A"
@@ -147,7 +156,7 @@
     <ImageView
         android:id="@+id/pressure_iv_high_to_low"
         android:layout_width="160pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:background="#FFB758"
         app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_high_low"
         app:layout_constraintLeft_toRightOf="@+id/pressure_iv_high_low"/>
@@ -155,7 +164,7 @@
     <ImageView
         android:id="@+id/pressure_iv_high_normal"
         android:layout_width="325pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:background="#71DF3E"
         app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_high_to_low"
         app:layout_constraintLeft_toRightOf="@+id/pressure_iv_high_to_low"/>
@@ -163,7 +172,7 @@
     <ImageView
         android:id="@+id/pressure_iv_high_to_high"
         android:layout_width="160pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:background="#FFB758"
         app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_high_normal"
         app:layout_constraintLeft_toRightOf="@+id/pressure_iv_high_normal"/>
@@ -171,7 +180,7 @@
     <ImageView
         android:id="@+id/pressure_iv_high_high"
         android:layout_width="325pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:background="#FF6C5A"
         app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_high_to_high"
         app:layout_constraintLeft_toRightOf="@+id/pressure_iv_high_to_high"/>
@@ -179,7 +188,7 @@
     <ImageView
         android:id="@+id/pressure_iv_low_low"
         android:layout_width="325pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:layout_marginLeft="50pt"
         android:layout_marginTop="550pt"
         android:background="#FF6C5A"
@@ -189,7 +198,7 @@
     <ImageView
         android:id="@+id/pressure_iv_low_to_low"
         android:layout_width="160pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:background="#FFB758"
         app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_low_low"
         app:layout_constraintLeft_toRightOf="@+id/pressure_iv_low_low"/>
@@ -197,7 +206,7 @@
     <ImageView
         android:id="@+id/pressure_iv_low_normal"
         android:layout_width="325pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:background="#71DF3E"
         app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_low_to_low"
         app:layout_constraintLeft_toRightOf="@+id/pressure_iv_low_to_low"/>
@@ -205,7 +214,7 @@
     <ImageView
         android:id="@+id/pressure_iv_low_to_high"
         android:layout_width="160pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:background="#FFB758"
         app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_low_normal"
         app:layout_constraintLeft_toRightOf="@+id/pressure_iv_low_normal"/>
@@ -213,7 +222,7 @@
     <ImageView
         android:id="@+id/pressure_iv_low_high"
         android:layout_width="325pt"
-        android:layout_height="50pt"
+        android:layout_height="20pt"
         android:background="#FF6C5A"
         app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_low_to_high"
         app:layout_constraintLeft_toRightOf="@+id/pressure_iv_low_to_high"/>
@@ -226,6 +235,7 @@
         android:text="低"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_low"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_low"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_low"/>
@@ -238,6 +248,7 @@
         android:text="偏低"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_to_low"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_to_low"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_to_low"/>
@@ -250,6 +261,7 @@
         android:text="正常"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_normal"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_normal"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_normal"/>
@@ -262,6 +274,7 @@
         android:text="偏高"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_to_high"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_to_high"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_to_high"/>
@@ -274,6 +287,7 @@
         android:text="高"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_high"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_high"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_high"/>
@@ -286,6 +300,7 @@
         android:text="低"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_low"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_low"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_low"/>
@@ -298,6 +313,7 @@
         android:text="偏低"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_to_low"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_to_low"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_to_low"/>
@@ -310,6 +326,7 @@
         android:text="正常"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_normal"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_normal"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_normal"/>
@@ -322,6 +339,7 @@
         android:text="偏高"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_to_high"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_to_high"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_to_high"/>
@@ -334,6 +352,7 @@
         android:text="高"
         android:textColor="#333333"
         android:textSize="48pt"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_high"
         app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_high"
         app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_high"/>
