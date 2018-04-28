@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
 
+import com.chenenyu.router.Router;
+import com.gzq.administrator.lib_common.BuildConfig;
 import com.gzq.administrator.lib_common.utils.ScreenUtils;
 import com.gzq.administrator.lib_common.utils.ToastTool;
 import com.gzq.administrator.lib_common.utils.UiUtils;
@@ -17,13 +19,14 @@ import com.squareup.leakcanary.LeakCanary;
  * Created by gzq on 2018/4/12.
  */
 
-public class BaseApplication extends Application{
+public class BaseApplication extends Application {
     private static BaseApplication mInstance;
     private static OkGo okGoInstance;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        mInstance=this;
+        mInstance = this;
         //初始化内存泄漏检测工具
         LeakCanary.install(this);
         //吐司工具类初始化
@@ -39,9 +42,16 @@ public class BaseApplication extends Application{
 
         SpeechUtility.createUtility(this, builder.toString());
         //初始化网络请求框架
-        okGoInstance=OkGo.getInstance().init(this);
+        okGoInstance = OkGo.getInstance().init(this);
         //初始化px转pt工具
-        UiUtils.init(this,1920,1200);
+        UiUtils.init(this, 1920, 1200);
+        //初始化路由框架
+        Router.initialize(new com.chenenyu.router.Configuration.Builder()
+                // 调试模式，开启后会打印log
+                .setDebuggable(BuildConfig.DEBUG)
+                // 模块名(即project.name)，每个使用Router的module都要在这里注册
+                .registerModules("app", "module_hykd","lib-common")
+                .build());
     }
 
     @Override
@@ -49,21 +59,24 @@ public class BaseApplication extends Application{
         super.onConfigurationChanged(newConfig);
         UiUtils.compatWithOrientation(newConfig);
     }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         //解决方法数64K
         MultiDex.install(this);
     }
+
     public static BaseApplication getInstance() {
         return mInstance;
     }
 
     /**
      * 提供此方法的作用是方便在二次封装的时候进行相关参数的设置，比如是否缓存，缓存时间，请求头
+     *
      * @return
      */
-    public static OkGo getOkgoInstance(){
+    public static OkGo getOkgoInstance() {
         return okGoInstance;
     }
 }

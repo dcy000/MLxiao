@@ -20,6 +20,7 @@ import com.zane.androidupnpdemo.base_information_of_residents.HY_HealthArchivesA
 import com.zane.androidupnpdemo.base_information_of_residents.HY_HealthServiceActivity;
 import com.zane.androidupnpdemo.base_information_of_residents.MyServicedHistoryActivity;
 import com.zane.androidupnpdemo.live_tv.tv_list.TvChannelActivity;
+import com.zane.androidupnpdemo.others.WebviewActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +47,10 @@ public class PersonDetail2Fragment extends Fragment {
     ImageView ivJiankang;
     @BindView(R.id.iv_jiankangfuwu)
     ImageView ivFuwu;
-
+    @BindView(R.id.iv_weijiwei)
+    ImageView mIvWeijiwei;
+    @BindView(R.id.iv_yipu)
+    ImageView mIvYipu;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class PersonDetail2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class,R.id.iv_jiankangdangan,R.id.iv_jiankangfuwu,R.id.iv_fuwulishi,R.id.iv_dianshijiemu})
+    @OnClick({R.id.iv_pay, R.id.iv_order, R.id.iv_shezhi, R.id.iv_tools, R.id.main_iv_health_class, R.id.iv_jiankangdangan, R.id.iv_jiankangfuwu, R.id.iv_fuwulishi, R.id.iv_dianshijiemu, R.id.iv_weijiwei, R.id.iv_yipu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_order:
@@ -86,10 +90,20 @@ public class PersonDetail2Fragment extends Fragment {
                 startActivity(new Intent(getContext(), HY_HealthServiceActivity.class));
                 break;
             case R.id.iv_fuwulishi:
-                startActivity(new Intent(getContext(),MyServicedHistoryActivity.class));
+                startActivity(new Intent(getContext(), MyServicedHistoryActivity.class));
                 break;
             case R.id.iv_dianshijiemu:
-                startActivity(new Intent(getContext(),TvChannelActivity.class));
+                startActivity(new Intent(getContext(), TvChannelActivity.class));
+                break;
+            case R.id.iv_weijiwei:
+                startActivity(new Intent(getContext(), WebviewActivity.class)
+                        .putExtra("url","http://ml.medrd.com/#/sanitationHome")
+                .putExtra("title","卫计委"));
+                break;
+            case R.id.iv_yipu:
+                startActivity(new Intent(getContext(), WebviewActivity.class)
+                        .putExtra("url","http://ml.medrd.com/#/headline")
+                .putExtra("title","医普头条"));
                 break;
         }
     }

@@ -231,7 +231,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical">
 
@@ -256,7 +256,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical">
 
@@ -274,6 +274,59 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="电视节目"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/iv_weijiwei"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/service_history_set"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="卫计委"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/iv_yipu"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/tv_live_set"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="医普头条"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 

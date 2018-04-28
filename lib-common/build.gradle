@@ -57,4 +57,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.6.1'
     //解决方法数64K的办法
     compile 'com.android.support:multidex:1.0.0'
+    //路由框架
+    compile 'com.chenenyu.router:router:1.4.1'
 }

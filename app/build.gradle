@@ -25,6 +25,11 @@ android {
                 JPUSH_APPKEY : "81695cca09ae6e2afffe15f4", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["moduleName": project.name]
+            }
+        }
     }
 
     dataBinding {
@@ -167,4 +172,5 @@ dependencies {
     compile project(':circleindicator')
     compile project(':module_hykd')
     compile project(':voice')
+    annotationProcessor 'com.chenenyu.router:compiler:1.4.0'
 }

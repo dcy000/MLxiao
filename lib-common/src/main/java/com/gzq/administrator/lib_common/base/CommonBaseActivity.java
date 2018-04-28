@@ -1,6 +1,7 @@
 package com.gzq.administrator.lib_common.base;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chenenyu.router.RouteCallback;
+import com.chenenyu.router.RouteResult;
+import com.chenenyu.router.Router;
+import com.chenenyu.router.annotation.Route;
 import com.gzq.administrator.lib_common.R;
+import com.gzq.administrator.lib_common.utils.ToastTool;
 
 /**
  * Created by gzq on 2018/4/12.
@@ -72,5 +78,13 @@ public abstract class CommonBaseActivity extends AppCompatActivity implements Vi
     protected void backLastActivity() {
         finish();
     }
-    protected void backMainActivity() {}
+    protected void backMainActivity() {
+        ToastTool.showShort("点击了HOME建");
+        Router.build("app").go(this, new RouteCallback() {
+            @Override
+            public void callback(RouteResult routeResult, Uri uri, String s) {
+                Log.e(TAG, "callback: "+routeResult.toString()+"=="+uri+"---"+s );
+            }
+        });
+    }
 }

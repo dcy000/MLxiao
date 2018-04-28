@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import com.chenenyu.router.annotation.Route;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -42,7 +43,7 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Route("app")
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     ImageView mImageView1;

@@ -26,11 +26,11 @@
             android:exported="false" />
 
         <activity android:name=".live_tv.tv_list.TvChannelActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
 
         </activity>
         <activity
@@ -52,6 +52,7 @@
         </activity>
         <activity android:name=".base_information_of_residents.HY_MyServiceHistoryDetailsActivity" />
         <activity android:name=".connect_tv.ui.TestActivity"/>
+        <activity android:name=".others.WebviewActivity"/>
     </application>
 
 </manifest>
