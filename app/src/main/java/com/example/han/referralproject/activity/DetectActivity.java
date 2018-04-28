@@ -1097,6 +1097,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             LocalShared.getInstance(DetectActivity.this).setMeasureXindianFirst(false);
                             break;
                         case Type_Xueya:
+                            findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
                             LocalShared.getInstance(DetectActivity.this).setMeasureXueyaFirst(false);
                             break;
                         case Type_XueTang:
@@ -1115,7 +1116,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 resourceId = R.raw.tips_sanheyi;
                 break;
         }
+        resourceId = 0;
         if (resourceId != 0) {
+            if (Type_Xueya.equals(detectType)) {
+                findViewById(R.id.device_cl_pressure).setVisibility(View.GONE);
+            }
             mVideoView.setVisibility(View.VISIBLE);
             mOverView.setVisibility(View.VISIBLE);
             mVideoView.setZOrderOnTop(true);
@@ -1380,6 +1385,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
         mOverView = findViewById(R.id.view_over);
         mOverView.setOnClickListener(this);
+        resourceId = 0;
         if (isFirst) {
             if (resourceId != 0) {
                 if (Type_Xueya.equals(detectType)) {
