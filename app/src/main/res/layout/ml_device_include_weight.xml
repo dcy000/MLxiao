@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_tizhong"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_bg"
+    android:visibility="gone"
+    tools:showIn="@layout/activity_detect">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/test_tizhong"
+        android:textColor="@color/white"
+        android:textSize="40sp"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_ti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="180dp">
+
+        <TextView
+            android:id="@+id/test_tizhong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="@string/tizhong"
+            android:textSize="45sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_tizhong"
+            android:layout_marginLeft="5sp"
+            android:gravity="center"
+            android:text="(kg)"
+            android:textSize="20sp"/>
+
+
+        <TextView
+            android:id="@+id/tv_tizhong"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/test_tizhong"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="50sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_ti2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_ti"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/test_tizhi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="体脂"
+            android:textSize="45sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_tizhi"
+            android:layout_marginLeft="5sp"
+            android:gravity="center"
+            android:text="(kg/㎡)"
+            android:textSize="20sp"/>
+
+
+        <TextView
+            android:id="@+id/tv_tizhi"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/test_tizhi"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="50sp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/history6"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/rl_ti2"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_phone"
+        android:gravity="center"
+        android:text="历史记录"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"/>
+
+    <ImageView
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/device_ic_weight_tips"/>
+
+</RelativeLayout>

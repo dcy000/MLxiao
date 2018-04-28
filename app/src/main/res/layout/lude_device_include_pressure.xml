@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/device_cl_pressure"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_bg">
+
+    <com.medlink.danbogh.widget.BloodPressureSurfaceView
+        android:id="@+id/pressure_sv_value"
+        android:layout_width="500pt"
+        android:layout_height="0pt"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:id="@+id/pressure_bg_value_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="100dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_sv_value"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/high_pressure1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50pt"
+        android:layout_marginTop="50pt"
+        android:text="@string/high_pressure"
+        android:textColor="#333333"
+        android:textSize="56pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
+        app:layout_constraintTop_toTopOf="@+id/pressure_bg_value_1"/>
+
+    <TextView
+        android:id="@+id/high_pressure_unit_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10pt"
+        android:text="@string/high_pressure1"
+        android:textColor="#333333"
+        android:textSize="40pt"
+        app:layout_constraintBottom_toBottomOf="@+id/high_pressure1"
+        app:layout_constraintLeft_toRightOf="@+id/high_pressure1"/>
+
+    <TextView
+        android:id="@+id/high_pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80pt"
+        android:text="0"
+        android:textColor="#333333"
+        android:textSize="96pt"
+        app:layout_constraintBottom_toBottomOf="@+id/high_pressure1"
+        app:layout_constraintLeft_toRightOf="@+id/high_pressure_unit_1"/>
+
+    <TextView
+        android:id="@+id/low_pressure1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50pt"
+        android:layout_marginTop="400pt"
+        android:text="@string/low_pressure"
+        android:textColor="#333333"
+        android:textSize="56pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
+        app:layout_constraintTop_toTopOf="@+id/pressure_bg_value_1"/>
+
+    <TextView
+        android:id="@+id/low_pressure_unit_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10pt"
+        android:text="@string/high_pressure1"
+        android:textColor="#333333"
+        android:textSize="40pt"
+        app:layout_constraintBottom_toBottomOf="@+id/low_pressure1"
+        app:layout_constraintLeft_toRightOf="@+id/low_pressure1"/>
+
+    <TextView
+        android:id="@+id/low_pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80pt"
+        android:text="0"
+        android:textColor="#333333"
+        android:textSize="96pt"
+        app:layout_constraintBottom_toBottomOf="@+id/low_pressure_unit_1"
+        app:layout_constraintLeft_toRightOf="@+id/low_pressure_unit_1"/>
+
+    <TextView
+        android:id="@+id/pulse1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50pt"
+        android:layout_marginTop="750pt"
+        android:text="@string/purse"
+        android:textColor="#333333"
+        android:textSize="56pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
+        app:layout_constraintTop_toTopOf="@+id/pressure_bg_value_1"/>
+
+    <TextView
+        android:id="@+id/pulse_unit_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10pt"
+        android:text="@string/purse1"
+        android:textColor="#333333"
+        android:textSize="40pt"
+        app:layout_constraintBottom_toBottomOf="@+id/pulse1"
+        app:layout_constraintLeft_toRightOf="@+id/low_pressure1"/>
+
+    <TextView
+        android:id="@+id/pulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80pt"
+        android:text="0"
+        android:textColor="#333333"
+        android:textSize="96pt"
+        app:layout_constraintBottom_toBottomOf="@+id/pulse1"
+        app:layout_constraintLeft_toRightOf="@+id/low_pressure_unit_1"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_high_low"
+        android:layout_width="325pt"
+        android:layout_height="50pt"
+        android:layout_marginLeft="50pt"
+        android:layout_marginTop="180pt"
+        android:background="#FF6C5A"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
+        app:layout_constraintTop_toTopOf="@+id/pressure_bg_value_1"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_high_to_low"
+        android:layout_width="160pt"
+        android:layout_height="50pt"
+        android:background="#FFB758"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_high_low"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_iv_high_low"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_high_normal"
+        android:layout_width="325pt"
+        android:layout_height="50pt"
+        android:background="#71DF3E"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_high_to_low"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_iv_high_to_low"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_high_to_high"
+        android:layout_width="160pt"
+        android:layout_height="50pt"
+        android:background="#FFB758"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_high_normal"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_iv_high_normal"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_high_high"
+        android:layout_width="325pt"
+        android:layout_height="50pt"
+        android:background="#FF6C5A"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_high_to_high"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_iv_high_to_high"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_low_low"
+        android:layout_width="325pt"
+        android:layout_height="50pt"
+        android:layout_marginLeft="50pt"
+        android:layout_marginTop="550pt"
+        android:background="#FF6C5A"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
+        app:layout_constraintTop_toTopOf="@+id/pressure_bg_value_1"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_low_to_low"
+        android:layout_width="160pt"
+        android:layout_height="50pt"
+        android:background="#FFB758"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_low_low"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_iv_low_low"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_low_normal"
+        android:layout_width="325pt"
+        android:layout_height="50pt"
+        android:background="#71DF3E"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_low_to_low"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_iv_low_to_low"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_low_to_high"
+        android:layout_width="160pt"
+        android:layout_height="50pt"
+        android:background="#FFB758"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_low_normal"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_iv_low_normal"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_low_high"
+        android:layout_width="325pt"
+        android:layout_height="50pt"
+        android:background="#FF6C5A"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_iv_low_to_high"
+        app:layout_constraintLeft_toRightOf="@+id/pressure_iv_low_to_high"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_high_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="低"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_low"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_low"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_low"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_high_to_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="偏低"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_to_low"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_to_low"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_to_low"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_high_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="正常"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_normal"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_normal"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_normal"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_high_to_high"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="偏高"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_to_high"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_to_high"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_to_high"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_high_high"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="高"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_high"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_high"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_high_high"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_low_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="低"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_low"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_low"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_low"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_low_to_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="偏低"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_to_low"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_to_low"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_to_low"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_low_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="正常"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_normal"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_normal"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_normal"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_low_to_high"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="偏高"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_to_high"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_to_high"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_to_high"/>
+
+    <TextView
+        android:id="@+id/pressure_tv_low_high"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
+        android:text="高"
+        android:textColor="#333333"
+        android:textSize="48pt"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_high"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_high"
+        app:layout_constraintTop_toBottomOf="@id/pressure_iv_low_high"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_high_indicator"
+        android:layout_width="32pt"
+        android:layout_height="24pt"
+        android:layout_marginBottom="16pt"
+        android:src="@drawable/pressure_ic_indicator"
+        app:layout_constraintBottom_toTopOf="@+id/pressure_iv_high_low"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_high_low"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_high_low"/>
+
+    <ImageView
+        android:id="@+id/pressure_iv_low_indicator"
+        android:layout_width="32pt"
+        android:layout_height="24pt"
+        android:layout_marginBottom="16pt"
+        android:src="@drawable/pressure_ic_indicator"
+        app:layout_constraintBottom_toTopOf="@+id/pressure_iv_low_low"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_iv_low_low"
+        app:layout_constraintRight_toRightOf="@+id/pressure_iv_low_low"/>
+
+    <Button
+        android:id="@+id/history1"
+        android:layout_width="350pt"
+        android:layout_height="120pt"
+        android:layout_marginBottom="20pt"
+        android:layout_marginRight="40pt"
+        android:background="@drawable/common_btn_bg_3f86fc"
+        android:gravity="center"
+        android:text="历史记录"
+        android:textColor="#FFFFFF"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_bg_value_1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="@+id/pressure_bg_value_1"
+        app:layout_constraintRight_toLeftOf="@+id/xueya_video"/>
+
+    <Button
+        android:id="@+id/xueya_video"
+        android:layout_width="350pt"
+        android:layout_height="120pt"
+        android:layout_marginBottom="20pt"
+        android:layout_marginLeft="40pt"
+        android:background="@drawable/common_btn_bg_ffa200"
+        android:gravity="center"
+        android:text="开始测量"
+        android:textColor="#FFFFFF"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_bg_value_1"
+        app:layout_constraintLeft_toRightOf="@+id/history1"
+        app:layout_constraintRight_toRightOf="@+id/pressure_bg_value_1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/test_xueya"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

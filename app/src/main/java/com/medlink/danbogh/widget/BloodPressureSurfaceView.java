@@ -78,9 +78,9 @@ public class BloodPressureSurfaceView extends SurfaceView implements SurfaceHold
     private float mTargetValue = 0;
 
     /**
-     * 定义每一毫秒绘制的次数
+     * 定义绘制一帧需要的时间（）
      */
-    private int mspt = 50;
+    private int mspf = 50;
 
     //设置文字的大小
     private float mTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SHIFT, 25, getResources().getDisplayMetrics());
@@ -175,18 +175,13 @@ public class BloodPressureSurfaceView extends SurfaceView implements SurfaceHold
     @Override
     public void run() {
         //不断进行绘制
+        long startTime;
         while (isRunning) {
-            long start = System.currentTimeMillis();
+            startTime = System.currentTimeMillis();
             draw();
-            long end = System.currentTimeMillis();
             //这里控制一下，一秒绘制二十次。也就是五十毫秒绘制一次
-            long sleepMs = mspt - end + start;
-            if (sleepMs > 0) {
-                try {
-                    Thread.sleep(sleepMs);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            while (System.currentTimeMillis() - startTime < mspf) {
+                Thread.yield();
             }
         }
     }

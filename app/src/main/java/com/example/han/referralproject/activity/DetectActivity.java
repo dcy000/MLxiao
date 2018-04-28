@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -36,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -60,6 +63,7 @@ import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.widget.BloodPressureSurfaceView;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -225,6 +229,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if (mSvValue != null) {
                         mSvValue.setTargetValue(num);
                     }
+                    applyIndicatorAnimation(true, num);
                     mHighPressTv.setText(String.valueOf(num));
                     break;
                 case 13://经典蓝牙测量结果
@@ -242,6 +247,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if (mSvValue != null) {
                         mSvValue.setTargetValue(getNew);
                     }
+                    applyIndicatorAnimation(true, getNew);
+                    applyIndicatorAnimation(false, down);
                     mHighPressTv.setText(String.valueOf(getNew));
                     mLowPressTv.setText(String.valueOf(down));
                     mPulseTv.setText(String.valueOf(maibo));
@@ -265,8 +272,73 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             super.handleMessage(msg);
         }
     };
+
+    private int highId;
+    private int lowId;
+    private ConstraintSet highSet;
+    private ConstraintSet lowSet;
+
+    private void applyIndicatorAnimation(boolean high, int value) {
+        int targetId;
+        int descId;
+        ConstraintSet constraintSet;
+        if (high) {
+            targetId = R.id.pressure_iv_high_indicator;
+            if (value < 90) {
+                descId = R.id.pressure_iv_high_low;
+            } else if (value < 95) {
+                descId = R.id.pressure_iv_high_to_low;
+            } else if (value < 135) {
+                descId = R.id.pressure_iv_high_normal;
+            } else if (value < 140) {
+                descId = R.id.pressure_iv_high_to_high;
+            } else {
+                descId = R.id.pressure_iv_high_high;
+            }
+            if (descId == highId) {
+                return;
+            }
+            highId = descId;
+            if (highSet == null) {
+                highSet = new ConstraintSet();
+            }
+            constraintSet = highSet;
+        } else {
+            targetId = R.id.pressure_iv_low_indicator;
+            if (value < 60) {
+                descId = R.id.pressure_iv_low_low;
+            } else if (value < 65) {
+                descId = R.id.pressure_iv_low_to_low;
+            } else if (value < 85) {
+                descId = R.id.pressure_iv_low_normal;
+            } else if (value < 90) {
+                descId = R.id.pressure_iv_low_to_high;
+            } else {
+                descId = R.id.pressure_iv_low_high;
+            }
+            if (descId == lowId) {
+                return;
+            }
+            lowId = descId;
+            if (lowSet == null) {
+                lowSet = new ConstraintSet();
+            }
+            constraintSet = lowSet;
+        }
+        if (clPressure == null) {
+            return;
+        }
+        constraintSet.clone(clPressure);
+        constraintSet.connect(targetId, ConstraintSet.START, descId, ConstraintSet.START);
+        constraintSet.connect(targetId, ConstraintSet.END, descId, ConstraintSet.END);
+        constraintSet.connect(targetId, ConstraintSet.BOTTOM, descId, ConstraintSet.TOP, UiUtils.pt(16));
+        constraintSet.applyTo(clPressure);
+    }
+
     private View mNavView;
     private BloodPressureSurfaceView mSvValue;
+    private RelativeLayout rlTips;
+    private ConstraintLayout clPressure;
 
 
     /**
@@ -545,6 +617,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             if (mSvValue != null) {
                                 mSvValue.setTargetValue(notifyData[1] & 0xff);
                             }
+                            applyIndicatorAnimation(true, notifyData[1] & 0xff);
+                            applyIndicatorAnimation(true, notifyData[3] & 0xff);
                             mHighPressTv.setText(String.valueOf(notifyData[1] & 0xff));
                             mLowPressTv.setText(String.valueOf(notifyData[3] & 0xff));
                             mPulseTv.setText(String.valueOf(notifyData[14] & 0xff));
@@ -576,6 +650,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             if (mSvValue != null) {
                                 mSvValue.setTargetValue((notifyData[6] & 0xff) | (notifyData[7] << 8 & 0xff00));
                             }
+                            applyIndicatorAnimation(true, (notifyData[6] & 0xff) | (notifyData[7] << 8 & 0xff00));
+                            applyIndicatorAnimation(false, 0);
                             mHighPressTv.setText(String.valueOf((notifyData[6] & 0xff) | (notifyData[7] << 8 & 0xff00)));
                             mLowPressTv.setText("0");
                             mPulseTv.setText("0");
@@ -587,6 +663,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             if (mSvValue != null) {
                                 mSvValue.setTargetValue(highPress);
                             }
+                            applyIndicatorAnimation(true, highPress);
+                            applyIndicatorAnimation(false, lowPress);
                             mHighPressTv.setText(String.valueOf(highPress));
                             mLowPressTv.setText(String.valueOf(lowPress));
                             mPulseTv.setText(String.valueOf(notifyData[5] & 0xff));
@@ -1040,6 +1118,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         if (resourceId != 0) {
             mVideoView.setVisibility(View.VISIBLE);
             mOverView.setVisibility(View.VISIBLE);
+            mVideoView.setZOrderOnTop(true);
+            mVideoView.setZOrderMediaOverlay(true);
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
             mVideoView.start();
@@ -1075,6 +1155,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mButton2 = (Button) findViewById(R.id.history2);//血糖
         mButton3 = (Button) findViewById(R.id.history3);//血氧
         container = findViewById(R.id.container);
+        rlTips = (RelativeLayout) findViewById(R.id.device_rl_tips);
+
+        clPressure = (ConstraintLayout) findViewById(R.id.device_cl_pressure);
+
         setEnableListeningLoop(false);
 
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -1233,10 +1317,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 isFirst = LocalShared.getInstance(this).getMeasureTiwenFirst();
                 break;
             case Type_Xueya:
-                findViewById(R.id.rl_xueya).setVisibility(View.VISIBLE);
-                findViewById(R.id.pressure_sv_value).setVisibility(View.VISIBLE);
+                findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
                 if (isDetect) {
-                    findViewById(R.id.detect_ll_nav2).setVisibility(View.GONE);
+//                    findViewById(R.id.detect_ll_nav2).setVisibility(View.GONE);
                 } else {
                     findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
                 }
@@ -1299,19 +1382,25 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mOverView.setOnClickListener(this);
         if (isFirst) {
             if (resourceId != 0) {
+                findViewById(R.id.device_cl_pressure).setVisibility(View.GONE);
                 String uri = "android.resource://" + getPackageName() + "/" + resourceId;
+                mVideoView.setZOrderOnTop(true);
+                mVideoView.setZOrderMediaOverlay(true);
                 mVideoView.setVideoURI(Uri.parse(uri));
-                mVideoView.start();
                 mVideoView.setOnCompletionListener(mCompletionListener);
             } else {
+                findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
                 mVideoView.setVisibility(View.GONE);
                 mOverView.setVisibility(View.GONE);
             }
         } else {
+            findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
         }
         mSvValue = (BloodPressureSurfaceView) findViewById(R.id.pressure_sv_value);
+        mSvValue.setZOrderOnTop(false);
+        mSvValue.setZOrderMediaOverlay(false);
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
         mSanHeYiOneTv = (TextView) findViewById(R.id.tv_san_one);
