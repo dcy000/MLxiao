@@ -24,7 +24,9 @@
 
     <include layout="@layout/include_call_top_panel"/>
 
-    <include layout="@layout/include_call_bottom_panel"/>
+    <include layout="@layout/include_call_bottom_panel"
+        tools:layout_editor_absoluteY="802dp"
+        tools:layout_editor_absoluteX="380dp" />
 
     <include layout="@layout/include_call_refuse_receive_panel"/>
 </android.support.constraint.ConstraintLayout>
