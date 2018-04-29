@@ -60,7 +60,8 @@
         android:paddingRight="30dp"
         android:background="@drawable/toolbar_set"
         android:textColor="@color/white"
-        android:textSize="28sp" />
+        android:textSize="28sp"
+        android:text=""/>
 
     <ImageView
         android:id="@+id/iv_top_right"
