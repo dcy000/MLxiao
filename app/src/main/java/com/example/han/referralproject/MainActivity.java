@@ -26,6 +26,8 @@ import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
+import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.floatball.MyService;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
@@ -161,7 +163,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.health_test://健康监测
 
-                intent.setClass(getApplicationContext(), AuthenticationActivity.class);
+                intent.setClass(getApplicationContext(), FaceRecognitionActivity.class);
                 intent.putExtra("orderid", "0");
                 intent.putExtra("from", "Test");
                 startActivity(intent);

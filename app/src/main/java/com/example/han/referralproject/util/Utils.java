@@ -77,17 +77,6 @@ public class Utils {
         String d = format.format(time);
         return d;
     }
-    /**
-     * 调节屏幕透明度
-     * @param context
-     * @param bgAlpha
-     */
-    public static void backgroundAlpha(Activity context, float bgAlpha) {
-        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        context.getWindow().setAttributes(lp);
-    }
 
     public static String getChineseNumber(int number) {
         String[] str = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九"};

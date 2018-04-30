@@ -1,5 +1,6 @@
 package com.example.han.referralproject.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +41,7 @@ import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.util.WeakHandler;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -57,10 +59,12 @@ import com.umeng.analytics.MobclickAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class BaseActivity extends AppCompatActivity {
+    private static UpdateVolumeRunnable updateVolumeRunnable;
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -68,12 +72,11 @@ public class BaseActivity extends AppCompatActivity {
     // 语音合成对象
     private SpeechSynthesizer mTts;
     // 默认发音人
-    private String voicer = "nannan";
+    private static final String voicer = "nannan";
     // 引擎类型
-    private String mEngineType = SpeechConstant.TYPE_CLOUD;
-    private SharedPreferences mTtsSharedPreferences;
+    private static final String mEngineType = SpeechConstant.TYPE_CLOUD;
+    private static SharedPreferences mTtsSharedPreferences;
     private SpeechRecognizer mIat;
-    private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
     private boolean enableListeningLoop = true;
     private boolean enableListeningLoopCache = enableListeningLoop;
@@ -86,19 +89,26 @@ public class BaseActivity extends AppCompatActivity {
     protected TextView mLeftText;
     protected RelativeLayout mToolbar;
     protected LinearLayout mllBack;
-    protected boolean isShowVoiceView = false;//是否显示声音录入图像
-    private MediaRecorder mMediaRecorder;
+    protected static boolean isShowVoiceView = false;//是否显示声音录入图像
+    private static MediaRecorder mMediaRecorder;
     private boolean isAlive = true;
-    public SharedPreferences mIatPreferences;
-
-
+    public static SharedPreferences mIatPreferences;
+    private SynthesizerInitListener synthesizerInitListener1;
+    private SpeechSynthesizer synthesizer;
+    private SynthesizerInitListener synthesizerInitListener2;
+    private long lastTimeMillis = -1;
+    private static final long DURATION = 500L;
+    private ImpRecognizerListener recognizerListener;
+    private ImpSynthesizerListener synthesizerListener1;
+    private ImpSynthesizerListener synthesizerListener2;
+    private ImpSynthesizerListener synthesizerListener3;
+    protected VoiceLineView voiceLineView;
+    protected FrameLayout mContentParent;
+    private WeakHandler weakHandler;
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
         enableListeningLoopCache = enableListeningLoop;
     }
-
-    SpeechSynthesizer synthesizer;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,17 +124,14 @@ public class BaseActivity extends AppCompatActivity {
         initToolbar();
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer == null) {
-            mIat = SpeechRecognizer.createRecognizer(this, mTtsInitListener);
+            mIat = SpeechRecognizer.createRecognizer(this, new ImpInitListener());
         } else {
             mIat = recognizer;
         }
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
         mIatPreferences = getSharedPreferences(IatSettings.PREFER_NAME, MODE_PRIVATE);
+        weakHandler=new WeakHandler();
     }
-
-
-    private long lastTimeMillis = -1;
-    private static final long DURATION = 500L;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -142,19 +149,21 @@ public class BaseActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    private PopupWindow window;
-
-
     //收到推送消息后显示Popwindow
-    class JPushReceive implements MyReceiver.JPushLitener {
+    private static class JPushReceive implements MyReceiver.JPushLitener {
+        private WeakReference<Activity> weakContext;
+
+        public JPushReceive(Activity context) {
+            weakContext = new WeakReference<Activity>(context);
+        }
 
         @Override
         public void onReceive(String title, String message) {
 //            ToastUtil.showShort(BaseActivity.this,message);
             // 利用layoutInflater获得View
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) weakContext.get().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.jpush_popwin, null);
-            window = new PopupWindow(view,
+            PopupWindow window = new PopupWindow(view,
                     WindowManager.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.WRAP_CONTENT);
             // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
@@ -163,20 +172,19 @@ public class BaseActivity extends AppCompatActivity {
             // 实例化一个ColorDrawable颜色为半透明
             ColorDrawable dw = new ColorDrawable(0x00000000);
             window.setBackgroundDrawable(dw);
-            Utils.backgroundAlpha(BaseActivity.this, 1f);
-
+            backgroundAlpha(weakContext.get(), 1f);
             // 设置popWindow的显示和消失动画
             window.setAnimationStyle(R.style.mypopwindow_anim_style);
 //            // 在底部显示
 
-            window.showAtLocation(getWindow().getDecorView(),
+            window.showAtLocation(weakContext.get().getWindow().getDecorView(),
                     Gravity.TOP, 0, 148);
 
             //popWindow消失监听方法
             window.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    Utils.backgroundAlpha(BaseActivity.this, 1f);
+                    backgroundAlpha(weakContext.get(), 1f);
                 }
             });
             TextView jpushText = view.findViewById(R.id.jpush_text);
@@ -203,9 +211,21 @@ public class BaseActivity extends AppCompatActivity {
                     jpushRbv.setLayoutParams(lp);
                 }
             });
-
-            speak("主人，新消息。" + message);
+            ((BaseActivity) weakContext.get()).speak("主人，新消息。" + message);
         }
+    }
+
+    /**
+     * 调节屏幕透明度
+     *
+     * @param context
+     * @param bgAlpha
+     */
+    protected static void backgroundAlpha(Activity context, float bgAlpha) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        context.getWindow().setAttributes(lp);
     }
 
     private void initToolbar() {
@@ -244,10 +264,6 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(new Intent(mContext, MainActivity.class));
         finish();
     }
-
-    protected VoiceLineView voiceLineView;
-
-    protected FrameLayout mContentParent;
 
     protected int provideWaveViewWidth() {
         return ScreenUtils.dp2px(450);
@@ -296,7 +312,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private InitListener mTtsInitListener = new InitListener() {
+    private static class ImpInitListener implements InitListener {
         @Override
         public void onInit(int code) {
             if (code != ErrorCode.SUCCESS) {
@@ -309,7 +325,22 @@ public class BaseActivity extends AppCompatActivity {
                 // 正确的做法是将onCreate中的startSpeaking调用移至这里
             }
         }
-    };
+    }
+
+//    private InitListener mTtsInitListener = new InitListener() {
+//        @Override
+//        public void onInit(int code) {
+//            if (code != ErrorCode.SUCCESS) {
+//                //    showTip("初始化失败,错误码：" + code);
+//            } else {
+//                // 设置参数
+//                setRecognizerParams();
+//                // 初始化成功，之后可以调用startSpeaking方法
+//                // 注：有的开发者在onCreate方法中创建完合成对象之后马上就调用startSpeaking进行合成，
+//                // 正确的做法是将onCreate中的startSpeaking调用移至这里
+//            }
+//        }
+//    };
 
     public void speak(String text) {
         if (TextUtils.isEmpty(text)) {
@@ -318,11 +349,13 @@ public class BaseActivity extends AppCompatActivity {
         stopListening();
         synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer == null) {
-            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
+            synthesizerInitListener1 = new SynthesizerInitListener(text, this);
+            synthesizer = SpeechSynthesizer.createSynthesizer(this, synthesizerInitListener1);
             return;
         }
-        setSynthesizerParams();
-        synthesizer.startSpeaking(text, mTtsListener);
+        setSynthesizerParams(this);
+        synthesizerListener1 = new ImpSynthesizerListener();
+        synthesizer.startSpeaking(text, synthesizerListener1);
     }
 
     protected void speak(String text, boolean isDefaultParam) {
@@ -332,31 +365,36 @@ public class BaseActivity extends AppCompatActivity {
         stopListening();
         synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer == null) {
-            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
+            synthesizerInitListener2 = new SynthesizerInitListener(text, this);
+            synthesizer = SpeechSynthesizer.createSynthesizer(this, synthesizerInitListener2);
             return;
         }
         if (isDefaultParam) {
-            setSynthesizerParams();
+            setSynthesizerParams(this);
         }
 
-        synthesizer.startSpeaking(text, mTtsListener);
+        synthesizerListener2 = new ImpSynthesizerListener();
+        synthesizer.startSpeaking(text, synthesizerListener2);
     }
 
     private class SynthesizerInitListener implements InitListener {
         private String mText;
+        private Activity activity;
 
-        SynthesizerInitListener(String text) {
+        SynthesizerInitListener(String text, Activity activity) {
             mText = text;
+            this.activity = activity;
         }
 
         @Override
         public void onInit(int code) {
             if (code == ErrorCode.SUCCESS) {
-                setSynthesizerParams();
+                setSynthesizerParams(activity);
                 if (!TextUtils.isEmpty(mText)) {
                     SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
                     if (synthesizer != null) {
-                        synthesizer.startSpeaking(mText, mTtsListener);
+                        synthesizerListener3 = new ImpSynthesizerListener();
+                        synthesizer.startSpeaking(mText, synthesizerListener3);
                     }
                 }
             }
@@ -380,13 +418,14 @@ public class BaseActivity extends AppCompatActivity {
     protected void startListening() {
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer == null) {
-            SpeechRecognizer.createRecognizer(this.getApplicationContext(), mTtsInitListener);
+            SpeechRecognizer.createRecognizer(this.getApplicationContext(), new ImpInitListener());
             recognizer = SpeechRecognizer.getRecognizer();
         }
         setRecognizerParams();
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (enableListeningLoop && recognizer != null && !recognizer.isListening() && synthesizer != null && !synthesizer.isSpeaking()) {
-            recognizer.startListening(mIatListener);
+            recognizerListener = new ImpRecognizerListener();
+            recognizer.startListening(recognizerListener);
         }
     }
 
@@ -415,8 +454,13 @@ public class BaseActivity extends AppCompatActivity {
         WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
     }
 
+    private static class UpdateVolumeRunnable implements Runnable {
+        private WeakReference<VoiceLineView> weakVoiceline;
 
-    private Runnable updateVolumeAction = new Runnable() {
+        public UpdateVolumeRunnable(VoiceLineView voiceLineView) {
+            weakVoiceline = new WeakReference<VoiceLineView>(voiceLineView);
+        }
+
         @Override
         public void run() {
             if (mMediaRecorder == null) return;
@@ -424,17 +468,17 @@ public class BaseActivity extends AppCompatActivity {
             if (ratio > 1) {
                 volume = (int) (20 * Math.log10(ratio));
             }
-            voiceLineView.setVolume(volume);
-
+            weakVoiceline.get().setVolume(volume);
         }
-    };
+    }
 
-    private volatile int volume;
+    private static volatile int volume;
 
-    private RecognizerListener mIatListener = new RecognizerListener() {
+    private class ImpRecognizerListener implements RecognizerListener {
+
         @Override
         public void onVolumeChanged(int i, byte[] bytes) {
-            updateVolume();
+            updateVolume(voiceLineView);
         }
 
         @Override
@@ -448,11 +492,7 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onResult(RecognizerResult recognizerResult, boolean isLast) {
-//            if (!isLast){
-//                return;
-//            }
-
+        public void onResult(RecognizerResult recognizerResult, boolean b) {
             mIatResults.clear();
             String text = JsonParser.parseIatResult(recognizerResult.getResultString());
             String sn = null;
@@ -476,13 +516,14 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onError(SpeechError speechError) {
-            Log.i("speak", "error          " + speechError.getErrorDescription());
+
         }
 
         @Override
         public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
         }
-    };
+    }
 
     protected void showWaveView(boolean visible) {
         if (voiceLineView != null) {
@@ -490,9 +531,11 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void updateVolume() {
+    protected void updateVolume(VoiceLineView voiceLineView) {
         if (isShowVoiceView) {
-            Handlers.ui().postDelayed(updateVolumeAction, 100);
+            updateVolumeRunnable = new UpdateVolumeRunnable(voiceLineView);
+            weakHandler.postDelayed(updateVolumeRunnable,100);
+//            Handlers.ui().postDelayed(updateVolumeRunnable, 100);
         }
     }
 
@@ -500,11 +543,57 @@ public class BaseActivity extends AppCompatActivity {
         isShowVoiceView = showVoiceView;
     }
 
-    private SynthesizerListener mTtsListener = new SynthesizerListener() {
+    //    private static class ImpSynthesizerListener implements SynthesizerListener{
+//
+//        @Override
+//        public void onSpeakBegin() {
+//            showWaveView(false);
+//        }
+//
+//        @Override
+//        public void onBufferProgress(int i, int i1, int i2, String s) {
+//
+//        }
+//
+//        @Override
+//        public void onSpeakPaused() {
+//
+//        }
+//
+//        @Override
+//        public void onSpeakResumed() {
+//
+//        }
+//
+//        @Override
+//        public void onSpeakProgress(int i, int i1, int i2) {
+//
+//        }
+//
+//        @Override
+//        public void onCompleted(SpeechError speechError) {
+//            if (isShowVoiceView) {
+//                updateVolume();
+//            }
+//
+//            onActivitySpeakFinish();
+//        }
+//
+//        @Override
+//        public void onEvent(int i, int i1, int i2, Bundle bundle) {
+//
+//        }
+//    }
+    private class ImpSynthesizerListener implements SynthesizerListener {
 
         @Override
         public void onSpeakBegin() {
             showWaveView(false);
+        }
+
+        @Override
+        public void onBufferProgress(int i, int i1, int i2, String s) {
+
         }
 
         @Override
@@ -514,39 +603,75 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onSpeakResumed() {
+
         }
 
         @Override
-        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
+        public void onSpeakProgress(int i, int i1, int i2) {
+
         }
 
         @Override
-        public void onSpeakProgress(int percent, int beginPos, int endPos) {
-        }
-
-        @Override
-        public void onCompleted(SpeechError error) {
+        public void onCompleted(SpeechError speechError) {
             if (isShowVoiceView) {
-                updateVolume();
+                updateVolume(voiceLineView);
             }
-
             onActivitySpeakFinish();
-            if (error == null) {
-            } else if (error != null) {
-            }
         }
 
         @Override
-        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+        public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
         }
-    };
+    }
+
+//    private SynthesizerListener mTtsListener = new SynthesizerListener() {
+//
+//        @Override
+//        public void onSpeakBegin() {
+//            showWaveView(false);
+//        }
+//
+//        @Override
+//        public void onSpeakPaused() {
+//
+//        }
+//
+//        @Override
+//        public void onSpeakResumed() {
+//        }
+//
+//        @Override
+//        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
+//        }
+//
+//        @Override
+//        public void onSpeakProgress(int percent, int beginPos, int endPos) {
+//        }
+//
+//        @Override
+//        public void onCompleted(SpeechError error) {
+//            if (isShowVoiceView) {
+//                updateVolume(voiceLineView);
+//            }
+//
+//            onActivitySpeakFinish();
+//            if (error == null) {
+//            } else if (error != null) {
+//            }
+//        }
+//
+//        @Override
+//        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+//        }
+//    };
 
     protected void onActivitySpeakFinish() {
 
     }
 
 
-    private void setRecognizerParams() {
+    private static void setRecognizerParams() {
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer != null) {
             // 清空参数
@@ -584,20 +709,20 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private String[] voicers;
-
-    public String[] voicers() {
-        if (voicers != null) {
-            return voicers;
-        }
-        voicers = getResources().getStringArray(R.array.voicer_values);
-        return voicers;
-    }
+//    private static String[] voicers;
+//
+//    public static String[] voicers() {
+//        if (voicers != null) {
+//            return voicers;
+//        }
+//        voicers = getResources().getStringArray(R.array.voicer_values);
+//        return voicers;
+//    }
 
     /**
      * 参数设置
      */
-    private void setSynthesizerParams() {
+    private static void setSynthesizerParams(Activity activity) {
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null) {
             // 清空参数
@@ -606,7 +731,7 @@ public class BaseActivity extends AppCompatActivity {
             if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
                 synthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
                 // 设置在线合成发音人
-                String[] voicers = voicers();
+                String[] voicers = activity.getResources().getStringArray(R.array.voicer_values);
                 int index = mIatPreferences.getInt("language_index", 0);
                 if (index >= voicers.length || index < 0) {
                     mIatPreferences.edit().putInt("language_index", 0).apply();
@@ -656,7 +781,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        MyReceiver.jPushLitener = new JPushReceive();
+        MyReceiver.jPushLitener = new JPushReceive(this);
         enableListeningLoop = enableListeningLoopCache;
         setDisableGlobalListen(disableGlobalListen);
         if (enableListeningLoop) {
@@ -666,9 +791,14 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        synthesizerInitListener1 = null;
+        synthesizerInitListener2 = null;
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null && synthesizer.isSpeaking()) {
             synthesizer.stopSpeaking();
+            synthesizerListener1=null;
+            synthesizerListener2=null;
+            synthesizerListener3=null;
         }
         enableListeningLoopCache = enableListeningLoop;
         enableListeningLoop = false;
@@ -676,6 +806,7 @@ public class BaseActivity extends AppCompatActivity {
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer != null && recognizer.isListening()) {
             recognizer.stopListening();
+            recognizerListener = null;
         }
         if (mMediaRecorder != null) {
             isAlive = false;
@@ -683,12 +814,9 @@ public class BaseActivity extends AppCompatActivity {
             mMediaRecorder = null;
         }
         //释放通知消息的资源
-        Handlers.ui().removeCallbacks(updateVolumeAction);
+        weakHandler.removeCallbacksAndMessages(null);
         if (MyReceiver.jPushLitener != null) {
             MyReceiver.jPushLitener = null;
-            if (window != null) {
-                window = null;
-            }
         }
         MobclickAgent.onPause(this);
         super.onPause();
@@ -711,5 +839,4 @@ public class BaseActivity extends AppCompatActivity {
         }
         mDialog.dismiss();
     }
-
 }
