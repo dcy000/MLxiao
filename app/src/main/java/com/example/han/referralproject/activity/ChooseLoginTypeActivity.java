@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
@@ -86,7 +87,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                     ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
                     startActivity(new Intent(this, SignInActivity.class));
                 } else {
-                    startActivity(new Intent(this, AuthenticationActivity.class)
+                    startActivity(new Intent(this, FaceRecognitionActivity.class)
                             .putExtra("from", "Welcome"));
                 }
                 break;

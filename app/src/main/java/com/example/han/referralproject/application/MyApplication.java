@@ -11,6 +11,8 @@ import android.os.Process;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
+import com.antfortune.freeline.FreelineApplication;
+import com.antfortune.freeline.FreelineCore;
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;

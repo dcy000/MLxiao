@@ -41,7 +41,6 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         @Override
         public void onReceive(Context context, Intent intent) {
             int level = obtainWifiInfo();
-            Log.e("网络强度发生变化", "onReceive: " +level);
             if (level <= 0 && level >= -50) {
                 mRightView.setImageResource(R.drawable.white_wifi_3);
             } else if (level < -50 && level >= -70) {
@@ -58,7 +57,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         WifiInfo info = wifiManager.getConnectionInfo();
         if (info.getBSSID() != null) {
             // 链接信号强度，5为获取的信号强度值在5以内
-            strength = WifiManager.calculateSignalLevel(info.getRssi(), 5);
+            strength =info.getRssi();
             // 链接速度
             int speed = info.getLinkSpeed();
             // 链接速度单位
