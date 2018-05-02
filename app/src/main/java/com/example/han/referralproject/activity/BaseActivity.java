@@ -104,7 +104,7 @@ public class BaseActivity extends AppCompatActivity {
     private ImpSynthesizerListener synthesizerListener3;
     protected VoiceLineView voiceLineView;
     protected FrameLayout mContentParent;
-    private WeakHandler weakHandler;
+    protected WeakHandler weakHandler;//该对象在子类中也可以使用
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
         enableListeningLoopCache = enableListeningLoop;
@@ -535,7 +535,6 @@ public class BaseActivity extends AppCompatActivity {
         if (isShowVoiceView) {
             updateVolumeRunnable = new UpdateVolumeRunnable(voiceLineView);
             weakHandler.postDelayed(updateVolumeRunnable,100);
-//            Handlers.ui().postDelayed(updateVolumeRunnable, 100);
         }
     }
 
@@ -543,47 +542,6 @@ public class BaseActivity extends AppCompatActivity {
         isShowVoiceView = showVoiceView;
     }
 
-    //    private static class ImpSynthesizerListener implements SynthesizerListener{
-//
-//        @Override
-//        public void onSpeakBegin() {
-//            showWaveView(false);
-//        }
-//
-//        @Override
-//        public void onBufferProgress(int i, int i1, int i2, String s) {
-//
-//        }
-//
-//        @Override
-//        public void onSpeakPaused() {
-//
-//        }
-//
-//        @Override
-//        public void onSpeakResumed() {
-//
-//        }
-//
-//        @Override
-//        public void onSpeakProgress(int i, int i1, int i2) {
-//
-//        }
-//
-//        @Override
-//        public void onCompleted(SpeechError speechError) {
-//            if (isShowVoiceView) {
-//                updateVolume();
-//            }
-//
-//            onActivitySpeakFinish();
-//        }
-//
-//        @Override
-//        public void onEvent(int i, int i1, int i2, Bundle bundle) {
-//
-//        }
-//    }
     private class ImpSynthesizerListener implements SynthesizerListener {
 
         @Override
@@ -624,47 +582,6 @@ public class BaseActivity extends AppCompatActivity {
 
         }
     }
-
-//    private SynthesizerListener mTtsListener = new SynthesizerListener() {
-//
-//        @Override
-//        public void onSpeakBegin() {
-//            showWaveView(false);
-//        }
-//
-//        @Override
-//        public void onSpeakPaused() {
-//
-//        }
-//
-//        @Override
-//        public void onSpeakResumed() {
-//        }
-//
-//        @Override
-//        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-//        }
-//
-//        @Override
-//        public void onSpeakProgress(int percent, int beginPos, int endPos) {
-//        }
-//
-//        @Override
-//        public void onCompleted(SpeechError error) {
-//            if (isShowVoiceView) {
-//                updateVolume(voiceLineView);
-//            }
-//
-//            onActivitySpeakFinish();
-//            if (error == null) {
-//            } else if (error != null) {
-//            }
-//        }
-//
-//        @Override
-//        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-//        }
-//    };
 
     protected void onActivitySpeakFinish() {
 
@@ -815,7 +732,9 @@ public class BaseActivity extends AppCompatActivity {
             isShowVoiceView=false;
         }
         //释放通知消息的资源
-        weakHandler.removeCallbacksAndMessages(null);
+        if (weakHandler!=null) {
+            weakHandler.removeCallbacksAndMessages(null);
+        }
         if (MyReceiver.jPushLitener != null) {
             MyReceiver.jPushLitener = null;
 

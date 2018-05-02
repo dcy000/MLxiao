@@ -554,7 +554,8 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onAnimationEnd(Animator animation) {
-            handler.sendEmptyMessage(GET_PREVIEW_IMG);
+            if (handler != null)
+                handler.sendEmptyMessage(GET_PREVIEW_IMG);
         }
 
         @Override

@@ -37,6 +37,7 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
@@ -73,7 +74,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
-
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
 
         mediaPlayer.start();//播放音乐*/

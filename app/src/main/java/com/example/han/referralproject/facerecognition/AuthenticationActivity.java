@@ -18,7 +18,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
-import android.media.FaceDetector;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +33,6 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -96,7 +94,7 @@ public class AuthenticationActivity extends BaseActivity {
     private static final int TO_CAMERA_PRE_RESOLVE = 2;
     private boolean openOrcloseAnimation = true;
     private boolean isOnPause = false;
-    private SurfaceHolder holder;
+    private SurfaceHolder surfaceHolder;
 
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
@@ -442,14 +440,14 @@ public class AuthenticationActivity extends BaseActivity {
         LayoutParams params = new LayoutParams(width, height);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mPreviewSurface.setLayoutParams(params);
-        holder = mPreviewSurface.getHolder();
-        holder.addCallback(callback);
+        surfaceHolder = mPreviewSurface.getHolder();
+        surfaceHolder.addCallback(callback);
 
 
     }
     private Callback callback = new Callback() {
         @Override
-        public void surfaceCreated(SurfaceHolder holder) {
+        public void surfaceCreated(final SurfaceHolder holder) {
             Logger.e("getHolder().addCallback所在线程");
             Handlers.bg().post(new Runnable() {
                 @Override
@@ -465,7 +463,7 @@ public class AuthenticationActivity extends BaseActivity {
                         params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
                         mCamera.setParameters(params);
                         setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
-                        mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
+                        mCamera.setPreviewDisplay(holder);
                         mCamera.startPreview();
 
                     } catch (Exception e) {
@@ -647,8 +645,8 @@ public class AuthenticationActivity extends BaseActivity {
                     mCamera.stopPreview();
                     mCamera.release();
                     mCamera = null;
-                    if (holder != null){
-                        holder.removeCallback(callback);
+                    if (surfaceHolder != null){
+                        surfaceHolder.removeCallback(callback);
                     }
                 }
                 if (baos != null) {
