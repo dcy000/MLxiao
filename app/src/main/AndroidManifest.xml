@@ -685,6 +685,7 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
+        <activity android:name=".facerecognition.FaceRecognitionActivity"/>
     </application>
 
 </manifest>

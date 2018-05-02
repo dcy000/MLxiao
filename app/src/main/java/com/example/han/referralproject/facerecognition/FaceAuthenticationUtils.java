@@ -34,20 +34,23 @@ public class FaceAuthenticationUtils {
     private static String TAG = FaceAuthenticationUtils.class.getSimpleName();
     private HashMap<String, String> xfid_userid;
     private String[] xfids;
-    private WeakReference<Context> contextWeakReference;
+    private Context context;
 
     private FaceAuthenticationUtils(Context context) {
-        contextWeakReference = new WeakReference<Context>(context);
-        mIdVerifier = IdentityVerifier.createVerifier(contextWeakReference.get(), new InitListener() {
-            @Override
-            public void onInit(int i) {
-                if (i == ErrorCode.SUCCESS) {
-                    Log.d(TAG, "初始化引擎成功");
-                } else {
-                    Log.d(TAG, "初始化引擎失败");
+        WeakReference<Context> contextWeakReference = new WeakReference<Context>(context);
+        this.context = contextWeakReference.get();
+        if (context != null) {
+            mIdVerifier = IdentityVerifier.createVerifier(contextWeakReference.get(), new InitListener() {
+                @Override
+                public void onInit(int i) {
+                    if (i == ErrorCode.SUCCESS) {
+                        Log.d(TAG, "初始化引擎成功");
+                    } else {
+                        Log.d(TAG, "初始化引擎失败");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public static FaceAuthenticationUtils getInstance(Context context) {
@@ -69,12 +72,14 @@ public class FaceAuthenticationUtils {
     private void getLocalAllUsers() {
         xfid_userid = new HashMap<>();
         //获取本地所有账号
-        String[] accounts = LocalShared.getInstance(contextWeakReference.get()).getAccounts();
-        if (accounts != null) {
-            xfids = new String[accounts.length];
-            for (int i = 0; i < accounts.length; i++) {
-                xfids[i] = accounts[i].split(",")[1];
-                xfid_userid.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
+        if (context != null) {
+            String[] accounts = LocalShared.getInstance(context).getAccounts();
+            if (accounts != null) {
+                xfids = new String[accounts.length];
+                for (int i = 0; i < accounts.length; i++) {
+                    xfids[i] = accounts[i].split(",")[1];
+                    xfid_userid.put(accounts[i].split(",")[1], accounts[i].split(",")[0]);
+                }
             }
         }
     }
@@ -215,7 +220,8 @@ public class FaceAuthenticationUtils {
             }
         });
     }
-    public void createGroup(String xfid){
+
+    public void createGroup(String xfid) {
         //默认将当前日期作为组名
         String groupName = "gcml" + Utils.stampToDate3(System.currentTimeMillis());
         // sst=add，scope=group，group_name=famil;
@@ -319,24 +325,30 @@ public class FaceAuthenticationUtils {
             public void onResult(IdentityResult identityResult, boolean b) {
                 if (deleteGroupListener != null)
                     deleteGroupListener.onResult(identityResult, b);
-                LocalShared.getInstance(contextWeakReference.get()).setGroupId("");
-                LocalShared.getInstance(contextWeakReference.get()).setGroupFirstXfid("");
+                if (context != null) {
+                    LocalShared.getInstance(context).setGroupId("");
+                    LocalShared.getInstance(context).setGroupFirstXfid("");
+                }
             }
 
             @Override
             public void onError(SpeechError speechError) {
                 if (deleteGroupListener != null)
                     deleteGroupListener.onError(speechError);
-                LocalShared.getInstance(contextWeakReference.get()).setGroupId("");
-                LocalShared.getInstance(contextWeakReference.get()).setGroupFirstXfid("");
+                if (context != null) {
+                    LocalShared.getInstance(context).setGroupId("");
+                    LocalShared.getInstance(context).setGroupFirstXfid("");
+                }
             }
 
             @Override
             public void onEvent(int i, int i1, int i2, Bundle bundle) {
                 if (deleteGroupListener != null)
                     deleteGroupListener.onEvent(i, i1, i2, bundle);
-                LocalShared.getInstance(contextWeakReference.get()).setGroupId("");
-                LocalShared.getInstance(contextWeakReference.get()).setGroupFirstXfid("");
+                if (context != null) {
+                    LocalShared.getInstance(context).setGroupId("");
+                    LocalShared.getInstance(context).setGroupFirstXfid("");
+                }
             }
         });
     }
@@ -378,6 +390,13 @@ public class FaceAuthenticationUtils {
     public void cancelIdentityVerifier() {
         if (mIdVerifier != null) {
             mIdVerifier.cancel();
+            mIdVerifier.destroy();
+            createListener=null;
+            joinGroupListener=null;
+            deleteGroupListener=null;
+            vertifyFaceListener=null;
+            context=null;
+            singleton=null;
         }
     }
 

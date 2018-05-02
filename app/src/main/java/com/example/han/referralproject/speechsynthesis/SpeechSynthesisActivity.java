@@ -608,7 +608,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             //    showTip("当前正在说话，音量大小：" + volume);
             //   Log.d(TAG, "返回音频数据：" + data.length);
             if (yuyinFlag) {
-                updateVolume();
+                updateVolume(voiceLineView);
             } else {
                 lineWave.waveH = volume / 6 + 2;
             }
