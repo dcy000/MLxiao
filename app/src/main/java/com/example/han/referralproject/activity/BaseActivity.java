@@ -812,11 +812,13 @@ public class BaseActivity extends AppCompatActivity {
             isAlive = false;
             mMediaRecorder.release();
             mMediaRecorder = null;
+            isShowVoiceView=false;
         }
         //释放通知消息的资源
         weakHandler.removeCallbacksAndMessages(null);
         if (MyReceiver.jPushLitener != null) {
             MyReceiver.jPushLitener = null;
+
         }
         MobclickAgent.onPause(this);
         super.onPause();
