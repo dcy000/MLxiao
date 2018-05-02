@@ -40,6 +40,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         Log.i(TAG, "onCreate: ");
         //启动音乐服务
@@ -55,7 +56,6 @@ public class WelcomeActivity extends BaseActivity {
         }
 //        checkVersion();
         playVideo();
-        super.onCreate(savedInstanceState);
 
     }
 

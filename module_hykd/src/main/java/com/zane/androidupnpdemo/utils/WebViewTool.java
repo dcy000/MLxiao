@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.view.View;
 import android.webkit.DownloadListener;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -54,7 +56,24 @@ public class WebViewTool {
         webSettings.setDomStorageEnabled(true);//是否开启本地DOM存储  鉴于它的安全特性（任何人都能读取到它，尽管有相应的限制，将敏感数据存储在这里依然不是明智之举），Android 默认是关闭该功能的。
         webView.setSaveEnabled(true);
         webView.setKeepScreenOn(true);
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
+            }
 
+            //获取网页标题
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+            }
+
+            //加载进度回调
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+
+            }
+        });
 
         //设置此方法可在WebView中打开链接，反之用浏览器打开
         webView.setWebViewClient(new WebViewClient() {
@@ -70,6 +89,7 @@ public class WebViewTool {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 // TODO Auto-generated method stub
                 super.onPageStarted(view, url, favicon);
+
             }
 
             @Override

@@ -25,14 +25,13 @@ public class WebviewActivity extends CommonBaseActivity {
         initView();
 
     }
-
     private void initView() {
         title=getIntent().getStringExtra("title");
         mTitleText.setText(TextUtils.isEmpty(title)?"":title);
         url=getIntent().getStringExtra("url");
         mHyWeb = (WebView) findViewById(R.id.hy_web);
-        WebViewTool.initWebView(this,mHyWeb);
         WebViewTool.loadData(mHyWeb,url);
+        WebViewTool.initWebView(this,mHyWeb);
 
     }
 

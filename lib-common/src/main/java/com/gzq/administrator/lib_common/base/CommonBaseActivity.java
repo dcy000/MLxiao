@@ -79,12 +79,6 @@ public abstract class CommonBaseActivity extends AppCompatActivity implements Vi
         finish();
     }
     protected void backMainActivity() {
-        ToastTool.showShort("点击了HOME建");
-        Router.build("app").go(this, new RouteCallback() {
-            @Override
-            public void callback(RouteResult routeResult, Uri uri, String s) {
-                Log.e(TAG, "callback: "+routeResult.toString()+"=="+uri+"---"+s );
-            }
-        });
+        Router.build("app").go(this);
     }
 }
