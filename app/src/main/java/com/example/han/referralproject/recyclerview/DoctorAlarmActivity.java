@@ -34,7 +34,7 @@ public class DoctorAlarmActivity extends BaseActivity {
     Button mButton2;
     long id;
     AlarmModel model;
-    //   ImageView mImageView;
+    //   ImageView headImg;
     //   ImageView mImageView1;
 
     SharedPreferences sharedPreferences1;

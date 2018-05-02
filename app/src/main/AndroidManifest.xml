@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.han.referralproject"
     tools:overrideLibrary="com.witspring.mlrobot">
+    <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64" />
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -98,7 +99,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_normal" />
+            android:value="gcml_version_hykd" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -471,6 +472,10 @@
             android:name=".floatingball.AssistiveTouchService"
             android:process=":serviceY" />
 
+        <service
+            android:name=".floatball.MyService"
+            />
+
 
         <activity
             android:name=".recyclerview.DoctorAlarmActivity"
@@ -605,7 +610,8 @@
         <activity android:name=".children.study.ChildEduStories2Activity"></activity>
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
+            android:taskAffinity="com.medlink.fastsignup"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
             android:taskAffinity="com.medlink.fastsignup" />
@@ -679,7 +685,6 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
-        <activity android:name="com.medlink.danbogh.register.idcard.SignInIdCardActivity"/>
     </application>
 
 </manifest>

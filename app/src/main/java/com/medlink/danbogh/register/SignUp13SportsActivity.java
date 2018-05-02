@@ -185,6 +185,8 @@ public class SignUp13SportsActivity extends BaseActivity {
                 new NetworkManager.SuccessCallback<UserInfoBean>() {
                     @Override
                     public void onSuccess(UserInfoBean response) {
+                        speak("主人，您已注册成功。请点下一步完善相关内容，即可愉快使用！");
+                        tvGoBack.setVisibility(View.INVISIBLE);
                         hideLoadingDialog();
                         shared.setUserInfo(response);
                         LocalShared.getInstance(mContext).setSex(response.sex);

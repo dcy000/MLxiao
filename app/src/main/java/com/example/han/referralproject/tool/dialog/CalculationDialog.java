@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,8 +47,8 @@ public class CalculationDialog extends DialogFragment {
             tvQuestion.setText(bundle.getString("question"));
             tvAnwser.setText(bundle.getString("answer").substring(2));
         }
-        SpeechSynthesizerHelper.stop();
-        SpeechSynthesizerHelper.startSynthesize(getContext(), bundle.getString("answer"));
+        MLVoiceSynthetize.stop();
+        MLVoiceSynthetize.startSynthesize(getContext(), bundle.getString("answer"),false);
         return view;
     }
 
@@ -67,6 +67,6 @@ public class CalculationDialog extends DialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
     }
 }

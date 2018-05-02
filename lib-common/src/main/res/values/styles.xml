@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="common_mypopwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/common_popshow_anim</item>
+        <!-- 指定显示的动画xml -->
+
+        <item name="android:windowExitAnimation">@anim/common_pophidden_anim</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+</resources>

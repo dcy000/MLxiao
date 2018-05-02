@@ -60,6 +60,7 @@ public class AlertAddressActivity extends BaseActivity {
     private UserInfoBean data;
     private StringBuffer buffer;
     protected String eat = "", smoke = "", drink = "", exercise = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +71,7 @@ public class AlertAddressActivity extends BaseActivity {
         tvGoBack.setText("取消");
         tvGoForward.setText("确定");
         data = (UserInfoBean) getIntent().getSerializableExtra("data");
-        buffer=new StringBuffer();
+        buffer = new StringBuffer();
         initData();
         initLocation();
     }
@@ -141,7 +142,7 @@ public class AlertAddressActivity extends BaseActivity {
             buffer = null;
         } else {
             String[] mhs = data.mh.split("\\s+");
-            for (int i = 0; i <mhs.length; i++) {
+            for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
                 else if (mhs[i].equals("糖尿病"))
@@ -243,11 +244,6 @@ public class AlertAddressActivity extends BaseActivity {
                 }
             }
         }
-
-        @Override
-        public void onConnectHotSpotMessage(String s, int i) {
-
-        }
     };
 
     @Override
@@ -302,7 +298,7 @@ public class AlertAddressActivity extends BaseActivity {
             return;
         }
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
-                buffer==null?"":buffer.substring(0,buffer.length()-1),getAddress(),new NetworkManager.SuccessCallback<Object>() {
+                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), getAddress(), new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
                         ToastTool.showShort("修改成功");

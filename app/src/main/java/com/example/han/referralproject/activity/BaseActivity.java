@@ -57,8 +57,6 @@ import com.umeng.analytics.MobclickAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -122,31 +120,8 @@ public class BaseActivity extends AppCompatActivity {
         }
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
         mIatPreferences = getSharedPreferences(IatSettings.PREFER_NAME, MODE_PRIVATE);
-
-        if (mMediaRecorder == null)
-            mMediaRecorder = new MediaRecorder();
-        mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
-        mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-
-        File file = new File(Environment.getExternalStorageDirectory().getPath(), "hello.log");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        mMediaRecorder.setOutputFile(file.getAbsolutePath());
-        mMediaRecorder.setMaxDuration(1000 * 60 * 10);
-        try {
-            mMediaRecorder.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mMediaRecorder.start();
-
     }
+
 
     private long lastTimeMillis = -1;
     private static final long DURATION = 500L;
@@ -168,6 +143,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private PopupWindow window;
+
 
     //收到推送消息后显示Popwindow
     class JPushReceive implements MyReceiver.JPushLitener {
@@ -735,11 +711,5 @@ public class BaseActivity extends AppCompatActivity {
         }
         mDialog.dismiss();
     }
-
-
-    /**
-     * 发音人
-     */
-    public static final String[] VOICER = {"xiaoyan", "xiaoqi", "xiaoli", "xiaoyu", "xiaofeng", "xiaoxin", "laosun"};
 
 }

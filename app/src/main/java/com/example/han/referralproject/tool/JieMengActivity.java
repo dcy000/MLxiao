@@ -13,12 +13,12 @@ import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +85,7 @@ public class JieMengActivity extends ToolBaseActivity {
 
 
     private void startListener() {
-        SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
+        SpeechRecognizer speechRecognizer = MLVoiceRecognize.initSpeechRecognizer(this);
         speechRecognizer.startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
@@ -163,7 +163,7 @@ public class JieMengActivity extends ToolBaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopListening();
-        SpeechSynthesizerHelper.stop();
+        MLVoiceSynthetize.stop();
         mainHandler.removeCallbacksAndMessages(null);
     }
 
@@ -184,7 +184,7 @@ public class JieMengActivity extends ToolBaseActivity {
                 getDreamData(demo3);
                 break;
             case R.id.iv_yuyin:
-                SpeechSynthesizerHelper.stop();
+                MLVoiceSynthetize.stop();
                 onEndOfSpeech();
                 startListener();
                 break;

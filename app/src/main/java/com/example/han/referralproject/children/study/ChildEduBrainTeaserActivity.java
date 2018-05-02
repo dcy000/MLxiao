@@ -27,14 +27,10 @@ import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
-import com.iflytek.cloud.RecognizerListener;
-import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
@@ -76,7 +72,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
             @Override
             public void onClick(View v) {
                 endOfSpeech();
-                SpeechSynthesizerHelper.stop();
+                MLVoiceSynthetize.stop();
                 startListener();
             }
         });

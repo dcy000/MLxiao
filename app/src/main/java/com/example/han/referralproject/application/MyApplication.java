@@ -3,15 +3,15 @@ package com.example.han.referralproject.application;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
@@ -45,8 +45,6 @@ public class MyApplication extends Application {
     public String userId;
     public String xfid;
     public String telphoneNum;
-
-    public String emDoctorId = "gcml_doctor_18940866148";
     public String userName;
 
     public String nimUserId() {
@@ -65,6 +63,10 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
         LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
@@ -120,6 +122,7 @@ public class MyApplication extends Application {
                 return BuildConfig.LOGGING;
             }
         });
+
     }
 
 

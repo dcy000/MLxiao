@@ -1,11 +1,17 @@
 package com.example.han.referralproject;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.SystemClock;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +22,6 @@ import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
@@ -40,7 +45,11 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);
+            initContentView();
+    }
+
+    private void initContentView() {
         setContentView(R.layout.activity_welcome);
         Log.i(TAG, "onCreate: ");
         //启动音乐服务
@@ -54,9 +63,8 @@ public class WelcomeActivity extends BaseActivity {
             finish();
             return;
         }
-//        checkVersion();
-        playVideo();
 
+        playVideo();
     }
 
     private void checkVersion() {

@@ -1,16 +1,9 @@
 package com.example.han.referralproject.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.han.referralproject.R;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
-import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechRecognizer;
 
 import org.json.JSONException;
 import org.json.JSONObject;

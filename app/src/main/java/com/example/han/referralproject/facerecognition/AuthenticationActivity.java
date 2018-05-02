@@ -5,12 +5,9 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import android.Manifest.permission;
 import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
@@ -21,11 +18,10 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
-import android.os.AsyncTask;
+import android.media.FaceDetector;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Process;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -38,6 +34,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -52,7 +49,6 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
@@ -81,7 +77,6 @@ public class AuthenticationActivity extends BaseActivity {
     // 缩放矩阵
     private Matrix mScaleMatrix = new Matrix();
     private byte[] mImageData = null;
-    private Bitmap b3;
     private String orderid;
     private String fromString;//标识从哪个页面过来的
     private String fromType;
@@ -99,7 +94,10 @@ public class AuthenticationActivity extends BaseActivity {
     //    private byte[] cacheCamera;
     private static final int TO_FACE_AUTHENTICATION = 1;
     private static final int TO_CAMERA_PRE_RESOLVE = 2;
-    private boolean openOrcloseAnimation=true;
+    private boolean openOrcloseAnimation = true;
+    private boolean isOnPause = false;
+    private SurfaceHolder holder;
+
     class MyHandler extends Handler {
         private WeakReference<AuthenticationActivity> weakReference;
 
@@ -131,11 +129,10 @@ public class AuthenticationActivity extends BaseActivity {
                                     Logger.e("最高分数的讯飞id" + scoreFirstXfid);
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                                     if (firstScore > 80) {
-                                        closeAnimation();
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
                                             authenticationSuccessForTest$Welcome(scoreFirstXfid, weakReference);
                                         } else if ("Pay".equals(fromString)) {
-                                            if (mAuthid.equals(scoreFirstXfid)) {
+                                            if (mAuthid.equals(scoreFirstXfid) && !isOnPause) {
                                                 paySuccess();
                                             } else {
                                                 payFail();
@@ -186,9 +183,9 @@ public class AuthenticationActivity extends BaseActivity {
                         mCamera.setOneShotPreviewCallback(new PreviewCallback() {
                             @Override
                             public void onPreviewFrame(byte[] data, Camera camera) {
-                                b3 = decodeToBitMap(data, mCamera);
-                                if (b3 != null) {
-                                    Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
+                                Bitmap sourceBitmap = decodeToBitMap(data, mCamera);
+                                if (sourceBitmap != null) {
+                                    Bitmap bitmap = Utils.centerSquareScaleBitmap(sourceBitmap, 300);
                                     if (bitmap != null) {
                                         if (baos != null)
                                             baos.reset();
@@ -196,6 +193,10 @@ public class AuthenticationActivity extends BaseActivity {
                                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                                         if (baos != null)
                                             mImageData = baos.toByteArray();
+//                                        FaceDetector detector = new FaceDetector(bitmap.getWidth(), bitmap.getHeight(),3);
+//                                        FaceDetector.Face[] faces = new FaceDetector.Face[3];
+//                                        int detectorResult=detector.findFaces(bitmap, faces);
+//                                        Log.e("人脸检测结果返回情况",detectorResult+"");
                                         myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
                                     }
                                 }
@@ -304,7 +305,6 @@ public class AuthenticationActivity extends BaseActivity {
         setContentView(R.layout.activity_video_demo);
         //工厂测试专用
         isTest = getIntent().getBooleanExtra("isTest", false);
-
         init();
         openCameraPreview();
         if (isTest) {
@@ -442,50 +442,50 @@ public class AuthenticationActivity extends BaseActivity {
         LayoutParams params = new LayoutParams(width, height);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mPreviewSurface.setLayoutParams(params);
-
-        mPreviewSurface.getHolder().addCallback(new Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                Logger.e("getHolder().addCallback所在线程");
-                Handlers.bg().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
-                            if (mCamera == null) {
-                                runOnUiThreadWithOpenCameraFail();
-                                return;
-                            }
-                            Parameters params = mCamera.getParameters();
-                            params.setPreviewFormat(ImageFormat.NV21);
-                            params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
-                            mCamera.setParameters(params);
-                            setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
-                            mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
-                            mCamera.startPreview();
-
-                        } catch (Exception e) {
-                            runOnUiThreadWithOpenCameraFail();
-                        }
-                    }
-                });
-
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                mScaleMatrix.setScale(width / (float) PREVIEW_HEIGHT, height / (float) PREVIEW_WIDTH);
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                finish();
-            }
-        });
+        holder = mPreviewSurface.getHolder();
+        holder.addCallback(callback);
 
 
     }
+    private Callback callback = new Callback() {
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            Logger.e("getHolder().addCallback所在线程");
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
+                        if (mCamera == null) {
+                            runOnUiThreadWithOpenCameraFail();
+                            return;
+                        }
+                        Parameters params = mCamera.getParameters();
+                        params.setPreviewFormat(ImageFormat.NV21);
+                        params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+                        mCamera.setParameters(params);
+                        setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
+                        mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
+                        mCamera.startPreview();
 
+                    } catch (Exception e) {
+                        runOnUiThreadWithOpenCameraFail();
+                    }
+                }
+            });
+
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            mScaleMatrix.setScale(width / (float) PREVIEW_HEIGHT, height / (float) PREVIEW_WIDTH);
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+            finish();
+        }
+    };
     private void runOnUiThreadWithOpenCameraFail() {
         runOnUiThread(new Runnable() {
             @Override
@@ -542,7 +542,7 @@ public class AuthenticationActivity extends BaseActivity {
                 //动画结束
                 if (openOrcloseAnimation) {
                     myHandler.sendEmptyMessage(TO_CAMERA_PRE_RESOLVE);
-                    openOrcloseAnimation=false;
+                    openOrcloseAnimation = false;
                 }
                 Logger.e("动画结束");
             }
@@ -588,7 +588,7 @@ public class AuthenticationActivity extends BaseActivity {
                 degrees = 270;
                 break;
         }
-        int result;
+
         if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
             result = (info.orientation + degrees) % 360;
             result = (360 - result) % 360;  // compensate the mirror
@@ -598,6 +598,7 @@ public class AuthenticationActivity extends BaseActivity {
         camera.setDisplayOrientation(result);
     }
 
+    private int result;
 
     /**
      * NV21格式(所有相机都支持的格式)转换为bitmap
@@ -614,7 +615,18 @@ public class AuthenticationActivity extends BaseActivity {
                 image.compressToJpeg(new Rect(0, 0, size.width, size.height), 80, baos);
                 Bitmap bmp = BitmapFactory.decodeByteArray(baos.toByteArray(), 0, baos.size());
                 Matrix matrix = new Matrix();
-                matrix.postRotate(0);
+                switch (result) {
+                    case 90:
+                        matrix.postRotate(270);
+                        break;
+                    case 270:
+                        matrix.postRotate(90);
+                        break;
+                    default:
+                        matrix.postRotate(result);
+                        break;
+                }
+//                matrix.postRotate(0);
                 Bitmap nbmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
                 return nbmp;
             }
@@ -625,7 +637,6 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     private void finishActivity() {
-
         mImageData = null;
         myHandler.removeCallbacksAndMessages(null);
         Handlers.bg().post(new Runnable() {
@@ -636,6 +647,9 @@ public class AuthenticationActivity extends BaseActivity {
                     mCamera.stopPreview();
                     mCamera.release();
                     mCamera = null;
+                    if (holder != null){
+                        holder.removeCallback(callback);
+                    }
                 }
                 if (baos != null) {
                     try {
@@ -651,11 +665,26 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        isOnPause = false;
+    }
+    private long currentTimeWithLong;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isOnPause = true;
+        currentTimeWithLong=System.currentTimeMillis();
+        closeAnimation();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Logger.e("onDestroy");
         Handlers.bg().removeCallbacksAndMessages(null);
         if (lottAnimation != null)
             lottAnimation.cancelAnimation();
+        Log.e("从onPause到onDestroy时间",System.currentTimeMillis()-currentTimeWithLong+"");
     }
 }

@@ -1,20 +1,14 @@
 package com.example.han.referralproject.tool.adapter;
 
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.tool.HistoryTodayActivity;
-import com.example.han.referralproject.tool.wrapview.ExpandableTextView;
-import com.example.han.referralproject.tool.wrapview.MixtureTextView;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
-import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
 import com.hymane.expandtextview.ExpandTextView;
 import com.hymane.expandtextview.OnReadMoreClickListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;
 
@@ -79,8 +73,8 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
                     //记录手动点击展开的位置
                     position = holder.getPosition();
                     HistoryTodayBean bean = getData().get(position);
-                    SpeechSynthesizerHelper.stop();
-                    SpeechSynthesizerHelper.startSynthesize(expandTextView.getContext(),bean.title+","+ bean.description);
+                    MLVoiceSynthetize.stop();
+                    MLVoiceSynthetize.startSynthesize(expandTextView.getContext(),bean.title+","+ bean.description,false);
                 }
                 getData().get(holder.getPosition()).flag = true;
             }
@@ -92,7 +86,7 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
                     int position = holder.getPosition();
                     //仅仅点击折叠当前条目 停止播报
                     if (position == HistoryTodayRVAdapter.this.position) {
-                        SpeechSynthesizerHelper.stop();
+                        MLVoiceSynthetize.stop();
                     }
                 }
                 getData().get(holder.getPosition()).flag = false;

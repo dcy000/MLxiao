@@ -112,7 +112,7 @@ public class AssistiveTouchService extends Service {
 
         mImageView = (ImageView) mAssistiveTouchView.findViewById(R.id.icons);
 
-        //   mImageView.setOnClickListener(checkDoubleClickListener);
+        //   headImg.setOnClickListener(checkDoubleClickListener);
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
         mImageView1 = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.image_volume);
@@ -175,7 +175,7 @@ public class AssistiveTouchService extends Service {
     }
 
     public void createAssistiveTouchView() {
-        mParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        mParams.type = WindowManager.LayoutParams.TYPE_TOAST;
         mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         mParams.x = mScreenWidth;
@@ -226,8 +226,14 @@ public class AssistiveTouchService extends Service {
                         mAssistiveTouchView.setAlpha(0);
                         lastAssistiveTouchViewX = mParams.x;
                         lastAssistiveTouchViewY = mParams.y;
+                        mImageView.setAlpha(0.0f);
                         myAssitiveTouchAnimator(mParams.x, mScreenWidth / 2 - mAssistiveTouchView.getMeasuredWidth() / 2, mParams.y, mScreenHeight / 2 - mAssistiveTouchView.getMeasuredHeight() / 2, true).start();
                         mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.25));
+
+                        mPopupWindow.setFocusable(true);
+                        mPopupWindow.setTouchable(true);
+                        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+                        mPopupWindow.showAtLocation(mAssistiveTouchView, Gravity.CENTER, 0, 0);
 
                         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                             @Override
@@ -238,12 +244,6 @@ public class AssistiveTouchService extends Service {
 
                             }
                         });
-                        mPopupWindow.setFocusable(true);
-                        mPopupWindow.setTouchable(true);
-                        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-                        mPopupWindow.showAtLocation(mAssistiveTouchView, Gravity.CENTER, 0, 0);
-
-                        mImageView.setAlpha(0.0f);
 
 
                     }
@@ -325,7 +325,7 @@ public class AssistiveTouchService extends Service {
         ImageView imageView = (ImageView) mScreenShotView.findViewById(R.id.screenshot);
         imageView.setImageBitmap(bitmap);
 
-        mAlertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        mAlertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
         mAlertDialog.show();
         WindowManager.LayoutParams alertDialogParams = mAlertDialog.getWindow().getAttributes();
         alertDialogParams.width = mScreenWidth;
@@ -364,7 +364,7 @@ public class AssistiveTouchService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mWindowManager.removeView(mAssistiveTouchView);
+        super.onDestroy();
     }
 }

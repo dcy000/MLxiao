@@ -90,12 +90,12 @@ public class XuetangActivity extends BaseActivity {
                           *//*  new Thread(new Runnable() {
                         try {
                             double temp = Double.parseDouble(str);
-                            mTextView.setText(str1);
+                            tvUserName.setText(str1);
                         } catch (Exception e) {
                             return;
                         }
 //                        final String[] strs = str1.split(",");
-//                        mTextView.setText(strs[0]);
+//                        tvUserName.setText(strs[0]);
 //                        sign = strs[3];
 
 //                        if ("1".equals(strs[3]) && sign1 == true) {
@@ -341,8 +341,8 @@ public class XuetangActivity extends BaseActivity {
 
         setChartData(_lineChart1);*/
 
-      /*  mImageView = (ImageView) findViewById(R.id.xuetang_video);
-        mImageView.setOnClickListener(new View.OnClickListener() {
+      /*  headImg = (ImageView) findViewById(R.id.xuetang_video);
+        headImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PlayVideoActivity.class);
