@@ -89,7 +89,7 @@ public class BaseActivity extends AppCompatActivity {
     protected TextView mLeftText;
     protected RelativeLayout mToolbar;
     protected LinearLayout mllBack;
-    protected static boolean isShowVoiceView = false;//是否显示声音录入图像
+    protected boolean isShowVoiceView = false;//是否显示声音录入图像
     private static MediaRecorder mMediaRecorder;
     private boolean isAlive = true;
     public static SharedPreferences mIatPreferences;

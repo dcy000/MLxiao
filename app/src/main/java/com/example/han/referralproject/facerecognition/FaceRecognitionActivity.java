@@ -756,6 +756,26 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
                 finish();
                 break;
             case R.id.tiao_guo:
+                if (isTest) {
+                    startActivity(new Intent(FaceRecognitionActivity.this, Test_mainActivity.class)
+                            .putExtra("isTest", isTest));
+                    return;
+                }
+
+                if ("Test".equals(fromString)) {
+                    Intent intent = new Intent();
+                    if (TextUtils.isEmpty(fromType)) {
+                        intent.setClass(FaceRecognitionActivity.this, Test_mainActivity.class);
+                    } else if ("xindian".equals(fromType)) {
+                        intent.setClass(FaceRecognitionActivity.this, XinDianDetectActivity.class);
+                    } else {
+                        intent.setClass(FaceRecognitionActivity.this, DetectActivity.class);
+                        intent.putExtra("type", fromType);
+                    }
+                    startActivity(intent);
+                } else if ("Welcome".equals(fromString)) {
+                    startActivity(new Intent(FaceRecognitionActivity.this, SignInActivity.class));
+                }
                 finish();
                 break;
         }

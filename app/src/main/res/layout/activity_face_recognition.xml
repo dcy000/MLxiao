@@ -14,9 +14,10 @@
         app:lottie_fileName="camera_pre.json"
         app:lottie_autoPlay="false"
         app:lottie_loop="false"
-        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         app:lottie_imageAssetsFolder="lav_imgs/"
-        android:layout_marginBottom="20pt"
+        android:layout_marginBottom="240pt"
         />
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -79,5 +80,7 @@
     <ImageView
         android:id="@+id/pre_img"
         android:layout_width="80dp"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

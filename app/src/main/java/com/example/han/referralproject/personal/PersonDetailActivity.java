@@ -78,7 +78,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         PersonDetailFragment detail = new PersonDetailFragment();
         PersonDetail2Fragment detail2 = new PersonDetail2Fragment();
         fragments.add(detail);
-//        fragments.add(detail2);
+        fragments.add(detail2);
 
         vpContent.setAdapter(new PersonDetailFragmentPagerAdapter(getSupportFragmentManager(), fragments));
     }
