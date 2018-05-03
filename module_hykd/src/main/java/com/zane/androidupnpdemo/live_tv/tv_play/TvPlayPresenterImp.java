@@ -16,8 +16,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.gzq.administrator.lib_common.utils.ToastTool;
@@ -25,15 +23,12 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
-import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.iflytek.wake.MLVoiceWake;
 import com.iflytek.wake.MLWakeuperListener;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
 import com.ksyun.media.player.KSYTextureView;
-import com.zane.androidupnpdemo.R;
-import com.zane.androidupnpdemo.connect_tv.Config;
 import com.zane.androidupnpdemo.connect_tv.Intents;
 import com.zane.androidupnpdemo.connect_tv.control.ClingPlayControl;
 import com.zane.androidupnpdemo.connect_tv.control.callback.ControlCallback;
@@ -47,13 +42,9 @@ import com.zane.androidupnpdemo.connect_tv.listener.DeviceListChangedListener;
 import com.zane.androidupnpdemo.connect_tv.service.ClingUpnpService;
 import com.zane.androidupnpdemo.connect_tv.service.manager.ClingManager;
 import com.zane.androidupnpdemo.connect_tv.service.manager.DeviceManager;
-import com.zane.androidupnpdemo.connect_tv.ui.TVConnectMainActivity;
-import com.zane.androidupnpdemo.connect_tv.util.Utils;
 import com.zane.androidupnpdemo.live_tv.FloatingPlayer;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
 import com.zane.androidupnpdemo.utils.PinyinHelper;
-
-import org.fourthline.cling.model.meta.Device;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -122,6 +113,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
      */
     private ClingPlayControl mClingPlayControl = new ClingPlayControl();
     private Handler mHandler = new InnerHandler();
+    private MLWakeuperListener mlWakeuperListener;
 
     private final class InnerHandler extends Handler {
         @Override
@@ -175,7 +167,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
     @Override
     public void searchTvDevices() {
-        Log.e(TAG, "searchTvDevices: 开始搜索设备" );
+        Log.e(TAG, "searchTvDevices: 开始搜索设备");
         bindServices();
         initConnectTvListener();
         registerReceivers();
@@ -274,7 +266,7 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
 
     private void startListenWakeup() {
         MLVoiceWake.initGlobalContext((TvPlayActivity) tvPlayActivity);
-        MLVoiceWake.startWakeUp(new MLWakeuperListener() {
+        mlWakeuperListener = new MLWakeuperListener() {
             @Override
             public void onMLError(int errorCode) {
 
@@ -284,7 +276,9 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
             public void onMLResult() {
                 onBehindWakeuped();
             }
-        });
+        };
+
+        MLVoiceWake.startWakeUp(mlWakeuperListener);
 
     }
 
@@ -929,8 +923,9 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         myHandler.removeCallbacksAndMessages(null);
         MLVoiceRecognize.destroy();
         MLVoiceSynthetize.destory();
-        mHandler.removeCallbacksAndMessages(null);
+        mlWakeuperListener=null;
         if (isBindedService) {
+            mBrowseRegistryListener = null;
             ((TvPlayActivity) tvPlayActivity).unbindService(mUpnpServiceConnection);
             ((TvPlayActivity) tvPlayActivity).unregisterReceiver(mTransportStateBroadcastReceiver);
             ClingManager.getInstance().destroy();
@@ -954,7 +949,8 @@ public class TvPlayPresenterImp implements ITvPlayPresenter {
         if (ksyTextureView.isPlaying()) {
             ksyTextureView.pause();
         }
-        MLVoiceSynthetize.startSynthesize((TvPlayActivity) tvPlayActivity, "主人,您想看哪个电视台？", speakFinishListener, false);
+        if (tvPlayActivity != null)
+            MLVoiceSynthetize.startSynthesize((TvPlayActivity) tvPlayActivity, "主人,您想看哪个电视台？", speakFinishListener, false);
 
     }
 

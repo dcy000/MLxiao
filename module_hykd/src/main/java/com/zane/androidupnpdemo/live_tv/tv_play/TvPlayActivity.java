@@ -355,6 +355,9 @@ public class TvPlayActivity extends AppCompatActivity implements View.OnClickLis
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
-        tvPlayPresenter.onDestroy();
+        if (tvPlayPresenter!=null) {
+            tvPlayPresenter.onDestroy();
+            tvPlayPresenter = null;
+        }
     }
 }

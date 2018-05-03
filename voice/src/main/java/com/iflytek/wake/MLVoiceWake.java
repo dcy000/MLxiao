@@ -70,7 +70,8 @@ public class MLVoiceWake {
                 }
             };
         }
-        voiceWakeuper.startListening(listener);
+        if (voiceWakeuper != null && !voiceWakeuper.isListening())
+            voiceWakeuper.startListening(listener);
     }
 
 

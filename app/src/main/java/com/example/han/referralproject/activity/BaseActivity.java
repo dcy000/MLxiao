@@ -429,9 +429,9 @@ public class BaseActivity extends AppCompatActivity {
 
     private boolean disableGlobalListen;
 
-    public boolean isDisableGlobalListen() {
-        return disableGlobalListen;
-    }
+//    public boolean isDisableGlobalListen() {
+//        return disableGlobalListen;
+//    }
 
 
     public void setDisableGlobalListen(boolean disableGlobalListen) {

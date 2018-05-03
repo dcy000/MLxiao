@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.baidu.paysdk.ui.SignChannelListActivity;
+import com.chenenyu.router.annotation.Route;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
@@ -102,7 +103,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@Route("app/speech")
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
 
     private static String TAG = SpeechSynthesisActivity.class.getSimpleName();
