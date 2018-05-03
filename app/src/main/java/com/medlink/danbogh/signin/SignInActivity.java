@@ -119,7 +119,7 @@ public class SignInActivity extends BaseActivity {
         WifiInfo info = wifiManager.getConnectionInfo();
         if (info.getBSSID() != null) {
             // 链接信号强度，5为获取的信号强度值在5以内
-            strength = WifiManager.calculateSignalLevel(info.getRssi(), 5);
+            strength = info.getRssi();
             // 链接速度
             int speed = info.getLinkSpeed();
             // 链接速度单位
