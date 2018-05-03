@@ -13,9 +13,17 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gzq.administrator.lib_common.base.CommonBaseActivity;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLSynthesizerListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.ksyun.media.player.KSYMediaPlayer;
 import com.zane.androidupnpdemo.R;
 import com.zane.androidupnpdemo.live_tv.GridViewDividerItemDecoration;
 import com.zane.androidupnpdemo.live_tv.LiveBean;
+import com.zane.androidupnpdemo.utils.PinyinHelper;
+
 import java.util.List;
 
 /**
@@ -35,6 +43,8 @@ public class TvChannelActivity extends CommonBaseActivity implements ITvList, Vi
         tvChannelPresenter = new TvChannelPresenterImp(this, new TvChannelInteractorImp());
         tvChannelPresenter.getChannels();
     }
+
+
 
     @Override
     public void showDialog() {
@@ -72,6 +82,11 @@ public class TvChannelActivity extends CommonBaseActivity implements ITvList, Vi
     @Override
     public void onError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void closeActivity() {
+        finish();
     }
 
     private void initView() {

@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.baidu.paysdk.ui.SignChannelListActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
@@ -82,6 +83,7 @@ import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.music.TheOldMusicActivity;
+import com.zane.androidupnpdemo.live_tv.tv_list.TvChannelActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -674,6 +676,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
                     }
                 });
+                return;
+            }
+            if (inSpell.matches("(.*)dian(shi|si)|jiemu(.*)")){//跳转到电视节目列表
+                startActivity(new Intent(this, TvChannelActivity.class));
                 return;
             }
 

@@ -13,4 +13,5 @@ public interface ITvList {
     void hideDialog();
     void fillData(List<LiveBean> channels);
     void onError(String error);
+    void closeActivity();
 }
