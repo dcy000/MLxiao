@@ -1572,12 +1572,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         }
 
-//        try {
-//            str1 = sendMessage(str);
-//        } catch (Exception e) {
-//            defaultToke();
-//        }
-        defaultToke();
+        try {
+            str1 = sendMessage(str);
+        } catch (Exception e) {
+            defaultToke();
+        }
+
+//
 
     }
 
@@ -1613,7 +1614,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             str1 = string.getReceive().getOutput();
-            speak(str1, isDefaultParam);
 
         }
     }
@@ -1729,11 +1729,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 }
                 str1 = sb.toString();
-                defaultToke();
             }
 
             @Override
             public void onError() {
+            }
+
+            @Override
+            public void onComplete() {
                 defaultToke();
             }
         });

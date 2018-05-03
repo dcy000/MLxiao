@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements HttpListener<Acce
 
     }
 
+    @Override
+    public void onComplete() {
+
+    }
+
 
     private void sendMessage() {
         data = EHSharedPreferences.ReadAccessToken(ACCESSTOKEN_KEY);
@@ -88,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements HttpListener<Acce
 
             @Override
             public void onError() {
+
+            }
+
+            @Override
+            public void onComplete() {
 
             }
         });

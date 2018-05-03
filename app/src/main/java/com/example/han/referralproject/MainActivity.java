@@ -346,4 +346,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         T.show("初始化AK失败");
     }
 
+    @Override
+    public void onComplete() {
+
+    }
+
 }

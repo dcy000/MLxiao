@@ -18,38 +18,38 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class UnitModel {
-     HttpListener<Unit> mUnitHttpListener;
+    HttpListener<Unit> mUnitHttpListener;
 
-     public void getUnit(String accessToken, int sceneId, String query, String sessionId,
-                         HttpListener<Unit> unitHttpListener) {
-          this.mUnitHttpListener = unitHttpListener;
-          HttpClient.retrofit().create(API.UnitService.class)
-                    .getUnit(accessToken, new UnitBody(sceneId, query, sessionId))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<Unit>() {
-                         @Override
-                         public void onSubscribe(Subscription s) {
-                              s.request(Long.MAX_VALUE);
-                         }
+    public void getUnit(String accessToken, int sceneId, String query, String sessionId,
+                        HttpListener<Unit> unitHttpListener) {
+        this.mUnitHttpListener = unitHttpListener;
+        HttpClient.retrofit().create(API.UnitService.class)
+                .getUnit(accessToken, new UnitBody(sceneId, query, sessionId))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Unit>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        s.request(Long.MAX_VALUE);
+                    }
 
-                         @Override
-                         public void onNext(Unit unit) {
-                              Log.e("TAG","---->---SUCCESS-----");
-                              mUnitHttpListener.onSuccess(unit);
-                         }
+                    @Override
+                    public void onNext(Unit unit) {
+//                              Log.e("TAG","---->---SUCCESS-----");
+                        mUnitHttpListener.onSuccess(unit);
+                    }
 
-                         @Override
-                         public void onError(Throwable t) {
-                              Log.e("TAG","---->---ERROR-----"+t.getMessage());
-                              mUnitHttpListener.onError();
-                         }
+                    @Override
+                    public void onError(Throwable t) {
+//                              Log.e("TAG","---->---ERROR-----"+t.getMessage());
+                        mUnitHttpListener.onError();
+                    }
 
-                         @Override
-                         public void onComplete() {
+                    @Override
+                    public void onComplete() {
+                        mUnitHttpListener.onComplete();
+                    }
+                });
 
-                         }
-                    });
-
-     }
+    }
 }

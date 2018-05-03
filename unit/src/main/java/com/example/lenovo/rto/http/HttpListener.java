@@ -8,4 +8,5 @@ public interface HttpListener<T> {
      void onSuccess(T data);
 
      void onError();
+     void onComplete();
 }
