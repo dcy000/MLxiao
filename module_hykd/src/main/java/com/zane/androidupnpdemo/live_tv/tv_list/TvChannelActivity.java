@@ -94,6 +94,18 @@ public class TvChannelActivity extends CommonBaseActivity implements ITvList, Vi
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        tvChannelPresenter.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        tvChannelPresenter.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         tvChannelPresenter.onDestroy();

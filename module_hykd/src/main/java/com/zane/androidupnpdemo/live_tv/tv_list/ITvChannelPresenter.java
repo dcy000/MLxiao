@@ -11,6 +11,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 public interface ITvChannelPresenter{
     void getChannels();
     void tvListItemClick(BaseQuickAdapter adapter, View view, int position);
+    void onResume();
+    void onPause();
     void onDestroy();
 
 }
