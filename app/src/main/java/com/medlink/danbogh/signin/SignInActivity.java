@@ -1,9 +1,14 @@
 package com.medlink.danbogh.signin;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
@@ -91,8 +96,39 @@ public class SignInActivity extends BaseActivity {
         tvAgree.setText(agreeBuilder);
         checkInput();
         ((TextView) findViewById(R.id.tv_version)).setText(getLocalVersionName());
+        registerReceiver(wifiChangedReceiver, new IntentFilter(WifiManager.RSSI_CHANGED_ACTION));
     }
-
+    private BroadcastReceiver wifiChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("网络强度发生变化", "onReceive: " );
+            int level = obtainWifiInfo();
+            if (level <= 0 && level >= -50) {
+                mRightView.setImageResource(R.drawable.dark_wifi_3);
+            } else if (level < -50 && level >= -70) {
+                mRightView.setImageResource(R.drawable.dark_wifi_2);
+            } else if (level < -70) {
+                mRightView.setImageResource(R.drawable.dark_wifi_1);
+            }
+        }
+    };
+    private int obtainWifiInfo() {
+        // Wifi的连接速度及信号强度：
+        int strength = 0;
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        WifiInfo info = wifiManager.getConnectionInfo();
+        if (info.getBSSID() != null) {
+            // 链接信号强度，5为获取的信号强度值在5以内
+            strength = info.getRssi();
+            // 链接速度
+            int speed = info.getLinkSpeed();
+            // 链接速度单位
+            String units = WifiInfo.LINK_SPEED_UNITS;
+            // Wifi源名称
+            String ssid = info.getSSID();
+        }
+        return strength;
+    }
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener =
             new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -300,6 +336,7 @@ public class SignInActivity extends BaseActivity {
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
+        unregisterReceiver(wifiChangedReceiver);
         super.onDestroy();
     }
 
