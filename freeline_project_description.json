@@ -1,0 +1,513 @@
+{
+    "project_type": "gradle",
+    "android_gradle_plugin_version": "2.3.3",
+    "freeline_gradle_plugin_version": "0.8.8",
+    "java_home": "C:\\Program Files\\Java\\jdk1.8.0_151",
+    "freeline_cache_dir": "E:\\MLxiao",
+    "auto_dependency": true,
+    "product_flavor": "",
+    "build_script": "gradlew.bat :app:assembleDebug",
+    "build_script_work_directory": "",
+    "root_dir": "E:\\MLxiao",
+    "main_project_name": "app",
+    "main_project_dir": "app",
+    "build_directory": "E:\\MLxiao\\app\\build",
+    "build_cache_dir": "E:\\MLxiao\\app\\build\\freeline",
+    "build_tools_version": "27.0.0",
+    "sdk_directory": "D:\\Sdk",
+    "build_tools_directory": "D:\\Sdk\\build-tools\\27.0.0",
+    "compile_sdk_version": "android-27",
+    "compile_sdk_directory": "D:\\Sdk\\platforms\\android-27",
+    "package": "com.example.han.referralproject",
+    "debug_package": "com.example.han.referralproject",
+    "main_manifest_path": "E:\\MLxiao\\app\\src\\main\\AndroidManifest.xml",
+    "launcher": "com.example.han.referralproject.WelcomeActivity",
+    "apk_path": "E:\\MLxiao\\app\\build\\outputs\\apk\\app-debug.apk",
+    "extra_dep_res_paths": [
+        
+    ],
+    "exclude_dep_res_paths": [
+        
+    ],
+    "main_r_path": "E:\\MLxiao\\app\\build\\generated\\source\\r\\debug\\R.java",
+    "use_jdk8": true,
+    "ignore_resource_ids": [
+        "avd_hide_password_1",
+        "avd_hide_password_2",
+        "avd_hide_password_3",
+        "avd_show_password_1",
+        "avd_show_password_2",
+        "avd_show_password_3"
+    ],
+    "use_system_gradle": false,
+    "check_sources_md5": [
+        
+    ],
+    "main_src_directory": [
+        "E:\\MLxiao\\app\\src\\debug\\java",
+        "E:\\MLxiao\\app\\src\\main\\java"
+    ],
+    "main_res_directory": [
+        "E:\\MLxiao\\app\\src\\debug\\res",
+        "E:\\MLxiao\\app\\src\\main\\res"
+    ],
+    "main_assets_directory": [
+        "E:\\MLxiao\\app\\src\\debug\\assets",
+        "E:\\MLxiao\\app\\src\\main\\assets"
+    ],
+    "main_jni_directory": [
+        "E:\\MLxiao\\app\\src\\debug\\jni",
+        "E:\\MLxiao\\app\\src\\main\\jni"
+    ],
+    "main_jniLibs_directory": [
+        "E:\\MLxiao\\app\\src\\debug\\jniLibs",
+        "E:\\MLxiao\\app\\libs"
+    ],
+    "project_source_sets": {
+        "app": {
+            "main_src_directory": [
+                "E:\\MLxiao\\app\\src\\debug\\java",
+                "E:\\MLxiao\\app\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\app\\src\\debug\\res",
+                "E:\\MLxiao\\app\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\app\\src\\debug\\assets",
+                "E:\\MLxiao\\app\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\app\\src\\debug\\jni",
+                "E:\\MLxiao\\app\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\app\\src\\debug\\jniLibs",
+                "E:\\MLxiao\\app\\libs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\app\\src\\main\\AndroidManifest.xml"
+        },
+        "wkvideoplayer": {
+            "main_src_directory": [
+                "E:\\MLxiao\\wkvideoplayer\\src\\release\\java",
+                "E:\\MLxiao\\wkvideoplayer\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\wkvideoplayer\\src\\release\\res",
+                "E:\\MLxiao\\wkvideoplayer\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\wkvideoplayer\\src\\release\\assets",
+                "E:\\MLxiao\\wkvideoplayer\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\wkvideoplayer\\src\\release\\jni",
+                "E:\\MLxiao\\wkvideoplayer\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\wkvideoplayer\\src\\release\\jniLibs",
+                "E:\\MLxiao\\wkvideoplayer\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\wkvideoplayer\\src\\main\\AndroidManifest.xml"
+        },
+        "module-edu": {
+            "main_src_directory": [
+                "E:\\MLxiao\\module-edu\\src\\release\\java",
+                "E:\\MLxiao\\module-edu\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\module-edu\\src\\release\\res",
+                "E:\\MLxiao\\module-edu\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\module-edu\\src\\release\\assets",
+                "E:\\MLxiao\\module-edu\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\module-edu\\src\\release\\jni",
+                "E:\\MLxiao\\module-edu\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\module-edu\\src\\release\\jniLibs",
+                "E:\\MLxiao\\module-edu\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\module-edu\\src\\main\\LibAndroidManifest.xml"
+        },
+        "lib-video-player": {
+            "main_src_directory": [
+                "E:\\MLxiao\\lib-video-player\\src\\release\\java",
+                "E:\\MLxiao\\lib-video-player\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\lib-video-player\\src\\release\\res",
+                "E:\\MLxiao\\lib-video-player\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\lib-video-player\\src\\release\\assets",
+                "E:\\MLxiao\\lib-video-player\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\lib-video-player\\src\\release\\jni",
+                "E:\\MLxiao\\lib-video-player\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\lib-video-player\\src\\release\\jniLibs",
+                "E:\\MLxiao\\lib-video-player\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\lib-video-player\\src\\main\\AndroidManifest.xml"
+        },
+        "lib-zxing": {
+            "main_src_directory": [
+                "E:\\MLxiao\\lib-zxing\\src\\release\\java",
+                "E:\\MLxiao\\lib-zxing\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\lib-zxing\\src\\release\\res",
+                "E:\\MLxiao\\lib-zxing\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\lib-zxing\\src\\release\\assets",
+                "E:\\MLxiao\\lib-zxing\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\lib-zxing\\src\\release\\jni",
+                "E:\\MLxiao\\lib-zxing\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\lib-zxing\\src\\release\\jniLibs",
+                "E:\\MLxiao\\lib-zxing\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\lib-zxing\\src\\main\\AndroidManifest.xml"
+        },
+        "sdk": {
+            "main_src_directory": [
+                "E:\\MLxiao\\sdk\\src\\release\\java",
+                "E:\\MLxiao\\sdk\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\sdk\\src\\release\\res",
+                "E:\\MLxiao\\sdk\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\sdk\\src\\release\\assets",
+                "E:\\MLxiao\\sdk\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\sdk\\src\\release\\jni",
+                "E:\\MLxiao\\sdk\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\sdk\\src\\release\\jniLibs",
+                "E:\\MLxiao\\sdk\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\sdk\\src\\main\\AndroidManifest.xml"
+        },
+        "circleprogress": {
+            "main_src_directory": [
+                "E:\\MLxiao\\circleprogress\\src\\release\\java",
+                "E:\\MLxiao\\circleprogress\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\circleprogress\\src\\release\\res",
+                "E:\\MLxiao\\circleprogress\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\circleprogress\\src\\release\\assets",
+                "E:\\MLxiao\\circleprogress\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\circleprogress\\src\\release\\jni",
+                "E:\\MLxiao\\circleprogress\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\circleprogress\\src\\release\\jniLibs",
+                "E:\\MLxiao\\circleprogress\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\circleprogress\\src\\main\\AndroidManifest.xml"
+        },
+        "expand-textview-library": {
+            "main_src_directory": [
+                "E:\\MLxiao\\expand-textview-library\\src\\release\\java",
+                "E:\\MLxiao\\expand-textview-library\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\expand-textview-library\\src\\release\\res",
+                "E:\\MLxiao\\expand-textview-library\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\expand-textview-library\\src\\release\\assets",
+                "E:\\MLxiao\\expand-textview-library\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\expand-textview-library\\src\\release\\jni",
+                "E:\\MLxiao\\expand-textview-library\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\expand-textview-library\\src\\release\\jniLibs",
+                "E:\\MLxiao\\expand-textview-library\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\expand-textview-library\\src\\main\\AndroidManifest.xml"
+        },
+        "lib-rulerview": {
+            "main_src_directory": [
+                "E:\\MLxiao\\lib-rulerview\\src\\release\\java",
+                "E:\\MLxiao\\lib-rulerview\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\lib-rulerview\\src\\release\\res",
+                "E:\\MLxiao\\lib-rulerview\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\lib-rulerview\\src\\release\\assets",
+                "E:\\MLxiao\\lib-rulerview\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\lib-rulerview\\src\\release\\jni",
+                "E:\\MLxiao\\lib-rulerview\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\lib-rulerview\\src\\release\\jniLibs",
+                "E:\\MLxiao\\lib-rulerview\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\lib-rulerview\\src\\main\\AndroidManifest.xml"
+        },
+        "circleindicator": {
+            "main_src_directory": [
+                "E:\\MLxiao\\circleindicator\\src\\release\\java",
+                "E:\\MLxiao\\circleindicator\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\circleindicator\\src\\release\\res",
+                "E:\\MLxiao\\circleindicator\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\circleindicator\\src\\release\\assets",
+                "E:\\MLxiao\\circleindicator\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\circleindicator\\src\\release\\jni",
+                "E:\\MLxiao\\circleindicator\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\circleindicator\\src\\release\\jniLibs",
+                "E:\\MLxiao\\circleindicator\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\circleindicator\\src\\main\\AndroidManifest.xml"
+        },
+        "module_hykd": {
+            "main_src_directory": [
+                "E:\\MLxiao\\module_hykd\\src\\release\\java",
+                "E:\\MLxiao\\module_hykd\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\module_hykd\\src\\release\\res",
+                "E:\\MLxiao\\module_hykd\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\module_hykd\\src\\release\\assets",
+                "E:\\MLxiao\\module_hykd\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\module_hykd\\src\\release\\jni",
+                "E:\\MLxiao\\module_hykd\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\module_hykd\\src\\release\\jniLibs",
+                "E:\\MLxiao\\module_hykd\\libs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\module_hykd\\src\\main\\AndroidManifest.xml"
+        },
+        "voice": {
+            "main_src_directory": [
+                "E:\\MLxiao\\voice\\src\\release\\java",
+                "E:\\MLxiao\\voice\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\voice\\src\\release\\res",
+                "E:\\MLxiao\\voice\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\voice\\src\\release\\assets",
+                "E:\\MLxiao\\voice\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\voice\\src\\release\\jni",
+                "E:\\MLxiao\\voice\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\voice\\src\\release\\jniLibs",
+                "E:\\MLxiao\\voice\\libs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\voice\\src\\main\\AndroidManifest.xml"
+        },
+        "lib-music-player": {
+            "main_src_directory": [
+                "E:\\MLxiao\\lib-music-player\\src\\release\\java",
+                "E:\\MLxiao\\lib-music-player\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\lib-music-player\\src\\release\\res",
+                "E:\\MLxiao\\lib-music-player\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\lib-music-player\\src\\release\\assets",
+                "E:\\MLxiao\\lib-music-player\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\lib-music-player\\src\\release\\jni",
+                "E:\\MLxiao\\lib-music-player\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\lib-music-player\\src\\release\\jniLibs",
+                "E:\\MLxiao\\lib-music-player\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\lib-music-player\\src\\main\\AndroidManifest.xml"
+        },
+        "lib-common": {
+            "main_src_directory": [
+                "E:\\MLxiao\\lib-common\\src\\release\\java",
+                "E:\\MLxiao\\lib-common\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\MLxiao\\lib-common\\src\\release\\res",
+                "E:\\MLxiao\\lib-common\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\MLxiao\\lib-common\\src\\release\\assets",
+                "E:\\MLxiao\\lib-common\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\MLxiao\\lib-common\\src\\release\\jni",
+                "E:\\MLxiao\\lib-common\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\MLxiao\\lib-common\\src\\release\\jniLibs",
+                "E:\\MLxiao\\lib-common\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\MLxiao\\lib-common\\src\\main\\AndroidManifest.xml"
+        }
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "E:\\MLxiao\\app"
+        },
+        {
+            "name": "wkvideoplayer",
+            "path": "E:\\MLxiao\\wkvideoplayer"
+        },
+        {
+            "name": "module-edu",
+            "path": "E:\\MLxiao\\module-edu"
+        },
+        {
+            "name": "lib-video-player",
+            "path": "E:\\MLxiao\\lib-video-player"
+        },
+        {
+            "name": "lib-zxing",
+            "path": "E:\\MLxiao\\lib-zxing"
+        },
+        {
+            "name": "sdk",
+            "path": "E:\\MLxiao\\sdk"
+        },
+        {
+            "name": "circleprogress",
+            "path": "E:\\MLxiao\\circleprogress"
+        },
+        {
+            "name": "expand-textview-library",
+            "path": "E:\\MLxiao\\expand-textview-library"
+        },
+        {
+            "name": "lib-rulerview",
+            "path": "E:\\MLxiao\\lib-rulerview"
+        },
+        {
+            "name": "circleindicator",
+            "path": "E:\\MLxiao\\circleindicator"
+        },
+        {
+            "name": "module_hykd",
+            "path": "E:\\MLxiao\\module_hykd"
+        },
+        {
+            "name": "voice",
+            "path": "E:\\MLxiao\\voice"
+        },
+        {
+            "name": "lib-music-player",
+            "path": "E:\\MLxiao\\lib-music-player"
+        },
+        {
+            "name": "lib-common",
+            "path": "E:\\MLxiao\\lib-common"
+        }
+    ],
+    "module_dependencies": {
+        "app": [
+            "wkvideoplayer",
+            "module-edu",
+            "lib-video-player",
+            "lib-zxing",
+            "sdk",
+            "circleprogress",
+            "expand-textview-library",
+            "lib-rulerview",
+            "circleindicator",
+            "module_hykd",
+            "voice"
+        ],
+        "wkvideoplayer": [
+            
+        ],
+        "module-edu": [
+            "lib-music-player"
+        ],
+        "lib-music-player": [
+            
+        ],
+        "lib-video-player": [
+            
+        ],
+        "lib-zxing": [
+            
+        ],
+        "sdk": [
+            
+        ],
+        "circleprogress": [
+            
+        ],
+        "expand-textview-library": [
+            
+        ],
+        "lib-rulerview": [
+            
+        ],
+        "circleindicator": [
+            
+        ],
+        "module_hykd": [
+            "lib-common"
+        ],
+        "lib-common": [
+            "voice"
+        ],
+        "voice": [
+            
+        ]
+    },
+    "databinding": [
+        {
+            "name": "app",
+            "isLibrary": false,
+            "minSdkVersion": 19,
+            "packageName": "com.example.han.referralproject"
+        }
+    ],
+    "databinding_modules": [
+        "app"
+    ]
+}

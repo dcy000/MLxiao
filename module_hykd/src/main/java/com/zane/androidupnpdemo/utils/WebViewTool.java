@@ -1,10 +1,15 @@
 package com.zane.androidupnpdemo.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.JsResult;
@@ -12,6 +17,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.gzq.administrator.lib_common.utils.UiUtils;
+import com.zane.androidupnpdemo.R;
 
 /**
  *
@@ -22,13 +32,15 @@ import android.webkit.WebViewClient;
 public class WebViewTool {
     private static WebView webView;
     private static WebSettings webSettings;
-    private static Context mContext;
-    public static void initWebView(final Context context, final WebView webBase) {
+    private static Activity mContext;
+    private static LottieAnimationView lottieAnimationView;
+
+    public static void initWebView(final Activity context, final WebView webBase) {
         webView=webBase;
         webSettings = webView.getSettings();
         mContext=context;
         if (Build.VERSION.SDK_INT >= 19) {
-            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);//加载缓存否则网络
+            webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//加载缓存否则网络
         }
 
         if (Build.VERSION.SDK_INT >= 19) {
@@ -80,6 +92,7 @@ public class WebViewTool {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                showLoadingView(false);
                 if (!webView.getSettings().getLoadsImagesAutomatically()) {
                     webView.getSettings().setLoadsImagesAutomatically(true);
                 }
@@ -89,7 +102,7 @@ public class WebViewTool {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 // TODO Auto-generated method stub
                 super.onPageStarted(view, url, favicon);
-
+                showLoadingView(true);
             }
 
             @Override
@@ -122,5 +135,31 @@ public class WebViewTool {
         webSettings=null;
         webView=null;
         mContext=null;
+    }
+    private static void showLoadingView(boolean isShow){
+        AlertDialog alertDialog = null;
+        FrameLayout parentView = mContext.findViewById(android.R.id.content);
+        if (isShow) {
+            lottieAnimationView = new LottieAnimationView(mContext);
+            lottieAnimationView.setAnimation("loading_data.json");
+            lottieAnimationView.loop(true);
+            lottieAnimationView.playAnimation();
+            FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(UiUtils.pt(200),UiUtils.pt(200));
+            params.gravity= Gravity.CENTER;
+            parentView.addView(lottieAnimationView,params);
+            parentView.bringChildToFront(lottieAnimationView);
+
+//            AlertDialog.Builder builder = new AlertDialog.Builder(mContext,R.style.NoBackGroundDialog);
+//            View inflate = LayoutInflater.from(mContext).inflate(R.layout.hy_loading_view, null, false);
+//            builder.setView(inflate);
+//            alertDialog = builder.create();
+//            alertDialog.setCanceledOnTouchOutside(false);
+//            alertDialog.show();
+        }else{
+            if (lottieAnimationView!=null){
+                parentView.removeView(lottieAnimationView);
+                lottieAnimationView.cancelAnimation();
+            }
+        }
     }
 }
