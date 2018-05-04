@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.antfortune.freeline'
 android {
     buildToolsVersion gradle.buildToolsVersion
     compileSdkVersion gradle.compileSdkVersion
@@ -30,19 +31,19 @@ android {
     dataBinding {
         enabled = true
     }
-    productFlavors {
-        // Define separate dev and prod product flavors.
-        dev {
-            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
-            // to pre-dex each module and produce an APK that can be tested on
-            // Android Lollipop without time consuming dex merging processes.
-            minSdkVersion 19
-        }
-        prod {
-            // The actual minSdkVersion for the application.
-            minSdkVersion 14
-        }
-    }
+//    productFlavors {
+//        // Define separate dev and prod product flavors.
+//        dev {
+//            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
+//            // to pre-dex each module and produce an APK that can be tested on
+//            // Android Lollipop without time consuming dex merging processes.
+//            minSdkVersion 19
+//        }
+//        prod {
+//            // The actual minSdkVersion for the application.
+//            minSdkVersion 14
+//        }
+//    }
 
     buildTypes {
         release {
@@ -182,4 +183,5 @@ dependencies {
     compile project(':voice')
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+    compile project(':unit')
 }

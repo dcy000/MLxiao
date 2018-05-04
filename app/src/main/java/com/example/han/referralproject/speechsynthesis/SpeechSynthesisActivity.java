@@ -61,6 +61,11 @@ import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.example.lenovo.rto.unit.Unit;
+import com.example.lenovo.rto.unit.UnitModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.ErrorCode;
@@ -88,6 +93,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -100,6 +106,9 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
+import static com.example.lenovo.rto.Constans.SCENE_Id;
 
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
 
@@ -175,6 +184,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private boolean isStart;
     private TextView notice;
     private Gson gson;
+
+    private AccessToken data;
+    private String sessionId = "";
+    private StringBuilder sb;
 
 
     @Override
@@ -1547,7 +1560,29 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             return;
         }
 
+        if (!TextUtils.isEmpty(text)) {
+            speak(text, isDefaultParam);
+            return;
+        }
         str1 = empty ? "我真的不知道了" : text;
+//
+        try {
+            dealToke(str);
+        } catch (Exception e) {
+
+        }
+
+        try {
+            str1 = sendMessage(str);
+        } catch (Exception e) {
+            defaultToke();
+        }
+
+//
+
+    }
+
+    private void dealToke(String str) throws IOException {
         if (("我真的不知道了").equals(str1)) {
             URL url = new URL("http://api.aicyber.com/passive_chat");
             URLConnection conn = url.openConnection();
@@ -1577,9 +1612,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             Receive1 string = gson.fromJson(content, Receive1.class);
 
-            str1 = string.getReceive().getOutput();
-        }
 
+            str1 = string.getReceive().getOutput();
+
+        }
+    }
+
+    private void defaultToke() {
         if (str1 != null) {
 
             if (getString(R.string.speak_null).equals(str1)) {
@@ -1662,8 +1701,46 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 mHandler.sendEmptyMessage(0);
 
             }
-        } else {
         }
+    }
+
+    private String sendMessage(final String request) {
+        if (TextUtils.isEmpty(request)) {
+            defaultToke();
+            return str1;
+        }
+        data = EHSharedPreferences.ReadAccessToken(ACCESSTOKEN_KEY);
+        if (data == null) {
+            return str1;
+        }
+        UnitModel model = new UnitModel();
+        model.getUnit(data.getAccessToken(), SCENE_Id, request, sessionId, new HttpListener<Unit>() {
+
+            @Override
+            public void onSuccess(Unit data) {
+                if (data != null)
+                    sessionId = data.getSession_id();
+                for (Unit.ActionListBean action : data.getAction_list()) {
+
+                    if (!TextUtils.isEmpty(action.getSay())) {
+                        sb = new StringBuilder();
+                        sb.append(action.getSay());
+                    }
+
+                }
+                str1 = sb.toString();
+            }
+
+            @Override
+            public void onError() {
+            }
+
+            @Override
+            public void onComplete() {
+                defaultToke();
+            }
+        });
+        return str1;
     }
 
    /* private static String parseXffunQAResponse(String text) {
