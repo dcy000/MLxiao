@@ -415,7 +415,6 @@ public class BaseActivity extends AppCompatActivity {
         WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
     }
 
-
     private Runnable updateVolumeAction = new Runnable() {
         @Override
         public void run() {
