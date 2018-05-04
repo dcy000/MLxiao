@@ -75,14 +75,14 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_notice" />
-
+        <!--android:textColor="#FF678CFF"-->
         <TextView
             android:id="@+id/tv_demo1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="周星驰的百科。"
-            android:textColor="#FF678CFF"
+            android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_notice_demo"
             app:layout_constraintTop_toBottomOf="@+id/tv_notice_demo" />
@@ -93,7 +93,7 @@
             android:layout_height="35dp"
             android:layout_marginTop="25dp"
             android:text="百科催眠大师。"
-            android:textColor="#FF678CFF"
+            android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo1"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo1" />
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="看看成都的百科。"
-            android:textColor="#FF678CFF"
+            android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo2"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo2" />
