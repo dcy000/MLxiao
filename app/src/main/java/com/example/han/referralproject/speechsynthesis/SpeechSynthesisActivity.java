@@ -1582,7 +1582,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             return;
         }
         str1 = empty ? "我真的不知道了" : text;
-//
+
         try {
             dealToke(str);
         } catch (Exception e) {
@@ -1745,7 +1745,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     }
 
                 }
-                str1 = sb.toString();
+                str1 = sb.toString().replace("<USER-NAME>","");
             }
 
             @Override
