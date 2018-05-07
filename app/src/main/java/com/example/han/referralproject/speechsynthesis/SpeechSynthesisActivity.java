@@ -366,13 +366,30 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private int animationType;
 
     Runnable action = new Runnable() {
+
+        Random mRandom = new Random();
+
         @Override
         public void run() {
             mLottieView.clearAnimation();
+            int i = mRandom.nextInt(3);
             switch (animationType) {
                 case -1:
                     // no answer
-                    mLottieView.setAnimation("no_answer.json");
+                    switch (i) {
+                        case 0:
+                            mLottieView.setAnimation("no_answer.json");
+                            break;
+                        case 1:
+                            mLottieView.setAnimation("angry.json");
+                            break;
+                        case 2:
+                            mLottieView.setAnimation("shy.json");
+                            break;
+                        default:
+                            mLottieView.setAnimation("no_answer.json");
+                            break;
+                    }
                     break;
                 default:
                     // animationType = 0
