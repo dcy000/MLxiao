@@ -82,6 +82,8 @@ public class MyApplication extends Application {
                 "GCML"
         );
         MobclickAgent.startWithConfigure(umConfig);
+        //友盟崩溃信息收集开关
+        MobclickAgent.setCatchUncaughtExceptions(false);
         UiUtils.init(this, 1920, 1200);
         UiUtils.compat(this, 1920);
         T.init(this);
