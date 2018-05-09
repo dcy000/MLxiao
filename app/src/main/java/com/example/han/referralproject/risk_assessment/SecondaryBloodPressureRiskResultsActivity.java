@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -67,13 +68,17 @@ public class SecondaryBloodPressureRiskResultsActivity extends BaseActivity {
                 mFactorsListDetails.setLayoutManager(manager1);
                 mFactorsListDetails.setHasFixedSize(true);
                 mFactorsListDetails.setNestedScrollingEnabled(false);
-                mFactorsListDetails.setAdapter(new BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder>(R.layout.factor_details_item, data.getSecondary().getIllnessFactor()) {
+                BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder> adapter = new BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder>(R.layout.factor_details_item, data.getSecondary().getIllnessFactor()) {
                     @Override
                     protected void convert(BaseViewHolder baseViewHolder, SecondaryHypertension.SecondaryBean.IllnessFactorBean illnessFactorBean) {
                         baseViewHolder.setText(R.id.tv_headline_influencing_factors, illnessFactorBean.getName());
                         baseViewHolder.setText(R.id.tv_content, illnessFactorBean.getInfo());
                     }
-                });
+                };
+                View head= LayoutInflater.from(this).inflate(R.layout.factor_details_head,null,false);
+                adapter.addHeaderView(head);
+                mFactorsListDetails.setAdapter(adapter);
+
             }
         }
     }

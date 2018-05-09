@@ -30,11 +30,11 @@ public class QuestionAdapter extends BaseQuickAdapter<QuestionChoosed,BaseViewHo
             baseViewHolder.getView(R.id.item_risk).setBackgroundColor(Color.parseColor("#f5f5f5"));
         }
         baseViewHolder.setText(R.id.question, questionChoosed.getQuestion());
-        if (questionChoosed.isChoosed()) {
-            ((RadioButton) baseViewHolder.getView(R.id.answer_true)).setChecked(true);
-        } else {
-            ((RadioButton) baseViewHolder.getView(R.id.answer_false)).setChecked(true);
-        }
+//        if (questionChoosed.isChoosed()) {
+//            ((RadioButton) baseViewHolder.getView(R.id.answer_true)).setChecked(true);
+//        } else {
+//            ((RadioButton) baseViewHolder.getView(R.id.answer_false)).setChecked(true);
+//        }
         baseViewHolder.getView(R.id.answer_true).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
