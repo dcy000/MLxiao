@@ -18,6 +18,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.google.gson.Gson;
@@ -81,6 +82,10 @@ public class SignUp3AddressActivity extends BaseActivity {
         locOption.setIsNeedAddress(true);
         locOption.setOpenGps(true);
         locOption.setScanSpan(3000);
+        //onStop()的时候杀死定位进程
+        locOption.setIgnoreKillProcess(false);
+        //不许收集崩溃信息
+        locOption.SetIgnoreCacheException(false);
         mLocationClient.setLocOption(locOption);
     }
 
@@ -101,6 +106,8 @@ public class SignUp3AddressActivity extends BaseActivity {
             String county = bdLocation.getDistrict();
             String street = bdLocation.getStreet();
             String streetNumber = bdLocation.getStreetNumber();
+            double latitude = bdLocation.getLatitude();//纬度
+            double longitude = bdLocation.getLongitude();//经度
             finalDetailAddress = street + streetNumber;
             if (mProvinceNames != null) {
                 int size = mProvinceNames.size();
@@ -186,13 +193,6 @@ public class SignUp3AddressActivity extends BaseActivity {
             mLocationClient.start();
         }
     }
-
-    @Override
-    protected void onPause() {
-        stopLocation();
-        super.onPause();
-    }
-
     private void stopLocation() {
         if (mLocationClient != null && mLocationClient.isStarted()) {
             mLocationClient.stop();
@@ -201,6 +201,14 @@ public class SignUp3AddressActivity extends BaseActivity {
             mLocationClient.unRegisterLocationListener(mListener);
         }
     }
+
+    @Override
+    protected void onPause() {
+        stopLocation();
+        super.onPause();
+    }
+
+
 
     @OnClick(R.id.cl_sign_up_root_address)
     public void onClRootClicked() {

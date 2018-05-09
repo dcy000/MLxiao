@@ -62,8 +62,8 @@ public class NetworkApi {
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
 
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
-
-
+    //紧急呼叫120
+    public static final String EmergencyCall120="http://weixin.anke.net.cn:8080/ICE120WebService3Part/api/datatrans/patientalarm";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";

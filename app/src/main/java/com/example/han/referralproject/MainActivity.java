@@ -9,11 +9,16 @@ import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.chenenyu.router.annotation.Route;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
@@ -30,6 +35,11 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.ToastTool;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
@@ -46,19 +56,14 @@ import java.util.List;
 @Route("app")
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    ImageView mImageView1;
-    ImageView mImageView2;
-    ImageView mImageView3;
-    ImageView mImageView4;
-    ImageView mImageView5;
     private Handler mHandler = new Handler();
-
-    SharedPreferences sharedPreferences;
-
-
-    private ImageView mImageView6;
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
+    private LocationClient mLocationClient;
+    private String phoneNum = "";
+    private String userName = "";
+    private String sex = "";
+    private String userAge = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,48 +71,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
-
-     /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
-
-        mediaPlayer.start();//播放音乐*/
-//
-//        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-//            Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
-//            startService(intent);
-//        }
-
         mToolbar.setVisibility(View.GONE);
-        mImageView1 = (ImageView) findViewById(R.id.robot_con);
 
-        mImageView2 = (ImageView) findViewById(R.id.person_info);
-
-        mImageView3 = (ImageView) findViewById(R.id.health_test);
-
-        mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
-
-        mImageView5 = (ImageView) findViewById(R.id.health_class);
-        mImageView6 = (ImageView) findViewById(R.id.call_family);
-
-        mImageView1.setOnClickListener(this);
-        mImageView2.setOnClickListener(this);
-        mImageView3.setOnClickListener(this);
-        mImageView4.setOnClickListener(this);
-        mImageView5.setOnClickListener(this);
-        mImageView6.setOnClickListener(this);
+        findViewById(R.id.robot_con).setOnClickListener(this);
+        findViewById(R.id.person_info).setOnClickListener(this);
+        findViewById(R.id.health_test).setOnClickListener(this);
+        findViewById(R.id.doctor_ask).setOnClickListener(this);
+        findViewById(R.id.health_class).setOnClickListener(this);
+        findViewById(R.id.call_family).setOnClickListener(this);
         mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
-
-        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         findViewById(R.id.ll_anim).setOnClickListener(this);
-
-        float pivotX = .5f; // 取自身区域在X轴上的中心点
-        float pivotY = .5f; // 取自身区域在Y轴上的中心点
-        //    new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 围绕自身的中心点进行旋转
-
+        findViewById(R.id.call_120).setOnClickListener(this);
         RotateAnimation tranAnimation = new RotateAnimation(-30, 30, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         tranAnimation.setDuration(1000);
         tranAnimation.setRepeatCount(Animation.INFINITE);
         tranAnimation.setRepeatMode(Animation.REVERSE);
-
         findViewById(R.id.iv_anim).setAnimation(tranAnimation);
         tranAnimation.start();
 
@@ -125,7 +103,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
             startService(intent);
         }
-
+        phoneNum = LocalShared.getInstance(MyApplication.getInstance()).getPhoneNum();
+        userName = LocalShared.getInstance(MyApplication.getInstance()).getUserName();
+        sex = LocalShared.getInstance(MyApplication.getInstance()).getSex();
+        userAge = LocalShared.getInstance(MyApplication.getInstance()).getUserAge();
     }
 
 
@@ -206,14 +187,103 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                    }
 //                });
                 break;
+            case R.id.call_120:
+                initLocation();
+                startLocation();
+                break;
         }
     }
 
-
-    @Override
-    public void onBackPressed() {
-        //main activity no back
+    private void initLocation() {
+        mLocationClient = new LocationClient(getApplicationContext());
+        LocationClientOption locOption = new LocationClientOption();
+        locOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        locOption.setCoorType("bd09ll");
+        locOption.setIsNeedAddress(true);
+        locOption.setOpenGps(true);
+        locOption.setScanSpan(3000);
+        //onStop()的时候杀死定位进程
+        locOption.setIgnoreKillProcess(false);
+        //不许收集崩溃信息
+        locOption.SetIgnoreCacheException(false);
+        mLocationClient.setLocOption(locOption);
     }
+
+    private void startLocation() {
+        if (mListener != null && mLocationClient != null) {
+            mLocationClient.registerLocationListener(mListener);
+        }
+        if (mLocationClient != null && !mLocationClient.isStarted()) {
+            mLocationClient.start();
+        }
+    }
+
+    private void stopLocation() {
+        if (mLocationClient != null && mLocationClient.isStarted()) {
+            mLocationClient.stop();
+        }
+        if (mListener != null && mLocationClient != null) {
+            mLocationClient.unRegisterLocationListener(mListener);
+        }
+    }
+
+    private BDLocationListener mListener = new BDLocationListener() {
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            stopLocation();
+            String province = bdLocation.getProvince();
+            String city = bdLocation.getCity();
+            String county = bdLocation.getDistrict();
+            String street = bdLocation.getStreet();
+            String streetNumber = bdLocation.getStreetNumber();
+            double latitude = bdLocation.getLatitude();//纬度
+            double longitude = bdLocation.getLongitude();//经度
+            String finAddress = province + city + street + streetNumber + "经度：" + longitude + "纬度：" + latitude;
+            OkGo.<String>post(NetworkApi.EmergencyCall120)
+                    .params("ak", "D10B99198B944BCC")
+                    .params("telephone", phoneNum)
+                    .params("alarmaddress", finAddress)
+                    .params("alongitude", longitude)
+                    .params("alatitude", latitude)
+                    .params("name", userName)
+                    .params("sex", sex.equals("0") ? "女" : "男")
+                    .params("age", userAge)
+                    .params("address", "")
+                    .params("longitude", "")
+                    .params("latitude", "")
+                    .params("linkperson1", "")
+                    .params("linktelephone1", "")
+                    .params("linkperson2", "")
+                    .params("linktelephone2", "")
+                    .params("height", "")
+                    .params("weight", "")
+                    .params("blood", "")
+                    .params("medicalhistory", "")
+                    .params("allergy", "")
+                    .params("drugs", "")
+                    .params("hospital", "")
+                    .params("carno1", "")
+                    .params("carno2", "")
+                    .params("carno3", "")
+                    .params("remark", "")
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            ToastTool.showLong("呼叫成功");
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            Log.e("MainActivity", "onError: " + response.message());
+                        }
+                    });
+        }
+
+        @Override
+        public void onConnectHotSpotMessage(String s, int i) {
+
+        }
+    };
 
     @Override
     protected void onStart() {
@@ -226,6 +296,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onStop() {
         super.onStop();
         unregisterReceiver(mBatteryReceiver);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopLocation();
     }
 
     @Override
@@ -280,17 +356,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-            mImageView4.performClick();
+            findViewById(R.id.doctor_ask).performClick();
             return;
         }
 
         if (inSpell.matches(REGEX_GO_CLASS)) {
-            mImageView5.performClick();
+            findViewById(R.id.health_class).performClick();
             return;
         }
 
         if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
-            mImageView2.performClick();
+            findViewById(R.id.person_info).performClick();
         }
     }
 
