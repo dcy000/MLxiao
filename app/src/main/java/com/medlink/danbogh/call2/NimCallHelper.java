@@ -144,7 +144,9 @@ public class NimCallHelper {
             mInnerCallback = new AVChatCallback<AVChatData>() {
                 @Override
                 public void onSuccess(AVChatData data) {
+                    Log.i("mylog33333333333", "success data  : " + data);
                     avChatData = data;
+                    Log.i("mylog33333333333", "success avChatData  : " + avChatData);
                     if (mOuterCallback != null) {
                         mOuterCallback.onSuccess(data);
                     }
@@ -161,6 +163,7 @@ public class NimCallHelper {
                 @Override
                 public void onFailed(int code) {
                     Log.d(TAG, "avChat call failed code->" + code);
+                    Log.i("mylog33333333333", "failed  : " + code);
 
                     if (code == ResponseCode.RES_FORBIDDEN) {
                         T.show(R.string.avchat_no_permission);
@@ -199,6 +202,7 @@ public class NimCallHelper {
      */
     public void inComingCalling(AVChatData avChatData) {
         this.avChatData = avChatData;
+        Log.i("mylog", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         mPeerAccount = avChatData.getAccount();
         CallSoundPlayer.instance().play(CallSoundPlayer.RingerType.RING);
         if (avChatData.getChatType() == AVChatType.AUDIO) {
@@ -377,31 +381,41 @@ public class NimCallHelper {
             return;
         }
         mRtcDestroyed = true;
+        Log.i("mylog", "1111111111111111111111111111 " + "code ：" + code + "       avchatData " + avChatData);
         if (callingState == CallState.OUTGOING_VIDEO_CALLING || callingState == CallState.VIDEO) {
             AVChatManager.getInstance().stopVideoPreview();
         }
+        Log.i("mylog222222222", "code ：" + code + "       avchatData " + avChatData);
         if ((code == CallExitCode.HANGUP
                 || code == CallExitCode.PEER_NO_RESPONSE
                 || code == CallExitCode.CANCEL) && avChatData != null) {
+            Log.i("mylog", "---------------------------------------------------");
             AVChatManager.getInstance().hangUp2(avChatData.getChatId(), new AVChatCallback<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    Log.i("mylog", "333333333333333333333333333333");
                 }
 
                 @Override
                 public void onFailed(int code) {
+                    Log.i("mylog", "4444444444444444444444444444444");
                     Log.d(TAG, "hangup onFailed->" + code);
                 }
 
                 @Override
                 public void onException(Throwable exception) {
+                    Log.i("mylog", "555555555555555555555555555555");
                     Log.d(TAG, "hangup onException->" + exception);
                 }
             });
         }
+        Log.i("mylog", "66666666666666666666666666666");
         AVChatManager.getInstance().disableRtc();
+        Log.i("mylog", "7777777777777777777777777777");
         closeSessions(code);
+        Log.i("mylog", "8888888888888888888888888888");
         CallSoundPlayer.instance().stop();
+        Log.i("mylog", "999999999999999999999999999");
     }
 
     public void switchCamera() {
