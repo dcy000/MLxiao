@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataInfoBean {
+    public long time = System.currentTimeMillis();
     public String temper_ature;
     public int high_pressure;
     public int low_pressure;

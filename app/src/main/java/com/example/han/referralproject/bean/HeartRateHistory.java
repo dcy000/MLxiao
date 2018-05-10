@@ -7,4 +7,9 @@ package com.example.han.referralproject.bean;
 public class HeartRateHistory {
     public long time;
     public float heart_rate;
+
+    public HeartRateHistory(float heart_rate,long time) {
+        this.time = time;
+        this.heart_rate = heart_rate;
+    }
 }

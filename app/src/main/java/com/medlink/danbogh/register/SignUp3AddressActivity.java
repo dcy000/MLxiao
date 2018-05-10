@@ -172,8 +172,9 @@ public class SignUp3AddressActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
         speak(R.string.sign_up3_address_tip);
         startLocation();
     }

@@ -291,6 +291,7 @@ public class SignInActivity extends BaseActivity {
     @Override
     protected void onResume() {
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
         super.onResume();
         speak(R.string.tips_login);
     }

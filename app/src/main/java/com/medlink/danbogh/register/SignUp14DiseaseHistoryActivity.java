@@ -89,8 +89,9 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
         speak(R.string.sign_up_disease_history_tip);
     }
 

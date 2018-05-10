@@ -80,8 +80,9 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
         speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
         EditText editText = inPhone ? etPhone : etCode;
         editText.requestFocus();

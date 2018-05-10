@@ -177,8 +177,9 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
         speak(R.string.tips_doctor);
     }
 

@@ -61,8 +61,9 @@ public class SignUp10EatActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
         speak(R.string.sign_up_eat_tip);
     }
 

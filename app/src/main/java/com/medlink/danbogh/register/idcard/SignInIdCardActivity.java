@@ -34,8 +34,13 @@ import com.iflytek.cloud.SpeechError;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
+import com.medlink.danbogh.cache.CacheUtils;
+import com.medlink.danbogh.cache.Repository;
+import com.medlink.danbogh.cache.RxLife;
+import com.medlink.danbogh.cache.exception.UserNotExistException;
 import com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
+import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -45,6 +50,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -52,6 +60,13 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  *
@@ -556,7 +571,69 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onReadSuccess(IDCardItem item) {
         this.item = item;
         speak("欢迎使用西恩智能医生");
-        onCheckRegistered();
+
+        String netless = LocalShared.getInstance(this).getString("netless");
+        if (TextUtils.isEmpty(netless)) {
+            onCheckRegistered();
+        } else {
+            onRegisterOrLoginNetless();
+        }
+    }
+
+    private void onRegisterOrLoginNetless() {
+        final UserInfoBean user = new UserInfoBean();
+        final LocalShared shared = LocalShared.getInstance(this);
+        user.bid = item.certNumber;
+        user.bname = item.partyName;
+        user.sex = item.gender;
+        user.dz = item.certAddress;
+        user.sfz = item.certNumber;
+        user.height = String.valueOf(shared.getSignUpHeight());
+        user.weight = String.valueOf(shared.getSignUpWeight());
+        user.blood_type = shared.getSignUpBloodType();
+        user.eating_habits = shared.getSignUpEat();
+        user.smoke = shared.getSignUpSmoke();
+        user.drink = shared.getSignUpDrink();
+        final Repository repository = Repository.getInstance(this);
+        user.user_photo = repository.getCacheDir().getAbsolutePath() + File.separator + item.certNumber;
+        user.exercise_habits = shared.getSignUpSport();
+
+        Observable<UserInfoBean> rxUser = repository.registerOrLogin(user);
+        rxUser.subscribeOn(Schedulers.io())
+                .doOnNext(new Consumer<UserInfoBean>() {
+                    @Override
+                    public void accept(UserInfoBean userInfoBean) throws Exception {
+                        File file = new File(user.user_photo);
+                        if (file.exists()) {
+                            return;
+                        }
+                        try {
+                            FileOutputStream os = new FileOutputStream(file);
+                            item.picBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLife.<UserInfoBean>ensureStarted(this))
+                .subscribe(new Consumer<UserInfoBean>() {
+                    @Override
+                    public void accept(final UserInfoBean user) throws Exception {
+                        LocalShared.getInstance(mContext).setUserInfo(user);
+                        LocalShared.getInstance(mContext).addAccount(user.bid, user.xfid);
+                        LocalShared.getInstance(mContext).setSex(user.sex);
+                        LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
+                        LocalShared.getInstance(mContext).setUserAge(user.age);
+                        LocalShared.getInstance(mContext).setUserHeight(user.height);
+                        onLoginSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        onLoginFailed();
+                    }
+                });
     }
 
     private void onConfirmIdCardInfo() {
@@ -647,7 +724,6 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onRegister(String phone) {
-        showLoadingDialog("加载中");
         final LocalShared shared = LocalShared.getInstance(this);
         String name = item.partyName;
         String gender = item.gender;
@@ -660,6 +736,7 @@ public class SignInIdCardActivity extends BaseActivity {
         String smoke = shared.getSignUpSmoke();
         String drink = shared.getSignUpDrink();
         String sport = shared.getSignUpSport();
+        showLoadingDialog("加载中");
         NetworkApi.registerUser(
                 name,
                 gender,

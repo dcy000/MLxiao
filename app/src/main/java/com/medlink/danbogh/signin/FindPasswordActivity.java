@@ -93,6 +93,7 @@ public class FindPasswordActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
         speak("主人，请输入您的手机号码");
     }
 

@@ -5,6 +5,11 @@ package com.example.han.referralproject.bean;
  */
 
 public class ECGHistory {
-    public String time;
     public String ecg;
+    public String time;
+
+    public ECGHistory(String ecg, String time) {
+        this.ecg = ecg;
+        this.time = time;
+    }
 }

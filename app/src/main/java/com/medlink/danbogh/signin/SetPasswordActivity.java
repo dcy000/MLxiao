@@ -146,6 +146,7 @@ public class SetPasswordActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
         speak("主人，请输入验证码及新的6位数字密码");
     }
 

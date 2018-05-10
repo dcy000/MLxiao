@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -49,6 +50,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     CheckBox cbSignInAgree;
     @BindView(R.id.tv_sign_in_agree)
     TextView tvSignInAgree;
+    @BindView(R.id.auth_tv_network_mode)
+    TextView tvNetworkMode;
     @BindView(R.id.auth_iv_back)
     ImageView ivBack;
 
@@ -65,6 +68,17 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         regist.setOnClickListener(this);
         signUpFast.setOnClickListener(this);
         ivBack.setOnClickListener(this);
+
+        String netless = LocalShared.getInstance(this).getString("netless");
+        tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
+        tvNetworkMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String netless = LocalShared.getInstance(v.getContext()).getString("netless");
+                LocalShared.getInstance(v.getContext()).setString("netless", TextUtils.isEmpty(netless) ? "1" : "");
+                tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "无网模式" : "有网模式");
+            }
+        });
 
         SpannableStringBuilder agreeBuilder = new SpannableStringBuilder("我同意用户协议");
         agreeBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#FF380000")),
@@ -121,6 +135,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onResume() {
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
         super.onResume();
     }
 

@@ -82,8 +82,9 @@ public class SignUp2GenderActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
         speak(R.string.sign_up2_gender_tip);
     }
 

@@ -114,8 +114,9 @@ public class SignUp12DrinkActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
         speak(R.string.sign_up_drink_tip);
     }
 

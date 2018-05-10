@@ -5,6 +5,11 @@ package com.example.han.referralproject.bean;
  */
 
 public class PulseHistory {
-    public long time;
     public float pulse;
+    public long time;
+
+    public PulseHistory(float pulse, long time) {
+        this.pulse = pulse;
+        this.time = time;
+    }
 }

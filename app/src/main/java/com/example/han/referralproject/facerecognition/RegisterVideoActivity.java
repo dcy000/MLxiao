@@ -436,8 +436,9 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
         speak(getString(R.string.facc_register));
     }
 

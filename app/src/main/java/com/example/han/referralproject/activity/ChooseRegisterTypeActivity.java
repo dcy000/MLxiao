@@ -124,6 +124,7 @@ public class ChooseRegisterTypeActivity extends BaseActivity implements View.OnC
     @Override
     protected void onResume() {
         setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
         super.onResume();
     }
 
