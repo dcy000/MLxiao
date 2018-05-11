@@ -188,7 +188,7 @@ public class AlertMHActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object response) {
                         ToastTool.showShort("修改成功");
-                        speak("主人，您的病史已经修改成功");
+                        speak("您好，您的病史已经修改成功");
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

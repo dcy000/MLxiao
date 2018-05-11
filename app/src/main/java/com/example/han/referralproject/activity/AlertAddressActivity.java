@@ -306,7 +306,7 @@ public class AlertAddressActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object response) {
                         ToastTool.showShort("修改成功");
-                        speak("主人，您的地址已经修改成功");
+                        speak("您好，您的地址已经修改成功");
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

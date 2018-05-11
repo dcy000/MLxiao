@@ -245,9 +245,6 @@
         <activity
             android:name=".video.PlayVideoActivity"
             android:screenOrientation="landscape"/>
-        <activity
-            android:name=".personal.PersonActivity"
-            android:screenOrientation="landscape"/>
 
         <service
             android:name="com.medlink.danbogh.alarm.AlarmService"
@@ -686,6 +683,8 @@
         <activity android:name="com.medlink.danbogh.register.lude.LudeAuthActivity">
         </activity>
         <activity android:name=".activity.ChooseRegisterTypeActivity"/>
+        <activity android:name=".bodytest.activity.ChineseMedicineMonitorActivity"/>
+        <activity android:name=".bodytest.activity.MonitorResultActivity"/>
     </application>
 
 </manifest>

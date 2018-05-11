@@ -39,7 +39,7 @@ public class AlertWeightActivity extends AlertHeightActivity {
             @Override
             public void onSuccess(Object response) {
                 ToastTool.showShort("修改成功");
-                speak("主人，您的体重已经修改为"+weight+"千克");
+                speak("您好，您的体重已经修改为"+weight+"千克");
             }
         }, new NetworkManager.FailedCallback() {
             @Override

@@ -60,7 +60,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_login_type);
         ButterKnife.bind(this);
-        speak("主人，想要登录，请说人脸登录或者手机登录。如果您还没有账号，请说我要注册。");
+        speak("您好，想要登录，请说人脸登录或者手机登录。如果您还没有账号，请说我要注册。");
         tvPhoneSignIn.setOnClickListener(this);
         tvFaceSignIn.setOnClickListener(this);
         tvIdCardSignIn.setOnClickListener(this);

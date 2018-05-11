@@ -109,7 +109,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
         tvAction = (TextView) findViewById(R.id.health_diary_tv_action);
         FragmentActivity activity = getActivity();
         if (activity != null && activity instanceof BaseActivity) {
-            ((BaseActivity) activity).speak("主人，请" + mModel.getTitle());
+            ((BaseActivity) activity).speak("您好，请" + mModel.getTitle());
         }
         tvTitle.setText(mModel.getTitle());
         tvCount.setText(getCount(

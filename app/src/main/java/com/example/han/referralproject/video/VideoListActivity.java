@@ -80,7 +80,7 @@ public class VideoListActivity extends BaseActivity {
         });
         vpVideo.setOffscreenPageLimit(3);
         mFragments = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             mFragments.add(VideoListFragment.newInstance(i));
         }
         vpVideo.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -119,7 +119,7 @@ public class VideoListActivity extends BaseActivity {
         setDisableGlobalListen(true);
         setEnableListeningLoop(false);
         super.onResume();
-        speak("主人，欢迎观看健康课堂");
+        speak("您好，欢迎观看健康课堂");
     }
 
     private List<VideoListFragment> mFragments;
@@ -141,6 +141,9 @@ public class VideoListActivity extends BaseActivity {
                 break;
             case 4:
                 checkedId = R.id.rb_video_device_show;
+                break;
+            case 5:
+                checkedId = R.id.rb_video_xien_show;
                 break;
             default:
                 break;
@@ -165,6 +168,9 @@ public class VideoListActivity extends BaseActivity {
                 break;
             case R.id.rb_video_device_show:
                 position = 4;
+                break;
+            case R.id.rb_video_xien_show:
+                position = 5;
                 break;
             default:
                 break;

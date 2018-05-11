@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
@@ -45,13 +44,12 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
-import com.example.han.referralproject.personal.PersonActivity;
+import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
-import com.example.han.referralproject.settting.bean.KeyWordBean;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
@@ -63,9 +61,7 @@ import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.example.han.referralproject.voice.SpeechRecognizerHelper;
 import com.example.han.referralproject.voice.SpeechSynthesizerHelper;
-import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.ErrorCode;
@@ -86,7 +82,6 @@ import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.music.TheOldMusicActivity;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -256,7 +251,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-//        speak("主人,来和我聊天吧", isDefaultParam);
+//        speak("您好，来和我聊天吧", isDefaultParam);
         //默认是时时聊天
         yuyinFlag = (Boolean) SharedPreferencesUtils.getParam(this, "yuyin", true);
         if (yuyinFlag) {
@@ -338,7 +333,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         setDisableGlobalListen(true);
         super.onResume();
-        speak("主人,来和我聊天吧", isDefaultParam);
+        speak("您好，来和我聊天吧", isDefaultParam);
         setEnableListeningLoop(false);
         mLottieView.resumeAnimation();
     }
@@ -586,7 +581,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyinFlag) {
                 findViewById(R.id.iat_recognizes).performClick();
             } else {
-                speak("主人,我没听清您能再说一遍吗", isDefaultParam);
+                speak("您好，我没听清您能再说一遍吗", isDefaultParam);
             }
         }
 
@@ -649,7 +644,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
                         Integer.valueOf(minute));
                 String tip = String.format(Locale.CHINA,
-                        "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
+                        "您好，小易将在%s:%s提醒您吃药", hourOfDay, minute);
                 speak(tip, isDefaultParam);
                 return;
             }
@@ -1073,7 +1068,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void gotoPersonCenter() {
-        Intent intent = new Intent(SpeechSynthesisActivity.this, PersonActivity.class);
+        Intent intent = new Intent(SpeechSynthesisActivity.this, PersonDetailActivity.class);
         startActivity(intent);
     }
 
@@ -1946,13 +1941,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case TO_MUSICPLAY:
-                speak("主人，想听更多歌曲，请告诉我！", isDefaultParam);
+                speak("您好，想听更多歌曲，请告诉我！", isDefaultParam);
                 break;
             case TO_STORY:
-                speak("主人，我讲的故事好听吗？", isDefaultParam);
+                speak("您好，我讲的故事好听吗？", isDefaultParam);
                 break;
             case TO_PING_SHU:
-                speak("主人，想听更多评书，请告诉我！", isDefaultParam);
+                speak("您好，想听更多评书，请告诉我！", isDefaultParam);
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);

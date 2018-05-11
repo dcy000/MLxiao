@@ -4,8 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
@@ -47,14 +49,18 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     RelativeLayout rlSetVoiceName;
     @BindView(R.id.rl_set_talk_type)
     RelativeLayout rlSetTalkType;
+    @BindView(R.id.tv_netless)
+    TextView tvNetworkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-        speak("主人欢迎来到设置页面");
+        speak("您好，欢迎来到设置页面");
         initTitle();
+        String netless = LocalShared.getInstance(this).getString("netless");
+        tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
     }
 
     private void initTitle() {
@@ -62,13 +68,18 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         mTitleText.setText("设置");
     }
 
-    @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update,
+    @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_netless,
             R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name, R.id.rl_set_talk_type})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_voice_set:
                 //声音设置
                 startActivity(new Intent(this, VoiceSettingActivity.class));
+                break;
+            case R.id.rl_netless:
+                String netless = LocalShared.getInstance(view.getContext()).getString("netless");
+                LocalShared.getInstance(view.getContext()).setString("netless", TextUtils.isEmpty(netless) ? "1" : "");
+                tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "无网模式" : "有网模式");
                 break;
             case R.id.rl_wifi_set:
                 //设置页面

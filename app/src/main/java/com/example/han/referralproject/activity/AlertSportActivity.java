@@ -210,16 +210,16 @@ public class AlertSportActivity extends BaseActivity {
                 ToastTool.showShort("修改成功");
                 switch (positionSelected + 1) {
                     case 1:
-                        speak("主人，您的运动情况已经修改为" + "每天一次");
+                        speak("您好，您的运动情况已经修改为" + "每天一次");
                         break;
                     case 2:
-                        speak("主人，您的运动情况已经修改为" + "每周几次");
+                        speak("您好，您的运动情况已经修改为" + "每周几次");
                         break;
                     case 3:
-                        speak("主人，您的运动情况已经修改为" + "偶尔运动");
+                        speak("您好，您的运动情况已经修改为" + "偶尔运动");
                         break;
                     case 4:
-                        speak("主人，您的运动情况已经修改为" + "从不运动");
+                        speak("您好，您的运动情况已经修改为" + "从不运动");
                         break;
                 }
             }

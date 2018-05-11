@@ -172,7 +172,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
                         }
                         hideLoadingDialog();
                         T.show(message);
-                        speak("主人," + message);
+                        speak("您好，" + message);
                     }
                 }
         );

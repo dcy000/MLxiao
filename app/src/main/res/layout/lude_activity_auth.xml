@@ -78,6 +78,19 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:id="@+id/auth_tv_network_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="50pt"
+        android:paddingLeft="45pt"
+        android:paddingRight="45pt"
+        android:paddingTop="50pt"
+        android:textSize="36pt"
+        app:layout_constraintRight_toLeftOf="@+id/auth_iv_wifi"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="无网模式"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48pt"

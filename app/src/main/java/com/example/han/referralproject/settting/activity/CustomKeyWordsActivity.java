@@ -31,7 +31,7 @@ public class CustomKeyWordsActivity extends BaseActivity implements KeyWordRVAda
         initData();
         initTitle();
         initRV();
-        speak("主人,请选择要定义的关键词");
+        speak("您好，请选择要定义的关键词");
     }
 
     private int setSpanSize(int position, List<KeyWordBean> data) {

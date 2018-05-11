@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    android:paddingRight="20dp"
-    tools:context="com.example.han.referralproject.personal.PersonActivity">
+    android:paddingRight="20dp">
 
 
     <!--<LinearLayout
@@ -192,28 +191,25 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_check"
+                    android:id="@+id/iv_body_test"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:background="@drawable/zhengzhuang_set"
-                    android:clickable="true" />
-
+                    android:background="@drawable/lude_ic_bodytest" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="症状自查"
+                    android:text="中医体测"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
@@ -314,10 +310,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_check"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/lude_ic_dialog"
+                    android:clickable="true" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="小易对话"
+                    android:textColor="#333333"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">

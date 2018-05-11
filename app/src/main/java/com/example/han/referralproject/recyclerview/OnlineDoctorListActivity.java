@@ -246,7 +246,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
     protected void onResume() {
         super.onResume();
         if ("contract".equals(mFlag)) {
-            speak("主人，请选择您最信任的医生签约");
+            speak("您好，请选择您最信任的医生签约");
         }
     }
 

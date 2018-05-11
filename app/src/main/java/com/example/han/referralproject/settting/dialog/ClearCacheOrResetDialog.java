@@ -4,13 +4,17 @@ import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.settting.EventType;
+import com.example.han.referralproject.util.LocalShared;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +35,8 @@ public class ClearCacheOrResetDialog extends DialogFragment {
     TextView confirm;
     @BindView(R.id.cancel)
     TextView cancel;
+    @BindView(R.id.reset_et_password)
+    EditText tvPassword;
     Unbinder unbinder;
     private OnDialogClickListener listener;
 
@@ -86,6 +92,12 @@ public class ClearCacheOrResetDialog extends DialogFragment {
 
 
     private void clickConfirm() {
+        String password = LocalShared.getInstance(MyApplication.getInstance()).getString("resetPassword");
+        password = TextUtils.isEmpty(password) ? "123456" : password;
+        if (!tvPassword.getText().toString().trim().equals(password)) {
+            dismiss();
+            return;
+        }
         if (listener == null) {
             return;
         }

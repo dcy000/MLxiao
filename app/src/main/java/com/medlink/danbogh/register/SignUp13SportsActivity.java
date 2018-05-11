@@ -200,7 +200,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                     public void onFailed(String message) {
                         hideLoadingDialog();
                         T.show(message);
-                        speak("主人," + message);
+                        speak("您好，" + message);
                     }
                 }
         );

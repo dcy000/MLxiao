@@ -89,7 +89,7 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
         float weekEmptyAvg_f = Float.parseFloat(weekEmptyAvg);
         float weekOneAvg_f = Float.parseFloat(weekOneAvg);
         float weekTwoAvg_f = Float.parseFloat(weekTwoAvg);
-        speak("主人，您本次测量的血糖值是" + String.format("%.2f",Float.parseFloat(intent.getStringExtra("result"))) +
+        speak("您好，您本次测量的血糖值是" + String.format("%.2f",Float.parseFloat(intent.getStringExtra("result"))) +
                 "，本周空腹平均血糖值" + (weekEmptyAvg_f == -1 ? "未测量" : String.format("%.2f", weekEmptyAvg_f)) + ",饭后一小时平均血糖值"
                 + (weekOneAvg_f == -1 ? "未测量" : String.format("%.2f", weekOneAvg_f)) + ",饭后两小时平均血糖值" +
                 (weekTwoAvg_f == -1 ? "未测量" : String.format("%.2f", weekTwoAvg_f)) + ",健康分数" + fenshu + "分。" + suggest);

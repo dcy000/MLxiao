@@ -49,7 +49,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健康商城");
-        speak("主人，欢迎来到健康商城");
+        speak("您好，欢迎来到健康商城");
 
         rgHealthGoods.setOnCheckedChangeListener(this);
         vpGoods.addOnPageChangeListener(this);

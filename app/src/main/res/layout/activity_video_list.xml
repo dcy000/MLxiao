@@ -107,6 +107,21 @@
             android:text="设备简介"
             android:textColor="@drawable/bg_rb_history_record"
             android:textSize="28sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+
+        <RadioButton
+            android:id="@+id/rb_video_xien_show"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/bg_rb_history_record"
+            android:button="@null"
+            android:gravity="center"
+            android:text="公司简介"
+            android:textColor="@drawable/bg_rb_history_record"
+            android:textSize="28sp"/>
     </RadioGroup>
 
     <TextView
@@ -114,6 +129,7 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginRight="22dp"
+        android:visibility="gone"
         android:background="@drawable/bg_rb_history_record"
         android:gravity="center"
         android:text="演示视频"

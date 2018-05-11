@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -19,6 +20,7 @@ import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
@@ -28,13 +30,16 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.utils.T;
 
 import org.litepal.crud.DataSupport;
 
@@ -152,7 +157,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 v.setVisibility(View.GONE);
                 break;
             case R.id.robot_con:
-                intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
+                String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+                if (!TextUtils.isEmpty(netless)) {
+                    T.show("您好， 请连接网络");
+                    speak("您好， 请连接网络");
+                    return;
+                }
+                DiseaseUser diseaseUser = new DiseaseUser(
+                        LocalShared.getInstance(this).getUserName(),
+                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
+                        LocalShared.getInstance(this).getUserPhoto()
+                );
+                String currentUser = new Gson().toJson(diseaseUser);
+                Intent intent1 = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
+                intent1.putExtra("currentUser", currentUser);
                 startActivity(intent);
                 break;
             case R.id.person_info:

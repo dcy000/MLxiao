@@ -31,6 +31,7 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.bodytest.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
@@ -41,6 +42,7 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
+import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tool.JieMengActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
@@ -191,6 +193,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.view_wifi).setOnClickListener(this);
         view.findViewById(R.id.iv_record).setOnClickListener(this);
         view.findViewById(R.id.iv_jiankang_riji).setOnClickListener(this);
+        view.findViewById(R.id.iv_body_test).setOnClickListener(this);
         mTextView = (TextView) view.findViewById(R.id.per_name);
         view.findViewById(R.id.iv_change_account).setOnClickListener(this);
         mImageView.setOnClickListener(this);
@@ -353,15 +356,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
-                DiseaseUser diseaseUser = new DiseaseUser(
-                        LocalShared.getInstance(getActivity()).getUserName(),
-                        LocalShared.getInstance(getActivity()).getSex().equals("男") ? 1 : 2,
-                        Integer.parseInt(LocalShared.getInstance(getActivity()).getUserAge()) * 12,
-                        LocalShared.getInstance(getActivity()).getUserPhoto()
-                );
-                String currentUser = new Gson().toJson(diseaseUser);
-                Intent intent = new Intent(getActivity(), com.witspring.unitbody.ChooseMemberActivity.class);
-                intent.putExtra("currentUser", currentUser);
+                Intent intent = new Intent(getActivity(), SpeechSynthesisActivity.class);
                 startActivity(intent);
                 break;
             case R.id.iv_message:
@@ -376,6 +371,9 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.per_image:
                 startActivity(new Intent(getActivity(), MyBaseDataActivity.class));
+                break;
+            case R.id.iv_body_test:
+                startActivity(new Intent(getActivity(), ChineseMedicineMonitorActivity.class));
                 break;
             case R.id.iv_record:
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));

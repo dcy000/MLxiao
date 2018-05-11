@@ -220,22 +220,22 @@ public class AlertEatingActivity extends BaseActivity {
                 ToastTool.showShort("修改成功");
                 switch (positionSelected+1){
                     case 1:
-                        speak("主人，您的饮食情况已经修改为"+"荤素搭配");
+                        speak("您好，您的饮食情况已经修改为"+"荤素搭配");
                         break;
                     case 2:
-                        speak("主人，您的饮食情况已经修改为"+"偏好吃荤");
+                        speak("您好，您的饮食情况已经修改为"+"偏好吃荤");
                         break;
                     case 3:
-                        speak("主人，您的饮食情况已经修改为"+"偏好吃素");
+                        speak("您好，您的饮食情况已经修改为"+"偏好吃素");
                         break;
                     case 4:
-                        speak("主人，您的饮食情况已经修改为"+"偏好吃咸");
+                        speak("您好，您的饮食情况已经修改为"+"偏好吃咸");
                         break;
                     case 5:
-                        speak("主人，您的饮食情况已经修改为"+"偏好油腻");
+                        speak("您好，您的饮食情况已经修改为"+"偏好油腻");
                         break;
                     case 6:
-                        speak("主人，您的饮食情况已经修改为"+"偏好甜食");
+                        speak("您好，您的饮食情况已经修改为"+"偏好甜食");
                         break;
                 }
             }

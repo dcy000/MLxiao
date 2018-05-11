@@ -62,7 +62,7 @@ public class CalculationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculation);
         ButterKnife.bind(this);
-        speak("主人,欢迎来到计算");
+        speak("您好，欢迎来到计算");
         initEvent();
     }
 
@@ -124,8 +124,8 @@ public class CalculationActivity extends BaseActivity {
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"calc".equals(service)) {
-//                    ToastUtil.showShort(CalculationActivity.this, "主人,我不会算" + question);
-                    speak("主人,我不会算了");
+//                    ToastUtil.showShort(CalculationActivity.this, "您好，我不会算" + question);
+                    speak("您好，我不会算了");
                     return;
                 }
                 runOnUiThread(new Runnable() {
@@ -200,7 +200,7 @@ public class CalculationActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没有听清,你能再说一遍吗?");
+                speak("您好，我没有听清,你能再说一遍吗?");
             }
 
             @Override

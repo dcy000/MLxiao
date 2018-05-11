@@ -228,7 +228,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
             });
 
-            speak("主人，新消息。" + message);
+            speak("您好，新消息。" + message);
         }
     }
 

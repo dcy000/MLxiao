@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +27,19 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.cache.CacheUtils;
 import com.ml.videoplayer.MlVideoPlayer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class VideoListFragment extends Fragment {
 
+
+    private String mNetless;
 
     public static void addOrShow(FragmentManager fm, int id, int position) {
         Fragment fragment = fm.findFragmentByTag(VideoListFragment.class.getSimpleName());
@@ -70,7 +77,6 @@ public class VideoListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             position = getArguments().getInt(ARG_POSITION);
-            position = position == 4 ? 6 : position;
         }
     }
 
@@ -94,6 +100,51 @@ public class VideoListFragment extends Fragment {
 
         //fetchVideos(position);
 
+        mNetless = LocalShared.getInstance(getActivity()).getString("netless");
+        if (TextUtils.isEmpty(mNetless)) {
+            loadMore();
+            getVideos();
+        } else {
+            showVideos(getVideoEntities(getType(position)));
+        }
+//
+
+        // 健康课堂5个
+        // 动画片2个
+        // 设备简介1个
+        // 公司简介1个
+
+    }
+
+    private String getType(int position) {
+        String type = "hypertension";
+        switch (position) {
+            case 0:
+                type = "hypertension";
+                break;
+            case 1:
+                type = "opera";
+                break;
+            case 2:
+                type = "lifetip";
+                break;
+            case 3:
+                type = "cartoon";
+                break;
+            case 4:
+                type = "deviceshow";
+                break;
+            case 5:
+                type = "xienshow";
+                break;
+            default:
+                break;
+
+        }
+        return type;
+    }
+
+    private void loadMore() {
         rvVideos.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -115,9 +166,6 @@ public class VideoListFragment extends Fragment {
                 }
             }
         });
-
-        getVideos();
-
     }
 
     private void getVideos() {
@@ -220,6 +268,27 @@ public class VideoListFragment extends Fragment {
         }
         videos.addAll(entities);
         adapter.notifyDataSetChanged();
+    }
+
+    @NonNull
+    private ArrayList<VideoEntity> getVideoEntities(String type) {
+        String dir = BASE_PATH + "/lude/" + type;
+        File file = new File(dir);
+        ArrayList<VideoEntity> videos = new ArrayList<>();
+        try {
+            if (file.exists() && file.isDirectory()) {
+                String[] filenames = file.list();
+                for (String filename : filenames) {
+                    String path = dir + File.separator + filename;
+                    String title = filename.split("\\.")[0];
+                    videos.add(new VideoEntity(path, title));
+                }
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+            videos = new ArrayList<>();
+        }
+        return videos;
     }
 
     private void provideVideos(String type, String extra) {

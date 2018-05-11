@@ -205,13 +205,13 @@ public class AlertDrinkingActivity extends BaseActivity {
                 ToastTool.showShort("修改成功");
                 switch (positionSelected+1){
                     case 1:
-                        speak("主人，您的饮酒情况已经修改为"+"经常喝酒");
+                        speak("您好，您的饮酒情况已经修改为"+"经常喝酒");
                         break;
                     case 2:
-                        speak("主人，您的饮酒情况已经修改为"+"偶尔喝酒");
+                        speak("您好，您的饮酒情况已经修改为"+"偶尔喝酒");
                         break;
                     case 3:
-                        speak("主人，您的饮酒情况已经修改为"+"从不喝酒");
+                        speak("您好，您的饮酒情况已经修改为"+"从不喝酒");
                         break;
 
                 }

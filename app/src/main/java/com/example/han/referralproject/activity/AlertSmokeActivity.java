@@ -204,13 +204,13 @@ public class AlertSmokeActivity extends BaseActivity {
                 ToastTool.showShort("修改成功");
                 switch (positionSelected+1){
                     case 1:
-                        speak("主人，您的吸烟情况已经修改为"+"经常吸烟");
+                        speak("您好，您的吸烟情况已经修改为"+"经常吸烟");
                         break;
                     case 2:
-                        speak("主人，您的吸烟情况已经修改为"+"偶尔吸烟");
+                        speak("您好，您的吸烟情况已经修改为"+"偶尔吸烟");
                         break;
                     case 3:
-                        speak("主人，您的吸烟情况已经修改为"+"从不吸烟");
+                        speak("您好，您的吸烟情况已经修改为"+"从不吸烟");
                         break;
                 }
             }
