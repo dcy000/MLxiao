@@ -38,6 +38,7 @@ import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.health.model.WeekReportModel;
+import com.example.han.referralproject.physicalexamination.bean.QuestionnaireBean;
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.example.han.referralproject.recyclerview.OnlineTime;
@@ -48,6 +49,7 @@ import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -55,13 +57,11 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+    //    public static final String BasicUrl = "http://116.62.36.12:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
-
-    //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
-
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
+    public static final String BasicUrl = "http://192.168.200.117:8080";//林天聪
 
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
@@ -1107,5 +1107,23 @@ public class NetworkApi {
         params.put("userid", userId);
         params.put("state", "2");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, MonthlyReport.class, successCallback, failedCallback);
+    }
+
+    /**
+     * 获取中医体质检测的题目
+     * type 0：男性，1 女性
+     */
+    public static final String GET_QUESTIONNAIRE = BasicUrl + "/ZZB/api/healthMonitor/diabetes/questionnaire/";
+
+    public static void getQuestionnaire(String type,
+                                        NetworkManager.SuccessCallback<QuestionnaireBean> successCallback,
+                                        NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", type);
+        NetworkManager.getInstance().getResultClass(GET_QUESTIONNAIRE,
+                params,
+                QuestionnaireBean.class,
+                successCallback,
+                failedCallback);
     }
 }
