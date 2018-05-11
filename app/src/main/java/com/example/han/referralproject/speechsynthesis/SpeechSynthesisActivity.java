@@ -1583,11 +1583,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
         str1 = empty ? "我真的不知道了" : text;
 
-        try {
-            dealToke(str);
-        } catch (Exception e) {
-
-        }
+//        try {
+//            dealToke(str);
+//        } catch (Exception e) {
+//
+//        }
 
         try {
             str1 = sendMessage(str);
