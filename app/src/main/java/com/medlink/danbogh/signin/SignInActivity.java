@@ -3,6 +3,7 @@ package com.medlink.danbogh.signin;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,6 +43,8 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
+import com.medlink.danbogh.cache.Repository;
+import com.medlink.danbogh.cache.RxLife;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -50,6 +53,9 @@ import com.orhanobut.logger.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +63,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class SignInActivity extends BaseActivity {
 
@@ -91,6 +103,11 @@ public class SignInActivity extends BaseActivity {
         tvAgree.setText(agreeBuilder);
         checkInput();
         ((TextView) findViewById(R.id.tv_version)).setText(getLocalVersionName());
+        String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+        if (!TextUtils.isEmpty(netless)) {
+            etPassword.setVisibility(View.GONE);
+            etPhone.setHint("请输入身份证");
+        }
     }
 
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener =
@@ -173,6 +190,55 @@ public class SignInActivity extends BaseActivity {
             finish();
             return;
         }
+
+        String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+        if (!TextUtils.isEmpty(netless)) {
+            String idcard = etPhone.getText().toString().trim();
+            if (Utils.checkIdCard1(idcard)) {
+                T.show("无效的身份证");
+                return;
+            }
+            Repository repository = Repository.getInstance(this);
+            final UserInfoBean user = new UserInfoBean();
+            final LocalShared shared = LocalShared.getInstance(this);
+            user.sfz = idcard;
+            user.bid = idcard;
+            user.bname = "";
+            user.sex = "";
+            user.dz = "";
+            user.height = String.valueOf(shared.getSignUpHeight());
+            user.weight = String.valueOf(shared.getSignUpWeight());
+            user.blood_type = shared.getSignUpBloodType();
+            user.eating_habits = shared.getSignUpEat();
+            user.smoke = shared.getSignUpSmoke();
+            user.drink = shared.getSignUpDrink();
+            user.user_photo = repository.getCacheDir().getAbsolutePath() + File.separator + idcard;
+            user.exercise_habits = shared.getSignUpSport();
+            Observable<UserInfoBean> rxUser = repository.registerOrLogin(user);
+            rxUser.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .compose(RxLife.<UserInfoBean>ensureStarted(this))
+                    .subscribe(new Consumer<UserInfoBean>() {
+                        @Override
+                        public void accept(final UserInfoBean user) throws Exception {
+                            LocalShared.getInstance(mContext).setUserInfo(user);
+                            LocalShared.getInstance(mContext).addAccount(user.bid, user.xfid);
+                            LocalShared.getInstance(mContext).setSex(user.sex);
+                            LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
+                            LocalShared.getInstance(mContext).setUserAge(user.age);
+                            LocalShared.getInstance(mContext).setUserHeight(user.height);
+                            startActivity(new Intent(mContext, MainActivity.class));
+                            finish();
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            T.show("未知错误");
+                        }
+                    });
+            return;
+        }
+
         showLoadingDialog(getString(R.string.do_login));
         NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
@@ -188,29 +254,30 @@ public class SignInActivity extends BaseActivity {
                 hideLoadingDialog();
                 startActivity(new Intent(mContext, MainActivity.class));
                 finish();
-                Logger.e("本次登录人的userid"+response.bid);
+                Logger.e("本次登录人的userid" + response.bid);
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                T.show("手机号或密码错误");
+                T.show("账号或密码错误");
             }
         });
     }
 
-    private void checkGroup( final String xfid) {
+    private void checkGroup(final String xfid) {
         //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
         String groupId = LocalShared.getInstance(mContext).getGroupId();
         String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
-        Logger.e("组id"+groupId);
+        Logger.e("组id" + groupId);
         if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
-            Log.e("组信息", "checkGroup: 该机器组已近存在" );
-            joinGroup(groupId,xfid);
-        }else{
+            Log.e("组信息", "checkGroup: 该机器组已近存在");
+            joinGroup(groupId, xfid);
+        } else {
             createGroup(xfid);
         }
     }
+
     private void joinGroup(String groupid, final String xfid) {
         FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
         FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
@@ -245,7 +312,7 @@ public class SignInActivity extends BaseActivity {
                     LocalShared.getInstance(SignInActivity.this).setGroupId(groupId);
                     LocalShared.getInstance(SignInActivity.this).setGroupFirstXfid(xfid);
                     //组创建好以后把自己加入到组中去
-                    joinGroup(groupId,xfid);
+                    joinGroup(groupId, xfid);
                     FaceAuthenticationUtils.getInstance(SignInActivity.this).updateGroupInformation(groupId, xfid);
 
                 } catch (JSONException e) {
@@ -265,13 +332,14 @@ public class SignInActivity extends BaseActivity {
             }
         });
     }
+
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
         //获取所有账号
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts == null) {
             ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
-        }else {
+        } else {
             startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
         }
 //        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));

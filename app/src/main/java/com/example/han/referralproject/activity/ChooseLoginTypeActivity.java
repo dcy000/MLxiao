@@ -69,7 +69,11 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         signUpFast.setOnClickListener(this);
         ivBack.setOnClickListener(this);
 
+
         String netless = LocalShared.getInstance(this).getString("netless");
+        if (!TextUtils.isEmpty(netless)) {
+            tvPhoneSignIn.setText("输身份证登录");
+        }
         tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
         tvNetworkMode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +90,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         agreeBuilder.setSpan(agreeClickableSpan, 3, 7, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         tvSignInAgree.setMovementMethod(LinkMovementMethod.getInstance());
         tvSignInAgree.setText(agreeBuilder);
+
+
     }
 
     private ClickableSpan agreeClickableSpan = new ClickableSpan() {

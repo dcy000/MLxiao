@@ -27,7 +27,9 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.medlink.danbogh.register.lude.LudeAuthActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;
@@ -67,6 +69,18 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
 
         mRightView.setOnClickListener(this);
         isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);
+
+        findViewById(R.id.tv_netless).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocalShared instance = LocalShared.getInstance(v.getContext());
+                instance.setString("netless", "1");
+                Intent intent = new Intent(getApplicationContext(), LudeAuthActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         mWiFiUtil = WiFiUtil.getInstance(this);
         mWiFiUtil.openWifi();
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);

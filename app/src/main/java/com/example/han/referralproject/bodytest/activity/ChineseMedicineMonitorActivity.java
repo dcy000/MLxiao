@@ -161,6 +161,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
 
             if (isLastPager()) {
                 submit();
+                finish();
                 return;
             }
             nextCurrentPage();

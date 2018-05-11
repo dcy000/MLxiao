@@ -21,11 +21,13 @@ import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DiseaseUser;
+import com.example.han.referralproject.bodytest.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.NetworkUtils;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -158,11 +160,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.robot_con:
                 String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-                if (!TextUtils.isEmpty(netless)) {
-                    T.show("您好， 请连接网络");
-                    speak("您好， 请连接网络");
-                    return;
-                }
+//                if (!NetworkUtils.isNetworkAvailable(this) && !TextUtils.isEmpty(netless)) {
+//                    T.show("您好， 请连接网络");
+//                    speak("您好， 请连接网络");
+//                    return;
+//                }
                 DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
                         LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
@@ -172,7 +174,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent1 = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent1.putExtra("currentUser", currentUser);
-                startActivity(intent);
+                startActivity(intent1);
                 break;
             case R.id.person_info:
                 intent.setClass(getApplicationContext(), PersonDetailActivity.class);
@@ -196,7 +198,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.health_detect://紧急呼叫家人
                 //呼叫
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+                startActivity(new Intent(this, ChineseMedicineMonitorActivity.class));
+//                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
 //                intent.setClass(this, DetectActivity.class);
 //                intent.putExtra("type", "xueya");
 //                intent.putExtra("isDetect", true);

@@ -127,18 +127,19 @@ public class WakeupHelper {
             listener = new AbsWakeuperListener() {
                 @Override
                 public void onResult(WakeuperResult result) {
-                    String json = result.getResultString();
-                    try {
-                        JSONObject jsonObj = new JSONObject(json);
-                        int score = jsonObj.optInt("score");
-                        if (score >= 10) {
-                            Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            sContext.startActivity(intent);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+//                    return;
+//                    String json = result.getResultString();
+//                    try {
+//                        JSONObject jsonObj = new JSONObject(json);
+//                        int score = jsonObj.optInt("score");
+//                        if (score >= 10) {
+//                            Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            sContext.startActivity(intent);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             };
         }

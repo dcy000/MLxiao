@@ -66,8 +66,8 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void onSuccess(VersionInfoBean response) {
                 try {
-                    //if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
-                    if (false) {
+                    if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
+//                    if (false) {
                         new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
                     } else {
                         ch = (Chronometer) findViewById(R.id.chronometer);

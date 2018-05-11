@@ -3,12 +3,13 @@ package com.example.han.referralproject.bodytest.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
 
-public class MonitorResultActivity extends AppCompatActivity {
+public class MonitorResultActivity extends BaseActivity {
 
     public static final String[] results =
             {"阳虚体(怕冷派)-冬天穿棉衣，夏天穿短袖，这些对普通人来说是再正常不过的事情，但是却有一个人群，即使在最热的时候也要穿长袖衬衫，更有甚者夏天穿毛衣、棉衣，三伏天，别人开着空调才觉得舒服，他却要\"全副武装\"，孤独的承受着冷的感觉。因为他是阳虚体质，体内阳气不足，身体就像冬天少了火炉的房间，从里到外的冷。"
@@ -48,6 +49,11 @@ public class MonitorResultActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        mToolbar.setVisibility(View.VISIBLE);
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
+        mTitleText.setText("中医体质检测报告");
+
         TextView result = findViewById(R.id.tv_result);
         TextView description = findViewById(R.id.tv_description);
 

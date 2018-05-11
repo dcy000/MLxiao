@@ -196,6 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <ImageView
@@ -331,7 +332,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="小易对话"
+                    android:text="智能对话"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 

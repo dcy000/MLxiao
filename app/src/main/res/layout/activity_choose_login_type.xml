@@ -76,7 +76,7 @@
                 android:layout_marginTop="10pt"
                 android:background="@drawable/sign_in_bg_tv_sign_in2"
                 android:gravity="center"
-                android:text="身份证登录"
+                android:text="刷身份证登录"
                 android:textColor="#3F86FC"
                 android:textSize="50pt"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -166,6 +166,7 @@
         android:paddingRight="45pt"
         android:paddingTop="25pt"
         android:textSize="36pt"
+        android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="无网模式"/>

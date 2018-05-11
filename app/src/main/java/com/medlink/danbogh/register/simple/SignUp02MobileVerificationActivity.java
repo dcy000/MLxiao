@@ -87,6 +87,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
+        setEnableListeningLoop(false);
         setDisableGlobalListen(true);
         super.onResume();
         speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);

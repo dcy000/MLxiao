@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_call_family" />
+            android:src="@drawable/lude_ic_body_test"/>
     </LinearLayout>
 
     <ImageView
