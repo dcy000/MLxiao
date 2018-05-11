@@ -151,7 +151,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
     public void onClick(View view) {
         if (view == previousItem) {
             preCurrentPage();
-            getNetWorkData();
+//            getNetWorkData();
         } else if (view == nextItem) {
 
             if (!data.questionList.get(index).isSelected) {
