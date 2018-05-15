@@ -194,7 +194,7 @@ public class SignInActivity extends BaseActivity {
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
         if (!TextUtils.isEmpty(netless)) {
             String idcard = etPhone.getText().toString().trim();
-            if (Utils.checkIdCard1(idcard)) {
+            if (!Utils.checkIdCard1(idcard)) {
                 T.show("无效的身份证");
                 return;
             }

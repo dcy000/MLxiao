@@ -1,9 +1,11 @@
 package com.example.han.referralproject.bodytest.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -15,11 +17,13 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bodytest.adapter.FragAdapter;
 import com.example.han.referralproject.bodytest.bean.MonitorRequestionBean;
 import com.example.han.referralproject.bodytest.constant.ConstitutionJudgmentEnum;
+import com.example.han.referralproject.bodytest.constant.SexEnum;
 import com.example.han.referralproject.bodytest.fragment.MonitorItemFragment;
 import com.example.han.referralproject.bodytest.util.ConstitutionJudgmentUtil;
 import com.example.han.referralproject.bodytest.util.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
     private TextView nextItem;
     private TextView cunrrentItem;
     private int index;
+    private SexEnum sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,32 +54,16 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
     }
 
     private void initData() {
-//        MonitorRequestionBean.AnwserBean anwserBean = new MonitorRequestionBean.AnwserBean();
-//        anwserBean.A = "没有";
-//        anwserBean.B = "很少";
-//        anwserBean.C = "有时";
-//        anwserBean.D = "经常";
-//        anwserBean.E = "总是";
-//
-//        bean = new MonitorRequestionBean();
-//        bean.requesionTitle = "您喜欢安静懒得说话吗？";
-//        bean.anwser = anwserBean;
-//
-//        MonitorRequestionBean bean1 = new MonitorRequestionBean();
-//        bean1.requesionTitle = "您面色晦暗或容易出现褐斑吗？";
-//        bean1.anwser = anwserBean;
-//
-//        MonitorRequestionBean bean2 = new MonitorRequestionBean();
-//        bean2.requesionTitle = "您容易精神紧张、焦虑不安吗？";
-//        bean2.anwser = anwserBean;
-//
-//        data.add(bean);
-//        data.add(bean1);
-//        data.add(bean2);
         String jsonData = JsonUtil.getJson(this, "monitor.json");
         Gson gson = new Gson();
         data = gson.fromJson(jsonData, new TypeToken<List<MonitorRequestionBean>>() {
         }.getType());
+
+        if (sex == SexEnum.man) {
+            data.remove(44);
+        } else {
+            data.remove(45);
+        }
 
         if (data != null)
             count = data.size();
@@ -102,11 +91,11 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
             @Override
             public void onPageSelected(int position) {
                 ChineseMedicineMonitorActivity.this.index = position;
-                           cunrrentItem.setText((index + 1) + "/" + count);
+                cunrrentItem.setText((index + 1) + "/" + count);
 
                 if (isLastPager()) {
                     nextItem.setText("提交");
-                }else {
+                } else {
                     nextItem.setText("下一题");
                 }
             }
@@ -155,7 +144,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
         } else if (view == nextItem) {
 
             if (!data.get(index).isSelected) {
-                Toast.makeText(this, "请选择答案", Toast.LENGTH_LONG).show();
+                T.show("请选择答案");
                 return;
             }
 
@@ -170,12 +159,25 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
     }
 
     private void submit() {
-        String monitorResult = ConstitutionJudgmentUtil.getMonitorResult(data);
-        Toast.makeText(this, monitorResult, Toast.LENGTH_LONG).show();
-        ConstitutionJudgmentEnum element = ConstitutionJudgmentEnum.getElement(monitorResult);
+        String monitorResultTemp = getFilterString(ConstitutionJudgmentUtil.getMonitorResult(data));
+        String monitorResult = monitorResultTemp.replace("基本是", "").replace("偏", "");
+        ConstitutionJudgmentEnum element = ConstitutionJudgmentEnum.getElement(monitorResult.substring(0, 3));
+
         MonitorResultActivity.starMe(this,
-                ConstitutionJudgmentUtil.getResultScores(data)+ "\n" + element.getFeatrue() + element.getMaintenance(),
-                monitorResult );
+                ConstitutionJudgmentUtil.getResultScores(data) + "\n" + element.getFeatrue() + "\n" + element.getMaintenance(),
+                monitorResultTemp);
+    }
+
+    @NonNull
+    private String getFilterString(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "";
+        }
+        int length = string.length();
+        if ((string.lastIndexOf(length) + "").equals(",")) {
+            return string.substring(0, length - 1);
+        }
+        return string;
     }
 
 

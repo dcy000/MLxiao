@@ -1,11 +1,14 @@
 package com.example.han.referralproject.bodytest.util;
 
 import android.graphics.Point;
+import android.text.TextUtils;
 
 
 import com.example.han.referralproject.bodytest.bean.MonitorRequestionBean;
 import com.example.han.referralproject.bodytest.constant.ConstitutionJudgmentEnum;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,26 +77,53 @@ public class ConstitutionJudgmentUtil {
             for (Map.Entry<String, Integer> entry : qingXiang.entrySet()) {
                 info = info + "," + entry.getKey();
             }
-            return "平和质" + info;
+            return "平和质" + info.replace("偏,", "偏");
         }
 
-        Map<String, Integer> pianPO = getPianPO(data);
+        Map<String, Integer> pianPO30 = getPianPO(data, 30);
+        Map<String, Integer> pianPO40 = getPianPO(data, 40);
+        if (pianPO30.size() == 0) {
+            return "天生丽质";
+        }
 
-        if (pianPO.size() != 0) {
-            String info = "";
+        //大于等于40分
+        String tempResultString30 = tempResultString(pianPO30);
+        String tempResultString40 = tempResultString(pianPO40);
+
+
+        if (TextUtils.isEmpty(tempResultString40)) {
+            return removeDuplicate2(tempResultString30).replace("偏,", "偏");
+        }
+
+        if (!TextUtils.isEmpty(tempResultString40)) {
+            return removeDuplicate2(tempResultString30.replace("基本是", "").replace("偏,", "偏"));
+        }
+        return "天生丽质";
+
+    }
+
+    private static String tempResultString(Map<String, Integer> pianPO) {
+        String pianPo = "";
+        if (pianPO.size() > 0) {
+            String info40 = "";
             for (Map.Entry<String, Integer> entry : pianPO.entrySet()) {
-                info = info + "" + entry.getKey();
+                info40 = info40 + "," + entry.getKey();
             }
-            return info;
+            String maxScroreType = getMaxScroreType(pianPO);
+            if (pianPO.size() == 1) {
+                pianPo = maxScroreType;
+            } else if (pianPO.size() > 1) {
+                pianPo = "基本是" + maxScroreType + "偏" + info40.replace(maxScroreType, "");
+            }
 
         }
-        return "体质比较综合";
+        return pianPo;
     }
 
     /**
-     * 偏颇
+     * score分以上的
      */
-    public static Map<String, Integer> getPianPO(List<MonitorRequestionBean> data) {
+    public static Map<String, Integer> getPianPO(List<MonitorRequestionBean> data, int score) {
         Map<String, Integer> map = new HashMap<>();
         Point scoreB = getScore(data, ConstitutionJudgmentEnum.B);
         Point scoreC = getScore(data, ConstitutionJudgmentEnum.C);
@@ -103,28 +133,28 @@ public class ConstitutionJudgmentUtil {
         Point scoreG = getScore(data, ConstitutionJudgmentEnum.G);
         Point scoreH = getScore(data, ConstitutionJudgmentEnum.H);
         Point scoreI = getScore(data, ConstitutionJudgmentEnum.I);
-        if (scoreB.y >= 40) {
+        if (scoreB.y >= score) {
             map.put(ConstitutionJudgmentEnum.B.getDescription(), scoreB.y);
         }
-        if (scoreC.y >= 40) {
+        if (scoreC.y >= score) {
             map.put(ConstitutionJudgmentEnum.C.getDescription(), scoreC.y);
         }
-        if (scoreD.y >= 40) {
+        if (scoreD.y >= score) {
             map.put(ConstitutionJudgmentEnum.D.getDescription(), scoreD.y);
         }
-        if (scoreE.y >= 40) {
+        if (scoreE.y >= score) {
             map.put(ConstitutionJudgmentEnum.E.getDescription(), scoreE.y);
         }
-        if (scoreF.y >= 40) {
+        if (scoreF.y >= score) {
             map.put(ConstitutionJudgmentEnum.F.getDescription(), scoreF.y);
         }
-        if (scoreG.y >= 40) {
+        if (scoreG.y >= score) {
             map.put(ConstitutionJudgmentEnum.G.getDescription(), scoreG.y);
         }
-        if (scoreH.y >= 40) {
+        if (scoreH.y >= score) {
             map.put(ConstitutionJudgmentEnum.H.getDescription(), scoreH.y);
         }
-        if (scoreI.y >= 40) {
+        if (scoreI.y >= score) {
             map.put(ConstitutionJudgmentEnum.I.getDescription(), scoreI.y);
         }
         return map;
@@ -240,7 +270,56 @@ public class ConstitutionJudgmentUtil {
         for (Map.Entry<String, Integer> entry : all.entrySet()) {
             info += entry.getKey() + entry.getValue() + "分,";
         }
-        return info;
+        return info.substring(0, info.length() - 1);
+    }
+
+    public static Integer getMaxValue(Map<String, Integer> map) {
+        if (map == null) return null;
+        Collection<Integer> c = map.values();
+        Object[] obj = c.toArray();
+        Arrays.sort(obj);
+        return (Integer) obj[obj.length - 1];
+
+    }
+
+    public static String getKey(Map<String, Integer> map, Integer value) {
+        String key = "";
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if (value == entry.getValue()) {
+                key = entry.getKey();
+            }
+        }
+        return key;
+    }
+
+    public static ConstitutionJudgmentEnum getMaxScroreEnum(Map<String, Integer> map) {
+        Integer maxValue = getMaxValue(map);
+        String key = getKey(map, maxValue);
+        return ConstitutionJudgmentEnum.getElement(key);
+    }
+
+    public static String getMaxScroreType(Map<String, Integer> map) {
+        Integer maxValue = getMaxValue(map);
+        String key = getKey(map, maxValue);
+        return key;
+    }
+
+    public static String removeDuplicate2(String source) {
+        if (TextUtils.isEmpty(source)) {
+            return "";
+        }
+        StringBuffer temp = new StringBuffer(source.substring(0, 1));
+        int len = source.length();
+        int k = 0;
+        for (int i = 1; i < len; i++) {
+            if (source.substring(i, i + 1).equals(temp.substring(k, k + 1))) {
+                continue;
+            }
+            temp.append(source.substring(i, i + 1));
+            k++;
+        }
+
+        return temp.toString();
     }
 
 
