@@ -1750,11 +1750,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onError() {
+                defaultToke();
             }
 
             @Override
             public void onComplete() {
-                defaultToke();
+
             }
         });
         return str1;
