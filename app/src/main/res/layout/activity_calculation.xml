@@ -55,7 +55,7 @@
             android:layout_height="46dp"
             android:layout_marginTop="25dp"
             android:text="5÷2等于多少？"
-            android:textColor="#FF678CFF"
+            android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo4"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo4" />
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="2+2+2+2+2-3/4=？"
-            android:textColor="#FF678CFF"
+            android:textColor="@color/baike_color_set"
             android:textSize="32dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo3"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo3" />
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="45的三次方等于多少？"
-            android:textColor="#FF678CFF"
+            android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_notice_demo"
             app:layout_constraintTop_toBottomOf="@+id/tv_notice_demo" />
@@ -116,7 +116,7 @@
             android:layout_height="35dp"
             android:layout_marginTop="25dp"
             android:text="根号76等于多少？"
-            android:textColor="#FF678CFF"
+            android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo1"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo1" />
@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="45与53的差是多少？"
-            android:textColor="#FF678CFF"
+            android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo2"
             app:layout_constraintTop_toBottomOf="@+id/tv_demo2" />

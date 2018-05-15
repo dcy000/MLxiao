@@ -163,6 +163,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         int position = (this.position + 1) % mPoems.size();
         this.position = position;
         PoemModel model = mPoems.get(position);
+        mPoemModel = model;
         showPoem(model);
         replay();
     }

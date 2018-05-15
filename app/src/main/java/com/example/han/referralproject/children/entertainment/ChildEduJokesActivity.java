@@ -130,13 +130,23 @@ public class ChildEduJokesActivity extends BaseActivity {
                 return;
             }
             if (results == null) {
-                speak("没有笑话了， 让我再想想");
+                Handlers.ui().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        speak("没有笑话了， 让我再想想");
+                    }
+                });
                 return;
             }
             String jokesJson = results.get("resultJson");
             List<JokeModel> models = JokeModel.parseJokes(jokesJson);
             if (models == null || models.isEmpty()) {
-                speak("没有笑话了， 让我再想想");
+                Handlers.ui().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        speak("没有笑话了， 让我再想想");
+                    }
+                });
                 return;
             }
             if (random == null) {
@@ -176,7 +186,7 @@ public class ChildEduJokesActivity extends BaseActivity {
         fetchJokes();
     }
 
-    private JokeModel mModel;
+    private volatile JokeModel mModel;
 
 
     private interface OnItemClickListener {
