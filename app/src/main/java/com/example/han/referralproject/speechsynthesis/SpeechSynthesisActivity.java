@@ -1746,6 +1746,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 }
                 str1 = sb.toString().replace("<USER-NAME>","");
+                defaultToke();
             }
 
             @Override
