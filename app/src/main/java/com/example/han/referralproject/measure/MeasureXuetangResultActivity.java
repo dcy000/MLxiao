@@ -1,18 +1,30 @@
 package com.example.han.referralproject.measure;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
+import com.example.han.referralproject.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity;
+import com.example.han.referralproject.intelligent_diagnosis.BloodsugarMonthlyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.BloodsugarWeeklyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.littlejie.circleprogress.CircleProgress;
@@ -246,13 +258,78 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_something_advice:
-                startActivity(new Intent(this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "糖尿病"));
+            case R.id.tv_something_advice://风险评估
+//                startActivity(new Intent(this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "糖尿病"));
+                startActivity(new Intent(this, BloodsugarRiskAssessmentActivity.class));
                 break;
-            case R.id.health_knowledge:
-                startActivity(new Intent(this, VideoListActivity.class));
+            case R.id.health_knowledge://健康报告
+//                startActivity(new Intent(this, BloodsugarWeeklyReportActivity.class));
+//                startActivity(new Intent(this, VideoListActivity.class));
+                showPopwindow();
                 break;
         }
+    }
+
+    private PopupWindow popupWindow;
+    private View popupView;
+    private TranslateAnimation animation;
+    private void showPopwindow(){
+        if (popupWindow == null) {
+            popupView = View.inflate(this, R.layout.item_choose_weekly_or_monthly, null);
+            popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT);
+
+            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    lighton();
+                }
+            });
+            popupWindow.setBackgroundDrawable(new BitmapDrawable());
+            popupWindow.setFocusable(true);
+            popupWindow.setOutsideTouchable(true);
+
+            animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0,
+                    Animation.RELATIVE_TO_PARENT, 1, Animation.RELATIVE_TO_PARENT, 0);
+            animation.setInterpolator(new AccelerateInterpolator());
+            animation.setDuration(200);
+
+            popupView.findViewById(R.id.tv_monthly).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MeasureXuetangResultActivity.this,BloodsugarMonthlyReportActivity.class));
+                    popupWindow.dismiss();
+                    lighton();
+                }
+            });
+            popupView.findViewById(R.id.tv_weekly).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MeasureXuetangResultActivity.this,BloodsugarWeeklyReportActivity.class));
+                    popupWindow.dismiss();
+                    lighton();
+                }
+            });
+        }
+        if (popupWindow.isShowing()) {
+            popupWindow.dismiss();
+            lighton();
+        }
+
+        popupWindow.showAtLocation(healthKnowledge, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popupView.startAnimation(animation);
+        lightoff();
+    }
+
+    private void lightoff() {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        getWindow().setAttributes(lp);
+    }
+    private void lighton() {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 1f;
+        getWindow().setAttributes(lp);
     }
 }

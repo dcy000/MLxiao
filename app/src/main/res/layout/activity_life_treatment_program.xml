@@ -48,12 +48,14 @@
             android:layout_marginTop="40pt"
             android:layout_marginLeft="40pt">
             <TextView
+                android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="年龄：20"
                 android:textColor="#999"
                 android:textSize="56pt"/>
             <TextView
+                android:id="@+id/sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="56pt"
@@ -62,6 +64,7 @@
                 android:layout_marginLeft="86pt"/>
         </LinearLayout>
         <ImageView
+            android:id="@+id/qr_code"
             android:layout_width="250pt"
             android:layout_height="250pt"
             app:layout_constraintRight_toRightOf="parent"

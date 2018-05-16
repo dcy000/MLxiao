@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="307pt"
+    android:gravity="center_horizontal">
+    <TextView
+        android:id="@+id/blood_sugar_submit"
+        android:layout_width="800pt"
+        android:layout_height="120pt"
+        android:textSize="56pt"
+        android:textColor="@color/white"
+        android:text="提交"
+        android:background="@drawable/button_shape"
+        android:gravity="center"
+        android:layout_marginTop="107pt"
+        android:layout_marginBottom="80pt"
+        />
+</LinearLayout>

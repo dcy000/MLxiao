@@ -22,7 +22,7 @@
         >
         <RadioButton
             android:id="@+id/answer_true"
-            android:layout_width="300pt"
+            android:layout_width="450pt"
             android:layout_height="wrap_content"
             android:text="是"
             android:textSize="56pt"
@@ -31,15 +31,16 @@
             android:paddingLeft="30pt"
             android:paddingTop="48pt"
             android:paddingBottom="40pt"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:drawablePadding="30pt"
             android:drawableLeft="@drawable/radiobutton_set"
             />
         <RadioButton
             android:id="@+id/answer_false"
-            android:layout_width="300pt"
+            android:layout_width="450pt"
             android:layout_height="wrap_content"
             android:text="否"
-            android:layout_marginLeft="200pt"
+            android:layout_marginLeft="50pt"
             android:textSize="56pt"
             android:textColor="#666"
             android:button="@null"
@@ -47,6 +48,7 @@
             android:paddingLeft="30pt"
             android:paddingTop="48pt"
             android:paddingBottom="40pt"
-            android:gravity="center"/>
+            android:gravity="center_vertical"
+            android:drawablePadding="30pt"/>
     </RadioGroup>
 </LinearLayout>

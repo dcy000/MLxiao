@@ -685,7 +685,7 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
-        <activity android:name=".risk_assessment.RiskActivity"
+        <activity android:name=".blood_pressure_risk_assessment.HypertensionRiskActivity"
             android:screenOrientation="landscape">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
@@ -695,13 +695,35 @@
                 <!--<category android:name="android.intent.category.DEFAULT" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".risk_assessment.LifeTreatmentProgramActivity"
+        <activity android:name=".blood_pressure_risk_assessment.LifeTreatmentProgramActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".risk_assessment.DetectionPlanActivity"
+        <activity android:name=".blood_pressure_risk_assessment.DetectionPlanActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".risk_assessment.PrimaryBloodPressureRiskResultsActivity"
+        <activity android:name=".blood_pressure_risk_assessment.PrimaryBloodPressureRiskResultsActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".risk_assessment.SecondaryBloodPressureRiskResultsActivity"
+        <activity android:name=".blood_pressure_risk_assessment.SecondaryBloodPressureRiskResultsActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".measure.New_MeasureXuetangResultActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".diet_sport.DietPlanActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".diet_sport.WeekDietPlanActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.FoodMaterialDetailActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".diet_sport.SportPlanActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.SportPlanDetailActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.BloodsugarWeeklyReportActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.TreatmentPlanActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_diagnosis.BloodsugarMonthlyReportActivity"
             android:screenOrientation="landscape"/>
     </application>
 

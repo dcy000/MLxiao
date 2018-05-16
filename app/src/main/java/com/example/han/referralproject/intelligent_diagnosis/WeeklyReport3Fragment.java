@@ -213,8 +213,6 @@ public class WeeklyReport3Fragment extends Fragment {
     }
 
     public void setData() {
-
-
         ArrayList<RadarEntry> entries1 = new ArrayList<RadarEntry>();
         ArrayList<RadarEntry> entries2 = new ArrayList<RadarEntry>();
 
