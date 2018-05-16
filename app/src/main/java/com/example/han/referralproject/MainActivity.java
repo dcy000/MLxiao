@@ -21,6 +21,8 @@ import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
+import com.example.han.referralproject.intelligent_diagnosis.BloodsugarMonthlyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.BloodsugarWeeklyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -168,7 +170,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-                startActivity(new Intent(this, MonthlyReportActivity.class));
+                startActivity(new Intent(this, BloodsugarMonthlyReportActivity.class));
                 //呼叫
 //                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {

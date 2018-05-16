@@ -46,15 +46,19 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
 
         treatmentProgramFragment2=new ThisWeekHealthPlanFragment();
         fragments.add(treatmentProgramFragment2);
+        treatmentProgramFragment2.setOnChangToolbar(this);
 
         treatmentProgramFragment3=new DietPlanFragment();
         fragments.add(treatmentProgramFragment3);
+        treatmentProgramFragment3.setOnChangToolbar(this);
 
         treatmentProgramFragment4=new WeekDietPlanFragment();
         fragments.add(treatmentProgramFragment4);
+        treatmentProgramFragment4.setOnChangToolbar(this);
 
         treatmentProgramFragment5=new SportPlanFragment();
         fragments.add(treatmentProgramFragment5);
+        treatmentProgramFragment5.setOnChangToolbar(this);
 
         viewpage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

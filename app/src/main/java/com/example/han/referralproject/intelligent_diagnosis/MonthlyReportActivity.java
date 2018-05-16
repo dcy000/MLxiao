@@ -51,7 +51,7 @@ public class MonthlyReportActivity extends BaseActivity {
         setContentView(R.layout.activity_monthly_report);
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("月生活记录");
+        mTitleText.setText("单疗程治疗计划");
         initFragment();
     }
 

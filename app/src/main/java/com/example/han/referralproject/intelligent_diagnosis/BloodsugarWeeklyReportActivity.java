@@ -41,7 +41,7 @@ public class BloodsugarWeeklyReportActivity extends BaseActivity{
     private List<Fragment> fragments;
     private BloodsugarWeeklyReport1Fragment new_fragment1;
     private BloodsugarWeeklyReport2Fragment new_fragment2;
-    private BloodsugarWeeklyReport2Fragment new_fragment3;
+    private New_WeeklyReport3Fragment new_fragment3;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class BloodsugarWeeklyReportActivity extends BaseActivity{
         fragments.add(new_fragment1);
         new_fragment2=new BloodsugarWeeklyReport2Fragment();
         fragments.add(new_fragment2);
-        new_fragment3=new BloodsugarWeeklyReport2Fragment();
+        new_fragment3=new New_WeeklyReport3Fragment();
         fragments.add(new_fragment3);
 
 
@@ -93,10 +93,8 @@ public class BloodsugarWeeklyReportActivity extends BaseActivity{
                             if (object.optInt("code") == 200) {
                                 JSONObject data = object.optJSONObject("data");
                                 WeeklyOrMonthlyBloodsugarReport weeklyOrMonthlyBloodsugarReport = new Gson().fromJson(data.toString(), WeeklyOrMonthlyBloodsugarReport.class);
-
                                 new_fragment1.notifyData(weeklyOrMonthlyBloodsugarReport);
                                 new_fragment2.notifyData(weeklyOrMonthlyBloodsugarReport);
-                                new_fragment3.notifyData(weeklyOrMonthlyBloodsugarReport);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

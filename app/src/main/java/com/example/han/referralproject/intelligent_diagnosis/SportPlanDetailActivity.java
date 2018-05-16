@@ -66,9 +66,9 @@ public class SportPlanDetailActivity extends BaseActivity {
         LinearLayoutManager manager=new LinearLayoutManager(this);
         manager.setSmoothScrollbarEnabled(true);
         encyclopediasList.setLayoutManager(manager);
-        encyclopediasList.setAdapter(adapter);
         encyclopediasList.setHasFixedSize(true);
         encyclopediasList.setNestedScrollingEnabled(false);
+        encyclopediasList.setAdapter(adapter);
     }
 
     private void dealData() {

@@ -110,7 +110,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/encyclopedias_list"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="60pt"
             android:layout_marginLeft="60pt"
             android:layout_marginRight="60pt"

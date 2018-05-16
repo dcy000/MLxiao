@@ -157,6 +157,7 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     private void initView(View view) {
 
         mMonday = (RadioButton) view.findViewById(R.id.monday);
+        mMonday.setChecked(true);
         mMonday.setOnClickListener(this);
         mTuesday = (RadioButton) view.findViewById(R.id.tuesday);
         mTuesday.setOnClickListener(this);
