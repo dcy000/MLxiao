@@ -67,7 +67,7 @@ public class MyApplication extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
         ScreenUtils.init(this);
