@@ -38,8 +38,8 @@ public class Main2Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main2);
-        StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
+        setContentView(R.layout.activity_main2);
+//        StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
         ButterKnife.bind(this);
         initEvent();
         initView();

@@ -1,9 +1,7 @@
 package com.example.han.referralproject.yiyuan.fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,17 +16,13 @@ import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
@@ -83,7 +77,7 @@ public class Main1Fragment extends Fragment {
                                 .error(R.drawable.avatar_placeholder)
                                 .tag(this)
                                 .fit()
-                                .into(ivHead);
+                                .into(ivQianyue);
                     }
                 });
             }
@@ -101,10 +95,12 @@ public class Main1Fragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_head:
-                gotoPersonInfo();
+                //签约
+                 gotoQianyueYiSheng();
                 break;
             case R.id.iv_qianyue:
-                gotoQianyueYiSheng();
+                //头像
+                gotoPersonInfo();
                 break;
             case R.id.celianglishi:
                 gotoCeLiangLiShi();
