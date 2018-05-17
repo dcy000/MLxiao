@@ -10,5 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
+    <FrameLayout
+        android:id="@+id/fl_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true" />
 
 </android.support.constraint.ConstraintLayout>

@@ -38,8 +38,8 @@ public class Main2Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main2);
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
-        setContentView(R.layout.activity_main2);
         ButterKnife.bind(this);
         initEvent();
         initView();
@@ -83,11 +83,10 @@ public class Main2Activity extends BaseActivity {
         NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
             @Override
             public void onSuccess(ArrayList<ClueInfoBean> response) {
-                if (response == null || response.size() == 0) {
+                    if (response == null || response.size() == 0) {
                     return;
                 }
                 List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-                //DataSupport.deleteAll(AlarmModel.class);
                 for (ClueInfoBean itemBean : response) {
                     String[] timeString = itemBean.cluetime.split(":");
                     boolean isSetted = false;

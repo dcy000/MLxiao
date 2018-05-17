@@ -1,118 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_white"
-    tools:context="com.example.han.referralproject.MainActivity">
+    android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/line_cv"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_centerVertical="true"
-        android:background="@null" />
-
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/ll_robot_con"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/robot_con"
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="-13dp"
-            android:clickable="true"
-            android:src="@drawable/ic_robot_normal" />
-
-        <ImageView
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp"
-            android:src="@drawable/ic_call_family_normal"
-            android:visibility="gone" />
-    </LinearLayout>
 
     <ImageView
-        android:id="@+id/person_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/line_cv"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@id/ll_robot_con"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:id="@+id/iv_head"
+        android:layout_width="184dp"
+        android:layout_height="169dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="34dp"
+        android:background="#555"
+        app:layout_constraintEnd_toEndOf="@+id/iv_qianyue"
+        app:layout_constraintStart_toStartOf="@+id/iv_qianyue"
+        app:layout_constraintTop_toBottomOf="@+id/iv_qianyue" />
+
+    <ImageView
+        android:id="@+id/iv_qianyue"
+        android:layout_width="184dp"
+        android:layout_height="169dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="30dp"
+        android:background="#333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/celianglishi"
+        android:layout_width="600dp"
+        android:layout_height="94dp"
+        android:layout_marginBottom="31dp"
         android:layout_marginTop="25dp"
-        android:layout_toLeftOf="@id/ll_robot_con"
-        android:clickable="true"
-        android:src="@drawable/ic_person_info_normal" />
+        android:background="#966"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_qianyue"
+        app:layout_constraintTop_toBottomOf="@+id/iv_head" />
 
     <ImageView
-        android:id="@+id/health_test"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignBottom="@id/ll_robot_con"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@id/line_cv"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toLeftOf="@id/ll_robot_con"
-        android:clickable="true"
-        android:src="@drawable/ic_health_test_normal" />
+        android:id="@+id/tijian"
+        android:layout_width="356dp"
+        android:layout_height="374dp"
+        android:layout_marginStart="57dp"
+        android:background="#166"
+        app:layout_constraintStart_toEndOf="@+id/iv_head"
+        app:layout_constraintTop_toTopOf="@+id/iv_qianyue" />
 
     <ImageView
-        android:id="@+id/doctor_ask"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/line_cv"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/ll_robot_con"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@id/ll_robot_con"
-        android:clickable="true"
-        android:src="@drawable/ic_doctor_ask_normal" />
+        android:id="@+id/zhengzhuangzichan"
+        android:layout_width="199dp"
+        android:layout_height="169dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginStart="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_qianyue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tijian"
+        app:layout_constraintTop_toTopOf="@+id/tijian"
+        app:srcCompat="@drawable/__leak_canary_icon" />
 
     <ImageView
-        android:id="@+id/health_class"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@id/ll_robot_con"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/line_cv"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/ll_robot_con"
-        android:clickable="true"
-        android:src="@drawable/ic_shop_normal" />
+        android:id="@+id/yishengjianyi"
+        android:layout_width="200dp"
+        android:layout_height="178dp"
+        android:layout_marginBottom="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/jiankangketang"
+        app:layout_constraintEnd_toEndOf="@+id/zhengzhuangzichan"
+        app:layout_constraintStart_toStartOf="@+id/zhengzhuangzichan"
+        app:layout_constraintTop_toTopOf="@+id/iv_head"
+        app:srcCompat="@drawable/abdomen_selected" />
 
-    <RelativeLayout
-        android:id="@+id/ll_anim"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FAE2CA"
-        android:visibility="gone">
+    <ImageView
+        android:id="@+id/jiankangketang"
+        android:layout_width="203dp"
+        android:layout_height="93dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="43dp"
+        android:background="#0ff"
+        app:layout_constraintBottom_toBottomOf="@+id/celianglishi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/celianglishi"
+        app:layout_constraintTop_toTopOf="@+id/celianglishi" />
 
-        <ImageView
-            android:id="@+id/iv_anim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:src="@drawable/conversation_bg" />
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
