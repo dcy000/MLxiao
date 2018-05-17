@@ -14,25 +14,29 @@
         android:background="@null" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_robot_con"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/robot_con"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="-13dp"
             android:clickable="true"
-            android:src="@drawable/ic_robot_normal"
-            android:layout_marginTop="-13dp"/>
+            android:src="@drawable/ic_robot_normal" />
+
         <ImageView
             android:layout_width="370dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
             android:src="@drawable/ic_call_family_normal"
-            android:layout_marginTop="-10dp"/>
+            android:visibility="gone" />
     </LinearLayout>
 
     <ImageView
