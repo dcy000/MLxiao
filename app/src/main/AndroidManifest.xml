@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.han.referralproject"
     tools:overrideLibrary="com.witspring.mlrobot">
+
     <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64" />
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
@@ -211,13 +212,13 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.HOME" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".Test_mainActivity"
@@ -471,11 +472,7 @@
         <service
             android:name=".floatingball.AssistiveTouchService"
             android:process=":serviceY" />
-
-        <service
-            android:name=".floatball.MyService"
-            />
-
+        <service android:name=".floatball.MyService" />
 
         <activity
             android:name=".recyclerview.DoctorAlarmActivity"
@@ -586,12 +583,13 @@
         <activity
             android:name=".intelligent_diagnosis.DeleteGroupActivity"
             android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.HOME" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.HOME" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".health.HealthDiaryActivity" />
         <activity
@@ -607,11 +605,11 @@
             <!-- <category android:name="android.intent.category.DEFAULT"/> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".children.study.ChildEduStories2Activity"></activity>
+        <activity android:name=".children.study.ChildEduStories2Activity" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
             android:taskAffinity="com.medlink.fastsignup"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
             android:taskAffinity="com.medlink.fastsignup" />
@@ -657,7 +655,6 @@
         <activity
             android:name=".settting.activity.AboutActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".personal.PersonDetailActivity"
             android:screenOrientation="landscape" />
@@ -685,6 +682,15 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
+        <activity android:name=".Main2Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

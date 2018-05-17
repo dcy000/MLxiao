@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white"
+    tools:context="com.example.han.referralproject.MainActivity">
+
+    <View
+        android:id="@+id/line_cv"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_centerVertical="true"
+        android:background="@null" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_robot_con"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/robot_con"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="-13dp"
+            android:clickable="true"
+            android:src="@drawable/ic_robot_normal" />
+
+        <ImageView
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:src="@drawable/ic_call_family_normal"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/person_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/line_cv"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/ll_robot_con"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_toLeftOf="@id/ll_robot_con"
+        android:clickable="true"
+        android:src="@drawable/ic_person_info_normal" />
+
+    <ImageView
+        android:id="@+id/health_test"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignBottom="@id/ll_robot_con"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/line_cv"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@id/ll_robot_con"
+        android:clickable="true"
+        android:src="@drawable/ic_health_test_normal" />
+
+    <ImageView
+        android:id="@+id/doctor_ask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/line_cv"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/ll_robot_con"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@id/ll_robot_con"
+        android:clickable="true"
+        android:src="@drawable/ic_doctor_ask_normal" />
+
+    <ImageView
+        android:id="@+id/health_class"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/ll_robot_con"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/line_cv"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/ll_robot_con"
+        android:clickable="true"
+        android:src="@drawable/ic_shop_normal" />
+
+    <RelativeLayout
+        android:id="@+id/ll_anim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FAE2CA"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_anim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@drawable/conversation_bg" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
