@@ -70,10 +70,10 @@ public class Main2Fragment extends Fragment {
                 gotoSheZhi();
                 break;
             case R.id.tuichu:
-                TuiChu();
+                gotoLiaoTian();
                 break;
             case R.id.liaotian:
-                gotoLiaoTian();
+                TuiChu();
                 break;
         }
     }
