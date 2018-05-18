@@ -45,6 +45,7 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_sugar_risk_assessment);
+        speak("主人，为了您的健康。小依为您准备了八道血糖相关的题目，请您耐心填写");
         initView();
         setAdapter();
         getData();
@@ -125,6 +126,14 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.blood_sugar_submit:
+                for (BloodSugarRisk bloodSugarRisk : mData) {
+                    if (!bloodSugarRisk.isChoosed()) {
+                        ToastTool.showShort("主人，您还有未回答的题目");
+                        speak("主人，您还有未回答的题目");
+                        return;
+                    }
+                }
+
                 int score = 0;
                 ArrayList<PostBloodSugarRisk.AnswerListBean> answerListBeans = new ArrayList<>();
                 for (BloodSugarRisk bloodSugarRisk : adapter.getData()) {
@@ -156,9 +165,9 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
                                     if (object.optInt("code") == 200) {
                                         JSONObject data = object.optJSONObject("data");
                                         PostBloodSugarResult postBloodSugarResult = new Gson().fromJson(data.toString(), PostBloodSugarResult.class);
-//                                        startActivity(new Intent(BloodsugarRiskAssessmentActivity.this,));
                                         startActivity(new Intent(BloodsugarRiskAssessmentActivity.this, BloodsugarRiskAssessmentResultActivity.class)
                                                 .putExtra("data", postBloodSugarResult));
+                                        finish();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

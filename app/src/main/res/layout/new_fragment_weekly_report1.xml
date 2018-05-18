@@ -198,6 +198,6 @@
             android:layout_marginRight="32pt"
             android:textColor="#888"
             android:textSize="48pt"
-            android:text="您上周平均高压是120，低压是80。血压整体呈下降趋势"/>
+            android:text=""/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

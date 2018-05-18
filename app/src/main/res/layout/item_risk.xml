@@ -15,6 +15,7 @@
         android:layout_marginTop="56pt"
         android:layout_marginLeft="60pt"/>
     <RadioGroup
+        android:id="@+id/two_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

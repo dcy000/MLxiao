@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Administrator on 2018/5/5.
  */
 
-public class QuestionAdapter extends BaseQuickAdapter<QuestionChoosed,BaseViewHolder>{
+public class QuestionAdapter extends BaseQuickAdapter<QuestionChoosed, BaseViewHolder> {
     public QuestionAdapter(int layoutResId, @Nullable List<QuestionChoosed> data) {
         super(layoutResId, data);
     }
@@ -28,16 +28,11 @@ public class QuestionAdapter extends BaseQuickAdapter<QuestionChoosed,BaseViewHo
         } else {
             baseViewHolder.getView(R.id.item_risk).setBackgroundColor(Color.parseColor("#f5f5f5"));
         }
-        baseViewHolder.setText(R.id.question, questionChoosed.getQuestion());
-//        if (questionChoosed.isChoosed()) {
-//            ((RadioButton) baseViewHolder.getView(R.id.answer_true)).setChecked(true);
-//        } else {
-//            ((RadioButton) baseViewHolder.getView(R.id.answer_false)).setChecked(true);
-//        }
+        baseViewHolder.setText(R.id.question, questionChoosed.getOrderId() + "." + questionChoosed.getQuestion());
         baseViewHolder.getView(R.id.answer_true).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mData.get(baseViewHolder.getAdapterPosition()).setChoosed(true);
+                mData.get(baseViewHolder.getAdapterPosition()).setChoosed(1);
                 Log.e(TAG, "onClick: " + mData.toString());
             }
         });
@@ -45,7 +40,7 @@ public class QuestionAdapter extends BaseQuickAdapter<QuestionChoosed,BaseViewHo
         baseViewHolder.getView(R.id.answer_false).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mData.get(baseViewHolder.getAdapterPosition()).setChoosed(false);
+                mData.get(baseViewHolder.getAdapterPosition()).setChoosed(0);
                 Log.e(TAG, "onClick: " + mData.toString());
             }
         });

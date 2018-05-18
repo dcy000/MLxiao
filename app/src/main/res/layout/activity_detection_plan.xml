@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -61,7 +62,8 @@
             android:padding="32pt"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginRight="40pt"/>
+            android:layout_marginRight="40pt"
+            android:visibility="gone"/>
     </android.support.constraint.ConstraintLayout>
     <LinearLayout
         android:id="@+id/ll_2"
@@ -101,7 +103,7 @@
             android:textColor="#999"
             android:textSize="56pt"
             android:layout_marginLeft="40pt"
-            android:layout_marginTop="24pt"
+            android:layout_marginTop="30pt"
             />
     </LinearLayout>
     <android.support.constraint.ConstraintLayout
@@ -113,6 +115,7 @@
         app:layout_constraintTop_toBottomOf="@id/cl_1"
         android:layout_marginTop="32pt"
         android:layout_marginLeft="32pt">
+
         <TextView
             android:id="@+id/tv_xueya_title"
             android:layout_width="wrap_content"
@@ -126,6 +129,19 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/tv_gaoya_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999"
+            android:textSize="56pt"
+            android:text="高压"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="40pt"
+            android:layout_marginBottom="32pt"
+            />
+
+        <TextView
             android:id="@+id/tv_gaoya"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,19 +149,21 @@
             android:textStyle="bold"
             android:textSize="140pt"
             android:textColor="#333"
-            app:layout_constraintLeft_toLeftOf="@id/tv_xueya_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_xueya_title"
-            android:layout_marginTop="40pt"
+            app:layout_constraintLeft_toLeftOf="@id/tv_gaoya_tip"
+            app:layout_constraintBottom_toTopOf="@id/tv_gaoya_tip"
+            android:layout_marginBottom="40pt"
             />
+
         <TextView
+            android:id="@+id/tv_diya_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#999"
             android:textSize="56pt"
-            android:text="高压"
-            app:layout_constraintLeft_toLeftOf="@id/tv_xueya_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_gaoya"
-            android:layout_marginTop="24pt"
+            android:text="低压"
+            app:layout_constraintLeft_toRightOf="@id/tv_gaoya_tip"
+            app:layout_constraintBottom_toBottomOf="@id/tv_gaoya_tip"
+            android:layout_marginLeft="125pt"
             />
         <TextView
             android:id="@+id/tv_diya"
@@ -155,21 +173,11 @@
             android:textStyle="bold"
             android:textSize="140pt"
             android:textColor="#333"
-            app:layout_constraintLeft_toRightOf="@id/tv_gaoya"
-            app:layout_constraintTop_toBottomOf="@id/tv_xueya_title"
-            android:layout_marginTop="40pt"
-            android:layout_marginLeft="80pt"
+            app:layout_constraintLeft_toLeftOf="@id/tv_diya_tip"
+            app:layout_constraintBottom_toTopOf="@id/tv_diya_tip"
+            android:layout_marginBottom="40pt"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#999"
-            android:textSize="56pt"
-            android:text="低压"
-            app:layout_constraintLeft_toLeftOf="@id/tv_diya"
-            app:layout_constraintTop_toBottomOf="@id/tv_gaoya"
-            android:layout_marginTop="24pt"
-            />
+
     </android.support.constraint.ConstraintLayout>
     <android.support.constraint.ConstraintLayout
         android:layout_width="912pt"
@@ -191,6 +199,19 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_xuetang_empty_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999"
+            android:textSize="56pt"
+            android:text="空腹"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="40pt"
+            android:layout_marginBottom="32pt"
+            />
         <TextView
             android:id="@+id/tv_xuetang_empty"
             android:layout_width="wrap_content"
@@ -199,42 +220,44 @@
             android:textStyle="bold"
             android:textSize="140pt"
             android:textColor="#333"
-            android:layout_marginTop="40pt"
-            app:layout_constraintTop_toBottomOf="@id/tv_xuetang_title"
-            app:layout_constraintLeft_toLeftOf="@id/tv_xuetang_title"
+            app:layout_constraintLeft_toLeftOf="@id/tv_xuetang_empty_tip"
+            app:layout_constraintBottom_toTopOf="@id/tv_xuetang_empty_tip"
+            android:layout_marginBottom="40pt"
             />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#999"
-            android:textSize="56pt"
-            android:text="空腹"
-            android:layout_marginTop="24pt"
-            app:layout_constraintLeft_toLeftOf="@id/tv_xuetang_empty"
-            app:layout_constraintTop_toBottomOf="@id/tv_xuetang_empty"
-            />
-        <TextView
-            android:id="@+id/tv_xuetang_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textStyle="bold"
-            android:textSize="140pt"
-            android:textColor="#333"
-            android:layout_marginTop="40pt"
-            android:layout_marginLeft="80pt"
-            app:layout_constraintLeft_toRightOf="@id/tv_xuetang_empty"
-            app:layout_constraintTop_toBottomOf="@id/tv_xuetang_title"
-            />
-        <TextView
+            android:id="@+id/tv_xuetang_one_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#999"
             android:textSize="56pt"
             android:text="饭后1小时"
-            android:layout_marginTop="24pt"
-            app:layout_constraintLeft_toLeftOf="@id/tv_xuetang_one"
-            app:layout_constraintTop_toBottomOf="@id/tv_xuetang_one"
+            app:layout_constraintLeft_toRightOf="@id/tv_xuetang_empty_tip"
+            app:layout_constraintBottom_toBottomOf="@id/tv_xuetang_empty_tip"
+            android:layout_marginLeft="151pt"
+            />
+        <TextView
+            android:id="@+id/tv_xuetang_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="140pt"
+            android:textColor="#333"
+            android:layout_marginBottom="40pt"
+            app:layout_constraintLeft_toLeftOf="@id/tv_xuetang_one_tip"
+            app:layout_constraintBottom_toTopOf="@id/tv_xuetang_one_tip"
+
+            />
+        <TextView
+            android:id="@+id/tv_xuetang_two_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999"
+            android:textSize="56pt"
+            android:text="饭后2小时"
+            android:layout_marginLeft="80pt"
+            app:layout_constraintLeft_toRightOf="@id/tv_xuetang_one_tip"
+            app:layout_constraintBottom_toBottomOf="@id/tv_xuetang_empty_tip"
             />
         <TextView
             android:id="@+id/tv_xuetang_two"
@@ -244,20 +267,9 @@
             android:textStyle="bold"
             android:textSize="140pt"
             android:textColor="#333"
-            android:layout_marginTop="40pt"
-            android:layout_marginLeft="144pt"
-            app:layout_constraintLeft_toRightOf="@id/tv_xuetang_one"
-            app:layout_constraintTop_toBottomOf="@id/tv_xuetang_title"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#999"
-            android:textSize="56pt"
-            android:text="饭后2小时"
-            android:layout_marginTop="24pt"
-            app:layout_constraintLeft_toLeftOf="@id/tv_xuetang_two"
-            app:layout_constraintTop_toBottomOf="@id/tv_xuetang_two"
+            app:layout_constraintLeft_toLeftOf="@id/tv_xuetang_two_tip"
+            app:layout_constraintBottom_toTopOf="@id/tv_xuetang_two_tip"
+            android:layout_marginBottom="40pt"
             />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

@@ -45,6 +45,7 @@ public class MonthlyReportActivity extends BaseActivity {
     private New_MonthlyReport1Fragment new_monthlyReportFragment1;
     private New_MonthlyReport2Fragment new_monthlyReport2Fragment;
     private New_MonthlyReport3Fragment new_monthlyReport3Fragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ public class MonthlyReportActivity extends BaseActivity {
         fragments.add(new_monthlyReportFragment1);
         new_monthlyReport2Fragment = new New_MonthlyReport2Fragment();
         fragments.add(new_monthlyReport2Fragment);
-        new_monthlyReport3Fragment=new New_MonthlyReport3Fragment();
+        new_monthlyReport3Fragment = new New_MonthlyReport3Fragment();
         fragments.add(new_monthlyReport3Fragment);
         viewpage.setOffscreenPageLimit(3);
         viewpage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -81,31 +82,8 @@ public class MonthlyReportActivity extends BaseActivity {
     }
 
     private void getData() {
-//        NetworkApi.getMonthReport(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<MonthlyReport>() {
-//            @Override
-//            public void onSuccess(MonthlyReport response) {
-//                if (response != null) {
-//                    fragment1.notifyData(response.mapq);
-//                    fragment2.notifyData(response.mapq);
-//                    fragment3.notifyData(response.mapq);
-//                    fragment4.notifyData(response.mapq);
-//                    fragment5.notifyData(response.mapq);
-//                    Logger.e("返回测量数据成功" + response);
-//                } else {
-//                    ToastTool.showShort("暂无月报告");
-//                    speak("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
-//                }
-//            }
-//        }, new NetworkManager.FailedCallback() {
-//            @Override
-//            public void onFailed(String message) {
-//                Logger.e("返回测量数据失败" + message);
-//                ToastTool.showShort("暂无月报告");
-//                speak("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
-//            }
-//        });
         Calendar curr = Calendar.getInstance();
-        curr.set(Calendar.MONTH, curr.get(Calendar.MONTH) - 1);
+        curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
         long monthAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.WeeklyOrMonthlyReport)
                 .params("userId", MyApplication.getInstance().userId)

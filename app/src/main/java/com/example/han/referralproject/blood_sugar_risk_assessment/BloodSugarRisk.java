@@ -32,6 +32,15 @@ public class BloodSugarRisk implements MultiItemEntity{
     private List<AnswerListBean> answerList;
     private int itemType;
     private int  choosedPosition;
+    private boolean isChoosed=false;
+
+    public boolean isChoosed() {
+        return isChoosed;
+    }
+
+    public void setChoosed(boolean choosed) {
+        isChoosed = choosed;
+    }
 
     public int getChoosedPosition() {
         return choosedPosition;

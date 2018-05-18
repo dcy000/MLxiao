@@ -32,7 +32,7 @@ public class ThisWeekHealthPlan {
     private int lowPressure;
     private int lowPressureTarget;
     private double bloodSugar;
-    private int bloodSugarTarget;
+    private double bloodSugarTarget;
     private double bloodSugarOne;
     private double bloodSugarOneTarget;
     private double bloodSugarTwo;
@@ -98,11 +98,11 @@ public class ThisWeekHealthPlan {
         this.bloodSugar = bloodSugar;
     }
 
-    public int getBloodSugarTarget() {
+    public double getBloodSugarTarget() {
         return bloodSugarTarget;
     }
 
-    public void setBloodSugarTarget(int bloodSugarTarget) {
+    public void setBloodSugarTarget(double bloodSugarTarget) {
         this.bloodSugarTarget = bloodSugarTarget;
     }
 

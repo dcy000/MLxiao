@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/5/7.
@@ -39,24 +42,44 @@ public class SecondaryBloodPressureRiskResultsActivity extends BaseActivity {
 
     private void dealData() {
         if (data != null) {
-            stringBuffer.append("根据您的检测结果，您有可能是<strong><font color='#333333'>继发性高血压</color></strong>。");
-            if (data.getTargets() != null) {
-                stringBuffer.append("并且有可能存在<strong><font color='#333333'>");
+            String string_speak="";
+            String target="";
+            if (data.getTargets()!=null){
                 for (String s : data.getTargets()) {
-                    stringBuffer.append(s + "、");
+                    target+=s+"、";
                 }
+            }
+            if (!TextUtils.isEmpty(target)&&target.length()>1){
+                string_speak="主人，根据您的评估结果，您有可能是继发性高血压。并且存在对"+target.substring(0,target.length()-1)+"等靶器官的损害。";
+            }else{
+                string_speak="主人，根据您的评估结果，您有可能是继发性高血压。";
+            }
+            List<SecondaryHypertension.SecondaryBean.IllnessFactorBean> illnessFactor = data.getSecondary().getIllnessFactor();
+            if (illnessFactor!=null&&illnessFactor.size()>0){
+                string_speak+="引起疾病的因素可能有：";
+                for (int i=0;i<illnessFactor.size();i++){
+                    string_speak+=(i+1)+illnessFactor.get(i).getName()+";";
+                }
+            }
+            string_speak+="为了您的健康，建议您去医院做相关检查";
+            speak(string_speak);
+
+            stringBuffer.append("根据您的评估结果，您有可能是<strong><font color='#333333'>继发性高血压</color></strong>。");
+            if (target != null) {
+                stringBuffer.append("并且有可能存在<strong><font color='#333333'>");
+                stringBuffer.append(target);
                 stringBuffer.deleteCharAt(stringBuffer.length() - 1);
                 stringBuffer.append("</color></strong>的靶器官的损害。");
             }
             mTvTitle.setText(Html.fromHtml(stringBuffer.toString()));
-            if (data.getSecondary().getIllnessFactor() != null) {
+            if (illnessFactor != null) {
                 GridLayoutManager manager = new GridLayoutManager(this, 2);
                 manager.setSmoothScrollbarEnabled(true);
                 mFactorsList.setLayoutManager(manager);
                 mFactorsList.setNestedScrollingEnabled(false);
                 mFactorsList.setHasFixedSize(true);
                 mFactorsList.addItemDecoration(new GridViewDividerItemDecoration(100,26));
-                mFactorsList.setAdapter(new BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder>(R.layout.factor_item, data.getSecondary().getIllnessFactor()) {
+                mFactorsList.setAdapter(new BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder>(R.layout.factor_item, illnessFactor) {
                     @Override
                     protected void convert(BaseViewHolder baseViewHolder, SecondaryHypertension.SecondaryBean.IllnessFactorBean s) {
                         baseViewHolder.setText(R.id.text, s.getName());
@@ -67,7 +90,7 @@ public class SecondaryBloodPressureRiskResultsActivity extends BaseActivity {
                 mFactorsListDetails.setLayoutManager(manager1);
                 mFactorsListDetails.setHasFixedSize(true);
                 mFactorsListDetails.setNestedScrollingEnabled(false);
-                BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder> adapter = new BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder>(R.layout.factor_details_item, data.getSecondary().getIllnessFactor()) {
+                BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder> adapter = new BaseQuickAdapter<SecondaryHypertension.SecondaryBean.IllnessFactorBean, BaseViewHolder>(R.layout.factor_details_item, illnessFactor) {
                     @Override
                     protected void convert(BaseViewHolder baseViewHolder, SecondaryHypertension.SecondaryBean.IllnessFactorBean illnessFactorBean) {
                         baseViewHolder.setText(R.id.tv_headline_influencing_factors, illnessFactorBean.getName());

@@ -28,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/intake_oil"
                 app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginTop="48pt"
                 />
             <TextView
                 android:id="@+id/intake_oil"
@@ -36,7 +37,7 @@
                 android:textColor="#999"
                 android:textSize="56pt"
                 android:text="每日油脂摄入"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/intake_salt"
                 app:layout_constraintLeft_toRightOf="@id/intake_salt"
                 app:layout_constraintRight_toLeftOf="@+id/intake_drink"
                 android:layout_marginLeft="182pt"
@@ -48,7 +49,7 @@
                 android:textColor="#999"
                 android:textSize="56pt"
                 android:text="每日饮酒"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/intake_salt"
                 app:layout_constraintLeft_toRightOf="@id/intake_oil"
                 app:layout_constraintRight_toLeftOf="@+id/intake_smoke"
                 android:layout_marginLeft="182pt"
@@ -60,7 +61,7 @@
                 android:textColor="#999"
                 android:textSize="56pt"
                 android:text="每日吸烟"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/intake_salt"
                 app:layout_constraintLeft_toRightOf="@id/intake_drink"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginLeft="237pt"
@@ -71,7 +72,9 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="48pt"
-                app:layout_constraintLeft_toLeftOf="@id/intake_salt">
+                app:layout_constraintLeft_toLeftOf="@id/intake_salt"
+                app:layout_constraintTop_toBottomOf="@id/intake_salt"
+                android:layout_marginTop="40pt">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,8 +89,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="#333"
                     android:textSize="140pt"
-                    android:text="6g"
-                    android:textStyle="bold"/>
+                    android:text=""
+                    android:textStyle="bold"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -95,7 +99,9 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="48pt"
-                app:layout_constraintLeft_toLeftOf="@id/intake_oil">
+                app:layout_constraintLeft_toLeftOf="@id/intake_oil"
+                app:layout_constraintTop_toBottomOf="@id/intake_salt"
+                android:layout_marginTop="40pt">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#333"
                     android:textSize="140pt"
-                    android:text="25g"
+                    android:text=""
                     android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -119,7 +125,9 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="48pt"
-                app:layout_constraintLeft_toLeftOf="@id/intake_drink">
+                app:layout_constraintLeft_toLeftOf="@id/intake_drink"
+                app:layout_constraintTop_toBottomOf="@id/intake_salt"
+                android:layout_marginTop="40pt">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -134,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#333"
                     android:textSize="140pt"
-                    android:text="25ml"
+                    android:text=""
                     android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -143,7 +151,9 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="48pt"
-                app:layout_constraintLeft_toLeftOf="@id/intake_smoke">
+                app:layout_constraintLeft_toLeftOf="@id/intake_smoke"
+                app:layout_constraintTop_toBottomOf="@id/intake_salt"
+                android:layout_marginTop="30pt">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -159,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#333"
                     android:textSize="80pt"
-                    android:text="0"
+                    android:text=""
                     android:textStyle="bold"/>
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>

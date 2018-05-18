@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.HypertensionDetection;
 import com.example.han.referralproject.bean.QuestionChoosed;
+import com.example.han.referralproject.util.ToastTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,10 +64,10 @@ public class HypertensionRiskFragment3 extends Fragment implements View.OnClickL
             list = (HypertensionDetection.ReceptorBean.ListBeanXX) arguments.getSerializable("list");
         }
         if (list != null) {
-            mData.add(new QuestionChoosed(list.getKidney(),false));
-            mData.add(new QuestionChoosed(list.getHeart(),false));
-            mData.add(new QuestionChoosed(list.getEncephalon(),false));
-            mData.add(new QuestionChoosed(list.getEye(),false));
+            mData.add(new QuestionChoosed(list.getKidney(),-1,10));
+            mData.add(new QuestionChoosed(list.getHeart(),-1,11));
+            mData.add(new QuestionChoosed(list.getEncephalon(),-1,12));
+            mData.add(new QuestionChoosed(list.getEye(),-1,13));
         }
         mQuestionsList = (RecyclerView) view.findViewById(R.id.questions_list);
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
@@ -75,12 +76,28 @@ public class HypertensionRiskFragment3 extends Fragment implements View.OnClickL
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden){
+            ((HypertensionRiskActivity) getActivity()).speak("测试三");
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             default:
                 break;
             case R.id.tv_next:
-                iFragmentControl.stepNext(this,mData);
+                for (QuestionChoosed question:mData){
+                    if (question.isChoosed()==-1){
+                        ToastTool.showShort("主人，您还有未回答的题目");
+                        ((HypertensionRiskActivity) getActivity()).speak("主人，您还有未回答的题目");
+                        return;
+                    }
+                }
+                if (iFragmentControl!=null) {
+                    iFragmentControl.stepNext(this, mData);
+                }
                 break;
         }
     }

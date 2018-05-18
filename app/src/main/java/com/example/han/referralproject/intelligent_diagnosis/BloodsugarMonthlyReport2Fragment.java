@@ -85,21 +85,33 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
             String completion = report.getCompletion();
             if (bloodSugarTarget != null) {
                 tabMbEmpty.setText(String.format("%.2f", bloodSugarTarget));
+            }else{
+                tabMbEmpty.setText("无数据");
             }
             if (bloodSugarOneTarget != null) {
                 tabMbOne.setText(String.format("%.2f", bloodSugarOneTarget));
+            }else{
+                tabMbOne.setText("无数据");
             }
             if (bloodSugarTwoTarget != null) {
                 tabMbTwo.setText(String.format("%.2f", bloodSugarTwoTarget));
+            }else{
+                tabMbTwo.setText("无数据");
             }
             if (bloodSugarAvg != null) {
                 tabSjEmpty.setText(String.format("%.2f", bloodSugarAvg));
+            }else{
+                tabSjEmpty.setText("无数据");
             }
             if (bloodSugarOneAvg != null) {
                 tabSjOne.setText(String.format("%.2f", bloodSugarOneAvg));
+            }else {
+                tabSjOne.setText("无数据");
             }
             if (bloodSugarTwoAvg != null) {
                 tabSjTwo.setText(String.format("%.2f", bloodSugarTwoAvg));
+            }else{
+                tabSjTwo.setText("无数据");
             }
             if (bloodSugarOffset != null) {
                 if (bloodSugarOffset > 0) {
@@ -113,6 +125,10 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
                     pcEmpty.setTextColor(Color.parseColor("#3CD478"));
                     bloodsugarEmpty.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            }else{
+                bloodsugarEmpty.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgEmpty.setVisibility(View.GONE);
+                pcEmpty.setVisibility(View.GONE);
             }
 
             if (bloodSugarOneOffset != null) {
@@ -127,6 +143,10 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
                     pcOne.setTextColor(Color.parseColor("#3CD478"));
                     bloodsugarOne.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            }else{
+                bloodsugarOne.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgOne.setVisibility(View.GONE);
+                pcOne.setVisibility(View.GONE);
             }
             if (bloodSugarTwoOffset != null) {
                 if (bloodSugarOneOffset > 0) {
@@ -140,12 +160,19 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
                     pcTwo.setTextColor(Color.parseColor("#3CD478"));
                     bloodsugarTwo.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            }else {
+                bloodsugarTwo.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgTwo.setVisibility(View.GONE);
+                pcTwo.setVisibility(View.GONE);
             }
             if (!TextUtils.isEmpty(completion)) {
                 int int_completion = (int) Float.parseFloat(completion);
                 progressDisplay.setText(int_completion + "%");
                 rpbSum.setMax(100);
                 rpbSum.setProgress(int_completion);
+            }else{
+                progressDisplay.setText("0%");
+                rpbSum.setProgress(0);
             }
         }
     }

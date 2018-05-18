@@ -16,6 +16,7 @@
         android:textSize="64pt" />
 
     <RadioGroup
+        android:id="@+id/four_question_rg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"

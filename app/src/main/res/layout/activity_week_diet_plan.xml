@@ -141,19 +141,28 @@
                 app:layout_constraintLeft_toLeftOf="@id/tv_zaocan"
                 app:layout_constraintTop_toBottomOf="@id/tv_zaocan"
                 android:layout_marginTop="56pt" />
-            <TextView
-                android:id="@+id/tv_breakfast"
+            <ScrollView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:scrollbars="none"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="30pt"
                 android:layout_marginLeft="40pt"
                 android:layout_marginRight="40pt"
-                android:text="燕麦粥，糖醋拌黄瓜，煮鸡蛋，牛奶米饭，芹菜肉丝，开洋丝瓜汤"
-                android:textSize="56pt"
-                android:textColor="#666"/>
+                android:overScrollMode="never">
+                <TextView
+                    android:id="@+id/tv_breakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="56pt"
+                    android:textColor="#666"/>
+            </ScrollView>
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -189,19 +198,27 @@
                 app:layout_constraintLeft_toLeftOf="@id/tv_wucan"
                 app:layout_constraintTop_toBottomOf="@id/tv_wucan"
                 android:layout_marginTop="56pt" />
-            <TextView
-                android:id="@+id/tv_lunch"
+            <ScrollView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:scrollbars="none"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_2"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="30pt"
                 android:layout_marginLeft="40pt"
                 android:layout_marginRight="40pt"
-                android:text="燕麦粥，糖醋拌黄瓜，煮鸡蛋，牛奶米饭，芹菜肉丝，开洋丝瓜汤"
-                android:textSize="56pt"
-                android:textColor="#666"/>
+                android:overScrollMode="never">
+                <TextView
+                    android:id="@+id/tv_lunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="56pt"
+                    android:textColor="#666"/>
+            </ScrollView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -237,19 +254,27 @@
                 app:layout_constraintLeft_toLeftOf="@id/tv_wancan"
                 app:layout_constraintTop_toBottomOf="@id/tv_wancan"
                 android:layout_marginTop="56pt" />
-            <TextView
-                android:id="@+id/tv_dinner"
+            <ScrollView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:scrollbars="none"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_3"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="30pt"
                 android:layout_marginLeft="40pt"
                 android:layout_marginRight="40pt"
-                android:text="燕麦粥，糖醋拌黄瓜，煮鸡蛋，牛奶米饭，芹菜肉丝，开洋丝瓜汤"
-                android:textSize="56pt"
-                android:textColor="#666"/>
+                android:overScrollMode="never">
+                <TextView
+                    android:id="@+id/tv_dinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="56pt"
+                    android:textColor="#666"/>
+            </ScrollView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

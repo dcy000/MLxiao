@@ -357,6 +357,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onSuccess(MeasureResult response) {
                 startActivity(new Intent(DetectActivity.this, MeasureXuetangResultActivity.class)
+                        .putExtra("measure_type",xuetangTimeFlag)
                         .putExtra("measure_piangao_num", response.high)
                         .putExtra("measure_zhengchang_num", response.regular)
                         .putExtra("measure_piandi_num", response.low)

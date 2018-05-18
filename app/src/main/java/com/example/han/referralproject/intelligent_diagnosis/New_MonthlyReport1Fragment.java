@@ -69,10 +69,10 @@ public class New_MonthlyReport1Fragment extends Fragment {
     }
 
     public void notifyData(WeeklyOrMonthlyReport report) {
-        if (report==null)
+        if (report == null)
             return;
         String highPressureAvg = report.getHighPressureAvg();
-        if (!TextUtils.isEmpty(highPressureAvg)){
+        if (!TextUtils.isEmpty(highPressureAvg)) {
             tvGao.setText(highPressureAvg);
             rpbGao.setMax(180);
             rpbGao.setProgress(Float.parseFloat(highPressureAvg));
@@ -84,17 +84,17 @@ public class New_MonthlyReport1Fragment extends Fragment {
             rpbDi.setProgress(Float.parseFloat(lowPressureAvg));
         }
         String healthScore = report.getHealthScore();
-        if (!TextUtils.isEmpty(healthScore)){
-            int int_healthScore= (int) Float.parseFloat(healthScore);
-            if (int_healthScore>=80){
+        if (!TextUtils.isEmpty(healthScore)) {
+            int int_healthScore = (int) Float.parseFloat(healthScore);
+            if (int_healthScore >= 80) {
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#5BD78C"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#86F77D"));
                 waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
-            }else if(int_healthScore>=60){
+            } else if (int_healthScore >= 60) {
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#F78237"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#FBBF81"));
                 waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
-            }else{
+            } else {
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#FE5848"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#F88A78"));
                 waveProgressBar.setValueColor(Color.parseColor("#FE5848"));
@@ -104,11 +104,11 @@ public class New_MonthlyReport1Fragment extends Fragment {
             waveProgressBar.setHealthValue(int_healthScore + "分");
         }
         setXueyaChart(report);
-        StringBuffer buffer=new StringBuffer();
-        buffer.append("您上月平均<strong><font color='#333333'>血压为"+report.getLowPressureAvg()
-                +"-"+report.getHighPressureAvg()
-                +"</font></strong>,血压整体呈现<strong><font color='#333333'>"+report.getTrend()+"</font></strong>,初步诊断为<strong><font color='#333333'>"+report.getHypertensionLevel()
-                +"</font></strong>,心血管发病风险为<strong><font color='#333333'>"+report.getHeartDanger()+"</font></strong>;上月血压控制<strong><font color='#333333'>"+report.getControl()+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("您上月平均<strong><font color='#333333'>血压为" + report.getLowPressureAvg()
+                + "-" + report.getHighPressureAvg()
+                + "</font></strong>,血压整体呈现<strong><font color='#333333'>" + report.getTrend() + "</font></strong>,初步诊断为<strong><font color='#333333'>" + report.getHypertensionLevel()
+                + "</font></strong>,心血管发病风险为<strong><font color='#333333'>" + report.getHeartDanger() + "</font></strong>;上月血压控制<strong><font color='#333333'>" + report.getControl() +
                 "</font></strong>,请每周定期测量，参照健康报告进行生活方式干预治疗。");
         tvAdvice.setText(Html.fromHtml(buffer.toString()));
     }
@@ -116,6 +116,7 @@ public class New_MonthlyReport1Fragment extends Fragment {
 
     /**
      * 血压图的基本设置
+     *
      * @param report
      */
     private void setXueyaChart(WeeklyOrMonthlyReport report) {
@@ -137,7 +138,9 @@ public class New_MonthlyReport1Fragment extends Fragment {
 
         LimitLine ll1 = new LimitLine(130f, "");
         ll1.setLineWidth(2f);
-        ll1.setLineColor(getResources().getColor(R.color.picket_line1));
+        if (isAdded()) {
+            ll1.setLineColor(getResources().getColor(R.color.picket_line1));
+        }
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(20f);
@@ -145,7 +148,9 @@ public class New_MonthlyReport1Fragment extends Fragment {
 
         LimitLine ll2 = new LimitLine(90f, "");
         ll2.setLineWidth(2f);
-        ll2.setLineColor(getResources().getColor(R.color.picket_line1));
+        if (isAdded()) {
+            ll2.setLineColor(getResources().getColor(R.color.picket_line1));
+        }
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll2.setTextSize(18f);
@@ -161,7 +166,9 @@ public class New_MonthlyReport1Fragment extends Fragment {
 
         LimitLine ll3 = new LimitLine(85f, "");
         ll3.setLineWidth(2f);
-        ll3.setLineColor(getResources().getColor(R.color.picket_line2));
+        if (isAdded()) {
+            ll3.setLineColor(getResources().getColor(R.color.picket_line2));
+        }
         ll3.enableDashedLine(10.0f, 10f, 0f);
         ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll3.setTextSize(20f);
@@ -169,7 +176,9 @@ public class New_MonthlyReport1Fragment extends Fragment {
 
         LimitLine ll4 = new LimitLine(60f, "");
         ll4.setLineWidth(2f);
-        ll4.setLineColor(getResources().getColor(R.color.picket_line2));
+        if (isAdded()) {
+            ll4.setLineColor(getResources().getColor(R.color.picket_line2));
+        }
         ll4.enableDashedLine(10f, 10f, 0f);
         ll4.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll4.setTextSize(18f);
@@ -191,17 +200,21 @@ public class New_MonthlyReport1Fragment extends Fragment {
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
         List<WeeklyOrMonthlyReport.WeekDateListBean> weekDateList = report.getWeekDateList();
-        for (int i=0;i<weekDateList.size();i++){
-            String highPressureAvg = weekDateList.get(i).getHighPressureAvg();
-            yVals1.add(new Entry(i, Float.parseFloat(highPressureAvg)));
-            String lowPressureAvg = weekDateList.get(i).getLowPressureAvg();
-            yVals2.add(new Entry(i,Float.parseFloat(lowPressureAvg)));
+        if (weekDateList != null && weekDateList.size() > 0) {
+            for (int i = 0; i < weekDateList.size(); i++) {
+                String highPressureAvg = weekDateList.get(i).getHighPressureAvg();
+                if (!TextUtils.isEmpty(highPressureAvg)) {
+                    yVals1.add(new Entry(i, Float.parseFloat(highPressureAvg)));
+                }
+                String lowPressureAvg = weekDateList.get(i).getLowPressureAvg();
+                if (!TextUtils.isEmpty(lowPressureAvg)) {
+                    yVals2.add(new Entry(i, Float.parseFloat(lowPressureAvg)));
+                }
+            }
         }
+
         if (yVals1.size() != 0) {
             weekXueyaChart.getXAxis().setValueFormatter(new MonthlyReportTimeFormatter(yVals1));
-//            MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times, response);
-//            mv.setChartView(xueyaChart);
-//            xueyaChart.setMarker(mv);
             setXueya(yVals1, yVals2);
         }
     }

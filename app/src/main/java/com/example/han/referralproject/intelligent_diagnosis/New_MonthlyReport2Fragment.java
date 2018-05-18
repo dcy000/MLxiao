@@ -131,10 +131,10 @@ public class New_MonthlyReport2Fragment extends Fragment {
 
     public void notifyData(WeeklyOrMonthlyReport report) {
         this.report = report;
-        dealPerWeekData( 0);
+        dealPerWeekData(0);
     }
 
-    private void dealPerWeekData( int week) {
+    private void dealPerWeekData(int week) {
         List<WeeklyOrMonthlyReport.WeekDateListBean> weekDateList = report.getWeekDateList();
         if (weekDateList == null) {
             return;
@@ -147,18 +147,26 @@ public class New_MonthlyReport2Fragment extends Fragment {
             String lowPressureAvg = weekDateListBean.getLowPressureAvg();
             String highOffset = weekDateListBean.getHighOffset();
             String lowOffset = weekDateListBean.getLowOffset();
-            String completion = report.getCompletion();
+            String completion =weekDateListBean.getCompletion();
             if (!TextUtils.isEmpty(highTarget)) {
                 tabMbGaoya.setText(highTarget);
+            } else {
+                tabMbGaoya.setText("无数据");
             }
             if (!TextUtils.isEmpty(lowTarget)) {
                 tabMbDiya.setText(lowTarget);
+            } else {
+                tabMbDiya.setText("无数据");
             }
             if (!TextUtils.isEmpty(highPressureAvg)) {
                 tabSjGaoya.setText(highPressureAvg);
+            } else {
+                tabSjGaoya.setText("无数据");
             }
             if (!TextUtils.isEmpty(lowPressureAvg)) {
                 tabSjDiya.setText(lowPressureAvg);
+            } else {
+                tabSjDiya.setText("无数据");
             }
             if (!TextUtils.isEmpty(highOffset)) {
                 float v_high = Float.parseFloat(highOffset);
@@ -174,6 +182,10 @@ public class New_MonthlyReport2Fragment extends Fragment {
                     pcGaoya.setTextColor(Color.parseColor("#3CD478"));
                     viewLeft.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            } else {
+                viewLeft.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgGaoya.setVisibility(View.GONE);
+                pcGaoya.setVisibility(View.GONE);
             }
 
             if (!TextUtils.isEmpty(lowOffset)) {
@@ -190,6 +202,10 @@ public class New_MonthlyReport2Fragment extends Fragment {
                     pcDiya.setTextColor(Color.parseColor("#3CD478"));
                     viewRight.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            } else {
+                viewRight.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgDiya.setVisibility(View.GONE);
+                pcDiya.setVisibility(View.GONE);
             }
 
             if (!TextUtils.isEmpty(completion)) {
@@ -197,6 +213,9 @@ public class New_MonthlyReport2Fragment extends Fragment {
                 tvProgress2.setText(int_completion + "%");
                 rpbSum.setMax(100);
                 rpbSum.setProgress(int_completion);
+            } else {
+                tvProgress2.setText("0%");
+                rpbSum.setProgress(0);
             }
         }
 

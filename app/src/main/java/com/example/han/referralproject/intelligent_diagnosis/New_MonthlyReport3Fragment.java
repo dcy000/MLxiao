@@ -90,13 +90,11 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
 
     private void getData() {
         Calendar curr = Calendar.getInstance();
-//        curr.set(Calendar.MONTH, curr.get(Calendar.MONTH) - 1);
-//        long monthAgoTime = curr.getTimeInMillis();
-        curr.set(Calendar.DAY_OF_MONTH, curr.get(Calendar.DAY_OF_MONTH) - 7);
-        long weekAgoTime = curr.getTimeInMillis();
+        curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
+        long monthAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.Life_Therapy)
                 .params("userId", MyApplication.getInstance().userId)
-                .params("endTimeStamp", weekAgoTime)
+                .params("endTimeStamp", monthAgoTime)
                 .params("num", "4")
                 .execute(new StringCallback() {
                     @Override
@@ -331,7 +329,7 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
             default:
                 break;
             case R.id.treatment_plan:
-                getActivity().startActivity(new Intent(getActivity(),TreatmentPlanActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), TreatmentPlanActivity.class));
                 break;
             case R.id.view_competion:
                 getActivity().finish();

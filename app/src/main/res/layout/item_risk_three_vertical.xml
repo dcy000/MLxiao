@@ -14,6 +14,7 @@
         android:textColor="#333"
         android:textSize="64pt" />
     <RadioGroup
+        android:id="@+id/three_vertical_rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"

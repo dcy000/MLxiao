@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,65 +31,26 @@ import org.json.JSONObject;
 
 public class WeekDietPlanFragment extends Fragment implements View.OnClickListener {
     private View view;
-    /**
-     * 周一
-     */
     private RadioButton mMonday;
-    /**
-     * 周二
-     */
     private RadioButton mTuesday;
-    /**
-     * 周三
-     */
     private RadioButton mWednesday;
-    /**
-     * 周四
-     */
     private RadioButton mThursday;
-    /**
-     * 周五
-     */
     private RadioButton mFriday;
-    /**
-     * 周六
-     */
     private RadioButton mSaturday;
-    /**
-     * 周日
-     */
     private RadioButton mSunday;
     private RadioGroup mRg;
-    /**
-     * 早餐
-     */
     private TextView mTvZaocan;
     private ImageView mIv1;
-    /**
-     * 燕麦粥，糖醋拌黄瓜，煮鸡蛋，牛奶米饭，芹菜肉丝，开洋丝瓜汤
-     */
     private TextView mTvBreakfast;
-    /**
-     * 午餐
-     */
     private TextView mTvWucan;
     private ImageView mIv2;
-    /**
-     * 燕麦粥，糖醋拌黄瓜，煮鸡蛋，牛奶米饭，芹菜肉丝，开洋丝瓜汤
-     */
     private TextView mTvLunch;
-    /**
-     * 晚餐
-     */
     private TextView mTvWancan;
     private ImageView mIv3;
-    /**
-     * 燕麦粥，糖醋拌黄瓜，煮鸡蛋，牛奶米饭，芹菜肉丝，开洋丝瓜汤
-     */
     private TextView mTvDinner;
     private WeekDietPlan cacheWeekDietPlan;
     private IChangToolbar iChangToolbar;
-
+    private String TAG="WeekDietPlanFragment";
     public void setOnChangToolbar(IChangToolbar iChangToolbar) {
         this.iChangToolbar = iChangToolbar;
     }
@@ -102,6 +64,7 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     }
 
     private void getData() {
+        Log.e(TAG, "getData: ");
         OkGo.<String>get(NetworkApi.WeekHealthDietPlan)
                 .params("userId", MyApplication.getInstance().userId)
                 .execute(new StringCallback() {
@@ -149,6 +112,10 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser){
+            Log.e(TAG, "setUserVisibleHint: " );
+            if (cacheWeekDietPlan!=null){
+                ((TreatmentPlanActivity) getActivity()).speak("主人，为了您的健康，我们精心为您准备了每天的健康食谱，请点击上方的按钮查看详情");
+            }
             if (iChangToolbar!=null){
                 iChangToolbar.onChange(this);
             }

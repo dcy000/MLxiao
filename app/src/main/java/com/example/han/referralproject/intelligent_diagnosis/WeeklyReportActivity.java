@@ -83,7 +83,7 @@ public class WeeklyReportActivity extends BaseActivity {
 
     private void getData() {
         Calendar curr = Calendar.getInstance();
-        curr.set(Calendar.DAY_OF_MONTH, curr.get(Calendar.DAY_OF_MONTH) - 7);
+        curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
         long weekAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.WeeklyOrMonthlyReport)
                 .params("userId", MyApplication.getInstance().userId)

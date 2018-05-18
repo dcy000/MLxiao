@@ -243,6 +243,13 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
                     lighton();
                 }
             });
+            popupView.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupWindow.dismiss();
+                    lighton();
+                }
+            });
         }
         if (popupWindow.isShowing()) {
             popupWindow.dismiss();

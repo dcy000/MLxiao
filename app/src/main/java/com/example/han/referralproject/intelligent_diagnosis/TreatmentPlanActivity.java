@@ -32,6 +32,8 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
     private DietPlanFragment treatmentProgramFragment3;
     private WeekDietPlanFragment treatmentProgramFragment4;
     private SportPlanFragment treatmentProgramFragment5;
+    public static boolean isSpeaked = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,23 +42,23 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
         mTitleText.setText("生活治疗方案");
         ButterKnife.bind(this);
         fragments = new ArrayList<>();
-        treatmentProgramFragment1= new LastWeekHealthReportFragment();
+        treatmentProgramFragment1 = new LastWeekHealthReportFragment();
         fragments.add(treatmentProgramFragment1);
         treatmentProgramFragment1.setOnChangToolbar(this);
 
-        treatmentProgramFragment2=new ThisWeekHealthPlanFragment();
+        treatmentProgramFragment2 = new ThisWeekHealthPlanFragment();
         fragments.add(treatmentProgramFragment2);
         treatmentProgramFragment2.setOnChangToolbar(this);
 
-        treatmentProgramFragment3=new DietPlanFragment();
+        treatmentProgramFragment3 = new DietPlanFragment();
         fragments.add(treatmentProgramFragment3);
         treatmentProgramFragment3.setOnChangToolbar(this);
 
-        treatmentProgramFragment4=new WeekDietPlanFragment();
+        treatmentProgramFragment4 = new WeekDietPlanFragment();
         fragments.add(treatmentProgramFragment4);
         treatmentProgramFragment4.setOnChangToolbar(this);
 
-        treatmentProgramFragment5=new SportPlanFragment();
+        treatmentProgramFragment5 = new SportPlanFragment();
         fragments.add(treatmentProgramFragment5);
         treatmentProgramFragment5.setOnChangToolbar(this);
 
@@ -76,15 +78,15 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
 
     @Override
     public void onChange(Fragment fragment) {
-        if (fragment instanceof LastWeekHealthReportFragment){
+        if (fragment instanceof LastWeekHealthReportFragment) {
             mTitleText.setText("上周健康报告");
-        }else if(fragment instanceof ThisWeekHealthPlanFragment){
+        } else if (fragment instanceof ThisWeekHealthPlanFragment) {
             mTitleText.setText("检测计划");
-        }else if(fragment instanceof DietPlanFragment){
+        } else if (fragment instanceof DietPlanFragment) {
             mTitleText.setText("膳食计划");
-        }else if(fragment instanceof WeekDietPlanFragment){
+        } else if (fragment instanceof WeekDietPlanFragment) {
             mTitleText.setText("膳食计划");
-        }else if(fragment instanceof SportPlanFragment){
+        } else if (fragment instanceof SportPlanFragment) {
             mTitleText.setText("运动计划");
         }
     }

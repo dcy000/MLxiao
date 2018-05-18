@@ -83,7 +83,7 @@ public class BloodsugarMonthlyReportActivity extends BaseActivity{
 
     private void getData() {
         Calendar curr = Calendar.getInstance();
-        curr.set(Calendar.MONTH, curr.get(Calendar.MONTH) - 1);
+        curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
         long monthAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.WeeklyOrMonthlyBloodsugar)
                 .params("userId", MyApplication.getInstance().userId)

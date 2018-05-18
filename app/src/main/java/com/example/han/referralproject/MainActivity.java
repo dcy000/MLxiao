@@ -18,12 +18,15 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.han.referralproject.blood_pressure_risk_assessment.HypertensionRiskActivity;
+import com.example.han.referralproject.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.intelligent_diagnosis.BloodsugarMonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.BloodsugarWeeklyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.TreatmentPlanActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
@@ -35,6 +38,7 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -170,9 +174,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-                startActivity(new Intent(this, BloodsugarMonthlyReportActivity.class));
+//                startActivity(new Intent(this, HypertensionRiskActivity.class));
                 //呼叫
-//                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
 //                    @Override
 //                    public void onSuccess(UserInfo response) {

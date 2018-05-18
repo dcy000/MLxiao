@@ -69,7 +69,7 @@ public class MeasureXuetangFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         tvTopTitle.setText("测量异常");
         title.setText(titleString);
-        ((DetectActivity)getActivity()).speak(titleString);
+        ((DetectActivity) getActivity()).speak(titleString);
         reasons = new ArrayList<>();
         initData();
         list.setLayoutManager(new GridLayoutManager(getActivity(), 3));
@@ -79,8 +79,9 @@ public class MeasureXuetangFragment extends Fragment {
         ivTopLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseReason.noReason();
-//                removeFragment();
+                if (chooseReason != null) {
+                    chooseReason.noReason();
+                }
             }
         });
         ivTopRight.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +94,9 @@ public class MeasureXuetangFragment extends Fragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (chooseReason == null) {
+                    return;
+                }
                 switch (position) {
                     case 0://选择时间错误
                         chooseReason.hasReason(0);
@@ -114,31 +118,27 @@ public class MeasureXuetangFragment extends Fragment {
                         break;
 
                 }
-//                removeFragment();
             }
         });
         otherReason.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseReason.hasReason(-1);
-//                removeFragment();
+                if (chooseReason != null) {
+                    chooseReason.hasReason(-1);
+                }
             }
         });
         measureNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseReason.noReason();
-//                removeFragment();
+                if (chooseReason != null) {
+                    chooseReason.noReason();
+                }
             }
         });
-
-
         return view;
     }
-//    private void removeFragment() {
-//        ((DetectActivity) getActivity()).getSupportFragmentManager()
-//                .beginTransaction().remove(MeasureXuetangFragment.this).commit();
-//    }
+
     private void initData() {
         reasons.add(R.drawable.measure_xzsj_sel);
         reasons.add(R.drawable.measure_dydx_sel);
@@ -147,11 +147,13 @@ public class MeasureXuetangFragment extends Fragment {
         reasons.add(R.drawable.measure_cx_sel);
         reasons.add(R.drawable.measure_qj_sel);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
     private MeasureChooseReason chooseReason;
 
     public void setOnChooseReason(MeasureChooseReason chooseReason) {

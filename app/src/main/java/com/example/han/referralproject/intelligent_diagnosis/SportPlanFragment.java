@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,10 +56,13 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
     private boolean isMore = false;
     private List<SportPlan.SportListBean> cacheDatas;
     private IChangToolbar iChangToolbar;
+    private String TAG = "SportPlanFragment";
+    private SportPlan data;
 
     public void setOnChangToolbar(IChangToolbar iChangToolbar) {
         this.iChangToolbar = iChangToolbar;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -96,12 +100,13 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 startActivity(new Intent(getActivity(), SportPlanDetailActivity.class)
-                        .putExtra("data",mData.get(i)));
+                        .putExtra("data", mData.get(i)));
             }
         });
     }
 
     private void getData() {
+        Log.e(TAG, "getData: ");
         OkGo.<String>get(NetworkApi.SportHealthPlan)
                 .params("userId", MyApplication.getInstance().userId)
                 .execute(new StringCallback() {
@@ -112,6 +117,8 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
                             if (object.optInt("code") == 200) {
                                 SportPlan data = new Gson().fromJson(object.optJSONObject("data").toString(), SportPlan.class);
                                 dealData(data);
+                            }else if (object.optInt("code")==500){
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -129,6 +136,7 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
         if (data == null) {
             return;
         }
+        this.data = data;
         String sportLevel = data.getSportLevel();
         if (!TextUtils.isEmpty(sportLevel)) {
             exerciseIntensity.setText(sportLevel);
@@ -141,26 +149,34 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
         runDuration.setText(sportWeekTime + "");
         String sportTime = data.getSportTime();
         if (!TextUtils.isEmpty(sportTime)) {
-            exerciseFrequency.setText(sportTime.charAt(2)+"");
+            exerciseFrequency.setText(sportTime.charAt(2) + "");
         }
         List<SportPlan.SportListBean> sportList = data.getSportList();
         if (sportList != null) {
-            cacheDatas=sportList;
-            if (!isMore&&sportList.size()>5) {
+            cacheDatas = sportList;
+            if (!isMore && sportList.size() > 5) {
 
                 for (int i = 0; i < 5; i++) {
                     mData.add(sportList.get(i));
                 }
             } else {
+                moreExercise.setVisibility(View.GONE);
                 mData.addAll(sportList);
             }
             adapter.notifyDataSetChanged();
         }
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser){
-            if (iChangToolbar!=null){
+        if (isVisibleToUser) {
+            Log.e(TAG, "setUserVisibleHint: ");
+            if (data != null) {
+                ((TreatmentPlanActivity) getActivity())
+                        .speak("主人，为了您的健康，小依为您推荐了下面的运动项目，请选择自己喜欢的、合适的项目进行锻炼。" +
+                                "小依建议您运动" + data.getSportTime() + "，运动时候的心率应小于" + data.getSportRate() + "，运动强度应较" + data.getSportLevel());
+            }
+            if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);
             }
         }
@@ -187,17 +203,17 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.more_exercise:
                 mData.clear();
-                if (isMore&&cacheDatas.size()>5){
-                    isMore=false;
+                if (isMore && cacheDatas.size() > 5) {
+                    isMore = false;
                     for (int i = 0; i < 5; i++) {
                         mData.add(cacheDatas.get(i));
                     }
                     moreExercise.setText("更多");
-                }else{
-                    isMore=true;
+                } else {
+                    isMore = true;
                     mData.addAll(cacheDatas);
                     moreExercise.setText("收起");
                 }

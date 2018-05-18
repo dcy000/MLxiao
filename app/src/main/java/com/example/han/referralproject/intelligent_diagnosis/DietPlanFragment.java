@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,10 +57,13 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
     private List<FoodMateratilDetail> cacheDatas;
     private boolean isMore = false;
     private IChangToolbar iChangToolbar;
+    private String TAG = "DietPlanFragment";
+    private DailyRecommendIntake topData;
 
     public void setOnChangToolbar(IChangToolbar iChangToolbar) {
         this.iChangToolbar = iChangToolbar;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -96,12 +100,13 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                startActivity(new Intent(getActivity(), FoodMaterialDetailActivity.class).putExtra("data",mData.get(i)));
+                startActivity(new Intent(getActivity(), FoodMaterialDetailActivity.class).putExtra("data", mData.get(i)));
             }
         });
     }
 
     private void getData() {
+        Log.e(TAG, "getData: ");
         OkGo.<String>get(NetworkApi.Daily_Recommended_Intake)
                 .params("userId", MyApplication.getInstance().userId)
                 .execute(new StringCallback() {
@@ -151,12 +156,13 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
         if (datas == null) {
             return;
         }
-        cacheDatas=datas;
-        if (!isMore&&datas.size()>5) {
+        cacheDatas = datas;
+        if (!isMore && datas.size() > 5) {
             for (int i = 0; i < 5; i++) {
                 mData.add(datas.get(i));
             }
         } else {
+            tvMore.setVisibility(View.GONE);
             mData.addAll(datas);
         }
         adapter.notifyDataSetChanged();
@@ -166,6 +172,7 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
         if (data == null) {
             return;
         }
+        topData = data;
         String naSalt = data.getNaSalt();
         if (!TextUtils.isEmpty(naSalt)) {
             tvSalt.setText(naSalt);
@@ -176,7 +183,7 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
         }
         String drink = data.getDrink();
         if (!TextUtils.isEmpty(drink)) {
-            tvDrink.setText(drink.substring(2));
+            tvDrink.setText(drink);
         }
         String smoke = data.getSmoke();
         if (!TextUtils.isEmpty(smoke)) {
@@ -184,14 +191,21 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser){
-            if (iChangToolbar!=null){
+        if (isVisibleToUser) {
+            if (topData != null && cacheDatas != null) {
+                ((TreatmentPlanActivity) getActivity()).speak("主人，您本周每日食盐量应少于" + topData.getNaSalt()
+                        + "，油脂应少于" + topData.getGrease() + ",饮酒应少于" + topData.getDrink() + "，每日应" + topData.getSmoke()
+                        + "。为了您的健康，我们还为您推荐了以下的食材，请每天至少食用其中的两种");
+            }
+            if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);
             }
         }
     }
+
     private void initView(View view) {
         mData = new ArrayList<>();
         intakeSalt = (TextView) view.findViewById(R.id.intake_salt);
@@ -217,14 +231,14 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tv_more:
                 mData.clear();
-                if (isMore&&cacheDatas.size()>5){
-                    isMore=false;
+                if (isMore && cacheDatas.size() > 5) {
+                    isMore = false;
                     for (int i = 0; i < 5; i++) {
                         mData.add(cacheDatas.get(i));
                     }
                     tvMore.setText("更多");
-                }else{
-                    isMore=true;
+                } else {
+                    isMore = true;
                     mData.addAll(cacheDatas);
                     tvMore.setText("收起");
                 }

@@ -33,7 +33,7 @@ import me.relex.circleindicator.CircleIndicator;
  * Created by Administrator on 2018/5/15.
  */
 
-public class BloodsugarWeeklyReportActivity extends BaseActivity{
+public class BloodsugarWeeklyReportActivity extends BaseActivity {
     @BindView(R.id.viewpage)
     ViewPager viewpage;
     @BindView(R.id.circleIndicator)
@@ -54,9 +54,9 @@ public class BloodsugarWeeklyReportActivity extends BaseActivity{
 
         new_fragment1 = new BloodsugarWeeklyReport1Fragment();
         fragments.add(new_fragment1);
-        new_fragment2=new BloodsugarWeeklyReport2Fragment();
+        new_fragment2 = new BloodsugarWeeklyReport2Fragment();
         fragments.add(new_fragment2);
-        new_fragment3=new New_WeeklyReport3Fragment();
+        new_fragment3 = new New_WeeklyReport3Fragment();
         fragments.add(new_fragment3);
 
 
@@ -78,7 +78,7 @@ public class BloodsugarWeeklyReportActivity extends BaseActivity{
 
     private void getData() {
         Calendar curr = Calendar.getInstance();
-        curr.set(Calendar.DAY_OF_MONTH, curr.get(Calendar.DAY_OF_MONTH) - 7);
+        curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
         long weekAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.WeeklyOrMonthlyBloodsugar)
                 .params("userId", MyApplication.getInstance().userId)

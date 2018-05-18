@@ -36,7 +36,10 @@ public class BloodsugarRiskAssessmentResultActivity extends BaseActivity {
             return;
         }
         riskDisease.setMaxValue(100);
-        riskDisease.setValue(10.3f);
+        String diseaseProbability = data.getDiseaseProbability();
+        if (!TextUtils.isEmpty(diseaseProbability)) {
+            riskDisease.setValue(Float.parseFloat(diseaseProbability));
+        }
         riskDisease.setUnit(data.getCriticality()+"风险");
         healthScore.setMaxValue(100);
         healthScore.setValue(data.getScore());
@@ -55,7 +58,9 @@ public class BloodsugarRiskAssessmentResultActivity extends BaseActivity {
         }
         if (!TextUtils.isEmpty(data.getAssessSuggest())){
             tvResult.setText(data.getAssessSuggest());
+
         }
+        speak("主人，您三年内患糖尿病的概率为"+data.getDiseaseProbability()+"%,"+data.getAssessSuggest()+"本次评估分数为"+data.getScore()+"分");
     }
 
     private void initView() {

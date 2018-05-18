@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f5f5f5"
     tools:context="com.example.han.referralproject.measure.MeasureXuetangResultActivity">
     <LinearLayout
         android:id="@+id/ll_left"
@@ -14,7 +15,10 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32pt"
+        android:layout_marginLeft="32pt"
+        android:layout_marginBottom="32pt">
         <TextView
             android:id="@+id/tv_measure_title"
             android:layout_width="wrap_content"
@@ -289,65 +293,84 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/white"
         android:layout_marginLeft="32pt"
         >
         <LinearLayout
             android:id="@+id/ll_gaodi"
             android:layout_width="0pt"
-            android:layout_height="wrap_content"
+            android:layout_height="358pt"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/ll_fenshu"
             android:orientation="vertical"
-            android:gravity="center">
+            android:background="@color/white"
+            android:layout_marginTop="32pt">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="测量结果"
-                android:textColor="#333"
+                android:text="本次测量结果"
+                android:textColor="#666"
                 android:textSize="40pt"
-                android:layout_marginTop="50pt"/>
-            <com.littlejie.circleprogress.CircleProgress
-                android:id="@+id/circleprogress"
-                android:layout_width="320pt"
-                android:layout_height="320pt"
-                app:cp_antiAlias="true"
-                app:cp_arcWidth="16pt"
-                app:cp_bgArcColor="#eee"
-                app:cp_bgArcWidth="16pt"
-                app:cp_maxValue="10"
-                app:cp_startAngle="135"
-                app:cp_sweepAngle="270"
-                app:cp_unit="mmol/L"
-                app:cp_unitSize="40pt"
+                android:layout_marginTop="36pt"
+                android:layout_marginLeft="40pt"/>
+            <TextView
+                android:id="@+id/measure_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="56pt"
+                android:textColor="#333"
+                android:text="空腹"
+                android:layout_marginLeft="40pt"
+                android:layout_marginTop="40pt"/>
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_marginLeft="40pt"
+               android:layout_marginTop="16pt">
+               <TextView
+                   android:id="@+id/currentXuetang"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="3.12"
+                   android:textColor="#3F86FC"
+                   android:textSize="110pt"/>
+               <TextView
+                   android:id="@+id/currentXuetang_unit"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="56pt"
+                   android:textColor="#3F86FC"
+                   android:text="mmol/L"/>
+           </LinearLayout>
 
-                app:cp_value="10000"
-                app:cp_valueSize="100pt"
-                android:layout_marginTop="34pt"
-                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_fenshu"
             android:layout_width="0pt"
-            android:layout_height="wrap_content"
+            android:layout_height="358pt"
             app:layout_constraintLeft_toRightOf="@id/ll_gaodi"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:orientation="horizontal"
+            android:layout_marginLeft="32pt"
+            android:background="@color/white"
+            android:layout_marginTop="32pt"
+            android:layout_marginRight="32pt">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="健康分数"
-                android:textColor="#333"
+                android:textColor="#666"
                 android:textSize="40pt"
-                android:layout_marginTop="50pt"/>
+                android:layout_marginTop="40pt"
+                android:layout_marginLeft="40pt"/>
             <com.littlejie.circleprogress.WaveProgress
                 android:id="@+id/wave_progress_bar"
-                android:layout_width="300pt"
-                android:layout_height="300pt"
-                android:layout_gravity="center_horizontal"
+                android:layout_width="273pt"
+                android:layout_height="273pt"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="80pt"
                 app:cp_darkWaveAnimTime="1000"
                 app:cp_darkWaveColor="#B372A7FC"
                 app:cp_lightWaveAnimTime="2000"
@@ -360,76 +383,87 @@
                 app:cp_circleColor="#eee"
                 app:cp_lockCircle="true"
                 app:cp_bgCircleColor="#F1F5FF"
-                android:layout_marginTop="34pt"
                 app:cp_circleWidth="3pt"
                 />
         </LinearLayout>
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            app:layout_constraintTop_toBottomOf="@id/ll_fenshu"
-            android:background="#bbbbbb"
+        <!--<View-->
+            <!--android:id="@+id/line"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/ll_gaodi"-->
+            <!--android:background="#bbbbbb"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--android:layout_marginLeft="60pt"-->
+            <!--android:layout_marginRight="60pt"-->
+            <!--android:layout_marginTop="24pt"/>-->
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="60pt"
-            android:layout_marginRight="60pt"
-            android:layout_marginTop="24pt"/>
-        <TextView
-            android:id="@+id/tv_suggest_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="健康建议"
-            app:layout_constraintTop_toBottomOf="@id/line"
-            android:textSize="56pt"
-            android:textColor="#333"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="36pt"
-            />
-        <TextView
-            android:id="@+id/tv_suggest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_suggest_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textColor="#333"
-            android:textSize="48pt"
-            android:layout_marginLeft="60pt"
-            android:layout_marginRight="60pt"
-            android:layout_marginTop="16pt"
-            android:text="主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。"
-            android:lineSpacingMultiplier="1.2"/>
-        <TextView
-            android:id="@+id/tv_something_advice"
-            android:layout_width="280pt"
-            android:layout_height="100pt"
-            android:background="@drawable/measure_result"
-            android:text="风险评估"
-            android:textColor="@color/white"
-            android:textSize="48pt"
-            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/ll_gaodi"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/health_knowledge"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginBottom="50pt"
-            android:clickable="true"/>
-        <TextView
-            android:id="@+id/health_knowledge"
-            android:layout_width="280pt"
-            android:layout_height="100pt"
-            android:background="@drawable/measure_result2"
-            android:text="健康报告"
-            android:textColor="@color/white"
-            android:textSize="48pt"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="@id/tv_something_advice"
-            app:layout_constraintLeft_toRightOf="@id/tv_something_advice"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="190pt"
-            android:clickable="true"/>
+            android:background="@color/white"
+            android:layout_marginTop="32pt"
+            android:layout_marginRight="32pt"
+            android:layout_marginBottom="32pt">
+            <TextView
+                android:id="@+id/tv_suggest_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="健康建议"
+                android:textSize="56pt"
+                android:textColor="#333"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="40pt"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:id="@+id/tv_suggest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_suggest_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="#333"
+                android:textSize="48pt"
+                android:layout_marginLeft="60pt"
+                android:layout_marginRight="60pt"
+                android:layout_marginTop="32pt"
+                android:text="主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。"
+                android:lineSpacingMultiplier="1.2"/>
+            <TextView
+                android:id="@+id/tv_something_advice"
+                android:layout_width="280pt"
+                android:layout_height="100pt"
+                android:background="@drawable/measure_result"
+                android:text="风险评估"
+                android:textColor="@color/white"
+                android:textSize="48pt"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/health_knowledge"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginBottom="40pt"
+                android:clickable="true"/>
+            <TextView
+                android:id="@+id/health_knowledge"
+                android:layout_width="280pt"
+                android:layout_height="100pt"
+                android:background="@drawable/measure_result2"
+                android:text="健康报告"
+                android:textColor="@color/white"
+                android:textSize="48pt"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@id/tv_something_advice"
+                app:layout_constraintLeft_toRightOf="@id/tv_something_advice"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="190pt"
+                android:clickable="true"/>
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f5f5f5"
-        android:orientation="vertical">
-
+        android:background="#f5f5f5">
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_1"
             android:layout_width="match_parent"
             android:layout_height="322pt"
             android:layout_marginLeft="32pt"
@@ -23,14 +22,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40pt"
+                android:layout_marginTop="48pt"
                 android:text="运动强度"
                 android:textColor="#999"
                 android:textSize="56pt"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/intake_oil"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="48pt"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/intake_oil"
@@ -70,11 +69,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="48pt"
+                android:layout_marginTop="40pt"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/intake_salt"
-                app:layout_constraintTop_toBottomOf="@id/intake_salt"
-                android:layout_marginTop="40pt">
+                app:layout_constraintTop_toBottomOf="@id/intake_salt">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,11 +97,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="48pt"
+                android:layout_marginTop="40pt"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/intake_oil"
-                app:layout_constraintTop_toBottomOf="@id/intake_salt"
-                android:layout_marginTop="40pt">
+                app:layout_constraintTop_toBottomOf="@id/intake_salt">
 
                 <TextView
                     android:id="@+id/maximum_heart_rate"
@@ -126,11 +125,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="48pt"
+                android:layout_marginTop="40pt"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/intake_drink"
-                app:layout_constraintTop_toBottomOf="@id/intake_salt"
-                android:layout_marginTop="40pt">
+                app:layout_constraintTop_toBottomOf="@id/intake_salt">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -162,11 +161,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="48pt"
+                android:layout_marginTop="40pt"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/intake_smoke"
-                app:layout_constraintTop_toBottomOf="@id/intake_salt"
-                android:layout_marginTop="40pt">
+                app:layout_constraintTop_toBottomOf="@id/intake_salt">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -199,7 +198,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="32pt"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:layout_below="@id/cl_1">
 
             <TextView
                 android:id="@+id/tv_tuijian"
@@ -236,5 +236,5 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_tuijian" />
         </android.support.constraint.ConstraintLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

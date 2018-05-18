@@ -180,6 +180,15 @@ public class WeeklyOrMonthlyReport {
         private String endTime;
         private String lowOffsetType;
         private List<DetectionListBean> detectionList;
+        private String completion;
+
+        public String getCompletion() {
+            return completion;
+        }
+
+        public void setCompletion(String completion) {
+            this.completion = completion;
+        }
 
         public String getStartTime() {
             return startTime;

@@ -62,31 +62,30 @@ public class NetworkApi {
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
 
 
-
-//    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
+    //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
     public static final String BasicUrl = "http://192.168.200.117:8080";//林天聪
     //生活疗法
-    public static final String Life_Therapy=BasicUrl+"/ZZB/api/healthMonitor/report/lifeTherapy/";
+    public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐
-    public static final String SportHealthPlan=BasicUrl+"/ZZB/api/healthMonitor/lifeTherapy/sport/";
+    public static final String SportHealthPlan = BasicUrl + "/ZZB/api/healthMonitor/lifeTherapy/sport/";
     //一周健康计划推荐
-    public static final String WeekHealthDietPlan=BasicUrl+"/ZZB/api/healthMonitor/lifeTherapy/food/cookbook/";
+    public static final String WeekHealthDietPlan = BasicUrl + "/ZZB/api/healthMonitor/lifeTherapy/food/cookbook/";
     //每日食材推荐
-    public static final String Daily_Food_Recommendation=BasicUrl+"/ZZB/api/healthMonitor/lifeTherapy/food/";
+    public static final String Daily_Food_Recommendation = BasicUrl + "/ZZB/api/healthMonitor/lifeTherapy/food/";
     //每日建议摄入食盐、油等
-    public static final String Daily_Recommended_Intake=BasicUrl+"/ZZB/api/healthMonitor/lifeTherapy/food/dailyIntake/";
+    public static final String Daily_Recommended_Intake = BasicUrl + "/ZZB/api/healthMonitor/lifeTherapy/food/dailyIntake/";
     //上周检测结果
-    public static final String LastWeekAllReport=BasicUrl+"/ZZB/api/healthMonitor/lifeTherapy/weekReport/";
+    public static final String LastWeekAllReport = BasicUrl + "/ZZB/api/healthMonitor/lifeTherapy/weekReport/";
     //本周计划
-    public static final String ThisWeekPlan=BasicUrl+"/ZZB/api/healthMonitor/lifeTherapy/detectionReport/";
+    public static final String ThisWeekPlan = BasicUrl + "/ZZB/api/healthMonitor/lifeTherapy/detectionReport/";
     //血糖周报告、月报告
-    public static final String WeeklyOrMonthlyBloodsugar=BasicUrl+"/ZZB/api/healthMonitor/report/diabetes/week/";
+    public static final String WeeklyOrMonthlyBloodsugar = BasicUrl + "/ZZB/api/healthMonitor/report/diabetes/week/";
     //血压周报告、月报告接口
-    public static final String WeeklyOrMonthlyReport=BasicUrl+"/ZZB/api/healthMonitor/report/hypertension/week/";
+    public static final String WeeklyOrMonthlyReport = BasicUrl + "/ZZB/api/healthMonitor/report/hypertension/week/";
     //高血压风险评估
     public static final String Hypertension_Detection = BasicUrl + "/ZZB/api/healthMonitor/hypertension/analysis/";
     //糖尿病风险评估
-    public static final String Bloodsugar_Detection=BasicUrl+"/ZZB/api/healthMonitor/diabetes/questionnaire/";
+    public static final String Bloodsugar_Detection = BasicUrl + "/ZZB/api/healthMonitor/diabetes/questionnaire/";
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";

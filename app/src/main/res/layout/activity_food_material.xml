@@ -7,7 +7,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
         <ImageView
             android:id="@+id/food_material_img"
             android:layout_width="360pt"
@@ -123,9 +125,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40pt"
-            app:layout_constraintLeft_toLeftOf="@id/food_material_img"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_tip1" />
+            app:layout_constraintTop_toBottomOf="@id/tv_tip1"
+            android:layout_marginLeft="36pt"
+            android:focusable="false"
+            />
 
         <TextView
             android:id="@+id/tv_tip2"
