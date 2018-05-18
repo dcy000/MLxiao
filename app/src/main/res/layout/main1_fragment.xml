@@ -8,78 +8,63 @@
 
     <ImageView
         android:id="@+id/iv_head"
-        android:layout_width="184dp"
-        android:layout_height="169dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="34dp"
-        android:background="#555"
-        app:layout_constraintEnd_toEndOf="@+id/iv_qianyue"
-        app:layout_constraintStart_toStartOf="@+id/iv_qianyue"
-        app:layout_constraintTop_toBottomOf="@+id/iv_qianyue" />
+        android:layout_width="328pt"
+        android:layout_height="328pt"
+        android:src="@drawable/main_iv_qianyue"
+        app:layout_constraintBottom_toBottomOf="@+id/tijian"
+        app:layout_constraintStart_toStartOf="@+id/iv_qianyue" />
 
     <ImageView
         android:id="@+id/iv_qianyue"
-        android:layout_width="184dp"
-        android:layout_height="169dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="30dp"
-        android:background="#333"
+        android:layout_width="328pt"
+        android:layout_height="328pt"
+        android:layout_marginStart="89pt"
+        android:layout_marginTop="120pt"
+        android:src="@drawable/main_iv_head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:src="@drawable/main_zhengzhuangzichan"
         android:id="@+id/celianglishi"
-        android:layout_width="600dp"
-        android:layout_height="94dp"
-        android:layout_marginBottom="31dp"
-        android:layout_marginTop="25dp"
-        android:background="#966"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/iv_qianyue"
-        app:layout_constraintTop_toBottomOf="@+id/iv_head" />
+        android:layout_width="1212pt"
+        android:layout_height="328pt"
+        android:layout_marginTop="24pt"
+        app:layout_constraintStart_toStartOf="@+id/iv_head"
+        app:layout_constraintTop_toBottomOf="@+id/tijian" />
 
     <ImageView
+        android:src="@drawable/main_tijian"
         android:id="@+id/tijian"
-        android:layout_width="356dp"
-        android:layout_height="374dp"
-        android:layout_marginStart="57dp"
-        android:background="#166"
+        android:layout_width="860pt"
+        android:layout_height="680pt"
+        android:layout_marginStart="24pt"
         app:layout_constraintStart_toEndOf="@+id/iv_head"
         app:layout_constraintTop_toTopOf="@+id/iv_qianyue" />
 
     <ImageView
         android:id="@+id/zhengzhuangzichan"
-        android:layout_width="199dp"
-        android:layout_height="169dp"
-        android:layout_marginEnd="61dp"
-        android:layout_marginStart="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_qianyue"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="594pt"
+        android:layout_height="328pt"
+        android:layout_marginStart="24pt"
         app:layout_constraintStart_toEndOf="@+id/tijian"
         app:layout_constraintTop_toTopOf="@+id/tijian"
-        app:srcCompat="@drawable/__leak_canary_icon" />
+        android:src="@drawable/main_celianglishi" />
 
     <ImageView
         android:id="@+id/yishengjianyi"
-        android:layout_width="200dp"
-        android:layout_height="178dp"
-        android:layout_marginBottom="17dp"
-        app:layout_constraintBottom_toTopOf="@+id/jiankangketang"
-        app:layout_constraintEnd_toEndOf="@+id/zhengzhuangzichan"
+        android:layout_width="594pt"
+        android:layout_height="328pt"
         app:layout_constraintStart_toStartOf="@+id/zhengzhuangzichan"
         app:layout_constraintTop_toTopOf="@+id/iv_head"
-        app:srcCompat="@drawable/abdomen_selected" />
+        app:srcCompat="@drawable/main_yishengjianyi" />
 
     <ImageView
+        android:src="@drawable/main_jiankangketang"
         android:id="@+id/jiankangketang"
-        android:layout_width="203dp"
-        android:layout_height="93dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginStart="43dp"
-        android:background="#0ff"
-        app:layout_constraintBottom_toBottomOf="@+id/celianglishi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/celianglishi"
+        android:layout_width="594pt"
+        android:layout_height="328pt"
+        app:layout_constraintStart_toStartOf="@+id/zhengzhuangzichan"
         app:layout_constraintTop_toTopOf="@+id/celianglishi" />
 
 </android.support.constraint.ConstraintLayout>
