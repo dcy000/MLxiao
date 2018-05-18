@@ -60,6 +60,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         accountTip.setOnClickListener(this);
         regist.setOnClickListener(this);
         signUpFast.setOnClickListener(this);
+        tvIdcardSignIn.setOnClickListener(this);
 
         SpannableStringBuilder agreeBuilder = new SpannableStringBuilder("我同意用户协议");
         agreeBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#FF380000")),
