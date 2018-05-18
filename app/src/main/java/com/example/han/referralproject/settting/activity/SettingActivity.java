@@ -68,10 +68,14 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         mTitleText.setText("设置");
     }
 
-    @OnClick({R.id.rl_voice_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_netless,
+    @OnClick({R.id.rl_voice_set, R.id.rl_brightness_set ,R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_netless,
             R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name, R.id.rl_set_talk_type})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_brightness_set:
+                //亮度设置
+                startActivity(new Intent(this, BrightnessSettingActivity.class));
+                break;
             case R.id.rl_voice_set:
                 //声音设置
                 startActivity(new Intent(this, VoiceSettingActivity.class));

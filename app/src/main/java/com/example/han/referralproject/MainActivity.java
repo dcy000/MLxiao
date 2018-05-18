@@ -9,15 +9,18 @@ import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
-import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DiseaseUser;
@@ -27,11 +30,9 @@ import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.NetworkUtils;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
@@ -40,8 +41,8 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.utils.T;
+import com.ml.brightness.BrightnessHelper;
+import com.ml.brightness.GestureHelper;
 
 import org.litepal.crud.DataSupport;
 
@@ -60,10 +61,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     SharedPreferences sharedPreferences;
 
-
     private ImageView mImageView6;
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

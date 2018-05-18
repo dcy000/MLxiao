@@ -9,6 +9,39 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/rl_brightness_set"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/selector_setting_item_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:text="亮度设置"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="28dp"
+                android:src="@drawable/ic_fh" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="#DDDDDD" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/rl_voice_set"
             android:layout_width="match_parent"
             android:layout_height="75dp"

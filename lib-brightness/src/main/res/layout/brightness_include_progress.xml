@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/brightness_ll_progress"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:background="#66333333"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:visibility="visible">
+
+    <ImageView
+        android:id="@+id/brightness_iv_indicator"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="6dp"
+        tools:src="@drawable/brightness_ic_indicator"/>
+
+    <ProgressBar
+        android:id="@+id/brightness_pb_progress"
+        style="@style/brightness_progressStyle"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="4dp"
+        android:max="100"
+        android:progress="0"
+        tools:progress="18"/>
+</LinearLayout>

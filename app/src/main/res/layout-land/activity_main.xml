@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_white"
-    tools:context="com.example.han.referralproject.MainActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/rl_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_white"
+                tools:context="com.example.han.referralproject.MainActivity">
 
     <View
         android:id="@+id/line_cv"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_centerVertical="true"
-        android:background="@null" />
+        android:background="@null"/>
 
     <LinearLayout
         android:id="@+id/ll_robot_con"
@@ -26,7 +27,7 @@
             android:layout_height="460dp"
             android:layout_marginTop="13dp"
             android:clickable="true"
-            android:src="@drawable/ic_self_test" />
+            android:src="@drawable/ic_self_test"/>
 
         <ImageView
             android:id="@+id/health_detect"
@@ -50,7 +51,7 @@
         android:layout_marginTop="25dp"
         android:layout_toLeftOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/ic_person_info" />
+        android:src="@drawable/ic_person_info"/>
 
     <ImageView
         android:id="@+id/health_test"
@@ -65,7 +66,7 @@
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/ic_health_test" />
+        android:src="@drawable/ic_health_test"/>
 
     <ImageView
         android:id="@+id/doctor_ask"
@@ -80,7 +81,7 @@
         android:layout_marginTop="25dp"
         android:layout_toRightOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/ic_doctor_ask" />
+        android:src="@drawable/ic_doctor_ask"/>
 
     <ImageView
         android:id="@+id/health_class"
@@ -103,21 +104,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:src="@drawable/conversation_bg" />
+            android:src="@drawable/conversation_bg"/>
     </RelativeLayout>
 
     <ImageView
-        android:visibility="gone"
         android:id="@+id/iv_battery"
         android:layout_width="50dp"
         android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/fl_status_bar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"/>
+
 </RelativeLayout>

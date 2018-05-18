@@ -179,4 +179,5 @@ dependencies {
     //    compile project(':module_hykd')
     compile project(':voice')
     compile project(':lib-idcard-reader')
+    compile project(':lib-brightness')
 }

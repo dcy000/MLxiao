@@ -685,6 +685,8 @@
         <activity android:name=".activity.ChooseRegisterTypeActivity"/>
         <activity android:name=".bodytest.activity.ChineseMedicineMonitorActivity"/>
         <activity android:name=".bodytest.activity.MonitorResultActivity"/>
+        <activity android:name=".settting.activity.BrightnessSettingActivity">
+        </activity>
     </application>
 
 </manifest>
