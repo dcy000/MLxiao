@@ -1108,4 +1108,15 @@ public class NetworkApi {
         params.put("state", "2");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, MonthlyReport.class, successCallback, failedCallback);
     }
+
+    public static final String AUTH_IS_REGISTERED_ID_CARD = BasicUrl + "/ZZB/login/user_sfz_login";
+
+    public static void isRegisteredByIdCard(String idCard, NetworkManager.SuccessCallback<UserInfoBean> successCallback,
+                                            NetworkManager.FailedCallback failedCallback) {
+
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("sfz", idCard);
+        NetworkManager.getInstance().getResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
+    }
 }

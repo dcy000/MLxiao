@@ -684,6 +684,8 @@
 
         </activity>
         <activity android:name=".questionair.activity.MonitorResultActivity"></activity>
+        <activity android:name=".idcard.IdCardInfoActivity" />
+        <activity android:name=".idcard.SignInIdCardActivity" />
     </application>
 
 </manifest>

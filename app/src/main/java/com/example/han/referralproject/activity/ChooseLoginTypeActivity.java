@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.idcard.SignInIdCardActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
@@ -45,6 +46,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     CheckBox cbSignInAgree;
     @BindView(R.id.tv_sign_in_agree)
     TextView tvSignInAgree;
+    @BindView(R.id.tv_idcard_sign_in)
+    TextView tvIdcardSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +97,18 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 startActivity(new Intent(ChooseLoginTypeActivity.this, SignUp1NameActivity.class));
                 break;
             case R.id.regist://注册
-                startActivity(new Intent(ChooseLoginTypeActivity.this, SignUp1NameActivity.class));
+//                startActivity(new Intent(ChooseLoginTypeActivity.this, SignUp1NameActivity.class));
+                //身份证注册
+                startActivity(new Intent(ChooseLoginTypeActivity.this, SignInIdCardActivity.class));
                 break;
             case R.id.sign_up_fast://快速注册
                 Intent intent = new Intent(ChooseLoginTypeActivity.this, SignUp01NameActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                break;
+            case R.id.tv_idcard_sign_in:
+                //身份证登录
+                startActivity(new Intent(ChooseLoginTypeActivity.this, SignInIdCardActivity.class));
                 break;
         }
     }

@@ -68,7 +68,19 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_sign_in_password"/>
-
+            <TextView
+                android:id="@+id/tv_idcard_sign_in"
+                android:layout_width="800pt"
+                android:layout_height="100pt"
+                android:layout_marginTop="180pt"
+                android:background="@drawable/sign_in_bg_tv_sign_in2"
+                android:gravity="center"
+                android:text="身份证登录"
+                android:textColor="#3F86FC"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_sign_in_password"/>
             <TextView
                 android:id="@+id/account_tip"
                 android:layout_width="wrap_content"
@@ -87,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="162pt"
-                android:text="立即注册"
+                android:text="身份证注册"
                 android:textColor="#3F86FC"
                 android:textSize="44pt"
                 app:layout_constraintLeft_toRightOf="@id/account_tip"

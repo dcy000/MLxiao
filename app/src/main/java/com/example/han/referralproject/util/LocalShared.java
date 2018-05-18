@@ -560,4 +560,12 @@ public class LocalShared {
     public boolean getMeasureSanheyiFirst() {
         return mShared.getBoolean("measure_sanheyi_first", true);
     }
+
+    public void setString(String key, String value) {
+        mShared.edit().putString(key, value).commit();
+    }
+
+    public String getString(String key) {
+        return mShared.getString(key, "");
+    }
 }
