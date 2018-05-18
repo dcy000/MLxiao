@@ -25,10 +25,14 @@ import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.google.gson.Gson;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +43,7 @@ import butterknife.Unbinder;
  * Created by lenovo on 2018/5/17.
  */
 
-public class Main1Fragment extends Fragment {
+public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogItemClickListener {
     @BindView(R.id.iv_head)
     ImageView ivHead;
     @BindView(R.id.iv_qianyue)
@@ -55,6 +59,7 @@ public class Main1Fragment extends Fragment {
     @BindView(R.id.jiankangketang)
     ImageView jiankangketang;
     Unbinder unbinder;
+    private TiZhiJianCeDialog dialog;
 
     @Nullable
     @Override
@@ -111,9 +116,7 @@ public class Main1Fragment extends Fragment {
 
                 break;
             case R.id.zhengzhuangzichan:
-//                gotoZhengZhuangZiCha();
-                gotoTizhiJianCe();
-
+                showDialog();
                 break;
             case R.id.yishengjianyi:
                 gotoYiShengJianYi();
@@ -122,6 +125,27 @@ public class Main1Fragment extends Fragment {
                 gotoJianKangJiangTang();
                 break;
         }
+    }
+
+    private List<MainTiZHiDialogBean> data = new ArrayList<>();
+    public static final String ZHONGYI_TIZHI = "中医体质";
+    public static final String ZHENGZHUANG_ZICHA = "症状自查";
+
+    private void showDialog() {
+        if (dialog == null) {
+            dialog = new TiZhiJianCeDialog();
+        }
+
+        data.clear();
+        MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
+        bean1.name = ZHENGZHUANG_ZICHA;
+        MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
+        bean2.name = ZHONGYI_TIZHI;
+        data.add(bean1);
+        data.add(bean2);
+        dialog.setListener(this, data);
+        dialog.show(getFragmentManager(), "dialog");
+
     }
 
     private void gotoTizhiJianCe() {
@@ -197,4 +221,13 @@ public class Main1Fragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClick(String name) {
+        if (ZHONGYI_TIZHI.equals(name)) {
+            gotoTizhiJianCe();
+        } else if (ZHENGZHUANG_ZICHA.equals(name)) {
+            gotoZhengZhuangZiCha();
+        }
+
+    }
 }
