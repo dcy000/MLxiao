@@ -1,0 +1,926 @@
+﻿[
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您精神充分吗?",
+    "requestionType": "平和质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易疲惫吗?",
+    "requestionType": "平和质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您说话声响有力吗?",
+    "requestionType": "平和质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您感到心花怒放吗?",
+    "requestionType": "平和质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您比普通 人耐受不了冰冷(冬天的冰冷,夏天的冷空调,电扇)吗?",
+    "requestionType": "平和质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您能顺应外界自然和社会环境的变化吗?",
+    "requestionType": "平和质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易失眠吗?",
+    "requestionType": "平和质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易忘事(健忘)吗?",
+    "requestionType": "平和质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "你容易疲惫吗?",
+    "requestionType": "气虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易气短,呼吸急促,接不上气吗?",
+    "requestionType": "气虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易心慌吗?",
+    "requestionType": "气虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "容易头晕或站起时晕眩吗?",
+    "requestionType": "气虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您比他人容易患感冒吗?",
+    "requestionType": "气虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您喜欢安静,懒得说话吗?",
+    "requestionType": "气虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您说话声响有力吗?",
+    "requestionType": "气虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您活动量就容易出虚汗吗?",
+    "requestionType": "气虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您手脚发凉吗?",
+    "requestionType": "阳虚质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您胃脘部,背部或腰膝部怕冷吗?",
+    "requestionType": "阳虚质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您感到怕冷衣服比他人穿得多吗?",
+    "requestionType": "阳虚质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您比普通人不了冰冷,冬天的冰冷,夏天的冷空调,电扇等?",
+    "requestionType": "阳虚质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您比他人容易患感冒吗?",
+    "requestionType": "阳虚质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您吃(喝)凉的东西会感到不舒适或许怕吃(喝)凉东西吗?",
+    "requestionType": "阳虚质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "你受凉或吃(喝)凉的东西后,容易腹泻(拉肚子)吗?",
+    "requestionType": "阳虚质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您感到手脚心发热吗?",
+    "requestionType": "阴虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您觉得身体,脸上发热吗?",
+    "requestionType": "阴虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您皮肤或口唇干吗?",
+    "requestionType": "阴虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您口唇的颜色比普通人红吗?",
+    "requestionType": "阴虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易便秘或大便枯燥吗?",
+    "requestionType": "阴虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您面部两潮红或偏红吗?",
+    "requestionType": "阴虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您感到眼睛干涩吗?",
+    "requestionType": "阴虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您活动量稍大容易出虚汗吗?",
+    "requestionType": "阴虚质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您感到胸闷或腹部胀满吗?",
+    "requestionType": "痰湿质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您感身体不轻松或不直爽?",
+    "requestionType": "痰湿质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您腹部肥满坚实吗?",
+    "requestionType": "痰湿质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您有额部油脂分泌多景象吗?",
+    "requestionType": "痰湿质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您上眼睑比他人肿(仍细微隆起的景象)吗?",
+    "requestionType": "痰湿质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您嘴里有黏黏的觉得吗?",
+    "requestionType": "痰湿质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您平常痰多,特别是咽喉部总感到有痰堵着吗?",
+    "requestionType": "痰湿质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您舌苔厚腻或有舌苔厚厚的觉得吗?",
+    "requestionType": "痰湿质",
+    "itemCount": 8,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您面部或鼻部有清淡感或许油亮发光吗?",
+    "requestionType": "湿热质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "你容易生痤疮或疮疖吗?",
+    "requestionType": "湿热质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您感到口苦或嘴里有异味吗?",
+    "requestionType": "湿热质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您大使黏滞不爽,有解不尽的觉得吗?",
+    "requestionType": "湿热质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您小便时尿道有发热感,尿色浓(深)吗?",
+    "requestionType": "湿热质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您的阴囊部位湿润吗?(男)/您带下色黄(白带颜色发黄)吗?(女)",
+    "requestionType": "湿热质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您感到闷闷不乐,情绪低落吗?",
+    "requestionType": "气郁质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易肉体紧张,焦虑不安吗?",
+    "requestionType": "气郁质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您多愁善感,感情软弱吗?",
+    "requestionType": "气郁质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易感到惧怕或遭到惊吓吗?",
+    "requestionType": "气郁质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您胁肋部或乳房腹痛吗?",
+    "requestionType": "气郁质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您事出有因叹息吗?",
+    "requestionType": "气郁质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您咽喉部有异物感,且吐之不出,咽之不下吗?",
+    "requestionType": "气郁质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您的皮肤在不知不觉中会呈现青紫瘀斑(皮下出血)吗?",
+    "requestionType": "血瘀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您两颧部有纤细红丝吗?",
+    "requestionType": "血瘀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您身体上有哪里疼痛吗?",
+    "requestionType": "血瘀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您面色晦黯或容易呈现褐斑吗?",
+    "requestionType": "血瘀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易有黑眼圈吗?",
+    "requestionType": "血瘀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易忘事(健忘)吗?",
+    "requestionType": "血瘀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您口唇颜色偏黯吗?",
+    "requestionType": "血瘀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您没有感冒时也会打喷嚏吗?",
+    "requestionType": "特禀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您没有感冒时也会鼻塞,流鼻涕吗?",
+    "requestionType": "特禀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您有因时节变化,温度变化或异味等缘由而咳喘的景象吗?",
+    "requestionType": "特禀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您容易过敏(对药物,食物,气息,花粉或在时节交替,气候变化时)吗?",
+    "requestionType": "特禀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您的皮肤容易起荨麻疹(风团,风疹块,风疙瘩)吗?",
+    "requestionType": "特禀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您的因过敏呈现过紫癜(紫白色瘀点,瘀斑)吗?",
+    "requestionType": "特禀质",
+    "itemCount": 7,
+    "score": 0
+  },
+  {
+    "anwser": {
+      "A": "没有",
+      "B": "很少",
+      "C": "有时",
+      "D": "经常",
+      "E": "总是"
+    },
+    "isSelected": false,
+    "requesionTitle": "您的皮肤一抓就红,并呈现抓痕吗?",
+    "requestionType": "特禀质",
+    "itemCount": 7,
+    "score": 0
+  }
+]

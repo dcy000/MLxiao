@@ -19,6 +19,7 @@ import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.questionair.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
@@ -96,7 +97,7 @@ public class Main1Fragment extends Fragment {
         switch (view.getId()) {
             case R.id.iv_head:
                 //签约
-                 gotoQianyueYiSheng();
+                gotoQianyueYiSheng();
                 break;
             case R.id.iv_qianyue:
                 //头像
@@ -107,9 +108,12 @@ public class Main1Fragment extends Fragment {
                 break;
             case R.id.tijian:
                 // TODO: 2018/5/17
+
                 break;
             case R.id.zhengzhuangzichan:
-                gotoZhengZhuangZiCha();
+//                gotoZhengZhuangZiCha();
+                gotoTizhiJianCe();
+
                 break;
             case R.id.yishengjianyi:
                 gotoYiShengJianYi();
@@ -118,6 +122,10 @@ public class Main1Fragment extends Fragment {
                 gotoJianKangJiangTang();
                 break;
         }
+    }
+
+    private void gotoTizhiJianCe() {
+        startActivity(new Intent(getActivity(), ChineseMedicineMonitorActivity.class));
     }
 
     private void gotoPersonInfo() {

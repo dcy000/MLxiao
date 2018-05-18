@@ -678,8 +678,12 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+
+        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity">
+
         </activity>
+        <activity android:name=".questionair.activity.MonitorResultActivity"></activity>
     </application>
 
 </manifest>
