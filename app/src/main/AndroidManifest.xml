@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.han.referralproject"
     tools:overrideLibrary="com.witspring.mlrobot">
+
     <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64" />
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
@@ -472,9 +473,7 @@
             android:name=".floatingball.AssistiveTouchService"
             android:process=":serviceY" />
 
-        <service
-            android:name=".floatball.MyService"
-            />
+        <service android:name=".floatball.MyService" />
 
 
         <activity
@@ -611,7 +610,7 @@
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
             android:taskAffinity="com.medlink.fastsignup"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
             android:taskAffinity="com.medlink.fastsignup" />
@@ -709,13 +708,7 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".diet_sport.DietPlanActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".diet_sport.WeekDietPlanActivity"
-            android:screenOrientation="landscape"/>
         <activity android:name=".intelligent_diagnosis.FoodMaterialDetailActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".diet_sport.SportPlanActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".intelligent_diagnosis.SportPlanDetailActivity"
             android:screenOrientation="landscape"/>
@@ -725,6 +718,8 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".intelligent_diagnosis.BloodsugarMonthlyReportActivity"
             android:screenOrientation="landscape"/>
+        <activity android:name=".physicalexamination.activity.ChineseMedicineMonitorActivity" />
+        <activity android:name=".physicalexamination.activity.MonitorResultActivity" />
     </application>
 
 </manifest>

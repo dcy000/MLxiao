@@ -69,6 +69,11 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         return strength;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void initView() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("个人中心");

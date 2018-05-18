@@ -70,7 +70,9 @@ public class WakeupHelper {
         }
         inited = true;
         setParameter(wakeuper);
-        wakeuper.startListening(listener);
+        if (!wakeuper.isListening()) {
+            wakeuper.startListening(listener);
+        }
     }
 
     private void setParameter(VoiceWakeuper wakeuper) {

@@ -33,20 +33,27 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.accesstoken.AccessTokenModel;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.utils.T;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+public class MainActivity extends BaseActivity implements View.OnClickListener, HttpListener<AccessToken> {
 
     ImageView mImageView1;
     ImageView mImageView2;
@@ -66,6 +73,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
 
@@ -121,8 +129,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             startService(new Intent(this, AssistiveTouchService.class));
         }
 
+        initAToken();
+
     }
 
+    private void initAToken() {
+        AccessTokenModel tokenModel = new AccessTokenModel();
+        tokenModel.getAccessToken(this);
+    }
 
     public boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -290,6 +304,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+
     public class BatteryBroadCastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -317,6 +332,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (mHandler != null) {
             mHandler.removeCallbacks(null);
         }
+    }
+
+    @Override
+    public void onSuccess(AccessToken data) {
+        EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);
+    }
+
+    @Override
+    public void onError() {
+        T.show("初始化AK失败");
+    }
+
+    @Override
+    public void onComplete() {
+
     }
 
 }
