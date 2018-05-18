@@ -12,6 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.ChooseRegisterTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.LocalShared;
 
 public class LudeAuthActivity extends AppCompatActivity {
@@ -60,14 +61,20 @@ public class LudeAuthActivity extends AppCompatActivity {
         });
 
         String netless = LocalShared.getInstance(this).getString("netless");
-        tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
-        tvNetworkMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String netless = LocalShared.getInstance(v.getContext()).getString("netless");
-                LocalShared.getInstance(v.getContext()).setString("netless", TextUtils.isEmpty(netless) ? "1" : "");
-                tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "无网模式" : "有网模式");
-            }
-        });
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            tvNetworkMode.setVisibility(View.VISIBLE);
+            tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
+            tvNetworkMode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String netless = LocalShared.getInstance(v.getContext()).getString("netless");
+                    LocalShared.getInstance(v.getContext()).setString("netless", TextUtils.isEmpty(netless) ? "1" : "");
+                    tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "无网模式" : "有网模式");
+                }
+            });
+        } else {
+            tvNetworkMode.setVisibility(View.GONE);
+        }
     }
 }

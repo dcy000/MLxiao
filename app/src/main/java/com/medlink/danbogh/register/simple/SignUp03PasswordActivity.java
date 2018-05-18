@@ -114,7 +114,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
         String name = shared.getSignUpName();
         String gender = shared.getSignUpGender();
         String address = shared.getSignUpAddress();
-        String idCard = shared.getSignUpIdCard();
+        String idCard = shared.getSignUpIdCard(); //1234561 + phone
         String phone = shared.getSignUpPhone();
         float height = shared.getSignUpHeight();
         float weight = shared.getSignUpWeight();

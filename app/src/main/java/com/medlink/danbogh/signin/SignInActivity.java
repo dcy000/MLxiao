@@ -104,9 +104,12 @@ public class SignInActivity extends BaseActivity {
         checkInput();
         ((TextView) findViewById(R.id.tv_version)).setText(getLocalVersionName());
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            etPassword.setVisibility(View.GONE);
-            etPhone.setHint("请输入身份证");
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                etPassword.setVisibility(View.GONE);
+                etPhone.setHint("请输入身份证");
+            }
         }
     }
 
@@ -192,7 +195,8 @@ public class SignInActivity extends BaseActivity {
         }
 
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless) || !TextUtils.isEmpty(netless)) {
             String idcard = etPhone.getText().toString().trim();
             if (!Utils.checkIdCard1(idcard)) {
                 T.show("无效的身份证");

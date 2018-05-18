@@ -70,19 +70,23 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         ivBack.setOnClickListener(this);
 
 
+        String noNetless = LocalShared.getInstance(this).getString("noNetless");
         String netless = LocalShared.getInstance(this).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            tvPhoneSignIn.setText("输身份证登录");
-        }
-        tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
-        tvNetworkMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String netless = LocalShared.getInstance(v.getContext()).getString("netless");
-                LocalShared.getInstance(v.getContext()).setString("netless", TextUtils.isEmpty(netless) ? "1" : "");
-                tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "无网模式" : "有网模式");
+        tvNetworkMode.setVisibility(!TextUtils.isEmpty(noNetless) ? View.GONE : View.VISIBLE);
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                tvPhoneSignIn.setText("输身份证登录");
             }
-        });
+            tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
+            tvNetworkMode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String netless = LocalShared.getInstance(v.getContext()).getString("netless");
+                    LocalShared.getInstance(v.getContext()).setString("netless", TextUtils.isEmpty(netless) ? "1" : "");
+                    tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "无网模式" : "有网模式");
+                }
+            });
+        }
 
         SpannableStringBuilder agreeBuilder = new SpannableStringBuilder("我同意用户协议");
         agreeBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#FF380000")),

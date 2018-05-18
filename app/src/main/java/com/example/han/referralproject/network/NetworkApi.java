@@ -63,7 +63,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://116.62.36.12:8080";
+    //    public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 
@@ -732,30 +732,32 @@ public class NetworkApi {
             return;
         }
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureData(MyApplication.getInstance().userId, info)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<DataInfoBean>() {
-                        @Override
-                        public void accept(DataInfoBean data) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(null);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureData(MyApplication.getInstance().userId, info)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<DataInfoBean>() {
+                            @Override
+                            public void accept(DataInfoBean data) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(null);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            throwable.printStackTrace();
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("unknown error");
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                throwable.printStackTrace();
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("unknown error");
+                                }
                             }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
-
         NetworkManager.getInstance().postResultClass(UploadDataUrl, info.getParamsMap(), MeasureResult.class, successCallback, failedCallback);
 //        NetworkManager.getInstance().postResultString(UploadDataUrl, info.getParamsMap(), successCallback);
     }
@@ -827,43 +829,45 @@ public class NetworkApi {
     ) {
 
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<TemperatureHistory>>() {
-                        @Override
-                        public ArrayList<TemperatureHistory> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<TemperatureHistory> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                TemperatureHistory history = new TemperatureHistory(Float.valueOf(data.temper_ature), data.time);
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<TemperatureHistory>>() {
+                            @Override
+                            public ArrayList<TemperatureHistory> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<TemperatureHistory> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    TemperatureHistory history = new TemperatureHistory(Float.valueOf(data.temper_ature), data.time);
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    })
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<TemperatureHistory>>() {
-                        @Override
-                        public void accept(ArrayList<TemperatureHistory> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<TemperatureHistory>>() {
+                            @Override
+                            public void accept(ArrayList<TemperatureHistory> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
-
         HashMap<String, String> params = new HashMap<>();
 
         params.put("bid", MyApplication.getInstance().userId);
@@ -885,40 +889,43 @@ public class NetworkApi {
     public static void getBloodpressureHistory(String start, String end, String temp, final NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>> successCallback, final NetworkManager.FailedCallback failedCallback
     ) {
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<BloodPressureHistory>>() {
-                        @Override
-                        public ArrayList<BloodPressureHistory> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<BloodPressureHistory> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                BloodPressureHistory history = new BloodPressureHistory(data.low_pressure, data.high_pressure, data.time);
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<BloodPressureHistory>>() {
+                            @Override
+                            public ArrayList<BloodPressureHistory> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<BloodPressureHistory> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    BloodPressureHistory history = new BloodPressureHistory(data.low_pressure, data.high_pressure, data.time);
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<BloodPressureHistory>>() {
-                        @Override
-                        public void accept(ArrayList<BloodPressureHistory> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<BloodPressureHistory>>() {
+                            @Override
+                            public void accept(ArrayList<BloodPressureHistory> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
@@ -942,40 +949,43 @@ public class NetworkApi {
     ) {
 
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<BloodSugarHistory>>() {
-                        @Override
-                        public ArrayList<BloodSugarHistory> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<BloodSugarHistory> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                BloodSugarHistory history = new BloodSugarHistory(Float.valueOf(data.blood_sugar), data.time);
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<BloodSugarHistory>>() {
+                            @Override
+                            public ArrayList<BloodSugarHistory> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<BloodSugarHistory> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    BloodSugarHistory history = new BloodSugarHistory(Float.valueOf(data.blood_sugar), data.time);
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<BloodSugarHistory>>() {
-                        @Override
-                        public void accept(ArrayList<BloodSugarHistory> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<BloodSugarHistory>>() {
+                            @Override
+                            public void accept(ArrayList<BloodSugarHistory> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
@@ -996,40 +1006,43 @@ public class NetworkApi {
     public static void getBloodOxygenHistory(String start, String end, String temp, final NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>> successCallback, final NetworkManager.FailedCallback failedCallback
     ) {
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<BloodOxygenHistory>>() {
-                        @Override
-                        public ArrayList<BloodOxygenHistory> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<BloodOxygenHistory> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                BloodOxygenHistory history = new BloodOxygenHistory(Float.valueOf(data.blood_oxygen), data.time);
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<BloodOxygenHistory>>() {
+                            @Override
+                            public ArrayList<BloodOxygenHistory> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<BloodOxygenHistory> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    BloodOxygenHistory history = new BloodOxygenHistory(Float.valueOf(data.blood_oxygen), data.time);
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<BloodOxygenHistory>>() {
-                        @Override
-                        public void accept(ArrayList<BloodOxygenHistory> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<BloodOxygenHistory>>() {
+                            @Override
+                            public void accept(ArrayList<BloodOxygenHistory> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
 
         HashMap<String, String> params = new HashMap<>();
@@ -1052,42 +1065,44 @@ public class NetworkApi {
     ) {
 
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<HeartRateHistory>>() {
-                        @Override
-                        public ArrayList<HeartRateHistory> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<HeartRateHistory> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                HeartRateHistory history = new HeartRateHistory(data.heart_rate, data.time);
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<HeartRateHistory>>() {
+                            @Override
+                            public ArrayList<HeartRateHistory> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<HeartRateHistory> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    HeartRateHistory history = new HeartRateHistory(data.heart_rate, data.time);
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<HeartRateHistory>>() {
-                        @Override
-                        public void accept(ArrayList<HeartRateHistory> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<HeartRateHistory>>() {
+                            @Override
+                            public void accept(ArrayList<HeartRateHistory> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
-
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         params.put("temp", temp);
@@ -1108,42 +1123,44 @@ public class NetworkApi {
     ) {
 
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<PulseHistory>>() {
-                        @Override
-                        public ArrayList<PulseHistory> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<PulseHistory> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                PulseHistory history = new PulseHistory(data.pulse, data.time);
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<PulseHistory>>() {
+                            @Override
+                            public ArrayList<PulseHistory> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<PulseHistory> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    PulseHistory history = new PulseHistory(data.pulse, data.time);
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<PulseHistory>>() {
-                        @Override
-                        public void accept(ArrayList<PulseHistory> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<PulseHistory>>() {
+                            @Override
+                            public void accept(ArrayList<PulseHistory> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
-
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         params.put("temp", temp);
@@ -1164,42 +1181,44 @@ public class NetworkApi {
     ) {
 
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<CholesterolHistory>>() {
-                        @Override
-                        public ArrayList<CholesterolHistory> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<CholesterolHistory> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                CholesterolHistory history = new CholesterolHistory(Float.valueOf(data.cholesterol), data.time);
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<CholesterolHistory>>() {
+                            @Override
+                            public ArrayList<CholesterolHistory> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<CholesterolHistory> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    CholesterolHistory history = new CholesterolHistory(Float.valueOf(data.cholesterol), data.time);
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<CholesterolHistory>>() {
-                        @Override
-                        public void accept(ArrayList<CholesterolHistory> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<CholesterolHistory>>() {
+                            @Override
+                            public void accept(ArrayList<CholesterolHistory> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
-
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
 //        params.put("bid","100001");
@@ -1219,44 +1238,45 @@ public class NetworkApi {
      */
     public static void getBUAHistory(String start, String end, String temp, final NetworkManager.SuccessCallback<ArrayList<BUA>> successCallback, final NetworkManager.FailedCallback failedCallback
     ) {
-
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<BUA>>() {
-                        @Override
-                        public ArrayList<BUA> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<BUA> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                BUA history = new BUA(Float.valueOf(data.uric_acid), data.time);
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<BUA>>() {
+                            @Override
+                            public ArrayList<BUA> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<BUA> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    BUA history = new BUA(Float.valueOf(data.uric_acid), data.time);
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<BUA>>() {
-                        @Override
-                        public void accept(ArrayList<BUA> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<BUA>>() {
+                            @Override
+                            public void accept(ArrayList<BUA> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
-
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
 //        params.put("bid","100001");
@@ -1278,40 +1298,43 @@ public class NetworkApi {
     ) {
 
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
-        if (!TextUtils.isEmpty(netless)) {
-            Repository repository = Repository.getInstance(MyApplication.getInstance());
-            repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
-                    .map(new Function<List<DataInfoBean>, ArrayList<ECGHistory>>() {
-                        @Override
-                        public ArrayList<ECGHistory> apply(List<DataInfoBean> datas) throws Exception {
-                            ArrayList<ECGHistory> histories = new ArrayList<>();
-                            for (DataInfoBean data : datas) {
-                                ECGHistory history = new ECGHistory(String.valueOf(data.ecg), String.valueOf(data.time));
-                                histories.add(history);
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless)) {
+            if (!TextUtils.isEmpty(netless)) {
+                Repository repository = Repository.getInstance(MyApplication.getInstance());
+                repository.measureDatas(MyApplication.getInstance().userId, start, end, temp)
+                        .map(new Function<List<DataInfoBean>, ArrayList<ECGHistory>>() {
+                            @Override
+                            public ArrayList<ECGHistory> apply(List<DataInfoBean> datas) throws Exception {
+                                ArrayList<ECGHistory> histories = new ArrayList<>();
+                                for (DataInfoBean data : datas) {
+                                    ECGHistory history = new ECGHistory(String.valueOf(data.ecg), String.valueOf(data.time));
+                                    histories.add(history);
+                                }
+                                return histories;
                             }
-                            return histories;
-                        }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ArrayList<ECGHistory>>() {
-                        @Override
-                        public void accept(ArrayList<ECGHistory> histories) throws Exception {
-                            if (successCallback != null) {
-                                successCallback.onSuccess(histories);
+                        }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ArrayList<ECGHistory>>() {
+                            @Override
+                            public void accept(ArrayList<ECGHistory> histories) throws Exception {
+                                if (successCallback != null) {
+                                    successCallback.onSuccess(histories);
+                                }
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                throwable.printStackTrace();
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                if (failedCallback != null) {
+                                    failedCallback.onFailed("未知错误");
+                                }
                             }
-                            if (failedCallback != null) {
-                                failedCallback.onFailed("未知错误");
-                            }
-                        }
-                    });
-            return;
+                        });
+                return;
+            }
         }
 
         HashMap<String, String> params = new HashMap<>();

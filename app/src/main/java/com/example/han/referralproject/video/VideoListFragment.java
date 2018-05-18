@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
@@ -101,7 +102,8 @@ public class VideoListFragment extends Fragment {
         //fetchVideos(position);
 
         mNetless = LocalShared.getInstance(getActivity()).getString("netless");
-        if (TextUtils.isEmpty(mNetless)) {
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (!TextUtils.isEmpty(noNetless) || TextUtils.isEmpty(mNetless)) {
             loadMore();
             getVideos();
         } else {

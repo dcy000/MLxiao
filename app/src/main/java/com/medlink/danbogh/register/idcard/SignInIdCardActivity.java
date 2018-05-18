@@ -573,7 +573,8 @@ public class SignInIdCardActivity extends BaseActivity {
         speak("欢迎使用西恩智能医生");
 
         String netless = LocalShared.getInstance(this).getString("netless");
-        if (TextUtils.isEmpty(netless)) {
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (!TextUtils.isEmpty(noNetless) || TextUtils.isEmpty(netless)) {
             onCheckRegistered();
         } else {
             onRegisterOrLoginNetless();

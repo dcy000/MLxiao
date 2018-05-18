@@ -13,6 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -49,6 +50,12 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     RelativeLayout rlSetVoiceName;
     @BindView(R.id.rl_set_talk_type)
     RelativeLayout rlSetTalkType;
+    @BindView(R.id.rl_netless)
+    RelativeLayout rlNetless;
+    @BindView(R.id.rl_netless_toggle)
+    RelativeLayout rlNetless_toggle;
+    @BindView(R.id.tv_netless_toggle)
+    TextView tvNetworkModeToggle;
     @BindView(R.id.tv_netless)
     TextView tvNetworkMode;
 
@@ -60,7 +67,14 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         speak("您好，欢迎来到设置页面");
         initTitle();
         String netless = LocalShared.getInstance(this).getString("netless");
-        tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        tvNetworkModeToggle.setText(TextUtils.isEmpty(noNetless) ? "关闭离线模式" : "启用离线模式");
+        if (TextUtils.isEmpty(noNetless)) {
+            rlNetless.setVisibility(View.VISIBLE);
+            tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
+        } else {
+            rlNetless.setVisibility(View.GONE);
+        }
     }
 
     private void initTitle() {
@@ -68,7 +82,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         mTitleText.setText("设置");
     }
 
-    @OnClick({R.id.rl_voice_set, R.id.rl_brightness_set ,R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_netless,
+    @OnClick({R.id.rl_voice_set, R.id.rl_brightness_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_netless, R.id.rl_netless_toggle,
             R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name, R.id.rl_set_talk_type})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -79,6 +93,12 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
             case R.id.rl_voice_set:
                 //声音设置
                 startActivity(new Intent(this, VoiceSettingActivity.class));
+                break;
+            case R.id.rl_netless_toggle:
+                String noNetless = LocalShared.getInstance(view.getContext()).getString("noNetless");
+                LocalShared.getInstance(view.getContext()).setString("noNetless", TextUtils.isEmpty(noNetless) ? "1" : "");
+                tvNetworkModeToggle.setText(TextUtils.isEmpty(noNetless) ? "启用离线模式" : "关闭离线模式");
+                rlNetless.setVisibility(TextUtils.isEmpty(noNetless) ? View.GONE : View.VISIBLE);
                 break;
             case R.id.rl_netless:
                 String netless = LocalShared.getInstance(view.getContext()).getString("netless");
