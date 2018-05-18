@@ -666,6 +666,7 @@
         <activity
             android:name=".settting.activity.VoicerSettingDemoActivity"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".settting.activity.CustomKeyWordsActivity"
             android:screenOrientation="landscape" />

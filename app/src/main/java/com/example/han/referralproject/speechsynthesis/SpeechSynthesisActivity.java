@@ -737,11 +737,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*gerenzhongxin.*")
-                    || inSpell.matches(".*gerenshezhi.*")) {
-                gotoPersonCenter();
-                return;
-            }
+//            if (inSpell.matches(".*gerenzhongxin.*")
+//                    || inSpell.matches(".*gerenshezhi.*")) {
+//                gotoPersonCenter();
+//                return;
+//            }
 
             if (inSpell.matches("yishengjianyi")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
@@ -1267,18 +1267,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         }
 
-        //个人中心
-        List<KeyWordDefinevBean> personCenter = getDefineData("gerenzhongxin");
-        for (int i = 0; i < personCenter.size(); i++) {
-            pinyin = personCenter.get(i).pinyin;
-            if (TextUtils.isEmpty(pinyin)) {
-                continue;
-            }
-            if (yuyin.contains(pinyin)) {
-                gotoPersonCenter();
-                return true;
-            }
-        }
+//        //个人中心
+//        List<KeyWordDefinevBean> personCenter = getDefineData("gerenzhongxin");
+//        for (int i = 0; i < personCenter.size(); i++) {
+//            pinyin = personCenter.get(i).pinyin;
+//            if (TextUtils.isEmpty(pinyin)) {
+//                continue;
+//            }
+//            if (yuyin.contains(pinyin)) {
+//                gotoPersonCenter();
+//                return true;
+//            }
+//        }
 
         //症状自查
         List<KeyWordDefinevBean> check = getDefineData("zhengzhuangzicha");
