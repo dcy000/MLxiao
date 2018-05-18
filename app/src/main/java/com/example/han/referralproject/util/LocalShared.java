@@ -3,17 +3,15 @@ package com.example.han.referralproject.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.speech.setting.IatSettings;
-import com.littlejie.circleprogress.utils.Constant;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Random;
 
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
@@ -577,5 +575,24 @@ public class LocalShared {
 
     public String getString(String key) {
         return mShared.getString(key, "");
+    }
+
+    public String makeIdCard() {
+        Random random = new Random();
+        int a;
+        for (; ; ) {
+            a = random.nextInt(10000);
+            if (a > 1000 && a < 10000) {
+                break;
+            }
+        }
+        int b;
+        for (; ; ) {
+            b = random.nextInt(100000000);
+            if (b > 10000000 && b < 100000000) {
+                break;
+            }
+        }
+        return "ff" + a + "1988" + b;
     }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
@@ -249,9 +250,14 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         } else if (TIJIAN_LIUCHENG.equals(name)) {
             gotoTiJianLiuCheng(true);
         } else if (DANXIANG_JIANCE.equals(name)) {
-            gotoTiJianLiuCheng(false);
+            gotoDanXianTiJian();
+
         }
 
+    }
+
+    private void gotoDanXianTiJian() {
+        startActivity(new Intent(getActivity(), Test_mainActivity.class));
     }
 
     private void gotoTiJianLiuCheng(boolean b) {
