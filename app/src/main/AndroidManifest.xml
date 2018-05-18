@@ -687,6 +687,7 @@
         <activity android:name=".questionair.activity.MonitorResultActivity"></activity>
         <activity android:name=".idcard.IdCardInfoActivity" />
         <activity android:name=".idcard.SignInIdCardActivity" />
+        <activity android:name=".health.DetectResultActivity" />
     </application>
 
 </manifest>

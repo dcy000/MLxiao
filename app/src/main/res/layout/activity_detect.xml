@@ -51,6 +51,7 @@
 
 
         <LinearLayout
+            android:id="@+id/detect_ll_nav1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -203,6 +204,7 @@
 
 
         <LinearLayout
+            android:id="@+id/detect_ll_nav2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -452,6 +454,7 @@
             android:src="@drawable/video_xueyass" />
 
         <LinearLayout
+            android:id="@+id/detect_ll_nav3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -669,6 +672,7 @@
 
 
         <LinearLayout
+            android:id="@+id/detect_ll_nav4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -1167,6 +1171,19 @@
     <!--android:layout_alignParentBottom="true"/>-->
     <!--</RelativeLayout>-->
 
+
+    <Button
+        android:id="@+id/detect_tv_result_next"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:background="@drawable/shape_phone"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="40dp"/>
 
     <!--视频播放界面-->
     <RelativeLayout

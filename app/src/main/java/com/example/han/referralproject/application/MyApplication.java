@@ -12,6 +12,7 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
 import com.example.han.referralproject.BuildConfig;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
@@ -46,6 +47,7 @@ public class MyApplication extends Application {
     public String xfid;
     public String telphoneNum;
     public String userName;
+    public static UserInfoBean account;
 
     public String nimUserId() {
         return "user_" + userId;
