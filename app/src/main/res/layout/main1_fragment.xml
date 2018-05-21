@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
 
-    <com.example.han.referralproject.imageview.CircleImageView
+    <ImageView
         android:id="@+id/iv_head"
         android:layout_width="328pt"
         android:layout_height="328pt"
@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tijian"
         app:layout_constraintStart_toStartOf="@+id/iv_qianyue" />
 
-    <ImageView
+    <com.example.han.referralproject.imageview.CircleImageView
         android:id="@+id/iv_qianyue"
         android:layout_width="328pt"
         android:layout_height="328pt"
