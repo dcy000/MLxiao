@@ -14,6 +14,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
@@ -302,7 +303,14 @@ public class LocalShared {
     }
 
     public String getSignUpIdCard() {
-        return mShared.getString(SIGN_UP_ID_CARD, "360311198803295218");
+        return mShared.getString(SIGN_UP_ID_CARD, makeIdCard());
+    }
+
+    public String makeIdCard() {
+        Random random = new Random();
+        int a = random.nextInt(8999) + 1000;
+        int b = random.nextInt(89999999) + 10000000;
+        return "00" + a + "1988" + b;
     }
 
     public void setSignUpPhone(String phone) {
