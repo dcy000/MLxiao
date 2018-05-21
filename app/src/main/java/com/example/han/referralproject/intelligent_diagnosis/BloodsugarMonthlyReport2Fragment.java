@@ -84,17 +84,17 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
             Double bloodSugarTwoOffset = weekDateListBean.getBloodSugarTwoOffset();
             String completion = report.getCompletion();
             if (bloodSugarTarget != null) {
-                tabMbEmpty.setText(String.format("%.2f", bloodSugarTarget));
+                tabMbEmpty.setText("<"+String.format("%.2f", bloodSugarTarget));
             }else{
                 tabMbEmpty.setText("无数据");
             }
             if (bloodSugarOneTarget != null) {
-                tabMbOne.setText(String.format("%.2f", bloodSugarOneTarget));
+                tabMbOne.setText("<"+String.format("%.2f", bloodSugarOneTarget));
             }else{
                 tabMbOne.setText("无数据");
             }
             if (bloodSugarTwoTarget != null) {
-                tabMbTwo.setText(String.format("%.2f", bloodSugarTwoTarget));
+                tabMbTwo.setText("<"+String.format("%.2f", bloodSugarTwoTarget));
             }else{
                 tabMbTwo.setText("无数据");
             }

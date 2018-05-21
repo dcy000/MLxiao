@@ -30,43 +30,21 @@ public class New_MonthlyReport2Fragment extends Fragment {
     private View viewLeft;
     private View viewRight;
     private TextView tvLeft;
-    /**
-     * 低压
-     */
     private TextView tvRight;
     private LinearLayout llLeft;
-    /**
-     * 第一周
-     */
     private RadioButton rbFirst;
-    /**
-     * 第二周
-     */
     private RadioButton rbSecond;
-    /**
-     * 第三周
-     */
     private RadioButton rbThree;
-    /**
-     * 第四周
-     */
     private RadioButton rbFour;
     private RadioGroup rg;
-    /**  */
     private TextView tabMbGaoya;
-    /**  */
     private TextView tabMbDiya;
-    /**  */
     private TextView tabSjGaoya;
-    /**  */
     private TextView tabSjDiya;
     private ImageView imgGaoya;
-    /**  */
     private TextView pcGaoya;
     private ImageView imgDiya;
-    /**  */
     private TextView pcDiya;
-    /**  */
     private TextView tvProgress2;
     private RxTextRoundProgressBar rpbSum;
     private LinearLayout llRight;
@@ -105,7 +83,6 @@ public class New_MonthlyReport2Fragment extends Fragment {
     }
 
     private void initView(View view) {
-
         viewLeft = (View) view.findViewById(R.id.view_left);
         viewRight = (View) view.findViewById(R.id.view_right);
         tvLeft = (TextView) view.findViewById(R.id.tv_left);
@@ -135,6 +112,9 @@ public class New_MonthlyReport2Fragment extends Fragment {
     }
 
     private void dealPerWeekData(int week) {
+        if (report == null) {
+            return;
+        }
         List<WeeklyOrMonthlyReport.WeekDateListBean> weekDateList = report.getWeekDateList();
         if (weekDateList == null) {
             return;
@@ -147,14 +127,14 @@ public class New_MonthlyReport2Fragment extends Fragment {
             String lowPressureAvg = weekDateListBean.getLowPressureAvg();
             String highOffset = weekDateListBean.getHighOffset();
             String lowOffset = weekDateListBean.getLowOffset();
-            String completion =weekDateListBean.getCompletion();
+            String completion = weekDateListBean.getCompletion();
             if (!TextUtils.isEmpty(highTarget)) {
-                tabMbGaoya.setText(highTarget);
+                tabMbGaoya.setText("<"+highTarget);
             } else {
                 tabMbGaoya.setText("无数据");
             }
             if (!TextUtils.isEmpty(lowTarget)) {
-                tabMbDiya.setText(lowTarget);
+                tabMbDiya.setText("<"+lowTarget);
             } else {
                 tabMbDiya.setText("无数据");
             }
@@ -218,6 +198,5 @@ public class New_MonthlyReport2Fragment extends Fragment {
                 rpbSum.setProgress(0);
             }
         }
-
     }
 }

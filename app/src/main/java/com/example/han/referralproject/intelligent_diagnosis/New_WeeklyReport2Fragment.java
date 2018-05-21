@@ -65,10 +65,10 @@ public class New_WeeklyReport2Fragment extends Fragment {
             String lowOffset = weekDateListBean.getLowOffset();
             String completion = report.getCompletion();
             if (!TextUtils.isEmpty(highTarget)) {
-                tabMbGaoya.setText(highTarget);
+                tabMbGaoya.setText("<"+highTarget);
             }
             if (!TextUtils.isEmpty(lowTarget)) {
-                tabMbDiya.setText(lowTarget);
+                tabMbDiya.setText("<"+lowTarget);
             }
             if (!TextUtils.isEmpty(highPressureAvg)) {
                 tabSjGaoya.setText(highPressureAvg);

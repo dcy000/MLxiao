@@ -135,10 +135,10 @@ public class LastWeekHealthReportFragment extends Fragment {
             tvXuetangOne.setText(String.format("%.2f", bloodSugarOne));
             double bloodSugarTwo = data.getBloodSugarTwo();
             tvXuetangTwo.setText(String.format("%.2f", bloodSugarTwo));
-            ((TreatmentPlanActivity) getActivity()).speak("主人，您上周的平均体重" + String.format("%.2f", dou_weight)
-                    + "千克，平均高压" + highPressure + ",平均低压" + lowPressure + ",空腹平均血糖"
-                    + String.format("%.2f", bloodSugar) + ",饭后一小时平均血糖" + String.format("%.2f", bloodSugarOne) +
-                    "饭后两小时平均血糖" + String.format("%.2f", bloodSugarTwo));
+//            ((TreatmentPlanActivity) getActivity()).speak("主人，您上周的平均体重" + String.format("%.2f", dou_weight)
+//                    + "千克，平均高压" + highPressure + ",平均低压" + lowPressure + ",空腹平均血糖"
+//                    + String.format("%.2f", bloodSugar) + ",饭后一小时平均血糖" + String.format("%.2f", bloodSugarOne) +
+//                    "饭后两小时平均血糖" + String.format("%.2f", bloodSugarTwo));
         }
     }
 
@@ -148,10 +148,10 @@ public class LastWeekHealthReportFragment extends Fragment {
         if (isVisibleToUser) {
             Log.e(TAG, "setUserVisibleHint: ");
             if (data != null) {
-                ((TreatmentPlanActivity) getActivity()).speak("主人，您上周的平均体重" + String.format("%.2f", data.getUser().getWeight())
-                        + "千克，平均高压" + data.getHighPressure() + ",平均低压" + data.getLowPressure() + ",空腹平均血糖"
-                        + String.format("%.2f", data.getBloodSugar()) + ",饭后一小时平均血糖" + String.format("%.2f", data.getBloodSugarOne()) +
-                        "饭后两小时平均血糖" + String.format("%.2f", data.getBloodSugarTwo()));
+//                ((TreatmentPlanActivity) getActivity()).speak("主人，您上周的平均体重" + String.format("%.2f", data.getUser().getWeight())
+//                        + "千克，平均高压" + data.getHighPressure() + ",平均低压" + data.getLowPressure() + ",空腹平均血糖"
+//                        + String.format("%.2f", data.getBloodSugar()) + ",饭后一小时平均血糖" + String.format("%.2f", data.getBloodSugarOne()) +
+//                        "饭后两小时平均血糖" + String.format("%.2f", data.getBloodSugarTwo()));
             }
             if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);

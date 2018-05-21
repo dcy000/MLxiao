@@ -172,9 +172,9 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
         if (isVisibleToUser) {
             Log.e(TAG, "setUserVisibleHint: ");
             if (data != null) {
-                ((TreatmentPlanActivity) getActivity())
-                        .speak("主人，为了您的健康，小依为您推荐了下面的运动项目，请选择自己喜欢的、合适的项目进行锻炼。" +
-                                "小依建议您运动" + data.getSportTime() + "，运动时候的心率应小于" + data.getSportRate() + "，运动强度应较" + data.getSportLevel());
+//                ((TreatmentPlanActivity) getActivity())
+//                        .speak("主人，为了您的健康，小依为您推荐了下面的运动项目，请选择自己喜欢的、合适的项目进行锻炼。" +
+//                                "小依建议您运动" + data.getSportTime() + "，运动时候的心率应小于" + data.getSportRate() + "，运动强度应较" + data.getSportLevel());
             }
             if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);

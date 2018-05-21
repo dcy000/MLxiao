@@ -99,7 +99,6 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        Log.e("生活疗法", "onSuccess: " + response.body());
                         try {
                             JSONObject object = new JSONObject(response.body());
                             if (object.optInt("code") == 200) {
@@ -134,10 +133,10 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
             double pcWeight = weight - weightTarget;
             double pcWineDrink = wineDrink - wineDrinkTarget;
 
-            tabMbYan.setText(String.format("%.2f", naSaltTarget));
-            tabMbYundong.setText(String.format("%.2f", sportTimeTarget));
-            tabMbTizhong.setText(String.format("%.2f", weightTarget));
-            tabMbYinjiu.setText(String.format("%.2f", wineDrinkTarget));
+            tabMbYan.setText("<"+String.format("%.2f", naSaltTarget));
+            tabMbYundong.setText(">"+String.format("%.2f", sportTimeTarget));
+            tabMbTizhong.setText("<"+String.format("%.2f", weightTarget));
+            tabMbYinjiu.setText("<"+String.format("%.2f", wineDrinkTarget));
 
             tabSjYan.setText(String.format("%.2f", naSalt));
             tabSjYundong.setText(String.format("%.2f", sportTime));

@@ -130,10 +130,10 @@ public class New_WeeklyReport3Fragment extends Fragment implements View.OnClickL
             double pcWeight = weight - weightTarget;
             double pcWineDrink = wineDrink - wineDrinkTarget;
 
-            tabMbYan.setText(String.format("%.2f", naSaltTarget));
-            tabMbYundong.setText(String.format("%.2f", sportTimeTarget));
-            tabMbTizhong.setText(String.format("%.2f", weightTarget));
-            tabMbYinjiu.setText(String.format("%.2f", wineDrinkTarget));
+            tabMbYan.setText("<"+String.format("%.2f", naSaltTarget));
+            tabMbYundong.setText(">"+String.format("%.2f", sportTimeTarget));
+            tabMbTizhong.setText("<"+String.format("%.2f", weightTarget));
+            tabMbYinjiu.setText("<"+String.format("%.2f", wineDrinkTarget));
 
             tabSjYan.setText(String.format("%.2f", naSalt));
             tabSjYundong.setText(String.format("%.2f", sportTime));

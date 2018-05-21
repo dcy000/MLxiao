@@ -72,13 +72,13 @@ public class BloodsugarWeeklyReport2Fragment extends Fragment {
             Double bloodSugarTwoOffset = weekDateListBean.getBloodSugarTwoOffset();
             String completion = report.getCompletion();
             if (bloodSugarTarget != null) {
-                tabMbEmpty.setText(String.format("%.2f", bloodSugarTarget));
+                tabMbEmpty.setText("<"+String.format("%.2f", bloodSugarTarget));
             }
             if (bloodSugarOneTarget != null) {
-                tabMbOne.setText(String.format("%.2f", bloodSugarOneTarget));
+                tabMbOne.setText("<"+String.format("%.2f", bloodSugarOneTarget));
             }
             if (bloodSugarTwoTarget != null) {
-                tabMbTwo.setText(String.format("%.2f", bloodSugarTwoTarget));
+                tabMbTwo.setText("<"+String.format("%.2f", bloodSugarTwoTarget));
             }
             if (bloodSugarAvg != null) {
                 tabSjEmpty.setText(String.format("%.2f", bloodSugarAvg));
