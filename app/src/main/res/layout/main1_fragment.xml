@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,35 +10,36 @@
         android:id="@+id/iv_head"
         android:layout_width="328pt"
         android:layout_height="328pt"
+        android:layout_marginStart="45pt"
         android:src="@drawable/main_iv_qianyue"
         app:layout_constraintBottom_toBottomOf="@+id/tijian"
-        app:layout_constraintStart_toStartOf="@+id/iv_qianyue" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.han.referralproject.imageview.CircleImageView
         android:id="@+id/iv_qianyue"
-        android:layout_width="328pt"
-        android:layout_height="328pt"
-        android:layout_marginStart="44pt"
+        android:layout_width="240pt"
+        android:layout_height="240pt"
+        android:layout_marginStart="89pt"
         android:layout_marginTop="120pt"
         android:src="@drawable/main_iv_head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:src="@drawable/main_zhengzhuangzichan"
         android:id="@+id/celianglishi"
         android:layout_width="1212pt"
         android:layout_height="328pt"
         android:layout_marginTop="24pt"
+        android:src="@drawable/main_zhengzhuangzichan"
         app:layout_constraintStart_toStartOf="@+id/iv_head"
         app:layout_constraintTop_toBottomOf="@+id/tijian" />
 
     <ImageView
-        android:src="@drawable/main_tijian"
         android:id="@+id/tijian"
         android:layout_width="860pt"
         android:layout_height="680pt"
         android:layout_marginStart="24pt"
+        android:src="@drawable/main_tijian"
         app:layout_constraintStart_toEndOf="@+id/iv_head"
         app:layout_constraintTop_toTopOf="@+id/iv_qianyue" />
 
@@ -46,9 +48,9 @@
         android:layout_width="594pt"
         android:layout_height="328pt"
         android:layout_marginStart="24pt"
+        android:src="@drawable/main_jiankangdangan"
         app:layout_constraintStart_toEndOf="@+id/tijian"
-        app:layout_constraintTop_toTopOf="@+id/tijian"
-        android:src="@drawable/main_celianglishi" />
+        app:layout_constraintTop_toTopOf="@+id/tijian" />
 
     <ImageView
         android:id="@+id/yishengjianyi"
@@ -56,14 +58,28 @@
         android:layout_height="328pt"
         app:layout_constraintStart_toStartOf="@+id/zhengzhuangzichan"
         app:layout_constraintTop_toTopOf="@+id/iv_head"
-        app:srcCompat="@drawable/main_yishengjianyi" />
+        app:srcCompat="@drawable/main_celianglishi" />
 
     <ImageView
-        android:src="@drawable/main_jiankangketang"
         android:id="@+id/jiankangketang"
         android:layout_width="594pt"
         android:layout_height="328pt"
+        android:src="@drawable/main_yishengjianyi"
         app:layout_constraintStart_toStartOf="@+id/zhengzhuangzichan"
         app:layout_constraintTop_toTopOf="@+id/celianglishi" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="18pt"
+        android:textSize="28dp"
+        android:textColor="#FF333333"
+        app:layout_constraintEnd_toEndOf="@+id/iv_qianyue"
+        app:layout_constraintStart_toStartOf="@+id/iv_qianyue"
+        app:layout_constraintTop_toBottomOf="@+id/iv_qianyue"
+        tools:text="李晓大" />
 
 </android.support.constraint.ConstraintLayout>

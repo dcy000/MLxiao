@@ -247,10 +247,10 @@ public class MyApplication extends Application {
 
                 switch (msg.what) {
                     case 5:
-                        showDialog(EventType.exit);
+//                        showDialog(EventType.exit);
                         break;
                     case 10:
-                        tuichu();
+//                        tuichu();
                         break;
                 }
             }
@@ -270,7 +270,7 @@ public class MyApplication extends Application {
                 Log.d("duration", "durationTime:" + duration);
                 if (duration < 5000) {
                     mHandler.removeMessages(5);
-//                    mHandler.removeMessages(10);
+                    mHandler.removeMessages(10);
                 } else if (duration < 10000) {
 //                    mHandler.removeMessages(10);
                 }

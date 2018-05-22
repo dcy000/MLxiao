@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
@@ -32,6 +33,7 @@ import com.google.gson.Gson;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
+import com.witspring.unitbody.ChooseMemberActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     @BindView(R.id.jiankangketang)
     ImageView jiankangketang;
     Unbinder unbinder;
+    @BindView(R.id.tv_name)
+    TextView tvName;
     private TiZhiJianCeDialog dialog;
 
     @Nullable
@@ -86,6 +90,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                                 .tag(this)
                                 .fit()
                                 .into(ivQianyue);
+                        tvName.setText(response.bname);
+
                     }
                 });
             }
@@ -107,28 +113,31 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 gotoQianyueYiSheng();
                 break;
             case R.id.iv_qianyue:
-                //头像
-                gotoPersonInfo();
+//                gotoPersonInfo();
                 break;
             case R.id.celianglishi:
                 gotoCeLiangLiShi();
                 break;
             case R.id.tijian:
-                // TODO: 2018/5/17
-
                 showDialog(getTiJianData());
-
                 break;
             case R.id.zhengzhuangzichan:
-                showDialog(data = getZiChaData());
+                //showDialog(data = getZiChaData());
+                gotoPersonInfo();
                 break;
             case R.id.yishengjianyi:
-                gotoYiShengJianYi();
+                //测量历史
+                gotoCeLiangLiShi();
                 break;
             case R.id.jiankangketang:
-                gotoJianKangJiangTang();
+                //医生建议
+                gotoYiShengJianYi();
                 break;
         }
+    }
+
+    private void gotoJianKangKeTang() {
+        startActivity(new Intent(getActivity(), VideoListActivity.class));
     }
 
     private List<MainTiZHiDialogBean> getZiChaData() {
@@ -185,7 +194,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 LocalShared.getInstance(getActivity()).getUserPhoto()
         );
         String currentUser = new Gson().toJson(diseaseUser);
-        Intent intent = new Intent(getActivity(), com.witspring.unitbody.ChooseMemberActivity.class);
+        Intent intent = new Intent(getActivity(), ChooseMemberActivity.class);
         intent.putExtra("currentUser", currentUser);
         startActivity(intent);
     }
