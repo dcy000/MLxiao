@@ -66,16 +66,19 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_sport, container, false);
-        initView(view);
-        setAdapter();
-        getData();
+        if (view==null) {
+            view = inflater.inflate(R.layout.activity_sport, container, false);
+            initView(view);
+            setAdapter();
+            getData();
+        }
         return view;
     }
 
     private void setAdapter() {
         GridLayoutManager manager = new GridLayoutManager(getContext(), 5);
         manager.setSmoothScrollbarEnabled(true);
+        manager.setAutoMeasureEnabled(true);
         exerciseList.setHasFixedSize(true);
         exerciseList.setNestedScrollingEnabled(false);
         exerciseList.setLayoutManager(manager);
@@ -172,9 +175,9 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
         if (isVisibleToUser) {
             Log.e(TAG, "setUserVisibleHint: ");
             if (data != null) {
-//                ((TreatmentPlanActivity) getActivity())
-//                        .speak("主人，为了您的健康，小依为您推荐了下面的运动项目，请选择自己喜欢的、合适的项目进行锻炼。" +
-//                                "小依建议您运动" + data.getSportTime() + "，运动时候的心率应小于" + data.getSportRate() + "，运动强度应较" + data.getSportLevel());
+                ((TreatmentPlanActivity) getActivity())
+                        .speak("主人，为了您的健康，小依为您推荐了下面的运动项目，请选择自己喜欢的、合适的项目进行锻炼。" +
+                                "小依建议您运动" + data.getSportTime() + "，运动时候的心率应小于" + data.getSportRate() + "，运动强度应较" + data.getSportLevel());
             }
             if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);
@@ -219,6 +222,14 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
                 }
                 adapter.notifyDataSetChanged();
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
         }
     }
 }

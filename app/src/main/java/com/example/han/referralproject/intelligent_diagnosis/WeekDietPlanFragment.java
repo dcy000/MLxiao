@@ -57,9 +57,11 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_week_diet_plan, container, false);
-        getData();
-        initView(view);
+        if (view==null){
+            view = inflater.inflate(R.layout.activity_week_diet_plan, container, false);
+            getData();
+            initView(view);
+        }
         return view;
     }
 
@@ -114,7 +116,7 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
         if (isVisibleToUser){
             Log.e(TAG, "setUserVisibleHint: " );
             if (cacheWeekDietPlan!=null){
-//                ((TreatmentPlanActivity) getActivity()).speak("主人，为了您的健康，我们精心为您准备了每天的健康食谱，请点击上方的按钮查看详情");
+                ((TreatmentPlanActivity) getActivity()).speak("主人，为了您的健康，我们精心为您准备了每天的健康食谱，请点击上方的按钮查看详情");
             }
             if (iChangToolbar!=null){
                 iChangToolbar.onChange(this);
@@ -224,6 +226,14 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
         }
         if (!TextUtils.isEmpty(dinner)) {
             mTvDinner.setText(dinner);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
         }
     }
 }

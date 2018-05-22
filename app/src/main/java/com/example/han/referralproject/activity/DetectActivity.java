@@ -805,7 +805,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 if (gattServices.size() == 5 || gattServices.size() == 10) {
                     characteristic = gattServices.get(3).getCharacteristics().get(3);
                 } else {
-                    characteristic = gattServices.get(2).getCharacteristics().get(3);
+                    if (gattServices.size()>2) {
+                        characteristic = gattServices.get(2).getCharacteristics().get(3);
+                    }
                 }
                 break;
             case Type_XueYang:

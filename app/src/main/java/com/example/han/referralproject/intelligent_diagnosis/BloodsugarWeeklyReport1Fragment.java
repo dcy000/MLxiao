@@ -108,7 +108,7 @@ public class BloodsugarWeeklyReport1Fragment extends Fragment implements View.On
             }
             waveProgressBar.setMaxValue(100);
             waveProgressBar.setValue(int_healthScore);
-            waveProgressBar.setHealthValue(int_healthScore + "分");
+            waveProgressBar.setHealthValue(int_healthScore+ "分");
         }
 
         setXueTangChart(report);

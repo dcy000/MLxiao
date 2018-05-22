@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textSize="56pt"
         android:textColor="#666"
-        android:text="根据您的评估结果，您可能是原发性高血压，并可能存在靶器官心、脑、肾脏、眼的损害。"
+        android:text=""
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

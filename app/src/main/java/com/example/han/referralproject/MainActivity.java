@@ -27,6 +27,7 @@ import com.example.han.referralproject.intelligent_diagnosis.BloodsugarMonthlyRe
 import com.example.han.referralproject.intelligent_diagnosis.BloodsugarWeeklyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.TreatmentPlanActivity;
+import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
@@ -188,9 +189,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-//                startActivity(new Intent(this, HypertensionRiskActivity.class));
+                startActivity(new Intent(this, TreatmentPlanActivity.class));
                 //呼叫
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+//                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
 //                    @Override
 //                    public void onSuccess(UserInfo response) {

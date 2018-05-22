@@ -37,7 +37,6 @@ public class PrimaryBloodPressureRiskResultsActivity extends BaseActivity implem
     }
 
     private void dealData() {
-
         if (data!=null){
             String target = "";
             String string_speak = "";
@@ -106,6 +105,7 @@ public class PrimaryBloodPressureRiskResultsActivity extends BaseActivity implem
             case R.id.tv_title:
                 break;
             case R.id.tv_headline_influencing_factors:
+
                 break;
         }
     }
