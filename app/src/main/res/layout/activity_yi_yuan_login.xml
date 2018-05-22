@@ -4,6 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.han.referralproject.yiyuan.YiYuanLoginActivity">
+    tools:context="com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity">
 
+    <ImageView
+        android:id="@+id/login_idcard"
+        android:layout_width="456pt"
+        android:layout_height="288pt"
+        android:layout_marginStart="438pt"
+        android:layout_marginTop="399pt"
+        android:src="@drawable/login_sfz"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/login_youke"
+        android:layout_width="326pt"
+        android:layout_height="274pt"
+        android:layout_marginStart="236pt"
+        android:layout_marginTop="406pt"
+        android:src="@drawable/login_fangke"
+        app:layout_constraintStart_toEndOf="@+id/login_idcard"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="50pt"
+        android:text="身份证登录"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintEnd_toEndOf="@+id/login_idcard"
+        app:layout_constraintStart_toStartOf="@+id/login_idcard"
+        app:layout_constraintTop_toBottomOf="@+id/login_idcard" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="50pt"
+        android:text="游客模式"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/login_youke"
+        app:layout_constraintStart_toStartOf="@+id/login_youke"
+        app:layout_constraintTop_toBottomOf="@+id/login_youke" />
 </android.support.constraint.ConstraintLayout>

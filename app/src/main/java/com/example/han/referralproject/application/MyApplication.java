@@ -4,35 +4,27 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-import android.os.Message;
-import android.os.MessageQueue;
 import android.os.Process;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.MainActivity;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.new_music.ToastUtils;
-import com.example.han.referralproject.settting.EventType;
-import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.example.han.referralproject.yiyuan.idle.YiYuanIdleHandler;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
@@ -41,7 +33,6 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.LitePal;
@@ -141,13 +132,17 @@ public class MyApplication extends Application {
 
     }
 
-    private Activity currentActivity;
+    public static Activity getCurrentActivity() {
+        return currentActivity;
+    }
+
+    private static Activity currentActivity;
     private ActivityLifecycleCallbacks callback = new ActivityLifecycleCallbacks() {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle bundle) {
             currentActivity = activity;
-            Looper.myQueue().addIdleHandler(idleHandler);
+            Looper.myQueue().addIdleHandler(YiYuanIdleHandler.getInstance());
         }
 
         @Override
@@ -229,88 +224,6 @@ public class MyApplication extends Application {
 
     public Handler getBgHandler() {
         return mBgHandler == null ? new Handler(mBgThread.getLooper()) : mBgHandler;
-    }
-
-    private volatile long mStartTime = -1;
-    private ClearCacheOrResetDialog dialog;
-    private MessageQueue.IdleHandler idleHandler = new MessageQueue.IdleHandler() {
-        private HandlerThread mHandlerThread;
-
-        {
-            mHandlerThread = new HandlerThread("bg");
-            mHandlerThread.start();
-        }
-
-        public Handler mHandler = new Handler(mHandlerThread.getLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-
-                switch (msg.what) {
-                    case 5:
-//                        showDialog(EventType.exit);
-                        break;
-                    case 10:
-//                        tuichu();
-                        break;
-                }
-            }
-        };
-
-
-        @Override
-        public boolean queueIdle() {
-            long theTime = System.currentTimeMillis();
-            Log.d("idleHandler", "queueIdle: " + theTime);
-            if (mStartTime == -1) {
-                mStartTime = theTime;
-                mHandler.sendEmptyMessageDelayed(5, 5000);
-                mHandler.sendEmptyMessageDelayed(10, 10000);
-            } else {
-                long duration = theTime - mStartTime;
-                Log.d("duration", "durationTime:" + duration);
-                if (duration < 5000) {
-                    mHandler.removeMessages(5);
-                    mHandler.removeMessages(10);
-                } else if (duration < 10000) {
-//                    mHandler.removeMessages(10);
-                }
-                mStartTime = -1;
-            }
-            return true;
-        }
-
-
-        private void showDialog(EventType type) {
-            if (dialog == null) {
-                dialog = new ClearCacheOrResetDialog(type);
-            }
-            dialog.setListener(new ClearCacheOrResetDialog.OnDialogClickListener() {
-                @Override
-                public void onClickConfirm(EventType type) {
-
-                }
-
-                @Override
-                public void onClickCancel() {
-                    mHandler.removeMessages(10);
-                }
-            });
-            dialog.show(currentActivity.getFragmentManager(), "tuichu");
-
-        }
-
-
-    };
-
-    private void tuichu() {
-        if (dialog != null) {
-            dialog.dismiss();
-        }
-        MobclickAgent.onProfileSignOff();
-        NimAccountHelper.getInstance().logout();
-        LocalShared.getInstance(currentActivity).loginOut();
-        currentActivity.startActivity(new Intent(currentActivity, ChooseLoginTypeActivity.class));
-        currentActivity.finish();
     }
 
 }

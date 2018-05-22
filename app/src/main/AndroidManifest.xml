@@ -684,7 +684,7 @@
         <activity android:name=".idcard.IdCardInfoActivity" />
         <activity android:name=".idcard.SignInIdCardActivity" />
         <activity android:name=".health.DetectResultActivity" />
-        <activity android:name=".yiyuan.YiYuanLoginActivity"></activity>
+        <activity android:name=".yiyuan.activity.YiYuanLoginActivity"></activity>
     </application>
 
 </manifest>

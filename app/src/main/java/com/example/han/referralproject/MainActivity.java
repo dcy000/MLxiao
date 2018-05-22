@@ -5,33 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.Looper;
-import android.os.Message;
-import android.os.MessageQueue;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.personal.PersonDetail2Fragment;
-import com.example.han.referralproject.settting.EventType;
-import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.adpater.MainFragmentAdapter;
 import com.example.han.referralproject.yiyuan.fragment.Main1Fragment;
 import com.example.han.referralproject.yiyuan.fragment.Main2Fragment;
+import com.example.han.referralproject.yiyuan.idle.YiYuanIdleHandler;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.crud.DataSupport;
 
@@ -40,7 +31,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.internal.operators.parallel.ParallelRunOn;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.fl_status_bar)
@@ -71,6 +61,8 @@ public class MainActivity extends BaseActivity {
         if (!isMyServiceRunning(AssistiveTouchService.class)) {
             startService(new Intent(this, AssistiveTouchService.class));
         }
+
+        Looper.myQueue().addIdleHandler(YiYuanIdleHandler.getInstance());
     }
 
     private void initView() {
@@ -128,5 +120,4 @@ public class MainActivity extends BaseActivity {
             mHandler.removeCallbacks(null);
         }
     }
-
 }
