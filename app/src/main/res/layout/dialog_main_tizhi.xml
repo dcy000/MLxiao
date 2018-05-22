@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:gravity="center"
-        android:id="@+id/tv_item"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
-</FrameLayout>
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:id="@+id/icon"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/__leak_canary_icon" />
+    <TextView
+        android:layout_marginTop="10dp"
+        tools:text="体检流程"
+        android:textColor="#ff333333"
+        android:textSize="32dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+</LinearLayout>

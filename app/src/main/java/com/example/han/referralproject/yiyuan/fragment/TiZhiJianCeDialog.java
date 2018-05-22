@@ -4,14 +4,18 @@ package com.example.han.referralproject.yiyuan.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 
 import java.util.List;
@@ -58,9 +62,11 @@ public class TiZhiJianCeDialog extends DialogFragment {
     }
 
     private void initRV() {
-        LinearLayoutManager lm = new LinearLayoutManager(getActivity());
-        lm.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvType.setLayoutManager(lm);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        rvType.setHasFixedSize(true);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rvType.setLayoutManager(layoutManager);
+        rvType.addItemDecoration(new GridViewDividerItemDecoration(100, 0));
         rvType.setAdapter(new MainTiZhiSetRVAdapter());
     }
 
@@ -82,7 +88,7 @@ public class TiZhiJianCeDialog extends DialogFragment {
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             final MainTiZHiDialogBean bean = data.get(position);
-            holder.tvItem.setOnClickListener(new View.OnClickListener() {
+            holder.icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
@@ -92,6 +98,8 @@ public class TiZhiJianCeDialog extends DialogFragment {
                 }
             });
             holder.tvItem.setText(bean.name);
+            Glide.with(holder.icon.getContext()).load(bean.iconId).into(holder.icon);
+
         }
 
         @Override
@@ -102,6 +110,9 @@ public class TiZhiJianCeDialog extends DialogFragment {
         class ViewHolder extends RecyclerView.ViewHolder {
             @BindView(R.id.tv_item)
             TextView tvItem;
+
+            @BindView(R.id.icon)
+            ImageView icon;
 
             ViewHolder(View view) {
                 super(view);

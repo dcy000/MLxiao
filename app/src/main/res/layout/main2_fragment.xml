@@ -63,14 +63,13 @@
         app:layout_constraintTop_toTopOf="@+id/shangcheng" />
 
     <ImageView
-        android:src="@drawable/main_tuichu"
         android:id="@+id/liaotian"
         android:layout_width="594pt"
         android:layout_height="328pt"
         android:layout_marginStart="24pt"
+        android:src="@drawable/main_tuichu"
         app:layout_constraintBottom_toBottomOf="@+id/zhanghuchongzhi"
         app:layout_constraintEnd_toEndOf="@+id/shezhi"
-        app:layout_constraintStart_toEndOf="@+id/zhanghuchongzhi"
-        app:layout_constraintTop_toBottomOf="@+id/shezhi" />
+        app:layout_constraintStart_toEndOf="@+id/zhanghuchongzhi" />
 
 </android.support.constraint.ConstraintLayout>

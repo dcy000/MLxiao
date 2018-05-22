@@ -116,13 +116,12 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 //                gotoPersonInfo();
                 break;
             case R.id.celianglishi:
-                gotoCeLiangLiShi();
+                showDialog(data = getZiChaData());
                 break;
             case R.id.tijian:
                 showDialog(getTiJianData());
                 break;
             case R.id.zhengzhuangzichan:
-                //showDialog(data = getZiChaData());
                 gotoPersonInfo();
                 break;
             case R.id.yishengjianyi:
@@ -136,16 +135,16 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         }
     }
 
-    private void gotoJianKangKeTang() {
-        startActivity(new Intent(getActivity(), VideoListActivity.class));
-    }
-
     private List<MainTiZHiDialogBean> getZiChaData() {
         data.clear();
         MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
         bean1.name = ZHENGZHUANG_ZICHA;
+        bean1.iconId=R.drawable.main_dialog_zicha;
+
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
         bean2.name = ZHONGYI_TIZHI;
+        bean2.iconId=R.drawable.main_dialog_tizhi;
+
         data.add(bean1);
         data.add(bean2);
         return data;
@@ -155,8 +154,12 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         data.clear();
         MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
         bean1.name = TIJIAN_LIUCHENG;
+        bean1.iconId=R.drawable.main_dialog_tijianliucheng;
+
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
         bean2.name = DANXIANG_JIANCE;
+        bean2.iconId = R.drawable.main_dialog_danxiangtijian;
+
         data.add(bean1);
         data.add(bean2);
         return data;
