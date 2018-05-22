@@ -8,10 +8,9 @@ import android.os.MessageQueue;
 import android.util.Log;
 
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.settting.EventType;
-import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
+import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
 
@@ -19,7 +18,7 @@ import com.umeng.analytics.MobclickAgent;
  * Created by lenovo on 2018/5/22.
  */
 
-public class YiYuanIdleHandler implements MessageQueue.IdleHandler {
+public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDialog.Ontouch {
     private static YiYuanIdleHandler handler;
 
     private YiYuanIdleHandler() {
@@ -35,13 +34,12 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler {
         }
 
         return handler;
-
     }
 
 
     private volatile long mStartTime = -1;
     private HandlerThread mHandlerThread;
-    private ClearCacheOrResetDialog dialog;
+    private CountdownDialog dialog;
 
     {
         mHandlerThread = new HandlerThread("bg");
@@ -54,7 +52,7 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler {
 
             switch (msg.what) {
                 case 5:
-                    showDialog(EventType.exit);
+                    showDialog();
                     break;
                 case 10:
                     tuichu();
@@ -88,21 +86,11 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler {
     }
 
 
-    private void showDialog(EventType type) {
+    private void showDialog() {
         if (dialog == null) {
-            dialog = new ClearCacheOrResetDialog(type);
+            dialog = new CountdownDialog();
         }
-        dialog.setListener(new ClearCacheOrResetDialog.OnDialogClickListener() {
-            @Override
-            public void onClickConfirm(EventType type) {
-
-            }
-
-            @Override
-            public void onClickCancel() {
-                mHandler.removeMessages(10);
-            }
-        });
+        dialog.setOntouch(this);
         dialog.show(MyApplication.getCurrentActivity().getFragmentManager(), "tuichu");
 
     }
@@ -117,5 +105,10 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler {
         LocalShared.getInstance(MyApplication.getCurrentActivity()).loginOut();
         MyApplication.getInstance().startActivity(new Intent(MyApplication.getCurrentActivity(), YiYuanLoginActivity.class));
 //        MyApplication.getCurrentActivity().finish();
+    }
+
+    @Override
+    public void OnTouch() {
+        mHandler.removeMessages(10);
     }
 }
