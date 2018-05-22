@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.idle;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -91,7 +92,11 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
             dialog = new CountdownDialog();
         }
         dialog.setOntouch(this);
-        dialog.show(MyApplication.getCurrentActivity().getFragmentManager(), "tuichu");
+        Activity currentActivity = MyApplication.getCurrentActivity();
+        if (currentActivity == null || currentActivity.isFinishing()) {
+            return;
+        }
+        dialog.show(currentActivity.getFragmentManager(), "tuichu");
 
     }
 
@@ -103,7 +108,10 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(MyApplication.getCurrentActivity()).loginOut();
-        MyApplication.getInstance().startActivity(new Intent(MyApplication.getCurrentActivity(), YiYuanLoginActivity.class));
+        Activity currentActivity = MyApplication.getCurrentActivity();
+        Intent intent = new Intent(currentActivity, YiYuanLoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        currentActivity.startActivity(intent);
 //        MyApplication.getCurrentActivity().finish();
     }
 

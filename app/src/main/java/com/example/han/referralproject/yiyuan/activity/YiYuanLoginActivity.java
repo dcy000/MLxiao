@@ -43,4 +43,5 @@ public class YiYuanLoginActivity extends BaseActivity {
                 break;
         }
     }
+
 }

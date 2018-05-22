@@ -11,15 +11,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 
 
 /**
  * Created by lenovo on 2018/5/22.
  */
 
-public class CountdownDialog extends DialogFragment {
+public class CountdownDialog extends DialogFragment implements View.OnClickListener {
     Handler handler = new Handler();
     private TextView count;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(android.support.v4.app.DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
+    }
 
     @Nullable
     @Override
@@ -27,6 +34,7 @@ public class CountdownDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_count_down, container, false);
         initDialogView();
         count = view.findViewById(R.id.count);
+        view.setOnClickListener(this);
         return view;
     }
 
@@ -36,15 +44,19 @@ public class CountdownDialog extends DialogFragment {
             @Override
             public void run() {
                 String trim = count.getText().toString().trim();
-                int i = Integer.parseInt(trim);
-
-                if (i <= 1) {
+                final int[] i = {Integer.parseInt(trim)};
+                if (i[0] <= 1) {
                     handler.removeCallbacksAndMessages(null);
                     CountdownDialog.this.dismiss();
                     return;
                 }
 
-                count.setText("" + --i);
+                MyApplication.getCurrentActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        count.setText("" + --i[0]);
+                    }
+                });
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
@@ -52,23 +64,20 @@ public class CountdownDialog extends DialogFragment {
 
     private Ontouch ontouch;
 
+    @Override
+    public void onClick(View view) {
+        if (ontouch == null) {
+            return;
+        }
+
+        ontouch.OnTouch();
+    }
+
     public interface Ontouch {
         void OnTouch();
     }
 
     public void setOntouch(Ontouch ontouch) {
         this.ontouch = ontouch;
-    }
-
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (ontouch == null) {
-            return;
-        }
-
-        ontouch.OnTouch();
-
     }
 }
