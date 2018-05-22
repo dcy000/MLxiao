@@ -666,7 +666,6 @@
         <activity
             android:name=".settting.activity.VoicerSettingDemoActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".settting.activity.CustomKeyWordsActivity"
             android:screenOrientation="landscape" />
@@ -679,15 +678,13 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
-        <activity android:name=".MainActivity"></activity>
-
-        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity">
-
-        </activity>
-        <activity android:name=".questionair.activity.MonitorResultActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity"></activity>
+        <activity android:name=".questionair.activity.MonitorResultActivity" />
         <activity android:name=".idcard.IdCardInfoActivity" />
         <activity android:name=".idcard.SignInIdCardActivity" />
         <activity android:name=".health.DetectResultActivity" />
+        <activity android:name=".yiyuan.YiYuanLoginActivity"></activity>
     </application>
 
 </manifest>
