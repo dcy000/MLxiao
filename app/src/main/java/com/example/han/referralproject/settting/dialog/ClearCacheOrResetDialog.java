@@ -38,7 +38,7 @@ public class ClearCacheOrResetDialog extends DialogFragment {
     public interface OnDialogClickListener {
         void onClickConfirm(EventType type);
 
-//        void onClickCancel();
+        void onClickCancel();
     }
 
     public void setListener(OnDialogClickListener listener) {
@@ -91,13 +91,13 @@ public class ClearCacheOrResetDialog extends DialogFragment {
         }
         listener.onClickConfirm(type);
         dismiss();
-    }
+}
 
     private void clickCancel() {
-//        if (listener==null){
-//            return;
-//        }
-//        listener.onClickCancel();
+        if (listener==null){
+            return;
+        }
+        listener.onClickCancel();
 
         dismiss();
     }

@@ -212,6 +212,11 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     }
 
     @Override
+    public void onClickCancel() {
+
+    }
+
+    @Override
     public void onUpdateClick(UpDateDialog dialog) {
         dialog.dismiss();
         UpdateAppManager manager = new UpdateAppManager(this);
