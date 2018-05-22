@@ -4,36 +4,23 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.WelcomeActivity;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.adapter.ChangeAccountAdapter;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.facerecognition.DeleteGroupListener;
-import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.iflytek.cloud.IdentityResult;
-import com.iflytek.cloud.SpeechError;
+import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.signin.SignInActivity;
-import com.umeng.analytics.MobclickAgent;
 import com.medlink.danbogh.utils.JpushAliasUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
-
-import cn.jpush.android.api.JPushInterface;
 
 
 public class ChangeAccountDialog extends Dialog implements View.OnClickListener {
@@ -116,7 +103,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    mContext.startActivity(new Intent(mContext, SignInActivity.class));
 //                    ((Activity) mContext).finish();
 //                }
-                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                mContext.startActivity(new Intent(mContext, YiYuanLoginActivity.class));
                 ((Activity) mContext).finish();
                 break;
             case R.id.btn_logout:
@@ -128,7 +115,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
                 LocalShared.getInstance(mContext).loginOut();
-                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                mContext.startActivity(new Intent(mContext, YiYuanLoginActivity.class));
                 ((Activity) mContext).finish();
                 break;
         }

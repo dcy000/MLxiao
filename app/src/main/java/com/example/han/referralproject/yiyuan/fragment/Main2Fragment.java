@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
@@ -20,6 +19,7 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.ml.edu.OldRouter;
 import com.umeng.analytics.MobclickAgent;
@@ -109,7 +109,7 @@ public class Main2Fragment extends Fragment {
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(activity).loginOut();
-        activity.startActivity(new Intent(activity, ChooseLoginTypeActivity.class));
+        activity.startActivity(new Intent(activity, YiYuanLoginActivity.class));
         activity.finish();
     }
 

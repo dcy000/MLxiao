@@ -7,11 +7,11 @@ import android.os.Message;
 import android.os.MessageQueue;
 import android.util.Log;
 
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.settting.EventType;
 import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
 
@@ -115,7 +115,7 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler {
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(MyApplication.getCurrentActivity()).loginOut();
-        MyApplication.getInstance().startActivity(new Intent(MyApplication.getCurrentActivity(), ChooseLoginTypeActivity.class));
+        MyApplication.getInstance().startActivity(new Intent(MyApplication.getCurrentActivity(), YiYuanLoginActivity.class));
 //        MyApplication.getCurrentActivity().finish();
     }
 }
