@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,11 +80,15 @@ public class Main2Fragment extends Fragment {
     }
 
     public void tuiChu() {
+        FragmentActivity activity = getActivity();
+        if (activity==null) {
+            return;
+        }
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
-        LocalShared.getInstance(getActivity()).loginOut();
-        getActivity().startActivity(new Intent(getActivity(), ChooseLoginTypeActivity.class));
-        getActivity().finish();
+        LocalShared.getInstance(activity).loginOut();
+        activity.startActivity(new Intent(activity, ChooseLoginTypeActivity.class));
+        activity.finish();
     }
 
     private void gotoSheZhi() {
