@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private volatile long mStartTime = -1;
-
+    private ClearCacheOrResetDialog dialog;
     private MessageQueue.IdleHandler idleHandler = new MessageQueue.IdleHandler() {
         private HandlerThread mHandlerThread;
 
@@ -125,7 +125,9 @@ public class MainActivity extends BaseActivity {
 
 
         private void showDialog(EventType type) {
-            ClearCacheOrResetDialog dialog = new ClearCacheOrResetDialog(type);
+            if (dialog == null) {
+                dialog = new ClearCacheOrResetDialog(type);
+            }
             dialog.setListener(new ClearCacheOrResetDialog.OnDialogClickListener() {
                 @Override
                 public void onClickConfirm(EventType type) {
@@ -144,6 +146,7 @@ public class MainActivity extends BaseActivity {
     };
 
     private void tuichu() {
+        dialog.dismiss();
         Main2Fragment fragment = (Main2Fragment) fragments.get(1);
         fragment.tuiChu();
     }
