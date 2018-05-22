@@ -8,8 +8,8 @@ android {
         applicationId "com.example.han.referralproject"
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
-        versionCode 16
-        versionName "1.2.1"
+        versionCode 17
+        versionName "1.2.5"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

@@ -463,10 +463,12 @@ public class AuthenticationActivity extends BaseActivity {
                         Parameters params = mCamera.getParameters();
                         params.setPreviewFormat(ImageFormat.NV21);
                         params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+                        params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);//1连续对焦
                         mCamera.setParameters(params);
                         setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
                         mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
                         mCamera.startPreview();
+                        mCamera.cancelAutoFocus();//对焦
 
                     } catch (Exception e) {
                         runOnUiThreadWithOpenCameraFail();

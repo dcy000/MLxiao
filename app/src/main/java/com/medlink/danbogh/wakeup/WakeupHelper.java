@@ -133,7 +133,7 @@ public class WakeupHelper {
                     try {
                         JSONObject jsonObj = new JSONObject(json);
                         int score = jsonObj.optInt("score");
-                        if (score >= 10) {
+                        if (score >= 20) {
                             Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             sContext.startActivity(intent);

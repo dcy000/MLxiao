@@ -100,7 +100,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_hykd" />
+            android:value="gcml_version_normal" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -293,14 +293,14 @@
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustNothing|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp2GenderActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp3AddressActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp4IdCardActivity"
             android:screenOrientation="landscape"
@@ -308,11 +308,11 @@
         <activity
             android:name="com.medlink.danbogh.register.SignUp5MobileVerificationActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp6PasswordActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
             android:screenOrientation="landscape" />

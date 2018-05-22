@@ -713,6 +713,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         String speakFlag;
         if (notifyData[1] == 65) {//血糖
             info.blood_sugar = String.valueOf(afterResult);
+            info.sugar_time = xuetangTimeFlag + "";
+            info.upload_state = true;
             mSanHeYiOneTv.setText(String.valueOf(afterResult));
             if (afterResult < 3.61)
                 speakFlag = "偏低";

@@ -164,7 +164,8 @@ public class WelcomeActivity extends BaseActivity {
 
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
-        if (isFirstIn) {
+//        if (isFirstIn) {
+        if (false) {
             JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
             JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
             JZVideoPlayerStandard.startFullscreen(this, MyVideoPlayer.class, VEDIO_URL, "迈联智慧");

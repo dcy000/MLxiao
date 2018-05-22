@@ -3,6 +3,7 @@ package com.medlink.danbogh.call2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
@@ -72,6 +74,7 @@ public class NimCallActivity extends AppCompatActivity {
     public static final int SOURCE_UNKNOWN = -1;
     public static final int SOURCE_BROADCAST = 0;
     public static final int SOURCE_INTERNAL = 1;
+    private Handler mHandler = new Handler();
 
     public static void launchNoCheck(final Context context, final String account) {
         launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
@@ -147,6 +150,8 @@ public class NimCallActivity extends AppCompatActivity {
     TextView tvRefuse;
     @BindView(R.id.cl_call_root)
     ConstraintLayout clRoot;
+    @BindView(R.id.iv_finish)
+    ImageView backView;
 
     private boolean mIsIncomingCall;
     public AVChatData mCallData;
@@ -290,7 +295,13 @@ public class NimCallActivity extends AppCompatActivity {
         NimCallHelper.getInstance().setOnCloseSessionListener(new NimCallHelper.OnCloseSessionListener() {
             @Override
             public void onCloseSession() {
-                closeSession();
+//                closeSession();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        closeSession();
+                    }
+                }, 1000);
             }
         });
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, true);
@@ -303,6 +314,7 @@ public class NimCallActivity extends AppCompatActivity {
         NimCallHelper.getInstance().call2(mPeerAccount, chatType, new AVChatCallback<AVChatData>() {
             @Override
             public void onSuccess(AVChatData avChatData) {
+                Log.i("mylog444444444444", "success avChatData : " + avChatData);
                 if (chatType == AVChatType.VIDEO) {
                     initLargeSurfaceView(account);
                     canSwitchCamera = true;
@@ -311,12 +323,12 @@ public class NimCallActivity extends AppCompatActivity {
 
             @Override
             public void onFailed(int code) {
-
+                Log.i("mylog444444444444", "failed code : " + code);
             }
 
             @Override
             public void onException(Throwable exception) {
-
+                Log.i("mylog444444444444", "exception : " + exception);
             }
         });
     }
@@ -585,6 +597,7 @@ public class NimCallActivity extends AppCompatActivity {
         @Override
         public void onEvent(AVChatCalleeAckEvent ackInfo) {
             AVChatData info = NimCallHelper.getInstance().getAvChatData();
+            Log.i("mylog555555555555", "call ack : " + info);
             if (info != null && info.getChatId() == ackInfo.getChatId()) {
                 CallSoundPlayer.instance().stop();
                 if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_BUSY) {
@@ -598,6 +611,7 @@ public class NimCallActivity extends AppCompatActivity {
                     canSwitchCamera = true;
                 }
             }
+            Log.i("mylog555555555555", "call ack : " + info);
         }
     };
 
@@ -650,11 +664,13 @@ public class NimCallActivity extends AppCompatActivity {
         @Override
         public void onEvent(AVChatCommonEvent avChatHangUpInfo) {
             AVChatData info = NimCallHelper.getInstance().getAvChatData();
+            Log.i("mylog555555555555", "hang up info : " + info);
             if (info != null && info.getChatId() == avChatHangUpInfo.getChatId()) {
                 CallSoundPlayer.instance().stop();
                 NimCallHelper.getInstance().closeRtc();
                 NimCallHelper.getInstance().closeSessions(CallExitCode.HANGUP);
             }
+            Log.i("mylog555555555555", "after hang up info : " + info);
         }
     };
 
@@ -665,6 +681,7 @@ public class NimCallActivity extends AppCompatActivity {
         @Override
         public void onEvent(AVChatOnlineAckEvent ackInfo) {
             AVChatData info = NimCallHelper.getInstance().getAvChatData();
+            Log.i("mylog555555555555", "online ack : " + info);
             if (info != null && info.getChatId() == ackInfo.getChatId()) {
                 CallSoundPlayer.instance().stop();
                 String client = null;
@@ -693,6 +710,7 @@ public class NimCallActivity extends AppCompatActivity {
                 }
                 NimCallHelper.getInstance().closeSessions(-1);
             }
+            Log.i("mylog555555555555", "online ack : " + info);
         }
     };
 
@@ -818,9 +836,36 @@ public class NimCallActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.iv_finish)
+    public void onBackClicked(){
+        Toast.makeText(NimCallActivity.this, "正在停止通话", Toast.LENGTH_SHORT).show();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeSession();
+            }
+        }, 1000);
+        NimCallHelper.getInstance().hangUp();
+    }
+
+    private boolean isClosed = false;
     @OnClick(R.id.iv_call_hang_up)
     public void onIvHangUpClicked() {
-        NimCallHelper.getInstance().hangUp();
+        if (isClosed){
+            findViewById(R.id.iv_call_hang_up).setVisibility(View.GONE);
+            return;
+        }
+        isClosed = true;
+        Toast.makeText(NimCallActivity.this, "正在停止通话", Toast.LENGTH_SHORT).show();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                NimCallHelper.getInstance().hangUp();
+//                isClosed = true;
+//                closeSession();
+            }
+        }, 2000);
+
     }
 
     @OnClick(R.id.tv_call_receive)
