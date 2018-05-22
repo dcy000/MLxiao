@@ -1,6 +1,5 @@
 package com.example.han.referralproject.yiyuan.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,9 +14,12 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.MarketActivity;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
+import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.video.VideoListActivity;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.ml.edu.OldRouter;
 import com.umeng.analytics.MobclickAgent;
@@ -34,8 +36,8 @@ import butterknife.Unbinder;
 public class Main2Fragment extends Fragment {
     @BindView(R.id.shangcheng)
     ImageView shangcheng;
-    @BindView(R.id.yule)
-    ImageView yule;
+    @BindView(R.id.jiankangketang)
+    ImageView jiankangketang;
     @BindView(R.id.shezhi)
     ImageView shezhi;
     @BindView(R.id.tuichu)
@@ -43,6 +45,10 @@ public class Main2Fragment extends Fragment {
     @BindView(R.id.liaotian)
     ImageView liaotian;
     Unbinder unbinder;
+    @BindView(R.id.zhanghuchongzhi)
+    ImageView zhanghuchongzhi;
+    @BindView(R.id.wodedingdan)
+    ImageView wodedingdan;
 
     @Nullable
     @Override
@@ -58,14 +64,14 @@ public class Main2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.shangcheng, R.id.yule, R.id.shezhi, R.id.tuichu, R.id.liaotian})
+    @OnClick({R.id.shangcheng, R.id.jiankangketang, R.id.shezhi, R.id.tuichu, R.id.liaotian, R.id.zhanghuchongzhi, R.id.wodedingdan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shangcheng:
                 gotoShangCheng();
                 break;
-            case R.id.yule:
-                gotoYule();
+            case R.id.jiankangketang:
+                gotoJianKangKeTang();
                 break;
             case R.id.shezhi:
                 gotoSheZhi();
@@ -76,12 +82,28 @@ public class Main2Fragment extends Fragment {
             case R.id.liaotian:
                 tuiChu();
                 break;
+            case R.id.zhanghuchongzhi:
+                gotoZhangHuChongZhi();
+                break;
+            case R.id.wodedingdan:
+                gotoWoDeDingDan();
+                break;
+
         }
     }
 
+    private void gotoZhangHuChongZhi() {
+        startActivity(new Intent(getActivity(), PayActivity.class));
+    }
+
+    private void gotoWoDeDingDan() {
+        startActivity(new Intent(getActivity(), OrderListActivity.class));
+    }
+
+
     public void tuiChu() {
         FragmentActivity activity = getActivity();
-        if (activity==null) {
+        if (activity == null) {
             return;
         }
         MobclickAgent.onProfileSignOff();
@@ -106,4 +128,10 @@ public class Main2Fragment extends Fragment {
     private void gotoLiaoTian() {
         startActivity(new Intent(getActivity(), SpeechSynthesisActivity.class));
     }
+
+    private void gotoJianKangKeTang() {
+        startActivity(new Intent(getActivity(), VideoListActivity.class));
+    }
+
+
 }
