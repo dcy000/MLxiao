@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,31 @@ import com.example.han.referralproject.application.MyApplication;
  */
 
 public class CountdownDialog extends DialogFragment implements View.OnClickListener {
-    Handler handler = new Handler();
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 119:
+                    String trim = count.getText().toString().trim();
+                    final int[] i = {Integer.parseInt(trim)};
+                    if (i[0] <= 1) {
+                        handler.removeMessages(119);
+                        CountdownDialog.this.dismiss();
+                        return;
+                    }
+
+                    MyApplication.getCurrentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            count.setText("" + --i[0]);
+                        }
+                    });
+                    handler.sendEmptyMessageDelayed(119, 1000);
+                    break;
+            }
+        }
+    };
     private TextView count;
 
     @Override
@@ -32,7 +57,7 @@ public class CountdownDialog extends DialogFragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_count_down, container, false);
-        initDialogView();
+//        initDialogView();
         count = view.findViewById(R.id.count);
         view.setOnClickListener(this);
         return view;
@@ -40,26 +65,8 @@ public class CountdownDialog extends DialogFragment implements View.OnClickListe
 
 
     private void initDialogView() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String trim = count.getText().toString().trim();
-                final int[] i = {Integer.parseInt(trim)};
-                if (i[0] <= 1) {
-                    handler.removeCallbacksAndMessages(null);
-                    CountdownDialog.this.dismiss();
-                    return;
-                }
-
-                MyApplication.getCurrentActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        count.setText("" + --i[0]);
-                    }
-                });
-                handler.postDelayed(this, 1000);
-            }
-        }, 1000);
+        handler.removeMessages(119);
+        handler.sendEmptyMessageDelayed(119, 1000);
     }
 
     private Ontouch ontouch;

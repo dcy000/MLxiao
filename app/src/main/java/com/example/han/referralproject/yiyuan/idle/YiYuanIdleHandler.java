@@ -89,7 +89,7 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
 
     private void showDialog() {
         if (dialog == null) {
-            dialog = new CountdownDialog();
+                dialog = new CountdownDialog();
         }
         dialog.setOntouch(this);
         Activity currentActivity = MyApplication.getCurrentActivity();
@@ -102,9 +102,6 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
 
 
     private void tuichu() {
-        if (dialog != null) {
-            dialog.dismiss();
-        }
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(MyApplication.getCurrentActivity()).loginOut();
@@ -112,7 +109,7 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
         Intent intent = new Intent(currentActivity, YiYuanLoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         currentActivity.startActivity(intent);
-//        MyApplication.getCurrentActivity().finish();
+        currentActivity.finish();
     }
 
     @Override
