@@ -73,12 +73,12 @@ public class Main2Fragment extends Fragment {
                 gotoLiaoTian();
                 break;
             case R.id.liaotian:
-                TuiChu();
+                tuiChu();
                 break;
         }
     }
 
-    private void TuiChu() {
+    public void tuiChu() {
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(getActivity()).loginOut();

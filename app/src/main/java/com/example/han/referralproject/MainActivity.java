@@ -5,22 +5,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
+import android.os.MessageQueue;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.personal.PersonDetail2Fragment;
+import com.example.han.referralproject.settting.EventType;
+import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.adpater.MainFragmentAdapter;
 import com.example.han.referralproject.yiyuan.fragment.Main1Fragment;
 import com.example.han.referralproject.yiyuan.fragment.Main2Fragment;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.crud.DataSupport;
 
@@ -29,6 +40,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.internal.operators.parallel.ParallelRunOn;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.fl_status_bar)
@@ -59,6 +71,81 @@ public class MainActivity extends BaseActivity {
         if (!isMyServiceRunning(AssistiveTouchService.class)) {
             startService(new Intent(this, AssistiveTouchService.class));
         }
+
+        Looper.myQueue().addIdleHandler(idleHandler);
+    }
+
+    private volatile long mStartTime = -1;
+
+    private MessageQueue.IdleHandler idleHandler = new MessageQueue.IdleHandler() {
+        private HandlerThread mHandlerThread;
+
+        {
+            mHandlerThread = new HandlerThread("bg");
+            mHandlerThread.start();
+        }
+
+        public Handler mHandler = new Handler(mHandlerThread.getLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+
+                switch (msg.what) {
+                    case 5:
+                        showDialog(EventType.exit);
+                        break;
+                    case 10:
+                        tuichu();
+                        break;
+                }
+            }
+        };
+
+
+        @Override
+        public boolean queueIdle() {
+            long theTime = System.currentTimeMillis();
+            Log.d("idleHandler", "queueIdle: " + theTime);
+            if (mStartTime == -1) {
+                mStartTime = theTime;
+                mHandler.sendEmptyMessageDelayed(5, 5000);
+                mHandler.sendEmptyMessageDelayed(10, 10000);
+            } else {
+                long duration = theTime - mStartTime;
+                Log.d("duration", "durationTime:" + duration);
+                if (duration < 5000) {
+                    mHandler.removeMessages(5);
+                    mHandler.removeMessages(10);
+                } else if (duration < 10000) {
+//                    mHandler.removeMessages(10);
+                }
+                mStartTime = -1;
+            }
+            return true;
+        }
+
+
+        private void showDialog(EventType type) {
+            ClearCacheOrResetDialog dialog = new ClearCacheOrResetDialog(type);
+            dialog.setListener(new ClearCacheOrResetDialog.OnDialogClickListener() {
+                @Override
+                public void onClickConfirm(EventType type) {
+
+                }
+
+                @Override
+                public void onClickCancel() {
+                    mHandler.removeMessages(10);
+                }
+            });
+            dialog.show(getFragmentManager(), "dialog");
+        }
+
+
+    };
+
+    private void tuichu() {
+        Main2Fragment fragment = (Main2Fragment) fragments.get(1);
+        fragment.tuiChu();
     }
 
 
@@ -117,6 +204,5 @@ public class MainActivity extends BaseActivity {
             mHandler.removeCallbacks(null);
         }
     }
-
 
 }
