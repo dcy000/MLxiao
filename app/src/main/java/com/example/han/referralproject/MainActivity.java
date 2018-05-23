@@ -35,6 +35,8 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.yisuotang.HealthMallActivity;
+import com.example.han.referralproject.yisuotang.RecreationCenterActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
@@ -177,7 +179,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.health_class:
-                intent.setClass(getApplicationContext(), MarketActivity.class);
+//                intent.setClass(getApplicationContext(), MarketActivity.class);
+                intent.setClass(getApplicationContext(), HealthMallActivity.class);
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
@@ -209,7 +212,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                });
                 break;
             case R.id.yule_center://紧急呼叫家人
-                OldRouter.routeToOldHomeActivity(this);
+                startActivity(new Intent(this, RecreationCenterActivity.class));
                 break;
         }
     }

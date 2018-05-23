@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.yisuotang.HealthMallActivity">
+
+
+    <ImageView
+        android:id="@+id/iv_lecture_hall"
+        android:layout_width="560pt"
+        android:layout_height="560pt"
+        android:layout_marginStart="60pt"
+        android:layout_marginTop="192pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iv_lecture_hall" />
+
+    <ImageView
+        android:id="@+id/iv_lecture_care"
+        android:layout_width="560pt"
+        android:layout_height="560pt"
+        android:layout_marginStart="60pt"
+        app:layout_constraintStart_toEndOf="@+id/iv_lecture_hall"
+        app:layout_constraintTop_toTopOf="@+id/iv_lecture_hall"
+        app:srcCompat="@drawable/iv_lecture_care" />
+
+    <ImageView
+        android:id="@+id/iv_yisuo_mall"
+        android:layout_width="560pt"
+        android:layout_height="560pt"
+        android:layout_marginStart="60pt"
+        app:layout_constraintStart_toEndOf="@+id/iv_lecture_care"
+        app:layout_constraintTop_toTopOf="@+id/iv_lecture_care"
+        app:srcCompat="@drawable/iv_yisuo_mall" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44pt"
+        android:text="健康讲堂"
+        android:textColor="#ff333333"
+        android:textSize="72pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_lecture_hall"
+        app:layout_constraintStart_toStartOf="@+id/iv_lecture_hall"
+        app:layout_constraintTop_toBottomOf="@+id/iv_lecture_hall" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="44pt"
+        android:text="养生保健"
+        android:textColor="#ff333333"
+        android:textSize="72pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_lecture_care"
+        app:layout_constraintStart_toStartOf="@+id/iv_lecture_care"
+        app:layout_constraintTop_toBottomOf="@+id/iv_lecture_care" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="44pt"
+        android:text="颐硕堂商城"
+        android:textColor="#ff333333"
+        android:textSize="72pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_yisuo_mall"
+        app:layout_constraintStart_toStartOf="@+id/iv_yisuo_mall"
+        app:layout_constraintTop_toBottomOf="@+id/iv_yisuo_mall" />
+</android.support.constraint.ConstraintLayout>
