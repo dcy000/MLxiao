@@ -253,6 +253,7 @@ public class LocalShared {
 
     private static final String SIGN_UP_NAME = "sign_up_name";
     private static final String SIGN_UP_GENDER = "sign_up_gender";
+    private static final String SIGN_UP_YUN = "sign_up_yun";
     private static final String SIGN_UP_ADDRESS = "sign_up_address";
     private static final String SIGN_UP_ID_CARD = "sign_up_id_card";
     private static final String SIGN_UP_PHONE = "sign_up_phone";
@@ -276,6 +277,7 @@ public class LocalShared {
     public void setSignUpGender(String gender) {
         mShared.edit().putString(SIGN_UP_GENDER, gender).apply();
     }
+
 
     public String getSignUpGender() {
         return mShared.getString(SIGN_UP_GENDER, "");

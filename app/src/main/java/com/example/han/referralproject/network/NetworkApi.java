@@ -1401,7 +1401,7 @@ public class NetworkApi {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("sfz", idCard);
-        NetworkManager.getInstance().getResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
+        NetworkManager.getInstance().postResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
     }
 
     public static void registerYiYuanUser(
