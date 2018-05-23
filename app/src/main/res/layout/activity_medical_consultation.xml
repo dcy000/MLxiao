@@ -11,31 +11,38 @@
         android:id="@+id/community_drugstore"
         android:layout_width="600pt"
         android:layout_height="600pt"
-        app:srcCompat="@drawable/community_drugstore"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="40dp" />
+        android:layout_marginStart="40pt"
+        android:layout_marginTop="40pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/community_drugstore" />
 
     <ImageView
         android:id="@+id/community_doctor"
         android:layout_width="600pt"
         android:layout_height="600pt"
-        app:srcCompat="@drawable/community_doctor"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="233dp" />
+        android:layout_marginTop="32pt"
+        app:layout_constraintStart_toStartOf="@+id/community_drugstore"
+        app:layout_constraintTop_toBottomOf="@+id/community_drugstore"
+        app:srcCompat="@drawable/community_doctor" />
 
     <ImageView
         android:id="@+id/health_mannager"
         android:layout_width="600pt"
         android:layout_height="600pt"
-        app:srcCompat="@drawable/health_mannager"
-        tools:layout_editor_absoluteX="230dp"
-        tools:layout_editor_absoluteY="40dp" />
+        android:layout_marginStart="32pt"
+        app:layout_constraintStart_toEndOf="@+id/community_drugstore"
+        app:layout_constraintTop_toTopOf="@+id/community_drugstore"
+        app:srcCompat="@drawable/health_mannager" />
 
     <ImageView
         android:id="@+id/contract_doctor"
         android:layout_width="600pt"
         android:layout_height="600pt"
-        app:srcCompat="@drawable/contract_doctor"
-        tools:layout_editor_absoluteX="230dp"
-        tools:layout_editor_absoluteY="233dp" />
+        android:layout_marginStart="32pt"
+        android:layout_marginTop="32pt"
+        app:layout_constraintBottom_toBottomOf="@+id/community_doctor"
+        app:layout_constraintStart_toEndOf="@+id/community_doctor"
+        app:layout_constraintTop_toBottomOf="@+id/health_mannager"
+        app:srcCompat="@drawable/contract_doctor" />
 </android.support.constraint.ConstraintLayout>

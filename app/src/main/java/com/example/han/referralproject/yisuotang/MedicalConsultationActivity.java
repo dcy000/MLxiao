@@ -1,11 +1,22 @@
 package com.example.han.referralproject.yisuotang;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.UserInfo;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recyclerview.CheckContractActivity;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,11 +53,45 @@ public class MedicalConsultationActivity extends BaseActivity {
             case R.id.community_drugstore:
                 break;
             case R.id.community_doctor:
+                startActivity(new Intent(this, OnlineDoctorListActivity.class));
                 break;
             case R.id.health_mannager:
                 break;
             case R.id.contract_doctor:
+                gotoQianyueYiSheng();
                 break;
         }
     }
+
+    private void gotoQianyueYiSheng() {
+        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo response) {
+                if ("1".equals(response.getState())) {
+                    //已签约
+                    startActivity(new Intent(MedicalConsultationActivity.this,
+                            DoctorappoActivity.class));
+                } else if ("0".equals(response.getState())
+                        && (TextUtils.isEmpty(response.getDoctername()))) {
+                    //未签约
+                    Intent intent = new Intent(MedicalConsultationActivity.this,
+                            OnlineDoctorListActivity.class);
+                    intent.putExtra("flag", "contract");
+                    startActivity(intent);
+                } else {
+                    // 待审核
+                    Intent intent = new Intent(MedicalConsultationActivity.this,
+                            CheckContractActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+            }
+        });
+    }
+
 }
