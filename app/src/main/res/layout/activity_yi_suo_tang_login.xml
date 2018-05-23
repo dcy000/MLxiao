@@ -24,6 +24,45 @@
             android:layout_height="767pt">
 
             <TextView
+                android:id="@+id/account_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="177pt"
+                android:layout_marginTop="120pt"
+                android:gravity="center"
+                android:text="还没有账号？"
+                android:textColor="#262626"
+                android:textSize="44pt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <TextView
+                android:id="@+id/regist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5pt"
+                android:gravity="center"
+                android:text="立即注册"
+                android:textColor="#FF3F86FC"
+                android:textSize="44pt"
+                app:layout_constraintBottom_toBottomOf="@+id/account_tip"
+                app:layout_constraintStart_toEndOf="@+id/account_tip"
+                app:layout_constraintTop_toTopOf="@+id/account_tip" />
+
+            <TextView
+                android:id="@+id/sign_up_fast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5pt"
+                android:gravity="center"
+                android:text="快速注册"
+                android:textColor="#FF3F86FC"
+                android:textSize="44pt"
+                app:layout_constraintBottom_toBottomOf="@+id/regist"
+                app:layout_constraintStart_toEndOf="@+id/regist"
+                app:layout_constraintTop_toTopOf="@+id/regist" />
+
+            <TextView
                 android:id="@+id/tv_phone_sign_in"
                 android:layout_width="200pt"
                 android:layout_height="200pt"
@@ -68,47 +107,12 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_phone_sign_in"
                 app:layout_constraintTop_toTopOf="@+id/tv_phone_sign_in" />
 
-            <TextView
-                android:id="@+id/account_tip"
-                android:layout_width="72dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="177pt"
-                android:text="还没有账号？"
-                android:textColor="#262626"
-                android:textSize="44pt"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="189dp" />
-
-            <TextView
-                android:id="@+id/regist"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30pt"
-                android:text="立即注册"
-                android:textColor="#3F86FC"
-                android:textSize="44pt"
-                app:layout_constraintBottom_toBottomOf="@+id/account_tip"
-                app:layout_constraintStart_toEndOf="@+id/account_tip"
-                app:layout_constraintTop_toTopOf="@+id/account_tip" />
-
-            <TextView
-                android:id="@+id/sign_up_fast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30pt"
-                android:text="快速注册"
-                android:textColor="#3F86FC"
-                android:textSize="44pt"
-                app:layout_constraintBottom_toBottomOf="@+id/regist"
-                app:layout_constraintStart_toEndOf="@+id/regist"
-                app:layout_constraintTop_toTopOf="@+id/regist" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="手机登录"
+                android:text="人脸登录"
                 android:textColor="#ff333333"
                 android:textSize="56pt"
                 app:layout_constraintBottom_toBottomOf="@+id/textView9"

@@ -84,10 +84,6 @@ public class YiSuoTangLoginActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_phone_sign_in:
-                startActivity(new Intent(this, SignInActivity.class));
-                break;
-            case R.id.tv_face_sign_in:
-                //获取所有账号
                 String[] accounts = LocalShared.getInstance(YiSuoTangLoginActivity.this).getAccounts();
                 if (accounts == null) {
                     ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
@@ -96,6 +92,11 @@ public class YiSuoTangLoginActivity extends BaseActivity implements View.OnClick
                     startActivity(new Intent(this, AuthenticationActivity.class)
                             .putExtra("from", "Welcome"));
                 }
+                break;
+            case R.id.tv_face_sign_in:
+                //获取所有账号
+                startActivity(new Intent(this, SignInActivity.class));
+
                 break;
             case R.id.account_tip://注册
                 startActivity(new Intent(YiSuoTangLoginActivity.this, SignUp1NameActivity.class));
