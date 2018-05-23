@@ -40,6 +40,7 @@ public class MedicalConsultationActivity extends BaseActivity {
         setContentView(R.layout.activity_medical_consultation);
         ButterKnife.bind(this);
         initTitle();
+        speak("主人,欢迎来到医药咨询");
     }
 
     private void initTitle() {
