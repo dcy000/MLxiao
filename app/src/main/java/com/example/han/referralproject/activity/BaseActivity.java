@@ -40,7 +40,9 @@ import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
@@ -52,6 +54,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
@@ -62,7 +65,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class BaseActivity extends AppCompatActivity implements CountdownDialog.Ontouch {
+public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -92,7 +95,7 @@ public class BaseActivity extends AppCompatActivity implements CountdownDialog.O
     private MediaRecorder mMediaRecorder;
     private boolean isAlive = true;
     public SharedPreferences mIatPreferences;
-    private CountdownDialog dialog;
+
 
 
     public void setEnableListeningLoop(boolean enable) {
@@ -142,26 +145,10 @@ public class BaseActivity extends AppCompatActivity implements CountdownDialog.O
             }
             lastTimeMillis = currentTimeMillis;
         }
-
-
-
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                handlerYiYuan.removeCallbacks(runnable);
-                break;
-            case MotionEvent.ACTION_UP:
-                startAD();
-                break;
-        }
         return super.dispatchTouchEvent(ev);
     }
 
     private PopupWindow window;
-
-    @Override
-    public void OnTouch() {
-
-    }
 
 
     //收到推送消息后显示Popwindow
@@ -729,36 +716,6 @@ public class BaseActivity extends AppCompatActivity implements CountdownDialog.O
             return;
         }
         mDialog.dismiss();
-    }
-
-
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            showDialog();
-        }
-    };
-
-    public void startAD() {
-        handlerYiYuan.removeCallbacks(runnable);
-        handlerYiYuan.postDelayed(runnable, time);
-    }
-
-    private Handler handlerYiYuan = new Handler();
-    private long time=1000*10;
-
-    private void showDialog() {
-        if (dialog == null) {
-            dialog = new CountdownDialog();
-        }
-        dialog.setOntouch(this);
-        Activity currentActivity = MyApplication.getCurrentActivity();
-        if (currentActivity == null || currentActivity.isFinishing()) {
-            return;
-        }
-        dialog.show(currentActivity.getFragmentManager(), "tuichu");
-
     }
 
 }

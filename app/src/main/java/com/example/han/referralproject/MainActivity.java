@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
@@ -16,13 +18,17 @@ import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.adpater.MainFragmentAdapter;
+import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.example.han.referralproject.yiyuan.fragment.Main1Fragment;
 import com.example.han.referralproject.yiyuan.fragment.Main2Fragment;
 import com.example.han.referralproject.yiyuan.idle.YiYuanIdleHandler;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.crud.DataSupport;
 
@@ -32,7 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements CountdownDialog.Ontouch {
     @BindView(R.id.fl_status_bar)
     FrameLayout flStatusBar;
     private Handler mHandler = new Handler();
@@ -119,5 +125,67 @@ public class MainActivity extends BaseActivity {
         if (mHandler != null) {
             mHandler.removeCallbacks(null);
         }
+    }
+
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            showDialog();
+        }
+    };
+
+    public void startAD() {
+        handlerYiYuan.removeCallbacks(runnable);
+        handlerYiYuan.postDelayed(runnable, time);
+    }
+
+    private Handler handlerYiYuan = new Handler();
+    private long time = 1000 * 10;
+
+    private void showDialog() {
+        if (dialog == null) {
+            dialog = new CountdownDialog();
+        }
+        dialog.setOntouch(this);
+        dialog.show(getFragmentManager(), "tuichu");
+    }
+
+    @Override
+    public void OnTouch() {
+        if (dialog == null) {
+            dialog.dismiss();
+        }
+
+    }
+
+    @Override
+    public void OnTime() {
+        tuichu();
+    }
+
+    private void tuichu() {
+        MobclickAgent.onProfileSignOff();
+        NimAccountHelper.getInstance().logout();
+        LocalShared.getInstance(MyApplication.getCurrentActivity()).loginOut();
+
+        Activity currentActivity = MyApplication.getCurrentActivity();
+        Intent intent = new Intent(currentActivity, YiYuanLoginActivity.class);
+        currentActivity.startActivity(intent);
+        currentActivity.finish();
+    }
+    private CountdownDialog dialog;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                handlerYiYuan.removeCallbacks(runnable);
+                break;
+            case MotionEvent.ACTION_UP:
+                startAD();
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 }

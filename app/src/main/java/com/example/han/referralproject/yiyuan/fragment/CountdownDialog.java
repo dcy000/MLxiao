@@ -29,8 +29,13 @@ public class CountdownDialog extends DialogFragment implements View.OnClickListe
                     String trim = count.getText().toString().trim();
                     final int[] i = {Integer.parseInt(trim)};
                     if (i[0] <= 1) {
-                        handler.removeMessages(119);
                         CountdownDialog.this.dismiss();
+                        if (ontouch == null) {
+                            return;
+                        }
+
+                        ontouch.OnTime();
+                        handler.removeMessages(119);
                         return;
                     }
 
@@ -82,9 +87,16 @@ public class CountdownDialog extends DialogFragment implements View.OnClickListe
 
     public interface Ontouch {
         void OnTouch();
+        void OnTime();
     }
 
     public void setOntouch(Ontouch ontouch) {
         this.ontouch = ontouch;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        handler.removeMessages(119);
     }
 }

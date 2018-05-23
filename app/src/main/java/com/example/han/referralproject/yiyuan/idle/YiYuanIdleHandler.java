@@ -116,4 +116,9 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
     public void OnTouch() {
         mHandler.removeMessages(10);
     }
+
+    @Override
+    public void OnTime() {
+
+    }
 }
