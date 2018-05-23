@@ -142,7 +142,7 @@ public class MyApplication extends Application {
         @Override
         public void onActivityCreated(Activity activity, Bundle bundle) {
             currentActivity = activity;
-            Looper.myQueue().addIdleHandler(YiYuanIdleHandler.getInstance());
+//            Looper.myQueue().addIdleHandler(YiYuanIdleHandler.getInstance());
         }
 
         @Override

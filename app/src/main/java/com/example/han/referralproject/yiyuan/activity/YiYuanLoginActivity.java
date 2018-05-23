@@ -6,9 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.idcard.SignInIdCardActivity;
+import com.example.han.referralproject.settting.SharedPreferencesUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,10 +38,12 @@ public class YiYuanLoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_idcard:
+                SharedPreferencesUtils.setParam(this, "youke", false);
                 startActivity(new Intent(YiYuanLoginActivity.this, SignInIdCardActivity.class));
                 break;
             case R.id.login_youke:
-
+                SharedPreferencesUtils.setParam(this, "youke", true);
+                startActivity(new Intent(YiYuanLoginActivity.this, MainActivity.class));
                 break;
         }
     }

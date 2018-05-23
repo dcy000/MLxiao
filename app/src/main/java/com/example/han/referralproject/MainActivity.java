@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
             startService(new Intent(this, AssistiveTouchService.class));
         }
 
-        Looper.myQueue().addIdleHandler(YiYuanIdleHandler.getInstance());
+//        Looper.myQueue().addIdleHandler(YiYuanIdleHandler.getInstance());
     }
 
     private void initView() {
