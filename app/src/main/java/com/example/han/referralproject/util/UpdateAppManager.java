@@ -20,9 +20,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.example.han.referralproject.yisuotang.YiSuoTangLoginActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -101,7 +100,7 @@ public class UpdateAppManager {
                     @Override
                     public void run() {
                         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                            context.startActivity(new Intent(context, ChooseLoginTypeActivity.class));
+                            context.startActivity(new Intent(context, YiSuoTangLoginActivity.class));
                         } else {
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);

@@ -1,24 +1,17 @@
 package com.example.han.referralproject;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
@@ -28,6 +21,7 @@ import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.example.han.referralproject.yisuotang.YiSuoTangLoginActivity;
 
 import java.util.ArrayList;
 
@@ -45,8 +39,8 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            initContentView();
+        super.onCreate(savedInstanceState);
+        initContentView();
     }
 
     private void initContentView() {
@@ -88,7 +82,7 @@ public class WelcomeActivity extends BaseActivity {
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
                                     if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                        Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), YiSuoTangLoginActivity.class);
                                         startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -119,7 +113,7 @@ public class WelcomeActivity extends BaseActivity {
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), YiSuoTangLoginActivity.class);
                                 startActivity(intent);
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

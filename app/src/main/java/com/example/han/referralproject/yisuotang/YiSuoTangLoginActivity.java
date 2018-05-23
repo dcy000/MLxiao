@@ -2,7 +2,6 @@ package com.example.han.referralproject.yisuotang;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
