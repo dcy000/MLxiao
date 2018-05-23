@@ -56,7 +56,7 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
                     showDialog();
                     break;
                 case 10:
-                    tuichu();
+//                    tuichu();
                     break;
             }
         }
@@ -105,9 +105,9 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(MyApplication.getCurrentActivity()).loginOut();
+
         Activity currentActivity = MyApplication.getCurrentActivity();
         Intent intent = new Intent(currentActivity, YiYuanLoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         currentActivity.startActivity(intent);
         currentActivity.finish();
     }
