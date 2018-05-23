@@ -36,6 +36,7 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.yisuotang.HealthMallActivity;
+import com.example.han.referralproject.yisuotang.MedicalConsultationActivity;
 import com.example.han.referralproject.yisuotang.RecreationCenterActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
@@ -175,7 +176,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                startActivity(new Intent(mContext, Test_mainActivity.class));
                 break;
             case R.id.doctor_ask://医生咨询
-                intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
+//                intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
+                intent.setClass(getApplicationContext(), MedicalConsultationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.health_class:

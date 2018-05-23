@@ -3,7 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"> <RelativeLayout
+    android:id="@+id/ll_anim"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/iv_anim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_battery"
+        android:layout_width="50pt"
+        android:layout_height="25pt"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5pt"
+        android:layout_marginTop="5pt"
+        android:visibility="gone" />
 
 
     <ImageView
@@ -74,29 +95,8 @@
     <FrameLayout
         android:id="@+id/fl_status_bar"
         android:layout_width="match_parent"
-        android:layout_height="40pt"
+        android:layout_height="50pt"
         android:layout_alignParentTop="true" />
 
-    <RelativeLayout
-        android:id="@+id/ll_anim"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
 
-        <ImageView
-            android:id="@+id/iv_anim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            />
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/iv_battery"
-        android:layout_width="50pt"
-        android:layout_height="25pt"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5pt"
-        android:layout_marginTop="5pt"
-        android:visibility="gone" />
 </android.support.constraint.ConstraintLayout>

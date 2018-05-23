@@ -4,6 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/medical_consultation"
     tools:context="com.example.han.referralproject.yisuotang.MedicalConsultationActivity">
 
+    <ImageView
+        android:id="@+id/community_drugstore"
+        android:layout_width="600pt"
+        android:layout_height="600pt"
+        app:srcCompat="@drawable/community_drugstore"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="40dp" />
+
+    <ImageView
+        android:id="@+id/community_doctor"
+        android:layout_width="600pt"
+        android:layout_height="600pt"
+        app:srcCompat="@drawable/community_doctor"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="233dp" />
+
+    <ImageView
+        android:id="@+id/health_mannager"
+        android:layout_width="600pt"
+        android:layout_height="600pt"
+        app:srcCompat="@drawable/health_mannager"
+        tools:layout_editor_absoluteX="230dp"
+        tools:layout_editor_absoluteY="40dp" />
+
+    <ImageView
+        android:id="@+id/contract_doctor"
+        android:layout_width="600pt"
+        android:layout_height="600pt"
+        app:srcCompat="@drawable/contract_doctor"
+        tools:layout_editor_absoluteX="230dp"
+        tools:layout_editor_absoluteY="233dp" />
 </android.support.constraint.ConstraintLayout>
