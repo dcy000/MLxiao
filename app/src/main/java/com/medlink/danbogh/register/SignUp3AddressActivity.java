@@ -221,7 +221,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         }
 
         LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
-        Intent intent = SignUp4IdCardActivity.newIntent(this);
+        Intent intent = SignUp7HeightActivity.newIntent(this);
         startActivity(intent);
     }
 

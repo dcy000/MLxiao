@@ -131,7 +131,7 @@ public class SignUp12DrinkActivity extends BaseActivity {
             EatModel model = mModels.get(i);
             if (model.isSelected()) {
                 LocalShared.getInstance(this.getApplicationContext()).setSignUpDrink("" + (i + 1));
-                Intent intent = new Intent(this, SignUp13SportsActivity.class);
+                Intent intent = new Intent(this, SignUp14DiseaseHistoryActivity.class);
                 startActivity(intent);
                 return;
             }

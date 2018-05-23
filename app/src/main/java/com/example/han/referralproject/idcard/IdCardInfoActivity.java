@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +45,11 @@ public class IdCardInfoActivity extends BaseActivity {
     TextView mIdCardTvNumberInfo;
     @BindView(R.id.id_card_tv_action)
     TextView mIdCardTvAction;
+    private String name;
+    private String gender;
+    private String nation;
+    private String address;
+    private String idCardNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +62,10 @@ public class IdCardInfoActivity extends BaseActivity {
         unbinder = ButterKnife.bind(this);
         Intent intent = getIntent();
         if (intent != null) {
-            String name = intent.getStringExtra("name");
-            String gender = intent.getStringExtra("gender");
-            String nation = intent.getStringExtra("nation");
-            String address = intent.getStringExtra("address");
+            name = intent.getStringExtra("name");
+            gender = intent.getStringExtra("gender");
+            nation = intent.getStringExtra("nation");
+            address = intent.getStringExtra("address");
             Bitmap profile = intent.getParcelableExtra("profile");
             String idCard = intent.getStringExtra("idCard");
             if (TextUtils.isEmpty(name)
@@ -89,14 +96,24 @@ public class IdCardInfoActivity extends BaseActivity {
                     numberBuilder.append(" ");
                 }
             }
-            mIdCardTvNumberInfo.setText(numberBuilder.toString());
+            idCardNumber = numberBuilder.toString();
+            mIdCardTvNumberInfo.setText(idCardNumber);
         }
     }
 
     @OnClick(R.id.id_card_tv_action)
     public void onViewClicked() {
-        setResult(Activity.RESULT_OK);
-        finish();
+//        setResult(Activity.RESULT_OK);
+        // TODO: 2018/5/23 保存身份证上的信息
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpName(name);
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpGender(gender);
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpIdCard(idCardNumber);
+        toSignUp02Mobile();
+//        finish();
+    }
+
+    private void toSignUp02Mobile() {
+       startActivity(new Intent(this, SignUp02MobileVerificationActivity.class));
     }
 
     @Override

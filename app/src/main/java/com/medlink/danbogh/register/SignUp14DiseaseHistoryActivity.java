@@ -6,14 +6,20 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
+import com.example.han.referralproject.idcard.SignInIdCardActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -101,31 +107,34 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        String mh = getMh();
-        if (TextUtils.isEmpty(mh)) {
-            mh = "11";
-//            navToNext();
-//            return;
-        }
+//        String mh = getMh();
+//        if (TextUtils.isEmpty(mh)) {
+//            mh = "11";
+////            navToNext();
+////            return;
+//        }
 
-        showLoadingDialog(getString(R.string.do_uploading));
-        NetworkApi.setUserMh(mh, new NetworkManager.SuccessCallback<String>() {
-            @Override
-            public void onSuccess(String response) {
-                hideLoadingDialog();
-                navToNext();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                hideLoadingDialog();
-            }
-        });
+//        showLoadingDialog(getString(R.string.do_uploading));
+//        NetworkApi.setUserMh(mh, new NetworkManager.SuccessCallback<String>() {
+//            @Override
+//            public void onSuccess(String response) {
+//                hideLoadingDialog();
+//                navToNext();
+//            }
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//                hideLoadingDialog();
+//            }
+//        });
+
+        navToNext();
     }
 
     private void navToNext() {
-        Intent intent = new Intent(mContext, RegisterVideoActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(mContext, RegisterVideoActivity.class);
+//        startActivity(intent);
+        onRegister();
     }
 
     private String getMh() {
@@ -168,5 +177,79 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
                 return;
             }
         }
+    }
+
+
+    private void onRegister() {
+        showLoadingDialog("加载中");
+        final LocalShared shared = LocalShared.getInstance(this);
+        String eat = shared.getSignUpEat();
+        String smoke = shared.getSignUpSmoke();
+        String drink = shared.getSignUpDrink();
+        String sport = shared.getSignUpSport();
+        String name = shared.getSignUpName();
+        String gender = shared.getSignUpGender();
+        String address = shared.getSignUpAddress();
+        String idCard = shared.getSignUpIdCard().replaceAll(" ","").trim();
+        String phone = shared.getSignUpPhone();
+        float height = shared.getSignUpHeight();
+        float weight = shared.getSignUpWeight();
+        String bloodType = shared.getSignUpBloodType();
+        String mh = getMh();
+        String allergy = "5";
+        String fetation = "1";
+        NetworkApi.registerYiYuanUser(
+                name,
+                gender,
+                address,
+                idCard,
+                phone,
+                "123456",
+                height,
+                weight,
+                bloodType,
+                eat,
+                smoke,
+                drink,
+                sport,
+                allergy,
+                fetation,
+                mh,
+                new NetworkManager.SuccessCallback<UserInfoBean>() {
+                    @Override
+                    public void onSuccess(UserInfoBean response) {
+                        hideLoadingDialog();
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
+                        shared.setUserInfo(response);
+                        LocalShared.getInstance(mContext).setSex(response.sex);
+                        LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
+                        LocalShared.getInstance(mContext).setUserAge(response.age);
+                        LocalShared.getInstance(mContext).setUserHeight(response.height);
+                        new JpushAliasUtils(SignUp14DiseaseHistoryActivity.this).setAlias("user_" + response.bid);
+                        onRegisterSuccess();
+
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        hideLoadingDialog();
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
+                        onRegisterFailed();
+                    }
+                }
+        );
+    }
+
+    private void onRegisterFailed() {
+        T.show("注册失败,请稍后重试~");
+    }
+
+    private void onRegisterSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        T.show("注册成功");
     }
 }

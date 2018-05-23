@@ -56,9 +56,9 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-    //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
-//    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
+    //        public static final String BasicUrl = "http://116.62.36.12:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
 
@@ -67,6 +67,7 @@ public class NetworkApi {
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
+    public static final String RegisteryiyuanUrl = BasicUrl + "/ZZB/br/appAddHospital";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
     public static final String ClueUrl = BasicUrl + "/ZZB/br/selOneUserClueAll";
     public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
@@ -729,6 +730,7 @@ public class NetworkApi {
         paramsMap.put("exercise_habits", sports);
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
+
 
     /**
      * 获取所有症状
@@ -1401,4 +1403,52 @@ public class NetworkApi {
         params.put("sfz", idCard);
         NetworkManager.getInstance().getResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
     }
+
+    public static void registerYiYuanUser(
+            String name,
+            String sex,
+            String address,
+            String sfz,
+            String telephone,
+            String pwd,
+            float height,
+            float weight,
+            String bloodType,
+            String eat,
+            String smoke,
+            String drink,
+            String sports,
+            String allergy,
+            String fetation,
+            String mh,
+            NetworkManager.SuccessCallback<UserInfoBean> listener,
+            NetworkManager.FailedCallback failedCallback) {
+        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
+        if (youke) {
+            return;
+        }
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("age", "50");
+        paramsMap.put("bname", name);
+        paramsMap.put("sex", sex);
+        paramsMap.put("eqid", Utils.getDeviceId());
+        paramsMap.put("tel", telephone);
+        paramsMap.put("pwd", pwd);
+        paramsMap.put("dz", address);
+        paramsMap.put("sfz", sfz);
+        paramsMap.put("height", String.valueOf(height));
+        paramsMap.put("weight", String.valueOf(weight));
+        paramsMap.put("blood_type", bloodType);
+        paramsMap.put("eating_habits", eat);
+        paramsMap.put("smoke", smoke);
+        paramsMap.put("drink", drink);
+        paramsMap.put("exercise_habits", sports);
+        paramsMap.put("allergy", allergy);
+        paramsMap.put("fetation", fetation);
+        paramsMap.put("mh", mh);
+
+        NetworkManager.getInstance().postResultClass(RegisteryiyuanUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
+    }
+
+
 }

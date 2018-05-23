@@ -573,6 +573,20 @@ public class SignInIdCardActivity extends BaseActivity {
         startActivityForResult(intent, 17);
     }
 
+    private void onConfirmIdCardInfoYiYuan() {
+        if (item == null) {
+            return;
+        }
+        Intent intent = new Intent(this, IdCardInfoActivity.class);
+        intent.putExtra("name", item.partyName);
+        intent.putExtra("gender", item.gender);
+        intent.putExtra("nation", item.nation);
+        intent.putExtra("address", item.certAddress);
+        intent.putExtra("profile", item.picBitmap);
+        intent.putExtra("idCard", item.certNumber);
+        startActivity(intent);
+    }
+
     private void onCheckRegistered() {
         if (item == null) {
             return;
@@ -606,7 +620,8 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onAccountNotRegistered() {
-        onConfirmIdCardInfo();
+//        onConfirmIdCardInfo();
+        onConfirmIdCardInfoYiYuan();
     }
 
     private void onInputPhoneInfo() {

@@ -16,6 +16,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.register.SignUp3AddressActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -191,7 +192,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
     }
 
     private void navToNext() {
-        Intent intent = SignUp03PasswordActivity.newIntent(this);
+        Intent intent = SignUp3AddressActivity.newIntent(this);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
