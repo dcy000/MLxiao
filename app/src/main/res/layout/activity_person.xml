@@ -95,7 +95,7 @@
             android:gravity="center"
             android:drawableLeft="@drawable/icon"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="200pt"
+            android:layout_marginTop="68pt"
             android:id="@+id/tv_change_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

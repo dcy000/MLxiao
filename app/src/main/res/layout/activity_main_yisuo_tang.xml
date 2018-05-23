@@ -3,19 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"> <RelativeLayout
-    android:id="@+id/ll_anim"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="gone">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_anim"
+    <RelativeLayout
+        android:id="@+id/ll_anim"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        />
-</RelativeLayout>
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_anim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/iv_battery"
@@ -96,7 +97,10 @@
         android:id="@+id/fl_status_bar"
         android:layout_width="match_parent"
         android:layout_height="50pt"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20pt"
+        android:paddingLeft="40pt"
+        android:paddingRight="40pt" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/community_drugstore"
         android:layout_width="600pt"
-        android:layout_height="600pt"
+        android:layout_height="480pt"
         android:layout_marginStart="40pt"
         android:layout_marginTop="40pt"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
     <ImageView
         android:id="@+id/community_doctor"
         android:layout_width="600pt"
-        android:layout_height="600pt"
+        android:layout_height="480pt"
         android:layout_marginTop="32pt"
         app:layout_constraintStart_toStartOf="@+id/community_drugstore"
         app:layout_constraintTop_toBottomOf="@+id/community_drugstore"
@@ -29,7 +29,7 @@
     <ImageView
         android:id="@+id/health_mannager"
         android:layout_width="600pt"
-        android:layout_height="600pt"
+        android:layout_height="480pt"
         android:layout_marginStart="32pt"
         app:layout_constraintStart_toEndOf="@+id/community_drugstore"
         app:layout_constraintTop_toTopOf="@+id/community_drugstore"
@@ -38,7 +38,7 @@
     <ImageView
         android:id="@+id/contract_doctor"
         android:layout_width="600pt"
-        android:layout_height="600pt"
+        android:layout_height="480pt"
         android:layout_marginStart="32pt"
         android:layout_marginTop="32pt"
         app:layout_constraintBottom_toBottomOf="@+id/community_doctor"
