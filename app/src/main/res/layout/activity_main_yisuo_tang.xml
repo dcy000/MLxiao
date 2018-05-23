@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/person_info"
+        android:layout_width="594pt"
+        android:layout_height="328pt"
+        android:layout_marginStart="45pt"
+        android:layout_marginTop="120pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_person_info" />
+
+    <ImageView
+        android:id="@+id/call_family"
+        android:layout_width="594pt"
+        android:layout_height="328pt"
+        android:layout_marginTop="24pt"
+        app:layout_constraintStart_toStartOf="@+id/person_info"
+        app:layout_constraintTop_toBottomOf="@+id/yule_center"
+        app:srcCompat="@drawable/ic_call_family" />
+
+    <ImageView
+        android:id="@+id/yule_center"
+        android:layout_width="594pt"
+        android:layout_height="328pt"
+        android:layout_marginTop="24pt"
+        app:layout_constraintStart_toStartOf="@+id/person_info"
+        app:layout_constraintTop_toBottomOf="@+id/person_info"
+        app:srcCompat="@drawable/ic_yule" />
+
+    <ImageView
+        android:id="@+id/health_test"
+        android:layout_width="594pt"
+        android:layout_height="504pt"
+        android:layout_marginStart="24pt"
+        app:layout_constraintBottom_toBottomOf="@+id/call_family"
+        app:layout_constraintStart_toEndOf="@+id/call_family"
+        app:srcCompat="@drawable/ic_health_test" />
+
+    <ImageView
+        android:id="@+id/robot_con"
+        android:layout_width="594pt"
+        android:layout_height="504pt"
+        android:layout_marginStart="24pt"
+        app:layout_constraintStart_toEndOf="@+id/person_info"
+        app:layout_constraintTop_toTopOf="@+id/person_info"
+        app:srcCompat="@drawable/ic_robot" />
+
+    <ImageView
+        android:id="@+id/health_class"
+        android:layout_width="594pt"
+        android:layout_height="504pt"
+        android:layout_marginStart="24pt"
+        app:layout_constraintBottom_toBottomOf="@+id/health_test"
+        app:layout_constraintStart_toEndOf="@+id/health_test"
+        app:srcCompat="@drawable/ic_shop" />
+
+    <ImageView
+        android:id="@+id/doctor_ask"
+        android:layout_width="594pt"
+        android:layout_height="504pt"
+        android:layout_marginStart="24pt"
+        app:layout_constraintEnd_toEndOf="@+id/health_class"
+        app:layout_constraintStart_toEndOf="@+id/robot_con"
+        app:layout_constraintTop_toTopOf="@+id/robot_con"
+        app:srcCompat="@drawable/ic_doctor_ask" />
+
+    <FrameLayout
+        android:id="@+id/fl_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40pt"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/ll_anim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_anim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_battery"
+        android:layout_width="50pt"
+        android:layout_height="25pt"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5pt"
+        android:layout_marginTop="5pt"
+        android:visibility="gone" />
+</android.support.constraint.ConstraintLayout>

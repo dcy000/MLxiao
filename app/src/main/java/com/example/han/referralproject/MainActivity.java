@@ -41,6 +41,7 @@ import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.ml.edu.OldRouter;
 import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
@@ -64,11 +65,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView6;
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
+    private ImageView yule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_yisuo_tang);
 
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
 
@@ -86,7 +88,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mImageView5 = (ImageView) findViewById(R.id.health_class);
         mImageView6 = (ImageView) findViewById(R.id.call_family);
+        yule = (ImageView) findViewById(R.id.yule_center);
 
+        yule.setOnClickListener(this);
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
         mImageView3.setOnClickListener(this);
@@ -203,6 +207,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //
 //                    }
 //                });
+                break;
+            case R.id.yule_center://紧急呼叫家人
+                OldRouter.routeToOldHomeActivity(this);
                 break;
         }
     }
