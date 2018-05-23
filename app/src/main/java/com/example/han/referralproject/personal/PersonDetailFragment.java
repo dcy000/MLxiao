@@ -36,8 +36,10 @@ import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.health.HealthDiaryActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
@@ -87,6 +89,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     public TextView tvBalance;
 
     public TextView isSignDoctor;
+    public TextView changeAccount;
     public ImageView recreation;
 
     public ImageView yuLe;
@@ -122,6 +125,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.view_wifi).setOnClickListener(this);
         view.findViewById(R.id.iv_record).setOnClickListener(this);
         view.findViewById(R.id.iv_jiankang_riji).setOnClickListener(this);
+        view.findViewById(R.id.tv_change_account).setOnClickListener(this);
         tvUserName = (TextView) view.findViewById(R.id.per_name);
         view.findViewById(R.id.iv_change_account).setOnClickListener(this);
         headImg.setOnClickListener(this);
@@ -341,16 +345,28 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 }
                 break;
             case R.id.iv_youjiao_wenyu:
-                Intent intentYoujiao = new Intent(getActivity(), ChildEduHomeActivity.class);
-                startActivity(intentYoujiao);
+//                Intent intentYoujiao = new Intent(getActivity(), ChildEduHomeActivity.class);
+//                startActivity(intentYoujiao);
+                //设置
+                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.main_iv_old:
-                OldRouter.routeToOldHomeActivity(getActivity());
+//                OldRouter.routeToOldHomeActivity(getActivity());
+                //账户充值
+                startActivity(new Intent(getActivity(), PayActivity.class));
                 break;
             case R.id.iv_alarm:
                 Intent intentAlarm = AlarmList2Activity.newLaunchIntent(getActivity());
                 startActivity(intentAlarm);
                 break;
+
+            case R.id.tv_change_account:
+                mChangeAccountDialog = new ChangeAccountDialog(getActivity());
+                mChangeAccountDialog.show();
+                break;
+
+
         }
     }
 }
+

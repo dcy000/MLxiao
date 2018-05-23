@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    android:paddingRight="20dp"
     android:paddingBottom="17dp"
+    android:paddingRight="20dp"
     tools:context="com.example.han.referralproject.personal.PersonActivity">
 
     <LinearLayout
@@ -36,38 +36,80 @@
             android:textColor="#333333"
             android:textSize="30sp" />
 
-
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="68pt"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="余额"
+                android:layout_marginLeft="40pt"
+                android:text="余额(元)"
                 android:textColor="#999999"
                 android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="40pt"
+                android:layout_marginRight="92pt"
+                android:text="积分"
+                android:textColor="#999999"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68pt"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/tv_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="40pt"
+                android:textColor="#ff333333"
+                android:textSize="36dp"
+                tools:text="198.00" />
+
+            <TextView
+                android:id="@+id/tv_jifen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="30dp"
-                android:text="¥0"
-                android:textColor="#333333"
-                android:textSize="30sp" />
+                android:layout_marginLeft="40pt"
+                android:layout_marginRight="92pt"
+                android:textColor="#ff333333"
+                android:textSize="36dp"
+                tools:text="10000" />
 
         </RelativeLayout>
+
+        <TextView
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:drawableLeft="@drawable/icon"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="200pt"
+            android:id="@+id/tv_change_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换账号"
+            android:textColor="#ff666666"
+            android:textSize="28dp" />
 
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
 
 
             <TextView
@@ -96,7 +138,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
 
 
             <TextView
@@ -262,9 +305,9 @@
         </LinearLayout>
 
         <TextView
-            android:layout_margin="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:drawableLeft="@drawable/shape_ic_blue"
             android:drawablePadding="8dp"
             android:text="健康生活"
@@ -276,6 +319,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -288,7 +332,7 @@
                     android:id="@+id/iv_laoren_yule"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:background="@drawable/laorenyule_set"
+                    android:background="@drawable/zhanghu_set"
                     android:clickable="true" />
 
 
@@ -297,7 +341,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="娱乐"
+                    android:text="账户充值"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
@@ -315,7 +359,7 @@
                     android:id="@+id/iv_youjiao_wenyu"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:background="@drawable/youjiao_wenyu_set" />
+                    android:background="@drawable/shezhi_set" />
 
 
                 <TextView
@@ -323,12 +367,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="幼教文娱"
+                    android:text="设置"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -337,7 +380,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_jiankang_riji"
@@ -357,13 +401,15 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_change_account"
@@ -445,6 +491,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
@@ -486,6 +533,7 @@
         android:layout_marginLeft="20dp"
         android:padding="10dp"
         android:text="检查更新"
+        android:textColor="#999999"
         android:textSize="20sp"
-        android:textColor="#999999"/>
+        android:visibility="gone" />
 </RelativeLayout>
