@@ -1,5 +1,6 @@
 package com.example.han.referralproject.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +41,7 @@ import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -60,7 +62,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements CountdownDialog.Ontouch {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
@@ -90,6 +92,7 @@ public class BaseActivity extends AppCompatActivity {
     private MediaRecorder mMediaRecorder;
     private boolean isAlive = true;
     public SharedPreferences mIatPreferences;
+    private CountdownDialog dialog;
 
 
     public void setEnableListeningLoop(boolean enable) {
@@ -139,10 +142,26 @@ public class BaseActivity extends AppCompatActivity {
             }
             lastTimeMillis = currentTimeMillis;
         }
+
+
+
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                handlerYiYuan.removeCallbacks(runnable);
+                break;
+            case MotionEvent.ACTION_UP:
+                startAD();
+                break;
+        }
         return super.dispatchTouchEvent(ev);
     }
 
     private PopupWindow window;
+
+    @Override
+    public void OnTouch() {
+
+    }
 
 
     //收到推送消息后显示Popwindow
@@ -710,6 +729,36 @@ public class BaseActivity extends AppCompatActivity {
             return;
         }
         mDialog.dismiss();
+    }
+
+
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            showDialog();
+        }
+    };
+
+    public void startAD() {
+        handlerYiYuan.removeCallbacks(runnable);
+        handlerYiYuan.postDelayed(runnable, time);
+    }
+
+    private Handler handlerYiYuan = new Handler();
+    private long time=1000*10;
+
+    private void showDialog() {
+        if (dialog == null) {
+            dialog = new CountdownDialog();
+        }
+        dialog.setOntouch(this);
+        Activity currentActivity = MyApplication.getCurrentActivity();
+        if (currentActivity == null || currentActivity.isFinishing()) {
+            return;
+        }
+        dialog.show(currentActivity.getFragmentManager(), "tuichu");
+
     }
 
 }

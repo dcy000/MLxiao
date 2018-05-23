@@ -822,10 +822,6 @@ public class NetworkApi {
     }
 
     public static void getVersionInfo(NetworkManager.SuccessCallback<VersionInfoBean> callback, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         ApplicationInfo appInfo = null;
         String msg = "";
         try {

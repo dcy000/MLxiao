@@ -57,7 +57,7 @@ public class CountdownDialog extends DialogFragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_count_down, container, false);
-//        initDialogView();
+        initDialogView();
         count = view.findViewById(R.id.count);
         view.setOnClickListener(this);
         return view;
