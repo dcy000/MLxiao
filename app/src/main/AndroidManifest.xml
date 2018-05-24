@@ -685,7 +685,8 @@
         <activity android:name=".yisuotang.HealthMallActivity" />
         <activity android:name=".yisuotang.RecreationCenterActivity" />
         <activity android:name=".yisuotang.MedicalConsultationActivity" />
-        <activity android:name=".yisuotang.YiSuoTangLoginActivity"></activity>
+        <activity android:name=".yisuotang.YiSuoTangLoginActivity" />
+        <activity android:name=".yisuotang.YiSuoMallActivity"></activity>
     </application>
 
 </manifest>

@@ -49,7 +49,7 @@ public class HealthMallActivity extends BaseActivity {
                 startActivity(new Intent(this, MarketActivity.class));
                 break;
             case R.id.iv_yisuo_mall:
-                // TODO: 2018/5/23 他们的商城
+                startActivity(new Intent(this, YiSuoMallActivity.class));
                 break;
         }
     }
