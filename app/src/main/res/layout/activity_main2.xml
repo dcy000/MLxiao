@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,9 +12,13 @@
         android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
     <FrameLayout
+        android:paddingLeft="20pt"
+        android:paddingRight="20pt"
         android:id="@+id/fl_status_bar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20pt"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
