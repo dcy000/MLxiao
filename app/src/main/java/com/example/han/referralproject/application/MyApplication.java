@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +52,7 @@ public class MyApplication extends Application {
     public String telphoneNum;
     public String userName;
     public static UserInfoBean account;
+    public static Bitmap bitmap;
 
     public String nimUserId() {
         return "user_" + userId;

@@ -584,6 +584,7 @@ public class SignInIdCardActivity extends BaseActivity {
         intent.putExtra("address", item.certAddress);
         intent.putExtra("profile", item.picBitmap);
         intent.putExtra("idCard", item.certNumber);
+        MyApplication.bitmap = item.picBitmap;
         startActivity(intent);
     }
 

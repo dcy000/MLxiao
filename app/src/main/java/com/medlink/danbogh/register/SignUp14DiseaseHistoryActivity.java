@@ -1,8 +1,11 @@
 package com.medlink.danbogh.register;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,17 +16,31 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.idcard.SignInIdCardActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.iflytek.cloud.FaceRequest;
+import com.iflytek.cloud.SpeechConstant;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
 
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +63,14 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     private DiseaseHistoryAdapter mAdapter;
     public List<DiseaseHistoryModel> mModels;
     public GridLayoutManager mLayoutManager;
+    private Handler btHandler;
+    private byte[] jpgData;
+    private Runnable faceRegisterRunnable;
+    private UploadManager uploadManager;
+    private SimpleDateFormat simple;
+    private Random random;
+    private String authId;
+    private String bid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +215,7 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
         String name = shared.getSignUpName();
         String gender = shared.getSignUpGender();
         String address = shared.getSignUpAddress();
-        String idCard = shared.getSignUpIdCard().replaceAll(" ","").trim();
+        String idCard = shared.getSignUpIdCard().replaceAll(" ", "").trim();
         String phone = shared.getSignUpPhone();
         float height = shared.getSignUpHeight();
         float weight = shared.getSignUpWeight();
@@ -227,7 +252,8 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
-                        new JpushAliasUtils(SignUp14DiseaseHistoryActivity.this).setAlias("user_" + response.bid);
+                        bid = response.bid;
+                        new JpushAliasUtils(SignUp14DiseaseHistoryActivity.this).setAlias("user_" + bid);
                         onRegisterSuccess();
 
                     }
@@ -249,7 +275,145 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     }
 
     private void onRegisterSuccess() {
+//        btHandler().post(upHeadPhotoRunnable());
         startActivity(new Intent(this, MainActivity.class));
         T.show("注册成功");
     }
+
+    private Runnable upHeadPhotoRunnable() {
+        if (faceRegisterRunnable == null) {
+            faceRegisterRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (MyApplication.bitmap == null) {
+                        T.show("头像上传失败");
+                        return;
+                    }
+
+                    ByteArrayOutputStream stream = null;
+                    try {
+                        stream = new ByteArrayOutputStream();
+                        MyApplication.bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                        jpgData = stream.toByteArray();
+                        //上传头像
+                        uploadProfile(MyApplication.getInstance().userId, "");
+                    } finally {
+                        try {
+                            if (stream != null) {
+                                stream.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+        }
+        return faceRegisterRunnable;
+    }
+
+    private Handler btHandler() {
+        if (btHandler == null) {
+            synchronized (SignInIdCardActivity.class) {
+                if (btHandler == null) {
+                    HandlerThread thread = new HandlerThread("bt");
+                    thread.start();
+                    btHandler = new Handler(thread.getLooper());
+//                    btHandler = new Handler(Looper.getMainLooper());
+                }
+            }
+        }
+        return btHandler;
+    }
+
+    private void uploadProfile(final String userid, final String xfid) {
+        if (jpgData == null) {
+            T.show("头像上传失败");
+            return;
+        }
+        showLoadingDialog("加载中");
+        NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+                hideLoadingDialog();
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                if (jpgData == null) {
+                    T.show("头像上传失败");
+                    return;
+                }
+                UpCompletionHandler completionHandler = new UpCompletionHandler() {
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject res) {
+                        if (info.isOK()) {
+                            String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
+                            NetworkApi.return_imageUrl(imageUrl, bid, xfid,
+                                    new NetworkManager.SuccessCallback<Object>() {
+                                        @Override
+                                        public void onSuccess(Object response) {
+                                            if (isFinishing() || isDestroyed()) {
+                                                return;
+                                            }
+                                            onUpLoadToServerSuccess();
+                                        }
+
+                                    }, new NetworkManager.FailedCallback() {
+                                        @Override
+                                        public void onFailed(String message) {
+                                            if (isFinishing() || isDestroyed()) {
+                                                return;
+                                            }
+
+                                        }
+                                    });
+                        } else {
+                            T.show("头像上传失败");
+                        }
+                    }
+                };
+                String key = buildAuthId() + ".jpg";
+                uploadManager().put(jpgData, key, response, completionHandler, null);
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                hideLoadingDialog();
+                if (isDestroyed() || isFinishing()) {
+                    return;
+                }
+                T.show("头像上传失败");
+            }
+        });
+    }
+
+    private void onUpLoadToServerSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        T.show("注册成功");
+
+    }
+
+    private UploadManager uploadManager() {
+        if (uploadManager == null) {
+            uploadManager = new UploadManager();
+        }
+        return uploadManager;
+    }
+
+    private String buildAuthId() {
+        if (simple == null) {
+            simple = new SimpleDateFormat("yyyyMMddhhmmss", Locale.getDefault());
+        }
+        StringBuilder randomBuilder = new StringBuilder();//定义变长字符串
+        if (random == null) {
+            random = new Random();
+        }
+        for (int i = 0; i < 8; i++) {
+            randomBuilder.append(random.nextInt(10));
+        }
+        Date date = new Date();
+        authId = simple.format(date) + randomBuilder;
+        return authId;
+    }
+
 }
