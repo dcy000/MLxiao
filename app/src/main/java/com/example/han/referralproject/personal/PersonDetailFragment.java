@@ -220,14 +220,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             @Override
             public void onSuccess(final RobotAmount response) {
 
-
-                if (response.getAmount() != null) {
-
+                if (response != null && response.getAmount() != null) {
                     tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-
+                    tvBalance.setText(response.getAmount());
                 }
-
-
             }
 
         }, new NetworkManager.FailedCallback() {
