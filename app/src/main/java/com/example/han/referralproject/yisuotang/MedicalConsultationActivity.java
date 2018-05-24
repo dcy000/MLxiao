@@ -52,11 +52,13 @@ public class MedicalConsultationActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.community_drugstore:
+                startActivity(new Intent(this, SheQuYiShengActivity.class));
                 break;
             case R.id.community_doctor:
                 startActivity(new Intent(this, OnlineDoctorListActivity.class));
                 break;
             case R.id.health_mannager:
+                startActivity(new Intent(this, SheQuYiShengActivity.class).putExtra("status", "4"));
                 break;
             case R.id.contract_doctor:
                 gotoQianyueYiSheng();
