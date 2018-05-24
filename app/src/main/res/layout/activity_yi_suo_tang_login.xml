@@ -37,6 +37,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <TextView
+                android:paddingLeft="10pt"
+                android:paddingRight="10pt"
                 android:id="@+id/regist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,6 +52,8 @@
                 app:layout_constraintTop_toTopOf="@+id/account_tip" />
 
             <TextView
+                android:paddingLeft="10pt"
+                android:paddingRight="10pt"
                 android:id="@+id/sign_up_fast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,7 +116,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="人脸登录"
+                android:text="手机登录"
                 android:textColor="#ff333333"
                 android:textSize="56pt"
                 app:layout_constraintBottom_toBottomOf="@+id/textView9"
@@ -125,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40pt"
-                android:text="手机登录"
+                android:text="人脸登录"
                 android:textColor="#ff333333"
                 android:textSize="56pt"
                 app:layout_constraintEnd_toEndOf="@+id/tv_phone_sign_in"

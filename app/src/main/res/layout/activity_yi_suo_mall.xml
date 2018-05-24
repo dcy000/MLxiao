@@ -21,15 +21,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:scaleType="center"
-            android:id="@+id/iv_back"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
+        <TextView
             android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp"
-            android:src="@drawable/icon_back" />
-
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:background="@drawable/toolbar_set"
+            android:drawableLeft="@drawable/icon_yisuo_back"
+            android:drawablePadding="12dp"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:paddingRight="40dp"
+            android:text="返回"
+            android:textColor="#ff333333"
+            android:textSize="28sp" />
     </RelativeLayout>
 </LinearLayout>

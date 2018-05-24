@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -28,15 +29,22 @@ public class YiSuoMallActivity extends BaseActivity {
     @BindView(R.id.pb)
     ProgressBar pb;
     @BindView(R.id.iv_back)
-    ImageView ivBack;
+    TextView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yi_suo_mall);
         ButterKnife.bind(this);
+//        initTitle();
         init();
         initEvent();
+        showLoadingDialog("正在加载中,请稍后...");
+    }
+
+    private void initTitle() {
+        mTitleText.setText("商城");
+        mToolbar.setVisibility(View.VISIBLE);
     }
 
     private void initEvent() {
@@ -51,7 +59,7 @@ public class YiSuoMallActivity extends BaseActivity {
 
     private void init() {
 
-        webView.loadUrl("http://www.xinghetea.com/");
+        webView.loadUrl("http://shop.ylscjt.cn/mobile/index/");
 //        webView.loadUrl("http://www.baidu.com/");
         WebSettings webSettings = webView.getSettings();
 
@@ -94,7 +102,7 @@ public class YiSuoMallActivity extends BaseActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-//                hideLoadingDialog();
+                hideLoadingDialog();
                 super.onPageFinished(view, url);
             }
 
@@ -154,5 +162,11 @@ public class YiSuoMallActivity extends BaseActivity {
         } else {
             finish();
         }
+    }
+    @Override
+    protected void onResume() {
+        setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
+        super.onResume();
     }
 }

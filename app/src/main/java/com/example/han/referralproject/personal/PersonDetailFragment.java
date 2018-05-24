@@ -284,7 +284,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), MessageActivity.class));
                 break;
             case R.id.iv_laoren_yule:
-                OldRouter.routeToOldHomeActivity(getActivity());
+//                OldRouter.routeToOldHomeActivity(getActivity());
+                startActivity(new Intent(getActivity(), PayActivity.class));
                 break;
             case R.id.iv_change_account:
                 mChangeAccountDialog = new ChangeAccountDialog(getActivity());
