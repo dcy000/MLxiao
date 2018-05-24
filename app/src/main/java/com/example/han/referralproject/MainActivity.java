@@ -177,12 +177,12 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                handlerYiYuan.removeCallbacks(runnable);
-                break;
-            case MotionEvent.ACTION_UP:
-                startAD();
-                break;
+//            case MotionEvent.ACTION_DOWN:
+//                handlerYiYuan.removeCallbacks(runnable);
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                startAD();
+//                break;
         }
         return super.onTouchEvent(event);
     }

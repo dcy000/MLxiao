@@ -275,9 +275,9 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     }
 
     private void onRegisterSuccess() {
-//        btHandler().post(upHeadPhotoRunnable());
-        startActivity(new Intent(this, MainActivity.class));
-        T.show("注册成功");
+        btHandler().post(upHeadPhotoRunnable());
+//        startActivity(new Intent(this, MainActivity.class));
+//        T.show("注册成功");
     }
 
     private Runnable upHeadPhotoRunnable() {
