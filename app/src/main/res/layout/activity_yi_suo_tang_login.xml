@@ -102,12 +102,14 @@
                 android:id="@+id/tv_face_sign_in"
                 android:layout_width="200pt"
                 android:layout_height="200pt"
+                android:layout_marginStart="340pt"
                 android:background="@drawable/yisuo_face_login_set"
                 android:gravity="center"
                 android:textColor="#3F86FC"
                 android:textSize="50pt"
-                tools:layout_editor_absoluteX="186dp"
-                tools:layout_editor_absoluteY="66dp" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_phone_sign_in"
+                app:layout_constraintStart_toEndOf="@+id/tv_phone_sign_in"
+                app:layout_constraintTop_toTopOf="@+id/tv_phone_sign_in" />
 
 
             <TextView

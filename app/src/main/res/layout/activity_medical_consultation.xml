@@ -15,7 +15,7 @@
         android:layout_marginTop="40pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/community_drugstore" />
+       android:background="@drawable/community_drugstore_set" />
 
     <ImageView
         android:id="@+id/community_doctor"
@@ -24,7 +24,7 @@
         android:layout_marginTop="32pt"
         app:layout_constraintStart_toStartOf="@+id/community_drugstore"
         app:layout_constraintTop_toBottomOf="@+id/community_drugstore"
-        app:srcCompat="@drawable/community_doctor" />
+        android:background="@drawable/community_doctor_set" />
 
     <ImageView
         android:id="@+id/health_mannager"
@@ -33,7 +33,7 @@
         android:layout_marginStart="32pt"
         app:layout_constraintStart_toEndOf="@+id/community_drugstore"
         app:layout_constraintTop_toTopOf="@+id/community_drugstore"
-        app:srcCompat="@drawable/health_mannager" />
+        android:background="@drawable/health_mannager_set" />
 
     <ImageView
         android:id="@+id/contract_doctor"
@@ -44,5 +44,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/community_doctor"
         app:layout_constraintStart_toEndOf="@+id/community_doctor"
         app:layout_constraintTop_toBottomOf="@+id/health_mannager"
-        app:srcCompat="@drawable/contract_doctor" />
+        android:background="@drawable/contract_doctor_set" />
 </android.support.constraint.ConstraintLayout>

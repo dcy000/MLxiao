@@ -63,7 +63,7 @@
         android:layout_marginStart="24pt"
         app:layout_constraintBottom_toBottomOf="@+id/call_family"
         app:layout_constraintStart_toEndOf="@+id/call_family"
-        app:srcCompat="@drawable/ic_health_test" />
+        android:background="@drawable/ic_health_test_set" />
 
     <ImageView
         android:id="@+id/robot_con"
@@ -72,7 +72,7 @@
         android:layout_marginStart="24pt"
         app:layout_constraintStart_toEndOf="@+id/person_info"
         app:layout_constraintTop_toTopOf="@+id/person_info"
-        app:srcCompat="@drawable/ic_robot" />
+        android:background="@drawable/ic_robot_set" />
 
     <ImageView
         android:id="@+id/health_class"
@@ -81,7 +81,7 @@
         android:layout_marginStart="24pt"
         app:layout_constraintBottom_toBottomOf="@+id/health_test"
         app:layout_constraintStart_toEndOf="@+id/health_test"
-        app:srcCompat="@drawable/ic_shop" />
+       android:background="@drawable/ic_shop_set" />
 
     <ImageView
         android:id="@+id/doctor_ask"
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="@+id/health_class"
         app:layout_constraintStart_toEndOf="@+id/robot_con"
         app:layout_constraintTop_toTopOf="@+id/robot_con"
-        app:srcCompat="@drawable/ic_doctor_ask" />
+        android:background="@drawable/ic_doctor_ask_set" />
 
     <FrameLayout
         android:id="@+id/fl_status_bar"
