@@ -24,7 +24,7 @@
         android:layout_marginStart="60pt"
         app:layout_constraintStart_toEndOf="@+id/iv_lecture_hall"
         app:layout_constraintTop_toTopOf="@+id/iv_lecture_hall"
-        app:srcCompat="@drawable/iv_lecture_care" />
+        android:background="@drawable/iv_lecture_care" />
 
     <ImageView
         android:id="@+id/iv_yisuo_mall"

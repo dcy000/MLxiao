@@ -13,27 +13,27 @@
         android:layout_height="480pt"
         android:layout_marginStart="40pt"
         android:layout_marginTop="40pt"
+        android:background="@drawable/community_drugstore_set"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-       android:background="@drawable/community_drugstore_set" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/community_doctor"
         android:layout_width="600pt"
         android:layout_height="480pt"
         android:layout_marginTop="32pt"
+        android:background="@drawable/community_doctor_set"
         app:layout_constraintStart_toStartOf="@+id/community_drugstore"
-        app:layout_constraintTop_toBottomOf="@+id/community_drugstore"
-        android:background="@drawable/community_doctor_set" />
+        app:layout_constraintTop_toBottomOf="@+id/community_drugstore" />
 
     <ImageView
         android:id="@+id/health_mannager"
         android:layout_width="600pt"
         android:layout_height="480pt"
         android:layout_marginStart="32pt"
+        android:background="@drawable/health_mannager_set"
         app:layout_constraintStart_toEndOf="@+id/community_drugstore"
-        app:layout_constraintTop_toTopOf="@+id/community_drugstore"
-        android:background="@drawable/health_mannager_set" />
+        app:layout_constraintTop_toTopOf="@+id/community_drugstore" />
 
     <ImageView
         android:id="@+id/contract_doctor"
@@ -41,8 +41,8 @@
         android:layout_height="480pt"
         android:layout_marginStart="32pt"
         android:layout_marginTop="32pt"
+        android:background="@drawable/contract_doctor_set"
         app:layout_constraintBottom_toBottomOf="@+id/community_doctor"
         app:layout_constraintStart_toEndOf="@+id/community_doctor"
-        app:layout_constraintTop_toBottomOf="@+id/health_mannager"
-        android:background="@drawable/contract_doctor_set" />
+        app:layout_constraintTop_toBottomOf="@+id/health_mannager" />
 </android.support.constraint.ConstraintLayout>
