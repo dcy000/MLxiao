@@ -117,8 +117,8 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
         if ("1".equals(sign)) {
 
-            mTitleText.setText(getString(R.string.online_qianyue));
             mButton.setText(getString(R.string.zixun));
+            mTitleText.setText(getString(R.string.shequ_qianyue));
 
 
         } else {
@@ -269,10 +269,13 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         setDisableGlobalListen(true);
         if ("1".equals(sign)) {
             speak(R.string.online_info);
-
         } else {
             speak(R.string.tips_info);
-
+        }
+        if ("社区药店".equals(getIntent().getStringExtra("Title"))) {
+            mTitleText.setText("社区药店");
+        } else if ("健康管理师".equals(getIntent().getStringExtra("Title"))) {
+            mTitleText.setText("健康管理师");
         }
 
     }

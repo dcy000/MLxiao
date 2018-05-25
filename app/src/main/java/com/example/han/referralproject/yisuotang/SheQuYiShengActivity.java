@@ -135,6 +135,14 @@ public class SheQuYiShengActivity extends BaseActivity implements View.OnClickLi
                 if ("contract".equals(mFlag)) {
                     Intent intent = new Intent(SheQuYiShengActivity.this, DoctorMesActivity.class);
                     intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+                    ///////////////
+                    if ("4".equals(getIntent().getStringExtra("status"))) {
+                        intent.putExtra("Title", "健康管理师");
+                    } else {
+                        intent.putExtra("Title", "社区医生");
+                    }
+                    ///////////////
+
                     startActivity(intent);
                     return;
                 }
@@ -253,6 +261,13 @@ public class SheQuYiShengActivity extends BaseActivity implements View.OnClickLi
         Intent intent = new Intent(SheQuYiShengActivity.this, DoctorMesActivity.class);
         intent.putExtra("docMsg", (Serializable) mlist.get(postion));
         intent.putExtra("sign", "1");
+        /////////////
+        if ("4".equals(getIntent().getStringExtra("status"))) {
+            intent.putExtra("Title", "健康管理师");
+        } else {
+            intent.putExtra("Title", "社区药店");
+        }
+        /////////////
         startActivity(intent);
 
     }

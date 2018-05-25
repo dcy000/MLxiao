@@ -45,6 +45,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
         setContentView(R.layout.activity_online_doctor_list);
 
         initView();
+        mToolbar.setVisibility(View.VISIBLE);
 
         sharedPreferences = getSharedPreferences(ConstantData.ONLINE_TIME, Context.MODE_PRIVATE);
 
@@ -52,6 +53,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
         mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
+            mTitleText.setText(getString(R.string.doctor_qianyue));
             NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                 @Override
                 public void onSuccess(ArrayList<Docter> response) {
@@ -70,6 +72,8 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
             });
 
             return;
+        }else{
+            mTitleText.setText(getString(R.string.shequ_qianyue));
         }
 
 
