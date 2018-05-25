@@ -15,7 +15,7 @@
         android:layout_marginTop="192pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iv_lecture_hall" />
+        android:background="@drawable/iv_lecture_hall_set" />
 
     <ImageView
         android:id="@+id/iv_lecture_care"
@@ -24,7 +24,7 @@
         android:layout_marginStart="60pt"
         app:layout_constraintStart_toEndOf="@+id/iv_lecture_hall"
         app:layout_constraintTop_toTopOf="@+id/iv_lecture_hall"
-        android:background="@drawable/iv_lecture_care" />
+        android:background="@drawable/iv_lecture_care_set" />
 
     <ImageView
         android:id="@+id/iv_yisuo_mall"
@@ -33,7 +33,7 @@
         android:layout_marginStart="60pt"
         app:layout_constraintStart_toEndOf="@+id/iv_lecture_care"
         app:layout_constraintTop_toTopOf="@+id/iv_lecture_care"
-        app:srcCompat="@drawable/iv_yisuo_mall" />
+        android:background="@drawable/iv_yisuo_mall_set" />
 
     <TextView
         android:id="@+id/textView2"
