@@ -34,9 +34,9 @@
         android:layout_height="328pt"
         android:layout_marginStart="45pt"
         android:layout_marginTop="120pt"
+        android:background="@drawable/ic_person_info_set"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_person_info" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/call_family"
@@ -45,16 +45,16 @@
         android:layout_marginTop="24pt"
         app:layout_constraintStart_toStartOf="@+id/person_info"
         app:layout_constraintTop_toBottomOf="@+id/yule_center"
-        app:srcCompat="@drawable/ic_call_family" />
+        android:background="@drawable/ic_call_family_set" />
 
     <ImageView
         android:id="@+id/yule_center"
         android:layout_width="594pt"
         android:layout_height="328pt"
         android:layout_marginTop="24pt"
+        android:background="@drawable/ic_yule_set"
         app:layout_constraintStart_toStartOf="@+id/person_info"
-        app:layout_constraintTop_toBottomOf="@+id/person_info"
-        app:srcCompat="@drawable/ic_yule" />
+        app:layout_constraintTop_toBottomOf="@+id/person_info" />
 
     <ImageView
         android:id="@+id/health_test"

@@ -93,7 +93,7 @@
         <TextView
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:drawableLeft="@drawable/ic_change_account"
+            android:drawableLeft="@drawable/ic_change_account_set"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="68pt"
             android:id="@+id/tv_change_account"

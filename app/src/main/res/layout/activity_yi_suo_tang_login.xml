@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.han.referralproject.activity.ChooseLoginTypeActivity">
+    >
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_sign_in"
@@ -67,12 +67,12 @@
                 app:layout_constraintTop_toTopOf="@+id/regist" />
 
             <TextView
+                android:background="@drawable/yisuo_phone_login_set"
                 android:id="@+id/tv_phone_sign_in"
                 android:layout_width="200pt"
                 android:layout_height="200pt"
                 android:layout_marginStart="130pt"
                 android:layout_marginTop="124pt"
-                android:background="@drawable/yisuo_face_login"
                 android:gravity="center"
                 android:paddingLeft="36pt"
                 android:paddingRight="36pt"
@@ -102,21 +102,19 @@
                 android:id="@+id/tv_face_sign_in"
                 android:layout_width="200pt"
                 android:layout_height="200pt"
-                android:layout_marginStart="340pt"
-                android:background="@drawable/yisuo_phone_login"
+                android:background="@drawable/yisuo_face_login_set"
                 android:gravity="center"
                 android:textColor="#3F86FC"
                 android:textSize="50pt"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_phone_sign_in"
-                app:layout_constraintStart_toEndOf="@+id/tv_phone_sign_in"
-                app:layout_constraintTop_toTopOf="@+id/tv_phone_sign_in" />
+                tools:layout_editor_absoluteX="186dp"
+                tools:layout_editor_absoluteY="66dp" />
 
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="手机登录"
+                android:text="人脸登录"
                 android:textColor="#ff333333"
                 android:textSize="56pt"
                 app:layout_constraintBottom_toBottomOf="@+id/textView9"
@@ -126,10 +124,10 @@
 
             <TextView
                 android:id="@+id/textView9"
+                android:text="手机登录"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40pt"
-                android:text="人脸登录"
                 android:textColor="#ff333333"
                 android:textSize="56pt"
                 app:layout_constraintEnd_toEndOf="@+id/tv_phone_sign_in"
