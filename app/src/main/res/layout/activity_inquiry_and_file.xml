@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity">
+
+    <TextView
+        android:background="#999"
+        android:id="@+id/tv_inquiry"
+        android:layout_width="258dp"
+        android:layout_height="287dp"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="127dp"
+        android:gravity="center"
+        android:text="问诊"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_file"
+        android:layout_width="258dp"
+        android:layout_height="285dp"
+        android:layout_marginStart="54dp"
+        android:background="#999"
+        android:gravity="center"
+        android:text="建档"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_inquiry"
+        app:layout_constraintStart_toEndOf="@+id/tv_inquiry"
+        app:layout_constraintTop_toTopOf="@+id/tv_inquiry" />
+</android.support.constraint.ConstraintLayout>

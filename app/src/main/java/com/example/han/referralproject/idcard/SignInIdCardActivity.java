@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -25,6 +24,7 @@ import com.example.han.referralproject.facerecognition.JoinGroupListener;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.IdentityResult;
@@ -760,7 +760,7 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onLoginSuccess() {
-        startActivity(new Intent(mContext, MainActivity.class));
+        startActivity(new Intent(mContext, InquiryAndFileActivity.class));
         finish();
     }
 
@@ -977,7 +977,7 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onUpLoadToServerSuccess(String userid, String xfid) {
         Log.d(TAG, "onUpLoadToServerSuccess: ");
         LocalShared.getInstance(mContext).addAccount(userid, xfid);
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, InquiryAndFileActivity.class);
         startActivity(intent);
         finish();
     }

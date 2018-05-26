@@ -681,13 +681,14 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity"></activity>
+        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity" />
         <activity android:name=".questionair.activity.MonitorResultActivity" />
         <activity android:name=".idcard.IdCardInfoActivity" />
         <activity android:name=".idcard.SignInIdCardActivity" />
         <activity android:name=".health.DetectResultActivity" />
-        <activity android:name=".yiyuan.activity.YiYuanLoginActivity"></activity>
+        <activity android:name=".yiyuan.activity.YiYuanLoginActivity" />
         <activity android:name=".yiyuan.activity.SignUpGenderActivity" />
+        <activity android:name=".yiyuan.activity.InquiryAndFileActivity"></activity>
     </application>
 
 </manifest>
