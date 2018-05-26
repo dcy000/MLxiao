@@ -182,7 +182,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         tvSignDoctorName = (TextView) findViewById(R.id.doctor_name);
 
-        ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
+        ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v_" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
     }
 
