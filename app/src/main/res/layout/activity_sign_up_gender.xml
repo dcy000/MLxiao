@@ -71,7 +71,7 @@
         android:layout_height="60pt"
         android:layout_marginStart="522pt"
         android:layout_marginTop="53pt"
-        android:src="@drawable/bg_selector_rb_sign_up_gender"
+        android:src="@drawable/bg_huaiyun_set"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_sign_up_man" />
 
@@ -81,7 +81,7 @@
         android:layout_height="60pt"
         android:layout_marginStart="563pt"
         android:layout_marginTop="14dp"
-        android:src="@drawable/bg_selector_rb_sign_up_gender"
+        android:src="@drawable/bg_huaiyun_set"
         app:layout_constraintBottom_toBottomOf="@+id/iv_rb_sign_up_man"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/iv_sign_up_woman" />
