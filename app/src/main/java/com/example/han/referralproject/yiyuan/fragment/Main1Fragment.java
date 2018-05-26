@@ -48,10 +48,14 @@ import butterknife.Unbinder;
  * Created by lenovo on 2018/5/17.
  */
 
-public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogItemClickListener {
+public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogItemClickListener, JianKangJianCheDialog.ClickItemListener {
     private static final String JIANKANG_TIJIAN = "健康体检";
     private static final String GAOXUEYA_TIJIAN = "高血压体检";
     private static final String TANGNIAOBING_TIJIAN = "糖尿病体检";
+    public static final String ZHONGYI_TIZHI = "中医体质";
+    public static final String ZHENGZHUANG_ZICHA = "症状自查";
+    public static final String GEREN_XINXI = "个人信息";
+    public static final String CELIANG_JILU = "测量记录";
     @BindView(R.id.iv_head)
     ImageView ivHead;
     @BindView(R.id.iv_qianyue)
@@ -70,6 +74,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     @BindView(R.id.tv_name)
     TextView tvName;
     private TiZhiJianCeDialog dialog;
+    private JianKangJianCheDialog jianCheialog;
 
     @Nullable
     @Override
@@ -122,7 +127,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 showDialog(data = getZiChaData());
                 break;
             case R.id.tijian:
-                showDialog(getTiJianData());
+                showJianCheDialog(getTiJianData());
                 break;
             case R.id.zhengzhuangzichan:
                 showDialog(getJiankangDangAnData());
@@ -136,6 +141,15 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 gotoYiShengJianYi();
                 break;
         }
+    }
+
+    private void showJianCheDialog(List<MainTiZHiDialogBean> tiJianData) {
+        if (jianCheialog == null) {
+            jianCheialog = new JianKangJianCheDialog();
+        }
+        jianCheialog.setListener(this, data);
+        jianCheialog.show(getFragmentManager(), "dialog");
+
     }
 
     private List<MainTiZHiDialogBean> getJiankangDangAnData() {
@@ -193,12 +207,6 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     }
 
     private List<MainTiZHiDialogBean> data = new ArrayList<>();
-    public static final String ZHONGYI_TIZHI = "中医体质";
-    public static final String ZHENGZHUANG_ZICHA = "症状自查";
-
-    public static final String GEREN_XINXI = "个人信息";
-    public static final String CELIANG_JILU = "测量记录";
-
 
     private void showDialog(List<MainTiZHiDialogBean> data) {
         if (dialog == null) {
@@ -288,15 +296,6 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             gotoTizhiJianCe();
         } else if (ZHENGZHUANG_ZICHA.equals(name)) {
             gotoZhengZhuangZiCha();
-        } else if (JIANKANG_TIJIAN.equals(name)) {
-            //健康体检
-            gotoDanXianTiJian();
-        } else if (GAOXUEYA_TIJIAN.equals(name)) {
-            //高血压体检
-
-        } else if (TANGNIAOBING_TIJIAN.equals(name)) {
-            //糖尿病体检
-
         } else if (CELIANG_JILU.equals(name)) {
             gotoCeLiangLiShi();
         } else if (GEREN_XINXI.equals(name)) {
@@ -310,4 +309,15 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     }
 
 
+    @Override
+    public void onJianceItemClick(String name) {
+        if (JIANKANG_TIJIAN.equals(name)) {
+            gotoDanXianTiJian();
+        } else if (GAOXUEYA_TIJIAN.equals(name)) {
+
+        } else if (TANGNIAOBING_TIJIAN.equals(name)) {
+
+        }
+
+    }
 }
