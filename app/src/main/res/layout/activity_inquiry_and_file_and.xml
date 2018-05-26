@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.yiyuan.activity.InquiryAndFileAndActivity">
+
+    <TextView
+        android:id="@+id/tv_to_home_page"
+        android:layout_width="204dp"
+        android:layout_height="176dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="50dp"
+        android:background="#999"
+        android:gravity="center"
+        android:text="进入主页"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_exit"
+        android:layout_width="204dp"
+        android:layout_height="176dp"
+        android:layout_marginStart="49dp"
+        android:background="#999"
+        android:gravity="center"
+        android:text="退出"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_to_home_page"
+        app:layout_constraintStart_toEndOf="@+id/tv_to_home_page"
+        app:layout_constraintTop_toTopOf="@+id/tv_to_home_page" />
+</android.support.constraint.ConstraintLayout>

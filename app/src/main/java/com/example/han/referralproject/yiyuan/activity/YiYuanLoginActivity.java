@@ -20,12 +20,9 @@ public class YiYuanLoginActivity extends BaseActivity {
 
     @BindView(R.id.login_idcard)
     ImageView loginIdcard;
-    @BindView(R.id.login_youke)
-    ImageView loginYouke;
+
     @BindView(R.id.textView2)
     TextView textView2;
-    @BindView(R.id.textView3)
-    TextView textView3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +31,11 @@ public class YiYuanLoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.login_idcard, R.id.login_youke})
+    @OnClick({R.id.login_idcard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_idcard:
-                SharedPreferencesUtils.setParam(this, "youke", false);
                 startActivity(new Intent(YiYuanLoginActivity.this, SignInIdCardActivity.class));
-                break;
-            case R.id.login_youke:
-                SharedPreferencesUtils.setParam(this, "youke", true);
-                startActivity(new Intent(YiYuanLoginActivity.this, MainActivity.class));
                 break;
         }
     }

@@ -688,7 +688,8 @@
         <activity android:name=".health.DetectResultActivity" />
         <activity android:name=".yiyuan.activity.YiYuanLoginActivity" />
         <activity android:name=".yiyuan.activity.SignUpGenderActivity" />
-        <activity android:name=".yiyuan.activity.InquiryAndFileActivity"></activity>
+        <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
+        <activity android:name=".yiyuan.activity.InquiryAndFileAndActivity"></activity>
     </application>
 
 </manifest>
