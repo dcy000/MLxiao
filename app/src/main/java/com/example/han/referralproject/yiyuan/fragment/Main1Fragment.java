@@ -143,12 +143,12 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         }
     }
 
-    private void showJianCheDialog(List<MainTiZHiDialogBean> tiJianData) {
+    private void showJianCheDialog(List<MainTiZHiDialogBean> data) {
         if (jianCheialog == null) {
             jianCheialog = new JianKangJianCheDialog();
         }
         jianCheialog.setListener(this, data);
-        jianCheialog.show(getFragmentManager(), "dialog");
+        jianCheialog.show(getChildFragmentManager(), "dialog");
 
     }
 

@@ -78,8 +78,8 @@ public class JianKangJianCheDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.jiankan_jiance_dialog, container, false);
-        initView();
         unbinder = ButterKnife.bind(this, view);
+        initView();
         return view;
     }
 
