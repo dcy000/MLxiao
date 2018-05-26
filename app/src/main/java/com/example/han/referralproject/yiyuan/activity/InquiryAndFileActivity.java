@@ -36,9 +36,11 @@ public class InquiryAndFileActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_inquiry:
                 //问诊
+                InquiryAndFileEndActivity.startMe(this,"问诊");
                 break;
             case R.id.tv_file:
                 //建档
+                InquiryAndFileEndActivity.startMe(this,"建档");
                 break;
         }
     }

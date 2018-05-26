@@ -2,7 +2,6 @@ package com.example.han.referralproject.yiyuan.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.hotspot2.pps.HomeSp;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class InquiryAndFileAndActivity extends BaseActivity {
+public class InquiryAndFileEndActivity extends BaseActivity {
 
     public static final String FROM_TAG = "tag";
     @BindView(R.id.tv_to_home_page)
@@ -42,8 +41,8 @@ public class InquiryAndFileAndActivity extends BaseActivity {
      * @param context
      * @param tag     title的名字
      */
-    private static void starMe(Context context, String tag) {
-        context.startActivity(new Intent(context, InquiryAndFileAndActivity.class).putExtra(FROM_TAG, tag));
+    public static void startMe(Context context, String tag) {
+        context.startActivity(new Intent(context, InquiryAndFileEndActivity.class).putExtra(FROM_TAG, tag));
     }
 
 
