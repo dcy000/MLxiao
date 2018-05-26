@@ -696,12 +696,6 @@
             <!--</intent-filter>-->
         </activity>
         <activity
-            android:name=".blood_pressure_risk_assessment.LifeTreatmentProgramActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".blood_pressure_risk_assessment.DetectionPlanActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".blood_pressure_risk_assessment.PrimaryBloodPressureRiskResultsActivity"
             android:screenOrientation="landscape" />
         <activity
