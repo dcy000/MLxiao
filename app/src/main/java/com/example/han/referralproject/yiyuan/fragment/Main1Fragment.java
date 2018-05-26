@@ -28,6 +28,7 @@ import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.google.gson.Gson;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
@@ -48,6 +49,9 @@ import butterknife.Unbinder;
  */
 
 public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogItemClickListener {
+    private static final String JIANKANG_TIJIAN = "健康体检";
+    private static final String GAOXUEYA_TIJIAN = "高血压体检";
+    private static final String TANGNIAOBING_TIJIAN = "糖尿病体检";
     @BindView(R.id.iv_head)
     ImageView ivHead;
     @BindView(R.id.iv_qianyue)
@@ -113,7 +117,6 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 gotoQianyueYiSheng();
                 break;
             case R.id.iv_qianyue:
-//                gotoPersonInfo();
                 break;
             case R.id.celianglishi:
                 showDialog(data = getZiChaData());
@@ -122,11 +125,11 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 showDialog(getTiJianData());
                 break;
             case R.id.zhengzhuangzichan:
-                gotoPersonInfo();
+                showDialog(getJiankangDangAnData());
                 break;
             case R.id.yishengjianyi:
-                //测量历史
-                gotoCeLiangLiShi();
+                //问诊及建档
+                gotoWenZhenJianDang();
                 break;
             case R.id.jiankangketang:
                 //医生建议
@@ -135,15 +138,34 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         }
     }
 
+    private List<MainTiZHiDialogBean> getJiankangDangAnData() {
+        data.clear();
+        MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
+        bean1.name = GEREN_XINXI;
+        bean1.iconId = R.drawable.main_dialog_zicha;
+
+        MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
+        bean2.name = CELIANG_JILU;
+        bean2.iconId = R.drawable.main_dialog_tizhi;
+
+        data.add(bean1);
+        data.add(bean2);
+        return data;
+    }
+
+    private void gotoWenZhenJianDang() {
+        startActivity(new Intent(getActivity(), InquiryAndFileActivity.class));
+    }
+
     private List<MainTiZHiDialogBean> getZiChaData() {
         data.clear();
         MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
         bean1.name = ZHENGZHUANG_ZICHA;
-        bean1.iconId=R.drawable.main_dialog_zicha;
+        bean1.iconId = R.drawable.main_dialog_zicha;
 
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
         bean2.name = ZHONGYI_TIZHI;
-        bean2.iconId=R.drawable.main_dialog_tizhi;
+        bean2.iconId = R.drawable.main_dialog_tizhi;
 
         data.add(bean1);
         data.add(bean2);
@@ -153,23 +175,30 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     private List<MainTiZHiDialogBean> getTiJianData() {
         data.clear();
         MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
-        bean1.name = TIJIAN_LIUCHENG;
-        bean1.iconId=R.drawable.main_dialog_tijianliucheng;
+        bean1.name = JIANKANG_TIJIAN;
+        bean1.iconId = R.drawable.main_dialog_tijianliucheng;
 
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
-        bean2.name = DANXIANG_JIANCE;
+        bean2.name = GAOXUEYA_TIJIAN;
         bean2.iconId = R.drawable.main_dialog_danxiangtijian;
+
+        MainTiZHiDialogBean bean3 = new MainTiZHiDialogBean();
+        bean3.name = TANGNIAOBING_TIJIAN;
+        bean3.iconId = R.drawable.main_dialog_danxiangtijian;
 
         data.add(bean1);
         data.add(bean2);
+        data.add(bean3);
         return data;
     }
 
     private List<MainTiZHiDialogBean> data = new ArrayList<>();
     public static final String ZHONGYI_TIZHI = "中医体质";
     public static final String ZHENGZHUANG_ZICHA = "症状自查";
-    public static final String TIJIAN_LIUCHENG = "体检流程";
-    public static final String DANXIANG_JIANCE = "单项检测";
+
+    public static final String GEREN_XINXI = "个人信息";
+    public static final String CELIANG_JILU = "测量记录";
+
 
     private void showDialog(List<MainTiZHiDialogBean> data) {
         if (dialog == null) {
@@ -259,11 +288,19 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             gotoTizhiJianCe();
         } else if (ZHENGZHUANG_ZICHA.equals(name)) {
             gotoZhengZhuangZiCha();
-        } else if (TIJIAN_LIUCHENG.equals(name)) {
-            gotoTiJianLiuCheng(true);
-        } else if (DANXIANG_JIANCE.equals(name)) {
+        } else if (JIANKANG_TIJIAN.equals(name)) {
+            //健康体检
             gotoDanXianTiJian();
+        } else if (GAOXUEYA_TIJIAN.equals(name)) {
+            //高血压体检
 
+        } else if (TANGNIAOBING_TIJIAN.equals(name)) {
+            //糖尿病体检
+
+        } else if (CELIANG_JILU.equals(name)) {
+            gotoCeLiangLiShi();
+        } else if (GEREN_XINXI.equals(name)) {
+            gotoPersonInfo();
         }
 
     }
@@ -272,10 +309,5 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         startActivity(new Intent(getActivity(), Test_mainActivity.class));
     }
 
-    private void gotoTiJianLiuCheng(boolean b) {
-        Intent intent = new Intent(getActivity(), DetectActivity.class);
-        intent.putExtra("type", "xueya");
-        intent.putExtra("isDetect", b);
-        startActivity(intent);
-    }
+
 }
