@@ -693,7 +693,8 @@
         <activity android:name=".yiyuan.activity.YueJingWenActivity" />
         <activity android:name=".yiyuan.activity.YinJiuWenActivity" />
         <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
-        <activity android:name=".yiyuan.activity.DrinkWenActivity"></activity>
+        <activity android:name=".yiyuan.activity.DrinkWenActivity" />
+        <activity android:name=".yiyuan.activity.XueYaWenActivity"></activity>
     </application>
 
 </manifest>
