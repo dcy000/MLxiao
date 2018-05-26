@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class SignUpGenderActivity extends BaseActivity {
+public class PregnancyWenActivity extends BaseActivity {
 
     @BindView(R.id.iv_sign_up_man)
     ImageView mIvMan;
@@ -37,7 +37,7 @@ public class SignUpGenderActivity extends BaseActivity {
     public Unbinder mUnbinder;
 
     public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, SignUpGenderActivity.class);
+        Intent intent = new Intent(context, PregnancyWenActivity.class);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -49,7 +49,8 @@ public class SignUpGenderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up_gender);
-        mToolbar.setVisibility(View.GONE);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("问诊");
         mUnbinder = ButterKnife.bind(this);
         initView();
     }
@@ -63,7 +64,7 @@ public class SignUpGenderActivity extends BaseActivity {
     }
 
     private void initView() {
-        selectMan(false);
+        selectMan(true);
     }
 
     @OnClick(R.id.iv_sign_up_man)
@@ -103,8 +104,13 @@ public class SignUpGenderActivity extends BaseActivity {
 
         String gender = mIvRbMan.isSelected() ? "2" : "3";
         LocalShared.getInstance(this.getApplicationContext()).setSignUpGender(gender);
-        Intent intent = SignUp3AddressActivity.newIntent(this);
-        startActivity(intent);
+        if (mIvRbWoman.isSelected()) {
+            //月经结束时间
+            startActivity(new Intent(this, YueJingWenActivity.class));
+        } else {
+            startActivity(new Intent(this, YinJiuWenActivity.class
+            ));
+        }
     }
 
     public static final String REGEX_IN_MAN = ".*(nan|nang).*";

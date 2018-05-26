@@ -12,14 +12,14 @@
         android:id="@+id/tv_sign_up_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="90dp"
         android:gravity="center"
-        android:text="是否怀孕"
-        android:textColor="#8C8C8C"
-        android:textSize="40sp"
+        android:text="目前是否怀孕"
+        android:textColor="#FF333333"
+        android:textSize="72pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_sign_up_man"
@@ -36,24 +36,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="是"
+        android:text="否"
         android:textColor="#8C8C8C"
         android:textSize="35sp"
         app:layout_constraintLeft_toLeftOf="@+id/iv_sign_up_man"
         app:layout_constraintRight_toRightOf="@+id/iv_sign_up_man"
-        app:layout_constraintTop_toBottomOf="@+id/iv_sign_up_man"/>
+        tools:layout_editor_absoluteY="505dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="否"
+        android:text="是"
         android:textColor="#8C8C8C"
         android:textSize="35sp"
-        app:layout_constraintLeft_toLeftOf="@+id/iv_sign_up_woman"
         app:layout_constraintRight_toRightOf="@+id/iv_sign_up_woman"
-        app:layout_constraintTop_toBottomOf="@+id/iv_sign_up_woman"/>
+        app:layout_constraintTop_toBottomOf="@+id/iv_sign_up_woman" />
 
     <ImageView
         android:id="@+id/iv_sign_up_woman"
@@ -71,11 +69,11 @@
         android:id="@+id/iv_rb_sign_up_man"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="32dp"
         android:src="@drawable/bg_selector_rb_sign_up_gender"
         app:layout_constraintBottom_toBottomOf="@+id/iv_sign_up_man"
-        app:layout_constraintRight_toRightOf="@+id/iv_sign_up_man"/>
+        app:layout_constraintRight_toRightOf="@+id/iv_sign_up_man" />
 
     <ImageView
         android:id="@+id/iv_rb_sign_up_woman"

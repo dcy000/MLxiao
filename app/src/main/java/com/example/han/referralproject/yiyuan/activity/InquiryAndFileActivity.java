@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.medlink.danbogh.register.SignUp7HeightActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,10 +42,11 @@ public class InquiryAndFileActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_wenzhen:
-                InquiryAndFileEndActivity.startMe(this,"问诊");
+//                InquiryAndFileEndActivity.startMe(this,"问诊");
+                startActivity(new Intent(this, SignUp7HeightActivity.class));
                 break;
             case R.id.iv_jiandang:
-                InquiryAndFileEndActivity.startMe(this,"建档");
+                InquiryAndFileEndActivity.startMe(this, "建档");
                 break;
         }
     }
