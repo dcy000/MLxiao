@@ -197,6 +197,15 @@ public class WeeklyOrMonthlyBloodsugarReport {
         private Double bloodSugarTwoOffset;
         private Object bloodSugarTwoOffsetType;
         private List<DetectionListBean> detectionList;
+        private String completion;
+
+        public String getCompletion() {
+            return completion;
+        }
+
+        public void setCompletion(String completion) {
+            this.completion = completion;
+        }
 
         public String getStartTime() {
             return startTime;

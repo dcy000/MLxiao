@@ -103,14 +103,14 @@ public class BloodsugarMonthlyReportActivity extends BaseActivity{
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            ToastTool.showShort("暂无周报告");
+                            ToastTool.showShort("暂无疗程报告");
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         Log.e("请求失败", "onError: " + response.message());
-                        ToastTool.showShort("暂无周报告");
+                        ToastTool.showShort("暂无疗程报告");
                     }
                 });
     }

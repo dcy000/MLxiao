@@ -48,8 +48,10 @@ public class BloodsugarWeeklyReport2Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.bloodsugar_weekly_report_fragment2, container, false);
-        initView(view);
+        if (view == null) {
+            view = inflater.inflate(R.layout.bloodsugar_weekly_report_fragment2, container, false);
+            initView(view);
+        }
         return view;
     }
 
@@ -72,13 +74,13 @@ public class BloodsugarWeeklyReport2Fragment extends Fragment {
             Double bloodSugarTwoOffset = weekDateListBean.getBloodSugarTwoOffset();
             String completion = report.getCompletion();
             if (bloodSugarTarget != null) {
-                tabMbEmpty.setText("<"+String.format("%.2f", bloodSugarTarget));
+                tabMbEmpty.setText("<" + String.format("%.2f", bloodSugarTarget));
             }
             if (bloodSugarOneTarget != null) {
-                tabMbOne.setText("<"+String.format("%.2f", bloodSugarOneTarget));
+                tabMbOne.setText("<" + String.format("%.2f", bloodSugarOneTarget));
             }
             if (bloodSugarTwoTarget != null) {
-                tabMbTwo.setText("<"+String.format("%.2f", bloodSugarTwoTarget));
+                tabMbTwo.setText("<" + String.format("%.2f", bloodSugarTwoTarget));
             }
             if (bloodSugarAvg != null) {
                 tabSjEmpty.setText(String.format("%.2f", bloodSugarAvg));
@@ -101,13 +103,17 @@ public class BloodsugarWeeklyReport2Fragment extends Fragment {
                     pcEmpty.setTextColor(Color.parseColor("#3CD478"));
                     mBloodsugarEmpty.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            }else{
+                mBloodsugarEmpty.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgEmpty.setVisibility(View.GONE);
+                pcEmpty.setVisibility(View.GONE);
             }
 
-            if (bloodSugarOneOffset!=null) {
+            if (bloodSugarOneOffset != null) {
                 if (bloodSugarOneOffset > 0) {
                     imgOne.setImageResource(R.drawable.red_up);
                     imgOne.setVisibility(View.VISIBLE);
-                    pcOne.setText(String.format("%.2f",bloodSugarOneOffset));
+                    pcOne.setText(String.format("%.2f", bloodSugarOneOffset));
                     mBloodsugarOne.setBackgroundColor(Color.parseColor("#FF5747"));
                 } else {
                     imgOne.setVisibility(View.GONE);
@@ -115,20 +121,29 @@ public class BloodsugarWeeklyReport2Fragment extends Fragment {
                     pcOne.setTextColor(Color.parseColor("#3CD478"));
                     mBloodsugarOne.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            }else {
+                mBloodsugarOne.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgOne.setVisibility(View.GONE);
+                pcOne.setVisibility(View.GONE);
             }
-            if (bloodSugarTwoOffset!=null){
-                if (bloodSugarOneOffset>0){
+            if (bloodSugarTwoOffset != null) {
+                if (bloodSugarOneOffset > 0) {
                     imgTwo.setImageResource(R.drawable.red_up);
                     imgTwo.setVisibility(View.VISIBLE);
-                    pcTwo.setText(String.format("%.2f",bloodSugarOneOffset));
+                    pcTwo.setText(String.format("%.2f", bloodSugarOneOffset));
                     mBloodsugarTwo.setBackgroundColor(Color.parseColor("#FF5747"));
-                }else{
+                } else {
                     imgTwo.setVisibility(View.GONE);
                     pcTwo.setText("√");
                     pcTwo.setTextColor(Color.parseColor("#3CD478"));
                     mBloodsugarTwo.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            }else{
+                mBloodsugarTwo.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgTwo.setVisibility(View.GONE);
+                pcTwo.setVisibility(View.GONE);
             }
+
             if (!TextUtils.isEmpty(completion)) {
                 int int_completion = (int) Float.parseFloat(completion);
                 progressDisplay.setText(int_completion + "%");
@@ -160,5 +175,13 @@ public class BloodsugarWeeklyReport2Fragment extends Fragment {
         mBloodsugarEmpty = (View) view.findViewById(R.id.bloodsugar_empty);
         mBloodsugarOne = (View) view.findViewById(R.id.bloodsugar_one);
         mBloodsugarTwo = (View) view.findViewById(R.id.bloodsugar_two);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
+        }
     }
 }

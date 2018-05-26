@@ -53,16 +53,19 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
     private RadioButton mRbThree;
     private RadioButton mRbFour;
     private WeeklyOrMonthlyBloodsugarReport report;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.bloodsugar_monthly_report_fragment2, container, false);
-        initView(view);
+        if (view==null) {
+            view = inflater.inflate(R.layout.bloodsugar_monthly_report_fragment2, container, false);
+            initView(view);
+        }
         return view;
     }
 
     public void notifyData(WeeklyOrMonthlyBloodsugarReport report) {
-        this.report=report;
+        this.report = report;
         dealData(0);
     }
 
@@ -82,50 +85,53 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
             Double bloodSugarOffset = weekDateListBean.getBloodSugarOffset();
             Double bloodSugarOneOffset = weekDateListBean.getBloodSugarOneOffset();
             Double bloodSugarTwoOffset = weekDateListBean.getBloodSugarTwoOffset();
-            String completion = report.getCompletion();
+            String completion = weekDateListBean.getCompletion();
             if (bloodSugarTarget != null) {
-                tabMbEmpty.setText("<"+String.format("%.2f", bloodSugarTarget));
-            }else{
+                tabMbEmpty.setText("<" + String.format("%.2f", bloodSugarTarget));
+            } else {
                 tabMbEmpty.setText("无数据");
             }
             if (bloodSugarOneTarget != null) {
-                tabMbOne.setText("<"+String.format("%.2f", bloodSugarOneTarget));
-            }else{
+                tabMbOne.setText("<" + String.format("%.2f", bloodSugarOneTarget));
+            } else {
                 tabMbOne.setText("无数据");
             }
             if (bloodSugarTwoTarget != null) {
-                tabMbTwo.setText("<"+String.format("%.2f", bloodSugarTwoTarget));
-            }else{
+                tabMbTwo.setText("<" + String.format("%.2f", bloodSugarTwoTarget));
+            } else {
                 tabMbTwo.setText("无数据");
             }
             if (bloodSugarAvg != null) {
                 tabSjEmpty.setText(String.format("%.2f", bloodSugarAvg));
-            }else{
+            } else {
                 tabSjEmpty.setText("无数据");
             }
             if (bloodSugarOneAvg != null) {
                 tabSjOne.setText(String.format("%.2f", bloodSugarOneAvg));
-            }else {
+            } else {
                 tabSjOne.setText("无数据");
             }
             if (bloodSugarTwoAvg != null) {
                 tabSjTwo.setText(String.format("%.2f", bloodSugarTwoAvg));
-            }else{
+            } else {
                 tabSjTwo.setText("无数据");
             }
             if (bloodSugarOffset != null) {
                 if (bloodSugarOffset > 0) {
                     imgEmpty.setImageResource(R.drawable.red_up);
                     imgEmpty.setVisibility(View.VISIBLE);
+                    pcEmpty.setVisibility(View.VISIBLE);
                     pcEmpty.setText(String.format("%.2f", bloodSugarOffset));
+                    pcEmpty.setTextColor(Color.parseColor("#FF5747"));
                     bloodsugarEmpty.setBackgroundColor(Color.parseColor("#FF5747"));
                 } else {
                     imgEmpty.setVisibility(View.GONE);
                     pcEmpty.setText("√");
+                    pcEmpty.setVisibility(View.VISIBLE);
                     pcEmpty.setTextColor(Color.parseColor("#3CD478"));
                     bloodsugarEmpty.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
-            }else{
+            } else {
                 bloodsugarEmpty.setBackgroundColor(Color.parseColor("#FF5747"));
                 imgEmpty.setVisibility(View.GONE);
                 pcEmpty.setVisibility(View.GONE);
@@ -135,15 +141,18 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
                 if (bloodSugarOneOffset > 0) {
                     imgOne.setImageResource(R.drawable.red_up);
                     imgOne.setVisibility(View.VISIBLE);
+                    pcOne.setVisibility(View.VISIBLE);
                     pcOne.setText(String.format("%.2f", bloodSugarOneOffset));
+                    pcOne.setTextColor(Color.parseColor("#FF5747"));
                     bloodsugarOne.setBackgroundColor(Color.parseColor("#FF5747"));
                 } else {
                     imgOne.setVisibility(View.GONE);
                     pcOne.setText("√");
+                    pcOne.setVisibility(View.VISIBLE);
                     pcOne.setTextColor(Color.parseColor("#3CD478"));
                     bloodsugarOne.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
-            }else{
+            } else {
                 bloodsugarOne.setBackgroundColor(Color.parseColor("#FF5747"));
                 imgOne.setVisibility(View.GONE);
                 pcOne.setVisibility(View.GONE);
@@ -152,15 +161,18 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
                 if (bloodSugarOneOffset > 0) {
                     imgTwo.setImageResource(R.drawable.red_up);
                     imgTwo.setVisibility(View.VISIBLE);
+                    pcTwo.setVisibility(View.VISIBLE);
                     pcTwo.setText(String.format("%.2f", bloodSugarOneOffset));
+                    pcTwo.setTextColor(Color.parseColor("#FF5747"));
                     bloodsugarTwo.setBackgroundColor(Color.parseColor("#FF5747"));
                 } else {
                     imgTwo.setVisibility(View.GONE);
                     pcTwo.setText("√");
+                    pcTwo.setVisibility(View.VISIBLE);
                     pcTwo.setTextColor(Color.parseColor("#3CD478"));
                     bloodsugarTwo.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
-            }else {
+            } else {
                 bloodsugarTwo.setBackgroundColor(Color.parseColor("#FF5747"));
                 imgTwo.setVisibility(View.GONE);
                 pcTwo.setVisibility(View.GONE);
@@ -170,7 +182,7 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
                 progressDisplay.setText(int_completion + "%");
                 rpbSum.setMax(100);
                 rpbSum.setProgress(int_completion);
-            }else{
+            } else {
                 progressDisplay.setText("0%");
                 rpbSum.setProgress(0);
             }
@@ -214,7 +226,7 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rb_first:
                 dealData(0);
                 break;
@@ -227,6 +239,13 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
             case R.id.rb_four:
                 dealData(3);
                 break;
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
         }
     }
 }

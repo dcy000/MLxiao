@@ -28,6 +28,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -58,6 +59,7 @@ import com.example.han.referralproject.util.XueyaUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -489,6 +491,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         if (notifyData == null || notifyData.length != 13) {
                             return;
                         }
+                        Log.e("温度情况",byteToString(notifyData));
                         int tempData = notifyData[6] & 0xff;
                         if (tempData < 44) {
                             speak(R.string.tips_error_temp);
@@ -695,6 +698,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
     };
+    public static String byteToString(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+
+        if (!isEmpty(bytes)) {
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(String.format("%02X", bytes[i]) + "  ");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public static boolean isEmpty(byte[] bytes) {
+        return bytes == null || bytes.length == 0;
+    }
 
     /**
      * 处理三合一的测量结果

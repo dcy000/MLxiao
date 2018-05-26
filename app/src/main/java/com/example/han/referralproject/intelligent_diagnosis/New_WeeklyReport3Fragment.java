@@ -79,9 +79,11 @@ public class New_WeeklyReport3Fragment extends Fragment implements View.OnClickL
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.new_fragment_weekly_report3, container, false);
-        initView(view);
-        getData();
+        if (view == null) {
+            view = inflater.inflate(R.layout.new_fragment_weekly_report3, container, false);
+            initView(view);
+            getData();
+        }
         return view;
     }
 
@@ -133,12 +135,12 @@ public class New_WeeklyReport3Fragment extends Fragment implements View.OnClickL
             tabMbYan.setText("<"+String.format("%.2f", naSaltTarget));
             tabMbYundong.setText(">"+String.format("%.2f", sportTimeTarget));
             tabMbTizhong.setText("<"+String.format("%.2f", weightTarget));
-            tabMbYinjiu.setText("<"+String.format("%.2f", wineDrinkTarget));
+            tabMbYinjiu.setText("<"+String.format("%.0f", wineDrinkTarget));
 
             tabSjYan.setText(String.format("%.2f", naSalt));
             tabSjYundong.setText(String.format("%.2f", sportTime));
             tabSjTizhong.setText(String.format("%.2f", weight));
-            tabSjYinjiu.setText(String.format("%.2f", wineDrink));
+            tabSjYinjiu.setText(String.format("%.0f", wineDrink));
 
             if (pcNaSalt > 0) {
                 imgYan.setImageResource(R.drawable.red_up);
@@ -172,7 +174,7 @@ public class New_WeeklyReport3Fragment extends Fragment implements View.OnClickL
             if (pcWineDrink > 0) {
                 imgYinjiu.setImageResource(R.drawable.red_up);
                 imgYinjiu.setVisibility(View.VISIBLE);
-                pcYinjiu.setText(String.format("%.2f", pcWineDrink));
+                pcYinjiu.setText(String.format("%.0f", pcWineDrink));
             } else {
                 imgYinjiu.setVisibility(View.GONE);
                 pcYinjiu.setText("√");
@@ -316,6 +318,13 @@ public class New_WeeklyReport3Fragment extends Fragment implements View.OnClickL
             case R.id.view_competion:
                 getActivity().finish();
                 break;
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
         }
     }
 }

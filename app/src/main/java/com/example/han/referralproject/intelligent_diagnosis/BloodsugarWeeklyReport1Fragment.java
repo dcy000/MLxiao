@@ -56,8 +56,10 @@ public class BloodsugarWeeklyReport1Fragment extends Fragment implements View.On
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.bloodsugar_weekly_report_fragment, container, false);
-        initView(view);
+        if (view == null) {
+            view = inflater.inflate(R.layout.bloodsugar_weekly_report_fragment, container, false);
+            initView(view);
+        }
         return view;
     }
 
@@ -67,61 +69,61 @@ public class BloodsugarWeeklyReport1Fragment extends Fragment implements View.On
         }
         Double bloodSugarAvg = report.getBloodSugarAvg();
         if (bloodSugarAvg != null) {
-            bloodsugarEmpty.setText(String.format("%.2f",bloodSugarAvg));
+            bloodsugarEmpty.setText(String.format("%.2f", bloodSugarAvg));
             rpbBloodsugarEmpty.setMax(10);
             rpbBloodsugarEmpty.setProgress(Float.parseFloat(bloodSugarAvg.toString()));
-        }else{
+        } else {
             bloodsugarEmpty.setText("未测量");
         }
         Double bloodSugarOneAvg = report.getBloodSugarOneAvg();
         if (bloodSugarAvg != null) {
-            bloodsugarOne.setText(String.format("%.2f",bloodSugarOneAvg));
+            bloodsugarOne.setText(String.format("%.2f", bloodSugarOneAvg));
             rpbBloodsugarOne.setMax(10);
             rpbBloodsugarOne.setProgress(Float.parseFloat(bloodSugarOneAvg.toString()));
-        }else{
+        } else {
             bloodsugarOne.setText("未测量");
         }
         Double bloodSugarTwoAvg = report.getBloodSugarTwoAvg();
-        if (bloodSugarTwoAvg!=null){
-            bloodsugarTwo.setText(String.format("%.2f",bloodSugarTwoAvg));
+        if (bloodSugarTwoAvg != null) {
+            bloodsugarTwo.setText(String.format("%.2f", bloodSugarTwoAvg));
             rpbBloodsugarTwo.setMax(10);
             rpbBloodsugarTwo.setProgress(Float.parseFloat(bloodSugarTwoAvg.toString()));
-        }else{
+        } else {
             bloodsugarTwo.setText("未测量");
         }
 
         String healthScore = report.getHealthScore();
-        if (!TextUtils.isEmpty(healthScore)){
-            int int_healthScore= (int) Float.parseFloat(healthScore);
-            if (int_healthScore>=80){
+        if (!TextUtils.isEmpty(healthScore)) {
+            int int_healthScore = (int) Float.parseFloat(healthScore);
+            if (int_healthScore >= 80) {
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#5BD78C"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#86F77D"));
                 waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
-            }else if(int_healthScore>=60){
+            } else if (int_healthScore >= 60) {
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#F78237"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#FBBF81"));
                 waveProgressBar.setValueColor(Color.parseColor("#ffffff"));
-            }else{
+            } else {
                 waveProgressBar.setWaveDarkColor(Color.parseColor("#FE5848"));
                 waveProgressBar.setWaveLightColor(Color.parseColor("#F88A78"));
                 waveProgressBar.setValueColor(Color.parseColor("#FE5848"));
             }
             waveProgressBar.setMaxValue(100);
             waveProgressBar.setValue(int_healthScore);
-            waveProgressBar.setHealthValue(int_healthScore+ "分");
+            waveProgressBar.setHealthValue(int_healthScore + "分");
         }
 
         setXueTangChart(report);
-        StringBuffer buffer=new StringBuffer();
-        String currentEmptyBloodsugar="";
-        if (bloodSugarAvg!=null){
-            currentEmptyBloodsugar=String.format("%.2f",bloodSugarAvg);
+        StringBuffer buffer = new StringBuffer();
+        String currentEmptyBloodsugar = "";
+        if (bloodSugarAvg != null) {
+            currentEmptyBloodsugar = String.format("%.2f", bloodSugarAvg);
         }
-        if (TextUtils.isEmpty(report.getDiabetesLevel())){
+        if (TextUtils.isEmpty(report.getDiabetesLevel())) {
             buffer.append("您上周平均<strong><font color='#333333'>空腹血糖为" + currentEmptyBloodsugar
                     + "</font></strong>,血糖整体呈现<strong><font color='#333333'>" + report.getTrend()
-                    + "</font></strong>," + "血糖控制" + report.getControl()+",请每周定期测量，参照健康报告进行生活方式干预治疗。");
-        }else {
+                    + "</font></strong>," + "血糖控制" + report.getControl() + ",请每周定期测量，参照健康报告进行生活方式干预治疗。");
+        } else {
             buffer.append("您上周平均<strong><font color='#333333'>空腹血糖为" + currentEmptyBloodsugar
                     + "</font></strong>,血糖整体呈现<strong><font color='#333333'>" + report.getTrend()
                     + "</font></strong>," + "血糖控制" + report.getControl() + ",初步诊断为<strong><font color='#333333'>" + report.getDiabetesLevel()
@@ -148,8 +150,10 @@ public class BloodsugarWeeklyReport1Fragment extends Fragment implements View.On
         weekXueyaChart = (LineChart) view.findViewById(R.id.week_xueya_chart);
         tvAdvice = (TextView) view.findViewById(R.id.tv_advice);
     }
+
     /**
      * 血糖设置
+     *
      * @param report
      */
     private void setXueTangChart(WeeklyOrMonthlyBloodsugarReport report) {
@@ -218,19 +222,19 @@ public class BloodsugarWeeklyReport1Fragment extends Fragment implements View.On
         ArrayList<Entry> value = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();
         List<WeeklyOrMonthlyBloodsugarReport.WeekDateListBean> weekDateList = report.getWeekDateList();
-        if (weekDateList!=null&&weekDateList.size()>0){
+        if (weekDateList != null && weekDateList.size() > 0) {
             WeeklyOrMonthlyBloodsugarReport.WeekDateListBean weekDateListBean = weekDateList.get(0);
-            if (weekDateListBean!=null){
+            if (weekDateListBean != null) {
                 List<WeeklyOrMonthlyBloodsugarReport.WeekDateListBean.DetectionListBean> detectionList = weekDateListBean.getDetectionList();
-                if (detectionList!=null){
-                    for (int i=0;i<detectionList.size();i++){
-                        value.add(new Entry(i,Float.parseFloat(detectionList.get(i).getBloodSugar().toString())));
+                if (detectionList != null) {
+                    for (int i = 0; i < detectionList.size(); i++) {
+                        value.add(new Entry(i, Float.parseFloat(detectionList.get(i).getBloodSugar().toString())));
                         times.add(Long.parseLong(detectionList.get(i).getTimeStamp()));
                     }
                 }
             }
         }
-        if (times.size()!=0){
+        if (times.size() != 0) {
             weekXueyaChart.getXAxis().setValueFormatter(new WeeklyReportTimeFormatter(times));
             setXuetang(value);
         }
@@ -303,6 +307,14 @@ public class BloodsugarWeeklyReport1Fragment extends Fragment implements View.On
                 break;
             case R.id.rb_two:
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
         }
     }
 }

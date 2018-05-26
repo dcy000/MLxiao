@@ -60,8 +60,11 @@ public class BloodsugarMonthlyReport1Fragment extends Fragment implements View.O
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.bloodsugar_weekly_report_fragment, container, false);
-        initView(view);
+        if (view == null) {
+            view = inflater.inflate(R.layout.bloodsugar_weekly_report_fragment, container, false);
+            initView(view);
+        }
+
         return view;
     }
 
@@ -205,13 +208,14 @@ public class BloodsugarMonthlyReport1Fragment extends Fragment implements View.O
         ArrayList<Long> times = new ArrayList<>();
         List<WeeklyOrMonthlyBloodsugarReport.WeekDateListBean> weekDateList = report.getWeekDateList();
         if (weekDateList != null && weekDateList.size() > 0) {
-            WeeklyOrMonthlyBloodsugarReport.WeekDateListBean weekDateListBean = weekDateList.get(0);
-            if (weekDateListBean != null) {
-                List<WeeklyOrMonthlyBloodsugarReport.WeekDateListBean.DetectionListBean> detectionList = weekDateListBean.getDetectionList();
-                if (detectionList != null) {
-                    for (int i = 0; i < detectionList.size(); i++) {
-                        value.add(new Entry(i, Float.parseFloat(detectionList.get(i).getBloodSugar().toString())));
-                        times.add(Long.parseLong(detectionList.get(i).getTimeStamp()));
+            for (int i=0;i<weekDateList.size();i++) {
+                WeeklyOrMonthlyBloodsugarReport.WeekDateListBean weekDateListBean = weekDateList.get(i);
+                if (weekDateListBean != null) {
+                    if (weekDateListBean.getBloodSugarAvg()!=null) {
+                        value.add(new Entry(i, weekDateListBean.getBloodSugarAvg().floatValue()));
+                    }
+                    if (!TextUtils.isEmpty(weekDateListBean.getEndTime())) {
+                        times.add(Long.parseLong(weekDateListBean.getEndTime()));
                     }
                 }
             }
@@ -311,6 +315,13 @@ public class BloodsugarMonthlyReport1Fragment extends Fragment implements View.O
                 break;
             case R.id.rb_two:
                 break;
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
         }
     }
 }

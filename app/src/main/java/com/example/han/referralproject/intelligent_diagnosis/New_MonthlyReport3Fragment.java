@@ -82,9 +82,11 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.new_fragment_monthly_report3, container, false);
-        initView(view);
-        getData();
+        if (view == null) {
+            view = inflater.inflate(R.layout.new_fragment_monthly_report3, container, false);
+            initView(view);
+            getData();
+        }
         return view;
     }
 
@@ -133,52 +135,84 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
             double pcWeight = weight - weightTarget;
             double pcWineDrink = wineDrink - wineDrinkTarget;
 
-            tabMbYan.setText("<"+String.format("%.2f", naSaltTarget));
-            tabMbYundong.setText(">"+String.format("%.2f", sportTimeTarget));
-            tabMbTizhong.setText("<"+String.format("%.2f", weightTarget));
-            tabMbYinjiu.setText("<"+String.format("%.2f", wineDrinkTarget));
+            tabMbYan.setText("<" + String.format("%.2f", naSaltTarget));
+            tabMbYundong.setText(">" + String.format("%.2f", sportTimeTarget));
+            tabMbTizhong.setText("<" + String.format("%.2f", weightTarget));
+            tabMbYinjiu.setText("<" + String.format("%.0f", wineDrinkTarget));
 
-            tabSjYan.setText(String.format("%.2f", naSalt));
-            tabSjYundong.setText(String.format("%.2f", sportTime));
-            tabSjTizhong.setText(String.format("%.2f", weight));
-            tabSjYinjiu.setText(String.format("%.2f", wineDrink));
+            String yan_s = String.format("%.2f", naSalt);
+            if ("0.00".equals(yan_s)){
+                tabSjYan.setText("");
+            }else {
+                tabSjYan.setText(yan_s);
+            }
+            String yundong_s = String.format("%.2f", sportTime);
+            if ("0.00".equals(yundong_s)) {
+                tabSjYundong.setText("");
+            }else {
+                tabSjYundong.setText(yundong_s);
+            }
+            String tizhong_s = String.format("%.2f", weight);
+            if ("0.00".equals(tizhong_s)) {
+                tabSjTizhong.setText("");
+            }else {
+                tabSjTizhong.setText(tizhong_s);
+            }
+            String yinjiu_s = String.format("%.0f", wineDrink);
+            if ("0".equals(yinjiu_s)) {
+                tabSjYinjiu.setText("");
+            }else {
+                tabSjYinjiu.setText(yinjiu_s);
+            }
 
             if (pcNaSalt > 0) {
                 imgYan.setImageResource(R.drawable.red_up);
                 imgYan.setVisibility(View.VISIBLE);
+                pcYan.setVisibility(View.VISIBLE);
                 pcYan.setText(String.format("%.2f", pcNaSalt));
+                pcYan.setTextColor(Color.parseColor("#FF5747"));
             } else {
                 imgYan.setVisibility(View.GONE);
                 pcYan.setText("√");
+                pcYan.setVisibility(View.VISIBLE);
                 pcYan.setTextColor(Color.parseColor("#3CD478"));
             }
             if (pcSportTime < 0) {
                 imgYundong.setImageResource(R.drawable.red_up);
                 imgYundong.setVisibility(View.VISIBLE);
+                pcYundong.setVisibility(View.VISIBLE);
                 pcYundong.setText(String.format("%.2f", -pcSportTime));
+                pcYundong.setTextColor(Color.parseColor("#FF5747"));
             } else {
                 imgYundong.setVisibility(View.GONE);
                 pcYundong.setText("√");
+                pcYundong.setVisibility(View.VISIBLE);
                 pcYundong.setTextColor(Color.parseColor("#3CD478"));
             }
 
             if (pcWeight > 0) {
                 imgTizhong.setImageResource(R.drawable.red_up);
                 imgTizhong.setVisibility(View.VISIBLE);
+                pcTizhong.setVisibility(View.VISIBLE);
                 pcTizhong.setText(String.format("%.2f", pcWeight));
+                pcTizhong.setTextColor(Color.parseColor("#FF5747"));
             } else {
                 imgTizhong.setVisibility(View.GONE);
                 pcTizhong.setText("√");
+                pcTizhong.setVisibility(View.VISIBLE);
                 pcTizhong.setTextColor(Color.parseColor("#3CD478"));
             }
 
             if (pcWineDrink > 0) {
                 imgYinjiu.setImageResource(R.drawable.red_up);
                 imgYinjiu.setVisibility(View.VISIBLE);
-                pcYinjiu.setText(String.format("%.2f", pcWineDrink));
+                pcYinjiu.setVisibility(View.VISIBLE);
+                pcYinjiu.setText(String.format("%.0f", pcWineDrink));
+                pcYinjiu.setTextColor(Color.parseColor("#FF5747"));
             } else {
                 imgYinjiu.setVisibility(View.GONE);
                 pcYinjiu.setText("√");
+                pcYinjiu.setVisibility(View.VISIBLE);
                 pcYinjiu.setTextColor(Color.parseColor("#3CD478"));
             }
 
@@ -345,6 +379,14 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
             case R.id.rb_four:
                 dealData(cacheDatas, 3);
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
         }
     }
 }

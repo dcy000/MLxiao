@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.view.StartCustomTextView;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -220,6 +221,7 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     private void setContent(String breakfast,String lunch,String dinner){
         if (!TextUtils.isEmpty(breakfast)) {
             mTvBreakfast.setText(breakfast);
+
         }
         if (!TextUtils.isEmpty(lunch)) {
             mTvLunch.setText(lunch);

@@ -20,6 +20,8 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.blood_pressure_risk_assessment.HypertensionRiskActivity;
 import com.example.han.referralproject.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity;
+import com.example.han.referralproject.bluetooth_devices.AllMeasureActivity;
+import com.example.han.referralproject.bluetooth_devices.base.IPresenter;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
@@ -189,7 +191,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-                startActivity(new Intent(this, TreatmentPlanActivity.class));
+                startActivity(new Intent(this, TreatmentPlanActivity.class)
+                .putExtra(IPresenter.MEASURE_TYPE,IPresenter.MEASURE_BLOOD_SUGAR));
                 //呼叫
 //                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {

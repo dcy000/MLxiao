@@ -65,10 +65,10 @@ public class New_WeeklyReport2Fragment extends Fragment {
             String lowOffset = weekDateListBean.getLowOffset();
             String completion = report.getCompletion();
             if (!TextUtils.isEmpty(highTarget)) {
-                tabMbGaoya.setText("<"+highTarget);
+                tabMbGaoya.setText("<" + highTarget);
             }
             if (!TextUtils.isEmpty(lowTarget)) {
-                tabMbDiya.setText("<"+lowTarget);
+                tabMbDiya.setText("<" + lowTarget);
             }
             if (!TextUtils.isEmpty(highPressureAvg)) {
                 tabSjGaoya.setText(highPressureAvg);
@@ -88,6 +88,10 @@ public class New_WeeklyReport2Fragment extends Fragment {
                     pcGaoya.setTextColor(Color.parseColor("#3CD478"));
                     viewLeft.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            } else {
+                viewLeft.setBackgroundColor(Color.parseColor("#FF5747"));
+                imgGaoya.setVisibility(View.GONE);
+                pcGaoya.setVisibility(View.GONE);
             }
 
             if (!TextUtils.isEmpty(lowOffset)) {
@@ -102,11 +106,15 @@ public class New_WeeklyReport2Fragment extends Fragment {
                     pcDiya.setTextColor(Color.parseColor("#3CD478"));
                     viewRight.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
+            } else {
+                viewRight.setBackgroundColor(Color.parseColor("#FF5747"));
+                pcDiya.setVisibility(View.GONE);
+                imgDiya.setVisibility(View.GONE);
             }
 
-            if (!TextUtils.isEmpty(completion)){
+            if (!TextUtils.isEmpty(completion)) {
                 int int_completion = (int) Float.parseFloat(completion);
-                tvProgress2.setText(int_completion+"%");
+                tvProgress2.setText(int_completion + "%");
                 rpbSum.setMax(100);
                 rpbSum.setProgress(int_completion);
             }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MonthlyReportTimeFormatter implements IAxisValueFormatter{
     private ArrayList<Entry> gaoyas;
     private String[] weeks=new String[]{"第一周","第二周","第三周","第四周"};
+    private String[] unweeks=new String[]{"第一周\n(未测量)","第二周\n(未测量)","第三周\n(未测量)","第四周\n(未测量)"};
     public MonthlyReportTimeFormatter(ArrayList<Entry> times) {
         this.gaoyas=times;
     }
@@ -24,10 +25,16 @@ public class MonthlyReportTimeFormatter implements IAxisValueFormatter{
             return "";
         }
         if(gaoyas.size()==1){
+            if (gaoyas.get(0).getY()==0){
+                return unweeks[0];
+            }
             return weeks[0];
         }
         if(v>gaoyas.size()){
             return "";
+        }
+        if (gaoyas.get(((int) v)).getY()==0){
+            return unweeks[((int) v)];
         }
         return weeks[(int) v];
     }

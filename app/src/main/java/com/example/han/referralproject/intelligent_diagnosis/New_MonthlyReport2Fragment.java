@@ -153,12 +153,14 @@ public class New_MonthlyReport2Fragment extends Fragment {
                 if (v_high > 0) {
                     imgGaoya.setImageResource(R.drawable.red_up);
                     imgGaoya.setVisibility(View.VISIBLE);
+                    pcGaoya.setVisibility(View.VISIBLE);
                     pcGaoya.setText(highOffset);
                     pcGaoya.setTextColor(Color.parseColor("#FF5747"));
                     viewLeft.setBackgroundColor(Color.parseColor("#FF5747"));
                 } else {
                     imgGaoya.setVisibility(View.GONE);
                     pcGaoya.setText("√");
+                    pcGaoya.setVisibility(View.VISIBLE);
                     pcGaoya.setTextColor(Color.parseColor("#3CD478"));
                     viewLeft.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
@@ -173,12 +175,14 @@ public class New_MonthlyReport2Fragment extends Fragment {
                 if (v_low > 0) {
                     imgDiya.setImageResource(R.drawable.red_up);
                     imgDiya.setVisibility(View.VISIBLE);
+                    pcDiya.setVisibility(View.VISIBLE);
                     pcDiya.setText(lowOffset);
                     pcDiya.setTextColor(Color.parseColor("#FF5747"));
                     viewRight.setBackgroundColor(Color.parseColor("#FF5747"));
                 } else {
                     imgDiya.setVisibility(View.GONE);
                     pcDiya.setText("√");
+                    pcDiya.setVisibility(View.VISIBLE);
                     pcDiya.setTextColor(Color.parseColor("#3CD478"));
                     viewRight.setBackgroundColor(Color.parseColor("#49DF84"));
                 }
