@@ -59,4 +59,10 @@
     <color name="round_corner_progress_bar_secondary_progress_default">@android:color/transparent
     </color>
     <color name="line3">#BBBBBB</color>
+    <color name="circle_progress">#3F86FC</color>
+    <integer-array name="circle_progress_blue">
+        <item>@color/circle_progress</item>
+    </integer-array>
+    <color name="color_999">#999999</color>
+    <color name="color_333">#333333</color>
 </resources>

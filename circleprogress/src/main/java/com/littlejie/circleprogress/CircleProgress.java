@@ -46,6 +46,12 @@ public class CircleProgress extends View {
     private int mUnitColor;
     private float mUnitSize;
     private float mUnitOffset;
+    //绘制主数字后面的小文字
+    private TextPaint mSmallUnitPaint;
+    private CharSequence mSmallUnit;
+    private int mSmallUnitColor;
+    private float mSmallUnitSize;
+    private float mSmallUnitOffset;
 
     //绘制数值
     private TextPaint mValuePaint;
@@ -119,6 +125,12 @@ public class CircleProgress extends View {
         mUnitColor = typedArray.getColor(R.styleable.CircleProgressBar_cp_unitColor, Color.BLACK);
         mUnitSize = typedArray.getDimension(R.styleable.CircleProgressBar_cp_unitSize, Constant.DEFAULT_UNIT_SIZE);
 
+
+        mSmallUnit = typedArray.getString(R.styleable.CircleProgressBar_cp_smallUnit);
+        mSmallUnitColor = typedArray.getColor(R.styleable.CircleProgressBar_cp_smallUnitColor, Color.BLACK);
+        mSmallUnitSize = typedArray.getDimension(R.styleable.CircleProgressBar_cp_smallUnitSize, Constant.DEFAULT_SMALL_UNIT_SIZE);
+
+
         mArcWidth = typedArray.getDimension(R.styleable.CircleProgressBar_cp_arcWidth, Constant.DEFAULT_ARC_WIDTH);
         mStartAngle = typedArray.getFloat(R.styleable.CircleProgressBar_cp_startAngle, Constant.DEFAULT_START_ANGLE);
         mSweepAngle = typedArray.getFloat(R.styleable.CircleProgressBar_cp_sweepAngle, Constant.DEFAULT_SWEEP_ANGLE);
@@ -169,15 +181,25 @@ public class CircleProgress extends View {
         mValuePaint.setAntiAlias(antiAlias);
         mValuePaint.setTextSize(mValueSize);
         mValuePaint.setColor(mValueColor);
-        // 设置Typeface对象，即字体风格，包括粗体，斜体以及衬线体，非衬线体等
-        mValuePaint.setTypeface(Typeface.DEFAULT_BOLD);
+//        mValuePaint.setTypeface(Typeface.DEFAULT_BOLD);
+        mValuePaint.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mValuePaint.setFakeBoldText(true);
         mValuePaint.setTextAlign(Paint.Align.CENTER);
+        // 设置Typeface对象，即字体风格，包括粗体，斜体以及衬线体，非衬线体等
+//        mValuePaint.setTextAlign(Paint.Align.CENTER);
 
         mUnitPaint = new TextPaint();
         mUnitPaint.setAntiAlias(antiAlias);
         mUnitPaint.setTextSize(mUnitSize);
         mUnitPaint.setColor(mUnitColor);
         mUnitPaint.setTextAlign(Paint.Align.CENTER);
+
+        mSmallUnitPaint = new TextPaint();
+        mSmallUnitPaint.setAntiAlias(antiAlias);
+        mSmallUnitPaint.setTextSize(mSmallUnitSize);
+        mSmallUnitPaint.setColor(mSmallUnitColor);
+        mSmallUnitPaint.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "font/DINEngschrift-Alternate.otf"));
+
 
         mArcPaint = new Paint();
         mArcPaint.setAntiAlias(antiAlias);
@@ -226,9 +248,10 @@ public class CircleProgress extends View {
         //计算文字绘制时的 baseline
         //由于文字的baseline、descent、ascent等属性只与textSize和typeface有关，所以此时可以直接计算
         //若value、hint、unit由同一个画笔绘制或者需要动态设置文字的大小，则需要在每次更新后再次计算
-        mValueOffset = mCenterPoint.y + getBaselineOffsetFromY(mValuePaint);
+        mValueOffset = mCenterPoint.y + getBaselineOffsetFromY(mValuePaint)-30;
         mHintOffset = mCenterPoint.y - mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mHintPaint);
-        mUnitOffset = mCenterPoint.y + mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mUnitPaint)+10;
+        mSmallUnitOffset = mValueOffset;
+        mUnitOffset = mCenterPoint.y + mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mUnitPaint) + 10;
         updateArcPaint();
         Log.d(TAG, "onSizeChanged: 控件大小 = " + "(" + w + ", " + h + ")"
                 + "圆心坐标 = " + mCenterPoint.toString()
@@ -256,14 +279,25 @@ public class CircleProgress extends View {
         // 计算文字宽度，由于Paint已设置为居中绘制，故此处不需要重新计算
         // float textWidth = mValuePaint.measureText(mValue.toString());
         // float x = mCenterPoint.x - textWidth / 2;
-        canvas.drawText(String.format(mPrecisionFormat, mValue), mCenterPoint.x, mValueOffset, mValuePaint);
 
+
+        if (mSmallUnit != null) {
+            float mValueWidth = mValuePaint.measureText(String.format(mPrecisionFormat, mValue));
+            float mSmallUnitWidth = mSmallUnitPaint.measureText(String.valueOf(mSmallUnit));
+            int paddingLeft = getPaddingLeft();
+            float all_margin = mCenterPoint.x - (mValueWidth + mSmallUnitWidth + paddingLeft) / 2;
+            float mValuePosition = all_margin + mValueWidth / 2;
+            canvas.drawText(String.format(mPrecisionFormat, mValue), mValuePosition, mValueOffset, mValuePaint);
+            float mSmallUnitPosition = mCenterPoint.x * 2 - all_margin - mSmallUnitWidth / 2;
+            canvas.drawText(String.valueOf(mSmallUnit), mSmallUnitPosition, mSmallUnitOffset, mSmallUnitPaint);
+        } else {
+            canvas.drawText(String.format(mPrecisionFormat, mValue), mCenterPoint.x, mValueOffset, mValuePaint);
+        }
         if (mHint != null) {
             canvas.drawText(mHint.toString(), mCenterPoint.x, mHintOffset, mHintPaint);
         }
-
         if (mUnit != null) {
-            canvas.drawText(mUnit.toString(), mCenterPoint.x, mUnitOffset, mUnitPaint);
+            canvas.drawText(mUnit.toString(), mCenterPoint.x, mUnitOffset+30, mUnitPaint);
         }
     }
 
