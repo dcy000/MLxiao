@@ -691,7 +691,8 @@
         <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
         <activity android:name=".yiyuan.activity.InquiryAndFileEndActivity" />
         <activity android:name=".yiyuan.activity.YueJingWenActivity" />
-        <activity android:name=".yiyuan.activity.YinJiuWenActivity"></activity>
+        <activity android:name=".yiyuan.activity.YinJiuWenActivity" />
+        <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity"></activity>
     </application>
 
 </manifest>
