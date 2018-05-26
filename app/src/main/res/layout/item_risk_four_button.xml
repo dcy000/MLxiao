@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/item_risk">
+
+    <TextView
+        android:id="@+id/four_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="56pt"
+        android:text="1.你的父母兄弟、兄弟姐妹是够有高血压？"
+        android:textColor="#333"
+        android:textSize="64pt" />
+
+    <RadioGroup
+        android:id="@+id/four_question_rg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/four_answer1"
+            android:layout_width="300pt"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableLeft="@drawable/radiobutton_set"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingLeft="30pt"
+            android:paddingTop="48pt"
+            android:text="45"
+            android:textColor="#666"
+            android:textSize="56pt" />
+
+        <RadioButton
+            android:id="@+id/four_answer2"
+            android:layout_width="300pt"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200pt"
+            android:button="@null"
+            android:drawableLeft="@drawable/radiobutton_set"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingLeft="30pt"
+            android:paddingTop="48pt"
+            android:text="45-54"
+            android:textColor="#666"
+            android:textSize="56pt" />
+
+        <RadioButton
+            android:id="@+id/four_answer3"
+            android:layout_width="300pt"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200pt"
+            android:button="@null"
+            android:drawableLeft="@drawable/radiobutton_set"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingLeft="30pt"
+            android:paddingTop="48pt"
+            android:text="54-64"
+            android:textColor="#666"
+            android:textSize="56pt" />
+
+        <RadioButton
+            android:id="@+id/four_answer4"
+            android:layout_width="300pt"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200pt"
+            android:button="@null"
+            android:drawableLeft="@drawable/radiobutton_set"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingLeft="30pt"
+            android:paddingTop="48pt"
+            android:text=">64"
+            android:textColor="#666"
+            android:textSize="56pt" />
+    </RadioGroup>
+</LinearLayout>

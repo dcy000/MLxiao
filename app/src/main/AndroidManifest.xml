@@ -568,16 +568,16 @@
             android:name=".activity.MessageDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".intelligent_diagnosis.DailyIntakeActivity"
+            android:name=".intelligent_system.intelligent_diagnosis.DailyIntakeActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".intelligent_diagnosis.WeeklyReportActivity"
+            android:name=".intelligent_system.intelligent_diagnosis.WeeklyReportActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".intelligent_diagnosis.MonthlyReportActivity"
+            android:name=".intelligent_system.intelligent_diagnosis.MonthlyReportActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".intelligent_diagnosis.DeleteGroupActivity"
+            android:name=".intelligent_system.intelligent_diagnosis.DeleteGroupActivity"
             android:screenOrientation="landscape">
 
             <!-- <intent-filter> -->
@@ -688,6 +688,42 @@
         <activity android:name=".health.DetectResultActivity" />
         <activity android:name=".yiyuan.activity.YiYuanLoginActivity"></activity>
         <activity android:name=".yiyuan.activity.SignUpGenderActivity" />
+        <activity
+            android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity"
+            android:label="高血压风险评估"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.blood_pressure_risk_assessment.PrimaryBloodPressureRiskResultsActivity"
+            android:label="原发性高血压结果界面"
+            android:screenOrientation="landscape" />
+        <activity android:name=".intelligent_system.blood_pressure_risk_assessment.SecondaryBloodPressureRiskResultsActivity"
+            android:screenOrientation="landscape"
+            android:label="继发性高血压结果界面"/>
+        <activity
+            android:name=".measure.New_MeasureXuetangResultActivity"
+            android:screenOrientation="landscape"
+            android:label="每次血糖测量后的结果界面"/>
+        <activity android:name=".intelligent_system.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity"
+            android:screenOrientation="landscape"
+            android:label="血糖风险评估"/>
+        <activity android:name=".intelligent_system.blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
+            android:screenOrientation="landscape"
+            android:label="血糖风险评估结果界面"/>
+        <activity android:name=".intelligent_system.intelligent_diagnosis.FoodMaterialDetailActivity"
+            android:screenOrientation="landscape"
+            android:label="推荐食物详情页面"/>
+        <activity android:name=".intelligent_system.intelligent_diagnosis.SportPlanDetailActivity"
+            android:screenOrientation="landscape"
+            android:label="推荐运动计划详情界面"/>
+        <activity android:name=".intelligent_system.intelligent_diagnosis.BloodsugarWeeklyReportActivity"
+            android:screenOrientation="landscape"
+            android:label="血糖周报告"/>
+        <activity android:name=".intelligent_system.intelligent_diagnosis.TreatmentPlanActivity"
+            android:screenOrientation="landscape"
+            android:label="治疗方案"/>
+        <activity android:name=".intelligent_system.intelligent_diagnosis.BloodsugarMonthlyReportActivity"
+            android:screenOrientation="landscape"
+            android:label="血糖疗程报告"/>
     </application>
 
 </manifest>
