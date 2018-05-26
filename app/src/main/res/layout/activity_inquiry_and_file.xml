@@ -7,7 +7,7 @@
     tools:context="com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity">
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/iv_wenzhen"
         android:layout_width="380pt"
         android:layout_height="380pt"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/iv_wenzhen" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/iv_jiandang"
         android:layout_width="380pt"
         android:layout_height="380pt"

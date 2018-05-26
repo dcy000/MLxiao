@@ -55,10 +55,10 @@ public class JianKangJianCheDialog extends DialogFragment {
                 clickItem(data.get(0).name);
                 break;
             case R.id.gaoxueya_tijian:
-                clickItem(data.get(2).name);
+                clickItem(data.get(1).name);
                 break;
             case R.id.tangniaobing_tijian:
-                clickItem(data.get(3).name);
+                clickItem(data.get(2).name);
                 break;
         }
     }

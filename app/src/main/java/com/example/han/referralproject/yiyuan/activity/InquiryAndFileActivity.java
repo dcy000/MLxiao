@@ -3,6 +3,7 @@ package com.example.han.referralproject.yiyuan.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -14,9 +15,9 @@ import butterknife.OnClick;
 
 public class InquiryAndFileActivity extends BaseActivity {
     @BindView(R.id.iv_wenzhen)
-    ImageButton ivWenzhen;
+    ImageView ivWenzhen;
     @BindView(R.id.iv_jiandang)
-    ImageButton ivJiandang;
+    ImageView ivJiandang;
     @BindView(R.id.textView3)
     TextView textView3;
     @BindView(R.id.textView6)
