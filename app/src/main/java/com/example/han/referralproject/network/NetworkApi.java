@@ -1254,7 +1254,8 @@ public class NetworkApi {
     }
 
 
-    public static String Inquiry = BasicUrl + "/ZZB/api/health/inquiry/";
+//    public static String Inquiry = "http://118.31.73.176:8080" + "/ZZB/api/health/inquiry/";
+    public static String Inquiry = "http://118.31.73.176:8080/ZZB/api/health/inquiry/";
 
 
 }
