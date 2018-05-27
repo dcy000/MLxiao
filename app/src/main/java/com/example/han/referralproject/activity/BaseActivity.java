@@ -379,7 +379,7 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    protected void speak(int resId) {
+    public void speak(int resId) {
         speak(getString(resId));
     }
 

@@ -38,6 +38,7 @@ import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.health.model.WeekReportModel;
+import com.example.han.referralproject.new_music.NetworkUtils;
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.example.han.referralproject.recyclerview.OnlineTime;
@@ -56,7 +57,9 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
+
     //            public static final String BasicUrl = "http://116.62.36.12:8080";
+
     public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.109:8080";//孙高峰
 
@@ -66,7 +69,8 @@ public class NetworkApi {
 
 //    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
 
-
+    //上传建档信息
+    public static final String Upload_BuildRecord=BasicUrl+"/ZZB/api/health/inquiry/record/";
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐

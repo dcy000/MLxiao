@@ -21,6 +21,7 @@ import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
+import com.example.han.referralproject.building_record.BuildingRecordActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.questionair.activity.ChineseMedicineMonitorActivity;
@@ -343,11 +344,24 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     @Override
     public void onJianceItemClick(String name) {
         if (JIANKANG_TIJIAN.equals(name)) {
-            gotoDanXianTiJian();
+//            gotoDanXianTiJian();
+            Intent intent = new Intent(getActivity(), DetectActivity.class);
+            intent.putExtra("type", "wendu");
+            intent.putExtra("isDetect", true);
+            intent.putExtra("detectCategory", "detectHealth");
+            startActivity(intent);
         } else if (GAOXUEYA_TIJIAN.equals(name)) {
-
+            Intent intent = new Intent(getActivity(), DetectActivity.class);
+            intent.putExtra("type", "xueya");
+            intent.putExtra("isDetect", true);
+            intent.putExtra("detectCategory", "detectPressure");
+            startActivity(intent);
         } else if (TANGNIAOBING_TIJIAN.equals(name)) {
-
+            Intent intent = new Intent(getActivity(), DetectActivity.class);
+            intent.putExtra("type", "xueya");
+            intent.putExtra("isDetect", true);
+            intent.putExtra("detectCategory", "detectSugar");
+            startActivity(intent);
         }
 
     }

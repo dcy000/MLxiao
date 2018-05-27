@@ -1,6 +1,7 @@
 package com.example.han.referralproject.recyclerview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,11 @@ public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
                 }
             }
         });
+        if (mListPat.get(position).isSelected()){
+            holder.itemView.setBackgroundColor(Color.parseColor("#D4999999"));
+        }else{
+            holder.itemView.setBackgroundColor(Color.WHITE);
+        }
         holder.mContext = context;
         holder.mPosition = position;
         Picasso.with(context)

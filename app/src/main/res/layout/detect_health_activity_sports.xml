@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.health.DetectHealthSportsActivity">
+
+    <TextView
+        android:id="@+id/detect_health_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50pt"
+        android:text="请选择运动时间！"
+        android:textColor="#333333"
+        android:textSize="100pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detect_health_rv_times"
+        android:layout_width="300pt"
+        android:layout_height="600pt"
+        android:layout_marginTop="50dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/detect_health_tv_times"
+        app:layout_constraintTop_toBottomOf="@+id/detect_health_tv_title"/>
+
+    <TextView
+        android:id="@+id/detect_health_tv_times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFC107"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/detect_health_rv_times"
+        app:layout_constraintLeft_toRightOf="@+id/detect_health_rv_times"
+        app:layout_constraintRight_toLeftOf="@+id/detect_health_rv_minutes"
+        app:layout_constraintTop_toTopOf="@+id/detect_health_rv_times"
+        android:text="次/周"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detect_health_rv_minutes"
+        android:layout_width="300pt"
+        android:layout_height="600pt"
+        android:layout_marginLeft="50pt"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toRightOf="@+id/detect_health_tv_times"
+        app:layout_constraintRight_toLeftOf="@+id/detect_health_tv_minutes"
+        app:layout_constraintTop_toBottomOf="@+id/detect_health_tv_title"/>
+
+    <TextView
+        android:id="@+id/detect_health_tv_minutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFC107"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/detect_health_rv_minutes"
+        app:layout_constraintLeft_toRightOf="@+id/detect_health_rv_minutes"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detect_health_rv_minutes"
+        android:text="分钟/次"/>
+
+    <include layout="@layout/include_sign_up_nav"/>
+</android.support.constraint.ConstraintLayout>

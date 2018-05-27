@@ -24,7 +24,15 @@ public class Docter implements Serializable {
     public String apply_amount;
     public String service_amount;
     public String docter_photo;
+    private boolean isSelected=false;
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public Docter() {
         super();

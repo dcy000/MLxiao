@@ -47,6 +47,7 @@ import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
+import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.health.DetectResultActivity;
 import com.example.han.referralproject.measure.MeasureChooseReason;
 import com.example.han.referralproject.measure.MeasureXuetangResultActivity;
@@ -983,7 +984,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private int xuetangTimeFlag;
     private AVLoadingIndicatorView onDetect;
 
-    private boolean isDetect;
+    private boolean isDetect;  // 是否为体检
+    private String detectCategory; // 体检分类： 健康体检，高血糖体检，高血压体检
+    private String type; // 体检项目
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -992,6 +995,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         final Intent intent = getIntent();
         if (intent != null) {
             isDetect = intent.getBooleanExtra("isDetect", false);
+            detectCategory = intent.getStringExtra("detectCategory");
+            type = getIntent().getStringExtra("type");
         }
         mShared = LocalShared.getInstance(mContext);
         xuetangTimeFlag = getIntent().getIntExtra("time", 0);
@@ -1119,8 +1124,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
-
-        final String type = getIntent().getStringExtra("type");
 
         if (!TextUtils.isEmpty(type)) {
             switch (type) {
@@ -1291,9 +1294,85 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         setXuetangSelectTime();
 
         if (isDetect) {
+            findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
             findViewById(R.id.detect_tv_result_next).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if ("detectHealth".equals(detectCategory)) {
+                        switch (type) {
+                            case "wendu":
+                                Intent intent3 = new Intent(DetectActivity.this, DetectActivity.class);
+                                intent3.putExtras(getIntent());
+                                intent3.putExtra("tem", mResultTv.getText().toString());
+                                intent3.putExtra("type", "xueya");
+                                startActivity(intent3);
+                                break;
+                            case "xueya":
+                                Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                                intent4.putExtras(getIntent());
+                                intent4.putExtra("highPressure", mHighPressTv.getText().toString());
+                                intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
+                                intent4.putExtra("type", "xindian");
+                                startActivity(intent4);
+                                break;
+                            case "tizhong":
+                                Intent intent1 = new Intent(DetectActivity.this, DetectHealthSymptomsActivity.class);
+                                intent1.putExtras(getIntent());
+                                intent1.putExtra("weight", mResultTv.getText().toString());
+                                startActivity(intent1);
+                                break;
+                        }
+                        finish();
+                        return;
+                    }
+
+                    if ("detectPressure".equals(detectCategory)) {
+                        switch (type) {
+                            case "xueya":
+                                Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                                intent4.putExtras(getIntent());
+                                intent4.putExtra("highPressure", mHighPressTv.getText().toString());
+                                intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
+                                intent4.putExtra("type", "xindian");
+                                startActivity(intent4);
+                                break;
+                            case "tizhong":
+                                Intent intent1 = new Intent(DetectActivity.this, DetectHealthSymptomsActivity.class);
+                                intent1.putExtras(getIntent());
+                                intent1.putExtra("weight", mResultTv.getText().toString());
+                                startActivity(intent1);
+                                break;
+                        }
+                        finish();
+                        return;
+                    }
+                    if ("detectSugar".equals(detectCategory)) {
+                        switch (type) {
+                            case "xueya":
+                                Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                                intent4.putExtra("highPressure", mHighPressTv.getText().toString());
+                                intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
+                                intent4.putExtra("type", "xindian");
+                                startActivity(intent4);
+                                break;
+                            case "xuetang":
+                                Intent intent5 = new Intent(DetectActivity.this, DetectActivity.class);
+                                intent5.putExtras(getIntent());
+                                intent5.putExtra("sugar", mResultTv.getText().toString());
+                                intent5.putExtra("type", "tizhong");
+                                startActivity(intent5);
+                                break;
+                            case "tizhong":
+                                Intent intent1 = new Intent(DetectActivity.this, DetectHealthSymptomsActivity.class);
+                                intent1.putExtras(getIntent());
+                                intent1.putExtra("weight", mResultTv.getText().toString());
+                                startActivity(intent1);
+                                break;
+                        }
+                        finish();
+                        return;
+                    }
+
                     switch (type) {
                         case "tizhong":
                             Intent intent1 = new Intent(DetectActivity.this, DetectResultActivity.class);
@@ -1344,12 +1423,70 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     View.OnClickListener backOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (getIntent().getStringExtra("type")) {
+            if ("detectHealth".equals(detectCategory)) {
+                switch (type) {
+                    case "tizhong":
+                        Intent intent1 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("weight", "0");
+                        startActivity(intent1);
+                        break;
+                    case "xueya":
+                        Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
+                        intent4.putExtras(getIntent());
+                        intent4.putExtra("highPressure", "0");
+                        intent4.putExtra("lowPressure", "0");
+                        intent4.putExtra("type", "wendu");
+                        startActivity(intent4);
+                    case "wendu":
+                        break;
+                }
+                finish();
+                return;
+            }
+            if ("detectPressure".equals(detectCategory)) {
+                switch (type) {
+                    case "xueya":
+                        break;
+                    case "tizhong":
+                        Intent intent1 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("weight", "0");
+                        startActivity(intent1);
+                        break;
+                }
+                finish();
+                return;
+            }
+
+            if ("detectSugar".equals(detectCategory)) {
+                switch (type) {
+                    case "xueya":
+                        break;
+                    case "xuetang":
+                        Intent intent5 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                        intent5.putExtras(getIntent());
+                        intent5.putExtra("sugar", "0");
+                        startActivity(intent5);
+                        break;
+                    case "tizhong":
+                        Intent intent1 = new Intent(DetectActivity.this, DetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("weight", "0");
+                        intent1.putExtra("type", "xuetang");
+                        startActivity(intent1);
+                        break;
+                }
+                finish();
+                return;
+            }
+
+            switch (type) {
                 case "tizhong":
                     Intent intent5 = new Intent(DetectActivity.this, DetectActivity.class);
                     intent5.putExtras(getIntent());
                     intent5.putExtra("type", "wendu");
-                    intent5.putExtra("weight", "");
+                    intent5.putExtra("weight", "0");
                     intent5.putExtra("isDetect", true);
                     startActivity(intent5);
                     break;
@@ -1375,7 +1512,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     Intent intent3 = new Intent(DetectActivity.this, DetectActivity.class);
                     intent3.putExtras(getIntent());
                     intent3.putExtra("type", "xueya");
-                    intent3.putExtra("sugar", "");
+                    intent3.putExtra("sugar", "0");
                     intent3.putExtra("isDetect", true);
                     startActivity(intent3);
                     break;
