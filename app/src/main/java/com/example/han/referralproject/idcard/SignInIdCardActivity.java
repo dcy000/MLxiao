@@ -403,7 +403,7 @@ public class SignInIdCardActivity extends BaseActivity {
                 long readTime = currentTimeMillis - readStartTime;
                 Log.d(TAG, "onReadSuccess: totalTime = " + totalTime);
                 Log.d(TAG, "onReadSuccess: readTime = " + readTime);
-                Log.d(TAG, "onReadSuccess: " + item.toString());
+//                Log.d(TAG, "onReadSuccess: " + item.toString());
                 if (item != null && item.retCode == 1) {
                     runOnUiThread(new Runnable() {
                         @Override
