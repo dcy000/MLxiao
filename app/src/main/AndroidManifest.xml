@@ -311,7 +311,9 @@
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:taskAffinity="com.ml.wenzhen"
+            />
         <activity
             android:name="com.medlink.danbogh.register.SignUp8WeightActivity"
             android:screenOrientation="landscape"/>

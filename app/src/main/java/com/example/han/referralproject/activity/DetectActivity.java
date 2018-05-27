@@ -247,14 +247,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } else {
                         xueyaResult = mXueyaResults[2];
                     }
-
-                    if (getIntent().getBooleanExtra("inquiry", false)) {
-                        Intent data = new Intent();
-                        data.putExtra("xueya", mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
-                        setResult(RESULT_OK, data);
-                        finish();
-                        return;
-                    }
                     uploadXueyaResult(getNew, down, maibo, xueyaResult, false, null);
                     break;
                 case 14:
@@ -553,6 +545,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             } else {
                                 xueyaResult = mXueyaResults[2];
                             }
+
                             uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
 //                            speak(String.format(getString(R.string.tips_result_xueya),
 //                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
@@ -588,10 +581,18 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyaResult = mXueyaResults[2];
                                 }
+                                if (getIntent().getBooleanExtra("inquiry", false)) {
+                                    Intent data = new Intent();
+                                    data.putExtra("xueya", mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
+                                    DetectActivity.this.setResult(Activity.RESULT_OK, data);
+                                    finish();
+                                    return;
+                                }
                                 //上传数据到我们的服务器
                                 uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
                             }
                         }
+
                         break;
                     case Type_XueTang://血糖测量
                         if (notifyData == null || notifyData.length < 12) {

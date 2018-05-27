@@ -67,6 +67,11 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(this).loginOut();
         startActivity(new Intent(this, YiYuanLoginActivity.class));
-        finish();
+        finishAffinity();
+    }
+
+    @Override
+    protected void backLastActivity() {
+        finishAffinity();
     }
 }
