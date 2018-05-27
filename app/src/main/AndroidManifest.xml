@@ -567,26 +567,6 @@
         <activity
             android:name=".activity.MessageDetailsActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_diagnosis.DailyIntakeActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_diagnosis.WeeklyReportActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_diagnosis.MonthlyReportActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_diagnosis.DeleteGroupActivity"
-            android:screenOrientation="landscape">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity android:name=".health.HealthDiaryActivity" />
         <activity
             android:name=".tool.JieMengActivity"
@@ -699,7 +679,17 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".intelligent_system.intelligent_diagnosis.DeleteGroupActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+        <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
+        <activity android:name=".yiyuan.activity.DrinkWenActivity" />
+        <activity
+            android:name=".yiyuan.activity.InquiryAndFileEndActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
+        <activity android:name=".yiyuan.activity.XueYaWenActivity" />
+        <activity android:name=".yiyuan.activity.YinJiuWenActivity" />
+        <activity android:name=".yiyuan.activity.YueJingWenActivity" />
+        <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
 
     </application>
 

@@ -761,7 +761,6 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private void onLoginSuccess() {
         startActivity(new Intent(mContext, InquiryAndFileActivity.class));
-        finish();
     }
 
     private void onLoginFailed() {

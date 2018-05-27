@@ -67,12 +67,12 @@ public class PregnancyWenActivity extends BaseActivity {
         selectMan(true);
     }
 
-    @OnClick(R.id.iv_sign_up_man)
+    @OnClick(R.id.iv_rb_sign_up_man)
     public void onIvRbManClicked() {
         selectMan(true);
     }
 
-    @OnClick(R.id.iv_sign_up_woman)
+    @OnClick(R.id.iv_rb_sign_up_woman)
     public void onIvRbWomanClicked() {
         selectMan(false);
     }
@@ -98,7 +98,7 @@ public class PregnancyWenActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         if (!mIvRbMan.isSelected() && !mIvRbWoman.isSelected()) {
             T.show(R.string.sign_up2_gender_tip);
-            speak(R.string.sign_up2_gender_tip);
+//            speak(R.string.sign_up2_gender_tip);
             return;
         }
 

@@ -56,7 +56,7 @@ public class XueYaWenActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == 119) {
                 LocalShared.getInstance(this).setXueYa(data.getStringExtra("xueya"));
                 postWenZhenData();

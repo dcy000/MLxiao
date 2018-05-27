@@ -1082,6 +1082,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
                 Intent data=new Intent();
                 data.putExtra("xueya",mHighPressTv.getText().toString()+","+mLowPressTv.getText().toString());
+                setResult(RESULT_OK,data);
                 finish();
             }
         });
