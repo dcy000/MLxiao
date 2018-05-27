@@ -989,7 +989,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         if (intent != null) {
             isDetect = intent.getBooleanExtra("isDetect", false);
         }
@@ -1080,6 +1080,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 if (isDetect) {
                     backOnClickListener.onClick(v);
                 }
+                Intent data=new Intent();
+                data.putExtra("xueya",mHighPressTv.getText().toString()+","+mLowPressTv.getText().toString());
                 finish();
             }
         });

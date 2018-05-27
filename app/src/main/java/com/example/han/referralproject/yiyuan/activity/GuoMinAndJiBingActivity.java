@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.util.LocalShared;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,12 +58,8 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
         setContentView(R.layout.activity_guo_min_and_yao_wu);
         ButterKnife.bind(this);
         initTilte();
-        getResult();
     }
 
-    private String getResult() {
-        return result;
-    }
 
     private void initTilte() {
         mToolbar.setVisibility(View.VISIBLE);
@@ -72,44 +70,105 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     @OnClick({R.id.title1, R.id.qingmeisu, R.id.toubao, R.id.huanganlei, R.id.qita, R.id.ll_1, R.id.wu1, R.id.title2, R.id.gaouxeya, R.id.tangniaobing, R.id.shexian, R.id.xiaochuan, R.id.ll_2, R.id.tv_sign_up_go_back, R.id.tv_sign_up_go_forward, R.id.qita2, R.id.wu2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.title1:
-                title1.setSelected(!title1.isSelected());
-                break;
             case R.id.qingmeisu:
-
+                qingmeisu.setSelected(!qingmeisu.isSelected());
                 break;
             case R.id.toubao:
+                toubao.setSelected(!toubao.isSelected());
                 break;
             case R.id.huanganlei:
+                huanganlei.setSelected(!huanganlei.isSelected());
                 break;
             case R.id.qita:
-                break;
-            case R.id.ll_1:
+                qita.setSelected(!qita.isSelected());
                 break;
             case R.id.wu1:
-                break;
-            case R.id.title2:
+                wu1.setSelected(!wu1.isSelected());
                 break;
             case R.id.gaouxeya:
+                gaouxeya.setSelected(!gaouxeya.isSelected());
                 break;
             case R.id.tangniaobing:
+                tangniaobing.setSelected(!tangniaobing.isSelected());
                 break;
             case R.id.shexian:
+                //guanxinbing
+                shexian.setSelected(!shexian.isSelected());
                 break;
             case R.id.xiaochuan:
-                break;
-            case R.id.ll_2:
+                xiaochuan.setSelected(!xiaochuan.isSelected());
                 break;
             case R.id.tv_sign_up_go_back:
                 finish();
                 break;
             case R.id.tv_sign_up_go_forward:
-                getResult();
+                getGuoMin();
+                getJiBing();
+                startActivity(new Intent(this, XueYaWenActivity.class));
                 break;
             case R.id.qita2:
+                qita2.setSelected(!qita2.isSelected());
                 break;
             case R.id.wu2:
+                wu2.setSelected(!wu2.isSelected());
                 break;
         }
     }
+
+
+    String guomin = "";
+    String jibing = "";
+
+    public void getGuoMin() {
+        if (wu1.isSelected()) {
+            guomin = "0";
+            return;
+        }
+
+        if (qingmeisu.isSelected()) {
+            guomin += "1,";
+        }
+
+        if (toubao.isSelected()) {
+            guomin += "2,";
+        }
+
+        if (huanganlei.isSelected()) {
+            guomin += "3,";
+        }
+        if (qita.isSelected()) {
+            guomin += "4";
+        }
+
+        LocalShared.getInstance(this).setGuoMin(guomin);
+    }
+
+    private void getJiBing() {
+        if (wu2.isSelected()) {
+            jibing = "0";
+            return;
+        }
+
+        if (gaouxeya.isSelected()) {
+            jibing += "1,";
+        }
+
+        if (tangniaobing.isSelected()) {
+            jibing += "2,";
+        }
+
+        if (shexian.isSelected()) {
+            jibing += "3,";
+        }
+
+        if (xiaochuan.isSelected()) {
+            jibing += "4,";
+        }
+
+        if (qita2.isSelected()) {
+            jibing += "5,";
+        }
+        LocalShared.getInstance(this).setJiBingShi(jibing);
+    }
+
 }

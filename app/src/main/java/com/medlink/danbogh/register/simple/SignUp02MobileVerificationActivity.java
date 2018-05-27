@@ -193,7 +193,6 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
     private void navToNext(String phone) {
         Intent intent = new Intent();
         intent.putExtra("phone",phone );
-        setResult(Activity.RESULT_OK, intent);
         setResult(RESULT_OK,intent);
         finish();
     }

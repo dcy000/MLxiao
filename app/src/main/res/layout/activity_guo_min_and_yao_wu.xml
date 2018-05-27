@@ -24,6 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/title1"
         android:layout_marginTop="26pt">
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/qingmeisu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
             android:layout_marginLeft="60pt"
             />
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/toubao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,6 +56,7 @@
             android:layout_marginLeft="136pt"
             />
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/huanganlei"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,6 +72,7 @@
             android:layout_marginLeft="208pt"
             />
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/qita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,6 +89,7 @@
             />
     </LinearLayout>
     <TextView
+        android:textIsSelectable="true"
         android:id="@+id/wu1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,6 +128,7 @@
         android:layout_marginTop="20pt">
 
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/gaouxeya"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -138,6 +144,7 @@
             android:textSize="72pt" />
 
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/tangniaobing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -153,6 +160,7 @@
             android:textSize="72pt" />
 
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/shexian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -168,6 +176,7 @@
             android:textSize="72pt" />
 
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/xiaochuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -185,6 +194,7 @@
     <include layout="@layout/include_sign_up_nav" />
 
     <TextView
+        android:textIsSelectable="true"
         android:id="@+id/qita2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -202,6 +212,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ll_2" />
 
     <TextView
+        android:textIsSelectable="true"
         android:id="@+id/wu2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

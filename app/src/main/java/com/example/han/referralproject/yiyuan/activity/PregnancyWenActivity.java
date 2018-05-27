@@ -102,8 +102,8 @@ public class PregnancyWenActivity extends BaseActivity {
             return;
         }
 
-        String gender = mIvRbMan.isSelected() ? "2" : "3";
-        LocalShared.getInstance(this.getApplicationContext()).setSignUpGender(gender);
+        String gender = mIvRbMan.isSelected() ? "0" : "1";
+        LocalShared.getInstance(this.getApplicationContext()).setHuaiYun(gender);
         if (mIvRbWoman.isSelected()) {
             //月经结束时间
             startActivity(new Intent(this, YueJingWenActivity.class));
