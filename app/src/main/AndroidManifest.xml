@@ -684,7 +684,7 @@
         <activity android:name=".yiyuan.activity.DrinkWenActivity" />
         <activity
             android:name=".yiyuan.activity.InquiryAndFileEndActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
         <activity android:name=".yiyuan.activity.XueYaWenActivity" />
         <activity android:name=".yiyuan.activity.YinJiuWenActivity" />

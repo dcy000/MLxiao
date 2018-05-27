@@ -92,11 +92,11 @@ public class XueYaWenActivity extends BaseActivity {
                             WenZhenReultBean reultBean = gson.fromJson(result, WenZhenReultBean.class);
                             if ("成功".equals(reultBean.message)) {
                                 T.show("提交成功");
+                                InquiryAndFileEndActivity.startMe(XueYaWenActivity.this, "问诊");
+                                finish();
                             } else {
                                 T.show("提交失败");
                             }
-                            InquiryAndFileEndActivity.startMe(XueYaWenActivity.this,"问诊");
-                            finish();
                         }
                     }
                 });

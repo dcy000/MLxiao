@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
@@ -21,9 +22,9 @@ public class InquiryAndFileEndActivity extends BaseActivity {
 
     public static final String FROM_TAG = "tag";
     @BindView(R.id.tv_to_home_page)
-    TextView tvToHomePage;
+    ImageView tvToHomePage;
     @BindView(R.id.tv_exit)
-    TextView tvExit;
+    ImageView tvExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
