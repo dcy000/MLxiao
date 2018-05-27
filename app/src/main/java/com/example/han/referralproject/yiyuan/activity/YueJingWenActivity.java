@@ -55,7 +55,7 @@ public class YueJingWenActivity extends BaseActivity {
     }
 
     private void goForward() {
-        String time = tvYuejingDate.getText().toString();
+        String time = tvYuejingDate.getText().toString().trim();
         if (TextUtils.isEmpty(time)) {
             speak("主人,日期不能为空");
             return;
