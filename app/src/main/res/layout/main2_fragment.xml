@@ -7,7 +7,7 @@
 
 
     <ImageView
-        android:src="@drawable/main_jiankangshangcheng"
+        android:src="@drawable/main_wodedingdan"
         android:id="@+id/shangcheng"
         android:layout_width="594pt"
         android:layout_height="504pt"
@@ -16,29 +16,29 @@
         app:layout_constraintTop_toTopOf="@+id/jiankangketang" />
 
     <ImageView
-        android:src="@drawable/main_zhanghuchongzhi"
         android:id="@+id/zhanghuchongzhi"
         android:layout_width="594pt"
         android:layout_height="504pt"
-        app:layout_constraintBottom_toBottomOf="@+id/wodedingdan"
-        app:layout_constraintEnd_toEndOf="@+id/shangcheng" />
+        android:src="@drawable/main_zhanghuchongzhi"
+        app:layout_constraintEnd_toEndOf="@+id/shangcheng"
+        tools:layout_editor_absoluteY="181dp" />
 
     <ImageView
-        android:src="@drawable/main_wodedingdan"
+        android:visibility="gone"
         android:id="@+id/wodedingdan"
         android:layout_width="594pt"
         android:layout_height="504pt"
-        android:layout_marginTop="24pt"
-        app:layout_constraintStart_toStartOf="@+id/jiankangketang"
-        app:layout_constraintTop_toBottomOf="@+id/jiankangketang" />
+        android:src="@drawable/main_wodedingdan"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="181dp" />
 
     <ImageView
-        android:src="@drawable/main_jiankangketang"
         android:id="@+id/jiankangketang"
         android:layout_width="594pt"
-        android:layout_height="504pt"
+        android:layout_height="1030pt"
         android:layout_marginStart="45pt"
-        android:layout_marginTop="120pt"
+        android:layout_marginTop="34dp"
+        android:src="@drawable/main2_jiangkang_shangcheng"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

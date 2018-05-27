@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:padding="10pt"
         android:id="@+id/tv_yuejing_date"
         android:layout_width="1339pt"

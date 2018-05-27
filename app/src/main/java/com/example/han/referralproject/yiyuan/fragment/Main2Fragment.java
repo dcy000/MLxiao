@@ -68,10 +68,10 @@ public class Main2Fragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shangcheng:
-                gotoShangCheng();
+                gotoWoDeDingDan();
                 break;
             case R.id.jiankangketang:
-                gotoJianKangKeTang();
+                gotoShangCheng();
                 break;
             case R.id.shezhi:
                 gotoSheZhi();
@@ -86,7 +86,7 @@ public class Main2Fragment extends Fragment {
                 gotoZhangHuChongZhi();
                 break;
             case R.id.wodedingdan:
-                gotoWoDeDingDan();
+
                 break;
 
         }

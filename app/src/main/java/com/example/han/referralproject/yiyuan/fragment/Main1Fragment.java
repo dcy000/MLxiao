@@ -352,6 +352,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.putExtra("isDetect", true);
             intent.putExtra("detectCategory", "detectHealth");
             startActivity(intent);
+
         } else if (GAOXUEYA_TIJIAN.equals(name)) {
             Intent intent = new Intent(getActivity(), DetectActivity.class);
             intent.putExtra("type", "xueya");
@@ -365,6 +366,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.putExtra("detectCategory", "detectSugar");
             startActivity(intent);
         }
+        dialog.dismiss();
 
     }
 
