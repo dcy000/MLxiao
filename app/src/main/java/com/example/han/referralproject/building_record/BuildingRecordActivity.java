@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -54,6 +55,9 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         frame = (FrameLayout) findViewById(R.id.frame);
         buildingRecordBean=new BuildingRecordBean();
+        buildingRecordBean.setUserId(MyApplication.getInstance().userId);
+        buildingRecordBean.setEquipmentId(MyApplication.getInstance().eqid);
+        buildingRecordBean.setHiHealthRecordId("");
     }
 
     @Override

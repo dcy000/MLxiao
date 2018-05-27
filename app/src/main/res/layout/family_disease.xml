@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="1400pt"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_bg_clear_reset_dialog"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/dialog_title"
-        android:layout_width="1400pt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80pt"
         android:gravity="center"
         android:text="您母亲患有以下哪种疾病？"
         android:textColor="#333"
-        android:textSize="80pt"
+        android:textSize="72pt"
         android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/ll_1"
-        android:layout_width="1400pt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20pt"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/gaoxueya"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100pt"
@@ -32,13 +33,14 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="高血压"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
 
         <TextView
+            android:id="@+id/tangniaobing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="136pt"
@@ -46,13 +48,14 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="糖尿病"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
 
         <TextView
+            android:id="@+id/guanxinbing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="136pt"
@@ -61,21 +64,22 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="冠心病"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_2"
-        android:layout_width="1400pt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40pt"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/zhongliu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100pt"
@@ -83,13 +87,14 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="恶性肿瘤"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
 
         <TextView
+            android:id="@+id/naocuzhong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="64pt"
@@ -97,13 +102,14 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="脑卒中"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
 
         <TextView
+            android:id="@+id/jihebing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="136pt"
@@ -111,11 +117,11 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="结核病"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
     </LinearLayout>
 
     <TextView
@@ -128,20 +134,21 @@
         android:drawableLeft="@drawable/radiobutton_textview_set"
         android:drawablePadding="24pt"
         android:gravity="center"
-        android:paddingBottom="20pt"
-        android:paddingTop="20pt"
+        android:paddingBottom="15pt"
+        android:paddingTop="15pt"
         android:text="慢性阻塞性肺疾病"
         android:textColor="#666"
-        android:textSize="72pt" />
+        android:textSize="64pt" />
 
     <LinearLayout
         android:id="@+id/ll_3"
-        android:layout_width="1400pt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40pt"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/jingshenzhangai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100pt"
@@ -149,13 +156,14 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="严重精神障碍"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
 
         <TextView
+            android:id="@+id/ganyan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="357pt"
@@ -163,22 +171,23 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="肝炎"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_4"
-        android:layout_width="1400pt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80pt"
         android:layout_marginTop="40pt"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/xiantianjixing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100pt"
@@ -186,13 +195,14 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="先天畸形"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
 
         <TextView
+            android:id="@+id/qita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="64pt"
@@ -200,11 +210,11 @@
             android:drawableLeft="@drawable/radiobutton_textview_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:paddingBottom="20pt"
-            android:paddingTop="20pt"
+            android:paddingBottom="15pt"
+            android:paddingTop="15pt"
             android:text="其他"
             android:textColor="#666"
-            android:textSize="72pt" />
+            android:textSize="64pt" />
     </LinearLayout>
 </LinearLayout>
 
