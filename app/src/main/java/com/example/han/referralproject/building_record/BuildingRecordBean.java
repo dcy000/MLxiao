@@ -50,7 +50,7 @@ public class BuildingRecordBean {
     private String medicationAllergy;
     private String rhBlood;
     private String toiletPosition;
-    private int userId;
+    private String userId;
     private String waterEnvironment;
     private String weight;
 
@@ -222,11 +222,11 @@ public class BuildingRecordBean {
         this.toiletPosition = toiletPosition;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
