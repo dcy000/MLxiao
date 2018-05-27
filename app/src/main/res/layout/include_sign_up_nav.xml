@@ -13,7 +13,8 @@
         android:textColor="#3F85FC"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:clickable="true"/>
 
     <TextView
         android:id="@+id/tv_sign_up_go_forward"
@@ -28,5 +29,6 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:clickable="true"
         />
 </merge>

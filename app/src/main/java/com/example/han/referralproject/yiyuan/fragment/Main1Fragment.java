@@ -20,6 +20,7 @@ import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
+import com.example.han.referralproject.building_record.BuildingRecordActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.questionair.activity.ChineseMedicineMonitorActivity;
@@ -130,7 +131,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 break;
             case R.id.jiankangketang:
                 //医生建议
-                gotoYiShengJianYi();
+//                gotoYiShengJianYi();
+                startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
                 break;
         }
     }

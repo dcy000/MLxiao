@@ -66,7 +66,8 @@ public class NetworkApi {
 
 //    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
 
-
+    //上传建档信息
+    public static final String Upload_BuildRecord=BasicUrl+"/ZZB/api/health/inquiry/record/";
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐

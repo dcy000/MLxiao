@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60pt"
+            android:layout_marginTop="90pt"
+            android:text="您的厨房排气设施"
+            android:textColor="#333"
+            android:textSize="72pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26pt"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/title1">
+
+            <TextView
+                android:id="@+id/youyanji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="油烟机"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/huanqishan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="换气扇"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/yanchong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="烟囱"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/paiqi_wu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="无"
+                android:textColor="#666"
+                android:textSize="72pt" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60pt"
+            android:layout_marginTop="44pt"
+            android:text="您的厨房燃料类型"
+            android:textColor="#333"
+            android:textSize="72pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_1" />
+
+        <LinearLayout
+            android:id="@+id/ll_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/title2">
+
+            <TextView
+                android:id="@+id/yehuaqi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="液化气"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/mei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="煤"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/tianranqi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="280pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="天然气"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/zhaoqi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="沼气"
+                android:textColor="#666"
+                android:textSize="72pt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ll_2">
+
+            <TextView
+                android:id="@+id/chaihuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="柴火"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/ranliao_wu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="208pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="其他"
+                android:textColor="#666"
+                android:textSize="72pt" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60pt"
+            android:layout_marginTop="44pt"
+            android:text="您的饮水环境"
+            android:textColor="#333"
+            android:textSize="72pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_3" />
+
+        <LinearLayout
+            android:id="@+id/ll_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/title3">
+
+            <TextView
+                android:id="@+id/zilaishui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="自来水"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/jingshui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="井水"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/hupanshui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="208pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="河湖水"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/tangshui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="塘水"
+                android:textColor="#666"
+                android:textSize="72pt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ll_4">
+
+            <TextView
+                android:id="@+id/huolvshui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="经净化过滤的水"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/yinshui_qita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="208pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="其他"
+                android:textColor="#666"
+                android:textSize="72pt" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60pt"
+            android:layout_marginTop="44pt"
+            android:text="您常用的厕所环境"
+            android:textColor="#333"
+            android:textSize="72pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_5" />
+
+        <LinearLayout
+            android:id="@+id/ll_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/title4">
+
+            <TextView
+                android:id="@+id/weishengcesuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="卫生厕所"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/matong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="马桶"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/lutiankeng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="208pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="露天粪坑"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/jianyipengce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="简易棚厕"
+                android:textColor="#666"
+                android:textSize="72pt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ll_6">
+
+            <TextView
+                android:id="@+id/fenchishi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="一格或二格粪池式"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/cesuo_qita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="208pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="其他"
+                android:textColor="#666"
+                android:textSize="72pt" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60pt"
+            android:layout_marginTop="44pt"
+            android:text="您常用的禽畜栏"
+            android:textColor="#333"
+            android:textSize="72pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_7" />
+
+        <LinearLayout
+            android:id="@+id/ll_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/title5">
+
+            <TextView
+                android:id="@+id/danshe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="单设"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/shinei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="室内"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/shiwai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="280pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="室外"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/jiaqin_wu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/radiobutton_textview_set"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:paddingBottom="40pt"
+                android:paddingTop="40pt"
+                android:text="无"
+                android:textColor="#666"
+                android:textSize="72pt" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_back"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/bg_selector_btn_go_back"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="上一步"
+            android:textColor="#3F85FC"
+            android:textSize="35sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_8" />
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_forward"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/bg_selector_btn_go_forward"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@android:color/white"
+            android:textSize="35sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_8" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

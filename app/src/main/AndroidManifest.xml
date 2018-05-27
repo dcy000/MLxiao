@@ -724,6 +724,9 @@
         <activity android:name=".intelligent_system.intelligent_diagnosis.BloodsugarMonthlyReportActivity"
             android:screenOrientation="landscape"
             android:label="血糖疗程报告"/>
+        <activity android:name=".building_record.BuildingRecordActivity"
+            android:screenOrientation="landscape"
+            android:label="建档页面"/>
     </application>
 
 </manifest>
