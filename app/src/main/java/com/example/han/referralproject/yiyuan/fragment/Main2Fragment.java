@@ -80,7 +80,7 @@ public class Main2Fragment extends Fragment {
                 gotoLiaoTian();
                 break;
             case R.id.liaotian:
-                tuiChu();
+//                tuiChu();
                 break;
             case R.id.zhanghuchongzhi:
                 gotoZhangHuChongZhi();
@@ -101,17 +101,7 @@ public class Main2Fragment extends Fragment {
     }
 
 
-    public void tuiChu() {
-        FragmentActivity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        MobclickAgent.onProfileSignOff();
-        NimAccountHelper.getInstance().logout();
-        LocalShared.getInstance(activity).loginOut();
-        activity.startActivity(new Intent(activity, YiYuanLoginActivity.class));
-        activity.finish();
-    }
+
 
     private void gotoSheZhi() {
         startActivity(new Intent(getActivity(), SettingActivity.class));

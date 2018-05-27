@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +30,14 @@ import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.google.gson.Gson;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
+import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
 
 import java.util.ArrayList;
@@ -134,7 +138,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 break;
             case R.id.yishengjianyi:
                 //问诊及建档
-                gotoWenZhenJianDang();
+                tuiChu();
                 break;
             case R.id.jiankangketang:
                 //医生建议
@@ -319,5 +323,18 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
         }
 
+    }
+
+
+    public void tuiChu() {
+        FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        MobclickAgent.onProfileSignOff();
+        NimAccountHelper.getInstance().logout();
+        LocalShared.getInstance(activity).loginOut();
+        activity.startActivity(new Intent(activity, YiYuanLoginActivity.class));
+        activity.finish();
     }
 }
