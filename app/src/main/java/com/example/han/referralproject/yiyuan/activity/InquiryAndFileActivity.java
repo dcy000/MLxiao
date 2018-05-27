@@ -47,7 +47,7 @@ public class InquiryAndFileActivity extends BaseActivity {
                 break;
             case R.id.iv_jiandang:
 //                InquiryAndFileEndActivity.startMe(this, "建档");
-                startActivity(new Intent(this,YinJiuWenActivity.class));
+//                startActivity(new Intent(this,YinJiuWenActivity.class));
                 break;
         }
     }

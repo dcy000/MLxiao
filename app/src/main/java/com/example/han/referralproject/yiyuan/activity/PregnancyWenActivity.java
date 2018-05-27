@@ -108,7 +108,7 @@ public class PregnancyWenActivity extends BaseActivity {
             //月经结束时间
             startActivity(new Intent(this, YueJingWenActivity.class));
         } else {
-            startActivity(new Intent(this, YinJiuWenActivity.class
+            startActivity(new Intent(this, DrinkWenActivity.class
             ));
         }
     }

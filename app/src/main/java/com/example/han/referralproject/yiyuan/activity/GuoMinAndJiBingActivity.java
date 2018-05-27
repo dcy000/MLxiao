@@ -48,6 +48,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     TextView qita2;
     @BindView(R.id.wu2)
     TextView wu2;
+    private String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,11 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
         setContentView(R.layout.activity_guo_min_and_yao_wu);
         ButterKnife.bind(this);
         initTilte();
+        getResult();
+    }
+
+    private String getResult() {
+        return result;
     }
 
     private void initTilte() {
@@ -67,8 +73,10 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title1:
+                title1.setSelected(!title1.isSelected());
                 break;
             case R.id.qingmeisu:
+
                 break;
             case R.id.toubao:
                 break;
@@ -93,8 +101,10 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
             case R.id.ll_2:
                 break;
             case R.id.tv_sign_up_go_back:
+                finish();
                 break;
             case R.id.tv_sign_up_go_forward:
+                getResult();
                 break;
             case R.id.qita2:
                 break;

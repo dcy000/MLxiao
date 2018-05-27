@@ -278,6 +278,22 @@ public class LocalShared {
         mShared.edit().putString(SIGN_UP_GENDER, gender).apply();
     }
 
+    public void setYueJingDate(String date) {
+        mShared.edit().putString("yuejing", date).apply();
+    }
+
+    public String getYueJingDate() {
+        return mShared.getString("yuejing", "");
+    }
+
+    public void setDringInto(String drinkInfo) {
+        mShared.edit().putString("drinkInfo", drinkInfo).apply();
+    }
+
+    public String getDringInto() {
+        return mShared.getString("drinkInfo", "");
+    }
+
 
     public String getSignUpGender() {
         return mShared.getString(SIGN_UP_GENDER, "");
@@ -597,4 +613,6 @@ public class LocalShared {
         }
         return "ff" + a + "1988" + b;
     }
+
+
 }

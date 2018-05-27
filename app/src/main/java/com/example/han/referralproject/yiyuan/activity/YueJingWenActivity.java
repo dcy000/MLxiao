@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.util.LocalShared;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,8 +60,8 @@ public class YueJingWenActivity extends BaseActivity {
             speak("主人,日期不能为空");
             return;
         }
-
-        startActivity(new Intent(this, YinJiuWenActivity.class));
+        LocalShared.getInstance(this.getApplicationContext()).setYueJingDate(time);
+        startActivity(new Intent(this, DrinkWenActivity.class));
 
     }
 }

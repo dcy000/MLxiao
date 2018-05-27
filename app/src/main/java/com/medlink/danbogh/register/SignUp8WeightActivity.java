@@ -35,7 +35,7 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
     public void onTvGoForwardClicked() {
         String weight = mStrings.get(selectedPosition);
         LocalShared.getInstance(this.getApplicationContext()).setSignUpWeight(Float.valueOf(weight));
-        Intent intent = new Intent(this, SignUp12DrinkActivity.class);
+        Intent intent = new Intent(this, SignUp3AddressActivity.class);
         startActivity(intent);
     }
 
