@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -25,11 +24,11 @@ import com.example.han.referralproject.facerecognition.JoinGroupListener;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.RequestListener;
-import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
@@ -404,7 +403,7 @@ public class SignInIdCardActivity extends BaseActivity {
                 long readTime = currentTimeMillis - readStartTime;
                 Log.d(TAG, "onReadSuccess: totalTime = " + totalTime);
                 Log.d(TAG, "onReadSuccess: readTime = " + readTime);
-                Log.d(TAG, "onReadSuccess: " + item == null ? item.toString() : "");
+                Log.d(TAG, "onReadSuccess: " + item.toString());
                 if (item != null && item.retCode == 1) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -573,21 +572,6 @@ public class SignInIdCardActivity extends BaseActivity {
         startActivityForResult(intent, 17);
     }
 
-    private void onConfirmIdCardInfoYiYuan() {
-        if (item == null) {
-            return;
-        }
-        Intent intent = new Intent(this, IdCardInfoActivity.class);
-        intent.putExtra("name", item.partyName);
-        intent.putExtra("gender", item.gender);
-        intent.putExtra("nation", item.nation);
-        intent.putExtra("address", item.certAddress);
-        intent.putExtra("profile", item.picBitmap);
-        intent.putExtra("idCard", item.certNumber);
-        MyApplication.bitmap = item.picBitmap;
-        startActivity(intent);
-    }
-
     private void onCheckRegistered() {
         if (item == null) {
             return;
@@ -621,8 +605,7 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onAccountNotRegistered() {
-//        onConfirmIdCardInfo();
-        onConfirmIdCardInfoYiYuan();
+        onConfirmIdCardInfo();
     }
 
     private void onInputPhoneInfo() {
@@ -777,8 +760,7 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onLoginSuccess() {
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
+        startActivity(new Intent(mContext, InquiryAndFileActivity.class));
     }
 
     private void onLoginFailed() {
@@ -808,22 +790,24 @@ public class SignInIdCardActivity extends BaseActivity {
             faceRegisterRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    if (item == null || item.picBitmap == null) {
-                        onFaceRegisterFailed();
-                        return;
-                    }
+//                    if (item == null || item.picBitmap == null) {
+//                        onFaceRegisterFailed();
+//                        return;
+//                    }
 
                     ByteArrayOutputStream stream = null;
                     try {
                         stream = new ByteArrayOutputStream();
                         item.picBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                        if (faceRequest == null) {
-                            faceRequest = new FaceRequest(SignInIdCardActivity.this);
-                        }
-                        faceRequest.setParameter(SpeechConstant.AUTH_ID, buildAuthId());
-                        faceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
+//                        if (faceRequest == null) {
+//                            faceRequest = new FaceRequest(SignInIdCardActivity.this);
+//                        }
+//                        faceRequest.setParameter(SpeechConstant.AUTH_ID, buildAuthId());
+//                        faceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
                         jpgData = stream.toByteArray();
-                        faceRequest.sendRequest(jpgData, faceRequestListener());
+                        //上传头像
+                        onFaceRegisterSuccess();
+//                        faceRequest.sendRequest(jpgData, faceRequestListener());
                     } finally {
                         try {
                             if (stream != null) {
@@ -992,7 +976,7 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onUpLoadToServerSuccess(String userid, String xfid) {
         Log.d(TAG, "onUpLoadToServerSuccess: ");
         LocalShared.getInstance(mContext).addAccount(userid, xfid);
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, InquiryAndFileActivity.class);
         startActivity(intent);
         finish();
     }

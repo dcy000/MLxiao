@@ -51,10 +51,16 @@ public class SignUp7HeightActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
-        setContentView(R.layout.activity_sign_up7_height);
+        setContentView(R.layout.activity_height_wen);
         mToolbar.setVisibility(View.GONE);
         unbinder = ButterKnife.bind(this);
         initView();
+        initTitle();
+    }
+
+    private void initTitle() {
+        mTitleText.setText("问诊");
+        mToolbar.setVisibility(View.VISIBLE);
     }
 
     @Override

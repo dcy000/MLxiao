@@ -21,6 +21,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.activity.PregnancyWenActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.medlink.danbogh.register.entity.City;
@@ -72,6 +73,12 @@ public class SignUp3AddressActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         initData();
         initLocation();
+        initTitle();
+    }
+
+    private void initTitle() {
+        mTitleText.setText("问诊");
+        mToolbar.setVisibility(View.VISIBLE);
     }
 
     private void initLocation() {
@@ -221,8 +228,9 @@ public class SignUp3AddressActivity extends BaseActivity {
         }
 
         LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
-        Intent intent = SignUp7HeightActivity.newIntent(this);
-        startActivity(intent);
+//        Intent intent = SignUp7HeightActivity.newIntent(this);
+//        startActivity(intent);
+        startActivity(new Intent(this,PregnancyWenActivity.class));
     }
 
     private List<String> mProvinceNames = new ArrayList<>();

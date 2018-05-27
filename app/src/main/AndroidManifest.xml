@@ -567,18 +567,6 @@
         <activity
             android:name=".activity.MessageDetailsActivity"
             android:screenOrientation="landscape"/>
-        <activity
-            android:name=".intelligent_diagnosis.DailyIntakeActivity"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name=".intelligent_diagnosis.WeeklyReportActivity"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name=".intelligent_diagnosis.MonthlyReportActivity"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name=".intelligent_diagnosis.DeleteGroupActivity"
-            android:screenOrientation="landscape">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -586,8 +574,9 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".health.HealthDiaryActivity"/>
+        <activity android:name=".health.HealthDiaryActivity"
+            android:screenOrientation="landscape" />
+
         <activity
             android:name=".tool.JieMengActivity"
             android:screenOrientation="landscape">
@@ -681,13 +670,6 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"/>
-        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity"/>
-        <activity android:name=".questionair.activity.MonitorResultActivity"/>
-        <activity android:name=".idcard.IdCardInfoActivity"/>
-        <activity android:name=".idcard.SignInIdCardActivity"/>
-        <activity android:name=".health.DetectResultActivity"/>
-        <activity android:name=".yiyuan.activity.YiYuanLoginActivity"/>
-        <activity android:name=".yiyuan.activity.SignUpGenderActivity"/>
         <activity android:name=".health.DetectHealthSymptomsActivity">
         </activity>
         <activity android:name=".health.DetectHealthSportsActivity">
@@ -698,6 +680,74 @@
         </activity>
         <activity android:name=".health.DetectHealthSaltActivity">
         </activity>
+
+        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity"></activity>
+        <activity android:name=".questionair.activity.MonitorResultActivity" />
+        <activity android:name=".idcard.IdCardInfoActivity" />
+        <activity android:name=".idcard.SignInIdCardActivity" />
+        <activity android:name=".health.DetectResultActivity" />
+        <activity android:name=".yiyuan.activity.YiYuanLoginActivity"></activity>
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.MonthlyReportActivity"
+            android:label="血压季度分析报告"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.DailyIntakeActivity"
+            android:label="每日摄入界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.WeeklyReportActivity"
+            android:label="血压周报告"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".measure.New_MeasureXuetangResultActivity"
+            android:label="每次血糖测量后的结果界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity"
+            android:label="血糖风险评估"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
+            android:label="血糖风险评估结果界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.FoodMaterialDetailActivity"
+            android:label="推荐食物详情页面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.SportPlanDetailActivity"
+            android:label="推荐运动计划详情界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.BloodsugarWeeklyReportActivity"
+            android:label="血糖周报告"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.TreatmentPlanActivity"
+            android:label="治疗方案"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.BloodsugarMonthlyReportActivity"
+            android:label="血糖疗程报告"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".building_record.BuildingRecordActivity"
+            android:label="建档页面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.DeleteGroupActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
+        <activity android:name=".yiyuan.activity.DrinkWenActivity" />
+        <activity
+            android:name=".yiyuan.activity.InquiryAndFileEndActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
+        <activity android:name=".yiyuan.activity.XueYaWenActivity" />
+        <activity android:name=".yiyuan.activity.YinJiuWenActivity" />
+        <activity android:name=".yiyuan.activity.YueJingWenActivity" />
+        <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
     </application>
 
 </manifest>

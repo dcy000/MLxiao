@@ -52,13 +52,14 @@
         app:layout_constraintStart_toEndOf="@+id/tijian"
         app:layout_constraintTop_toTopOf="@+id/tijian" />
 
+    <!--app:srcCompat="@drawable/main_celianglishi"-->
     <ImageView
         android:id="@+id/yishengjianyi"
         android:layout_width="594pt"
         android:layout_height="328pt"
+        android:background="#999"
         app:layout_constraintStart_toStartOf="@+id/zhengzhuangzichan"
-        app:layout_constraintTop_toTopOf="@+id/iv_head"
-        app:srcCompat="@drawable/main_celianglishi" />
+        app:layout_constraintTop_toTopOf="@+id/iv_head" />
 
     <ImageView
         android:id="@+id/jiankangketang"
@@ -75,8 +76,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="18pt"
-        android:textSize="28dp"
         android:textColor="#FF333333"
+        android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="@+id/iv_qianyue"
         app:layout_constraintStart_toStartOf="@+id/iv_qianyue"
         app:layout_constraintTop_toBottomOf="@+id/iv_qianyue"

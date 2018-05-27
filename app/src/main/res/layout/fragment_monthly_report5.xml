@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg"
     android:orientation="vertical"
-    tools:context="com.example.han.referralproject.intelligent_diagnosis.MonthlyReport5Fragment">
+    tools:context="com.example.han.referralproject.intelligent_system.intelligent_diagnosis.MonthlyReport5Fragment">
 
     <LinearLayout
         android:layout_width="match_parent"

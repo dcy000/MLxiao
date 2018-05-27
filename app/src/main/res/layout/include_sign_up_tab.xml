@@ -2,6 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_tab1_personal_info"
         android:layout_width="0dp"
         android:layout_height="65dp"
@@ -14,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_tab2_health_info"
         android:layout_width="0dp"
         android:layout_height="65dp"
@@ -26,6 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_tab3_contract_doctor"
         android:layout_width="0dp"
         android:layout_height="65dp"

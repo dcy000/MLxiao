@@ -6,11 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.idcard.SignInIdCardActivity;
-import com.example.han.referralproject.settting.SharedPreferencesUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,12 +19,11 @@ public class YiYuanLoginActivity extends BaseActivity {
 
     @BindView(R.id.login_idcard)
     ImageView loginIdcard;
-    @BindView(R.id.login_youke)
-    ImageView loginYouke;
+
     @BindView(R.id.textView2)
     TextView textView2;
-    @BindView(R.id.textView3)
-    TextView textView3;
+    @BindView(R.id.iv_yiyuan_wifi)
+    ImageView ivYiyuanWifi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +32,17 @@ public class YiYuanLoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.login_idcard, R.id.login_youke})
+    @OnClick({R.id.login_idcard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_idcard:
-                SharedPreferencesUtils.setParam(this, "youke", false);
                 startActivity(new Intent(YiYuanLoginActivity.this, SignInIdCardActivity.class));
-                break;
-            case R.id.login_youke:
-                SharedPreferencesUtils.setParam(this, "youke", true);
-                startActivity(new Intent(YiYuanLoginActivity.this, MainActivity.class));
                 break;
         }
     }
 
+    @OnClick(R.id.iv_yiyuan_wifi)
+    public void onViewClicked() {
+        startActivity(new Intent(this, WifiConnectActivity.class));
+    }
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity">
+
+    <ImageView
+        android:id="@+id/tv_to_home_page"
+        android:layout_width="380pt"
+        android:layout_height="380pt"
+        android:layout_marginStart="462pt"
+        android:layout_marginTop="57pt"
+        android:gravity="center"
+        android:src="@drawable/img_to_home"
+        android:text="进入主页"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <ImageView
+        android:src="@drawable/img_to_exit"
+        android:id="@+id/tv_exit"
+        android:layout_width="380pt"
+        android:layout_height="380pt"
+        android:layout_marginStart="240pt"
+        android:gravity="center"
+        android:text="退出"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_to_home_page"
+        app:layout_constraintStart_toEndOf="@+id/tv_to_home_page"
+        app:layout_constraintTop_toTopOf="@+id/tv_to_home_page" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="492pt"
+        android:layout_marginTop="89pt"
+        android:text="问诊完成，请选择下一步操作"
+        android:textColor="#FF333333"
+        android:textSize="72pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="30pt"
+        android:text="进入主页"
+        android:textColor="#FF333333"
+        android:textSize="64pt"
+        app:layout_constraintEnd_toEndOf="@+id/tv_to_home_page"
+        app:layout_constraintStart_toStartOf="@+id/tv_to_home_page"
+        app:layout_constraintTop_toBottomOf="@+id/tv_to_home_page" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="28pt"
+        android:text="退出"
+        android:textColor="#FF333333"
+        android:textSize="64pt"
+        app:layout_constraintEnd_toEndOf="@+id/tv_exit"
+        app:layout_constraintStart_toStartOf="@+id/tv_exit"
+        app:layout_constraintTop_toBottomOf="@+id/tv_to_home_page" />
+</android.support.constraint.ConstraintLayout>

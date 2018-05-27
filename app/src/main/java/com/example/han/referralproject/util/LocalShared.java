@@ -278,6 +278,22 @@ public class LocalShared {
         mShared.edit().putString(SIGN_UP_GENDER, gender).apply();
     }
 
+    public void setYueJingDate(String date) {
+        mShared.edit().putString("yuejing", date).apply();
+    }
+
+    public String getYueJingDate() {
+        return mShared.getString("yuejing", "");
+    }
+
+    public void setDringInto(String drinkInfo) {
+        mShared.edit().putString("drinkInfo", drinkInfo).apply();
+    }
+
+    public String getDringInto() {
+        return mShared.getString("drinkInfo", "");
+    }
+
 
     public String getSignUpGender() {
         return mShared.getString(SIGN_UP_GENDER, "");
@@ -596,5 +612,42 @@ public class LocalShared {
             }
         }
         return "ff" + a + "1988" + b;
+    }
+
+
+    public void setGuoMin(String guomin) {
+        mShared.edit().putString("guomin", guomin).apply();
+    }
+
+
+    public String getGuoMin() {
+      return  mShared.getString("guomin", "0");
+    }
+
+
+    public void setJiBingShi(String jibing) {
+        mShared.edit().putString("jibing", jibing).apply();
+    }
+
+
+    public String getJiBingShi() {
+        return  mShared.getString("jibing", "0");
+    }
+
+
+    public  void setXueYa(String xueya) {
+        mShared.edit().putString("xueyawen", xueya).apply();
+    }
+
+    public  String getXueYa() {
+       return mShared.getString("xueyawen", "");
+    }
+
+    public void setHuaiYun(String huaiyun) {
+        mShared.edit().putString("huaiyun", huaiyun).apply();
+    }
+
+    public  String getHuaiYun() {
+        return mShared.getString("xueyawen", "1");
     }
 }

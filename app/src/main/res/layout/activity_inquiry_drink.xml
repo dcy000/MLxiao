@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:text="本周内是否有饮酒？"
+            android:textColor="#333"
+            android:textSize="36sp" />
+
+        <RadioGroup
+            android:id="@+id/rg_is_drink"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:drawablePadding="20pt"
+              
+                android:id="@+id/rb_drink_yes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="是"
+                android:textColor="#666"
+                android:textSize="36sp" />
+
+            <RadioButton
+                android:drawablePadding="20pt"
+              
+                android:checked="true"
+                android:id="@+id/rb_drink_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="否"
+                android:textColor="#666"
+                android:textSize="36sp" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="90dp"
+            android:text="请选择本周喝的酒？"
+            android:textColor="#333"
+            android:textSize="36sp" />
+
+        <RadioGroup
+            android:id="@+id/rg_drink_what"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:drawablePadding="20pt"
+              
+                android:id="@+id/rb_drink_baijiu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="白酒"
+                android:textColor="#666"
+                android:textSize="36sp" />
+
+            <RadioButton
+                android:drawablePadding="20pt"
+              
+                android:id="@+id/rb_drink_liaojiu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="料酒"
+                android:textColor="#666"
+                android:textSize="36sp" />
+
+            <RadioButton
+                android:drawablePadding="20pt"
+              
+                android:id="@+id/rb_drink_pijiu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="啤酒"
+                android:textColor="#666"
+                android:textSize="36sp" />
+
+            <RadioButton
+                android:drawablePadding="20pt"
+                android:id="@+id/rb_drink_mijiu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="米酒"
+                android:textColor="#666"
+                android:textSize="36sp" />
+        </RadioGroup>
+
+
+        <!--<include layout="@layout/include_sign_up_nav" />-->
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_back"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="160pt"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/bg_selector_btn_go_back"
+            android:gravity="center"
+            android:text="上一步"
+            android:textColor="#3F85FC"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_forward"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="160pt"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/bg_selector_btn_go_forward"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@android:color/white"
+            android:textSize="35sp" />
+
+    </RelativeLayout>
+</RelativeLayout>
