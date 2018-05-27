@@ -274,8 +274,9 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
     private void gotoTiJianLiuCheng(boolean b) {
         Intent intent = new Intent(getActivity(), DetectActivity.class);
-        intent.putExtra("type", "xueya");
+        intent.putExtra("type", "wendu");
         intent.putExtra("isDetect", b);
+        intent.putExtra("detectCategory", "detectHealth");
         startActivity(intent);
     }
 }

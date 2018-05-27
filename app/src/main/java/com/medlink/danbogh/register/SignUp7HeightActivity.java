@@ -67,8 +67,8 @@ public class SignUp7HeightActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         setDisableGlobalListen(true);
+        super.onResume();
         speak(geTip());
     }
 

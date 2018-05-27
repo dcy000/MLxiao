@@ -119,7 +119,7 @@
                 android:layout_toRightOf="@+id/text_temperature1"
                 android:background="@drawable/celiang_shape"
                 android:gravity="center"
-                android:text="00.0"
+                android:text="0.0"
                 android:textSize="50sp" />
 
         </RelativeLayout>
