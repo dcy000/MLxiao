@@ -25,12 +25,13 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="64pt"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="213pt"
                 android:text="健康体检"
-                android:textColor="#ff333333" />
+                android:textColor="#ff333333"
+                android:textSize="64pt" />
 
         </RelativeLayout>
 
@@ -49,12 +50,13 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="64pt"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="213pt"
                 android:text="高血压检测"
-                android:textColor="#ff333333" />
+                android:textColor="#ff333333"
+                android:textSize="64pt" />
 
         </RelativeLayout>
 
@@ -73,12 +75,13 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="64pt"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="213pt"
                 android:text="糖尿病检测"
-                android:textColor="#ff333333" />
+                android:textColor="#ff333333"
+                android:textSize="64pt" />
 
         </RelativeLayout>
 
