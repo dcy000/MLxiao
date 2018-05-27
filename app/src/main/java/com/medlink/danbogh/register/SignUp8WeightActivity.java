@@ -1,6 +1,7 @@
 package com.medlink.danbogh.register;
 
 import android.content.Intent;
+import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -20,6 +21,12 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
         super.initView();
         tvTitle.setText("您的体重");
         tvUnit.setText("kg");
+        initTitle();
+    }
+
+    private void initTitle() {
+        mTitleText.setText("问诊");
+        mToolbar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -86,5 +93,6 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
             }
         }
     }
+
     private int i70 = 25;
 }

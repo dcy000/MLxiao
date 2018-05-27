@@ -76,7 +76,7 @@ public class DrinkWenActivity extends BaseActivity {
         mTitleText.setText("问诊");
     }
 
-    @OnClick({R.id.tv_sign_up_go_back, R.id.tv_sign_up_go_forward})
+    @OnClick({R.id.tv_sign_up_go_back, R.id.tv_sign_up_go_forward, R.id.rb_drink_baijiu, R.id.rb_drink_liaojiu, R.id.rb_drink_pijiu, R.id.rb_drink_mijiu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_sign_up_go_back:
@@ -84,6 +84,26 @@ public class DrinkWenActivity extends BaseActivity {
                 break;
             case R.id.tv_sign_up_go_forward:
                 getResult();
+                break;
+            case R.id.rb_drink_baijiu:
+                if (rbDrinkNo.isChecked()) {
+                    rbDrinkBaijiu.setChecked(false);
+                }
+                break;
+            case R.id.rb_drink_liaojiu:
+                if (rbDrinkNo.isChecked()) {
+                    rbDrinkLiaojiu.setChecked(false);
+                }
+                break;
+            case R.id.rb_drink_pijiu:
+                if (rbDrinkNo.isChecked()) {
+                    rbDrinkPijiu.setChecked(false);
+                }
+                break;
+            case R.id.rb_drink_mijiu:
+                if (rbDrinkNo.isChecked()) {
+                    rbDrinkMijiu.setChecked(false);
+                }
                 break;
         }
     }
@@ -98,6 +118,7 @@ public class DrinkWenActivity extends BaseActivity {
         }
         LocalShared.getInstance(this).setDringInto(drink);
 
-        startActivity(new Intent(this,GuoMinAndJiBingActivity.class));
+        startActivity(new Intent(this, GuoMinAndJiBingActivity.class));
     }
+
 }

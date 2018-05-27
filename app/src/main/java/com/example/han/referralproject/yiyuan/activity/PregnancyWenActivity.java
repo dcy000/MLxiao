@@ -86,7 +86,7 @@ public class PregnancyWenActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up2_gender_tip);
+//        speak(R.string.sign_up2_gender_tip);
     }
 
     @OnClick(R.id.tv_sign_up_go_back)

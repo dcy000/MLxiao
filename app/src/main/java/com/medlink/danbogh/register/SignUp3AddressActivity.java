@@ -73,6 +73,12 @@ public class SignUp3AddressActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         initData();
         initLocation();
+        initTitle();
+    }
+
+    private void initTitle() {
+        mTitleText.setText("问诊");
+        mToolbar.setVisibility(View.VISIBLE);
     }
 
     private void initLocation() {

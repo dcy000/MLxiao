@@ -72,32 +72,60 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.qingmeisu:
                 qingmeisu.setSelected(!qingmeisu.isSelected());
+                wu1.setSelected(false);
                 break;
             case R.id.toubao:
                 toubao.setSelected(!toubao.isSelected());
+                wu1.setSelected(false);
                 break;
             case R.id.huanganlei:
                 huanganlei.setSelected(!huanganlei.isSelected());
+                wu1.setSelected(false);
                 break;
             case R.id.qita:
                 qita.setSelected(!qita.isSelected());
+                wu1.setSelected(false);
                 break;
             case R.id.wu1:
                 wu1.setSelected(!wu1.isSelected());
+                qingmeisu.setSelected(false);
+                toubao.setSelected(false);
+                huanganlei.setSelected(false);
+                qita.setSelected(false);
+
+
                 break;
             case R.id.gaouxeya:
                 gaouxeya.setSelected(!gaouxeya.isSelected());
+                wu2.setSelected(false);
                 break;
             case R.id.tangniaobing:
                 tangniaobing.setSelected(!tangniaobing.isSelected());
+                wu2.setSelected(false);
                 break;
             case R.id.shexian:
                 //guanxinbing
                 shexian.setSelected(!shexian.isSelected());
+                wu2.setSelected(false);
                 break;
             case R.id.xiaochuan:
                 xiaochuan.setSelected(!xiaochuan.isSelected());
+                wu2.setSelected(false);
                 break;
+            case R.id.qita2:
+                qita2.setSelected(!qita2.isSelected());
+                wu2.setSelected(false);
+                break;
+            case R.id.wu2:
+                wu2.setSelected(!wu2.isSelected());
+
+                gaouxeya.setSelected(false);
+                tangniaobing.setSelected(false);
+                shexian.setSelected(false);
+                xiaochuan.setSelected(false);
+                qita2.setSelected(false);
+                break;
+
             case R.id.tv_sign_up_go_back:
                 finish();
                 break;
@@ -105,12 +133,6 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
                 getGuoMin();
                 getJiBing();
                 startActivity(new Intent(this, XueYaWenActivity.class));
-                break;
-            case R.id.qita2:
-                qita2.setSelected(!qita2.isSelected());
-                break;
-            case R.id.wu2:
-                wu2.setSelected(!wu2.isSelected());
                 break;
         }
     }
