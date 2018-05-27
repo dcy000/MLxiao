@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.call2.NimAccountHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,8 +56,16 @@ public class InquiryAndFileEndActivity extends BaseActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.tv_exit:
-                startActivity(new Intent(this, YiYuanLoginActivity.class));
+                tuichu();
                 break;
         }
+    }
+
+    private void tuichu() {
+        MobclickAgent.onProfileSignOff();
+        NimAccountHelper.getInstance().logout();
+        LocalShared.getInstance(this).loginOut();
+        startActivity(new Intent(this, YiYuanLoginActivity.class));
+        finish();
     }
 }

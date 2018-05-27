@@ -60,7 +60,6 @@ public class XueYaWenActivity extends BaseActivity {
             if (requestCode == 119) {
                 LocalShared.getInstance(this).setXueYa(data.getStringExtra("xueya"));
                 postWenZhenData();
-
             }
         }
     }
@@ -96,6 +95,8 @@ public class XueYaWenActivity extends BaseActivity {
                             } else {
                                 T.show("提交失败");
                             }
+                            InquiryAndFileEndActivity.startMe(XueYaWenActivity.this,"问诊");
+                            finish();
                         }
                     }
                 });
