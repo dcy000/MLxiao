@@ -6,14 +6,13 @@
     android:id="@+id/cl_sign_up_root_address"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_tab1_personal_info"
     tools:context="com.medlink.danbogh.register.SignUp3AddressActivity">
 
     <TextView
         android:id="@+id/tv_sign_up_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="84pt"
         android:gravity="center"
         android:text="您的住址"
         android:textColor="#8C8C8C"

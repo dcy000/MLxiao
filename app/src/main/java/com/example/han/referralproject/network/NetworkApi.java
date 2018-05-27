@@ -56,8 +56,8 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-            public static final String BasicUrl = "http://116.62.36.12:8080";
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    //            public static final String BasicUrl = "http://116.62.36.12:8080";
+    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.109:8080";//孙高峰
 
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
@@ -191,10 +191,6 @@ public class NetworkApi {
 
     public static void getEatAndSport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
                                       NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", userId);
         params.put("state", "1");
@@ -207,10 +203,6 @@ public class NetworkApi {
             NetworkManager.SuccessCallback<Object> successCallback,
             NetworkManager.FailedCallback failedCallback) {
 
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("tel", tel);
         params.put("name", name);
@@ -229,10 +221,6 @@ public class NetworkApi {
             int drink,
             NetworkManager.SuccessCallback<Object> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", MyApplication.getInstance().userId);
         params.put("na", String.valueOf(salt));
@@ -252,10 +240,6 @@ public class NetworkApi {
             int limit,
             NetworkManager.SuccessCallback<List<SheetModel>> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("page", String.valueOf(page));
         params.put("limit", String.valueOf(limit));
@@ -277,10 +261,6 @@ public class NetworkApi {
             String singer,
             NetworkManager.SuccessCallback<List<SongModel>> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("page", String.valueOf(page));
         params.put("limit", String.valueOf(limit));
@@ -304,9 +284,6 @@ public class NetworkApi {
             NetworkManager.SuccessCallback<List<RadioEntity>> successCallback,
             NetworkManager.FailedCallback failedCallback) {
         Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("type", type);
         params.put("page", page);
@@ -320,10 +297,6 @@ public class NetworkApi {
             String phone,
             NetworkManager.SuccessCallback<String> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("mobile", phone);
         NetworkManager.getInstance().getResultString(GET_CODE, params, successCallback, failedCallback);
@@ -338,10 +311,6 @@ public class NetworkApi {
             int pageSize,
             NetworkManager.SuccessCallback<List<VideoEntity>> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("tag1", String.valueOf(category));
         params.put("tag2", version);
@@ -356,10 +325,6 @@ public class NetworkApi {
             String bid,
             NetworkManager.SuccessCallback<Object> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", bid);
         NetworkManager.getInstance().postResultClass(CANCEL_CONTRACT, params, Object.class, successCallback, failedCallback);
@@ -367,20 +332,14 @@ public class NetworkApi {
 
 
     public static void checkNotContract(String bid, NetworkManager.SuccessCallback<Object> successCallback, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", bid);
         NetworkManager.getInstance().postResultClass(CHECK_CONTRACT, params, Object.class, successCallback, failedCallback);
     }
 
     public static void getEqPreAmount(NetworkManager.SuccessCallback<RobotAmount> successCallback, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("eqid", Utils.getDeviceId());
         NetworkManager.getInstance().postResultClass(EQ_PRE_AMOUNT, params, RobotAmount.class, successCallback, failedCallback);
@@ -391,10 +350,7 @@ public class NetworkApi {
             String state,
             NetworkManager.SuccessCallback<Object> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("tel", phone);
         params.put("state", state);
@@ -406,10 +362,7 @@ public class NetworkApi {
 
 
     public static void login(String phoneNum, String pwd, NetworkManager.SuccessCallback<UserInfoBean> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("username", phoneNum);
         paramsMap.put("password", pwd);
@@ -418,10 +371,7 @@ public class NetworkApi {
 
 
     public static void PayInfo(String eqid, String bba, String time, String bid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("eqid", eqid);
         paramsMap.put("bba", bba);
@@ -431,10 +381,7 @@ public class NetworkApi {
     }
 
     public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctor> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", bid);
 
@@ -442,10 +389,7 @@ public class NetworkApi {
     }
 
     public static void PersonInfo(String bid, NetworkManager.SuccessCallback<UserInfo> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", bid);
 
@@ -453,10 +397,7 @@ public class NetworkApi {
     }
 
     public static void Person_Amount(String eqid, NetworkManager.SuccessCallback<RobotAmount> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("eqid", eqid);
 
@@ -464,10 +405,7 @@ public class NetworkApi {
     }
 
     public static void YuYue(String start_time, String end_time, String userid, String docterid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("start_time", start_time);
         paramsMap.put("end_time", end_time);
@@ -478,10 +416,7 @@ public class NetworkApi {
 
 
     public static void YuYue_info(String userid, String docterid, NetworkManager.SuccessCallback<ArrayList<YuYueInfo>> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("docterid", docterid);
@@ -491,10 +426,7 @@ public class NetworkApi {
 
 
     public static void YuYue_history(String userid, String docterid, int state, int page, int limit, NetworkManager.SuccessCallback<ArrayList<YuYueInfo>> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("docterid", docterid);
@@ -508,20 +440,14 @@ public class NetworkApi {
 
 
     public static void YuYue_cancel(String rid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("rid", rid);
         NetworkManager.getInstance().postResultClass(YUYUE_URL_CANCEL, paramsMap, String.class, listener, failedCallback);
     }
 
     public static void YuYue_already(String docterid, NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("docterid", docterid);
 
@@ -531,10 +457,7 @@ public class NetworkApi {
 
 
     public static void update_status(String rid, String state, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
 
         paramsMap.put("rid", rid);
@@ -545,10 +468,7 @@ public class NetworkApi {
 
 
     public static void get_token(NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
 
         NetworkManager.getInstance().postResultString(TOKEN_URL, paramsMap, listener, failedCallback);
@@ -556,10 +476,7 @@ public class NetworkApi {
 
     public static void appraise(String docterid, String bid, String content, int score, String time, int doid,
                                 NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
 
         paramsMap.put("docterid", docterid + "");
@@ -573,10 +490,7 @@ public class NetworkApi {
     }
 
     public static void insertGoods(String goodsname, String goodsimage, double goodsprice, int goodstate, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
 
         paramsMap.put("goodsname", goodsname);
@@ -589,10 +503,7 @@ public class NetworkApi {
 
 
     public static void return_imageUrl(String user_photo, String bid, String xfid, NetworkManager.SuccessCallback<Object> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("user_photo", user_photo);
         paramsMap.put("bid", bid);
@@ -602,10 +513,7 @@ public class NetworkApi {
 
 
     public static void doctor_list(int start, int limit, NetworkManager.SuccessCallback<ArrayList<Docter>> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("start", start + "");
         paramsMap.put("limit", limit + "");
@@ -614,10 +522,7 @@ public class NetworkApi {
     }
 
     public static void onlinedoctor_list(int online_status, String doctername, int page, int pagesize, NetworkManager.SuccessCallback<ArrayList<Docter>> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("online_status", online_status + "");
         paramsMap.put("doctername", doctername);
@@ -629,10 +534,7 @@ public class NetworkApi {
     }
 
     public static void goods_list(int state, NetworkManager.SuccessCallback<ArrayList<Goods>> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("state", state + "");
 
@@ -642,10 +544,7 @@ public class NetworkApi {
 
 
     public static void onlinedoctor_zixun(String docterid, String userid, int state, NetworkManager.SuccessCallback<OnlineTime> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("docterid", docterid + "");
         paramsMap.put("userid", userid + "");
@@ -657,10 +556,7 @@ public class NetworkApi {
 
 
     public static void order_info(String userid, String eqid, String articles, String number, String price, String photo, String time, NetworkManager.SuccessCallback<Order> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("eqid", eqid);
@@ -674,10 +570,7 @@ public class NetworkApi {
     }
 
     public static void pay_status(String userid, String eqid, String orderid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("eqid", eqid);
@@ -686,10 +579,7 @@ public class NetworkApi {
     }
 
     public static void pay_cancel(String pay_state, String delivery_state, String display_state, String orderid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("pay_state", pay_state);
         paramsMap.put("delivery_state", delivery_state);
@@ -700,10 +590,7 @@ public class NetworkApi {
 
 
     public static void order_list(String pay_state, String delivery_state, String display_state, String bname, String page, String limit, NetworkManager.SuccessCallback<ArrayList<Orders>> listener, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("pay_state", pay_state);
         paramsMap.put("delivery_state", delivery_state);
@@ -733,10 +620,7 @@ public class NetworkApi {
             String sports,
             NetworkManager.SuccessCallback<UserInfoBean> listener,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("age", "50");
         paramsMap.put("bname", name);
@@ -763,19 +647,13 @@ public class NetworkApi {
      * @param callback
      */
     public static void getAllSym(NetworkManager.SuccessCallback<ArrayList<SymptomBean>> callback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         NetworkManager.getInstance().getResultClass(GetAllSymUrl, null, new TypeToken<ArrayList<SymptomBean>>() {
         }.getType(), callback);
     }
 
     public static void getAllUsers(String accounts, NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> callback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("p", accounts);
         NetworkManager.getInstance().getResultClass(GetInfo_URL, paramsMap, new TypeToken<ArrayList<UserInfoBean>>() {
@@ -789,20 +667,14 @@ public class NetworkApi {
      * @param callback
      */
     public static void analyseSym(String params, NetworkManager.SuccessCallback<SymptomResultBean> callback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("parameter", params);
         NetworkManager.getInstance().getResultClass(AnalyseUrl, paramsMap, SymptomResultBean.class, callback);
     }
 
     public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
@@ -813,10 +685,7 @@ public class NetworkApi {
     }
 
     public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", MyApplication.getInstance().userId);
         NetworkManager.getInstance().getResultClass(GetYZUrl, paramsMap, new TypeToken<ArrayList<YzInfoBean>>() {
@@ -824,10 +693,7 @@ public class NetworkApi {
     }
 
     public static void setUserMh(String mh, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
@@ -838,10 +704,7 @@ public class NetworkApi {
     }
 
     public static void bindDoctor(String bid, int doctorId, NetworkManager.SuccessCallback<String> callback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", bid);
         paramsMap.put("doid", String.valueOf(doctorId));
@@ -864,10 +727,7 @@ public class NetworkApi {
     }
 
     public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<MeasureResult> successCallback, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         if (info == null) {
             return;
         }
@@ -879,10 +739,7 @@ public class NetworkApi {
     public static void charge(int minute, int doctorId, String bId,
                               NetworkManager.SuccessCallback<String> successCallback,
                               NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("docterid", String.valueOf(doctorId));
         params.put("eqid", Utils.getDeviceId());
@@ -897,10 +754,7 @@ public class NetworkApi {
             String state,
             NetworkManager.SuccessCallback<Object> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         if (TextUtils.isEmpty(userName)) {
             if (failedCallback != null) {
@@ -919,10 +773,7 @@ public class NetworkApi {
             String doctorId,
             NetworkManager.SuccessCallback<ContractInfo> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", MyApplication.getInstance().userId);
         params.put("docterid", doctorId);
@@ -938,10 +789,7 @@ public class NetworkApi {
      */
     public static void getMyBaseData(
             NetworkManager.SuccessCallback<UserInfoBean> successCallback, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         NetworkManager.getInstance().getResultClass(GET_MY_BASE_DATA, params, UserInfoBean.class, successCallback, failedCallback);
@@ -956,10 +804,7 @@ public class NetworkApi {
 
     public static void getTemperatureHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<TemperatureHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
 
         params.put("bid", MyApplication.getInstance().userId);
@@ -980,10 +825,7 @@ public class NetworkApi {
      */
     public static void getBloodpressureHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
 //        params.put("bid","100001");
@@ -1004,10 +846,7 @@ public class NetworkApi {
 
     public static void getBloodSugarHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         params.put("temp", temp);
@@ -1026,10 +865,7 @@ public class NetworkApi {
      */
     public static void getBloodOxygenHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         params.put("temp", temp);
@@ -1048,10 +884,7 @@ public class NetworkApi {
      */
     public static void getHeartRateHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         params.put("temp", temp);
@@ -1070,10 +903,7 @@ public class NetworkApi {
      */
     public static void getPulseHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<PulseHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
         params.put("temp", temp);
@@ -1092,10 +922,7 @@ public class NetworkApi {
      */
     public static void getCholesterolHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
 //        params.put("bid","100001");
@@ -1115,10 +942,7 @@ public class NetworkApi {
      */
     public static void getBUAHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BUA>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
 //        params.put("bid","100001");
@@ -1138,10 +962,7 @@ public class NetworkApi {
      */
     public static void getECGHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<ECGHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", MyApplication.getInstance().userId);
 //        params.put("bid", "100001");
@@ -1164,10 +985,7 @@ public class NetworkApi {
      */
     public static void getWeight(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<WeightHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
 
         params.put("bid", MyApplication.getInstance().userId);
@@ -1187,10 +1005,7 @@ public class NetworkApi {
      */
     public static void getAllDoctor(String doctorname, String start, String limit, NetworkManager.SuccessCallback<ArrayList<AllDoctor>> successCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         if (null != doctorname) {
             params.put("doctorname", doctorname);
@@ -1208,10 +1023,7 @@ public class NetworkApi {
             String account,
             NetworkManager.SuccessCallback<String> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("cate", cate);
         params.put("account", account);
@@ -1223,10 +1035,7 @@ public class NetworkApi {
             String pwd,
             NetworkManager.SuccessCallback<String> successCallback,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("account", account);
         params.put("pwd", pwd);
@@ -1249,10 +1058,7 @@ public class NetworkApi {
     public static void alertBasedata(String bid, String height, String weight, String eating_habits, String smoke, String drink, String exercise_habits, String mh, String dz,
                                      NetworkManager.SuccessCallback<Object> successCallback,
                                      NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bid", bid);
         params.put("height", height);
@@ -1275,10 +1081,7 @@ public class NetworkApi {
      */
     public static void getJibing(String bname, NetworkManager.SuccessCallback<DiseaseResult> successCallback,
                                  NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bname", bname);
         NetworkManager.getInstance().getResultClass(Get_jibing, params, DiseaseResult.class, successCallback, failedCallback);
@@ -1291,10 +1094,7 @@ public class NetworkApi {
      * @param failedCallback
      */
     public static void recordGroup(String gid, String xfid, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
@@ -1314,10 +1114,7 @@ public class NetworkApi {
      * @param failedCallback
      */
     public static void changeGroupStatus(String gid, String status, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("grid", gid);
         paramsMap.put("state", status);
@@ -1334,10 +1131,7 @@ public class NetworkApi {
 
     public static void getXfGroupInfo(String ip, String gid, String xfid, NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
@@ -1361,10 +1155,7 @@ public class NetworkApi {
      */
     public static void getMessages(String docterid, String dis_state, NetworkManager.SuccessCallback<ArrayList<MessagesOfCenter>> successCallback
     ) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             return;
         }
@@ -1386,10 +1177,7 @@ public class NetworkApi {
      */
     public static void getWeekReport(String userId, NetworkManager.SuccessCallback<WeekReportModel> successCallback,
                                      NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", userId);
         params.put("state", "1");
@@ -1405,10 +1193,7 @@ public class NetworkApi {
      */
     public static void getMonthReport(String userId, NetworkManager.SuccessCallback<MonthlyReport> successCallback,
                                       NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("userid", userId);
         params.put("state", "2");
@@ -1419,10 +1204,7 @@ public class NetworkApi {
 
     public static void isRegisteredByIdCard(String idCard, NetworkManager.SuccessCallback<UserInfoBean> successCallback,
                                             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
 
         HashMap<String, String> params = new HashMap<>();
         params.put("sfz", idCard);
@@ -1448,10 +1230,7 @@ public class NetworkApi {
             String mh,
             NetworkManager.SuccessCallback<UserInfoBean> listener,
             NetworkManager.FailedCallback failedCallback) {
-        Boolean youke = (Boolean) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "youke", false);
-        if (youke) {
-            return;
-        }
+
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("age", "50");
         paramsMap.put("bname", name);
@@ -1474,6 +1253,10 @@ public class NetworkApi {
 
         NetworkManager.getInstance().postResultClass(RegisteryiyuanUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
+
+
+//    public static String Inquiry = "http://118.31.73.176:8080" + "/ZZB/api/health/inquiry/";
+    public static String Inquiry = "http://118.31.73.176:8080/ZZB/api/health/inquiry/";
 
 
 }

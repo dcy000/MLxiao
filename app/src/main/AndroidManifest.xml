@@ -567,26 +567,6 @@
         <activity
             android:name=".activity.MessageDetailsActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_system.intelligent_diagnosis.DailyIntakeActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_system.intelligent_diagnosis.WeeklyReportActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_system.intelligent_diagnosis.MonthlyReportActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_system.intelligent_diagnosis.DeleteGroupActivity"
-            android:screenOrientation="landscape">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity android:name=".health.HealthDiaryActivity" />
         <activity
             android:name=".tool.JieMengActivity"
@@ -687,46 +667,68 @@
         <activity android:name=".idcard.SignInIdCardActivity" />
         <activity android:name=".health.DetectResultActivity" />
         <activity android:name=".yiyuan.activity.YiYuanLoginActivity"></activity>
-        <activity android:name=".yiyuan.activity.SignUpGenderActivity" />
         <activity
-            android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity"
-            android:label="高血压风险评估"
+            android:name=".intelligent_system.intelligent_diagnosis.MonthlyReportActivity"
+            android:label="血压季度分析报告"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".intelligent_system.blood_pressure_risk_assessment.PrimaryBloodPressureRiskResultsActivity"
-            android:label="原发性高血压结果界面"
+            android:name=".intelligent_system.intelligent_diagnosis.DailyIntakeActivity"
+            android:label="每日摄入界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".intelligent_system.blood_pressure_risk_assessment.SecondaryBloodPressureRiskResultsActivity"
-            android:screenOrientation="landscape"
-            android:label="继发性高血压结果界面"/>
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.WeeklyReportActivity"
+            android:label="血压周报告"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".measure.New_MeasureXuetangResultActivity"
-            android:screenOrientation="landscape"
-            android:label="每次血糖测量后的结果界面"/>
-        <activity android:name=".intelligent_system.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity"
-            android:screenOrientation="landscape"
-            android:label="血糖风险评估"/>
-        <activity android:name=".intelligent_system.blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
-            android:screenOrientation="landscape"
-            android:label="血糖风险评估结果界面"/>
-        <activity android:name=".intelligent_system.intelligent_diagnosis.FoodMaterialDetailActivity"
-            android:screenOrientation="landscape"
-            android:label="推荐食物详情页面"/>
-        <activity android:name=".intelligent_system.intelligent_diagnosis.SportPlanDetailActivity"
-            android:screenOrientation="landscape"
-            android:label="推荐运动计划详情界面"/>
-        <activity android:name=".intelligent_system.intelligent_diagnosis.BloodsugarWeeklyReportActivity"
-            android:screenOrientation="landscape"
-            android:label="血糖周报告"/>
-        <activity android:name=".intelligent_system.intelligent_diagnosis.TreatmentPlanActivity"
-            android:screenOrientation="landscape"
-            android:label="治疗方案"/>
-        <activity android:name=".intelligent_system.intelligent_diagnosis.BloodsugarMonthlyReportActivity"
-            android:screenOrientation="landscape"
-            android:label="血糖疗程报告"/>
-        <activity android:name=".building_record.BuildingRecordActivity"
-            android:screenOrientation="landscape"
-            android:label="建档页面"/>
+            android:label="每次血糖测量后的结果界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity"
+            android:label="血糖风险评估"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
+            android:label="血糖风险评估结果界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.FoodMaterialDetailActivity"
+            android:label="推荐食物详情页面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.SportPlanDetailActivity"
+            android:label="推荐运动计划详情界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.BloodsugarWeeklyReportActivity"
+            android:label="血糖周报告"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.TreatmentPlanActivity"
+            android:label="治疗方案"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.BloodsugarMonthlyReportActivity"
+            android:label="血糖疗程报告"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".building_record.BuildingRecordActivity"
+            android:label="建档页面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_system.intelligent_diagnosis.DeleteGroupActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
+        <activity android:name=".yiyuan.activity.DrinkWenActivity" />
+        <activity
+            android:name=".yiyuan.activity.InquiryAndFileEndActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
+        <activity android:name=".yiyuan.activity.XueYaWenActivity" />
+        <activity android:name=".yiyuan.activity.YinJiuWenActivity" />
+        <activity android:name=".yiyuan.activity.YueJingWenActivity" />
+        <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
+
     </application>
 
 </manifest>

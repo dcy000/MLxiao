@@ -16,7 +16,6 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.register.SignUp3AddressActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -124,7 +123,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String code) {
                         mCode = code;
-                         T.show("获取验证码成功");
+                        T.show("获取验证码成功");
                         speak("获取验证码成功");
                     }
                 }, new NetworkManager.FailedCallback() {
@@ -182,7 +181,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
 
         if (mCode.contains(code)) {
             T.show("验证码正确");
-            navToNext();
+            navToNext(phone);
         } else {
             T.show("验证码错误");
             speak("验证码错误");
@@ -191,10 +190,11 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         LocalShared.getInstance(this.getApplicationContext()).setSignUpPhone(phone);
     }
 
-    private void navToNext() {
-        Intent intent = SignUp3AddressActivity.newIntent(this);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    private void navToNext(String phone) {
+        Intent intent = new Intent();
+        intent.putExtra("phone",phone );
+        setResult(RESULT_OK,intent);
+        finish();
     }
 
     public static final String REGEX_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";
