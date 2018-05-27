@@ -247,6 +247,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } else {
                         xueyaResult = mXueyaResults[2];
                     }
+
+                    if (getIntent().getBooleanExtra("inquiry", false)) {
+                        Intent data = new Intent();
+                        data.putExtra("xueya", mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
+                        setResult(RESULT_OK, data);
+                        finish();
+                        return;
+                    }
                     uploadXueyaResult(getNew, down, maibo, xueyaResult, false, null);
                     break;
                 case 14:
@@ -1085,9 +1093,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 if (isDetect) {
                     backOnClickListener.onClick(v);
                 }
-                Intent data=new Intent();
-                data.putExtra("xueya",mHighPressTv.getText().toString()+","+mLowPressTv.getText().toString());
-                setResult(RESULT_OK,data);
                 finish();
             }
         });

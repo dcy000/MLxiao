@@ -163,11 +163,11 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         data.add(bean2);
 
 
-        if (jianCheialog == null) {
-            jianCheialog = new JianKangJianCheDialog();
+        if (dialog == null) {
+            dialog = new TiZhiJianCeDialog();
         }
-        jianCheialog.setListener(this, data);
-        jianCheialog.show(getChildFragmentManager(), "dialog");
+        dialog.setListener(this, data);
+        dialog.show(getChildFragmentManager(), "dialog");
 
     }
 
@@ -328,10 +328,10 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             gotoCeLiangLiShi();
         } else if (GEREN_XINXI.equals(name)) {
             gotoPersonInfo();
-        }else if ("问诊".equals(name)) {
-            startActivity(new Intent(getActivity(),SignUp7HeightActivity.class));
-        }else if ("建档".equals(name)) {
-            // TODO: 2018/5/27 建档
+        } else if ("问诊".equals(name)) {
+            startActivity(new Intent(getActivity(), SignUp7HeightActivity.class));
+        } else if ("建档".equals(name)) {
+            startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
         }
 
     }
