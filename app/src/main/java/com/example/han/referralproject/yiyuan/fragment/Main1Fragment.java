@@ -35,6 +35,7 @@ import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.google.gson.Gson;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.register.SignUp7HeightActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
@@ -138,13 +139,35 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 break;
             case R.id.yishengjianyi:
                 //问诊及建档
-                tuiChu();
+                showWenZhenJianDangDialog();
                 break;
             case R.id.jiankangketang:
                 //医生建议
-                gotoYiShengJianYi();
+                tuiChu();
                 break;
         }
+    }
+
+    private void showWenZhenJianDangDialog() {
+        data.clear();
+        MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
+        bean1.name = "问诊";
+        bean1.iconId = R.drawable.main_dialog_wenzhen;
+
+        MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
+        bean2.name = "建档";
+        bean2.iconId = R.drawable.main_dialog_jiandang;
+
+        data.add(bean1);
+        data.add(bean2);
+
+
+        if (jianCheialog == null) {
+            jianCheialog = new JianKangJianCheDialog();
+        }
+        jianCheialog.setListener(this, data);
+        jianCheialog.show(getChildFragmentManager(), "dialog");
+
     }
 
     private void showJianCheDialog(List<MainTiZHiDialogBean> data) {
@@ -304,6 +327,10 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             gotoCeLiangLiShi();
         } else if (GEREN_XINXI.equals(name)) {
             gotoPersonInfo();
+        }else if ("问诊".equals(name)) {
+            startActivity(new Intent(getActivity(),SignUp7HeightActivity.class));
+        }else if ("建档".equals(name)) {
+            // TODO: 2018/5/27 建档
         }
 
     }

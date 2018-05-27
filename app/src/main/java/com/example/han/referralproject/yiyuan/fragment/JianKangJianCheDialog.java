@@ -87,6 +87,8 @@ public class JianKangJianCheDialog extends DialogFragment {
         Glide.with(this).load(data.get(0).iconId).into(jiankangTijian);
         Glide.with(this).load(data.get(1).iconId).into(gaoxueyaTijian);
         Glide.with(this).load(data.get(2).iconId).into(tangniaobingTijian);
+
+
     }
 
     @Override
