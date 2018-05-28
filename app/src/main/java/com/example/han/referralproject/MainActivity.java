@@ -35,10 +35,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends BaseActivity implements CountdownDialog.Ontouch {
     @BindView(R.id.fl_status_bar)
     FrameLayout flStatusBar;
+    @BindView(R.id.circleIndicator)
+    CircleIndicator circleIndicator;
     private Handler mHandler = new Handler();
     List<Fragment> fragments = new ArrayList<>();
     @BindView(R.id.vp)
@@ -73,6 +76,7 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
         fragments.add(new Main1Fragment());
         fragments.add(new Main2Fragment());
         vp.setAdapter(new MainFragmentAdapter(getSupportFragmentManager(), fragments));
+        circleIndicator.setViewPager(vp);
     }
 
     public boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -172,6 +176,7 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
         currentActivity.startActivity(intent);
         currentActivity.finish();
     }
+
     private CountdownDialog dialog;
 
     @Override

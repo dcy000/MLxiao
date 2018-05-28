@@ -37,4 +37,7 @@ public class WenZhenBean implements Serializable {
     public String pregnantState;
     public String userId;
     public String weight;
+    public String weekDrinkState ;
+    public String wineType  ;
+
 }

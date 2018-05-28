@@ -58,7 +58,7 @@ import java.util.Map;
 
 public class NetworkApi {
 
-    //            public static final String BasicUrl = "http://116.62.36.12:8080";
+//                public static final String BasicUrl = "http://116.62.36.12:8080";
 
     public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.109:8080";//孙高峰
@@ -70,7 +70,7 @@ public class NetworkApi {
 //    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
 
     //上传建档信息
-    public static final String Upload_BuildRecord=BasicUrl+"/ZZB/api/health/inquiry/record/";
+    public static final String Upload_BuildRecord="http://118.31.73.176:8080"+"/ZZB/api/health/inquiry/record/";
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐
@@ -1258,7 +1258,6 @@ public class NetworkApi {
     }
 
 
-//    public static String Inquiry = "http://118.31.73.176:8080" + "/ZZB/api/health/inquiry/";
     public static String Inquiry = "http://118.31.73.176:8080/ZZB/api/health/inquiry/";
 
 

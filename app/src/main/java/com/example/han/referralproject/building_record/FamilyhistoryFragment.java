@@ -1,6 +1,7 @@
 package com.example.han.referralproject.building_record;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,54 +31,20 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
     private IFragmentChange iFragmentChange;
     private TextView wu;
     private String result;
-    /**
-     * 您母亲患有以下哪种疾病？
-     */
     private TextView dialogTitle;
-    /**
-     * 高血压
-     */
     private TextView gaoxueya;
-    /**
-     * 糖尿病
-     */
     private TextView tangniaobing;
-    /**
-     * 冠心病
-     */
     private TextView guanxinbing;
-    /**
-     * 恶性肿瘤
-     */
     private TextView zhongliu;
-    /**
-     * 脑卒中
-     */
     private TextView naocuzhong;
-    /**
-     * 结核病
-     */
     private TextView jihebing;
-    /**
-     * 慢性阻塞性肺疾病
-     */
     private TextView feibing;
-    /**
-     * 严重精神障碍
-     */
     private TextView jingshenzhangai;
-    /**
-     * 肝炎
-     */
     private TextView ganyan;
-    /**
-     * 先天畸形
-     */
     private TextView xiantianjixing;
-    /**
-     * 其他
-     */
     private TextView qita;
+    private String subResult;
+    private AlertDialog alertDialog;
 
     public void setOnFragmentChange(IFragmentChange iFragmentChange) {
         this.iFragmentChange = iFragmentChange;
@@ -86,6 +53,9 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
     private boolean[] switch_relative = new boolean[5];
     private String[] relative = new String[]{"父亲", "母亲", "兄弟姐妹", "子女", "无"};
     private List<TextView> textViews;
+    private boolean[] switch_subRelative = new boolean[11];
+    private String[] subRelative = new String[]{"高血压", "糖尿病", "冠心病", "恶性肿瘤", "脑卒中", "结核病", "慢性阻塞性肺疾病", "严重精神障碍", "肝炎", "先天畸形", "其他"};
+    private List<TextView> subTextviews;
 
     @Nullable
     @Override
@@ -94,7 +64,6 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
             view = inflater.inflate(R.layout.fragment_family_history, container, false);
             initView(view);
         }
-        initView(view);
         return view;
     }
 
@@ -136,23 +105,24 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
             default:
                 break;
             case R.id.fuqin:
-//                showDialog(relative[0]);
-                result = MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 0);
+                showDialog(relative[0]);
+                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 0);
                 break;
             case R.id.muqin:
-                result = MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 1);
-//                showDialog(relative[1]);
+                showDialog(relative[1]);
+                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 1);
                 break;
             case R.id.xiongdi:
-                result = MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 2);
-//                showDialog(relative[2]);
+                showDialog(relative[2]);
+                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 2);
                 break;
             case R.id.zinv:
-                result = MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 3);
-//                showDialog(relative[3]);
+                showDialog(relative[3]);
+                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 3);
                 break;
             case R.id.wu:
-                result = MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 4);
+                showDialog(relative[4]);
+                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 4);
                 break;
             case R.id.tv_sign_up_go_back:
                 if (iFragmentChange != null) {
@@ -171,36 +141,59 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
                 break;
 
             case R.id.gaoxueya:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 0);
+                alertDialog.dismiss();
                 break;
             case R.id.tangniaobing:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 1);
+                alertDialog.dismiss();
                 break;
             case R.id.guanxinbing:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 2);
+                alertDialog.dismiss();
                 break;
             case R.id.zhongliu:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 3);
+                alertDialog.dismiss();
                 break;
             case R.id.naocuzhong:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 4);
+                alertDialog.dismiss();
                 break;
             case R.id.jihebing:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 5);
+                alertDialog.dismiss();
                 break;
             case R.id.feibing:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 6);
+                alertDialog.dismiss();
                 break;
             case R.id.jingshenzhangai:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 7);
+                alertDialog.dismiss();
                 break;
             case R.id.ganyan:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 8);
+                alertDialog.dismiss();
                 break;
             case R.id.xiantianjixing:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 9);
+                alertDialog.dismiss();
                 break;
             case R.id.qita:
+                subResult = MyArraysUtils.resetSwitch(switch_subRelative, subRelative, subTextviews, 10);
+                alertDialog.dismiss();
                 break;
         }
     }
 
-    private void showDialog(String title) {
+    private void showDialog(final String title) {
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.family_disease, null, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setView(inflate);
-        AlertDialog alertDialog = builder.create();
+        alertDialog = builder.create();
         alertDialog.show();
+        alertDialog.setCanceledOnTouchOutside(false);
         WindowManager.LayoutParams attributes = alertDialog.getWindow().getAttributes();
         attributes.width = 1400;
         alertDialog.getWindow().setAttributes(attributes);
@@ -227,7 +220,40 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
         xiantianjixing.setOnClickListener(this);
         qita = (TextView) inflate.findViewById(R.id.qita);
         qita.setOnClickListener(this);
-
+        subTextviews = new ArrayList<>();
+        subTextviews.add(gaoxueya);
+        subTextviews.add(tangniaobing);
+        subTextviews.add(guanxinbing);
+        subTextviews.add(zhongliu);
+        subTextviews.add(naocuzhong);
+        subTextviews.add(jihebing);
+        subTextviews.add(feibing);
+        subTextviews.add(jingshenzhangai);
+        subTextviews.add(ganyan);
+        subTextviews.add(xiantianjixing);
+        subTextviews.add(qita);
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                switch (title) {
+                    case "父亲":
+                        subResult = "父亲：" + subResult;
+                        break;
+                    case "母亲":
+                        subResult = "母亲：" + subResult;
+                        break;
+                    case "兄弟姐妹":
+                        subResult = "兄弟姐妹：" + subResult;
+                        break;
+                    case "子女":
+                        subResult = "子女：" + subResult;
+                        break;
+                    case "无":
+                        subResult = "";
+                        break;
+                }
+            }
+        });
     }
 
 

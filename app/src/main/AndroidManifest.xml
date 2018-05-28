@@ -311,7 +311,9 @@
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:taskAffinity="com.ml.wenzhen"
+            />
         <activity
             android:name="com.medlink.danbogh.register.SignUp8WeightActivity"
             android:screenOrientation="landscape"/>
@@ -741,8 +743,7 @@
         <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
         <activity android:name=".yiyuan.activity.DrinkWenActivity" />
         <activity
-            android:name=".yiyuan.activity.InquiryAndFileEndActivity"
-            android:launchMode="singleTask" />
+            android:name=".yiyuan.activity.InquiryAndFileEndActivity"/>
         <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
         <activity android:name=".yiyuan.activity.XueYaWenActivity" />
         <activity android:name=".yiyuan.activity.YinJiuWenActivity" />

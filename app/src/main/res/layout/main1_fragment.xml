@@ -20,7 +20,7 @@
         android:layout_width="240pt"
         android:layout_height="240pt"
         android:layout_marginStart="89pt"
-        android:layout_marginTop="120pt"
+        android:layout_marginTop="100pt"
         android:src="@drawable/main_iv_head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,6 +54,7 @@
 
     <!--app:srcCompat="@drawable/main_celianglishi"-->
     <ImageView
+        android:src="@drawable/yishengjianyi"
         android:id="@+id/yishengjianyi"
         android:layout_width="594pt"
         android:layout_height="328pt"
@@ -65,7 +66,7 @@
         android:id="@+id/jiankangketang"
         android:layout_width="594pt"
         android:layout_height="328pt"
-        android:src="@drawable/main_yishengjianyi"
+        android:src="@drawable/main_tuichu"
         app:layout_constraintStart_toStartOf="@+id/zhengzhuangzichan"
         app:layout_constraintTop_toTopOf="@+id/celianglishi" />
 

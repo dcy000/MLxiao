@@ -49,6 +49,7 @@ public class XueYaWenActivity extends BaseActivity {
         Intent intent = new Intent();
         intent.putExtra("from", "Test");
         intent.putExtra("fromType", "xueya");
+        intent.putExtra("inquiry",true);
         intent.setClass(this, DetectActivity.class);
         startActivityForResult(intent, 119);
     }

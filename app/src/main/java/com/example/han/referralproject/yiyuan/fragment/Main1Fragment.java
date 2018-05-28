@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,11 +33,15 @@ import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.google.gson.Gson;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.register.SignUp7HeightActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
+import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
 
 import java.util.ArrayList;
@@ -137,14 +142,35 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 break;
             case R.id.yishengjianyi:
                 //问诊及建档
-                gotoWenZhenJianDang();
+                showWenZhenJianDangDialog();
                 break;
             case R.id.jiankangketang:
                 //医生建议
-                gotoYiShengJianYi();
-//                startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
+                tuiChu();
                 break;
         }
+    }
+
+    private void showWenZhenJianDangDialog() {
+        data.clear();
+        MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
+        bean1.name = "问诊";
+        bean1.iconId = R.drawable.main_dialog_wenzhen;
+
+        MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
+        bean2.name = "建档";
+        bean2.iconId = R.drawable.main_dialog_jiandang;
+
+        data.add(bean1);
+        data.add(bean2);
+
+
+        if (dialog == null) {
+            dialog = new TiZhiJianCeDialog();
+        }
+        dialog.setListener(this, data);
+        dialog.show(getChildFragmentManager(), "dialog");
+
     }
 
     private void showJianCheDialog(List<MainTiZHiDialogBean> data) {
@@ -198,11 +224,11 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
         bean2.name = GAOXUEYA_TIJIAN;
-        bean2.iconId = R.drawable.main_dialog_danxiangtijian;
+        bean2.iconId = R.drawable.main_dialog_xueya_tijian;
 
         MainTiZHiDialogBean bean3 = new MainTiZHiDialogBean();
         bean3.name = TANGNIAOBING_TIJIAN;
-        bean3.iconId = R.drawable.main_dialog_danxiangtijian;
+        bean3.iconId = R.drawable.main_dialog_tangniaobing;
 
         data.add(bean1);
         data.add(bean2);
@@ -304,6 +330,10 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             gotoCeLiangLiShi();
         } else if (GEREN_XINXI.equals(name)) {
             gotoPersonInfo();
+        } else if ("问诊".equals(name)) {
+            startActivity(new Intent(getActivity(), SignUp7HeightActivity.class));
+        } else if ("建档".equals(name)) {
+            startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
         }
 
     }
@@ -322,6 +352,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.putExtra("isDetect", true);
             intent.putExtra("detectCategory", "detectHealth");
             startActivity(intent);
+
         } else if (GAOXUEYA_TIJIAN.equals(name)) {
             Intent intent = new Intent(getActivity(), DetectActivity.class);
             intent.putExtra("type", "xueya");
@@ -335,5 +366,20 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.putExtra("detectCategory", "detectSugar");
             startActivity(intent);
         }
+
+
+    }
+
+
+    public void tuiChu() {
+        FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        MobclickAgent.onProfileSignOff();
+        NimAccountHelper.getInstance().logout();
+        LocalShared.getInstance(activity).loginOut();
+        activity.startActivity(new Intent(activity, YiYuanLoginActivity.class));
+        activity.finish();
     }
 }
