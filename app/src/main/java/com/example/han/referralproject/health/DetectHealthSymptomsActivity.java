@@ -210,7 +210,7 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
 
     @Override
     protected void backLastActivity() {
-        tvGoback.performLongClick();
+        tvGoback.performClick();
     }
 
     @Override
