@@ -331,7 +331,9 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         } else if (GEREN_XINXI.equals(name)) {
             gotoPersonInfo();
         } else if ("问诊".equals(name)) {
-            startActivity(new Intent(getActivity(), SignUp7HeightActivity.class));
+            Intent intent = new Intent(getActivity(), SignUp7HeightActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } else if ("建档".equals(name)) {
             startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
         }

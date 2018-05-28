@@ -55,6 +55,7 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_to_home_page:
                 startActivity(new Intent(this, MainActivity.class));
+                finishAffinity();
                 break;
             case R.id.tv_exit:
                 tuichu();
