@@ -748,6 +748,7 @@
         <activity android:name=".yiyuan.activity.YinJiuWenActivity" />
         <activity android:name=".yiyuan.activity.YueJingWenActivity" />
         <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
+        <activity android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity"/>
     </application>
 
 </manifest>
