@@ -132,7 +132,7 @@ public class ProfessionalFragment extends Fragment implements View.OnClickListen
                     ((BuildingRecordActivity) getActivity()).speak(R.string.select_least_one);
                     return;
                 }
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setMaritalStatus(result);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setProfessionType(result);
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }
