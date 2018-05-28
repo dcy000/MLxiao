@@ -86,6 +86,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
+
+        <service
+            android:name="com.sinocare.bluetoothle.SN_BluetoothLeService"
+            android:enabled="true"
+            android:label="美的连耳温枪蓝牙服务">
+            <meta-data android:name="AccessKey" android:value="ak692c5e54836146d0b5c76cdb8886ae61"></meta-data>
+            <meta-data android:name="SecretKey" android:value="saksvhflsjxywxu"></meta-data>
+        </service>
         <service android:name=".new_music.MusicService" />
 
         <provider
