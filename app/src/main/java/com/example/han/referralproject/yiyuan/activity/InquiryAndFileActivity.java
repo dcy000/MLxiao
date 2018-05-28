@@ -10,7 +10,14 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
+import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +56,26 @@ public class InquiryAndFileActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.iv_jiandang:
-                startActivity(new Intent(this, BuildingRecordActivity.class));
+                //请求接口 判断时候建档
+                NetworkApi.getFiledIsOrNot(this
+                        , NetworkApi.FILE_URL
+                        , LocalShared.getInstance(this).getUserId()
+                        , new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                if (response == null) {
+                                    T.show("网络繁忙,请稍后重试~");
+                                    return;
+                                }
+                                WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
+                                if (reultBean.tag) {
+                                    T.show("您已建档完毕");
+                                } else {
+                                    startActivity(new Intent(InquiryAndFileActivity.this, BuildingRecordActivity.class));
+                                }
+                            }
+                        });
+
                 break;
         }
     }

@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.fragment;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
@@ -33,7 +35,10 @@ import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
+import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
@@ -338,9 +343,32 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if ("建档".equals(name)) {
-            startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
+            //请求接口 判断时候建档
+            NetworkApi.getFiledIsOrNot(getActivity()
+                    , NetworkApi.FILE_URL
+                    , LocalShared.getInstance(getActivity()).getUserId()
+                    , new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            if (response == null) {
+                                onGetFileStateFailed();
+                                return;
+                            }
+                            WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
+                            if (reultBean.tag) {
+                                T.show("您已建档完毕");
+                            } else {
+                                startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
+                            }
+                        }
+                    });
+
         }
 
+    }
+
+    private void onGetFileStateFailed() {
+        T.show("网络繁忙,请稍后重试~");
     }
 
     private void gotoDanXianTiJian() {
