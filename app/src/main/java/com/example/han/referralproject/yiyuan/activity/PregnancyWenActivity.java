@@ -87,6 +87,7 @@ public class PregnancyWenActivity extends BaseActivity {
         super.onResume();
         setDisableGlobalListen(true);
 //        speak(R.string.sign_up2_gender_tip);
+        speak("主人,您目前是否怀孕");
     }
 
     @OnClick(R.id.tv_sign_up_go_back)

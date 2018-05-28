@@ -15,14 +15,16 @@
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:textSize="18dp"
+            android:textColor="#FF333333"
+            android:textSize="72pt"
             tools:text="气虚体质" />
 
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#FF666666"
+            android:textSize="66pt"
             tools:text="气虚体质" />
 
     </LinearLayout>

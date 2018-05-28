@@ -1,5 +1,6 @@
 package com.example.han.referralproject.network;
 
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
@@ -49,6 +50,9 @@ import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,7 +74,7 @@ public class NetworkApi {
 //    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
 
     //上传建档信息
-    public static final String Upload_BuildRecord="http://118.31.73.176:8080"+"/ZZB/api/health/inquiry/record/";
+    public static final String Upload_BuildRecord = "http://118.31.73.176:8080" + "/ZZB/api/health/inquiry/record/";
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐
@@ -1259,6 +1263,16 @@ public class NetworkApi {
 
 
     public static String Inquiry = "http://118.31.73.176:8080/ZZB/api/health/inquiry/";
+    /**
+     * 查询是否建档 参数: userId=123456
+     */
+    public static String FILE_URL = "http://118.31.73.176:8080/ZZB/api/health/inquiry/record/";
 
+    public static void getFiledIsOrNot(Context context, String url, String userId, StringCallback stringCallback) {
+        OkGo.<String>get(url)
+                .tag(context)
+                .params("userId", userId)
+                .execute(stringCallback);
+    }
 
 }
