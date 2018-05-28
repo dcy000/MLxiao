@@ -22,6 +22,7 @@ public class BuildingRecordBean {
      * maritalStatus : string
      * medicalPayments : string
      * medicationAllergy : string
+     * professionType : string
      * rhBlood : string
      * toiletPosition : string
      * userId : 0
@@ -29,7 +30,7 @@ public class BuildingRecordBean {
      * weight : string
      */
 
-    private String address;//
+    private String address;
     private String bloodType;
     private String disabilitySituation;
     private String diseasesHistory;
@@ -48,6 +49,7 @@ public class BuildingRecordBean {
     private String maritalStatus;
     private String medicalPayments;
     private String medicationAllergy;
+    private String professionType;
     private String rhBlood;
     private String toiletPosition;
     private String userId;
@@ -204,6 +206,14 @@ public class BuildingRecordBean {
 
     public void setMedicationAllergy(String medicationAllergy) {
         this.medicationAllergy = medicationAllergy;
+    }
+
+    public String getProfessionType() {
+        return professionType;
+    }
+
+    public void setProfessionType(String professionType) {
+        this.professionType = professionType;
     }
 
     public String getRhBlood() {

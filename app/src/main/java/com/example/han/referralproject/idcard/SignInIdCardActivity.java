@@ -775,6 +775,7 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private void onLoginSuccess() {
         startActivity(new Intent(mContext, InquiryAndFileActivity.class));
+        finish();
     }
 
     private void onLoginFailed() {
@@ -804,10 +805,10 @@ public class SignInIdCardActivity extends BaseActivity {
             faceRegisterRunnable = new Runnable() {
                 @Override
                 public void run() {
-//                    if (item == null || item.picBitmap == null) {
-//                        onFaceRegisterFailed();
-//                        return;
-//                    }
+                    if (item == null || item.picBitmap == null) {
+                        onFaceRegisterFailed();
+                        return;
+                    }
 
                     ByteArrayOutputStream stream = null;
                     try {
