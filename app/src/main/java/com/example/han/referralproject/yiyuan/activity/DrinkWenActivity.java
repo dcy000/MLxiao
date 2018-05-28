@@ -109,14 +109,18 @@ public class DrinkWenActivity extends BaseActivity {
     }
 
     private void getResult() {
-        String drink = "";
+        String drink=rbDrinkYes.isChecked()?"1":"0";
+        LocalShared.getInstance(this).setIsDrinkOrNot(drink);
+
+        String drinkWhat = "";
         for (int i = 0; i < rgDrinkWhat.getChildCount(); i++) {
             RadioButton childAt = (RadioButton) rgDrinkWhat.getChildAt(i);
             if (childAt.isChecked()) {
-                drink += childAt.getText().toString().trim();
+                drinkWhat += childAt.getText().toString().trim();
             }
         }
-        LocalShared.getInstance(this).setDringInto(drink);
+        LocalShared.getInstance(this).setDringInto(drinkWhat);
+        LocalShared.getInstance(this).setIsDrinkOrNot(drink);
 
         startActivity(new Intent(this, GuoMinAndJiBingActivity.class));
     }

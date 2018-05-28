@@ -60,7 +60,15 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity;
+import com.example.han.referralproject.yiyuan.bean.WenZhenBean;
+import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.utils.T;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
@@ -582,10 +590,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 if (getIntent().getBooleanExtra("inquiry", false)) {
-                                    Intent data = new Intent();
-                                    data.putExtra("xueya", mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
-                                    DetectActivity.this.setResult(Activity.RESULT_OK, data);
-                                    finish();
+//                                    Intent data = new Intent();
+//                                    data.putExtra("xueya", mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
+//                                    DetectActivity.this.setResult(Activity.RESULT_OK, data);
+                                    LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
+                                    postWenZhenData();
                                     return;
                                 }
                                 //上传数据到我们的服务器
@@ -1970,4 +1979,48 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mBluetoothLeService = null;
         }
     };
+
+
+    private void postWenZhenData() {
+        WenZhenBean bean = new WenZhenBean();
+        bean.address = LocalShared.getInstance(this).getSignUpAddress();
+        bean.allergicHistory = LocalShared.getInstance(this).getGuoMin();
+        bean.diseasesHistory = LocalShared.getInstance(this).getJiBingShi();
+        bean.equipmentId = LocalShared.getInstance(this).getEqID();
+        bean.height = LocalShared.getInstance(this).getSignUpHeight() + "";
+        bean.hiUserInquiryId = "";
+        String xueYa = LocalShared.getInstance(this).getXueYa();
+        bean.highPressure = xueYa.split(",")[0];
+        bean.lowPressure = xueYa.split(",")[1];
+        bean.hypertensionState = "0";
+        bean.lastMensesTime = LocalShared.getInstance(this).getYueJingDate();
+        bean.pregnantState = LocalShared.getInstance(this).getHuaiYun();
+        bean.userId = LocalShared.getInstance(this).getUserId();
+        bean.weekDrinkState = LocalShared.getInstance(this).getIsDrinkOrNot();
+        bean.wineType = LocalShared.getInstance(this).getDringInto();
+
+        final Gson gson = new Gson();
+        OkGo.<String>post(NetworkApi.Inquiry)
+                .tag(this)
+                .upJson(gson.toJson(bean))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String result = response.body();
+                        if (!TextUtils.isEmpty(result)) {
+                            WenZhenReultBean reultBean = gson.fromJson(result, WenZhenReultBean.class);
+                            if ("成功".equals(reultBean.message)) {
+                                T.show("提交成功");
+                                InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
+                                finish();
+                            } else {
+                                T.show("提交失败");
+                            }
+                        }
+                    }
+                });
+
+
+    }
 }
+

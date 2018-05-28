@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.util.LocalShared;
 
 import butterknife.BindView;
@@ -132,7 +133,13 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
             case R.id.tv_sign_up_go_forward:
                 getGuoMin();
                 getJiBing();
-                startActivity(new Intent(this, XueYaWenActivity.class));
+
+                Intent intent = new Intent();
+                intent.putExtra("from", "Test");
+                intent.putExtra("fromType", "xueya");
+                intent.putExtra("inquiry", true);
+                intent.setClass(this, DetectActivity.class);
+                startActivity(intent);
                 break;
         }
     }
