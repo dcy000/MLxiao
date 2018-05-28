@@ -35,7 +35,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
 
     private String[] disability = new String[]{"视力残疾", "听力残疾", "言语残疾", "肢体残疾", "智力残疾", "精神残疾", "其他", "无"};
     private boolean[] switch_disability = new boolean[8];
-
+    private String[] index=new String[]{"2","3","4","5","6","7","8","1"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -167,7 +167,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                     return;
                 }
                 String result = MyArraysUtils.jointString(switch_disability, disability);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDisabilitySituation(result);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDisabilitySituation( MyArraysUtils.jointIndex(result,disability,index));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }

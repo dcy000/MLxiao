@@ -45,6 +45,7 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
     private TextView qita;
     private String subResult;
     private AlertDialog alertDialog;
+    private String parent_result;
 
     public void setOnFragmentChange(IFragmentChange iFragmentChange) {
         this.iFragmentChange = iFragmentChange;
@@ -56,7 +57,7 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
     private boolean[] switch_subRelative = new boolean[11];
     private String[] subRelative = new String[]{"高血压", "糖尿病", "冠心病", "恶性肿瘤", "脑卒中", "结核病", "慢性阻塞性肺疾病", "严重精神障碍", "肝炎", "先天畸形", "其他"};
     private List<TextView> subTextviews;
-
+    private String[] index=new String[]{"1","2","3","4","0"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -106,23 +107,23 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.fuqin:
                 showDialog(relative[0]);
-                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 0);
+                parent_result = MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 0);
                 break;
             case R.id.muqin:
                 showDialog(relative[1]);
-                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 1);
+                parent_result =MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 1);
                 break;
             case R.id.xiongdi:
                 showDialog(relative[2]);
-                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 2);
+                parent_result =MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 2);
                 break;
             case R.id.zinv:
                 showDialog(relative[3]);
-                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 3);
+                parent_result =MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 3);
                 break;
             case R.id.wu:
                 showDialog(relative[4]);
-                MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 4);
+                parent_result =MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 4);
                 break;
             case R.id.tv_sign_up_go_back:
                 if (iFragmentChange != null) {
@@ -134,7 +135,7 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
                     ((BuildingRecordActivity) getActivity()).speak(R.string.select_least_one);
                     return;
                 }
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDiseasesKinsfolk(result);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDiseasesKinsfolk(MyArraysUtils.getIndex(parent_result,relative,index));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }

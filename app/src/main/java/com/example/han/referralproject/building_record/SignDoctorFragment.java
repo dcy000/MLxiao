@@ -196,7 +196,7 @@ public class SignDoctorFragment extends Fragment implements View.OnClickListener
                     return;
                 }
                 ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDoctorId(selectedDoctor.getDocterid());
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setHiHealthRecordId(selectedDoctor.getRankid());
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setHiHealthRecordId("");
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }

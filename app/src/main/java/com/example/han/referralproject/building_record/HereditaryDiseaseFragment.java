@@ -31,7 +31,7 @@ public class HereditaryDiseaseFragment extends Fragment implements View.OnClickL
     private String[] hereditary = new String[]{"是", "否"};
     private boolean[] switch_hereditary = new boolean[2];
     private List<TextView> textViews;
-
+    private String[] index=new String[]{"1","0"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class HereditaryDiseaseFragment extends Fragment implements View.OnClickL
                     ((BuildingRecordActivity) getActivity()).speak(R.string.select_least_one);
                     return;
                 }
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setGeneticHistory(result);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setGeneticHistory(MyArraysUtils.getIndex(result,hereditary,index));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }
