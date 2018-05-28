@@ -92,6 +92,7 @@
             android:layout_marginLeft="38pt">
 
             <ImageView
+                android:layout_centerInParent="true"
                 android:id="@+id/tangniaobing_tijian"
                 android:layout_width="380pt"
                 android:layout_height="380pt"
