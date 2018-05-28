@@ -5,13 +5,13 @@
     android:id="@+id/cl_sign_up_root_mobile_verification"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_tab1_personal_info">
+    >
 
     <TextView
         android:id="@+id/tv_sign_up_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="84pt"
         android:gravity="center"
         android:text="您的手机号码"
         android:textColor="#8C8C8C"
