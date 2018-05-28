@@ -648,17 +648,31 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onRegister(String phone) {
         showLoadingDialog("加载中");
         final LocalShared shared = LocalShared.getInstance(this);
+//        String name = item.partyName;
+//        String gender = item.gender;
+//        String address = item.certAddress;
+//        String idCard = item.certNumber;
+//        float height = shared.getSignUpHeight();
+//        float weight = shared.getSignUpWeight();
+//        String bloodType = shared.getSignUpBloodType();
+//        String eat = shared.getSignUpEat();
+//        String smoke = shared.getSignUpSmoke();
+//        String drink = shared.getSignUpDrink();
+//        String sport = shared.getSignUpSport();
+
+
         String name = item.partyName;
         String gender = item.gender;
         String address = item.certAddress;
         String idCard = item.certNumber;
-        float height = shared.getSignUpHeight();
-        float weight = shared.getSignUpWeight();
-        String bloodType = shared.getSignUpBloodType();
-        String eat = shared.getSignUpEat();
-        String smoke = shared.getSignUpSmoke();
-        String drink = shared.getSignUpDrink();
-        String sport = shared.getSignUpSport();
+        //以下注册时未填写 设置为默认值
+        float height = 180;
+        float weight = 65;
+        String bloodType = "A";
+        String eat = "1";
+        String smoke = "3";
+        String drink = "2";
+        String sport = "3";
         NetworkApi.registerUser(
                 name,
                 gender,

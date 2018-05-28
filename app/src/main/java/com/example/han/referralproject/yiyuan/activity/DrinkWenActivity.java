@@ -113,12 +113,31 @@ public class DrinkWenActivity extends BaseActivity {
         LocalShared.getInstance(this).setIsDrinkOrNot(drink);
 
         String drinkWhat = "";
-        for (int i = 0; i < rgDrinkWhat.getChildCount(); i++) {
-            RadioButton childAt = (RadioButton) rgDrinkWhat.getChildAt(i);
-            if (childAt.isChecked()) {
-                drinkWhat += childAt.getText().toString().trim();
-            }
+//        for (int i = 0; i < rgDrinkWhat.getChildCount(); i++) {
+//            RadioButton childAt = (RadioButton) rgDrinkWhat.getChildAt(i);
+//            if (childAt.isChecked()) {
+//                drinkWhat += childAt.getText().toString().trim();
+//            }
+//        }
+
+        if (rbDrinkBaijiu.isChecked()) {
+            drinkWhat+="0"+",";
         }
+
+        if (rbDrinkLiaojiu.isChecked()) {
+            drinkWhat+="1"+",";
+        }
+
+        if (rbDrinkPijiu.isChecked()) {
+            drinkWhat+="2"+",";
+        }
+
+        if (rbDrinkMijiu.isChecked()) {
+            drinkWhat+="3"+",";
+        }
+
+
+
         LocalShared.getInstance(this).setDringInto(drinkWhat);
         LocalShared.getInstance(this).setIsDrinkOrNot(drink);
 
