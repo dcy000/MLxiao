@@ -124,12 +124,15 @@ public class DetectResultActivity extends BaseActivity {
         }
         switch (detectCategory) {
             case "detectHealth":
+                detectResult.setHealthExaminationType("0");
                 detectResult.setHealthSymptom(builder.toString());
                 break;
             case "detectPressure":
+                detectResult.setHealthExaminationType("1");
                 detectResult.setHypertensionSymptom(builder.toString());
                 break;
             case "detectSugar":
+                detectResult.setHealthExaminationType("2");
                 detectResult.setDiabetesSymptom(builder.toString());
                 break;
         }

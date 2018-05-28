@@ -89,6 +89,7 @@ public class SignInIdCardActivity extends BaseActivity {
     protected void backMainActivity() {
         LocalShared.getInstance(this).setString(FILTER, "");
         targetDevice = null;
+        initializing = false;
         removeBounds();
         btHandler().post(oneShutRunnable);
     }
