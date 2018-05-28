@@ -33,11 +33,13 @@ public class JianKangJianCheDialog extends DialogFragment {
     @BindView(R.id.tangniaobing_tijian)
     ImageView tangniaobingTijian;
     Unbinder unbinder;
+    @BindView(R.id.iv_danxiang_tijian)
+    ImageView ivDanxiangTijian;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(android.support.v4.app.DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
     }
 
     private ClickItemListener listener;
@@ -48,7 +50,7 @@ public class JianKangJianCheDialog extends DialogFragment {
         this.data = data;
     }
 
-    @OnClick({R.id.jiankang_tijian, R.id.gaoxueya_tijian, R.id.tangniaobing_tijian})
+    @OnClick({R.id.jiankang_tijian, R.id.gaoxueya_tijian, R.id.tangniaobing_tijian,R.id.iv_danxiang_tijian})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.jiankang_tijian:
@@ -59,6 +61,9 @@ public class JianKangJianCheDialog extends DialogFragment {
                 break;
             case R.id.tangniaobing_tijian:
                 clickItem(data.get(2).name);
+                break;
+            case R.id.iv_danxiang_tijian:
+                clickItem(data.get(3).name);
                 break;
         }
     }
@@ -88,6 +93,7 @@ public class JianKangJianCheDialog extends DialogFragment {
         Glide.with(this).load(data.get(0).iconId).into(jiankangTijian);
         Glide.with(this).load(data.get(1).iconId).into(gaoxueyaTijian);
         Glide.with(this).load(data.get(2).iconId).into(tangniaobingTijian);
+        Glide.with(this).load(data.get(3).iconId).into(ivDanxiangTijian);
 
 
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="1400pt"
+    android:layout_width="1720pt"
     android:layout_height="900pt">
 
     <LinearLayout
-        android:layout_width="1400pt"
+        android:layout_width="1720pt"
         android:layout_height="900pt"
         android:background="@drawable/shape_bg_clear_reset_dialog"
         android:orientation="horizontal">
@@ -14,14 +14,39 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="84pt">
+            android:layout_marginLeft="40pt">
+
+            <ImageView
+                android:id="@+id/iv_danxiang_tijian"
+                android:layout_width="380pt"
+                android:layout_height="380pt"
+                android:layout_marginTop="213pt"
+                android:src="@drawable/main_dialog_danxiangtijian" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="213pt"
+                android:text="单项体检"
+                android:textColor="#ff333333"
+                android:textSize="64pt" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="38pt">
 
             <ImageView
                 android:id="@+id/jiankang_tijian"
                 android:layout_width="380pt"
                 android:layout_height="380pt"
                 android:layout_marginTop="213pt"
-                android:src="@drawable/main_dialog_jiankangtijian" />
+                android:src="@drawable/main_dialog_jiankang_tijian" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -39,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="46pt">
+            android:layout_marginLeft="38pt">
 
             <ImageView
                 android:id="@+id/gaoxueya_tijian"
@@ -54,7 +79,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="213pt"
-                android:text="高血压检测"
+                android:text="高血压随访"
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
 
@@ -64,13 +89,15 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="46pt">
+            android:layout_marginLeft="38pt">
 
             <ImageView
                 android:id="@+id/tangniaobing_tijian"
                 android:layout_width="380pt"
                 android:layout_height="380pt"
-                android:layout_marginTop="213pt"
+                android:layout_alignBottom="@+id/textView14"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="30dp"
                 android:src="@drawable/main_dialog_tangniaobing" />
 
             <TextView
@@ -79,9 +106,10 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="213pt"
-                android:text="糖尿病检测"
+                android:text="糖尿病随访"
                 android:textColor="#ff333333"
-                android:textSize="64pt" />
+                android:textSize="64pt"
+                android:id="@+id/textView14" />
 
         </RelativeLayout>
 

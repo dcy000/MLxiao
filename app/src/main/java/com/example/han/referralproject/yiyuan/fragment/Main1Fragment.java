@@ -1,6 +1,5 @@
 package com.example.han.referralproject.yiyuan.fragment;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +10,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -230,9 +228,14 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         bean3.name = TANGNIAOBING_TIJIAN;
         bean3.iconId = R.drawable.main_dialog_tangniaobing;
 
+        MainTiZHiDialogBean bean4 = new MainTiZHiDialogBean();
+        bean4.name = "单项体检";
+        bean4.iconId = R.drawable.main_dialog_danxiangtijian;
+
         data.add(bean1);
         data.add(bean2);
         data.add(bean3);
+        data.add(bean4);
         return data;
     }
 
@@ -365,6 +368,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.putExtra("isDetect", true);
             intent.putExtra("detectCategory", "detectSugar");
             startActivity(intent);
+        } else if ("单项体检".equals(name)) {
+            gotoDanXianTiJian();
         }
 
 
