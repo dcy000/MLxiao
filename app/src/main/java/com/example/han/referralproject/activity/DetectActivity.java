@@ -63,6 +63,7 @@ import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity;
 import com.example.han.referralproject.yiyuan.bean.WenZhenBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -2013,6 +2014,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 T.show("提交成功");
                                 InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
                                 finish();
+                                ActivityHelper.finishAll();
                             } else {
                                 T.show("提交失败");
                             }

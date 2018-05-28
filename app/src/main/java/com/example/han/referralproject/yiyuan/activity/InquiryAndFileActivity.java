@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.building_record.BuildingRecordActivity;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
 
 import butterknife.BindView;
@@ -48,8 +49,7 @@ public class InquiryAndFileActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.iv_jiandang:
-//                InquiryAndFileEndActivity.startMe(this, "建档");
-//                startActivity(new Intent(this,YinJiuWenActivity.class));
+                startActivity(new Intent(this, BuildingRecordActivity.class));
                 break;
         }
     }
