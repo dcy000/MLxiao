@@ -2010,7 +2010,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         String result = response.body();
                         if (!TextUtils.isEmpty(result)) {
                             WenZhenReultBean reultBean = gson.fromJson(result, WenZhenReultBean.class);
-                            if ("成功".equals(reultBean.message)) {
+                            if (reultBean.tag) {
                                 T.show("提交成功");
                                 InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
                                 finish();
