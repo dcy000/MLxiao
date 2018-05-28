@@ -141,8 +141,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 break;
             case R.id.jiankangketang:
                 //医生建议
-                gotoYiShengJianYi();
-//                startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
+//                gotoYiShengJianYi();
+                startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
                 break;
         }
     }
