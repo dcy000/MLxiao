@@ -731,9 +731,6 @@
             android:name=".bluetooth_devices.temperature_devices.MeasureTemperatureActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".bluetooth_devices.bloodsugar_devices.MeasureBloodsugarActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".bluetooth_devices.AllMeasureActivity"
             android:screenOrientation="landscape" />
     </application>

@@ -21,8 +21,8 @@ import java.util.List;
 
 public abstract class BaseBluetoothPresenter implements IPresenter {
 
-    private static DiscoverDevicesSetting discoverSetting;
-    private static BluetoothDevice lockedDevice;
+    protected static DiscoverDevicesSetting discoverSetting;
+    protected static BluetoothDevice lockedDevice;
 
     public BaseBluetoothPresenter(DiscoverDevicesSetting discoverSetting) {
         super();

@@ -8,11 +8,9 @@ import com.example.han.referralproject.bluetooth_devices.base.IView;
 import java.util.List;
 
 public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter {
-    private MeasureBloodsugarActivity mainActivity;
 
     public Bloodsugar_GlucWell_PresenterImp(IView activity, DiscoverDevicesSetting discoverSetting) {
         super(discoverSetting);
-        mainActivity = (MeasureBloodsugarActivity) activity;
     }
 
     @Override
@@ -34,12 +32,10 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter {
 
     @Override
     protected void discoverTargetDevice(BluetoothDevice device) {
-        mainActivity.updateData("发现设备成功");
     }
 
     @Override
     protected void connectSuccessed(List<BluetoothServiceDetail> serviceDetails) {
-        mainActivity.updateData("连接设备成功");
 //        List<BluetoothServiceDetail> cache = new ArrayList<>();
 //        for (BluetoothServiceDetail detail : serviceDetails) {
 //            List<BluetoothServiceDetail.CharacteristicBean> characteristics = detail.getCharacteristics();
