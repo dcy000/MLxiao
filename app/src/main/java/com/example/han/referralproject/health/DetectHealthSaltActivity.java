@@ -142,7 +142,7 @@ public class DetectHealthSaltActivity extends BaseActivity {
 
     @Override
     protected void backLastActivity() {
-        tvGoback.performLongClick();
+        tvGoback.performClick();
     }
 
     @Override
