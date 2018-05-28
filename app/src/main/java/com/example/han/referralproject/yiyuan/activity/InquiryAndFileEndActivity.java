@@ -25,6 +25,9 @@ public class InquiryAndFileEndActivity extends BaseActivity {
     ImageView tvToHomePage;
     @BindView(R.id.tv_exit)
     ImageView tvExit;
+    @BindView(R.id.textView9)
+    TextView textView9;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         String title = getIntent().getStringExtra(FROM_TAG);
         mTitleText.setText(title);
+        textView9.setText(title + "完成，请选择下一步操作");
 
     }
 

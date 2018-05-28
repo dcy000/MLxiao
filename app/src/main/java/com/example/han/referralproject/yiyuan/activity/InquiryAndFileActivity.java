@@ -40,7 +40,10 @@ public class InquiryAndFileActivity extends BaseActivity {
         setContentView(R.layout.activity_inquiry_and_file);
         ButterKnife.bind(this);
         initTitle();
+        mLeftText.setVisibility(View.GONE);
+        mLeftView.setVisibility(View.GONE);
     }
+
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
@@ -71,7 +74,7 @@ public class InquiryAndFileActivity extends BaseActivity {
                                 WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                                 if (reultBean.tag) {
                                     T.show("您已建档完毕");
-                                    MLVoiceSynthetize.startSynthesize(InquiryAndFileActivity.this,"您已建档完毕",false);
+                                    MLVoiceSynthetize.startSynthesize(InquiryAndFileActivity.this, "您已建档完毕", false);
                                 } else {
                                     startActivity(new Intent(InquiryAndFileActivity.this, BuildingRecordActivity.class));
                                 }
