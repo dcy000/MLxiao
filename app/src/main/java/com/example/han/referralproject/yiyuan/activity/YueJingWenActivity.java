@@ -35,6 +35,7 @@ public class YueJingWenActivity extends BaseActivity {
         setContentView(R.layout.activity_yue_jing_wen);
         ButterKnife.bind(this);
         initTilte();
+        speak("主人,请输入上一次月经结束的时间");
     }
 
     private void initTilte() {

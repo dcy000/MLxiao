@@ -64,7 +64,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您比普通 人耐受不了冰冷(冬天的冰冷,夏天的冷空调,电扇)吗?",
+    "requesionTitle": "您比普通人耐受不了冰冷(冬天的冰冷,夏天的冷空调,电扇)吗?",
     "requestionType": "平和质",
     "itemCount": 8,
     "score": 0
@@ -274,7 +274,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您比普通人不了冰冷,冬天的冰冷,夏天的冷空调,电扇等?",
+    "requesionTitle": "您比普通人耐受不了冰冷(冬天的冰冷,夏天的冷空调,电扇)吗?",
     "requestionType": "阳虚质",
     "itemCount": 7,
     "score": 0

@@ -32,6 +32,7 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         setContentView(R.layout.activity_inquiry_and_file_and);
         ButterKnife.bind(this);
         initTitle();
+        speak("主人,您可以选择进入主页或退出账号");
     }
 
     private void initTitle() {

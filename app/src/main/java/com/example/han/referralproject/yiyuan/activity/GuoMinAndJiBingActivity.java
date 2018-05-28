@@ -59,6 +59,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
         setContentView(R.layout.activity_guo_min_and_yao_wu);
         ButterKnife.bind(this);
         initTilte();
+        speak("主人,您是与否有过敏史和疾病史");
     }
 
 
