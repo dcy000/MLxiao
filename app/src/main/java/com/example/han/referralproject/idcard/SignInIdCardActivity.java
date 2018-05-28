@@ -791,7 +791,7 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private void onFaceRegisterSuccess() {
         Log.d(TAG, "onFaceRegisterSuccess: ");
-        uploadProfile(MyApplication.getInstance().userId, authId);
+        uploadProfile(MyApplication.getInstance().userId, "");
     }
 
     private void onFaceRegisterFailed() {
