@@ -224,11 +224,11 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
         bean2.name = GAOXUEYA_TIJIAN;
-        bean2.iconId = R.drawable.main_dialog_danxiangtijian;
+        bean2.iconId = R.drawable.main_dialog_xueya_tijian  ;
 
         MainTiZHiDialogBean bean3 = new MainTiZHiDialogBean();
         bean3.name = TANGNIAOBING_TIJIAN;
-        bean3.iconId = R.drawable.main_dialog_danxiangtijian;
+        bean3.iconId = R.drawable.main_dialog_tangniaobing;
 
         data.add(bean1);
         data.add(bean2);

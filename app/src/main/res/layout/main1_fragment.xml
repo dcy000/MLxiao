@@ -20,7 +20,7 @@
         android:layout_width="240pt"
         android:layout_height="240pt"
         android:layout_marginStart="89pt"
-        android:layout_marginTop="120pt"
+        android:layout_marginTop="100pt"
         android:src="@drawable/main_iv_head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
