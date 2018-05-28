@@ -1350,6 +1350,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         switch (type) {
                             case "xueya":
                                 Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                                intent4.putExtras(getIntent());
                                 intent4.putExtra("highPressure", mHighPressTv.getText().toString());
                                 intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
                                 intent4.putExtra("type", "xindian");
