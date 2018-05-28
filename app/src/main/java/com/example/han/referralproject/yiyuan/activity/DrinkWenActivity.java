@@ -46,6 +46,7 @@ public class DrinkWenActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTilte();
         initView();
+        speak("主人,请选择您本周内的饮酒情况");
     }
 
     private void initView() {

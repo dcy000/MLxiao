@@ -61,6 +61,12 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         mToolbar.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
         initView();
+        initTitle();
+    }
+
+    private void initTitle() {
+        mTitleText.setText("手机号码");
+        mToolbar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -192,8 +198,8 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
 
     private void navToNext(String phone) {
         Intent intent = new Intent();
-        intent.putExtra("phone",phone );
-        setResult(RESULT_OK,intent);
+        intent.putExtra("phone", phone);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
