@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -56,6 +57,7 @@ public class SignUp7HeightActivity extends BaseActivity {
         unbinder = ButterKnife.bind(this);
         initView();
         initTitle();
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {

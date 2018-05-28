@@ -13,6 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -134,6 +135,7 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
                         @Override
                         public void onSuccess(Response<String> response) {
                             Log.d("上传成功", "onSuccess: "+response.body());
+                            InquiryAndFileEndActivity.startMe(BuildingRecordActivity.this,"建档");
                         }
 
                         @Override

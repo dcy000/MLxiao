@@ -68,10 +68,10 @@ public class Main2Fragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shangcheng:
-                gotoShangCheng();
+                gotoWoDeDingDan();
                 break;
             case R.id.jiankangketang:
-                gotoJianKangKeTang();
+                gotoShangCheng();
                 break;
             case R.id.shezhi:
                 gotoSheZhi();
@@ -86,7 +86,7 @@ public class Main2Fragment extends Fragment {
                 gotoZhangHuChongZhi();
                 break;
             case R.id.wodedingdan:
-                gotoWoDeDingDan();
+
                 break;
 
         }
@@ -101,17 +101,7 @@ public class Main2Fragment extends Fragment {
     }
 
 
-    public void tuiChu() {
-        FragmentActivity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        MobclickAgent.onProfileSignOff();
-        NimAccountHelper.getInstance().logout();
-        LocalShared.getInstance(activity).loginOut();
-        activity.startActivity(new Intent(activity, YiYuanLoginActivity.class));
-        activity.finish();
-    }
+
 
     private void gotoSheZhi() {
         startActivity(new Intent(getActivity(), SettingActivity.class));
@@ -131,6 +121,18 @@ public class Main2Fragment extends Fragment {
 
     private void gotoJianKangKeTang() {
         startActivity(new Intent(getActivity(), VideoListActivity.class));
+    }
+
+    public void tuiChu() {
+        FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        MobclickAgent.onProfileSignOff();
+        NimAccountHelper.getInstance().logout();
+        LocalShared.getInstance(activity).loginOut();
+        activity.startActivity(new Intent(activity, YiYuanLoginActivity.class));
+        activity.finish();
     }
 
 

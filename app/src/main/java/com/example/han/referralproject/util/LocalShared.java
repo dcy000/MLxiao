@@ -650,4 +650,13 @@ public class LocalShared {
     public  String getHuaiYun() {
         return mShared.getString("xueyawen", "1");
     }
+
+    public void setIsDrinkOrNot(String isdrink) {
+        mShared.edit().putString("isdrink", isdrink).apply();
+    }
+
+
+    public String getIsDrinkOrNot() {
+       return mShared.getString("isdrink", "0");
+    }
 }

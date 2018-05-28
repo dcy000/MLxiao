@@ -142,7 +142,7 @@ public class DetectResultActivity extends BaseActivity {
         String sugar = intent.getStringExtra("sugar");
         sugar = TextUtils.isEmpty(sugar) ? "0.0" : sugar;
         detectResult.setBloodSugar(Float.parseFloat(sugar));
-        String url = NetworkApi.BasicUrl + "/api/health/inquiry/examination/";
+        String url = "http://118.31.73.176:8080/ZZB/api/health/inquiry/examination/";
         OkGo.<String>post(url).upJson(new Gson().toJson(detectResult)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
