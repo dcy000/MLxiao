@@ -42,7 +42,8 @@ public class BloodTypeFragment extends Fragment implements View.OnClickListener 
     private boolean[] switch_rh = new boolean[3];
     private String string_bloodType = "";
     private String string_rh = "";
-
+    private String[] index1=new String[]{"1","2","3","4","0"};
+    private String[] index2=new String[]{"1","2","0"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -134,8 +135,9 @@ public class BloodTypeFragment extends Fragment implements View.OnClickListener 
                     ((BuildingRecordActivity) getActivity()).speak(R.string.select_least_one);
                     return;
                 }
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setBloodType(string_bloodType);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setRhBlood(string_rh);
+
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setBloodType( MyArraysUtils.getIndex(string_bloodType,bloodType,index1));
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setRhBlood(MyArraysUtils.getIndex(string_rh,rh,index2));
 
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);

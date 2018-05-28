@@ -73,6 +73,11 @@ public class EnvironmentFragment extends Fragment implements View.OnClickListene
     private List<TextView> tv_yinshui;
     private List<TextView> tv_cesuo;
     private List<TextView> tv_qinchu;
+    private String[] index1=new String[]{"2","3","4","1"};
+    private String[] index2=new String[]{"1","2","3","4","5","6"};
+    private String[] index3=new String[]{"1","3","4","5","2","6"};
+    private String[] index4=new String[]{"1","3","4","5","2","6"};
+    private String[] index5=new String[]{"2","3","4","1"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -284,11 +289,11 @@ public class EnvironmentFragment extends Fragment implements View.OnClickListene
                     ((BuildingRecordActivity) getActivity()).speak(R.string.select_least_one);
                     return;
                 }
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setKitchenExhaust(paiqi_result);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setKitchenFuel(ranliao_result);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setWaterEnvironment(yinshui_result);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setToiletPosition(cesuo_result);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setLivestockBar(qinchu_result);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setKitchenExhaust(MyArraysUtils.getIndex(paiqi_result,paiqi,index1));
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setKitchenFuel(MyArraysUtils.getIndex(ranliao_result,ranliao,index2));
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setWaterEnvironment(MyArraysUtils.getIndex(yinshui_result,yinshui,index3));
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setToiletPosition(MyArraysUtils.getIndex(cesuo_result,cesuo,index4));
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setLivestockBar(MyArraysUtils.getIndex(qinchu_result,qinchu,index5));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }

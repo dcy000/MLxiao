@@ -37,7 +37,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
 
     private boolean[] switch_medica = new boolean[13];
     private String[] medica = new String[]{"高血压", "糖尿病", "冠心病", "恶性肿瘤", "慢性阻塞性肺疾病", "严重精神障碍", "脑卒中", "结核病", "肝炎", "职业病", "其他法定传染病", "其他", "无"};
-
+    private String[] index=new String[]{"2","3","4","6","5","8","7","9","10","12","11","13","1"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -222,7 +222,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                     return;
                 }
                 String allergic = MyArraysUtils.jointString(switch_medica, medica);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDiseasesHistory(allergic);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDiseasesHistory(MyArraysUtils.jointIndex(allergic,medica,index));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }

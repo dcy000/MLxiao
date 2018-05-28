@@ -1,5 +1,6 @@
 package com.example.han.referralproject.building_record;
 
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -44,6 +45,46 @@ public class MyArraysUtils {
             return buffer.substring(0, buffer.length() - 1);
         }
         return "";
+    }
+    public static String getIndex(String str, String[] targets, String[] indexs){
+        if (TextUtils.isEmpty(str)) {
+            return "字符串为空";
+        }
+        for (int i=0;i<targets.length;i++){
+            if (str.equals(targets[i])){
+                return indexs[i];
+            }
+        }
+        return indexs[0];
+    };
+    public static String jointIndex(String str, String[] targets, String[] indexs) {
+        if (TextUtils.isEmpty(str)) {
+            return "字符串为空";
+        }
+        if (!str.contains(",")) {
+            for (int i = 0; i < targets.length; i++) {
+                if (targets[i].equals(str)) {
+                    return indexs[i];
+                }
+            }
+        } else {
+            String[] split = str.split(",");
+            StringBuffer buffer = new StringBuffer();
+            if (split.length > 0) {
+                for (int i = 0; i < split.length; i++) {
+                    for (int j = 0; j < targets.length; j++) {
+                        if (split[i].equals(targets[j])) {
+                            buffer.append(indexs[j]=",");
+                        }
+                    }
+                }
+                if (buffer.length()>1){
+                    return buffer.substring(0,buffer.length()-1);
+                }
+            }
+            return "错误";
+        }
+        return indexs[0];
     }
 
     public static String resetSwitch(boolean[] switchs, String[] contents, List<TextView> textViews, int selectedPosition) {

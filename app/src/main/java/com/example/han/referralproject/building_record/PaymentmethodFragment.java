@@ -37,7 +37,7 @@ public class PaymentmethodFragment extends Fragment implements View.OnClickListe
     private boolean[] switch_pay = new boolean[8];
     private String[] pay = new String[]{"城镇职工基本医疗保险", "城镇居民基本医疗保险", "新型农村合作医疗 ", "贫困救助", "商业医疗保险", "全公费", "全自费", "其他"};
     private List<TextView> textViews;
-
+    private String[] index=new String[]{"1","2","3","4","5","6","7","8"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -127,7 +127,7 @@ public class PaymentmethodFragment extends Fragment implements View.OnClickListe
                     ((BuildingRecordActivity) getActivity()).speak(R.string.select_least_one);
                     return;
                 }
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setMedicalPayments(result);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setMedicalPayments(MyArraysUtils.getIndex(result,pay,index));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }

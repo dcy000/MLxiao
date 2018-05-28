@@ -46,6 +46,8 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
     private boolean[] switch_anaphylaxis = new boolean[5];
     private String[] radiations = new String[]{"化学品", "毒物", "射线", "无"};
     private boolean[] switch_radiations = new boolean[4];
+    private String[] index1 = new String[]{"2", "3", "4", "5", "1"};
+    private String[] index2 = new String[]{"2", "3", "4", "1"};
 
     @Nullable
     @Override
@@ -89,7 +91,7 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        ((BuildingRecordActivity) getActivity()). setDisableGlobalListen(true);
+        ((BuildingRecordActivity) getActivity()).setDisableGlobalListen(true);
         ((BuildingRecordActivity) getActivity()).speak("主人,请输入您的药物过敏史和暴露史");
     }
 
@@ -185,14 +187,16 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 }
                 break;
             case R.id.tv_sign_up_go_forward:
-                if (!MyArraysUtils.isContainTrue(switch_anaphylaxis)||!MyArraysUtils.isContainTrue(switch_radiations)) {
+                if (!MyArraysUtils.isContainTrue(switch_anaphylaxis) || !MyArraysUtils.isContainTrue(switch_radiations)) {
                     ((BuildingRecordActivity) getActivity()).speak(R.string.select_least_one);
                     return;
                 }
                 String allergic = MyArraysUtils.jointString(switch_anaphylaxis, anaphylaxis);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setMedicationAllergy(allergic);
+                String index_result = MyArraysUtils.jointIndex(allergic, anaphylaxis, index1);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setMedicationAllergy(index_result);
                 String radiction = MyArraysUtils.jointString(switch_radiations, radiations);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setExposureHistory(radiction);
+                String index2_result = MyArraysUtils.jointIndex(radiction, radiations, index2);
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setExposureHistory(index2_result);
 
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
