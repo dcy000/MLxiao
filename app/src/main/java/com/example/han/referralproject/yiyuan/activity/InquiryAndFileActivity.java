@@ -14,6 +14,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
@@ -70,6 +71,7 @@ public class InquiryAndFileActivity extends BaseActivity {
                                 WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                                 if (reultBean.tag) {
                                     T.show("您已建档完毕");
+                                    MLVoiceSynthetize.startSynthesize(InquiryAndFileActivity.this,"您已建档完毕",false);
                                 } else {
                                     startActivity(new Intent(InquiryAndFileActivity.this, BuildingRecordActivity.class));
                                 }

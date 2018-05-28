@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.DetectActivity;
@@ -37,6 +38,7 @@ import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -357,6 +359,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                             WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                             if (reultBean.tag) {
                                 T.show("您已建档完毕");
+                                MLVoiceSynthetize.startSynthesize(getContext(),"您已建档完毕",false);
                             } else {
                                 startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
                             }
