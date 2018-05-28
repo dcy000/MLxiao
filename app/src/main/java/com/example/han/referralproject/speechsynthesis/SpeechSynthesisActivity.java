@@ -627,28 +627,21 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             T.show(result);
             String inSpell = PinYinUtils.converterToSpell(result);
 
-            Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
-            Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
-            /*if (inSpell.matches(".*((xin|xing)dian).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "xindian"));
-                return;
-            }
-            if (inSpell.matches(".*(sanheyi|(xie|xue)(niao|liao)(suan|shuan)|dangu(chun|cun)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "sanheyi"));
-                return;
-            }*/
-            if (matcherWhenAlarm.find()) {
-                String am = matcherWhenAlarm.group(1);
-                String hourOfDay = matcherWhenAlarm.group(2);
-                String minute = matcherWhenAlarm.group(3);
-                AlarmHelper.setupAlarm(SpeechSynthesisActivity.this.getApplicationContext(),
-                        am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
-                        Integer.valueOf(minute));
-                String tip = String.format(Locale.CHINA,
-                        "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
-                speak(tip, isDefaultParam);
-                return;
-            }
+//            Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
+//            Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
+
+//            if (matcherWhenAlarm.find()) {
+//                String am = matcherWhenAlarm.group(1);
+//                String hourOfDay = matcherWhenAlarm.group(2);
+//                String minute = matcherWhenAlarm.group(3);
+//                AlarmHelper.setupAlarm(SpeechSynthesisActivity.this.getApplicationContext(),
+//                        am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
+//                        Integer.valueOf(minute));
+//                String tip = String.format(Locale.CHINA,
+//                        "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
+//                speak(tip, isDefaultParam);
+//                return;
+//            }
 
             if (inSpell.matches(".*gengxin.*")) {
                 showLoadingDialog("检查更新中");
@@ -678,8 +671,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+//            if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
+//                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
 //                    @Override
 //                    public void onSuccess(UserInfo response) {
@@ -704,13 +697,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //
 //                    }
 //                });
-                return;
-            }
+//                return;
+//            }
 
-            if (inSpell.matches(".*yinyue.*")) {
-                OldRouter.routeToOldMusicActivity(this);
-                return;
-            }
+//            if (inSpell.matches(".*yinyue.*")) {
+//                OldRouter.routeToOldMusicActivity(this);
+//                return;
+//            }
 
             if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
@@ -725,17 +718,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                return;
 //            }
 
-            if (inSpell.matches(".*xiaoxi.*")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
-                startActivity(intent);
-                return;
-            }
+//            if (inSpell.matches(".*xiaoxi.*")) {
+//                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
+//                startActivity(intent);
+//                return;
+//            }
 
-            if (inSpell.matches(".*(guangbo|diantai|shouyinji).*")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, RadioActivity.class);
-                startActivity(intent);
-                return;
-            }
+//            if (inSpell.matches(".*(guangbo|diantai|shouyinji).*")) {
+//                Intent intent = new Intent(SpeechSynthesisActivity.this, RadioActivity.class);
+//                startActivity(intent);
+//                return;
+//            }
 
 //            if (inSpell.matches(".*gerenzhongxin.*")
 //                    || inSpell.matches(".*gerenshezhi.*")) {
@@ -743,17 +736,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                return;
 //            }
 
-            if (inSpell.matches("yishengjianyi")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
-                startActivity(intent);
-                return;
-            }
+//            if (inSpell.matches("yishengjianyi")) {
+//                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
+//                startActivity(intent);
+//                return;
+//            }
 
-            if (inSpell.matches(REGEX_SET_ALARM)) {
-                Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
-                startActivity(intent);
-                return;
-            }
+//            if (inSpell.matches(REGEX_SET_ALARM)) {
+//                Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
+//                startActivity(intent);
+//                return;
+//            }
             if (inSpell.matches(REGEX_SEE_DOCTOR)) {
                 DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(this).getUserName(),
@@ -768,34 +761,34 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiemu|shipin|dianshi).*")) {
-                VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
-                return;
-            }
-            if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
-                VideoListActivity.launch(SpeechSynthesisActivity.this, 1);
-                return;
-            }
-            if (inSpell.matches(".*(shenghuozhushou).*")) {
-                VideoListActivity.launch(SpeechSynthesisActivity.this, 2);
-                return;
-            }
-            if (inSpell.matches(".*(donghuapian|dongman).*")) {
-                VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
-                return;
-            }
+//            if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiemu|shipin|dianshi).*")) {
+//                VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
+//                return;
+//            }
+//            if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
+//                VideoListActivity.launch(SpeechSynthesisActivity.this, 1);
+//                return;
+//            }
+//            if (inSpell.matches(".*(shenghuozhushou).*")) {
+//                VideoListActivity.launch(SpeechSynthesisActivity.this, 2);
+//                return;
+//            }
+//            if (inSpell.matches(".*(donghuapian|dongman).*")) {
+//                VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
+//                return;
+//            }
             if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
                 gotoQianyueYiSheng();
                 return;
             }
-            if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
-                return;
-            }
-            if (inSpell.matches(".*(yi(shen|sheng|seng)|dadianhua|(zi|zhi)xun).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
-                return;
-            }
+//            if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
+//                return;
+//            }
+//            if (inSpell.matches(".*(yi(shen|sheng|seng)|dadianhua|(zi|zhi)xun).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DoctorAskGuideActivity.class));
+//                return;
+//            }
             /*if (inSpell.matches(".*(gaoxueya).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "高血压"));
@@ -815,62 +808,62 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 voiceNormal.performClick();
             }
 
-            if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "冠心病"));
-            }
-            if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "支气管哮喘"));
-            }
-            if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "肝硬化"));
-            }
-            if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "糖尿病"));
-            }
-            if (inSpell.matches(".*(tongfeng).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "痛风"));
-            }
-            if (inSpell.matches(".*(changweiyan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "肠胃炎"));
-            }
-            if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "急性上呼吸道感染"));
-            }
-            if (inSpell.matches(".*(xinbaoyan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "心包炎"));
-            }
-            if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "贫血"));
-            }
-            if (inSpell.matches(".*(feiyan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "肺炎"));
-            }
-            if (inSpell.matches(".*(di(xie|xue)tang).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "低血糖"));
-            }
-            if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "脑出血"));
-            }
-            if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "肺栓塞"));
-            }
-            if (inSpell.matches(".*(dianxian).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "癫痫"));
-            }
+//            if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "冠心病"));
+//            }
+//            if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "支气管哮喘"));
+//            }
+//            if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "肝硬化"));
+//            }
+//            if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "糖尿病"));
+//            }
+//            if (inSpell.matches(".*(tongfeng).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "痛风"));
+//            }
+//            if (inSpell.matches(".*(changweiyan).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "肠胃炎"));
+//            }
+//            if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "急性上呼吸道感染"));
+//            }
+//            if (inSpell.matches(".*(xinbaoyan).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "心包炎"));
+//            }
+//            if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "贫血"));
+//            }
+//            if (inSpell.matches(".*(feiyan).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "肺炎"));
+//            }
+//            if (inSpell.matches(".*(di(xie|xue)tang).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "低血糖"));
+//            }
+//            if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "脑出血"));
+//            }
+//            if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "肺栓塞"));
+//            }
+//            if (inSpell.matches(".*(dianxian).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "癫痫"));
+//            }
             boolean dealKeyWord = keyWordDeal(inSpell);
             if (dealKeyWord) {
                 return;
@@ -942,14 +935,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
+            }
 
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
-                startActivity(intent);
-
-
-            } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
+//            else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
+//
+//                mIatDialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
+//                startActivity(intent);
+//
+//
+//            }
+            else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
                     T.show("请先查看是否与签约医生签约成功");
@@ -960,7 +956,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
 
 
-            } else if (inSpell.matches(".*dashengyin.*")
+            }
+            else if (inSpell.matches(".*dashengyin.*")
                     || inSpell.matches(".*dayinliang.*")
                     || inSpell.matches(".*dashengdian.*")
                     || inSpell.matches(".*dadiansheng.*")

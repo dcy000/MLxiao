@@ -304,6 +304,10 @@ public class AuthenticationActivity extends BaseActivity {
         //工厂测试专用
         isTest = getIntent().getBooleanExtra("isTest", false);
         init();
+        if (!"Pay".equals(fromString)) {
+            mTiaoguo.performClick();
+            return;
+        }
         openCameraPreview();
         if (isTest) {
             openAnimation();
