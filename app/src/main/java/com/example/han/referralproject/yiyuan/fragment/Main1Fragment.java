@@ -366,7 +366,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.putExtra("detectCategory", "detectSugar");
             startActivity(intent);
         }
-        dialog.dismiss();
+
 
     }
 

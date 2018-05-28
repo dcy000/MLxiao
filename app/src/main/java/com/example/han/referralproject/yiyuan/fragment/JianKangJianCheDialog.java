@@ -66,6 +66,7 @@ public class JianKangJianCheDialog extends DialogFragment {
     private void clickItem(String itemName) {
         if (listener != null) {
             listener.onJianceItemClick(itemName);
+            dismiss();
         }
     }
 
