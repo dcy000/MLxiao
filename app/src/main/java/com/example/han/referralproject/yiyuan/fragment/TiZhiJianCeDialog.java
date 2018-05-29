@@ -100,8 +100,8 @@ public class TiZhiJianCeDialog extends DialogFragment {
                 }
             });
             holder.tvItem.setText(bean.name);
-            Glide.with(holder.icon.getContext()).load(bean.iconId).into(holder.icon);
-
+//            Glide.with(holder.icon.getContext()).load(bean.iconId).into(holder.icon);
+            holder.icon.setBackgroundResource(bean.iconId);
         }
 
         @Override

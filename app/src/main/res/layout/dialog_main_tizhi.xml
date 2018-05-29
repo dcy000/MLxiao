@@ -12,7 +12,7 @@
         android:layout_width="190dp"
         android:layout_height="190dp"
         android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/__leak_canary_icon" />
+       />
     <TextView
         android:layout_marginTop="10dp"
         tools:text="体检流程"

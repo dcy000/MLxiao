@@ -17,11 +17,12 @@
             android:layout_marginLeft="40pt">
 
             <ImageView
+                android:background="@drawable/main_dialog_danxiangtijian_set"
                 android:id="@+id/iv_danxiang_tijian"
                 android:layout_width="380pt"
                 android:layout_height="380pt"
                 android:layout_marginTop="213pt"
-                android:src="@drawable/main_dialog_danxiangtijian" />
+              />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
                 android:layout_width="380pt"
                 android:layout_height="380pt"
                 android:layout_marginTop="213pt"
-                android:src="@drawable/main_dialog_jiankang_tijian" />
+                android:background="@drawable/main_dialog_jiankang_tijian_set" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,7 +72,7 @@
                 android:layout_width="380pt"
                 android:layout_height="380pt"
                 android:layout_marginTop="213pt"
-                android:src="@drawable/main_dialog_xueya_tijian" />
+                android:background="@drawable/main_dialog_xueya_tijian_set" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -99,7 +100,7 @@
                 android:layout_alignBottom="@+id/textView14"
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="30dp"
-                android:src="@drawable/main_dialog_tangniaobing" />
+                android:background="@drawable/main_dialog_tangniaobing_set" />
 
             <TextView
                 android:layout_width="wrap_content"

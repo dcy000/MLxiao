@@ -8,12 +8,11 @@
 
     <ImageView
         android:id="@+id/login_idcard"
-        android:layout_width="456pt"
-        android:layout_height="288pt"
-        android:src="@drawable/login_sfz"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_width="652pt"
+        android:layout_height="412pt"
+        android:layout_marginStart="634pt"
+        android:layout_marginTop="337pt"
+        android:src="@drawable/login_sfz_set"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

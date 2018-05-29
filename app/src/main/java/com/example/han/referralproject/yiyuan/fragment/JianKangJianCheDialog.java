@@ -90,10 +90,10 @@ public class JianKangJianCheDialog extends DialogFragment {
     }
 
     private void initView() {
-        Glide.with(this).load(data.get(0).iconId).into(jiankangTijian);
-        Glide.with(this).load(data.get(1).iconId).into(gaoxueyaTijian);
-        Glide.with(this).load(data.get(2).iconId).into(tangniaobingTijian);
-        Glide.with(this).load(data.get(3).iconId).into(ivDanxiangTijian);
+//        Glide.with(this).load(data.get(0).iconId).into(jiankangTijian);
+//        Glide.with(this).load(data.get(1).iconId).into(gaoxueyaTijian);
+//        Glide.with(this).load(data.get(2).iconId).into(tangniaobingTijian);
+//        Glide.with(this).load(data.get(3).iconId).into(ivDanxiangTijian);
     }
 
     @Override

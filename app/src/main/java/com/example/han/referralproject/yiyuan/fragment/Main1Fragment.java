@@ -156,15 +156,18 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         }
     }
 
+    /**
+     * 问诊建档 数据
+     */
     private void showWenZhenJianDangDialog() {
         data.clear();
         MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
         bean1.name = "问诊";
-        bean1.iconId = R.drawable.main_dialog_wenzhen;
+        bean1.iconId = R.drawable.main_dialog_wenzhen_set;
 
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
         bean2.name = "建档";
-        bean2.iconId = R.drawable.main_dialog_jiandang;
+        bean2.iconId = R.drawable.main_dialog_jiandang_set;
 
         data.add(bean1);
         data.add(bean2);
@@ -187,15 +190,19 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
     }
 
+    /**
+     * 健康档案 数据
+     * @return
+     */
     private List<MainTiZHiDialogBean> getJiankangDangAnData() {
         data.clear();
         MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
         bean1.name = GEREN_XINXI;
-        bean1.iconId = R.drawable.main_dialog_gere_xinxi;
+        bean1.iconId = R.drawable.main_dialog_gere_xinxi_set;
 
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
         bean2.name = CELIANG_JILU;
-        bean2.iconId = R.drawable.main_dialog_celiang_jilu;
+        bean2.iconId = R.drawable.main_dialog_celiang_jilu_set;
 
         data.add(bean1);
         data.add(bean2);
@@ -206,21 +213,29 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         startActivity(new Intent(getActivity(), InquiryAndFileActivity.class));
     }
 
+    /**
+     * 症状自查 数据
+     * @return
+     */
     private List<MainTiZHiDialogBean> getZiChaData() {
         data.clear();
         MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
         bean1.name = ZHENGZHUANG_ZICHA;
-        bean1.iconId = R.drawable.main_dialog_zicha;
+        bean1.iconId = R.drawable.main_dialog_zicha_set;
 
         MainTiZHiDialogBean bean2 = new MainTiZHiDialogBean();
         bean2.name = ZHONGYI_TIZHI;
-        bean2.iconId = R.drawable.main_dialog_tizhi;
+        bean2.iconId = R.drawable.main_dialog_tizhi_set;
 
         data.add(bean1);
         data.add(bean2);
         return data;
     }
 
+    /**
+     * 健康监测 数据
+     * @return
+     */
     private List<MainTiZHiDialogBean> getTiJianData() {
         data.clear();
         MainTiZHiDialogBean bean1 = new MainTiZHiDialogBean();
