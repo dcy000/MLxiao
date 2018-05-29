@@ -3,6 +3,7 @@ package com.example.han.referralproject.yiyuan.activity;
 import cn.qqtheme.framework.picker.DatePicker;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -113,6 +114,10 @@ public class YueJingWenActivity extends BaseActivity {
                 picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
             }
         });
+
+
+        picker.setTextColor(Color.parseColor("#ff333333"));
+        picker.setTextSize(40);
         picker.show();
     }
 
@@ -134,6 +139,8 @@ public class YueJingWenActivity extends BaseActivity {
 //        });
 //        picker.show();
 //    }
+
+
 
 
 }
