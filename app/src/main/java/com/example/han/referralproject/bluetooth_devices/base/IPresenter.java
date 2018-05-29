@@ -54,35 +54,9 @@ public interface IPresenter {
      */
     int DEVICE_CONNECT_FAIL=17;
     /**
-     * 测量类型标识
+     * 检查蓝牙是否已开
      */
-    String MEASURE_TYPE="measure_type";
-    int MEASURE_NULL=-1;
-    /**
-     * 体温测量
-     */
-    int MEASURE_TEMPERATURE=21;
-    /**
-     * 血压测量
-     */
-    int MEASURE_BLOOD_PRESSURE=22;
-    /**
-     * 血糖测量
-     */
-    int MEASURE_BLOOD_SUGAR=23;
-    /**
-     * 血氧测量
-     */
-    int MEASURE_BLOOD_OXYGEN=24;
-    /**
-     * 体重测量
-     */
-    int MEASURE_WEIGHT=25;
-    /**
-     * 三合一等其他设备
-     */
-    int MEASURE_OTHERS=26;
-
+    void checkBlueboothOpened();
     /**
      * 搜索设备
      */
@@ -94,11 +68,10 @@ public interface IPresenter {
     void connectDevice();
 
     /**
-     * 状态发生改变
-     * @param state
+     * 连接其他设备
+     * @param setting
      */
-    void stateChanged(int state);
-
-    void onDestroy();
     void connectOtherDevice(DiscoverDevicesSetting setting);
+    void onDestroy();
 }
+

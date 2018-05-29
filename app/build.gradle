@@ -186,4 +186,6 @@ dependencies {
     compile project(':unit')
     compile 'com.inuker.bluetooth:library:1.4.0'
     compile files('libs/sn_care_sdk.jar')
+    //微测血糖仪
+    compile (name: 'vivachek-ble-sdk-1.0.0', ext: 'aar')
 }

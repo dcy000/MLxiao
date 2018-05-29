@@ -20,27 +20,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseBluetoothPresenter implements IPresenter {
-
+    /**
+     * 搜索的基本配置（搜索方式和对应的目标）
+     */
     protected static DiscoverDevicesSetting discoverSetting;
+    /**
+     * 搜索到的目标设备实体
+     */
     protected static BluetoothDevice lockedDevice;
+    private SearchRequest request;
+    private boolean isOnSearching = false;
+    private static String targetName;
+    private static String targetAddress;
 
     public BaseBluetoothPresenter(DiscoverDevicesSetting discoverSetting) {
         super();
         this.discoverSetting = discoverSetting;
+        checkBlueboothOpened();
+    }
+
+    @Override
+    public void checkBlueboothOpened() {//蓝牙相关权限可在这里进行检查
+        if (!ClientManager.getClient().isBluetoothOpened()) {
+            ClientManager.getClient().openBluetooth();
+        }
+        request = setSearchRequest();
         searchDevices();
     }
 
     @Override
     public void searchDevices() {
-        if (!ClientManager.getClient().isBluetoothOpened()) {
-            ClientManager.getClient().openBluetooth();
+        if (request == null) {
+            ToastTool.showShort("请配置搜索参数");
+            return;
         }
-        SearchRequest request = new SearchRequest.Builder()
-                .searchBluetoothLeDevice(5000, 2).build();
         ClientManager.getClient().search(request, new SearchResponse() {
             @Override
             public void onSearchStarted() {
-                stateChanged(START_SEARCH_DEVICE);
+                targetAddress = discoverSetting.getTargetMac();
+                targetName = discoverSetting.getTargetName();
+                isOnSearching = true;
+                startDiscoverDevices();
             }
 
             @Override
@@ -48,37 +68,47 @@ public abstract class BaseBluetoothPresenter implements IPresenter {
                 if (searchResult == null) {
                     return;
                 }
-                Log.v("发现设备", "onDeviceFounded: " + searchResult.getName() + "--" + searchResult.getAddress() + "---信号强度：" + searchResult.rssi);
+                String name = searchResult.getName();
+                String address = searchResult.getAddress();
+                Log.v("发现设备", "onDeviceFounded: " + name + "--" + address + "---信号强度：" + searchResult.rssi);
                 if (discoverSetting != null) {
                     switch (discoverSetting.getDiscoverType()) {
                         case DISCOVER_WITH_MAC:
-                            String targetMac = discoverSetting.getTargetMac();
-                            if (TextUtils.isEmpty(targetMac)) {
+                            if (TextUtils.isEmpty(targetAddress)) {
                                 ToastTool.showShort("请设置目标mac地址");
                                 return;
                             }
-                            if (searchResult.getAddress().equals(targetMac)) {
+                            if (address.equals(targetAddress)) {
                                 ClientManager.getClient().stopSearch();
+                                isOnSearching = false;
                                 lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
-                                stateChanged(DEVICE_FOUNDED);
-                                discoverTargetDevice(lockedDevice);
+//                                stateChanged(DEVICE_FOUNDED);
+                                discoveredTargetDevice(lockedDevice);
                             }
                             break;
                         case DISCOVER_WITH_NAME:
-                            String targetName = discoverSetting.getTargetName();
                             if (TextUtils.isEmpty(targetName)) {
                                 ToastTool.showShort("请设置目标蓝牙名称");
+                                return;
                             }
-                            if (searchResult.getName().equals(targetName)) {
+                            if (!TextUtils.isEmpty(name) && name.equals(targetName)) {
                                 ClientManager.getClient().stopSearch();
+                                isOnSearching = false;
                                 lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
-                                stateChanged(DEVICE_FOUNDED);
-                                discoverTargetDevice(lockedDevice);
+                                discoveredTargetDevice(lockedDevice);
                             }
                             break;
                         case DISCOVER_WITH_ALL:
-                            stateChanged(DEVICE_FOUNDED);
-                            discoverNewDevices(searchResult);
+                            if (TextUtils.isEmpty(discoverSetting.getTargetMac()) && TextUtils.isEmpty(discoverSetting.getTargetName())) {
+                                ToastTool.showShort("请配置搜索参数");
+                                return;
+                            }
+                            if (!TextUtils.isEmpty(name)) {
+                                if (name.equals(targetName) || address.equals(targetAddress)) {
+                                    discoverNewDevices(new BluetoothDevice(DEVICE_INITIAL, searchResult));
+                                }
+                            }
+
                             break;
                     }
                 } else {
@@ -89,14 +119,14 @@ public abstract class BaseBluetoothPresenter implements IPresenter {
             @Override
             public void onSearchStopped() {
                 if (lockedDevice == null) {
-                    stateChanged(DEVICE_UNFOUNDED);
+                    unDiscoveredTargetDevice();
                 }
-                stateChanged(Constants.SEARCH_STOP);
+                isOnSearching = false;
+                stopDiscoverDevices();
             }
 
             @Override
             public void onSearchCanceled() {
-                stateChanged(CANCEL_SEARCH_DEVICE);
             }
         });
 
@@ -120,6 +150,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter {
             @Override
             public void onResponse(int code, BleGattProfile profile) {
                 if (code == Constants.REQUEST_SUCCESS) {
+                    lockedDevice.setCurrentState(DEVICE_CONNECTED);
                     List<BleGattService> services = profile.getServices();
                     if (services != null && services.size() > 0) {
                         List<BluetoothServiceDetail> details = new ArrayList<>();
@@ -166,7 +197,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter {
 
                 } else {
                     lockedDevice.setCurrentState(DEVICE_CONNECT_FAIL);
-                    stateChanged(DEVICE_CONNECT_FAIL);
                     connectFailed();
                 }
             }
@@ -177,14 +207,9 @@ public abstract class BaseBluetoothPresenter implements IPresenter {
             public void onConnectStatusChanged(String s, int i) {
                 switch (i) {
                     case Constants.STATUS_CONNECTED:
-                        if (lockedDevice != null) {
-                            lockedDevice.setCurrentState(DEVICE_CONNECTED);
-                        }
-                        stateChanged(DEVICE_CONNECTED);
                         break;
                     case Constants.STATUS_DISCONNECTED:
-                        lockedDevice = null;
-                        stateChanged(DEVICE_DISCONNECTED);
+                        disConnected();
                         break;
 
                 }
@@ -200,46 +225,65 @@ public abstract class BaseBluetoothPresenter implements IPresenter {
             lockedDevice = null;
         }
         this.discoverSetting = setting;
+        request=setSearchRequest();
+        searchDevices();
+    }
+
+    /**
+     * @param
+     */
+    protected void retryConnect() {
+        request = setRetrySearchRequest();
         searchDevices();
     }
 
     @Override
     public void onDestroy() {
-        if (lockedDevice != null) {
+        if (isOnSearching) {
+            ClientManager.getClient().stopSearch();
+        }
+        if (lockedDevice != null && lockedDevice.getCurrentState() == DEVICE_CONNECTED) {
             ClientManager.getClient().disconnect(lockedDevice.getSearchResult().getAddress());
+            lockedDevice = null;
         }
     }
 
-    /**
-     * 连接目标设备成功
-     *
-     * @param serviceDetails
-     */
+    protected SearchRequest setSearchRequest() {
+        return request = new SearchRequest.Builder()
+                .searchBluetoothLeDevice(5000, 2)
+                .build();
+    }
+
+    protected SearchRequest setRetrySearchRequest() {
+        return new SearchRequest.Builder().searchBluetoothLeDevice(5 * 60 * 1000).build();
+    }
+
+    protected void startDiscoverDevices() {
+    }
+
+    protected void discoveredTargetDevice(BluetoothDevice device) {
+        connectDevice();
+    }
+
+    protected void unDiscoveredTargetDevice() {
+
+    }
+
     protected void connectSuccessed(List<BluetoothServiceDetail> serviceDetails) {
     }
 
-    /**
-     * 连接目标设备失败
-     */
     protected void connectFailed() {
-
     }
 
-    /**
-     * 发现目标设备
-     *
-     * @param device
-     */
-    protected void discoverTargetDevice(BluetoothDevice device) {
+    protected void stopDiscoverDevices() {
     }
 
-    /**
-     * 在设置时间内每新发现一个设备回掉该方法一次,设备可能被重复发现
-     *
-     * @param newDevice
-     */
-    protected void discoverNewDevices(SearchResult newDevice) {
+    protected void disConnected() {
+        retryConnect();
     }
 
+    protected void discoverNewDevices(BluetoothDevice newDevice) {
+
+    }
 }
 

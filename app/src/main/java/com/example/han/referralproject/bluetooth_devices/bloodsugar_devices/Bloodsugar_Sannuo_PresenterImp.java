@@ -60,7 +60,6 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                                 SearchResult searchResult = new SearchResult(blueToothInfo.getDevice(), blueToothInfo.getRssi(), null);
                                 lockedDevice.setSearchResult(searchResult);
                                 lockedDevice.setCurrentState(IPresenter.DEVICE_INITIAL);
-                                stateChanged(DEVICE_FOUNDED);
                             }
                             break;
                         case IPresenter.DISCOVER_WITH_NAME:
@@ -73,7 +72,6 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                                 SearchResult searchResult = new SearchResult(blueToothInfo.getDevice(), blueToothInfo.getRssi(), null);
                                 lockedDevice.setSearchResult(searchResult);
                                 lockedDevice.setCurrentState(IPresenter.DEVICE_INITIAL);
-                                stateChanged(DEVICE_FOUNDED);
                             }
                             break;
                         case IPresenter.DISCOVER_WITH_ALL:
@@ -152,9 +150,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                 if (snMainHandler.isUnSupport()) {
                     ToastTool.showShort("手机设备不支持低功耗蓝牙，无法连接血糖仪");
                 } else if (snMainHandler.isConnected()) {//
-                    stateChanged(DEVICE_CONNECTED);
                 } else if (snMainHandler.isIdleState() || snMainHandler.isDisconnecting()) {
-                    stateChanged(DEVICE_CONNECTED);
                 }
             } else if (SN_MainHandler.ACTION_SN_ERROR_STATE.equals(action)) {
                 Bundle bundle = intent.getExtras();
@@ -198,31 +194,6 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
         intentFilter.addAction(SN_MainHandler.ACTION_SN_ERROR_STATE);
         intentFilter.addAction(SN_MainHandler.ACTION_SN_MC_STATE);
         return intentFilter;
-    }
-
-    @Override
-    public void stateChanged(int state) {
-        switch (state) {
-            case DEVICE_FOUNDED://发现目标设备
-                connectDevice();
-                break;
-            case DEVICE_UNFOUNDED://未发现目标设备
-                fragment.updateState("未发现目标设备");
-                break;
-            case DEVICE_CONNECTED://设备连接成功
-                lockedDevice.setCurrentState(DEVICE_CONNECTED);
-                fragment.updateState("设备已连接");
-                break;
-            case DEVICE_CONNECT_FAIL://设备连接失败
-                lockedDevice.setCurrentState(DEVICE_CONNECT_FAIL);
-                fragment.updateState("设备连接失败");
-                break;
-            case DEVICE_DISCONNECTED://设备连接断开
-                lockedDevice.setCurrentState(DEVICE_INITIAL);
-                fragment.updateState("设备已断开");
-                break;
-
-        }
     }
 
     @Override
