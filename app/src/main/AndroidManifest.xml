@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.han.referralproject"
-          tools:overrideLibrary="com.witspring.mlrobot">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.han.referralproject"
+    tools:overrideLibrary="com.witspring.mlrobot">
 
-    <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64"/>
+    <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64" />
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
-    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
     <permission
         android:name="com.example.han.referralproject.permission.RECEIVE_MSG"
-        android:protectionLevel="signature"/>
+        android:protectionLevel="signature" />
     <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
-    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG"/>
-    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
+    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
-        android:required="true"/>
+        android:required="true" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- 读取网络信息状态 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- 相机 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
     <!-- 蓝牙 -->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <!-- 网络 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 录音 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- 震动权限 -->
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 访问网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 访问WIFI状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 访问精确定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 读取手机状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 写入外部存储 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 读取外部存储 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 安装卸载文件系统 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 修改音频设置 -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <!-- 读取启动设置 -->
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <!-- 唤醒锁屏，音视频通话所需 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 开机自启动 -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 悬浮窗权限 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <!-- Bugly -->
-    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name=".application.MyApplication"
@@ -86,7 +86,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
-        <service android:name=".new_music.MusicService"/>
+        <service android:name=".new_music.MusicService" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -95,12 +95,12 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_normal"/>
+            android:value="gcml_version_normal" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -108,12 +108,12 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION"/> <!-- Required  用户注册SDK的intent -->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/> <!-- Required  用户接收SDK消息的intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/> <!-- Required  用户接收SDK通知栏信息的intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/> <!-- Required  用户打开自定义通知栏的intent -->
-                <action android:name="cn.jpush.android.intent.CONNECTION"/> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.example.han.referralproject"/>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.example.han.referralproject" />
             </intent-filter>
         </receiver>
 
@@ -133,64 +133,64 @@
 
         <activity
             android:name=".temperature.TemperatureActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.WifiConnectActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AgreementActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.PreviousHistoryActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.MessageActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".xindian.ReceiveService"
-            android:enabled="true"/>
+            android:enabled="true" />
 
         <activity
             android:name=".xindian.ConnectActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".xindian.ReceiveService"
-            android:enabled="true"/>
+            android:enabled="true" />
 
         <activity
             android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".PlayVideoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xuetang.XuetangActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xueyang.XueyangActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".bluetooth.BluetoothLeService"
-            android:enabled="true"/>
+            android:enabled="true" />
 
         <activity
             android:name=".speechsynthesis.SpeechSynthesisActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.OfflineActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.RecoDocActivity"
             android:screenOrientation="landscape">
@@ -209,159 +209,158 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.HOME"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Test_mainActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".xueya.AttentionActivity"
             android:largeHeap="true"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.AuthenticationActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".login.PerInfoActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".xindian.XindianActivity"/>
+            android:screenOrientation="landscape" />
+        <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
             android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recyclerview.DoctorMesActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".video.MainVideoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".video.PlayVideoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".personal.PersonActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <service
             android:name="com.medlink.danbogh.alarm.AlarmService"
-            android:enabled="true"/>
+            android:enabled="true" />
 
         <receiver android:name="com.medlink.danbogh.alarm.AlarmReceiver">
             <intent-filter>
-                <action android:name="com.medlink.intent.Alarm"/>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="com.medlink.intent.Alarm" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <activity
             android:name="com.medlink.danbogh.alarm.AlarmList2Activity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.alarm.AlarmDetail2Activity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.alarm.AlarmActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SymptomAnalyseActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SymptomAnalyseResultActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.AppraiseActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.HeadiconActivity"
             android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recyclerview.DoctorappoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.AddAppoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp2GenderActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp3AddressActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp4IdCardActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustNothing"/>
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp5MobileVerificationActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp6PasswordActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
             android:screenOrientation="landscape"
-            android:taskAffinity="com.ml.wenzhen"
-            />
+            android:taskAffinity="com.ml.wenzhen" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp8WeightActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp9BloodTypeActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp10EatActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp11SmokeActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp12DrinkActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp13SportsActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recharge.PayActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recharge.PayInfoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <meta-data
             android:name="com.netease.nim.appKey"
-            android:value="a114ad1e5d86c2d3fa83d2a15bbc29cc"/>
+            android:value="a114ad1e5d86c2d3fa83d2a15bbc29cc" />
         <!-- 声明网易云通信后台服务，如需保持后台推送，使用独立进程效果会更好。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
-            android:process=":core"/>
+            android:process=":core" />
         <!-- 运行后台辅助服务 -->
         <service
             android:name="com.netease.nimlib.service.NimService$Aux"
-            android:process=":core"/>
+            android:process=":core" />
         <!-- 声明网易云通信后台辅助服务 -->
         <service
             android:name="com.netease.nimlib.job.NIMJobService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":core"/>
+            android:process=":core" />
         <!--
              网易云通信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
             保持和 NimService 同一进程
@@ -371,170 +370,170 @@
             android:exported="false"
             android:process=":core">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <!-- 网易云通信进程间通信 Receiver -->
-        <receiver android:name="com.netease.nimlib.service.ResponseReceiver"/>
+        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
         <!-- 网易云通信进程间通信service -->
-        <service android:name="com.netease.nimlib.service.ResponseService"/>
+        <service android:name="com.netease.nimlib.service.ResponseService" />
 
         <receiver android:name="com.medlink.danbogh.call2.InComingCallReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE"/>
+                <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
 
         <activity
             android:name="com.medlink.danbogh.call2.NimCallActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="MDMGtSWAjuIlCSQE7lkYbAHzKos6PNIG"/>
+            android:value="MDMGtSWAjuIlCSQE7lkYbAHzKos6PNIG" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
 
         <activity
             android:name="com.medlink.danbogh.alarm.ReminderActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DiseaseDetailsActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.location.LocationActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.ConfirmContractActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".video.VideoListActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".shopping.ShopListActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".shopping.GoodDetailActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.MyBaseDataActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SymptomsActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.BodychartActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".shopping.OrderListActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.OnlineDoctorListActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".recyclerview.DoctorAskGuideActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.signin.SignInActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.medlink.danbogh.signin.FindPasswordActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.medlink.danbogh.signin.SetPasswordActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
 
         <service
             android:name=".floatingball.AssistiveTouchService"
-            android:process=":serviceY"/>
-        <service android:name=".floatball.MyService"/>
+            android:process=":serviceY" />
+        <service android:name=".floatball.MyService" />
 
         <activity
             android:name=".recyclerview.DoctorAlarmActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertHeightActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertWeightActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertSportActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertSmokeActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertEatingActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertDrinkingActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SelectXuetangTimeActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.HistoryActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.CheckContractActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.MarketActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertMHActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.AlertAddressActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".new_music.MusicPlayActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ChooseLoginTypeActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".measure.InstructionsActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".measure.OnMeasureActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".measure.MeasureXueyaResultActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".measure.MeasureXuetangResultActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".radio.RadioActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".video.TheOldVideoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <!-- <activity android:name=".measure.TestActivity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -545,40 +544,40 @@
         <!-- </activity> -->
         <activity
             android:name=".children.ChildEduHomeActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".children.cartoon.ChildEduCartoonActivity"/>
-        <activity android:name=".children.entertainment.ChildEduEntertainmentActivity"/>
-        <activity android:name=".children.study.ChildEduStudyActivity"/>
-        <activity android:name=".children.entertainment.ChildEduSheetListActivity"/>
-        <activity android:name=".children.entertainment.ChildEduSheetDetailsActivity"/>
-        <activity android:name=".children.study.ChildEduPoemListActivity"/>
-        <activity android:name=".children.study.ChildEduWordsActivity"/>
+            android:screenOrientation="landscape" />
+        <activity android:name=".children.cartoon.ChildEduCartoonActivity" />
+        <activity android:name=".children.entertainment.ChildEduEntertainmentActivity" />
+        <activity android:name=".children.study.ChildEduStudyActivity" />
+        <activity android:name=".children.entertainment.ChildEduSheetListActivity" />
+        <activity android:name=".children.entertainment.ChildEduSheetDetailsActivity" />
+        <activity android:name=".children.study.ChildEduPoemListActivity" />
+        <activity android:name=".children.study.ChildEduWordsActivity" />
         <activity
             android:name=".children.study.ChildEduStoriesActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustNothing|stateHidden"/>
-        <activity android:name=".children.study.ChildEduBrainTeaserActivity"/>
-        <activity android:name=".children.study.ChildEduWhyActivity"/>
-        <activity android:name=".children.study.ChildEduPoemDetailsActivity"/>
-        <activity android:name=".health.old.HealthSaltDiaryActivity"/>
-        <activity android:name=".health.old.HealthSportsDiaryActivity"/>
-        <activity android:name=".health.old.HealthDrinkDiaryActivity"/>
+            android:windowSoftInputMode="adjustNothing|stateHidden" />
+        <activity android:name=".children.study.ChildEduBrainTeaserActivity" />
+        <activity android:name=".children.study.ChildEduWhyActivity" />
+        <activity android:name=".children.study.ChildEduPoemDetailsActivity" />
+        <activity android:name=".health.old.HealthSaltDiaryActivity" />
+        <activity android:name=".health.old.HealthSportsDiaryActivity" />
+        <activity android:name=".health.old.HealthDrinkDiaryActivity" />
         <activity
             android:name=".activity.MessageCenterActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.MessageDetailsActivity"
-            android:screenOrientation="landscape"/>
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
-        <activity android:name=".health.HealthDiaryActivity"
             android:screenOrientation="landscape" />
 
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.HOME" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <activity
+            android:name=".health.HealthDiaryActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.JieMengActivity"
             android:screenOrientation="landscape">
@@ -592,103 +591,97 @@
             <!-- <category android:name="android.intent.category.DEFAULT"/> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".children.study.ChildEduStories2Activity"/>
+        <activity android:name=".children.study.ChildEduStories2Activity" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
             android:taskAffinity="com.medlink.fastsignup"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity"
-            android:taskAffinity="com.medlink.fastsignup"/>
+            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".tool.DateInquireActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.CookBookActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.CookBookResultActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.JieMengRetultActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.DateInquireResultActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.BaiKeActivtiy"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.BaikeResultActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.CalculationActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.RiddleActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.HistoryTodayActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.SettingActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.VoiceSettingActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.AboutActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".personal.PersonDetailActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".tool.ToolsActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".children.entertainment.ChildEduJokesActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.SetKeyWordActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.VoicerSettingDemoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.CustomKeyWordsActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.KeyWordEditActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.SetKeyWord2Activity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".health.DetectHealthSymptomsActivity">
-        </activity>
-        <activity android:name=".health.DetectHealthSportsActivity">
-        </activity>
-        <activity android:name=".health.DetectHealthSmokeActivity">
-        </activity>
-        <activity android:name=".health.DetectHealthDrinkActivity">
-        </activity>
-        <activity android:name=".health.DetectHealthSaltActivity">
-        </activity>
-
-        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity"></activity>
+            android:launchMode="singleTop" />
+        <activity android:name=".health.DetectHealthSymptomsActivity"></activity>
+        <activity android:name=".health.DetectHealthSportsActivity"></activity>
+        <activity android:name=".health.DetectHealthSmokeActivity"></activity>
+        <activity android:name=".health.DetectHealthDrinkActivity"></activity>
+        <activity android:name=".health.DetectHealthSaltActivity"></activity>
+        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity" />
         <activity android:name=".questionair.activity.MonitorResultActivity" />
         <activity android:name=".idcard.IdCardInfoActivity" />
         <activity android:name=".idcard.SignInIdCardActivity" />
         <activity android:name=".health.DetectResultActivity" />
-        <activity android:name=".yiyuan.activity.YiYuanLoginActivity"></activity>
+        <activity android:name=".yiyuan.activity.YiYuanLoginActivity" />
         <activity
             android:name=".intelligent_system.intelligent_diagnosis.MonthlyReportActivity"
             android:label="血压季度分析报告"
@@ -742,14 +735,14 @@
             android:screenOrientation="landscape" />
         <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
         <activity android:name=".yiyuan.activity.DrinkWenActivity" />
-        <activity
-            android:name=".yiyuan.activity.InquiryAndFileEndActivity"/>
+        <activity android:name=".yiyuan.activity.InquiryAndFileEndActivity" />
         <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
         <activity android:name=".yiyuan.activity.XueYaWenActivity" />
         <activity android:name=".yiyuan.activity.YinJiuWenActivity" />
         <activity android:name=".yiyuan.activity.YueJingWenActivity" />
         <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
-        <activity android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity"/>
+        <activity android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity" />
+        <activity android:name=".yiyuan.activity.DrinkInfoActivity"></activity>
     </application>
 
 </manifest>

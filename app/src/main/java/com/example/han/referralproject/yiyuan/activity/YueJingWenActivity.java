@@ -76,7 +76,7 @@ public class YueJingWenActivity extends BaseActivity {
             return;
         }
         LocalShared.getInstance(this.getApplicationContext()).setYueJingDate(time);
-        startActivity(new Intent(this, DrinkWenActivity.class));
+        startActivity(new Intent(this, DrinkInfoActivity.class));
 
     }
 
