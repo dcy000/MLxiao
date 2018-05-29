@@ -542,7 +542,7 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onReadFailed() {
         item = null;
         speak("请刷身份证");
-        btHandler().postDelayed(readRunnable, 1500);
+        btHandler().postDelayed(readRunnable, 2000);
     }
 
     private void onDeviceNotFound() {
@@ -1075,5 +1075,11 @@ public class SignInIdCardActivity extends BaseActivity {
 
     public void onRootClick(View view) {
         onReadFailed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopSpeaking();
     }
 }
