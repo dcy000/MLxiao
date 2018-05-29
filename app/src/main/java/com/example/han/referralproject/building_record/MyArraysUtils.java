@@ -74,7 +74,7 @@ public class MyArraysUtils {
                 for (int i = 0; i < split.length; i++) {
                     for (int j = 0; j < targets.length; j++) {
                         if (split[i].equals(targets[j])) {
-                            buffer.append(indexs[j]=",");
+                            buffer.append(indexs[j]+",");
                         }
                     }
                 }
