@@ -55,6 +55,14 @@ public class Utils {
         return d;
     }
 
+
+    public static String stampToYMD(long s){
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
+        Long time=new Long(s);
+        String d = format.format(time);
+        return d;
+    }
+
     /**
      * 时间格式转换
      * @param s

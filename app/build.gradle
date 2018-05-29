@@ -187,4 +187,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
+    compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+
 }
