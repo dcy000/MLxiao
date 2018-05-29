@@ -670,7 +670,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity android:name=".health.DetectHealthSymptomsActivity"></activity>
         <activity android:name=".health.DetectHealthSportsActivity"></activity>
         <activity android:name=".health.DetectHealthSmokeActivity"></activity>

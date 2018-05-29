@@ -33,7 +33,6 @@
             android:gravity="center"
             android:text="是"
             android:textColor="#666"
-            android:textIsSelectable="true"
             android:textSize="72pt" />
 
         <TextView
@@ -47,7 +46,6 @@
             android:gravity="center"
             android:text="否"
             android:textColor="#666"
-            android:textIsSelectable="true"
             android:textSize="72pt" />
 
     </LinearLayout>
@@ -80,7 +78,6 @@
             android:gravity="center"
             android:text="白酒"
             android:textColor="#666"
-            android:textIsSelectable="true"
             android:textSize="72pt" />
 
         <TextView
@@ -94,7 +91,6 @@
             android:gravity="center"
             android:text="料酒"
             android:textColor="#666"
-            android:textIsSelectable="true"
             android:textSize="72pt" />
 
         <TextView
@@ -108,7 +104,6 @@
             android:gravity="center"
             android:text="啤酒"
             android:textColor="#666"
-            android:textIsSelectable="true"
             android:textSize="72pt" />
 
         <TextView
@@ -122,7 +117,6 @@
             android:gravity="center"
             android:text="米酒"
             android:textColor="#666"
-            android:textIsSelectable="true"
             android:textSize="72pt" />
 
 

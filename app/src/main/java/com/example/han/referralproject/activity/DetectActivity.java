@@ -284,69 +284,69 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
             public void onSuccess(MeasureResult response) {
-                startActivity(new Intent(DetectActivity.this, MeasureXueyaResultActivity.class)
-                        .putExtra("measure_sum", response.zonggong)
-                        .putExtra("current_gaoya", getNew + "")
-                        .putExtra("current_diya", down + "")
-                        .putExtra("suggest", response.message)
-                        .putExtra("week_avg_gaoya", response.Recently_avg_high)
-                        .putExtra("week_avg_diya", response.Recently_avg_low)
-                        .putExtra("fenshu", response.exponent)
-                        .putExtra("mb_gaoya", response.Psst)
-                        .putExtra("mb_diya", response.Pdst));
-                if (status && fragment != null) {
-                    errorStatus = true;
-                }
+//                startActivity(new Intent(DetectActivity.this, MeasureXueyaResultActivity.class)
+//                        .putExtra("measure_sum", response.zonggong)
+//                        .putExtra("current_gaoya", getNew + "")
+//                        .putExtra("current_diya", down + "")
+//                        .putExtra("suggest", response.message)
+//                        .putExtra("week_avg_gaoya", response.Recently_avg_high)
+//                        .putExtra("week_avg_diya", response.Recently_avg_low)
+//                        .putExtra("fenshu", response.exponent)
+//                        .putExtra("mb_gaoya", response.Psst)
+//                        .putExtra("mb_diya", response.Pdst));
+//                if (status && fragment != null) {
+//                    errorStatus = true;
+//                }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                if (!TextUtils.isEmpty(message)) {
-                    if (message.startsWith("血压超标")) {
-                        warningXueyaFragment = new MeasureXueyaWarningFragment();
-                        getSupportFragmentManager().beginTransaction().add(R.id.container, warningXueyaFragment).commit();
-
-                        warningXueyaFragment.setOnChooseReason(new MeasureChooseReason() {
-                            @Override
-                            public void hasReason(int reason) {
-                                removeFragment(warningXueyaFragment);
-                                switch (reason) {
-                                    case -1://其他原因
-                                        break;
-                                    case 0://服用了降压药
-                                        break;
-                                    case 1://臂带佩戴不正确
-                                        break;
-                                    case 2://坐姿不正确
-                                        break;
-                                    case 3://测量过程说话了
-                                        break;
-                                    case 4://饮酒、咖啡之后
-                                        break;
-                                    case 5://沐浴之后
-                                        break;
-                                    case 6://运动之后
-                                        break;
-                                    case 7://饭后一小时
-                                        break;
-                                }
-                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
-                            }
-
-                            @Override
-                            public void noReason() {//强制插入异常数据
-                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true, warningXueyaFragment);
-                            }
-                        });
-                    } else {
-                        ToastTool.showShort(message);
-                    }
-                } else {
-                    ToastTool.showShort("网络异常");
-                    if (fragment != null) {
-                        removeFragment(fragment);
-                    }
-                }
+//                if (!TextUtils.isEmpty(message)) {
+//                    if (message.startsWith("血压超标")) {
+//                        warningXueyaFragment = new MeasureXueyaWarningFragment();
+//                        getSupportFragmentManager().beginTransaction().add(R.id.container, warningXueyaFragment).commit();
+//
+//                        warningXueyaFragment.setOnChooseReason(new MeasureChooseReason() {
+//                            @Override
+//                            public void hasReason(int reason) {
+//                                removeFragment(warningXueyaFragment);
+//                                switch (reason) {
+//                                    case -1://其他原因
+//                                        break;
+//                                    case 0://服用了降压药
+//                                        break;
+//                                    case 1://臂带佩戴不正确
+//                                        break;
+//                                    case 2://坐姿不正确
+//                                        break;
+//                                    case 3://测量过程说话了
+//                                        break;
+//                                    case 4://饮酒、咖啡之后
+//                                        break;
+//                                    case 5://沐浴之后
+//                                        break;
+//                                    case 6://运动之后
+//                                        break;
+//                                    case 7://饭后一小时
+//                                        break;
+//                                }
+//                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+//                            }
+//
+//                            @Override
+//                            public void noReason() {//强制插入异常数据
+//                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true, warningXueyaFragment);
+//                            }
+//                        });
+//                    } else {
+//                        ToastTool.showShort(message);
+//                    }
+//                } else {
+//                    ToastTool.showShort("网络异常");
+//                    if (fragment != null) {
+//                        removeFragment(fragment);
+//                    }
+//                }
             }
         });
     }
@@ -371,67 +371,67 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
             public void onSuccess(MeasureResult response) {
-                startActivity(new Intent(DetectActivity.this, MeasureXuetangResultActivity.class)
-                        .putExtra("measure_piangao_num", response.high)
-                        .putExtra("measure_zhengchang_num", response.regular)
-                        .putExtra("measure_piandi_num", response.low)
-                        .putExtra("measure_sum", response.zonggong)
-                        .putExtra("result", xuetangResut + "")
-                        .putExtra("suggest", response.message)
-                        .putExtra("week_avg_one", response.oneHour_stomach)
-                        .putExtra("week_avg_two", response.twoHour_stomach)
-                        .putExtra("week_avg_empty", response.empty_stomach)
-                        .putExtra("fenshu", response.exponent));
-                if (status && fragment != null) {
-                    errorStatus = true;
-                }
+//                startActivity(new Intent(DetectActivity.this, MeasureXuetangResultActivity.class)
+//                        .putExtra("measure_piangao_num", response.high)
+//                        .putExtra("measure_zhengchang_num", response.regular)
+//                        .putExtra("measure_piandi_num", response.low)
+//                        .putExtra("measure_sum", response.zonggong)
+//                        .putExtra("result", xuetangResut + "")
+//                        .putExtra("suggest", response.message)
+//                        .putExtra("week_avg_one", response.oneHour_stomach)
+//                        .putExtra("week_avg_two", response.twoHour_stomach)
+//                        .putExtra("week_avg_empty", response.empty_stomach)
+//                        .putExtra("fenshu", response.exponent));
+//                if (status && fragment != null) {
+//                    errorStatus = true;
+//                }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                if (!TextUtils.isEmpty(message)) {//血糖暂时没有数据异常处理
-                    if (message.startsWith("血糖超标")) {
-                        measureXuetangFragment = new MeasureXuetangFragment();
-                        getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
-
-                        measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
-                            @Override
-                            public void hasReason(int reason) {
-                                removeFragment(measureXuetangFragment);
-                                switch (reason) {
-                                    case -1://其他原因
-                                        break;
-                                    case 0://选择时间错误
-                                        break;
-                                    case 1://未擦掉第一滴血
-                                        break;
-                                    case 2://试纸过期
-                                        break;
-                                    case 3://血液暴露时间太久
-                                        break;
-                                    case 4://彩雪方法不对
-                                        break;
-                                    case 5://血糖仪未清洁
-                                        break;
-                                }
-                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
-                            }
-
-                            @Override
-                            public void noReason() {
-                                uploadXuetangResult(xuetangResut, true, measureXuetangFragment);
-                            }
-                        });
-
-                    } else {
-                        ToastTool.showShort(message);
-                    }
-                } else {
-                    ToastTool.showShort("网络异常");
-                    if (fragment != null) {
-                        removeFragment(fragment);
-                    }
-                }
+//                if (!TextUtils.isEmpty(message)) {//血糖暂时没有数据异常处理
+//                    if (message.startsWith("血糖超标")) {
+//                        measureXuetangFragment = new MeasureXuetangFragment();
+//                        getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
+//
+//                        measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
+//                            @Override
+//                            public void hasReason(int reason) {
+//                                removeFragment(measureXuetangFragment);
+//                                switch (reason) {
+//                                    case -1://其他原因
+//                                        break;
+//                                    case 0://选择时间错误
+//                                        break;
+//                                    case 1://未擦掉第一滴血
+//                                        break;
+//                                    case 2://试纸过期
+//                                        break;
+//                                    case 3://血液暴露时间太久
+//                                        break;
+//                                    case 4://彩雪方法不对
+//                                        break;
+//                                    case 5://血糖仪未清洁
+//                                        break;
+//                                }
+//                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+//                            }
+//
+//                            @Override
+//                            public void noReason() {
+//                                uploadXuetangResult(xuetangResut, true, measureXuetangFragment);
+//                            }
+//                        });
+//
+//                    } else {
+//                        ToastTool.showShort(message);
+//                    }
+//                } else {
+//                    ToastTool.showShort("网络异常");
+//                    if (fragment != null) {
+//                        removeFragment(fragment);
+//                    }
+//                }
             }
         });
 

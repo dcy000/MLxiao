@@ -122,7 +122,7 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
                 parent_result =MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 3);
                 break;
             case R.id.wu:
-                showDialog(relative[4]);
+//                showDialog(relative[4]);
                 parent_result =MyArraysUtils.resetSwitch(switch_relative, relative, textViews, 4);
                 break;
             case R.id.tv_sign_up_go_back:

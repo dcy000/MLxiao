@@ -117,30 +117,8 @@ public class YueJingWenActivity extends BaseActivity {
 
 
         picker.setTextColor(Color.parseColor("#ff333333"));
-        picker.setTextSize(40);
+        picker.setTextSize(100);
         picker.show();
     }
-
-
-//    public void onYearMonthDayTimePicker(View view) {
-//        DateTimePicker picker = new DateTimePicker(this, DateTimePicker.HOUR_24);
-//        picker.setDateRangeStart(2017, 1, 1);
-//        picker.setDateRangeEnd(2025, 11, 11);
-//        picker.setTimeRangeStart(9, 0);
-//        picker.setTimeRangeEnd(20, 30);
-//        picker.setTopLineColor(0x99FF0000);
-//        picker.setLabelTextColor(0xFFFF0000);
-//        picker.setDividerColor(0xFFFF0000);
-//        picker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
-//            @Override
-//            public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
-//                showToast(year + "-" + month + "-" + day + " " + hour + ":" + minute);
-//            }
-//        });
-//        picker.show();
-//    }
-
-
-
 
 }

@@ -56,6 +56,7 @@ public class InquiryAndFileActivity extends BaseActivity {
             case R.id.iv_wenzhen:
 //                InquiryAndFileEndActivity.startMe(this,"问诊");
                 Intent intent = new Intent(this, SignUp7HeightActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;

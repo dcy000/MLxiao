@@ -94,8 +94,6 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
                 toubao.setSelected(false);
                 huanganlei.setSelected(false);
                 qita.setSelected(false);
-
-
                 break;
             case R.id.gaouxeya:
                 gaouxeya.setSelected(!gaouxeya.isSelected());
