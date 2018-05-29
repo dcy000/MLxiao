@@ -13,13 +13,13 @@
         android:layout_marginStart="462pt"
         android:layout_marginTop="57pt"
         android:gravity="center"
-        android:src="@drawable/img_to_home"
+        android:background="@drawable/img_to_home_set"
         android:text="进入主页"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <ImageView
-        android:src="@drawable/img_to_exit"
+        android:background="@drawable/img_to_exit_set"
         android:id="@+id/tv_exit"
         android:layout_width="380pt"
         android:layout_height="380pt"

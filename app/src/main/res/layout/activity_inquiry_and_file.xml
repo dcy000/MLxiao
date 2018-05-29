@@ -15,7 +15,7 @@
         android:layout_marginTop="235pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iv_wenzhen" />
+        android:background="@drawable/main_dialog_wenzhen_set" />
 
     <ImageView
         android:id="@+id/iv_jiandang"
@@ -25,7 +25,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_wenzhen"
         app:layout_constraintStart_toEndOf="@+id/iv_wenzhen"
         app:layout_constraintTop_toTopOf="@+id/iv_wenzhen"
-        app:srcCompat="@drawable/iv_jiandang" />
+        android:background="@drawable/main_dialog_jiandang_set" />
+
 
     <TextView
         android:id="@+id/textView3"

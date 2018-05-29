@@ -7,7 +7,7 @@
 
 
     <ImageView
-        android:src="@drawable/main_wodedingdan"
+        android:background="@drawable/main_wodedingdan_set"
         android:id="@+id/shangcheng"
         android:layout_width="594pt"
         android:layout_height="504pt"
@@ -20,7 +20,7 @@
         android:layout_width="594pt"
         android:layout_height="504pt"
         android:layout_marginTop="7dp"
-        android:src="@drawable/main_zhanghuchongzhi"
+        android:background="@drawable/main_zhanghuchongzhi_set"
         app:layout_constraintBottom_toBottomOf="@+id/jiankangketang"
         app:layout_constraintEnd_toEndOf="@+id/shangcheng"
         app:layout_constraintTop_toBottomOf="@+id/shangcheng" />
@@ -40,12 +40,12 @@
         android:layout_height="1030pt"
         android:layout_marginStart="45pt"
         android:layout_marginTop="100pt"
-        android:src="@drawable/main2_jiangkang_shangcheng"
+        android:background="@drawable/main2_jiangkang_shangcheng_set"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:src="@drawable/main_shezhi"
+        android:background="@drawable/main_shezhi_set"
         android:id="@+id/shezhi"
         android:layout_width="594pt"
         android:layout_height="328pt"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tuichu" />
 
     <ImageView
-        android:src="@drawable/main_liaotian"
+        android:background="@drawable/main_liaotian_set"
         android:id="@+id/tuichu"
         android:layout_width="594pt"
         android:layout_height="328pt"
@@ -70,7 +70,7 @@
         android:layout_height="328pt"
         android:layout_marginStart="24pt"
         android:layout_marginTop="7dp"
-        android:src="@drawable/main_tuichu"
+        android:background="@drawable/main_tuichu_set"
         app:layout_constraintBottom_toBottomOf="@+id/zhanghuchongzhi"
         app:layout_constraintEnd_toEndOf="@+id/shezhi"
         app:layout_constraintStart_toEndOf="@+id/zhanghuchongzhi"
