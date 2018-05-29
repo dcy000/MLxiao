@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8pt"
         android:layout_marginTop="14dp"
-        android:text="身份证登录"
+        android:text="点击身份证登录"
         android:textColor="#ff333333"
         android:textSize="64pt"
         app:layout_constraintEnd_toEndOf="@+id/login_idcard"
