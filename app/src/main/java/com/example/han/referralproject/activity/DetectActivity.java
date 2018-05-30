@@ -2028,7 +2028,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        hideLoadingDialog();
                         String result = response.body();
                         if (!TextUtils.isEmpty(result)) {
                             WenZhenReultBean reultBean = gson.fromJson(result, WenZhenReultBean.class);
@@ -2041,6 +2040,19 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 T.show("提交失败");
                             }
                         }
+                    }
+
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideLoadingDialog();
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.show("网络繁忙");
                     }
                 });
 
