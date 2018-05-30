@@ -445,12 +445,12 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onBeginOfSpeech() {
-            showWaveView(true);
+//            showWaveView(true);
         }
 
         @Override
         public void onEndOfSpeech() {
-            showWaveView(false);
+//            showWaveView(false);
         }
 
         @Override
