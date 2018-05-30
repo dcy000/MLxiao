@@ -116,6 +116,11 @@ public class DrinkInfoActivity extends BaseActivity {
             drinkWhat+="3"+",";
         }
 
+        if ((!tvDrinkNot.isSelected())&&(!tvDrinkYes.isSelected())){
+            speak("主人,您本周内是否有饮酒");
+            return;
+        }
+
         LocalShared.getInstance(this).setDringInto(drinkWhat);
         LocalShared.getInstance(this).setIsDrinkOrNot(drink);
 

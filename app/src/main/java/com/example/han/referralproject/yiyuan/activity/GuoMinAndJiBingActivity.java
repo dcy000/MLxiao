@@ -2,6 +2,7 @@ package com.example.han.referralproject.yiyuan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,6 +11,8 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.util.LocalShared;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,25 +135,39 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
             case R.id.tv_sign_up_go_forward:
                 getGuoMin();
                 getJiBing();
+                nextStep();
 
-                Intent intent = new Intent();
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueya");
-                intent.putExtra("inquiry", true);
-                intent.setClass(this, DetectActivity.class);
-                startActivity(intent);
                 break;
         }
     }
 
+    private void nextStep() {
 
-    public void getGuoMin() {
+        if (TextUtils.isEmpty(getGuoMin())){
+            speak("主人,您是否有过敏史");
+            return;
+        }
+
+        if (TextUtils.isEmpty(getJiBing())){
+            speak("主人,您是否有疾病史");
+            return;
+        }
+
+        Intent intent = new Intent();
+        intent.putExtra("from", "Test");
+        intent.putExtra("fromType", "xueya");
+        intent.putExtra("inquiry", true);
+        intent.setClass(this, DetectActivity.class);
+        startActivity(intent);
+    }
+
+
+    public String getGuoMin() {
         String guomin = "";
         if (wu1.isSelected()) {
             guomin = "0";
-
             LocalShared.getInstance(this).setGuoMin(guomin);
-            return;
+            return "0";
         }
 
         if (qingmeisu.isSelected()) {
@@ -169,14 +186,16 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
         }
 
         LocalShared.getInstance(this).setGuoMin(guomin);
+
+        return guomin;
     }
 
-    private void getJiBing() {
+    private String  getJiBing() {
         String jibing = "";
         if (wu2.isSelected()) {
             jibing = "0";
             LocalShared.getInstance(this).setJiBingShi(jibing);
-            return;
+            return "0";
         }
 
         if (gaouxeya.isSelected()) {
@@ -199,6 +218,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
             jibing += "5,";
         }
         LocalShared.getInstance(this).setJiBingShi(jibing);
+        return jibing;
     }
 
 }
