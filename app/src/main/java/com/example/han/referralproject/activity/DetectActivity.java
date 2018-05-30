@@ -595,6 +595,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                                    data.putExtra("xueya", mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
 //                                    DetectActivity.this.setResult(Activity.RESULT_OK, data);
                                     LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
+                                    showLoadingDialog("正在提交问诊信息");
                                     postWenZhenData();
                                     return;
                                 }
@@ -2007,6 +2008,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        hideLoadingDialog();
                         String result = response.body();
                         if (!TextUtils.isEmpty(result)) {
                             WenZhenReultBean reultBean = gson.fromJson(result, WenZhenReultBean.class);
