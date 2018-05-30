@@ -591,12 +591,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 if (getIntent().getBooleanExtra("inquiry", false)) {
-//                                    Intent data = new Intent();
-//                                    data.putExtra("xueya", mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
-//                                    DetectActivity.this.setResult(Activity.RESULT_OK, data);
                                     LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
                                     showLoadingDialog("正在提交问诊信息");
-                                    postWenZhenData();
+                                    postWenZhenData(true);
                                     return;
                                 }
                                 //上传数据到我们的服务器
@@ -1045,6 +1042,18 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
             }
         });
+
+        if (getIntent().getBooleanExtra("inquiry", false)) {
+            mButton1.setText("跳过");
+            mButton1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showLoadingDialog("正在提交问诊信息");
+                    postWenZhenData(false);
+                }
+            });
+
+        }
 
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1983,7 +1992,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     };
 
 
-    private void postWenZhenData() {
+    private void postWenZhenData(boolean testXueYa) {
         WenZhenBean bean = new WenZhenBean();
         bean.address = LocalShared.getInstance(this).getSignUpAddress();
         bean.allergicHistory = LocalShared.getInstance(this).getGuoMin();
@@ -1992,14 +2001,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         bean.height = LocalShared.getInstance(this).getSignUpHeight() + "";
         bean.hiUserInquiryId = "";
         String xueYa = LocalShared.getInstance(this).getXueYa();
-        bean.highPressure = xueYa.split(",")[0];
-        bean.lowPressure = xueYa.split(",")[1];
+        if (!testXueYa) {
+            bean.highPressure = null;
+            bean.lowPressure = null;
+        } else {
+            bean.highPressure = xueYa.split(",")[0];
+            bean.lowPressure = xueYa.split(",")[1];
+        }
         bean.hypertensionState = "0";
         bean.lastMensesTime = LocalShared.getInstance(this).getYueJingDate();
         bean.pregnantState = LocalShared.getInstance(this).getHuaiYun();
         bean.userId = LocalShared.getInstance(this).getUserId();
         bean.weekDrinkState = LocalShared.getInstance(this).getIsDrinkOrNot();
         bean.wineType = LocalShared.getInstance(this).getDringInto();
+
 
         final Gson gson = new Gson();
         OkGo.<String>post(NetworkApi.Inquiry)
