@@ -99,6 +99,8 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     public void nextStep(Fragment fragment) {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("建档");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (fragment instanceof SignDoctorFragment) {//签约医生
             replaceHeightFragment(fragmentTransaction);//身高
