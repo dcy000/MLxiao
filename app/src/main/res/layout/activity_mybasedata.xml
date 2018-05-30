@@ -152,7 +152,7 @@
                 android:textSize="28sp" />
 
             <View
-                android:layout_width="0dp"
+                android:layout_width="585dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
@@ -162,7 +162,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="22dp"
                 android:drawablePadding="5dp"
-                android:drawableRight="@drawable/ic_jt"
                 android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
@@ -195,7 +194,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="22dp"
                 android:drawablePadding="3dp"
-                android:drawableRight="@drawable/ic_jt"
                 android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
@@ -211,12 +209,10 @@
         android:layout_weight="2"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
         android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:layout_weight="2"
             android:orientation="vertical">
 
@@ -351,7 +347,6 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="22dp"
                         android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:maxLines="2"
                         android:textColor="#333333"
@@ -379,7 +374,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
-                        android:text="健康状况"
+                        android:text="其他信息"
                         android:textColor="#333333"
                         android:textSize="29sp" />
                 </LinearLayout>
@@ -396,7 +391,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
-                        android:text="运动情况"
+                        android:text="文化程度"
                         android:textSize="28sp" />
 
                     <View
@@ -410,7 +405,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="22dp"
                         android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
                         android:textSize="28sp" />
@@ -428,7 +422,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
-                        android:text="吸烟情况"
+                        android:text="职业"
                         android:textSize="28sp" />
 
                     <View
@@ -442,7 +436,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="22dp"
                         android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
                         android:textSize="28sp" />
@@ -460,7 +453,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
-                        android:text="饮食情况"
+                        android:text="医疗费支付方式"
                         android:textSize="28sp" />
 
                     <View
@@ -474,7 +467,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="22dp"
                         android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
                         android:textSize="28sp" />
@@ -491,7 +483,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
-                        android:text="饮酒情况"
+                        android:text="过敏史"
                         android:textSize="28sp" />
 
                     <View
@@ -505,7 +497,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="22dp"
                         android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
                         android:textSize="28sp" />
@@ -523,7 +514,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
-                        android:text="病史"
+                        android:text="暴露史"
                         android:textSize="28sp" />
 
                     <View
@@ -537,12 +528,253 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="22dp"
                         android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/toolbar_set">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="家族病史"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/jiazubingshi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:drawablePadding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/toolbar_set">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="遗传病史"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/yichuanbignshi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:drawablePadding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/toolbar_set">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="残疾情况"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/canji"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:drawablePadding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/toolbar_set">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="厨房排气设施"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/chuafangpaiqi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:drawablePadding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/toolbar_set">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="厨房燃料类型"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/chufangranliao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:drawablePadding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/toolbar_set">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="饮水环境"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/yinshuizhuangkuang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:drawablePadding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/toolbar_set">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="厕所环境"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/cesuo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:drawablePadding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/toolbar_set">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="牲畜栏"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/shengchu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:drawablePadding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
+
             </LinearLayout>
+
             <TextView
                 android:visibility="gone"
                 android:id="@+id/tv_reset"

@@ -47,6 +47,7 @@ import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.shopping.Goods;
 import com.example.han.referralproject.shopping.Order;
 import com.example.han.referralproject.shopping.Orders;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
@@ -801,6 +802,15 @@ public class NetworkApi {
         NetworkManager.getInstance().getResultClass(GET_MY_BASE_DATA, params, UserInfoBean.class, successCallback, failedCallback);
     }
 
+
+    public static void getPersonalInfo(Context context, StringCallback callback) {
+        OkGo.<String>get(GET_MY_BASE_DATA)
+                .tag(context)
+                .params("bid", LocalShared.getInstance(context).getUserId())
+                .execute(callback);
+
+    }
+
     /**
      * 获取体温历史数据
      *
@@ -1261,11 +1271,11 @@ public class NetworkApi {
     }
 
 
-    public static String Inquiry = BasicUrl+"/ZZB/api/health/inquiry/";
+    public static String Inquiry = BasicUrl + "/ZZB/api/health/inquiry/";
     /**
      * 查询是否建档 参数: userId=123456
      */
-    public static String FILE_URL = BasicUrl+"/ZZB/api/health/inquiry/record/";
+    public static String FILE_URL = BasicUrl + "/ZZB/api/health/inquiry/record/";
 
     public static void getFiledIsOrNot(Context context, String url, String userId, StringCallback stringCallback) {
         OkGo.<String>get(url)
