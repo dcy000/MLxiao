@@ -60,7 +60,7 @@ public class DetectHealthSaltActivity extends BaseActivity {
                 int checkedItemPosition = gvItems.getCheckedItemPosition();
                 String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
                         ? items.get(checkedItemPosition)
-                        : "中";
+                        : "中(4g~6g)";
                 intent.putExtra("salt", value);
                 startActivity(intent);
                 finish();
@@ -74,9 +74,9 @@ public class DetectHealthSaltActivity extends BaseActivity {
     }
 
     private void prepareData() {
-        items.add("轻");
-        items.add("中");
-        items.add("重");
+        items.add("低(<4g)");
+        items.add("中(4g~6g)");
+        items.add("高(>6g)");
     }
 
     private ArrayList<String> items = new ArrayList<>();
