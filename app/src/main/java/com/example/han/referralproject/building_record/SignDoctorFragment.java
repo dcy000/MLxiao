@@ -24,6 +24,7 @@ import com.example.han.referralproject.recyclerview.DoctorMesActivity;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
+import com.example.han.referralproject.yiyuan.activity.DoctorMesInfoActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -94,6 +95,7 @@ public class SignDoctorFragment extends Fragment implements View.OnClickListener
                     }
                 }
                 mDoctorAdapter.notifyDataSetChanged();
+                startActivity(new Intent(getContext(),DoctorMesInfoActivity.class).putExtra("docMsg",mData.get(postion)));
 
             }
         });

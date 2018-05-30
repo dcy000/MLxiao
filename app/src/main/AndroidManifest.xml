@@ -671,16 +671,16 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".health.DetectHealthSymptomsActivity"></activity>
-        <activity android:name=".health.DetectHealthSportsActivity"></activity>
-        <activity android:name=".health.DetectHealthSmokeActivity"></activity>
-        <activity android:name=".health.DetectHealthDrinkActivity"></activity>
-        <activity android:name=".health.DetectHealthSaltActivity"></activity>
+        <activity android:name=".health.DetectHealthSymptomsActivity" />
+        <activity android:name=".health.DetectHealthSportsActivity" />
+        <activity android:name=".health.DetectHealthSmokeActivity" />
+        <activity android:name=".health.DetectHealthDrinkActivity" />
+        <activity android:name=".health.DetectHealthSaltActivity" />
         <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity" />
         <activity android:name=".questionair.activity.MonitorResultActivity" />
-        <activity android:name=".idcard.IdCardInfoActivity"
-            android:launchMode="singleTop"
-            />
+        <activity
+            android:name=".idcard.IdCardInfoActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".idcard.SignInIdCardActivity" />
         <activity android:name=".health.DetectResultActivity" />
         <activity android:name=".yiyuan.activity.YiYuanLoginActivity" />
@@ -744,7 +744,8 @@
         <activity android:name=".yiyuan.activity.YueJingWenActivity" />
         <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
         <activity android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity" />
-        <activity android:name=".yiyuan.activity.DrinkInfoActivity"></activity>
+        <activity android:name=".yiyuan.activity.DrinkInfoActivity" />
+        <activity android:name=".yiyuan.activity.DoctorMesInfoActivity"></activity>
     </application>
 
 </manifest>
