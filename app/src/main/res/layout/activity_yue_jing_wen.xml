@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:paddingLeft="10pt"
         android:padding="10pt"
         android:id="@+id/tv_yuejing_date"
         android:layout_width="1339pt"

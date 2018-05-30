@@ -660,7 +660,9 @@ public class SignInIdCardActivity extends BaseActivity {
 //        String smoke = shared.getSignUpSmoke();
 //        String drink = shared.getSignUpDrink();
 //        String sport = shared.getSignUpSport();
-
+        if (item == null) {
+            return;
+        }
 
         String name = item.partyName;
         String gender = item.gender;
@@ -946,10 +948,12 @@ public class SignInIdCardActivity extends BaseActivity {
                     public void complete(String key, ResponseInfo info, JSONObject res) {
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
+                            showLoadingDialog("");
                             NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, xfid,
                                     new NetworkManager.SuccessCallback<Object>() {
                                         @Override
                                         public void onSuccess(Object response) {
+                                            hideLoadingDialog();
                                             //将账号在本地缓存
                                             if (isFinishing() || isDestroyed()) {
                                                 return;
@@ -960,6 +964,7 @@ public class SignInIdCardActivity extends BaseActivity {
                                     }, new NetworkManager.FailedCallback() {
                                         @Override
                                         public void onFailed(String message) {
+                                            hideLoadingDialog();
                                             Log.e("注册储存讯飞id失败", "onFailed: ");
                                             if (isFinishing() || isDestroyed()) {
                                                 return;
