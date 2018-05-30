@@ -356,6 +356,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         } else if (GEREN_XINXI.equals(name)) {
             gotoPersonInfo();
         } else if ("问诊".equals(name)) {
+            blankSomeWZInfo();
             Intent intent = new Intent(getActivity(), SignUp7HeightActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -384,6 +385,14 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
         }
 
+    }
+
+    /**
+     * 怀孕 月经时间
+     */
+    private void blankSomeWZInfo() {
+        LocalShared.getInstance(getActivity()).setYueJingDate("");
+        LocalShared.getInstance(getActivity()).setHuaiYun("");
     }
 
     private void onGetFileStateFailed() {

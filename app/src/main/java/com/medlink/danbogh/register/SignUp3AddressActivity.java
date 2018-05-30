@@ -21,6 +21,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.activity.DrinkInfoActivity;
 import com.example.han.referralproject.yiyuan.activity.PregnancyWenActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -230,7 +231,12 @@ public class SignUp3AddressActivity extends BaseActivity {
         LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
 //        Intent intent = SignUp7HeightActivity.newIntent(this);
 //        startActivity(intent);
-        startActivity(new Intent(this,PregnancyWenActivity.class));
+        
+        if ("女".equals(LocalShared.getInstance(this).getSex())) {
+            startActivity(new Intent(this, PregnancyWenActivity.class));
+        }else {
+            startActivity(new Intent(this, DrinkInfoActivity.class));
+        }
     }
 
     private List<String> mProvinceNames = new ArrayList<>();
