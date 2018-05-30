@@ -142,7 +142,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
             }
         });
     }

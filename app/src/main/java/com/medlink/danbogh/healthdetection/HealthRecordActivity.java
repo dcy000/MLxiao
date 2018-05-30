@@ -49,6 +49,7 @@ import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivi
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -60,6 +61,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.ml.zxing.QrCodeUtils;
 
@@ -244,6 +246,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         tvRecordQrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+                String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+                if (TextUtils.isEmpty(noNetless) && !TextUtils.isEmpty(netless)) {
+                    T.show("无网模式下无法使用");
+                    return;
+                }
                 String text = NetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + MyApplication.getInstance().userId + "&bname=" + MyApplication.getInstance().userName;
                 MyDialogFragment.newInstance(text).show(getSupportFragmentManager(), MyDialogFragment.TAG);
             }
@@ -932,7 +940,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
                 if (tiwenChart != null) {
                     tiwenChart.setNoDataText(getResources().getString(R.string.noData));
                     tiwenChart.setData(null);
@@ -987,7 +995,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
                 if (xueyaChart != null) {
                     xueyaChart.setNoDataText(getResources().getString(R.string.noData));
                     xueyaChart.setData(null);
@@ -1031,7 +1039,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
                 if (xinlvChart != null) {
                     xinlvChart.setNoDataText(getResources().getString(R.string.noData));
                     xinlvChart.setData(null);
@@ -1111,7 +1119,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
                 if (xuetangChart != null) {
                     xuetangChart.setNoDataText(getResources().getString(R.string.noData));
                     xuetangChart.setData(null);
@@ -1154,7 +1162,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
                 if (xueyangChart != null) {
                     xueyangChart.setNoDataText(getResources().getString(R.string.noData));
                     xueyangChart.setData(null);
@@ -1200,7 +1208,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
                 if (danguchunChart != null) {
                     danguchunChart.setNoDataText(getResources().getString(R.string.noData));
                     danguchunChart.setData(null);
@@ -1245,7 +1253,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
                 if (xueniaosuanChart != null) {
                     xueniaosuanChart.setNoDataText(getResources().getString(R.string.noData));
                     xueniaosuanChart.setData(null);
@@ -1306,7 +1314,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
                 if (tizhongChart != null) {
                     tizhongChart.setNoDataText(getResources().getString(R.string.noData));
                     tizhongChart.setData(null);

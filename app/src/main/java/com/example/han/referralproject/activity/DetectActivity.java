@@ -410,10 +410,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                         });
                     } else {
-                        ToastTool.showShort(message);
+//                        ToastTool.showShort(message);
                     }
                 } else {
-                    ToastTool.showShort("网络异常");
+//                    ToastTool.showShort("网络异常");
                     if (fragment != null) {
                         removeFragment(fragment);
                     }
@@ -495,10 +495,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         });
 
                     } else {
-                        ToastTool.showShort(message);
+//                        ToastTool.showShort(message);
                     }
                 } else {
-                    ToastTool.showShort("网络异常");
+//                    ToastTool.showShort("网络异常");
                     if (fragment != null) {
                         removeFragment(fragment);
                     }

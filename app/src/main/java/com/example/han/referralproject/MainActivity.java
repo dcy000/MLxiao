@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +42,7 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.utils.T;
 import com.ml.brightness.BrightnessHelper;
 import com.ml.brightness.GestureHelper;
 
@@ -161,7 +163,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 v.setVisibility(View.GONE);
                 break;
             case R.id.robot_con:
-                String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+//                String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
 //                if (!NetworkUtils.isNetworkAvailable(this) && !TextUtils.isEmpty(netless)) {
 //                    T.show("您好， 请连接网络");
 //                    speak("您好， 请连接网络");
@@ -192,6 +194,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                startActivity(new Intent(mContext, Test_mainActivity.class));
                 break;
             case R.id.doctor_ask://医生咨询
+                String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+                String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+                if (TextUtils.isEmpty(noNetless) && !TextUtils.isEmpty(netless)) {
+                    T.show("无网模式下无法使用");
+                    return;
+                }
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
                 startActivity(intent);
                 break;

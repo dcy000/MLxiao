@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
@@ -23,6 +25,7 @@ import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.register.idcard.SignInIdCardActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +68,18 @@ public class ChooseRegisterTypeActivity extends BaseActivity implements View.OnC
         regist.setOnClickListener(this);
         signUpFast.setOnClickListener(this);
         ivBack.setOnClickListener(this);
+
+        String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless) && !TextUtils.isEmpty(netless)) {
+            tvPhoneSignIn.setVisibility(View.GONE);
+            etSignInPassword.setVisibility(View.GONE);
+            tvFaceSignIn.setVisibility(View.GONE);
+        } else {
+            tvPhoneSignIn.setVisibility(View.VISIBLE);
+            etSignInPassword.setVisibility(View.VISIBLE);
+            tvFaceSignIn.setVisibility(View.VISIBLE);
+        }
 
         SpannableStringBuilder agreeBuilder = new SpannableStringBuilder("我同意用户协议");
         agreeBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#FF380000")),

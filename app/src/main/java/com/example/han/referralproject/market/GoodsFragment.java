@@ -103,7 +103,7 @@ public class GoodsFragment extends Fragment {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+//                T.show(message);
             }
         });
     }

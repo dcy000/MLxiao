@@ -114,7 +114,7 @@ public class ChildEduSheetListActivity extends BaseActivity {
                     return;
                 }
                 hideLoadingDialog();
-                T.show("服务器繁忙");
+//                T.show("服务器繁忙");
             }
         });
     }

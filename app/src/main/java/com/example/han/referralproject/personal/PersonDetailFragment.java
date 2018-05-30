@@ -51,6 +51,7 @@ import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.utils.T;
 import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
 
@@ -139,6 +140,12 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         mTextView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+                String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+                if (TextUtils.isEmpty(noNetless) && !TextUtils.isEmpty(netless)) {
+                    T.show("无网模式下无法使用");
+                    return;
+                }
                 if ("未签约".equals(mTextView4.getText())) {
                     Intent intent = new Intent(getActivity(), OnlineDoctorListActivity.class);
                     intent.putExtra("flag", "contract");
@@ -249,7 +256,13 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
 
     private void getData() {
-
+        String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
+        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+        if (TextUtils.isEmpty(noNetless) && !TextUtils.isEmpty(netless)) {
+            mTextView4.setText("未签约");
+            mTextView1.setText("暂无");
+            return;
+        }
 
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
@@ -319,7 +332,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
             }
         });
-
 
         NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
             @Override

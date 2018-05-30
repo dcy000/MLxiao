@@ -206,7 +206,7 @@ public class AlertHeightActivity extends BaseActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        ToastTool.showShort(message);
+//                        ToastTool.showShort(message);
 //                speak("您好，出了一些小问题，未修改成功");
                     }
                 });

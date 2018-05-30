@@ -137,7 +137,7 @@ public class SetPasswordActivity extends BaseActivity {
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                T.show(message);
+//                T.show(message);
             }
         });
     }

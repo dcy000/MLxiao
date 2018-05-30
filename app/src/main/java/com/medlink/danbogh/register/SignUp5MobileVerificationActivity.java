@@ -129,7 +129,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show("获取验证码失败");
+//                        T.show("获取验证码失败");
                         speak("获取验证码失败");
                     }
                 });

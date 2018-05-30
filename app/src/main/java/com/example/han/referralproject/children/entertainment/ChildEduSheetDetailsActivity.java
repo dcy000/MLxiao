@@ -123,7 +123,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
                     return;
                 }
                 hideLoadingDialog();
-                T.show("服务器繁忙");
+//                T.show("服务器繁忙");
             }
         });
     }
@@ -187,7 +187,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
                             mAutoLoadMoreHelper.setLoading(false);
                         }
                         hideLoadingDialog();
-                        T.show(message);
+//                        T.show(message);
                     }
                 }
         );

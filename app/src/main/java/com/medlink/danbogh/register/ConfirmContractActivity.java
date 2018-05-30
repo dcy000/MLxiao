@@ -101,7 +101,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+//                T.show(message);
             }
         });
     }

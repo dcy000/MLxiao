@@ -199,7 +199,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                     @Override
                     public void onFailed(String message) {
                         hideLoadingDialog();
-                        T.show(message);
+//                        T.show(message);
                         speak("您好，" + message);
                     }
                 }

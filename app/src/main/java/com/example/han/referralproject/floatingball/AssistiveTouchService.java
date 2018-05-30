@@ -28,6 +28,7 @@ import android.widget.SeekBar;
 
 
 import com.example.han.referralproject.R;
+import com.ml.brightness.BrightnessHelper;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -73,6 +74,9 @@ public class AssistiveTouchService extends Service {
     private long lastClickTime = 0;
     private int maxVolume;
     private int currentVolume;
+    private SeekBar sbBrightness;
+    private float mScreenBrightness;
+    private BrightnessHelper mBrightnessHelper;
 
 
     // private CheckDoubleClickListener checkDoubleClickListener;
@@ -116,6 +120,28 @@ public class AssistiveTouchService extends Service {
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
         mImageView1 = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.image_volume);
+
+        sbBrightness = (SeekBar) mInflateAssistiveTouchView.findViewById(R.id.seek_brightness);
+        mScreenBrightness = mParams.screenBrightness;
+        mBrightnessHelper = new BrightnessHelper(this);
+        sbBrightness.setMax(mBrightnessHelper.getMaxBrightness());
+        sbBrightness.setProgress(mBrightnessHelper.getSystemBrightness());
+        sbBrightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mBrightnessHelper.setSystemBrightness(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mBrightnessHelper.setSystemBrightness(seekBar.getProgress());
+            }
+        });
 
         //初始化音频管理器
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);

@@ -94,7 +94,7 @@ public class MonthlyReportActivity extends BaseActivity {
             @Override
             public void onFailed(String message) {
                 Logger.e("返回测量数据失败" + message);
-                ToastTool.showShort("暂无月报告");
+//                ToastTool.showShort("暂无月报告");
                 speak("您好，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
             }
         });

@@ -122,7 +122,7 @@ public class HealthReportFragment extends Fragment {
                             return;
                         }
                         onWeekReport(null);
-                        T.show(message);
+//                        T.show(message);
                     }
                 });
     }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.medlink.danbogh.utils.T;
 
 public class MonitorResultActivity extends BaseActivity {
 
@@ -40,6 +41,11 @@ public class MonitorResultActivity extends BaseActivity {
         resultType = getIntent().getStringExtra(RESULT_TYPE);
     }
 
+    @Override
+    protected void onResume() {
+        T.show("上拉加载更多");
+        super.onResume();
+    }
 
     public static void starMe(Context context, String scores, String resultType) {
         Intent intent = new Intent(context, MonitorResultActivity.class);

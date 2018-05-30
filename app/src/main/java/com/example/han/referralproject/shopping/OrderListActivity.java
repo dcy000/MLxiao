@@ -71,7 +71,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+//                ToastTool.showShort(message);
             }
         });
 

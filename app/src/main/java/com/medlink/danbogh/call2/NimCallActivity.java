@@ -93,7 +93,7 @@ public class NimCallActivity extends AppCompatActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show("服务器繁忙，请稍后再试");
+//                        T.show("服务器繁忙，请稍后再试");
                     }
                 });
     }
@@ -769,14 +769,14 @@ public class NimCallActivity extends AppCompatActivity {
                                 }, new NetworkManager.FailedCallback() {
                                     @Override
                                     public void onFailed(String message) {
-                                        T.show(minutes + "分钟, 失败");
+//                                        T.show(minutes + "分钟, 失败");
                                     }
                                 });
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show("请签约医生");
+//                        T.show("请签约医生");
                     }
                 });
             }

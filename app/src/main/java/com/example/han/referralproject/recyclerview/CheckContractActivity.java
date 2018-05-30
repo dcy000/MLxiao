@@ -68,7 +68,7 @@ public class CheckContractActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+//                T.show(message);
             }
         });
     }
@@ -103,7 +103,7 @@ public class CheckContractActivity extends BaseActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show(message);
+//                        T.show(message);
                     }
                 });
     }

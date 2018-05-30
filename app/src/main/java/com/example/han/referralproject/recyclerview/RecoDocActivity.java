@@ -144,7 +144,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort( message);
+//                ToastTool.showShort( message);
             }
         });
     }

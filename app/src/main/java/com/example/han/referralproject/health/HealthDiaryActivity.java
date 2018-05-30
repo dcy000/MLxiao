@@ -172,7 +172,7 @@ public class HealthDiaryActivity extends BaseActivity
                             if (isFinishing() || isDestroyed()) {
                                 return;
                             }
-                            T.show(message);
+//                            T.show(message);
                             speak(message);
                         }
                     }
