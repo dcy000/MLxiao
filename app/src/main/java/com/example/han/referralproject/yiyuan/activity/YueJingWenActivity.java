@@ -54,6 +54,8 @@ public class YueJingWenActivity extends BaseActivity implements OnDateSetListene
     private void initTilte() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("问诊");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
         year = calendar.get(Calendar.YEAR) + "";
         month = calendar.get(Calendar.MONTH) + 1 + "";
         day = calendar.get(Calendar.DAY_OF_MONTH) + "";

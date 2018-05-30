@@ -80,6 +80,8 @@ public class SignUp3AddressActivity extends BaseActivity {
     private void initTitle() {
         mTitleText.setText("问诊");
         mToolbar.setVisibility(View.VISIBLE);
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
     }
 
     private void initLocation() {

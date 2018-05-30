@@ -27,6 +27,8 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
     private void initTitle() {
         mTitleText.setText("问诊");
         mToolbar.setVisibility(View.VISIBLE);
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
     }
 
     @Override

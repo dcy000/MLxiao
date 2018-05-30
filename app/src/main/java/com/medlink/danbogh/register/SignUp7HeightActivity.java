@@ -63,6 +63,8 @@ public class SignUp7HeightActivity extends BaseActivity {
     private void initTitle() {
         mTitleText.setText("问诊");
         mToolbar.setVisibility(View.VISIBLE);
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
     }
 
     @Override

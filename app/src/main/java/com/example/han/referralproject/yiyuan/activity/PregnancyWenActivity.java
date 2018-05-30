@@ -51,6 +51,8 @@ public class PregnancyWenActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up_gender);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("问诊");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
         initView();
     }

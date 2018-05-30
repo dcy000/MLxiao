@@ -69,6 +69,8 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     private void initTilte() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("问诊");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
     }
 
 

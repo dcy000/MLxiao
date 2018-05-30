@@ -48,6 +48,8 @@ public class DrinkInfoActivity extends BaseActivity {
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("问诊");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
         speak("主人,请选择您本周内的饮酒情况");
     }
 
