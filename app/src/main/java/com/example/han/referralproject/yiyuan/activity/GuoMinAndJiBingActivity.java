@@ -144,12 +144,12 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     }
 
 
-    String guomin = "";
-    String jibing = "";
-
     public void getGuoMin() {
+        String guomin = "";
         if (wu1.isSelected()) {
             guomin = "0";
+
+            LocalShared.getInstance(this).setGuoMin(guomin);
             return;
         }
 
@@ -172,8 +172,10 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     }
 
     private void getJiBing() {
+        String jibing = "";
         if (wu2.isSelected()) {
             jibing = "0";
+            LocalShared.getInstance(this).setJiBingShi(jibing);
             return;
         }
 

@@ -2008,9 +2008,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             bean.highPressure = xueYa.split(",")[0];
             bean.lowPressure = xueYa.split(",")[1];
         }
+        if ("男".equals(LocalShared.getInstance(this).getSex())) {
+            bean.lastMensesTime = null;
+            bean.pregnantState = null;
+        } else {
+            bean.lastMensesTime = LocalShared.getInstance(this).getYueJingDate();
+            bean.pregnantState = LocalShared.getInstance(this).getHuaiYun();
+        }
         bean.hypertensionState = "0";
-        bean.lastMensesTime = LocalShared.getInstance(this).getYueJingDate();
-        bean.pregnantState = LocalShared.getInstance(this).getHuaiYun();
         bean.userId = LocalShared.getInstance(this).getUserId();
         bean.weekDrinkState = LocalShared.getInstance(this).getIsDrinkOrNot();
         bean.wineType = LocalShared.getInstance(this).getDringInto();
