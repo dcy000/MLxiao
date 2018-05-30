@@ -381,6 +381,12 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                                 startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
                             }
                         }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            T.show("网络繁忙");
+                        }
                     });
 
         }
