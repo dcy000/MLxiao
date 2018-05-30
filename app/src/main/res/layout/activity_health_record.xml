@@ -479,6 +479,7 @@
     </RadioGroup>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_record_qrcode"
         android:layout_width="180dp"
         android:layout_height="62dp"
