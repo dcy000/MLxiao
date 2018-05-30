@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheckBox
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detect_health_tv_item_item"
-    android:layout_width="300pt"
+    android:layout_width="400pt"
     android:layout_height="wrap_content"
     android:layout_margin="10pt"
     android:background="@drawable/detect_health_bg_item_symptom"
@@ -14,4 +13,4 @@
     android:textColor="@color/detect_checked_text_color_item"
     android:textSize="60pt"
     tools:checked="false"
-    tools:text="hei"/>
+    tools:text="hei" />

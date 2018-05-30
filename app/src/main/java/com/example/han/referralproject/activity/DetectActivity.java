@@ -2033,9 +2033,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             WenZhenReultBean reultBean = gson.fromJson(result, WenZhenReultBean.class);
                             if (reultBean.tag) {
                                 T.show("提交成功");
-                                InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
-                                finish();
-                                ActivityHelper.finishAll();
                             } else {
                                 T.show("提交失败");
                             }
@@ -2047,6 +2044,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     public void onFinish() {
                         super.onFinish();
                         hideLoadingDialog();
+                        InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
+                        finish();
+                        ActivityHelper.finishAll();
                     }
 
                     @Override
