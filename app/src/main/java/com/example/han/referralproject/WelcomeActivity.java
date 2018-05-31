@@ -81,13 +81,13 @@ public class WelcomeActivity extends BaseActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+//                                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
                                         Intent intent = new Intent(getApplicationContext(), YiYuanLoginActivity.class);
                                         startActivity(intent);
-                                    } else {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
-                                    }
+//                                    } else {
+//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                        startActivity(intent);
+//                                    }
                                     finish();
                                 }
                             }
@@ -112,13 +112,13 @@ public class WelcomeActivity extends BaseActivity {
                         // 如果从开始计时到现在超过了60s
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+//                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
                                 Intent intent = new Intent(getApplicationContext(), YiYuanLoginActivity.class);
                                 startActivity(intent);
-                            } else {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                            }
+////                            } else {
+//                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                startActivity(intent);
+//                            }
                             finish();
                         }
                     }

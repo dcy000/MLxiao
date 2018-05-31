@@ -44,6 +44,9 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         mTitleText.setText(title);
         textView9.setText(title + "完成，请选择下一步操作");
 
+        mLeftText.setVisibility(View.GONE);
+        mLeftView.setVisibility(View.GONE);
+
     }
 
     /**

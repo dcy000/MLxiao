@@ -107,6 +107,9 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     qingmeisu.setSelected(true);
                     switch_anaphylaxis[0] = true;
+
+                    switch_anaphylaxis[4]=false;
+                    wu1.setSelected(false);
                 }
                 break;
             case R.id.toubao:
@@ -116,6 +119,9 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     toubao.setSelected(true);
                     switch_anaphylaxis[1] = true;
+
+                    switch_anaphylaxis[4]=false;
+                    wu1.setSelected(false);
                 }
                 break;
             case R.id.huanganlei:
@@ -125,6 +131,9 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     huanganlei.setSelected(true);
                     switch_anaphylaxis[2] = true;
+
+                    switch_anaphylaxis[4]=false;
+                    wu1.setSelected(false);
                 }
                 break;
             case R.id.qita:
@@ -134,6 +143,9 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     qita.setSelected(true);
                     switch_anaphylaxis[3] = true;
+
+                    switch_anaphylaxis[4]=false;
+                    wu1.setSelected(false);
                 }
                 break;
             case R.id.wu1:
@@ -143,6 +155,16 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     wu1.setSelected(true);
                     switch_anaphylaxis[4] = true;
+
+                    qingmeisu.setSelected(false);
+                    toubao.setSelected(false);
+                    huanganlei.setSelected(false);
+                    qita.setSelected(false);
+                    switch_anaphylaxis[0] = false;
+                    switch_anaphylaxis[1] = false;
+                    switch_anaphylaxis[2] = false;
+                    switch_anaphylaxis[3] = false;
+
                 }
                 break;
             case R.id.huaxuepin:
@@ -152,6 +174,10 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     huaxuepin.setSelected(true);
                     switch_radiations[0] = true;
+
+                    wu2.setSelected(false);
+                    switch_radiations[3] = false;
+
                 }
                 break;
             case R.id.duwu:
@@ -161,6 +187,10 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     duwu.setSelected(true);
                     switch_radiations[1] = true;
+
+
+                    wu2.setSelected(false);
+                    switch_radiations[3] = false;
                 }
                 break;
             case R.id.shexian:
@@ -170,6 +200,9 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     shexian.setSelected(true);
                     switch_radiations[2] = true;
+
+                    wu2.setSelected(false);
+                    switch_radiations[3] = false;
                 }
                 break;
             case R.id.wu2:
@@ -179,6 +212,18 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
                 } else {
                     wu2.setSelected(true);
                     switch_radiations[3] = true;
+
+                    huaxuepin.setSelected(false);
+                    switch_radiations[0] = false;
+
+                    duwu.setSelected(true);
+                    switch_radiations[1] = true;
+
+                    shexian.setSelected(false);
+                    switch_radiations[2] = false;
+
+
+
                 }
                 break;
             case R.id.tv_sign_up_go_back:
