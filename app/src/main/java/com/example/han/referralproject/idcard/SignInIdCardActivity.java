@@ -577,11 +577,11 @@ public class SignInIdCardActivity extends BaseActivity {
         if (item == null) {
             return;
         }
-        showLoadingDialog("加载中");
+//        showLoadingDialog("加载中");
         NetworkApi.isRegisteredByIdCard(item.certNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
-                hideLoadingDialog();
+//                hideLoadingDialog();
                 if (isFinishing() || isDestroyed()) {
                     return;
                 }
@@ -596,7 +596,7 @@ public class SignInIdCardActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                hideLoadingDialog();
+//                hideLoadingDialog();
                 if (isFinishing() || isDestroyed()) {
                     return;
                 }
@@ -647,7 +647,7 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onRegister(String phone) {
-        showLoadingDialog("加载中");
+//        showLoadingDialog("加载中");
         final LocalShared shared = LocalShared.getInstance(this);
 //        String name = item.partyName;
 //        String gender = item.gender;
@@ -693,7 +693,7 @@ public class SignInIdCardActivity extends BaseActivity {
                 new NetworkManager.SuccessCallback<UserInfoBean>() {
                     @Override
                     public void onSuccess(UserInfoBean response) {
-                        hideLoadingDialog();
+//                        hideLoadingDialog();
                         if (isFinishing() || isDestroyed()) {
                             return;
                         }
@@ -726,7 +726,7 @@ public class SignInIdCardActivity extends BaseActivity {
                     @Override
                     public void onFailed(String message) {
                         Log.d(TAG, "onRegisterFailed: " + message);
-                        hideLoadingDialog();
+//                        hideLoadingDialog();
                         if (isFinishing() || isDestroyed()) {
                             return;
                         }
@@ -745,12 +745,12 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onAccountRegistered(UserInfoBean response) {
-        showLoadingDialog("加载中");
+//        showLoadingDialog("加载中");
         NetworkApi.login(response.tel, "123456", new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
                 Logger.e("本次登录人的userid" + response.bid);
-                hideLoadingDialog();
+//                hideLoadingDialog();
                 if (isDestroyed() || isFinishing()) {
                     return;
                 }
@@ -767,7 +767,7 @@ public class SignInIdCardActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                hideLoadingDialog();
+//                hideLoadingDialog();
                 if (isDestroyed() || isFinishing()) {
                     return;
                 }
@@ -930,11 +930,11 @@ public class SignInIdCardActivity extends BaseActivity {
             onUploadToServerFailed();
             return;
         }
-        showLoadingDialog("加载中");
+//        showLoadingDialog("加载中");
         NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                hideLoadingDialog();
+//                hideLoadingDialog();
                 if (isFinishing() || isDestroyed()) {
                     return;
                 }
@@ -953,7 +953,7 @@ public class SignInIdCardActivity extends BaseActivity {
                                     new NetworkManager.SuccessCallback<Object>() {
                                         @Override
                                         public void onSuccess(Object response) {
-                                            hideLoadingDialog();
+//                                            hideLoadingDialog();
                                             //将账号在本地缓存
                                             if (isFinishing() || isDestroyed()) {
                                                 return;
@@ -964,7 +964,7 @@ public class SignInIdCardActivity extends BaseActivity {
                                     }, new NetworkManager.FailedCallback() {
                                         @Override
                                         public void onFailed(String message) {
-                                            hideLoadingDialog();
+//                                            hideLoadingDialog();
                                             Log.e("注册储存讯飞id失败", "onFailed: ");
                                             if (isFinishing() || isDestroyed()) {
                                                 return;
@@ -984,7 +984,7 @@ public class SignInIdCardActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                hideLoadingDialog();
+//                hideLoadingDialog();
                 if (isDestroyed() || isFinishing()) {
                     return;
                 }
