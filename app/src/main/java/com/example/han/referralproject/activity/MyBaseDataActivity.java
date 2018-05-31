@@ -178,11 +178,13 @@ public class MyBaseDataActivity extends BaseActivity {
                                 smoke.setText(record.professionType + "");
                                 eating.setText(record.medicalPayments + "");
                                 drinking.setText(record.medicationAllergy + "");
-                                history.setText(record.exposureHistory + "");
+                                String text2 = record.exposureHistory + "";
+                                history.setText(text2.replaceAll("null",""));
 
-
-                                jiazubingshi.setText(record.kinsfolkDiseasesType + "");
-                                yichuanbignshi.setText(record.geneticHistory + "");
+                                String text = record.kinsfolkDiseasesType + "";
+                                jiazubingshi.setText(text.replaceAll("null",""));
+                                String text1 = record.geneticHistory + "";
+                                yichuanbignshi.setText(text1.replaceAll("null",""));
                                 canji.setText(record.disabilitySituation + "");
                                 chuafangpaiqi.setText(record.kitchenExhaust + "");
                                 chufangranliao.setText(record.kitchenFuel + "");
