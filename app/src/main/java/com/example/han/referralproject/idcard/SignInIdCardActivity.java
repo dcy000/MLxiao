@@ -948,7 +948,7 @@ public class SignInIdCardActivity extends BaseActivity {
                     public void complete(String key, ResponseInfo info, JSONObject res) {
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-                            showLoadingDialog("");
+//                            showLoadingDialog("");
                             NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, xfid,
                                     new NetworkManager.SuccessCallback<Object>() {
                                         @Override
