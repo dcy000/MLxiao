@@ -19,6 +19,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
@@ -30,6 +31,7 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang.StringUtils;
@@ -1232,32 +1234,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
-
-//                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
-//                    @Override
-//                    public void onSuccess(Doctor response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
-
                 finish();
             }
         });
@@ -1270,7 +1246,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 //    Log.e("==============", list.toString());
                 if (list.size() < 3) {
-                    Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class).putExtra("doctorId",doctorId);
                     startActivity(intent);
                     finish();
 
@@ -1348,6 +1324,40 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void yuYueDoctor() {
+
+        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+            @Override
+            public void onSuccess(Doctor response) {
+                if (!TextUtils.isEmpty(response.docterid + "")) {
+                    doctorId = response.docterid + "";
+                    if (!TextUtils.isEmpty(response.docter_photo)) {
+                        Picasso.with(DoctorappoActivity.this)
+                                .load(response.docter_photo)
+                                .placeholder(R.drawable.avatar_placeholder)
+                                .error(R.drawable.avatar_placeholder)
+                                .tag(this)
+                                .fit()
+                                .into(circleImageView);
+
+                    }
+                    mTextView3.setText(response.doctername);
+                    mTextView4.setText("职   级:"+response.duty);
+                    mTextView5.setText("擅   长:"+response.gat);
+                    yuyueInfo();
+                }
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+            }
+        });
+
+
+    }
+
+    private void yuyueInfo() {
         NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
@@ -1371,8 +1381,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
             }
         });
-
-
     }
 
 

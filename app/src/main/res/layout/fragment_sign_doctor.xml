@@ -69,6 +69,7 @@
             android:textSize="28sp" />
 
         <ImageView
+
             android:id="@+id/iv_top_right"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -79,7 +80,7 @@
             android:paddingRight="30dp"
             android:scaleType="centerInside"
             android:src="@drawable/icon_home"
-            android:visibility="visible"
+            android:visibility="gone"
             android:clickable="true"/>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView

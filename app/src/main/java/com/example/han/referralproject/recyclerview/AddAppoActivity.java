@@ -103,6 +103,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     public TextView mTextView40;
     public TextView mTextView41;
     public TextView mTextView42;
+    private String doctorId;
 
 
     public void showNormal(final TextView mTextView, String str1, String str2, String str3) {
@@ -130,7 +131,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(int which) {
                         if (which == 1) {
 
-                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     //sharedPreference.getString("doctor_id", "")
@@ -251,7 +252,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
-
+        doctorId = getIntent().getStringExtra("doctorId");
 
         mToolbar.setVisibility(View.VISIBLE);
 
@@ -382,7 +383,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         judge();
 
 
-        NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
+        NetworkApi.YuYue_already(doctorId, new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
             @Override
             public void onSuccess(ArrayList<AlreadyYuyue> response) {
 

@@ -37,6 +37,7 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     private DisabilityFragment disabilityFragment;
     private EnvironmentFragment environmentFragment;
     public static BuildingRecordBean buildingRecordBean;
+    private boolean bind;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,9 +53,17 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
 
 
     private void dealLogic() {
-        signDoctorFragment = new SignDoctorFragment();
-        signDoctorFragment.setOnFragmentChange(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, signDoctorFragment).commit();
+        bind = getIntent().getBooleanExtra("bind", false);
+        if (bind) {
+            heightFragment = new HeightFragment();
+            heightFragment.setOnFragmentChange(this);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame, heightFragment).commit();
+        } else {
+            signDoctorFragment = new SignDoctorFragment();
+            signDoctorFragment.setOnFragmentChange(this);
+            mToolbar.setVisibility(View.GONE);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame, signDoctorFragment).commit();
+        }
     }
 
     private void initView() {
@@ -73,7 +82,12 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     public void lastStep(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (fragment instanceof HeightFragment) {//身高
-            replaceSignDocFragment(fragmentTransaction);//签约医生
+            mToolbar.setVisibility(View.GONE);
+            if (bind) {
+                finish();
+            } else {
+                replaceSignDocFragment(fragmentTransaction);//签约医生
+            }
         } else if (fragment instanceof WeightFragment) {//体重
             replaceHeightFragment(fragmentTransaction);//身高
         } else if (fragment instanceof AddressFragment) {//地址
@@ -104,6 +118,7 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
 
     @Override
     public void nextStep(Fragment fragment) {
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (fragment instanceof SignDoctorFragment) {//签约医生
             replaceHeightFragment(fragmentTransaction);//身高
@@ -269,10 +284,10 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ( resultCode == -1) {
+        if (resultCode == -1) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-           replaceHeightFragment(fragmentTransaction);
-           fragmentTransaction.commit();
+            replaceHeightFragment(fragmentTransaction);
+            fragmentTransaction.commit();
         }
     }
 }

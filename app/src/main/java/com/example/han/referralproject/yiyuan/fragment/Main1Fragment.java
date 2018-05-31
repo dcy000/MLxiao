@@ -1,6 +1,5 @@
 package com.example.han.referralproject.yiyuan.fragment;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,9 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.DetectActivity;
@@ -192,6 +189,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
     /**
      * 健康档案 数据
+     *
      * @return
      */
     private List<MainTiZHiDialogBean> getJiankangDangAnData() {
@@ -215,6 +213,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
     /**
      * 症状自查 数据
+     *
      * @return
      */
     private List<MainTiZHiDialogBean> getZiChaData() {
@@ -234,6 +233,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
     /**
      * 健康监测 数据
+     *
      * @return
      */
     private List<MainTiZHiDialogBean> getTiJianData() {
@@ -362,35 +362,62 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if ("建档".equals(name)) {
-            //请求接口 判断时候建档
-            NetworkApi.getFiledIsOrNot(getActivity()
-                    , NetworkApi.FILE_URL
-                    , LocalShared.getInstance(getActivity()).getUserId()
-                    , new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            if (response == null) {
-                                onGetFileStateFailed();
-                                return;
-                            }
-                            WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
-                            if (reultBean.tag) {
-                                T.show("您已建档完毕");
-                                MLVoiceSynthetize.startSynthesize(getContext(),"您已建档完毕",false);
-                            } else {
-                                startActivity(new Intent(getActivity(), BuildingRecordActivity.class));
-                            }
-                        }
-
-                        @Override
-                        public void onError(Response<String> response) {
-                            super.onError(response);
-                            T.show("网络繁忙");
-                        }
-                    });
-
+            gotoFiled();
         }
 
+    }
+
+    private void gotoFiled() {
+        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo response) {
+                if (response == null) {
+                    return;
+                }
+                String state = response.getState();
+                if ("1".equals(state) || ("0".equals(state) && !TextUtils.isEmpty(response.getDoctername()))) {
+                    //请求接口 判断时候建档
+                    isNotFile(true);
+                } else {
+                    isNotFile(false);
+                }
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+            }
+        });
+    }
+
+    private void isNotFile(final boolean isBindDoctor) {
+        NetworkApi.getFiledIsOrNot(getActivity()
+                , NetworkApi.FILE_URL
+                , LocalShared.getInstance(getActivity()).getUserId()
+                , new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (response == null) {
+                            onGetFileStateFailed();
+                            return;
+                        }
+                        WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
+                        if (reultBean.tag) {
+                            T.show("您已建档完毕");
+                            MLVoiceSynthetize.startSynthesize(getContext(), "您已建档完毕", false);
+                        } else {
+                            startActivity(new Intent(getActivity(), BuildingRecordActivity.class).putExtra("bind",isBindDoctor));
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.show("网络繁忙");
+                    }
+                });
     }
 
     /**
