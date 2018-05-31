@@ -1,5 +1,6 @@
 package com.example.han.referralproject.building_record;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     private DisabilityFragment disabilityFragment;
     private EnvironmentFragment environmentFragment;
     public static BuildingRecordBean buildingRecordBean;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,7 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
         //隐藏软键盘
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         frame = (FrameLayout) findViewById(R.id.frame);
-        buildingRecordBean=new BuildingRecordBean();
+        buildingRecordBean = new BuildingRecordBean();
         buildingRecordBean.setUserId(MyApplication.getInstance().userId);
         buildingRecordBean.setEquipmentId(MyApplication.getInstance().eqid);
         buildingRecordBean.setHiHealthRecordId("");
@@ -89,7 +91,7 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
             replaceFamilyFragment(fragmentTransaction);//家族病逝
         } else if (fragment instanceof DisabilityFragment) {//残疾病逝
             replaceHereditaryFragment(fragmentTransaction);//遗传病逝
-        }else if (fragment instanceof EnvironmentFragment){
+        } else if (fragment instanceof EnvironmentFragment) {
             replaceDisabilityFragment(fragmentTransaction);
         }
         fragmentTransaction.commit();
@@ -126,9 +128,9 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
             replaceHereditaryFragment(fragmentTransaction);//遗传病
         } else if (fragment instanceof HereditaryDiseaseFragment) {//遗传病
             replaceDisabilityFragment(fragmentTransaction);//残疾情况
-        }else if (fragment instanceof DisabilityFragment){//残疾情况
+        } else if (fragment instanceof DisabilityFragment) {//残疾情况
             replaceEnvironmentFragment(fragmentTransaction);
-        }else if (fragment instanceof EnvironmentFragment){//环境
+        } else if (fragment instanceof EnvironmentFragment) {//环境
             String json = new Gson().toJson(buildingRecordBean);
             //跳转到结束页面
             OkGo.<String>post(NetworkApi.Upload_BuildRecord)
@@ -136,13 +138,13 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            Log.d("上传成功", "onSuccess: "+response.body());
-                            InquiryAndFileEndActivity.startMe(BuildingRecordActivity.this,"建档");
+                            Log.d("上传成功", "onSuccess: " + response.body());
+                            InquiryAndFileEndActivity.startMe(BuildingRecordActivity.this, "建档");
                         }
 
                         @Override
                         public void onError(Response<String> response) {
-                            Log.e("上传失败", "onError: "+response.body());
+                            Log.e("上传失败", "onError: " + response.body());
                         }
                     });
         }
@@ -150,11 +152,11 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     }
 
     private void replaceEnvironmentFragment(FragmentTransaction fragmentTransaction) {
-        if (environmentFragment==null){
-            environmentFragment=new EnvironmentFragment();
+        if (environmentFragment == null) {
+            environmentFragment = new EnvironmentFragment();
             environmentFragment.setOnFragmentChange(this);
         }
-        fragmentTransaction.replace(R.id.frame,environmentFragment);
+        fragmentTransaction.replace(R.id.frame, environmentFragment);
     }
 
     private void replaceDisabilityFragment(FragmentTransaction fragmentTransaction) {
@@ -260,5 +262,20 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
             weightFragment.setOnFragmentChange(this);
         }
         fragmentTransaction.replace(R.id.frame, weightFragment);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == -1) {
+            mToolbar.setVisibility(View.VISIBLE);
+            mTitleText.setText("建档");
+            mRightText.setVisibility(View.GONE);
+            mRightView.setVisibility(View.GONE);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+           replaceHeightFragment(fragmentTransaction);
+           fragmentTransaction.commit();
+        }
     }
 }

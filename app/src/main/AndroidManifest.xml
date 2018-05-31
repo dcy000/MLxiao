@@ -680,7 +680,7 @@
         <activity android:name=".questionair.activity.MonitorResultActivity" />
         <activity
             android:name=".idcard.IdCardInfoActivity"
-            android:launchMode="singleTop" />
+           />
         <activity android:name=".idcard.SignInIdCardActivity" />
         <activity android:name=".health.DetectResultActivity" />
         <activity android:name=".yiyuan.activity.YiYuanLoginActivity" />

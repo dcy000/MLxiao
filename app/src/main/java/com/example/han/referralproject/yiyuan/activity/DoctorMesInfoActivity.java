@@ -333,12 +333,14 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                                     if (response.count != 0) {
                                         if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
 //                                            ConfirmContractActivity.start(DoctorMesInfoActivity.this, doctor.getDocterid());
+                                            setResult(RESULT_OK);
                                             finish();
                                         } else {
                                             onLackOfAmount();
                                         }
                                     } else {
 //                                        ConfirmContractActivity.start(DoctorMesInfoActivity.this, doctor.getDocterid());
+                                        setResult(RESULT_OK);
                                         finish();
                                     }
 
@@ -346,6 +348,7 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                             }, new NetworkManager.FailedCallback() {
                                 @Override
                                 public void onFailed(String message) {
+                                    setResult(RESULT_OK);
                                     finish();
                                     T.show("服务器繁忙，请稍后再试");
                                 }

@@ -161,10 +161,10 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         mToolbar.setVisibility(View.VISIBLE);
         mUnbinder = ButterKnife.bind(this);
         radioGroupPosition = getIntent().getIntExtra("position", 0);
-        speak("主人，请查看历史记录");
+        speak("主人，请查看测量记录");
 //        tvTitle.setText("健康档案");
 
-        mTitleText.setText(R.string.history_celiang);
+        mTitleText.setText("测量记录");
         rbRecordTemperature.setOnClickListener(this);
         rbRecordBloodPressure.setOnClickListener(this);
         rbRecordBloodGlucose.setOnClickListener(this);
