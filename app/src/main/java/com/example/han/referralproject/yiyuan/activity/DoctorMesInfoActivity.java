@@ -1,6 +1,7 @@
 package com.example.han.referralproject.yiyuan.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -31,10 +32,14 @@ import com.example.han.referralproject.recyclerview.DoctorMesActivity;
 import com.example.han.referralproject.recyclerview.OnlineTime;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.medlink.danbogh.XDialogFragment;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickListener {
 //
@@ -333,6 +338,7 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                                     if (response.count != 0) {
                                         if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
 //                                            ConfirmContractActivity.start(DoctorMesInfoActivity.this, doctor.getDocterid());
+                                            bindDoctor();
                                             setResult(RESULT_OK);
                                             finish();
                                         } else {
@@ -340,6 +346,7 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                                         }
                                     } else {
 //                                        ConfirmContractActivity.start(DoctorMesInfoActivity.this, doctor.getDocterid());
+                                        bindDoctor();
                                         setResult(RESULT_OK);
                                         finish();
                                     }
@@ -406,4 +413,26 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
         });
 
     }
+
+
+    public void bindDoctor() {
+        if (doctor == null)
+            return;
+        String docId = doctor.docterid + "";
+        NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONObject result = new JSONObject(response);
+                    if (result == null) {
+                        return;
+                    }
+                    T.show(result.getString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }
