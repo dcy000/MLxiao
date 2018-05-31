@@ -37,7 +37,8 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
 
     private boolean[] switch_medica = new boolean[13];
     private String[] medica = new String[]{"高血压", "糖尿病", "冠心病", "恶性肿瘤", "慢性阻塞性肺疾病", "严重精神障碍", "脑卒中", "结核病", "肝炎", "职业病", "其他法定传染病", "其他", "无"};
-    private String[] index=new String[]{"2","3","4","6","5","8","7","9","10","12","11","13","1"};
+    private String[] index = new String[]{"2", "3", "4", "6", "5", "8", "7", "9", "10", "12", "11", "13", "1"};
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        ((BuildingRecordActivity) getActivity()). setDisableGlobalListen(true);
+        ((BuildingRecordActivity) getActivity()).setDisableGlobalListen(true);
         ((BuildingRecordActivity) getActivity()).speak("主人,请选择您的既往病史");
     }
 
@@ -101,6 +102,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     gaoxueya.setSelected(true);
                     switch_medica[0] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.tangniaobing:
@@ -110,6 +112,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     tangniaobing.setSelected(true);
                     switch_medica[1] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.guanxinbing:
@@ -119,6 +122,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     guanxinbing.setSelected(true);
                     switch_medica[2] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.zhongliu:
@@ -128,6 +132,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     zhongliu.setSelected(true);
                     switch_medica[3] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.feibing:
@@ -137,6 +142,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     feibing.setSelected(true);
                     switch_medica[4] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.jingshenzhangai:
@@ -146,6 +152,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     jingshenzhangai.setSelected(true);
                     switch_medica[5] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.naocuzhong:
@@ -155,6 +162,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     naocuzhong.setSelected(true);
                     switch_medica[6] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.jiehe:
@@ -164,6 +172,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     jiehe.setSelected(true);
                     switch_medica[7] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.feiyan:
@@ -173,6 +182,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     feiyan.setSelected(true);
                     switch_medica[8] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.zhiyebing:
@@ -182,6 +192,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     zhiyebing.setSelected(true);
                     switch_medica[9] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.qitachuanranbing:
@@ -191,6 +202,7 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     qitachuanranbing.setSelected(true);
                     switch_medica[10] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.qita:
@@ -200,15 +212,16 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                 } else {
                     qita.setSelected(true);
                     switch_medica[11] = true;
+                    setWuSelectedNot();
                 }
                 break;
             case R.id.wu:
                 if (wu.isSelected()) {
-                    wu.setSelected(false);
-                    switch_medica[12] = false;
+                    setWuSelectedNot();
                 } else {
                     wu.setSelected(true);
                     switch_medica[12] = true;
+                    setOthersNot();
                 }
                 break;
             case R.id.tv_sign_up_go_back:
@@ -222,12 +235,17 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
                     return;
                 }
                 String allergic = MyArraysUtils.jointString(switch_medica, medica);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDiseasesHistory(MyArraysUtils.jointIndex(allergic,medica,index));
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDiseasesHistory(MyArraysUtils.jointIndex(allergic, medica, index));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }
                 break;
         }
+    }
+
+    private void setWuSelectedNot() {
+        wu.setSelected(false);
+        switch_medica[12] = false;
     }
 
     @Override
@@ -236,5 +254,32 @@ public class MedicalHistoryFragment extends Fragment implements View.OnClickList
         if (view != null) {
             ((ViewGroup) view.getParent()).removeView(view);
         }
+    }
+
+    public void setOthersNot() {
+        gaoxueya.setSelected(false);
+        switch_medica[0] = false;
+        tangniaobing.setSelected(false);
+        switch_medica[1] = false;
+        guanxinbing.setSelected(false);
+        switch_medica[2] = false;
+        zhongliu.setSelected(false);
+        switch_medica[3] = false;
+        feibing.setSelected(false);
+        switch_medica[4] = false;
+        jingshenzhangai.setSelected(false);
+        switch_medica[5] = false;
+        naocuzhong.setSelected(false);
+        switch_medica[6] = false;
+        jiehe.setSelected(false);
+        switch_medica[7] = false;
+        feiyan.setSelected(false);
+        switch_medica[8] = false;
+        zhiyebing.setSelected(false);
+        switch_medica[9] = false;
+        qitachuanranbing.setSelected(false);
+        switch_medica[10] = false;
+        qita.setSelected(false);
+        switch_medica[11] = false;
     }
 }

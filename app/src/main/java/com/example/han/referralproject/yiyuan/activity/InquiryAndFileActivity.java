@@ -48,6 +48,9 @@ public class InquiryAndFileActivity extends BaseActivity {
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("问诊建档");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
+
     }
 
     @OnClick({R.id.iv_wenzhen, R.id.iv_jiandang})

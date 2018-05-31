@@ -35,7 +35,8 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
 
     private String[] disability = new String[]{"视力残疾", "听力残疾", "言语残疾", "肢体残疾", "智力残疾", "精神残疾", "其他", "无"};
     private boolean[] switch_disability = new boolean[8];
-    private String[] index=new String[]{"2","3","4","5","6","7","8","1"};
+    private String[] index = new String[]{"2", "3", "4", "5", "6", "7", "8", "1"};
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        ((BuildingRecordActivity) getActivity()). setDisableGlobalListen(true);
+        ((BuildingRecordActivity) getActivity()).setDisableGlobalListen(true);
         ((BuildingRecordActivity) getActivity()).speak("主人,您是否有残疾？");
     }
 
@@ -91,6 +92,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                 } else {
                     shili.setSelected(true);
                     switch_disability[0] = true;
+                    setWuNot();
                 }
                 break;
             case R.id.tingli:
@@ -100,6 +102,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                 } else {
                     tingli.setSelected(true);
                     switch_disability[1] = true;
+                    setWuNot();
                 }
                 break;
             case R.id.yanyu:
@@ -109,6 +112,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                 } else {
                     yanyu.setSelected(true);
                     switch_disability[2] = true;
+                    setWuNot();
                 }
                 break;
             case R.id.zhiti:
@@ -118,6 +122,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                 } else {
                     zhiti.setSelected(true);
                     switch_disability[3] = true;
+                    setWuNot();
                 }
                 break;
             case R.id.zhili:
@@ -127,6 +132,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                 } else {
                     zhili.setSelected(true);
                     switch_disability[4] = true;
+                    setWuNot();
                 }
                 break;
             case R.id.jingshen:
@@ -136,6 +142,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                 } else {
                     jingshen.setSelected(true);
                     switch_disability[5] = true;
+                    setWuNot();
                 }
                 break;
             case R.id.qita:
@@ -145,15 +152,16 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                 } else {
                     qita.setSelected(true);
                     switch_disability[6] = true;
+                    setWuNot();
                 }
                 break;
             case R.id.wu:
                 if (wu.isSelected()) {
-                    wu.setSelected(false);
-                    switch_disability[7] = false;
+                    setWuNot();
                 } else {
                     wu.setSelected(true);
                     switch_disability[7] = true;
+                    setOthersNot();
                 }
                 break;
             case R.id.tv_sign_up_go_back:
@@ -167,11 +175,35 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
                     return;
                 }
                 String result = MyArraysUtils.jointString(switch_disability, disability);
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDisabilitySituation( MyArraysUtils.jointIndex(result,disability,index));
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDisabilitySituation(MyArraysUtils.jointIndex(result, disability, index));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }
                 break;
         }
+    }
+
+    private void setWuNot() {
+        wu.setSelected(false);
+        switch_disability[7] = false;
+    }
+
+
+    private void setOthersNot() {
+        shili.setSelected(false);
+        switch_disability[0] = false;
+        tingli.setSelected(false);
+        switch_disability[1] = false;
+        yanyu.setSelected(false);
+        switch_disability[2] = false;
+        zhiti.setSelected(false);
+        switch_disability[3] = false;
+        zhili.setSelected(false);
+        switch_disability[4] = false;
+        jingshen.setSelected(false);
+        switch_disability[5] = false;
+        qita.setSelected(false);
+        switch_disability[6] = false;
+
     }
 }
