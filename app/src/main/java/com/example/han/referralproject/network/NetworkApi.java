@@ -63,16 +63,11 @@ import java.util.Map;
 
 public class NetworkApi {
 
-    //    public static final String BasicUrl = "http://116.62.36.12:8080";
-//    public static final String BasicUrl = "http://118.31.73.176:8080";
-    public static final String BasicUrl = "http://192.168.200.117:8080";
+    //public static final String BasicUrl = "http://116.62.36.12:8080";
+    public static final String BasicUrl = "http://118.31.73.176:8080";
 
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
-//    public static final String BasicUrl = "http://192.168.200.109:8080";//孙高峰
-//    public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
-//    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
-//    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
-
+    //    public static final String BasicUrl = "http://192.168.200.117:8080";
     //上传建档信息
     public static final String Upload_BuildRecord = BasicUrl + "/ZZB/api/health/inquiry/record/";
     //生活疗法
