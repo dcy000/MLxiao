@@ -47,6 +47,9 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         mLeftText.setVisibility(View.GONE);
         mLeftView.setVisibility(View.GONE);
 
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
+
     }
 
     /**

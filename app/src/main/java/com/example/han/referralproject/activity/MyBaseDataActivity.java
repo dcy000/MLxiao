@@ -105,42 +105,7 @@ public class MyBaseDataActivity extends BaseActivity {
         mTitleText.setText("个人信息");
     }
 
-    private void getData() {
-//        NetworkApi.getMyBaseData(new NetworkManager.SuccessCallback<UserInfoBean>() {
-//            @Override
-//            public void onSuccess(UserInfoBean response) {
-//                MyBaseDataActivity.this.response = response;
-//                Picasso.with(MyBaseDataActivity.this)
-//                        .load(response.user_photo)
-//                        .placeholder(R.drawable.avatar_placeholder)
-//                        .error(R.drawable.avatar_placeholder)
-//                        .tag(this)
-//                        .fit()
-//                        .into(head);
-////                mName.setText(response.bname);
-////                mAge.setText(Utils.age(response.sfz) + "岁");
-////                mSex.setText(response.sex);
-////                mHeight.setText(response.height + "cm");
-////                mWeight.setText(response.weight + "Kg");
-////                mBlood.setText(response.blood_type + "型");
-////                mPhone.setText(response.tel);
-////                mNumber.setText(response.eqid);
-////                mMotion.setText(response.exercise_habits);
-////                mSmoke.setText(response.smoke);
-////                mEating.setText(response.eating_habits);
-////                mDrinking.setText(response.drink);
-////                mAddress.setText(response.dz);
-////                mHistory.setText(response.mh.trim());
-////                mIdcard.setText(shenfen);
-//                String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
-//            }
-//        }, new NetworkManager.FailedCallback() {
-//            @Override
-//            public void onFailed(String message) {
-//                ToastTool.showShort(message);
-//            }
-//        });
-    }
+
 
     private void initView() {
         showLoadingDialog("正在加载中...");

@@ -40,16 +40,15 @@ public class InquiryAndFileActivity extends BaseActivity {
         setContentView(R.layout.activity_inquiry_and_file);
         ButterKnife.bind(this);
         initTitle();
-        mLeftText.setVisibility(View.GONE);
-        mLeftView.setVisibility(View.GONE);
+
     }
 
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("问诊建档");
-        mRightText.setVisibility(View.GONE);
-        mRightView.setVisibility(View.GONE);
+        mLeftText.setVisibility(View.GONE);
+        mLeftView.setVisibility(View.GONE);
 
     }
 

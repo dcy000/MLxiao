@@ -17,53 +17,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="45dp">
+        android:paddingLeft="50dp">
 
         <RadioButton
             android:id="@+id/a"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:paddingLeft="15dp"
             android:text="没有（基本不）"
             android:textColor="#666"
-            android:textSize="28dp" />
+            android:paddingLeft="20dp"
+            android:textSize="32dp"
+            />
 
         <RadioButton
             android:id="@+id/b"
+            android:paddingLeft="20dp"
+            android:textSize="32dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:paddingLeft="15dp"
             android:text="很少（有一点）"
             android:textColor="#666"
-            android:textSize="28dp" />
+             />
 
         <RadioButton
             android:id="@+id/c"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:paddingLeft="15dp"
             android:text="有时（有些）"
             android:textColor="#666"
-            android:textSize="28dp" />
+            android:paddingLeft="20dp"
+            android:textSize="32dp" />
 
 
         <RadioButton
             android:id="@+id/d"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:paddingLeft="15dp"
+
             android:text="常常（相当）"
             android:textColor="#666"
-            android:textSize="28dp" />
+            android:paddingLeft="20dp"
+            android:textSize="32dp" />
 
         <RadioButton
             android:id="@+id/e"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:paddingLeft="15dp"
             android:text="总是（十分)"
             android:textColor="#666"
-            android:textSize="28dp" />
+            android:paddingLeft="20dp"
+            android:textSize="32dp" />
     </RadioGroup>
 
 

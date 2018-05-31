@@ -102,6 +102,8 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_mes_info);
         mToolbar.setVisibility(View.VISIBLE);
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
         //    initToolBar();
 
         Intent intent = getIntent();

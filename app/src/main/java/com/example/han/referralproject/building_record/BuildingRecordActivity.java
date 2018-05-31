@@ -42,6 +42,10 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_building_record);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("建档");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
         initView();
         dealLogic();
     }
@@ -61,13 +65,14 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
         buildingRecordBean.setUserId(MyApplication.getInstance().userId);
         buildingRecordBean.setEquipmentId(MyApplication.getInstance().eqid);
         buildingRecordBean.setHiHealthRecordId("");
+
+
     }
 
     @Override
     public void lastStep(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (fragment instanceof HeightFragment) {//身高
-            mToolbar.setVisibility(View.GONE);
             replaceSignDocFragment(fragmentTransaction);//签约医生
         } else if (fragment instanceof WeightFragment) {//体重
             replaceHeightFragment(fragmentTransaction);//身高
@@ -99,10 +104,6 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
 
     @Override
     public void nextStep(Fragment fragment) {
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("建档");
-        mRightText.setVisibility(View.GONE);
-        mRightView.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (fragment instanceof SignDoctorFragment) {//签约医生
             replaceHeightFragment(fragmentTransaction);//身高
@@ -269,10 +270,6 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if ( resultCode == -1) {
-            mToolbar.setVisibility(View.VISIBLE);
-            mTitleText.setText("建档");
-            mRightText.setVisibility(View.GONE);
-            mRightView.setVisibility(View.GONE);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
            replaceHeightFragment(fragmentTransaction);
            fragmentTransaction.commit();

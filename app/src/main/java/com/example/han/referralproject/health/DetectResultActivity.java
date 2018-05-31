@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.DetectResult;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.Callback;
@@ -26,6 +28,7 @@ import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.utils.Utils;
 import com.ml.zxing.QrCodeUtils;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -160,24 +163,61 @@ public class DetectResultActivity extends BaseActivity {
                 }
             }
         });
-        if (MyApplication.getInstance().account != null) {
-            mDetectTvNameInfo.setText(MyApplication.getInstance().account.bname);
-            mDetectTvHeightInfo.setText(MyApplication.getInstance().account.height + "cm");
-            mDetectTvWeightInfo.setText(MyApplication.getInstance().account.weight + "kg");
-            String sex = MyApplication.getInstance().account.sex;
-            sex = TextUtils.isEmpty(sex) ? "女" : sex;
-            mDetectTvGenderInfo.setText(sex);
-            mDetectTvAgeInfo.setText(MyApplication.getInstance().account.age);
-            mDetectTvBloodTypeInfo.setText(MyApplication.getInstance().account.blood_type + "型");
-            mDetectTvResultWeightInfo.setText(weight + "  kg");
+
 //            String oxygen = intent.getStringExtra("oxygen");
 //            mDetectTvResultOxygenInfo.setText(oxygen + "mmHg");
 //            mDetectTvResultOxygenInfoIndicator.setText("偏低");
-            mDetectTvResultHighPressureInfo.setText(highPressure + "  mmHg");
-            mDetectTvResultLowPressureInfo.setText(lowPressure + "  mmHg");
-            mDetectTvResultTemperateInfo.setText(tem);
-            mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
-            mDetectTvResultEcgInfo.setText(ecg);
-        }
+        mDetectTvResultWeightInfo.setText(weight + "  kg");
+        mDetectTvResultHighPressureInfo.setText(highPressure + "  mmHg");
+        mDetectTvResultLowPressureInfo.setText(lowPressure + "  mmHg");
+        mDetectTvResultTemperateInfo.setText(tem);
+        mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
+        mDetectTvResultEcgInfo.setText(ecg);
+        initView();
+    }
+
+    private void initView() {
+        showLoadingDialog("正在加载中...");
+        NetworkApi.getPersonalInfo(this, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if (response != null) {
+                    Gson gson = new Gson();
+                    PersonInfoResultBean bean = gson.fromJson(response.body(), PersonInfoResultBean.class);
+                    if (bean != null) {
+                        PersonInfoResultBean.DataBean data = bean.data;
+                        if (data != null) {
+                            mDetectTvNameInfo.setText(data.bname + "");
+                            mDetectTvAgeInfo.setText(data.age + "");
+                            mDetectTvGenderInfo.setText(data.sex + "");
+
+
+                            PersonInfoResultBean.DataBean.RecordBean record = data.record;
+                            if (record != null) {
+                                mDetectTvBloodTypeInfo.setText(record.bloodType + "型");
+                                mDetectTvHeightInfo.setText(record.height + "cm");
+                                mDetectTvWeightInfo.setText(record.weight + "kg");
+                            }
+                        }
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                T.show("网络繁忙");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoadingDialog();
+            }
+        });
+
+
     }
 }

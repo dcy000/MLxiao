@@ -215,9 +215,9 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
 
                     huaxuepin.setSelected(false);
                     switch_radiations[0] = false;
+                    duwu.setSelected(false);
+                    switch_radiations[1] = false;
 
-                    duwu.setSelected(true);
-                    switch_radiations[1] = true;
 
                     shexian.setSelected(false);
                     switch_radiations[2] = false;
