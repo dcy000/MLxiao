@@ -31,6 +31,9 @@ import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
     ImageView mImageView;
@@ -336,13 +339,15 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                     String applyAmount = doctor.getApply_amount();
                                     if (response.count != 0) {
                                         if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
-                                            ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+//                                            ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                            bindDoctor();
                                             finish();
                                         } else {
                                             onLackOfAmount();
                                         }
                                     } else {
-                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+//                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                        bindDoctor();
                                         finish();
                                     }
 
@@ -350,6 +355,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                             }, new NetworkManager.FailedCallback() {
                                 @Override
                                 public void onFailed(String message) {
+                                    finish();
                                     T.show("服务器繁忙，请稍后再试");
                                 }
                             });
@@ -405,6 +411,27 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             }
         });
 
+    }
+
+
+    public void bindDoctor() {
+        if (doctor == null)
+            return;
+        String docId = doctor.docterid + "";
+        NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONObject result = new JSONObject(response);
+                    if (result == null) {
+                        return;
+                    }
+                    T.show(result.getString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }
