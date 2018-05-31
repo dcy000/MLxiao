@@ -24,7 +24,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:gravity="center"
@@ -33,6 +32,7 @@
         app:layout_constraintRight_toLeftOf="@id/icon_home">
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="杭州市"
@@ -40,6 +40,7 @@
             android:textSize="34sp" />
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
