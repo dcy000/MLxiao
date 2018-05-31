@@ -864,10 +864,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
 //                        .putExtra("type", "癫痫"));
 //            }
-            boolean dealKeyWord = keyWordDeal(inSpell);
-            if (dealKeyWord) {
-                return;
-            }
+//            boolean dealKeyWord = keyWordDeal(inSpell);
+//            if (dealKeyWord) {
+//                return;
+//            }
 //            KeyWordBean keyword = (KeyWordBean) SharedPreferencesUtils.getParam(this, "keyword", new KeyWordBean());
 //            if (keyword.yueya.equals(resultBuffer.toString())) {
 //                mIatDialog.dismiss();
@@ -875,67 +875,67 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                intent.putExtra("type", "xueya");
 //                startActivity(intent);
 //                return;
+////            }
+//            if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
+//                mIatDialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                intent.putExtra("fromType", "xueya");
+//                startActivity(intent);
+//
+//            } else if (inSpell.matches(".*ce.*xueyang.*")
+//                    || inSpell.matches(".*liang.*xueyang.*")
+//                    || inSpell.matches(".*ce.*baohedu.*")) {
+//                mIatDialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                intent.putExtra("fromType", "xueyang");
+//                startActivity(intent);
+//
+//
+//            } else if (result.matches(".*测.*血糖.*")
+//                    || inSpell.matches(".*liang.*xuetang.*")
+//                    || inSpell.matches(".*xuetangyi.*")
+//                    ) {
+//                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                intent.putExtra("fromType", "xuetang");
+//                startActivity(intent);
+//            } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
+//                mIatDialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                intent.putExtra("fromType", "wendu");
+//                startActivity(intent);
+//
+//
+//            } else if (inSpell.matches(".*ce.*xindian.*")
+//                    || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
+//                mIatDialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                intent.putExtra("fromType", "xindian");
+//                startActivity(intent);
+//
+//
+//            } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
+//                mIatDialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                intent.putExtra("fromType", "sanheyi");
+//                startActivity(intent);
+//
+//
+//            } else if (inSpell.matches(".*ce.*tizhong.*")) {
+//
+//                mIatDialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//                intent.putExtra("from", "Test");
+//                intent.putExtra("fromType", "tizhong");
+//                startActivity(intent);
+//
+//
 //            }
-            if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueya");
-                startActivity(intent);
-
-            } else if (inSpell.matches(".*ce.*xueyang.*")
-                    || inSpell.matches(".*liang.*xueyang.*")
-                    || inSpell.matches(".*ce.*baohedu.*")) {
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueyang");
-                startActivity(intent);
-
-
-            } else if (result.matches(".*测.*血糖.*")
-                    || inSpell.matches(".*liang.*xuetang.*")
-                    || inSpell.matches(".*xuetangyi.*")
-                    ) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xuetang");
-                startActivity(intent);
-            } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "wendu");
-                startActivity(intent);
-
-
-            } else if (inSpell.matches(".*ce.*xindian.*")
-                    || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xindian");
-                startActivity(intent);
-
-
-            } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "sanheyi");
-                startActivity(intent);
-
-
-            } else if (inSpell.matches(".*ce.*tizhong.*")) {
-
-                mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "tizhong");
-                startActivity(intent);
-
-
-            }
 
 //            else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
 //
@@ -945,7 +945,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //
 //
 //            }
-            else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
+//            else
+            if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
                     T.show("请先查看是否与签约医生签约成功");
