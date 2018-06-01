@@ -14,8 +14,12 @@ import com.example.han.referralproject.activity.BaseActivity;
 public class MonitorResultActivity extends BaseActivity {
     private static final String SCORES = "scores";
     private static final String RESULT_TYPE = "result_type";
+    private static final String FEATURE = "feature";
+    private static final String TIAOYANG = "tiaoyang";
     private String resultScores;
     private String resultType;
+    private String featrue;
+    private String tiaoyang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,28 +38,32 @@ public class MonitorResultActivity extends BaseActivity {
     private void initData() {
         resultScores = getIntent().getStringExtra(SCORES);
         resultType = getIntent().getStringExtra(RESULT_TYPE);
+        tiaoyang = getIntent().getStringExtra(TIAOYANG);
+        featrue= getIntent().getStringExtra(FEATURE);
     }
 
 
-    public static void starMe(Context context, String scores, String resultType) {
+    public static void starMe(Context context,  String resultType,String scores,String feature,String tiaoyao) {
         Intent intent = new Intent(context, MonitorResultActivity.class);
         intent.putExtra(SCORES, scores);
         intent.putExtra(RESULT_TYPE, resultType);
+        intent.putExtra(FEATURE, feature);
+        intent.putExtra(TIAOYANG, tiaoyao);
         context.startActivity(intent);
     }
 
     private void initView() {
         TextView result = findViewById(R.id.tv_result);
         TextView description = findViewById(R.id.tv_description);
-
-//        Random random = new Random();
-//        int index = random.nextInt(9);
-//
-//        String resultInfo = results[index];
-//        result.setText(resultInfo.split("-")[0]);
-
         result.setText(resultType);
-        description.setText(resultScores);
+        description.setText(featrue);
+
+
+        TextView scor = findViewById(R.id.tv_score);
+        TextView tiaoyang = findViewById(R.id.tv_tiaoyang);
+        scor.setText(resultScores);
+        tiaoyang.setText(this.tiaoyang);
+
     }
 
 }

@@ -15,17 +15,36 @@
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="气虚体质"
             android:textColor="#FF333333"
-            android:textSize="72pt"
-            tools:text="气虚体质" />
+            android:textSize="70pt" />
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            android:text="气虚体质"
+            android:textColor="#4e4e4e"
+            android:textSize="60pt" />
 
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FF666666"
-            android:textSize="66pt"
-            tools:text="气虚体质" />
+            android:layout_marginTop="30pt"
+            android:text="气虚体质"
+            android:textColor="#4e4e4e"
+            android:textSize="60pt" />
+        <TextView
+            android:id="@+id/tv_tiaoyang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30pt"
+            android:text="调养方案"
+            android:textColor="#4e4e4e"
+            android:textSize="60pt" />
+
 
     </LinearLayout>
 

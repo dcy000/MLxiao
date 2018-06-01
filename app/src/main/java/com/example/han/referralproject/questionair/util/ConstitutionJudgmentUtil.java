@@ -265,7 +265,7 @@ public class ConstitutionJudgmentUtil {
 
     public static String getResultScores(List<MonitorRequestionBean> data) {
         Map<String, Integer> all = ConstitutionJudgmentUtil.getAll(data);
-        String info = "主人您的各体质类型转化分:";
+        String info = "体质类型转化分:";
         for (Map.Entry<String, Integer> entry : all.entrySet()) {
             info += entry.getKey() + entry.getValue() + "分,";
         }

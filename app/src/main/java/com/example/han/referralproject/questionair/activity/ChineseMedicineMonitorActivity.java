@@ -168,8 +168,12 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
         ConstitutionJudgmentEnum element = ConstitutionJudgmentEnum.getElement(monitorResult.substring(0, 3));
 
         MonitorResultActivity.starMe(this,
-                ConstitutionJudgmentUtil.getResultScores(data) + "\n" + element.getFeatrue() + "\n" + element.getMaintenance(),
-                monitorResultTemp);
+                monitorResultTemp,
+                ConstitutionJudgmentUtil.getResultScores(data),
+                element.getFeatrue(),
+                element.getMaintenance()
+        );
+        finish();
     }
 
     @NonNull
