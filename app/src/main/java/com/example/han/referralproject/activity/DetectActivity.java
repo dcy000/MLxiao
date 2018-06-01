@@ -555,6 +555,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 xueyaResult = mXueyaResults[2];
                             }
 
+                            if (getIntent().getBooleanExtra("inquiry", false)) {
+                                LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
+                                showLoadingDialog("正在提交问诊信息");
+                                postWenZhenData(true);
+                                return;
+                            }
                             uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
 //                            speak(String.format(getString(R.string.tips_result_xueya),
 //                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
@@ -1999,6 +2005,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         bean.diseasesHistory = LocalShared.getInstance(this).getJiBingShi();
         bean.equipmentId = LocalShared.getInstance(this).getEqID();
         bean.height = LocalShared.getInstance(this).getSignUpHeight() + "";
+        bean.weight = LocalShared.getInstance(this).getSignUpWeight() + "";
         bean.hiUserInquiryId = "";
         String xueYa = LocalShared.getInstance(this).getXueYa();
         if (!testXueYa) {
