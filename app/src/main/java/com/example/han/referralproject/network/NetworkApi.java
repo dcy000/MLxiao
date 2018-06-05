@@ -47,6 +47,8 @@ import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1110,5 +1112,21 @@ public class NetworkApi {
         params.put("userid", userId);
         params.put("state", "2");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, MonthlyReport.class, successCallback, failedCallback);
+    }
+
+    /**
+     * 个人中心_云联查余额积分 url
+     */
+    public static final String YUNLIAN_URL_BANLANCE_INTEGRAL = "http://shop.ylscjt.cn/index.php/api2/member/member";
+    public static final String YUNLIAN_ABC = "g8k8r5q4g6ph45eac45m4tr4t5";
+
+    /**
+     * @param phone
+     */
+    public static void getBalanceAndInteGral(String phone, StringCallback callback) {
+        OkGo.<String>post(YUNLIAN_URL_BANLANCE_INTEGRAL)
+                .params("key", YUNLIAN_ABC)
+                .params("mobile_tel", phone)
+                .execute(callback);
     }
 }

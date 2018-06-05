@@ -26,16 +26,15 @@ import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.health.HealthDiaryActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.personal.bean.BanlanceAndIntegralResultBean;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
@@ -45,9 +44,11 @@ import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-import com.ml.edu.OldRouter;
+import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -100,6 +101,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     private ChangeAccountDialog mChangeAccountDialog;
 
     SharedPreferences sharedPreferences1;
+    private TextView tvJifen;
 
     @Nullable
     @Override
@@ -112,6 +114,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         recreation = (ImageView) view.findViewById(R.id.iv_laoren_yule);
         recreation.setOnClickListener(this);
         tvBalance = (TextView) view.findViewById(R.id.tv_balance);
+        tvJifen = view.findViewById(R.id.tv_jifen);
         ((BaseActivity) getActivity()).setEnableListeningLoop(false);
         view.findViewById(R.id.main_iv_health_class).setOnClickListener(this);
         isSignDoctor = (TextView) view.findViewById(R.id.doctor_status);
@@ -216,21 +219,48 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             }
         });
 
-        NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
-            @Override
-            public void onSuccess(final RobotAmount response) {
+//        NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
+//            @Override
+//            public void onSuccess(final RobotAmount response) {
+//
+//                if (response != null && response.getAmount() != null) {
+//                    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
+//                    tvBalance.setText(response.getAmount());
+//                }
+//            }
+//
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//
+//
+//            }
+//        });
 
-                if (response != null && response.getAmount() != null) {
-                    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-                    tvBalance.setText(response.getAmount());
+        NetworkApi.getBalanceAndInteGral(LocalShared.getInstance(getActivity()).getPhoneNum(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                BanlanceAndIntegralResultBean resultBean = new Gson().fromJson(response.body(), BanlanceAndIntegralResultBean.class);
+                if (resultBean != null) {
+                    BanlanceAndIntegralResultBean.DataBean data = resultBean.data;
+                    if (data != null) {
+                        tvBalance.setText(data.mywallet);
+                        tvJifen.setText(data.whitepoint);
+                    }
                 }
+
             }
 
-        }, new NetworkManager.FailedCallback() {
             @Override
-            public void onFailed(String message) {
+            public void onError(Response<String> response) {
+                super.onError(response);
+                T.show("网络繁忙,请稍后重试");
 
+            }
 
+            @Override
+            public void onFinish() {
+                super.onFinish();
             }
         });
 
