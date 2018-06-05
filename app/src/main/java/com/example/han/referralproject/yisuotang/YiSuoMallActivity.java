@@ -109,13 +109,13 @@ public class YiSuoMallActivity extends BaseActivity {
             @Override
             public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
                 super.onReceivedHttpError(view, request, errorResponse);
-//                hideLoadingDialog();
+                hideLoadingDialog();
             }
 
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
-//                hideLoadingDialog();
+                hideLoadingDialog();
                 finish();
             }
 
