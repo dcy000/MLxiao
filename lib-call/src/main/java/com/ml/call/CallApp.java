@@ -3,6 +3,8 @@ package com.ml.call;
 import android.app.Application;
 import android.content.Context;
 
+import com.ml.call.utils.T;
+
 /**
  * Created by afirez on 2018/5/31.
  */
@@ -28,6 +30,7 @@ public class CallApp {
     }
 
     public void onCreate(Application app) {
+        T.init(app);
         NimInitHelper.getInstance().init(app, true);
     }
 

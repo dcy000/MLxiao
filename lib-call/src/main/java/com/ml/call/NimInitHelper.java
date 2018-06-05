@@ -91,7 +91,7 @@ public class NimInitHelper {
                 String extra = data.getExtra();
                 Log.e("Extra", "Extra Message->" + extra);
                 if (PhoneStateObserver.getInstance().getCallState() != PhoneStateObserver.PhoneState.IDLE
-                        || NimCallHelper.getInstance().isChatting()
+                        || CallHelper.getInstance().isChatting()
                         || AVChatManager.getInstance().getCurrentChatId() != 0) {
                     Log.i(TAG, "reject incoming call data =" + data.toString() + " as local phone is not idle");
                     AVChatManager.getInstance().sendControlCommand(data.getChatId(), AVChatControlCommand.BUSY, null);

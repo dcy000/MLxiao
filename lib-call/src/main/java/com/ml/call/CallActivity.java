@@ -4,6 +4,7 @@ import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -14,6 +15,8 @@ import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.model.AVChatCameraCapturer;
 
 public class CallActivity extends AppCompatActivity {
+
+    private static final String TAG = "CallActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,11 @@ public class CallActivity extends AppCompatActivity {
     private CallHelper.OnCloseSessionListener onCloseSessionListener = new CallHelper.OnCloseSessionListener() {
         @Override
         public void onCloseSession() {
+            CallHelper.getInstance().removeOnCallStateChangeListener(mCallListener);
+            CallHelper.getInstance().setCallTimeCallback(null);
+            CallHelper.getInstance().setOnCloseSessionListener(null);
+            CallHelper.getInstance().setSmallContainer(null);
+            CallHelper.getInstance().setLargeContainer(null);
             finish();
         }
     };
@@ -56,6 +64,7 @@ public class CallActivity extends AppCompatActivity {
     public CallHelper.OnCallStateChangeListener mCallListener = new CallHelper.OnCallStateChangeListener() {
         @Override
         public void onCallStateChanged(CallState state) {
+            Log.d(TAG, "onCallStateChanged: ");
             if (clRoot == null) {
                 return;
             }

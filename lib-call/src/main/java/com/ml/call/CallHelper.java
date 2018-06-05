@@ -174,8 +174,8 @@ public class CallHelper {
 
     private AtomicBoolean mCallEstablished = new AtomicBoolean(false);
 
-    private FrameLayout flSmallContainer;
-    private FrameLayout flLargeContainer;
+    private volatile FrameLayout flSmallContainer;
+    private volatile FrameLayout flLargeContainer;
 
     private String largeAccount;
 
@@ -190,13 +190,14 @@ public class CallHelper {
         return flSmallContainer;
     }
 
-    public void setSmallContainer(FrameLayout flSmallContainer) {
+    public synchronized void setSmallContainer(FrameLayout flSmallContainer) {
         this.flSmallContainer = flSmallContainer;
         if (flSmallContainer == null && mCallEstablished.get() && smallRenderer != null) {
             ViewParent parent = smallRenderer.getParent();
             if (parent != null && parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(smallRenderer);
             }
+            return;
         }
         initSmallSurface();
     }
@@ -205,13 +206,14 @@ public class CallHelper {
         return flLargeContainer;
     }
 
-    public void setLargeContainer(FrameLayout flLargeContainer) {
+    public synchronized void setLargeContainer(FrameLayout flLargeContainer) {
         this.flLargeContainer = flLargeContainer;
         if (flLargeContainer == null && mCallEstablished.get() && largeRenderer != null) {
             ViewParent parent = largeRenderer.getParent();
             if (parent != null && parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(largeRenderer);
             }
+            return;
         }
         initLargeSurface();
     }
@@ -328,7 +330,8 @@ public class CallHelper {
         }
         flLargeContainer.addView(largeRenderer);
         largeRenderer.setZOrderMediaOverlay(false);
-        chatManager.setupLocalVideoRender(
+        chatManager.setupRemoteVideoRender(
+                remoteAccount,
                 largeRenderer,
                 false,
                 AVChatVideoScalingType.SCALE_ASPECT_BALANCED
@@ -412,7 +415,7 @@ public class CallHelper {
     private Observer<AVChatOnlineAckEvent> onlineAckObserver = new Observer<AVChatOnlineAckEvent>() {
         @Override
         public void onEvent(AVChatOnlineAckEvent ackInfo) {
-            AVChatData info = NimCallHelper.getInstance().getAvChatData();
+            AVChatData info = avChatData;
             if (info != null && info.getChatId() == ackInfo.getChatId()) {
                 CallSoundPlayer.instance().stop();
                 String client = null;
@@ -472,15 +475,24 @@ public class CallHelper {
     };
 
     public void closeSessions(int exitCode) {
+        if (mRtcDestroyed) {
+            return;
+        }
+        registerCallObserver(false);
+        setLargeContainer(null);
+        setSmallContainer(null);
         Log.i(TAG, "close session -> " + CallExitCode.getExitString(exitCode));
         CallSoundPlayer.instance().stop();
         mCallEstablished.set(false);
+        stopTimer();
+        mCallTimeCallback = null;
         showQuitToast(exitCode);
         uiHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (mOnCloseSessionListener != null) {
                     mOnCloseSessionListener.onCloseSession();
+                    mOnCloseSessionListener = null;
                 }
             }
         }, 2000);
@@ -489,6 +501,7 @@ public class CallHelper {
             AVChatManager.getInstance().disableVideo();
         }
         AVChatManager.getInstance().disableRtc();
+        mRtcDestroyed = true;
     }
 
     /**
@@ -603,6 +616,8 @@ public class CallHelper {
                 false,
                 AVChatVideoScalingType.SCALE_ASPECT_BALANCED
         );
+        smallRenderer.setZOrderOnTop(true);
+//        smallRenderer.setZOrderMediaOverlay(true);
     }
 
     public void call(
@@ -612,6 +627,7 @@ public class CallHelper {
 //        mOuterCallback = callback;
         this.remoteAccount = remoteAccount;
         AVChatManager chatManager = AVChatManager.getInstance();
+        mRtcDestroyed = false;
         chatManager.enableRtc();
         if (chatType == AVChatType.VIDEO) {
             chatManager.enableVideo();
@@ -639,7 +655,7 @@ public class CallHelper {
             @Override
             public void onSuccess(AVChatData data) {
                 avChatData = data;
-                mCallEstablished.set(true);
+//                mCallEstablished.set(true);
 //                onCallEstablished();
                 notifyCallStateChanged(CallState.CONNECT_SUCCESS);
             }
@@ -753,6 +769,7 @@ public class CallHelper {
             notifyCallStateChanged(CallState.VIDEO_CONNECTING);
         }
         AVChatManager chatManager = AVChatManager.getInstance();
+        mRtcDestroyed = false;
         chatManager.enableRtc();
         videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
         chatManager.setupVideoCapturer(videoCapturer);
@@ -803,25 +820,32 @@ public class CallHelper {
     private boolean mRtcDestroyed;
 
     private void hangUp(final int code) {
+        uiHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeSessions(-1);
+            }
+        },500);
         if ((code == CallExitCode.HANGUP
                 || code == CallExitCode.PEER_NO_RESPONSE
                 || code == CallExitCode.CANCEL) && avChatData != null) {
             AVChatManager.getInstance().hangUp2(avChatData.getChatId(), new AVChatCallback<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    closeSessions(code);
+                    Log.d(TAG, "onSuccess: hangUp2");
+//                    closeSessions(code);
                 }
 
                 @Override
                 public void onFailed(int errorCode) {
                     Log.d(TAG, "hangup onFailed->" + errorCode);
-                    closeSessions(code);
+//                    closeSessions(code);
                 }
 
                 @Override
                 public void onException(Throwable exception) {
                     Log.d(TAG, "hangup onException->" + exception);
-                    closeSessions(code);
+//                    closeSessions(code);
                 }
             });
         }

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.ml.call.CallHelper;
 import com.ml.call.NimAccountHelper;
-import com.ml.call.NimCallActivity;
 import com.ml.call.R;
 import com.ml.call.utils.T;
 import com.netease.nimlib.sdk.RequestCallback;

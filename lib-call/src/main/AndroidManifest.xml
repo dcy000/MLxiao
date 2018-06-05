@@ -34,6 +34,12 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <permission
+        android:name="${applicationId}.permission.RECEIVE_MSG"
+        android:protectionLevel="signature"/>
+    <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <uses-permission android:name="${applicationId}.permission.RECEIVE_MSG"/>
+
     <application>
         <activity android:name=".NimCallActivity"/>
 
