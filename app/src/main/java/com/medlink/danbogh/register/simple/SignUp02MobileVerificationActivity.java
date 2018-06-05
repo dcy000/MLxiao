@@ -67,6 +67,8 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
     private void initTitle() {
         mTitleText.setText("手机号码");
         mToolbar.setVisibility(View.VISIBLE);
+        mRightText.setText(View.GONE);
+        mRightView.setVisibility(View.GONE);
     }
 
     @Override
