@@ -178,7 +178,7 @@ public class VideoListFragment extends Fragment {
             return;
         }
         NetworkApi.getVideoList(
-                position + 1, "0", "1", page, pageSize,
+                position + 1, "2", "1", page, pageSize,
                 new NetworkManager.SuccessCallback<List<VideoEntity>>() {
                     @Override
                     public void onSuccess(List<VideoEntity> entities) {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
@@ -32,6 +33,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView mRecyclerView;
 
     SharedPreferences mSharedPreferences;
+    private TextView tvMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,8 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
 
         mRecyclerView = (RecyclerView) findViewById(R.id.order_list);
         mSharedPreferences = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
-
+        tvMsg = (TextView) findViewById(R.id.lude_tv_msg);
+        tvMsg.setVisibility(mlist.isEmpty() ? View.VISIBLE : View.GONE);
         NetworkApi.order_list("2", "0", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
             @Override
             public void onSuccess(ArrayList<Orders> response) {
@@ -59,6 +62,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
                 List<Orders> list = new ArrayList<Orders>();
                 list.addAll(response);
                 mlist.addAll(list);
+                tvMsg.setVisibility(mlist.isEmpty() ? View.VISIBLE : View.GONE);
                 mOrderAdapter = new OrderAdapter(mlist, getApplicationContext());
                 mRecyclerView.setAdapter(mOrderAdapter);
 
@@ -173,6 +177,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
                                     list.clear();
                                     list = response;
                                     mlist.addAll(list);
+                                    tvMsg.setVisibility(mlist.isEmpty() ? View.VISIBLE : View.GONE);
                                     mOrderAdapter.notifyDataSetChanged();
 
 

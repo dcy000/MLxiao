@@ -79,8 +79,6 @@ public class BatteryHelper {
             }
             int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS,
                     BatteryManager.BATTERY_STATUS_UNKNOWN);
-            sContext.registerReceiver(receiver(), filter());
-
             boolean charging = BatteryManager.BATTERY_STATUS_CHARGING == status;
             if (mOnPowerConnectionChangeListener != null) {
                 mOnPowerConnectionChangeListener.onPowerConnectionChanged(charging);
@@ -105,6 +103,7 @@ public class BatteryHelper {
                     break;
             }
         }
+        sContext.registerReceiver(receiver(), filter());
     }
 
     public void stop() {

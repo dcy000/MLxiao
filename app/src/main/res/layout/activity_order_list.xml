@@ -49,5 +49,12 @@
         android:layout_marginRight="5dp"
         android:scrollbars="vertical" />
 
-
+    <TextView
+        android:id="@+id/lude_tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="暂无订单"
+        android:textColor="#333333"
+        android:textSize="30sp"/>
 </RelativeLayout>

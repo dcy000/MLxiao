@@ -31,8 +31,6 @@ import com.example.han.referralproject.R;
 import com.ml.brightness.BrightnessHelper;
 
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AssistiveTouchService extends Service {
 
@@ -68,7 +66,7 @@ public class AssistiveTouchService extends Service {
 
     AudioManager mAudioManager;
 
-    ImageView mImageView1;
+    ImageView mIvVolumeIndicator;
 
     public static final int MIN_CLICK_DELAY_TIME = 1000;
     private long lastClickTime = 0;
@@ -77,6 +75,7 @@ public class AssistiveTouchService extends Service {
     private SeekBar sbBrightness;
     private float mScreenBrightness;
     private BrightnessHelper mBrightnessHelper;
+    private ImageView mIvBrightnessIndicator;
 
 
     // private CheckDoubleClickListener checkDoubleClickListener;
@@ -119,16 +118,34 @@ public class AssistiveTouchService extends Service {
         //   mImageView.setOnClickListener(checkDoubleClickListener);
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
-        mImageView1 = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.image_volume);
+        mIvVolumeIndicator = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.lude_iv_volume_indicator);
+        mIvBrightnessIndicator = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.lude_iv_brightness_indicator);
 
         sbBrightness = (SeekBar) mInflateAssistiveTouchView.findViewById(R.id.seek_brightness);
         mScreenBrightness = mParams.screenBrightness;
         mBrightnessHelper = new BrightnessHelper(this);
         sbBrightness.setMax(mBrightnessHelper.getMaxBrightness());
-        sbBrightness.setProgress(mBrightnessHelper.getSystemBrightness());
+        int progress = mBrightnessHelper.getSystemBrightness();
+        float i = 1f * progress / mBrightnessHelper.getMaxBrightness();
+        if (i < 0.2) {
+            mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_low);
+        } else if (i < 0.6) {
+            mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_mid);
+        } else {
+            mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_high);
+        }
+        sbBrightness.setProgress(progress);
         sbBrightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float i = 1f * progress / mBrightnessHelper.getMaxBrightness();
+                if (i < 0.2) {
+                    mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_low);
+                } else if (i < 0.6) {
+                    mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_mid);
+                } else {
+                    mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_high);
+                }
                 mBrightnessHelper.setSystemBrightness(progress);
             }
 
@@ -139,7 +156,16 @@ public class AssistiveTouchService extends Service {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mBrightnessHelper.setSystemBrightness(seekBar.getProgress());
+                int progress = seekBar.getProgress();
+                float i = 1f * progress / mBrightnessHelper.getMaxBrightness();
+                if (i < 0.2) {
+                    mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_low);
+                } else if (i < 0.6) {
+                    mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_mid);
+                } else {
+                    mIvBrightnessIndicator.setImageResource(R.drawable.lude_ic_brightness_high);
+                }
+                mBrightnessHelper.setSystemBrightness(progress);
             }
         });
 
@@ -151,6 +177,12 @@ public class AssistiveTouchService extends Service {
         mSeekBar = (SeekBar) mInflateAssistiveTouchView.findViewById(R.id.seek);
         mSeekBar.setMax(maxVolume);
         mSeekBar.setProgress(currentVolume);
+        if (currentVolume == 0) {
+            mIvVolumeIndicator.setImageResource(R.drawable.lude_ic_volum_mute);
+        } else {
+            mIvVolumeIndicator.setImageResource(R.drawable.lude_ic_volume_high);
+
+        }
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // fromUser直接来自于用户拖动为true，否则为false
             @Override
@@ -167,9 +199,9 @@ public class AssistiveTouchService extends Service {
                 mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, seekBar.getProgress(), AudioManager.FLAG_PLAY_SOUND);
 
                 if (seekBar.getProgress() == 0) {
-                    mImageView1.setImageResource(R.drawable.ic_jy);
+                    mIvVolumeIndicator.setImageResource(R.drawable.lude_ic_volum_mute);
                 } else {
-                    mImageView1.setImageResource(R.drawable.ic_yl);
+                    mIvVolumeIndicator.setImageResource(R.drawable.lude_ic_volume_high);
 
                 }
 
