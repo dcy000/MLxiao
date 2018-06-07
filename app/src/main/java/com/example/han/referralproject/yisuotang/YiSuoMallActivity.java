@@ -59,7 +59,7 @@ public class YiSuoMallActivity extends BaseActivity {
 
     private void init() {
 
-        webView.loadUrl("http://shop.ylscjt.cn/mobile/index/");
+        webView.loadUrl("http://jk.ylscjt.cn/mobile");
 //        webView.loadUrl("http://www.baidu.com/");
         WebSettings webSettings = webView.getSettings();
 
