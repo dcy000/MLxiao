@@ -30,6 +30,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     ImageView mImageView3;
     TextView mTextView;
     TextView mTextView1;
+    //商品数量
     TextView mTextView2;
     TextView mTextView3;
     Button mButton;
