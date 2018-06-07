@@ -285,6 +285,7 @@ public class BuildingRecordActivity extends BaseActivity implements IFragmentCha
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == -1) {
+            mToolbar.setVisibility(View.VISIBLE);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             replaceHeightFragment(fragmentTransaction);
             fragmentTransaction.commit();
