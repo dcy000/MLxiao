@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.call_family).setOnClickListener(this);
         mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
         findViewById(R.id.ll_anim).setOnClickListener(this);
-        findViewById(R.id.call_120).setOnClickListener(this);
+//        findViewById(R.id.call_120).setOnClickListener(this);
         RotateAnimation tranAnimation = new RotateAnimation(-30, 30, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         tranAnimation.setDuration(1000);
         tranAnimation.setRepeatCount(Animation.INFINITE);
@@ -187,10 +187,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                    }
 //                });
                 break;
-            case R.id.call_120:
-                initLocation();
-                startLocation();
-                break;
+//            case R.id.call_120:
+//                initLocation();
+//                startLocation();
+//                break;
         }
     }
 
