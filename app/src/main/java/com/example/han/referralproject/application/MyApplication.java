@@ -48,7 +48,7 @@ public class MyApplication extends Application {
     public String userName;
 
     public String nimUserId() {
-        return "user_" + userId;
+        return "yst_user_" + userId;
     }
 
     public String eqid;

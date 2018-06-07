@@ -310,7 +310,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
+                    NimCallActivity.launch(mContext, "yst_docter_" + doctor.docterid);
 //                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
 //                        @Override
 //                        public void onSuccess(Object response) {

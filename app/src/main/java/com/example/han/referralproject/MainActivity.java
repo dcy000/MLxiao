@@ -240,7 +240,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onResume() {
-        NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
+        NimAccountHelper.getInstance().login("yst_user_" + MyApplication.getInstance().userId, "123456", null);
         setEnableListeningLoop(false);
         super.onResume();
         NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {

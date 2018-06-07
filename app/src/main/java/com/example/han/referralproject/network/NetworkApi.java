@@ -62,9 +62,13 @@ public class NetworkApi {
 
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
     /**
-     * 颐硕堂
+     * 颐硕堂 生产
      */
-    public static final String BasicUrl = "http://120.27.209.227:8080";
+//    public static final String BasicUrl = "http://120.27.209.227:8080";
+    /**
+     * 颐硕堂 测试
+     */
+    public static final String BasicUrl = "http://47.96.98.60:8090";
 
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";

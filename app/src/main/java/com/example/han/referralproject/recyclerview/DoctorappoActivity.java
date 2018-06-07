@@ -1161,7 +1161,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
+                NimCallActivity.launch(DoctorappoActivity.this, "yst_docter_" + doctorId);
 //                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
 //                    @Override
 //                    public void onSuccess(Doctor response) {
@@ -1234,7 +1234,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
+                NimCallActivity.launch(DoctorappoActivity.this, "yst_docter_" + doctorId);
 
 //                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
 //                    @Override
