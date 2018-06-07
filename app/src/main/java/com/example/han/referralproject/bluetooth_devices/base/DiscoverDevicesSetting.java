@@ -8,11 +8,6 @@ public class DiscoverDevicesSetting {
     public DiscoverDevicesSetting() {
     }
 
-    public DiscoverDevicesSetting(int discoverType, String targetMac) {
-        this.discoverType = discoverType;
-        this.targetMac = targetMac;
-    }
-
     public DiscoverDevicesSetting(int discoverType, String targetMac, String targetName) {
         this.discoverType = discoverType;
         this.targetMac = targetMac;

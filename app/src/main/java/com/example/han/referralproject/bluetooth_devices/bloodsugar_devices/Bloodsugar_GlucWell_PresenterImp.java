@@ -3,11 +3,13 @@ package com.example.han.referralproject.bluetooth_devices.bloodsugar_devices;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.han.referralproject.MainActivity;
+import com.example.han.referralproject.R;
 import com.example.han.referralproject.bluetooth_devices.base.BaseBluetoothPresenter;
 import com.example.han.referralproject.bluetooth_devices.base.BluetoothDevice;
 import com.example.han.referralproject.bluetooth_devices.base.DiscoverDevicesSetting;
 import com.example.han.referralproject.bluetooth_devices.base.IView;
+import com.example.han.referralproject.bluetooth_devices.base.Logg;
+import com.example.han.referralproject.util.LocalShared;
 import com.vivachek.ble.sdk.outer.BleManager;
 import com.vivachek.ble.sdk.outer.constant.BleActionType;
 import com.vivachek.ble.sdk.outer.constant.BleConnectState;
@@ -17,20 +19,24 @@ import com.vivachek.ble.sdk.outer.interfaces.OnBleListener;
 
 import java.util.List;
 
+/**
+ * 好糖血糖仪
+ * name:BLE-Glucowell
+ * mac:69:9A:E2:51:12:B5
+ */
 public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter implements OnBleListener {
-    private final String TAG = Bloodsugar_GlucWell_PresenterImp.this.getClass().getSimpleName();
-    private MainActivity mainActivity;
+    private Bloodsugar_Fragment fragment;
 
     public Bloodsugar_GlucWell_PresenterImp(IView activity, DiscoverDevicesSetting discoverSetting) {
         super(discoverSetting);
-        mainActivity = (MainActivity) activity;
+        fragment = (Bloodsugar_Fragment) activity;
     }
 
     @Override
     protected void discoveredTargetDevice(BluetoothDevice device) {
-        BleManager.getInstance().connect(mainActivity, device.getSearchResult().getAddress());
+        BleManager.getInstance().connect(fragment.getContext(), device.getSearchResult().getAddress());
         BleManager.getInstance().setOnBleListener(this);
-//        mainActivity.updateData("发现设备成功");
+        fragment.updateData("发现设备成功");
     }
 
     @Override
@@ -64,10 +70,15 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
             return;
         switch (connectState) {
             case BleConnectState.CONNECT_SUCCESS:// 蓝牙连接设备成功
-
+                fragment.updateState(fragment.getString(R.string.bluetooth_device_connected));
+                fragment.updateData("0.00");
+                LocalShared.getInstance(fragment.getContext()).setXuetangMac(lockedDevice.getSearchResult().getAddress());
                 break;
 
             case BleConnectState.DISCONNECTED:// 已断开设备的蓝牙连接
+                if (fragment.isAdded()) {
+                    fragment.updateState(fragment.getString(R.string.bluetooth_device_disconnected));
+                }
                 break;
 
             case BleConnectState.CONNECT_FAILURE:// 蓝牙连接设备失败
@@ -95,30 +106,30 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
     public void onBleRealTimeMeasureToastCallback(String s, int measureToastType) {
         switch (measureToastType) {
             case BleMeasureToastType.LAST_TIME_MEASURE:
-                Log.d(TAG, "上次测量的记录: ");
+                Logg.d(Bloodsugar_GlucWell_PresenterImp.class, "上次测量的记录: ");
                 break;
 
             case BleMeasureToastType.INSERTED_TEST_STRIP:
-                Log.d(TAG, "已插入试纸: ");
+                Logg.d(Bloodsugar_GlucWell_PresenterImp.class, "已插入试纸: ");
                 break;
 
             case BleMeasureToastType.WAITING_COLLECTION_BLOOD:
-                Log.d(TAG, "等待加血: ");
+                Logg.d(Bloodsugar_GlucWell_PresenterImp.class, "等待加血: ");
                 break;
 
             case BleMeasureToastType.FINISH_COLLECTION_BLOOD:
-                Log.d(TAG, "完成加血: ");
+                Logg.d(Bloodsugar_GlucWell_PresenterImp.class, "完成加血: ");
                 break;
 
             case BleMeasureToastType.MEASURE_ERROR:
-                Log.d(TAG, "测量异常: ");
+                Logg.d(Bloodsugar_GlucWell_PresenterImp.class, "测量异常: ");
                 break;
         }
     }
 
     @Override
     public void onBleGlucoseDataCallback(String s, List<BaseGlucoseEntity> list, int actionType) {
-        if (list == null||list.isEmpty()) {
+        if (list == null || list.isEmpty()) {
             return;
         }
         switch (actionType) {
@@ -131,7 +142,13 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
 
         BaseGlucoseEntity baseGlucoseEntity = list.get(0);
         String result = baseGlucoseEntity.getValue() + baseGlucoseEntity.getMeasureUnit();
-        Log.e(TAG, "onBleGlucoseDataCallback: 本次血糖："+result );
+        Logg.e(Bloodsugar_GlucWell_PresenterImp.class, "onBleGlucoseDataCallback: 本次血糖：" + result);
+        fragment.updateData(result);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        BleManager.getInstance().destroy(fragment.getContext());
     }
 }

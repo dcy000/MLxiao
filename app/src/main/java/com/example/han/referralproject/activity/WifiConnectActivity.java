@@ -195,10 +195,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
 //                        if (NetworkInfo.State.CONNECTED == info.getState() && info.isAvailable()) {
 //                            if (info.getType() == ConnectivityManager.TYPE_WIFI
 //                                    || info.getType() == ConnectivityManager.TYPE_MOBILE) {
-//                                //Log.i("TAG", getConnectionType(info.getType()) + "连上");
+//                                //Logg.i("TAG", getConnectionType(info.getType()) + "连上");
 //                            }
 //                        } else {
-//                            //Log.i("TAG", getConnectionType(info.getType()) + "断开");
+//                            //Logg.i("TAG", getConnectionType(info.getType()) + "断开");
 //                        }
 //                    }
                     break;

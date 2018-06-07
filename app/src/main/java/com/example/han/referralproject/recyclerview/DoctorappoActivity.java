@@ -1271,7 +1271,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
 
-                //    Log.e("==============", list.toString());
+                //    Logg.e("==============", list.toString());
                 if (list.size() < 3) {
                     Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class);
                     startActivity(intent);

@@ -629,14 +629,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
-            //  Log.d(TAG, results.getResultString());
+            //  Logg.d(TAG, results.getResultString());
             dealData(results, isLast);
         }
 
         @Override
         public void onVolumeChanged(int volume, byte[] data) {
             //    showTip("当前正在说话，音量大小：" + volume);
-            //   Log.d(TAG, "返回音频数据：" + data.length);
+            //   Logg.d(TAG, "返回音频数据：" + data.length);
             if (yuyinFlag) {
                 updateVolume();
             } else {
@@ -1767,7 +1767,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private static String parseXffunQAResponse(String text) {
         try {
-            Log.i("mylog", text);
+            Logg.i("mylog", text);
             JSONObject apiResponseObj = new JSONObject(text);
             text = apiResponseObj.optString("data");
             JSONObject qaResponseObj = new JSONObject(text);
@@ -1792,7 +1792,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
             return answer;
         } catch (JSONException e) {
-            Log.i("mylog", e.getMessage());
+            Logg.i("mylog", e.getMessage());
             e.printStackTrace();
             return "我真的不知道了";
         }
@@ -1817,7 +1817,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
    /* private InitListener mTtsInitListener = new InitListener() {
         @Override
         public void onInit(int code) {
-            Log.d(TAG, "InitListener init() code = " + code);
+            Logg.d(TAG, "InitListener init() code = " + code);
             if (code != ErrorCode.SUCCESS) {
                 showTip("初始化失败,错误码：" + code);
             } else {

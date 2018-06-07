@@ -196,7 +196,7 @@ public class AuthenticationActivity extends BaseActivity {
 //                                        FaceDetector detector = new FaceDetector(bitmap.getWidth(), bitmap.getHeight(),3);
 //                                        FaceDetector.Face[] faces = new FaceDetector.Face[3];
 //                                        int detectorResult=detector.findFaces(bitmap, faces);
-//                                        Log.e("人脸检测结果返回情况",detectorResult+"");
+//                                        Logg.e("人脸检测结果返回情况",detectorResult+"");
                                         myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
                                     }
                                 }

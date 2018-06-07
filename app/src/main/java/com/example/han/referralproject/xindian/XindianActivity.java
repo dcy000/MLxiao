@@ -339,7 +339,7 @@ public class XindianActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if (device != null) {
-                        //   Log.e("===============", device.getName());
+                        //   Logg.e("===============", device.getName());
 
                         if ("Med_link".equals(device.getName())) {
                             mDeviceAddress = device.getAddress();

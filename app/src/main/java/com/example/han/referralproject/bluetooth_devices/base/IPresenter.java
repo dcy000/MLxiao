@@ -2,6 +2,10 @@ package com.example.han.referralproject.bluetooth_devices.base;
 
 public interface IPresenter {
     /**
+     * 品牌
+     */
+    String BRAND = "brand";
+    /**
      * 表示当前所处的状态 该状态和BluetoothKit的Constants中的变量是相对应的
      */
     int CURRENT_STATE = -1;
@@ -12,11 +16,11 @@ public interface IPresenter {
     /**
      * 搜索指定名称的设备
      */
-    int DISCOVER_WITH_NAME = 200;
+    int DISCOVER_WITH_NAME = 101;
     /**
      * 搜索所有可见设备地址
      */
-    int DISCOVER_WITH_ALL = 300;
+    int DISCOVER_WITH_ALL = 102;
     /**
      * 设备最初始状态
      */
@@ -53,6 +57,35 @@ public interface IPresenter {
      * 设备连接失败
      */
     int DEVICE_CONNECT_FAIL=17;
+    /**
+     * 测量类型
+     */
+    String MEASURE_TYPE="measure_type";
+    /**
+     * 测量体温
+     */
+    int MEASURE_TEMPERATURE = 21;
+    /**
+     * 测量血压
+     */
+    int MEASURE_BLOOD_PRESSURE=22;
+    /**
+     * 测量血糖
+     */
+    int MEASURE_BLOOD_SUGAR=23;
+    /**
+     * 测量血氧
+     */
+    int MEASURE_BLOOD_OXYGEN=24;
+    /**
+     * 测量耳温
+     */
+    int MEASURE_WEIGHT=25;
+    /**
+     * 测量三合一
+     */
+    int MEASURE_OTHERS=26;
+
     /**
      * 检查蓝牙是否已开
      */

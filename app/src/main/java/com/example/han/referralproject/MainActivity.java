@@ -191,10 +191,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-                startActivity(new Intent(this, TreatmentPlanActivity.class)
-                .putExtra(IPresenter.MEASURE_TYPE,IPresenter.MEASURE_BLOOD_SUGAR));
+                startActivity(new Intent(this, Test_mainActivity.class));
                 //呼叫
 //                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+
+
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
 //                    @Override
 //                    public void onSuccess(UserInfo response) {

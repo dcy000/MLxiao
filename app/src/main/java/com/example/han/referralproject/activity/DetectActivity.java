@@ -431,7 +431,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //Log.i("mylog", "action : " + intent.getAction());
+            //Logg.i("mylog", "action : " + intent.getAction());
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
@@ -483,7 +483,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 byte[] notifyData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
-                //Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + notifyData.length);
+                //Logg.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + notifyData.length);
                 Log.i("mylog", "receive   " + bytesToHexString(notifyData));
                 byte[] extraData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_NOTIFY_DATA);
                 switch (detectType) {
@@ -910,7 +910,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 if (descriptor != null) {
                     mBluetoothGatt.writeDescriptor(descriptor);
                 }
-//                Log.i("mylog", "33333333333333333333333");
+//                Logg.i("mylog", "33333333333333333333333");
             }
         }
     }
@@ -1357,14 +1357,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         }
-//        Log.i("mylog2", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
+//        Logg.i("mylog2", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
         workSearchThread = true;
         if (mSearchThread == null) {
             mSearchThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     while (blueThreadDisable) {
-//                        Log.i("mylog", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
+//                        Logg.i("mylog", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
                         if (!workSearchThread) {
                             try {
                                 Thread.sleep(2000);
@@ -1373,14 +1373,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                             continue;
                         }
-//                        Log.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//                        Logg.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                         if (TextUtils.isEmpty(mDeviceAddress)) {
                             if (!mBluetoothAdapter.isDiscovering()) {
                                 boolean flag = mBluetoothAdapter.startDiscovery();
-//                                Log.i("mylog", "flag : " + flag);
+//                                Logg.i("mylog", "flag : " + flag);
                             }
                         } else {
-//                            Log.i("mylog", "address : " + mDeviceAddress);
+//                            Logg.i("mylog", "address : " + mDeviceAddress);
                             if (mBluetoothLeService != null && mBluetoothLeService.connect(mDeviceAddress)) {
                                 mBluetoothGatt = mBluetoothLeService.getGatt();
                                 stopSearch();
@@ -1581,7 +1581,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     Commands commands = new Commands();
                     //byte[] sendDataByte = commands.getSystemdate(Commands.CMD_HEAD, leng, commandType);
                     byte[] sendDataByte = Commands.datas;
-                    //Log.i("mylog", "sendData");
+                    //Logg.i("mylog", "sendData");
                     XueTangGattAttributes.sendMessage(mBluetoothGatt, sendDataByte);
                     try {
                         Thread.sleep(1000);

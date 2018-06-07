@@ -144,7 +144,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onSuccess(ArrayList<Orders> response) {
 
-                        Log.e("==========", response.toString());
+                        Logg.e("==========", response.toString());
 
                     }
 
@@ -152,7 +152,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onFailed(String message) {
 
-                        Log.e("=============", "失败");
+                        Logg.e("=============", "失败");
 
                     }
                 });*/
