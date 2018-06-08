@@ -47,6 +47,8 @@ import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,16 +57,20 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-//    public static final String BasicUrl = "http://116.62.36.12:8080";
+    //    public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
-//      public static final String BasicUrl="http://192.168.200.117:8080";//林
-
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
+
+
+    /**
+     * 林本地
+     */
+    public static final String BasicUrl = "http://192.168.200.117:8080";
     /**
      * 颐硕堂 生产
      */
-    public static final String BasicUrl = "http://120.27.209.227:8080";
+//    public static final String BasicUrl = "http://120.27.209.227:8080";
     /**
      * 颐硕堂 测试
      */
@@ -1114,6 +1120,17 @@ public class NetworkApi {
         params.put("userid", userId);
         params.put("state", "2");
         NetworkManager.getInstance().getResultClass(Get_Week_or_Month_Report, params, MonthlyReport.class, successCallback, failedCallback);
+    }
+
+    /**
+     * 云联商城查询积余额
+     */
+    public static final String URL_YST_WALLET = BasicUrl + "/ZZB/api/order/cloudMarket/wallet/";
+
+    public static void getYSTWallet(String userId, final StringCallback callback) {
+        OkGo.<String>get(URL_YST_WALLET)
+                .params("userId", userId)
+                .execute(callback);
     }
 
 

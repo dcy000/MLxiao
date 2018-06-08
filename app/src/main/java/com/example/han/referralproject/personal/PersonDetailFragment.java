@@ -43,9 +43,13 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.yisuotang.bean.WalletResultBean;
 import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -216,51 +220,59 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             }
         });
 
-        NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
-            @Override
-            public void onSuccess(final RobotAmount response) {
+//        NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
+//            @Override
+//            public void onSuccess(final RobotAmount response) {
+//
+//                if (response != null && response.getAmount() != null) {
+////                    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
+//                    tvBalance.setText(response.getAmount());
+////                    tvJifen.setText(response.whitepoint);
+//                }
+//            }
+//
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//
+//
+//            }
+//        });
 
-                if (response != null && response.getAmount() != null) {
-//                    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-                    tvBalance.setText(response.getAmount());
-//                    tvJifen.setText(response.whitepoint);
+
+        NetworkApi.getYSTWallet(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if (response != null) {
+                    String resultJson = response.body();
+                    WalletResultBean resultBean = new Gson().fromJson(resultJson, WalletResultBean.class);
+                    if (resultBean != null) {
+                        if (resultBean.tag) {
+                            if (resultBean.data != null) {
+                                tvBalance.setText(resultBean.data.mywallet);
+                                tvJifen.setText(resultBean.data.whitepoint);
+                            }
+
+                        } else {
+                            T.show("网络繁忙");
+                        }
+                    }
                 }
+
             }
 
-        }, new NetworkManager.FailedCallback() {
             @Override
-            public void onFailed(String message) {
+            public void onError(Response<String> response) {
+                super.onError(response);
+                T.show("网络繁忙");
+            }
 
-
+            @Override
+            public void onFinish() {
+                super.onFinish();
             }
         });
 
-//        NetworkApi.getBalanceAndInteGral(LocalShared.getInstance(getActivity()).getPhoneNum(), new StringCallback() {
-//            @Override
-//            public void onSuccess(Response<String> response) {
-//                BanlanceAndIntegralResultBean resultBean = new Gson().fromJson(response.body(), BanlanceAndIntegralResultBean.class);
-//                if (resultBean != null) {
-//                    BanlanceAndIntegralResultBean.DataBean data = resultBean.data;
-//                    if (data != null) {
-//                        tvBalance.setText(data.mywallet);
-//                        tvJifen.setText(data.whitepoint);
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onError(Response<String> response) {
-//                super.onError(response);
-//                T.show("网络繁忙,请稍后重试");
-//
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                super.onFinish();
-//            }
-//        });
 
         NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
             @Override

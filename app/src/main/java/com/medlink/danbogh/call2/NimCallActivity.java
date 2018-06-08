@@ -25,6 +25,10 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.AppraiseActivity;
+import com.example.han.referralproject.yisuotang.bean.WalletResultBean;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -82,23 +86,67 @@ public class NimCallActivity extends AppCompatActivity {
 
     public static void launch(final Context context, final String account) {
         final String deviceId = com.example.han.referralproject.util.Utils.getDeviceId();
-        NetworkApi.Person_Amount(deviceId, new NetworkManager.SuccessCallback<RobotAmount>() {
-                    @Override
-                    public void onSuccess(RobotAmount response) {
-                        final String amount = response.getAmount();
-                        if (Float.parseFloat(amount) > 0) {
-                            //有余额
-                            launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+//        NetworkApi.Person_Amount(deviceId, new NetworkManager.SuccessCallback<RobotAmount>() {
+//                    @Override
+//                    public void onSuccess(RobotAmount response) {
+//                        final String amount = response.getAmount();
+//                        if (Float.parseFloat(amount) > 0) {
+//                            //有余额
+//                            launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+//                        } else {
+//                            T.show("余额不足，请充值后再试");
+//                        }
+//                    }
+//                }, new NetworkManager.FailedCallback() {
+//                    @Override
+//                    public void onFailed(String message) {
+//                        T.show("服务器繁忙，请稍后再试");
+//                    }
+//                });
+/**
+ * 云联商城的钱包余额接口
+ */
+        NetworkApi.getYSTWallet(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if (response != null) {
+                    String resultJson = response.body();
+                    WalletResultBean resultBean = new Gson().fromJson(resultJson, WalletResultBean.class);
+                    if (resultBean != null) {
+                        if (resultBean.tag) {
+                            if (resultBean.data != null) {
+                                String mywallet = resultBean.data.mywallet;
+                                if (mywallet != null) {
+                                    if (Float.parseFloat(mywallet) > 0) {
+                                        launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+                                    } else {
+                                        T.show("余额不足，请充值后再试");
+                                    }
+
+                                }
+                            }
+
                         } else {
-                            T.show("余额不足，请充值后再试");
+                            T.show("服务器繁忙，请稍后再试");
                         }
                     }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        T.show("服务器繁忙，请稍后再试");
-                    }
-                });
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                T.show("网络繁忙");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
+
     }
 
     public static void launch(Context context, String account, int callType, int source) {
@@ -837,7 +885,7 @@ public class NimCallActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.iv_finish)
-    public void onBackClicked(){
+    public void onBackClicked() {
         Toast.makeText(NimCallActivity.this, "正在停止通话", Toast.LENGTH_SHORT).show();
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -849,9 +897,10 @@ public class NimCallActivity extends AppCompatActivity {
     }
 
     private boolean isClosed = false;
+
     @OnClick(R.id.iv_call_hang_up)
     public void onIvHangUpClicked() {
-        if (isClosed){
+        if (isClosed) {
             findViewById(R.id.iv_call_hang_up).setVisibility(View.GONE);
             return;
         }

@@ -26,6 +26,10 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.yisuotang.bean.WalletResultBean;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
@@ -356,6 +360,53 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                     T.show("服务器繁忙，请稍后再试");
                                 }
                             });
+
+
+                    NetworkApi.getYSTWallet(MyApplication.getInstance().userId, new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            if (response != null) {
+                                String resultJson = response.body();
+                                WalletResultBean resultBean = new Gson().fromJson(resultJson, WalletResultBean.class);
+                                if (resultBean != null) {
+                                    if (resultBean.tag) {
+                                        WalletResultBean.DataBean data = resultBean.data;
+                                        if (data != null) {
+
+                                            if (data.count != 0) {
+                                                String applyAmount = doctor.getApply_amount();
+                                                if (Float.parseFloat(data.mywallet) > Float.parseFloat(applyAmount)) {
+                                                    ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                                    finish();
+                                                } else {
+                                                    onLackOfAmount();
+                                                }
+                                            } else {
+                                                ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                                finish();
+                                            }
+                                        }
+
+                                    } else {
+                                        T.show("网络繁忙");
+                                    }
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            T.show("网络繁忙");
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            super.onFinish();
+                        }
+                    });
+
                 }
                 break;
 
