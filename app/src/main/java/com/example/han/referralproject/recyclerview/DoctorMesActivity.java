@@ -122,7 +122,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         if ("1".equals(sign)) {
 
             mButton.setText(getString(R.string.zixun));
-            mTitleText.setText(getString(R.string.shequ_qianyue));
+            mTitleText.setText("心理咨询师");
 
 
         } else {
@@ -341,13 +341,24 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                     }
                                     final String amount = response.getAmount();
                                     String applyAmount = doctor.getApply_amount();
+
+
+                                    if ("社区药店".equals(getIntent().getStringExtra("Title"))
+                                            || "健康管理师".equals(getIntent().getStringExtra("Title"))
+
+                                            ) {
+                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                        finish();
+                                        return;
+
+                                    }
                                     if (response.count != 0) {
-                                        if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
-                                            ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
-                                            finish();
-                                        } else {
-                                            onLackOfAmount();
-                                        }
+//                                        if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
+                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                        finish();
+//                                        } else {
+//                                            onLackOfAmount();
+//                                        }
                                     } else {
                                         ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
                                         finish();

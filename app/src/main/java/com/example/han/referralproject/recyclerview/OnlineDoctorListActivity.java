@@ -54,7 +54,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
         mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
             mTitleText.setText(getString(R.string.doctor_qianyue));
-            NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+            NetworkApi.doctor_list(1, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                 @Override
                 public void onSuccess(ArrayList<Docter> response) {
                     mlist.clear();
@@ -72,32 +72,32 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
             });
 
             return;
-        }else{
-            mTitleText.setText(getString(R.string.shequ_qianyue));
+        } else {
+            mTitleText.setText("心理咨询师");
+
+
+            NetworkApi.onlinedoctor_list(4, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                @Override
+                public void onSuccess(ArrayList<Docter> response) {
+
+                    List<Docter> list = new ArrayList<Docter>();
+                    mlist.clear();
+                    list.addAll(response);
+                    mlist.addAll(list);
+                    mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+                    mRecyclerView.setAdapter(mDoctorAdapter);
+
+                    setData();
+
+                }
+
+            }, new NetworkManager.FailedCallback() {
+                @Override
+                public void onFailed(String message) {
+
+                }
+            });
         }
-
-
-        NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-            @Override
-            public void onSuccess(ArrayList<Docter> response) {
-
-                List<Docter> list = new ArrayList<Docter>();
-                mlist.clear();
-                list.addAll(response);
-                mlist.addAll(list);
-                mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
-                mRecyclerView.setAdapter(mDoctorAdapter);
-
-                setData();
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
 
 
     }

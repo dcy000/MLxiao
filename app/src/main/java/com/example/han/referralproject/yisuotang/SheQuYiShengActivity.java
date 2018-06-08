@@ -290,11 +290,11 @@ public class SheQuYiShengActivity extends BaseActivity implements View.OnClickLi
     private void initView() {
         mToolbar.setVisibility(View.VISIBLE);
         if ("4".equals(getIntent().getStringExtra("status"))) {
-            status = 4;
+            status = 3;
             mTitleText.setText("健康管理师");
         } else {
             mTitleText.setText("社区药店");
-            status = 3;
+            status = 2;
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
