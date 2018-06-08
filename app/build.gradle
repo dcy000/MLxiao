@@ -7,7 +7,7 @@ android {
         applicationId "com.example.han.referralproject"
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
-        versionCode 17
+        versionCode 18
         versionName "y_1.0.0"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

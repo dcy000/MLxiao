@@ -332,45 +332,45 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
 
                 } else {
-                    NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
-                            new NetworkManager.SuccessCallback<RobotAmount>() {
-                                @Override
-                                public void onSuccess(RobotAmount response) {
-                                    if (response == null) {
-                                        return;
-                                    }
-                                    final String amount = response.getAmount();
-                                    String applyAmount = doctor.getApply_amount();
-
-
-                                    if ("社区药店".equals(getIntent().getStringExtra("Title"))
-                                            || "健康管理师".equals(getIntent().getStringExtra("Title"))
-
-                                            ) {
-                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
-                                        finish();
-                                        return;
-
-                                    }
-                                    if (response.count != 0) {
+//                    NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
+//                            new NetworkManager.SuccessCallback<RobotAmount>() {
+//                                @Override
+//                                public void onSuccess(RobotAmount response) {
+//                                    if (response == null) {
+//                                        return;
+//                                    }
+//                                    final String amount = response.getAmount();
+//                                    String applyAmount = doctor.getApply_amount();
+//
+//
+//                                    if ("社区药店".equals(getIntent().getStringExtra("Title"))
+//                                            || "健康管理师".equals(getIntent().getStringExtra("Title")) ||
+//                                            "1".equals(sign)
+//                                            ) {
+//                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+//                                        finish();
+//                                        return;
+//
+//                                    }
+//                                    if (response.count != 0) {
 //                                        if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
-                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
-                                        finish();
+//                                            ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+//                                            finish();
 //                                        } else {
 //                                            onLackOfAmount();
 //                                        }
-                                    } else {
-                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
-                                        finish();
-                                    }
-
-                                }
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-                                    T.show("服务器繁忙，请稍后再试");
-                                }
-                            });
+//                                    } else {
+//                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+//                                        finish();
+//                                    }
+//
+//                                }
+//                            }, new NetworkManager.FailedCallback() {
+//                                @Override
+//                                public void onFailed(String message) {
+//                                    T.show("服务器繁忙，请稍后再试");
+//                                }
+//                            });
 
 
                     NetworkApi.getYSTWallet(MyApplication.getInstance().userId, new StringCallback() {
@@ -384,7 +384,18 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                         WalletResultBean.DataBean data = resultBean.data;
                                         if (data != null) {
 
+
                                             if (data.count != 0) {
+
+                                                if ("社区药店".equals(getIntent().getStringExtra("Title"))
+                                                        || "健康管理师".equals(getIntent().getStringExtra("Title")) ||
+                                                        "1".equals(sign)
+                                                        ) {
+                                                    ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                                    finish();
+                                                    return;
+
+                                                }
                                                 String applyAmount = doctor.getApply_amount();
                                                 if (Float.parseFloat(data.mywallet) > Float.parseFloat(applyAmount)) {
                                                     ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
