@@ -220,26 +220,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             }
         });
 
-//        NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
-//            @Override
-//            public void onSuccess(final RobotAmount response) {
-//
-//                if (response != null && response.getAmount() != null) {
-////                    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-//                    tvBalance.setText(response.getAmount());
-////                    tvJifen.setText(response.whitepoint);
-//                }
-//            }
-//
-//        }, new NetworkManager.FailedCallback() {
-//            @Override
-//            public void onFailed(String message) {
-//
-//
-//            }
-//        });
-
-
         NetworkApi.getYSTWallet(MyApplication.getInstance().userId, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -253,8 +233,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                                 tvJifen.setText(resultBean.data.whitepoint);
                             }
 
-                        } else {
-                            T.show("网络繁忙");
                         }
                     }
                 }

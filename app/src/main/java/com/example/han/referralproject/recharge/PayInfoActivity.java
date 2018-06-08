@@ -4,10 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -92,7 +91,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 case 2:
                     Double numbers = Double.parseDouble(number) / 100;
 
-                    NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
+                    String obj = (String) msg.obj;
+                    NetworkApi.PayInfo(obj, Utils.getDeviceId(), numbers + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
@@ -103,7 +103,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onFailed(String message) {
                             sign = false;
-                            Log.e("支付成功同步到我们的后台", "onFailed: "+message);
+                            Log.e("支付成功同步到我们的后台", "onFailed: " + message);
                         }
                     });
 
@@ -112,7 +112,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 case 0:
                     Double number1 = Double.parseDouble(number) / 100;
 
-                    NetworkApi.PayInfo(Utils.getDeviceId(), number1 + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.PayInfo((String) msg.obj, Utils.getDeviceId(), number1 + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
@@ -256,8 +256,10 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 //                                        "\nRevertResult"+billStatus.getBill().getRevertResult()+"\nRefundResult"+billStatus.getBill().getRefundResult());
                                 //表示支付成功
                                 if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
-
-                                    mHandler.sendEmptyMessage(2);
+                                    Message message = mHandler.obtainMessage();
+                                    message.obj = billId;
+                                    message.what = 2;
+                                    mHandler.sendMessage(message);
                                     sign = false;
 
                                 }
@@ -284,10 +286,6 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void run() {
                 while (sign1) {
-
-
-
-
                     if (type.startsWith("BC")) {
                         // BC的渠道通过id查询结果
                         BCQuery.getInstance().queryBillByIDAsync(billId1, new BCCallback() {
@@ -299,8 +297,10 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
                                 //表示支付成功
                                 if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
-
-                                    mHandler.sendEmptyMessage(0);
+                                    Message message = mHandler.obtainMessage();
+                                    message.what = 0;
+                                    message.obj = billId1;
+                                    mHandler.sendMessage(message);
                                     sign1 = false;
 
                                 }

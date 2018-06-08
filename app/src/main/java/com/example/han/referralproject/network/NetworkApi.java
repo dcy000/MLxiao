@@ -367,12 +367,13 @@ public class NetworkApi {
     }
 
 
-    public static void PayInfo(String eqid, String bba, String time, String bid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+    public static void PayInfo(String billId,String eqid, String bba, String time, String bid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("eqid", eqid);
         paramsMap.put("bba", bba);
         paramsMap.put("time", time);
         paramsMap.put("bid", bid);
+        paramsMap.put("billId", billId);
         NetworkManager.getInstance().postResultClass(URL_RECHARGE, paramsMap, String.class, listener, failedCallback);
     }
 

@@ -140,25 +140,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
             case R.id.shopping:
 
-/*
-                NetworkApi.order_list("0", "0", "1", "琪琪", "1", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
-                    @Override
-                    public void onSuccess(ArrayList<Orders> response) {
-
-                        Log.e("==========", response.toString());
-
-                    }
-
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-
-                        Log.e("=============", "失败");
-
-                    }
-                });*/
-
-
                 NetworkApi.order_info(MyApplication.getInstance().userId, Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<Order>() {
                     @Override
                     public void onSuccess(Order response) {
@@ -168,8 +149,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
-
                         ShowNormal("余额不足请及时充值");
                     }
                 });
@@ -195,8 +174,8 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                         if (which == 1) {
                             Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
                             intent.putExtra("orderid", orderid);
-                            intent.putExtra("from","Pay");
-                            startActivityForResult(intent,1);
+                            intent.putExtra("from", "Pay");
+                            startActivityForResult(intent, 1);
 
 
                         } else if (which == 0) {
@@ -246,6 +225,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 }).create(NDialog.CONFIRM).show();
 
     }
+
     public void showPaySuccessDialog() {
         speak(getString(R.string.shop_success));
         dialog2.setMessageCenter(true)
@@ -267,10 +247,11 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     }
                 }).create(NDialog.CONFIRM).show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode==RESULT_OK){
-            if (requestCode==1){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
                 showPaySuccessDialog();
             }
         }
@@ -282,7 +263,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
         if (mActivity != null) {
             mActivity = null;
         }
-
 
 
     }
