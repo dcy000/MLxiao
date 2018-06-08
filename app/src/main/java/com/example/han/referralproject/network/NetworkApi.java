@@ -123,9 +123,27 @@ public class NetworkApi {
     public static final String ONLINE_DOCTER_ZIXUN = BasicUrl + "/ZZB/docter/online_consulting";
 
 
-    public static final String ORDER_INFO = BasicUrl + "/ZZB/order/panding_pay";
+    /**
+     * 预支付 ===旧
+     */
+//    public static final String ORDER_INFO = BasicUrl + "/ZZB/order/panding_pay";
+    /**
+     * -
+     * 预支付 云联
+     */
+    public static final String ORDER_INFO = BasicUrl + "/ZZB/api/order/cloudMarket/order/";
 
-    public static final String PAY_STATUS = BasicUrl + "/ZZB/order/pay_pro";
+    /**
+     * 完成支付状态 ===旧
+     */
+
+//    public static final String PAY_STATUS = BasicUrl + "/ZZB/order/pay_pro";
+
+    /**
+     * 完成支付状态 云联
+     */
+
+    public static final String PAY_STATUS = BasicUrl + "/ZZB/api/order/cloudMarket/order/pay/";
 
     public static final String PAY_CANCEL = BasicUrl + "/ZZB/order/delivery_del";
 
@@ -355,7 +373,7 @@ public class NetworkApi {
         paramsMap.put("bba", bba);
         paramsMap.put("time", time);
         paramsMap.put("bid", bid);
-        NetworkManager.getInstance().postResultClass(PAY_URL, paramsMap, String.class, listener, failedCallback);
+        NetworkManager.getInstance().postResultClass(URL_RECHARGE, paramsMap, String.class, listener, failedCallback);
     }
 
     public static void DoctorInfo(String bid, NetworkManager.SuccessCallback<Doctor> listener, NetworkManager.FailedCallback failedCallback) {
@@ -1130,6 +1148,17 @@ public class NetworkApi {
     public static void getYSTWallet(String userId, final StringCallback callback) {
         OkGo.<String>get(URL_YST_WALLET)
                 .params("userId", userId)
+                .execute(callback);
+    }
+
+    public static final String URL_RECHARGE = BasicUrl + "/ZZB/api/order/cloudMarket/recharge/";
+
+    public static void recharge(String eqid, Double bba, String bid, String time, StringCallback callback) {
+        OkGo.<String>post(URL_RECHARGE)
+                .params("bba", bba)
+                .params("eqid", eqid)
+                .params("bid", bid)
+                .params("time", time)
                 .execute(callback);
     }
 
