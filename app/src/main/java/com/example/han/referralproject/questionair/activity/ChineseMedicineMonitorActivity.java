@@ -47,9 +47,9 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chinese_media_nonitor);
+        initTitle();
         initData();
         initView();
-        initTitle();
         initOperaterEvent();
     }
 
@@ -63,13 +63,6 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
         Gson gson = new Gson();
         data = gson.fromJson(jsonData, new TypeToken<List<MonitorRequestionBean>>() {
         }.getType());
-//
-//        if (sex == SexEnum.man) {
-//            data.remove(44);
-//        } else {
-//            data.remove(45);
-//        }
-
 
         if (data != null)
             count = data.size();
