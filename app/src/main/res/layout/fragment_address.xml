@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="86dp"
         android:gravity="center"
-        android:text="您的住址"
+        android:text="您的现住址"
         android:textColor="#8C8C8C"
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"

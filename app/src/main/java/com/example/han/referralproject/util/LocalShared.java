@@ -621,7 +621,7 @@ public class LocalShared {
 
 
     public String getGuoMin() {
-      return  mShared.getString("guomin", "0");
+        return mShared.getString("guomin", "0");
     }
 
 
@@ -631,23 +631,23 @@ public class LocalShared {
 
 
     public String getJiBingShi() {
-        return  mShared.getString("jibing", "0");
+        return mShared.getString("jibing", "0");
     }
 
 
-    public  void setXueYa(String xueya) {
+    public void setXueYa(String xueya) {
         mShared.edit().putString("xueyawen", xueya).apply();
     }
 
-    public  String getXueYa() {
-       return mShared.getString("xueyawen", "");
+    public String getXueYa() {
+        return mShared.getString("xueyawen", "");
     }
 
     public void setHuaiYun(String huaiyun) {
         mShared.edit().putString("huaiyun", huaiyun).apply();
     }
 
-    public  String getHuaiYun() {
+    public String getHuaiYun() {
         return mShared.getString("xueyawen", "1");
     }
 
@@ -655,8 +655,16 @@ public class LocalShared {
         mShared.edit().putString("isdrink", isdrink).apply();
     }
 
-
     public String getIsDrinkOrNot() {
-       return mShared.getString("isdrink", "0");
+        return mShared.getString("isdrink", "0");
+    }
+
+
+    public void setOriginAddress(String originAddress) {
+        mShared.edit().putString("origin_address", originAddress).apply();
+    }
+
+    public String getOriginAddress() {
+        return mShared.getString("origin_address","");
     }
 }

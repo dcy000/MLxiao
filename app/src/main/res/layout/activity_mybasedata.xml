@@ -321,6 +321,33 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:text="户籍地址"
+                        android:textSize="28sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/origin_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="22dp"
+                        android:maxLines="2"
+                        android:textColor="#333333"
+                        android:textSize="28sp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -333,7 +360,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
-                        android:text="详细地址"
+                        android:text="现地址"
                         android:textSize="28sp" />
 
                     <View
@@ -347,7 +374,6 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="22dp"
                         android:drawablePadding="5dp"
-                        android:text=""
                         android:maxLines="2"
                         android:textColor="#333333"
                         android:textSize="28sp"

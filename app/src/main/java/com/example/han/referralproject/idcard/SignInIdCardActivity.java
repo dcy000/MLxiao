@@ -556,6 +556,9 @@ public class SignInIdCardActivity extends BaseActivity {
     private void onReadSuccess(IDCardItem item) {
         this.item = item;
         speak("读取成功");
+        if (item!=null){
+            LocalShared.getInstance(this).setOriginAddress(item.certAddress);
+        }
         onCheckRegistered();
     }
 

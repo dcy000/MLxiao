@@ -10,6 +10,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
@@ -89,6 +90,8 @@ public class MyBaseDataActivity extends BaseActivity {
     TextView tvReset;
     @BindView(R.id.canji)
     TextView canji;
+    @BindView(R.id.origin_address)
+    TextView originAddress;
     private UserInfoBean response;
 
     @Override
@@ -106,8 +109,10 @@ public class MyBaseDataActivity extends BaseActivity {
     }
 
 
-
     private void initView() {
+        //户籍地址
+        originAddress.setText(LocalShared.getInstance(this).getOriginAddress());
+
         showLoadingDialog("正在加载中...");
         NetworkApi.getPersonalInfo(this, new StringCallback() {
             @Override
@@ -118,12 +123,12 @@ public class MyBaseDataActivity extends BaseActivity {
                     if (bean != null) {
                         PersonInfoResultBean.DataBean data = bean.data;
                         if (data != null) {
-                            name.setText(data.bname+"");
-                            age.setText(data.age+"");
-                            sex.setText(data.sex+"");
-                            phone.setText(data.tel+"");
-                            idcard.setText(data.sfz+"");
-                            number.setText(data.eqid+"");
+                            name.setText(data.bname + "");
+                            age.setText(data.age + "");
+                            sex.setText(data.sex + "");
+                            phone.setText(data.tel + "");
+                            idcard.setText(data.sfz + "");
+                            number.setText(data.eqid + "");
 
                             Picasso.with(MyBaseDataActivity.this)
                                     .load(data.user_photo)
@@ -144,12 +149,12 @@ public class MyBaseDataActivity extends BaseActivity {
                                 eating.setText(record.medicalPayments + "");
                                 drinking.setText(record.medicationAllergy + "");
                                 String text2 = record.exposureHistory + "";
-                                history.setText(text2.replaceAll("null",""));
+                                history.setText(text2.replaceAll("null", ""));
 
                                 String text = record.kinsfolkDiseasesType + "";
-                                jiazubingshi.setText(text.replaceAll("null",""));
+                                jiazubingshi.setText(text.replaceAll("null", ""));
                                 String text1 = record.geneticHistory + "";
-                                yichuanbignshi.setText(text1.replaceAll("null",""));
+                                yichuanbignshi.setText(text1.replaceAll("null", ""));
                                 canji.setText(record.disabilitySituation + "");
                                 chuafangpaiqi.setText(record.kitchenExhaust + "");
                                 chufangranliao.setText(record.kitchenFuel + "");
