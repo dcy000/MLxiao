@@ -50,7 +50,7 @@ public class DrinkInfoActivity extends BaseActivity {
         mTitleText.setText("问诊");
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
-        speak("主人,请选择您本周内的饮酒情况");
+        speak("主人,请选择您三天内的饮酒情况");
     }
 
     @OnClick({R.id.tv_drink_yes, R.id.tv_drink_not, R.id.tv_baijiu, R.id.tv_liaojiu, R.id.tv_pijiu, R.id.tv_mijiu, R.id.tv_sign_up_go_back, R.id.tv_sign_up_go_forward})

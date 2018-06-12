@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"
         android:layout_marginTop="90pt"
-        android:text="本周内是否有饮酒?"
+        android:text="三天内是否有饮酒?"
         android:textColor="#FF333333"
         android:textSize="72pt" />
 
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"
         android:layout_marginTop="186pt"
-        android:text="请选择本周喝的酒"
+        android:text="请选择三天内喝的酒"
         android:textColor="#FF333333"
         android:textSize="72pt" />
 
