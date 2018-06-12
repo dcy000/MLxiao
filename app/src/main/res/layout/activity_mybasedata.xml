@@ -108,6 +108,7 @@
                 android:textColor="#333333"
                 android:textSize="28sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,13 +136,14 @@
                 android:textColor="#333333"
                 android:textSize="28sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:orientation="horizontal"
-            android:background="@drawable/toolbar_set">
+            android:background="@drawable/toolbar_set"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -172,8 +174,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:orientation="horizontal"
-            android:background="@drawable/toolbar_set">
+            android:background="@drawable/toolbar_set"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -200,16 +202,16 @@
         </LinearLayout>
 
 
-
     </LinearLayout>
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
+        android:layout_weight="2"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -226,8 +228,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="25dp">
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -321,64 +323,60 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_origin_address_notice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="户籍地址"
                         android:textSize="28sp" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
                     <TextView
+                        android:layout_toRightOf="@id/tv_origin_address_notice"
+                        android:layout_marginLeft="22dp"
                         android:id="@+id/origin_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="22dp"
-                        android:maxLines="2"
                         android:textColor="#333333"
                         android:textSize="28sp" />
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="25dp">
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_now_address_notice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="现地址"
                         android:textSize="28sp" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
                     <TextView
+                        android:layout_toRightOf="@id/tv_now_address_notice"
+                        android:layout_marginLeft="22dp"
                         android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="22dp"
                         android:drawablePadding="5dp"
                         android:maxLines="2"
+                        android:paddingLeft="40dp"
+                        android:paddingRight="22dp"
                         android:textColor="#333333"
-                        android:textSize="28sp"
-                        android:paddingLeft="40dp"/>
-                </LinearLayout>
+                        android:textSize="28sp" />
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -393,8 +391,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="25dp">
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -410,8 +408,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -441,8 +439,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -472,8 +470,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -497,13 +495,14 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_drinking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -527,14 +526,15 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
                     android:layout_marginBottom="25dp"
-                    android:background="@drawable/toolbar_set">
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -558,13 +558,14 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
+                    android:background="@drawable/toolbar_set"
                     android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:visibility="gone">
 
                     <TextView
 
@@ -589,12 +590,13 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
 
@@ -619,12 +621,13 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
 
@@ -649,12 +652,13 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
 
@@ -679,12 +683,13 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
 
@@ -709,12 +714,13 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
 
@@ -739,12 +745,13 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
 
@@ -769,12 +776,13 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
 
@@ -803,14 +811,14 @@
             </LinearLayout>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="恢复出厂设置"
                 android:textSize="18sp"
-                android:text="恢复出厂设置"/>
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
