@@ -1152,6 +1152,9 @@ public class NetworkApi {
                 .execute(callback);
     }
 
+    /**
+     * 云联商城 充值接口
+     */
     public static final String URL_RECHARGE = BasicUrl + "/ZZB/api/order/cloudMarket/recharge/";
 
     public static void recharge(String eqid, Double bba, String bid, String time, StringCallback callback) {
@@ -1163,5 +1166,17 @@ public class NetworkApi {
                 .execute(callback);
     }
 
+
+    /**
+     * 云联商城 提交上一级分销商电话
+     */
+    public static final String URL_PARENT_AGENT_TEL = "/ZZB/api/user/userApply/tel_invite/";
+
+    public static void postParentAgentPhone(String userId, String tel, StringCallback callback) {
+        OkGo.<String>get(URL_PARENT_AGENT_TEL)
+                .params("userid", userId)
+                .params("tel", tel)
+                .execute(callback);
+    }
 
 }
