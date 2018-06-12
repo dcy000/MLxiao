@@ -57,9 +57,9 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-    //    public static final String BasicUrl = "http://116.62.36.12:8080";
+//    public static final String BasicUrl = "http://116.62.36.12:8080";
 //    public static final String BasicUrl = "http://118.31.238.207:8080";
-//    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
+//    public static final String BasicUrl = "http://192.168.200.106:8080";//孙高峰
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
 
 
@@ -367,7 +367,7 @@ public class NetworkApi {
     }
 
 
-    public static void PayInfo(String billId,String eqid, String bba, String time, String bid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+    public static void PayInfo(String billId, String eqid, String bba, String time, String bid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("eqid", eqid);
         paramsMap.put("bba", bba);
@@ -1170,7 +1170,7 @@ public class NetworkApi {
     /**
      * 云联商城 提交上一级分销商电话
      */
-    public static final String URL_PARENT_AGENT_TEL = "/ZZB/api/user/userApply/tel_invite/";
+    public static final String URL_PARENT_AGENT_TEL = BasicUrl + "/ZZB/api/user/userApply/tel_invite/";
 
     public static void postParentAgentPhone(String userId, String tel, StringCallback callback) {
         OkGo.<String>get(URL_PARENT_AGENT_TEL)
