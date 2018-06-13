@@ -37,7 +37,7 @@ public class HealthManagementResultActivity extends BaseActivity {
                 if ("是".equals(itemBean.result)) {
                     TextView item = new TextView(this);
                     initTextViewParams(item);
-                    item.setText("体质类型:" + itemBean.constitutionName + "得分:" + itemBean.score);
+                    item.setText("体质类型:" + itemBean.constitutionName + "       得分:" + itemBean.score);
                     container.addView(item);
                 }
             }
