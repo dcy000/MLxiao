@@ -24,7 +24,7 @@ import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.questionair.activity.ChineseMedicineMonitorActivity;
+import com.example.han.referralproject.olderhealthmanagement.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
@@ -273,7 +273,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     }
 
     private void gotoTizhiJianCe() {
-        startActivity(new Intent(getActivity(), ChineseMedicineMonitorActivity.class));
+        startActivity(new Intent(getActivity(), OlderHealthManagementSerciveActivity.class));
     }
 
     private void gotoPersonInfo() {

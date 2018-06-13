@@ -678,9 +678,7 @@
         <activity android:name=".health.DetectHealthSaltActivity" />
         <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity" />
         <activity android:name=".questionair.activity.MonitorResultActivity" />
-        <activity
-            android:name=".idcard.IdCardInfoActivity"
-           />
+        <activity android:name=".idcard.IdCardInfoActivity" />
         <activity android:name=".idcard.SignInIdCardActivity" />
         <activity android:name=".health.DetectResultActivity" />
         <activity android:name=".yiyuan.activity.YiYuanLoginActivity" />
@@ -745,7 +743,8 @@
         <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
         <activity android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity" />
         <activity android:name=".yiyuan.activity.DrinkInfoActivity" />
-        <activity android:name=".yiyuan.activity.DoctorMesInfoActivity"></activity>
+        <activity android:name=".yiyuan.activity.DoctorMesInfoActivity" />
+        <activity android:name=".olderhealthmanagement.OlderHealthManagementSerciveActivity"></activity>
     </application>
 
 </manifest>
