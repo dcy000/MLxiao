@@ -3,10 +3,9 @@ package com.example.han.referralproject.olderhealthmanagement;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -16,9 +15,7 @@ import com.example.han.referralproject.olderhealthmanagement.bean.HealthManageme
 import com.example.han.referralproject.olderhealthmanagement.bean.HealthManagementResultBean;
 import com.example.han.referralproject.olderhealthmanagement.bean.OlderHealthManagementBean;
 import com.example.han.referralproject.olderhealthmanagement.fragment.HealthItemFragment;
-import com.example.han.referralproject.questionair.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.questionair.adapter.FragAdapter;
-import com.example.han.referralproject.questionair.fragment.MonitorItemFragment;
 import com.example.han.referralproject.questionair.wrap.MonitorViewPager;
 import com.example.han.referralproject.util.LocalShared;
 import com.google.gson.Gson;
@@ -35,6 +32,8 @@ import butterknife.OnClick;
 
 public class OlderHealthManagementSerciveActivity extends BaseActivity {
 
+    @BindView(R.id.ll_operator)
+    LinearLayout llOperator;
     private List<OlderHealthManagementBean.DataBean.QuestionListBean> questionList = new ArrayList<>();
     @BindView(R.id.vp)
     MonitorViewPager vp;
@@ -70,6 +69,7 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
                         questionList = data.questionList;
                         if (questionList != null && questionList.size() != 0) {
                             count = questionList.size();
+                            llOperator.setVisibility(View.VISIBLE);
                             initView();
                         }
                     }

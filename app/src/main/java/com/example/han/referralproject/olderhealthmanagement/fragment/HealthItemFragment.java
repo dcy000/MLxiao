@@ -96,10 +96,12 @@ public class HealthItemFragment extends Fragment {
                     }
                 }
 
-                if (lastXChecedId != checkedId) {
-                    ((OlderHealthManagementSerciveActivity) getActivity()).nextCurrentPage();
-                }
-                lastXChecedId = checkedId;
+
+                //点击自动翻页
+//                if (lastXChecedId != checkedId) {
+//                    ((OlderHealthManagementSerciveActivity) getActivity()).nextCurrentPage();
+//                }
+//                lastXChecedId = checkedId;
 
             }
         });
@@ -108,11 +110,8 @@ public class HealthItemFragment extends Fragment {
 
 
     private void setRadioButtonParams(RadioButton radioButton) {
-//radioButton.setBackgroundResource(R.drawable.home_page_radiobutton_selector);
-//把那个讨厌的圈圈去掉，当然你也可以自定义你的样式来替代圈圈
-//        radioButton.setButtonDrawable(android.R.color.transparent);
-        radioButton.setTextSize(30);
-//用selector资源设置文字选中/未选中颜色
+        radioButton.setButtonDrawable(R.drawable.bg_huaiyun_set);
+        radioButton.setTextSize(32);
         radioButton.setTextColor(getActivity().getResources()
                 .getColorStateList(R.color.older_healh_management_color_set));
         radioButton.setPadding(20, 20, 20, 20);
