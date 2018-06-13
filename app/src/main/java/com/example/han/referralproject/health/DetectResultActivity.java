@@ -108,12 +108,22 @@ public class DetectResultActivity extends BaseActivity {
         String tem = intent.getStringExtra("tem");
         tem = TextUtils.isEmpty(tem) ? "0.0" : tem;
         detectResult.setTemperAture(tem);
+
+        //左手血压测量值
         String highPressure = intent.getStringExtra("highPressure");
         highPressure = TextUtils.isEmpty(highPressure) ? "0.0" : highPressure;
-        detectResult.setHighPressure((int) Float.parseFloat(highPressure));
         String lowPressure = intent.getStringExtra("lowPressure");
         lowPressure = TextUtils.isEmpty(lowPressure) ? "0.0" : lowPressure;
-        detectResult.setLowPressure((int) Float.parseFloat(lowPressure));
+
+        detectResult.leftHypertension= new DetectResult.LeftHypertensionBean(Integer.parseInt(highPressure),Integer.parseInt(lowPressure));
+
+        //右手血压测量值
+        String highPressureRight = intent.getStringExtra("highPressure_right");
+        highPressureRight = TextUtils.isEmpty(highPressureRight) ? "0.0" : highPressureRight;
+        String lowPressureRight = intent.getStringExtra("lowPressure_right");
+        lowPressureRight = TextUtils.isEmpty(lowPressureRight) ? "0.0" : lowPressureRight;
+        detectResult.rightHypertension= new DetectResult.RightHypertensionBean(Integer.parseInt(highPressureRight),Integer.parseInt(lowPressureRight));
+
         String ecg = intent.getStringExtra("ecg");
         ecg = TextUtils.isEmpty(ecg) ? "0.0" : ecg;
         detectResult.setEcg(ecg);

@@ -94,6 +94,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 						intent1.putExtras(getIntent());
 						intent1.putExtra("type", "xueya");
 						intent1.putExtra("ecg", "0.0");
+                        intent1.putExtra("is_right", true);
 						startActivity(intent1);
 						finish();
 						return;
@@ -103,6 +104,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 						intent1.putExtras(getIntent());
 						intent1.putExtra("type", "xueya");
 						intent1.putExtra("ecg", "0.0");
+                        intent1.putExtra("is_right", true);
 						startActivity(intent1);
 						finish();
 						return;
@@ -113,6 +115,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         intent1.putExtras(getIntent());
                         intent1.putExtra("type", "xueya");
                         intent1.putExtra("ecg", "0.0");
+                        intent1.putExtra("is_right", true);
                         startActivity(intent1);
                         finish();
                         return;
