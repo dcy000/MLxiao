@@ -744,7 +744,8 @@
         <activity android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity" />
         <activity android:name=".yiyuan.activity.DrinkInfoActivity" />
         <activity android:name=".yiyuan.activity.DoctorMesInfoActivity" />
-        <activity android:name=".olderhealthmanagement.OlderHealthManagementSerciveActivity"></activity>
+        <activity android:name=".olderhealthmanagement.OlderHealthManagementSerciveActivity" />
+        <activity android:name=".olderhealthmanagement.HealthManagementResultActivity"></activity>
     </application>
 
 </manifest>

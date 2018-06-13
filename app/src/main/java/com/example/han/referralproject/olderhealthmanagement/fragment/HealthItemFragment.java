@@ -97,11 +97,11 @@ public class HealthItemFragment extends Fragment {
                 }
 
 
-                //点击自动翻页
-//                if (lastXChecedId != checkedId) {
-//                    ((OlderHealthManagementSerciveActivity) getActivity()).nextCurrentPage();
-//                }
-//                lastXChecedId = checkedId;
+//                点击自动翻页
+                if (lastXChecedId != checkedId) {
+                    ((OlderHealthManagementSerciveActivity) getActivity()).nextCurrentPage();
+                }
+                lastXChecedId = checkedId;
 
             }
         });

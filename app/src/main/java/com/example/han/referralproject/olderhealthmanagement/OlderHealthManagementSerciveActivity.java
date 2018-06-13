@@ -1,5 +1,6 @@
 package com.example.han.referralproject.olderhealthmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -23,6 +24,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,7 +164,7 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
         anwserBean.answerList = new ArrayList<>();
 
         if (questionList != null && questionList.size() != 0) {
-//            anwserBean.
+
             for (int i = 0; i < questionList.size(); i++) {
                 HealthManagementAnwserBean.AnswerListBean anwser = new HealthManagementAnwserBean.AnswerListBean();
                 anwser.answerScore = questionList.get(i).answerScore;
@@ -182,8 +184,9 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
                 HealthManagementResultBean resultBean = new Gson().fromJson(response.body(), HealthManagementResultBean.class);
                 if (resultBean != null && resultBean.tag) {
                     T.show("提交成功");
-                } else {
-
+                    gotoResultPage(resultBean.data);
+                } else{
+                    T.show(resultBean.message);
                 }
             }
 
@@ -195,6 +198,15 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
         });
 
 
+    }
+
+    /**
+     * 跳转到结果页面
+     * @param data
+     */
+    private void gotoResultPage(List<HealthManagementResultBean.DataBean> data) {
+        startActivity(new Intent(this, HealthManagementResultActivity.class).putExtra("result_data", (Serializable) data));
+        finish();
     }
 
     private boolean isLastPager() {
