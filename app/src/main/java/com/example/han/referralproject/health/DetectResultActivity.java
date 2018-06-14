@@ -178,8 +178,9 @@ public class DetectResultActivity extends BaseActivity {
 //            mDetectTvResultOxygenInfo.setText(oxygen + "mmHg");
 //            mDetectTvResultOxygenInfoIndicator.setText("偏低");
         mDetectTvResultWeightInfo.setText(weight + "  kg");
-        mDetectTvResultHighPressureInfo.setText(highPressure + "  mmHg");
-        mDetectTvResultLowPressureInfo.setText(lowPressure + "  mmHg");
+        mDetectTvResultHighPressureInfo.setText("左臂:"+highPressure + " mmHg,   "+"右臂:"+highPressureRight + " mmHg,");
+        mDetectTvResultLowPressureInfo.setText("左臂:"+lowPressure + " mmHg,   "+"右臂:"+lowPressureRight + " mmHg,");
+
         mDetectTvResultTemperateInfo.setText(tem);
         mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
         mDetectTvResultEcgInfo.setText(ecg);
