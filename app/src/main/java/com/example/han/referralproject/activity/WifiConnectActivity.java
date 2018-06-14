@@ -27,7 +27,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.WiFiUtil;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +180,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                         if (isFirstWifi){
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                startActivity(new Intent(mContext, SignInActivity.class));
+                                startActivity(new Intent(mContext, YiYuanLoginActivity.class));
                             } else {
                                 startActivity(new Intent(mContext, MainActivity.class));
                             }

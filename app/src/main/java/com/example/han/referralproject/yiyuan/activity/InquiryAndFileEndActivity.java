@@ -40,7 +40,7 @@ public class InquiryAndFileEndActivity extends BaseActivity {
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        String title = getIntent().getStringExtra(FROM_TAG);
+        title = getIntent().getStringExtra(FROM_TAG);
         mTitleText.setText(title);
         textView9.setText(title + "完成，请选择下一步操作");
 
@@ -66,7 +66,11 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_to_home_page:
                 startActivity(new Intent(this, MainActivity.class));
-                finishAffinity();
+                if ("建档".equals(title)) {
+                    finish();
+                } else {
+                    finishAffinity();
+                }
                 break;
             case R.id.tv_exit:
                 tuichu();
