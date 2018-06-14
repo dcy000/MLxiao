@@ -1412,8 +1412,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 if (intent.getBooleanExtra("is_right", false)) {
                                     Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
                                     intent4.putExtras(getIntent());
-                                    intent4.putExtra("highPressure", mHighPressTv.getText().toString());
-                                    intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
+                                    intent4.putExtra("highPressure_right", mHighPressTv.getText().toString());
+                                    intent4.putExtra("lowPressure_right", mLowPressTv.getText().toString());
                                     intent4.putExtra("type", "xindian");
                                     startActivity(intent4);
                                     break;
@@ -1425,7 +1425,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 intent4.putExtra("type", "xueya");
                                 intent4.putExtra("is_right", true);
                                 startActivity(intent4);
-
                                 break;
                             case "xuetang":
                                 Intent intent5 = new Intent(DetectActivity.this, DetectActivity.class);

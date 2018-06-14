@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textColor="#333"
         android:textSize="72pt"
-        android:text="是否有家族史？"
+        android:text="是否有家族病史？"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
