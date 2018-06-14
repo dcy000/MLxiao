@@ -72,6 +72,13 @@ public class HealthItemFragment extends Fragment {
                 RadioButton button = new RadioButton(getContext());
                 setRadioButtonParams(button);
                 button.setText(answerList.get(i).answerInfo);
+                //返回上一步显示=========开始  由于viewpager缓存步长限制
+                if (data.isSelected&&data.hmAnswerId.equals(answerList.get(i).hmAnswerId)){
+                    button.setChecked(true);
+                }else{
+                    button.setChecked(false);
+                }
+                //返回上一步显示=========结束
                 rgAnwser.addView(button, LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
             }
