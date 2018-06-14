@@ -122,7 +122,7 @@ public class DetectResultActivity extends BaseActivity {
         highPressureRight = TextUtils.isEmpty(highPressureRight) ? "0.0" : highPressureRight;
         String lowPressureRight = intent.getStringExtra("lowPressure_right");
         lowPressureRight = TextUtils.isEmpty(lowPressureRight) ? "0.0" : lowPressureRight;
-        detectResult.rightHypertension= new DetectResult.RightHypertensionBean(Integer.parseInt(highPressureRight),Integer.parseInt(lowPressureRight));
+        detectResult.rightHypertension= new DetectResult.RightHypertensionBean(Float.parseFloat(highPressureRight),Float.parseFloat(lowPressureRight));
 
         String ecg = intent.getStringExtra("ecg");
         ecg = TextUtils.isEmpty(ecg) ? "0.0" : ecg;
@@ -205,8 +205,8 @@ public class DetectResultActivity extends BaseActivity {
                             PersonInfoResultBean.DataBean.RecordBean record = data.record;
                             if (record != null) {
                                 mDetectTvBloodTypeInfo.setText(record.bloodType + "型");
-                                mDetectTvHeightInfo.setText(record.height + "cm");
-                                mDetectTvWeightInfo.setText(record.weight + "kg");
+                                mDetectTvHeightInfo.setText(record.height);
+                                mDetectTvWeightInfo.setText(record.weight);
                             }
                         }
 

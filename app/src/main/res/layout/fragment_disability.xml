@@ -1,72 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/title1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="90pt"
+        android:text="您有残疾情况嘛？(可多选)"
         android:textColor="#333"
         android:textSize="72pt"
-        android:text="您有残疾情况嘛？(可多选)"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="60pt"
-        android:layout_marginTop="90pt"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/ll_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="26pt"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/title1"
-        android:layout_marginTop="26pt">
+        app:layout_constraintTop_toBottomOf="@id/title1">
+
         <TextView
             android:id="@+id/shili"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/radiobutton_textview_set"
-            android:text="视力残疾"
-            android:drawablePadding="24pt"
-            android:textSize="72pt"
-            android:textColor="#666"
-            android:gravity="center"
-            android:paddingTop="40pt"
-            android:paddingBottom="40pt"
-            android:clickable="true"
             android:layout_marginLeft="60pt"
-            />
+            android:clickable="true"
+            android:drawableLeft="@drawable/radiobutton_textview_set"
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingTop="40pt"
+            android:text="视力残疾"
+            android:textColor="#666"
+            android:textSize="72pt" />
+
         <TextView
             android:id="@+id/tingli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/radiobutton_textview_set"
-            android:text="听力残疾"
-            android:drawablePadding="24pt"
-            android:textSize="72pt"
-            android:textColor="#666"
-            android:gravity="center"
-            android:paddingTop="40pt"
-            android:paddingBottom="40pt"
-            android:clickable="true"
             android:layout_marginLeft="136pt"
-            />
+            android:clickable="true"
+            android:drawableLeft="@drawable/radiobutton_textview_set"
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingTop="40pt"
+            android:text="听力残疾"
+            android:textColor="#666"
+            android:textSize="72pt" />
+
         <TextView
             android:id="@+id/yanyu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/radiobutton_textview_set"
-            android:text="言语残疾"
-            android:drawablePadding="24pt"
-            android:textSize="72pt"
-            android:textColor="#666"
-            android:gravity="center"
-            android:paddingTop="40pt"
-            android:paddingBottom="40pt"
-            android:clickable="true"
             android:layout_marginLeft="136pt"
-            />
+            android:clickable="true"
+            android:drawableLeft="@drawable/radiobutton_textview_set"
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingTop="40pt"
+            android:text="言语残疾"
+            android:textColor="#666"
+            android:textSize="72pt" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26pt"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/ll_1">
+
+        <TextView
+            android:id="@+id/zhili"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60pt"
+            android:clickable="true"
+            android:drawableLeft="@drawable/radiobutton_textview_set"
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingTop="40pt"
+            android:text="智力残疾"
+            android:textColor="#666"
+            android:textSize="72pt" />
+
+        <TextView
+            android:id="@+id/jingshen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="136pt"
+            android:clickable="true"
+            android:drawableLeft="@drawable/radiobutton_textview_set"
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingTop="40pt"
+            android:text="精神残疾"
+            android:textColor="#666"
+            android:textSize="72pt" />
         <TextView
             android:id="@+id/zhiti"
             android:layout_width="wrap_content"
@@ -82,74 +124,48 @@
             android:clickable="true"
             android:layout_marginLeft="136pt"
             />
+
+
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/ll_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="26pt"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/ll_1"
-        android:layout_marginTop="26pt">
-        <TextView
-            android:id="@+id/zhili"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/radiobutton_textview_set"
-            android:text="智力残疾"
-            android:drawablePadding="24pt"
-            android:textSize="72pt"
-            android:textColor="#666"
-            android:gravity="center"
-            android:paddingTop="40pt"
-            android:paddingBottom="40pt"
-            android:clickable="true"
-            android:layout_marginLeft="60pt"
-            />
-        <TextView
-            android:id="@+id/jingshen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/radiobutton_textview_set"
-            android:text="精神残疾"
-            android:drawablePadding="24pt"
-            android:textSize="72pt"
-            android:textColor="#666"
-            android:gravity="center"
-            android:paddingTop="40pt"
-            android:paddingBottom="40pt"
-            android:clickable="true"
-            android:layout_marginLeft="136pt"
-            />
+        app:layout_constraintTop_toBottomOf="@id/ll_2">
         <TextView
             android:id="@+id/qita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/radiobutton_textview_set"
-            android:text="其他"
-            android:drawablePadding="24pt"
-            android:textSize="72pt"
-            android:textColor="#666"
-            android:gravity="center"
-            android:paddingTop="40pt"
-            android:paddingBottom="40pt"
+            android:layout_marginLeft="60pt"
             android:clickable="true"
-            android:layout_marginLeft="136pt"
-            />
+            android:drawableLeft="@drawable/radiobutton_textview_set"
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingTop="40pt"
+            android:text="其他"
+            android:textColor="#666"
+            android:textSize="72pt" />
+
         <TextView
             android:id="@+id/wu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/radiobutton_textview_set"
-            android:text="无"
-            android:drawablePadding="24pt"
-            android:textSize="72pt"
-            android:textColor="#666"
-            android:gravity="center"
-            android:paddingTop="40pt"
-            android:paddingBottom="40pt"
+            android:layout_marginLeft="283pt"
             android:clickable="true"
-            android:layout_marginLeft="136pt"
-            />
+            android:drawableLeft="@drawable/radiobutton_textview_set"
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:paddingBottom="40pt"
+            android:paddingTop="40pt"
+            android:text="无"
+            android:textColor="#666"
+            android:textSize="72pt" />
+
+
     </LinearLayout>
+
+
     <include layout="@layout/include_sign_up_nav" />
 </android.support.constraint.ConstraintLayout>

@@ -86,10 +86,10 @@ public class DetectResult implements Serializable {
          * lowPressure : 0
          */
 
-        public int highPressure;
-        public int lowPressure;
+        public float highPressure;
+        public float lowPressure;
 
-        public RightHypertensionBean(int highPressure, int lowPressure) {
+        public RightHypertensionBean(float highPressure, float lowPressure) {
             this.highPressure = highPressure;
             this.lowPressure = lowPressure;
         }
