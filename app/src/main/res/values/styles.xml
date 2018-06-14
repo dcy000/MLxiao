@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowAnimationStyle">@style/fade</item>
     </style>
 
     <style name="XDialog" parent="@android:style/Theme.Dialog">
@@ -45,5 +46,12 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">30dp</item>
+    </style>
+
+    <style name="fade">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/back_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/back_exit</item>
     </style>
 </resources>

@@ -35,6 +35,7 @@ import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
 import com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
+import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -631,6 +632,7 @@ public class SignInIdCardActivity extends BaseActivity {
                         && !TextUtils.isEmpty(data.getStringExtra("phone"))) {
                     String phone = data.getStringExtra("phone");
                     onRegister(phone);
+                    T.show("请耐心等待注册...");
                 } else {
                     Log.d(TAG, "onActivityResult: " + resultCode);
                     onReadFailed();
@@ -998,6 +1000,7 @@ public class SignInIdCardActivity extends BaseActivity {
     }
 
     private void onUpLoadToServerSuccess(String userid, String xfid) {
+        T.show("注册成功");
         Log.d(TAG, "onUpLoadToServerSuccess: ");
         LocalShared.getInstance(mContext).addAccount(userid, xfid);
         Intent intent = new Intent(this, InquiryAndFileActivity.class);
@@ -1090,4 +1093,5 @@ public class SignInIdCardActivity extends BaseActivity {
         super.onPause();
         stopSpeaking();
     }
+
 }
