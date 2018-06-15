@@ -1491,7 +1491,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 xueYaTitle.setText(R.string.test_xueya_right);
             } else {
                 xueYaTitle.setText(R.string.test_xueya_left);
-//                showNoticeDialog();
+                showNoticeDialog();
             }
         }
         //================右臂血压测量===========结束==
@@ -2154,24 +2154,24 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
 
 
-//    AlertDialog mDialog;
-//
-//    private void showNoticeDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("温馨提示")
-//                .setMessage("为保证测量准确,在测量完左臂血压后,请先将血压计关闭,在打开右臂血压检测页面至后,再重新打开血压计进行测量")
-//                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        //do somthing
-//                    }
-//                });
-//
-//        mDialog = builder.create();
-//        mDialog.setCancelable(false);
-//        mDialog.setCanceledOnTouchOutside(false);
-//        mDialog.show();
-//    }
+    AlertDialog mDialog;
+
+    private void showNoticeDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("温馨提示")
+                .setMessage("为保证测量准确,请在测量完左臂血压后,先将血压计关闭,在打开右臂血压检测页面至后,再重新打开血压计进行测量")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do somthing
+                    }
+                });
+
+        mDialog = builder.create();
+        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.show();
+    }
 }
 
