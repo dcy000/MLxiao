@@ -199,6 +199,8 @@ public class FamilyhistoryFragment extends Fragment implements View.OnClickListe
         attributes.width = 1400;
         alertDialog.getWindow().setAttributes(attributes);
         dialogTitle = (TextView) inflate.findViewById(R.id.dialog_title);
+        //您母亲患有以下哪种疾病？
+        dialogTitle.setText("您的"+title+"患有以下哪种疾病？");
         gaoxueya = (TextView) inflate.findViewById(R.id.gaoxueya);
         gaoxueya.setOnClickListener(this);
         tangniaobing = (TextView) inflate.findViewById(R.id.tangniaobing);
