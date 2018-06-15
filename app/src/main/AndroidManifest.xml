@@ -745,7 +745,8 @@
         <activity android:name=".yiyuan.activity.DrinkInfoActivity" />
         <activity android:name=".yiyuan.activity.DoctorMesInfoActivity" />
         <activity android:name=".olderhealthmanagement.OlderHealthManagementSerciveActivity" />
-        <activity android:name=".olderhealthmanagement.HealthManagementResultActivity"></activity>
+        <activity android:name=".olderhealthmanagement.HealthManagementResultActivity" />
+        <activity android:name=".activity.SingleDetectActivity"></activity>
     </application>
 
 </manifest>

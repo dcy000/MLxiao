@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
+import com.example.han.referralproject.activity.SingleDetectActivity;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 
@@ -94,7 +95,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
             Intent intent = new Intent();
             switch (v.getId()) {
                 case R.id.ll_xueya:
-                    intent.setClass(mContext, DetectActivity.class);
+                    intent.setClass(mContext, SingleDetectActivity.class);
 //                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "xueya");
                     startActivity(intent);
