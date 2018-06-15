@@ -34,12 +34,12 @@ public class HealthManagementResultActivity extends BaseActivity {
         if (data != null & data.size() != 0) {
             for (int i = 0; i < data.size(); i++) {
                 HealthManagementResultBean.DataBean itemBean = data.get(i);
-                if ("是".equals(itemBean.result)) {
+//                if ("是".equals(itemBean.result)) {
                     TextView item = new TextView(this);
                     initTextViewParams(item);
-                    item.setText("体质类型:" + itemBean.constitutionName + "       得分:" + itemBean.score);
+                    item.setText("体质类型:" + itemBean.constitutionName + "       得分:" + itemBean.score+"       "+itemBean.result);
                     container.addView(item);
-                }
+//                }
             }
         }
     }

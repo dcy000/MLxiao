@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"
         android:layout_marginTop="90pt"
-        android:text="您有残疾情况嘛？(可多选)"
+        android:text="您有残疾情况吗？(可多选)"
         android:textColor="#333"
         android:textSize="72pt"
         android:textStyle="bold"
