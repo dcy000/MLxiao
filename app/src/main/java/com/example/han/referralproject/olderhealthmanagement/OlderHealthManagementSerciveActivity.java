@@ -97,7 +97,7 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
         for (int i = 0; i < count; i++) {
             fragments.add(HealthItemFragment.getInstance((i + 1) + "", questionList.get(i)));
         }
-
+        vp.setOffscreenPageLimit(count - 1);
         FragAdapter adapter = new FragAdapter(getSupportFragmentManager(), fragments);
         vp.setAdapter(adapter);
 
@@ -185,7 +185,7 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
                 if (resultBean != null && resultBean.tag) {
                     T.show("提交成功");
                     gotoResultPage(resultBean.data);
-                } else{
+                } else {
                     T.show(resultBean.message);
                 }
             }
@@ -202,6 +202,7 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
 
     /**
      * 跳转到结果页面
+     *
      * @param data
      */
     private void gotoResultPage(List<HealthManagementResultBean.DataBean> data) {
