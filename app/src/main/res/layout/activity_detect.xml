@@ -1177,7 +1177,7 @@
         android:id="@+id/detect_tv_result_next"
         android:layout_width="200dp"
         android:layout_height="70dp"
-        android:background="@drawable/shape_phone"
+        android:background="@drawable/shape_phone_set"
         android:gravity="center"
         android:text="下一步"
         android:textColor="#FFFFFF"
