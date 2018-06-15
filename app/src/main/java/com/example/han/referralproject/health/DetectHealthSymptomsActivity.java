@@ -117,6 +117,7 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
                 items.add("鼻衄出血不止");
                 items.add("四肢发麻");
                 items.add("下肢水肿");
+                items.add("其他");
                 break;
             case "detectSugar":
                 items.add("无症状");
@@ -128,6 +129,7 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
                 items.add("手脚麻木");
                 items.add("下肢浮肿");
                 items.add("体重明显下降");
+                items.add("其他");
                 break;
         }
     }
