@@ -58,6 +58,7 @@ import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity;
 import com.example.han.referralproject.yiyuan.bean.WenZhenBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
+import com.example.han.referralproject.yiyuan.fragment.BloodPressureNoticeDialog;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -261,6 +262,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
     };
     private View mNavView;
+    private BloodPressureNoticeDialog dialog1;
 
 
     /**
@@ -2153,25 +2155,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-
-    AlertDialog mDialog;
-
     private void showNoticeDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("温馨提示")
-                .setMessage("为保证测量准确,请在测量完左臂血压后,先将血压计关闭,在打开右臂血压检测页面至后,再重新打开血压计进行测量")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //do somthing
-                    }
-                });
-
-        mDialog = builder.create();
-        mDialog.setCancelable(false);
-        mDialog.setCanceledOnTouchOutside(false);
-        mDialog.show();
+        if (dialog1 == null) {
+            dialog1 = new BloodPressureNoticeDialog();
+        }
+        dialog1.show(getFragmentManager(), "notice");
     }
 }
 
