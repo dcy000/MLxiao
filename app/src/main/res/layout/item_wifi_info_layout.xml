@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:gravity="center_vertical">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/xien_iv_wifi_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/xien_wifi_level"/>
+
     <TextView
         android:id="@+id/item_tv_wifi_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/xien_iv_wifi_indicator"
         android:padding="10dp"
+        android:textColor="#000"
         android:textSize="30sp"
-        android:textColor="#000"/>
+        tools:text="chen"/>
+
     <TextView
         android:id="@+id/item_tv_wifi_ip"
         android:layout_width="wrap_content"
@@ -18,9 +30,10 @@
         android:layout_marginLeft="20dp"
         android:textSize="30sp"
         android:visibility="gone"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#dadada"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="#dadada"/>
 </RelativeLayout>

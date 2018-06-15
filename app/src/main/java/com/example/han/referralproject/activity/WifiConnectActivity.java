@@ -11,7 +11,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +19,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -33,9 +33,11 @@ import com.medlink.danbogh.register.lude.LudeAuthActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class WifiConnectActivity extends BaseActivity implements View.OnClickListener{
+public class WifiConnectActivity extends BaseActivity implements View.OnClickListener {
     private WifiConnectRecyclerAdapter mConnectAdapter;
     private List<ScanResult> mDataList = new ArrayList<>();
     private WiFiUtil mWiFiUtil;
@@ -45,6 +47,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private WifiManager mWifiManager;
     private boolean isFirstWifi = false;
     private MediaPlayer mediaPlayer;
+    private ImageView ivConnectedWifiIndicator;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,13 +57,13 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mRightView.setImageResource(R.drawable.icon_refresh);
         mTitleText.setText("WiFi连接");
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        boolean iswifiConnected=cm != null
+        boolean iswifiConnected = cm != null
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
-        if(iswifiConnected){
+        if (iswifiConnected) {
 //            mediaPlayer=MediaPlayer.create(this,R.raw.wifi_connected);
             speak("您好，您的wifi已连接,如果需要更换,请点击对应wifi名称");
-        }else{
+        } else {
 //            mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
             speak("您好，请连接wifi,如果未找到,请点击右上角的刷新按钮");
         }
@@ -68,7 +71,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
 //        mediaPlayer.start();//播放音乐
 
         mRightView.setOnClickListener(this);
-        isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);
+        isFirstWifi = getIntent().getBooleanExtra("is_first_wifi", false);
 
         findViewById(R.id.tv_netless).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +89,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         mConnectedLayout = findViewById(R.id.rl_connected);
         mConnectedWifiName = (TextView) findViewById(R.id.tv_connect_name);
+        ivConnectedWifiIndicator = (ImageView) findViewById(R.id.xien_iv_connected_wifi_indicator);
         mSwitch = (Switch) findViewById(R.id.switch_wifi);
         mSwitch.setChecked(mWiFiUtil.isWifiOpened());
         mSwitch.setOnCheckedChangeListener(mCheckedChangeListener);
@@ -101,28 +105,44 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         registerReceiver(mNetworkReceiver, filter);
     }
 
-    private void scanWifi() {
+    public void scanWifi() {
         mDataList.clear();
         mWiFiUtil.startScan();
         WifiInfo mInfo = mWifiManager.getConnectionInfo();
         if (mInfo != null) {
             mConnectedLayout.setVisibility(View.VISIBLE);
-            mConnectedWifiName.setText(mInfo.getSSID());
+            ivConnectedWifiIndicator.setImageLevel(WifiManager.calculateSignalLevel(mInfo.getRssi(), 4));
             for (ScanResult itemResult : mWiFiUtil.getWifiList()) {
-                if (!itemResult.BSSID.equals(mInfo.getBSSID())){
+                if (!itemResult.BSSID.equals(mInfo.getBSSID())) {
                     mDataList.add(itemResult);
                 }
+            }
+            if (WiFiUtil.isWiFiConnected(this)) {
+                mConnectedWifiName.setText(mInfo.getSSID());
+            } else {
+                mConnectedWifiName.setText("正在连接...");
             }
         } else {
             mConnectedLayout.setVisibility(View.GONE);
             mDataList.addAll(mWiFiUtil.getWifiList());
         }
+        Collections.sort(mDataList, new Comparator<ScanResult>() {
+            @Override
+            public int compare(ScanResult o1, ScanResult o2) {
+                if (o1.level > o2.level) {
+                    return -1;
+                } else if (o1.level < o2.level) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
         mConnectAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_top_right:
                 scanWifi();
                 break;
@@ -136,9 +156,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mNetworkReceiver);
-        if(mediaPlayer!=null){
+        if (mediaPlayer != null) {
             mediaPlayer.release();
-            mediaPlayer=null;
+            mediaPlayer = null;
         }
     }
 
@@ -148,6 +168,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
             if (isChecked) {
                 mWiFiUtil.openWifi();
             } else {
+                mRightView.performClick();
                 mWiFiUtil.closeWifi();
             }
         }
@@ -191,9 +212,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
                     NetworkInfo info = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
                     NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
-                    if (networkInfo != null && networkInfo.isConnected()){
+                    if (networkInfo != null && networkInfo.isConnected()) {
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                        if (isFirstWifi){
+                        if (isFirstWifi) {
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
                                 startActivity(new Intent(mContext, SignInActivity.class));
                             } else {

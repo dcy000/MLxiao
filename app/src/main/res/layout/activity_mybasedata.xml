@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    android:orientation="horizontal">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#F5F5F5"
+              android:orientation="horizontal">
 
 
     <LinearLayout
@@ -20,7 +20,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="25dp"
-            android:src="@color/default_bg" />
+            android:src="@color/default_bg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,12 +34,12 @@
                 android:layout_marginLeft="22dp"
                 android:text="姓名"
                 android:textColor="#979797"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/name"
@@ -48,7 +48,7 @@
                 android:layout_marginRight="22dp"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -63,12 +63,12 @@
                 android:layout_marginLeft="22dp"
                 android:text="年龄"
                 android:textColor="#979797"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/age"
@@ -77,7 +77,7 @@
                 android:layout_marginRight="22dp"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -92,12 +92,12 @@
                 android:layout_marginLeft="22dp"
                 android:text="性别"
                 android:textColor="#979797"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/sex"
@@ -106,12 +106,15 @@
                 android:layout_marginRight="22dp"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/ll_blood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp">
+            android:layout_marginTop="22dp"
+            android:background="@drawable/toolbar_set">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -119,29 +122,31 @@
                 android:layout_marginLeft="22dp"
                 android:text="血型"
                 android:textColor="#979797"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/blood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="22dp"
+                android:drawableRight="@drawable/ic_jt"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:orientation="horizontal"
-            android:background="@drawable/toolbar_set">
+            android:background="@drawable/toolbar_set"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -149,12 +154,12 @@
                 android:layout_marginLeft="22dp"
                 android:text="身高"
                 android:textColor="#979797"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/height"
@@ -165,7 +170,7 @@
                 android:drawableRight="@drawable/ic_jt"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -173,8 +178,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:orientation="horizontal"
-            android:background="@drawable/toolbar_set">
+            android:background="@drawable/toolbar_set"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -182,12 +187,12 @@
                 android:layout_marginLeft="22dp"
                 android:text="体重"
                 android:textColor="#979797"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/weight"
@@ -198,9 +203,8 @@
                 android:drawableRight="@drawable/ic_jt"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
         </LinearLayout>
-
 
 
     </LinearLayout>
@@ -208,11 +212,12 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
+        android:layout_weight="2"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -230,8 +235,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="25dp">
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -239,7 +244,7 @@
                         android:layout_marginLeft="22dp"
                         android:text="身份信息"
                         android:textColor="#333333"
-                        android:textSize="29sp" />
+                        android:textSize="29sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -253,12 +258,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="电话号码"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/phone"
@@ -267,7 +272,7 @@
                         android:layout_marginRight="22dp"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -281,12 +286,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="身份证号"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/idcard"
@@ -295,7 +300,7 @@
                         android:layout_marginRight="22dp"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -309,12 +314,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="仪器编号"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/number"
@@ -323,40 +328,41 @@
                         android:layout_marginRight="22dp"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="25dp">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="详细地址"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="22dp"
                         android:drawablePadding="5dp"
                         android:drawableRight="@drawable/ic_jt"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:paddingLeft="40dp"
+                        android:paddingRight="22dp"
                         android:text=""
-                        android:maxLines="2"
                         android:textColor="#333333"
-                        android:textSize="28sp"
-                        android:paddingLeft="40dp"/>
+                        android:textSize="28sp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -372,8 +378,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="25dp">
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -381,7 +387,7 @@
                         android:layout_marginLeft="22dp"
                         android:text="健康状况"
                         android:textColor="#333333"
-                        android:textSize="29sp" />
+                        android:textSize="29sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -389,20 +395,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="运动情况"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/motion"
@@ -413,7 +419,7 @@
                         android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -421,20 +427,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="吸烟情况"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/smoke"
@@ -445,7 +451,7 @@
                         android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -453,20 +459,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="饮食情况"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/eating"
@@ -477,27 +483,28 @@
                         android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_drinking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/toolbar_set">
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="饮酒情况"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/drinking"
@@ -508,28 +515,29 @@
                         android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal"
                     android:layout_marginBottom="25dp"
-                    android:background="@drawable/toolbar_set">
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/toolbar_set"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
                         android:text="病史"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/history"
@@ -540,17 +548,18 @@
                         android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"/>
                 </LinearLayout>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_gravity="center"
-                android:textSize="18sp"
-                android:text="恢复出厂设置"/>
+                android:padding="10dp"
+                android:text="恢复出厂设置"
+                android:textSize="18sp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

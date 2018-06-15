@@ -87,7 +87,7 @@ public class CallHelper {
     }
 
 
-    private static final String TAG = "CallHelper";
+    private static final String TAG = "Call";
 
     public static final String EXTRA_INCOMING_CALL = "extra_incoming_call";
     public static final String EXTRA_CALL_TYPE = "extra_call_type";
@@ -305,7 +305,7 @@ public class CallHelper {
 
         @Override
         public void onUserLeave(String account, int event) {
-            closeSessions(CallExitCode.HANGUP);
+            hangUp();
         }
 
         @Override

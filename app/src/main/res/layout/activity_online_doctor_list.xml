@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/normal_bg"
-    tools:context="com.example.han.referralproject.recyclerview.OnlineDoctorListActivity">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/normal_bg"
+                                             tools:context="com.example.han.referralproject.recyclerview.OnlineDoctorListActivity">
 
     <LinearLayout
         android:id="@+id/linearlayou"
@@ -16,19 +16,21 @@
 
         <ImageView
             android:id="@+id/icon_back"
-            android:layout_width="50dp"
+            android:layout_width="110dp"
             android:layout_height="match_parent"
+            android:background="@drawable/toolbar_set"
             android:clickable="true"
+            android:padding="10dp"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/icon_back"/>
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@id/linearlayou"
         app:layout_constraintRight_toLeftOf="@id/icon_home">
 
@@ -37,13 +39,13 @@
             android:layout_height="wrap_content"
             android:text="杭州市"
             android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:textSize="34sp"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/img_xiala" />
+            android:src="@drawable/img_xiala"/>
 
         <EditText
             android:layout_width="533dp"
@@ -56,20 +58,20 @@
             android:hint="请输入医生名、医院名、城市、分类"
             android:paddingLeft="8dp"
             android:textColorHint="#d4d4d4"
-            android:textSize="26sp" />
+            android:textSize="26sp"/>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/icon_home"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="110dp"
+        android:layout_height="85dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"
+        android:background="@drawable/toolbar_set"
         android:clickable="true"
+        android:padding="10dp"
         android:src="@drawable/icon_home"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"

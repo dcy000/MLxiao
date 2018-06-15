@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="#ededed"
@@ -54,20 +55,30 @@
                 android:layout_height="1dp"
                 android:background="#dadada"/>
 
+            <ImageView
+                android:id="@+id/xien_iv_connected_wifi_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/xien_wifi_level"/>
+
             <TextView
                 android:id="@+id/tv_connect_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/xien_iv_connected_wifi_indicator"
                 android:gravity="center"
+                android:padding="10dp"
                 android:textColor="#000"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                tools:text="chen"/>
         </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,13 +95,13 @@
             android:id="@+id/tv_netless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:paddingRight="30dp"
-            android:paddingLeft="30dp"
             android:layout_marginLeft="5dp"
+            android:background="@drawable/selector_btn"
+            android:paddingBottom="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
             android:paddingTop="20dp"
             android:text="无网模式"
-            android:background="@drawable/selector_btn"
             android:textColor="#3f85ff"
             android:textSize="20sp"/>
     </LinearLayout>

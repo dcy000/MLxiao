@@ -276,7 +276,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
+        setDisableGlobalListen(true);
         setEnableListeningLoop(false);
         super.onResume();
     }

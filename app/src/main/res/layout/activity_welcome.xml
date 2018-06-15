@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.WelcomeActivity"
-    android:background="@drawable/lude_ic_splash">
-
-
+    android:background="@drawable/lude_ic_splash_0615">
 
     <Chronometer
         android:visibility="gone"

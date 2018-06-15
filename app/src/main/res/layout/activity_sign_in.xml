@@ -8,23 +8,6 @@
     android:background="#F7FDFF"
     tools:context="com.medlink.danbogh.signin.SignInActivity">
 
-    <RelativeLayout
-        android:id="@+id/rl_back"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/common_ic_back" />
-
-    </RelativeLayout>
-
     <android.support.v7.widget.CardView
         android:id="@+id/cv_sign_in"
         android:layout_width="wrap_content"
@@ -166,12 +149,26 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
-        android:layout_width="90pt"
-        android:layout_height="90pt"
+        android:layout_width="190pt"
+        android:layout_height="150pt"
+        android:paddingBottom="25pt"
+        android:paddingLeft="45pt"
+        android:paddingRight="45pt"
+        android:paddingTop="25pt"
         android:onClick="onWifiClick"
-        android:padding="19pt"
-        android:layout_marginRight="30pt"
         android:src="@drawable/common_ic_wifi"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/auth_iv_back"
+        android:layout_width="190pt"
+        android:layout_height="150pt"
+        android:paddingBottom="25pt"
+        android:paddingLeft="45pt"
+        android:paddingRight="45pt"
+        android:paddingTop="25pt"
+        android:src="@drawable/common_ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

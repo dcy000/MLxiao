@@ -24,6 +24,7 @@ import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.suke.widget.SwitchButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +59,10 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     TextView tvNetworkModeToggle;
     @BindView(R.id.tv_netless)
     TextView tvNetworkMode;
+    @BindView(R.id.sb_enable_offline_mode)
+    SwitchButton sbOfflineMode;
+    @BindView(R.id.sb_enable_no_network_mode)
+    SwitchButton sbNoNetworkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +73,28 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         initTitle();
         String netless = LocalShared.getInstance(this).getString("netless");
         String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
-        tvNetworkModeToggle.setText(TextUtils.isEmpty(noNetless) ? "关闭离线模式" : "启用离线模式");
+        sbOfflineMode.setChecked(TextUtils.isEmpty(noNetless));
         if (TextUtils.isEmpty(noNetless)) {
             rlNetless.setVisibility(View.VISIBLE);
-            tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "有网模式" : "无网模式");
+            sbNoNetworkMode.setChecked(!TextUtils.isEmpty(netless));
         } else {
             rlNetless.setVisibility(View.GONE);
         }
+        sbOfflineMode.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                LocalShared.getInstance(view.getContext()).setString("noNetless", !isChecked ? "1" : "");
+                rlNetless.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                String netless = LocalShared.getInstance(view.getContext()).getString("netless");
+                sbNoNetworkMode.setChecked(!TextUtils.isEmpty(netless));
+            }
+        });
+        sbNoNetworkMode.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                LocalShared.getInstance(view.getContext()).setString("netless", isChecked ? "1" : "");
+            }
+        });
     }
 
     private void initTitle() {
@@ -82,7 +102,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         mTitleText.setText("设置");
     }
 
-    @OnClick({R.id.rl_voice_set, R.id.rl_brightness_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update, R.id.rl_netless, R.id.rl_netless_toggle,
+    @OnClick({R.id.rl_voice_set, R.id.rl_brightness_set, R.id.rl_wifi_set, R.id.rl_clear_cache, R.id.rl_update,
             R.id.rl_about, R.id.rl_reset, R.id.rl_set_keyword, R.id.rl_set_voice_name, R.id.rl_set_talk_type})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -93,17 +113,6 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
             case R.id.rl_voice_set:
                 //声音设置
                 startActivity(new Intent(this, VoiceSettingActivity.class));
-                break;
-            case R.id.rl_netless_toggle:
-                String noNetless = LocalShared.getInstance(view.getContext()).getString("noNetless");
-                LocalShared.getInstance(view.getContext()).setString("noNetless", TextUtils.isEmpty(noNetless) ? "1" : "");
-                tvNetworkModeToggle.setText(TextUtils.isEmpty(noNetless) ? "启用离线模式" : "关闭离线模式");
-                rlNetless.setVisibility(TextUtils.isEmpty(noNetless) ? View.GONE : View.VISIBLE);
-                break;
-            case R.id.rl_netless:
-                String netless = LocalShared.getInstance(view.getContext()).getString("netless");
-                LocalShared.getInstance(view.getContext()).setString("netless", TextUtils.isEmpty(netless) ? "1" : "");
-                tvNetworkMode.setText(TextUtils.isEmpty(netless) ? "无网模式" : "有网模式");
                 break;
             case R.id.rl_wifi_set:
                 //设置页面

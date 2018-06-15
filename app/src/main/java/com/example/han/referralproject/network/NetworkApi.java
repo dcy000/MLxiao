@@ -65,6 +65,7 @@ import io.reactivex.schedulers.Schedulers;
 public class NetworkApi {
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
     public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://47.96.98.60:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
@@ -173,8 +174,6 @@ public class NetworkApi {
 
     public static void isRegisteredByIdCard(String idCard, NetworkManager.SuccessCallback<UserInfoBean> successCallback,
                                             NetworkManager.FailedCallback failedCallback) {
-
-
         HashMap<String, String> params = new HashMap<>();
         params.put("sfz", idCard);
         NetworkManager.getInstance().getResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
@@ -372,7 +371,9 @@ public class NetworkApi {
     }
 
     public static void PersonInfo(String bid, final NetworkManager.SuccessCallback<UserInfo> listener, final NetworkManager.FailedCallback failedCallback) {
-
+        if (TextUtils.isEmpty(bid)) {
+            return;
+        }
         String netless = LocalShared.getInstance(MyApplication.getInstance()).getString("netless");
         if (!TextUtils.isEmpty(netless)) {
             Repository repository = Repository.getInstance(MyApplication.getInstance());
@@ -1438,6 +1439,24 @@ public class NetworkApi {
         params.put("exercise_habits", exercise_habits);
         params.put("mh", mh);
         params.put("dz", dz);
+        NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
+    }
+
+    public static void updateBloodType(
+            String bid, String bloodType,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid", bid);
+        params.put("blood_type", bloodType);
+        params.put("height", "0");
+        params.put("weight", "0");
+        params.put("eating_habits", "");
+        params.put("smoke", "");
+        params.put("drink", "");
+        params.put("exercise_habits", "");
+        params.put("mh", "");
+        params.put("dz", "");
         NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
     }
 

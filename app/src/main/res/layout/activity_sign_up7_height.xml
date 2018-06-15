@@ -30,7 +30,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_height"/>
 
-
     <TextView
         android:id="@+id/tv_sign_up_unit"
         android:layout_width="wrap_content"

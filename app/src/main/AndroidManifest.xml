@@ -687,6 +687,7 @@
         <activity android:name=".bodytest.activity.MonitorResultActivity"/>
         <activity android:name=".settting.activity.BrightnessSettingActivity">
         </activity>
+        <activity android:name="com.medlink.danbogh.register.AuthChangeBloodTypeActivity"/>
     </application>
 
 </manifest>

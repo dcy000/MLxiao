@@ -82,8 +82,6 @@ public class SignInActivity extends BaseActivity {
     CheckBox cbAgree;
     @BindView(R.id.tv_sign_in_agree)
     TextView tvAgree;
-    @BindView(R.id.rl_back)
-    RelativeLayout rlBack;
     private Unbinder mUnbinder;
 
     @Override
@@ -445,7 +443,7 @@ public class SignInActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.rl_back)
+    @OnClick(R.id.auth_iv_back)
     public void backClick() {
         finish();
     }

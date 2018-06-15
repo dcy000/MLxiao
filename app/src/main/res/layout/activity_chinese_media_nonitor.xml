@@ -19,6 +19,7 @@
             android:id="@+id/tv_previous_item"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="@drawable/selector_btn"
             android:layout_weight="1"
             android:textSize="35sp"
             android:gravity="center"
@@ -35,6 +36,7 @@
 
         <TextView
 
+            android:background="@drawable/selector_btn"
             android:id="@+id/tv_next_item"
             android:layout_width="0dp"
             android:layout_height="match_parent"

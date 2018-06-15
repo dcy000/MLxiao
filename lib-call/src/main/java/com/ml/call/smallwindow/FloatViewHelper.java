@@ -45,10 +45,6 @@ public class FloatViewHelper implements FloatWindowHelper.OnDismissListener, Flo
         mFloatWindowHelper.dismiss();
     }
 
-    public void destroy() {
-        mFloatWindowHelper.destroy();
-    }
-
     private FloatWindowHelper.OnShowListener mOnShowListener;
     private FloatWindowHelper.OnDismissListener mOnDismissListener;
 

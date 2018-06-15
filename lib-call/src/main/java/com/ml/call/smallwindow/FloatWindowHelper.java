@@ -27,7 +27,7 @@ public class FloatWindowHelper {
     private Context context;
     private WindowManager wm;
     private WindowManager.LayoutParams wParams;
-    private FrameLayout contentParent;
+    private MyFrameLayout contentParent;
     private View contentView;
     private int width;
     private int height;
@@ -40,7 +40,7 @@ public class FloatWindowHelper {
         this.context = context;
         wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         wParams = new WindowManager.LayoutParams();
-        contentParent = new FrameLayout(context);
+        contentParent = new MyFrameLayout(context);
         contentParent.setOnTouchListener(onTouchListener);
         lastRotation = getDisplayRotation();
         orientationEventListener = new OrientationEventListener(context, SensorManager.SENSOR_DELAY_NORMAL) {
@@ -53,9 +53,6 @@ public class FloatWindowHelper {
                 }
             }
         };
-        if (orientationEventListener.canDetectOrientation()) {
-            orientationEventListener.enable();
-        }
     }
 
     public FrameLayout getContentParent() {
@@ -79,6 +76,7 @@ public class FloatWindowHelper {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            Log.d(TAG, "onTouch: ");
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mTouchStartX = event.getRawX();
@@ -211,6 +209,9 @@ public class FloatWindowHelper {
         if (windowAdded) {
             removeWindow();
         }
+        if (orientationEventListener.canDetectOrientation()) {
+            orientationEventListener.enable();
+        }
         initWindow();
         addWindow();
         onShow();
@@ -224,6 +225,9 @@ public class FloatWindowHelper {
 
     public void dismiss() {
         if (windowAdded) {
+            if (orientationEventListener != null) {
+                orientationEventListener.disable();
+            }
             removeWindow();
             onDismiss();
         }
@@ -257,12 +261,6 @@ public class FloatWindowHelper {
 
     public interface OnDismissListener{
         void onDismiss();
-    }
-
-    public void destroy() {
-        if (orientationEventListener != null) {
-            orientationEventListener.disable();
-        }
     }
 
     public void switchRotate() {

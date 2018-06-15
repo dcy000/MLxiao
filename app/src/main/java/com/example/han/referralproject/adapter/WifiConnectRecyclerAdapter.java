@@ -2,10 +2,13 @@ package com.example.han.referralproject.adapter;
 
 import android.content.Context;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -35,7 +38,9 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
     @Override
     public void onBindViewHolder(WifiConnectRecyclerAdapter.WifiHolder holder, int position) {
         final ScanResult itemResult = mDataList.get(position);
-        holder.mNameTv.setText(itemResult.SSID);
+        holder.mIvWifiIndicator.setImageLevel(WifiManager.calculateSignalLevel(itemResult.level, 4));
+        final String ssid = TextUtils.isEmpty(itemResult.SSID) ? "未知Wifi" : itemResult.SSID;
+        holder.mNameTv.setText(ssid);
         holder.mIpTv.setText(itemResult.BSSID);
 //        WifiInfo mInfo = mWifiManager.getConnectionInfo();
 //        if (mInfo != null && itemResult.BSSID.equals(mInfo.getBSSID())) {
@@ -52,7 +57,7 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
                     new WifiInputDialog(mContext, itemResult).show();
                 } else {
                     /* WIFICIPHER_OPEN NOPASSWORD 开放无加密 */
-                    WiFiUtil.getInstance(mContext).addWiFiNetwork(itemResult.SSID, "", WiFiUtil.Data.WIFI_CIPHER_NOPASS);
+                    WiFiUtil.getInstance(mContext).addWiFiNetwork(ssid, "", WiFiUtil.Data.WIFI_CIPHER_NOPASS);
                 }
             }
         });
@@ -64,6 +69,7 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
     }
 
     public class WifiHolder extends RecyclerView.ViewHolder {
+        public ImageView mIvWifiIndicator;
         public TextView mNameTv;
         public TextView mIpTv;
         //public View mStatusView;
@@ -72,6 +78,7 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
             super(view);
             mNameTv = (TextView) view.findViewById(R.id.item_tv_wifi_name);
             mIpTv = (TextView) view.findViewById(R.id.item_tv_wifi_ip);
+            mIvWifiIndicator = (ImageView) view.findViewById(R.id.xien_iv_wifi_indicator);
         }
     }
 }

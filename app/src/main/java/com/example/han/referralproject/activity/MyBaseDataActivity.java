@@ -19,6 +19,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.medlink.danbogh.register.AuthChangeBloodTypeActivity;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -88,6 +89,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     private static String TAG = "MyBaseDataActivity";
     private LinearLayout mLlHeight;
     private LinearLayout mLlWeight;
+    private LinearLayout mLlBlood;
     private TextView mAddress;
     private TextView mHistory;
     private LinearLayout mLlHistory;
@@ -185,6 +187,8 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         mLlHeight = (LinearLayout) findViewById(R.id.ll_height);
         mWeight.setOnClickListener(this);
         mLlWeight = (LinearLayout) findViewById(R.id.ll_weight);
+        mLlBlood = (LinearLayout) findViewById(R.id.ll_blood);
+        mLlBlood.setOnClickListener(this);
         mPhone.setOnClickListener(this);
         mIdcard.setOnClickListener(this);
         mNumber.setOnClickListener(this);
@@ -232,6 +236,9 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.address:
                 startActivity(new Intent(this,AlertAddressActivity.class).putExtra("data",response));
+                break;
+            case R.id.ll_blood:
+                startActivity(new Intent(this,AuthChangeBloodTypeActivity.class).putExtra("data",response));
                 break;
             case R.id.tv_reset:
                 LocalShared.getInstance(mContext).reset();

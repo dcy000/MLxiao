@@ -1831,7 +1831,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
+        setDisableGlobalListen(true);
         setEnableListeningLoop(false);
         super.onResume();
 //        speak(getString(R.string.now_eating_state));

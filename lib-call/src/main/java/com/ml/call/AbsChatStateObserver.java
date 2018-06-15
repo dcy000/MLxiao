@@ -16,7 +16,7 @@ import java.util.Map;
 
 public abstract class AbsChatStateObserver implements AVChatStateObserver {
 
-    private static final String TAG = "AbsChatStateObserver";
+    private static final String TAG = "Call";
 
     @Override
     public void onTakeSnapshotResult(String account, boolean success, String file) {

@@ -53,9 +53,9 @@ public class RadioActivity extends BaseActivity implements
         @Override
         public void run() {
             if (isBuffering) {
-                showLoadingDialog("缓冲中...");
+//                showLoadingDialog("缓冲中...");
             } else {
-                hideLoadingDialog();
+//                hideLoadingDialog();
             }
             RadioEntity entity = entities.get(adapter.getSelectedPosition());
             tvSelectedFm.setText(entity.getFm());
@@ -431,9 +431,9 @@ public class RadioActivity extends BaseActivity implements
             @Override
             public void run() {
                 if (isBuffering) {
-                    showLoadingDialog("缓冲中...");
+//                    showLoadingDialog("缓冲中...");
                 } else {
-                    hideLoadingDialog();
+//                    hideLoadingDialog();
                 }
                 ivPauseOrPlay.setSelected(isPlaying);
             }

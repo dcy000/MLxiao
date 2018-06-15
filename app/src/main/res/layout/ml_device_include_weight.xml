@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/normal_bg"
     android:visibility="gone"
+    tools:visibility="visible"
     tools:showIn="@layout/activity_detect">
 
     <TextView

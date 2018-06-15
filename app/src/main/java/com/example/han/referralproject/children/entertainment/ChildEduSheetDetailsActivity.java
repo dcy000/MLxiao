@@ -265,7 +265,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
+        setDisableGlobalListen(true);
         setEnableListeningLoop(false);
         super.onResume();
     }

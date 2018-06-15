@@ -2,10 +2,12 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/device_cl_pressure"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/normal_bg"
+    tool:visibility="visible"
     android:visibility="gone">
 
     <com.medlink.danbogh.widget.BloodPressureSurfaceView

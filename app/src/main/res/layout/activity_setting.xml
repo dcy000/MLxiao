@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            xmlns:tools="http://schemas.android.com/tools">
+            android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
                 android:layout_marginLeft="24dp"
                 android:text="亮度设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:layout_width="match_parent"
@@ -38,7 +39,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -55,7 +56,7 @@
                 android:layout_marginLeft="24dp"
                 android:text="音量设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -63,7 +64,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:layout_width="match_parent"
@@ -71,7 +72,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -87,17 +88,20 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="24dp"
-                tools:text="启用离线模式"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:text="离线模式"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.suke.widget.SwitchButton
+                android:id="@+id/sb_enable_offline_mode"
+                android:layout_width="80dp"
+                android:layout_height="45dp"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:layout_centerInParent="true"
+                android:layout_marginRight="40dp"
+                app:sb_checked_color="#00CD79"
+                app:sb_show_indicator="false"
+                app:sb_uncheck_color="#C4C6C8"/>
 
             <View
                 android:layout_width="match_parent"
@@ -105,7 +109,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -123,15 +127,18 @@
                 android:layout_marginLeft="24dp"
                 android:text="无网模式"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.suke.widget.SwitchButton
+                android:id="@+id/sb_enable_no_network_mode"
+                android:layout_width="80dp"
+                android:layout_height="45dp"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:layout_centerInParent="true"
+                android:layout_marginRight="40dp"
+                app:sb_checked_color="#00CD79"
+                app:sb_show_indicator="false"
+                app:sb_uncheck_color="#C4C6C8"/>
 
             <View
                 android:layout_width="match_parent"
@@ -139,7 +146,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -156,7 +163,7 @@
                 android:layout_marginLeft="24dp"
                 android:text="WIFI设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -164,7 +171,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:layout_width="match_parent"
@@ -172,7 +179,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -189,14 +196,14 @@
                 android:layout_marginLeft="24dp"
                 android:text="关键词设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/view3"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:id="@+id/view3"
@@ -205,7 +212,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -222,7 +229,7 @@
                 android:layout_marginLeft="24dp"
                 android:text="发音人设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -230,7 +237,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:layout_width="match_parent"
@@ -238,7 +245,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -255,7 +262,7 @@
                 android:layout_marginLeft="24dp"
                 android:text="聊天模式设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -263,7 +270,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:layout_width="match_parent"
@@ -271,7 +278,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -288,7 +295,7 @@
                 android:layout_marginLeft="24dp"
                 android:text="检查更新"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -296,7 +303,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:layout_width="match_parent"
@@ -304,7 +311,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -312,7 +319,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp"
-            android:background="#fff5f5f5" />
+            android:background="#fff5f5f5"/>
 
         <RelativeLayout
             android:id="@+id/rl_about"
@@ -327,7 +334,7 @@
                 android:layout_marginLeft="24dp"
                 android:text="关于"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -335,7 +342,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:layout_width="match_parent"
@@ -343,7 +350,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -360,7 +367,7 @@
                 android:layout_marginLeft="24dp"
                 android:text="恢复出厂设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -368,7 +375,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="28dp"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
             <View
                 android:layout_width="match_parent"
@@ -376,19 +383,19 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/rl_clear_cache"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -397,14 +404,14 @@
                 android:layout_marginRight="50dp"
                 android:text="清除缓存"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_fh" />
+                android:src="@drawable/ic_fh"/>
 
 
             <View
@@ -413,7 +420,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"/>
 
 
         </RelativeLayout>
