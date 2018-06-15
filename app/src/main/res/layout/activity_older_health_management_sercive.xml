@@ -18,7 +18,7 @@
         android:visibility="gone">
 
         <TextView
-            android:textColor="@color/whine_btn_set"
+            android:textColor="@color/operator_btn_text_set"
             android:id="@+id/tv_previous_item"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -28,6 +28,7 @@
             android:textSize="32dp" />
 
         <TextView
+            android:textColor="@color/operator_btn_text_set"
             android:id="@+id/tv_current_item"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -43,7 +44,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="下一题"
-            android:textColor="@color/whine_btn_set"
+            android:textColor="@color/operator_btn_text_set"
             android:textSize="32dp" />
 
 
