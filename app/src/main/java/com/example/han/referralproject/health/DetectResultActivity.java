@@ -115,14 +115,14 @@ public class DetectResultActivity extends BaseActivity {
         String lowPressure = intent.getStringExtra("lowPressure");
         lowPressure = TextUtils.isEmpty(lowPressure) ? "0.0" : lowPressure;
 
-        detectResult.leftHypertension= new DetectResult.LeftHypertensionBean(Integer.parseInt(highPressure),Integer.parseInt(lowPressure));
+        detectResult.leftHypertension = new DetectResult.LeftHypertensionBean(Integer.parseInt(highPressure), Integer.parseInt(lowPressure));
 
         //右手血压测量值
         String highPressureRight = intent.getStringExtra("highPressure_right");
         highPressureRight = TextUtils.isEmpty(highPressureRight) ? "0.0" : highPressureRight;
         String lowPressureRight = intent.getStringExtra("lowPressure_right");
         lowPressureRight = TextUtils.isEmpty(lowPressureRight) ? "0.0" : lowPressureRight;
-        detectResult.rightHypertension= new DetectResult.RightHypertensionBean(Float.parseFloat(highPressureRight),Float.parseFloat(lowPressureRight));
+        detectResult.rightHypertension = new DetectResult.RightHypertensionBean(Float.parseFloat(highPressureRight), Float.parseFloat(lowPressureRight));
 
         String ecg = intent.getStringExtra("ecg");
         ecg = TextUtils.isEmpty(ecg) ? "0.0" : ecg;
@@ -158,7 +158,7 @@ public class DetectResultActivity extends BaseActivity {
         String sugar = intent.getStringExtra("sugar");
         sugar = TextUtils.isEmpty(sugar) ? "0.0" : sugar;
         detectResult.setBloodSugar(Float.parseFloat(sugar));
-        String url =NetworkApi.BasicUrl+ "/ZZB/api/health/inquiry/examination/";
+        String url = NetworkApi.BasicUrl + "/ZZB/api/health/inquiry/examination/";
         OkGo.<String>post(url).upJson(new Gson().toJson(detectResult)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -177,9 +177,16 @@ public class DetectResultActivity extends BaseActivity {
 //            String oxygen = intent.getStringExtra("oxygen");
 //            mDetectTvResultOxygenInfo.setText(oxygen + "mmHg");
 //            mDetectTvResultOxygenInfoIndicator.setText("偏低");
+
+
         mDetectTvResultWeightInfo.setText(weight + "  kg");
-        mDetectTvResultHighPressureInfo.setText("左臂:"+highPressure + " mmHg,   "+"右臂:"+highPressureRight + " mmHg,");
-        mDetectTvResultLowPressureInfo.setText("左臂:"+lowPressure + " mmHg,   "+"右臂:"+lowPressureRight + " mmHg,");
+        if (detectCategory.equals("detectHealth")) {
+            mDetectTvResultHighPressureInfo.setText("左臂:" + highPressure + " mmHg,   " + "右臂:" + highPressureRight + " mmHg,");
+            mDetectTvResultLowPressureInfo.setText("左臂:" + lowPressure + " mmHg,   " + "右臂:" + lowPressureRight + " mmHg,");
+        } else {
+            mDetectTvResultHighPressureInfo.setText(highPressure + " mmHg");
+            mDetectTvResultLowPressureInfo.setText(lowPressure + " mmHg");
+        }
 
         mDetectTvResultTemperateInfo.setText(tem);
         mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
