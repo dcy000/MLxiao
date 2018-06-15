@@ -1371,23 +1371,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if ("detectPressure".equals(detectCategory)) {
                         switch (type) {
                             case "xueya":
-                                if (intent.getBooleanExtra("is_right", false)) {
-                                    Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
-                                    intent4.putExtras(getIntent());
-                                    intent4.putExtra("highPressure_right", mHighPressTv.getText().toString());
-                                    intent4.putExtra("lowPressure_right", mLowPressTv.getText().toString());
-                                    intent4.putExtra("type", "xindian");
-                                    startActivity(intent4);
-                                    break;
-                                }
+//                                if (intent.getBooleanExtra("is_right", false)) {
+//                                    Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+//                                    intent4.putExtras(getIntent());
+//                                    intent4.putExtra("highPressure_right", mHighPressTv.getText().toString());
+//                                    intent4.putExtra("lowPressure_right", mLowPressTv.getText().toString());
+//                                    intent4.putExtra("type", "xindian");
+//                                    startActivity(intent4);
+//                                    break;
+//                                }
 
-                                Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
+                                Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
                                 intent4.putExtras(getIntent());
                                 intent4.putExtra("highPressure", mHighPressTv.getText().toString());
                                 intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
-
-                                intent4.putExtra("type", "xueya");
-                                intent4.putExtra("is_right", true);
+                                intent4.putExtra("type", "xindian");
                                 startActivity(intent4);
                                 break;
                             case "tizhong":
@@ -1404,21 +1402,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if ("detectSugar".equals(detectCategory)) {
                         switch (type) {
                             case "xueya":
-                                if (intent.getBooleanExtra("is_right", false)) {
-                                    Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
-                                    intent4.putExtras(getIntent());
-                                    intent4.putExtra("highPressure_right", mHighPressTv.getText().toString());
-                                    intent4.putExtra("lowPressure_right", mLowPressTv.getText().toString());
-                                    intent4.putExtra("type", "xindian");
-                                    startActivity(intent4);
-                                    break;
-                                }
-                                Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
+//                                if (intent.getBooleanExtra("is_right", false)) {
+//                                    Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+//                                    intent4.putExtras(getIntent());
+//                                    intent4.putExtra("highPressure_right", mHighPressTv.getText().toString());
+//                                    intent4.putExtra("lowPressure_right", mLowPressTv.getText().toString());
+//                                    intent4.putExtra("type", "xindian");
+//                                    startActivity(intent4);
+//                                    break;
+//                                }
+                                Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
                                 intent4.putExtras(getIntent());
                                 intent4.putExtra("highPressure", mHighPressTv.getText().toString());
                                 intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
-                                intent4.putExtra("type", "xueya");
-                                intent4.putExtra("is_right", true);
+                                intent4.putExtra("type", "xindian");
                                 startActivity(intent4);
                                 break;
                             case "xuetang":
@@ -1488,12 +1485,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         //================右臂血压测量===========开始==
 
         if ("xueya".equals(type)) {
+
             TextView xueYaTitle = findViewById(R.id.tv_xueya_title);
-            if (intent.getBooleanExtra("is_right", false)) {
-                xueYaTitle.setText(R.string.test_xueya_right);
+            if ("detectHealth".equals(detectCategory)) {
+                if (intent.getBooleanExtra("is_right", false)) {
+                    xueYaTitle.setText(R.string.test_xueya_right);
+                } else {
+                    xueYaTitle.setText(R.string.test_xueya_left);
+                    showNoticeDialog();
+                }
             } else {
-                xueYaTitle.setText(R.string.test_xueya_left);
-                showNoticeDialog();
+                xueYaTitle.setText(R.string.test_xueya);
             }
         }
         //================右臂血压测量===========结束==
@@ -1537,16 +1539,16 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             if ("detectPressure".equals(detectCategory)) {
                 switch (type) {
                     case "xueya":
-                        if (getIntent().getBooleanExtra("is_right", false)) {
-                            Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
-                            intent4.putExtras(getIntent());
-                            intent4.putExtra("highPressure_right", "0");
-                            intent4.putExtra("lowPressure_right", "0");
-                            intent4.putExtra("type", "xueya");
-                            intent4.putExtra("is_right", false);
-                            startActivity(intent4);
-                            break;
-                        }
+//                        if (getIntent().getBooleanExtra("is_right", false)) {
+//                            Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
+//                            intent4.putExtras(getIntent());
+//                            intent4.putExtra("highPressure_right", "0");
+//                            intent4.putExtra("lowPressure_right", "0");
+//                            intent4.putExtra("type", "xueya");
+//                            intent4.putExtra("is_right", false);
+//                            startActivity(intent4);
+//                            break;
+//                        }
                         break;
                     case "tizhong":
                         Intent intent1 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
@@ -1562,16 +1564,16 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             if ("detectSugar".equals(detectCategory)) {
                 switch (type) {
                     case "xueya":
-                        if (getIntent().getBooleanExtra("is_right", false)) {
-                            Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
-                            intent4.putExtras(getIntent());
-                            intent4.putExtra("highPressure_right", "0");
-                            intent4.putExtra("lowPressure_right", "0");
-                            intent4.putExtra("type", "xueya");
-                            intent4.putExtra("is_right", false);
-                            startActivity(intent4);
-                            break;
-                        }
+//                        if (getIntent().getBooleanExtra("is_right", false)) {
+//                            Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
+//                            intent4.putExtras(getIntent());
+//                            intent4.putExtra("highPressure_right", "0");
+//                            intent4.putExtra("lowPressure_right", "0");
+//                            intent4.putExtra("type", "xueya");
+//                            intent4.putExtra("is_right", false);
+//                            startActivity(intent4);
+//                            break;
+//                        }
                         break;
                     case "xuetang":
                         Intent intent5 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
