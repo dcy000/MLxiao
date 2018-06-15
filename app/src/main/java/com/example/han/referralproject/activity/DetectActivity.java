@@ -28,11 +28,10 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -49,15 +48,11 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.health.DetectResultActivity;
-import com.example.han.referralproject.measure.MeasureChooseReason;
-import com.example.han.referralproject.measure.MeasureXuetangResultActivity;
-import com.example.han.referralproject.measure.MeasureXueyaResultActivity;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
 import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity;
@@ -74,8 +69,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 import java.util.UUID;
-
-import android.support.v4.content.ContextCompat;
 
 public class DetectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -1498,6 +1491,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 xueYaTitle.setText(R.string.test_xueya_right);
             } else {
                 xueYaTitle.setText(R.string.test_xueya_left);
+//                showNoticeDialog();
             }
         }
         //================右臂血压测量===========结束==
@@ -1647,19 +1641,19 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onStop() {
         super.onStop();
-        threadDisable = false;
-        unregisterReceiver(mGattUpdateReceiver);
-        unregisterReceiver(searchDevices);
-        stopSearch();
-        if (mBluetoothLeService != null) {
-            unbindService(mServiceConnection);
-        }
-        mBluetoothLeService = null;
-        XueyaUtils.stopThread();
-        if (mBluetoothGatt != null) {
-            mBluetoothGatt.disconnect();
-            mBluetoothGatt.close();
-        }
+//        threadDisable = false;
+//        unregisterReceiver(mGattUpdateReceiver);
+//        unregisterReceiver(searchDevices);
+//        stopSearch();
+//        if (mBluetoothLeService != null) {
+//            unbindService(mServiceConnection);
+//        }
+//        mBluetoothLeService = null;
+//        XueyaUtils.stopThread();
+//        if (mBluetoothGatt != null) {
+//            mBluetoothGatt.disconnect();
+//            mBluetoothGatt.close();
+//        }
 
     }
 
@@ -1929,6 +1923,19 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onPause() {
         super.onPause();
         mVideoView.pause();
+        threadDisable = false;
+        unregisterReceiver(mGattUpdateReceiver);
+        unregisterReceiver(searchDevices);
+        stopSearch();
+        if (mBluetoothLeService != null) {
+            unbindService(mServiceConnection);
+        }
+        mBluetoothLeService = null;
+        XueyaUtils.stopThread();
+        if (mBluetoothGatt != null) {
+            mBluetoothGatt.disconnect();
+            mBluetoothGatt.close();
+        }
 
     }
 
@@ -2143,8 +2150,28 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         T.show("网络繁忙");
                     }
                 });
-
-
     }
+
+
+
+//    AlertDialog mDialog;
+//
+//    private void showNoticeDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("温馨提示")
+//                .setMessage("为保证测量准确,在测量完左臂血压后,请先将血压计关闭,在打开右臂血压检测页面至后,再重新打开血压计进行测量")
+//                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        //do somthing
+//                    }
+//                });
+//
+//        mDialog = builder.create();
+//        mDialog.setCancelable(false);
+//        mDialog.setCanceledOnTouchOutside(false);
+//        mDialog.show();
+//    }
 }
 
