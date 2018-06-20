@@ -47,7 +47,6 @@ import java.util.List;
  */
 public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
     private Bloodsugar_Fragment fragment;
-    private final String TAG = Bloodsugar_Sannuo_PresenterImp.this.getClass().getSimpleName();
     private SN_MainHandler snMainHandler;
     private static int discoverType;
     private static TimeCount timeCount;
@@ -55,6 +54,8 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
     private boolean isOnSearching = false;
     private static WeakHandler weakHandler;
     private static final int CAN_CONNECT_DEVICE = 1;
+    private static final int UNFOUND_DEVICE = 2;
+    private static boolean isSearchSecond = false;
 
     public Bloodsugar_Sannuo_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
         super(discoverSetting);
@@ -64,7 +65,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
         weakHandler = new WeakHandler(handlerCallback);
         this.fragment.getActivity().registerReceiver(mBtReceiver, makeIntentFilter());
         //在6.0以上这里需要动态申请权限，获得权限后初始化该对象
-        snMainHandler = SN_MainHandler.getBlueToothInstance(this.fragment.getActivity());
+        snMainHandler = SN_MainHandler.getBlueToothInstance(this.fragment.getContext());
         searchDevices();
     }
 
@@ -73,6 +74,8 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
         public boolean handleMessage(Message msg) {
             if (msg.what == CAN_CONNECT_DEVICE) {
                 connectDevice();
+            } else if (msg.what == UNFOUND_DEVICE) {
+                fragment.updateState("未搜索到设备");
             }
             return false;
         }
@@ -97,7 +100,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                     Logg.e(Bloodsugar_Sannuo_PresenterImp.class, blueToothInfo.getName() + "++" + blueToothInfo.getDevice().getAddress());
                     switch (discoverType) {
                         case IPresenter.DISCOVER_WITH_MAC:
-                            Log.e(TAG, "onBlueToothSeaching: Mac");
+                            Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onBlueToothSeaching: Mac");
                             if (TextUtils.isEmpty(discoverSetting.getTargetMac())) {
                                 ToastTool.showShort("请设置目标mac地址");
                                 return;
@@ -106,13 +109,13 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                                 snMainHandler.stopSearch();
                                 SearchResult searchResult = new SearchResult(blueToothInfo.getDevice(), blueToothInfo.getRssi(), null);
                                 lockedDevice = new BluetoothDevice(IPresenter.DEVICE_INITIAL, searchResult);
-                                Log.e(TAG, "onBlueToothSeaching: 发现目标设备");
+                                Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onBlueToothSeaching: 发现目标设备");
                                 isOnSearching = false;
                                 connectDevice();
                             }
                             break;
                         case IPresenter.DISCOVER_WITH_NAME:
-                            Log.e(TAG, "onBlueToothSeaching: Name");
+                            Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onBlueToothSeaching: Name");
                             if (TextUtils.isEmpty(discoverSetting.getTargetName())) {
                                 ToastTool.showShort("请设置目标蓝牙名称");
                                 return;
@@ -121,7 +124,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                                 snMainHandler.stopSearch();
                                 SearchResult searchResult = new SearchResult(blueToothInfo.getDevice(), blueToothInfo.getRssi(), null);
                                 lockedDevice = new BluetoothDevice(IPresenter.DEVICE_INITIAL, searchResult);
-                                Log.e(TAG, "onBlueToothSeaching: 发现目标设备");
+                                Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onBlueToothSeaching: 发现目标设备");
                                 isOnSearching = false;
                                 connectDevice();
                             }
@@ -137,7 +140,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
 
     @Override
     public void connectDevice() {
-        Log.e(TAG, "connectDevice:有没有常连接 ");
+        Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "connectDevice:有没有常连接 ");
         if (lockedDevice == null) {
             ToastTool.showShort("尝试连接的设备不存在");
             return;
@@ -153,7 +156,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                     fragment.updateData("0.00");
                     LocalShared.getInstance(fragment.getContext()).setXuetangMac(lockedDevice.getSearchResult().device.getAddress());
                 } else {
-                    Log.e(TAG, "onConnectFeedBack: 设备连接失败");
+                    Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onConnectFeedBack: 设备连接失败");
                 }
             }
         }, ProtocolVersion.WL_WEIXIN_AIR);
@@ -252,7 +255,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
 
         @Override
         public void onFinish() {// 计时完毕时触发
-            if (lockedDevice == null) {
+            if (lockedDevice == null && !isSearchSecond) {
                 for (BlueToothInfo blueToothInfo : devices) {
                     String name = blueToothInfo.getName();
                     if (TextUtils.equals(name, discoverSetting.getTargetName())) {
@@ -260,13 +263,35 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                         break;
                     }
                 }
-                weakHandler.sendEmptyMessage(CAN_CONNECT_DEVICE);
+                if (lockedDevice != null) {
+                    weakHandler.sendEmptyMessage(CAN_CONNECT_DEVICE);
+                } else {
+                    timeCount.cancel();
+                    timeCount = null;
+                    isSearchSecond = true;
+                    timeCount = new TimeCount(30000, 2000);
+                    timeCount.start();
+                }
+            } else if (lockedDevice == null && isSearchSecond) {
+                weakHandler.sendEmptyMessage(UNFOUND_DEVICE);
             }
         }
 
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
-
+            if (isSearchSecond) {
+                for (BlueToothInfo blueToothInfo : devices) {
+                    String name = blueToothInfo.getName();
+                    if (TextUtils.equals(name, discoverSetting.getTargetName())) {
+                        lockedDevice = new BluetoothDevice(IPresenter.DEVICE_INITIAL, new SearchResult(blueToothInfo.getDevice(), blueToothInfo.getRssi(), null));
+                        break;
+                    }
+                }
+                if (lockedDevice != null) {
+                    timeCount.cancel();
+                    weakHandler.sendEmptyMessage(CAN_CONNECT_DEVICE);
+                }
+            }
         }
     }
 
@@ -285,15 +310,21 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
             weakHandler.removeCallbacksAndMessages(null);
             weakHandler = null;
         }
+        if (isOnSearching && snMainHandler != null) {
+            snMainHandler.stopSearch();
+        }
+        lockedDevice = null;
         devices = null;
+        isSearchSecond = false;
 
         if (timeCount != null) {
             timeCount.cancel();
             timeCount = null;
         }
         if (snMainHandler != null) {
-            snMainHandler.close();
+            snMainHandler.disconnectDevice();
             this.fragment.getActivity().unregisterReceiver(mBtReceiver);
+            snMainHandler.unRegisterReceiveBloodSugarData();
         }
     }
 }

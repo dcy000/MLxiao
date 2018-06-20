@@ -58,7 +58,7 @@ public class Bloodoxygen_Fragment extends BaseFragment implements IView, View.On
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, xueyangMac, "iChoice"));
                         break;
                     case "KANG_TAI":
-                        bluetoothPresenter = new Bloodoxygen_Chaosi_PresenterImp(this,
+                        bluetoothPresenter = new Bloodoxygen_Kangtai_PresenterImp(this,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, xueyangMac, "SpO2080971"));
                         break;
                 }

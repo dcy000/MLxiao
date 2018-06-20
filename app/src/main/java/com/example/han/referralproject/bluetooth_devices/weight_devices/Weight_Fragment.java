@@ -90,6 +90,13 @@ public class Weight_Fragment extends BaseFragment implements IView, View.OnClick
     public void updateData(String... datas) {
         if (datas.length == 1) {
             mTvTizhong.setText(datas[0]);
+
+            String userHeight = LocalShared.getInstance(getContext()).getUserHeight();
+            if (!TextUtils.isEmpty(userHeight)) {
+                float parseFloat = Float.parseFloat(userHeight);
+                float weight = Float.parseFloat(datas[0]);
+                mTvTizhi.setText(String.format("%.2f",weight/(parseFloat*parseFloat/10000)));
+            }
         }
     }
 

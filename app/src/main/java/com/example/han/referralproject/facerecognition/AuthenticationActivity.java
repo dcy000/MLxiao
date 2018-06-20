@@ -449,7 +449,7 @@ public class AuthenticationActivity extends BaseActivity {
     }
     private Callback callback = new Callback() {
         @Override
-        public void surfaceCreated(SurfaceHolder holder) {
+        public void surfaceCreated(final SurfaceHolder holder) {
             Logger.e("getHolder().addCallback所在线程");
             Handlers.bg().post(new Runnable() {
                 @Override
@@ -466,7 +466,7 @@ public class AuthenticationActivity extends BaseActivity {
                         params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);//1连续对焦
                         mCamera.setParameters(params);
                         setCameraDisplayOrientation(AuthenticationActivity.this, CameraInfo.CAMERA_FACING_BACK, mCamera);
-                        mCamera.setPreviewDisplay(mPreviewSurface.getHolder());
+                        mCamera.setPreviewDisplay(holder);
                         mCamera.startPreview();
                         mCamera.cancelAutoFocus();//对焦
 

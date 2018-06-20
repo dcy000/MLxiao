@@ -21,7 +21,8 @@ import java.util.UUID;
  * name:ClinkBlood
  * mac:C6:05:04:03:52:9B
  */
-public class Temperature_Fudakang_PresenterImp extends BaseBluetoothPresenter {
+public class
+Temperature_Fudakang_PresenterImp extends BaseBluetoothPresenter {
     private Temperature_Fragment fragment;
     private String TAG = Temperature_Fudakang_PresenterImp.class.getSimpleName();
     private static final String targetServiceUUid = "0000fc00-0000-1000-8000-00805f9b34fb";

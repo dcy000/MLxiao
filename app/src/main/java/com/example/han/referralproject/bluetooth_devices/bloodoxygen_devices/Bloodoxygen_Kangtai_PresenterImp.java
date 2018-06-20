@@ -36,7 +36,7 @@ import static com.example.han.referralproject.bluetooth_devices.base.classic_blu
 import static com.example.han.referralproject.bluetooth_devices.base.classic_bluetooth.ClassicBluetoothService.STATE_NONE;
 
 /**
- * 康泰血氧仪（只有在记步几面蓝牙是打开的）
+ * 康泰血氧仪（只有在记步几面蓝牙是打开的,目前思路，直接测 测完最后同步数据）
  * name:SpO2080971
  * mac:8C:DE:52:82:40:1C
  */
@@ -85,7 +85,7 @@ public class Bloodoxygen_Kangtai_PresenterImp extends BaseBluetoothPresenter {
                 ToastTool.showShort("搜索结束");
             } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
+                Logg.e(Bloodoxygen_Kangtai_PresenterImp.class,device.getAddress()+"--------------"+device.getName());
                 boolean addressEquals = device.getAddress().equals(discoverSetting.getTargetMac());
                 String name = device.getName();
                 boolean nameEquals = !TextUtils.isEmpty(name) && name.equals(discoverSetting.getTargetName());
@@ -110,7 +110,7 @@ public class Bloodoxygen_Kangtai_PresenterImp extends BaseBluetoothPresenter {
         @Override
         public void call(String... datas) {
             Logg.e(Bloodoxygen_Kangtai_PresenterImp.class, "STATE_CONNECTED++++++call: 血氧：" + datas[0] + "脉搏：" + datas[1] + datas[2]);
-            fragment.updateData(datas[0],datas[1]);
+            fragment.updateData(datas[0], datas[1]);
         }
     };
 
@@ -131,7 +131,7 @@ public class Bloodoxygen_Kangtai_PresenterImp extends BaseBluetoothPresenter {
                     Logg.e(Bloodoxygen_Kangtai_PresenterImp.class, "call: STATE_CONNECTED");
                     fragment.updateState(fragment.getString(R.string.bluetooth_device_connected));
                     fragment.updateData("0", "0");
-                    LocalShared.getInstance(fragment.getContext()).setXueyangMac(lockedDevice.getSearchResult().getAddress());
+                    LocalShared.getInstance(fragment.getContext()).setXueyangMac(targetDevice.getAddress());
                     break;
                 case STATE_CONNECT_FAIL:
                     Logg.e(Bloodoxygen_Kangtai_PresenterImp.class, "call: STATE_CONNECT_FAIL");
@@ -180,6 +180,7 @@ public class Bloodoxygen_Kangtai_PresenterImp extends BaseBluetoothPresenter {
             bluetoothAdapter.cancelDiscovery();
         }
         classicBluetoothService.stop();
+        targetDevice = null;
         fragment.getActivity().unregisterReceiver(btReceiver);
     }
 }

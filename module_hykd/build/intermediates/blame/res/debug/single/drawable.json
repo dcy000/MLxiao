@@ -1,0 +1,262 @@
+[
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\user.png",
+        "source": "F:\\MLxiao\\voice\\build\\intermediates\\bundles\\default\\res\\drawable\\user.png"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\common_toolbar_set.xml",
+        "source": "F:\\MLxiao\\lib-common\\build\\intermediates\\bundles\\default\\res\\drawable\\common_toolbar_set.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e6e73bdadeba228672015ea2bbdf3c52a6e34c71\\output\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\setting.png",
+        "source": "F:\\MLxiao\\voice\\build\\intermediates\\bundles\\default\\res\\drawable\\setting.png"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_bg_is_sign.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_bg_is_sign.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\169c3b8751a9740c35e7f6f985b3bf0b360ef186\\output\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\169c3b8751a9740c35e7f6f985b3bf0b360ef186\\output\\res\\drawable\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\main_setting_btn_np.xml",
+        "source": "F:\\MLxiao\\voice\\build\\intermediates\\bundles\\default\\res\\drawable\\main_setting_btn_np.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e6e73bdadeba228672015ea2bbdf3c52a6e34c71\\output\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e6e73bdadeba228672015ea2bbdf3c52a6e34c71\\output\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_btn_tv_cancel_set.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_btn_tv_cancel_set.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_connect_tv_set.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_connect_tv_set.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\no_art_small.png",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\no_art_small.png"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_recycleview_item_set.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_recycleview_item_set.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\tooltip_frame_dark.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\tooltip_frame_dark.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\list_bg_color.xml",
+        "source": "F:\\MLxiao\\voice\\build\\intermediates\\bundles\\default\\res\\drawable\\list_bg_color.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\design_password_eye.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\169c3b8751a9740c35e7f6f985b3bf0b360ef186\\output\\res\\drawable\\design_password_eye.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_action_dock.png",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\ic_action_dock.png"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_bg_rb_archives.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_bg_rb_archives.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\line_shit.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\line_shit.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_btn_next_set.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_btn_next_set.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\sample_footer_loading.png",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\22b809949d7648b1cffa2feb8f78481d92a77d7c\\output\\res\\drawable\\sample_footer_loading.png"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\sample_footer_loading_progress.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\22b809949d7648b1cffa2feb8f78481d92a77d7c\\output\\res\\drawable\\sample_footer_loading_progress.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\setting_p.png",
+        "source": "F:\\MLxiao\\voice\\build\\intermediates\\bundles\\default\\res\\drawable\\setting_p.png"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_btn_last_set.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_btn_last_set.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_voice_volume.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_voice_volume.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\design_fab_background.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\169c3b8751a9740c35e7f6f985b3bf0b360ef186\\output\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\tooltip_frame_light.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\tooltip_frame_light.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e6e73bdadeba228672015ea2bbdf3c52a6e34c71\\output\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\navigation_empty_icon.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\169c3b8751a9740c35e7f6f985b3bf0b360ef186\\output\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\hy_start_speak_set.xml",
+        "source": "F:\\MLxiao\\module_hykd\\src\\main\\res\\drawable\\hy_start_speak_set.xml"
+    },
+    {
+        "merged": "F:\\MLxiao\\module_hykd\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\gcml_gzq\\.android\\build-cache\\e81ee4db331243397955c7e52e9017140ff7a30f\\output\\res\\drawable\\abc_btn_colored_material.xml"
+    }
+]

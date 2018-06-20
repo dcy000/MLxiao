@@ -73,7 +73,7 @@ public class AllMeasureActivity extends BaseActivity {
                 mTitleText.setText("血氧测量");
                 if (bloodoxygenFragment == null) {
                     bloodoxygenFragment = new Bloodoxygen_Fragment();
-                    bundle.putString(IPresenter.BRAND, BLOODOXYGEN_BRANDS[0]);
+                    bundle.putString(IPresenter.BRAND, BLOODOXYGEN_BRANDS[1]);
                     bloodoxygenFragment.setArguments(bundle);
                 }
                 fragmentTransaction.replace(R.id.frame, bloodoxygenFragment);
