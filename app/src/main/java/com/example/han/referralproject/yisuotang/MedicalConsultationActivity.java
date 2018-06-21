@@ -51,15 +51,19 @@ public class MedicalConsultationActivity extends BaseActivity {
     @OnClick({R.id.community_drugstore, R.id.community_doctor, R.id.health_mannager, R.id.contract_doctor})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            //社区药店
             case R.id.community_drugstore:
                 startActivity(new Intent(this, SheQuYiShengActivity.class));
                 break;
+            //心理咨询师
             case R.id.community_doctor:
                 startActivity(new Intent(this, OnlineDoctorListActivity.class));
                 break;
+            //健康管理师
             case R.id.health_mannager:
                 startActivity(new Intent(this, SheQuYiShengActivity.class).putExtra("status", "4"));
                 break;
+            //签约医生
             case R.id.contract_doctor:
                 gotoQianyueYiSheng();
                 break;
@@ -79,7 +83,7 @@ public class MedicalConsultationActivity extends BaseActivity {
                     //未签约
                     Intent intent = new Intent(MedicalConsultationActivity.this,
                             OnlineDoctorListActivity.class);
-                    intent.putExtra("flag", "contract");
+                    intent.putExtra("flag", "contract");//在线医生和签约医生(没有发起过签约)跳转区分
                     startActivity(intent);
                 } else {
                     // 待审核
