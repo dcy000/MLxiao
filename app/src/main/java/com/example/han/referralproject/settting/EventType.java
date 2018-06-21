@@ -5,7 +5,7 @@ package com.example.han.referralproject.settting;
  */
 
 public enum EventType {
-    clearCache("确认清除本地缓存吗？"), reset("确认恢复出厂设置吗？");
+    clearCache("确认清除本地缓存吗？"), reset("确认恢复出厂设置吗？"), callCustomer("要拨打客服吗?");
 
     EventType(String description) {
         this.description = description;

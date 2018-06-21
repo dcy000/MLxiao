@@ -70,11 +70,11 @@ public class NetworkApi {
     /**
      * 颐硕堂 生产
      */
-    public static final String BasicUrl = "http://120.27.209.227:8080";
+//    public static final String BasicUrl = "http://120.27.209.227:8080";
     /**
      * 颐硕堂 测试
      */
-//    public static final String BasicUrl = "http://47.96.98.60:8090";
+    public static final String BasicUrl = "http://47.96.98.60:8090";
 
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
@@ -1178,5 +1178,16 @@ public class NetworkApi {
                 .params("tel", tel)
                 .execute(callback);
     }
+
+
+    public static final String URL_SEND_AV_MESSAGE = BasicUrl + "/ZZB/api/user/userApply/tel_invite/";
+
+    public static void sendAVMessage(String name, String tel, StringCallback callback) {
+        OkGo.<String>get(URL_PARENT_AGENT_TEL)
+                .params("name", name)
+                .params("tel", tel)
+                .execute(callback);
+    }
+
 
 }

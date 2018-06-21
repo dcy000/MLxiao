@@ -1161,7 +1161,12 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "yst_docter_" + doctorId);
+                NimCallActivity.launch(DoctorappoActivity.this, "yst_docter_" + doctorId, new NimCallActivity.TimeOutListener() {
+                    @Override
+                    public void ontimeOut() {
+                        Toast.makeText(DoctorappoActivity.this, "拨打云信客服了哦", Toast.LENGTH_SHORT).show();
+                    }
+                });
 //                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
 //                    @Override
 //                    public void onSuccess(Doctor response) {
@@ -1234,7 +1239,12 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "yst_docter_" + doctorId);
+                NimCallActivity.launch(DoctorappoActivity.this, "yst_docter_" + doctorId, new NimCallActivity.TimeOutListener() {
+                    @Override
+                    public void ontimeOut() {
+                        Toast.makeText(DoctorappoActivity.this, "拨打云信客服了哦", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 //                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
 //                    @Override

@@ -84,6 +84,79 @@ public class NimCallActivity extends AppCompatActivity {
         launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
     }
 
+    public interface TimeOutListener {
+        void ontimeOut();
+    }
+
+    private static TimeOutListener listener;
+
+
+    public static void launch(final Context context, final String account, TimeOutListener listener) {
+        NimCallActivity.listener = listener;
+        final String deviceId = com.example.han.referralproject.util.Utils.getDeviceId();
+//        NetworkApi.Person_Amount(deviceId, new NetworkManager.SuccessCallback<RobotAmount>() {
+//                    @Override
+//                    public void onSuccess(RobotAmount response) {
+//                        final String amount = response.getAmount();
+//                        if (Float.parseFloat(amount) > 0) {
+//                            //有余额
+//                            launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+//                        } else {
+//                            T.show("余额不足，请充值后再试");
+//                        }
+//                    }
+//                }, new NetworkManager.FailedCallback() {
+//                    @Override
+//                    public void onFailed(String message) {
+//                        T.show("服务器繁忙，请稍后再试");
+//                    }
+//                });
+/**
+ * 云联商城的钱包余额接口
+ */
+        NetworkApi.getYSTWallet(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if (response != null) {
+                    String resultJson = response.body();
+                    WalletResultBean resultBean = new Gson().fromJson(resultJson, WalletResultBean.class);
+                    if (resultBean != null) {
+                        if (resultBean.tag) {
+                            if (resultBean.data != null) {
+                                String mywallet = resultBean.data.mywallet;
+                                if (mywallet != null) {
+                                    if (Float.parseFloat(mywallet) > 0) {
+                                        launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+                                    } else {
+                                        T.show("余额不足，请充值后再试");
+                                    }
+
+                                }
+                            }
+
+                        } else {
+                            T.show("服务器繁忙，请稍后再试");
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                T.show("网络繁忙");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
+
+    }
+
     public static void launch(final Context context, final String account) {
         final String deviceId = com.example.han.referralproject.util.Utils.getDeviceId();
 //        NetworkApi.Person_Amount(deviceId, new NetworkManager.SuccessCallback<RobotAmount>() {
@@ -767,6 +840,9 @@ public class NimCallActivity extends AppCompatActivity {
         public void onEvent(Integer integer) {
             NimCallHelper.getInstance().hangUp();
             CallSoundPlayer.instance().stop();
+            if (listener != null) {
+                listener.ontimeOut();
+            }
         }
     };
 

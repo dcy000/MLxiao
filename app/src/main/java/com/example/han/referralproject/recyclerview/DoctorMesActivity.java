@@ -314,7 +314,12 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    NimCallActivity.launch(mContext, "yst_docter_" + doctor.docterid);
+                    NimCallActivity.launch(mContext, "yst_docter_" + doctor.docterid, new NimCallActivity.TimeOutListener() {
+                        @Override
+                        public void ontimeOut() {
+                            Toast.makeText(DoctorMesActivity.this, "拨打云信客服了哦", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 //                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
 //                        @Override
 //                        public void onSuccess(Object response) {
