@@ -286,7 +286,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_check://病症自查
+            case R.id.iv_check:
+                //病症自查
                 DiseaseUser diseaseUser = new DiseaseUser(
                         LocalShared.getInstance(getActivity()).getUserName(),
                         LocalShared.getInstance(getActivity()).getSex().equals("男") ? 1 : 2,
@@ -299,10 +300,12 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.iv_message:
+                //医生建议
                 startActivity(new Intent(getActivity(), MessageActivity.class));
                 break;
             case R.id.iv_laoren_yule:
 //                OldRouter.routeToOldHomeActivity(getActivity());
+                //账户充值
                 startActivity(new Intent(getActivity(), PayActivity.class));
                 break;
             case R.id.iv_change_account:
@@ -313,6 +316,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), MyBaseDataActivity.class));
                 break;
             case R.id.iv_record:
+                //测量历史
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));
                 break;
             case R.id.iv_jiankang_riji:
@@ -371,11 +375,13 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), PayActivity.class));
                 break;
             case R.id.iv_alarm:
+                //吃药提醒
                 Intent intentAlarm = AlarmList2Activity.newLaunchIntent(getActivity());
                 startActivity(intentAlarm);
                 break;
 
             case R.id.tv_change_account:
+                //切换账户
                 mChangeAccountDialog = new ChangeAccountDialog(getActivity());
                 mChangeAccountDialog.show();
                 break;

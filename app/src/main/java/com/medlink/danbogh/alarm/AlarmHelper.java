@@ -74,12 +74,14 @@ public class AlarmHelper {
     }
 
     public static void setupAlarm(Context context, AlarmModel model) {
+        //清除已设置的闹钟
         AlarmHelper.cancelAlarms(context);
         if (model.getId() < 0) {
             model.save();
         } else {
             model.update(model.getId());
         }
+        //设置闹钟
         AlarmHelper.setupAlarms(context);
     }
 
