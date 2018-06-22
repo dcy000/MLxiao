@@ -346,11 +346,10 @@
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="35dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="80dp"
         android:background="@drawable/add_yuyues"
         android:gravity="center"
-        android:text="添加预约"
+        android:text="解除签约"
         android:textColor="#FFFFFF"
         android:textSize="40sp" />
 

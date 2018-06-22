@@ -29,6 +29,7 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.yisuotang.fragment.JieYueNoticeDialog;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.alarm.AlarmHelper;
@@ -1089,6 +1090,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         }
     });
     static ArrayList allReservationHistory = new ArrayList();
+    private Button jiejue;
 
 
     public void enableVideo(long time, long time1) {
@@ -1138,28 +1140,17 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButton4 = (Button) findViewById(R.id.cancel_yuyue2);
 
         mHistroy = (TextView) findViewById(R.id.yuyue_lishi);
-
         mHistroy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(DoctorappoActivity.this, HistoryActivity.class);
                 startActivity(intent);
-
             }
         });
-
         speak(R.string.qianyue_doctor);
-
         mToolbar.setVisibility(View.VISIBLE);
-
         mTitleText.setText(getString(R.string.doctor_qianyue));
-
-
-        //  speak(R.string.yuyue_1);
-
         dialog1 = new NDialog2(DoctorappoActivity.this);
-
         mButtons = (Button) findViewById(R.id.video_doctor);
         mButtons.setEnabled(false);
         mButtons.setSelected(false);
@@ -1238,6 +1229,15 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             }
         });
 
+        jiejue = findViewById(R.id.bt_jieyue);
+        jiejue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //弹出解约方式提醒
+                showNoticeDialog();
+            }
+        });
+
         mButton1 = (Button) findViewById(R.id.add_yuyue);
 
         mButton1.setOnClickListener(new View.OnClickListener() {
@@ -1246,7 +1246,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 //    Log.e("==============", list.toString());
                 if (list.size() < 3) {
-                    Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class).putExtra("doctorId",doctorId);
+                    Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class).putExtra("doctorId", doctorId);
                     startActivity(intent);
                     finish();
 
@@ -1290,6 +1290,15 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    private JieYueNoticeDialog jieYueNoticeDialog;
+
+    private void showNoticeDialog() {
+        if (jieYueNoticeDialog == null) {
+            jieYueNoticeDialog = new JieYueNoticeDialog();
+        }
+        jieYueNoticeDialog.show(getFragmentManager(), "notice");
+    }
+
 
     /**
      * 返回上一页
@@ -1323,7 +1332,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void yuYueDoctor() {
-        NetworkApi.YuYue_info(MyApplication.getInstance().userId,doctorId , new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
+        NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
                 allReservationHistory.clear();
