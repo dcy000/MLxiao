@@ -15,6 +15,8 @@ public class AboutActivity extends BaseActivity {
 
     @BindView(R.id.tv_version)
     TextView tvVersion;
+    @BindView(R.id.tv_device_id)
+    TextView tvDeviceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,5 +31,6 @@ public class AboutActivity extends BaseActivity {
         mTitleText.setText("关于");
         mToolbar.setVisibility(View.VISIBLE);
         tvVersion.setText("版本:" + Utils.getLocalVersionName(this));
+        tvDeviceId.setText(Utils.getDeviceId());
     }
 }
