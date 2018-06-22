@@ -13,6 +13,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -91,6 +92,9 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     private TextView mAddress;
     private TextView mHistory;
     private LinearLayout mLlHistory;
+    public static final String FROM_VALUE = "changeHead";
+    public static final String FROM_KEY = "yst_from";
+    ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -204,8 +208,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            default:
-                break;
+
             case R.id.icon_back:
                 finish();
                 break;
@@ -228,16 +231,21 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(this, AlertDrinkingActivity.class).putExtra("data", response));
                 break;
             case R.id.ll_history:
-                startActivity(new Intent(this,AlertMHActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", response));
                 break;
             case R.id.address:
-                startActivity(new Intent(this,AlertAddressActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", response));
                 break;
             case R.id.tv_reset:
                 LocalShared.getInstance(mContext).reset();
                 Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                break;
+            case R.id.head:
+                startActivity(new Intent(this, RegisterVideoActivity.class).putExtra(FROM_KEY, FROM_VALUE));
+                break;
+            default:
                 break;
         }
     }

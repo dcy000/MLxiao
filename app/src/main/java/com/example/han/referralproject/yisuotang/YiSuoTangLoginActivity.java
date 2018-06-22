@@ -100,7 +100,8 @@ public class YiSuoTangLoginActivity extends BaseActivity implements View.OnClick
             case R.id.account_tip://注册
                 startActivity(new Intent(YiSuoTangLoginActivity.this, SignUp1NameActivity.class));
                 break;
-            case R.id.regist://注册
+            case R.id.regist:
+                //立即注册
                 startActivity(new Intent(YiSuoTangLoginActivity.this, SignUp1NameActivity.class));
                 break;
             case R.id.sign_up_fast://快速注册

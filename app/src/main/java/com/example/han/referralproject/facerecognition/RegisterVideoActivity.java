@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -43,20 +44,32 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.MyBaseDataActivity;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.yisuotang.fragment.AffirmHeadDialog;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceRequest;
+import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
+import com.medlink.danbogh.utils.T;
+import com.orhanobut.logger.Logger;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class RegisterVideoActivity extends BaseActivity implements PreviewCallback {
+public class RegisterVideoActivity extends BaseActivity implements PreviewCallback, AffirmHeadDialog.ClickListener {
     private SurfaceView mPreviewSurface;
     private Camera mCamera;
     private int mCameraId = CameraInfo.CAMERA_FACING_FRONT;
@@ -73,7 +86,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     private ByteArrayOutputStream stream;
     private LottieAnimationView lottAnimation;
     private SurfaceHolder holder;
-
 
     private Handler mHandler = new Handler(new Handler.Callback() {
 
@@ -254,6 +266,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
 
     }
+
     private RequestListener mRequestListener = new RequestListener() {
         @Override
         public void onEvent(int eventType, Bundle params) {
@@ -284,12 +297,14 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                         LocalShared.getInstance(getApplicationContext()).setXunfeiID(mAuthid);
                         String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
                         LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
+                        if (closePage()) return;
                         Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
                         intent.putExtras(getIntent());
                         startActivity(intent);
                         finish();
                     } else {
                         if (sign == true) {
+                            if (closePage()) return;
                             ToastTool.showShort("注册失败");
                             sign = false;
                             finish();
@@ -321,6 +336,158 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         }
     };
 
+    private boolean closePage() {
+        if (getIntent() != null &&
+                MyBaseDataActivity.FROM_VALUE.equals(getIntent().getStringExtra(MyBaseDataActivity.FROM_KEY))) {
+            showAffirmHeadDialog();
+            return true;
+        }
+        return false;
+    }
+
+    AffirmHeadDialog affirmHeadDialog;
+
+    private void showAffirmHeadDialog() {
+        if (affirmHeadDialog == null) {
+            affirmHeadDialog = new AffirmHeadDialog();
+        }
+        affirmHeadDialog.setListener(this);
+    }
+
+    @Override
+    public void onConfirm() {
+        final String userid = MyApplication.getInstance().userId;
+        final String xfid = LocalShared.getInstance(RegisterVideoActivity.this).getXunfeiId();
+        checkGroup(userid, xfid);
+    }
+
+    private void checkGroup(final String userid, final String xfid) {
+        //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
+        String groupId = LocalShared.getInstance(mContext).getGroupId();
+        String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
+        Logger.e("组id" + groupId);
+        if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
+            Log.e("组信息", "checkGroup: 该机器组已近存在");
+            joinGroup(userid, groupId, xfid);
+        } else {
+            createGroup(userid, xfid);
+        }
+    }
+    UploadManager uploadManager = new UploadManager();
+    private void createGroup(final String userid, final String xfid) {
+        FaceAuthenticationUtils.getInstance(RegisterVideoActivity.this).createGroup(xfid);
+        FaceAuthenticationUtils.getInstance(RegisterVideoActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                Logger.e("创建组成功" + result);
+                try {
+                    JSONObject resObj = new JSONObject(result.getResultString());
+                    String groupId = resObj.getString("group_id");
+                    LocalShared.getInstance(RegisterVideoActivity.this).setGroupId(groupId);
+                    LocalShared.getInstance(RegisterVideoActivity.this).setGroupFirstXfid(xfid);
+                    //组创建好以后把自己加入到组中去
+                    joinGroup(userid, groupId, xfid);
+                    //加组完成以后把头像上传到我们自己的服务器
+                    uploadHeadToSelf(userid, xfid);
+                    FaceAuthenticationUtils.getInstance(RegisterVideoActivity.this).updateGroupInformation(groupId, xfid);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "创建组失败");
+//                if (error.getErrorCode() == 10144) {//创建组的数量达到上限
+//                    ToastTool.showShort("出现技术故障，请致电客服咨询");
+//                }
+                //如果在此处创建组失败就跳过创建
+                uploadHeadToSelf(userid, xfid);
+            }
+        });
+    }
+
+    private void joinGroup(final String userid, String groupid, final String xfid) {
+        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
+        FaceAuthenticationUtils.getInstance(RegisterVideoActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                uploadHeadToSelf(userid, xfid);
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "添加成员出现异常");
+                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
+                    createGroup(userid, xfid);
+                } else {
+                    uploadHeadToSelf(userid, xfid);
+                }
+
+            }
+        });
+    }
+    private void uploadHeadToSelf(final String userid, final String xfid) {
+        NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+                byte[] data = Base64.decode(LocalShared.getInstance(getApplicationContext()).getUserImg().getBytes(), 1);
+                Date date = new Date();
+                SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
+                StringBuilder str = new StringBuilder();//定义变长字符串
+                Random random = new Random();
+                for (int i = 0; i < 8; i++) {
+                    str.append(random.nextInt(10));
+                }
+                //将字符串转换为数字并输出
+                String key = simple.format(date) + str + ".jpg";
+
+                uploadManager.put(data, key, response, new UpCompletionHandler() {
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject res) {
+                        if (info.isOK()) {
+                            String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
+                            NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
+                                    new NetworkManager.SuccessCallback<Object>() {
+                                        @Override
+                                        public void onSuccess(Object response) {
+                                            //将账号在本地缓存
+                                            LocalShared.getInstance(mContext).addAccount(userid, xfid);
+                                            finish();
+                                        }
+
+                                    }, new NetworkManager.FailedCallback() {
+                                        @Override
+                                        public void onFailed(String message) {
+                                            Log.e("注册储存讯飞id失败", "onFailed: ");
+                                        }
+                                    });
+                        } else {
+
+                        }
+                    }
+                }, null);
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+
+            }
+        });
+    }
+
     /**
      * NV21格式(所有相机都支持的格式)转换为bitmap
      */
@@ -343,6 +510,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         }
         return null;
     }
+
     private void closeCamera() {
         if (null != mCamera) {
             mCamera.setPreviewCallback(null);
@@ -412,4 +580,5 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         mHandler.sendEmptyMessage(0);
         Log.e("测试该方法调用的次数", "onPreviewFrame: ");
     }
+
 }
