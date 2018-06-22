@@ -304,7 +304,6 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                         finish();
                     } else {
                         if (sign == true) {
-                            if (closePage()) return;
                             ToastTool.showShort("注册失败");
                             sign = false;
                             finish();
@@ -348,10 +347,9 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     AffirmHeadDialog affirmHeadDialog;
 
     private void showAffirmHeadDialog() {
-        if (affirmHeadDialog == null) {
-            affirmHeadDialog = new AffirmHeadDialog();
-        }
+        affirmHeadDialog = new AffirmHeadDialog();
         affirmHeadDialog.setListener(this);
+        affirmHeadDialog.show(getFragmentManager(), "changeHead");
     }
 
     @Override
@@ -359,6 +357,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         final String userid = MyApplication.getInstance().userId;
         final String xfid = LocalShared.getInstance(RegisterVideoActivity.this).getXunfeiId();
         checkGroup(userid, xfid);
+        finish();
     }
 
     private void checkGroup(final String userid, final String xfid) {
@@ -373,7 +372,9 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             createGroup(userid, xfid);
         }
     }
+
     UploadManager uploadManager = new UploadManager();
+
     private void createGroup(final String userid, final String xfid) {
         FaceAuthenticationUtils.getInstance(RegisterVideoActivity.this).createGroup(xfid);
         FaceAuthenticationUtils.getInstance(RegisterVideoActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
@@ -437,6 +438,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             }
         });
     }
+
     private void uploadHeadToSelf(final String userid, final String xfid) {
         NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
             @Override

@@ -1,8 +1,11 @@
 package com.example.han.referralproject.yisuotang.fragment;
 
 import android.app.DialogFragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.imageview.CircleImageView;
+import com.example.han.referralproject.util.LocalShared;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,9 +44,18 @@ public class AffirmHeadDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_affirm_head, container, false);
-
         unbinder = ButterKnife.bind(this, view);
+        updateHead();
         return view;
+    }
+
+    public void updateHead() {
+        String imageData = LocalShared.getInstance(getActivity()).getUserImg();
+        if (imageData != null) {
+            byte[] bytes = Base64.decode(imageData.getBytes(), 1);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            ivHead.setImageBitmap(bitmap);
+        }
     }
 
     @Override
