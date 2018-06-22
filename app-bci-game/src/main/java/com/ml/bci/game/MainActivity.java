@@ -12,12 +12,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LeakThread leakThread = new LeakThread();
-        leakThread.start();
+//        LeakThread leakThread = new LeakThread();
+//        leakThread.start();
     }
 
     public void helloOnClick(View view) {
         Intent intent = new Intent(this, BciGameActivity.class);
+        startActivity(intent);
+    }
+
+    public void fruitOnClick(View view) {
+        Intent intent = new Intent(this, BciGameFruitActivity.class);
         startActivity(intent);
     }
 
