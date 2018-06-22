@@ -26,6 +26,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yisuotang.bean.WalletResultBean;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
@@ -318,6 +319,12 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                         @Override
                         public void ontimeOut() {
                             Toast.makeText(DoctorMesActivity.this, "拨打云信客服了哦", Toast.LENGTH_SHORT).show();
+                            NetworkApi.sendAVMessage(MyApplication.getInstance().userName, LocalShared.getInstance(DoctorMesActivity.this).getDoctorTel(), new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+
+                                }
+                            });
                         }
                     });
 //                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {

@@ -578,4 +578,27 @@ public class LocalShared {
     }
 
 
+    /**
+     * 签约医生id
+     * @param doctorId
+     */
+    public void setDoctorId(String doctorId) {
+        mShared.edit().putString("yst_doctorId",doctorId).apply();
+    }
+
+    public String getDoctorId(){
+        return mShared.getString("yst_doctorId","");
+    }
+
+    /**
+     * 签约医生电话
+     * @param doctorTel
+     */
+    public void setDoctorTel(String doctorTel) {
+        mShared.edit().putString("yst_doctorTel",doctorTel).apply();
+    }
+
+    public String getDoctorTel(){
+        return mShared.getString("yst_doctorTel","");
+    }
 }

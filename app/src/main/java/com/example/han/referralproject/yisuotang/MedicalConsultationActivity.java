@@ -9,13 +9,14 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
@@ -41,6 +42,30 @@ public class MedicalConsultationActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         speak("主人,欢迎来到医药咨询");
+        getSignedDoctorInfo();
+    }
+
+    private String doctorId;
+    private String doctorTel;
+
+    private void getSignedDoctorInfo() {
+        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+            @Override
+            public void onSuccess(Doctor response) {
+                if (response != null) {
+                    doctorId = response.docterid + "";
+                    doctorTel = response.tel;
+                    LocalShared.getInstance(MedicalConsultationActivity.this).setDoctorId(doctorId);
+                    LocalShared.getInstance(MedicalConsultationActivity.this).setDoctorTel( doctorTel);
+                }
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+            }
+        });
+
     }
 
     private void initTitle() {
@@ -77,7 +102,9 @@ public class MedicalConsultationActivity extends BaseActivity {
                 if ("1".equals(response.getState())) {
                     //已签约
                     startActivity(new Intent(MedicalConsultationActivity.this,
-                            DoctorappoActivity.class));
+                            DoctorappoActivity.class).
+                            putExtra("doctorId", doctorId).
+                            putExtra("doctorTel", doctorTel));
                 } else if ("0".equals(response.getState())
                         && (TextUtils.isEmpty(response.getDoctername()))) {
                     //未签约

@@ -1180,10 +1180,10 @@ public class NetworkApi {
     }
 
 
-    public static final String URL_SEND_AV_MESSAGE = BasicUrl + "/ZZB/api/user/userApply/tel_invite/";
+    public static final String URL_SEND_AV_MESSAGE = BasicUrl + "/ZZB/br/videoremind";
 
     public static void sendAVMessage(String name, String tel, StringCallback callback) {
-        OkGo.<String>get(URL_PARENT_AGENT_TEL)
+        OkGo.<String>get(URL_SEND_AV_MESSAGE)
                 .params("name", name)
                 .params("tel", tel)
                 .execute(callback);

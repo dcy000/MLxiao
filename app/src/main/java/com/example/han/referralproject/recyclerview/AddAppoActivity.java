@@ -131,7 +131,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(int which) {
                         if (which == 1) {
 
-                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, getIntent().getStringExtra("doctorId"), new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     //sharedPreference.getString("doctor_id", "")
@@ -176,7 +176,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(int which) {
                         if (which == 1) {
 
-                            Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class).putExtras(getIntent());
                             startActivity(intent);
                             finish();
 
@@ -383,7 +383,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         judge();
 
 
-        NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
+        NetworkApi.YuYue_already(getIntent().getStringExtra("doctorId"), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
             @Override
             public void onSuccess(ArrayList<AlreadyYuyue> response) {
 
