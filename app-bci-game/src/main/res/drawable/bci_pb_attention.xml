@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <stroke
+                android:width="4dp"
+                android:color="#C68930"/>
+            <corners android:radius="25dp"/>
+            <solid android:color="#FFE2B7"/>
+        </shape>
+    </item>
+
+    <item
+        android:id="@android:id/progress"
+        android:bottom="4dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:top="4dp">
+
+        <clip
+            android:clipOrientation="vertical"
+            android:gravity="bottom">
+            <shape>
+                <corners android:radius="25dp"/>
+                <solid android:color="#FFAA2F"/>
+            </shape>
+        </clip>
+
+        <!--scale 能实现圆角 但不能实现竖直-->
+        <!--<scale android:scaleWidth="100%">-->
+        <!--<shape>-->
+        <!--<corners android:radius="25dp"/>-->
+        <!--<solid android:color="#FFAA2F"/>-->
+        <!--</shape>-->
+        <!--</scale>-->
+    </item>
+</layer-list>
