@@ -55,7 +55,7 @@ public class BciGameActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onBlink() {
+            public void onBlinkChanged(int intensity) {
                 TransitionManager.beginDelayedTransition(mClRoot);
                 endConstraintSet.clone(mClRoot);
                 endConstraintSet.connect(
@@ -92,7 +92,7 @@ public class BciGameActivity extends AppCompatActivity {
             return;
         }
         hasRun = false;
-        mAttentionObservable.notifyBlink();
+        mAttentionObservable.notifyBlinkChanged(100);
         mHandler.removeCallbacksAndMessages(null);
 
         float left = mTargetApple.getX();

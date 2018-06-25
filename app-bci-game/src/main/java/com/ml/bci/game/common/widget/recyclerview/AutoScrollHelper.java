@@ -14,8 +14,8 @@ public class AutoScrollHelper {
     public static final long INTERVAL_AUTO_SCROLL = 16;
 
     private WeakReference<RecyclerView> mWeakRecyclerView;
-    private boolean running;
-    private boolean canRun;
+    private volatile boolean running;
+    private volatile boolean canRun;
 
 
     public void attach(RecyclerView view) {
@@ -75,17 +75,28 @@ public class AutoScrollHelper {
         }
     };
 
-    private int offsetX() {
+
+    public int offsetX() {
         return offsetX;
     }
 
-    private int offsetY() {
+    public int offsetY() {
         return offsetY;
     }
+
+    public int baseOffset() {
+        return baseOffset;
+    }
+
+    private int baseOffset = -2;
 
     private int offsetX = -2;
 
     private int offsetY = -2;
+
+    public void setBaseOffset(int baseOffset) {
+        this.baseOffset = baseOffset;
+    }
 
     public void setOffsetX(int offsetX) {
         this.offsetX = offsetX;
@@ -95,7 +106,11 @@ public class AutoScrollHelper {
         this.offsetY = offsetY;
     }
 
-    private void stop() {
+    public boolean isStarted() {
+        return running;
+    }
+
+    public void stop() {
         running = false;
         RecyclerView recyclerView = mWeakRecyclerView.get();
         if (recyclerView != null) {

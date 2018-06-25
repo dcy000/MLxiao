@@ -11,7 +11,7 @@ public class AttentionObservable extends Observable<AttentionObservable.Observer
     public interface Observer {
         void onAttentionChanged(int intensity);
 
-        void onBlink();
+        void onBlinkChanged(int intensity);
     }
 
     public void notifyAttentionChanged(int intensity) {
@@ -22,10 +22,10 @@ public class AttentionObservable extends Observable<AttentionObservable.Observer
         }
     }
 
-    public void notifyBlink() {
+    public void notifyBlinkChanged(int intensity) {
         synchronized (mObservers) {
             for (Observer observer : mObservers) {
-                observer.onBlink();
+                observer.onBlinkChanged(intensity);
             }
         }
     }
