@@ -27,10 +27,16 @@ import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.example.han.referralproject.yisuotang.bean.SuperiorTelResponseBean;
+import com.example.han.referralproject.yisuotang.fragment.AddParentPhoneDialog;
+import com.google.gson.Gson;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -43,7 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
-public class HeadiconActivity extends BaseActivity {
+public class HeadiconActivity extends BaseActivity implements AddParentPhoneDialog.ClickListener {
 
     ImageView mCircleImageView;
     Button mButton;
@@ -140,6 +146,60 @@ public class HeadiconActivity extends BaseActivity {
         }
     }
 
+    AddParentPhoneDialog dialog;
+
+    private void showAddParentPhoneDialog() {
+        if (dialog == null) {
+            dialog = new AddParentPhoneDialog();
+        }
+        dialog.setListener(this);
+        dialog.show(getFragmentManager(), "addParentPhone");
+    }
+
+    public String xfid;
+    public String userId;
+
+    @Override
+    public void onConfirm(String parentPhone) {
+        //上传上级代理商的电话号码==>执行跳转逻辑
+        showLoadingDialog("正在提交...");
+        NetworkApi.postParentAgentPhone(MyApplication.getInstance().userId, parentPhone, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                SuperiorTelResponseBean resultBean = new Gson().fromJson(body, SuperiorTelResponseBean.class);
+                if (resultBean != null && resultBean.tag) {
+                    T.show("提交成功");
+                } else {
+                    if (resultBean != null && resultBean.message != null) {
+                        T.show(resultBean.message);
+                    }
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoadingDialog();
+                onUpLoadHeadSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void onCancel() {
+        onUpLoadHeadSuccess();
+    }
+
+    private void onUpLoadHeadSuccess() {
+        //将账号在本地缓存
+        LocalShared.getInstance(mContext).addAccount(userId, xfid);
+        Class<? extends BaseActivity> aClass = isFast ? MainActivity.class : RecoDocActivity.class;
+        Intent intent = new Intent(getApplicationContext(), aClass);
+        startActivity(intent);
+        finish();
+    }
+
     private void uploadHeadToSelf(final String userid, final String xfid) {
         NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
             @Override
@@ -164,12 +224,10 @@ public class HeadiconActivity extends BaseActivity {
                                     new NetworkManager.SuccessCallback<Object>() {
                                         @Override
                                         public void onSuccess(Object response) {
-                                            //将账号在本地缓存
-                                            LocalShared.getInstance(mContext).addAccount(userid, xfid);
-                                            Class<? extends BaseActivity> aClass = isFast ? MainActivity.class : RecoDocActivity.class;
-                                            Intent intent = new Intent(getApplicationContext(), aClass);
-                                            startActivity(intent);
-                                            finish();
+                                            //显示添加 号码的dialog
+                                            HeadiconActivity.this.userId = userid;
+                                            HeadiconActivity.this.xfid = xfid;
+                                            showAddParentPhoneDialog();
                                         }
 
                                     }, new NetworkManager.FailedCallback() {
@@ -286,4 +344,6 @@ public class HeadiconActivity extends BaseActivity {
             mButton.performClick();
         }
     }
+
+
 }

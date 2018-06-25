@@ -302,6 +302,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                         LocalShared.getInstance(getApplicationContext()).setXunfeiID(mAuthid);
                         String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
                         LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
+                        //换头像逻辑
                         if (closePage()) return;
                         Intent intent = new Intent(getApplicationContext(), HeadiconActivity.class);
                         intent.putExtras(getIntent());
