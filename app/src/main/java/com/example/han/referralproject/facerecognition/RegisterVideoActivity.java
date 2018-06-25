@@ -294,6 +294,11 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                     if ("success".equals(obj.get("rst")) && sign == true) {
                         // showTip("注册成功");
                         sign = false;
+                        String xunfeiId = LocalShared.getInstance(RegisterVideoActivity.this).getXunfeiId();
+                        String groupId = LocalShared.getInstance(RegisterVideoActivity.this).getGroupId();
+                        if (!TextUtils.isEmpty(xunfeiId)&&!TextUtils.isEmpty(groupId)) {
+                            FaceAuthenticationUtils.getInstance(RegisterVideoActivity.this).deleteMember(groupId,xunfeiId);
+                        }
                         LocalShared.getInstance(getApplicationContext()).setXunfeiID(mAuthid);
                         String imageBase64 = new String(Base64.encodeToString(mImageData, Base64.DEFAULT));
                         LocalShared.getInstance(getApplicationContext()).setUserImg(imageBase64);
@@ -360,13 +365,17 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         finish();
     }
 
+    @Override
+    public void onCancel() {
+    }
+
     private void checkGroup(final String userid, final String xfid) {
         //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
         String groupId = LocalShared.getInstance(mContext).getGroupId();
-        String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
+//        String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
         Logger.e("组id" + groupId);
-        if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
-            Log.e("组信息", "checkGroup: 该机器组已近存在");
+
+        if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(xfid)) {
             joinGroup(userid, groupId, xfid);
         } else {
             createGroup(userid, xfid);

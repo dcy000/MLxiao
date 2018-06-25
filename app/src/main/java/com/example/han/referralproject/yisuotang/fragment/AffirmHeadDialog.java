@@ -73,6 +73,9 @@ public class AffirmHeadDialog extends DialogFragment {
                 }
                 break;
             case R.id.cancel:
+                if (listener != null) {
+                    listener.onCancel();
+                }
                 dismiss();
                 break;
         }
@@ -80,6 +83,8 @@ public class AffirmHeadDialog extends DialogFragment {
 
     public interface ClickListener {
         void onConfirm();
+
+        void onCancel();
     }
 
     private ClickListener listener;
