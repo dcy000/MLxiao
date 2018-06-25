@@ -79,6 +79,15 @@ public class LocalShared {
             String[] accountsArray = accountsString.substring(0, accountsString.length() - 1).split(";");
             if (!isContainAccount(accountsArray, bid, xfid)) {
                 mShared.edit().putString(UserAccounts_new, accountsString + bid + "," + xfid + ";").commit();
+            } else {
+                StringBuffer buffer = new StringBuffer();
+                for (int i = 0; i < accountsArray.length; i++) {
+                    if (accountsArray[i].startsWith(bid)) {
+                        accountsArray[i] = bid + "," + xfid;
+                    }
+                    buffer.append(accountsArray[i] + ";");
+                }
+                mShared.edit().putString(UserAccounts_new, buffer.toString()).commit();
             }
         }
     }
@@ -156,7 +165,7 @@ public class LocalShared {
             return false;
         }
         for (String item : accountsArray) {
-            if ((bid + "," + xfid).equals(item)) {
+            if (item.startsWith(bid)) {
                 return true;
             }
         }
@@ -580,25 +589,27 @@ public class LocalShared {
 
     /**
      * 签约医生id
+     *
      * @param doctorId
      */
     public void setDoctorId(String doctorId) {
-        mShared.edit().putString("yst_doctorId",doctorId).apply();
+        mShared.edit().putString("yst_doctorId", doctorId).apply();
     }
 
-    public String getDoctorId(){
-        return mShared.getString("yst_doctorId","");
+    public String getDoctorId() {
+        return mShared.getString("yst_doctorId", "");
     }
 
     /**
      * 签约医生电话
+     *
      * @param doctorTel
      */
     public void setDoctorTel(String doctorTel) {
-        mShared.edit().putString("yst_doctorTel",doctorTel).apply();
+        mShared.edit().putString("yst_doctorTel", doctorTel).apply();
     }
 
-    public String getDoctorTel(){
-        return mShared.getString("yst_doctorTel","");
+    public String getDoctorTel() {
+        return mShared.getString("yst_doctorTel", "");
     }
 }
