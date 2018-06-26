@@ -164,8 +164,6 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         mUnbinder = ButterKnife.bind(this);
         radioGroupPosition = getIntent().getIntExtra("position", 0);
         speak("您好，请查看历史记录");
-//        tvTitle.setText("健康档案");
-
         mTitleText.setText(R.string.history_celiang);
         rbRecordTemperature.setOnClickListener(this);
         rbRecordBloodPressure.setOnClickListener(this);
