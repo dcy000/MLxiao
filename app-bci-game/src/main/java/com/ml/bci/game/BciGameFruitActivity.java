@@ -146,7 +146,10 @@ public class BciGameFruitActivity extends AppCompatActivity {
                 if (fruitResources.size() != 0) {
                     final int position;
                     position = currentPosition % fruitResources.size();
-                    final Integer removed = fruitResources.remove(position);
+                    final Integer removed;
+                    synchronized (fruitResources) {
+                        removed = fruitResources.remove(position);
+                    }
                     final int[] startLocation = new int[2];
                     View view = mLayoutManager.getChildAt(position);
                     view.getLocationInWindow(startLocation);
@@ -215,8 +218,11 @@ public class BciGameFruitActivity extends AppCompatActivity {
     }
 
     private String getFruit(int currentPosition) {
-        int position = currentPosition % fruitResources.size();
-        int res = fruitResources.get(position);
+        int res;
+        synchronized (fruitResources) {
+            int position = currentPosition % fruitResources.size();
+            res = fruitResources.get(position);
+        }
         String fruit = "苹果";
         switch (res) {
             case R.drawable.bci_ic_fruit_apple:
@@ -254,7 +260,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
         }
     };
 
-    private ArrayList<Integer> fruitResources = new ArrayList<>();
+    private final ArrayList<Integer> fruitResources = new ArrayList<>();
 
     private class VH extends RecyclerView.ViewHolder {
 
@@ -266,8 +272,10 @@ public class BciGameFruitActivity extends AppCompatActivity {
         }
 
         public void onBind(int position) {
-            int fruitRes = fruitResources.get(getAdapterPosition());
-            ivFruit.setImageResource(fruitRes);
+            synchronized (fruitResources) {
+                int fruitRes = fruitResources.get(getAdapterPosition());
+                ivFruit.setImageResource(fruitRes);
+            }
         }
 
         public void onRecycled() {
@@ -329,7 +337,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
 
     }
 
-    public void closeDevice(){
+    public void closeDevice() {
         if (tgDevice != null) {
             tgDevice.close();
         }
@@ -547,7 +555,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
 
         if (baseline == 0.0) baseline = 1.0; //don't allow divide by zero
         /*
-		 * calculate the percentage change
+         * calculate the percentage change
 		 */
         change = current - baseline;
         change = (change / baseline) * 1000.0 + 0.5;
