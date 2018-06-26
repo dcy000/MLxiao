@@ -314,7 +314,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="体  温"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"/>
 
         <View
@@ -331,7 +331,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="血  压"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"/>
 
         <View
@@ -348,7 +348,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="血  糖"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"/>
 
         <View
@@ -365,7 +365,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="血  氧"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"/>
 
         <View
@@ -382,7 +382,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="心  率"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"
             android:visibility="visible"/>
 
@@ -420,7 +420,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="胆固醇"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"/>
 
         <View
@@ -437,7 +437,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="血尿酸"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"/>
 
         <View
@@ -454,7 +454,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="心电图"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"/>
 
         <View
@@ -471,7 +471,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="体重"
-            android:textColor="@drawable/bg_rb_history_record"
+            android:textColor="@drawable/bg_rb_history_record_lude"
             android:textSize="28sp"/>
 
         <View
@@ -487,7 +487,7 @@
         android:background="@drawable/bg_rb_history_record"
         android:gravity="center"
         android:text="档案下载"
-        android:textColor="@drawable/bg_rb_history_record"
+        android:textColor="@drawable/bg_rb_history_record_lude"
         android:textSize="28sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
