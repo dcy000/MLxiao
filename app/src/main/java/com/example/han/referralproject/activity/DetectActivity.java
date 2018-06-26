@@ -355,6 +355,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
             public void onSuccess(MeasureResult response) {
+                if (response == null || DetectActivity.this.isFinishing() || DetectActivity.this.isDestroyed()) {
+                    return;
+                }
                 startActivity(new Intent(DetectActivity.this, MeasureXueyaResultActivity.class)
                         .putExtra("measure_sum", response.zonggong)
                         .putExtra("current_gaoya", getNew + "")
