@@ -1173,7 +1173,7 @@ public class NetworkApi {
     public static final String URL_PARENT_AGENT_TEL = BasicUrl + "/ZZB/api/user/userApply/tel_invite/";
 
     public static void postParentAgentPhone(String userId, String tel, StringCallback callback) {
-        OkGo.<String>get(URL_PARENT_AGENT_TEL)
+        OkGo.<String>post(URL_PARENT_AGENT_TEL)
                 .params("userid", userId)
                 .params("tel", tel)
                 .execute(callback);
