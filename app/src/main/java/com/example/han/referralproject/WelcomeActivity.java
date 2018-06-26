@@ -49,16 +49,26 @@ public class WelcomeActivity extends BaseActivity {
         if (!isWorked("com.example.han.referralproject.MusicService")) {
             startService(new Intent(this, MusicService.class));
         }
-        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
-            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
-            mIntent.putExtra("is_first_wifi", true);
-            startActivity(mIntent);
-            finish();
-            return;
-        }
+        boolean networkEnabled = WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this);
+//        if (!networkEnabled) {//网络没有连接，这跳转到WiFi页面
+//            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
+//            mIntent.putExtra("is_first_wifi", true);
+//            startActivity(mIntent);
+//            finish();
+//            return;
+//        }
 //        checkVersion();
-        playVideo();
+        if (networkEnabled) {
+            playVideo();
+        } else {
+            getWindow().getDecorView().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    navToNext();
 
+                }
+            }, 2000);
+        }
     }
 
     private void checkVersion() {
@@ -82,14 +92,7 @@ public class WelcomeActivity extends BaseActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                        Intent intent = new Intent(getApplicationContext(), LudeAuthActivity.class);
-                                        startActivity(intent);
-                                    } else {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
-                                    }
-                                    finish();
+                                    navToNext();
                                 }
                             }
                         });
@@ -113,19 +116,23 @@ public class WelcomeActivity extends BaseActivity {
                         // 如果从开始计时到现在超过了60s
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                Intent intent = new Intent(getApplicationContext(), LudeAuthActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                            }
-                            finish();
+                            navToNext();
                         }
                     }
                 });
             }
         });
+    }
+
+    private void navToNext() {
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            Intent intent = new Intent(getApplicationContext(), LudeAuthActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+        finish();
     }
 
     //判断服务是否已经启动

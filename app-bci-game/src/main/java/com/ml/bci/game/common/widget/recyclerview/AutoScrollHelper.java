@@ -88,7 +88,7 @@ public class AutoScrollHelper {
         return baseOffset;
     }
 
-    private int baseOffset = -2;
+    private int baseOffset = -10;
 
     private int offsetX = -2;
 

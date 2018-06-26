@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -48,6 +49,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private boolean isFirstWifi = false;
     private MediaPlayer mediaPlayer;
     private ImageView ivConnectedWifiIndicator;
+    private CheckBox cbWifiConnected;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +92,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mConnectedLayout = findViewById(R.id.rl_connected);
         mConnectedWifiName = (TextView) findViewById(R.id.tv_connect_name);
         ivConnectedWifiIndicator = (ImageView) findViewById(R.id.xien_iv_connected_wifi_indicator);
+        cbWifiConnected = (CheckBox) findViewById(R.id.cb_wifi_connected);
         mSwitch = (Switch) findViewById(R.id.switch_wifi);
         mSwitch.setChecked(mWiFiUtil.isWifiOpened());
         mSwitch.setOnCheckedChangeListener(mCheckedChangeListener);
@@ -119,8 +122,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
             }
             if (WiFiUtil.isWiFiConnected(this)) {
                 mConnectedWifiName.setText(mInfo.getSSID());
+                cbWifiConnected.setChecked(true);
             } else {
                 mConnectedWifiName.setText("正在连接...");
+                cbWifiConnected.setChecked(false);
             }
         } else {
             mConnectedLayout.setVisibility(View.GONE);

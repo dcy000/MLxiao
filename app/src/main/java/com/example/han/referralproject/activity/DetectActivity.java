@@ -1116,7 +1116,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 resourceId = R.raw.tips_sanheyi;
                 break;
         }
-        resourceId = 0;
+//        resourceId = 0;
         if (resourceId != 0) {
             if (Type_Xueya.equals(detectType)) {
                 findViewById(R.id.device_cl_pressure).setVisibility(View.GONE);

@@ -3,6 +3,7 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -25,6 +26,7 @@ import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.register.idcard.SignInIdCardActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.utils.UiUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +57,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     TextView tvNetworkMode;
     @BindView(R.id.auth_iv_back)
     ImageView ivBack;
+    @BindView(R.id.cl_container)
+    ConstraintLayout clContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,9 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
             tvPhoneSignIn.setVisibility(View.GONE);
             etSignInPassword.setVisibility(View.GONE);
             tvFaceSignIn.setVisibility(View.GONE);
+            clContainer.setPadding(0, UiUtils.pt(350), 0, 0);
         } else {
+            clContainer.setPadding(0, 0, 0, 0);
             tvPhoneSignIn.setVisibility(View.VISIBLE);
             etSignInPassword.setVisibility(View.VISIBLE);
             tvFaceSignIn.setVisibility(View.VISIBLE);

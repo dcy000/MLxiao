@@ -177,8 +177,9 @@ public class VideoListFragment extends Fragment {
             }
             return;
         }
+        String version = position == 4 || position == 5 ? "2" : "1";
         NetworkApi.getVideoList(
-                position + 1, "2", "1", page, pageSize,
+                position + 1, version, "1", page, pageSize,
                 new NetworkManager.SuccessCallback<List<VideoEntity>>() {
                     @Override
                     public void onSuccess(List<VideoEntity> entities) {

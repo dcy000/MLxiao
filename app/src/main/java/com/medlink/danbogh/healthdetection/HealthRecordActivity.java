@@ -2439,4 +2439,11 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             super.onDetach();
         }
     }
+
+    @Override
+    protected void onResume() {
+        setEnableListeningLoop(false);
+        setDisableGlobalListen(true);
+        super.onResume();
+    }
 }
