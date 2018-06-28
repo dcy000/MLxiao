@@ -768,9 +768,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         } else if (notifyData[1] == 97) {//胆固醇
             info.cholesterol = String.format("%.2f", afterResult);
             mSanHeYiThreeTv.setText(String.format("%.2f", afterResult));
-            if (result < 3.0)
+            if (afterResult < 3.0)
                 speakFlag = "偏低";
-            else if (result > 6.0)
+            else if (afterResult > 6.0)
                 speakFlag = "偏高";
             else
                 speakFlag = "正常";
