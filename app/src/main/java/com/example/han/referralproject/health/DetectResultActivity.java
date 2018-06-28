@@ -181,14 +181,14 @@ public class DetectResultActivity extends BaseActivity {
 
         mDetectTvResultWeightInfo.setText(weight + "  kg");
         if (detectCategory.equals("detectHealth")) {
-            mDetectTvResultHighPressureInfo.setText("左臂:" + highPressure + " mmHg,   " + "右臂:" + highPressureRight + " mmHg,");
-            mDetectTvResultLowPressureInfo.setText("左臂:" + lowPressure + " mmHg,   " + "右臂:" + lowPressureRight + " mmHg,");
+            mDetectTvResultHighPressureInfo.setText("左臂:" + highPressure + " mmHg,   " + "右臂:" + highPressureRight + " mmHg");
+            mDetectTvResultLowPressureInfo.setText("左臂:" + lowPressure + " mmHg,   " + "右臂:" + lowPressureRight + " mmHg");
         } else {
             mDetectTvResultHighPressureInfo.setText(highPressure + " mmHg");
             mDetectTvResultLowPressureInfo.setText(lowPressure + " mmHg");
         }
 
-        mDetectTvResultTemperateInfo.setText(tem);
+        mDetectTvResultTemperateInfo.setText(tem+"℃");
         mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
         mDetectTvResultEcgInfo.setText(ecg);
         initView();
