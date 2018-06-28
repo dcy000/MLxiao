@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_reslut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginRight="60pt"
+        android:layout_marginTop="48pt"
+        android:textColor="#888"
+        android:textSize="56pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="750pt"
+        android:layout_marginBottom="58pt"
+        android:layout_marginLeft="60pt"
+        android:layout_marginRight="60pt"
+        android:layout_marginTop="168pt"
+        android:background="@drawable/bg_shadow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.littlejie.circleprogress.CircleProgress
+            android:id="@+id/cp_1"
+            android:layout_width="500pt"
+            android:layout_height="500pt"
+            android:layout_marginBottom="56pt"
+            app:cp_antiAlias="true"
+            app:cp_arcColors="@array/circle_progress_blue"
+            app:cp_arcWidth="40pt"
+            app:cp_bgArcColor="#eeeeee"
+
+            app:cp_bgArcWidth="40pt"
+            app:cp_maxValue="100"
+            app:cp_smallUnit="%"
+            app:cp_smallUnitColor="#333"
+            app:cp_smallUnitSize="120pt"
+            app:cp_startAngle="90"
+            app:cp_sweepAngle="360"
+            app:cp_unit="良好"
+            app:cp_unitColor="#666"
+            app:cp_unitSize="56pt"
+            app:cp_value="60"
+            app:cp_valueSize="200pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/cp_2" />
+
+        <com.littlejie.circleprogress.CircleProgress
+            android:id="@+id/cp_2"
+            android:layout_width="500pt"
+            android:layout_height="500pt"
+            android:layout_marginLeft="240pt"
+            android:paddingLeft="-30pt"
+            app:cp_antiAlias="true"
+            app:cp_arcColors="@array/circle_progress_blue"
+            app:cp_arcWidth="40pt"
+            app:cp_bgArcColor="#eeeeee"
+            app:cp_bgArcWidth="40pt"
+            app:cp_maxValue="100"
+            app:cp_smallUnit="分"
+            app:cp_smallUnitColor="#333"
+            app:cp_smallUnitSize="100pt"
+            app:cp_startAngle="135"
+            app:cp_sweepAngle="270"
+            app:cp_unit="低风险"
+            app:cp_unitColor="#666"
+            app:cp_unitSize="56pt"
+            app:cp_value="60"
+            app:cp_valueSize="200pt"
+            app:layout_constraintLeft_toRightOf="@id/cp_1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cp_1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="46pt"
+            android:text="三年内患病概率"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/cp_1"
+            app:layout_constraintLeft_toLeftOf="@id/cp_1"
+            app:layout_constraintRight_toRightOf="@id/cp_1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="46pt"
+            android:text="评估分数"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/cp_2"
+            app:layout_constraintLeft_toLeftOf="@id/cp_2"
+            app:layout_constraintRight_toRightOf="@id/cp_2" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

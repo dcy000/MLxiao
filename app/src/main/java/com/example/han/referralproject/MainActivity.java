@@ -6,31 +6,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.bean.UserInfo;
+import com.example.han.referralproject.blood_pressure_risk_assessment.HypertensionRiskActivity;
+import com.example.han.referralproject.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity;
+import com.example.han.referralproject.bluetooth_devices.AllMeasureActivity;
+import com.example.han.referralproject.bluetooth_devices.base.IPresenter;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
-import com.example.han.referralproject.floatball.MyService;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
+import com.example.han.referralproject.intelligent_diagnosis.BloodsugarMonthlyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.BloodsugarWeeklyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
+import com.example.han.referralproject.intelligent_diagnosis.TreatmentPlanActivity;
+import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.personal.PersonActivity;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -46,7 +47,6 @@ import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.utils.T;
-import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
 
@@ -191,8 +191,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
+                startActivity(new Intent(this, TreatmentPlanActivity.class)
+                .putExtra(IPresenter.MEASURE_TYPE,IPresenter.MEASURE_BLOOD_SUGAR));
                 //呼叫
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+//                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
 //                    @Override
 //                    public void onSuccess(UserInfo response) {

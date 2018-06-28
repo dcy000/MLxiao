@@ -40,6 +40,7 @@ public class XueyaUtils {
         socket = device.createRfcommSocketToServiceRecord(uuid);
         if (!socket.isConnected()) {
             socket.connect();
+            Log.e("西恩血压计连接", "connect: "+socket.toString());
         }
         if (socket.isConnected()) {
             isSuccess = true;

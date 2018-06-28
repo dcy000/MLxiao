@@ -71,7 +71,7 @@ public class MeasureXueyaWarningFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         tvTopTitle.setText("测量异常");
         title.setText(titleString);
-        ((DetectActivity)getActivity()).speak(titleString);
+        ((DetectActivity) getActivity()).speak(titleString);
         reasons = new ArrayList<>();
         initData();
         list.setLayoutManager(new GridLayoutManager(getActivity(), 4));
@@ -80,7 +80,9 @@ public class MeasureXueyaWarningFragment extends Fragment {
         ivTopLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseReason.noReason();
+                if (chooseReason != null) {
+                    chooseReason.noReason();
+                }
             }
         });
         ivTopRight.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +96,9 @@ public class MeasureXueyaWarningFragment extends Fragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (chooseReason == null) {
+                    return;
+                }
                 switch (position) {
                     case 0://服用了降压药
                         chooseReason.hasReason(0);
@@ -126,13 +131,17 @@ public class MeasureXueyaWarningFragment extends Fragment {
         otherReason.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseReason.hasReason(-1);
+                if (chooseReason != null) {
+                    chooseReason.hasReason(-1);
+                }
             }
         });
         measureNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseReason.noReason();
+                if (chooseReason != null) {
+                    chooseReason.noReason();
+                }
             }
         });
         return view;
@@ -148,7 +157,6 @@ public class MeasureXueyaWarningFragment extends Fragment {
         reasons.add(R.drawable.measure_yd_sel);
         reasons.add(R.drawable.measure_fh_sel);
     }
-
 
 
     @Override

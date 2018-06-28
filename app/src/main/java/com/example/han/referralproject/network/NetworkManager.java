@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.ConnectException;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -139,7 +140,11 @@ public class NetworkManager {
         Callback responseCallback = new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
-                handleFailedRequest(e.getMessage());
+                if (e instanceof ConnectException){
+                    handleFailedRequest("请检查网络连接");
+                } else {
+                    handleFailedRequest(e.getMessage());
+                }
             }
 
             @Override

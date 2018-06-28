@@ -28,6 +28,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -58,6 +59,7 @@ import com.example.han.referralproject.util.XueyaUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -357,6 +359,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onSuccess(MeasureResult response) {
                 startActivity(new Intent(DetectActivity.this, MeasureXuetangResultActivity.class)
+                        .putExtra("measure_type",xuetangTimeFlag)
                         .putExtra("measure_piangao_num", response.high)
                         .putExtra("measure_zhengchang_num", response.regular)
                         .putExtra("measure_piandi_num", response.low)
@@ -488,6 +491,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         if (notifyData == null || notifyData.length != 13) {
                             return;
                         }
+                        Log.e("温度情况",byteToString(notifyData));
                         int tempData = notifyData[6] & 0xff;
                         if (tempData < 44) {
                             speak(R.string.tips_error_temp);
@@ -608,7 +612,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyangResult = mXueYangResults[1];
                                 }
-                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen,xueyangResult));
+                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, xueyangResult));
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
                                     public void onSuccess(MeasureResult response) {
@@ -694,6 +698,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
     };
+    public static String byteToString(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+
+        if (!isEmpty(bytes)) {
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(String.format("%02X", bytes[i]) + "  ");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public static boolean isEmpty(byte[] bytes) {
+        return bytes == null || bytes.length == 0;
+    }
 
     /**
      * 处理三合一的测量结果
@@ -712,6 +731,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         String speakFlag;
         if (notifyData[1] == 65) {//血糖
             info.blood_sugar = String.valueOf(afterResult);
+            info.sugar_time = xuetangTimeFlag + "";
+            info.upload_state = true;
             mSanHeYiOneTv.setText(String.valueOf(afterResult));
             if (afterResult < 3.61)
                 speakFlag = "偏低";
@@ -802,7 +823,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 if (gattServices.size() == 5 || gattServices.size() == 10) {
                     characteristic = gattServices.get(3).getCharacteristics().get(3);
                 } else {
-                    characteristic = gattServices.get(2).getCharacteristics().get(3);
+                    if (gattServices.size()>2) {
+                        characteristic = gattServices.get(2).getCharacteristics().get(3);
+                    }
                 }
                 break;
             case Type_XueYang:

@@ -55,7 +55,7 @@ public class BaseApplication extends Application{
         //解决方法数64K
         MultiDex.install(this);
     }
-    public static BaseApplication getInstance() {
+    public static Context getInstance() {
         return mInstance;
     }
 

@@ -100,7 +100,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_hykd" />
+            android:value="gcml_version_normal" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -293,14 +293,14 @@
         <activity
             android:name="com.medlink.danbogh.register.SignUp1NameActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustNothing|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp2GenderActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp3AddressActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp4IdCardActivity"
             android:screenOrientation="landscape"
@@ -308,11 +308,11 @@
         <activity
             android:name="com.medlink.danbogh.register.SignUp5MobileVerificationActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp6PasswordActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
             android:screenOrientation="landscape" />
@@ -684,8 +684,58 @@
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".blood_pressure_risk_assessment.HypertensionRiskActivity"
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.HOME" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name=".blood_pressure_risk_assessment.PrimaryBloodPressureRiskResultsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".blood_pressure_risk_assessment.SecondaryBloodPressureRiskResultsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".measure.New_MeasureXuetangResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_diagnosis.FoodMaterialDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_diagnosis.SportPlanDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_diagnosis.BloodsugarWeeklyReportActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_diagnosis.TreatmentPlanActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".intelligent_diagnosis.BloodsugarMonthlyReportActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".physicalexamination.activity.ChineseMedicineMonitorActivity" />
         <activity android:name=".physicalexamination.activity.MonitorResultActivity" />
+        <activity
+            android:name=".bluetooth_devices.temperature_devices.MeasureTemperatureActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".bluetooth_devices.bloodsugar_devices.MeasureBloodsugarActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".bluetooth_devices.AllMeasureActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

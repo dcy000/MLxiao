@@ -72,7 +72,7 @@ public class Utils {
      * @return
      */
     public static String stampToDate3(long s){
-        SimpleDateFormat format =  new SimpleDateFormat("MMddHH");
+        SimpleDateFormat format =  new SimpleDateFormat("MM.dd");
         Long time=new Long(s);
         String d = format.format(time);
         return d;
