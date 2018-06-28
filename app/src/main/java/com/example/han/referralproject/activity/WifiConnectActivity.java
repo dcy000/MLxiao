@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -93,6 +94,12 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mConnectedWifiName = (TextView) findViewById(R.id.tv_connect_name);
         ivConnectedWifiIndicator = (ImageView) findViewById(R.id.xien_iv_connected_wifi_indicator);
         cbWifiConnected = (CheckBox) findViewById(R.id.cb_wifi_connected);
+        cbWifiConnected.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
         mSwitch = (Switch) findViewById(R.id.switch_wifi);
         mSwitch.setChecked(mWiFiUtil.isWifiOpened());
         mSwitch.setOnCheckedChangeListener(mCheckedChangeListener);

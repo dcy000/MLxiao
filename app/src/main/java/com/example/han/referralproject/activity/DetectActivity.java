@@ -1388,17 +1388,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mVideoView = (VideoView) findViewById(R.id.vv_tips);
         mOverView = findViewById(R.id.view_over);
         mOverView.setOnClickListener(this);
-        resourceId = 0;
+//        resourceId = 0;
+        isFirst = true;
         if (isFirst) {
             if (resourceId != 0) {
                 if (Type_Xueya.equals(detectType)) {
                     findViewById(R.id.device_cl_pressure).setVisibility(View.GONE);
                 }
                 String uri = "android.resource://" + getPackageName() + "/" + resourceId;
+                mVideoView.setVisibility(View.VISIBLE);
+                mOverView.setVisibility(View.VISIBLE);
                 mVideoView.setZOrderOnTop(true);
                 mVideoView.setZOrderMediaOverlay(true);
                 mVideoView.setVideoURI(Uri.parse(uri));
                 mVideoView.setOnCompletionListener(mCompletionListener);
+                mVideoView.start();
             } else {
                 if (Type_Xueya.equals(detectType)) {
                     findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);

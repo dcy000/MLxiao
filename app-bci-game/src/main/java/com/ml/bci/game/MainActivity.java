@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void helloOnClick(View view) {
-        Intent intent = new Intent(this, BciGameActivity.class);
+        Intent intent = new Intent(this, MyLayoutManagerActivity.class);
         startActivity(intent);
     }
 
