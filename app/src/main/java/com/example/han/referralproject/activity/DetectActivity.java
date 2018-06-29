@@ -250,7 +250,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } else {
                         xueyaResult = mXueyaResults[2];
                     }
-                    uploadXueyaResult(getNew, down, maibo, xueyaResult, false, null);
+                    uploadXueyaResult(getNew, down, maibo, xueyaResult, true, null);
                     break;
                 case 14:
                     stopSearch();
@@ -552,7 +552,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             speak(String.format(getString(R.string.tips_result_xueya),
                                     notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
-                            uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
+                            uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, true, null);
                             if (getIntent().getBooleanExtra("inquiry", false)) {
                                 LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
                                 showLoadingDialog("正在提交问诊信息");
@@ -594,7 +594,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 //上传数据到我们的服务器
                                 speak(String.format(getString(R.string.tips_result_xueya),
                                         (notifyData[2] & 0xff), notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
-                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
+                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, true, null);
                                 if (getIntent().getBooleanExtra("inquiry", false)) {
                                     LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
                                     showLoadingDialog("正在提交问诊信息");
