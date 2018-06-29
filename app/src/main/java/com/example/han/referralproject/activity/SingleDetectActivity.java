@@ -555,12 +555,6 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
                                 xueyaResult = mXueyaResults[2];
                             }
 
-                            if (getIntent().getBooleanExtra("inquiry", false)) {
-                                LocalShared.getInstance(SingleDetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
-                                showLoadingDialog("正在提交问诊信息");
-                                postWenZhenData(true);
-                                return;
-                            }
                             speak(String.format(getString(R.string.tips_result_xueya),
                                     notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
                             uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
@@ -574,6 +568,12 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
 //                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
 //                                }
 //                            });
+                            if (getIntent().getBooleanExtra("inquiry", false)) {
+                                LocalShared.getInstance(SingleDetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
+                                showLoadingDialog("正在提交问诊信息");
+                                postWenZhenData(true);
+                                return;
+                            }
                             return;
                         }
                         if ((int) notifyData[0] == 32 && notifyData.length == 2) {
@@ -596,16 +596,17 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
                                 } else {
                                     xueyaResult = mXueyaResults[2];
                                 }
+                                //上传数据到我们的服务器
+                                speak(String.format(getString(R.string.tips_result_xueya),
+                                        (notifyData[2] & 0xff), notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
+                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
+
                                 if (getIntent().getBooleanExtra("inquiry", false)) {
                                     LocalShared.getInstance(SingleDetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
                                     showLoadingDialog("正在提交问诊信息");
                                     postWenZhenData(true);
                                     return;
                                 }
-                                //上传数据到我们的服务器
-                                speak(String.format(getString(R.string.tips_result_xueya),
-                                        (notifyData[2] & 0xff), notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
-                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
                             }
                         }
 
