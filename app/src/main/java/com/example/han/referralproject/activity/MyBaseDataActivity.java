@@ -146,7 +146,10 @@ public class MyBaseDataActivity extends BaseActivity {
 
                             PersonInfoResultBean.DataBean.RecordBean record = data.record;
                             if (record != null) {
-                                blood.setText(record.bloodType + "");
+                                if (record.bloodType == null || record.bloodType.equals("null")) {
+                                    blood.setText("未填写");
+                                } else
+                                    blood.setText(record.bloodType + "");
 //                                address.setText(record.address);
 //                                height.setText(record.height + "");
 //                                weight.setText(record.weight + "");
