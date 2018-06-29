@@ -550,15 +550,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 xueyaResult = mXueyaResults[2];
                             }
 
+                            speak(String.format(getString(R.string.tips_result_xueya),
+                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
+                            uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
                             if (getIntent().getBooleanExtra("inquiry", false)) {
                                 LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
                                 showLoadingDialog("正在提交问诊信息");
                                 postWenZhenData(true);
                                 return;
                             }
-                            speak(String.format(getString(R.string.tips_result_xueya),
-                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
-                            uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
 //                            DataInfoBean info = new DataInfoBean();
 //                            info.high_pressure = notifyData[1] & 0xff;
 //                            info.low_pressure = notifyData[3] & 0xff;
@@ -591,16 +591,16 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyaResult = mXueyaResults[2];
                                 }
+                                //上传数据到我们的服务器
+                                speak(String.format(getString(R.string.tips_result_xueya),
+                                        (notifyData[2] & 0xff), notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
+                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
                                 if (getIntent().getBooleanExtra("inquiry", false)) {
                                     LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
                                     showLoadingDialog("正在提交问诊信息");
                                     postWenZhenData(true);
                                     return;
                                 }
-                                //上传数据到我们的服务器
-                                speak(String.format(getString(R.string.tips_result_xueya),
-                                        (notifyData[2] & 0xff), notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
-                                uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
                             }
                         }
 
