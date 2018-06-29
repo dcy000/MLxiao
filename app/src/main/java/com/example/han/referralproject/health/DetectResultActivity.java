@@ -6,31 +6,24 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.DetectResult;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.Callback;
 import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
-import com.medlink.danbogh.utils.Utils;
 import com.ml.zxing.QrCodeUtils;
-import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -70,6 +63,30 @@ public class DetectResultActivity extends BaseActivity {
     TextView mDetectTvResultSugarInfo;
     @BindView(R.id.detect_tv_result_ecg_info)
     TextView mDetectTvResultEcgInfo;
+    @BindView(R.id.detect_tv_result_health_zz_info)
+    TextView detectTvResultHealthZzInfo;
+    @BindView(R.id.ll_health_zz)
+    LinearLayout llHealthZz;
+    @BindView(R.id.detect_tv_result_pressure_zz_info)
+    TextView detectTvResultPressureZzInfo;
+    @BindView(R.id.ll_pressure_smoke)
+    LinearLayout llPressureSmoke;
+    @BindView(R.id.detect_tv_result_health_run_time_info)
+    TextView detectTvResultHealthRunTimeInfo;
+    @BindView(R.id.ll_health_run_time)
+    LinearLayout llHealthRunTime;
+    @BindView(R.id.detect_tv_result_health_salt_info)
+    TextView detectTvResultHealthSaltInfo;
+    @BindView(R.id.ll_health_salt)
+    LinearLayout llHealthSalt;
+    @BindView(R.id.detect_tv_result_health_drink_info)
+    TextView detectTvResultHealthDrinkInfo;
+    @BindView(R.id.ll_health_drink)
+    LinearLayout llHealthDrink;
+    @BindView(R.id.detect_tv_result_health_smoke_info)
+    TextView detectTvResultHealthSmokeInfo;
+    @BindView(R.id.ll_health_smoke)
+    LinearLayout llHealthSmoke;
     private String detectCategory;
 
     private String text = NetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid="
@@ -188,7 +205,7 @@ public class DetectResultActivity extends BaseActivity {
             mDetectTvResultLowPressureInfo.setText(lowPressure + " mmHg");
         }
 
-        mDetectTvResultTemperateInfo.setText(tem+"℃");
+        mDetectTvResultTemperateInfo.setText(tem + "℃");
         mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
         mDetectTvResultEcgInfo.setText(ecg);
         initView();
