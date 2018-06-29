@@ -55,6 +55,24 @@ public class PregnancyWenActivity extends BaseActivity {
         mRightView.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
         initView();
+        initEvent();
+    }
+
+    private void initEvent() {
+        mIvMan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMan(true);
+            }
+        });
+
+        mIvWoman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMan(false);
+            }
+        });
+
     }
 
     @Override
