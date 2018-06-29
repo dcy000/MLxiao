@@ -373,6 +373,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
+                android:background="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -389,7 +390,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="60pt"
-                        android:text="健康体检症状： "
+                        android:text="健康症状： "
                         android:textColor="#999999"
                         android:textSize="72pt" />
 
@@ -414,12 +415,38 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="60pt"
-                        android:text="高血压症状： "
+                        android:text="高血压相关症状： "
                         android:textColor="#999999"
                         android:textSize="72pt" />
 
                     <TextView
                         android:id="@+id/detect_tv_result_pressure_zz_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="72pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_sugar_zz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="糖尿病相关症状： "
+                        android:textColor="#999999"
+                        android:textSize="72pt" />
+
+                    <TextView
+                        android:id="@+id/detect_tv_result_sugar_zz_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -507,6 +534,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginBottom="40pt"
                     android:id="@+id/ll_health_smoke"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

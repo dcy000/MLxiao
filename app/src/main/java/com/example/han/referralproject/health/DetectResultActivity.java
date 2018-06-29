@@ -14,6 +14,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.DetectResult;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.yiyuan.bean.ExaminationReportBean;
 import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -23,8 +24,6 @@ import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.ml.zxing.QrCodeUtils;
-
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,6 +86,10 @@ public class DetectResultActivity extends BaseActivity {
     TextView detectTvResultHealthSmokeInfo;
     @BindView(R.id.ll_health_smoke)
     LinearLayout llHealthSmoke;
+    @BindView(R.id.detect_tv_result_sugar_zz_info)
+    TextView detectTvResultSugarZzInfo;
+    @BindView(R.id.ll_sugar_zz)
+    LinearLayout llSugarZz;
     private String detectCategory;
 
     private String text = NetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid="
@@ -179,15 +182,35 @@ public class DetectResultActivity extends BaseActivity {
         OkGo.<String>post(url).upJson(new Gson().toJson(detectResult)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body());
-                    String message = jsonObject.optString("message");
-                    if (!TextUtils.isEmpty(message)) {
-                        T.show(message);
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response.body());
+//                    String message = jsonObject.optString("message");
+//                    if (!TextUtils.isEmpty(message)) {
+//                        T.show(message);
+//                    }
+//                } catch (Throwable e) {
+//                    e.printStackTrace();
+//                }
+
+                String body = response.body();
+                ExaminationReportBean bean = new Gson().fromJson(body, ExaminationReportBean.class);
+                if (bean != null) {
+
+                    if (bean.tag) {
+                        if (bean.data != null) {
+                            dealOtherDataInfo(bean.data);
+                        }
+
+                    } else {
+                        String message = bean.message;
+                        if (!TextUtils.isEmpty(message)) {
+                            T.show(message);
+                        }
                     }
-                } catch (Throwable e) {
-                    e.printStackTrace();
+
                 }
+
+
             }
         });
 
@@ -209,6 +232,55 @@ public class DetectResultActivity extends BaseActivity {
         mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
         mDetectTvResultEcgInfo.setText(ecg);
         initView();
+    }
+
+    private void dealOtherDataInfo(ExaminationReportBean.DataBean data) {
+        //健康体检症状
+        if (data.healthExaminationType == null) {
+            llHealthZz.setVisibility(View.GONE);
+        } else {
+            llHealthZz.setVisibility(View.VISIBLE);
+            detectTvResultHealthZzInfo.setText(data.healthSymptom);
+        }
+        //高血压体检症状
+        if (data.hypertensionSymptom == null) {
+            llPressureSmoke.setVisibility(View.GONE);
+        } else {
+            llPressureSmoke.setVisibility(View.VISIBLE);
+            detectTvResultPressureZzInfo.setText(data.hypertensionSymptom);
+        }
+
+        //糖尿病体检症状
+        if (data.diabetesSymptom  == null) {
+            llSugarZz.setVisibility(View.GONE);
+        } else {
+            llSugarZz.setVisibility(View.VISIBLE);
+            detectTvResultPressureZzInfo.setText(data.diabetesSymptom );
+        }
+
+        //糖尿病症状
+
+        //运动情况 三种都有
+        detectTvResultHealthRunTimeInfo.setText(data.sportFrequency + "次/周," + data.sportCost + "分钟/次");
+        //食盐摄入量
+        if (data.saltIntake == null) {
+            llHealthSalt.setVisibility(View.GONE);
+        } else {
+            llHealthSalt.setVisibility(View.VISIBLE);
+            detectTvResultHealthSaltInfo.setText(data.saltIntake);
+        }
+
+        //饮酒情况
+        if (data.wineDrink == null) {
+            llHealthDrink.setVisibility(View.GONE);
+        } else {
+            llHealthDrink.setVisibility(View.VISIBLE);
+            detectTvResultHealthDrinkInfo.setText(data.wineDrink);
+        }
+
+        //吸烟情况  三种体检都有
+        detectTvResultHealthSmokeInfo.setText(data.smoke + "支/日");
+
     }
 
     private void initView() {
