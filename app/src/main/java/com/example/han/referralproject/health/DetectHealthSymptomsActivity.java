@@ -58,11 +58,13 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
                 intent.putExtras(getIntent());
                 SparseBooleanArray checkedItemPositions = gvItems.getCheckedItemPositions();
                 int count = gvItems.getCheckedItemCount();
-                int size = checkedItemPositions.size();
                 long[] checked = new long[count];
-                for (int i = 0, j = 0; i < size && j < count; i++) {
+                int j = 0;
+                for (int i = 0; i < items.size() ; i++) {
                     if (checkedItemPositions.get(i)) {
                         checked[j] = i;
+                        checked[j]+=1;
+                        j++;
                     }
                 }
                 intent.putExtra("symptoms", checked);

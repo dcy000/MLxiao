@@ -236,7 +236,7 @@ public class DetectResultActivity extends BaseActivity {
 
     private void dealOtherDataInfo(ExaminationReportBean.DataBean data) {
         //健康体检症状
-        if (data.healthExaminationType == null) {
+        if (data.healthSymptom == null) {
             llHealthZz.setVisibility(View.GONE);
         } else {
             llHealthZz.setVisibility(View.VISIBLE);
@@ -255,7 +255,7 @@ public class DetectResultActivity extends BaseActivity {
             llSugarZz.setVisibility(View.GONE);
         } else {
             llSugarZz.setVisibility(View.VISIBLE);
-            detectTvResultPressureZzInfo.setText(data.diabetesSymptom );
+            detectTvResultSugarZzInfo.setText(data.diabetesSymptom );
         }
 
         //糖尿病症状
