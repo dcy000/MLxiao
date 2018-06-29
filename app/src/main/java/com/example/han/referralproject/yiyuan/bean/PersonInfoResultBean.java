@@ -57,7 +57,7 @@ public class PersonInfoResultBean  implements Serializable{
         public String drink;
         public String eatingHabitsCode;
         public String bname;
-        public String dz;
+        public String address;
         public String blood_type;
         public RecordBean record;
         public String tel;

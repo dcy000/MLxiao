@@ -130,6 +130,12 @@ public class MyBaseDataActivity extends BaseActivity {
                             idcard.setText(data.sfz + "");
                             number.setText(data.eqid + "");
 
+                            //身高体重地址
+                            address.setText(data.address);
+                            height.setText(data.height + "");
+                            weight.setText(data.weight + "");
+
+
                             Picasso.with(MyBaseDataActivity.this)
                                     .load(data.user_photo)
                                     .placeholder(R.drawable.avatar_placeholder)
@@ -140,10 +146,10 @@ public class MyBaseDataActivity extends BaseActivity {
 
                             PersonInfoResultBean.DataBean.RecordBean record = data.record;
                             if (record != null) {
-                                address.setText(record.address);
                                 blood.setText(record.bloodType + "");
-                                height.setText(record.height + "");
-                                weight.setText(record.weight + "");
+//                                address.setText(record.address);
+//                                height.setText(record.height + "");
+//                                weight.setText(record.weight + "");
                                 motion.setText(record.educationalLevel + "");
                                 smoke.setText(record.professionType + "");
                                 eating.setText(record.medicalPayments + "");
