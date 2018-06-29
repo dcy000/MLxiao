@@ -28,8 +28,8 @@
                     android:layout_marginLeft="60pt"
                     android:layout_marginTop="60pt"
                     android:text="个人信息"
-                    android:textColor="#999999"
-                    android:textSize="56pt"
+                    android:textColor="#333333"
+                    android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
                     android:layout_marginTop="40pt"
                     android:text="姓名： "
                     android:textColor="#999999"
-                    android:textSize="70pt"
+                     android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_person_info" />
 
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_name"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_name"
                     tools:text="chenyixun" />
@@ -62,7 +62,7 @@
                     android:layout_marginTop="40pt"
                     android:text="身高： "
                     android:textColor="#999999"
-                    android:textSize="70pt"
+                     android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="@+id/detect_tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_name" />
 
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_height"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_height"
                     tools:text="175cm" />
@@ -83,7 +83,7 @@
                     android:layout_marginTop="40pt"
                     android:text="体重： "
                     android:textColor="#999999"
-                    android:textSize="70pt"
+                     android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="@+id/detect_tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_height" />
 
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_weight"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_weight"
                     tools:text="60kg" />
@@ -106,7 +106,7 @@
                     android:layout_marginTop="40pt"
                     android:text="性别： "
                     android:textColor="#999999"
-                    android:textSize="70pt"
+                     android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_person_info" />
 
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_gender"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_gender"
                     tools:text="男" />
@@ -127,7 +127,7 @@
                     android:layout_marginTop="40pt"
                     android:text="年龄： "
                     android:textColor="#999999"
-                    android:textSize="70pt"
+                     android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_height"
                     app:layout_constraintLeft_toLeftOf="@+id/detect_tv_gender" />
 
@@ -136,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="70pt"
+                     android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_age"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_age"
                     tools:text="25" />
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:text="血型： "
                     android:textColor="#999999"
-                    android:textSize="70pt"
+                     android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_weight"
                     app:layout_constraintLeft_toLeftOf="@+id/detect_tv_age" />
 
@@ -156,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_blood_type"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_blood_type"
                     tools:text="O型" />
@@ -179,8 +179,8 @@
                     android:layout_marginLeft="60pt"
                     android:layout_marginTop="60pt"
                     android:text="体检结果"
-                    android:textColor="#999999"
-                    android:textSize="56pt"
+                    android:textColor="#333333"
+                    android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -192,7 +192,7 @@
                     android:layout_marginTop="40pt"
                     android:text="体重:  "
                     android:textColor="#999999"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result" />
 
@@ -202,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60pt"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_weight"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_weight"
                     tools:text="62kg" />
@@ -222,7 +222,7 @@
                     android:layout_marginTop="40pt"
                     android:text="血氧饱和度： "
                     android:textColor="#999999"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     android:visibility="gone"
                     app:layout_constraintLeft_toLeftOf="@+id/detect_tv_result_weight"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_weight" />
@@ -233,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60pt"
                     android:textColor="#D13B39"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_oxygen"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_oxygen"
@@ -245,7 +245,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="60pt"
                     android:textColor="#D13B39"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_oxygen"
                     app:layout_constraintRight_toRightOf="parent"
@@ -259,7 +259,7 @@
                     android:layout_marginTop="40pt"
                     android:text="收缩压： "
                     android:textColor="#999999"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_oxygen" />
 
@@ -268,7 +268,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_high_pressure"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_high_pressure"
                     tools:text="0.0" />
@@ -279,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="60pt"
                     android:textColor="#D13B39"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     android:visibility="gone"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_high_pressure" />
@@ -292,7 +292,7 @@
                     android:layout_marginTop="40pt"
                     android:text="舒张压： "
                     android:textColor="#999999"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_high_pressure" />
 
@@ -300,8 +300,8 @@
                     android:id="@+id/detect_tv_result_low_pressure_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#D13B39"
-                    android:textSize="72pt"
+                    android:textColor="#333333"
+                     android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_low_pressure"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_low_pressure"
                     tools:text="0.0" />
@@ -314,7 +314,7 @@
                     android:layout_marginTop="40pt"
                     android:text="体温： "
                     android:textColor="#999999"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_low_pressure" />
 
@@ -323,7 +323,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_temperate"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_temperate" />
 
@@ -335,7 +335,7 @@
                     android:layout_marginTop="40pt"
                     android:text="血糖： "
                     android:textColor="#999999"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_temperate" />
 
@@ -344,7 +344,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_sugar"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_sugar" />
 
@@ -357,7 +357,7 @@
                     android:layout_marginTop="60pt"
                     android:text="心电： "
                     android:textColor="#999999"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_sugar" />
@@ -367,7 +367,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="72pt"
+                      android:textSize="66pt"
                     app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_ecg"
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_ecg" />
             </android.support.constraint.ConstraintLayout>
@@ -392,7 +392,7 @@
                         android:layout_marginLeft="60pt"
                         android:text="健康症状： "
                         android:textColor="#999999"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                     <TextView
                         android:id="@+id/detect_tv_result_health_zz_info"
@@ -400,7 +400,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="#333333"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -417,7 +417,7 @@
                         android:layout_marginLeft="60pt"
                         android:text="高血压相关症状： "
                         android:textColor="#999999"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                     <TextView
                         android:id="@+id/detect_tv_result_pressure_zz_info"
@@ -425,7 +425,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="#333333"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                 </LinearLayout>
 
@@ -443,7 +443,7 @@
                         android:layout_marginLeft="60pt"
                         android:text="糖尿病相关症状： "
                         android:textColor="#999999"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                     <TextView
                         android:id="@+id/detect_tv_result_sugar_zz_info"
@@ -451,7 +451,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="#333333"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                 </LinearLayout>
 
@@ -469,7 +469,7 @@
                         android:layout_marginLeft="60pt"
                         android:text="运动时间： "
                         android:textColor="#999999"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                     <TextView
                         android:id="@+id/detect_tv_result_health_run_time_info"
@@ -477,7 +477,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="#333333"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                 </LinearLayout>
 
@@ -495,7 +495,7 @@
                         android:layout_marginLeft="60pt"
                         android:text="盐摄入量： "
                         android:textColor="#999999"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                     <TextView
                         android:id="@+id/detect_tv_result_health_salt_info"
@@ -503,7 +503,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="#333333"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                 </LinearLayout>
 
@@ -521,7 +521,7 @@
                         android:layout_marginLeft="60pt"
                         android:text="饮酒情况： "
                         android:textColor="#999999"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                     <TextView
                         android:id="@+id/detect_tv_result_health_drink_info"
@@ -529,7 +529,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="#333333"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                 </LinearLayout>
 
@@ -548,7 +548,7 @@
                         android:layout_marginLeft="60pt"
                         android:text="吸烟情况： "
                         android:textColor="#999999"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                     <TextView
                         android:id="@+id/detect_tv_result_health_smoke_info"
@@ -556,7 +556,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="#333333"
-                        android:textSize="72pt" />
+                          android:textSize="66pt" />
 
                 </LinearLayout>
 
