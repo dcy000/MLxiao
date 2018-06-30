@@ -297,13 +297,16 @@ public class DetectResultActivity extends BaseActivity {
                             mDetectTvNameInfo.setText(data.bname + "");
                             mDetectTvAgeInfo.setText(data.age + "");
                             mDetectTvGenderInfo.setText(data.sex + "");
+                            //接口数据接口更改 身高体重使用外层数据
+                            mDetectTvHeightInfo.setText(data.height);
+                            mDetectTvWeightInfo.setText(data.weight);
 
 
                             PersonInfoResultBean.DataBean.RecordBean record = data.record;
                             if (record != null) {
                                 mDetectTvBloodTypeInfo.setText(record.bloodType + "型");
-                                mDetectTvHeightInfo.setText(record.height);
-                                mDetectTvWeightInfo.setText(record.weight);
+//                                mDetectTvHeightInfo.setText(record.height);
+//                                mDetectTvWeightInfo.setText(record.weight);
                             }
                         }
 
