@@ -51,13 +51,12 @@ public class PersonInfoResultBean  implements Serializable{
         public String sex;
         public String eqid;
         public String smoke;
-        public int weight;
         public String smokeCode;
         public String drinkCode;
         public String drink;
         public String eatingHabitsCode;
         public String bname;
-        public String address;
+        public String dz;
         public String blood_type;
         public RecordBean record;
         public String tel;
@@ -69,7 +68,9 @@ public class PersonInfoResultBean  implements Serializable{
         public String user_photo;
         public int age;
         public int categoryid;
-        public int height;
+        public String address;
+        public String height;
+        public String weight;
 
         public static class RecordBean {
             /**

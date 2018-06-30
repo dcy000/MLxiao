@@ -240,14 +240,14 @@ public class DetectResultActivity extends BaseActivity {
             llHealthZz.setVisibility(View.GONE);
         } else {
             llHealthZz.setVisibility(View.VISIBLE);
-            detectTvResultHealthZzInfo.setText(data.healthSymptom);
+            detectTvResultHealthZzInfo.setText(data.healthSymptom.replaceAll("null",""));
         }
         //高血压体检症状
         if (data.hypertensionSymptom == null) {
             llPressureSmoke.setVisibility(View.GONE);
         } else {
             llPressureSmoke.setVisibility(View.VISIBLE);
-            detectTvResultPressureZzInfo.setText(data.hypertensionSymptom);
+            detectTvResultPressureZzInfo.setText(data.hypertensionSymptom.replaceAll("null",""));
         }
 
         //糖尿病体检症状
@@ -255,7 +255,7 @@ public class DetectResultActivity extends BaseActivity {
             llSugarZz.setVisibility(View.GONE);
         } else {
             llSugarZz.setVisibility(View.VISIBLE);
-            detectTvResultSugarZzInfo.setText(data.diabetesSymptom );
+            detectTvResultSugarZzInfo.setText(data.diabetesSymptom .replaceAll("null",""));
         }
 
         //糖尿病症状
