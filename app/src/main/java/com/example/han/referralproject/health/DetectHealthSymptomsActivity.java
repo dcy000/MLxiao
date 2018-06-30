@@ -60,10 +60,10 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
                 int count = gvItems.getCheckedItemCount();
                 long[] checked = new long[count];
                 int j = 0;
-                for (int i = 0; i < items.size() ; i++) {
+                for (int i = 0; i < items.size(); i++) {
                     if (checkedItemPositions.get(i)) {
                         checked[j] = i;
-                        checked[j]+=1;
+                        checked[j] += 1;
                         j++;
                     }
                 }
@@ -114,8 +114,6 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
                 items.add("眼花耳鸣");
                 items.add("呼吸困难");
                 items.add("心悸胸闷");
-                items.add("慢性咳嗽");
-                items.add("咳痰");
                 items.add("鼻衄出血不止");
                 items.add("四肢发麻");
                 items.add("下肢水肿");
@@ -183,6 +181,11 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
 
         @Override
         public int getCount() {
+            //糖尿病和高血压随访里面没有最后一条的 "其他"选项  将其隐藏
+            if ("detectPressure".equals(detectCategory) ||
+                    "detectSugar".equals(detectCategory)) {
+                return items.size() - 1;
+            }
             return items.size();
         }
 
