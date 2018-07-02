@@ -19,7 +19,7 @@ public class BciGameActivity extends AppCompatActivity {
     private View mTargetApple;
     private View mTargetBasket;
 
-    private AttentionObservable mAttentionObservable;
+    private BciSignalObservable mBciSignalObservable;
 
     private ConstraintSet constraintSet = new ConstraintSet();
     private ConstraintSet endConstraintSet = new ConstraintSet();
@@ -37,8 +37,8 @@ public class BciGameActivity extends AppCompatActivity {
     }
 
     private void initAttention() {
-        mAttentionObservable = new AttentionObservable();
-        mAttentionObservable.registerObserver(new AttentionObservable.Observer() {
+        mBciSignalObservable = new BciSignalObservable();
+        mBciSignalObservable.registerObserver(new BciSignalObservable.Observer() {
             @Override
             public void onAttentionChanged(int intensity) {
                 int width = getResources().getDisplayMetrics().widthPixels;
@@ -92,7 +92,7 @@ public class BciGameActivity extends AppCompatActivity {
             return;
         }
         hasRun = false;
-        mAttentionObservable.notifyBlinkChanged(100);
+        mBciSignalObservable.notifyBlinkChanged(100);
         mHandler.removeCallbacksAndMessages(null);
 
         float left = mTargetApple.getX();
@@ -134,7 +134,7 @@ public class BciGameActivity extends AppCompatActivity {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                mAttentionObservable.notifyAttentionChanged(mRandom.nextInt(100));
+                mBciSignalObservable.notifyAttentionChanged(mRandom.nextInt(100));
                 mHandler.postDelayed(this, 500);
             }
         });

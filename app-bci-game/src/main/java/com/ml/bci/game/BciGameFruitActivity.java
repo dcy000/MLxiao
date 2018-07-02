@@ -3,13 +3,9 @@ package com.ml.bci.game;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.bluetooth.BluetoothAdapter;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -24,11 +20,9 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.ml.bci.game.common.utils.FragmentUtils;
 import com.ml.bci.game.common.widget.recyclerview.AutoScrollHelper;
-import com.neurosky.thinkgear.TGDevice;
-import com.neurosky.thinkgear.TGEegPower;
 
 import java.util.ArrayList;
 
@@ -40,12 +34,13 @@ public class BciGameFruitActivity extends AppCompatActivity {
     private TextView tvFruitIndicator;
     private ProgressBar pbAttention;
     private RecyclerView rvFruits;
-    private ImageView ivFruitBasketBack;
+
     private ImageView ivFruitChoose;
     private Adapter mAdapter;
     private AutoScrollHelper mAutoScrollHelper;
     private GalleryLayoutManager mLayoutManager;
-    private AttentionObservable mAttentionObservable;
+
+    private BciDeviceControllerFragment mBciDeviceControllerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +52,15 @@ public class BciGameFruitActivity extends AppCompatActivity {
         setContentView(R.layout.bci_activity_game_fruit);
         initView();
         initAttention();
-        initAttentionDevice();
     }
-
 
     private void initView() {
         clRoot = (ConstraintLayout) findViewById(R.id.bci_cl_root);
         tvFruitIndicator = (TextView) findViewById(R.id.bci_tv_fruit_indicator);
         pbAttention = (ProgressBar) findViewById(R.id.bci_pb_attention);
-        ivFruitBasketBack = (ImageView) findViewById(R.id.bci_iv_fruit_basket_back);
         ivFruitChoose = (ImageView) findViewById(R.id.bci_iv_choose_fruit);
         rvFruits = (RecyclerView) findViewById(R.id.bci_rv_fruits);
 
-//        mLayoutManager = new OverFlyingLayoutManager(this);
-//        mLayoutManager.setMinScale(1.0f);
-//        mLayoutManager.setItemSpace(0);
-//        mLayoutManager.setMaxVisibleItemCount(fruitResources.size());
-//        mLayoutManager.setOrientation(OverFlyingLayoutManager.HORIZONTAL);
         mLayoutManager = new GalleryLayoutManager(GalleryLayoutManager.HORIZONTAL);
         mLayoutManager.attach(rvFruits, fruitResources.size() - 1);
         mLayoutManager.setCallbackInFling(true);
@@ -96,11 +83,11 @@ public class BciGameFruitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ivFruitChoose.setVisibility(View.GONE);
-                closeDevice();
+                mBciDeviceControllerFragment.closeDevice();
                 initFruits();
                 mAdapter.notifyDataSetChanged();
                 rvFruits.smoothScrollToPosition(fruitResources.size() - 1);
-                connectDevice();
+                mBciDeviceControllerFragment.connectDevice();
             }
         });
     }
@@ -114,8 +101,11 @@ public class BciGameFruitActivity extends AppCompatActivity {
     }
 
     private void initAttention() {
-        mAttentionObservable = new AttentionObservable();
-        mAttentionObservable.registerObserver(new AttentionObservable.Observer() {
+        mBciDeviceControllerFragment = FragmentUtils.get(
+                getSupportFragmentManager(),
+                BciDeviceControllerFragment.class
+        );
+        mBciDeviceControllerFragment.register(new BciSignalObservable.Observer() {
             @Override
             public void onAttentionChanged(int intensity) {
                 pbAttention.setProgress(intensity);
@@ -128,15 +118,13 @@ public class BciGameFruitActivity extends AppCompatActivity {
             @Override
             public void onBlinkChanged(int intensity) {
                 if (intensity > 88) {
-                    mockAnimate();
+                    animateDown();
                 }
             }
         });
-
-//        mockAnimate();
     }
 
-    private void mockAnimate() {
+    private void animateDown() {
         rvFruits.post(new Runnable() {
             @Override
             public void run() {
@@ -161,10 +149,6 @@ public class BciGameFruitActivity extends AppCompatActivity {
                         }
                     }, 16);
                 }
-
-//                if (fruitResources.size() > 0) {
-//                    rvFruits.postDelayed(this, 600);
-//                }
             }
         });
     }
@@ -271,7 +255,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
             ivFruit = (ImageView) itemView.findViewById(R.id.bci_iv_item_fruit);
         }
 
-        public void onBind(int position) {
+        public void onBind() {
             synchronized (fruitResources) {
                 int fruitRes = fruitResources.get(getAdapterPosition());
                 ivFruit.setImageResource(fruitRes);
@@ -294,7 +278,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(VH holder, int position) {
-            holder.onBind(position);
+            holder.onBind();
         }
 
         @Override
@@ -308,259 +292,4 @@ public class BciGameFruitActivity extends AppCompatActivity {
             return fruitResources.size();
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        closeDevice();
-    }
-
-    public static final String TAG_TG_DEVICE = "TGDevice";
-
-    private int subjectContactQuality_last = -1; /* start with impossible value */
-    private int subjectContactQuality_cnt = 200; /* start over the limit, so it gets reported the 1st time */
-
-    private double task_famil_baseline, task_famil_cur, task_famil_change;
-    private boolean task_famil_first = true;
-    private double task_diff_baseline, task_diff_cur, task_diff_change;
-    private boolean task_diff_first = true;
-
-    private BluetoothAdapter adapter;
-    private TGDevice tgDevice;
-
-    public void connectDevice() {
-        if (tgDevice != null
-                && tgDevice.getState() != TGDevice.STATE_CONNECTING
-                && tgDevice.getState() != TGDevice.STATE_CONNECTED) {
-            tgDevice.connect(true);
-        }
-
-    }
-
-    public void closeDevice() {
-        if (tgDevice != null) {
-            tgDevice.close();
-        }
-    }
-
-    private void initAttentionDevice() {
-        adapter = BluetoothAdapter.getDefaultAdapter();
-        if (adapter == null) {
-            Toast.makeText(this, "无法获取蓝牙", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        tgDevice = new TGDevice(adapter, callbackHandler);
-    }
-
-    private void onBlinkChanged(int value) {
-        mAttentionObservable.notifyBlinkChanged(value);
-    }
-
-    private void onAttentionChanged(int value) {
-        mAttentionObservable.notifyAttentionChanged(value);
-    }
-
-    private Handler callbackHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            int what = msg.what;
-            int arg1 = msg.arg1;
-            switch (what) {
-                case TGDevice.MSG_MODEL_IDENTIFIED:
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_MODEL_IDENTIFIED");
-                    tgDevice.setBlinkDetectionEnabled(true);
-                    tgDevice.setTaskDifficultyRunContinuous(true);
-                    tgDevice.setTaskDifficultyEnable(true);
-                    tgDevice.setTaskFamiliarityRunContinuous(true);
-                    tgDevice.setTaskFamiliarityEnable(true);
-                    tgDevice.setRespirationRateEnable(true); /// not allowed on EEG hardware, here to show the override message
-                    break;
-                case TGDevice.MSG_STATE_CHANGE:
-                    String state;
-                    switch (arg1) {
-                        case TGDevice.STATE_IDLE:
-                            state = "STATE_IDLE";
-                            break;
-                        case TGDevice.STATE_CONNECTING:
-                            state = "STATE_CONNECTING";
-                            break;
-                        case TGDevice.STATE_CONNECTED:
-                            state = "STATE_CONNECTING";
-                            tgDevice.start();
-                            break;
-                        case TGDevice.STATE_NOT_FOUND:
-                            state = "STATE_NOT_FOUND. Check bluetooth!!!";
-                            break;
-                        case TGDevice.STATE_ERR_NO_DEVICE:
-                            state = "STATE_ERR_NO_DEVICE. Check bluetooth!!!";
-                            break;
-                        case TGDevice.STATE_ERR_BT_OFF:
-                            state = "STATE_ERR_BT_OFF. Turn on Bluetooth and try again!!!";
-                            break;
-                        case TGDevice.STATE_DISCONNECTED:
-                            state = "STATE_DISCONNECTED.";
-                            break;
-                        default:
-                            state = "" + arg1;
-                            break;
-                    }
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_STATE_CHANGE " + state);
-                    break;
-                case TGDevice.MSG_POOR_SIGNAL:
-                    if (subjectContactQuality_cnt >= 30 || arg1 != subjectContactQuality_last) {
-                        String poor = arg1 == 0 ? " Good" : " Poor";
-                        Log.d(TAG_TG_DEVICE, "handleMessage: MSG_POOR_SIGNAL " + arg1 + poor);
-                        subjectContactQuality_cnt = 0;
-                        subjectContactQuality_last = arg1;
-                    } else {
-                        subjectContactQuality_cnt++;
-                    }
-                    break;
-                case TGDevice.MSG_RAW_DATA:
-//                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_RAW_DATA ");
-                    break;
-                case TGDevice.MSG_ATTENTION:
-                    onAttentionChanged(arg1);
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_ATTENTION " + arg1);
-                    break;
-                case TGDevice.MSG_MEDITATION:
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_MEDITATION " + arg1);
-                    break;
-                case TGDevice.MSG_EEG_POWER:
-                    TGEegPower e = (TGEegPower) msg.obj;
-                    if (e != null) {
-                        Log.d(TAG_TG_DEVICE, "handleMessage: MSG_MEDITATION MSG_EEG_POWER: " + e.delta + " theta: " + e.theta + " alpha1: " + e.lowAlpha + " alpha2: " + e.highAlpha + "\n");
-                    }
-                    break;
-                case TGDevice.MSG_FAMILIARITY:
-                    task_famil_cur = (Double) msg.obj;
-                    String familiarity;
-                    if (task_famil_first) {
-                        task_famil_first = false;
-                        familiarity = "start";
-                    } else {
-                        /*
-                         * calculate the percentage change from the previous sample
-                		 */
-                        task_famil_change = calcPercentChange(task_famil_baseline, task_famil_cur);
-                        if (task_famil_change > 500.0 || task_famil_change < -500.0) {
-                            familiarity = "excessive range";
-                        } else {
-                            familiarity = String.valueOf(task_famil_change) + "%";
-                        }
-                    }
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_FAMILIARITY " + familiarity);
-                    task_famil_baseline = task_famil_cur;
-                    break;
-                case TGDevice.MSG_DIFFICULTY:
-                    task_diff_cur = (Double) msg.obj;
-                    String difficulty;
-                    if (task_diff_first) {
-                        task_diff_first = false;
-                        difficulty = "start";
-                    } else {
-                        /*
-                         * calculate the percentage change from the previous sample
-                		 */
-                        task_diff_change = calcPercentChange(task_diff_baseline, task_diff_cur);
-                        if (task_diff_change > 500.0 || task_diff_change < -500.0) {
-                            difficulty = "excessive range";
-                        } else {
-                            difficulty = task_diff_change + "%";
-                        }
-                    }
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_DIFFICULTY " + difficulty);
-                    task_diff_baseline = task_diff_cur;
-                    break;
-                case TGDevice.MSG_ZONE:
-                    String zone;
-                    switch (arg1) {
-                        case 3:
-                            zone = " Elite";
-                            break;
-                        case 2:
-                            zone = " Intermediate";
-                            break;
-                        case 1:
-                            zone = " Beginner";
-                            break;
-                        case 0:
-                        default:
-                            zone = " relax and try to focus";
-                            break;
-                    }
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_ZONE " + zone);
-                    break;
-                case TGDevice.MSG_BLINK:
-                    onBlinkChanged(arg1);
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_BLINK " + arg1);
-                    break;
-                case TGDevice.MSG_ERR_CFG_OVERRIDE:
-                    String errorMsg;
-                    switch (arg1) {
-                        case TGDevice.ERR_MSG_BLINK_DETECT:
-                            errorMsg = "blinkDetect";
-                            break;
-                        case TGDevice.ERR_MSG_TASKFAMILIARITY:
-                            errorMsg = "Familiarity";
-                            break;
-                        case TGDevice.ERR_MSG_TASKDIFFICULTY:
-                            errorMsg = "Difficulty";
-                            break;
-                        case TGDevice.ERR_MSG_POSITIVITY:
-                            errorMsg = "Positivity";
-                            break;
-                        case TGDevice.ERR_MSG_RESPIRATIONRATE:
-                            errorMsg = "RESPIRATIONRATE";
-                            break;
-                        default:
-                            errorMsg = arg1 + "";
-                            break;
-                    }
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_ERR_CFG_OVERRIDE " + errorMsg);
-                    break;
-                case TGDevice.MSG_ERR_NOT_PROVISIONED:
-                    String notProvided;
-                    switch (arg1) {
-                        case TGDevice.ERR_MSG_BLINK_DETECT:
-                            notProvided = "blinkDetect";
-                            break;
-                        case TGDevice.ERR_MSG_TASKFAMILIARITY:
-                            notProvided = "Familiarity";
-                            break;
-                        case TGDevice.ERR_MSG_TASKDIFFICULTY:
-                            notProvided = "Difficulty";
-                            break;
-                        case TGDevice.ERR_MSG_POSITIVITY:
-                            notProvided = "Positivity";
-                            break;
-                        case TGDevice.ERR_MSG_RESPIRATIONRATE:
-                            notProvided = "RESPIRATIONRATE";
-                            break;
-                        default:
-                            notProvided = arg1 + "";
-                            break;
-                    }
-                    Log.d(TAG_TG_DEVICE, "handleMessage: MSG_ERR_NOT_PROVISIONED " + notProvided);
-                    break;
-                default:
-                    break;
-            }
-            return false;
-        }
-    });
-
-    private double calcPercentChange(double baseline, double current) {
-        double change;
-
-        if (baseline == 0.0) baseline = 1.0; //don't allow divide by zero
-        /*
-         * calculate the percentage change
-		 */
-        change = current - baseline;
-        change = (change / baseline) * 1000.0 + 0.5;
-        change = Math.floor(change) / 10.0;
-        return change;
-    }
-
 }

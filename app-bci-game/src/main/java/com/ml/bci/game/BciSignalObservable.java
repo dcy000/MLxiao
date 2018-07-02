@@ -6,7 +6,7 @@ import android.database.Observable;
  * Created by afirez on 2018/6/12.
  */
 
-public class AttentionObservable extends Observable<AttentionObservable.Observer> {
+public class BciSignalObservable extends Observable<BciSignalObservable.Observer> {
 
     public interface Observer {
         void onAttentionChanged(int intensity);

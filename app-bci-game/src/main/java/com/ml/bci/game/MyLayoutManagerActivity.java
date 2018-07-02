@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ml.bci.game.common.widget.recyclerview.MyLayoutManager;
+import com.ml.bci.game.common.widget.recyclerview.RandomLayoutManager;
 
 import java.util.ArrayList;
 
 public class MyLayoutManagerActivity extends AppCompatActivity {
 
     private RecyclerView rvFruits;
-    private MyLayoutManager layoutManager;
+    private RandomLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class MyLayoutManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_layout_manager);
         rvFruits = (RecyclerView) findViewById(R.id.rv_fruits);
 
-        layoutManager = new MyLayoutManager();
+        layoutManager = new RandomLayoutManager(rvFruits);
         rvFruits.setLayoutManager(layoutManager);
         rvFruits.setAdapter(adapter);
 

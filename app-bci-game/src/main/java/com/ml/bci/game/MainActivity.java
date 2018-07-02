@@ -12,8 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        LeakThread leakThread = new LeakThread();
-//        leakThread.start();
     }
 
     public void helloOnClick(View view) {
@@ -24,16 +22,5 @@ public class MainActivity extends AppCompatActivity {
     public void fruitOnClick(View view) {
         Intent intent = new Intent(this, BciGameFruitActivity.class);
         startActivity(intent);
-    }
-
-    class LeakThread extends Thread {
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(60 * 60 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
