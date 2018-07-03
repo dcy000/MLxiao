@@ -1335,6 +1335,9 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
                 allReservationHistory.clear();
                 allReservationHistory.addAll(response);
                 list.clear();

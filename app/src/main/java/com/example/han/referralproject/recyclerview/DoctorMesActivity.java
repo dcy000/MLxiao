@@ -409,7 +409,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
                                                 }
                                                 String applyAmount = doctor.getApply_amount();
-                                                if (Float.parseFloat(data.mywallet) > Float.parseFloat(applyAmount)) {
+                                                if (Float.parseFloat(data.mywallet) >=Float.parseFloat(applyAmount)) {
                                                     ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
                                                     finish();
                                                 } else {

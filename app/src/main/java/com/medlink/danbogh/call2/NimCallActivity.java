@@ -125,7 +125,7 @@ public class NimCallActivity extends AppCompatActivity {
                             if (resultBean.data != null) {
                                 String mywallet = resultBean.data.mywallet;
                                 if (mywallet != null) {
-                                    if (Float.parseFloat(mywallet) > 0) {
+                                    if (Float.parseFloat(mywallet) >= 0) {
                                         launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
                                     } else {
                                         T.show("余额不足，请充值后再试");
@@ -190,7 +190,7 @@ public class NimCallActivity extends AppCompatActivity {
                             if (resultBean.data != null) {
                                 String mywallet = resultBean.data.mywallet;
                                 if (mywallet != null) {
-                                    if (Float.parseFloat(mywallet) > 0) {
+                                    if (Float.parseFloat(mywallet) >= 0) {
                                         launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
                                     } else {
                                         T.show("余额不足，请充值后再试");
