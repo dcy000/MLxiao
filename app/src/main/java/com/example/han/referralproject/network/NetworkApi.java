@@ -409,6 +409,9 @@ public class NetworkApi {
 
 
     public static void YuYue_info(String userid, String docterid, NetworkManager.SuccessCallback<ArrayList<YuYueInfo>> listener, NetworkManager.FailedCallback failedCallback) {
+       if(docterid==null){
+           return;
+       }
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("docterid", docterid);

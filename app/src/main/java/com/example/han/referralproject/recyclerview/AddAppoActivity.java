@@ -176,8 +176,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(int which) {
                         if (which == 1) {
 
-                            Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class).putExtras(getIntent());
-                            startActivity(intent);
+//                            Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class).putExtras(getIntent());
+//                            startActivity(intent);
                             finish();
 
                         }

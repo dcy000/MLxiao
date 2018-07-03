@@ -1248,7 +1248,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                 if (list.size() < 3) {
                     Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class).putExtra("doctorId", doctorId);
                     startActivity(intent);
-                    finish();
+//                    finish();
 
                 } else {
                     speak(getString(R.string.yuyue_limit));
