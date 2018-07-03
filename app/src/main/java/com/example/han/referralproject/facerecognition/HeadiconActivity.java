@@ -220,7 +220,8 @@ public class HeadiconActivity extends BaseActivity implements AddParentPhoneDial
                     public void complete(String key, ResponseInfo info, JSONObject res) {
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-                            NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
+                            String userId = MyApplication.getInstance().userId;
+                            NetworkApi.return_imageUrl(imageUrl, userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
                                     new NetworkManager.SuccessCallback<Object>() {
                                         @Override
                                         public void onSuccess(Object response) {
