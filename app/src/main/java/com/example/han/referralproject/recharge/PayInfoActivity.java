@@ -167,8 +167,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         //支付宝使用ALI_OFFLINE_QRCODE
 
         channelType = BCReqParams.BCChannelTypes.valueOf(type);
-        billTitle = "杭州国辰迈联机器人科技有限公司";
-//        billTitle = "浙江颐硕堂医药有限公司";
+//        billTitle = "杭州国辰迈联机器人科技有限公司";
+        billTitle = "浙江颐硕堂医药有限公司";
 
 
         loadingDialog = new ProgressDialog(this);
@@ -329,7 +329,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
         Map<String, String> optional = new HashMap<String, String>();
         optional.put("用途", "用户充值");
-        optional.put("testEN", "迈联智慧");
+//        optional.put("testEN", "迈联智慧");
+        optional.put("testEN", "颐硕堂医药");
 
         //初始化回调入口
         BCCallback callback = new BCCallback() {

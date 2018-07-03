@@ -106,7 +106,7 @@ public class MyApplication extends Application {
         NimInitHelper.getInstance().init(this, true);
 //        initOkHttpUtils();
 
-        BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
+        BeeCloud.setAppIdAndSecret("ce7e9eaa-0fe0-4609-a468-856b0dc37a5d", "5437c9e4-848b-43d7-a379-cd19dae07aad");
 
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
