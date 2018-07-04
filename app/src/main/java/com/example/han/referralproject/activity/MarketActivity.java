@@ -58,7 +58,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
         speak("主人，欢迎来到健康商城");
         rgHealthGoods.setOnCheckedChangeListener(this);
         vpGoods.addOnPageChangeListener(this);
-        vpGoods.setOffscreenPageLimit(10);
+        vpGoods.setOffscreenPageLimit(1);
         setEnableListeningLoop(false);
         getGoodType();
 //        vpGoods.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
