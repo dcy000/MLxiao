@@ -2,26 +2,21 @@ package com.ml.bci.game.common.widget.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by lenovo on 2018/6/29.
+ * Created by afirez on 2018/6/29.
  */
 
 public class RandomLayoutManager extends RecyclerView.LayoutManager {
     private static final String TAG = "RandomLayoutManager";
-    private int mWidth;
-    private int mHeight;
 
-    private RecyclerView mRecyclerView;
-    private int mUnused;
+    public RandomLayoutManager() {
 
-    public RandomLayoutManager(RecyclerView recyclerView) {
-        mRecyclerView = recyclerView;
     }
 
     @Override
@@ -34,11 +29,8 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
 
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        Log.d(TAG, "onLayoutChildren: ");
-
         //We have nothing to show for an empty data set but clear any existing views
         if (getItemCount() == 0) {
-            mUnused = 0;
             detachAndScrapAttachedViews(recycler);
             return;
         }
@@ -50,123 +42,125 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
 
         detachAndScrapAttachedViews(recycler);
 
-        fillVisibleChildren(recycler, state);
+        layoutChildren(recycler, state, 0);
     }
 
-    private int mOffsetX = 0;
+    private int mWidth;
+    private int mHeight;
+    private ArrayList<View> hidden = new ArrayList<>();
+    private boolean hasRemoved = false;
+    private int mOffset = 0;
 
-    private SparseBooleanArray mVisibles = new SparseBooleanArray();
+    private void layoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state, int dx) {
 
-    private int mLeftOffset0;
-    private int mTopOffset0;
-    private int mLeftOffset1;
-    private int mTopOffset1;
-    private int mLeftOffset;
-    private int mTopOffset;
-
-
-    private void fillVisibleChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        if (mOffsetX >= 0) {
+        if (dx >= 0) {
             return;
         }
+        mOffset += -dx;
 
-        int itemCount = getItemCount();
+        if (getChildCount() == 0) {
+            hasRemoved = false;
+            View scrap = recycler.getViewForPosition(0);
+            addView(scrap);
+            measureChildWithMargins(scrap, 0, 0);
+            mWidth = getDecoratedMeasuredWidth(scrap);
+            mHeight = getDecoratedMeasuredHeight(scrap);
+            detachAndScrapView(scrap, recycler);
+        }
 
-        for (int i = 0; i < itemCount; i++) {
-            View child;
-            if (getChildCount() == 0) {
-                View view = recycler.getViewForPosition(0);
-                addView(view);
-                measureChildWithMargins(view, 0, 0);
-                mWidth = getDecoratedMeasuredWidth(view);
-                mHeight = getDecoratedMeasuredHeight(view);
+        // find children out of range to remove
+        for (int i = 0; i < getChildCount(); i++) {
+            View view = getChildAt(i);
+            int left = mOffset - mWidth * (i + 1) - calcTotalLeftMargin(i);
+            if (outOfRange(left)) {
+                hasRemoved = true;
+                hidden.add(view);
+            }
+        }
+        // remove children out of range
+        for (View view : hidden) {
+            mOffset -= mWidth + getLeftMargin(view);
+            removeAndRecycleView(view, recycler);
+        }
+        hidden.clear();
 
-                mTopOffset0 = getDecoratedTop(view);
-                removeAndRecycleView(view, recycler);
-            } else {
-                for (int j = 0; j < getChildCount(); j++) {
-                    View view = getChildAt(j);
-                    int theLeft = getDecoratedLeft(view) - ((RecyclerView.LayoutParams) view.getLayoutParams()).leftMargin - mOffsetX;
-                    if (theLeft > getWidth()) {
-                        mUnused = getWidth() - mWidth * getChildCount() - calcTotalLeftMargin() - mOffsetX;
-                        removeAndRecycleView(view, recycler);
-                    }
+        // layout children
+        int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = getChildAt(i);
+            int left = mOffset - mWidth * (i + 1) - calcTotalLeftMargin(i);
+            Log.d(TAG, "layoutChildren: LayoutPosition=" + getPosition(view) +  " AdapterPosition=" + getAdapterPosition(view));
+            layoutDecorated(view, left, getDecoratedTop(view), left + mWidth, getDecoratedBottom(view));
+        }
+
+        if (!hasRemoved) {
+            for (int i = childCount; i < getItemCount(); i++) {
+                View scrap;
+                int randomPosition = makeAvailableRandomPosition();
+                Log.d(TAG, "layoutChildren: randomPosition" + randomPosition);
+                scrap = recycler.getViewForPosition(randomPosition);
+                ((RecyclerView.LayoutParams) scrap.getLayoutParams()).leftMargin = makeRandomLeftMargin();
+                int left;
+                if (i == 0) {
+                    mOffset = -dx;
+                    left = mOffset - mWidth;
+                } else {
+                    left = mOffset - mWidth * (i + 1) - calcTotalLeftMargin(i);
                 }
-                View view = getChildAt(0);
-                mWidth = getDecoratedMeasuredWidth(view);
-                mHeight = getDecoratedMeasuredHeight(view);
-                mLeftOffset0 = getDecoratedLeft(view) - mOffsetX;
-                mTopOffset0 = getDecoratedTop(view);
-            }
-            mLeftOffset0 = mLeftOffset0 - mOffsetX - mWidth;
-            child = getChildAt(i);
-            int left = mLeftOffset0 - mWidth * i;
-
-            int leftMargin;
-            for (int j = 0; j < i; j++) {
-                leftMargin = ((RecyclerView.LayoutParams) getChildAt(j).getLayoutParams()).leftMargin;
-                left -= leftMargin;
-            }
-
-            if (mLeftOffset0 + mWidth >= getWidth()) {
-                left -= mUnused;
-            }
-            int top = mTopOffset0;
-            int right = left + mWidth;
-            int bottom = top + mHeight;
-
-            if (left + mWidth < 0) {
-                break;
-            }
-
-            if (mWidth < (getWidth() - mWidth * getChildCount() - calcTotalLeftMargin())) {
-                int adapterPosition = makeAvailableRandomPosition();
-                if (child == null) {
-                    child = recycler.getViewForPosition(adapterPosition);
-                    RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-                    layoutParams.leftMargin = makeRandomLeftMargin();
-                    addView(child);
-                    measureChildWithMargins(child, 0, 0);
+                if (outOfRange(left)) {
+                    break;
                 }
-                Log.d(TAG, "fillVisibleChildren:" + getPosition(child)
-                        + " \nleft = " + left
-                        + " \ntop=" + top
-                        + " \nright=" + right
-                        + " \nbottom=" + bottom
-                        + " \nleftMargin= " + ((RecyclerView.LayoutParams) child.getLayoutParams()).leftMargin
-                        + " \nunused= " + mUnused
-                        + " \nadapterPosition=" + adapterPosition);
-                layoutDecorated(child, left, top, right, bottom);
+                measureChildWithMargins(scrap, 0, 0);
+                addView(scrap);
+                int top = getDecoratedTop(scrap);
+                int right = left + mWidth;
+                int bottom = top + mHeight;
+                layoutDecorated(scrap, left, top, right, bottom);
             }
         }
     }
 
-    private int calcTotalLeftMargin() {
+    private int getLeftMargin(View view) {
+        return ((RecyclerView.LayoutParams) view.getLayoutParams()).leftMargin;
+    }
+
+    private int getHorizontalSpace() {
+        return getWidth() - getPaddingRight() - getPaddingLeft();
+    }
+
+    private int getAdapterPosition(View view) {
+        return ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewAdapterPosition();
+    }
+
+    private boolean outOfRange(int left) {
+        return left + mWidth <= 0 || left >= getWidth();
+    }
+
+    private int calcTotalLeftMargin(int count) {
         int totalLeftMargin = 0;
-        int childCount = getChildCount();
-        for (int i = 0; i < childCount; i++) {
+        for (int i = 0; i < count; i++) {
             View view = getChildAt(i);
             totalLeftMargin += ((RecyclerView.LayoutParams) view.getLayoutParams()).leftMargin;
         }
         return totalLeftMargin;
     }
 
-    private Random mRandom = new Random();
+    private Random mLeftMarginRandom = new Random();
+    private Random mAdapterPositionRandom = new Random();
 
-    private int maxInteval = 50;
+    private int maxInterval = 50;
 
     private int makeRandomLeftMargin() {
-        return mRandom.nextInt(maxInteval);
+        return mLeftMarginRandom.nextInt(maxInterval);
     }
 
     private int makeAvailableRandomPosition() {
-        int position = mRandom.nextInt(getItemCount());
+        int position = mAdapterPositionRandom.nextInt(getItemCount());
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
-            View view = getChildAt(i);
-            RecyclerView.ViewHolder viewHolder = mRecyclerView.getChildViewHolder(view);
-            if (viewHolder.getAdapterPosition() == position) {
-                position = mRandom.nextInt(getItemCount());
+            int adapterPosition = getAdapterPosition(getChildAt(i));
+            if (adapterPosition == position) {
+                position = mAdapterPositionRandom.nextInt(getItemCount());
                 i = 0;
             }
         }
@@ -175,9 +169,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
 
     @Override
     public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
-        mOffsetX = dx;
-        Log.d(TAG, "scrollHorizontallyBy: offsetX = " + mOffsetX);
-        fillVisibleChildren(recycler, state);
+        layoutChildren(recycler, state, dx);
         return dx;
     }
 

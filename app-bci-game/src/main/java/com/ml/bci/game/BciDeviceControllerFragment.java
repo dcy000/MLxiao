@@ -1,15 +1,12 @@
 package com.ml.bci.game;
 
 import android.bluetooth.BluetoothAdapter;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ml.bci.game.common.utils.T;
 import com.neurosky.thinkgear.TGDevice;

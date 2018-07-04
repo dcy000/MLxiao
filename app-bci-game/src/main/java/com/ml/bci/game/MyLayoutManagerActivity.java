@@ -24,7 +24,7 @@ public class MyLayoutManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_layout_manager);
         rvFruits = (RecyclerView) findViewById(R.id.rv_fruits);
 
-        layoutManager = new RandomLayoutManager(rvFruits);
+        layoutManager = new RandomLayoutManager();
         rvFruits.setLayoutManager(layoutManager);
         rvFruits.setAdapter(adapter);
 
