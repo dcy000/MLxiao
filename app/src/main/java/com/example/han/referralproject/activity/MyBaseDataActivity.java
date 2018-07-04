@@ -2,6 +2,7 @@ package com.example.han.referralproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
@@ -17,17 +17,10 @@ import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -110,6 +103,31 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     protected void onResume() {
         super.onResume();
         getData();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                NetworkApi.getMyBaseData(new NetworkManager.SuccessCallback<UserInfoBean>() {
+                    @Override
+                    public void onSuccess(UserInfoBean response) {
+                        Log.e(TAG, response.toString());
+                        MyBaseDataActivity.this.response = response;
+                        Picasso.with(MyBaseDataActivity.this)
+                                .load(response.user_photo)
+                                .placeholder(R.drawable.avatar_placeholder)
+                                .error(R.drawable.avatar_placeholder)
+                                .tag(this)
+                                .fit()
+                                .into(mHead);
+
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        ToastTool.showShort(message);
+                    }
+                });
+            }
+        }, 1000);
     }
 
     private void getData() {
@@ -140,7 +158,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mDrinking.setText(response.drink);
                 mAddress.setText(response.dz);
                 mHistory.setText(response.mh.trim());
-                if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() >=15) {
+                if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() >= 15) {
                     String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
                     mIdcard.setText(shenfen);
                 }
