@@ -38,6 +38,7 @@ import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.call2.QianZui;
+import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang.StringUtils;
@@ -1342,8 +1343,42 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        yuYueDoctor();
+        yuYue();
     }
+
+    private void yuYue() {
+        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+            @Override
+            public void onSuccess(Doctor response) {
+                if (!TextUtils.isEmpty(response.docterid + "")) {
+                    doctorId = response.docterid + "";
+                    if (!TextUtils.isEmpty(response.docter_photo)) {
+                        Picasso.with(DoctorappoActivity.this)
+                                .load(response.docter_photo)
+                                .placeholder(R.drawable.avatar_placeholder)
+                                .error(R.drawable.avatar_placeholder)
+                                .tag(this)
+                                .fit()
+                                .into(circleImageView);
+
+                    }
+                    mTextView3.setText(response.doctername);
+                    mTextView4.setText("职   级:" + response.duty);
+                    mTextView5.setText("擅   长:" + response.gat);
+                    mTextView12.setText("收费标准:" + response.service_amount + "元/分钟");
+                    yuYueDoctor();
+                }
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+            }
+        });
+
+    }
+
 
     public void yuYueDoctor() {
         NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
