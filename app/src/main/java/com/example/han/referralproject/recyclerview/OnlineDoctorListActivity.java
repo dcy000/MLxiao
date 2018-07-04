@@ -54,7 +54,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
         mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
             mTitleText.setText(getString(R.string.doctor_qianyue));
-            NetworkApi.doctor_list(1, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+            NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                 @Override
                 public void onSuccess(ArrayList<Docter> response) {
                     mlist.clear();

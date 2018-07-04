@@ -27,6 +27,7 @@ import com.example.han.referralproject.yisuotang.fragment.AddParentPhoneDialog;
 import com.google.gson.Gson;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
@@ -162,9 +163,11 @@ public class HeadiconActivity extends BaseActivity implements AddParentPhoneDial
                 SuperiorTelResponseBean resultBean = new Gson().fromJson(body, SuperiorTelResponseBean.class);
                 if (resultBean != null && resultBean.tag) {
                     T.show("提交成功");
+                    onUpLoadHeadSuccess();
                 } else {
                     if (resultBean != null && resultBean.message != null) {
                         T.show(resultBean.message);
+                        MLVoiceSynthetize.startSynthesize(HeadiconActivity.this,"主人,您输入的手机号不存在",false);
                     }
                 }
             }
@@ -173,7 +176,6 @@ public class HeadiconActivity extends BaseActivity implements AddParentPhoneDial
             public void onFinish() {
                 super.onFinish();
                 hideLoadingDialog();
-                onUpLoadHeadSuccess();
             }
         });
     }
