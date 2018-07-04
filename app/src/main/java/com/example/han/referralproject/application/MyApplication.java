@@ -21,6 +21,7 @@ import com.example.han.referralproject.util.ToastTool;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call2.NimInitHelper;
+import com.medlink.danbogh.call2.QianZui;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.wakeup.WakeupHelper;
@@ -48,7 +49,7 @@ public class MyApplication extends Application {
     public String userName;
 
     public String nimUserId() {
-        return "yst_user_" + userId;
+        return QianZui.qianZui + userId;
     }
 
     public String eqid;

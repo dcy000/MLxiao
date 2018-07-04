@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.call2.QianZui;
 import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
@@ -315,16 +316,17 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    NimCallActivity.launch(mContext, "yst_docter_" + doctor.docterid, new NimCallActivity.TimeOutListener() {
+                    NimCallActivity.launch(mContext, QianZui.qianZuiDoc+ doctor.docterid, new NimCallActivity.TimeOutListener() {
                         @Override
                         public void ontimeOut() {
-                            Toast.makeText(DoctorMesActivity.this, "拨打云信客服了哦", Toast.LENGTH_SHORT).show();
+                            //转接客服电话
                             NetworkApi.sendAVMessage(MyApplication.getInstance().userName, LocalShared.getInstance(DoctorMesActivity.this).getDoctorTel(), new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
 
                                 }
                             });
+                            NimCallActivity.launch(mContext, QianZui.qianZuiDoc+ 10001);
                         }
                     });
 //                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {

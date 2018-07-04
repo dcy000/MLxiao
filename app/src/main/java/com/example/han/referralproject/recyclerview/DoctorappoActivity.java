@@ -36,6 +36,7 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.call2.QianZui;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang.StringUtils;
@@ -1157,16 +1158,17 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "yst_docter_" + doctorId, new NimCallActivity.TimeOutListener() {
+                NimCallActivity.launch(DoctorappoActivity.this, QianZui.qianZuiDoc + doctorId, new NimCallActivity.TimeOutListener() {
                     @Override
                     public void ontimeOut() {
-                        Toast.makeText(DoctorappoActivity.this, "拨打云信客服了哦", Toast.LENGTH_SHORT).show();
+                        //转接客服电话
                         NetworkApi.sendAVMessage(MyApplication.getInstance().userName, doctorTel, new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
 
                             }
                         });
+                        NimCallActivity.launch(mContext, QianZui.qianZuiDoc + 10001);
                     }
                 });
             }
@@ -1213,19 +1215,20 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "yst_docter_" + doctorId, new NimCallActivity.TimeOutListener() {
+                NimCallActivity.launch(DoctorappoActivity.this, QianZui.qianZuiDoc+ doctorId, new NimCallActivity.TimeOutListener() {
                     @Override
                     public void ontimeOut() {
-                        Toast.makeText(DoctorappoActivity.this, "拨打云信客服了哦", Toast.LENGTH_SHORT).show();
+                        //转接客服电话
                         NetworkApi.sendAVMessage(MyApplication.getInstance().userName, doctorTel, new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
 
                             }
                         });
+                        NimCallActivity.launch(mContext, QianZui.qianZuiDoc+ 10001);
                     }
                 });
-                finish();
+//                finish();
             }
         });
 

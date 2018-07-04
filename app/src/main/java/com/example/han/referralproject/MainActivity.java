@@ -33,6 +33,7 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.call2.QianZui;
 
 import org.litepal.crud.DataSupport;
 
@@ -204,7 +205,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onResume() {
-        NimAccountHelper.getInstance().login("yst_user_" + MyApplication.getInstance().userId, "123456", null);
+        NimAccountHelper.getInstance().login(QianZui.qianZui + MyApplication.getInstance().userId, "123456", null);
         setEnableListeningLoop(false);
         super.onResume();
         NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
