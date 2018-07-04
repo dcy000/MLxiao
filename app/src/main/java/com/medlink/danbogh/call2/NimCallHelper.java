@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.han.referralproject.R;
+import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
@@ -364,6 +365,7 @@ public class NimCallHelper {
      * 点击挂断或取消
      */
     public void hangUp() {
+        Log.i("mylog", "hangUp : ");
         if (mCallEstablished.get()) {
             hangUp(CallExitCode.HANGUP);
         } else {
@@ -644,7 +646,7 @@ public class NimCallHelper {
     private int audioEffectAecMode = 2;
     private int audioEffectNsMode = 2;
     private int videoMaxBitrate = 0;
-    private int deviceDefaultRotation = 1;
+    private int deviceDefaultRotation = 3;
     private int deviceRotationOffset = 0;
     private boolean audioHighQuality = false;
     private boolean audioDtx = true;

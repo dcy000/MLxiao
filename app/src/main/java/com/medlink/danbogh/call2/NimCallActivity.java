@@ -838,6 +838,7 @@ public class NimCallActivity extends AppCompatActivity {
     Observer<Integer> timeoutObserver = new Observer<Integer>() {
         @Override
         public void onEvent(Integer integer) {
+            Log.i("mylog", "mylogTimeout : ");
             NimCallHelper.getInstance().hangUp();
             CallSoundPlayer.instance().stop();
             if (listener != null) {
@@ -985,8 +986,8 @@ public class NimCallActivity extends AppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                isClosed = false;
                 NimCallHelper.getInstance().hangUp();
-//                isClosed = true;
 //                closeSession();
             }
         }, 2000);
