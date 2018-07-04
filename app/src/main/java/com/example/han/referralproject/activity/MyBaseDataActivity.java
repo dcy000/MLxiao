@@ -140,8 +140,10 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mDrinking.setText(response.drink);
                 mAddress.setText(response.dz);
                 mHistory.setText(response.mh.trim());
-                String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
-                mIdcard.setText(shenfen);
+                if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() >=15) {
+                    String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
+                    mIdcard.setText(shenfen);
+                }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
