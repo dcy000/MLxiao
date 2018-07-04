@@ -470,23 +470,28 @@ public class NimCallActivity extends AppCompatActivity {
     }
 
     private void initLargeSurfaceView(String account) {
+        Log.i("mylog666666666666666", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + (flLargeContainer == null));
         if (flLargeContainer == null) {
             return;
         }
         mLargeAccount = account;
         if (account.equals(NimAccountHelper.getInstance().getAccount())) {
+            Log.i("mylog7777777777777", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
             AVChatManager.getInstance().setupLocalVideoRender(
                     mLargeRenderer, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
         } else {
+            Log.i("mylog8888888888888", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             AVChatManager.getInstance().setupRemoteVideoRender(
                     account, mLargeRenderer, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
         }
         ViewParent parent = mLargeRenderer.getParent();
         if (parent != null) {
+            Log.i("mylog999999999", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
             ((ViewGroup) parent).removeView(mLargeRenderer);
         }
         flLargeContainer.addView(mLargeRenderer, 0);
         mLargeRenderer.setZOrderMediaOverlay(false);
+        Log.i("mylogeeeeeeeeeeeeeee", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     }
 
 

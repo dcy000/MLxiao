@@ -62,7 +62,7 @@ public class NimCallHelper {
     public String mPeerAccount;
     private AVChatCameraCapturer mVideoCapturer;
     private CallState callingState;
-    private AVChatData avChatData;
+    private static AVChatData avChatData;
     public AVChatCallback<AVChatData> mInnerCallback;
     public AVChatCallback<AVChatData> mOuterCallback;
     private boolean mRtcDestroyed;
@@ -379,9 +379,9 @@ public class NimCallHelper {
      * @param code 音视频类型
      */
     private void hangUp(final int code) {
-        if (mRtcDestroyed) {
-            return;
-        }
+//        if (mRtcDestroyed) {
+//            return;
+//        }
         mRtcDestroyed = true;
         Log.i("mylog", "1111111111111111111111111111 " + "code ：" + code + "       avchatData " + avChatData);
         if (callingState == CallState.OUTGOING_VIDEO_CALLING || callingState == CallState.VIDEO) {
@@ -487,7 +487,7 @@ public class NimCallHelper {
         sInstance = null;
     }
 
-    private OnCloseSessionListener mOnCloseSessionListener;
+    private static OnCloseSessionListener mOnCloseSessionListener;
 
     public void setOnCloseSessionListener(OnCloseSessionListener onCloseSessionListener) {
         mOnCloseSessionListener = onCloseSessionListener;
