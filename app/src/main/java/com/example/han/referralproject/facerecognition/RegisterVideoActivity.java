@@ -368,6 +368,8 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
     @Override
     public void onCancel() {
+        startActivity(new Intent(this, RegisterVideoActivity.class).putExtra("yst_from", "changeHead"));
+        finish();
     }
 
     private void checkGroup(final String userid, final String xfid) {
