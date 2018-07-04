@@ -977,7 +977,7 @@ public class NimCallActivity extends AppCompatActivity {
     @OnClick(R.id.iv_call_hang_up)
     public void onIvHangUpClicked() {
         if (isClosed) {
-            findViewById(R.id.iv_call_hang_up).setVisibility(View.GONE);
+            //findViewById(R.id.iv_call_hang_up).setVisibility(View.GONE);
             return;
         }
         isClosed = true;
