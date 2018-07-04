@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -1168,7 +1169,12 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                             }
                         });
-                        NimCallActivity.launch(mContext, QianZui.qianZuiDoc + 10001);
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                NimCallActivity.launch(mContext, QianZui.qianZuiDoc + 10001);
+                            }
+                        }, 2000);
                     }
                 });
             }
@@ -1215,7 +1221,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, QianZui.qianZuiDoc+ doctorId, new NimCallActivity.TimeOutListener() {
+                NimCallActivity.launch(DoctorappoActivity.this, QianZui.qianZuiDoc + doctorId, new NimCallActivity.TimeOutListener() {
                     @Override
                     public void ontimeOut() {
                         //转接客服电话
@@ -1225,7 +1231,12 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                             }
                         });
-                        NimCallActivity.launch(mContext, QianZui.qianZuiDoc+ 10001);
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                NimCallActivity.launch(mContext, QianZui.qianZuiDoc + 10001);
+                            }
+                        }, 2000);
                     }
                 });
 //                finish();
