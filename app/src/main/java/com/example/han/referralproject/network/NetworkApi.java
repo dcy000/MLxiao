@@ -1173,7 +1173,7 @@ public class NetworkApi {
     /**
      * 云联商城 提交上一级分销商电话
      */
-    public static final String URL_PARENT_AGENT_TEL = BasicUrl + "/ZZB/api/user/userApply/tel_invite/";
+    public static final String URL_PARENT_AGENT_TEL = BasicUrl + "/ZZB/api/user/userApply/telInvite/";
 
     public static void postParentAgentPhone(String userId, String tel, StringCallback callback) {
         OkGo.<String>post(URL_PARENT_AGENT_TEL)
