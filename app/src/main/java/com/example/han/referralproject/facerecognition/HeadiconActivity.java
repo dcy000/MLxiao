@@ -1,17 +1,13 @@
 package com.example.han.referralproject.facerecognition;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,7 +22,6 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.yisuotang.bean.SuperiorTelResponseBean;
 import com.example.han.referralproject.yisuotang.fragment.AddParentPhoneDialog;
 import com.google.gson.Gson;
@@ -34,8 +29,6 @@ import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.medlink.danbogh.signin.SignInActivity;
-import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
@@ -146,14 +139,13 @@ public class HeadiconActivity extends BaseActivity implements AddParentPhoneDial
         }
     }
 
-    AddParentPhoneDialog dialog;
 
     private void showAddParentPhoneDialog() {
-        if (dialog == null) {
-            dialog = new AddParentPhoneDialog();
-        }
+        AddParentPhoneDialog dialog = new AddParentPhoneDialog();
         dialog.setListener(this);
-        dialog.show(getFragmentManager(), "addParentPhone");
+        if (!dialog.isAdded()) {
+            dialog.show(getFragmentManager(), "addParentPhone");
+        }
     }
 
     public String xfid;
