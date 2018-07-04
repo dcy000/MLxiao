@@ -18,8 +18,8 @@ public class CallTimeoutObserver {
     private List<TimeoutObserver> timeoutObservers = new ArrayList<>();
     private List<Observer<Integer>> timeoutObserverLocal = new ArrayList<>(1); // 来电or呼出超时监听
     private Handler uiHandler;
-    private static final int OUTGOING_TIME_OUT = 15 * 1000;
-    private static final int INCOMING_TIME_OUT = 46 * 1000;
+    private static final int OUTGOING_TIME_OUT = 30 * 1000;
+    private static final int INCOMING_TIME_OUT = 31 * 1000;
 
     private static class Holder {
         public final static CallTimeoutObserver INSTANCE = new CallTimeoutObserver();
