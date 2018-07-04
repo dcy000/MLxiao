@@ -409,9 +409,9 @@ public class NetworkApi {
 
 
     public static void YuYue_info(String userid, String docterid, NetworkManager.SuccessCallback<ArrayList<YuYueInfo>> listener, NetworkManager.FailedCallback failedCallback) {
-       if(docterid==null){
-           return;
-       }
+        if (docterid == null) {
+            return;
+        }
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
         paramsMap.put("docterid", docterid);
@@ -1189,6 +1189,13 @@ public class NetworkApi {
         OkGo.<String>get(URL_SEND_AV_MESSAGE)
                 .params("name", name)
                 .params("tel", tel)
+                .execute(callback);
+    }
+
+    public static final String URL_GET_GOODG_TYPE = BasicUrl + "/ZZB/api/mall/productType/selAllMallProductType/";
+
+    public static void getGoodType(StringCallback callback) {
+        OkGo.<String>get(URL_GET_GOODG_TYPE)
                 .execute(callback);
     }
 
