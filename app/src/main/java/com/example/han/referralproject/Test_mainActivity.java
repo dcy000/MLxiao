@@ -115,6 +115,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     break;
                 case R.id.ll_xuetang:
                     intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
+                    intent.putExtra("isSkip", getIntent().getBooleanExtra("isSkip", false));
                     intent.putExtra("type", "xuetang");
                     startActivity(intent);
                     break;

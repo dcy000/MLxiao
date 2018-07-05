@@ -603,6 +603,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             isGetResustFirst = false;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
+                            if (getIntent().getBooleanExtra("isSkip", false)) {
+                                speak("主人,您本次测量的血糖值是"+xuetangResut);
+                                return;
+                            }
                             uploadXuetangResult(xuetangResut, false, null);
                         }
                         break;
@@ -1020,9 +1024,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
         if (getIntent().getBooleanExtra("isSkip", false)) {
             mButton1.setVisibility(View.GONE);
-            @SuppressLint("WrongViewCast") LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) findViewById(R.id.xueya_video).getLayoutParams();
-            lp.leftMargin = 200;
-            findViewById(R.id.xueya_video).setLayoutParams(lp);
+            mButton2.setVisibility(View.GONE);
+
+            setMarginLeft(R.id.xueya_video);
+            setMarginLeft(R.id.xuetang_video);
         }
 
         mButton1.setOnClickListener(new View.OnClickListener() {
@@ -1269,6 +1274,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.sanheyi_video).setOnClickListener(this);
         //选择血糖测量的时间
         setXuetangSelectTime();
+    }
+
+    private void setMarginLeft(int resourceId) {
+        @SuppressLint("WrongViewCast") LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) findViewById(resourceId).getLayoutParams();
+        lp.leftMargin = 200;
+        findViewById(resourceId).setLayoutParams(lp);
     }
 
     @Override
