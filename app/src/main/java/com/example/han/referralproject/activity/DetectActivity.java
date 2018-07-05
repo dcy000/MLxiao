@@ -31,9 +31,11 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -1015,6 +1017,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
             }
         });
+
+        if (getIntent().getBooleanExtra("isSkip", false)) {
+            mButton1.setVisibility(View.GONE);
+            @SuppressLint("WrongViewCast") LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) findViewById(R.id.xueya_video).getLayoutParams();
+            lp.leftMargin = 200;
+            findViewById(R.id.xueya_video).setLayoutParams(lp);
+        }
 
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
