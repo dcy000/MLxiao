@@ -31,9 +31,9 @@
         android:scaleType="fitXY"
         android:src="@drawable/call_close_video_send"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/call_fl_call_small_container"
         app:layout_constraintLeft_toLeftOf="@+id/call_fl_call_small_container"
         app:layout_constraintRight_toRightOf="@+id/call_fl_call_small_container"
-        app:layout_constraintTop_toTopOf="@+id/call_fl_call_small_container"/>
+        app:layout_constraintTop_toTopOf="@+id/call_fl_call_small_container"
+        tools:visibility="visible"/>
 </merge>

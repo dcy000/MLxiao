@@ -1,11 +1,11 @@
 package com.ml.call;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -45,12 +45,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import timber.log.Timber;
+
 
 /**
  * Created by afirez on 2018/6/1.
  */
 
-public class CallHelper {
+public enum CallHelper {
+
+    @SuppressLint("StaticFieldLeak")
+    INSTANCE;
 
     public static void launchFromSmall(final Context context) {
         Intent intent = new Intent();
@@ -64,7 +69,7 @@ public class CallHelper {
     }
 
     public static void launch(Context context, String account, int callType, int source) {
-        CallHelper.getInstance().setChatting(true);
+        CallHelper.INSTANCE.setChatting(true);
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setClass(context, CallActivity.class);
@@ -76,7 +81,7 @@ public class CallHelper {
     }
 
     public static void launch(Context context, AVChatData config, int source) {
-        CallHelper.getInstance().setChatting(true);
+        CallHelper.INSTANCE.setChatting(true);
         Intent intent = new Intent();
         intent.setClass(context, CallActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -87,7 +92,7 @@ public class CallHelper {
     }
 
 
-    private static final String TAG = "Call";
+    private static final String TAG = "CallHelper";
 
     public static final String EXTRA_INCOMING_CALL = "extra_incoming_call";
     public static final String EXTRA_CALL_TYPE = "extra_call_type";
@@ -98,22 +103,11 @@ public class CallHelper {
     public static final int SOURCE_BROADCAST = 0;
     public static final int SOURCE_INTERNAL = 1;
 
-    public static CallHelper getInstance() {
-        if (sInstance == null) {
-            synchronized (CallHelper.class) {
-                if (sInstance == null) {
-                    sInstance = new CallHelper();
-                }
-            }
-        }
-        return sInstance;
+
+    CallHelper() {
+        context = CallApp.INSTANCE.getApp();
     }
 
-    public CallHelper() {
-        context = CallApp.getInstance().getApp();
-    }
-
-    private static CallHelper sInstance;
 
     public void setChatting(boolean chatting) {
         mChatting = chatting;
@@ -143,6 +137,7 @@ public class CallHelper {
     }
 
     public void notifyCallStateChanged(CallState state) {
+        Timber.tag(TAG).d("notifyCallStateChanged state=%s", state);
         callingState = state;
         for (OnCallStateChangeListener listener : mOnCallStateChangeListeners) {
             if (listener != null) {
@@ -151,14 +146,14 @@ public class CallHelper {
         }
     }
 
+    public interface OnCloseSessionListener {
+        void onCloseSession();
+    }
+
     private OnCloseSessionListener mOnCloseSessionListener;
 
     public void setOnCloseSessionListener(OnCloseSessionListener onCloseSessionListener) {
         mOnCloseSessionListener = onCloseSessionListener;
-    }
-
-    public interface OnCloseSessionListener {
-        void onCloseSession();
     }
 
     private Context context;
@@ -208,9 +203,12 @@ public class CallHelper {
 
     public synchronized void setLargeContainer(FrameLayout flLargeContainer) {
         this.flLargeContainer = flLargeContainer;
-        if (flLargeContainer == null && mCallEstablished.get() && largeRenderer != null) {
+        if (flLargeContainer == null
+                && mCallEstablished.get()
+                && largeRenderer != null) {
             ViewParent parent = largeRenderer.getParent();
-            if (parent != null && parent instanceof ViewGroup) {
+            if (parent != null
+                    && parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(largeRenderer);
             }
             return;
@@ -275,7 +273,7 @@ public class CallHelper {
         AVChatManager.getInstance().observeHangUpNotification(callHangupObserver, register);
         AVChatManager.getInstance().observeOnlineAckNotification(onlineAckObserver, register);
         CallTimeoutObserver.getInstance().observeTimeoutNotification(timeoutObserver, register, isIncomingCall);
-        PhoneStateObserver.getInstance().observeAutoHangUpForLocalPhone(autoHangUpForLocalPhoneObserver, register);
+        CallPhoneStateObserver.getInstance().observeAutoHangUpForLocalPhone(autoHangUpForLocalPhoneObserver, register);
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, register);
     }
 
@@ -285,7 +283,7 @@ public class CallHelper {
         @Override
         public void onJoinedChannel(int code, String audioFile, String videoFile, int elapsed) {
             if (code == 200) {
-                Log.d(TAG, "onConnectServer success");
+//                Timber.tag(TAG).d("onJoinedChannel %s", "OK");
             } else if (code == 101) { // 连接超时
                 closeSessions(CallExitCode.PEER_NO_RESPONSE);
             } else if (code == 401) { // 验证失败
@@ -338,6 +336,32 @@ public class CallHelper {
         );
     }
 
+    private void previewInLargeSurface() {
+        if (flLargeContainer == null) {
+            return;
+        }
+        largeAccount = CallAuthHelper.getInstance().getAccount();
+        AVChatManager chatManager = AVChatManager.getInstance();
+        if (largeRenderer == null) {
+            largeRenderer = new AVChatSurfaceViewRenderer(context);
+        } else {
+            ViewParent parent = largeRenderer.getParent();
+            if (parent != null && parent instanceof ViewGroup) {
+                ((ViewGroup) parent).removeView(largeRenderer);
+            }
+        }
+        flLargeContainer.addView(largeRenderer);
+        largeRenderer.setZOrderMediaOverlay(false);
+        chatManager.setupLocalVideoRender(
+                largeRenderer,
+                false,
+                AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+        );
+    }
+
+    /**
+     * 注册/注销对方接听挂断状态（音视频模式切换通知）
+     */
     private Observer<AVChatCalleeAckEvent> callAckObserver = new Observer<AVChatCalleeAckEvent>() {
         @Override
         public void onEvent(AVChatCalleeAckEvent ackInfo) {
@@ -345,13 +369,15 @@ public class CallHelper {
             if (info != null && info.getChatId() == ackInfo.getChatId()) {
                 CallSoundPlayer.instance().stop();
                 if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_BUSY) {
+                    Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_BUSY");
                     CallSoundPlayer.instance().play(CallSoundPlayer.RingerType.PEER_BUSY);
                     closeSessions(CallExitCode.PEER_BUSY);
                 } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_REJECT) {
+                    Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_REJECT");
                     closeSessions(CallExitCode.REJECT);
                 } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_AGREE) {
+                    Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_AGREE");
                     mCallEstablished.set(true);
-                    Log.d(TAG, "onEvent: CALLEE_ACK_AGREE");
                 }
             }
         }
@@ -389,7 +415,7 @@ public class CallHelper {
                     notifyCallStateChanged(CallState.VIDEO_ON);
                     break;
                 default:
-                    Log.i(TAG, "对方发来指令值：" + notification.getControlCommand());
+                    Timber.tag(TAG).d("对方发来指令值：" + notification.getControlCommand());
                     break;
             }
         }
@@ -475,14 +501,15 @@ public class CallHelper {
     };
 
     public void closeSessions(int exitCode) {
-        if (mRtcDestroyed) {
+        if (closing) {
             return;
         }
+        closing = true;
+        Timber.tag(TAG).d("closeSession: code=%s",CallExitCode.getExitString(exitCode));
+        CallSoundPlayer.instance().stop();
         registerCallObserver(false);
         setLargeContainer(null);
         setSmallContainer(null);
-        Log.i(TAG, "close session -> " + CallExitCode.getExitString(exitCode));
-        CallSoundPlayer.instance().stop();
         mCallEstablished.set(false);
         stopTimer();
         mCallTimeCallback = null;
@@ -494,14 +521,15 @@ public class CallHelper {
                     mOnCloseSessionListener.onCloseSession();
                     mOnCloseSessionListener = null;
                 }
+                closing = false;
+                mChatting = false;
             }
-        }, 2000);
+        }, 2200);
         if (callingState.getValue() >= CallState.OUTGOING_VIDEO_CALLING.getValue() || callingState == CallState.VIDEO) {
             AVChatManager.getInstance().stopVideoPreview();
             AVChatManager.getInstance().disableVideo();
         }
         AVChatManager.getInstance().disableRtc();
-        mRtcDestroyed = true;
     }
 
     /**
@@ -627,10 +655,11 @@ public class CallHelper {
 //        mOuterCallback = callback;
         this.remoteAccount = remoteAccount;
         AVChatManager chatManager = AVChatManager.getInstance();
-        mRtcDestroyed = false;
+        closing = false;
         chatManager.enableRtc();
         if (chatType == AVChatType.VIDEO) {
             chatManager.enableVideo();
+            previewInLargeSurface();
             videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
             chatManager.setupVideoCapturer(videoCapturer);
 //            chatManager.setupLocalVideoRender() onCallEstablished
@@ -651,18 +680,18 @@ public class CallHelper {
         AVChatNotifyOption notifyOption = new AVChatNotifyOption();
         notifyOption.extendMessage = "extra_data";
         notifyOption.webRTCCompat = webrtcCompat;
+        Timber.tag(TAG).d("call2: remoteAccount=%s chatType=%s notifyOption=%s", remoteAccount, chatType, notifyOption);
         chatManager.call2(remoteAccount, chatType, notifyOption, new AVChatCallback<AVChatData>() {
             @Override
             public void onSuccess(AVChatData data) {
+                Timber.tag(TAG).d("call2 -> onSuccess: data=%s", data);
                 avChatData = data;
-//                mCallEstablished.set(true);
-//                onCallEstablished();
                 notifyCallStateChanged(CallState.CONNECT_SUCCESS);
             }
 
             @Override
             public void onFailed(int code) {
-                Log.d(TAG, "call failed code->" + code);
+                Timber.tag(TAG).d("call2 -> onFailed: code=%s", code);
                 if (code == ResponseCode.RES_FORBIDDEN) {
                     T.show(R.string.call_no_permission);
                 } else {
@@ -674,7 +703,7 @@ public class CallHelper {
 
             @Override
             public void onException(Throwable exception) {
-                Log.d(TAG, "call onException->" + exception);
+                Timber.tag(TAG).d("call2 -> onException: exception=%s", exception);
                 T.show(R.string.call_call_failed);
 //                notifyCallStateChanged(CallState.CONNECT_FAILED);
                 closeSessions(-1);
@@ -718,25 +747,24 @@ public class CallHelper {
     private void rejectInComingCall() {
         CallSoundPlayer.instance().stop();
         notifyCallStateChanged(CallState.INCOMING_VIDEO_REFUSING);
-        AVChatManager.getInstance().hangUp2(avChatData.getChatId(), new AVChatCallback<Void>() {
+        long chatId = avChatData.getChatId();
+        Timber.tag(TAG).d("hangUp2: chatId=%s", chatId);
+        AVChatManager.getInstance().hangUp2(chatId, new AVChatCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG, "reject onSuccess->");
-//                notifyCallStateChanged(CallState.INCOMING_VIDEO_REFUSE_SUCCESS);
+                Timber.tag(TAG).d("hangUp2 -> onSuccess:");
                 closeSessions(-1);
             }
 
             @Override
             public void onFailed(int code) {
-                Log.d(TAG, "reject onFailed->" + code);
-//                notifyCallStateChanged(CallState.INCOMING_VIDEO_REFUSE_FAILED);
+                Timber.tag(TAG).d("hangUp2 -> onFailed: code=%s", code);
                 closeSessions(-1);
             }
 
             @Override
             public void onException(Throwable exception) {
-                Log.d(TAG, "reject onException->");
-//                notifyCallStateChanged(CallState.INCOMING_VIDEO_REFUSE_FAILED);
+                Timber.tag(TAG).d("hangUp2 -> onException: exception=%s", exception);
                 closeSessions(-1);
             }
         });
@@ -769,7 +797,7 @@ public class CallHelper {
             notifyCallStateChanged(CallState.VIDEO_CONNECTING);
         }
         AVChatManager chatManager = AVChatManager.getInstance();
-        mRtcDestroyed = false;
+        closing = false;
         chatManager.enableRtc();
         videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
         chatManager.setupVideoCapturer(videoCapturer);
@@ -780,30 +808,30 @@ public class CallHelper {
             chatManager.startVideoPreview();
         }
         notifyCallStateChanged(CallState.INCOMING_VIDEO_RECEIVING);
-        chatManager.accept2(avChatData.getChatId(), new AVChatCallback<Void>() {
+        long chatId = avChatData.getChatId();
+        Timber.tag(TAG).d("accept2: chatId=%s", chatId);
+        chatManager.accept2(chatId, new AVChatCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.i(TAG, "accept success");
+                Timber.tag(TAG).d("accept2 -> onSuccess:");
                 mCallEstablished.set(true);
                 notifyCallStateChanged(CallState.INCOMING_VIDEO_RECEIVE_SUCCESS);
             }
 
             @Override
             public void onFailed(int code) {
+                Timber.tag(TAG).d("accept2 -> onFailed: code=%s", code);
                 if (code == -1) {
                     T.show("本地音视频启动失败");
                 } else {
                     T.show("建立连接失败");
                 }
-                Log.e(TAG, "accept onFailed->" + code);
-//                notifyCallStateChanged(CallState.INCOMING_VIDEO_RECEIVE_FAILED);
                 closeSessions(-1);
             }
 
             @Override
             public void onException(Throwable exception) {
-                Log.d(TAG, "accept exception->" + exception);
-//                notifyCallStateChanged(CallState.INCOMING_VIDEO_RECEIVE_FAILED);
+                Timber.tag(TAG).d("accept2 -> onException: exception=%s", exception);
                 closeSessions(-1);
             }
         });
@@ -817,35 +845,31 @@ public class CallHelper {
         }
     }
 
-    private boolean mRtcDestroyed;
+    private volatile boolean closing;
 
     private void hangUp(final int code) {
-        uiHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                closeSessions(-1);
-            }
-        },500);
         if ((code == CallExitCode.HANGUP
                 || code == CallExitCode.PEER_NO_RESPONSE
                 || code == CallExitCode.CANCEL) && avChatData != null) {
-            AVChatManager.getInstance().hangUp2(avChatData.getChatId(), new AVChatCallback<Void>() {
+            long chatId = avChatData.getChatId();
+            Timber.tag(TAG).d("hangUp2: chatId=%s", chatId);
+            AVChatManager.getInstance().hangUp2(chatId, new AVChatCallback<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "onSuccess: hangUp2");
-//                    closeSessions(code);
+                    Timber.tag(TAG).d("hangUp2 -> onSuccess: ");
+                    closeSessions(code);
                 }
 
                 @Override
                 public void onFailed(int errorCode) {
-                    Log.d(TAG, "hangup onFailed->" + errorCode);
-//                    closeSessions(code);
+                    Timber.tag(TAG).d("hangUp2 -> onFailed: errorCode=%s", errorCode);
+                    closeSessions(code);
                 }
 
                 @Override
                 public void onException(Throwable exception) {
-                    Log.d(TAG, "hangup onException->" + exception);
-//                    closeSessions(code);
+                    Timber.tag(TAG).d("hangUp2 -> onException: exception=%s", exception);
+                    closeSessions(code);
                 }
             });
         }
@@ -872,6 +896,19 @@ public class CallHelper {
             needRestoreLocalAudio = false;
         }
 
+    }
+
+    //关闭视频和语音发送.
+    public void pause() {
+        if (!AVChatManager.getInstance().isLocalVideoMuted()) {
+            AVChatManager.getInstance().muteLocalVideo(true);
+            needRestoreLocalVideo = true;
+        }
+
+        if (!AVChatManager.getInstance().isLocalAudioMuted()) {
+            AVChatManager.getInstance().muteLocalAudio(true);
+            needRestoreLocalAudio = true;
+        }
     }
 
     private CallFloatViewHelper callFloatViewHelper;
@@ -914,19 +951,6 @@ public class CallHelper {
             setLargeContainer(null);
             callFloatViewHelper.dismiss();
             callFloatViewHelper = null;
-        }
-    }
-
-    //关闭视频和语音发送.
-    public void pause() {
-        if (!AVChatManager.getInstance().isLocalVideoMuted()) {
-            AVChatManager.getInstance().muteLocalVideo(true);
-            needRestoreLocalVideo = true;
-        }
-
-        if (!AVChatManager.getInstance().isLocalAudioMuted()) {
-            AVChatManager.getInstance().muteLocalAudio(true);
-            needRestoreLocalAudio = true;
         }
     }
 

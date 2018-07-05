@@ -1,7 +1,7 @@
 package com.ml.call;
 
 import android.content.Context;
-import android.util.Log;
+
 
 import com.ml.call.utils.T;
 import com.netease.nimlib.sdk.ResponseCode;
@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * 老版本
  */
+@Deprecated
 public class NimCallHelper {
 
     public interface OnCallStateChangeListener {
@@ -158,8 +159,6 @@ public class NimCallHelper {
 
                 @Override
                 public void onFailed(int code) {
-                    Log.d(TAG, "avChat call failed code->" + code);
-
                     if (code == ResponseCode.RES_FORBIDDEN) {
                         T.show(R.string.call_no_permission);
                     } else {
@@ -174,7 +173,6 @@ public class NimCallHelper {
 
                 @Override
                 public void onException(Throwable exception) {
-                    Log.d(TAG, "avChat call onException->" + exception);
                     closeRtc();
                     closeSessions(-1);
                     if (mOuterCallback != null) {
@@ -250,17 +248,15 @@ public class NimCallHelper {
         AVChatManager.getInstance().hangUp2(avChatData.getChatId(), new AVChatCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG, "reject onSuccess-");
             }
 
             @Override
             public void onFailed(int code) {
-                Log.d(TAG, "reject onFailed->" + code);
             }
 
             @Override
             public void onException(Throwable exception) {
-                Log.d(TAG, "reject onException");
+
             }
         });
         closeSessions(CallExitCode.REJECT);
@@ -315,8 +311,6 @@ public class NimCallHelper {
         AVChatManager.getInstance().accept2(avChatData.getChatId(), new AVChatCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.i(TAG, "accept success");
-
                 mCallEstablished.set(true);
                 canSwitchCamera = true;
             }
@@ -328,13 +322,11 @@ public class NimCallHelper {
                 } else {
                     T.show("建立连接失败");
                 }
-                Log.e(TAG, "accept onFailed->" + code);
                 handleAcceptFailed();
             }
 
             @Override
             public void onException(Throwable exception) {
-                Log.d(TAG, "accept exception->" + exception);
                 handleAcceptFailed();
             }
         });
@@ -388,12 +380,12 @@ public class NimCallHelper {
 
                 @Override
                 public void onFailed(int code) {
-                    Log.d(TAG, "hangup onFailed->" + code);
+
                 }
 
                 @Override
                 public void onException(Throwable exception) {
-                    Log.d(TAG, "hangup onException->" + exception);
+
                 }
             });
         }
@@ -443,7 +435,6 @@ public class NimCallHelper {
 
     public void closeSessions(int exitCode) {
         //not  user  hang up active  and warning tone is playing,so wait its end
-        Log.i(TAG, "close session -> " + CallExitCode.getExitString(exitCode));
         showQuitToast(exitCode);
         mCallEstablished.set(false);
         canSwitchCamera = false;

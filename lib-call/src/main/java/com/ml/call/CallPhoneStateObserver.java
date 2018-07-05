@@ -1,8 +1,6 @@
 package com.ml.call;
 
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
@@ -11,11 +9,13 @@ import com.netease.nimlib.sdk.avchat.AVChatManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by afirez on 2017/10/20.
  */
 
-public class PhoneStateObserver {
+public class CallPhoneStateObserver {
     public enum PhoneState {
         IDLE,           // 空闲
         INCOMING_CALL,  // 有来电
@@ -23,7 +23,7 @@ public class PhoneStateObserver {
         DIALING_IN      // 来电已接通
     }
 
-    private final String TAG = "PhoneStateObserver";
+    private final String TAG = "CallHelper";
 
     private int phoneState = TelephonyManager.CALL_STATE_IDLE;
     private PhoneState state = PhoneState.IDLE;
@@ -31,20 +31,19 @@ public class PhoneStateObserver {
     private List<Observer<Integer>> autoHangUpObservers = new ArrayList<>(1); // 与本地电话互斥的挂断监听
 
     private static class Holder {
-        private final static PhoneStateObserver INSTANCE = new PhoneStateObserver();
+        private final static CallPhoneStateObserver INSTANCE = new CallPhoneStateObserver();
     }
 
-    private PhoneStateObserver() {
+    private CallPhoneStateObserver() {
 
     }
 
-    public static PhoneStateObserver getInstance() {
+    public static CallPhoneStateObserver getInstance() {
         return Holder.INSTANCE;
     }
 
     public void onPhoneStateChanged(String state) {
-        Log.i(TAG, "onPhoneStateChanged, now state =" + state);
-
+        Timber.tag(TAG).d("onPhoneStateChanged: state=%s", state);
         this.state = PhoneState.IDLE;
         if (TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
             phoneState = TelephonyManager.CALL_STATE_IDLE;
@@ -69,10 +68,10 @@ public class PhoneStateObserver {
      * 处理本地电话与网络通话的互斥
      */
     public void handleLocalCall() {
-        Log.i(TAG, "notify call state changed, state=" + state.name());
-
         if (state != PhoneState.IDLE) {
-            AVChatManager.getInstance().hangUp2(AVChatManager.getInstance().getCurrentChatId(), new HandleLocalCallCallback(1));
+            long chatId = AVChatManager.getInstance().getCurrentChatId();
+            Timber.tag(TAG).d("handleLocalCall: action=Busy and hangUp2 who named %s", chatId);
+            AVChatManager.getInstance().hangUp2(chatId, new HandleLocalCallCallback(1));
         }
     }
 
@@ -86,26 +85,25 @@ public class PhoneStateObserver {
 
         public HandleLocalCallCallback(int reason) {
             this.reason = reason;
-            this.log = "handle local call";
+            this.log = "handleLocalCall";
         }
 
         @Override
         public void onSuccess(Void param) {
+            Timber.tag(TAG).d("%s -> onSuccess: ", log);
             notifyObservers(autoHangUpObservers, reason);
         }
 
         @Override
         public void onFailed(int code) {
+            Timber.tag(TAG).d("%s -> onFailed: code=%s", log, code);
             notifyObservers(autoHangUpObservers, -1 * reason);
         }
 
         @Override
         public void onException(Throwable exception) {
+            Timber.tag(TAG).d("%s -> onException: exception=%s", log, exception.getMessage());
             notifyObservers(autoHangUpObservers, 0);
-
-            if (!TextUtils.isEmpty(log)) {
-                Log.i(TAG, log + " throws exception, e=" + exception.getMessage());
-            }
         }
     }
 
@@ -141,7 +139,7 @@ public class PhoneStateObserver {
      * 若有本地来电，目前Demo中示例代码的处理是网络通话自动拒绝或者挂断，开发者可以自行灵活处理。
      */
     public void observeAutoHangUpForLocalPhone(Observer<Integer> observer, boolean register) {
-        Log.i(TAG, "observeAutoHangUpForLocalPhone->" + observer + "#" + register);
+        Timber.tag(TAG).d("observeAutoHangUpForLocalPhone: observer=%s register=%s", observer, register);
         registerObservers(this.autoHangUpObservers, observer, register);
     }
 }

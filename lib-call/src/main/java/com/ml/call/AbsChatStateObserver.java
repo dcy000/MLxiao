@@ -1,7 +1,5 @@
 package com.ml.call;
 
-import android.util.Log;
-
 import com.netease.nimlib.sdk.avchat.AVChatStateObserver;
 import com.netease.nimlib.sdk.avchat.model.AVChatAudioFrame;
 import com.netease.nimlib.sdk.avchat.model.AVChatNetworkStats;
@@ -10,138 +8,140 @@ import com.netease.nimlib.sdk.avchat.model.AVChatVideoFrame;
 
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
- * Created by lenovo on 2018/6/4.
+ * Created by afirez on 2018/6/4.
  */
 
 public abstract class AbsChatStateObserver implements AVChatStateObserver {
 
-    private static final String TAG = "Call";
+    private static final String TAG = "CallChatStateObserver";
 
     @Override
     public void onTakeSnapshotResult(String account, boolean success, String file) {
-        Log.d(TAG, "onTakeSnapshotResult: ");
+        Timber.tag(TAG).d("onTakeSnapshotResult: account=%s success=%s file=%s", account, success, file);
     }
 
     @Override
     public void onAVRecordingCompletion(String account, String filePath) {
-        Log.d(TAG, "onAVRecordingCompletion: ");
+        Timber.tag(TAG).d("onAVRecordingCompletion: account=%s file=%s", account, filePath);
     }
 
     @Override
     public void onAudioRecordingCompletion(String filePath) {
-        Log.d(TAG, "onAudioRecordingCompletion: ");
+        Timber.tag(TAG).d("onAudioRecordingCompletion: file=%s", filePath);
     }
 
     @Override
     public void onLowStorageSpaceWarning(long availableSize) {
-        Log.d(TAG, "onLowStorageSpaceWarning: ");
+        Timber.tag(TAG).d("onLowStorageSpaceWarning: availableSize=%s", availableSize);
     }
 
     @Override
     public void onAudioMixingEvent(int event) {
-        Log.d(TAG, "onAudioMixingEvent: ");
+        Timber.tag(TAG).d("onAudioMixingEvent: event=%s", event);
     }
 
     @Override
     public void onJoinedChannel(int code, String audioFile, String videoFile, int elapsed) {
-        Log.d(TAG, "onJoinedChannel: ");
+        Timber.tag(TAG).d("onJoinedChannel: code=%s audioFile=%s videoFile=%s elapsed=%s", code, audioFile, videoFile, elapsed);
     }
 
     @Override
     public void onUserJoined(String account) {
-        Log.d(TAG, "onUserJoined: " + account);
+        Timber.tag(TAG).d("onUserJoined: " + account);
     }
 
     @Override
     public void onUserLeave(String account, int event) {
-        Log.d(TAG, "onUserLeave: " + account +" " + event);
+        Timber.tag(TAG).d("onUserLeave: account=%s event=%s", account, event);
     }
 
     @Override
     public void onLeaveChannel() {
-        Log.d(TAG, "onLeaveChannel: ");
+        Timber.tag(TAG).d("onLeaveChannel: ");
     }
 
     @Override
     public void onProtocolIncompatible(int status) {
-        Log.d(TAG, "onProtocolIncompatible: ");
+        Timber.tag(TAG).d("onProtocolIncompatible: ");
     }
 
     @Override
     public void onDisconnectServer() {
-        Log.d(TAG, "onDisconnectServer: ");
+        Timber.tag(TAG).d("onDisconnectServer: ");
     }
 
     @Override
     public void onNetworkQuality(String user, int quality, AVChatNetworkStats stats) {
-        Log.d(TAG, "onNetworkQuality: ");
+        Timber.tag(TAG).d("onNetworkQuality: user=%s quality=%s stats=%s", user, quality, stats);
     }
 
     @Override
     public void onCallEstablished() {
-        Log.d(TAG, "onCallEstablished: ");
+        Timber.tag(TAG).d("onCallEstablished: ");
     }
 
     @Override
     public void onDeviceEvent(int code, String desc) {
-        Log.d(TAG, "onDeviceEvent: ");
+        Timber.tag(TAG).d("onDeviceEvent: code=%s desc=%s", code, desc);
     }
 
     @Override
     public void onConnectionTypeChanged(int netType) {
-        Log.d(TAG, "onConnectionTypeChanged: ");
+        Timber.tag(TAG).d("onConnectionTypeChanged: netType=%s", netType);
     }
 
     @Override
     public void onFirstVideoFrameAvailable(String account) {
-        Log.d(TAG, "onFirstVideoFrameAvailable: ");
+        Timber.tag(TAG).d("onFirstVideoFrameAvailable: account=%s", account);
     }
 
     @Override
     public void onFirstVideoFrameRendered(String user) {
-        Log.d(TAG, "onFirstVideoFrameRendered: ");
+        Timber.tag(TAG).d("onFirstVideoFrameRendered: user=%s", user);
     }
 
     @Override
     public void onVideoFrameResolutionChanged(String user, int width, int height, int rotate) {
-        Log.d(TAG, "onVideoFrameResolutionChanged: ");
+        Timber.tag(TAG).d("onVideoFrameResolutionChanged: user=%s width=%s, height=, int rotate");
     }
 
     @Override
     public void onVideoFpsReported(String account, int fps) {
-        Log.d(TAG, "onVideoFpsReported: ");
+        Timber.tag(TAG).d("onVideoFpsReported: account=%s fps=%s", account, fps);
     }
 
     @Override
     public boolean onVideoFrameFilter(AVChatVideoFrame frame, boolean maybeDualInput) {
-        Log.d(TAG, "onVideoFrameFilter: ");
+        Timber.tag(TAG).d("onVideoFrameFilter: frame=%s maybeDualInput=%s", frame, maybeDualInput);
         return false;
     }
 
     @Override
     public boolean onAudioFrameFilter(AVChatAudioFrame frame) {
-        Log.d(TAG, "onAudioFrameFilter: ");
+        Timber.tag(TAG).d("onAudioFrameFilter: frame=%s", frame);
         return false;
     }
 
     @Override
     public void onAudioDeviceChanged(int device) {
-        Log.d(TAG, "onAudioDeviceChanged: ");
+        Timber.tag(TAG).d("onAudioDeviceChanged: device=%s", device);
     }
 
     @Override
     public void onReportSpeaker(Map<String, Integer> speakers, int mixedEnergy) {
-        Log.d(TAG, "onReportSpeaker: ");
+        Timber.tag(TAG).d("onReportSpeaker: speakers=%s mixedEnergy=%s",speakers, mixedEnergy);
     }
 
     @Override
     public void onSessionStats(AVChatSessionStats sessionStats) {
-        Log.d(TAG, "onSessionStats: ");
+        Timber.tag(TAG).d("onSessionStats: sessionStats=%s", sessionStats);
     }
 
     @Override
     public void onLiveEvent(int event) {
-        Log.d(TAG, "onLiveEvent: " + event);
+        Timber.tag(TAG).d("onLiveEvent: event=" + event);
     }
 }

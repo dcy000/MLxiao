@@ -4,7 +4,6 @@ import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -29,24 +28,24 @@ public class CallActivity extends AppCompatActivity {
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
         );
-        CallHelper.getInstance().setSmallContainer(flSmallContainer);
-        CallHelper.getInstance().setLargeContainer(flLargeContainer);
-        CallHelper.getInstance().addOnCallStateChangeListener(mCallListener);
-        CallHelper.getInstance().setCallTimeCallback(mCallTimeCallback);
-        CallHelper.getInstance().setOnCloseSessionListener(onCloseSessionListener);
+        CallHelper.INSTANCE.setSmallContainer(flSmallContainer);
+        CallHelper.INSTANCE.setLargeContainer(flLargeContainer);
+        CallHelper.INSTANCE.addOnCallStateChangeListener(mCallListener);
+        CallHelper.INSTANCE.setCallTimeCallback(mCallTimeCallback);
+        CallHelper.INSTANCE.setOnCloseSessionListener(onCloseSessionListener);
         Bundle extras = getIntent().getExtras();
         extras = extras == null ? new Bundle() : extras;
-        CallHelper.getInstance().checkSource(extras);
+        CallHelper.INSTANCE.checkSource(extras);
     }
 
     private CallHelper.OnCloseSessionListener onCloseSessionListener = new CallHelper.OnCloseSessionListener() {
         @Override
         public void onCloseSession() {
-            CallHelper.getInstance().removeOnCallStateChangeListener(mCallListener);
-            CallHelper.getInstance().setCallTimeCallback(null);
-            CallHelper.getInstance().setOnCloseSessionListener(null);
-            CallHelper.getInstance().setSmallContainer(null);
-            CallHelper.getInstance().setLargeContainer(null);
+            CallHelper.INSTANCE.removeOnCallStateChangeListener(mCallListener);
+            CallHelper.INSTANCE.setCallTimeCallback(null);
+            CallHelper.INSTANCE.setOnCloseSessionListener(null);
+            CallHelper.INSTANCE.setSmallContainer(null);
+            CallHelper.INSTANCE.setLargeContainer(null);
             finish();
         }
     };
@@ -64,7 +63,6 @@ public class CallActivity extends AppCompatActivity {
     public CallHelper.OnCallStateChangeListener mCallListener = new CallHelper.OnCallStateChangeListener() {
         @Override
         public void onCallStateChanged(CallState state) {
-            Log.d(TAG, "onCallStateChanged: ");
             if (clRoot == null) {
                 return;
             }
@@ -143,7 +141,7 @@ public class CallActivity extends AppCompatActivity {
         //show avatar
         ivPeerAvatar.setVisibility(show ? View.VISIBLE : View.GONE);
         tvNickname.setVisibility(show ? View.VISIBLE : View.GONE);
-        String peerAccount = CallHelper.getInstance().getRemoteAccount();
+        String peerAccount = CallHelper.INSTANCE.getRemoteAccount();
         tvNickname.setText(peerAccount);
     }
 
@@ -235,19 +233,19 @@ public class CallActivity extends AppCompatActivity {
     }
 
     private void onTvRefuseClicked() {
-        CallHelper.getInstance().refuse();
+        CallHelper.INSTANCE.refuse();
     }
 
     private void onTvReceiveClicked() {
-        CallHelper.getInstance().receive();
+        CallHelper.INSTANCE.receive();
     }
 
     private void onIvHangUpClicked() {
-        CallHelper.getInstance().hangUp();
+        CallHelper.INSTANCE.hangUp();
     }
 
     private void onIvToggleMuteClicked() {
-        boolean established = CallHelper.getInstance().isCallEstablished();
+        boolean established = CallHelper.INSTANCE.isCallEstablished();
         if (established) { // 连接已经建立
             boolean muted = AVChatManager.getInstance().isLocalAudioMuted();
             AVChatManager.getInstance().muteLocalAudio(!muted);
@@ -256,12 +254,12 @@ public class CallActivity extends AppCompatActivity {
     }
 
     private void onIvToggleCameraClicked() {
-        CallHelper.getInstance().removeOnCallStateChangeListener(mCallListener);
-        CallHelper.getInstance().setCallTimeCallback(null);
-        CallHelper.getInstance().setOnCloseSessionListener(null);
-        CallHelper.getInstance().setSmallContainer(null);
-        CallHelper.getInstance().setLargeContainer(null);
-        CallHelper.getInstance().enterFloatWindow();
+        CallHelper.INSTANCE.removeOnCallStateChangeListener(mCallListener);
+        CallHelper.INSTANCE.setCallTimeCallback(null);
+        CallHelper.INSTANCE.setOnCloseSessionListener(null);
+        CallHelper.INSTANCE.setSmallContainer(null);
+        CallHelper.INSTANCE.setLargeContainer(null);
+        CallHelper.INSTANCE.enterFloatWindow();
         finish();
 
 //        boolean selected = ivToggleCamera.isSelected();
@@ -272,6 +270,6 @@ public class CallActivity extends AppCompatActivity {
     }
 
     private void onIvSwitchCameraClicked() {
-        CallHelper.getInstance().switchCamera();
+        CallHelper.INSTANCE.switchCamera();
     }
 }

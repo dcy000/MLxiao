@@ -13,6 +13,7 @@
         android:text="拒绝"
         android:textColor="#ffffff"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -29,6 +30,7 @@
         android:text="接听"
         android:textColor="#ffffff"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/call_tv_refuse"
         app:layout_constraintRight_toRightOf="parent"/>

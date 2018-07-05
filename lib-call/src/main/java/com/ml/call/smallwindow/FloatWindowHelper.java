@@ -6,7 +6,6 @@ import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+
+import timber.log.Timber;
 
 /**
  * Created by afirez on 2018/6/1.
@@ -76,7 +77,7 @@ public class FloatWindowHelper {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            Log.d(TAG, "onTouch: ");
+            Timber.tag(TAG).d("onTouchListener -> onTouch: view=% event=%", v, event);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mTouchStartX = event.getRawX();
@@ -255,18 +256,18 @@ public class FloatWindowHelper {
         mOnDismissListener = onDismissListener;
     }
 
-    public interface OnShowListener{
+    public interface OnShowListener {
         void onShow();
     }
 
-    public interface OnDismissListener{
+    public interface OnDismissListener {
         void onDismiss();
     }
 
     public void switchRotate() {
         if (windowAdded) {
             int rotation = getDisplayRotation();
-            Log.i(TAG, "switchRotate: " + lastRotation + "->" + rotation);
+            Timber.tag(TAG).d("switchRotate: %s -> %s", lastRotation, rotation);
             boolean isLastLandscape = (lastRotation % 180) != 0;
             boolean isLandscape = (rotation % 180) != 0;
             if (isLastLandscape != isLandscape) {

@@ -7,14 +7,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.util.Log;
+
+import timber.log.Timber;
 
 /**
  * Created by afirez on 2017/10/26.
  */
 
 public class CallSoundPlayer {
-    private static final String TAG = "CallSoundPlayer";
+    private static final String TAG = "CallHelper";
 
     public enum RingerType {
         CONNECTING,
@@ -51,11 +52,11 @@ public class CallSoundPlayer {
     }
 
     public CallSoundPlayer() {
-        this.context = CallApp.getInstance().getApp();
+        this.context = CallApp.INSTANCE.getApp();
     }
 
     public synchronized void play(RingerType type) {
-        Log.d(TAG, "play type->" + type.name());
+        Timber.tag(TAG).d("play: type=%s", type.name());
         this.mRingerType = type;
         int ringId = 0;
         switch (type) {
@@ -88,7 +89,7 @@ public class CallSoundPlayer {
     }
 
     public void stop() {
-        Log.d(TAG, "stop");
+        Timber.tag(TAG).d("stop: ");
         if (soundPool != null) {
             if (streamId != 0) {
                 soundPool.stop(streamId);

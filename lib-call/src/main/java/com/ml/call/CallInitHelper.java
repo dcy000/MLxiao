@@ -7,9 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
+import com.ml.call.utils.T;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.SDKOptions;
@@ -22,13 +21,15 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.BroadcastMessage;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 
+import timber.log.Timber;
+
 /**
  * Created by lenovo on 2017/10/19.
  */
 
-public class NimInitHelper {
+public class CallInitHelper {
 
-    private static final String TAG = "NimInitHelper";
+    private static final String TAG = "CallHelper";
 
     private Context context;
 
@@ -36,21 +37,21 @@ public class NimInitHelper {
         return context;
     }
 
-    private NimInitHelper() {
+    private CallInitHelper() {
     }
 
-    public static NimInitHelper getInstance() {
+    public static CallInitHelper getInstance() {
         return Holder.INSTANCE;
     }
 
     private static class Holder {
         @SuppressLint("StaticFieldLeak")
-        private static final NimInitHelper INSTANCE = new NimInitHelper();
+        private static final CallInitHelper INSTANCE = new CallInitHelper();
     }
 
     public void init(Context context, boolean register) {
         this.context = context.getApplicationContext();
-        NIMClient.init(context, NimAccountHelper.getInstance().loginInfo(), options());
+        NIMClient.init(context, CallAuthHelper.getInstance().loginInfo(), options());
         if (inMainProcess(context)) {
             // 1、UI相关初始化操作
             // 2、相关Service调用
@@ -63,7 +64,7 @@ public class NimInitHelper {
 //            br_12345678914
 //            NimCallActivity.launch(this, "br_12345678912");
             String nimUserId = "";
-            NimAccountHelper.getInstance().login(nimUserId, "123456",null);
+            CallAuthHelper.getInstance().login(nimUserId, "123456", null);
         }
     }
 
@@ -88,18 +89,17 @@ public class NimInitHelper {
         AVChatManager.getInstance().observeIncomingCall(new Observer<AVChatData>() {
             @Override
             public void onEvent(AVChatData data) {
-                String extra = data.getExtra();
-                Log.e("Extra", "Extra Message->" + extra);
-                if (PhoneStateObserver.getInstance().getCallState() != PhoneStateObserver.PhoneState.IDLE
-                        || CallHelper.getInstance().isChatting()
+                Timber.tag(TAG).d("onEvent IncomingCall: data=%s", data);
+                if (CallPhoneStateObserver.getInstance().getCallState() != CallPhoneStateObserver.PhoneState.IDLE
+                        || CallHelper.INSTANCE.isChatting()
                         || AVChatManager.getInstance().getCurrentChatId() != 0) {
-                    Log.i(TAG, "reject incoming call data =" + data.toString() + " as local phone is not idle");
+                    Timber.tag(TAG).d("reject incoming call data = %s as local phone is not idle", data);
                     AVChatManager.getInstance().sendControlCommand(data.getChatId(), AVChatControlCommand.BUSY, null);
                     return;
                 }
                 // 有来电
-                CallHelper.getInstance().setChatting(true);
-                CallHelper.getInstance().dispatchIncomingCallFromBroadCast(context,data);
+                CallHelper.INSTANCE.setChatting(true);
+                CallHelper.INSTANCE.dispatchIncomingCallFromBroadCast(context, data);
 //                NimCallHelper.getInstance().setChatting(true);
 //                NimCallHelper.getInstance().dispatchIncomingCallFromBroadCast(context,data);
             }
@@ -115,7 +115,7 @@ public class NimInitHelper {
         NIMClient.getService(MsgServiceObserve.class).observeBroadcastMessage(new Observer<BroadcastMessage>() {
             @Override
             public void onEvent(BroadcastMessage broadcastMessage) {
-                Toast.makeText(context, broadcastMessage.getContent(), Toast.LENGTH_SHORT).show();
+                T.show(broadcastMessage.getContent());
             }
         }, register);
     }

@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -46,8 +45,9 @@ import java.util.Map;
 
 
 /**
- * 老版本
+ *
  */
+@Deprecated
 public class NimCallActivity extends AppCompatActivity {
 
     private static final String TAG = "NimCallActivity";
@@ -86,33 +86,33 @@ public class NimCallActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-//    @BindView(R.id.iv_call_small_cover)
+    //    @BindView(R.id.iv_call_small_cover)
     ImageView ivSmallCover;
-//    @BindView(R.id.fl_call_small_container)
+    //    @BindView(R.id.fl_call_small_container)
     FrameLayout flSmallContainer;
-//    @BindView(R.id.fl_call_large_container)
+    //    @BindView(R.id.fl_call_large_container)
     FrameLayout flLargeContainer;
-//    @BindView(R.id.tv_call_time)
+    //    @BindView(R.id.tv_call_time)
     TextView tvCallTime;
-//    @BindView(R.id.iv_call_peer_avatar)
+    //    @BindView(R.id.iv_call_peer_avatar)
     ImageView ivPeerAvatar;
-//    @BindView(R.id.tv_call_nickname)
+    //    @BindView(R.id.tv_call_nickname)
     TextView tvNickname;
-//    @BindView(R.id.tv_call_status)
+    //    @BindView(R.id.tv_call_status)
     TextView tvStatus;
-//    @BindView(R.id.ic_call_switch_camera)
+    //    @BindView(R.id.ic_call_switch_camera)
     ImageView ivSwitchCamera;
-//    @BindView(R.id.iv_call_toggle_camera)
+    //    @BindView(R.id.iv_call_toggle_camera)
     ImageView ivToggleCamera;
-//    @BindView(R.id.iv_call_toggle_mute)
+    //    @BindView(R.id.iv_call_toggle_mute)
     ImageView ivToggleMute;
-//    @BindView(R.id.iv_call_hang_up)
+    //    @BindView(R.id.iv_call_hang_up)
     ImageView ivHangUp;
-//    @BindView(R.id.tv_call_receive)
+    //    @BindView(R.id.tv_call_receive)
     TextView tvReceive;
-//    @BindView(R.id.tv_call_refuse)
+    //    @BindView(R.id.tv_call_refuse)
     TextView tvRefuse;
-//    @BindView(R.id.cl_call_root)
+    //    @BindView(R.id.cl_call_root)
     ConstraintLayout clRoot;
 
     public void initView() {
@@ -316,7 +316,7 @@ public class NimCallActivity extends AppCompatActivity {
 
     private void outgoingCalling() {
         final AVChatType chatType = mCallType == AVChatType.VIDEO.getValue() ? AVChatType.VIDEO : AVChatType.AUDIO;
-        final String account = NimAccountHelper.getInstance().getAccount();
+        final String account = CallAuthHelper.getInstance().getAccount();
 
         NimCallHelper.getInstance().call2(mPeerAccount, chatType, new AVChatCallback<AVChatData>() {
             @Override
@@ -341,7 +341,7 @@ public class NimCallActivity extends AppCompatActivity {
 
     private void initSmallSurfaceView(String account) {
         mSmallAccount = account;
-        if (account.equals(NimAccountHelper.getInstance().getAccount())) {
+        if (account.equals(CallAuthHelper.getInstance().getAccount())) {
             AVChatManager.getInstance().setupLocalVideoRender(
                     mSmallRenderer, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
         } else {
@@ -360,7 +360,7 @@ public class NimCallActivity extends AppCompatActivity {
             return;
         }
         mLargeAccount = account;
-        if (account.equals(NimAccountHelper.getInstance().getAccount())) {
+        if (account.equals(CallAuthHelper.getInstance().getAccount())) {
             AVChatManager.getInstance().setupLocalVideoRender(
                     mLargeRenderer, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
         } else {
@@ -437,7 +437,7 @@ public class NimCallActivity extends AppCompatActivity {
         AVChatManager.getInstance().observeHangUpNotification(callHangupObserver, register);
         AVChatManager.getInstance().observeOnlineAckNotification(onlineAckObserver, register);
         CallTimeoutObserver.getInstance().observeTimeoutNotification(timeoutObserver, register, mIsIncomingCall);
-        PhoneStateObserver.getInstance().observeAutoHangUpForLocalPhone(autoHangUpForLocalPhoneObserver, register);
+        CallPhoneStateObserver.getInstance().observeAutoHangUpForLocalPhone(autoHangUpForLocalPhoneObserver, register);
     }
 
     private boolean isCallEstablished;
@@ -470,9 +470,8 @@ public class NimCallActivity extends AppCompatActivity {
 
         @Override
         public void onJoinedChannel(int code, String audioFile, String videoFile, int elapsed) {
-            Log.i(TAG, "result code->" + code);
             if (code == 200) {
-                Log.d(TAG, "onConnectServer success");
+
             } else if (code == 101) { // 连接超时
                 NimCallHelper.getInstance().closeSessions(CallExitCode.PEER_NO_RESPONSE);
             } else if (code == 401) { // 验证失败
@@ -486,14 +485,13 @@ public class NimCallActivity extends AppCompatActivity {
 
         @Override
         public void onUserJoined(String account) {
-            Log.d(TAG, "onUserJoined -> " + account);
+
             NimCallHelper.getInstance().setPeerAccount(account);
             initLargeSurfaceView(NimCallHelper.getInstance().getPeerAccount());
         }
 
         @Override
         public void onUserLeave(String account, int event) {
-            Log.d(TAG, "onUserLeave -> " + account);
             onIvHangUpClicked();
             NimCallHelper.getInstance().closeSessions(CallExitCode.HANGUP);
         }
@@ -526,7 +524,7 @@ public class NimCallActivity extends AppCompatActivity {
 
             if (mCallType == AVChatType.VIDEO.getValue()) {
                 NimCallHelper.getInstance().notifyCallStateChanged(CallState.VIDEO);
-                initSmallSurfaceView(NimAccountHelper.getInstance().getAccount());
+                initSmallSurfaceView(CallAuthHelper.getInstance().getAccount());
             } else {
                 NimCallHelper.getInstance().notifyCallStateChanged(CallState.AUDIO);
             }
@@ -653,7 +651,6 @@ public class NimCallActivity extends AppCompatActivity {
                     }
                     break;
                 default:
-                    Log.i(TAG, "对方发来指令值：" + notification.getControlCommand());
                     break;
             }
         }
@@ -822,12 +819,12 @@ public class NimCallActivity extends AppCompatActivity {
                 (ss > 9 ? ":" + ss : ":0" + ss);
     }
 
-//    @OnClick(R.id.ic_call_switch_camera)
+    //    @OnClick(R.id.ic_call_switch_camera)
     public void onIvSwitchCameraClicked() {
         NimCallHelper.getInstance().switchCamera();
     }
 
-//    @OnClick(R.id.iv_call_toggle_camera)
+    //    @OnClick(R.id.iv_call_toggle_camera)
     public void onIvToggleCameraClicked() {
         boolean selected = ivToggleCamera.isSelected();
         AVChatManager.getInstance().muteLocalVideo(!selected);
@@ -835,7 +832,7 @@ public class NimCallActivity extends AppCompatActivity {
         ivSmallCover.setVisibility(!selected ? View.GONE : View.VISIBLE);
     }
 
-//    @OnClick(R.id.iv_call_toggle_mute)
+    //    @OnClick(R.id.iv_call_toggle_mute)
     public void onIvToggleMuteClicked() {
         boolean established = NimCallHelper.getInstance().isCallEstablished();
         if (established) { // 连接已经建立
@@ -845,17 +842,17 @@ public class NimCallActivity extends AppCompatActivity {
         }
     }
 
-//    @OnClick(R.id.iv_call_hang_up)
+    //    @OnClick(R.id.iv_call_hang_up)
     public void onIvHangUpClicked() {
         NimCallHelper.getInstance().hangUp();
     }
 
-//    @OnClick(R.id.tv_call_receive)
+    //    @OnClick(R.id.tv_call_receive)
     public void onTvReceiveClicked() {
         NimCallHelper.getInstance().receive();
     }
 
-//    @OnClick(R.id.tv_call_refuse)
+    //    @OnClick(R.id.tv_call_refuse)
     public void onTvRefuseClicked() {
         NimCallHelper.getInstance().refuse();
     }

@@ -22,16 +22,16 @@ import java.security.MessageDigest;
  * Created by afirez on 2017/10/20.
  */
 
-public class NimAccountHelper {
+public class CallAuthHelper {
 
-    private NimAccountHelper() {}
+    private CallAuthHelper() {}
 
-    public static NimAccountHelper getInstance() {
+    public static CallAuthHelper getInstance() {
         return Holder.INSTANCE;
     }
 
     private static class Holder {
-        private static final NimAccountHelper INSTANCE = new NimAccountHelper();
+        private static final CallAuthHelper INSTANCE = new CallAuthHelper();
     }
 
     private String mAccount;
@@ -146,7 +146,7 @@ public class NimAccountHelper {
         if (!TextUtils.isEmpty(mAccount)) {
             return mAccount;
         }
-        Application app = CallApp.getInstance().getApp();
+        Application app = CallApp.INSTANCE.getApp();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         return preferences.getString("account", "");
     }
@@ -155,21 +155,21 @@ public class NimAccountHelper {
         if (!TextUtils.isEmpty(mToken)) {
             return mToken;
         }
-        Application app = CallApp.getInstance().getApp();
+        Application app = CallApp.INSTANCE.getApp();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         return preferences.getString("token", "");
     }
 
     public void setAccount(String account) {
         mAccount = account;
-        Application app = CallApp.getInstance().getApp();
+        Application app = CallApp.INSTANCE.getApp();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         preferences.edit().putString("account", account).apply();
     }
 
     public void setToken(String token) {
         mToken = token;
-        Application app = CallApp.getInstance().getApp();
+        Application app = CallApp.INSTANCE.getApp();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         preferences.edit().putString("account", token).apply();
     }
@@ -177,7 +177,7 @@ public class NimAccountHelper {
     public void removeUserInfo() {
         mAccount = "";
         mToken = "";
-        Application app = CallApp.getInstance().getApp();
+        Application app = CallApp.INSTANCE.getApp();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         preferences.edit()
                 .putString("account", "")

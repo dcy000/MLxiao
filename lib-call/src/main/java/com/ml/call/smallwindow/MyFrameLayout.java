@@ -6,9 +6,10 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
+
+import timber.log.Timber;
 
 /**
  * Created by afirez on 2018/6/7.
@@ -16,7 +17,7 @@ import android.widget.FrameLayout;
 
 public class MyFrameLayout extends FrameLayout {
 
-    private static final String TAG = "call";
+    private static final String TAG = "MyFrameLayout";
 
     public MyFrameLayout(@NonNull Context context) {
         super(context);
@@ -36,14 +37,14 @@ public class MyFrameLayout extends FrameLayout {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.d(TAG, "dispatchTouchEvent: ");
-        return super.dispatchTouchEvent(ev);
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        Timber.tag(TAG).d("dispatchTouchEvent: event=%s", event);
+        return super.dispatchTouchEvent(event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.d(TAG, "onTouchEvent: ");
+        Timber.tag(TAG).d("onTouchEvent: event=%s", event);
         return super.onTouchEvent(event);
     }
 

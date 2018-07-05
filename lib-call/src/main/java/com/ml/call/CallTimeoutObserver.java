@@ -2,19 +2,20 @@ package com.ml.call;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.netease.nimlib.sdk.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by afirez on 2017/10/24.
  */
 
 public class CallTimeoutObserver {
-    private static final String TAG = "CallTimeoutObserver";
+    private static final String TAG = "CallHelper";
     private List<TimeoutObserver> timeoutObservers = new ArrayList<>();
     private List<Observer<Integer>> timeoutObserverLocal = new ArrayList<>(1); // 来电or呼出超时监听
     private Handler uiHandler;
@@ -36,6 +37,7 @@ public class CallTimeoutObserver {
 
     // 通知APP观察者
     private <T> void notifyObservers(List<Observer<T>> observers, T result) {
+        Timber.tag(TAG).d("notifyObservers: observer=%s, result=%s" , observers, result);
         if (observers == null || observers.isEmpty()) {
             return;
         }
@@ -63,7 +65,7 @@ public class CallTimeoutObserver {
     }
 
     public void observeTimeoutNotification(Observer<Integer> observer, boolean register, boolean isIncoming) {
-        Log.i(TAG, "observeTimeoutNotification->" + observer + "#" + register);
+        Timber.tag(TAG).d("observeTimeoutNotification: observer=%s, register=%s, isIncoming=%s" , observer, register, isIncoming);
         registerObservers(timeoutObserverLocal, observer, register);
         if (register) {
             if (isIncoming) {
@@ -84,13 +86,13 @@ public class CallTimeoutObserver {
 
         @Override
         public void run() {
-            Log.i(TAG, "notify timeout ");
             notifyObservers(timeoutObserverLocal, 0);
         }
     }
 
 
     private void addOutgoingTimeout() {
+        Timber.tag(TAG).d("addOutgoingTimeout: ");
         TimeoutObserver timeoutObserver = new TimeoutObserver();
         timeoutObservers.add(timeoutObserver);
         uiHandler.postDelayed(timeoutObserver, OUTGOING_TIME_OUT);
@@ -98,7 +100,7 @@ public class CallTimeoutObserver {
 
 
     private void removeAllTimeout() {
-        Log.i(TAG, "remove all timeout");
+        Timber.tag(TAG).d("removeAllTimeout: ");
         for (TimeoutObserver observer : timeoutObservers) {
             uiHandler.removeCallbacks(observer);
         }
@@ -106,6 +108,7 @@ public class CallTimeoutObserver {
     }
 
     private void addIncomingTimeout() {
+        Timber.tag(TAG).d("addIncomingTimeout: ");
         TimeoutObserver timeoutObserver = new TimeoutObserver();
         timeoutObservers.add(timeoutObserver);
         uiHandler.postDelayed(timeoutObserver, INCOMING_TIME_OUT);

@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ml.call.CallHelper;
-import com.ml.call.NimAccountHelper;
+import com.ml.call.CallAuthHelper;
 import com.ml.call.R;
 import com.ml.call.utils.T;
 import com.netease.nimlib.sdk.RequestCallback;
@@ -39,7 +39,7 @@ public class DoctorSignInActivity extends AppCompatActivity {
         if ("登录".equals(action)) {
             mTvAction.setEnabled(false);
             mTvAction.setText("登录中...");
-            NimAccountHelper.getInstance().login(id, "123456", new RequestCallback<LoginInfo>() {
+            CallAuthHelper.getInstance().login(id, "123456", new RequestCallback<LoginInfo>() {
                 @Override
                 public void onSuccess(LoginInfo param) {
                     mTvId.setText(id);

@@ -92,7 +92,7 @@
         <!-- 网易云通信进程间通信service -->
         <service android:name="com.netease.nimlib.service.ResponseService"/>
 
-        <receiver android:name=".InComingCallReceiver">
+        <receiver android:name=".CallInComingReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
