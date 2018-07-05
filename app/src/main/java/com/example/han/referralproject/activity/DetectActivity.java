@@ -242,6 +242,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } else {
                         xueyaResult = mXueyaResults[2];
                     }
+                    if (getIntent().getBooleanExtra("isSkip", false)) {
+                        speak(String.format(getString(R.string.tips_result_xueya), getNew, down, maibo, xueyaResult));
+                        return;
+                    }
                     uploadXueyaResult(getNew, down, maibo, xueyaResult, false, null);
                     break;
                 case 14:
@@ -539,6 +543,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             } else {
                                 xueyaResult = mXueyaResults[2];
                             }
+                            if (getIntent().getBooleanExtra("isSkip", false)) {
+                                speak(String.format(getString(R.string.tips_result_xueya), notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
+                                return;
+                            }
                             uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
 //                            speak(String.format(getString(R.string.tips_result_xueya),
 //                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
@@ -575,7 +583,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 //上传数据到我们的服务器
+                                if (getIntent().getBooleanExtra("isSkip", false)) {
+                                    speak(String.format(getString(R.string.tips_result_xueya), notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
+                                    return;
+                                }
                                 uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
+
                             }
                         }
                         break;
@@ -608,7 +621,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyangResult = mXueYangResults[1];
                                 }
-                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen,xueyangResult));
+                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, xueyangResult));
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
                                     public void onSuccess(MeasureResult response) {

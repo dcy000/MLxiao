@@ -46,7 +46,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
      * 返回上一页
      */
     protected void backLastActivity() {
-        if (isTest){
+        if (isTest) {
             backMainActivity();
         }
         finish();
@@ -67,7 +67,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_test_main2);
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        isTest=getIntent().getBooleanExtra("isTest",false);
+        isTest = getIntent().getBooleanExtra("isTest", false);
 
         llXueya.setOnClickListener(this);
         llXueyang.setOnClickListener(this);
@@ -97,6 +97,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     intent.setClass(mContext, DetectActivity.class);
 //                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "xueya");
+                    //前一个页面传来的是否跳过刷人脸的标识
+                    intent.putExtra("isSkip", getIntent().getBooleanExtra("isSkip", false));
                     startActivity(intent);
                     break;
                 case R.id.ll_xueyang:
