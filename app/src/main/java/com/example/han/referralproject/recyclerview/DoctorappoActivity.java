@@ -50,6 +50,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.medlink.danbogh.call2.QianZui.keFu;
+
 public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
 
     SharedPreferences sharedPreferences1;
@@ -1173,7 +1175,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                NimCallActivity.launch(mContext, QianZui.qianZuiDoc + 10001);
+                                NimCallActivity.launch(mContext, QianZui.qianZuiDoc + keFu);
                             }
                         }, 2000);
                     }
@@ -1235,7 +1237,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                NimCallActivity.launch(mContext, QianZui.qianZuiDoc + 10001);
+                                NimCallActivity.launch(mContext, QianZui.qianZuiDoc + keFu);
                             }
                         }, 2000);
                     }

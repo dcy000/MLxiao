@@ -5,8 +5,16 @@ package com.medlink.danbogh.call2;
  */
 
 public interface QianZui {
-    //yst_docter_
-    String qianZuiDoc = "yst_test_docter_";
-    //yst_user_
-    String qianZui = "yst_test_user_";
+//    /**
+//     * 测试
+//     */
+//    String qianZuiDoc = "yst_test_docter_";
+//    String qianZui = "yst_test_user_";
+
+    /**
+     * 生产
+     */
+    String qianZuiDoc = "yst_docter_";
+    String qianZui = "yst_user_";
+    String keFu = "10032";
 }

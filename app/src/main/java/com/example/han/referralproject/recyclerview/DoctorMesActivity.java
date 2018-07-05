@@ -37,6 +37,8 @@ import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
+import static com.medlink.danbogh.call2.QianZui.keFu;
+
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
     ImageView mImageView;
@@ -326,7 +328,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
                                 }
                             });
-                            NimCallActivity.launch(mContext, QianZui.qianZuiDoc+ 10001);
+                            NimCallActivity.launch(mContext, QianZui.qianZuiDoc+ keFu);
                         }
                     });
 //                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
