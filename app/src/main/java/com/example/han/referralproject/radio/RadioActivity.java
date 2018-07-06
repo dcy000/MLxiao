@@ -209,6 +209,7 @@ public class RadioActivity extends BaseActivity implements
                     }
                 });
             } else {
+                hideLoadingDialog();
                 speak("主人，未搜索到该频道，请更换频道再试");
             }
 
