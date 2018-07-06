@@ -3,10 +3,12 @@ package com.ml.bci.game;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.DialogInterface;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,22 +25,22 @@ import android.widget.TextView;
 
 import com.ml.bci.game.common.utils.FragmentUtils;
 import com.ml.bci.game.common.widget.recyclerview.AutoScrollHelper;
+import com.ml.bci.game.common.widget.recyclerview.RandomLayoutManager;
 
 import java.util.ArrayList;
-
-import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
 public class BciGameFruitActivity extends AppCompatActivity {
 
     private ConstraintLayout clRoot;
     private TextView tvFruitIndicator;
     private ProgressBar pbAttention;
+    private TextView tvAttention;
     private RecyclerView rvFruits;
 
     private ImageView ivFruitChoose;
     private Adapter mAdapter;
     private AutoScrollHelper mAutoScrollHelper;
-    private GalleryLayoutManager mLayoutManager;
+    private RandomLayoutManager mLayoutManager;
 
     private BciDeviceControllerFragment mBciDeviceControllerFragment;
 
@@ -58,17 +60,22 @@ public class BciGameFruitActivity extends AppCompatActivity {
         clRoot = (ConstraintLayout) findViewById(R.id.bci_cl_root);
         tvFruitIndicator = (TextView) findViewById(R.id.bci_tv_fruit_indicator);
         pbAttention = (ProgressBar) findViewById(R.id.bci_pb_attention);
+        tvAttention = (TextView) findViewById(R.id.bci_tv_attention);
         ivFruitChoose = (ImageView) findViewById(R.id.bci_iv_choose_fruit);
         rvFruits = (RecyclerView) findViewById(R.id.bci_rv_fruits);
 
-        mLayoutManager = new GalleryLayoutManager(GalleryLayoutManager.HORIZONTAL);
-        mLayoutManager.attach(rvFruits, fruitResources.size() - 1);
-        mLayoutManager.setCallbackInFling(true);
-        mLayoutManager.setOnItemSelectedListener(new GalleryLayoutManager.OnItemSelectedListener() {
+
+        mLayoutManager = new RandomLayoutManager();
+        rvFruits.setLayoutManager(mLayoutManager);
+        mLayoutManager.setOnSelectionListener(new RandomLayoutManager.OnSelectionListener() {
             @Override
-            public void onItemSelected(RecyclerView recyclerView, View item, int position) {
-                int curSelectedPosition = mLayoutManager.getCurSelectedPosition();
-                tvFruitIndicator.setText(getFruit(curSelectedPosition));
+            public void onSelect(View view, int position) {
+                tvFruitIndicator.setText(getFruit(position));
+            }
+
+            @Override
+            public void onUnselect() {
+                tvFruitIndicator.setText("");
             }
         });
         rvFruits.setLayoutManager(mLayoutManager);
@@ -79,17 +86,34 @@ public class BciGameFruitActivity extends AppCompatActivity {
         mAutoScrollHelper = new AutoScrollHelper();
         mAutoScrollHelper.attach(rvFruits);
 
-        clRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivFruitChoose.setVisibility(View.GONE);
-                mBciDeviceControllerFragment.closeDevice();
-                initFruits();
-                mAdapter.notifyDataSetChanged();
-                rvFruits.smoothScrollToPosition(fruitResources.size() - 1);
-                mBciDeviceControllerFragment.connectDevice();
-            }
-        });
+        start();
+
+    }
+
+    private void start() {
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setMessage("开始游戏")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        tvFruitIndicator.setText("");
+                        ivFruitChoose.setImageDrawable(null);
+                        mBciDeviceControllerFragment.closeDevice();
+                        initFruits();
+                        mAdapter.notifyDataSetChanged();
+//                rvFruits.smoothScrollToPosition(fruitResources.size() - 1);
+                        mBciDeviceControllerFragment.connectDevice();
+                    }
+                })
+                .create()
+                .show();
     }
 
     private void initFruits() {
@@ -97,7 +121,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
         fruitResources.add(R.drawable.bci_ic_fruit_apple);
         fruitResources.add(R.drawable.bci_ic_fruit_peach);
         fruitResources.add(R.drawable.bci_ic_fruit_pear);
-        fruitResources.add(R.drawable.bci_ic_fruit_watermelon);
+//        fruitResources.add(R.drawable.bci_ic_fruit_watermelon);
     }
 
     private void initAttention() {
@@ -109,6 +133,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
             @Override
             public void onAttentionChanged(int intensity) {
                 pbAttention.setProgress(intensity);
+                tvAttention.setText(String.valueOf(intensity));
                 if (!mAutoScrollHelper.isStarted()) {
                     mAutoScrollHelper.start();
                 }
@@ -128,27 +153,23 @@ public class BciGameFruitActivity extends AppCompatActivity {
         rvFruits.post(new Runnable() {
             @Override
             public void run() {
-                int currentPosition = fruitResources.size() == 0 ? 0 : mLayoutManager.getCurSelectedPosition();
-                Log.d("fruit", "currentPosition: " + currentPosition);
-                Log.d("fruit", getFruit(currentPosition));
-                if (fruitResources.size() != 0) {
-                    final int position;
-                    position = currentPosition % fruitResources.size();
-                    final Integer removed;
-                    synchronized (fruitResources) {
-                        removed = fruitResources.remove(position);
-                    }
-                    final int[] startLocation = new int[2];
-                    View view = mLayoutManager.getChildAt(position);
-                    view.getLocationInWindow(startLocation);
-                    mAdapter.notifyItemRemoved(position);
-                    rvFruits.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            animate(startLocation, position, removed);
-                        }
-                    }, 16);
+                final int selectedPosition = mLayoutManager.getSelectedPosition();
+                if (selectedPosition < 0) {
+                    return;
                 }
+
+                Log.d("fruit", "currentPosition: " + selectedPosition);
+                Log.d("fruit", getFruit(selectedPosition));
+                final int[] startLocation = new int[2];
+                View view = mLayoutManager.getSelectedView();
+                view.getLocationInWindow(startLocation);
+                final Integer removed = fruitResources.remove(selectedPosition);
+                rvFruits.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        animate(startLocation, selectedPosition, removed);
+                    }
+                }, 16);
             }
         });
     }
@@ -196,9 +217,37 @@ public class BciGameFruitActivity extends AppCompatActivity {
                 clRoot.removeView(imageView);
                 ivFruitChoose.setImageResource(removed);
                 ivFruitChoose.setVisibility(View.VISIBLE);
+                if (fruitResources.size() == 0) {
+                    end();
+                }
             }
         });
         animator.start();
+    }
+
+    private void end() {
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setMessage("再来一把!!!")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        tvFruitIndicator.setText("");
+                        ivFruitChoose.setImageDrawable(null);
+                        mBciDeviceControllerFragment.closeDevice();
+                        initFruits();
+                        mAdapter.notifyDataSetChanged();
+                        mBciDeviceControllerFragment.connectDevice();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .create()
+                .show();
     }
 
     private String getFruit(int currentPosition) {

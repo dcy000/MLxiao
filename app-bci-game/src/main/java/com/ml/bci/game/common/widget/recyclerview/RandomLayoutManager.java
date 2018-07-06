@@ -89,7 +89,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
         for (int i = 0; i < childCount; i++) {
             View view = getChildAt(i);
             int left = mOffset - mWidth * (i + 1) - calcTotalLeftMargin(i);
-            Log.d(TAG, "layoutChildren: LayoutPosition=" + getPosition(view) +  " AdapterPosition=" + getAdapterPosition(view));
+            Log.d(TAG, "layoutChildren: LayoutPosition=" + getPosition(view) + " AdapterPosition=" + getAdapterPosition(view));
             layoutDecorated(view, left, getDecoratedTop(view), left + mWidth, getDecoratedBottom(view));
         }
 
@@ -118,6 +118,72 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
                 layoutDecorated(scrap, left, top, right, bottom);
             }
         }
+
+        int mid = getWidth() / 2;
+        for (int i = 0; i < getChildCount(); i++) {
+            int left = mOffset - mWidth * i - calcTotalLeftMargin(i);
+            if (mid > left && mid < left + mWidth) {
+                View view = getChildAt(i);
+                int position = getAdapterPosition(view);
+                if (position != this.position) {
+                    onSelect(view, position);
+                }
+            } else {
+                onUnselect();
+            }
+        }
+    }
+
+    private void onUnselect() {
+        mSelectedView = null;
+        this.position = -1;
+        if (mOnSelectionListener != null) {
+            mOnSelectionListener.onUnselect();
+        }
+    }
+
+    private int position = -1;
+
+    private View mSelectedView;
+
+    private void onSelect(View view, int position) {
+        mSelectedView = view;
+        this.position = position;
+
+        if (mOnSelectionListener != null) {
+            mOnSelectionListener.onSelect(view, position);
+        }
+    }
+
+    public int getSelectedPosition() {
+        return position;
+    }
+
+    public View getSelectedView() {
+        return mSelectedView;
+    }
+
+    public interface OnSelectionListener {
+        void onSelect(View view, int position);
+
+        void onUnselect();
+    }
+
+    public void setOnSelectionListener(OnSelectionListener onSelectionListener) {
+        mOnSelectionListener = onSelectionListener;
+    }
+
+    private OnSelectionListener mOnSelectionListener;
+
+    public View remove(int position) {
+        for (int i = 0; i < getChildCount(); i++) {
+            View view = getChildAt(i);
+            int adapterPosition = getAdapterPosition(view);
+            if (adapterPosition == position) {
+                return view;
+            }
+        }
+        return null;
     }
 
     private int getLeftMargin(View view) {

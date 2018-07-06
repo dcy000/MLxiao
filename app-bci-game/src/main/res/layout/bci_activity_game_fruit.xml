@@ -10,6 +10,16 @@
     tools:context="com.ml.bci.game.BciGameFruitActivity">
 
     <ImageView
+        android:id="@+id/bci_iv_flower_up"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/bci_bg_flower_up"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
         android:id="@+id/bci_iv_fruit_emitter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,22 +30,24 @@
 
     <TextView
         android:id="@+id/bci_tv_fruit_indicator"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
+        android:layout_width="135dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="80dp"
-        android:background="@drawable/bci_ic_fruit_indicator"
-        android:gravity="center"
-        android:textColor="#ffffff"
+        android:background="@drawable/bci_bg_fruit_indicator"
+        android:gravity="bottom|center"
+        android:paddingBottom="25dp"
+        tools:text="梨子"
+        android:textColor="#FFBB36"
         android:textSize="38sp"
-        app:layout_constraintBottom_toTopOf="@+id/bci_iv_fruit_emitter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="苹果"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/bci_iv_choose_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
         android:src="@drawable/bci_ic_choose_indicator"
         app:layout_constraintBottom_toTopOf="@+id/bci_iv_fruit_emitter"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,13 +56,14 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/bci_rv_fruits"
         android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="130dp"
         app:layout_constraintBottom_toBottomOf="@+id/bci_iv_fruit_emitter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bci_iv_fruit_emitter"/>
+
 
     <ImageView
         android:id="@+id/bci_iv_fruit_basket_back"
@@ -65,11 +78,11 @@
         android:id="@+id/bci_iv_choose_fruit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bci_iv_fruit_basket_front"
-        tools:src="@drawable/bci_ic_fruit_apple"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/bci_ic_fruit_pear"/>
 
     <ImageView
         android:id="@+id/bci_iv_fruit_basket_front"
@@ -81,14 +94,25 @@
         app:layout_constraintRight_toRightOf="parent"/>
 
     <ImageView
-        android:id="@+id/bci_iv_flower"
+        android:id="@+id/bci_iv_flower_down"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/bci_bg_flower"
         android:scaleType="fitXY"
+        android:src="@drawable/bci_bg_flower_down"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/bci_tv_attention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColor="#FF9700"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toTopOf="@+id/bci_pb_attention"
+        app:layout_constraintLeft_toLeftOf="@+id/bci_pb_attention"
+        app:layout_constraintRight_toRightOf="@+id/bci_pb_attention"/>
 
     <ProgressBar
         android:id="@+id/bci_pb_attention"
@@ -102,4 +126,14 @@
         android:progressDrawable="@drawable/bci_pb_attention"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/bci_pb_attention_decorator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bci_fg_attention_decorator"
+        app:layout_constraintBottom_toBottomOf="@+id/bci_pb_attention"
+        app:layout_constraintLeft_toLeftOf="@+id/bci_pb_attention"
+        app:layout_constraintRight_toRightOf="@+id/bci_pb_attention"
+        app:layout_constraintTop_toTopOf="@+id/bci_pb_attention"/>
 </android.support.constraint.ConstraintLayout>
