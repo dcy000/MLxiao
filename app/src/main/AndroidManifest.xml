@@ -98,7 +98,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_xien"/>
+            android:value="gcml_version_xien_mobile"/>
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
