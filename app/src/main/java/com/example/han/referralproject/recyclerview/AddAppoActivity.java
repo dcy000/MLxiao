@@ -131,7 +131,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(int which) {
                         if (which == 1) {
 
-                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     //sharedPreference.getString("doctor_id", "")
@@ -162,6 +162,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 })
                 .create(NDialog.CONFIRM).show();
     }
+
+    private String doctorId;
 
     public void ShowNormals(String str) {
         dialog1.setMessageCenter(true)
@@ -252,6 +254,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
+        doctorId=getIntent().getStringExtra("doctorId");
 
 
         mToolbar.setVisibility(View.VISIBLE);
@@ -383,7 +386,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         judge();
 
 
-        NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
+        NetworkApi.YuYue_already(doctorId, new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
             @Override
             public void onSuccess(ArrayList<AlreadyYuyue> response) {
 
@@ -1917,7 +1920,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:20:00"))) {
 
-                    mTextView1.setText(getString(R.string.space)+"预约");
+                    mTextView1.setText(getString(R.string.space) + "预约");
                     mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView1.setEnabled(false);
 
@@ -1926,7 +1929,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:40:00"))) {
 
-                    mTextView8.setText(getString(R.string.space)+"预约");
+                    mTextView8.setText(getString(R.string.space) + "预约");
                     mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView8.setEnabled(false);
 
@@ -1935,7 +1938,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:00:00"))) {
 
-                    mTextView15.setText(getString(R.string.space)+"预约");
+                    mTextView15.setText(getString(R.string.space) + "预约");
                     mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView15.setEnabled(false);
 
@@ -1943,7 +1946,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:20:00"))) {
 
-                    mTextView22.setText(getString(R.string.space)+"预约");
+                    mTextView22.setText(getString(R.string.space) + "预约");
                     mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView22.setEnabled(false);
 
@@ -1951,7 +1954,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:40:00"))) {
 
-                    mTextView29.setText(getString(R.string.space)+"预约");
+                    mTextView29.setText(getString(R.string.space) + "预约");
                     mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView29.setEnabled(false);
 
@@ -1959,7 +1962,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "17:00:00"))) {
 
-                    mTextView36.setText(getString(R.string.space)+"预约");
+                    mTextView36.setText(getString(R.string.space) + "预约");
                     mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView36.setEnabled(false);
 
@@ -1978,7 +1981,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:20:00"))) {
 
-            mTextView1.setText(getString(R.string.space)+"预约");
+            mTextView1.setText(getString(R.string.space) + "预约");
             mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView1.setEnabled(false);
 
@@ -1987,7 +1990,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:40:00"))) {
 
-            mTextView8.setText(getString(R.string.space)+"预约");
+            mTextView8.setText(getString(R.string.space) + "预约");
             mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView8.setEnabled(false);
 
@@ -1996,7 +1999,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:00:00"))) {
 
 
-            mTextView15.setText(getString(R.string.space)+"预约");
+            mTextView15.setText(getString(R.string.space) + "预约");
             mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView15.setEnabled(false);
 
@@ -2007,7 +2010,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:20:00"))) {
 
 
-            mTextView22.setText(getString(R.string.space)+"预约");
+            mTextView22.setText(getString(R.string.space) + "预约");
             mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView22.setEnabled(false);
 
@@ -2018,7 +2021,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:40:00"))) {
 
 
-            mTextView29.setText(getString(R.string.space)+"预约");
+            mTextView29.setText(getString(R.string.space) + "预约");
             mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView29.setEnabled(false);
 
@@ -2028,7 +2031,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "11:00:00"))) {
 
 
-            mTextView36.setText(getString(R.string.space)+"预约");
+            mTextView36.setText(getString(R.string.space) + "预约");
             mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView36.setEnabled(false);
 
