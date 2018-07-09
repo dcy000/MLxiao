@@ -97,12 +97,6 @@ public class BciGameFruitActivity extends AppCompatActivity {
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
                         tvFruitIndicator.setText("");
                         ivFruitChoose.setImageDrawable(null);
                         mBciDeviceControllerFragment.closeDevice();
@@ -110,6 +104,12 @@ public class BciGameFruitActivity extends AppCompatActivity {
                         mAdapter.notifyDataSetChanged();
 //                rvFruits.smoothScrollToPosition(fruitResources.size() - 1);
                         mBciDeviceControllerFragment.connectDevice();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
                     }
                 })
                 .create()
@@ -142,7 +142,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
 
             @Override
             public void onBlinkChanged(int intensity) {
-                if (intensity > 88) {
+                if (intensity > 50) {
                     animateDown();
                 }
             }
@@ -163,7 +163,9 @@ public class BciGameFruitActivity extends AppCompatActivity {
                 final int[] startLocation = new int[2];
                 View view = mLayoutManager.getSelectedView();
                 view.getLocationInWindow(startLocation);
+                mLayoutManager.remove(selectedPosition);
                 final Integer removed = fruitResources.remove(selectedPosition);
+                mAdapter.notifyItemRemoved(removed);
                 rvFruits.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -340,5 +342,13 @@ public class BciGameFruitActivity extends AppCompatActivity {
         public int getItemCount() {
             return fruitResources.size();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mAutoScrollHelper != null) {
+            mAutoScrollHelper.stop();
+        }
+        super.onDestroy();
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -31,6 +32,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         //We have nothing to show for an empty data set but clear any existing views
         if (getItemCount() == 0) {
+            added.clear();
             detachAndScrapAttachedViews(recycler);
             return;
         }
@@ -40,7 +42,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
             return;
         }
 
-        detachAndScrapAttachedViews(recycler);
+        removeAndRecycleAllViews(recycler);
 
         layoutChildren(recycler, state, 0);
     }
@@ -51,21 +53,23 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
     private boolean hasRemoved = false;
     private int mOffset = 0;
 
+    private LinkedList<Integer> added = new LinkedList<>();
+
     private void layoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state, int dx) {
 
-        if (dx >= 0) {
+        if (dx > 0) {
             return;
         }
         mOffset += -dx;
 
-        if (getChildCount() == 0) {
+        if (getChildCount() == 0 && getItemCount() > 0) {
             hasRemoved = false;
             View scrap = recycler.getViewForPosition(0);
             addView(scrap);
             measureChildWithMargins(scrap, 0, 0);
             mWidth = getDecoratedMeasuredWidth(scrap);
             mHeight = getDecoratedMeasuredHeight(scrap);
-            detachAndScrapView(scrap, recycler);
+            removeAndRecycleView(scrap, recycler);
         }
 
         // find children out of range to remove
@@ -80,58 +84,82 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
         // remove children out of range
         for (View view : hidden) {
             mOffset -= mWidth + getLeftMargin(view);
+            added.remove(Integer.valueOf(getAdapterPosition(view)));
             removeAndRecycleView(view, recycler);
         }
         hidden.clear();
 
-        // layout children
-        int childCount = getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View view = getChildAt(i);
-            int left = mOffset - mWidth * (i + 1) - calcTotalLeftMargin(i);
-            Log.d(TAG, "layoutChildren: LayoutPosition=" + getPosition(view) + " AdapterPosition=" + getAdapterPosition(view));
-            layoutDecorated(view, left, getDecoratedTop(view), left + mWidth, getDecoratedBottom(view));
+        removeAndRecycleAllViews(recycler);
+
+        int unconsumed = mOffset;
+//        int consumed = 0;
+
+        int size = added.size();
+        for (int i = 0; i < size && unconsumed > 0; i++) {
+            View scrap = recycler.getViewForPosition(added.get(i));
+            Log.d(TAG, "layoutChildren: " + getAdapterPosition(scrap));
+            addView(scrap);
+            measureChildWithMargins(scrap, 0, 0);
+            int left = unconsumed - mWidth;
+            int top = getDecoratedTop(scrap);
+            int right = unconsumed;
+            int bottom = top + mHeight;
+            layoutDecorated(scrap, left, top, right, bottom);
+//            consumed += mWidth + getLeftMargin(scrap);
+            unconsumed -= mWidth + getLeftMargin(scrap);
         }
 
         if (!hasRemoved) {
-            for (int i = childCount; i < getItemCount(); i++) {
-                View scrap;
-                int randomPosition = makeAvailableRandomPosition();
-                Log.d(TAG, "layoutChildren: randomPosition" + randomPosition);
-                scrap = recycler.getViewForPosition(randomPosition);
-                ((RecyclerView.LayoutParams) scrap.getLayoutParams()).leftMargin = makeRandomLeftMargin();
-                int left;
-                if (i == 0) {
-                    mOffset = -dx;
-                    left = mOffset - mWidth;
-                } else {
-                    left = mOffset - mWidth * (i + 1) - calcTotalLeftMargin(i);
-                }
-                if (outOfRange(left)) {
+            for (; unconsumed > 10; ) {
+                int i = makeAvailableRandomPosition();
+                if (i == -1) {
                     break;
                 }
-                measureChildWithMargins(scrap, 0, 0);
+                View scrap = recycler.getViewForPosition(i);
+                added.offer(i);
+                if (getChildCount() == 0) {
+                    mOffset = -dx;
+                    unconsumed = mOffset;
+                }
                 addView(scrap);
+                measureChildWithMargins(scrap, 0, 0);
+                int leftMargin = makeRandomLeftMargin();
+                setLeftMargin(scrap, leftMargin);
+                int left = unconsumed - mWidth;
                 int top = getDecoratedTop(scrap);
-                int right = left + mWidth;
+                int right = unconsumed;
                 int bottom = top + mHeight;
                 layoutDecorated(scrap, left, top, right, bottom);
+//                consumed += mWidth + getLeftMargin(scrap);
+                unconsumed -= mWidth + getLeftMargin(scrap);
             }
         }
 
         int mid = getWidth() / 2;
+        int selectedPosition = -1;
+        View selectedView = null;
+
         for (int i = 0; i < getChildCount(); i++) {
-            int left = mOffset - mWidth * i - calcTotalLeftMargin(i);
-            if (mid > left && mid < left + mWidth) {
-                View view = getChildAt(i);
-                int position = getAdapterPosition(view);
+            View child = getChildAt(i);
+            if (mid > getDecoratedLeft(child) && mid < getDecoratedRight(child)) {
+                int position = getAdapterPosition(child);
                 if (position != this.position) {
-                    onSelect(view, position);
+                    selectedPosition = position;
+                    selectedView = child;
+                    break;
                 }
-            } else {
-                onUnselect();
             }
         }
+        if (selectedPosition == -1) {
+            onUnselect();
+        } else {
+            onSelect(selectedView, selectedPosition);
+        }
+
+    }
+
+    private void setLeftMargin(View scrap, int leftMargin) {
+        ((RecyclerView.LayoutParams) scrap.getLayoutParams()).leftMargin = leftMargin;
     }
 
     private void onUnselect() {
@@ -176,6 +204,15 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
     private OnSelectionListener mOnSelectionListener;
 
     public View remove(int position) {
+        if (added.contains(position)) {
+            added.remove(Integer.valueOf(position));
+            for (int i = 0; i < added.size(); i++) {
+                Integer integer = added.get(i);
+                if (integer > position) {
+                    added.set(i, integer - 1);
+                }
+            }
+        }
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             int adapterPosition = getAdapterPosition(view);
@@ -183,6 +220,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
                 return view;
             }
         }
+
         return null;
     }
 
@@ -221,14 +259,13 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
     }
 
     private int makeAvailableRandomPosition() {
-        int position = mAdapterPositionRandom.nextInt(getItemCount());
-        int childCount = getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            int adapterPosition = getAdapterPosition(getChildAt(i));
-            if (adapterPosition == position) {
-                position = mAdapterPositionRandom.nextInt(getItemCount());
-                i = 0;
-            }
+        int itemCount = getItemCount();
+        if (added.size() == itemCount) {
+            return -1;
+        }
+        int position = mAdapterPositionRandom.nextInt(itemCount);
+        while (added.contains(position)) {
+            position = mAdapterPositionRandom.nextInt(itemCount);
         }
         return position;
     }

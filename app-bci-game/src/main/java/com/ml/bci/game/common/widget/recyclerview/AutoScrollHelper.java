@@ -1,6 +1,7 @@
 package com.ml.bci.game.common.widget.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -11,6 +12,9 @@ import java.lang.ref.WeakReference;
  */
 
 public class AutoScrollHelper {
+
+    private static final String TAG = "AutoScrollHelper";
+
     public static final long INTERVAL_AUTO_SCROLL = 16;
 
     private WeakReference<RecyclerView> mWeakRecyclerView;
@@ -49,7 +53,7 @@ public class AutoScrollHelper {
 
     public void start() {
         if (running) {
-            stop();
+            return;
         }
         canRun = true;
         running = true;
@@ -70,7 +74,11 @@ public class AutoScrollHelper {
             if (!canRun || !running) {
                 return;
             }
-            recyclerView.scrollBy(offsetX(), offsetY());
+
+            int x = offsetX();
+            int y = offsetY();
+
+            recyclerView.scrollBy(x, y);
             recyclerView.postDelayed(autoScrollRunnable, INTERVAL_AUTO_SCROLL);
         }
     };
