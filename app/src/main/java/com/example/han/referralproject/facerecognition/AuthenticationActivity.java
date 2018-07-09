@@ -519,7 +519,8 @@ public class AuthenticationActivity extends BaseActivity {
                 if ("Test".equals(fromString)) {
                     Intent intent = new Intent();
                     if (TextUtils.isEmpty(fromType)) {
-                        intent.setClass(AuthenticationActivity.this, Test_mainActivity.class);
+                        //isSkip 人脸检测时是否点击了跳过
+                        intent.setClass(AuthenticationActivity.this, Test_mainActivity.class).putExtra("isSkip",true);
                     } else if ("xindian".equals(fromType)) {
                         intent.setClass(AuthenticationActivity.this, XinDianDetectActivity.class);
                     } else {

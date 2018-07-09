@@ -635,7 +635,7 @@ public class NimCallHelper {
     private AVChatParameters avChatParameters;
 
     private int videoCropRatio = 0;
-    private boolean videoAutoRotate = true;
+    private boolean videoAutoRotate = false;
     private int videoQuality = 0;
     private boolean serverRecordAudio = false;
     private boolean serverRecordVideo = false;
@@ -647,7 +647,7 @@ public class NimCallHelper {
     private int audioEffectAecMode = 2;
     private int audioEffectNsMode = 2;
     private int videoMaxBitrate = 0;
-    private int deviceDefaultRotation = 0;
+    private int deviceDefaultRotation = 1;
     private int deviceRotationOffset = 0;
     private boolean audioHighQuality = false;
     private boolean audioDtx = true;
