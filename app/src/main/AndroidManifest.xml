@@ -688,6 +688,7 @@
         <activity android:name=".settting.activity.BrightnessSettingActivity">
         </activity>
         <activity android:name="com.medlink.danbogh.register.AuthChangeBloodTypeActivity"/>
+        <activity android:name="com.medlink.danbogh.register.simple.SignUp02IdCardActivity" />
     </application>
 
 </manifest>

@@ -31,7 +31,7 @@ import butterknife.Unbinder;
 /**
  * Created by lenovo on 2017/10/12.
  */
-
+@Deprecated
 public class SignUp02MobileVerificationActivity extends BaseActivity {
     @BindView(R.id.et_sign_up_phone)
     EditText etPhone;

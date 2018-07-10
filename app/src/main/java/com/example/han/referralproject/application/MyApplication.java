@@ -8,9 +8,12 @@ import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.example.han.referralproject.BuildConfig;
+import com.example.han.referralproject.MainLooperMonitor;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
@@ -39,6 +42,7 @@ import java.util.List;
 
 import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
+import timber.log.Timber;
 
 
 public class MyApplication extends Application {
@@ -60,6 +64,7 @@ public class MyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        MainLooperMonitor.getInstance().install();
         MultiDex.install(this);
     }
 
@@ -123,6 +128,53 @@ public class MyApplication extends Application {
                 return BuildConfig.LOGGING;
             }
         });
+        initTimber();
+    }
+
+    private void initTimber() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new CrashReportingTree());
+        }
+    }
+
+    /** A tree which logs important information for crash reporting. */
+    private static class CrashReportingTree extends Timber.Tree {
+        @Override protected void log(int priority, String tag, @NonNull String message, Throwable t) {
+            if (priority == Log.VERBOSE || priority == Log.DEBUG) {
+                return;
+            }
+
+            FakeCrashLibrary.log(priority, tag, message);
+
+            if (t != null) {
+                if (priority == Log.ERROR) {
+                    FakeCrashLibrary.logError(t);
+                } else if (priority == Log.WARN) {
+                    FakeCrashLibrary.logWarning(t);
+                }
+            }
+        }
+    }
+
+    /** Not a real crash reporting library! */
+    public static final class FakeCrashLibrary {
+        public static void log(int priority, String tag, String message) {
+            // TODO add log entry to circular buffer.
+        }
+
+        public static void logWarning(Throwable t) {
+            // TODO report non-fatal warning.
+        }
+
+        public static void logError(Throwable t) {
+            // TODO report non-fatal error.
+        }
+
+        private FakeCrashLibrary() {
+            throw new AssertionError("No instances.");
+        }
     }
 
 

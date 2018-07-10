@@ -85,8 +85,7 @@ public class SignUp01NameActivity extends BaseActivity {
         }
 
         LocalShared.getInstance(this.getApplicationContext()).setSignUpName(name);
-        Intent intent = SignUp02MobileVerificationActivity.newIntent(this);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = SignUp02IdCardActivity.newIntent(this);
         startActivity(intent);
     }
 

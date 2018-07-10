@@ -303,7 +303,7 @@ public class LocalShared {
     }
 
     public String getSignUpIdCard() {
-        return mShared.getString(SIGN_UP_ID_CARD, makeIdCard());
+        return mShared.getString(SIGN_UP_ID_CARD, "");
     }
 
     public String makeIdCard() {

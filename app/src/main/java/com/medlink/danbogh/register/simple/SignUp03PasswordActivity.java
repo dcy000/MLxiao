@@ -42,6 +42,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
     @BindView(R.id.tv_sign_up_go_forward)
     TextView tvGoForward;
     public Unbinder mUnbinder;
+    private boolean forResult;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp03PasswordActivity.class);
@@ -54,6 +55,10 @@ public class SignUp03PasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        if (intent != null) {
+            forResult = intent.getBooleanExtra("forResult", false);
+        }
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up6_password);
         mToolbar.setVisibility(View.GONE);
@@ -85,6 +90,11 @@ public class SignUp03PasswordActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
+        if (forResult) {
+            setResult(RESULT_CANCELED);
+            finish();
+            return;
+        }
         finish();
     }
 
@@ -98,6 +108,11 @@ public class SignUp03PasswordActivity extends BaseActivity {
             speak(R.string.sign_up_password_tip);
             return;
         }
+        if (forResult) {
+            setResult(RESULT_OK, new Intent().putExtra("password", password));
+            finish();
+            return;
+        }
         signUp(password);
         LocalShared.getInstance(this.getApplicationContext()).setSignUpPassword(password);
     }
@@ -106,23 +121,24 @@ public class SignUp03PasswordActivity extends BaseActivity {
         Intent intent = new Intent(this, RegisterVideoActivity.class);
         intent.putExtra("isFast", true);
         startActivity(intent);
+        finishAffinity();
     }
 
     private void signUp(String password) {
         showLoadingDialog(getString(R.string.do_register));
         final LocalShared shared = LocalShared.getInstance(this);
         String name = shared.getSignUpName();
-        String gender = shared.getSignUpGender();
-        String address = shared.getSignUpAddress();
+        String gender = "";
+        String address = "";
         String idCard = shared.getSignUpIdCard(); //1234561 + phone
-        String phone = shared.getSignUpPhone();
-        float height = shared.getSignUpHeight();
-        float weight = shared.getSignUpWeight();
-        String bloodType = shared.getSignUpBloodType();
-        String eat = shared.getSignUpEat();
-        String smoke = shared.getSignUpSmoke();
-        String drink = shared.getSignUpDrink();
-        String sport = shared.getSignUpSport();
+        String phone = "";
+        float height = 0;
+        float weight = 0;
+        String bloodType = "";
+        String eat = "";
+        String smoke = "";
+        String drink = "";
+        String sport = "";
         NetworkApi.registerUser(
                 name,
                 gender,
@@ -154,13 +170,11 @@ public class SignUp03PasswordActivity extends BaseActivity {
                             @Override
                             public void onSuccess(String response) {
                                 navToNext();
-                                finishAffinity();
                             }
                         }, new NetworkManager.FailedCallback() {
                             @Override
                             public void onFailed(String message) {
                                 navToNext();
-                                finishAffinity();
                             }
                         });
                     }

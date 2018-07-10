@@ -33,7 +33,7 @@
                 android:gravity="center"
                 android:paddingLeft="36pt"
                 android:paddingRight="36pt"
-                android:text="手机登录"
+                android:text="登录"
                 android:textColor="@color/white"
                 android:textSize="50pt"
                 app:layout_constraintLeft_toLeftOf="parent"

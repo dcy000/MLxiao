@@ -64,8 +64,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NetworkApi {
     //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
-//    public static final String BasicUrl = "http://47.96.98.60:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
+    public static final String BasicUrl = "http://47.96.98.60:8060";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
@@ -74,7 +74,8 @@ public class NetworkApi {
 
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
-    public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
+    //    public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
+    public static final String RegisterUrl = BasicUrl + "/ZZB/api/register/patient/noPhone/";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
     public static final String ClueUrl = BasicUrl + "/ZZB/br/selOneUserClueAll";
     public static final String BindDocUrl = BasicUrl + "/ZZB/br/qianyue";
@@ -172,11 +173,11 @@ public class NetworkApi {
 
     public static final String AUTH_IS_REGISTERED_ID_CARD = BasicUrl + "/ZZB/login/user_sfz_login";
 
-    public static void isRegisteredByIdCard(String idCard, NetworkManager.SuccessCallback<UserInfoBean> successCallback,
-                                            NetworkManager.FailedCallback failedCallback) {
+    public static void loginByIdCard(String idCard, NetworkManager.SuccessCallback<UserInfoBean> successCallback,
+                                     NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
         params.put("sfz", idCard);
-        NetworkManager.getInstance().getResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
+        NetworkManager.getInstance().postResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
     }
 
     public static void getEatAndSport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
@@ -614,7 +615,6 @@ public class NetworkApi {
         }.getType(), listener, failedCallback);
     }
 
-
     public static void registerUser(
             String name,
             String sex,
@@ -632,21 +632,44 @@ public class NetworkApi {
             NetworkManager.SuccessCallback<UserInfoBean> listener,
             NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("age", "50");
-        paramsMap.put("bname", name);
-        paramsMap.put("sex", sex);
-        paramsMap.put("eqid", Utils.getDeviceId());
-        paramsMap.put("tel", telephone);
+        if (!TextUtils.isEmpty(name)) {
+            paramsMap.put("bname", name);
+        }
+        if (!TextUtils.isEmpty(sex)) {
+            paramsMap.put("sex", sex);
+        }
+        if (!TextUtils.isEmpty(telephone)) {
+            paramsMap.put("tel", telephone);
+        }
         paramsMap.put("pwd", pwd);
-        paramsMap.put("dz", address);
-        paramsMap.put("sfz", sfz);
-        paramsMap.put("height", String.valueOf(height));
-        paramsMap.put("weight", String.valueOf(weight));
-        paramsMap.put("blood_type", bloodType);
-        paramsMap.put("eating_habits", eat);
-        paramsMap.put("smoke", smoke);
-        paramsMap.put("drink", drink);
-        paramsMap.put("exercise_habits", sports);
+        if (!TextUtils.isEmpty(address)) {
+            paramsMap.put("dz", address);
+        }
+        if (!TextUtils.isEmpty(sfz)) {
+            paramsMap.put("sfz", sfz);
+        }
+        if (!TextUtils.isEmpty(bloodType)) {
+            paramsMap.put("blood_type", bloodType);
+        }
+        if (!TextUtils.isEmpty(eat)) {
+            paramsMap.put("eating_habits", eat);
+        }
+        if (!TextUtils.isEmpty(smoke)) {
+            paramsMap.put("smoke", smoke);
+        }
+        if (!TextUtils.isEmpty(drink)) {
+            paramsMap.put("drink", drink);
+        }
+        if (!TextUtils.isEmpty(sports)) {
+            paramsMap.put("exercise_habits", sports);
+        }
+        if (!(height == 0)) {
+            paramsMap.put("height", String.valueOf(height));
+        }
+        if (!(weight == 0)) {
+            paramsMap.put("weight", String.valueOf(weight));
+        }
+        paramsMap.put("eqid", Utils.getDeviceId());
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 

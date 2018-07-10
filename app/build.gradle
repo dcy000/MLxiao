@@ -173,6 +173,7 @@ dependencies {
     compile project(':expand-textview-library')
     compile project(':lib-rulerview')
     //日志库
+    compile "com.jakewharton.timber:timber:4.5.1"
     compile 'com.orhanobut:logger:2.1.1'
     //    compile 'me.relex:circleindicator:1.2.2@aar'
     compile project(':circleindicator')

@@ -3,9 +3,11 @@ package com.ml.call;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.ml.call.common.MainLooperMonitor;
 import com.ml.call.utils.T;
 
 import timber.log.Timber;
@@ -26,10 +28,12 @@ public enum CallApp {
     }
 
     public void attachBaseContext(Application app, Context base) {
+        MainLooperMonitor.getInstance().install();
         mApp = app;
     }
 
     public void onCreate(Application app) {
+
         T.init(app);
         CallInitHelper.getInstance().init(app, true);
         initTimber();

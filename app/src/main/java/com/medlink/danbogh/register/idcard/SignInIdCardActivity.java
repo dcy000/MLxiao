@@ -34,13 +34,11 @@ import com.iflytek.cloud.SpeechError;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
-import com.medlink.danbogh.cache.CacheUtils;
 import com.medlink.danbogh.cache.Repository;
 import com.medlink.danbogh.cache.RxLife;
-import com.medlink.danbogh.cache.exception.UserNotExistException;
 import com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity;
+import com.medlink.danbogh.register.simple.SignUp03PasswordActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -63,8 +61,6 @@ import java.util.Set;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -637,39 +633,26 @@ public class SignInIdCardActivity extends BaseActivity {
                 });
     }
 
-    private void onConfirmIdCardInfo() {
-        if (item == null) {
-            return;
-        }
-        Intent intent = new Intent(this, IdCardInfoActivity.class);
-        intent.putExtra("name", item.partyName);
-        intent.putExtra("gender", item.gender);
-        intent.putExtra("nation", item.nation);
-        intent.putExtra("address", item.certAddress);
-        intent.putExtra("profile", item.picBitmap);
-        intent.putExtra("idCard", item.certNumber);
-        startActivityForResult(intent, 17);
-    }
-
     private void onCheckRegistered() {
         if (item == null) {
             return;
         }
         showLoadingDialog("加载中");
-        NetworkApi.isRegisteredByIdCard(item.certNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
+        NetworkApi.loginByIdCard(item.certNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
                 hideLoadingDialog();
                 if (isFinishing() || isDestroyed()) {
                     return;
                 }
+                checkGroup(response.xfid);
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).setSex(response.sex);
                 LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                 LocalShared.getInstance(mContext).setUserAge(response.age);
                 LocalShared.getInstance(mContext).setUserHeight(response.height);
                 new JpushAliasUtils(SignInIdCardActivity.this).setAlias("user_" + response.bid);
-                onAccountRegistered(response);
+                onLoginSuccess();
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -687,12 +670,18 @@ public class SignInIdCardActivity extends BaseActivity {
         onConfirmIdCardInfo();
     }
 
-    private void onInputPhoneInfo() {
-        Intent intent = new Intent().setClass(
-                this,
-                SignUp02MobileVerificationActivity.class)
-                .putExtra("forResult", true);
-        startActivityForResult(intent, 18);
+    private void onConfirmIdCardInfo() {
+        if (item == null) {
+            return;
+        }
+        Intent intent = new Intent(this, IdCardInfoActivity.class);
+        intent.putExtra("name", item.partyName);
+        intent.putExtra("gender", item.gender);
+        intent.putExtra("nation", item.nation);
+        intent.putExtra("address", item.certAddress);
+        intent.putExtra("profile", item.picBitmap);
+        intent.putExtra("idCard", item.certNumber);
+        startActivityForResult(intent, 17);
     }
 
     @Override
@@ -703,9 +692,9 @@ public class SignInIdCardActivity extends BaseActivity {
             case 18:
                 if (resultCode == RESULT_OK
                         && data != null
-                        && !TextUtils.isEmpty(data.getStringExtra("phone"))) {
-                    String phone = data.getStringExtra("phone");
-                    onRegister(phone);
+                        && !TextUtils.isEmpty(data.getStringExtra("password"))) {
+                    String password = data.getStringExtra("password");
+                    onRegister(password);
                 } else {
                     Log.d(TAG, "onActivityResult: " + resultCode);
                     onReadFailed();
@@ -713,7 +702,7 @@ public class SignInIdCardActivity extends BaseActivity {
                 break;
             case 17:
                 if (resultCode == RESULT_OK) {
-                    onInputPhoneInfo();
+                    onInputPassword();
                 } else {
                     Log.d(TAG, "onActivityResult: " + resultCode);
                     onReadFailed();
@@ -724,27 +713,35 @@ public class SignInIdCardActivity extends BaseActivity {
         }
     }
 
-    private void onRegister(String phone) {
+    private void onInputPassword() {
+        Intent intent = new Intent().setClass(
+                this,
+                SignUp03PasswordActivity.class)
+                .putExtra("forResult", true);
+        startActivityForResult(intent, 18);
+    }
+
+    private void onRegister(String password) {
         final LocalShared shared = LocalShared.getInstance(this);
         String name = item.partyName;
         String gender = item.gender;
         String address = item.certAddress;
         String idCard = item.certNumber;
-        float height = shared.getSignUpHeight();
-        float weight = shared.getSignUpWeight();
-        String bloodType = shared.getSignUpBloodType();
-        String eat = shared.getSignUpEat();
-        String smoke = shared.getSignUpSmoke();
-        String drink = shared.getSignUpDrink();
-        String sport = shared.getSignUpSport();
+        float height = 0f;
+        float weight = 0f;
+        String bloodType = "";
+        String eat = "";
+        String smoke = "";
+        String drink = "";
+        String sport = "";
         showLoadingDialog("加载中");
         NetworkApi.registerUser(
                 name,
                 gender,
                 address,
                 idCard,
-                phone,
-                "123456",
+                "",
+                password,
                 height,
                 weight,
                 bloodType,
@@ -806,9 +803,10 @@ public class SignInIdCardActivity extends BaseActivity {
         btHandler().post(faceRegisterRunnable());
     }
 
+    @Deprecated
     private void onAccountRegistered(UserInfoBean response) {
         showLoadingDialog("加载中");
-        NetworkApi.login(response.tel, "123456", new NetworkManager.SuccessCallback<UserInfoBean>() {
+        NetworkApi.login(response.sex, "123456", new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
                 Logger.e("本次登录人的userid" + response.bid);
