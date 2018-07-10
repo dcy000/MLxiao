@@ -58,10 +58,10 @@ public class DetectHealthSaltActivity extends BaseActivity {
                 Intent intent = new Intent(DetectHealthSaltActivity.this, cls);
                 intent.putExtras(getIntent());
                 int checkedItemPosition = gvItems.getCheckedItemPosition();
-                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
-                        ? items.get(checkedItemPosition)
-                        : "中(4g~6g)";
-                intent.putExtra("salt", value);
+//                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
+//                        ? items.get(checkedItemPosition)
+//                        : "中(4g~6g)";
+                intent.putExtra("salt", checkedItemPosition+"");
                 startActivity(intent);
                 finish();
             }
