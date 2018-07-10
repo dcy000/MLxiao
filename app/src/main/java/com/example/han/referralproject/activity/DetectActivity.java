@@ -518,6 +518,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             mHandler.sendEmptyMessageDelayed(2, 5000);
                             DataInfoBean info = new DataInfoBean();
                             info.temper_ature = String.valueOf(wenduValue);
+                            speak(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
+                            if (isSkip) return;
                             NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                 @Override
                                 public void onSuccess(MeasureResult response) {
@@ -530,7 +532,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 }
                             });
                         }
-                        speak(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
                         break;
                     case Type_Xueya:
                         if (isYuyue && notifyData.length == 19) {
@@ -604,7 +605,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
                             if (getIntent().getBooleanExtra("isSkip", false)) {
-                                speak("主人,您本次测量的血糖值是"+xuetangResut);
+                                speak("主人,您本次测量的血糖值是" + xuetangResut);
                                 return;
                             }
                             uploadXuetangResult(xuetangResut, false, null);
@@ -628,6 +629,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyangResult = mXueYangResults[1];
                                 }
                                 speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, xueyangResult));
+                                /*********/
+                                if (isSkip) {
+                                    return;
+                                }
+                                /*********/
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
                                     public void onSuccess(MeasureResult response) {
@@ -664,6 +670,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                                 DataInfoBean info = new DataInfoBean();
                                 info.weight = result;
+                                if (isSkip) {
+                                    return;
+                                }
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
                                     public void onSuccess(MeasureResult response) {
@@ -687,6 +696,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         DataInfoBean ecgInfo = new DataInfoBean();
                         ecgInfo.ecg = notifyData[17];
                         ecgInfo.heart_rate = notifyData[16] & 0xff;
+                        speak(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
+                        if (isSkip) {
+                            return;
+                        }
                         NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
                             public void onSuccess(MeasureResult response) {
@@ -698,7 +711,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                             }
                         });
-                        speak(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
                         break;
                     case Type_SanHeYi:
                         if (notifyData == null || notifyData.length < 13) {
@@ -773,7 +785,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 speakFlag = "正常";
             speak(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f", afterResult), speakFlag));
         }
-
+        if (isSkip) {
+            return;
+        }
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
             public void onSuccess(MeasureResult response) {
@@ -998,11 +1012,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     private int xuetangTimeFlag;
     private AVLoadingIndicatorView onDetect;
+    private boolean isSkip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
+        isSkip = (getIntent().getBooleanExtra("isSkip", false));
         mShared = LocalShared.getInstance(mContext);
         xuetangTimeFlag = getIntent().getIntExtra("time", 0);
         mToolbar.setVisibility(View.GONE);
@@ -1022,12 +1038,24 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
+        //隐藏历史记录
         if (getIntent().getBooleanExtra("isSkip", false)) {
+
+            mButton.setVisibility(View.GONE);
             mButton1.setVisibility(View.GONE);
             mButton2.setVisibility(View.GONE);
+            mButton3.setVisibility(View.GONE);
+            findViewById(R.id.history6).setVisibility(View.GONE);//体重
+            findViewById(R.id.history5).setVisibility(View.GONE);//三合一
+            findViewById(R.id.history4).setVisibility(View.GONE);//心电
 
             setMarginLeft(R.id.xueya_video);
             setMarginLeft(R.id.xuetang_video);
+            setMarginLeft(R.id.xueyang_video);
+            setMarginLeft(R.id.temperature_video);
+            setMarginLeft(R.id.sanheyi_video);
+            setMarginLeft(R.id.xindian_video);
+
         }
 
         mButton1.setOnClickListener(new View.OnClickListener() {

@@ -58,12 +58,12 @@ public class NetworkApi {
     /**
      * 生产环境
      */
-    public static final String BasicUrl = "http://118.31.238.207:8080";
+//    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
     /**
      * 测试环境
      */
-//    public static final String BasicUrl = "http://47.96.98.60:8080";
+    public static final String BasicUrl = "http://47.96.98.60:8080";
     //    public static final String BasicUrl = "http://192.168.200.103:8080";
 //    public static final String BasicUrl = "http://192.168.200.157:8080";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";

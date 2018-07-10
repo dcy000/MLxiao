@@ -42,6 +42,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
     private long lastClickTime = 0;
 
     private boolean isTest;
+
     /**
      * 返回上一页
      */
@@ -92,18 +93,16 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 
 
             Intent intent = new Intent();
+            intent.putExtra("isSkip", getIntent().getBooleanExtra("isSkip", false));
             switch (v.getId()) {
                 case R.id.ll_xueya:
                     intent.setClass(mContext, DetectActivity.class);
-//                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "xueya");
                     //前一个页面传来的是否跳过刷人脸的标识
-                    intent.putExtra("isSkip", getIntent().getBooleanExtra("isSkip", false));
                     startActivity(intent);
                     break;
                 case R.id.ll_xueyang:
                     intent.setClass(getApplicationContext(), DetectActivity.class);
-//                    intent.setClass(mContext, InstructionsActivity.class);
                     intent.putExtra("type", "xueyang");
                     startActivity(intent);
                     break;
@@ -115,7 +114,6 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     break;
                 case R.id.ll_xuetang:
                     intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
-                    intent.putExtra("isSkip", getIntent().getBooleanExtra("isSkip", false));
                     intent.putExtra("type", "xuetang");
                     startActivity(intent);
                     break;
