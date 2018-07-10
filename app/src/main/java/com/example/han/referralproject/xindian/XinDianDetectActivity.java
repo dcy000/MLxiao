@@ -204,6 +204,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 							DataInfoBean ecgInfo = new DataInfoBean();
 							ecgInfo.ecg = data.getInt("nResult");
 							ecgInfo.heart_rate = data.getInt("nHR");
+							if (getIntent().getBooleanExtra("isSkip", false)) return;
 							NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
 								@Override
 								public void onSuccess(MeasureResult response) {

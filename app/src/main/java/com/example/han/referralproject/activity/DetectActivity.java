@@ -603,9 +603,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         if (isGetResustFirst) {
                             isGetResustFirst = false;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
-                            mResultTv.setText(String.format("%.1f", xuetangResut));
+                            String formatReuslt = String.format("%.1f", xuetangResut);
+                            mResultTv.setText(formatReuslt);
                             if (getIntent().getBooleanExtra("isSkip", false)) {
-                                speak("主人,您本次测量的血糖值是" + xuetangResut);
+                                speak("主人,您本次测量的血糖值是" + formatReuslt);
                                 return;
                             }
                             uploadXuetangResult(xuetangResut, false, null);
