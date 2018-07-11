@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_sign_up_root_mobile_verification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_sign_up_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:gravity="center"
+        android:text="您的手机号码"
+        android:textColor="#8C8C8C"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <EditText
+        android:id="@+id/et_sign_up_phone"
+        android:layout_width="600dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_rect_gray"
+        android:digits="1234567890"
+        android:hint="请输入手机号码"
+        android:inputType="phone"
+        android:singleLine="true"
+        android:maxLength="11"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#939393"
+        android:textColorHint="#cccccc"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_sign_up_phone"
+        app:layout_constraintRight_toRightOf="@+id/tv_sign_up_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_phone"/>
+
+    <EditText
+        android:id="@+id/et_sign_up_code"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_rect_gray"
+        android:hint="请输入验证码"
+        android:singleLine="true"
+        android:maxLength="6"
+        android:digits="1234567890"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#939393"
+        android:textColorHint="#cccccc"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/et_sign_up_phone"
+        app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_fetch_code"
+        app:layout_constraintTop_toBottomOf="@+id/et_sign_up_phone"/>
+
+    <TextView
+        android:id="@+id/tv_sign_up_fetch_code"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/selector_bg_btn"
+        android:gravity="center"
+        android:text="获取验证码"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_sign_up_code"
+        app:layout_constraintLeft_toRightOf="@+id/et_sign_up_code"
+        app:layout_constraintRight_toRightOf="@+id/et_sign_up_phone"/>
+
+    <!--<include layout="@layout/include_sign_up_tab"/>-->
+
+    <!--<include layout="@layout/include_sign_up_nav"/>-->
+</android.support.constraint.ConstraintLayout>

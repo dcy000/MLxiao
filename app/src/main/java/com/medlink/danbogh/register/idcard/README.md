@@ -21,11 +21,3 @@
     - Success!!! Router to home page
   - Do login on registered
 
-# 西恩 issue
-
-- 添加点击效果且效果统一
-
-- 所有界面的“返回”动画效果统一
-
-- 个人资料可修改血型版面等
-

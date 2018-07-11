@@ -138,6 +138,7 @@ public class NetworkApi {
 
     //修改个人基本信息
     public static final String Alert_Basedata = BasicUrl + "/ZZB/br/update_user_onecon";
+    public static final String AUTH_CHANGE_PHONE = BasicUrl + "/ZZB/api/register/patient/noPhone/complement";
     public static final String Get_jibing = BasicUrl + "/ZZB/bl/selSugByBname";
     public static final String IS_PHONE_REGISTERED = BasicUrl + "/ZZB/login/tel_isClod";
 
@@ -1481,6 +1482,16 @@ public class NetworkApi {
         params.put("mh", "");
         params.put("dz", "");
         NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
+    }
+
+    public static void updatePhone(
+            String bid, String phone,
+            NetworkManager.SuccessCallback<Object> successCallback,
+            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("bid", bid);
+        params.put("phone", phone);
+        NetworkManager.getInstance().postResultClass(AUTH_CHANGE_PHONE, params, Object.class, successCallback, failedCallback);
     }
 
     /**

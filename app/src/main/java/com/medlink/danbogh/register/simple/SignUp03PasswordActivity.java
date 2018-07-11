@@ -128,17 +128,17 @@ public class SignUp03PasswordActivity extends BaseActivity {
         showLoadingDialog(getString(R.string.do_register));
         final LocalShared shared = LocalShared.getInstance(this);
         String name = shared.getSignUpName();
-        String gender = "";
+        String gender = shared.getSignUpGender();
         String address = "";
         String idCard = shared.getSignUpIdCard(); //1234561 + phone
         String phone = "";
         float height = 0;
         float weight = 0;
-        String bloodType = "";
-        String eat = "";
-        String smoke = "";
-        String drink = "";
-        String sport = "";
+        String bloodType = shared.getSignUpBloodType();
+        String eat = shared.getSignUpEat();
+        String smoke = shared.getSignUpSmoke();
+        String drink = shared.getSignUpSmoke();
+        String sport = shared.getSignUpSport();
         NetworkApi.registerUser(
                 name,
                 gender,

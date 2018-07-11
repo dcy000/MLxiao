@@ -25,6 +25,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DiseaseUser;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bodytest.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
@@ -148,7 +149,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return false;
     }
 
-
     @Override
     protected void onActivitySpeakFinish() {
         super.onActivitySpeakFinish();
@@ -185,7 +185,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.health_test://健康监测
-
                 intent.setClass(getApplicationContext(), AuthenticationActivity.class);
                 intent.putExtra("orderid", "0");
                 intent.putExtra("from", "Test");
@@ -268,6 +267,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
         });
+
+        UserInfoBean account = MyApplication.getInstance().account;
+        if (account == null || !account.isFullInfo()) {
+            T.show("您的个人资料不完善，可以到个人中心补充哦！");
+        }
     }
 
 

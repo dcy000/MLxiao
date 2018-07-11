@@ -248,9 +248,11 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/profile_ll_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
+                    android:background="@drawable/toolbar_set"
                     android:orientation="horizontal">
 
                     <TextView
@@ -270,6 +272,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="22dp"
+                        android:drawableRight="@drawable/ic_jt"
                         android:text=""
                         android:textColor="#333333"
                         android:textSize="28sp"/>

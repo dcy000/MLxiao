@@ -42,6 +42,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
     private long lastClickTime = 0;
 
     private boolean isTest;
+    private boolean isFast;
+
     /**
      * 返回上一页
      */
@@ -68,6 +70,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         isTest=getIntent().getBooleanExtra("isTest",false);
+        isFast=getIntent().getBooleanExtra("isFast",false);
 
         llXueya.setOnClickListener(this);
         llXueyang.setOnClickListener(this);

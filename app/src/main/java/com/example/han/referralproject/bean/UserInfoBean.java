@@ -1,5 +1,7 @@
 package com.example.han.referralproject.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 public class UserInfoBean implements Serializable{
@@ -27,4 +29,29 @@ public class UserInfoBean implements Serializable{
     public String user_photo;
     public String xfid;
 
+    public boolean isFullInfo() {
+        return !TextUtils.isEmpty(bid)
+                && TextUtils.isEmpty(categoryid)
+                && TextUtils.isEmpty(doct)
+                && TextUtils.isEmpty(eq)
+                && TextUtils.isEmpty(bname)
+                && TextUtils.isEmpty(sex)
+                && TextUtils.isEmpty(dz)
+                && TextUtils.isEmpty(age)
+                && TextUtils.isEmpty(sfz)
+                && TextUtils.isEmpty(tel)
+                && TextUtils.isEmpty(mh)
+                && TextUtils.isEmpty(eqid)
+                && TextUtils.isEmpty(state)
+                && TextUtils.isEmpty(qyzt)
+                && TextUtils.isEmpty(height)
+                && TextUtils.isEmpty(weight)
+                && TextUtils.isEmpty(blood_type)
+                && TextUtils.isEmpty(eating_habits)
+                && TextUtils.isEmpty(smoke)
+                && TextUtils.isEmpty(drink)
+                && TextUtils.isEmpty(exercise_habits)
+                && TextUtils.isEmpty(user_photo)
+                && TextUtils.isEmpty(xfid);
+    }
 }
