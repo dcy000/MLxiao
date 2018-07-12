@@ -9,12 +9,10 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
-import com.example.han.referralproject.bluetooth_devices.AllMeasureActivity;
-import com.example.han.referralproject.bluetooth_devices.base.IPresenter;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
+import com.gcml.module_blutooth_devices.base.IPresenter;
 
-import java.io.InputStream;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -96,64 +94,70 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 
 
             Intent intent = new Intent();
-            switch (v.getId()) {
-                case R.id.ll_xueya:
-                    intent.setClass(mContext, DetectActivity.class);
-                    intent.putExtra("type", "xueya");
-                    startActivity(intent);
-                    break;
-                case R.id.ll_xueyang:
-                    intent.setClass(getApplicationContext(), DetectActivity.class);
-                    intent.putExtra("type", "xueyang");
-                    startActivity(intent);
-                    break;
-                case R.id.ll_tiwen:
-                    intent.setClass(mContext, DetectActivity.class);
-                    intent.putExtra("type", "wendu");
-                    startActivity(intent);
-                    break;
-                case R.id.ll_xuetang:
-                    intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
-                    intent.putExtra("type", "xuetang");
-                    startActivity(intent);
-                    break;
-                case R.id.ll_xindian:
-                    intent.setClass(mContext, XinDianDetectActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.ll_san:
-                    intent.setClass(mContext, SelectXuetangTimeActivity.class);
-                    intent.putExtra("type", "sanheyi");
-                    startActivity(intent);
-                    break;
-                case R.id.ll_tizhong://体重
-                    intent.setClass(mContext, DetectActivity.class);
-                    intent.putExtra("type", "tizhong");
-                    startActivity(intent);
-                    break;
-                case R.id.ll_more://敬请期待
-                    ToastTool.showShort("敬请期待");
-                    break;
-            }
-//            intent.setClass(this, AllMeasureActivity.class);
 //            switch (v.getId()) {
 //                case R.id.ll_xueya:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_PRESSURE);
+//                    intent.setClass(mContext, DetectActivity.class);
+//                    intent.putExtra("type", "xueya");
+//                    startActivity(intent);
 //                    break;
 //                case R.id.ll_xueyang:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_OXYGEN);
+//                    intent.setClass(getApplicationContext(), DetectActivity.class);
+//                    intent.putExtra("type", "xueyang");
+//                    startActivity(intent);
 //                    break;
 //                case R.id.ll_tiwen:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_TEMPERATURE);
+//                    intent.setClass(mContext, DetectActivity.class);
+//                    intent.putExtra("type", "wendu");
+//                    startActivity(intent);
 //                    break;
 //                case R.id.ll_xuetang:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_SUGAR);
+//                    intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
+//                    intent.putExtra("type", "xuetang");
+//                    startActivity(intent);
 //                    break;
-//                case R.id.ll_tizhong:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_WEIGHT);
+//                case R.id.ll_xindian:
+//                    intent.setClass(mContext, XinDianDetectActivity.class);
+//                    startActivity(intent);
+//                    break;
+//                case R.id.ll_san:
+//                    intent.setClass(mContext, SelectXuetangTimeActivity.class);
+//                    intent.putExtra("type", "sanheyi");
+//                    startActivity(intent);
+//                    break;
+//                case R.id.ll_tizhong://体重
+//                    intent.setClass(mContext, DetectActivity.class);
+//                    intent.putExtra("type", "tizhong");
+//                    startActivity(intent);
+//                    break;
+//                case R.id.ll_more://敬请期待
+//                    ToastTool.showShort("敬请期待");
 //                    break;
 //            }
-//            startActivity(intent);
+            intent.setClass(this, AllMeasureActivity.class);
+            switch (v.getId()) {
+                case R.id.ll_xueya:
+                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_PRESSURE);
+                    break;
+                case R.id.ll_xueyang:
+                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_OXYGEN);
+                    break;
+                case R.id.ll_tiwen:
+                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_TEMPERATURE);
+                    break;
+                case R.id.ll_xuetang:
+                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_SUGAR);
+                    break;
+                case R.id.ll_tizhong:
+                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_WEIGHT);
+                    break;
+                case R.id.ll_xindian:
+                    intent.putExtra(IPresenter.MEASURE_TYPE,IPresenter.MEASURE_ECG);
+                    break;
+                case R.id.ll_more://指纹
+                    intent.putExtra(IPresenter.MEASURE_TYPE,IPresenter.CONTROL_FINGERPRINT);
+                    break;
+            }
+            startActivity(intent);
         }
     }
 }

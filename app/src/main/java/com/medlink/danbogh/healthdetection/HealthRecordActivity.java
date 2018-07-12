@@ -153,7 +153,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时
     private int timeFlag = 1;//默认最近一周：1；一个月：2；一季度：3；一年：4；
     private int radioGroupPosition;
-
+    public static void startActivity(Context context,Class<?> clazz,int position){
+        Intent intent=new Intent();
+        intent.setClass(context,clazz);
+        intent.putExtra("position",position);
+        context.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

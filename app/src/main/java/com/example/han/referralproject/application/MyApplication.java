@@ -19,6 +19,7 @@ import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call2.NimInitHelper;
@@ -75,6 +76,8 @@ public class MyApplication extends Application {
         ScreenUtils.init(this);
         ToastUtils.init(this);
         ToastTool.init(this);
+        //初始化蓝牙连接库
+        BluetoothClientManager.init(this);
 //        NoCrash.init(this);
 //        NoCrash.getInstance().install();
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);

@@ -215,7 +215,8 @@ public class FaceAuthenticationUtils {
             }
         });
     }
-    public void createGroup(String xfid){
+
+    public void createGroup(String xfid) {
         //默认将当前日期作为组名
         String groupName = "gcml" + Utils.stampToDate3(System.currentTimeMillis());
         // sst=add，scope=group，group_name=famil;
@@ -366,6 +367,35 @@ public class FaceAuthenticationUtils {
             @Override
             public void onError(SpeechError speechError) {
                 Log.e("查询出错", "onError: " + speechError.toString());
+            }
+
+            @Override
+            public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+            }
+        });
+    }
+
+    public void deleteMember(String groupId, String xfid) {
+        mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
+        // 设置会话场景
+        mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ipt");
+        // 用户id
+        mIdVerifier.setParameter(SpeechConstant.AUTH_ID, xfid);
+        // 设置模型参数，若无可以传空字符传
+        StringBuffer params2 = new StringBuffer();
+        params2.append("scope=person");
+        params2.append(",group_id=" + groupId);
+        // 执行模型操作
+        mIdVerifier.execute("ipt", "delete", params2.toString(), new IdentityListener() {
+            @Override
+            public void onResult(IdentityResult identityResult, boolean b) {
+
+            }
+
+            @Override
+            public void onError(SpeechError speechError) {
+
             }
 
             @Override

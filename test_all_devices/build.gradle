@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    buildToolsVersion gradle.buildToolsVersion
+    compileSdkVersion gradle.compileSdkVersion
+
+
+    defaultConfig {
+        applicationId "com.gzq.test_all_devices"
+        minSdkVersion gradle.minSdkVersion
+        targetSdkVersion gradle.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+
+        }
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs', '../lib-bluetooth/libs'
+    }
+
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile(project(':lib-bluetooth')) {
+        exclude group: "com.android.support"
+    }
+    compile('com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30') {
+        exclude group: 'com.android.support'
+    }
+    //noinspection GradleCompatible
+    compile "com.android.support:design:${gradle.supportVersion}"
+    compile project(':lib-video')
+}

@@ -40,8 +40,9 @@ def initGradleEnvironment() {
 }
 initGradleEnvironment()
 
-include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':lib-zxing', ':voice', ':lib-common', ':unit'
+include ':app', ':lib-pay-beecloud', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':lib-zxing', ':voice', ':lib-common', ':unit', ':test_all_devices', ':lib-bluetooth'
 include ':expand-textview-library'
 include ':circleindicator'
-
+include ':lib-bluetooth'
+include ':lib-video'
 
