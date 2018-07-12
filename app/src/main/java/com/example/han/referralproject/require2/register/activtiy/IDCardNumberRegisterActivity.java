@@ -81,6 +81,14 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
      * 网络检测身份证是否注册
      */
     private void neworkCheckIdCard() {
-        startActivity(new Intent(this, PhoneAndCodeActivity.class));
+        startActivity(new Intent(this, PhoneAndCodeActivity.class)
+                .putExtra(PhoneAndCodeActivity.FROM_WHERE, PhoneAndCodeActivity.FROM_REGISTER_BY_IDCARD_NUMBER));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setDisableGlobalListen(true);
+        setEnableListeningLoop(false);
     }
 }

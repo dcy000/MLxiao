@@ -54,6 +54,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.wakeup.WakeupHelper;
@@ -97,7 +98,6 @@ public class BaseActivity extends AppCompatActivity {
     public SharedPreferences mIatPreferences;
 
 
-
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
         enableListeningLoopCache = enableListeningLoop;
@@ -105,6 +105,9 @@ public class BaseActivity extends AppCompatActivity {
 
     SpeechSynthesizer synthesizer;
 
+    public void mlSpeak(String text) {
+        MLVoiceSynthetize.startSynthesize(this, text, false);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -3,6 +3,7 @@ package com.example.han.referralproject.require2.wrap;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -27,6 +28,16 @@ public class CanClearEditText extends LinearLayout {
     @BindView(R.id.tv_phone)
     EditText tvPhone;
     private Context context;
+    private boolean isChinese = false;
+
+    public void setIsChinese(boolean isChinese) {
+        this.isChinese = isChinese;
+
+        if (isChinese) {
+            tvPhone.setHint("请输入您的真实姓名");
+            tvPhone.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
+    }
 
     public CanClearEditText(Context context) {
         this(context, null);
@@ -41,6 +52,11 @@ public class CanClearEditText extends LinearLayout {
     private void initView() {
         View view = View.inflate(context, R.layout.canclear_edittext_view, null);
         ButterKnife.bind(this, view);
+
+        if (isChinese) {
+            tvPhone.setHint("请输入您的真实姓名");
+            tvPhone.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
         initEvent();
         addView(view);
     }
@@ -75,6 +91,5 @@ public class CanClearEditText extends LinearLayout {
     public String getPhone() {
         return tvPhone.getText().toString().trim();
     }
-
 
 }

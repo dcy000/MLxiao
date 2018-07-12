@@ -10,32 +10,34 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.require2.wrap.PhoneVerificationCodeView;
+import com.example.han.referralproject.require2.wrap.CanClearEditText;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificationCodeView.OnSendClickListener {
-    public static final String FROM_WHERE = "from_where";
-    public static final String FROM_REGISTER_BY_IDCARD = "register_by_idCard";
-    public static final String FROM_REGISTER_BY_IDCARD_NUMBER = "register_by_idCard_number";
-    @BindView(R.id.phone_view)
-    PhoneVerificationCodeView phoneView;
+public class RealNameActivity extends BaseActivity {
+
+    @BindView(R.id.ccet_name)
+    CanClearEditText ccetName;
     @BindView(R.id.tv_next)
     TextView tvNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone_and_code);
+        setContentView(R.layout.activity_real_name);
         ButterKnife.bind(this);
-        intTitle();
-        initEvent();
+        initTitle();
+        initView();
     }
 
-    private void intTitle() {
+    private void initView() {
+        ccetName.setIsChinese(true);
+    }
+
+    private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("身 份 证 号 码 注 册");
 
@@ -48,43 +50,20 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PhoneAndCodeActivity.this, WifiConnectActivity.class));
+                startActivity(new Intent(RealNameActivity.this, WifiConnectActivity.class));
             }
         });
-    }
 
-    private void initEvent() {
-        phoneView.setListener(this);
     }
 
     @OnClick(R.id.tv_next)
     public void onViewClicked() {
-        String code = phoneView.getCode();
-        if (TextUtils.isEmpty(code)) {
-            speak("请输入验证码");
+        if (TextUtils.isEmpty(ccetName.getPhone())) {
+            mlSpeak("请输入姓名");
             return;
         }
 
-        String fromWhere = getIntent().getStringExtra(FROM_WHERE);
-        if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
-            // TODO: 2018/7/12  录入人脸 
-        } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
-            startActivity(new Intent(PhoneAndCodeActivity.this, RealNameActivity.class));
-        }
-
-
-    }
-
-
-    @Override
-    public void onSendCode(String phone) {
-        //验证手机号注册与否
-
-    }
-
-
-    public void speak(String text) {
-        MLVoiceSynthetize.startSynthesize(this, text, false);
+        startActivity(new Intent(this, SexActivity.class));
     }
 
     @Override

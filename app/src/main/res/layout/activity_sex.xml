@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.require2.register.activtiy.SexActivity">
+
+    <TextView
+        android:id="@+id/tv_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="100pt"
+        android:text="您的性别"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--tag 0女 1男-->
+    <TextView
+
+        android:id="@+id/tv_sex_man"
+        android:layout_width="180pt"
+        android:layout_height="90pt"
+        android:layout_marginStart="53pt"
+        android:layout_marginTop="58pt"
+        android:background="@drawable/sex_bg_selector"
+        android:gravity="center"
+        android:tag="1"
+        android:text="男"
+        android:textColor="@color/sex_text_color_selector"
+        android:textSize="56pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
+
+    <TextView
+        android:id="@+id/tv_sex_women"
+        android:layout_width="180pt"
+        android:layout_height="90pt"
+        android:layout_marginStart="36pt"
+        android:background="@drawable/sex_bg_selector"
+        android:gravity="center"
+        android:tag="0"
+        android:text="女"
+        android:textColor="@color/sex_text_color_selector"
+        android:textSize="56pt"
+        app:layout_constraintStart_toEndOf="@+id/tv_sex_man"
+        app:layout_constraintTop_toTopOf="@+id/tv_sex_man" />
+
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="320pt"
+        android:layout_height="100pt"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="389pt"
+        android:background="@drawable/shape_rectangle_next_btn"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#fff"
+        android:textSize="56pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sex_man" />
+
+</android.support.constraint.ConstraintLayout>

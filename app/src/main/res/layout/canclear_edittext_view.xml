@@ -8,17 +8,17 @@
         android:layout_height="132pt">
 
         <EditText
-            android:paddingLeft="10pt"
             android:id="@+id/tv_phone"
-            android:maxLength="18"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="请输入手机号码"
+            android:hint="请输入您的身份证号"
             android:inputType="number"
+            android:maxLength="18"
+            android:paddingLeft="10pt"
             android:textColor="#ff333333"
             android:textSize="64pt" />
 
@@ -34,7 +34,8 @@
             android:layout_height="48pt"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="#ffbbbbbb" />
+            android:background="#ffbbbbbb"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -38,7 +38,6 @@ public class PhoneVerificationCodeView extends LinearLayout {
     @BindView(R.id.tv_send_code)
     TextView tvSendCode;
     private Context context;
-    private Timer timer = new Timer();
 
     public PhoneVerificationCodeView(Context context) {
         this(context, null);
@@ -148,6 +147,11 @@ public class PhoneVerificationCodeView extends LinearLayout {
 
     public interface OnSendClickListener {
         void onSendCode(String phone);
+    }
+
+
+    public String getCode(){
+        return etCode.getText().toString().trim();
     }
 
     public void setListener(OnSendClickListener listener) {
