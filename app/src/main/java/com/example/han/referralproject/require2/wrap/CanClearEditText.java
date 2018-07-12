@@ -1,0 +1,80 @@
+package com.example.han.referralproject.require2.wrap;
+
+import android.content.Context;
+import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+
+import com.example.han.referralproject.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * Created by lenovo on 2018/7/12.
+ */
+
+public class CanClearEditText extends LinearLayout {
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.tv_phone)
+    EditText tvPhone;
+    private Context context;
+
+    public CanClearEditText(Context context) {
+        this(context, null);
+    }
+
+    public CanClearEditText(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        this.context = context;
+        initView();
+    }
+
+    private void initView() {
+        View view = View.inflate(context, R.layout.canclear_edittext_view, null);
+        ButterKnife.bind(this, view);
+        initEvent();
+        addView(view);
+    }
+
+    /**
+     * 联动逻辑处理
+     */
+    private void initEvent() {
+        tvPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(tvPhone.getText().toString())) {
+                    ivDelete.setVisibility(GONE);
+                } else {
+                    ivDelete.setVisibility(VISIBLE);
+                }
+
+            }
+        });
+    }
+
+    public String getPhone() {
+        return tvPhone.getText().toString().trim();
+    }
+
+
+}

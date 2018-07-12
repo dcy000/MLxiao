@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity">
+
+    <ImageView
+        android:id="@+id/im_idcard_login"
+        android:layout_width="648pt"
+        android:layout_height="648pt"
+        android:layout_marginStart="256pt"
+        android:layout_marginTop="156pt"
+        android:background="@drawable/ic_idcard_login"
+        android:text="身份证扫描注册"
+        android:textColor="#ff333333"
+        android:textSize="56sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/im_idcard_number_login"
+        android:layout_width="648pt"
+        android:layout_height="648pt"
+        android:layout_marginStart="112pt"
+        android:layout_marginTop="156pt"
+        android:background="@drawable/ic_idcard_login"
+        app:layout_constraintStart_toEndOf="@+id/im_idcard_login"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="434pt"
+        android:text="身份证扫描注册"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/im_idcard_login"
+        app:layout_constraintStart_toStartOf="@+id/im_idcard_login"
+        app:layout_constraintTop_toTopOf="@+id/im_idcard_login" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="434pt"
+        android:text="身份证号码注册"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/im_idcard_number_login"
+        app:layout_constraintStart_toStartOf="@+id/im_idcard_number_login"
+        app:layout_constraintTop_toTopOf="@+id/im_idcard_number_login" />
+</android.support.constraint.ConstraintLayout>

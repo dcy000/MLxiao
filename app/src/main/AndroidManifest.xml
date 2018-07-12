@@ -208,13 +208,15 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.HOME" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".Test_mainActivity"
@@ -746,7 +748,19 @@
         <activity android:name=".yiyuan.activity.DoctorMesInfoActivity" />
         <activity android:name=".olderhealthmanagement.OlderHealthManagementSerciveActivity" />
         <activity android:name=".olderhealthmanagement.HealthManagementResultActivity" />
-        <activity android:name=".activity.SingleDetectActivity"></activity>
+        <activity android:name=".activity.SingleDetectActivity" />
+        <activity android:name=".require2.login.ChoiceIDCardLoginTypeActivity" />
+        <activity android:name=".require2.register.activtiy.ChoiceIDCardRegisterTypeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".require2.register.activtiy.IDCardNumberRegisterActivity" />
+        <activity android:name=".require2.register.activtiy.PhoneAndCodeActivity"></activity>
     </application>
 
 </manifest>
