@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.require2.login.LoginByIDCardNuberActivity">
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="100pt"
+        android:text="身份证号码登录"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.han.referralproject.require2.wrap.CanClearEditText
+        android:id="@+id/tv_phone_number_notice"
+        android:layout_width="880pt"
+        android:layout_height="132pt"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="37pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"></com.example.han.referralproject.require2.wrap.CanClearEditText>
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="320pt"
+        android:layout_height="100pt"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="51pt"
+        android:background="@drawable/shape_rectangle_next_btn"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#fff"
+        android:textSize="56pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone_number_notice" />
+</android.support.constraint.ConstraintLayout>

@@ -749,7 +749,7 @@
         <activity android:name=".olderhealthmanagement.OlderHealthManagementSerciveActivity" />
         <activity android:name=".olderhealthmanagement.HealthManagementResultActivity" />
         <activity android:name=".activity.SingleDetectActivity" />
-        <activity android:name=".require2.login.ChoiceIDCardLoginTypeActivity" />
+        <activity android:name=".require2.login.ChoiceLoginTypeActivity" />
         <activity android:name=".require2.register.activtiy.ChoiceIDCardRegisterTypeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -763,7 +763,8 @@
         <activity android:name=".require2.register.activtiy.PhoneAndCodeActivity" />
         <activity android:name=".require2.register.activtiy.RealNameActivity" />
         <activity android:name=".require2.register.activtiy.SexActivity" />
-        <activity android:name=".require2.register.activtiy.AddressActivity"></activity>
+        <activity android:name=".require2.register.activtiy.AddressActivity" />
+        <activity android:name=".require2.login.LoginByIDCardNuberActivity"></activity>
     </application>
 
 </manifest>
