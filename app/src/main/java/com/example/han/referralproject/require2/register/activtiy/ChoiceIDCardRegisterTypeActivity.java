@@ -9,8 +9,6 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.idcard.IdCardInfoActivity;
-import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;

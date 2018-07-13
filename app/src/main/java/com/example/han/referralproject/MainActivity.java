@@ -17,8 +17,8 @@ import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.adpater.MainFragmentAdapter;
 import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.example.han.referralproject.yiyuan.fragment.Main1Fragment;
@@ -172,7 +172,7 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
         LocalShared.getInstance(MyApplication.getCurrentActivity()).loginOut();
 
         Activity currentActivity = MyApplication.getCurrentActivity();
-        Intent intent = new Intent(currentActivity, YiYuanLoginActivity.class);
+        Intent intent = new Intent(currentActivity, ChoiceLoginTypeActivity.class);
         currentActivity.startActivity(intent);
         currentActivity.finish();
     }

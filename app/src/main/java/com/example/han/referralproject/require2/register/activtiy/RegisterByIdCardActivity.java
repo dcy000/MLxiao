@@ -17,12 +17,17 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.idcard.SignInIdCardActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
+import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -32,7 +37,7 @@ import static com.example.han.referralproject.require2.register.activtiy.IDCardN
 import static com.example.han.referralproject.require2.register.activtiy.InputFaceActivity.REGISTER_ADDRESS;
 import static com.example.han.referralproject.require2.register.activtiy.InputFaceActivity.REGISTER_REAL_NAME;
 
-public class RegisterByIdCardActivity extends BaseActivity {
+public class RegisterByIdCardActivity extends BaseActivity implements SomeCommonDialog.OnDialogClickListener {
 
     private static final String TAG = "MyBluetooth";
     private static final String FILTER = "KT8000";
@@ -41,6 +46,7 @@ public class RegisterByIdCardActivity extends BaseActivity {
     private BluetoothAdapter bluetoothAdapter;
     private BtReadClient client;
     private volatile boolean isRegistered;
+    private boolean isLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,10 @@ public class RegisterByIdCardActivity extends BaseActivity {
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("身 份 证 扫 描 注 册");
+        isLogin = getIntent().getBooleanExtra("login", false);
+        if (isLogin) {
+            mTitleText.setText("身 份 证 扫 描 登 录");
+        }
 
         mLeftText.setVisibility(View.VISIBLE);
         mLeftView.setVisibility(View.VISIBLE);
@@ -454,9 +464,24 @@ public class RegisterByIdCardActivity extends BaseActivity {
             return;
         }
 //        showLoadingDialog("加载中");
+
         NetworkApi.isRegisteredByIdCard(item.certNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                if (isLogin) {
+                    LocalShared.getInstance(mContext).setUserInfo(response);
+                    LocalShared.getInstance(mContext).setSex(response.sex);
+                    LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
+                    LocalShared.getInstance(mContext).setUserAge(response.age);
+                    LocalShared.getInstance(mContext).setUserHeight(response.height);
+                    new JpushAliasUtils(RegisterByIdCardActivity.this).setAlias("user_" + response.bid);
+                    startActivity(new Intent(RegisterByIdCardActivity.this, InquiryAndFileActivity.class));
+                    return;
+                }
+                //注册场景
                 mlSpeak("身份证已注册");
             }
         }, new NetworkManager.FailedCallback() {
@@ -466,16 +491,34 @@ public class RegisterByIdCardActivity extends BaseActivity {
                 if (isFinishing() || isDestroyed()) {
                     return;
                 }
+                if (isLogin) {
+                    registerNoticeDialog();
+                    return;
+                }
+                //注册场景
                 toPhoneAndCode(item);
 
             }
         });
     }
 
+    private void registerNoticeDialog() {
+        SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.idCardUnregistered);
+        dialog.setListener(this);
+        dialog.show(getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onClickConfirm(DialogTypeEnum type) {
+        startActivity(new Intent(this, ChoiceIDCardRegisterTypeActivity.class));
+    }
+
     private void toPhoneAndCode(IDCardItem item) {
         if (item == null) {
             return;
         }
+
+
         startActivity(new Intent(this, PhoneAndCodeActivity.class)
                 .putExtra(PhoneAndCodeActivity.FROM_WHERE, PhoneAndCodeActivity.FROM_REGISTER_BY_IDCARD)
                 .putExtra(REGISTER_IDCARD_NUMBER, item.certNumber)
@@ -564,4 +607,6 @@ public class RegisterByIdCardActivity extends BaseActivity {
         super.onPause();
         stopSpeaking();
     }
+
+
 }

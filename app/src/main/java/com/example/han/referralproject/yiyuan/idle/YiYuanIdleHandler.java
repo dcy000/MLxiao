@@ -9,8 +9,8 @@ import android.os.MessageQueue;
 import android.util.Log;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
@@ -89,7 +89,7 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
 
     private void showDialog() {
         if (dialog == null) {
-                dialog = new CountdownDialog();
+            dialog = new CountdownDialog();
         }
         dialog.setOntouch(this);
         Activity currentActivity = MyApplication.getCurrentActivity();
@@ -107,7 +107,7 @@ public class YiYuanIdleHandler implements MessageQueue.IdleHandler, CountdownDia
         LocalShared.getInstance(MyApplication.getCurrentActivity()).loginOut();
 
         Activity currentActivity = MyApplication.getCurrentActivity();
-        Intent intent = new Intent(currentActivity, YiYuanLoginActivity.class);
+        Intent intent = new Intent(currentActivity, ChoiceLoginTypeActivity.class);
         currentActivity.startActivity(intent);
         currentActivity.finish();
     }

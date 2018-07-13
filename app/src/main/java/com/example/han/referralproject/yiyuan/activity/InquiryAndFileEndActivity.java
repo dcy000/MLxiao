@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
@@ -82,7 +83,7 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(this).loginOut();
-        startActivity(new Intent(this, YiYuanLoginActivity.class));
+        startActivity(new Intent(this, ChoiceLoginTypeActivity.class));
         finishAffinity();
     }
 

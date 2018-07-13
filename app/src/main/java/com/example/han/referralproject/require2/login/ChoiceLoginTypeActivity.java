@@ -10,6 +10,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.idcard.SignInIdCardActivity;
+import com.example.han.referralproject.require2.register.activtiy.RegisterByIdCardActivity;
 import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
@@ -61,13 +62,14 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_login_by_idcard:
-                startActivity(new Intent(this, SignInIdCardActivity.class));
+                startActivity(new Intent(this, RegisterByIdCardActivity.class)
+                        .putExtra("login", true));
                 break;
             case R.id.im_login_by_finger:
                 T.show("敬请期待");
                 break;
             case R.id.im_login_by_face:
-                
+
                 break;
             case R.id.im_login_by_id_number:
                 break;

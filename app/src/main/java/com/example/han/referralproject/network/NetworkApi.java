@@ -65,7 +65,7 @@ public class NetworkApi {
     /**
      * 医疗版生产
      */
-//    public static final String BasicUrl = "http://118.31.73.176:8080";
+    public static final String BasicUrl = "http://118.31.73.176:8080";
     /**
      * 林本地
      */
@@ -73,7 +73,7 @@ public class NetworkApi {
     /**
      * 测试
      */
-    public static final String BasicUrl = "http://47.96.98.60:8070";
+//    public static final String BasicUrl = "http://47.96.98.60:8070";
     //上传建档信息
     public static final String Upload_BuildRecord = BasicUrl + "/ZZB/api/health/inquiry/record/";
     //生活疗法
@@ -1299,6 +1299,7 @@ public class NetworkApi {
      * 老年人中医药健康管理服务记录表  提交答案
      */
     public static String POST_HEALTH_MANAGEMENT_ANWSER_URL = BasicUrl + "/ZZB/api/health/inquiry/constitution/questionnaire/";
+
     public static void postHealthManagementAnwser(String anwserJson, StringCallback callback) {
         OkGo.<String>post(POST_HEALTH_MANAGEMENT_ANWSER_URL).
                 upJson(anwserJson).

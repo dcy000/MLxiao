@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
@@ -18,10 +17,10 @@ import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
+import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
-import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 
 import java.util.ArrayList;
 
@@ -82,7 +81,7 @@ public class WelcomeActivity extends BaseActivity {
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
 //                                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                        Intent intent = new Intent(getApplicationContext(), YiYuanLoginActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), ChoiceLoginTypeActivity.class);
                                         startActivity(intent);
 //                                    } else {
 //                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -113,7 +112,7 @@ public class WelcomeActivity extends BaseActivity {
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
 //                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                Intent intent = new Intent(getApplicationContext(), YiYuanLoginActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), ChoiceLoginTypeActivity.class);
                                 startActivity(intent);
 ////                            } else {
 //                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);

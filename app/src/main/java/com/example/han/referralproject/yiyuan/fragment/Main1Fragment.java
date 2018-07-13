@@ -28,10 +28,10 @@ import com.example.han.referralproject.olderhealthmanagement.OlderHealthManageme
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
-import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
@@ -475,7 +475,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(activity).loginOut();
-        activity.startActivity(new Intent(activity, YiYuanLoginActivity.class));
+        activity.startActivity(new Intent(activity, ChoiceLoginTypeActivity.class));
         activity.finish();
     }
 }

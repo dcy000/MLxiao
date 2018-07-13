@@ -14,8 +14,8 @@ import com.example.han.referralproject.adapter.ChangeAccountAdapter;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -103,7 +103,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    mContext.startActivity(new Intent(mContext, SignInActivity.class));
 //                    ((Activity) mContext).finish();
 //                }
-                mContext.startActivity(new Intent(mContext, YiYuanLoginActivity.class));
+                mContext.startActivity(new Intent(mContext, ChoiceLoginTypeActivity.class));
                 ((Activity) mContext).finish();
                 break;
             case R.id.btn_logout:
@@ -115,7 +115,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
                 LocalShared.getInstance(mContext).loginOut();
-                mContext.startActivity(new Intent(mContext, YiYuanLoginActivity.class));
+                mContext.startActivity(new Intent(mContext, ChoiceLoginTypeActivity.class));
                 ((Activity) mContext).finish();
                 break;
         }

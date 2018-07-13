@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
+import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,14 +35,14 @@ public class UpdateAppManager {
     // 文件分隔符
     private static final String FILE_SEPARATOR = "/";
     // 外存sdcard存放路径
-    private static final String FILE_PATH = Environment.getExternalStorageDirectory() + FILE_SEPARATOR +"autoupdate" + FILE_SEPARATOR;
+    private static final String FILE_PATH = Environment.getExternalStorageDirectory() + FILE_SEPARATOR + "autoupdate" + FILE_SEPARATOR;
     // 下载应用存放全路径
     private static final String FILE_NAME = FILE_PATH + "xiaoe_autoupdate.apk";
     // 更新应用版本标记
     private static final int UPDATE_TOKEN = 0x29;
     // 准备安装新版本应用标记
     private static final int INSTALL_TOKEN = 0x31;
-    
+
     private Context context;
     // 下载应用的对话框
     private Dialog dialog;
@@ -54,23 +54,23 @@ public class UpdateAppManager {
     // 用户是否取消下载
     private boolean isCancel;
 
-    public UpdateAppManager(Context context){
+    public UpdateAppManager(Context context) {
         this.context = context;
     }
-    
-    private final Handler handler = new Handler(){
+
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-            case UPDATE_TOKEN:
-                progressBar.setProgress(curProgress);
-                if (curProgress > 0)
-                    progressPercentage.setText(curProgress + "%");
-                break;
+                case UPDATE_TOKEN:
+                    progressBar.setProgress(curProgress);
+                    if (curProgress > 0)
+                        progressPercentage.setText(curProgress + "%");
+                    break;
 
-            case INSTALL_TOKEN:
-                installApp();
-                break;
+                case INSTALL_TOKEN:
+                    installApp();
+                    break;
             }
         }
     };
@@ -78,8 +78,8 @@ public class UpdateAppManager {
     /**
      * 显示提示更新对话框
      */
-    public void showNoticeDialog(final String downloadUrl){
-        if (!isValidAppLink(downloadUrl)){
+    public void showNoticeDialog(final String downloadUrl) {
+        if (!isValidAppLink(downloadUrl)) {
             return;
         }
         new AlertDialog.Builder(context)
@@ -100,13 +100,13 @@ public class UpdateAppManager {
                     @Override
                     public void run() {
                         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                            context.startActivity(new Intent(context, YiYuanLoginActivity.class));
+                            context.startActivity(new Intent(context, ChoiceLoginTypeActivity.class));
                         } else {
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);
                         }
                     }
-                },  2000);
+                }, 2000);
             }
         }).create().show();
     }
@@ -122,12 +122,12 @@ public class UpdateAppManager {
         builder.setTitle(R.string.version_update_action_download_title);
         builder.setView(view);
         builder.setNegativeButton(R.string.version_update_action_cancel, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    isCancel = true;
-                }
-            });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                isCancel = true;
+            }
+        });
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
@@ -152,23 +152,23 @@ public class UpdateAppManager {
                     long fileLength = conn.getContentLength();
                     in = conn.getInputStream();
                     File filePath = new File(FILE_PATH);
-                    if(!filePath.exists()) {
+                    if (!filePath.exists()) {
                         filePath.mkdir();
                     }
                     out = new FileOutputStream(new File(FILE_NAME));
                     byte[] buffer = new byte[1024];
                     int len = 0;
                     long readedLength = 0l;
-                    while((len = in.read(buffer)) != -1) {
+                    while ((len = in.read(buffer)) != -1) {
                         // 用户点击“取消”按钮，下载中断
-                        if(isCancel) {
+                        if (isCancel) {
                             break;
                         }
                         out.write(buffer, 0, len);
                         readedLength += len;
                         curProgress = (int) (((float) readedLength / fileLength) * 100);
                         handler.sendEmptyMessage(UPDATE_TOKEN);
-                        if(readedLength >= fileLength) {
+                        if (readedLength >= fileLength) {
                             dialog.dismiss();
                             // 下载完毕，通知安装
                             handler.sendEmptyMessage(INSTALL_TOKEN);
@@ -179,34 +179,34 @@ public class UpdateAppManager {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    if(out != null) {
+                    if (out != null) {
                         try {
                             out.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                    if(in != null) {
+                    if (in != null) {
                         try {
                             in.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                    if(conn != null) {
+                    if (conn != null) {
                         conn.disconnect();
                     }
                 }
             }
         }).start();
     }
-    
+
     /**
      * 安装新版本应用
      */
     public void installApp() {
         File appFile = new File(FILE_NAME);
-        if(!appFile.exists()) {
+        if (!appFile.exists()) {
             return;
         }
         // 跳转到新版本应用安装页面

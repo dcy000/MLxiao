@@ -1,6 +1,5 @@
 package com.example.han.referralproject.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -40,10 +39,7 @@ import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
-import com.example.han.referralproject.yiyuan.activity.YiYuanLoginActivity;
-import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -55,7 +51,6 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
