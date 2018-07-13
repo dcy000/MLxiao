@@ -64,7 +64,7 @@ public class ChoiceIDCardRegisterTypeActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.im_idcard_login:
                 //刷身份证
-                startActivity(new Intent(this, YiYuanLoginActivity.class));
+                startActivity(new Intent(this, RegisterByIdCardActivity.class));
                 break;
             case R.id.im_idcard_number_login:
                 startActivity(new Intent(this, IDCardNumberRegisterActivity.class));
