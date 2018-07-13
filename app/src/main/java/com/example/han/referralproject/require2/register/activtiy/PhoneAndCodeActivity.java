@@ -24,7 +24,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_ADDRESS;
 import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_PHONE_NUMBER;
+import static com.example.han.referralproject.require2.register.activtiy.InputFaceActivity.REGISTER_IDCARD_NUMBER;
 
 public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificationCodeView.OnSendClickListener {
     public static final String FROM_WHERE = "from_where";
@@ -38,6 +40,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
      * 发手机号的验证码
      */
     private String phone = "";
+    private String fromWhere;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,11 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
                 startActivity(new Intent(PhoneAndCodeActivity.this, WifiConnectActivity.class));
             }
         });
+
+        fromWhere = getIntent().getStringExtra(FROM_WHERE);
+        if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
+            mTitleText.setText("身 份 证 扫 描 注 册");
+        }
     }
 
     private void initEvent() {
@@ -82,10 +90,10 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
             mlSpeak("验证码错误");
             return;
         }
-
-        String fromWhere = getIntent().getStringExtra(FROM_WHERE);
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
-            // TODO: 2018/7/12  录入人脸 
+            startActivity(new Intent(this, InputFaceActivity.class)
+                    .putExtras(getIntent())
+                    .putExtra(REGISTER_PHONE_NUMBER, phone));
         } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
             if (code.equals(this.code)) {
                 startActivity(new Intent(PhoneAndCodeActivity.this, RealNameActivity.class)

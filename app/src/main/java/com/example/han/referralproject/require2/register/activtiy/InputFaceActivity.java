@@ -9,6 +9,8 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 
+import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_IDCARD_NUMBER;
+
 public class InputFaceActivity extends BaseActivity {
 
     private String registerIdCardNumber;

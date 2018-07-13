@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -17,43 +16,21 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.facerecognition.CreateGroupListener;
-import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
-import com.example.han.referralproject.facerecognition.JoinGroupListener;
-import com.example.han.referralproject.idcard.IdCardInfoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
-import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.FaceRequest;
-import com.iflytek.cloud.IdentityResult;
-import com.iflytek.cloud.RequestListener;
-import com.iflytek.cloud.SpeechError;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
-import com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity;
-import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.medlink.danbogh.utils.T;
-import com.orhanobut.logger.Logger;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
 import java.util.Set;
+
+import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_IDCARD_NUMBER;
+import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_SEX;
+import static com.example.han.referralproject.require2.register.activtiy.InputFaceActivity.REGISTER_ADDRESS;
+import static com.example.han.referralproject.require2.register.activtiy.InputFaceActivity.REGISTER_REAL_NAME;
 
 public class RegisterByIdCardActivity extends BaseActivity {
 
@@ -73,14 +50,9 @@ public class RegisterByIdCardActivity extends BaseActivity {
         registerReceiver();
         client = BtReadClient.getInstance();
         client.setBluetoothListener(onBluetoothListener);
-        if (bluetoothAdapter == null) {
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        }
-        if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled()) {
-            bluetoothAdapter.enable();
-        } else {
-            onTurnOn();
-        }
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        bluetoothAdapter.enable();
+        onTurnOn();
     }
 
     private void initTitle() {
@@ -453,113 +425,6 @@ public class RegisterByIdCardActivity extends BaseActivity {
         }
     };
 
-    public Runnable checkGroupRunnable;
-
-    public Runnable checkGroupRunnable() {
-        if (checkGroupRunnable == null) {
-            checkGroupRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    if (authId != null) {
-                        checkGroup(authId);
-                    }
-                }
-            };
-        }
-        return checkGroupRunnable;
-    }
-
-    private void checkGroup(final String xfid) {
-        if (xfid == null) {
-            onCreateGroupFailed();
-            return;
-        }
-        //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
-        String groupId = LocalShared.getInstance(mContext).getGroupId();
-        String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
-        Logger.e("组id" + groupId);
-        if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
-            Log.e("组信息", "checkGroup: 该机器组已近存在");
-            joinGroup(groupId, xfid);
-        } else {
-            createGroup(xfid);
-        }
-    }
-
-    private JoinGroupListener joinGroupListener;
-
-    private void joinGroup(String groupid, final String xfid) {
-        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
-        if (joinGroupListener == null) {
-            joinGroupListener = new JoinGroupListener() {
-                @Override
-                public void onResult(IdentityResult result, boolean islast) {
-
-                }
-
-                @Override
-                public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-                }
-
-                @Override
-                public void onError(SpeechError error) {
-                    Logger.e(error, "添加成员出现异常");
-                    if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
-                        createGroup(xfid);
-                    }
-
-                }
-            };
-        }
-        FaceAuthenticationUtils.getInstance(this).setOnJoinGroupListener(joinGroupListener);
-    }
-
-    private CreateGroupListener createListener;
-
-    private void createGroup(final String xfid) {
-        FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
-        if (createListener == null) {
-            createListener = new CreateGroupListener() {
-                @Override
-                public void onResult(IdentityResult result, boolean islast) {
-                    try {
-                        JSONObject resObj = new JSONObject(result.getResultString());
-                        String groupId = resObj.getString("group_id");
-                        LocalShared.getInstance(RegisterByIdCardActivity.this).setGroupId(groupId);
-                        LocalShared.getInstance(RegisterByIdCardActivity.this).setGroupFirstXfid(xfid);
-                        //组创建好以后把自己加入到组中去
-                        onCreateGroupSuccess();
-                        joinGroup(groupId, xfid);
-                        FaceAuthenticationUtils.getInstance(RegisterByIdCardActivity.this).updateGroupInformation(groupId, xfid);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-                }
-
-                @Override
-                public void onError(SpeechError error) {
-                    Logger.e(error, "创建组失败");
-                    onCreateGroupFailed();
-//                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
-                }
-            };
-        }
-        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(createListener);
-    }
-
-    private void onCreateGroupFailed() {
-
-    }
-
-    private void onCreateGroupSuccess() {
-
-    }
 
     private void onReadFailed() {
         item = null;
@@ -577,28 +442,14 @@ public class RegisterByIdCardActivity extends BaseActivity {
 
     private void onReadSuccess(IDCardItem item) {
         this.item = item;
-        speak("读取成功");
         if (item != null) {
-            LocalShared.getInstance(this).setOriginAddress(item.certAddress);
+            mlSpeak("读取成功");
+            onCheckRegistered(item);
         }
-        onCheckRegistered();
     }
 
-    private void onConfirmIdCardInfo() {
-        if (item == null) {
-            return;
-        }
-        Intent intent = new Intent(this, IdCardInfoActivity.class);
-        intent.putExtra("name", item.partyName);
-        intent.putExtra("gender", item.gender);
-        intent.putExtra("nation", item.nation);
-        intent.putExtra("address", item.certAddress);
-        intent.putExtra("profile", item.picBitmap);
-        intent.putExtra("idCard", item.certNumber);
-        startActivityForResult(intent, 17);
-    }
 
-    private void onCheckRegistered() {
+    private void onCheckRegistered(final IDCardItem item) {
         if (item == null) {
             return;
         }
@@ -606,17 +457,7 @@ public class RegisterByIdCardActivity extends BaseActivity {
         NetworkApi.isRegisteredByIdCard(item.certNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
-//                hideLoadingDialog();
-                if (isFinishing() || isDestroyed()) {
-                    return;
-                }
-                LocalShared.getInstance(mContext).setUserInfo(response);
-                LocalShared.getInstance(mContext).setSex(response.sex);
-                LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
-                LocalShared.getInstance(mContext).setUserAge(response.age);
-                LocalShared.getInstance(mContext).setUserHeight(response.height);
-                new JpushAliasUtils(RegisterByIdCardActivity.this).setAlias("user_" + response.bid);
-                onAccountRegistered(response);
+                mlSpeak("身份证已注册");
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -625,413 +466,22 @@ public class RegisterByIdCardActivity extends BaseActivity {
                 if (isFinishing() || isDestroyed()) {
                     return;
                 }
-                onAccountNotRegistered();
+                toPhoneAndCode(item);
+
             }
         });
     }
 
-    private void onAccountNotRegistered() {
-        onConfirmIdCardInfo();
-    }
-
-    private void onInputPhoneInfo() {
-        Intent intent = new Intent().setClass(
-                this,
-                SignUp02MobileVerificationActivity.class)
-                .putExtra("forResult", true);
-        startActivityForResult(intent, 18);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: " + requestCode + " " + resultCode);
-        switch (requestCode) {
-            case 18:
-                if (resultCode == RESULT_OK
-                        && data != null
-                        && !TextUtils.isEmpty(data.getStringExtra("phone"))) {
-                    String phone = data.getStringExtra("phone");
-                    onRegister(phone);
-                    T.show("请耐心等待注册...");
-                } else {
-                    Log.d(TAG, "onActivityResult: " + resultCode);
-                    onReadFailed();
-                }
-                break;
-            case 17:
-                if (resultCode == RESULT_OK) {
-                    onInputPhoneInfo();
-                } else {
-                    Log.d(TAG, "onActivityResult: " + resultCode);
-                    onReadFailed();
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void onRegister(String phone) {
-//        showLoadingDialog("加载中");
-        final LocalShared shared = LocalShared.getInstance(this);
-//        String name = item.partyName;
-//        String gender = item.gender;
-//        String address = item.certAddress;
-//        String idCard = item.certNumber;
-//        float height = shared.getSignUpHeight();
-//        float weight = shared.getSignUpWeight();
-//        String bloodType = shared.getSignUpBloodType();
-//        String eat = shared.getSignUpEat();
-//        String smoke = shared.getSignUpSmoke();
-//        String drink = shared.getSignUpDrink();
-//        String sport = shared.getSignUpSport();
+    private void toPhoneAndCode(IDCardItem item) {
         if (item == null) {
             return;
         }
-
-        String name = item.partyName;
-        String gender = item.gender;
-        String address = item.certAddress;
-        String idCard = item.certNumber;
-        //以下注册时未填写 设置为默认值
-        float height = 180;
-        float weight = 65;
-        String bloodType = "A";
-        String eat = "1";
-        String smoke = "3";
-        String drink = "2";
-        String sport = "3";
-        NetworkApi.registerUser(
-                name,
-                gender,
-                address,
-                idCard,
-                phone,
-                "123456",
-                height,
-                weight,
-                bloodType,
-                eat,
-                smoke,
-                drink,
-                sport,
-                new NetworkManager.SuccessCallback<UserInfoBean>() {
-                    @Override
-                    public void onSuccess(UserInfoBean response) {
-//                        hideLoadingDialog();
-                        if (isFinishing() || isDestroyed()) {
-                            return;
-                        }
-                        shared.setUserInfo(response);
-                        LocalShared.getInstance(mContext).setSex(response.sex);
-                        LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
-                        LocalShared.getInstance(mContext).setUserAge(response.age);
-                        LocalShared.getInstance(mContext).setUserHeight(response.height);
-                        new JpushAliasUtils(RegisterByIdCardActivity.this).setAlias("user_" + response.bid);
-                        NetworkApi.setUserMh("11", new NetworkManager.SuccessCallback<String>() {
-                            @Override
-                            public void onSuccess(String response) {
-                                if (isFinishing() || isDestroyed()) {
-                                    return;
-                                }
-                                onRegisterSuccess();
-                            }
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-                                Log.d(TAG, "onRegisterFailed: " + message);
-                                if (isFinishing() || isDestroyed()) {
-                                    return;
-                                }
-                                onRegisterFailed();
-                            }
-                        });
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        Log.d(TAG, "onRegisterFailed: " + message);
-//                        hideLoadingDialog();
-                        if (isFinishing() || isDestroyed()) {
-                            return;
-                        }
-                        onRegisterFailed();
-                    }
-                }
-        );
-    }
-
-    private void onRegisterFailed() {
-        onReadFailed();
-    }
-
-    private void onRegisterSuccess() {
-        btHandler().post(faceRegisterRunnable());
-    }
-
-    private void onAccountRegistered(UserInfoBean response) {
-//        showLoadingDialog("加载中");
-        NetworkApi.login(response.tel, "123456", new NetworkManager.SuccessCallback<UserInfoBean>() {
-            @Override
-            public void onSuccess(UserInfoBean response) {
-                Logger.e("本次登录人的userid" + response.bid);
-//                hideLoadingDialog();
-                if (isDestroyed() || isFinishing()) {
-                    return;
-                }
-                checkGroup(response.xfid);
-                new JpushAliasUtils(RegisterByIdCardActivity.this).setAlias("user_" + response.bid);
-                LocalShared.getInstance(mContext).setUserInfo(response);
-                LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
-                LocalShared.getInstance(mContext).setSex(response.sex);
-                LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
-                LocalShared.getInstance(mContext).setUserAge(response.age);
-                LocalShared.getInstance(mContext).setUserHeight(response.height);
-                onLoginSuccess();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-//                hideLoadingDialog();
-                if (isDestroyed() || isFinishing()) {
-                    return;
-                }
-                onLoginFailed();
-            }
-        });
-    }
-
-    private void onLoginSuccess() {
-        startActivity(new Intent(mContext, InquiryAndFileActivity.class));
-        finish();
-    }
-
-    private void onLoginFailed() {
-        Log.d(TAG, "onLoginFailed: ");
-        onReadFailed();
-    }
-
-    private Runnable faceRegisterRunnable;
-
-    private void onFaceAlreadyExist() {
-        Log.d(TAG, "onFaceAlreadyExist: ");
-        onReadFailed();
-    }
-
-    private void onFaceRegisterSuccess() {
-        Log.d(TAG, "onFaceRegisterSuccess: ");
-        uploadProfile(MyApplication.getInstance().userId, "");
-    }
-
-    private void onFaceRegisterFailed() {
-        Log.d(TAG, "onFaceRegisterFailed: ");
-        onReadFailed();
-    }
-
-    private Runnable faceRegisterRunnable() {
-        if (faceRegisterRunnable == null) {
-            faceRegisterRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    if (item == null || item.picBitmap == null) {
-                        onFaceRegisterFailed();
-                        return;
-                    }
-
-                    ByteArrayOutputStream stream = null;
-                    try {
-                        stream = new ByteArrayOutputStream();
-                        item.picBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//                        if (faceRequest == null) {
-//                            faceRequest = new FaceRequest(RegisterByIdCardActivity.this);
-//                        }
-//                        faceRequest.setParameter(SpeechConstant.AUTH_ID, buildAuthId());
-//                        faceRequest.setParameter(SpeechConstant.WFR_SST, "reg");
-                        jpgData = stream.toByteArray();
-                        //上传头像
-                        onFaceRegisterSuccess();
-//                        faceRequest.sendRequest(jpgData, faceRequestListener());
-                    } finally {
-                        try {
-                            if (stream != null) {
-                                stream.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            };
-        }
-        return faceRegisterRunnable;
-    }
-
-    private volatile byte[] jpgData;
-
-    private FaceRequest faceRequest;
-
-    private RequestListener requestListener;
-
-    private RequestListener faceRequestListener() {
-        if (requestListener == null) {
-            requestListener = new RequestListener() {
-                @Override
-                public void onEvent(int eventType, Bundle params) {
-                    Log.d(TAG, "onEvent: eventType = " + eventType);
-                    Log.d(TAG, "onEvent: params =" + params);
-                }
-
-                @Override
-                public void onBufferReceived(byte[] bytes) {
-                    try {
-                        String result = new String(bytes, "utf-8");
-                        Log.d(TAG, "onBufferReceived: ");
-                        JSONObject jsonObject = new JSONObject(result);
-                        String type = jsonObject.optString("sst");
-                        if ("reg".equals(type)) {
-                            int ret = jsonObject.optInt("ret");
-                            if (ret != 0) {
-                                onFaceRegisterFailed();
-                                return;
-                            }
-                            if ("success".equals(jsonObject.get("rst"))) {
-                                onFaceRegisterSuccess();
-                            }
-                        }
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                        onFaceRegisterFailed();
-                    }
-                }
-
-                @Override
-                public void onCompleted(SpeechError error) {
-                    if (error != null) {
-                        switch (error.getErrorCode()) {
-                            case ErrorCode.MSP_ERROR_ALREADY_EXIST:
-                                onFaceAlreadyExist();
-                            default:
-                                onFaceRegisterFailed();
-                                break;
-                        }
-                    }
-                }
-            };
-        }
-        return requestListener;
-    }
-
-    private volatile String authId;
-    private SimpleDateFormat simple;
-    private Random random;
-
-    private String buildAuthId() {
-        if (simple == null) {
-            simple = new SimpleDateFormat("yyyyMMddhhmmss", Locale.getDefault());
-        }
-        StringBuilder randomBuilder = new StringBuilder();//定义变长字符串
-        if (random == null) {
-            random = new Random();
-        }
-        for (int i = 0; i < 8; i++) {
-            randomBuilder.append(random.nextInt(10));
-        }
-        Date date = new Date();
-        authId = simple.format(date) + randomBuilder;
-        return authId;
-    }
-
-    private UploadManager uploadManager;
-
-    private UploadManager uploadManager() {
-        if (uploadManager == null) {
-            uploadManager = new UploadManager();
-        }
-        return uploadManager;
-    }
-
-    private void uploadProfile(final String userid, final String xfid) {
-        if (jpgData == null) {
-            onUploadToServerFailed();
-            return;
-        }
-//        showLoadingDialog("加载中");
-        NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
-            @Override
-            public void onSuccess(String response) {
-//                hideLoadingDialog();
-                if (isFinishing() || isDestroyed()) {
-                    return;
-                }
-                if (jpgData == null) {
-                    onUploadToServerFailed();
-                    return;
-                }
-                String key = buildAuthId() + ".jpg";
-                UpCompletionHandler completionHandler = new UpCompletionHandler() {
-                    @Override
-                    public void complete(String key, ResponseInfo info, JSONObject res) {
-                        if (info.isOK()) {
-                            String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-//                            showLoadingDialog("");
-                            NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, xfid,
-                                    new NetworkManager.SuccessCallback<Object>() {
-                                        @Override
-                                        public void onSuccess(Object response) {
-//                                            hideLoadingDialog();
-                                            //将账号在本地缓存
-                                            if (isFinishing() || isDestroyed()) {
-                                                return;
-                                            }
-                                            onUpLoadToServerSuccess(userid, xfid);
-                                        }
-
-                                    }, new NetworkManager.FailedCallback() {
-                                        @Override
-                                        public void onFailed(String message) {
-//                                            hideLoadingDialog();
-                                            Log.e("注册储存讯飞id失败", "onFailed: ");
-                                            if (isFinishing() || isDestroyed()) {
-                                                return;
-                                            }
-                                            Log.d(TAG, "onUploadToServerFailed: " + message);
-                                            onUploadToServerFailed();
-                                        }
-                                    });
-                        } else {
-                            Log.d(TAG, "onUploadToServerFailed: " + info.isOK());
-                            onUploadToServerFailed();
-                        }
-                    }
-                };
-                uploadManager().put(jpgData, key, response, completionHandler, null);
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-//                hideLoadingDialog();
-                if (isDestroyed() || isFinishing()) {
-                    return;
-                }
-                Log.d(TAG, "onUploadToServerFailed: " + message);
-                onUploadToServerFailed();
-            }
-        });
-    }
-
-    private void onUpLoadToServerSuccess(String userid, String xfid) {
-        T.show("注册成功");
-        Log.d(TAG, "onUpLoadToServerSuccess: ");
-        LocalShared.getInstance(mContext).addAccount(userid, xfid);
-        Intent intent = new Intent(this, InquiryAndFileActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void onUploadToServerFailed() {
-        Log.d(TAG, "onUploadToServerFailed: ");
-        onReadFailed();
+        startActivity(new Intent(this, PhoneAndCodeActivity.class)
+                .putExtra(PhoneAndCodeActivity.FROM_WHERE, PhoneAndCodeActivity.FROM_REGISTER_BY_IDCARD)
+                .putExtra(REGISTER_IDCARD_NUMBER, item.certNumber)
+                .putExtra(REGISTER_REAL_NAME, item.partyName)
+                .putExtra(REGISTER_SEX, item.gender)
+                .putExtra(REGISTER_ADDRESS, item.certAddress));
     }
 
     @Override
