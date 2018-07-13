@@ -10,12 +10,21 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.wrap.PhoneVerificationCodeView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.T;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_PHONE_NUMBER;
 
 public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificationCodeView.OnSendClickListener {
     public static final String FROM_WHERE = "from_where";
@@ -25,6 +34,10 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
     PhoneVerificationCodeView phoneView;
     @BindView(R.id.tv_next)
     TextView tvNext;
+    /**
+     * 发手机号的验证码
+     */
+    private String phone = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +74,12 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
     public void onViewClicked() {
         String code = phoneView.getCode();
         if (TextUtils.isEmpty(code)) {
-            speak("请输入验证码");
+            mlSpeak("请输入验证码");
+            return;
+        }
+
+        if (!this.phone.equals(phoneView.getPhone())) {
+            mlSpeak("验证码错误");
             return;
         }
 
@@ -69,16 +87,63 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
             // TODO: 2018/7/12  录入人脸 
         } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
-            startActivity(new Intent(PhoneAndCodeActivity.this, RealNameActivity.class));
+            if (code.equals(this.code)) {
+                startActivity(new Intent(PhoneAndCodeActivity.this, RealNameActivity.class)
+                        .putExtra(REGISTER_PHONE_NUMBER, phone)
+                        .putExtras(getIntent()));
+            } else {
+                mlSpeak("验证码错误");
+            }
         }
 
 
     }
 
+    private String code = "";
 
     @Override
-    public void onSendCode(String phone) {
-        //验证手机号注册与否
+    public void onSendCode(final String phone) {
+        this.phone = phone;
+        showLoadingDialog("正在获取验证码...");
+        NetworkApi.canRegister(phone, "3", new NetworkManager.SuccessCallback<Object>() {
+            @Override
+            public void onSuccess(Object response) {
+                hideLoadingDialog();
+                NetworkApi.getCode(phone, new NetworkManager.SuccessCallback<String>() {
+
+                    @Override
+                    public void onSuccess(String codeJson) {
+                        try {
+                            JSONObject codeObj = new JSONObject(codeJson);
+                            String code = codeObj.getString("code");
+                            if (code != null) {
+                                PhoneAndCodeActivity.this.code = code;
+                                T.show("获取验证码成功");
+                                mlSpeak("获取验证码成功");
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            T.show("获取验证码失败");
+                            mlSpeak("获取验证码失败");
+                        }
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        T.show("获取验证码失败");
+                        mlSpeak("获取验证码失败");
+                    }
+                });
+
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                hideLoadingDialog();
+                speak("手机号码已注册");
+            }
+        });
 
     }
 

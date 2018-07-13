@@ -13,6 +13,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_SEX;
+
 public class SexActivity extends BaseActivity {
 
     @BindView(R.id.tv_sex_man)
@@ -70,7 +72,10 @@ public class SexActivity extends BaseActivity {
                 clickMan(false);
                 break;
             case R.id.tv_next:
-                startActivity(new Intent(this, AddressActivity.class));
+                String sex = tvSexMan.isSelected() ? tvSexMan.getTag().toString() : tvSexWomen.getTag().toString();
+                startActivity(new Intent(this, AddressActivity.class)
+                        .putExtra(REGISTER_SEX,sex)
+                        .putExtras(getIntent()));
                 break;
         }
     }

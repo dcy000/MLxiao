@@ -22,6 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_ADDRESS;
+
 public class AddressActivity extends BaseActivity {
 
     @BindView(R.id.tv_address)
@@ -59,7 +61,7 @@ public class AddressActivity extends BaseActivity {
         cityPicker.init(this);
         //添加默认的配置，不需要自己定义
         CityConfig cityConfig = new CityConfig.Builder()
-                .title("选择城市") .title("选择城市")//标题
+                .title("选择城市").title("选择城市")//标题
                 .titleTextSize(26)//标题文字大小
                 .titleTextColor("#585858")//标题文字颜  色
                 .titleBackgroundColor("#E9E9E9")//标题栏背景色
@@ -130,7 +132,7 @@ public class AddressActivity extends BaseActivity {
 
         mlSpeak("请输入您的户籍地址");
 
-        canClearEditText.setIsChinese(false);
+        canClearEditText.setIsChinese(true);
         canClearEditText.setHintText("请输入详细地址");
     }
 
@@ -143,9 +145,14 @@ public class AddressActivity extends BaseActivity {
                 cityPicker.showCityPicker();
                 break;
             case R.id.tv_next:
-                if (TextUtils.isEmpty(canClearEditText.getPhone())) {
+                String detailAddress = canClearEditText.getPhone();
+                if (TextUtils.isEmpty(detailAddress)) {
                     mlSpeak("请输入详细地址");
                 }
+                String address = tvProvinceInfo.getText().toString() + tvCity.getText().toString() + tvBlockInfo.getText().toString() + detailAddress;
+                startActivity(new Intent(this, InputFaceActivity.class)
+                        .putExtras(getIntent())
+                        .putExtra(REGISTER_ADDRESS, address));
                 break;
         }
     }

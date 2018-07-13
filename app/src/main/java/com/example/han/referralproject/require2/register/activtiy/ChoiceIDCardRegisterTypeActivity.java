@@ -42,8 +42,8 @@ public class ChoiceIDCardRegisterTypeActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("选 择 注 册 方 式");
 
-        mLeftText.setVisibility(View.VISIBLE);
-        mLeftView.setVisibility(View.VISIBLE);
+        mLeftText.setVisibility(View.GONE);
+        mLeftView.setVisibility(View.GONE);
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);

@@ -9,8 +9,14 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.idcard.SignInIdCardActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.wrap.CanClearEditText;
+import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import butterknife.BindView;
@@ -53,7 +59,7 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
             }
         });
 
-        speak("请输入您的身份号码");
+        speak("请输入您的身份证号码");
     }
 
     public void speak(String text) {
@@ -64,7 +70,7 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
     public void onViewClicked() {
         String phone = ccetPhone.getPhone();
         if (TextUtils.isEmpty(phone)) {
-            speak("请输入您的身份号码");
+            speak("请输入您的身份证号码");
             return;
         }
 
@@ -73,16 +79,28 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
             return;
         }
 
-        neworkCheckIdCard();
+        neworkCheckIdCard(phone);
 
     }
 
     /**
      * 网络检测身份证是否注册
      */
-    private void neworkCheckIdCard() {
-        startActivity(new Intent(this, PhoneAndCodeActivity.class)
-                .putExtra(PhoneAndCodeActivity.FROM_WHERE, PhoneAndCodeActivity.FROM_REGISTER_BY_IDCARD_NUMBER));
+    private void neworkCheckIdCard(final String idCardNumber) {
+
+        NetworkApi.isRegisteredByIdCard(idCardNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
+            @Override
+            public void onSuccess(UserInfoBean response) {
+                mlSpeak("身份证已注册");
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                startActivity(new Intent(IDCardNumberRegisterActivity.this, PhoneAndCodeActivity.class)
+                        .putExtra(PhoneAndCodeActivity.FROM_WHERE, PhoneAndCodeActivity.FROM_REGISTER_BY_IDCARD_NUMBER).putExtra(REGISTER_IDCARD_NUMBER,idCardNumber));
+//
+            }
+        });
     }
 
     @Override
@@ -91,4 +109,10 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
         setDisableGlobalListen(true);
         setEnableListeningLoop(false);
     }
+
+    public static final String REGISTER_IDCARD_NUMBER="registerIdCardNumber";
+    public static final String REGISTER_PHONE_NUMBER="registerPhoneNumber";
+    public static final String REGISTER_REAL_NAME="registeRrealName";
+    public static final String REGISTER_SEX="registerSex";
+    public static final String REGISTER_ADDRESS="registerAddress";
 }

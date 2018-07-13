@@ -17,6 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_REAL_NAME;
+
 public class RealNameActivity extends BaseActivity {
 
     @BindView(R.id.ccet_name)
@@ -58,12 +60,14 @@ public class RealNameActivity extends BaseActivity {
 
     @OnClick(R.id.tv_next)
     public void onViewClicked() {
-        if (TextUtils.isEmpty(ccetName.getPhone())) {
+        String realName = ccetName.getPhone();
+        if (TextUtils.isEmpty(realName)) {
             mlSpeak("请输入姓名");
             return;
         }
-
-        startActivity(new Intent(this, SexActivity.class));
+        startActivity(new Intent(this, SexActivity.class)
+                .putExtra(REGISTER_REAL_NAME, realName)
+                .putExtras(getIntent()));
     }
 
     @Override

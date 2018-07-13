@@ -25,7 +25,7 @@
         android:layout_height="648pt"
         android:layout_marginStart="112pt"
         android:layout_marginTop="156pt"
-        android:background="@drawable/ic_idcard_login"
+        android:background="@drawable/ic_register_by_idcard_number"
         app:layout_constraintStart_toEndOf="@+id/im_idcard_login"
         app:layout_constraintTop_toTopOf="parent" />
 

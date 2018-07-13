@@ -144,6 +144,10 @@ public class PhoneVerificationCodeView extends LinearLayout {
 
     private OnSendClickListener listener;
 
+    public String getPhone() {
+        return tvPhone.getText().toString();
+    }
+
 
     public interface OnSendClickListener {
         void onSendCode(String phone);
