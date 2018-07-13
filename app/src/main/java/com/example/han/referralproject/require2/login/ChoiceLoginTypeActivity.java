@@ -10,6 +10,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.idcard.SignInIdCardActivity;
+import com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.RegisterByIdCardActivity;
 import com.medlink.danbogh.utils.T;
 
@@ -62,6 +63,7 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_login_by_idcard:
+                //刷身份证 登录,注册公用界面 跳转刷身份证登录界面 intent传login
                 startActivity(new Intent(this, RegisterByIdCardActivity.class)
                         .putExtra("login", true));
                 break;
@@ -72,8 +74,11 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
 
                 break;
             case R.id.im_login_by_id_number:
+                startActivity(new Intent(this, LoginByIDCardNuberActivity.class));
+
                 break;
             case R.id.tv_to_register:
+                startActivity(new Intent(this, ChoiceIDCardRegisterTypeActivity.class));
                 break;
         }
     }
