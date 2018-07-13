@@ -70,7 +70,7 @@ public class SexActivity extends BaseActivity {
                 clickMan(false);
                 break;
             case R.id.tv_next:
-
+                startActivity(new Intent(this, AddressActivity.class));
                 break;
         }
     }

@@ -39,6 +39,9 @@ public class CanClearEditText extends LinearLayout {
         }
     }
 
+    public void setHintText(String hint){
+        tvPhone.setHint(hint);
+    }
     public CanClearEditText(Context context) {
         this(context, null);
     }
@@ -84,6 +87,13 @@ public class CanClearEditText extends LinearLayout {
                     ivDelete.setVisibility(VISIBLE);
                 }
 
+            }
+        });
+
+        ivDelete.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvPhone.setText("");
             }
         });
     }

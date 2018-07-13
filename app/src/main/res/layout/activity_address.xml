@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.require2.register.activtiy.AddressActivity">
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="132pt"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="100pt"
+        android:gravity="center_vertical"
+        android:text="您的户籍地址"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_province_info"
+        android:layout_width="300pt"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37pt"
+        android:gravity="center_vertical"
+        android:textColor="#666"
+        android:textSize="64pt"
+        app:layout_constraintStart_toStartOf="@+id/tv_address"
+        app:layout_constraintTop_toBottomOf="@+id/tv_address"
+        tools:ignore="MissingPrefix" />
+
+    <TextView
+        android:id="@+id/tv_city_info"
+        android:layout_width="300pt"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20pt"
+        android:gravity="center_vertical"
+        android:textColor="#666"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_province_info"
+        app:layout_constraintStart_toEndOf="@+id/tv_province"
+        app:layout_constraintTop_toTopOf="@+id/tv_province_info" />
+
+    <TextView
+        android:id="@+id/tv_block_info"
+        android:layout_width="300pt"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20pt"
+        android:gravity="center_vertical"
+        android:textColor="#666"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_province_info"
+        app:layout_constraintStart_toEndOf="@+id/tv_city"
+        app:layout_constraintTop_toTopOf="@+id/tv_province_info"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tv_province"
+        android:layout_width="wrap_content"
+        android:layout_height="132pt"
+        android:layout_marginStart="10pt"
+        android:gravity="center_vertical"
+        android:text="省"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_province_info"
+        app:layout_constraintStart_toEndOf="@+id/tv_province_info"
+        app:layout_constraintTop_toTopOf="@+id/tv_province_info" />
+
+    <TextView
+        android:id="@+id/tv_city"
+        android:layout_width="wrap_content"
+        android:layout_height="132pt"
+        android:layout_marginStart="10pt"
+        android:gravity="center_vertical"
+        android:text="市"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_province_info"
+        app:layout_constraintStart_toEndOf="@+id/tv_city_info"
+        app:layout_constraintTop_toTopOf="@+id/tv_province_info" />
+
+    <TextView
+        android:id="@+id/tv_city2"
+        android:layout_width="wrap_content"
+        android:layout_height="132pt"
+        android:layout_marginStart="16dp"
+        android:gravity="center_vertical"
+        android:text="区/县"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_province_info"
+        app:layout_constraintStart_toEndOf="@+id/tv_block_info"
+        app:layout_constraintTop_toTopOf="@+id/tv_province_info"
+        app:layout_constraintVertical_bias="0.833" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="0pt"
+        android:layout_height="1pt"
+        android:background="#ff333333"
+        android:text="TextView"
+        android:layout_marginTop="30pt"
+        app:layout_constraintEnd_toEndOf="@+id/tv_city2"
+        app:layout_constraintStart_toStartOf="@+id/tv_province_info"
+        app:layout_constraintTop_toBottomOf="@+id/tv_city" />
+
+    <com.example.han.referralproject.require2.wrap.CanClearEditText
+        android:id="@+id/canClearEditText"
+        android:layout_width="0pt"
+        android:layout_height="132pt"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="17pt"
+        app:layout_constraintEnd_toEndOf="@+id/tv_city2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="320pt"
+        android:layout_height="100pt"
+        android:layout_marginTop="202pt"
+        android:background="@drawable/shape_rectangle_next_btn"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#fff"
+        android:textSize="56pt"
+        app:layout_constraintStart_toStartOf="@+id/canClearEditText"
+        app:layout_constraintTop_toBottomOf="@+id/canClearEditText" />
+
+
+</android.support.constraint.ConstraintLayout>

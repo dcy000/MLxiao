@@ -762,7 +762,8 @@
         <activity android:name=".require2.register.activtiy.IDCardNumberRegisterActivity" />
         <activity android:name=".require2.register.activtiy.PhoneAndCodeActivity" />
         <activity android:name=".require2.register.activtiy.RealNameActivity" />
-        <activity android:name=".require2.register.activtiy.SexActivity"></activity>
+        <activity android:name=".require2.register.activtiy.SexActivity" />
+        <activity android:name=".require2.register.activtiy.AddressActivity"></activity>
     </application>
 
 </manifest>
