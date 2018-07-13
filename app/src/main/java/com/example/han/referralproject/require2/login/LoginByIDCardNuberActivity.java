@@ -62,7 +62,7 @@ public class LoginByIDCardNuberActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_next:
-                startActivity(new Intent(this, InquiryAndFileActivity.class));
+                startActivity(new Intent(this, CodeActivity.class));
                 break;
         }
     }
