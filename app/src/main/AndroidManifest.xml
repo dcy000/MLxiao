@@ -750,13 +750,6 @@
         <activity android:name=".olderhealthmanagement.HealthManagementResultActivity" />
         <activity android:name=".activity.SingleDetectActivity" />
         <activity android:name=".require2.login.ChoiceLoginTypeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
         <activity android:name=".require2.register.activtiy.ChoiceIDCardRegisterTypeActivity">
 
@@ -767,8 +760,17 @@
         <activity android:name=".require2.register.activtiy.SexActivity" />
         <activity android:name=".require2.register.activtiy.AddressActivity" />
         <activity android:name=".require2.login.LoginByIDCardNuberActivity" />
-        <activity android:name=".require2.register.activtiy.InputFaceActivity" />
+        <activity android:name=".require2.register.activtiy.InputFaceActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".require2.register.activtiy.RegisterByIdCardActivity"></activity>
+        <activity android:name=".require2.login.CodeActivity"></activity>
     </application>
 
 </manifest>

@@ -65,7 +65,7 @@ public class NetworkApi {
     /**
      * 医疗版生产
      */
-//    public static final String BasicUrl = "http://118.31.73.176:8080";
+    public static final String BasicUrl = "http://118.31.73.176:8080";
     /**
      * 林本地
      */
@@ -73,7 +73,7 @@ public class NetworkApi {
     /**
      * 测试
      */
-    public static final String BasicUrl = "http://47.96.98.60:8070";
+//    public static final String BasicUrl = "http://47.96.98.60:8070";
     //上传建档信息
     public static final String Upload_BuildRecord = BasicUrl + "/ZZB/api/health/inquiry/record/";
     //生活疗法
@@ -1306,4 +1306,22 @@ public class NetworkApi {
                 execute(callback);
     }
 
-}
+    public static void register(String registeRrealName,
+                                String registerSex,
+                                String registerAddress,
+                                String registerIdCardNumber,
+                                String registerPhoneNumber,
+                                String url,
+                                NetworkManager.SuccessCallback<UserInfoBean> successCallback,
+                                NetworkManager.FailedCallback failedCallback) {
+
+            Map<String, String> paramsMap = new HashMap<>();
+            paramsMap.put("bname", registeRrealName);
+            paramsMap.put("sex", registerSex);
+            paramsMap.put("eqid", Utils.getDeviceId());
+            paramsMap.put("tel", registerPhoneNumber);
+            paramsMap.put("dz", registerAddress);
+            paramsMap.put("sfz", registerIdCardNumber);
+            NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
+        }
+    }
