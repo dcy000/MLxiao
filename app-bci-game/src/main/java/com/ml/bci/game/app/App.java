@@ -12,18 +12,18 @@ public class App extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        BciAppLifecircleCallbacks.getInstance().attachBaseContext(this, base);
+        BciAppLifecycleCallbacks.getInstance().attachBaseContext(this, base);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        BciAppLifecircleCallbacks.getInstance().onCreate(this);
+        BciAppLifecycleCallbacks.getInstance().onCreate(this);
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        BciAppLifecircleCallbacks.getInstance().onTerminate(this);
+        BciAppLifecycleCallbacks.getInstance().onTerminate(this);
     }
 }

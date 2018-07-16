@@ -47,7 +47,7 @@
         android:id="@+id/bci_iv_choose_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="5dp"
         android:src="@drawable/bci_ic_choose_indicator"
         app:layout_constraintBottom_toTopOf="@+id/bci_iv_fruit_emitter"
         app:layout_constraintLeft_toLeftOf="parent"

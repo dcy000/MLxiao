@@ -50,7 +50,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
     private int mWidth;
     private int mHeight;
     private ArrayList<View> hidden = new ArrayList<>();
-    private boolean hasRemoved = false;
+    private volatile boolean hasRemoved = false;
     private int mOffset = 0;
 
     private LinkedList<Integer> added = new LinkedList<>();
@@ -63,7 +63,9 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
         mOffset += -dx;
 
         if (getChildCount() == 0 && getItemCount() > 0) {
-            hasRemoved = false;
+            if (added.size() == 0) {
+                hasRemoved = false;
+            }
             View scrap = recycler.getViewForPosition(0);
             addView(scrap);
             measureChildWithMargins(scrap, 0, 0);
@@ -76,8 +78,10 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             int left = mOffset - mWidth * (i + 1) - calcTotalLeftMargin(i);
-            if (outOfRange(left)) {
+            if (left + mWidth > getWidth()) {
                 hasRemoved = true;
+            }
+            if (outOfRange(left)) {
                 hidden.add(view);
             }
         }
@@ -89,7 +93,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
         }
         hidden.clear();
 
-        removeAndRecycleAllViews(recycler);
+        detachAndScrapAttachedViews(recycler);
 
         int unconsumed = mOffset;
 //        int consumed = 0;
@@ -109,6 +113,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
             unconsumed -= mWidth + getLeftMargin(scrap);
         }
 
+        Log.d("afirez", String.format("%s, %s", added.size(), hasRemoved));
         if (!hasRemoved) {
             for (; unconsumed > 10; ) {
                 int i = makeAvailableRandomPosition();

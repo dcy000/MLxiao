@@ -10,17 +10,17 @@ import com.ml.bci.game.common.utils.T;
  * Created by lenovo on 2018/6/12.
  */
 
-public class BciAppLifecircleCallbacks {
+public class BciAppLifecycleCallbacks {
 
     private static class Holder {
         @SuppressLint("StaticFieldLeak")
-        private static final BciAppLifecircleCallbacks INSTANCE = new BciAppLifecircleCallbacks();
+        private static final BciAppLifecycleCallbacks INSTANCE = new BciAppLifecycleCallbacks();
     }
 
-    private BciAppLifecircleCallbacks() {
+    private BciAppLifecycleCallbacks() {
     }
 
-    public static BciAppLifecircleCallbacks getInstance() {
+    public static BciAppLifecycleCallbacks getInstance() {
         return Holder.INSTANCE;
     }
 

@@ -106,8 +106,34 @@ public class AutoScrollHelper {
         this.baseOffset = baseOffset;
     }
 
-    public void setOffsetX(int offsetX) {
-        this.offsetX = offsetX;
+    public void setOffsetX(final int offsetX) {
+        RecyclerView recyclerView = mWeakRecyclerView.get();
+        if (recyclerView == null) {
+            return;
+        }
+        if (!canRun || !running) {
+            return;
+        }
+        if (updateOffsetXRunnable == null) {
+            updateOffsetXRunnable = new UpdateOffsetXRunnable();
+        }
+        updateOffsetXRunnable.setOffsetX(offsetX);
+        recyclerView.post(updateOffsetXRunnable);
+    }
+
+    private UpdateOffsetXRunnable updateOffsetXRunnable;
+
+    private class UpdateOffsetXRunnable implements Runnable {
+        private int mOffsetX;
+
+        public void setOffsetX(int offsetX) {
+            mOffsetX = offsetX;
+        }
+
+        @Override
+        public void run() {
+            AutoScrollHelper.this.offsetX = mOffsetX;
+        }
     }
 
     public void setOffsetY(int offsetY) {
