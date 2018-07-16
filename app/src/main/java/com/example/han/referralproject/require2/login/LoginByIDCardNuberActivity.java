@@ -114,7 +114,7 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
     private void registerNoticeDialog() {
         SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.idCardUnregistered);
         dialog.setListener(this);
-        dialog.show(getFragmentManager(), "dialog");
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     @Override

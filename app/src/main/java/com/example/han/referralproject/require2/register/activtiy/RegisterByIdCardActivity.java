@@ -17,7 +17,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.idcard.SignInIdCardActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
@@ -505,7 +504,7 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
     private void registerNoticeDialog() {
         SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.idCardUnregistered);
         dialog.setListener(this);
-        dialog.show(getFragmentManager(), "dialog");
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     @Override
