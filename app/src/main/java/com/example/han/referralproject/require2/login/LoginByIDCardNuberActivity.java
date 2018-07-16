@@ -15,6 +15,8 @@ import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity;
 import com.example.han.referralproject.require2.wrap.CanClearEditText;
+import com.example.han.referralproject.util.LocalShared;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import butterknife.BindView;
@@ -85,11 +87,25 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
         NetworkApi.isRegisteredByIdCard(idCardNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                //保存信息
+                LocalShared.getInstance(mContext).setUserInfo(response);
+                LocalShared.getInstance(mContext).setSex(response.sex);
+                LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
+                LocalShared.getInstance(mContext).setUserAge(response.age);
+                LocalShared.getInstance(mContext).setUserHeight(response.height);
+                new JpushAliasUtils(LoginByIDCardNuberActivity.this).setAlias("user_" + response.bid);
+
                 startActivity(new Intent(LoginByIDCardNuberActivity.this, CodeActivity.class).putExtra("phone",response.tel));
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
                 registerNoticeDialog();
             }
         });
