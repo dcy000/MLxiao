@@ -124,7 +124,7 @@ public class PhoneVerificationCodeView extends LinearLayout {
                 if (count <= 0) {
                     tvSendCode.setSelected(true);
                     tvSendCode.setText("发送验证码");
-                    count = 5;
+                    count = TIME;
                     return;
                 }
                 tvSendCode.setText(count + "秒重发");
@@ -134,7 +134,8 @@ public class PhoneVerificationCodeView extends LinearLayout {
 
     }
 
-    private int count = 5;
+    private int count = TIME;
+    private static final int TIME = 60;
 
 
     private void clearPhoneNumber() {
