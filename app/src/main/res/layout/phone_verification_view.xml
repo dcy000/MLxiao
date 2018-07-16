@@ -41,7 +41,7 @@
             android:layout_height="48pt"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="#ffbbbbbb" />
+            android:background="@drawable/ic_et_delete" />
     </RelativeLayout>
 
     <RelativeLayout

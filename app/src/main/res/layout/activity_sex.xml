@@ -63,4 +63,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sex_man" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="841pt"
+        android:layout_height="770pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_pages_right_bg" />
+
 </android.support.constraint.ConstraintLayout>

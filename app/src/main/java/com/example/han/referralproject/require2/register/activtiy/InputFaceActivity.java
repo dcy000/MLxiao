@@ -433,7 +433,8 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                         }
                         hideLoadingDialog();
                         T.show(message);
-                        speak("主人," + message);
+                        mlSpeak("主人," + message);
+                        finish();
                     }
                 }
         );

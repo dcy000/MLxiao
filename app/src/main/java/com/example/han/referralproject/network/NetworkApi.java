@@ -39,7 +39,6 @@ import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.health.model.WeekReportModel;
-import com.example.han.referralproject.new_music.NetworkUtils;
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.example.han.referralproject.recyclerview.OnlineTime;
@@ -53,7 +52,6 @@ import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,7 +63,7 @@ public class NetworkApi {
     /**
      * 医疗版生产
      */
-    public static final String BasicUrl = "http://118.31.73.176:8080";
+//    public static final String BasicUrl = "http://118.31.73.176:8080";
     /**
      * 林本地
      */
@@ -73,7 +71,7 @@ public class NetworkApi {
     /**
      * 测试
      */
-//    public static final String BasicUrl = "http://47.96.98.60:8070";
+    public static final String BasicUrl = "http://47.96.98.60:8070";
     //上传建档信息
     public static final String Upload_BuildRecord = BasicUrl + "/ZZB/api/health/inquiry/record/";
     //生活疗法

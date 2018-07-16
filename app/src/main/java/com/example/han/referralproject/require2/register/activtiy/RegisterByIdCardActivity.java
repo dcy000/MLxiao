@@ -38,7 +38,7 @@ import static com.example.han.referralproject.require2.register.activtiy.InputFa
 import static com.example.han.referralproject.require2.register.activtiy.InputFaceActivity.REGISTER_REAL_NAME;
 
 public class RegisterByIdCardActivity extends BaseActivity implements SomeCommonDialog.OnDialogClickListener {
-
+    //    请把身份证放在身份证阅读器上
     private static final String TAG = "MyBluetooth";
     private static final String FILTER = "KT8000";
     private static final int PROTOCOL_TYPE = 0;
@@ -517,8 +517,6 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
         if (item == null) {
             return;
         }
-
-
         startActivity(new Intent(this, PhoneAndCodeActivity.class)
                 .putExtra(PhoneAndCodeActivity.FROM_WHERE, PhoneAndCodeActivity.FROM_REGISTER_BY_IDCARD)
                 .putExtra(REGISTER_IDCARD_NUMBER, item.certNumber)

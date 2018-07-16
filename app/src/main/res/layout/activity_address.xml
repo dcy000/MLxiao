@@ -100,9 +100,9 @@
         android:id="@+id/textView19"
         android:layout_width="0pt"
         android:layout_height="1pt"
+        android:layout_marginTop="30pt"
         android:background="#ff333333"
         android:text="TextView"
-        android:layout_marginTop="30pt"
         app:layout_constraintEnd_toEndOf="@+id/tv_city2"
         app:layout_constraintStart_toStartOf="@+id/tv_province_info"
         app:layout_constraintTop_toBottomOf="@+id/tv_city" />
@@ -129,6 +129,14 @@
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="@+id/canClearEditText"
         app:layout_constraintTop_toBottomOf="@+id/canClearEditText" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="841pt"
+        android:layout_height="770pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_pages_right_bg" />
 
 
 </android.support.constraint.ConstraintLayout>

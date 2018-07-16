@@ -49,6 +49,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
         ButterKnife.bind(this);
         intTitle();
         initEvent();
+        mlSpeak("请输入手机号码,点击发送验证码");
     }
 
     private void intTitle() {
