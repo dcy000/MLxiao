@@ -28,6 +28,8 @@ import com.example.han.referralproject.olderhealthmanagement.OlderHealthManageme
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
+import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
 import com.example.han.referralproject.util.LocalShared;
@@ -36,7 +38,6 @@ import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -59,7 +60,7 @@ import butterknife.Unbinder;
  * Created by lenovo on 2018/5/17.
  */
 
-public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogItemClickListener, JianKangJianCheDialog.ClickItemListener {
+public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogItemClickListener, JianKangJianCheDialog.ClickItemListener{
     private static final String JIANKANG_TIJIAN = "健康体检";
     private static final String GAOXUEYA_TIJIAN = "高血压体检";
     private static final String TANGNIAOBING_TIJIAN = "糖尿病体检";
@@ -365,12 +366,12 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if ("建档".equals(name)) {
-            gotoFiled();
+            gotoFiled(name);
         }
 
     }
 
-    private void gotoFiled() {
+    private void gotoFiled(final String name) {
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
@@ -380,9 +381,9 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 String state = response.getState();
                 if ("1".equals(state) || ("0".equals(state) && !TextUtils.isEmpty(response.getDoctername()))) {
                     //请求接口 判断时候建档
-                    isNotFile(true);
+                    isNotFile(true, name);
                 } else {
-                    isNotFile(false);
+                    isNotFile(false, name);
                 }
 
             }
@@ -395,7 +396,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         });
     }
 
-    private void isNotFile(final boolean isBindDoctor) {
+    private void isNotFile(final boolean isBindDoctor, final String name) {
         NetworkApi.getFiledIsOrNot(getActivity()
                 , NetworkApi.FILE_URL
                 , LocalShared.getInstance(getActivity()).getUserId()
@@ -408,10 +409,30 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                         }
                         WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                         if (reultBean.tag) {
-                            T.show("您已建档完毕");
-                            MLVoiceSynthetize.startSynthesize(getContext(), "您已建档完毕", false);
+                            if (JIANKANG_TIJIAN.equals(name)) {
+                                // TODO: 2018/7/16  调用接口
+                                //调用接口扣费
+                                Intent intent = new Intent(getActivity(), DetectActivity.class);
+                                intent.putExtra("type", "wendu");
+                                intent.putExtra("isDetect", true);
+                                intent.putExtra("detectCategory", "detectHealth");
+                                startActivity(intent);
+
+                            } else if (GAOXUEYA_TIJIAN.equals(name)) {
+                                Intent intent = new Intent(getActivity(), DetectActivity.class);
+                                intent.putExtra("type", "xueya");
+                                intent.putExtra("isDetect", true);
+                                intent.putExtra("detectCategory", "detectPressure");
+                                startActivity(intent);
+                            } else if (TANGNIAOBING_TIJIAN.equals(name)) {
+                                Intent intent = new Intent(getActivity(), DetectActivity.class);
+                                intent.putExtra("type", "xueya");
+                                intent.putExtra("isDetect", true);
+                                intent.putExtra("detectCategory", "detectSugar");
+                                startActivity(intent);
+                            }
                         } else {
-                            startActivity(new Intent(getActivity(), BuildingRecordActivity.class).putExtra("bind",isBindDoctor));
+                            ShowToFiledDialog(isBindDoctor);
                         }
                     }
 
@@ -421,6 +442,17 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                         T.show("网络繁忙");
                     }
                 });
+    }
+
+    private void ShowToFiledDialog(final boolean isBindDoctor) {
+        SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.noDocument);
+        dialog.setListener(new SomeCommonDialog.OnDialogClickListener() {
+            @Override
+            public void onClickConfirm(DialogTypeEnum type) {
+                startActivity(new Intent(getActivity(), BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
+            }
+        });
+        dialog.show(getFragmentManager(), "dialog");
     }
 
     /**
@@ -442,28 +474,10 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
     @Override
     public void onJianceItemClick(String name) {
-        if (JIANKANG_TIJIAN.equals(name)) {
-//            gotoDanXianTiJian();
-            Intent intent = new Intent(getActivity(), DetectActivity.class);
-            intent.putExtra("type", "wendu");
-            intent.putExtra("isDetect", true);
-            intent.putExtra("detectCategory", "detectHealth");
-            startActivity(intent);
-
-        } else if (GAOXUEYA_TIJIAN.equals(name)) {
-            Intent intent = new Intent(getActivity(), DetectActivity.class);
-            intent.putExtra("type", "xueya");
-            intent.putExtra("isDetect", true);
-            intent.putExtra("detectCategory", "detectPressure");
-            startActivity(intent);
-        } else if (TANGNIAOBING_TIJIAN.equals(name)) {
-            Intent intent = new Intent(getActivity(), DetectActivity.class);
-            intent.putExtra("type", "xueya");
-            intent.putExtra("isDetect", true);
-            intent.putExtra("detectCategory", "detectSugar");
-            startActivity(intent);
-        } else if ("单项体检".equals(name)) {
+        if ("单项体检".equals(name)) {
             gotoDanXianTiJian();
+        } else {
+            gotoFiled(name);
         }
 
 
@@ -481,4 +495,6 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         activity.startActivity(new Intent(activity, ChoiceLoginTypeActivity.class));
         activity.finish();
     }
+
+
 }
