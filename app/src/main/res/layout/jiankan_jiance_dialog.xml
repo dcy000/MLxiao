@@ -17,12 +17,11 @@
             android:layout_marginLeft="40pt">
 
             <ImageView
-                android:background="@drawable/main_dialog_danxiangtijian_set"
                 android:id="@+id/iv_danxiang_tijian"
                 android:layout_width="380pt"
                 android:layout_height="380pt"
                 android:layout_marginTop="213pt"
-              />
+                android:background="@drawable/main_dialog_danxiangtijian_set" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -30,9 +29,10 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="213pt"
-                android:text="单项体检"
+                android:text="收费项目"
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
+
 
         </RelativeLayout>
 
@@ -59,6 +59,16 @@
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="160pt"
+                android:text="(1次/年)"
+                android:textColor="#ff5897fc"
+                android:textSize="40pt" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -84,6 +94,16 @@
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="160pt"
+                android:text="(1次/2月)"
+                android:textColor="#ff5897fc"
+                android:textSize="40pt" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -93,16 +113,17 @@
             android:layout_marginLeft="38pt">
 
             <ImageView
-                android:layout_centerInParent="true"
                 android:id="@+id/tangniaobing_tijian"
                 android:layout_width="380pt"
                 android:layout_height="380pt"
                 android:layout_alignBottom="@+id/textView14"
                 android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/main_dialog_tangniaobing_set" />
 
             <TextView
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -110,8 +131,18 @@
                 android:layout_marginBottom="213pt"
                 android:text="糖尿病随访"
                 android:textColor="#ff333333"
-                android:textSize="64pt"
-                android:id="@+id/textView14" />
+                android:textSize="64pt" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="160pt"
+                android:text="(1次/2月)"
+                android:textColor="#ff5897fc"
+                android:textSize="40pt" />
+
 
         </RelativeLayout>
 
