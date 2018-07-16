@@ -66,7 +66,7 @@ public class CodeActivity extends BaseActivity {
             }
         });
 
-        mlSpeak("请输入身份证号码登录");
+        mlSpeak("请输入手机验证码登录");
     }
 
 

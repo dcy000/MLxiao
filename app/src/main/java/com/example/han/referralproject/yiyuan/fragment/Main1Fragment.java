@@ -29,6 +29,7 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
+import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
@@ -273,6 +274,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     }
 
     private void gotoTizhiJianCe() {
+        startActivity(new Intent(getActivity(), InputFaceActivity.class));
+
         startActivity(new Intent(getActivity(), OlderHealthManagementSerciveActivity.class));
     }
 

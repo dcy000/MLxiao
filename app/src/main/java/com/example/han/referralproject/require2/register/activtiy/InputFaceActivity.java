@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
@@ -28,6 +29,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.dialog.AffirmHeadDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -162,6 +164,10 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                     public void complete(String key, ResponseInfo info, JSONObject res) {
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
+                            if (!TextUtils.isEmpty(getIntent().getStringExtra(OVERHEAD_INFORMATION))) {
+//跳转相应的页面
+                                return;
+                            }
                             signUp(imageUrl);
 
                         } else {
@@ -262,6 +268,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     public static final String REGISTER_REAL_NAME = "registeRrealName";
     public static final String REGISTER_SEX = "registerSex";
     public static final String REGISTER_ADDRESS = "registerAddress";
+    public static final String OVERHEAD_INFORMATION = "overHeadInformation";
 
     private void initData() {
         registerIdCardNumber = getIntent().getStringExtra(REGISTER_IDCARD_NUMBER);
@@ -423,6 +430,8 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
                         new JpushAliasUtils(InputFaceActivity.this).setAlias("user_" + response.bid);
+                        startActivity(new Intent(InputFaceActivity.this, InquiryAndFileActivity.class)
+                                .putExtra("isRegister", true));
 
                     }
                 }, new NetworkManager.FailedCallback() {

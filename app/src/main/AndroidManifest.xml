@@ -735,7 +735,7 @@
         <activity
             android:name=".intelligent_system.intelligent_diagnosis.DeleteGroupActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
+        <activity android:name=".yiyuan.activity.InquiryAndFileActivity"></activity>
         <activity android:name=".yiyuan.activity.DrinkWenActivity" />
         <activity android:name=".yiyuan.activity.InquiryAndFileEndActivity" />
         <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
