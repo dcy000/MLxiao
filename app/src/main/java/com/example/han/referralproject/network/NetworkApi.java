@@ -1311,7 +1311,7 @@ public class NetworkApi {
                                 String registerAddress,
                                 String registerIdCardNumber,
                                 String registerPhoneNumber,
-                                String url,
+                                String user_photo,
                                 NetworkManager.SuccessCallback<UserInfoBean> successCallback,
                                 NetworkManager.FailedCallback failedCallback) {
 
@@ -1322,6 +1322,7 @@ public class NetworkApi {
             paramsMap.put("tel", registerPhoneNumber);
             paramsMap.put("dz", registerAddress);
             paramsMap.put("sfz", registerIdCardNumber);
+            paramsMap.put("user_photo", user_photo);
             NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
         }
     }
