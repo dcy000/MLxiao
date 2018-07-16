@@ -6,13 +6,18 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.T;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +32,10 @@ public class CodeActivity extends BaseActivity {
     TextView tvSendCode;
     @BindView(R.id.tv_next)
     TextView tvNext;
+    @BindView(R.id.textView17)
+    TextView textView17;
     private String phoneNumber;
+    private String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,13 @@ public class CodeActivity extends BaseActivity {
         setContentView(R.layout.activity_code);
         ButterKnife.bind(this);
         intTitle();
+        initView();
+    }
+
+    private void initView() {
+        phoneNumber = getIntent().getStringExtra("phone");
+        String phoneStar = phoneNumber.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+        textView17.setText("请输入手机" + phoneStar + "收到的验证码");
     }
 
     private void intTitle() {
@@ -75,7 +90,13 @@ public class CodeActivity extends BaseActivity {
     }
 
     private void next() {
-        startActivity(new Intent(this, InquiryAndFileActivity.class));
+        final String phoneCode = etCode.getText().toString();
+        if (TextUtils.isEmpty(phoneCode)) {
+            mlSpeak("请输入手机验证码");
+        }
+        if (phoneCode.equals(code)) {
+            startActivity(new Intent(CodeActivity.this, InquiryAndFileActivity.class));
+        }
     }
 
     private void sendCode() {
@@ -87,7 +108,7 @@ public class CodeActivity extends BaseActivity {
                 if (count <= 0) {
                     tvSendCode.setSelected(true);
                     tvSendCode.setText("发送验证码");
-                    count = 5;
+                    count = 60;
                     return;
                 }
                 tvSendCode.setText(count + "秒重发");
@@ -95,9 +116,38 @@ public class CodeActivity extends BaseActivity {
             }
         }, 1000);
 
+        //请求验证码
+        showLoadingDialog("");
+        NetworkApi.getCode(phoneNumber, new NetworkManager.SuccessCallback<String>() {
+
+            @Override
+            public void onSuccess(String codeJson) {
+                hideLoadingDialog();
+                try {
+                    JSONObject codeObj = new JSONObject(codeJson);
+                    String code = codeObj.getString("code");
+                    CodeActivity.this.code = code;
+                    if (code != null) {
+                        T.show("获取验证码成功");
+                        mlSpeak("获取验证码成功");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    T.show("获取验证码失败");
+                    mlSpeak("获取验证码失败");
+                }
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                hideLoadingDialog();
+                T.show("获取验证码失败");
+                mlSpeak("获取验证码失败");
+            }
+        });
+
     }
 
-    private int count = 5;
-
-
+    private int count = 60;
 }
