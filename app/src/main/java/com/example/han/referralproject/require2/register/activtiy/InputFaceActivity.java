@@ -31,6 +31,7 @@ import com.example.han.referralproject.util.Utils;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.qiniu.android.http.ResponseInfo;
@@ -55,7 +56,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     private String registerSex;
     private String registerAddress;
 
-    @BindView(R.id.surfaceView)
+    @BindView(R.id.surface_view)
     SurfaceView surfaceView;
     @BindView(R.id.iv_circle)
     ImageView ivCircle;
@@ -77,7 +78,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         ButterKnife.bind(this);
         initTitle();
         initData();
-        initFace();
+//        initFace();
     }
 
     private void initFace() {
@@ -119,23 +120,18 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
 
     @Override
     public void onCancel() {
-
-//重拍
-        MLVoiceSynthetize.startSynthesize(this,
+        MLVoiceSynthetize.startSynthesize(InputFaceActivity.this,
                 "让我为您拍个照，3，2，1，茄子。",
                 new MLSynthesizerListener() {
                     @Override
                     public void onCompleted(SpeechError speechError) {
                         try {
-                            Camera camera = getCameraInstance();
-                            holder = surfaceView.getHolder();
-                            holder.addCallback(callback);
-                            camera.setPreviewDisplay(holder);
-                            camera.startPreview();
+                            if (mCamera != null) {
+                                mCamera.reconnect();
+                                mCamera.setOneShotPreviewCallback(cb);
+                                mCamera.startPreview();
+                            }
 
-                            camera.reconnect();
-                            camera.setOneShotPreviewCallback(cb);
-                            camera.startPreview();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -297,38 +293,35 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     @Override
     protected void onResume() {
         super.onResume();
-        if (null != mCamera) {
-            mCamera = getCameraInstance();
-            try {
-                mCamera.setPreviewDisplay(holder);
-                mCamera.startPreview();
-            } catch (IOException e) {
+        holder = surfaceView.getHolder();
+        holder.addCallback(callback);
+
+        Handlers.ui().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                MLVoiceSynthetize.startSynthesize(InputFaceActivity.this,
+                        "让我为您拍个照，3，2，1，茄子。",
+                        new MLSynthesizerListener() {
+                            @Override
+                            public void onCompleted(SpeechError speechError) {
+                                try {
+                                    if (mCamera != null) {
+                                        mCamera.reconnect();
+                                        mCamera.setOneShotPreviewCallback(cb);
+                                        mCamera.startPreview();
+                                    }
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        },
+                        false);
+
             }
-        }
+        }, 1000);
 
-
-        MLVoiceSynthetize.startSynthesize(this,
-                "让我为您拍个照，3，2，1，茄子。",
-                new MLSynthesizerListener() {
-                    @Override
-                    public void onCompleted(SpeechError speechError) {
-                        try {
-                            Camera camera = getCameraInstance();
-                            holder = surfaceView.getHolder();
-                            holder.addCallback(callback);
-                            camera.setPreviewDisplay(holder);
-                            camera.startPreview();
-
-                            camera.reconnect();
-                            camera.setOneShotPreviewCallback(cb);
-                            camera.startPreview();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                true);
     }
 
     @Override
