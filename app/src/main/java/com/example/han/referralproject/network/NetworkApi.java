@@ -67,11 +67,11 @@ public class NetworkApi {
     /**
      * 林本地
      */
-//    public static final String BasicUrl = "http://192.168.200.117:8080";
+    public static final String BasicUrl = "http://192.168.200.117:8080";
     /**
      * 测试
      */
-    public static final String BasicUrl = "http://47.96.98.60:8070";
+//    public static final String BasicUrl = "http://47.96.98.60:8070";
     //上传建档信息
     public static final String Upload_BuildRecord = BasicUrl + "/ZZB/api/health/inquiry/record/";
     //生活疗法
@@ -1312,15 +1312,26 @@ public class NetworkApi {
                                 String user_photo,
                                 NetworkManager.SuccessCallback<UserInfoBean> successCallback,
                                 NetworkManager.FailedCallback failedCallback) {
-
-            Map<String, String> paramsMap = new HashMap<>();
-            paramsMap.put("bname", registeRrealName);
-            paramsMap.put("sex", registerSex);
-            paramsMap.put("eqid", Utils.getDeviceId());
-            paramsMap.put("tel", registerPhoneNumber);
-            paramsMap.put("dz", registerAddress);
-            paramsMap.put("sfz", registerIdCardNumber);
-            paramsMap.put("user_photo", user_photo);
-            NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
-        }
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bname", registeRrealName);
+        paramsMap.put("sex", registerSex);
+        paramsMap.put("eqid", Utils.getDeviceId());
+        paramsMap.put("tel", registerPhoneNumber);
+        paramsMap.put("dz", registerAddress);
+        paramsMap.put("sfz", registerIdCardNumber);
+        paramsMap.put("user_photo", user_photo);
+        paramsMap.put("pwd", "0101011");
+        NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
     }
+
+    /**
+     * 获取用户体检随访的资格
+     */
+    public static String USER_QUALIFICATION_URL = BasicUrl + "/api/health/inquiry/examination/qualification/";
+
+    public static void getUseredQualification(String userId, String examinationType, StringCallback callback) {
+        OkGo.<String>get(USER_QUALIFICATION_URL + userId + "/")
+                .params("examinationType", examinationType)
+                .execute(callback);
+    }
+}

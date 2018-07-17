@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
-import com.example.han.referralproject.activity.DetectActivity;
-import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
@@ -34,8 +32,8 @@ import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.video.VideoListActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
@@ -299,16 +297,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         startActivity(intent);
     }
 
-    private void gotoYiShengJianYi() {
-        startActivity(new Intent(getActivity(), MessageActivity.class));
-    }
-
     private void gotoCeLiangLiShi() {
         startActivity(new Intent(getActivity(), HealthRecordActivity.class));
-    }
-
-    private void gotoJianKangJiangTang() {
-        startActivity(new Intent(getActivity(), VideoListActivity.class));
     }
 
     private void gotoQianyueYiSheng() {
@@ -319,7 +309,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                     //已签约
                     startActivity(new Intent(getActivity(),
                             DoctorappoActivity.class));
-                } else if ("0".equals(response.getState())
+                } else if (TextUtils.isEmpty(response.getState()) || "0".equals(response.getState())
                         && (TextUtils.isEmpty(response.getDoctername()))) {
                     //未签约
                     Intent intent = new Intent(getActivity(),
@@ -411,27 +401,13 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                         WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                         if (reultBean.tag) {
                             if (JIANKANG_TIJIAN.equals(name)) {
-                                // TODO: 2018/7/16  调用接口
-                                //调用接口扣费
-                                Intent intent = new Intent(getActivity(), DetectActivity.class);
-                                intent.putExtra("type", "wendu");
-                                intent.putExtra("isDetect", true);
-                                intent.putExtra("detectCategory", "detectHealth");
-                                startActivity(intent);
-
+                                //--"0" 健康体检次数
+                                JianKangJianCe("0");
                             } else if (GAOXUEYA_TIJIAN.equals(name)) {
-                                Intent intent = new Intent(getActivity(), DetectActivity.class);
-                                intent.putExtra("type", "xueya");
-                                intent.putExtra("isDetect", true);
-                                intent.putExtra("detectCategory", "detectPressure");
-                                startActivity(intent);
+                                JianKangJianCe("1");
                             } else if (TANGNIAOBING_TIJIAN.equals(name)) {
-                                Intent intent = new Intent(getActivity(), DetectActivity.class);
-                                intent.putExtra("type", "xueya");
-                                intent.putExtra("isDetect", true);
-                                intent.putExtra("detectCategory", "detectSugar");
-                                startActivity(intent);
-                                showFllowUpTimesDialog("07月-08月");
+                                JianKangJianCe("2");
+//                                showFllowUpTimesDialog("07月-08月");
                             }
                         } else {
                             ShowToFiledDialog(isBindDoctor);
@@ -446,10 +422,71 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 });
     }
 
+    private void JianKangJianCe(final String examinationType) {
+        NetworkApi.getUseredQualification(LocalShared.getInstance(getActivity()).getUserId(), examinationType, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if (response == null) {
+                    return;
+                }
+                String body = response.body();
+                HealthDetectQualificationBean bean = new Gson().fromJson(body, HealthDetectQualificationBean.class);
+                if (bean != null) {
+                    if (bean.tag) {
+                        if (bean.data != null) {
+                            HealthDetectQualificationBean.DataBean data = bean.data;
+                            if (data.qualification) {
+                                switch (examinationType) {
+                                    case "0":
+                                        //可以去做健康体检
+                                        startActivity(new Intent(getActivity(), InputFaceActivity.class)
+                                                .putExtra("overHeadInformation", "healthDetect"));
+                                        break;
+                                    case "1":
+                                        //可以去做健康体检
+                                        startActivity(new Intent(getActivity(), InputFaceActivity.class)
+                                                .putExtra("overHeadInformation", "hypertensionFollowUp"));
+                                        break;
+                                    case "2":
+                                        //可以去做健康体检
+                                        startActivity(new Intent(getActivity(), InputFaceActivity.class)
+                                                .putExtra("overHeadInformation", "hyperglycemiaFollowUp"));
+                                        break;
+                                }
+
+
+                            } else {
+                                switch (examinationType) {
+                                    case "0":
+                                        SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.noHealtCheckTime);
+                                        dialog.setListener(new SomeCommonDialog.OnDialogClickListener() {
+                                            @Override
+                                            public void onClickConfirm(DialogTypeEnum type) {
+                                                startActivity(new Intent(getActivity(), Test_mainActivity.class));
+                                            }
+                                        });
+                                        dialog.show(getFragmentManager(), "noHealthTime");
+                                        break;
+                                    case "1":
+                                    case "2":
+                                        showFllowUpTimesDialog(data.nextRecordDate);
+                                        break;
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            }
+        });
+    }
+
     private void showFllowUpTimesDialog(String timeDecription) {
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(timeDecription);
         dialog.show(getFragmentManager(), "floowUpTimes");
     }
+
 
     private void ShowToFiledDialog(final boolean isBindDoctor) {
         SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.noDocument);

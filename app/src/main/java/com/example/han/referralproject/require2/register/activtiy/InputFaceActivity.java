@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
@@ -164,8 +165,9 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                     public void complete(String key, ResponseInfo info, JSONObject res) {
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-                            if (!TextUtils.isEmpty(getIntent().getStringExtra(OVERHEAD_INFORMATION))) {
-//跳转相应的页面
+                            String stringExtra = getIntent().getStringExtra(OVERHEAD_INFORMATION);
+                            if (!TextUtils.isEmpty(stringExtra)) {
+                                toOtherPages(stringExtra, imageUrl);
                                 return;
                             }
                             signUp(imageUrl);
@@ -184,6 +186,34 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
 
             }
         });
+    }
+
+    private void toOtherPages(String stringExtra, String url) {
+        Intent intent = new Intent(this, DetectActivity.class);
+        //====附加的头像url===开始===//
+        intent.putExtra("detectHeadIcon", url);
+        //====附加的头像url===结束===//
+        switch (stringExtra) {
+            case "healthDetect":
+                intent.putExtra("type", "wendu");
+                intent.putExtra("isDetect", true);
+                intent.putExtra("detectCategory", "detectHealth");
+                startActivity(intent);
+                break;
+            case "hypertensionFollowUp":
+                intent.putExtra("type", "xueya");
+                intent.putExtra("isDetect", true);
+                intent.putExtra("detectCategory", "detectPressure");
+                startActivity(intent);
+                break;
+            case "hyperglycemiaFollowUp":
+                intent.putExtra("type", "xueya");
+                intent.putExtra("isDetect", true);
+                intent.putExtra("detectCategory", "detectSugar");
+                startActivity(intent);
+                break;
+        }
+
     }
 
     private void dealFaceData(byte[] data, Camera camera) {
