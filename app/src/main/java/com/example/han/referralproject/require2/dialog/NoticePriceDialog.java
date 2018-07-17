@@ -58,7 +58,7 @@ public class NoticePriceDialog extends DialogFragment {
         String source = "您将进行"+itemName+"检测,本次服务将收取费用" + price + "元,确认后收取费用,是否继续?";
         SpannableString colorText = new SpannableString(source);
         ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#ff0000"));
-        colorText.setSpan(what, source.indexOf(price + "元"), source.indexOf("确认后收取费用"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        colorText.setSpan(what, source.indexOf(price + "元"), source.indexOf(",确认后收取费用"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvTitle.setText(colorText);
         return view;
 

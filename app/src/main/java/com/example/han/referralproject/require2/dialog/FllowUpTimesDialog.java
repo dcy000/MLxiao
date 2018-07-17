@@ -53,9 +53,9 @@ public class FllowUpTimesDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fllow_up_times_dialog, container, false);
         unbinder = ButterKnife.bind(this, view);
-        String source = "您距离上一次随访时间过近，下一次随访月份为"+notice;
+        String source = "您距离上一次随访时间过近,下一次随访月份为"+notice;
         SpannableString colorText = new SpannableString(source);
-        ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#ff333333"));
+        ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#3F86FC"));
         colorText.setSpan(what, source.indexOf(notice), source.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvTitle.setText(colorText);
         return view;

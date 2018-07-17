@@ -50,6 +50,7 @@ public class CodeActivity extends BaseActivity {
         phoneNumber = getIntent().getStringExtra("phone");
         String phoneStar = phoneNumber.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
         textView17.setText("请输入手机" + phoneStar + "收到的验证码");
+        tvSendCode.setSelected(true);
     }
 
     private void intTitle() {
