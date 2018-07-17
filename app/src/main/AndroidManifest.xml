@@ -735,7 +735,7 @@
         <activity
             android:name=".intelligent_system.intelligent_diagnosis.DeleteGroupActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".yiyuan.activity.InquiryAndFileActivity"></activity>
+        <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
         <activity android:name=".yiyuan.activity.DrinkWenActivity" />
         <activity android:name=".yiyuan.activity.InquiryAndFileEndActivity" />
         <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
@@ -758,16 +758,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".require2.register.activtiy.ChoiceIDCardRegisterTypeActivity"></activity>
+        <activity android:name=".require2.register.activtiy.ChoiceIDCardRegisterTypeActivity" />
         <activity android:name=".require2.register.activtiy.IDCardNumberRegisterActivity" />
         <activity android:name=".require2.register.activtiy.PhoneAndCodeActivity" />
         <activity android:name=".require2.register.activtiy.RealNameActivity" />
         <activity android:name=".require2.register.activtiy.SexActivity" />
         <activity android:name=".require2.register.activtiy.AddressActivity" />
         <activity android:name=".require2.login.LoginByIDCardNuberActivity" />
-        <activity android:name=".require2.register.activtiy.InputFaceActivity"></activity>
-        <activity android:name=".require2.register.activtiy.RegisterByIdCardActivity"></activity>
-        <activity android:name=".require2.login.CodeActivity"></activity>
+        <activity android:name=".require2.register.activtiy.InputFaceActivity" />
+        <activity android:name=".require2.register.activtiy.RegisterByIdCardActivity" />
+        <activity android:name=".require2.login.CodeActivity" />
+        <activity android:name=".require2.FaceLoginActivity"></activity>
     </application>
 
 </manifest>

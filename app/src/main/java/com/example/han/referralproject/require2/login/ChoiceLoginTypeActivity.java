@@ -10,6 +10,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.idcard.SignInIdCardActivity;
+import com.example.han.referralproject.require2.FaceLoginActivity;
 import com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.RegisterByIdCardActivity;
 import com.medlink.danbogh.utils.T;
@@ -71,7 +72,7 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
                 T.show("敬请期待");
                 break;
             case R.id.im_login_by_face:
-
+                startActivity(new Intent(this, FaceLoginActivity.class));
                 break;
             case R.id.im_login_by_id_number:
                 startActivity(new Intent(this, LoginByIDCardNuberActivity.class));
