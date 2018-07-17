@@ -1327,7 +1327,7 @@ public class NetworkApi {
     /**
      * 获取用户体检随访的资格
      */
-    public static String USER_QUALIFICATION_URL = BasicUrl + "/api/health/inquiry/examination/qualification/";
+    public static String USER_QUALIFICATION_URL = BasicUrl + "/ZZB/api/health/inquiry/examination/qualification/";
 
     public static void getUseredQualification(String userId, String examinationType, StringCallback callback) {
         OkGo.<String>get(USER_QUALIFICATION_URL + userId + "/")
