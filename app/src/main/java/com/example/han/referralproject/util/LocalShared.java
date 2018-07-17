@@ -665,6 +665,26 @@ public class LocalShared {
     }
 
     public String getOriginAddress() {
-        return mShared.getString("origin_address","");
+        return mShared.getString("origin_address", "");
     }
+
+    public void setXfId(String xfId) {
+        mShared.edit().putString("faceLoginXfId", xfId).apply();
+    }
+
+
+    public String getXfId() {
+        return mShared.getString("faceLoginXfId", "");
+    }
+
+
+    public void setXfGroupId(String xfId) {
+        mShared.edit().putString("faceLoginXfGroupId", xfId).apply();
+    }
+
+
+    public String getXfGroupId() {
+        return mShared.getString("faceLoginXfGroupId", "");
+    }
+
 }

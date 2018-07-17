@@ -23,7 +23,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_face">
+        android:background="@drawable/ic_input_face_bg">
 
         <ImageView
             android:layout_width="504pt"

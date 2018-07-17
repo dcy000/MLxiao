@@ -72,7 +72,7 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
                 T.show("敬请期待");
                 break;
             case R.id.im_login_by_face:
-                startActivity(new Intent(this, FaceLoginActivity.class));
+                startActivity(new Intent(this, FaceLoginActivity.class).putExtra("from", "Welcome"));
                 break;
             case R.id.im_login_by_id_number:
                 startActivity(new Intent(this, LoginByIDCardNuberActivity.class));

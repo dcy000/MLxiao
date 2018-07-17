@@ -1345,4 +1345,16 @@ public class NetworkApi {
                 .execute(callback);
     }
 
+    public static void putUserXunFeiInfo(String userId, String jsonString, StringCallback callback) {
+        OkGo.<String>put(USER_XUN_FEI_URL + userId + "/")
+                .upJson(jsonString)
+                .execute(callback);
+    }
+
+    public static void deleteUserXunFeiInfo(String userId, StringCallback callback) {
+        OkGo.<String>delete(USER_XUN_FEI_URL + userId + "/")
+                .params("userId", userId)
+                .execute(callback);
+    }
+
 }

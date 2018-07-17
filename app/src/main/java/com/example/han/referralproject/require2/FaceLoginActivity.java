@@ -44,6 +44,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
@@ -109,7 +110,7 @@ public class FaceLoginActivity extends BaseActivity {
             switch (msg.what) {
                 case TO_FACE_AUTHENTICATION://开始验证头像
                     findViewById(R.id.iv_circle).startAnimation(rotateAnim);
-                    FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, LocalShared.getInstance(weakReference.get()).getGroupId());
+                    FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, LocalShared.getInstance(weakReference.get()).getXfGroupId());
                     FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
                         @Override
                         public void onResult(IdentityResult result, boolean islast) {
@@ -213,50 +214,9 @@ public class FaceLoginActivity extends BaseActivity {
      * @param weakReference
      */
     private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<FaceLoginActivity> weakReference) {
-
-        ToastTool.showShort("通过验证，欢迎回来！");
-        if (mDataList != null) {
-            for (int i = 0; i < mDataList.size(); i++) {
-                UserInfoBean user = mDataList.get(i);
-                if (user.xfid.equals(scoreFirstXfid)) {
-                    Logger.e("识别到的讯飞id" + user.xfid + "++++识别到的人" + user.bname);
-                    new JpushAliasUtils(FaceLoginActivity.this).setAlias("user_" + user.bid);
-                    LocalShared.getInstance(mContext).setUserInfo(user);
-                    LocalShared.getInstance(mContext).setSex(user.sex);
-                    LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
-                    LocalShared.getInstance(mContext).setUserAge(user.age);
-                    LocalShared.getInstance(mContext).setUserHeight(user.height);
-                    isInclude_PassPerson = true;
-                    break;
-                } else {
-                    isInclude_PassPerson = false;
-                }
-            }
-            if (isInclude_PassPerson) {
-                if ("Welcome".equals(fromString)) {
-                    startActivity(new Intent(weakReference.get(), MainActivity.class));
-                } else if ("Test".equals(fromString)) {
-                    Intent intent = new Intent();
-                    if (TextUtils.isEmpty(fromType)) {
-                        intent.setClass(weakReference.get(), Test_mainActivity.class);
-                    } else if ("xindian".equals(fromType)) {
-                        intent.setClass(weakReference.get(), XinDianDetectActivity.class);
-                    } else {
-                        intent.setClass(weakReference.get(), DetectActivity.class);
-                        intent.putExtra("type", fromType);
-                    }
-                    startActivity(intent);
-                }
-            } else {
-                if ("Welcome".equals(fromString)) {
-                    ToastTool.showLong("该机器人没有此账号的人脸认证信息，请手动登录");
-                    startActivity(new Intent(weakReference.get(), SignInActivity.class));
-                } else if ("Test".equals(fromString)) {
-                    ToastTool.showLong("验证不通过!");
-                }
-            }
-            finishActivity();
-        }
+        // TODO: 2018/7/17  人脸识别成功--掉信息的接口
+        LocalShared.getInstance(this).setXfId(scoreFirstXfid);
+        startActivity(new Intent(this, InquiryAndFileActivity.class));
     }
 
     /**
@@ -300,22 +260,22 @@ public class FaceLoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_demo);
+        setContentView(R.layout.activity_face_login);
         //工厂测试专用
         isTest = getIntent().getBooleanExtra("isTest", false);
         init();
         if (!"Pay".equals(fromString)) {
-            mTiaoguo.performClick();
-            return;
+//            mTiaoguo.performClick();
+//            return;
         }
         openCameraPreview();
         if (isTest) {
             openAnimation();
         } else {
-            joinGroup();
+//            joinGroup();
         }
         setClick();
-        getAllUsersInfo();
+//        getAllUsersInfo();
     }
 
     private void joinGroup() {
@@ -417,7 +377,7 @@ public class FaceLoginActivity extends BaseActivity {
         orderid = intent.getStringExtra("orderid");
         fromString = intent.getStringExtra("from");
         fromType = intent.getStringExtra("fromType");
-        mAuthid = LocalShared.getInstance(this).getXunfeiId();
+        mAuthid = LocalShared.getInstance(this).getXfId();
         mTiaoguo = (Button) findViewById(R.id.tiao_guos);
         if ("Pay".equals(fromString) || "Welcome".equals(fromString)) {//支付过来
             mTiaoguo.setVisibility(View.GONE);

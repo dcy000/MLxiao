@@ -151,6 +151,7 @@ public class FaceAuthenticationUtils {
 
                 @Override
                 public void onError(SpeechError speechError) {
+
                     if (vertifyFaceListener != null)
                         vertifyFaceListener.onError(speechError);
                 }
