@@ -2,6 +2,7 @@ package com.example.han.referralproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,7 +20,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Test_mainActivity extends BaseActivity implements View.OnClickListener, NoticePriceDialog.OnDialogClickListener {
+public class Test_mainActivity extends BaseActivity implements View.OnClickListener {
     public static final int MIN_CLICK_DELAY_TIME = 1000;
     @BindView(R.id.ll_xueya)
     LinearLayout llXueya;
@@ -92,69 +93,106 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         long currentTime = Calendar.getInstance().getTimeInMillis();
         if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;
-
-
             final Intent intent = new Intent();
-            NoticePriceDialog dialog = new NoticePriceDialog("1");
-            dialog.setListener(new NoticePriceDialog.OnDialogClickListener() {
-                @Override
-                public void onClickConfirm() {
-                    switch (v.getId()) {
-                        case R.id.ll_xueya:
+            switch (v.getId()) {
+                case R.id.ll_xueya:
+                    showPriceNoticeDialog("1", "血压", new NoticePriceDialog.OnDialogClickListener() {
+                        @Override
+                        public void onClickConfirm() {
                             intent.setClass(mContext, SingleDetectActivity.class);
 //                    intent.setClass(mContext, InstructionsActivity.class);
                             intent.putExtra("type", "xueya");
                             startActivity(intent);
-                            break;
-                        case R.id.ll_xueyang:
+                        }
+                    });
+                    break;
+                case R.id.ll_xueyang:
+                    showPriceNoticeDialog("5", "血氧", new NoticePriceDialog.OnDialogClickListener() {
+                        @Override
+                        public void onClickConfirm() {
                             intent.setClass(getApplicationContext(), DetectActivity.class);
 //                    intent.setClass(mContext, InstructionsActivity.class);
                             intent.putExtra("type", "xueyang");
                             startActivity(intent);
-                            break;
-                        case R.id.ll_tiwen:
+                        }
+                    });
+                    break;
+                case R.id.ll_tiwen:
+                    showPriceNoticeDialog("69", "生化综合2", new NoticePriceDialog.OnDialogClickListener() {
+                        @Override
+                        public void onClickConfirm() {
                             intent.setClass(mContext, DetectActivity.class);
 //                    intent.setClass(mContext, InstructionsActivity.class);
                             intent.putExtra("type", "wendu");
                             startActivity(intent);
-                            break;
-                        case R.id.ll_xuetang:
+                        }
+                    });
+                    break;
+                case R.id.ll_xuetang:
+                    showPriceNoticeDialog("3", "血糖", new NoticePriceDialog.OnDialogClickListener() {
+                        @Override
+                        public void onClickConfirm() {
                             intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
                             intent.putExtra("type", "xuetang");
                             startActivity(intent);
-                            break;
-                        case R.id.ll_xindian:
+                        }
+                    });
+                    break;
+                case R.id.ll_xindian:
+                    showPriceNoticeDialog("10", "心电", new NoticePriceDialog.OnDialogClickListener() {
+                        @Override
+                        public void onClickConfirm() {
                             intent.setClass(mContext, XinDianDetectActivity.class);
                             startActivity(intent);
-                            break;
-                        case R.id.ll_san:
+                        }
+                    });
+                    break;
+                case R.id.ll_san:
+                    showPriceNoticeDialog("69", "生化综合1", new NoticePriceDialog.OnDialogClickListener() {
+                        @Override
+                        public void onClickConfirm() {
 //                    intent.setClass(mContext, DetectActivity.class);
                             intent.setClass(mContext, SelectXuetangTimeActivity.class);
 //                    intent.setClass(mContext, InstructionsActivity.class);
                             intent.putExtra("type", "sanheyi");
                             startActivity(intent);
-                            break;
-                        case R.id.ll_tizhong://体重
+                        }
+                    });
+                    break;
+                case R.id.ll_tizhong://体重
+                    showPriceNoticeDialog("1", "体重", new NoticePriceDialog.OnDialogClickListener() {
+                        @Override
+                        public void onClickConfirm() {
                             intent.setClass(mContext, DetectActivity.class);
 //                    intent.setClass(mContext, OnMeasureActivity.class);
                             intent.putExtra("type", "tizhong");
                             startActivity(intent);
 //                    ToastUtil.showShort(this,"暂未开通");
-                            break;
-                        case R.id.ll_more://敬请期待
-                            ToastTool.showShort("敬请期待");
-                            break;
-                    }
-                }
-            });
-            dialog.show(getFragmentManager(), "priceDialog");
-
+                        }
+                    });
+                    break;
+                case R.id.ll_more://敬请期待
+                    ToastTool.showShort("敬请期待");
+                    break;
+            }
 
         }
-    }
-
-    @Override
-    public void onClickConfirm() {
 
     }
+
+    @NonNull
+    private void showPriceNoticeDialog(String price, String itemName, final NoticePriceDialog.OnDialogClickListener listener) {
+        NoticePriceDialog dialog = new NoticePriceDialog(price, itemName);
+        dialog.setListener(new NoticePriceDialog.OnDialogClickListener() {
+            @Override
+            public void onClickConfirm() {
+                if (listener != null) {
+                    listener.onClickConfirm();
+                }
+            }
+        });
+        dialog.show(getFragmentManager(), "priceDialog");
+    }
+
+
 }

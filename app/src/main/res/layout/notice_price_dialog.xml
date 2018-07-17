@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="600dp"
-    android:layout_height="329dp"
+    android:layout_width="1200pt"
+    android:layout_height="658pt"
     android:background="@drawable/shape_bg_clear_reset_dialog"
     android:orientation="vertical">
 
     <TextView
+        android:paddingTop="88pt"
+        android:text="您将进行体重检测，本次服务将收取费用1元，确认后收取费用，是否继续？"
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="249dp"
-        android:gravity="center"
+        android:paddingLeft="100pt"
+        android:paddingRight="100pt"
         android:textColor="#333333"
-        android:textSize="36sp" />
+        android:textSize="72pt" />
 
     <View
         android:layout_width="match_parent"

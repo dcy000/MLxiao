@@ -34,11 +34,14 @@ public class NoticePriceDialog extends DialogFragment {
     TextView cancel;
     Unbinder unbinder;
     String price;
+    String itemName;
 
     @SuppressLint("ValidFragment")
-    public NoticePriceDialog(String price) {
+    public NoticePriceDialog(String price, String itemName) {
         this.price = price;
+        this.itemName = itemName;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class NoticePriceDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.notice_price_dialog, container, false);
         unbinder = ButterKnife.bind(this, view);
-        String source = "您将进行血糖检测,本次服务将收取费用" + price + "元,确认后收取费用,是否继续?";
+        String source = "您将进行"+itemName+"检测,本次服务将收取费用" + price + "元,确认后收取费用,是否继续?";
         SpannableString colorText = new SpannableString(source);
         ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#ff0000"));
         colorText.setSpan(what, source.indexOf(price + "元"), source.indexOf("确认后收取费用"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
