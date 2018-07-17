@@ -29,6 +29,7 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
+import com.example.han.referralproject.require2.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
@@ -60,7 +61,7 @@ import butterknife.Unbinder;
  * Created by lenovo on 2018/5/17.
  */
 
-public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogItemClickListener, JianKangJianCheDialog.ClickItemListener{
+public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogItemClickListener, JianKangJianCheDialog.ClickItemListener {
     private static final String JIANKANG_TIJIAN = "健康体检";
     private static final String GAOXUEYA_TIJIAN = "高血压体检";
     private static final String TANGNIAOBING_TIJIAN = "糖尿病体检";
@@ -430,6 +431,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                                 intent.putExtra("isDetect", true);
                                 intent.putExtra("detectCategory", "detectSugar");
                                 startActivity(intent);
+                                showFllowUpTimesDialog("07月-08月");
                             }
                         } else {
                             ShowToFiledDialog(isBindDoctor);
@@ -442,6 +444,11 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                         T.show("网络繁忙");
                     }
                 });
+    }
+
+    private void showFllowUpTimesDialog(String timeDecription) {
+        FllowUpTimesDialog dialog = new FllowUpTimesDialog(timeDecription);
+        dialog.show(getFragmentManager(), "floowUpTimes");
     }
 
     private void ShowToFiledDialog(final boolean isBindDoctor) {

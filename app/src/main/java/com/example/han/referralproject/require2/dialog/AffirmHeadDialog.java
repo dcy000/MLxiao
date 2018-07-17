@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
+ * 头像确认的dialog
  * Created by Administrator on 2018/7/14.
  */
 

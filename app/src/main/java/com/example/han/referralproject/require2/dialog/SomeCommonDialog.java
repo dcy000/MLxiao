@@ -18,6 +18,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
+ * 常用提示的dialog
  * Created by lenovo on 2018/7/11.
  */
 

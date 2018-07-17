@@ -1,6 +1,7 @@
 package com.example.han.referralproject.require2.dialog;
 
 /**
+ * 常用dialog的文案
  * Created by lenovo on 2018/7/11.
  */
 

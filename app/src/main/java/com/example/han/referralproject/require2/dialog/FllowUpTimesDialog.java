@@ -1,10 +1,10 @@
 package com.example.han.referralproject.require2.dialog;
 
 import android.annotation.SuppressLint;
-import android.app.DialogFragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -26,7 +26,7 @@ import butterknife.Unbinder;
  */
 
 @SuppressLint("ValidFragment")
-public class NoticePriceDialog extends DialogFragment {
+public class FllowUpTimesDialog extends DialogFragment {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.confirm)
@@ -34,13 +34,11 @@ public class NoticePriceDialog extends DialogFragment {
     @BindView(R.id.cancel)
     TextView cancel;
     Unbinder unbinder;
-    String price;
-    String itemName;
+    String notice;
 
     @SuppressLint("ValidFragment")
-    public NoticePriceDialog(String price, String itemName) {
-        this.price = price;
-        this.itemName = itemName;
+    public FllowUpTimesDialog(String notice) {
+        this.notice = notice;
     }
 
 
@@ -53,12 +51,12 @@ public class NoticePriceDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.notice_price_dialog, container, false);
+        View view = inflater.inflate(R.layout.fllow_up_times_dialog, container, false);
         unbinder = ButterKnife.bind(this, view);
-        String source = "您将进行"+itemName+"检测,本次服务将收取费用" + price + "元,确认后收取费用,是否继续?";
+        String source = "您距离上一次随访时间过近，下一次随访月份为"+notice;
         SpannableString colorText = new SpannableString(source);
-        ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#ff0000"));
-        colorText.setSpan(what, source.indexOf(price + "元"), source.indexOf("确认后收取费用"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#ff333333"));
+        colorText.setSpan(what, source.indexOf(notice), source.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvTitle.setText(colorText);
         return view;
 
@@ -84,6 +82,7 @@ public class NoticePriceDialog extends DialogFragment {
 
     private void clickConfirm() {
         if (listener == null) {
+            dismiss();
             return;
         }
         listener.onClickConfirm();
@@ -105,9 +104,9 @@ public class NoticePriceDialog extends DialogFragment {
 //        void onClickCancel();
     }
 
-    public void setListener(NoticePriceDialog.OnDialogClickListener listener) {
+    public void setListener(FllowUpTimesDialog.OnDialogClickListener listener) {
         this.listener = listener;
     }
 
-    private NoticePriceDialog.OnDialogClickListener listener;
+    private FllowUpTimesDialog.OnDialogClickListener listener;
 }
