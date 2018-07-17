@@ -81,9 +81,9 @@ public class ChooseRegisterTypeActivity extends BaseActivity implements View.OnC
             tvFaceSignIn.setVisibility(View.GONE);
             clContainer.setPadding(0, UiUtils.pt(350), 0, 0);
         } else {
-            clContainer.setPadding(0, 0, 0, 0);
-            tvPhoneSignIn.setVisibility(View.VISIBLE);
-            etSignInPassword.setVisibility(View.VISIBLE);
+            clContainer.setPadding(0, UiUtils.pt(250), 0, 0);
+            tvPhoneSignIn.setVisibility(View.GONE);
+            etSignInPassword.setVisibility(View.GONE);
             tvFaceSignIn.setVisibility(View.VISIBLE);
         }
 

@@ -3,6 +3,7 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,9 +15,12 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.settting.EventType;
+import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.register.AuthChangeBloodTypeActivity;
 import com.medlink.danbogh.register.AuthChangeMobileActivity;
+import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +28,7 @@ import com.squareup.picasso.Picasso;
  * Created by gzq on 2017/11/24.
  */
 
-public class MyBaseDataActivity extends BaseActivity implements View.OnClickListener {
+public class MyBaseDataActivity extends BaseActivity implements View.OnClickListener, ClearCacheOrResetDialog.OnDialogClickListener {
     private CircleImageView mHead;
     /**
      * 曹建平
@@ -119,17 +123,17 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
                 mAge.setText(Utils.age(response.sfz) + "岁");
                 mSex.setText(response.sex);
-                mHeight.setText(response.height + "cm");
-                mWeight.setText(response.weight + "Kg");
-                mBlood.setText(response.blood_type + "型");
-                mPhone.setText(response.tel);
+                mHeight.setText(TextUtils.isEmpty(response.height) ? "尚未填写" : response.height + "cm");
+                mWeight.setText(TextUtils.isEmpty(response.weight) ? "尚未填写" : response.weight + "Kg");
+                mBlood.setText(TextUtils.isEmpty(response.blood_type) ? "尚未填写" : response.blood_type + "型");
+                mPhone.setText(TextUtils.isEmpty(response.tel) ? "尚未填写" : response.tel);
                 mNumber.setText(response.eqid);
-                mMotion.setText(response.exercise_habits);
-                mSmoke.setText(response.smoke);
-                mEating.setText(response.eating_habits);
-                mDrinking.setText(response.drink);
-                mAddress.setText(response.dz);
-                mHistory.setText(response.mh.trim());
+                mMotion.setText(TextUtils.isEmpty(response.exercise_habits) ? "尚未填写" : response.exercise_habits);
+                mSmoke.setText(TextUtils.isEmpty(response.smoke) ? "尚未填写" : response.smoke);
+                mEating.setText(TextUtils.isEmpty(response.eating_habits) ? "尚未填写" : response.eating_habits);
+                mDrinking.setText(TextUtils.isEmpty(response.drink) ? "尚未填写" : response.drink);
+                mAddress.setText(TextUtils.isEmpty(response.dz) ? "尚未填写" : response.dz);
+                mHistory.setText(TextUtils.isEmpty(response.mh) ? "尚未填写" : response.mh.trim());
                 String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
                 mIdcard.setText(shenfen);
             }
@@ -235,14 +239,40 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(this, AuthChangeBloodTypeActivity.class).putExtra("data", response));
                 break;
             case R.id.profile_ll_phone:
+                String phone = mPhone.getText().toString().trim();
+                if (!Utils.isValidPhone(phone)) {
+                    T.show("您的账号已经绑定手机号！");
+                    return;
+                }
                 startActivity(new Intent(this, AuthChangeMobileActivity.class).putExtra("data", response));
                 break;
             case R.id.tv_reset:
-                LocalShared.getInstance(mContext).reset();
-                Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                showDialog(EventType.reset);
+//                LocalShared.getInstance(mContext).reset();
+//                Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
                 break;
+        }
+    }
+
+    private void showDialog(EventType type) {
+        ClearCacheOrResetDialog dialog = new ClearCacheOrResetDialog(type);
+        dialog.setListener(this);
+        dialog.show(getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onClickConfirm(EventType type) {
+        if (type.getValue().equals(EventType.reset.getValue())) {
+            //恢复出厂设置
+            LocalShared.getInstance(mContext).reset();
+            Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (type.getValue().equals(EventType.clearCache.getValue())) {
+            //清理缓存
+
         }
     }
 }

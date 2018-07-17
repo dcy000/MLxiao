@@ -135,10 +135,10 @@ public class SignUp03PasswordActivity extends BaseActivity {
         float height = 0;
         float weight = 0;
         String bloodType = shared.getSignUpBloodType();
-        String eat = shared.getSignUpEat();
-        String smoke = shared.getSignUpSmoke();
-        String drink = shared.getSignUpSmoke();
-        String sport = shared.getSignUpSport();
+        String eat = ""/*shared.getSignUpEat()*/;
+        String smoke = ""/*shared.getSignUpSmoke()*/;
+        String drink = ""/*shared.getSignUpSmoke()*/;
+        String sport = ""/*shared.getSignUpSport()*/;
         NetworkApi.registerUser(
                 name,
                 gender,

@@ -245,7 +245,9 @@ public class SignInActivity extends BaseActivity {
         NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
-                checkGroup(response.xfid);
+                if (!TextUtils.isEmpty(response.xfid)) {
+                    checkGroup(response.xfid);
+                }
                 new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);

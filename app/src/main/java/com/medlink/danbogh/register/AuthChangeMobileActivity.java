@@ -220,7 +220,7 @@ public class AuthChangeMobileActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show("服务器繁忙");
+                T.show(message);
             }
         });
     }

@@ -85,7 +85,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
             clContainer.setPadding(0, 0, 0, 0);
             tvPhoneSignIn.setVisibility(View.VISIBLE);
             etSignInPassword.setVisibility(View.VISIBLE);
-            tvFaceSignIn.setVisibility(View.VISIBLE);
+            tvFaceSignIn.setVisibility(View.GONE);
         }
 
         SpannableStringBuilder agreeBuilder = new SpannableStringBuilder("我同意用户协议");

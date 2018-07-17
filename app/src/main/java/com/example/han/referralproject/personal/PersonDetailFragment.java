@@ -291,7 +291,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
                 if ("1".equals(response.getState())) {
                     mTextView4.setText("已签约");
-                } else if ("0".equals(response.getState()) && (TextUtils.isEmpty(response.getDoctername()))) {
+                } else if ((TextUtils.isEmpty(response.getState()) || "0".equals(response.getState()))
+                        && (TextUtils.isEmpty(response.getDoctername()))) {
 
                     mTextView4.setText("未签约");
 
