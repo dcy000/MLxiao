@@ -27,13 +27,20 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.require2.bean.GetUserXFInfoBean;
 import com.example.han.referralproject.require2.dialog.AffirmHeadDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.google.gson.Gson;
+import com.iflytek.cloud.FaceRequest;
+import com.iflytek.cloud.RequestListener;
+import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
@@ -170,7 +177,8 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                                 toOtherPages(stringExtra, imageUrl);
                                 return;
                             }
-                            signUp(imageUrl);
+                            signUp(imageUrl, faceData);
+
 
                         } else {
 
@@ -437,7 +445,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         return bmp;
     }
 
-    private void signUp(String url) {
+    private void signUp(String url, final byte[] faceData) {
         showLoadingDialog(getString(R.string.do_register));
         final LocalShared shared = LocalShared.getInstance(this);
         NetworkApi.register(
@@ -454,6 +462,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                             return;
                         }
                         hideLoadingDialog();
+                        initXFInfo(response.bid, faceData);
                         shared.setUserInfo(response);
                         LocalShared.getInstance(mContext).setSex(response.sex);
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
@@ -462,7 +471,6 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                         new JpushAliasUtils(InputFaceActivity.this).setAlias("user_" + response.bid);
                         startActivity(new Intent(InputFaceActivity.this, InquiryAndFileActivity.class)
                                 .putExtra("isRegister", true));
-
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
@@ -479,4 +487,48 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         );
     }
 
+    private void initXFInfo(String userId, final byte[] faceData) {
+        NetworkApi.getUserXunFeiInfo(userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                GetUserXFInfoBean bean = new Gson().fromJson(body, GetUserXFInfoBean.class);
+                if (bean != null && bean.tag && bean.data != null && bean.data.xunfeiId != null) {
+//                    //vip
+//                    if ("1".equals(bean.data.vipState)) {
+//                        if (TextUtils.isEmpty(bean.data.currentGroup)) {
+//                            addXFId2Group(bean.data.xunfeiId);
+//                        }
+//                    } else {
+//                        //非vip
+//                    }
+                    registerXFInfo(bean.data.xunfeiId, faceData);
+
+                }
+            }
+        });
+    }
+
+    private void registerXFInfo(String xunfeiId, byte[] data) {
+        if (data == null) return;
+        FaceRequest request = new FaceRequest(this);
+        request.setParameter(SpeechConstant.WFR_SST, "reg");
+        request.setParameter(SpeechConstant.AUTH_ID, xunfeiId);
+        request.sendRequest(data, new RequestListener() {
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onCompleted(SpeechError speechError) {
+
+            }
+        });
+    }
 }

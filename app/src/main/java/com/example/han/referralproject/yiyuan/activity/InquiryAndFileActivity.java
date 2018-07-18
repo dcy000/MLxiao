@@ -13,19 +13,35 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
+import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.facerecognition.CreateGroupListener;
+import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
+import com.example.han.referralproject.facerecognition.JoinGroupListener;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.require2.bean.GetUserXFInfoBean;
+import com.example.han.referralproject.require2.bean.PutXFInfoBean;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
+import com.iflytek.cloud.FaceRequest;
+import com.iflytek.cloud.IdentityResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
 import com.medlink.danbogh.utils.T;
+import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
+
+import org.apache.commons.lang.ObjectUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +70,104 @@ public class InquiryAndFileActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
+        initXFInfo();
+    }
+
+    private void initXFInfo() {
+        NetworkApi.getUserXunFeiInfo(LocalShared.getInstance(this) + "", new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                GetUserXFInfoBean bean = new Gson().fromJson(body, GetUserXFInfoBean.class);
+                if (bean != null && bean.tag && bean.data != null) {
+                    //vip
+                    if ("1".equals(bean.data.vipState)) {
+                        if (TextUtils.isEmpty(bean.data.currentGroup)) {
+                            addXFId2Group(bean.data.xunfeiId);
+                        } else {
+                            joinGroup(bean.data.xunfeiId, bean.data.currentGroup);
+                        }
+                    } else {
+                        //非vip
+                    }
+
+                }
+            }
+        });
+    }
+
+    private void addXFId2Group(final String xunfeiId) {
+        // TODO: 2018/7/17
+        FaceAuthenticationUtils instance = FaceAuthenticationUtils.getInstance(this);
+        instance.createGroup(xunfeiId);
+        instance.setOnCreateGroupListener(new CreateGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                try {
+                    JSONObject resObj = new JSONObject(result.getResultString());
+                    String groupId = resObj.getString("group_id");
+                    joinGroup(xunfeiId, groupId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "创建组失败");
+            }
+        });
+    }
+
+    private void joinGroup(final String xunfeiId, final String groupId) {
+        FaceAuthenticationUtils instance = FaceAuthenticationUtils.getInstance(this);
+        instance.joinGroup(groupId, xunfeiId);
+        instance.setOnJoinGroupListener(new JoinGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+
+//                equipmentId (string, optional): 机器id ,
+//                        groupId (string, optional): 组ID ,
+//                        groupMap (object, optional): 机器组信息 ,
+//                        regitationState (string, optional): 注册状态码 0:未注册 1:已注册 ,
+//                        userId (integer, optional): 用户ID ,
+//                        xunfeiId (string, optional): 讯飞ID 用户ID + 机器ID + 运行环境编码
+                PutXFInfoBean bean = new PutXFInfoBean();
+                bean.equipmentId = Utils.getDeviceId();
+                bean.regitationState = "1";
+                bean.groupId = groupId;
+                bean.userId = LocalShared.getInstance(InquiryAndFileActivity.this).getUserId();
+                bean.xunfeiId = xunfeiId;
+
+                NetworkApi.putUserXunFeiInfo(xunfeiId, new Gson().toJson(bean), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+                Logger.e(error, "添加成员出现异常");
+                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
+//                    createGroup(currentXfid);
+                } else {
+//                    openAnimation();
+                }
+
+            }
+        });
     }
 
     private void initView() {
