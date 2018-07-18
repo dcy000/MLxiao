@@ -30,9 +30,12 @@ public class HealthDetectQualificationBean implements Serializable {
          * nextRecordDate : 2018年01月-12月
          */
 
+        public boolean yearFreeState;
         public boolean qualification;
         public String lastRecordDate;
         public String lastRecordId;
         public String nextRecordDate;
+        public String currentDate;
     }
+
 }

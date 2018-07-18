@@ -26,6 +26,7 @@ import com.example.han.referralproject.olderhealthmanagement.OlderHealthManageme
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.require2.HealthDetecteActivity;
 import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
 import com.example.han.referralproject.require2.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
@@ -138,7 +139,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 showDialog(data = getZiChaData());
                 break;
             case R.id.tijian:
-                showJianCheDialog(getTiJianData());
+//                showJianCheDialog(getTiJianData());
+                startActivity(new Intent(getActivity(), HealthDetecteActivity.class));
                 break;
             case R.id.zhengzhuangzichan:
                 showDialog(getJiankangDangAnData());
