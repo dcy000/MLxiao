@@ -1357,4 +1357,13 @@ public class NetworkApi {
                 .execute(callback);
     }
 
+    public static String EQIPMENT_ID_XUN_FEI_URL = BasicUrl + "/ZZB/api/user/xunfei/equipment/";
+
+    public static void getEquipmentXunFeiInfo(String equipmentId, StringCallback callback) {
+        OkGo.<String>get(EQIPMENT_ID_XUN_FEI_URL + equipmentId + "/")
+                .params("equipmentId", equipmentId)
+                .execute(callback);
+    }
+
+
 }

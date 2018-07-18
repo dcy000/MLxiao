@@ -6,29 +6,26 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.facerecognition.CreateGroupListener;
+import com.example.han.referralproject.facerecognition.DeleteGroupListener;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
 import com.example.han.referralproject.facerecognition.JoinGroupListener;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.require2.bean.GetUserXFInfoBean;
 import com.example.han.referralproject.require2.bean.PutXFInfoBean;
+import com.example.han.referralproject.require2.bean.UserEqIDXFInfoBean;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
-import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.IdentityResult;
-import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
@@ -39,9 +36,10 @@ import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,26 +76,45 @@ public class InquiryAndFileActivity extends BaseActivity {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
-                GetUserXFInfoBean bean = new Gson().fromJson(body, GetUserXFInfoBean.class);
-                if (bean != null && bean.tag && bean.data != null) {
+                UserEqIDXFInfoBean bean = new Gson().fromJson(body, UserEqIDXFInfoBean.class);
+                UserEqIDXFInfoBean.DataBean data = bean.data;
+
+                if (bean != null && bean.tag && data != null) {
                     //vip
-                    if ("1".equals(bean.data.vipState)) {
-                        if (bean.data.list != null && bean.data.list.size() != 0) {
-                            //创建组加组
-                            addXFId2Group(bean.data.xunfeiId);
-                        } else {
-                            //加组
-//                            joinGroup(bean.data.xunfeiId, bean.data.currentGroup);
+                    if ("1".equals(data.vipState)) {
+                        //1.注册讯飞Id 暂在注册的时候注册了
+                        //2.用户在当前机器没有组
+                        if (TextUtils.isEmpty(data.currentEquipmentGroupId)) {
+                            //3.去加组
+                            //3.1没有组创建组 加组
+                            //3.2加到其他的组里
+                            if (data.currentGroup == null || data.currentGroup.size() == 0) {
+                                //3.1没有组创建组 加组
+                                createXFGroupAndAddXFID2Group(data.xunfeiId);
+                            } else {
+                                //3.2加到其他的组里
+                                //3.2.1已有的组成员已满
+                                //3.2.2组员未满之间加组
+                                UserEqIDXFInfoBean.DataBean.CurrentGroupBean currentGroupBean = data.currentGroup.get(0);
+                                if (currentGroupBean.num >= 140) {
+                                    //3.2.1已有的组成员已满
+                                    createXFGroupAndAddXFID2Group(data.xunfeiId);
+                                } else {
+                                    //3.2.2组员未满之间加组
+                                    joinGroup(data.xunfeiId, currentGroupBean.groupId);
+                                }
+                            }
+
                         }
-//                        if (TextUtils.isEmpty(bean.data.currentGroup)) {
-//                            //创建组加组
-//                            addXFId2Group(bean.data.xunfeiId);
-//                        } else {
-//                            //加组
-//                            joinGroup(bean.data.xunfeiId, bean.data.currentGroup);
-//                        }
                     } else {
-                        //非vip
+                        List<UserEqIDXFInfoBean.DataBean.ListBean> list = data.list;
+                        if (list != null && list.size() != 0) {
+                            for (int i = 0; i < list.size(); i++) {
+                                deleteXFGroupId(list.get(i).groupId, list.get(i).xunfeiId);
+                            }
+
+                        }
+
                     }
 
                 }
@@ -105,7 +122,32 @@ public class InquiryAndFileActivity extends BaseActivity {
         });
     }
 
-    private void addXFId2Group(final String xunfeiId) {
+    private void deleteXFGroupId(String groupId, String xunfeiId) {
+        FaceAuthenticationUtils instance = FaceAuthenticationUtils.getInstance(InquiryAndFileActivity.this);
+        instance.setOnDeleteGroupListener(new DeleteGroupListener() {
+            @Override
+            public void onResult(IdentityResult result, boolean islast) {
+                NetworkApi.deleteUserXunFeiInfo(LocalShared.getInstance(InquiryAndFileActivity.this).getUserId(), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+
+            }
+
+            @Override
+            public void onError(SpeechError error) {
+            }
+        });
+        instance.deleteGroup(groupId, xunfeiId);
+    }
+
+    private void createXFGroupAndAddXFID2Group(final String xunfeiId) {
         // TODO: 2018/7/17
         FaceAuthenticationUtils instance = FaceAuthenticationUtils.getInstance(this);
         instance.createGroup(xunfeiId);
@@ -138,13 +180,6 @@ public class InquiryAndFileActivity extends BaseActivity {
         instance.setOnJoinGroupListener(new JoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
-
-//                equipmentId (string, optional): 机器id ,
-//                        groupId (string, optional): 组ID ,
-//                        groupMap (object, optional): 机器组信息 ,
-//                        regitationState (string, optional): 注册状态码 0:未注册 1:已注册 ,
-//                        userId (integer, optional): 用户ID ,
-//                        xunfeiId (string, optional): 讯飞ID 用户ID + 机器ID + 运行环境编码
                 PutXFInfoBean bean = new PutXFInfoBean();
                 bean.equipmentId = Utils.getDeviceId();
                 bean.regitationState = "1";
@@ -158,7 +193,6 @@ public class InquiryAndFileActivity extends BaseActivity {
 
                     }
                 });
-
             }
 
             @Override

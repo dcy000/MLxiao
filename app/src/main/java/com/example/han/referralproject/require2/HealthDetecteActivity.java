@@ -213,7 +213,7 @@ public class HealthDetecteActivity extends BaseActivity {
                                         break;
                                     case "1":
                                     case "2":
-                                        if (data != null) {
+                                        if (data != null&&data.yearFreeState) {
                                             SomeCommonDialog dialog1 = new SomeCommonDialog(DialogTypeEnum.noSuiFangTime);
                                             dialog1.setListener(new SomeCommonDialog.OnDialogClickListener() {
                                                 @Override

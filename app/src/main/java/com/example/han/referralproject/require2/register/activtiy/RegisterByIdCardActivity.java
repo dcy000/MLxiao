@@ -510,6 +510,7 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
     @Override
     public void onClickConfirm(DialogTypeEnum type) {
         startActivity(new Intent(this, ChoiceIDCardRegisterTypeActivity.class));
+        finish();
     }
 
     private void toPhoneAndCode(IDCardItem item) {
