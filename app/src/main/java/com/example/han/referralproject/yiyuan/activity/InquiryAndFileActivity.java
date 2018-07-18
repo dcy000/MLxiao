@@ -74,7 +74,7 @@ public class InquiryAndFileActivity extends BaseActivity {
     }
 
     private void initXFInfo() {
-        NetworkApi.getUserXunFeiInfo(LocalShared.getInstance(this) + "", new StringCallback() {
+        NetworkApi.getUserXunFeiInfo(LocalShared.getInstance(this).getUserId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
@@ -82,11 +82,20 @@ public class InquiryAndFileActivity extends BaseActivity {
                 if (bean != null && bean.tag && bean.data != null) {
                     //vip
                     if ("1".equals(bean.data.vipState)) {
-                        if (TextUtils.isEmpty(bean.data.currentGroup)) {
+                        if (bean.data.list != null && bean.data.list.size() != 0) {
+                            //创建组加组
                             addXFId2Group(bean.data.xunfeiId);
                         } else {
-                            joinGroup(bean.data.xunfeiId, bean.data.currentGroup);
+                            //加组
+//                            joinGroup(bean.data.xunfeiId, bean.data.currentGroup);
                         }
+//                        if (TextUtils.isEmpty(bean.data.currentGroup)) {
+//                            //创建组加组
+//                            addXFId2Group(bean.data.xunfeiId);
+//                        } else {
+//                            //加组
+//                            joinGroup(bean.data.xunfeiId, bean.data.currentGroup);
+//                        }
                     } else {
                         //非vip
                     }
@@ -143,7 +152,7 @@ public class InquiryAndFileActivity extends BaseActivity {
                 bean.userId = LocalShared.getInstance(InquiryAndFileActivity.this).getUserId();
                 bean.xunfeiId = xunfeiId;
 
-                NetworkApi.putUserXunFeiInfo(xunfeiId, new Gson().toJson(bean), new StringCallback() {
+                NetworkApi.putUserXunFeiInfo(bean.userId, new Gson().toJson(bean), new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
 

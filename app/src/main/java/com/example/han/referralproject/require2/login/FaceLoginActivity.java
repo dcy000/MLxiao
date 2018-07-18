@@ -108,7 +108,7 @@ public class FaceLoginActivity extends BaseActivity {
             switch (msg.what) {
                 case TO_FACE_AUTHENTICATION://开始验证头像
                     findViewById(R.id.iv_circle).startAnimation(rotateAnim);
-                    FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, LocalShared.getInstance(weakReference.get()).getXfGroupId());
+                    FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, "4125405030");
                     FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
                         @Override
                         public void onResult(IdentityResult result, boolean islast) {
@@ -273,6 +273,7 @@ public class FaceLoginActivity extends BaseActivity {
 //            joinGroup();
         }
         setClick();
+        openAnimation();
 //        getAllUsersInfo();
     }
 

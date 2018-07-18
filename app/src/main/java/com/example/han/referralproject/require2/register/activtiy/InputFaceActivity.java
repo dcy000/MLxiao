@@ -175,6 +175,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                             String stringExtra = getIntent().getStringExtra(OVERHEAD_INFORMATION);
                             if (!TextUtils.isEmpty(stringExtra)) {
                                 toOtherPages(stringExtra, imageUrl);
+                                finish();
                                 return;
                             }
                             signUp(imageUrl, faceData);
