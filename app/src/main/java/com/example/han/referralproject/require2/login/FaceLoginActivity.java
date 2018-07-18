@@ -1,4 +1,4 @@
-package com.example.han.referralproject.require2;
+package com.example.han.referralproject.require2.login;
 
 import android.animation.Animator;
 import android.app.Activity;
@@ -27,7 +27,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -50,7 +49,6 @@ import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;

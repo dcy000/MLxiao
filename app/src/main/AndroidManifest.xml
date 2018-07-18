@@ -768,7 +768,8 @@
         <activity android:name=".require2.register.activtiy.InputFaceActivity" />
         <activity android:name=".require2.register.activtiy.RegisterByIdCardActivity" />
         <activity android:name=".require2.login.CodeActivity" />
-        <activity android:name=".require2.FaceLoginActivity"></activity>
+        <activity android:name=".require2.login.FaceLoginActivity" />
+        <activity android:name=".require2.HealthDetecteActivity"></activity>
     </application>
 
 </manifest>
