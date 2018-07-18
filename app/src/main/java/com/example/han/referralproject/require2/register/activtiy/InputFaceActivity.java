@@ -242,6 +242,10 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         @Override
         public void surfaceCreated(SurfaceHolder surfaceHolder) {
             mCamera = getCameraInstance();
+            if (mCamera == null) {
+                T.show("打开摄像机失败");
+                return;
+            }
             try {
                 mCamera.setPreviewDisplay(holder);
                 mCamera.startPreview();
@@ -463,7 +467,6 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                             return;
                         }
                         hideLoadingDialog();
-                        initXFInfo(response.bid, faceData);
                         shared.setUserInfo(response);
                         LocalShared.getInstance(mContext).setSex(response.sex);
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);

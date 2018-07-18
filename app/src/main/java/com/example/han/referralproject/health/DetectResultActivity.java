@@ -125,10 +125,14 @@ public class DetectResultActivity extends BaseActivity {
         mRightText.setVisibility(View.GONE);
         Intent intent = getIntent();
         detectCategory = getIntent().getStringExtra("detectCategory");
+        /**
+         * 上传json数据的原对象
+         */
         DetectResult detectResult = new DetectResult();
         String tem = intent.getStringExtra("tem");
         tem = TextUtils.isEmpty(tem) ? "0.0" : tem;
         detectResult.setTemperAture(tem);
+        detectResult.currentPhoto=getIntent().getStringExtra("detectHeadIcon");
 
         //左手血压测量值
         String highPressure = intent.getStringExtra("highPressure");
