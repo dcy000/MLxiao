@@ -39,16 +39,21 @@ import com.example.han.referralproject.facerecognition.JoinGroupListener;
 import com.example.han.referralproject.facerecognition.VertifyFaceListener;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.require2.bean.EquipmentXFInfoBean;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
@@ -108,72 +113,30 @@ public class FaceLoginActivity extends BaseActivity {
             switch (msg.what) {
                 case TO_FACE_AUTHENTICATION://开始验证头像
                     findViewById(R.id.iv_circle).startAnimation(rotateAnim);
-                    FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, "4125405030");
-                    FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
+                    NetworkApi.getEquipmentXunFeiInfo(Utils.getDeviceId(), new StringCallback() {
                         @Override
-                        public void onResult(IdentityResult result, boolean islast) {
-                            if (null == result) {
-                                myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
-                                return;
-                            }
-                            try {
-                                String resultStr = result.getResultString();
-                                JSONObject resultJson = new JSONObject(resultStr);
-                                if (ErrorCode.SUCCESS == resultJson.getInt("ret")) {//此处检验百分比
-                                    JSONArray scoreList = resultJson.getJSONObject("ifv_result").getJSONArray("candidates");
-                                    Logger.e(scoreList.toString());
-                                    String scoreFirstXfid = scoreList.getJSONObject(0).optString("user");
-                                    Logger.e("最高分数的讯飞id" + scoreFirstXfid);
-                                    final double firstScore = scoreList.getJSONObject(0).optDouble("score");
-                                    if (firstScore > 80) {
-                                        if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
-                                            authenticationSuccessForTest$Welcome(scoreFirstXfid, weakReference);
-                                        } else if ("Pay".equals(fromString)) {
-                                            if (mAuthid.equals(scoreFirstXfid) && !isOnPause) {
-                                                paySuccess();
-                                            } else {
-                                                payFail();
-                                            }
-                                        }
-
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            EquipmentXFInfoBean bean = new Gson().fromJson(body, EquipmentXFInfoBean.class);
+                            if (bean != null) {
+                                if (bean.tag) {
+                                    if (bean.data == null || bean.data.size() == 0) {
+                                        T.show("您不是VIP用户");
+                                        return;
                                     } else {
-                                        if (firstScore > 30) {
-                                            authenticationNum = 0;
-                                            ToastTool.showShort("请将您的面孔靠近摄像头，再试一次");
-                                            myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE, 1000);
-                                        } else {
-                                            ToastTool.showLong("匹配度" + String.format("%.2f", firstScore) + "%,验证不通过!");
-                                            finishActivity();
+                                        int size = bean.data.size();
+                                        for (int i = 0; i < size; i++) {
+                                            FaceRecognition(bean.data.get(i).groupId);
                                         }
                                     }
                                 } else {
-                                    ToastTool.showShort("识别失败");
-                                    finishActivity();
+                                    T.show("网络服务繁忙");
                                 }
-                            } catch (JSONException e) {
-                                Logger.e(e, "验证失败");
-                            }
-                        }
-
-                        @Override
-                        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-                            tvTips.setText("努力验证中...");
-                        }
-
-                        @Override
-                        public void onError(SpeechError error) {
-                            Logger.e(error, "验证出错");
-                            if (authenticationNum < 5) {
-                                authenticationNum++;
-                                ToastTool.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
-//                                    myHandler.sendEmptyMessage(2);
-//                                    myHandler.sendEmptyMessageDelayed(1, 2000);
-                                myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE, 1000);
-                            } else {
-                                finishActivity();
                             }
                         }
                     });
+
+
                     break;
                 case TO_CAMERA_PRE_RESOLVE://解析图像
                     if (mCamera != null) {
@@ -203,6 +166,76 @@ public class FaceLoginActivity extends BaseActivity {
                     break;
             }
         }
+
+        //"4125405030"
+        private void FaceRecognition(String groupId) {
+            FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, groupId);
+            FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
+                @Override
+                public void onResult(IdentityResult result, boolean islast) {
+                    if (null == result) {
+                        myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
+                        return;
+                    }
+                    try {
+                        String resultStr = result.getResultString();
+                        JSONObject resultJson = new JSONObject(resultStr);
+                        if (ErrorCode.SUCCESS == resultJson.getInt("ret")) {//此处检验百分比
+                            JSONArray scoreList = resultJson.getJSONObject("ifv_result").getJSONArray("candidates");
+                            Logger.e(scoreList.toString());
+                            String scoreFirstXfid = scoreList.getJSONObject(0).optString("user");
+                            Logger.e("最高分数的讯飞id" + scoreFirstXfid);
+                            final double firstScore = scoreList.getJSONObject(0).optDouble("score");
+                            if (firstScore > 80) {
+                                if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
+                                    authenticationSuccessForTest$Welcome(scoreFirstXfid, weakReference);
+                                } else if ("Pay".equals(fromString)) {
+                                    if (mAuthid.equals(scoreFirstXfid) && !isOnPause) {
+                                        paySuccess();
+                                    } else {
+                                        payFail();
+                                    }
+                                }
+
+                            } else {
+                                if (firstScore > 30) {
+                                    authenticationNum = 0;
+                                    ToastTool.showShort("请将您的面孔靠近摄像头，再试一次");
+                                    myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE, 1000);
+                                } else {
+                                    ToastTool.showLong("匹配度" + String.format("%.2f", firstScore) + "%,验证不通过!");
+                                    finishActivity();
+                                }
+                            }
+                        } else {
+                            ToastTool.showShort("识别失败");
+                            finishActivity();
+                        }
+                    } catch (JSONException e) {
+                        Logger.e(e, "验证失败");
+                    }
+                }
+
+                @Override
+                public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+                    tvTips.setText("努力验证中...");
+                }
+
+                @Override
+                public void onError(SpeechError error) {
+                    Logger.e(error, "验证出错");
+                    if (authenticationNum < 5) {
+                        authenticationNum++;
+                        ToastTool.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
+//                                    myHandler.sendEmptyMessage(2);
+//                                    myHandler.sendEmptyMessageDelayed(1, 2000);
+                        myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE, 1000);
+                    } else {
+                        finishActivity();
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -212,7 +245,6 @@ public class FaceLoginActivity extends BaseActivity {
      * @param weakReference
      */
     private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<FaceLoginActivity> weakReference) {
-        // TODO: 2018/7/17  人脸识别成功--掉信息的接口
         LocalShared.getInstance(this).setXfId(scoreFirstXfid);
         startActivity(new Intent(this, InquiryAndFileActivity.class));
     }
