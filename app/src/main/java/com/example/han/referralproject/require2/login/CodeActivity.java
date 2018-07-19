@@ -7,14 +7,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,8 +102,33 @@ public class CodeActivity extends BaseActivity {
             mlSpeak("请输入手机验证码");
         }
         if (phoneCode.equals(code)) {
-            startActivity(new Intent(CodeActivity.this, InquiryAndFileActivity.class));
+            login();
+
         }
+    }
+
+    private void login() {
+        NetworkApi.login(phoneNumber, "0101011", new NetworkManager.SuccessCallback<UserInfoBean>() {
+            @Override
+            public void onSuccess(UserInfoBean response) {
+                new JpushAliasUtils(CodeActivity.this).setAlias("user_" + response.bid);
+                LocalShared.getInstance(mContext).setUserInfo(response);
+                LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
+                LocalShared.getInstance(mContext).setSex(response.sex);
+                LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
+                LocalShared.getInstance(mContext).setUserAge(response.age);
+                LocalShared.getInstance(mContext).setUserHeight(response.height);
+                hideLoadingDialog();
+                startActivity(new Intent(CodeActivity.this, InquiryAndFileActivity.class));
+                finish();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                hideLoadingDialog();
+                T.show("手机号或密码错误");
+            }
+        });
     }
 
     private void sendCode() {

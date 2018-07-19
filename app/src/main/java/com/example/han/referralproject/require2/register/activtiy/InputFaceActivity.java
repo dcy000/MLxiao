@@ -173,13 +173,14 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
                             String stringExtra = getIntent().getStringExtra(OVERHEAD_INFORMATION);
+                            //录入头像跳转页面的逻辑
                             if (!TextUtils.isEmpty(stringExtra)) {
                                 toOtherPages(stringExtra, imageUrl);
                                 finish();
                                 return;
                             }
-                            signUp(imageUrl, faceData);
-
+                            //注册的逻辑
+                            signUp(imageUrl);
 
                         } else {
 
@@ -450,7 +451,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         return bmp;
     }
 
-    private void signUp(String url, final byte[] faceData) {
+    private void signUp(String url) {
         showLoadingDialog(getString(R.string.do_register));
         final LocalShared shared = LocalShared.getInstance(this);
         NetworkApi.register(

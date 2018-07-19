@@ -262,8 +262,9 @@ public class FaceLoginActivity extends BaseActivity {
      * @param weakReference
      */
     private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<FaceLoginActivity> weakReference) {
-
-        LocalShared.getInstance(this).setXfId(scoreFirstXfid);
+        String[] split = scoreFirstXfid.split("_");
+        LocalShared.getInstance(this).setXfId(split[1]);
+        MyApplication.getInstance().userId = scoreFirstXfid;
         startActivity(new Intent(this, InquiryAndFileActivity.class));
     }
 
