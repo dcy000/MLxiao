@@ -39,9 +39,10 @@ public class CanClearEditText extends LinearLayout {
         }
     }
 
-    public void setHintText(String hint){
+    public void setHintText(String hint) {
         tvPhone.setHint(hint);
     }
+
     public CanClearEditText(Context context) {
         this(context, null);
     }
@@ -55,7 +56,6 @@ public class CanClearEditText extends LinearLayout {
     private void initView() {
         View view = View.inflate(context, R.layout.canclear_edittext_view, null);
         ButterKnife.bind(this, view);
-
         if (isChinese) {
             tvPhone.setHint("请输入您的真实姓名");
             tvPhone.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -81,6 +81,9 @@ public class CanClearEditText extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (listener != null) {
+                    listener.onTextChange(s);
+                }
                 if (TextUtils.isEmpty(tvPhone.getText().toString())) {
                     ivDelete.setVisibility(GONE);
                 } else {
@@ -102,4 +105,13 @@ public class CanClearEditText extends LinearLayout {
         return tvPhone.getText().toString().trim();
     }
 
+    public interface OnTextChangeListener {
+        void onTextChange(Editable s);
+    }
+
+    public OnTextChangeListener listener;
+
+    public void setListener(OnTextChangeListener listener) {
+        this.listener = listener;
+    }
 }

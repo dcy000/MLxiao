@@ -2,6 +2,8 @@ package com.example.han.referralproject.require2.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginByIDCardNuberActivity extends BaseActivity implements SomeCommonDialog.OnDialogClickListener {
+public class LoginByIDCardNuberActivity extends BaseActivity implements SomeCommonDialog.OnDialogClickListener, CanClearEditText.OnTextChangeListener {
 
     @BindView(R.id.tv_phone_number_notice)
     CanClearEditText ccetIdNumber;
@@ -55,6 +57,7 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
         });
 
         mlSpeak("请输入身份证号码登录");
+        ccetIdNumber.setListener(this);
     }
 
 
@@ -98,7 +101,7 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
                 LocalShared.getInstance(mContext).setUserHeight(response.height);
                 new JpushAliasUtils(LoginByIDCardNuberActivity.this).setAlias("user_" + response.bid);
 
-                startActivity(new Intent(LoginByIDCardNuberActivity.this, CodeActivity.class).putExtra("phone",response.tel));
+                startActivity(new Intent(LoginByIDCardNuberActivity.this, CodeActivity.class).putExtra("phone", response.tel));
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -120,5 +123,14 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
     @Override
     public void onClickConfirm(DialogTypeEnum type) {
         startActivity(new Intent(LoginByIDCardNuberActivity.this, ChoiceIDCardRegisterTypeActivity.class));
+    }
+
+    @Override
+    public void onTextChange(Editable s) {
+        if (TextUtils.isEmpty(s.toString())) {
+            tvNext.setEnabled(false);
+        } else {
+            tvNext.setEnabled(true);
+        }
     }
 }

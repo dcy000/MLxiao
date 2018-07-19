@@ -2,6 +2,7 @@ package com.example.han.referralproject.require2.register.activtiy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -17,13 +18,14 @@ import com.example.han.referralproject.require2.wrap.CanClearEditText;
 import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
+import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class IDCardNumberRegisterActivity extends BaseActivity {
+public class IDCardNumberRegisterActivity extends BaseActivity implements CanClearEditText.OnTextChangeListener {
 
     @BindView(R.id.textView17)
     TextView textView17;
@@ -51,7 +53,7 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.yiyua_wifi_icon);
+        mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +62,7 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
         });
 
         speak("请输入您的身份证号码");
+        ccetPhone.setListener(this);
     }
 
     public void speak(String text) {
@@ -91,13 +94,13 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
         NetworkApi.isRegisteredByIdCard(idCardNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
-                mlSpeak("身份证已注册");
+                T.show("您输入的身份证号码已注册,请重新注册");
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 startActivity(new Intent(IDCardNumberRegisterActivity.this, PhoneAndCodeActivity.class)
-                        .putExtra(PhoneAndCodeActivity.FROM_WHERE, PhoneAndCodeActivity.FROM_REGISTER_BY_IDCARD_NUMBER).putExtra(REGISTER_IDCARD_NUMBER,idCardNumber));
+                        .putExtra(PhoneAndCodeActivity.FROM_WHERE, PhoneAndCodeActivity.FROM_REGISTER_BY_IDCARD_NUMBER).putExtra(REGISTER_IDCARD_NUMBER, idCardNumber));
 //
             }
         });
@@ -110,9 +113,18 @@ public class IDCardNumberRegisterActivity extends BaseActivity {
         setEnableListeningLoop(false);
     }
 
-    public static final String REGISTER_IDCARD_NUMBER="registerIdCardNumber";
-    public static final String REGISTER_PHONE_NUMBER="registerPhoneNumber";
-    public static final String REGISTER_REAL_NAME="registeRrealName";
-    public static final String REGISTER_SEX="registerSex";
-    public static final String REGISTER_ADDRESS="registerAddress";
+    public static final String REGISTER_IDCARD_NUMBER = "registerIdCardNumber";
+    public static final String REGISTER_PHONE_NUMBER = "registerPhoneNumber";
+    public static final String REGISTER_REAL_NAME = "registeRrealName";
+    public static final String REGISTER_SEX = "registerSex";
+    public static final String REGISTER_ADDRESS = "registerAddress";
+
+    @Override
+    public void onTextChange(Editable s) {
+        if (TextUtils.isEmpty(s.toString())) {
+            tvNext.setEnabled(false);
+        } else {
+            tvNext.setEnabled(true);
+        }
+    }
 }

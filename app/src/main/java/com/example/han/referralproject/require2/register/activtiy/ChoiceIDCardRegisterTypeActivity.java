@@ -40,12 +40,10 @@ public class ChoiceIDCardRegisterTypeActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("选 择 注 册 方 式");
 
-        mLeftText.setVisibility(View.GONE);
-        mLeftView.setVisibility(View.GONE);
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.yiyua_wifi_icon);
+        mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +51,7 @@ public class ChoiceIDCardRegisterTypeActivity extends BaseActivity {
             }
         });
 
-        MLVoiceSynthetize.startSynthesize(this, "请选择您的注册方式", false);
+        MLVoiceSynthetize.startSynthesize(this, "请选择注册方式", false);
     }
 
 

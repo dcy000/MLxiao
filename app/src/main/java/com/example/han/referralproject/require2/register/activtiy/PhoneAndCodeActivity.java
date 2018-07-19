@@ -128,20 +128,20 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
                             if (code != null) {
                                 PhoneAndCodeActivity.this.code = code;
                                 T.show("获取验证码成功");
-                                mlSpeak("获取验证码成功");
+//                                mlSpeak("获取验证码成功");
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             T.show("获取验证码失败");
-                            mlSpeak("获取验证码失败");
+//                            mlSpeak("获取验证码失败");
                         }
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
                         T.show("获取验证码失败");
-                        mlSpeak("获取验证码失败");
+//                        mlSpeak("获取验证码失败");
                     }
                 });
 
@@ -150,7 +150,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                speak("手机号码已注册");
+                T.show("手机号码已注册");
             }
         });
 
