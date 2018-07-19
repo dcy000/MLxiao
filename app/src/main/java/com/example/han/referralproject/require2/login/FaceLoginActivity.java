@@ -31,6 +31,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.CreateGroupListener;
@@ -238,6 +239,22 @@ public class FaceLoginActivity extends BaseActivity {
         }
     }
 
+    private void intTitle() {
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("人 脸 识 别");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.VISIBLE);
+        mRightView.setImageResource(R.drawable.yiyua_wifi_icon);
+        mRightView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FaceLoginActivity.this, WifiConnectActivity.class));
+            }
+        });
+
+    }
+
+
     /**
      * 通过验证
      *
@@ -245,6 +262,7 @@ public class FaceLoginActivity extends BaseActivity {
      * @param weakReference
      */
     private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<FaceLoginActivity> weakReference) {
+
         LocalShared.getInstance(this).setXfId(scoreFirstXfid);
         startActivity(new Intent(this, InquiryAndFileActivity.class));
     }
@@ -292,8 +310,10 @@ public class FaceLoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_face_login);
         //工厂测试专用
+        intTitle();
         isTest = getIntent().getBooleanExtra("isTest", false);
         init();
+
         if (!"Pay".equals(fromString)) {
 //            mTiaoguo.performClick();
 //            return;
