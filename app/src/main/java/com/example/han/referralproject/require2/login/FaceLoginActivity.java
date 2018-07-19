@@ -190,7 +190,7 @@ public class FaceLoginActivity extends BaseActivity {
                             final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                             if (firstScore > 80) {
                                 if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
-                                    authenticationSuccessForTest$Welcome(scoreFirstXfid, weakReference);
+                                    authenticationSuccessForTest$Welcome(scoreFirstXfid);
                                 } else if ("Pay".equals(fromString)) {
                                     if (mAuthid.equals(scoreFirstXfid) && !isOnPause) {
                                         paySuccess();
@@ -260,9 +260,8 @@ public class FaceLoginActivity extends BaseActivity {
      * 通过验证
      *
      * @param scoreFirstXfid
-     * @param weakReference
      */
-    private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<FaceLoginActivity> weakReference) {
+    private void authenticationSuccessForTest$Welcome(String scoreFirstXfid) {
         String[] split = scoreFirstXfid.split("_");
         LocalShared.getInstance(this).setUserId(split[1]);
         MyApplication.getInstance().userId = split[1];

@@ -161,7 +161,12 @@ public class LocalShared {
     }
 
     public String getUserId() {
-        return mShared.getString(UserId, "");
+        String string = mShared.getString(UserId, "");
+        return string;
+    }
+
+    public void setUserId(String userId) {
+        mShared.edit().putString(UserId, userId).commit();
     }
 
     public String getPhoneNum() {

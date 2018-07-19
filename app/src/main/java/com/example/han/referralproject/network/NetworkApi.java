@@ -819,9 +819,10 @@ public class NetworkApi {
 
 
     public static void getPersonalInfo(Context context, StringCallback callback) {
+        String userId = LocalShared.getInstance(context).getUserId();
         OkGo.<String>get(GET_MY_BASE_DATA)
                 .tag(context)
-                .params("bid", LocalShared.getInstance(context).getUserId())
+                .params("bid", userId)
                 .execute(callback);
 
     }
