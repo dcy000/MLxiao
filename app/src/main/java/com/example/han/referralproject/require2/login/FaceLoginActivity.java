@@ -54,6 +54,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 
@@ -264,7 +265,8 @@ public class FaceLoginActivity extends BaseActivity {
     private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<FaceLoginActivity> weakReference) {
         String[] split = scoreFirstXfid.split("_");
         LocalShared.getInstance(this).setXfId(split[1]);
-        MyApplication.getInstance().userId = scoreFirstXfid;
+        MyApplication.getInstance().userId = split[1];
+        new JpushAliasUtils(this).setAlias("user_" + split[1]);
         startActivity(new Intent(this, InquiryAndFileActivity.class));
     }
 
