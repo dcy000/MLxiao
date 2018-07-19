@@ -245,7 +245,7 @@ public class FaceLoginActivity extends BaseActivity {
         mTitleText.setText("人 脸 识 别");
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.yiyua_wifi_icon);
+        mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

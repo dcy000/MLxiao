@@ -48,13 +48,15 @@ public class RealNameActivity extends BaseActivity {
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.yiyua_wifi_icon);
+        mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RealNameActivity.this, WifiConnectActivity.class));
             }
         });
+
+        mlSpeak("请输入您的真实姓名");
 
     }
 

@@ -39,6 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18"></com.example.han.referralproject.require2.wrap.CanClearEditText>
 
     <TextView
+        android:enabled="true"
         android:id="@+id/tv_next"
         android:layout_width="320pt"
         android:layout_height="100pt"

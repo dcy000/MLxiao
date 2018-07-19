@@ -65,7 +65,7 @@ public class CodeActivity extends BaseActivity {
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.yiyua_wifi_icon);
+        mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
