@@ -1,66 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.require2.register.activtiy.InputFaceActivity">
 
     <SurfaceView
         android:id="@+id/sfv_preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="1920pt"
+        android:layout_height="1072pt"
+        android:background="@drawable/ic_input_face_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="104pt"
+        android:text="请保持您的面部位于拍照区域红框内"
+        android:textColor="#ff999999"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_circle"
+        android:layout_width="760pt"
+        android:layout_height="760pt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="580pt"
+        android:layout_marginTop="92pt"
+        android:src="@drawable/ic_facea_circle"
+        app:layout_constraintStart_toStartOf="@+id/iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/iv_bg" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lott_animation"
-        android:layout_width="780pt"
-        android:layout_height="780pt"
+        android:layout_width="760pt"
+        android:layout_height="760pt"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="145pt"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_circle"
+        app:layout_constraintTop_toTopOf="@+id/iv_circle"
         app:lottie_autoPlay="false"
         app:lottie_fileName="camera_pre.json"
-        app:lottie_loop="false" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/ic_input_face_bg">
-
-        <ImageView
-            android:layout_width="504pt"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
-            android:src="@drawable/tips_face_check"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tv_tip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="36dp"
-            android:gravity="center"
-            android:shadowColor="#cc38F3FF"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="10"
-            android:src="@drawable/tips_face_check"
-            android:text="请将人脸对准识别框"
-            android:textColor="#ffffffff"
-            android:textSize="35sp" />
-
-        <ImageView
-            android:id="@+id/iv_circle"
-            android:layout_width="495dp"
-            android:layout_height="495dp"
-            android:layout_above="@id/tv_tip"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="35dp"
-            android:src="@drawable/ic_facea_circle" />
-    </RelativeLayout>
-
+        app:lottie_loop="false"
+        tools:layout_editor_absoluteX="162dp" />
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="120dp"
@@ -86,9 +81,50 @@
         android:visibility="gone" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/pre_img"
         android:layout_width="70dp"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
-</RelativeLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
+        android:gravity="center"
+        android:shadowColor="#cc38F3FF"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="10"
+        android:src="@drawable/tips_face_check"
+        android:text="请将人脸对准识别框"
+        android:textColor="#ffffffff"
+        android:textSize="35sp" />
+</android.support.constraint.ConstraintLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent">-->
+
+
+    <!--<SurfaceView--><!--android:id="@+id/sfv_preview"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent" />-->
+
+    <!--<com.airbnb.lottie.LottieAnimationView--><!--android:id="@+id/lott_animation"--><!--android:layout_width="780pt"--><!--android:layout_height="780pt"--><!--android:layout_centerHorizontal="true"--><!--android:layout_marginTop="145pt"--><!--app:lottie_autoPlay="false"--><!--app:lottie_fileName="camera_pre.json"--><!--app:lottie_loop="false" />-->
+
+    <!--<RelativeLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:background="@drawable/ic_input_face_bg">-->
+
+    <!--<ImageView--><!--android:layout_width="504pt"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentBottom="true"--><!--android:layout_centerHorizontal="true"--><!--android:layout_marginBottom="50dp"--><!--android:src="@drawable/tips_face_check"--><!--android:visibility="gone" />-->
+
+    <!--<TextView--><!--android:id="@+id/tv_tip"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentBottom="true"--><!--android:layout_centerHorizontal="true"--><!--android:layout_marginBottom="36dp"--><!--android:gravity="center"--><!--android:shadowColor="#cc38F3FF"--><!--android:shadowDx="0"--><!--android:shadowDy="0"--><!--android:shadowRadius="10"--><!--android:src="@drawable/tips_face_check"--><!--android:text="请将人脸对准识别框"--><!--android:textColor="#ffffffff"--><!--android:textSize="35sp" />-->
+
+    <!--<ImageView--><!--android:id="@+id/iv_circle"--><!--android:layout_width="495dp"--><!--android:layout_height="495dp"--><!--android:layout_above="@id/tv_tip"--><!--android:layout_centerHorizontal="true"--><!--android:layout_marginBottom="35dp"--><!--android:src="@drawable/ic_facea_circle" />--><!--</RelativeLayout>-->
+
+    <!--<ImageView--><!--android:id="@+id/iv_back"--><!--android:layout_width="120dp"--><!--android:layout_height="120dp"--><!--android:clickable="true"--><!--android:scaleType="centerInside"--><!--android:src="@drawable/face_back_sel"--><!--android:visibility="gone" />-->
+
+    <!--<Button--><!--android:id="@+id/tiao_guos"--><!--android:layout_width="200dp"--><!--android:layout_height="70dp"--><!--android:layout_alignParentRight="true"--><!--android:layout_marginRight="20dp"--><!--android:layout_marginTop="20dp"--><!--android:background="@drawable/face_tiaoguo_sel"--><!--android:clickable="true"--><!--android:gravity="center"--><!--android:text="@string/tiaoguo"--><!--android:textColor="#50ABFE"--><!--android:textSize="40sp"--><!--android:visibility="gone" />-->
+
+    <!--<ImageView--><!--android:id="@+id/pre_img"--><!--android:layout_width="70dp"--><!--android:layout_height="100dp"--><!--android:layout_alignParentBottom="true"--><!--android:layout_alignParentRight="true" />--><!--</RelativeLayout>-->
+
+

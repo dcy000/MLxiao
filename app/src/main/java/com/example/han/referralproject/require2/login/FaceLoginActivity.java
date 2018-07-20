@@ -457,9 +457,9 @@ public class FaceLoginActivity extends BaseActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
         int height = (int) (width * PREVIEW_WIDTH / (float) PREVIEW_HEIGHT);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        mPreviewSurface.setLayoutParams(params);
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
+//        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+//        mPreviewSurface.setLayoutParams(params);
         holder = mPreviewSurface.getHolder();
         holder.addCallback(callback);
 
