@@ -8,6 +8,28 @@
 
 
     <TextView
+        android:id="@+id/ludashi"
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="30dp"
+        android:text="鲁大师"
+        android:textColor="#333333"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/robot"
+        android:layout_marginRight="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:text="机器人"
+        android:textColor="#333333"
+        android:textSize="40sp" />
+
+    <TextView
         android:id="@+id/volume"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

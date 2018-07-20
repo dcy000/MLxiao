@@ -42,6 +42,7 @@ import com.example.han.referralproject.facerecognition.JoinGroupListener;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.FileUtils;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
@@ -55,6 +56,7 @@ import com.orhanobut.logger.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -203,6 +205,7 @@ public class SignInActivity extends BaseActivity {
     public void onTvSignInClicked() {
 
         if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())) {
+            MyApplication.getInstance().userId = "123456";
             Intent mIntent = new Intent(mContext, AuthenticationActivity.class);
             mIntent.putExtra("isTest", true);
             startActivity(mIntent);
