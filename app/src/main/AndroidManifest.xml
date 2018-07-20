@@ -770,6 +770,11 @@
         <activity android:name=".require2.login.CodeActivity" />
         <activity android:name=".require2.login.FaceLoginActivity" />
         <activity android:name=".require2.HealthDetecteActivity"></activity>
+        <activity android:name=".health.DetectPressureDrinkActivity"/>
+        <activity android:name=".health.DetectPsychologicalRecoveryActivity"/>
+        <activity android:name=".health.DetectFollowDoctorActivity"/>
+        <activity android:name=".health.DetectDrugComplianceActivity"/>
+        <activity android:name=".health.DetectDrugEffectActivity"/>
     </application>
 
 </manifest>

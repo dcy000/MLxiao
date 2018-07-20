@@ -134,6 +134,12 @@ public class DetectResultActivity extends BaseActivity {
         detectResult.setTemperAture(tem);
         detectResult.currentPhoto=getIntent().getStringExtra("detectHeadIcon");
 
+        //血压随访新加的
+        detectResult.psychologicalRecovery=getIntent().getStringExtra("xinli");
+        detectResult.drugCompliance=getIntent().getStringExtra("yaowufucong");
+        detectResult.drugAdverseReaction=getIntent().getStringExtra("yaowubuliang");
+
+
         //左手血压测量值
         String highPressure = intent.getStringExtra("highPressure");
         highPressure = TextUtils.isEmpty(highPressure) ? "0.0" : highPressure;

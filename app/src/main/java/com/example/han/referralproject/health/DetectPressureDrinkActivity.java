@@ -17,6 +17,9 @@ import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
 import static org.litepal.crud.DataSupport.select;
 
+/**
+ * 血压随访的 饮酒
+ */
 public class DetectPressureDrinkActivity extends BaseActivity {
 
     private String detectCategory;

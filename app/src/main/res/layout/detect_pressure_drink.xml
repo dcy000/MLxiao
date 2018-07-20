@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50pt"
-        android:text="请选择每日吸烟量！"
+        android:text="请选择饮酒量！"
         android:textColor="#333333"
         android:textSize="100pt"
         app:layout_constraintLeft_toLeftOf="parent"

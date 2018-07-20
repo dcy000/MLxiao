@@ -1,6 +1,5 @@
 package com.example.han.referralproject.health;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +16,9 @@ import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
+/**
+ * 血压随访的遵医行为
+ */
 public class DetectFollowDoctorActivity extends BaseActivity {
 
     private GridView gvItems;
@@ -29,7 +31,7 @@ public class DetectFollowDoctorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         detectCategory = getIntent().getStringExtra("detectCategory");
-        setContentView(R.layout.detect_pressure_xinli);
+        setContentView(R.layout.detect_pressure_zunyi);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("遵医行为");
         mRightText.setVisibility(View.GONE);
@@ -42,7 +44,7 @@ public class DetectFollowDoctorActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetectFollowDoctorActivity.this, DetectPsychologicalRecoveryActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("zunyi", "一般");
+                intent.putExtra("zunyi", "0");
                 startActivity(intent);
                 finish();
             }
@@ -50,13 +52,13 @@ public class DetectFollowDoctorActivity extends BaseActivity {
         tvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetectFollowDoctorActivity.this, DetectPsychologicalRecoveryActivity.class);
+                Intent intent = new Intent(DetectFollowDoctorActivity.this, DetectDrugComplianceActivity.class);
                 intent.putExtras(getIntent());
                 int checkedItemPosition = gvItems.getCheckedItemPosition();
 //                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
 //                        ? items.get(checkedItemPosition)
 //                        : "中(4g~6g)";
-                intent.putExtra("zunyi", checkedItemPosition+"");
+                intent.putExtra("zunyi", checkedItemPosition + "");
                 startActivity(intent);
                 finish();
             }

@@ -65,6 +65,9 @@ public class DetectResult implements Serializable {
     public int weight;
     public String wineDrink;
     public String currentPhoto;//体检报告的头像   key  "detectHeadIcon"
+    public String psychologicalRecovery;//心理调整 1良好 2一般 3差 ,
+    public String drugCompliance;//药物依从 1良好 2一般 3差 ,
+    public String drugAdverseReaction;//药物依从 1良好 2一般 3差 ,
 
     public static class LeftHypertensionBean implements Serializable {
         /**

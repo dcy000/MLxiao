@@ -17,9 +17,9 @@ import com.medlink.danbogh.utils.T;
 import java.util.ArrayList;
 
 /**
- * 血压随访的 心理调整状况
+ * 血压随访的药物服从性
  */
-public class DetectPsychologicalRecoveryActivity extends BaseActivity {
+public class DetectDrugComplianceActivity extends BaseActivity {
 
     private GridView gvItems;
     private MyAdapter adapter;
@@ -31,9 +31,9 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         detectCategory = getIntent().getStringExtra("detectCategory");
-        setContentView(R.layout.detect_pressure_xinli);
+        setContentView(R.layout.detect_pressure_yaowu_fucong);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("心理调整情况");
+        mTitleText.setText("药物依从情况");
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
         gvItems = (GridView) findViewById(R.id.detect_health_gv_items);
@@ -42,9 +42,9 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetectPsychologicalRecoveryActivity.this, DetectPressureDrinkActivity.class);
+                Intent intent = new Intent(DetectDrugComplianceActivity.this, DetectPsychologicalRecoveryActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("xinli", "1");
+                intent.putExtra("yaowuyicong", "0");
                 startActivity(intent);
                 finish();
             }
@@ -52,14 +52,13 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
         tvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(DetectPsychologicalRecoveryActivity.this, DetectFollowDoctorActivity.class);
+                Intent intent = new Intent(DetectDrugComplianceActivity.this, DetectDrugEffectActivity.class);
                 intent.putExtras(getIntent());
                 int checkedItemPosition = gvItems.getCheckedItemPosition();
 //                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
 //                        ? items.get(checkedItemPosition)
 //                        : "中(4g~6g)";
-                intent.putExtra("xinli", checkedItemPosition +1+ "");
+                intent.putExtra("yaowuyicong", checkedItemPosition + 1 + "");
                 startActivity(intent);
                 finish();
             }
@@ -72,9 +71,9 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
     }
 
     private void prepareData() {
-        items.add("良好");
-        items.add("一般");
-        items.add("差");
+        items.add("规律");
+        items.add("间断");
+        items.add("依从");
     }
 
     private ArrayList<String> items = new ArrayList<>();
@@ -145,7 +144,7 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        speak("请选心理调整情况");
+        speak("请选药物依从情况");
         setDisableGlobalListen(true);
         super.onResume();
     }

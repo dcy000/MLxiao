@@ -12,14 +12,15 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.health.model.DetectResult;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
 /**
- * 血压随访的 心理调整状况
+ * 药物不良反应
  */
-public class DetectPsychologicalRecoveryActivity extends BaseActivity {
+public class DetectDrugEffectActivity extends BaseActivity {
 
     private GridView gvItems;
     private MyAdapter adapter;
@@ -31,9 +32,9 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         detectCategory = getIntent().getStringExtra("detectCategory");
-        setContentView(R.layout.detect_pressure_xinli);
+        setContentView(R.layout.detect_pressure_yaowu_bulinag);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("心理调整情况");
+        mTitleText.setText("药物不良反应情况");
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
         gvItems = (GridView) findViewById(R.id.detect_health_gv_items);
@@ -42,9 +43,9 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetectPsychologicalRecoveryActivity.this, DetectPressureDrinkActivity.class);
+                Intent intent = new Intent(DetectDrugEffectActivity.this, DetectPsychologicalRecoveryActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("xinli", "1");
+                intent.putExtra("yaowubuliang", "1");
                 startActivity(intent);
                 finish();
             }
@@ -52,14 +53,13 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
         tvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(DetectPsychologicalRecoveryActivity.this, DetectFollowDoctorActivity.class);
+                Intent intent = new Intent(DetectDrugEffectActivity.this, DetectResultActivity.class);
                 intent.putExtras(getIntent());
                 int checkedItemPosition = gvItems.getCheckedItemPosition();
 //                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
 //                        ? items.get(checkedItemPosition)
 //                        : "中(4g~6g)";
-                intent.putExtra("xinli", checkedItemPosition +1+ "");
+                intent.putExtra("yaowubuliang", checkedItemPosition + "");
                 startActivity(intent);
                 finish();
             }
@@ -72,9 +72,8 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
     }
 
     private void prepareData() {
-        items.add("良好");
-        items.add("一般");
-        items.add("差");
+        items.add("有");
+        items.add("无");
     }
 
     private ArrayList<String> items = new ArrayList<>();
@@ -145,7 +144,7 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        speak("请选心理调整情况");
+        speak("请选药物不良反应情况");
         setDisableGlobalListen(true);
         super.onResume();
     }

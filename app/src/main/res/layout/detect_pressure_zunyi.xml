@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50pt"
-        android:text="请选择心理调整状况?"
+        android:text="请选择遵医行为?"
         android:textColor="#333333"
         android:textSize="100pt"
         app:layout_constraintLeft_toLeftOf="parent"

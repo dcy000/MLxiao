@@ -52,7 +52,11 @@ public class DetectHealthSmokeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (detectCategory.equals("detectPressure")) {
-
+                    Intent intent = new Intent(DetectHealthSmokeActivity.this, DetectPressureDrinkActivity.class);
+                    intent.putExtras(getIntent());
+                    intent.putExtra("smoke", times.get(timeSelected));
+                    startActivity(intent);
+                    finish();
                     return;
                 }
                 Intent intent = new Intent(DetectHealthSmokeActivity.this, DetectResultActivity.class);
