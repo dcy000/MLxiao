@@ -2,7 +2,6 @@ package com.example.han.referralproject.require2.register.activtiy;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.wrap.PhoneVerificationCodeView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 
 import org.json.JSONException;
@@ -24,9 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_ADDRESS;
 import static com.example.han.referralproject.require2.register.activtiy.IDCardNumberRegisterActivity.REGISTER_PHONE_NUMBER;
-import static com.example.han.referralproject.require2.register.activtiy.InputFaceActivity.REGISTER_IDCARD_NUMBER;
 
 public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificationCodeView.OnSendClickListener {
     public static final String FROM_WHERE = "from_where";
@@ -129,6 +125,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
                                 PhoneAndCodeActivity.this.code = code;
                                 T.show("获取验证码成功");
 //                                mlSpeak("获取验证码成功");
+                                phoneView.countDown();
                             }
 
                         } catch (JSONException e) {
@@ -150,7 +147,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                T.show("手机号码已注册");
+                T.show("该手机号码已使用,请确认后重新使用");
             }
         });
 

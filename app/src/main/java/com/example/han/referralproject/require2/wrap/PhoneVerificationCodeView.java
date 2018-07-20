@@ -108,14 +108,15 @@ public class PhoneVerificationCodeView extends LinearLayout {
 
         String phone = tvPhone.getText().toString();
         if (TextUtils.isEmpty(phone)) {
-            Toast.makeText(context, "主人,请输入手机号", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!tvSendCode.isSelected()) {
-            Toast.makeText(context, "主人,您输入的手机号有误", Toast.LENGTH_SHORT).show();
             return;
         }
         listener.onSendCode(phone);
+    }
+
+    public void countDown() {
         tvSendCode.setSelected(false);
         postDelayed(new Runnable() {
             @Override
@@ -131,7 +132,6 @@ public class PhoneVerificationCodeView extends LinearLayout {
                 postDelayed(this, 1000);
             }
         }, 1000);
-
     }
 
     private int count = TIME;
@@ -155,7 +155,7 @@ public class PhoneVerificationCodeView extends LinearLayout {
     }
 
 
-    public String getCode(){
+    public String getCode() {
         return etCode.getText().toString().trim();
     }
 
