@@ -182,8 +182,7 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
         @Override
         public int getCount() {
             //糖尿病和高血压随访里面没有最后一条的 "其他"选项  将其隐藏
-            if ("detectPressure".equals(detectCategory) ||
-                    "detectSugar".equals(detectCategory)) {
+            if ("detectSugar".equals(detectCategory)) {
                 return items.size() - 1;
             }
             return items.size();

@@ -62,7 +62,6 @@ public class HealthDetecteActivity extends BaseActivity {
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健 康 检 测");
-        speak("");
     }
 
     @Override
@@ -131,12 +130,15 @@ public class HealthDetecteActivity extends BaseActivity {
                         WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                         if (reultBean.tag) {
                             switch (id) {
-                                case R.id.im_pressure_fllow_up:
-                                    JianKangJianCe("1");
-                                    break;
                                 case R.id.im_health_detecte:
+                                    //健康体检
                                     JianKangJianCe("0");
                                     break;
+                                case R.id.im_pressure_fllow_up:
+                                    //血压随访
+                                    JianKangJianCe("1");
+                                    break;
+                                    //血糖随访
                                 case R.id.im_sugar_fllow_up:
                                     JianKangJianCe("2");
                                     break;
@@ -213,7 +215,7 @@ public class HealthDetecteActivity extends BaseActivity {
                                         break;
                                     case "1":
                                     case "2":
-                                        if (data != null&&data.yearFreeState) {
+                                        if (data != null && data.yearFreeState) {
                                             SomeCommonDialog dialog1 = new SomeCommonDialog(DialogTypeEnum.noSuiFangTime);
                                             dialog1.setListener(new SomeCommonDialog.OnDialogClickListener() {
                                                 @Override

@@ -1,6 +1,5 @@
 package com.example.han.referralproject.health;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.medlink.danbogh.register.SelectAdapter;
 import com.medlink.danbogh.utils.T;
 
@@ -19,7 +17,7 @@ import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
 import static org.litepal.crud.DataSupport.select;
 
-public class DetectHealthSmokeActivity extends BaseActivity {
+public class DetectPressureDrinkActivity extends BaseActivity {
 
     private String detectCategory;
 
@@ -27,9 +25,9 @@ public class DetectHealthSmokeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         detectCategory = getIntent().getStringExtra("detectCategory");
-        setContentView(R.layout.detect_health_activity_smoke);
+        setContentView(R.layout.detect_pressure_drink);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("每日吸烟量");
+        mTitleText.setText("每日饮酒量");
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
         tvGoback = (TextView) findViewById(R.id.tv_sign_up_go_back);
@@ -38,12 +36,9 @@ public class DetectHealthSmokeActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Class<? extends Activity> cls = detectCategory.equals("detectPressure")
-                        ? DetectHealthSaltActivity.class
-                        : DetectHealthDrinkActivity.class;
-                Intent intent = new Intent(DetectHealthSmokeActivity.this, cls);
+                Intent intent = new Intent(DetectPressureDrinkActivity.this, DetectHealthSmokeActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("smoke", "0");
+                intent.putExtra("drink", "0");
                 startActivity(intent);
                 finish();
             }
@@ -51,13 +46,9 @@ public class DetectHealthSmokeActivity extends BaseActivity {
         tvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (detectCategory.equals("detectPressure")) {
-
-                    return;
-                }
-                Intent intent = new Intent(DetectHealthSmokeActivity.this, DetectResultActivity.class);
+                Intent intent = new Intent(DetectPressureDrinkActivity.this, DetectPsychologicalRecoveryActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("smoke", times.get(timeSelected));
+                intent.putExtra("drink", times.get(timeSelected));
                 startActivity(intent);
                 finish();
             }
@@ -106,7 +97,7 @@ public class DetectHealthSmokeActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        speak("请选择每日吸烟量！");
+        speak("请选择每日饮酒量!");
         setDisableGlobalListen(true);
         super.onResume();
     }

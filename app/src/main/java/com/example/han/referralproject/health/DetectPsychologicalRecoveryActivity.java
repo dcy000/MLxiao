@@ -2,14 +2,12 @@ package com.example.han.referralproject.health;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -19,7 +17,7 @@ import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
-public class DetectHealthSaltActivity extends BaseActivity {
+public class DetectPsychologicalRecoveryActivity extends BaseActivity {
 
     private GridView gvItems;
     private MyAdapter adapter;
@@ -31,9 +29,9 @@ public class DetectHealthSaltActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         detectCategory = getIntent().getStringExtra("detectCategory");
-        setContentView(R.layout.detect_health_activity_salt);
+        setContentView(R.layout.detect_pressure_xinli);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("盐摄入情况");
+        mTitleText.setText("心理调整情况");
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
         gvItems = (GridView) findViewById(R.id.detect_health_gv_items);
@@ -42,9 +40,9 @@ public class DetectHealthSaltActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetectHealthSaltActivity.this, DetectHealthSportsActivity.class);
+                Intent intent = new Intent(DetectPsychologicalRecoveryActivity.this, DetectPressureDrinkActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("salt", "中");
+                intent.putExtra("xinli", "一般");
                 startActivity(intent);
                 finish();
             }
@@ -52,16 +50,14 @@ public class DetectHealthSaltActivity extends BaseActivity {
         tvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Class<? extends Activity> cls = detectCategory.equals("detectHealth")
-                        ? DetectHealthDrinkActivity.class
-                        : DetectHealthSmokeActivity.class;
-                Intent intent = new Intent(DetectHealthSaltActivity.this, cls);
+
+                Intent intent = new Intent(DetectPsychologicalRecoveryActivity.this, DetectFollowDoctorActivity.class);
                 intent.putExtras(getIntent());
                 int checkedItemPosition = gvItems.getCheckedItemPosition();
 //                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
 //                        ? items.get(checkedItemPosition)
 //                        : "中(4g~6g)";
-                intent.putExtra("salt", checkedItemPosition+"");
+                intent.putExtra("xinli", checkedItemPosition+"");
                 startActivity(intent);
                 finish();
             }
@@ -74,9 +70,9 @@ public class DetectHealthSaltActivity extends BaseActivity {
     }
 
     private void prepareData() {
-        items.add("轻");
-        items.add("中");
-        items.add("重");
+        items.add("良好");
+        items.add("一般");
+        items.add("差");
     }
 
     private ArrayList<String> items = new ArrayList<>();
@@ -147,7 +143,7 @@ public class DetectHealthSaltActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        speak("请选择盐摄入情况");
+        speak("请选心理调整情况");
         setDisableGlobalListen(true);
         super.onResume();
     }
