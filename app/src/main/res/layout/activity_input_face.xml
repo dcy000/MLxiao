@@ -19,8 +19,6 @@
         android:layout_width="1920pt"
         android:layout_height="1072pt"
         android:background="@drawable/ic_input_face_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,17 +33,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/iv_circle"
         android:layout_width="760pt"
         android:layout_height="760pt"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="35dp"
+        android:layout_marginStart="580pt"
+        android:layout_marginTop="92pt"
         android:src="@drawable/ic_facea_circle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.512" />
+        app:layout_constraintStart_toStartOf="@+id/iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/iv_bg" />
 </android.support.constraint.ConstraintLayout>
