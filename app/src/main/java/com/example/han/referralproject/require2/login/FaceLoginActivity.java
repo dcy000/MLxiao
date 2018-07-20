@@ -267,6 +267,7 @@ public class FaceLoginActivity extends BaseActivity {
         MyApplication.getInstance().userId = split[1];
         new JpushAliasUtils(this).setAlias("user_" + split[1]);
         startActivity(new Intent(this, InquiryAndFileActivity.class));
+        finish();
     }
 
     /**
@@ -501,6 +502,7 @@ public class FaceLoginActivity extends BaseActivity {
 
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
+            finishActivity();
             finish();
         }
     };
