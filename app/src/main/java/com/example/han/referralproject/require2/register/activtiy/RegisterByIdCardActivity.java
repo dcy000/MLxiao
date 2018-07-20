@@ -23,6 +23,7 @@ import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
@@ -58,6 +59,7 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         bluetoothAdapter.enable();
         onTurnOn();
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {

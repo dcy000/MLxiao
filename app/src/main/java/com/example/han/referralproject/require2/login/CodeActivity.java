@@ -16,6 +16,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
@@ -50,6 +51,7 @@ public class CodeActivity extends BaseActivity {
         ButterKnife.bind(this);
         intTitle();
         initView();
+        ActivityHelper.addActivity(this);
     }
 
     private void initView() {

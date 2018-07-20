@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.require2.wrap.CanClearEditText;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
@@ -33,6 +34,7 @@ public class RealNameActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
+        ActivityHelper.addActivity(this);
     }
 
     private void initView() {

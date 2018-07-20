@@ -11,6 +11,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.RegisterByIdCardActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
@@ -36,6 +37,7 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         setContentView(R.layout.activity_choice_idcard_login_type);
         ButterKnife.bind(this);
         initTitle();
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {

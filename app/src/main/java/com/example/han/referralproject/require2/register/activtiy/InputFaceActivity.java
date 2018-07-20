@@ -34,6 +34,7 @@ import com.example.han.referralproject.require2.login.FaceLoginActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
@@ -90,6 +91,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         ButterKnife.bind(this);
         initTitle();
         initData();
+        ActivityHelper.addActivity(this);
     }
 
     private byte[] faceData;

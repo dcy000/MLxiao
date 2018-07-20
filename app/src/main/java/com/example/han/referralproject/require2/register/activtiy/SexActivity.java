@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ public class SexActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
+        ActivityHelper.addActivity(this);
     }
 
 

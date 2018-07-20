@@ -18,6 +18,7 @@ import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity;
 import com.example.han.referralproject.require2.wrap.CanClearEditText;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 
@@ -40,6 +41,7 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
         setContentView(R.layout.activity_login_by_idcard_nuber);
         ButterKnife.bind(this);
         intTitle();
+        ActivityHelper.addActivity(this);
     }
 
     private void intTitle() {

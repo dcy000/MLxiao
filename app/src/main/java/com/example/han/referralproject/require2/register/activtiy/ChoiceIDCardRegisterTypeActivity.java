@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
@@ -33,7 +34,7 @@ public class ChoiceIDCardRegisterTypeActivity extends BaseActivity {
         setContentView(R.layout.activity_choice_idcard_register_type);
         ButterKnife.bind(this);
         initTitle();
-
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {

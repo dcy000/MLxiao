@@ -46,6 +46,7 @@ import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
@@ -252,6 +253,7 @@ public class FaceLoginActivity extends BaseActivity {
                 startActivity(new Intent(FaceLoginActivity.this, WifiConnectActivity.class));
             }
         });
+        ActivityHelper.addActivity(this);
 
     }
 

@@ -16,6 +16,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.wrap.CanClearEditText;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
@@ -42,6 +43,7 @@ public class IDCardNumberRegisterActivity extends BaseActivity implements CanCle
         setContentView(R.layout.activity_idcard_number_register);
         ButterKnife.bind(this);
         initTitle();
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {

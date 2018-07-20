@@ -12,6 +12,7 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.wrap.PhoneVerificationCodeView;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 
@@ -46,6 +47,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
         intTitle();
         initEvent();
         mlSpeak("请输入手机号码,点击发送验证码");
+        ActivityHelper.addActivity(this);
     }
 
     private void intTitle() {
