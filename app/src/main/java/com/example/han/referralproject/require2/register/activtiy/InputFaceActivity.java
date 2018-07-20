@@ -1,6 +1,7 @@
 package com.example.han.referralproject.require2.register.activtiy;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +30,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.bean.GetUserXFInfoBean;
 import com.example.han.referralproject.require2.dialog.AffirmHeadDialog;
+import com.example.han.referralproject.require2.login.FaceLoginActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
@@ -88,12 +90,6 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         ButterKnife.bind(this);
         initTitle();
         initData();
-//        initFace();
-    }
-
-    private void initFace() {
-        holder = surfaceView.getHolder();
-        holder.addCallback(callback);
     }
 
     private byte[] faceData;
@@ -226,34 +222,50 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
 
     }
 
-    private void dealFaceData(byte[] data, Camera camera) {
-        Bitmap b3 = decodeToBitMap(data, camera);
-        if (b3 != null) {
-            stream.reset();
-            Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
-            //可根据流量及网络状况对图片进行压缩
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            byte[] bytes = stream.toByteArray();
-            faceData = bytes;
-        }
-    }
 
     private String TAG = "InputFaceActivity";
     SurfaceHolder.Callback callback = new SurfaceHolder.Callback() {
         @Override
         public void surfaceCreated(SurfaceHolder surfaceHolder) {
-            mCamera = getCameraInstance();
-            if (mCamera == null) {
-                T.show("打开摄像机失败");
-                return;
-            }
-            try {
-                mCamera.setPreviewDisplay(holder);
-                mCamera.startPreview();
-            } catch (IOException e) {
-                Log.d(TAG, "Error setting camera preview: " + e.getMessage());
-            }
+//            mCamera = getCameraInstance();
+//            if (mCamera == null) {
+//                T.show("打开摄像机失败");
+//                return;
+//            }
+//            try {
+//                mCamera.setPreviewDisplay(holder);
+//                mCamera.startPreview();
+//            } catch (IOException e) {
+//                Log.d(TAG, "Error setting camera preview: " + e.getMessage());
+//            }
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        mCamera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+                        if (mCamera == null) {
+                            runOnUiThreadWithOpenCameraFail();
+                            return;
+                        }
+                        Camera.Parameters params = mCamera.getParameters();
+                        params.setPreviewFormat(ImageFormat.NV21);
+                        params.setPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+                        params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);//1连续对焦
+                        mCamera.setParameters(params);
+//                        setCameraDisplayOrientation(InputFaceActivity.this, Camera.CameraInfo.CAMERA_FACING_BACK, mCamera);
+                        mCamera.setPreviewDisplay(surfaceView.getHolder());
+                        mCamera.startPreview();
+                        mCamera.cancelAutoFocus();//对焦
+
+                    } catch (Exception e) {
+                        runOnUiThreadWithOpenCameraFail();
+                    }
+                }
+            });
+
+
         }
+
 
         @Override
         public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
@@ -264,46 +276,33 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
 
         @Override
         public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-            if (mCamera == null || holder == null) {
-                return;
-            }
-            holder.removeCallback(callback);
-            mCamera.setPreviewCallback(null);
-            mCamera.stopPreview();
-            mCamera.release();
-            mCamera = null;
+//            if (mCamera == null || holder == null) {
+//                return;
+//            }
+//            holder.removeCallback(callback);
+//            mCamera.setPreviewCallback(null);
+//            mCamera.stopPreview();
+//            mCamera.release();
+//            mCamera = null;
+            runOnUiThreadWithOpenCameraFail();
         }
     };
 
-    // 获取当前窗口管理器显示方向
-    private int getDisplayOrientation() {
-        WindowManager windowManager = getWindowManager();
-        Display display = windowManager.getDefaultDisplay();
-        int rotation = display.getRotation();
-        int degrees = 0;
-        switch (rotation) {
-            case Surface.ROTATION_0:
-                degrees = 0;
-                break;
-            case Surface.ROTATION_90:
-                degrees = 90;
-                break;
-            case Surface.ROTATION_180:
-                degrees = 180;
-                break;
-            case Surface.ROTATION_270:
-                degrees = 270;
-                break;
-        }
-
-        android.hardware.Camera.CameraInfo camInfo =
-                new android.hardware.Camera.CameraInfo();
-        android.hardware.Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_BACK, camInfo);
-
-        // 这里其实还是不太懂：为什么要获取camInfo的方向呢？相当于相机标定？？
-        int result = (camInfo.orientation - degrees + 360) % 360;
-
-        return result;
+    private void runOnUiThreadWithOpenCameraFail() {
+        Handlers.bg().post(new Runnable() {
+            @Override
+            public void run() {
+                if (null != mCamera) {
+                    mCamera.setPreviewCallback(null);
+                    mCamera.stopPreview();
+                    mCamera.release();
+                    mCamera = null;
+                    if (holder != null) {
+                        holder.removeCallback(callback);
+                    }
+                }
+            }
+        });
     }
 
 
