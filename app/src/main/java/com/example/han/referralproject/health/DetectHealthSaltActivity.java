@@ -61,7 +61,7 @@ public class DetectHealthSaltActivity extends BaseActivity {
 //                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
 //                        ? items.get(checkedItemPosition)
 //                        : "中(4g~6g)";
-                intent.putExtra("salt", checkedItemPosition+"");
+                intent.putExtra("salt", checkedItemPosition+1+"");
                 startActivity(intent);
                 finish();
             }
