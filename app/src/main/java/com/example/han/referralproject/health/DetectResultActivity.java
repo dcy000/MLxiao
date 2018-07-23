@@ -105,6 +105,7 @@ public class DetectResultActivity extends BaseActivity {
         Intent intent = getIntent();
         detectCategory = getIntent().getStringExtra("detectCategory");
         DetectResult detectResult = new DetectResult();
+        detectResult.setUserId((int) Float.parseFloat(LocalShared.getInstance(this).getUserId()));
         String tem = intent.getStringExtra("tem");
         tem = TextUtils.isEmpty(tem) ? "0.0" : tem;
         detectResult.setTemperAture(tem);
