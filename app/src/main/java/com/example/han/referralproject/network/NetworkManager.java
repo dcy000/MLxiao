@@ -234,13 +234,13 @@ public class NetworkManager {
 //        @Override
 //        public void onFailure(Call call, IOException e) {
 //            Logg.i("mylog", "failed : " + e.getMessage());
-////            Toast.makeText(CustomApplication.getInstance(), "failed : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+////            Toast.makeText(CustomApplication.getInstance(), "failed : " + e.getMessage(), Toast.LENGTH_SHORT).showShort();
 //        }
 //
 //        @Override
 //        public void onResponse(Call call, Response response) throws IOException {
 //            Logg.i("mylog", "success : " + response.body().string());
-////            Toast.makeText(CustomApplication.getInstance(), "success : " + response.body().string(), Toast.LENGTH_SHORT).show();
+////            Toast.makeText(CustomApplication.getInstance(), "success : " + response.body().string(), Toast.LENGTH_SHORT).showShort();
 //        }
 //    };
 //

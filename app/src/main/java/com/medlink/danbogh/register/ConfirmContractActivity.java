@@ -16,8 +16,8 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.XDialogFragment;
-import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,7 +101,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }

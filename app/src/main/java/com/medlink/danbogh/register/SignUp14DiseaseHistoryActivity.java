@@ -11,11 +11,10 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.facerecognition.RegisterHead2XunfeiActivity;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.medlink.danbogh.utils.T;
+import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,7 +146,7 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();

@@ -164,7 +164,7 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                     NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                         @Override
                         public void onSuccess(MeasureResult response) {
-                            //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override
@@ -491,7 +491,7 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
                             public void onSuccess(MeasureResult response) {
-                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                             }
                         }, new NetworkManager.FailedCallback() {
                             @Override
@@ -550,7 +550,7 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                     NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                         @Override
                         public void onSuccess(MeasureResult response) {
-                            //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override
@@ -580,7 +580,7 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
                             public void onSuccess(MeasureResult response) {
-                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                             }
                         }, new NetworkManager.FailedCallback() {
                             @Override
@@ -607,7 +607,7 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
                             public void onSuccess(MeasureResult response) {
-                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                             }
                         }, new NetworkManager.FailedCallback() {
                             @Override
@@ -630,7 +630,7 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                 NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
                     @Override
                     public void onSuccess(MeasureResult response) {
-                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

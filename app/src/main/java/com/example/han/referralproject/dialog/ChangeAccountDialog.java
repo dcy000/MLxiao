@@ -98,7 +98,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                                        ((Activity) mContext).finish();
 //                                    }
 //                                }
-//                            }).create(NDialog.CONFIRM).show();
+//                            }).create(NDialog.CONFIRM).showShort();
 //                }else{
 //                    mContext.startActivity(new Intent(mContext, SignInActivity.class));
 //                    ((Activity) mContext).finish();

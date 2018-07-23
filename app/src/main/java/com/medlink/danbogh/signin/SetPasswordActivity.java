@@ -11,8 +11,8 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import butterknife.BindView;
@@ -62,13 +62,13 @@ public class SetPasswordActivity extends BaseActivity {
             @Override
             public void onSuccess(String code) {
                 SetPasswordActivity.this.code = code;
-                T.show("获取验证码成功");
+                ToastUtils.showShort("获取验证码成功");
                 speak("获取验证码成功");
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show("获取验证码失败");
+                ToastUtils.showShort("获取验证码失败");
                 speak("获取验证码失败");
             }
         });
@@ -111,7 +111,7 @@ public class SetPasswordActivity extends BaseActivity {
         if (this.code.contains(code)) {
             onValidPhone();
         } else {
-            T.show("验证码错误");
+            ToastUtils.showShort("验证码错误");
             speak("验证码错误");
         }
     }
@@ -120,7 +120,7 @@ public class SetPasswordActivity extends BaseActivity {
         showLoadingDialog("加载中...");
         String pwd = etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(pwd) || pwd.length() != 6) {
-            T.show("请输入6位数字密码");
+            ToastUtils.showShort("请输入6位数字密码");
             speak("请输入6位数字密码");
             hideLoadingDialog();
             return;
@@ -137,7 +137,7 @@ public class SetPasswordActivity extends BaseActivity {
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }

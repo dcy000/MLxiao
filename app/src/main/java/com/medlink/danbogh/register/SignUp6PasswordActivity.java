@@ -13,7 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.utils.T;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.regex.Matcher;
@@ -87,7 +87,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
         if (TextUtils.isEmpty(password)
                 || !TextUtils.isDigitsOnly(password)
                 || password.length() != 6) {
-            T.show(R.string.sign_up_password_tip);
+            ToastUtils.showShort(R.string.sign_up_password_tip);
             speak(R.string.sign_up_password_tip);
             return;
         }
@@ -108,7 +108,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();

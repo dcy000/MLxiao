@@ -252,12 +252,6 @@
         <activity
             android:name=".recyclerview.DoctorMesActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".video.MainVideoActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".video.PlayVideoActivity"
-            android:screenOrientation="landscape" />
 
         <service
             android:name="com.medlink.danbogh.alarm.AlarmService"
@@ -351,9 +345,6 @@
         <activity
             android:name=".recharge.PayInfoActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity"
-            android:screenOrientation="landscape" />
 
         <meta-data
             android:name="com.netease.nim.appKey"
@@ -418,12 +409,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DiseaseDetailsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.location.LocationActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity"
@@ -544,17 +529,6 @@
         <activity
             android:name=".radio.RadioActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".video.TheOldVideoActivity"
-            android:screenOrientation="landscape" />
-        <!-- <activity android:name=".measure.TestActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.HOME" /> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
         <activity
             android:name=".children.ChildEduHomeActivity"
             android:screenOrientation="landscape" />

@@ -9,6 +9,8 @@ import android.os.Build;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 
+import com.gcml.lib_utils.ui.ScreenUtils;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -125,7 +127,7 @@ public class CoverLoader {
                 return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.mp_play_page_default_bg);
             case ROUND:
                 Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.mp_play_page_default_cover);
-                bitmap = ImageUtils.resizeImage(bitmap, (int) (ScreenUtils.getScreenWidth() * 0.47), (int) (ScreenUtils.getScreenWidth() * 0.47));
+                bitmap = ImageUtils.resizeImage(bitmap, (int) (ScreenUtils.getScreenW() * 0.47), (int) (ScreenUtils.getScreenW()* 0.47));
                 return bitmap;
             default:
                 return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.mp_default_cover);
@@ -144,7 +146,7 @@ public class CoverLoader {
             case BLUR:
                 return ImageUtils.blur(bitmap);
             case ROUND:
-                bitmap = ImageUtils.resizeImage(bitmap, (int) (ScreenUtils.getScreenWidth() * 0.6), (int) (ScreenUtils.getScreenWidth() * 0.6));
+                bitmap = ImageUtils.resizeImage(bitmap, (int) (ScreenUtils.getScreenW() * 0.6), (int) (ScreenUtils.getScreenW() * 0.6));
                 return ImageUtils.createCircleImage(bitmap);
             default:
                 return bitmap;

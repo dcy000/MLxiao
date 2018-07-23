@@ -6,7 +6,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-;
+;import com.gcml.lib_utils.ui.ScreenUtils;
 
 /**
  * 播放页Indicator
@@ -35,7 +35,7 @@ public class IndicatorLayout extends LinearLayout {
         for (int i = 0; i < count; i++) {
             ImageView imageView = new ImageView(getContext());
             imageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            int padding = ScreenUtils.dp2px(3);
+            int padding = ScreenUtils.dip2px(3);
             imageView.setPadding(padding, 0, padding, 0);
             imageView.setImageResource(i == 0 ? R.drawable.mp_ic_play_page_indicator_selected : R.drawable.mp_ic_play_page_indicator_unselected);
             addView(imageView);

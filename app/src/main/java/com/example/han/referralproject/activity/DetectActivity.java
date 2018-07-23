@@ -194,7 +194,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<String>() {
 //                                @Override
 //                                public void onSuccess(String response) {
-//                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+//                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
 //                                }
 //                            });
 //                            isGetResustFirst = false;
@@ -517,7 +517,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                 @Override
                                 public void onSuccess(MeasureResult response) {
-                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                                 }
                             }, new NetworkManager.FailedCallback() {
                                 @Override
@@ -551,7 +551,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
 //                                @Override
 //                                public void onSuccess(MeasureResult response) {
-//                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+//                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
 //                                }
 //                            });
                             return;
@@ -614,7 +614,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
                                     public void onSuccess(MeasureResult response) {
-                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                                     }
                                 }, new NetworkManager.FailedCallback() {
                                     @Override
@@ -650,7 +650,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                                     @Override
                                     public void onSuccess(MeasureResult response) {
-                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                                     }
                                 }, new NetworkManager.FailedCallback() {
                                     @Override
@@ -673,7 +673,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
                             @Override
                             public void onSuccess(MeasureResult response) {
-                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                             }
                         }, new NetworkManager.FailedCallback() {
                             @Override

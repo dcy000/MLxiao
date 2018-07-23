@@ -39,13 +39,13 @@ import com.example.han.referralproject.facerecognition.HeadiconActivity;
 import com.example.han.referralproject.facerecognition.RegisterHead2XunfeiActivity;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.jipush.MyReceiver;
-import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.handler.WeakHandler;
+import com.gcml.lib_utils.ui.ScreenUtils;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -82,8 +82,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class BaseActivity extends AppCompatActivity {
     private static UpdateVolumeRunnable updateVolumeRunnable;
@@ -335,11 +333,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected int provideWaveViewWidth() {
-        return ScreenUtils.dp2px(450);
+        return ScreenUtils.dip2px(450);
     }
 
     protected int provideWaveViewHeight() {
-        return ScreenUtils.dp2px(120);
+        return ScreenUtils.dip2px(120);
     }
 
     @Override
@@ -370,8 +368,8 @@ public class BaseActivity extends AppCompatActivity {
             mContentParent = (FrameLayout) findViewById(android.R.id.content);
             voiceLineView = new VoiceLineView(this);
             voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
-            int width = ScreenUtils.dp2px(450);
-            int height = ScreenUtils.dp2px(120);
+            int width = ScreenUtils.dip2px(450);
+            int height = ScreenUtils.dip2px(120);
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
             params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             params.bottomMargin = 20;
@@ -496,8 +494,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void onSpeakListenerResult(String result) {
-        //Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-//        T.show(result);
+        //Toast.makeText(this, result, Toast.LENGTH_SHORT).showShort();
+//        ToastUtils.showShort(result);
     }
 
     private boolean disableGlobalListen;

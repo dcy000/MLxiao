@@ -12,7 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.utils.T;
+import com.gcml.lib_utils.display.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,7 +95,7 @@ public class SignUp2GenderActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         if (!mIvRbMan.isSelected() && !mIvRbWoman.isSelected()) {
-            T.show(R.string.sign_up2_gender_tip);
+            ToastUtils.showShort(R.string.sign_up2_gender_tip);
             speak(R.string.sign_up2_gender_tip);
             return;
         }
@@ -113,7 +113,7 @@ public class SignUp2GenderActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvBackClicked();

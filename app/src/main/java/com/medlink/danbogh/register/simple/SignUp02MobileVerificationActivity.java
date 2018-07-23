@@ -16,8 +16,8 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.regex.Matcher;
@@ -123,13 +123,13 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String code) {
                         mCode = code;
-                         T.show("获取验证码成功");
+                         ToastUtils.showShort("获取验证码成功");
                         speak("获取验证码成功");
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show("获取验证码失败");
+                        ToastUtils.showShort("获取验证码失败");
                         speak("获取验证码失败");
                     }
                 });
@@ -180,10 +180,10 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         }
 
         if (mCode.contains(code)) {
-            T.show("验证码正确");
+            ToastUtils.showShort("验证码正确");
             navToNext();
         } else {
-            T.show("验证码错误");
+            ToastUtils.showShort("验证码错误");
             speak("验证码错误");
         }
 
@@ -207,7 +207,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();
