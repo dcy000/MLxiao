@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -136,6 +135,13 @@ public class FaceLoginActivity extends BaseActivity {
                                     T.show("网络服务繁忙");
                                 }
                             }
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            T.show("请求服务器失败,请稍后重试");
+                            finishActivity();
                         }
                     });
 
@@ -505,7 +511,6 @@ public class FaceLoginActivity extends BaseActivity {
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
             finishActivity();
-            finish();
         }
     };
 

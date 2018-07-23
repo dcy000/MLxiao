@@ -1,7 +1,6 @@
 package com.example.han.referralproject.require2.register.activtiy;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,12 +12,9 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Display;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
@@ -30,7 +26,6 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.bean.GetUserXFInfoBean;
 import com.example.han.referralproject.require2.dialog.AffirmHeadDialog;
-import com.example.han.referralproject.require2.login.FaceLoginActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
@@ -179,9 +174,6 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                             }
                             //注册的逻辑
                             signUp(imageUrl);
-
-                        } else {
-
                         }
                     }
                 }, null);
@@ -469,6 +461,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                             return;
                         }
                         hideLoadingDialog();
+                        initXFInfo(response.bid,faceData);
                         shared.setUserInfo(response);
                         LocalShared.getInstance(mContext).setSex(response.sex);
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
