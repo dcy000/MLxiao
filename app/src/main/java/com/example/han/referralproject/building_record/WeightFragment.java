@@ -111,7 +111,7 @@ public class WeightFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.tv_sign_up_go_forward:
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setWeight(result+"kg");
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setWeight(result);
                 iFragmentChange.nextStep(this);
                 break;
         }
