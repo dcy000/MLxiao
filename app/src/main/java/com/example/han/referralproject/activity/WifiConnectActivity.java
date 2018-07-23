@@ -11,7 +11,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,7 +26,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.util.WiFiUtil;
+import com.gcml.lib_utils.network.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;
@@ -195,10 +194,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
 //                        if (NetworkInfo.State.CONNECTED == info.getState() && info.isAvailable()) {
 //                            if (info.getType() == ConnectivityManager.TYPE_WIFI
 //                                    || info.getType() == ConnectivityManager.TYPE_MOBILE) {
-//                                //Log.i("TAG", getConnectionType(info.getType()) + "连上");
+//                                //Logg.i("TAG", getConnectionType(info.getType()) + "连上");
 //                            }
 //                        } else {
-//                            //Log.i("TAG", getConnectionType(info.getType()) + "断开");
+//                            //Logg.i("TAG", getConnectionType(info.getType()) + "断开");
 //                        }
 //                    }
                     break;

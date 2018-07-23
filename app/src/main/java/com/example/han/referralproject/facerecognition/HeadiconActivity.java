@@ -1,17 +1,13 @@
 package com.example.han.referralproject.facerecognition;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,12 +22,8 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
-import com.medlink.danbogh.signin.SignInActivity;
-import com.medlink.danbogh.utils.Handlers;
-import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -42,6 +34,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+
+import timber.log.Timber;
 
 public class HeadiconActivity extends BaseActivity {
 
@@ -131,7 +125,7 @@ public class HeadiconActivity extends BaseActivity {
         //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
         String groupId = LocalShared.getInstance(mContext).getGroupId();
         String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
-        Logger.e("组id" + groupId);
+        Timber.e("组id" + groupId);
         if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
             Log.e("组信息", "checkGroup: 该机器组已近存在");
             joinGroup(userid, groupId, xfid);
@@ -196,10 +190,10 @@ public class HeadiconActivity extends BaseActivity {
 
     private void createGroup(final String userid, final String xfid) {
         FaceAuthenticationUtils.getInstance(HeadiconActivity.this).createGroup(xfid);
-        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
+        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnCreateGroupListener(new ICreateGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
-                Logger.e("创建组成功" + result);
+                Timber.e("创建组成功" + result);
                 try {
                     JSONObject resObj = new JSONObject(result.getResultString());
                     String groupId = resObj.getString("group_id");
@@ -222,9 +216,9 @@ public class HeadiconActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "创建组失败");
+                Timber.e(error, "创建组失败");
 //                if (error.getErrorCode() == 10144) {//创建组的数量达到上限
-//                    ToastTool.showShort("出现技术故障，请致电客服咨询");
+//                    ToastUtils.showShort("出现技术故障，请致电客服咨询");
 //                }
                 //如果在此处创建组失败就跳过创建
                 uploadHeadToSelf(userid, xfid);
@@ -236,7 +230,7 @@ public class HeadiconActivity extends BaseActivity {
 
     private void joinGroup(final String userid, String groupid, final String xfid) {
         FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
-        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnJoinGroupListener(new IJoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
                 uploadHeadToSelf(userid, xfid);
@@ -249,7 +243,7 @@ public class HeadiconActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "添加成员出现异常");
+                Timber.e(error, "添加成员出现异常");
                 if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
                     createGroup(userid, xfid);
                 } else {

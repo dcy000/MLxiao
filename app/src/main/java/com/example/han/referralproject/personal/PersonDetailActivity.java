@@ -15,6 +15,7 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.application.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,6 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         @Override
         public void onReceive(Context context, Intent intent) {
             int level = obtainWifiInfo();
-            Log.e("网络强度发生变化", "onReceive: " +level);
             if (level <= 0 && level >= -50) {
                 mRightView.setImageResource(R.drawable.white_wifi_3);
             } else if (level < -50 && level >= -70) {

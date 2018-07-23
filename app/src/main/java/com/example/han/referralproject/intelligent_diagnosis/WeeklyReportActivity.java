@@ -11,18 +11,12 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.WeeklyReport;
-import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.orhanobut.logger.Logger;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -104,14 +98,14 @@ public class WeeklyReportActivity extends BaseActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            ToastTool.showShort("暂无周报告");
+                            ToastUtils.showShort("暂无周报告");
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         Log.e("请求失败", "onError: " + response.message());
-                        ToastTool.showShort("暂无周报告");
+                        ToastUtils.showShort("暂无周报告");
                     }
                 });
 

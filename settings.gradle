@@ -1,4 +1,4 @@
-def initGradleEnvironment() {
+/*def initGradleEnvironment() {
     println "initialize Gradle Environment...."
     def proFile = file(rootDir.getAbsolutePath() + "/config.properties")
     Properties p = new Properties()
@@ -38,10 +38,11 @@ def initGradleEnvironment() {
     }
     println "initialize Gradle Environment completes..."
 }
-initGradleEnvironment()
+initGradleEnvironment()*/
 
-include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':lib-zxing', ':voice', ':lib-common', ':unit'
+include ':app', ':lib-pay-beecloud', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':lib-zxing', ':voice', ':lib-common', ':unit', ':test_all_devices', ':lib-bluetooth', ':lib-utils',  ':module-control_volume'
 include ':expand-textview-library'
 include ':circleindicator'
-
+include ':lib-bluetooth'
+include ':lib-video'
 

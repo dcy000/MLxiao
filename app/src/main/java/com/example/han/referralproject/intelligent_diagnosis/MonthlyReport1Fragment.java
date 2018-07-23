@@ -21,8 +21,6 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -166,7 +165,7 @@ public class MonthlyReport1Fragment extends Fragment implements OnChartValueSele
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-        Logger.d(e);
+        Timber.d(e.toString());
     }
 
     @Override

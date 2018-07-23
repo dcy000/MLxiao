@@ -8,15 +8,15 @@ if (canRunAlone) {
 
 
 android {
-    compileSdkVersion versions["compileSdkVersion"]
-    buildToolsVersion versions["buildToolsVersion"]
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
         if (canRunAlone) {
             applicationId "com.ml.edu"
         }
-        minSdkVersion versions["minSdkVersion"]
-        targetSdkVersion versions["targetSdkVersion"]
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode versions["versionCode"]
         versionName versions["versionName"]
 
@@ -64,43 +64,36 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
-    compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["support-v4"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
 
-//    compile 'com.jakewharton.timber:timber:4.6.0'
+
     //dagger2
-    compile 'com.google.dagger:dagger:2.14.1'
-    compile "com.android.support:support-v4:${gradle.supportVersion}"
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
-    compile 'com.google.dagger:dagger-android:2.14.1'
-    compile 'com.google.dagger:dagger-android-support:2.14.1'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14.1'
-
-    compile 'com.github.bumptech.glide:glide:3.8.0'
-
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.9'
-
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation rootProject.ext.dependencies["dagger2"]
+    implementation rootProject.ext.dependencies["dagger2-android"]
+    implementation rootProject.ext.dependencies["dagger2-android-support"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-android-processor"]
 
 
-//    compile name:'lib-music-player-debug', ext:'aar'
-    compile project(':lib-music-player')
+    implementation rootProject.ext.dependencies["glide"]
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["picasso"]
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxandroid2"]
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
+    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
 
-    compile 'com.zhy:okhttputils:2.6.2'
-    compile 'me.wcy:lrcview:1.4.2'
+    api project(':lib-music-player')
+    implementation 'com.zhy:okhttputils:2.6.2'
+    implementation 'me.wcy:lrcview:1.4.2'
 
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    testImplementation rootProject.ext.dependencies["junit"]
 
 }

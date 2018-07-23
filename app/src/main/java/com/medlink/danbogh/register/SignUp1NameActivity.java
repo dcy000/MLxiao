@@ -7,14 +7,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.SoftKeyBoardListener;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -46,23 +44,7 @@ public class SignUp1NameActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up1_name);
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.GONE);
-        //mTvGoBack.setEnabled(false);
-//        setSoftInputListener();
     }
-
-//    private void setSoftInputListener() {
-//        SoftKeyBoardListener.setListener(SignUp1NameActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
-//            @Override
-//            public void keyBoardShow(int height) {
-//                Toast.makeText(SignUp1NameActivity.this, "键盘显示 高度" + height, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void keyBoardHide(int height) {
-//                Toast.makeText(SignUp1NameActivity.this, "键盘隐藏 高度" + height, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 
     @Override
     protected void onDestroy() {
@@ -113,7 +95,7 @@ public class SignUp1NameActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        ToastTool.showShort(result);
+        ToastUtils.showShort(result);
         if (result.matches(REGEX_IN_GO_BACK) && mTvGoBack.isEnabled()) {
             onTvGoBackClicked();
             return;

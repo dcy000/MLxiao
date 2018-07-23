@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.model.ItemsModel;
-import com.medlink.danbogh.utils.UiUtils;
+import com.gcml.lib_utils.ui.UiUtils;
 
 import java.util.ArrayList;
 

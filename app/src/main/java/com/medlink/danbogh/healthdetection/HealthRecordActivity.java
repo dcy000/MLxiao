@@ -49,7 +49,8 @@ import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivi
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.UiUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -60,7 +61,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.UiUtils;
 import com.ml.zxing.QrCodeUtils;
 
 import java.util.ArrayList;
@@ -153,7 +153,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
     private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时
     private int timeFlag = 1;//默认最近一周：1；一个月：2；一季度：3；一年：4；
     private int radioGroupPosition;
-
+    public static void startActivity(Context context,Class<?> clazz,int position){
+        Intent intent=new Intent();
+        intent.setClass(context,clazz);
+        intent.putExtra("position",position);
+        context.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,6 +253,12 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
                 MyDialogFragment.newInstance(text).show(getSupportFragmentManager(), MyDialogFragment.TAG);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        setEnableListeningLoop(false);
+        super.onResume();
     }
 
     @Override
@@ -932,7 +943,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
                 if (tiwenChart != null) {
                     tiwenChart.setNoDataText(getResources().getString(R.string.noData));
                     tiwenChart.setData(null);
@@ -987,7 +998,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
                 if (xueyaChart != null) {
                     xueyaChart.setNoDataText(getResources().getString(R.string.noData));
                     xueyaChart.setData(null);
@@ -1031,7 +1042,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
                 if (xinlvChart != null) {
                     xinlvChart.setNoDataText(getResources().getString(R.string.noData));
                     xinlvChart.setData(null);
@@ -1111,7 +1122,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
                 if (xuetangChart != null) {
                     xuetangChart.setNoDataText(getResources().getString(R.string.noData));
                     xuetangChart.setData(null);
@@ -1154,7 +1165,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
                 if (xueyangChart != null) {
                     xueyangChart.setNoDataText(getResources().getString(R.string.noData));
                     xueyangChart.setData(null);
@@ -1200,7 +1211,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
                 if (danguchunChart != null) {
                     danguchunChart.setNoDataText(getResources().getString(R.string.noData));
                     danguchunChart.setData(null);
@@ -1245,7 +1256,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
                 if (xueniaosuanChart != null) {
                     xueniaosuanChart.setNoDataText(getResources().getString(R.string.noData));
                     xueniaosuanChart.setData(null);
@@ -1266,7 +1277,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
             }
         });
     }
@@ -1306,7 +1317,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
                 if (tizhongChart != null) {
                     tizhongChart.setNoDataText(getResources().getString(R.string.noData));
                     tizhongChart.setData(null);
@@ -2431,4 +2442,5 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             super.onDetach();
         }
     }
+
 }

@@ -1,23 +1,16 @@
 package com.example.han.referralproject;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -27,14 +20,19 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
-import com.example.han.referralproject.util.WiFiUtil;
+import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.lib_utils.network.WiFiUtil;
+import com.yhao.floatwindow.FloatWindow;
+import com.yhao.floatwindow.PermissionListener;
+import com.yhao.floatwindow.Screen;
+import com.yhao.floatwindow.ViewStateListener;
 
 import java.util.ArrayList;
 
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     private static final String TAG = "afirez";
 
@@ -45,13 +43,14 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            initContentView();
+        super.onCreate(savedInstanceState);
+
+        initContentView();
+
     }
 
     private void initContentView() {
         setContentView(R.layout.activity_welcome);
-        Log.i(TAG, "onCreate: ");
         //启动音乐服务
         if (!isWorked("com.example.han.referralproject.MusicService")) {
             startService(new Intent(this, MusicService.class));
@@ -235,12 +234,5 @@ public class WelcomeActivity extends BaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         LocalShared.getInstance(this).setIsFirstIn(false);
         checkVersion();
-    }
-
-    @Override
-    protected void onResume() {
-        setDisableGlobalListen(true);
-        setEnableListeningLoop(false);
-        super.onResume();
     }
 }

@@ -16,7 +16,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -128,7 +128,7 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
             case R.id.blood_sugar_submit:
                 for (BloodSugarRisk bloodSugarRisk : mData) {
                     if (!bloodSugarRisk.isChoosed()) {
-                        ToastTool.showShort("主人，您还有未回答的题目");
+                        ToastUtils.showShort("主人，您还有未回答的题目");
                         speak("主人，您还有未回答的题目");
                         return;
                     }
@@ -176,7 +176,7 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
 
                             @Override
                             public void onError(Response<String> response) {
-                                ToastTool.showShort("上传数据失败");
+                                ToastUtils.showShort("上传数据失败");
                                 finish();
                             }
                         });

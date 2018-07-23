@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        applicationId "com.gzq.test_all_devices"
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+
+        }
+    }
+    compileOptions{
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs', '../lib-bluetooth/libs'
+    }
+
+}
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api(project(':lib-bluetooth')) {
+        exclude group: "com.android.support"
+    }
+    api('com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30') {
+        exclude group: 'com.android.support'
+    }
+    //noinspection GradleCompatible
+    api rootProject.ext.dependencies["design"]
+    api project(':lib-video')
+    //悬浮窗
+    api 'com.github.yhaolpz:FloatWindow:1.0.9'
+    implementation project(':module-control_volume')
+}

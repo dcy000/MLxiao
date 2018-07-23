@@ -11,7 +11,6 @@ import com.gzq.administrator.lib_common.utils.UiUtils;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.lzy.okgo.OkGo;
-import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by gzq on 2018/4/12.
@@ -24,8 +23,8 @@ public class BaseApplication extends Application{
     public void onCreate() {
         super.onCreate();
         mInstance=this;
-        //初始化内存泄漏检测工具
-        LeakCanary.install(this);
+//        //初始化内存泄漏检测工具
+//        LeakCanary.install(this);
         //吐司工具类初始化
         ToastTool.init(this);
         //常用屏幕单位转换工具类

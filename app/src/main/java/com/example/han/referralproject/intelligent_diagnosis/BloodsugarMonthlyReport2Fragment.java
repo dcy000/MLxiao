@@ -243,9 +243,9 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
     }
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         if (view != null) {
             ((ViewGroup) view.getParent()).removeView(view);
         }
+        super.onDestroyView();
     }
 }

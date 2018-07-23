@@ -18,18 +18,9 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.blood_pressure_risk_assessment.HypertensionRiskActivity;
-import com.example.han.referralproject.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity;
-import com.example.han.referralproject.bluetooth_devices.AllMeasureActivity;
-import com.example.han.referralproject.bluetooth_devices.base.IPresenter;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
-import com.example.han.referralproject.intelligent_diagnosis.BloodsugarMonthlyReportActivity;
-import com.example.han.referralproject.intelligent_diagnosis.BloodsugarWeeklyReportActivity;
-import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
-import com.example.han.referralproject.intelligent_diagnosis.TreatmentPlanActivity;
-import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
@@ -43,7 +34,6 @@ import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
-
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.utils.T;
@@ -102,21 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mImageView5.setOnClickListener(this);
         mImageView6.setOnClickListener(this);
         mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
-
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        findViewById(R.id.ll_anim).setOnClickListener(this);
-
-        float pivotX = .5f; // 取自身区域在X轴上的中心点
-        float pivotY = .5f; // 取自身区域在Y轴上的中心点
-        //    new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 围绕自身的中心点进行旋转
-
-        RotateAnimation tranAnimation = new RotateAnimation(-30, 30, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        tranAnimation.setDuration(1000);
-        tranAnimation.setRepeatCount(Animation.INFINITE);
-        tranAnimation.setRepeatMode(Animation.REVERSE);
-
-        findViewById(R.id.iv_anim).setAnimation(tranAnimation);
-        tranAnimation.start();
 
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -127,11 +103,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
             }
         }, 1000);
-
-        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-            startService(new Intent(this, AssistiveTouchService.class).putExtra("userId", MyApplication.getInstance().userId));
-        }
-
         initAToken();
 
     }
@@ -141,30 +112,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         tokenModel.getAccessToken(this);
     }
 
-    public boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    @Override
-    protected void onActivitySpeakFinish() {
-        super.onActivitySpeakFinish();
-        findViewById(R.id.ll_anim).setVisibility(View.GONE);
-    }
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.ll_anim:
-                v.setVisibility(View.GONE);
-                break;
             case R.id.robot_con:
                 intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
                 startActivity(intent);
@@ -175,12 +127,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.health_test://健康监测
 
-                intent.setClass(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("orderid", "0");
-                intent.putExtra("from", "Test");
-                startActivity(intent);
-
-//                startActivity(new Intent(mContext, Test_mainActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putString("orderid", "0");
+                bundle.putString("from", "Test");
+                FaceRecognitionActivity.startActivity(this, FaceRecognitionActivity.class, bundle, false);
                 break;
             case R.id.doctor_ask://医生咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
@@ -191,34 +141,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-                startActivity(new Intent(this, TreatmentPlanActivity.class)
-                .putExtra(IPresenter.MEASURE_TYPE,IPresenter.MEASURE_BLOOD_SUGAR));
                 //呼叫
-//                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
-//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
-//                    @Override
-//                    public void onSuccess(UserInfo response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
+                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
                 break;
         }
     }

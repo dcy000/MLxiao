@@ -17,6 +17,7 @@ import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
@@ -144,7 +145,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onSuccess(ArrayList<Orders> response) {
 
-                        Log.e("==========", response.toString());
+                        Logg.e("==========", response.toString());
 
                     }
 
@@ -152,7 +153,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onFailed(String message) {
 
-                        Log.e("=============", "失败");
+                        Logg.e("=============", "失败");
 
                     }
                 });*/
@@ -192,10 +193,11 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(int which) {
                         if (which == 1) {
-                            Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                            intent.putExtra("orderid", orderid);
-                            intent.putExtra("from","Pay");
-                            startActivityForResult(intent,1);
+                            Bundle bundle=new Bundle();
+                            bundle.putString("orderid",orderid);
+                            bundle.putString("from","Pay");
+                            bundle.putInt("requestCode",1);
+                            FaceRecognitionActivity.startActivity(getApplicationContext(),FaceRecognitionActivity.class,bundle,true);
 
 
                         } else if (which == 0) {

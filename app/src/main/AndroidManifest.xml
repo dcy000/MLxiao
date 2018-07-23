@@ -77,15 +77,27 @@
     <!-- Bugly -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="健康管家"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon, android:label,android:theme">
+        tools:replace="icon,label">
+        <service
+            android:name="com.sinocare.bluetoothle.SN_BluetoothLeService"
+            android:enabled="true"
+            android:label="三诺血糖仪蓝牙服务">
+            <meta-data
+                android:name="AccessKey"
+                android:value="ak692c5e54836146d0b5c76cdb8886ae61"></meta-data>
+            <meta-data
+                android:name="SecretKey"
+                android:value="saksvhflsjxywxu"></meta-data>
+        </service>
         <service android:name=".new_music.MusicService" />
 
         <provider
@@ -213,11 +225,10 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.HOME" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -246,9 +257,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".video.PlayVideoActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".personal.PersonActivity"
             android:screenOrientation="landscape" />
 
         <service
@@ -725,18 +733,41 @@
         <activity
             android:name=".intelligent_diagnosis.BloodsugarMonthlyReportActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".physicalexamination.activity.ChineseMedicineMonitorActivity" />
-        <activity android:name=".physicalexamination.activity.MonitorResultActivity" />
         <activity
-            android:name=".bluetooth_devices.temperature_devices.MeasureTemperatureActivity"
+            android:name=".physicalexamination.activity.ChineseMedicineMonitorActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".bluetooth_devices.bloodsugar_devices.MeasureBloodsugarActivity"
+            android:name=".physicalexamination.activity.MonitorResultActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".bluetooth_devices.AllMeasureActivity"
+            android:name=".AllMeasureActivity"
+            android:label="所有测量界面的载体Activity"
             android:screenOrientation="landscape" />
-        <activity android:name=".health.firstdetect.HealthFirstDetectActivity"></activity>
+        <activity
+            android:name=".facerecognition.FaceRecognitionActivity"
+            android:label="人脸识别界面"
+            android:screenOrientation="landscape" />
+
+        <activity android:name=".health.firstdetect.HealthFirstDetectActivity">
+
+        </activity>
+
+        <activity
+            android:name=".TestCameraAndRegisterXF"
+            android:label="测试相机工具类和注册讯飞"
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.HOME" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name=".facerecognition.RegisterHead2XunfeiActivity"
+            android:label="新的头像注册界面"
+            android:screenOrientation="landscape"/>
+>>>>>>> 7eb0f9d15aaa998069725a5b2d44ada1500853f4
     </application>
 
 </manifest>

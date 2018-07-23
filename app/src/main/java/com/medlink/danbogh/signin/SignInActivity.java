@@ -1,5 +1,6 @@
 package com.medlink.danbogh.signin;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,28 +31,24 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
-import com.example.han.referralproject.facerecognition.CreateGroupListener;
+import com.example.han.referralproject.facerecognition.ICreateGroupListener;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
-import com.example.han.referralproject.facerecognition.HeadiconActivity;
-import com.example.han.referralproject.facerecognition.JoinGroupListener;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
+import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
+import com.example.han.referralproject.facerecognition.IJoinGroupListener;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.FileUtils;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
-import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,6 +61,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 public class SignInActivity extends BaseActivity {
 
@@ -80,11 +78,19 @@ public class SignInActivity extends BaseActivity {
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
     private Unbinder mUnbinder;
-
+    private Class<Activity> goBackActivity;
+    public static void startActivity(Context context,Class clazz,Class goback){
+        context.startActivity(new Intent(context,clazz)
+        .putExtra("WillGoBackActivity",goback));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        Intent intent = getIntent();
+        if (intent!=null){
+            goBackActivity = (Class<Activity>) intent.getSerializableExtra("WillGoBackActivity");
+        }
         mToolbar.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
         etPhone.addTextChangedListener(inputWatcher);
@@ -103,7 +109,6 @@ public class SignInActivity extends BaseActivity {
     private BroadcastReceiver wifiChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("网络强度发生变化", "onReceive: " );
             int level = obtainWifiInfo();
             if (level <= 0 && level >= -50) {
                 mRightView.setImageResource(R.drawable.dark_wifi_3);
@@ -205,10 +210,9 @@ public class SignInActivity extends BaseActivity {
     public void onTvSignInClicked() {
 
         if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())) {
-            MyApplication.getInstance().userId = "123456";
-            Intent mIntent = new Intent(mContext, AuthenticationActivity.class);
-            mIntent.putExtra("isTest", true);
-            startActivity(mIntent);
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isTest",true);
+            FaceRecognitionActivity.startActivity(mContext,FaceRecognitionActivity.class, bundle,false);
             finish();
             return;
         }
@@ -225,11 +229,16 @@ public class SignInActivity extends BaseActivity {
                 LocalShared.getInstance(mContext).setUserAge(response.age);
                 LocalShared.getInstance(mContext).setUserHeight(response.height);
                 hideLoadingDialog();
-                startActivity(new Intent(mContext, MainActivity.class));
+                if (goBackActivity!=null){
+                    startActivity(new Intent(mContext,goBackActivity));
+                }else{
+                    startActivity(new Intent(mContext, MainActivity.class));
+                }
                 finish();
-                Logger.e("本次登录人的userid"+response.bid);
+                Timber.e("本次登录人的userid"+response.bid);
             }
         }, new NetworkManager.FailedCallback() {
+
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
@@ -242,7 +251,7 @@ public class SignInActivity extends BaseActivity {
         //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
         String groupId = LocalShared.getInstance(mContext).getGroupId();
         String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
-        Logger.e("组id"+groupId);
+        Timber.e("组id"+groupId);
         if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
             Log.e("组信息", "checkGroup: 该机器组已近存在" );
             joinGroup(groupId,xfid);
@@ -252,7 +261,7 @@ public class SignInActivity extends BaseActivity {
     }
     private void joinGroup(String groupid, final String xfid) {
         FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
-        FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+        FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new IJoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
             }
@@ -264,7 +273,7 @@ public class SignInActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "添加成员出现异常");
+                Timber.e(error, "添加成员出现异常");
                 if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
                     createGroup(xfid);
                 }
@@ -275,7 +284,7 @@ public class SignInActivity extends BaseActivity {
 
     private void createGroup(final String xfid) {
         FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
-        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
+        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new ICreateGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
                 try {
@@ -299,8 +308,8 @@ public class SignInActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "创建组失败");
-//                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
+                Timber.e(error, "创建组失败");
+//                ToastUtils.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
             }
         });
     }
@@ -309,9 +318,11 @@ public class SignInActivity extends BaseActivity {
         //获取所有账号
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts == null) {
-            ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
+            ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
         }else {
-            startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
+            Bundle bundle=new Bundle();
+            bundle.putString("from","Welcome");
+            FaceRecognitionActivity.startActivity(this,FaceRecognitionActivity.class,bundle,false);
         }
 //        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
     }
