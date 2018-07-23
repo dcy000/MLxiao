@@ -56,6 +56,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.example.han.referralproject.require2.register.activtiy.InputFaceActivity.OVERHEAD_INFORMATION;
+
 /**
  * Created by lenovo on 2018/5/17.
  */
@@ -276,7 +278,24 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     }
 
     private void gotoTizhiJianCe() {
-        startActivity(new Intent(getActivity(), InputFaceActivity.class));
+        //大于65取头像==上传头像
+        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo response) {
+                if (response != null && response.age != null) {
+                    if (Integer.parseInt(response.age) >= 65) {
+                        startActivity(new Intent(getActivity(), InputFaceActivity.class).putExtra(OVERHEAD_INFORMATION, "zhongYiTiZhi"));
+                    }
+                }
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+            }
+        });
+
 
         startActivity(new Intent(getActivity(), OlderHealthManagementSerciveActivity.class));
     }

@@ -24,6 +24,7 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.olderhealthmanagement.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.require2.bean.GetUserXFInfoBean;
 import com.example.han.referralproject.require2.dialog.AffirmHeadDialog;
 import com.example.han.referralproject.util.LocalShared;
@@ -211,6 +212,10 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                 intent.putExtra("isDetect", true);
                 intent.putExtra("detectCategory", "detectSugar");
                 startActivity(intent);
+                break;
+            case "zhongYiTiZhi":
+                startActivity(new Intent(this, OlderHealthManagementSerciveActivity.class).
+                        putExtra("detectHeadIcon", url));
                 break;
         }
 
@@ -461,7 +466,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                             return;
                         }
                         hideLoadingDialog();
-                        initXFInfo(response.bid,faceData);
+                        initXFInfo(response.bid, faceData);
                         shared.setUserInfo(response);
                         LocalShared.getInstance(mContext).setSex(response.sex);
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
