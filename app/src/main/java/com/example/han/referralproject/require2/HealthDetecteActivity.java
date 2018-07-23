@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
@@ -136,7 +137,12 @@ public class HealthDetecteActivity extends BaseActivity {
                                     break;
                                 case R.id.im_pressure_fllow_up:
                                     //血压随访
-                                    JianKangJianCe("1");
+//                                    JianKangJianCe("1");
+                                    Intent intent=new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                                    intent.putExtra("type", "xueya");
+                                    intent.putExtra("isDetect", true);
+                                    intent.putExtra("detectCategory", "detectPressure");
+                                    startActivity(intent);
                                     break;
                                     //血糖随访
                                 case R.id.im_sugar_fllow_up:

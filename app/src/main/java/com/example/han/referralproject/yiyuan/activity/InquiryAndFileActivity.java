@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
@@ -22,10 +21,10 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.bean.PutXFInfoBean;
 import com.example.han.referralproject.require2.bean.UserEqIDXFInfoBean;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
-import com.example.han.referralproject.require2.register.activtiy.AddressActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
@@ -70,6 +69,7 @@ public class InquiryAndFileActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
+        ActivityHelper.finishAll();
         initXFInfo();
     }
 
@@ -255,7 +255,6 @@ public class InquiryAndFileActivity extends BaseActivity {
                 });
     }
 
-
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("问诊建档");
@@ -263,12 +262,12 @@ public class InquiryAndFileActivity extends BaseActivity {
         mLeftView.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.white_wifi_3);
-        mRightView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(InquiryAndFileActivity.this, WifiConnectActivity.class));
-            }
-        });
+//        mRightView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(InquiryAndFileActivity.this, WifiConnectActivity.class));
+//            }
+//        });
 
     }
 
