@@ -72,6 +72,8 @@ public class NetworkApi {
      * 测试
      */
 //    public static final String BasicUrl = "http://47.96.98.60:8070";
+
+    public static final String PASSWORD = "123456";
     //上传建档信息
     public static final String Upload_BuildRecord = BasicUrl + "/ZZB/api/health/inquiry/record/";
     //生活疗法
@@ -1337,7 +1339,7 @@ public class NetworkApi {
         paramsMap.put("dz", registerAddress);
         paramsMap.put("sfz", registerIdCardNumber);
         paramsMap.put("user_photo", user_photo);
-        paramsMap.put("pwd", "0101011");
+        paramsMap.put("pwd", PASSWORD);
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
     }
 

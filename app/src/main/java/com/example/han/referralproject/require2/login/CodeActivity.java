@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -17,11 +16,9 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
-import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
-import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +26,8 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.example.han.referralproject.network.NetworkApi.PASSWORD;
 
 public class CodeActivity extends BaseActivity {
 
@@ -110,7 +109,7 @@ public class CodeActivity extends BaseActivity {
     }
 
     private void login() {
-        NetworkApi.login(phoneNumber, "0101011", new NetworkManager.SuccessCallback<UserInfoBean>() {
+        NetworkApi.login(phoneNumber, PASSWORD, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
                 new JpushAliasUtils(CodeActivity.this).setAlias("user_" + response.bid);
