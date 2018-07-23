@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.dialog.WifiInputDialog;
-import com.example.han.referralproject.util.WiFiUtil;
+import com.gcml.lib_utils.network.WiFiUtil;
 
 import java.util.List;
 

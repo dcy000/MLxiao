@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.Logg;
@@ -153,7 +154,16 @@ public class ChooseBluetoothActivity extends AppCompatActivity implements View.O
                 searchDevice();
                 break;
             case R.id.stop_search:
-                BluetoothClientManager.getClient().stopSearch();
+//                BluetoothClientManager.getClient().stopSearch();
+//                DialogSure dialogSure=new DialogSure(this);
+//                dialogSure.setTitle("测试样式");
+//                dialogSure.setContent("测试这段话的样式，测试这段话的样式，测试这大段话的样式，测试这段话的样式");
+//                dialogSure.setSureListener(v1 -> dialogSure.dismiss());
+//                dialogSure.show();
+//                DialogSure builder = new DialogSure.Builder(this)
+//                        .setTitle("测试样式")
+//                        .setContent("测试这段话的样式，测试这段话的样式，测试这大段话的样式，测试这段话的样式")
+//                        .show();
                 break;
             case R.id.list:
                 break;

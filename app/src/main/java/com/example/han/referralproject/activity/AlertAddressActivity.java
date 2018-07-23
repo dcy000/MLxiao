@@ -1,7 +1,5 @@
 package com.example.han.referralproject.activity;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,13 +18,10 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.medlink.danbogh.register.SignUp4IdCardActivity;
 import com.medlink.danbogh.register.entity.City;
 import com.medlink.danbogh.register.entity.Province;
 import com.medlink.danbogh.utils.Handlers;
@@ -301,7 +296,7 @@ public class AlertAddressActivity extends BaseActivity {
                 TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), getAddress(), new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
-                        ToastTool.showShort("修改成功");
+                        ToastUtils.showShort("修改成功");
                         speak("主人，您的地址已经修改成功");
                     }
                 }, new NetworkManager.FailedCallback() {

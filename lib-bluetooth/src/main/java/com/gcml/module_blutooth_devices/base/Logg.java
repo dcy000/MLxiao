@@ -3,7 +3,7 @@ package com.gcml.module_blutooth_devices.base;
 import android.util.Log;
 
 public class Logg {
-    private static boolean debug=true;
+    private static boolean debug=false;
     public static void enableDebug(boolean enable){
         debug=enable;
     }

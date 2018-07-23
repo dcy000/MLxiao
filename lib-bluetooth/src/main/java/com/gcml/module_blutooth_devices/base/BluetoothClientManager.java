@@ -2,7 +2,7 @@ package com.gcml.module_blutooth_devices.base;
 
 import android.content.Context;
 
-import com.gcml.module_blutooth_devices.utils.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.inuker.bluetooth.library.BluetoothClient;
 
 /**
@@ -15,7 +15,6 @@ public class BluetoothClientManager {
 
     public static void init(Context context) {
         baseContext = context.getApplicationContext();
-        ToastTool.init(context);
     }
 
     public static BluetoothClient getClient() {

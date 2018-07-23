@@ -10,15 +10,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
+import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.ToastTool;
-import com.gcml.module_blutooth_devices.base.WeakHandler;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.sinocare.Impl.SC_BlueToothCallBack;
 import com.sinocare.Impl.SC_BlueToothSearchCallBack;
 import com.sinocare.Impl.SC_CurrentDataCallBack;
@@ -104,7 +105,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                         case IPresenter.DISCOVER_WITH_MAC:
                             Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onBlueToothSeaching: Mac");
                             if (TextUtils.isEmpty(discoverSetting.getTargetMac())) {
-                                ToastTool.showShort("请设置目标mac地址");
+                                ToastUtils.showShort("请设置目标mac地址");
                                 return;
                             }
                             if (blueToothInfo.getDevice().getAddress().equals(discoverSetting.getTargetMac())) {
@@ -118,7 +119,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                         case IPresenter.DISCOVER_WITH_NAME:
                             Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onBlueToothSeaching: Name");
                             if (TextUtils.isEmpty(discoverSetting.getTargetName())) {
-                                ToastTool.showShort("请设置目标蓝牙名称");
+                                ToastUtils.showShort("请设置目标蓝牙名称");
                                 return;
                             }
                             if (blueToothInfo.getName().equals(discoverSetting.getTargetName())) {
@@ -148,7 +149,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                     }
                     baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
                     baseView.updateData("0.00");
-                    SPUtil.put(baseContext, SPUtil.SP_SAVE_BLOODSUGAR, targetName + "," + lockedDevice.getAddress());
+                    SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, targetName + "," + lockedDevice.getAddress());
                 } else {
                     Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onConnectFeedBack: 设备连接失败");
                 }
@@ -201,7 +202,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
             final String action = intent.getAction();
             if (SN_MainHandler.ACTION_SN_CONNECTION_STATE_CHANGED.equals(action)) {
                 if (snMainHandler.isUnSupport()) {
-                    ToastTool.showShort("手机设备不支持低功耗蓝牙，无法连接血糖仪");
+                    ToastUtils.showShort("手机设备不支持低功耗蓝牙，无法连接血糖仪");
                 } else if (snMainHandler.isConnected()) {//
                 }
             } else if (SN_MainHandler.ACTION_SN_ERROR_STATE.equals(action)) {

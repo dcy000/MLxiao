@@ -3,15 +3,15 @@ package com.gcml.module_blutooth_devices.bloodpressure_devices;
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.ihealth.communication.control.Bp550BTControl;
 import com.ihealth.communication.manager.iHealthDevicesCallback;
 import com.ihealth.communication.manager.iHealthDevicesManager;
@@ -95,7 +95,7 @@ public class Bloodpressure_KN550_PresenterImp extends BaseBluetoothPresenter {
 
                 baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
                 baseView.updateData("0", "0", "0");
-                SPUtil.put(baseContext, SPUtil.SP_SAVE_BLOODPRESSURE, targetName + "," + mac);
+                SPUtil.put( Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, targetName + "," + mac);
             } else if (status == iHealthDevicesManager.DEVICE_STATE_CONNECTIONFAIL) {//连接失败
                 Logg.e(Bloodpressure_KN550_PresenterImp.class, "onDeviceConnectionStateChange: 连接失败");
             } else if (status == iHealthDevicesManager.DEVICE_STATE_DISCONNECTED) {//连接断开

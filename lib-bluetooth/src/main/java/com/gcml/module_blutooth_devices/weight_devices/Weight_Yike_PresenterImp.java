@@ -4,13 +4,13 @@ import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.shhc.bluetoothle.yike.BleStateListener;
 import com.shhc.bluetoothle.yike.YKScalesManager;
 
@@ -92,7 +92,7 @@ public class Weight_Yike_PresenterImp extends BaseBluetoothPresenter {
             Logg.e(Weight_Yike_PresenterImp.class, "BleConnectSuccess: ");
             baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
             baseView.updateData("0.00");
-            SPUtil.put(baseContext,SPUtil.SP_SAVE_WEIGHT,bluetoothDevice.getName()+","+bluetoothDevice.getAddress());
+            SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT,bluetoothDevice.getName()+","+bluetoothDevice.getAddress());
         }
 
         @Override

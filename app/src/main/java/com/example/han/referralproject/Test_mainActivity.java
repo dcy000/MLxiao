@@ -7,10 +7,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
-import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
-import com.example.han.referralproject.util.ToastTool;
-import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 
 import java.util.Calendar;
@@ -130,7 +126,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 //                    startActivity(intent);
 //                    break;
 //                case R.id.ll_more://敬请期待
-//                    ToastTool.showShort("敬请期待");
+//                    ToastUtils.showShort("敬请期待");
 //                    break;
 //            }
             intent.setClass(this, AllMeasureActivity.class);

@@ -3,8 +3,8 @@ package com.gcml.module_blutooth_devices.bloodpressure_devices;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -12,7 +12,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.search.SearchResult;
@@ -56,7 +56,7 @@ public class Bloodpressure_Chaosi_PresenterImp extends BaseBluetoothPresenter {
         Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "connectSuccessed: ；连接成功");
         baseView.updateState(baseView.getThisContext().getString(R.string.bluetooth_device_connected));
         baseView.updateData("0", "0", "0");
-        SPUtil.put(baseContext, SPUtil.SP_SAVE_BLOODPRESSURE, targetName +","+ address);
+        SPUtil.put( Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, targetName +","+ address);
         if (!isReturn) {
             //第一通道
             BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid), UUID.fromString(passwordVerifiersNotify1UUid), new BleNotifyResponse() {

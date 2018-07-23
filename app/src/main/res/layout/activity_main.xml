@@ -98,20 +98,6 @@
         android:clickable="true"
         android:src="@drawable/ic_shop_normal" />
 
-    <RelativeLayout
-        android:id="@+id/ll_anim"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FAE2CA"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/iv_anim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:src="@drawable/conversation_bg" />
-    </RelativeLayout>
 
 
 </RelativeLayout>

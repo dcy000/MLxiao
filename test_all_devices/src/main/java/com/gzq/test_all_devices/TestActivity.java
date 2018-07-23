@@ -20,6 +20,7 @@ public class TestActivity extends AppCompatActivity implements IView {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, ecg_fragment).commit();
         new Bloodpressure_Self_PresenterImp(this,
                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_NAME,"eBlood-Pressure"));
+
     }
 
     @Override

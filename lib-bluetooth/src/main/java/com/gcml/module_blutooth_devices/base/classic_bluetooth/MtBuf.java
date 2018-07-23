@@ -1,10 +1,11 @@
 package com.gcml.module_blutooth_devices.base.classic_bluetooth;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.contec.cms50dj_jar.DeviceCommand;
 import com.contec.cms50dj_jar.DevicePackManager;
-import com.gcml.module_blutooth_devices.utils.ThreadPoolTool;
+import com.gcml.lib_utils.thread.ThreadUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class MtBuf {
     private static final String TAG = "com.testBlueTooth.Mtbuf";
     private DevicePackManager m_DevicePackManager;
-    private ThreadPoolTool threadPoolTool;
     private IBluetoothDataCallback iBluetoothDataCallback;
 
     public DevicePackManager getDevicePackManager() {
@@ -24,33 +24,47 @@ public class MtBuf {
     public MtBuf(IBluetoothDataCallback iBluetoothDataCallback) {
         this.iBluetoothDataCallback = iBluetoothDataCallback;
         m_DevicePackManager = new DevicePackManager();
-        threadPoolTool = new ThreadPoolTool(ThreadPoolTool.Type.FixedThread, 3);
     }
 
     public synchronized void write(byte[] buf, int count, final OutputStream pOutputStream) {
         int _receiveNum = m_DevicePackManager.arrangeMessage(buf, count);
         switch (_receiveNum) {
             case 1:// 得到设备号 发送校时命令
-                threadPoolTool.schedule(new Runnable() {
+                ThreadUtils.executeByIoWithDelay(new ThreadUtils.SimpleTask<Void>() {
+                    @Nullable
                     @Override
-                    public void run() {
+                    public Void doInBackground() throws Throwable {
                         try {
                             pOutputStream.write(DeviceCommand.correctionDateTime());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        return null;
+                    }
+
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+
                     }
                 }, 500, TimeUnit.MILLISECONDS);
                 break;
             case 2:// 对时成功
-                threadPoolTool.schedule(new Runnable() {
+                ThreadUtils.executeByIoWithDelay(new ThreadUtils.SimpleTask<Void>() {
+                    @Nullable
                     @Override
-                    public void run() {
+                    public Void doInBackground() throws Throwable {
                         try {
-                            pOutputStream.write(DeviceCommand.setPedometerInfo("175", "75", 0, 24, 10000, 1, 0));
+                            pOutputStream.write(DeviceCommand.setPedometerInfo("175", "75",
+                                    0, 24, 10000, 1, 0));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        return null;
+                    }
+
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+
                     }
                 }, 500, TimeUnit.MILLISECONDS);
                 break;
@@ -122,21 +136,29 @@ public class MtBuf {
 
                 break;
             case 8:// 8:设置计步器 成功
-                threadPoolTool.schedule(new Runnable() {
+                ThreadUtils.executeByIoWithDelay(new ThreadUtils.SimpleTask<Void>() {
+                    @Nullable
                     @Override
-                    public void run() {
+                    public Void doInBackground() throws Throwable {
                         try {
                             pOutputStream.write(DeviceCommand.getDataFromDevice());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        return null;
+                    }
+
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+
                     }
                 }, 500, TimeUnit.MILLISECONDS);
                 break;
             case 9:// 9: 设置计步器失败
-                threadPoolTool.schedule(new Runnable() {
+                ThreadUtils.executeByIoWithDelay(new ThreadUtils.SimpleTask<Void>() {
+                    @Nullable
                     @Override
-                    public void run() {
+                    public Void doInBackground() throws Throwable {
                         try {
                             Thread.sleep(500);
                             pOutputStream.write(DeviceCommand.getDataFromDevice());
@@ -144,8 +166,14 @@ public class MtBuf {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        return null;
                     }
-                }, 500, TimeUnit.MILLISECONDS);
+
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+
+                    }
+                },500,TimeUnit.MILLISECONDS);
                 break;
             case 10:// 以天为单位 计步器数据 一包上传完成
 //			new Thread() {
@@ -266,7 +294,7 @@ public class MtBuf {
             case 20:// 请求下一包血氧数据
                 byte[] bytes = m_DevicePackManager.getDeviceData50dj().getmSpoData();
                 iBluetoothDataCallback.call(bytes[6] + "", bytes[7] + "", "year:" + bytes[0] + " month:" + bytes[1] + "  day:" + bytes[2] + " hour:" + bytes[3] + "  min:" + bytes[4] + "  second:" + bytes[5]);
-                Log.e(TAG, "write: 全部血氧脉搏数据接收完毕" );
+                Log.e(TAG, "write: 全部血氧脉搏数据接收完毕");
 //			new Thread() {
 //				public void run() {
 //					try {

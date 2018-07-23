@@ -8,16 +8,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.display.ImageUtils;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BaseFragment;
-import com.gcml.module_blutooth_devices.utils.BitmapAndStringUtils;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
-import com.gcml.module_blutooth_devices.utils.ToastTool;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
 
 public class Fingerpint_Fragment extends BaseFragment implements IView, View.OnClickListener {
 
@@ -65,7 +66,7 @@ public class Fingerpint_Fragment extends BaseFragment implements IView, View.OnC
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
         } else {
-            String sp_bloodoxygen = (String) SPUtil.get(getContext(), SPUtil.SP_SAVE_FINGERPRINT, "");
+            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT, "");
             if (TextUtils.isEmpty(sp_bloodoxygen)) {
                 helper = new SearchWithDeviceGroupHelper(this, IPresenter.CONTROL_FINGERPRINT);
                 helper.start();
@@ -88,7 +89,7 @@ public class Fingerpint_Fragment extends BaseFragment implements IView, View.OnC
         } else {
             switch (brand) {
                 case "zjwellcom":
-                    baseBluetoothPresenter = new Fingerprint_JingChi_PresenterImp(this,
+                    baseBluetoothPresenter = new Fingerprint_WeiEr_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"));
                     break;
             }
@@ -104,7 +105,7 @@ public class Fingerpint_Fragment extends BaseFragment implements IView, View.OnC
             } else if (data.equals("validate")) {
                 mValidateFeature.setText(datas[1]);
             } else if (data.equals("image")) {
-                mFingerprintImage.setImageBitmap(BitmapAndStringUtils.convertStringToIcon(datas[1]));
+                mFingerprintImage.setImageBitmap(ImageUtils.convertStringToIcon(datas[1]));
             }
         }
     }
@@ -126,7 +127,7 @@ public class Fingerpint_Fragment extends BaseFragment implements IView, View.OnC
             baseBluetoothPresenter.collectFingers();
         } else if (i == R.id.validate_fingerprint) {
             if (TextUtils.isEmpty(mInputFeature.getText())) {
-                ToastTool.showShort("请先录入指纹");
+                ToastUtils.showShort("请先录入指纹");
                 return;
             }
             baseBluetoothPresenter.validateFinger();

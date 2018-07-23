@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BaseFragment;
@@ -14,9 +16,10 @@ import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
-import com.gcml.module_blutooth_devices.utils.ToastTool;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+
+import timber.log.Timber;
 
 
 public class Temperature_Fragment extends BaseFragment implements IView, View.OnClickListener {
@@ -50,7 +53,7 @@ public class Temperature_Fragment extends BaseFragment implements IView, View.On
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
         } else {
-            String sp_bloodoxygen = (String) SPUtil.get(getContext(), SPUtil.SP_SAVE_TEMPERATURE, "");
+            String sp_bloodoxygen = (String) SPUtil.get( Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE, "");
             if (TextUtils.isEmpty(sp_bloodoxygen)) {
                 helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_TEMPERATURE);
                 helper.start();
@@ -109,6 +112,7 @@ public class Temperature_Fragment extends BaseFragment implements IView, View.On
 
     @Override
     public void updateData(String... datas) {
+        Timber.e(datas[0]);
         if (datas.length == 1) {
             mTvResult.setText(datas[0]);
         }
@@ -116,7 +120,7 @@ public class Temperature_Fragment extends BaseFragment implements IView, View.On
 
     @Override
     public void updateState(String state) {
-        ToastTool.showShort(state);
+        ToastUtils.showShort(state);
 //        ((AllMeasureActivity) getActivity()).speak(state);
         if (dealVoiceAndJump != null) {
             dealVoiceAndJump.updateVoice(state);

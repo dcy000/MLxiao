@@ -17,7 +17,7 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_GlucWell_P
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Sannuo_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_BoSheng_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Chaosi_PresenterImp;
-import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_JingChi_PresenterImp;
+import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_WeiEr_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Ailikang_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fudakang_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Meidilian_PresenterImp;
@@ -220,7 +220,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             case IPresenter.CONTROL_FINGERPRINT:
                 switch (brand) {
                     case "zjwellcom":
-                        baseBluetoothPresenter = new Fingerprint_JingChi_PresenterImp(view,
+                        baseBluetoothPresenter = new Fingerprint_WeiEr_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"));
                         break;
                 }

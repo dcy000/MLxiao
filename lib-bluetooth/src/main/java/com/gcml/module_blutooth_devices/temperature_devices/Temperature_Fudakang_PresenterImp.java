@@ -3,6 +3,7 @@ package com.gcml.module_blutooth_devices.temperature_devices;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
@@ -10,13 +11,12 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.search.SearchResult;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 /**
  * 福达康耳温枪
@@ -44,7 +44,7 @@ public class Temperature_Fudakang_PresenterImp extends BaseBluetoothPresenter {
         Logg.e(Temperature_Fudakang_PresenterImp.class, "福达康连接成功");
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
         baseView.updateData("0.00");
-        SPUtil.put(baseContext,SPUtil.SP_SAVE_TEMPERATURE,targetName+","+address);
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE,targetName+","+address);
         if (!isReturn) {
             BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid), UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {
                 @Override

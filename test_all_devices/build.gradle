@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    buildToolsVersion gradle.buildToolsVersion
-    compileSdkVersion gradle.compileSdkVersion
-
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
         applicationId "com.gzq.test_all_devices"
-        minSdkVersion gradle.minSdkVersion
-        targetSdkVersion gradle.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -28,6 +27,10 @@ android {
 
         }
     }
+    compileOptions{
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 repositories {
     flatDir {
@@ -36,14 +39,17 @@ repositories {
 
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile(project(':lib-bluetooth')) {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api(project(':lib-bluetooth')) {
         exclude group: "com.android.support"
     }
-    compile('com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30') {
+    api('com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30') {
         exclude group: 'com.android.support'
     }
     //noinspection GradleCompatible
-    compile "com.android.support:design:${gradle.supportVersion}"
-    compile project(':lib-video')
+    api rootProject.ext.dependencies["design"]
+    api project(':lib-video')
+    //悬浮窗
+    api 'com.github.yhaolpz:FloatWindow:1.0.9'
+    implementation project(':module-control_volume')
 }

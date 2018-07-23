@@ -24,7 +24,7 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Build;
 import android.util.Log;
 
-import com.gcml.module_blutooth_devices.base.WeakHandler;
+import com.gcml.lib_utils.handler.WeakHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -248,6 +248,7 @@ public class ClassicBluetoothService {
         private final BluetoothSocket mmSocket;
         private final BluetoothDevice mmDevice;
 
+        @SuppressLint("MissingPermission")
         public ConnectThread(BluetoothDevice device) {
             mmDevice = device;
             BluetoothSocket tmp = null;
@@ -260,6 +261,7 @@ public class ClassicBluetoothService {
             mmSocket = tmp;
         }
 
+        @SuppressLint("MissingPermission")
         @Override
         public void run() {
             for (int i = 0; i < 10; i++)

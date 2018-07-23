@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.util.WiFiUtil;
+import com.gcml.lib_utils.network.WiFiUtil;
 
 public class WifiInputDialog extends Dialog implements View.OnClickListener{
     private ScanResult mDataResult;

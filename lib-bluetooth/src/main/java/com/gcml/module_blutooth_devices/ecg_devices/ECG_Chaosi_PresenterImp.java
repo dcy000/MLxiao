@@ -5,6 +5,8 @@ import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -12,8 +14,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.base.WeakHandler;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
@@ -66,7 +67,7 @@ public class ECG_Chaosi_PresenterImp extends BaseBluetoothPresenter {
     protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails, boolean is) {
         Logg.e(ECG_Chaosi_PresenterImp.class, "连接成功");
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        SPUtil.put(baseContext,SPUtil.SP_SAVE_ECG,targetName+","+address);
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_ECG,targetName+","+address);
         realtimeDatas = new ArrayList<>();
         pointDatas = new ArrayList<>();
         //7个通道必须依次打开 否则没有数据返回

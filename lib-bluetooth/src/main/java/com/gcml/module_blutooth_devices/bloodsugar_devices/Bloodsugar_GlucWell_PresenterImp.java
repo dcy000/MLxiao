@@ -3,13 +3,14 @@ package com.gcml.module_blutooth_devices.bloodsugar_devices;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.search.SearchResult;
 import com.vivachek.ble.sdk.outer.BleManager;
 import com.vivachek.ble.sdk.outer.constant.BleActionType;
@@ -85,7 +86,7 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
             case BleConnectState.CONNECT_SUCCESS:// 蓝牙连接设备成功
                 baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
                 baseView.updateData("0.00");
-                SPUtil.put(baseContext, SPUtil.SP_SAVE_BLOODSUGAR, targetName + "," + targetAddress);
+                SPUtil.put( Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, targetName + "," + targetAddress);
                 BleManager.getInstance().sendGetSnCommond();
                 break;
 

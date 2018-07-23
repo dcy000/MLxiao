@@ -1,6 +1,8 @@
 package com.gcml.module_blutooth_devices.weight_devices;
 
 import android.app.Activity;
+
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -8,7 +10,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.utils.ByteUtils;
@@ -42,7 +44,7 @@ public class Weight_Chaosi_PresenterImp extends BaseBluetoothPresenter {
         targetServiceUUid = "ba11f08c-5f14-0b0d-1070-00" + address.toLowerCase().replace(":", "").substring(2);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
         baseView.updateData("0.00");
-        SPUtil.put(baseContext,SPUtil.SP_SAVE_WEIGHT,targetName+","+address);
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT,targetName+","+address);
         if (!isReturn) {
             //第一通道监听
             BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid), UUID.fromString(passwordVerifiersNotify1UUid), new BleNotifyResponse() {

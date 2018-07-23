@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-    //        public static final String BasicUrl = "http://116.62.36.12:8080";//备用服务器
+//            public static final String BasicUrl = "http://116.62.36.12:8080";//备用服务器
 //    public static final String BasicUrl = "http://118.31.238.207:8080";//正式服务器
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地

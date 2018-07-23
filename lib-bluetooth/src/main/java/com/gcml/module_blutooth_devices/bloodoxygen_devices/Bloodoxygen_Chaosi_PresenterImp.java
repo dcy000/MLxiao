@@ -3,6 +3,7 @@ package com.gcml.module_blutooth_devices.bloodoxygen_devices;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
@@ -10,7 +11,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.search.SearchResult;
@@ -40,19 +41,12 @@ public class Bloodoxygen_Chaosi_PresenterImp extends BaseBluetoothPresenter {
     }
 
     @Override
-    protected boolean discoveredTargetDevice(SearchResult device) {
-        super.discoveredTargetDevice(device);
-        Logg.e(Bloodoxygen_Chaosi_PresenterImp.class, "discoveredTargetDevice: 发现设备");
-        return false;
-    }
-
-    @Override
     protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturn) {
         super.connectSuccessed(address, serviceDetails, isReturn);
         targetServiceUUid = "ba11f08c-5f14-0b0d-1080-00" + address.toLowerCase().replace(":", "").substring(2);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
         baseView.updateData("0", "0");
-        SPUtil.put(baseContext, SPUtil.SP_SAVE_BLOODOXYGEN, targetName +","+ address);
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, targetName +","+ address);
 
         if (!isReturn) {
             //第一通道监听

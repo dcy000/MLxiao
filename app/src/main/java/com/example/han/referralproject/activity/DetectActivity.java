@@ -28,7 +28,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -54,12 +53,11 @@ import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragm
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.XueyaUtils;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -326,10 +324,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                         });
                     } else {
-                        ToastTool.showShort(message);
+                        ToastUtils.showShort(message);
                     }
                 } else {
-                    ToastTool.showShort("网络异常");
+                    ToastUtils.showShort("网络异常");
                     if (fragment != null) {
                         removeFragment(fragment);
                     }
@@ -412,10 +410,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         });
 
                     } else {
-                        ToastTool.showShort(message);
+                        ToastUtils.showShort(message);
                     }
                 } else {
-                    ToastTool.showShort("网络异常");
+                    ToastUtils.showShort("网络异常");
                     if (fragment != null) {
                         removeFragment(fragment);
                     }

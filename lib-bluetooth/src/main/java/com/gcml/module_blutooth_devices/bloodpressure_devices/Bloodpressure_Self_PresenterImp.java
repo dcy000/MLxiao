@@ -3,6 +3,7 @@ package com.gcml.module_blutooth_devices.bloodpressure_devices;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
@@ -10,7 +11,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.search.SearchResult;
 
@@ -43,7 +44,7 @@ public class Bloodpressure_Self_PresenterImp extends BaseBluetoothPresenter {
         super.connectSuccessed(address, serviceDetails, isReturn);
         baseView.updateState(baseView.getThisContext().getString(R.string.bluetooth_device_connected));
         baseView.updateData("0", "0", "0");
-        SPUtil.put(baseContext, SPUtil.SP_SAVE_BLOODPRESSURE, targetName + "," + address);
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, targetName + "," + address);
         if (!isReturn) {
             BluetoothClientManager.getClient().notify(address,
                     UUID.fromString(targetServiceUUid),

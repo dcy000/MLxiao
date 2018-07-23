@@ -25,13 +25,13 @@ public class ReceiverGroupManager {
 
     private static ReceiverGroupManager i;
 
-    private ReceiverGroupManager(){
+    private ReceiverGroupManager() {
     }
 
-    public static ReceiverGroupManager get(){
-        if(null==i){
-            synchronized (ReceiverGroupManager.class){
-                if(null==i){
+    public static ReceiverGroupManager get() {
+        if (null == i) {
+            synchronized (ReceiverGroupManager.class) {
+                if (null == i) {
                     i = new ReceiverGroupManager();
                 }
             }
@@ -39,11 +39,11 @@ public class ReceiverGroupManager {
         return i;
     }
 
-    public ReceiverGroup getLittleReceiverGroup(Context context){
+    public ReceiverGroup getLittleReceiverGroup(Context context) {
         return getLiteReceiverGroup(context, null);
     }
 
-    public ReceiverGroup getLittleReceiverGroup(Context context, GroupValue groupValue){
+    public ReceiverGroup getLittleReceiverGroup(Context context, GroupValue groupValue) {
         ReceiverGroup receiverGroup = new ReceiverGroup(groupValue);
         receiverGroup.addReceiver(KEY_LOADING_COVER, new LoadingCover(context));
         receiverGroup.addReceiver(KEY_COMPLETE_COVER, new CompleteCover(context));
@@ -51,11 +51,11 @@ public class ReceiverGroupManager {
         return receiverGroup;
     }
 
-    public ReceiverGroup getLiteReceiverGroup(Context context){
+    public ReceiverGroup getLiteReceiverGroup(Context context) {
         return getLiteReceiverGroup(context, null);
     }
 
-    public ReceiverGroup getLiteReceiverGroup(Context context, GroupValue groupValue){
+    public ReceiverGroup getLiteReceiverGroup(Context context, GroupValue groupValue) {
         ReceiverGroup receiverGroup = new ReceiverGroup(groupValue);
         receiverGroup.addReceiver(KEY_LOADING_COVER, new LoadingCover(context));
         receiverGroup.addReceiver(KEY_CONTROLLER_COVER, new ControllerCover(context));
@@ -64,11 +64,11 @@ public class ReceiverGroupManager {
         return receiverGroup;
     }
 
-    public ReceiverGroup getReceiverGroup(Context context){
+    public ReceiverGroup getReceiverGroup(Context context) {
         return getReceiverGroup(context, null);
     }
 
-    public ReceiverGroup getReceiverGroup(Context context, GroupValue groupValue){
+    public ReceiverGroup getReceiverGroup(Context context, GroupValue groupValue) {
         ReceiverGroup receiverGroup = new ReceiverGroup(groupValue);
         receiverGroup.addReceiver(KEY_LOADING_COVER, new LoadingCover(context));
         receiverGroup.addReceiver(KEY_CONTROLLER_COVER, new ControllerCover(context));

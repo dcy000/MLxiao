@@ -11,7 +11,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,7 +26,7 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.util.WiFiUtil;
+import com.gcml.lib_utils.network.WiFiUtil;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;

@@ -6,10 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
+import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 
-import senssun.blelib.model.Sleep;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

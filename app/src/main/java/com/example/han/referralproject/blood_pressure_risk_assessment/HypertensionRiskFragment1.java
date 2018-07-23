@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.HypertensionDetection;
 import com.example.han.referralproject.bean.QuestionChoosed;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +85,7 @@ public class HypertensionRiskFragment1 extends Fragment implements View.OnClickL
             case R.id.tv_next:
                 for (QuestionChoosed question:mData){
                     if (question.isChoosed()==-1){
-                        ToastTool.showShort("主人，您还有未回答的题目");
+                        ToastUtils.showShort("主人，您还有未回答的题目");
                         ((HypertensionRiskActivity) getActivity()).speak("主人，您还有未回答的题目");
                         return;
                     }

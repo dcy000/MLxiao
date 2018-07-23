@@ -1,23 +1,19 @@
 package com.gcml.module_blutooth_devices.weight_devices;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import senssun.blelib.device.scale.cloudblelib.BleCloudProtocolUtils;
 import senssun.blelib.model.BleDevice;
@@ -61,7 +57,7 @@ public class Weight_Xiangshan_EF895i_PresenterImp extends BaseBluetoothPresenter
                     Logg.e(Weight_Xiangshan_EF895i_PresenterImp.class, "OnState: 连接成功");
                     baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
                     baseView.updateData("0.00");
-                    SPUtil.put(baseContext, SPUtil.SP_SAVE_WEIGHT, targetName + "," + targetAddress);
+                    SPUtil.put( Bluetooth_Constants.SP.SP_SAVE_WEIGHT, targetName + "," + targetAddress);
                 } else {
                     if (!isDestroy) {
                         connectDevice(targetAddress);

@@ -10,18 +10,19 @@ import android.content.IntentFilter;
 import android.text.TextUtils;
 
 import com.contec.cms50dj_jar.DeviceCommand;
+import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.utils.ToastTool;
-import com.gcml.module_blutooth_devices.base.WeakHandler;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.base.classic_bluetooth.ClassicBluetoothService;
 import com.gcml.module_blutooth_devices.base.classic_bluetooth.IBluetoothDataCallback;
 import com.gcml.module_blutooth_devices.base.classic_bluetooth.IClassicBluetoothCallBack;
 import com.gcml.module_blutooth_devices.base.classic_bluetooth.MtBuf;
-import com.gcml.module_blutooth_devices.utils.SPUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -88,9 +89,9 @@ public class Bloodoxygen_Kangtai_PresenterImp extends BaseBluetoothPresenter {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-                ToastTool.showShort("开始搜索 ...");
+                ToastUtils.showShort("开始搜索 ...");
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                ToastTool.showShort("搜索结束");
+                ToastUtils.showShort("搜索结束");
             } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 Logg.e(Bloodoxygen_Kangtai_PresenterImp.class, device.getAddress() + "--------------" + device.getName());
@@ -144,7 +145,7 @@ public class Bloodoxygen_Kangtai_PresenterImp extends BaseBluetoothPresenter {
                 case STATE_CONNECTED:
                     Logg.e(Bloodoxygen_Kangtai_PresenterImp.class, "call: STATE_CONNECTED");
                     baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-                    SPUtil.put(baseContext, SPUtil.SP_SAVE_BLOODOXYGEN, targetDevice.getName() + "," + targetDevice.getAddress());
+                    SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, targetDevice.getName() + "," + targetDevice.getAddress());
                     break;
                 case STATE_CONNECT_FAIL:
                     Logg.e(Bloodoxygen_Kangtai_PresenterImp.class, "call: STATE_CONNECT_FAIL");
