@@ -113,9 +113,9 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     public static void startActivity(Context context, Class clazz, Bundle bundle, boolean isForResult) {
         if (isForResult && bundle != null) {
             int requestCode = bundle.getInt("requestCode", 1);
-            ((FragmentActivity) context).startActivityForResult(new Intent(context, clazz), requestCode);
+            ((FragmentActivity) context).startActivityForResult(new Intent(context, clazz).putExtras(bundle), requestCode);
         } else
-            context.startActivity(new Intent(context, clazz).putExtra("params", bundle));
+            context.startActivity(new Intent(context, clazz).putExtras(bundle));
     }
 
     private static class MyHandle extends Handler {
@@ -723,7 +723,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     private void initView() {
         Intent intent = getIntent();
         if (intent != null) {
-            Bundle params = intent.getBundleExtra("params");
+            Bundle params = intent.getExtras();
             if (params != null) {
                 fromString = params.getString("from");
                 isTest = params.getBoolean("isTest", false);
@@ -731,11 +731,6 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
                 fromType = params.getString("fromType");
             }
         }
-        isTest = intent.getBooleanExtra("isTest", false);
-        orderid = intent.getStringExtra("orderid");
-        fromString = intent.getStringExtra("from");
-        fromType = intent.getStringExtra("fromType");
-
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
         groupid = LocalShared.getInstance(this).getGroupId();
         currentXfid = LocalShared.getInstance(this).getXunfeiId();
@@ -806,7 +801,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         isOnPause = false;
-        setDisableGlobalListen(false);
+        setDisableGlobalListen(true);
         setEnableListeningLoop(false);
     }
 
