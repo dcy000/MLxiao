@@ -33,6 +33,7 @@ import android.widget.TextView;
 import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.facerecognition.HeadiconActivity;
@@ -150,6 +151,7 @@ public class BaseActivity extends AppCompatActivity {
         needIgnoreCheckUseridActivities.add(RegisterHead2XunfeiActivity.class);
         needIgnoreCheckUseridActivities.add(RegisterVideoActivity.class);
         needIgnoreCheckUseridActivities.add(HeadiconActivity.class);
+        needIgnoreCheckUseridActivities.add(Test_mainActivity.class);
     }
 
     public void setEnableListeningLoop(boolean enable) {

@@ -212,6 +212,7 @@ public class SignInActivity extends BaseActivity {
         if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())) {
             Bundle bundle = new Bundle();
             bundle.putBoolean("isTest",true);
+            MyApplication.getInstance().userId = "123456";
             FaceRecognitionActivity.startActivity(mContext,FaceRecognitionActivity.class, bundle,false);
             finish();
             return;

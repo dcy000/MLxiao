@@ -60,7 +60,7 @@ public class TestCameraAndRegisterXF extends BaseActivity implements View.OnClic
             }
 
             @Override
-            public void previewSuccess(byte[] datas, Bitmap preBitmap, Bitmap cropBitmap, int prewidth, int preheight, int cropwidth, int cropheight) {
+            public void previewSuccess(byte[] datas, Bitmap preBitmap, final Bitmap cropBitmap, int prewidth, int preheight, int cropwidth, int cropheight) {
                 cacheImage = ImageUtils.bitmap2Bytes(cropBitmap, Bitmap.CompressFormat.JPEG);
 //                cacheImage = datas;
                 LoadingProgressUtils.dismissView();

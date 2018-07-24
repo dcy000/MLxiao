@@ -113,9 +113,9 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     public static void startActivity(Context context, Class clazz, Bundle bundle, boolean isForResult) {
         if (isForResult && bundle != null) {
             int requestCode = bundle.getInt("requestCode", 1);
-            ((FragmentActivity) context).startActivityForResult(new Intent(context, clazz), requestCode);
+            ((FragmentActivity) context).startActivityForResult(new Intent(context, clazz).putExtras(bundle), requestCode);
         } else
-            context.startActivity(new Intent(context, clazz).putExtra("params", bundle));
+            context.startActivity(new Intent(context, clazz).putExtras(bundle));
     }
 
     private static class MyHandle extends Handler {
@@ -485,7 +485,12 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void run() {
-            mCamera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+            try {
+                mCamera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+            } catch (Exception e) {
+                e.printStackTrace();
+                mCamera = null;
+            }
             if (mCamera == null) {
                 handler.sendEmptyMessage(OPEN_CAMERA_ERROR);
                 return;
@@ -565,7 +570,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onAnimationEnd(Animator animation) {
-            if (handler != null)
+            if (handler != null && mCamera != null)
                 handler.sendEmptyMessage(GET_PREVIEW_IMG);
         }
 
@@ -723,18 +728,11 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     private void initView() {
         Intent intent = getIntent();
         if (intent != null) {
-            Bundle params = intent.getBundleExtra("params");
-            if (params != null) {
-                fromString = params.getString("from");
-                isTest = params.getBoolean("isTest", false);
-                orderid = params.getString("orderid");
-                fromType = params.getString("fromType");
-            }
+            isTest = intent.getBooleanExtra("isTest", false);
+            orderid = intent.getStringExtra("orderid");
+            fromString = intent.getStringExtra("from");
+            fromType = intent.getStringExtra("fromType");
         }
-        isTest = intent.getBooleanExtra("isTest", false);
-        orderid = intent.getStringExtra("orderid");
-        fromString = intent.getStringExtra("from");
-        fromType = intent.getStringExtra("fromType");
 
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
         groupid = LocalShared.getInstance(this).getGroupId();

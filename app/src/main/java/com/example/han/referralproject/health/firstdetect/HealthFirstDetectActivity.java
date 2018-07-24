@@ -11,6 +11,5 @@ public class HealthFirstDetectActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_activity_first_detect);
-        
     }
 }

@@ -106,6 +106,7 @@ ext {
             "lifecyclemodel"            : "me.jessyan:lifecyclemodel:1.0.1",
             "BaseRecyclerViewAdapterHelper" : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30",
             "MPAndroidChart"            : "com.github.PhilJay:MPAndroidChart:v3.0.2",
+            "lombok"                    : "org.projectlombok:lombok:1.18.0",
 
             //test
             "junit"                     : "junit:junit:4.12",
