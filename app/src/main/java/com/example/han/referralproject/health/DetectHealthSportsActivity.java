@@ -64,7 +64,7 @@ public class DetectHealthSportsActivity extends BaseActivity {
                 Intent intent = new Intent(DetectHealthSportsActivity.this, cls);
                 intent.putExtras(getIntent());
                 intent.putExtra("times",  times.get(timeSelected % times.size()));
-                intent.putExtra("minutes",  minutes.get(minutesSelected % times.size()));
+                intent.putExtra("minutes",  minutes.get(minutesSelected % minutes.size()));
                 startActivity(intent);
                 finish();
             }
