@@ -6,4 +6,11 @@
 
     <color name="toolbar_pressed">#33000000</color>
     <!--<color name="toolbar_normal">#00000000</color>-->
+    <!--导航栏的背景颜色-->
+    <color name="toolbar_bg">#3F86FC</color>
+    <!--主推背景色-->
+    <color name="main_bg">#f5f5f5</color>
+    <color name="white">@android:color/white</color>
+    <color name="gray">#bbbbbb</color>
+    <color name="line">#eeeeee</color>
 </resources>
