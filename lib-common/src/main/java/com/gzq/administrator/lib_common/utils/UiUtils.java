@@ -7,7 +7,7 @@ import android.graphics.Point;
 import android.view.WindowManager;
 
 /**
- * Created by lenovo on 2017/10/19.
+ * Created by zqs on 2017/10/19.
  */
 
 public class UiUtils {

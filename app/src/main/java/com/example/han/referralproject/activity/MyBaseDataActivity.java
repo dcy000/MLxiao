@@ -3,30 +3,21 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -142,7 +133,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
             }
         });
     }

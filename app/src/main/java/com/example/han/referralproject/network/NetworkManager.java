@@ -233,13 +233,13 @@ public class NetworkManager {
 //    private Callback responseCallback = new Callback() {
 //        @Override
 //        public void onFailure(Call call, IOException e) {
-//            Log.i("mylog", "failed : " + e.getMessage());
+//            Logg.i("mylog", "failed : " + e.getMessage());
 ////            Toast.makeText(CustomApplication.getInstance(), "failed : " + e.getMessage(), Toast.LENGTH_SHORT).show();
 //        }
 //
 //        @Override
 //        public void onResponse(Call call, Response response) throws IOException {
-//            Log.i("mylog", "success : " + response.body().string());
+//            Logg.i("mylog", "success : " + response.body().string());
 ////            Toast.makeText(CustomApplication.getInstance(), "success : " + response.body().string(), Toast.LENGTH_SHORT).show();
 //        }
 //    };

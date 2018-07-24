@@ -56,18 +56,13 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-    /**
-     * 生产环境
-     */
-//    public static final String BasicUrl = "http://118.31.238.207:8080";
-//    public static final String BasicUrl = "http://116.62.36.12:8080";
-    /**
-     * 测试环境
-     */
-//    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
-    public static final String BasicUrl = "http://192.168.200.106:8080";//孙高峰
+    //        public static final String BasicUrl = "http://116.62.36.12:8080";//备用服务器
+//    public static final String BasicUrl = "http://118.31.238.207:8080";//正式服务器
+//    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
+    //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
 //    public static final String BasicUrl = "http://192.168.200.117:8080";//林天聪
+    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
 
 
     //生活疗法

@@ -229,7 +229,7 @@ public class StaticReceive {
 			mHandler.sendMessage(msg);
 			// save wave for drawing
 			DRAWDATA.addAll(arg1.data); //arg1.data.size() = 25
-			//Log.d("TAG","wave data->"+arg1.data);		
+			//Logg.d("TAG","wave data->"+arg1.data);
 			mWaveBuffer.addAll(arg1.data); //total of realTime wave are 4500 point 
 		}
 
@@ -281,7 +281,7 @@ public class StaticReceive {
 					Wave wave = mWaveBuffer.remove(0);
 					datas.add(wave.data);//存放波形Y轴数据, Y axis of wave 
 				}
-				//Log.e("TAG", "write size:"+datas.size());
+				//Logg.e("TAG", "write size:"+datas.size());
 				MyUtil.writeFile(filePath, fileName, datas);
 			};	
 		}.start();

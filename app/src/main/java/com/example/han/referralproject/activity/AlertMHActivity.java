@@ -1,6 +1,5 @@
 package com.example.han.referralproject.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +12,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.register.DiseaseHistoryAdapter;
 import com.medlink.danbogh.register.DiseaseHistoryModel;
 
@@ -187,7 +185,7 @@ public class AlertMHActivity extends BaseActivity {
                 mh,data.dz,new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
-                        ToastTool.showShort("修改成功");
+                        ToastUtils.showShort("修改成功");
                         speak("主人，您的病史已经修改成功");
                     }
                 }, new NetworkManager.FailedCallback() {

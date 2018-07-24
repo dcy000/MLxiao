@@ -2,19 +2,13 @@
 apply plugin: 'com.android.library'
 
 android {
-//    compileSdkVersion 26
-//    buildToolsVersion '26.0.2'
 
-    buildToolsVersion gradle.buildToolsVersion
-    compileSdkVersion gradle.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-//        applicationId "com.iflytek.voicedemo"
-//        minSdkVersion 15
-//        targetSdkVersion 19
-
-        minSdkVersion gradle.minSdkVersion
-        targetSdkVersion gradle.targetSdkVersion
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
 
     }
 
@@ -34,6 +28,6 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-v4:${gradle.supportVersion}"
-    compile files('libs/Msc.jar')
+    implementation rootProject.ext.dependencies["support-v4"]
+    api files('libs/Msc.jar')
 }

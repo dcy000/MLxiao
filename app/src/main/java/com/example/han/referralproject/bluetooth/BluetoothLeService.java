@@ -136,7 +136,7 @@ public class BluetoothLeService extends Service {
 //            final StringBuilder stringBuilder = new StringBuilder();
 //            for (byte byteChar : data)
 //                stringBuilder.append(String.format("%02X ", byteChar));
-            //   Log.e(TAG, String.format("%s", new String(data)));
+            //   Logg.e(TAG, String.format("%s", new String(data)));
             // getting cut off when longer, need to push on new line, 0A
 //            intent.putExtra(EXTRA_DATA, String.format("%s", new String(data)));
             intent.putExtra(EXTRA_DATA, data);
@@ -196,7 +196,7 @@ public class BluetoothLeService extends Service {
         if (mBluetoothDeviceAddress != null && address.equals(mBluetoothDeviceAddress)
                 && mBluetoothGatt != null) {
             return true;
-//            Log.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
+//            Logg.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
 //            if (mBluetoothGatt.connect()) {
 //                mConnectionState = STATE_CONNECTING;
 //                return true;

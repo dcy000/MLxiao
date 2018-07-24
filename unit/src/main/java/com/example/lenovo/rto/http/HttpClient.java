@@ -1,10 +1,8 @@
 package com.example.lenovo.rto.http;
 
 import com.example.lenovo.rto.BuildConfig;
-import com.example.lenovo.rto.Constans;
 import com.example.lenovo.rto.http.gsonconverter.JsonConverterFactory;
 import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +13,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 
 /**

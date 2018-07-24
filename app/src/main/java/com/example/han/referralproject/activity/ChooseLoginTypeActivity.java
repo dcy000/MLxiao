@@ -1,5 +1,7 @@
 package com.example.han.referralproject.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,10 +16,11 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
+import com.example.han.referralproject.facerecognition.RegisterHead2XunfeiActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
@@ -45,12 +48,22 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     CheckBox cbSignInAgree;
     @BindView(R.id.tv_sign_in_agree)
     TextView tvSignInAgree;
+    private Class<Activity> goBackActivity;
+
+    public static void startActivity(Context context, Class clazz, Class goback) {
+        context.startActivity(new Intent(context, clazz)
+                .putExtra("WillGoBackActivity", goback));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_login_type);
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            goBackActivity = (Class<Activity>) intent.getSerializableExtra("WillGoBackActivity");
+        }
         speak("主人，想要登录，请说人脸登录或者手机登录。如果您还没有账号，请说我要注册。");
         tvPhoneSignIn.setOnClickListener(this);
         tvFaceSignIn.setOnClickListener(this);
@@ -66,10 +79,11 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         tvSignInAgree.setText(agreeBuilder);
     }
 
+
     private ClickableSpan agreeClickableSpan = new ClickableSpan() {
         @Override
         public void onClick(View widget) {
-            startActivity(new Intent(ChooseLoginTypeActivity.this, AgreementActivity.class));
+            startActivity(new Intent(ChooseLoginTypeActivity.this, goBackActivity));
         }
     };
 
@@ -77,17 +91,19 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_phone_sign_in:
-                startActivity(new Intent(this, SignInActivity.class));
+                SignInActivity.startActivity(this, SignInActivity.class, goBackActivity);
                 break;
             case R.id.tv_face_sign_in:
                 //获取所有账号
                 String[] accounts = LocalShared.getInstance(ChooseLoginTypeActivity.this).getAccounts();
                 if (accounts == null) {
-                    ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
-                    startActivity(new Intent(this, SignInActivity.class));
+                    ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
+                    SignInActivity.startActivity(this, SignInActivity.class, goBackActivity);
                 } else {
-                    startActivity(new Intent(this, AuthenticationActivity.class)
-                            .putExtra("from", "Welcome"));
+                    Bundle bundle=new Bundle();
+                    bundle.putString("from","Welcome");
+                    bundle.putSerializable("WillGoBackActivity",goBackActivity);
+                    FaceRecognitionActivity.startActivity(this,FaceRecognitionActivity.class,bundle,false);
                 }
                 break;
             case R.id.account_tip://注册
@@ -114,7 +130,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onSpeakListenerResult(String result) {
         String inSpell = PinYinUtils.converterToSpell(result);
-        ToastTool.showShort(result);
+        ToastUtils.showShort(result);
         if (inSpell.matches(".*((shou|sou)ji).*")) {
             tvPhoneSignIn.performClick();
             return;
