@@ -2,6 +2,7 @@ package com.example.module_control_volume;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,9 @@ import com.yhao.floatwindow.MoveType;
 import com.yhao.floatwindow.PermissionListener;
 import com.yhao.floatwindow.Screen;
 import com.yhao.floatwindow.ViewStateListener;
+
+import java.lang.reflect.Field;
+
 import static android.content.Context.AUDIO_SERVICE;
 
 public class VolumeControlFloatwindow {
@@ -94,7 +98,7 @@ public class VolumeControlFloatwindow {
                     }
                 })
                 .setTag("volume_control")
-                .setDesktopShow(false)
+                .setDesktopShow(true)
                 .build();
         FloatWindow.get("volume_control").show();
 
@@ -109,6 +113,30 @@ public class VolumeControlFloatwindow {
                 seekBar.setMax(maxVolume);
                 seekBar.setProgress(currentVolume);
                 tvVolume.setText((int) ((currentVolume / (float) maxVolume) * 100) + "%");
+                String userId = userId(application);
+                if (inflate.findViewById(R.id.ludashi) != null) {
+                    inflate.findViewById(R.id.ludashi).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            intent.setClassName("com.ludashi.benchmarkhd", "com.ludashi.benchmarkhd.MainActivity");
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            v.getContext().startActivity(intent);
+                        }
+                    });
+                    inflate.findViewById(R.id.ludashi).setVisibility("123456".equals(userId) ? View.VISIBLE : View.GONE);
+                }
+                if (inflate.findViewById(R.id.robot) != null) {
+                    inflate.findViewById(R.id.robot).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            intent.setClassName("com.example.han.referralproject", "com.example.han.referralproject.WelcomeActivity");
+                            v.getContext().startActivity(intent);
+                        }
+                    });
+                    inflate.findViewById(R.id.robot).setVisibility("123456".equals(userId) ? View.VISIBLE : View.GONE);
+                }
                 FloatWindow.get("volume_control").hide();
                 DialogImage dialogImage = new DialogImage(application);
                 dialogImage.setContentView(inflate);
@@ -150,6 +178,20 @@ public class VolumeControlFloatwindow {
                 });
             }
         });
+    }
+
+    private static String userId(Context application) {
+        String userId = "";
+        try {
+            Class<?> class_MyApplication = Class.forName("com.example.han.referralproject.application.MyApplication");
+            Field field_userId = class_MyApplication.getField("userId");
+            field_userId.setAccessible(true);
+            Object obj = field_userId.get(application);
+            userId = obj.toString();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return userId;
     }
 
 }

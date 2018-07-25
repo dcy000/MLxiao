@@ -103,7 +103,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
             }
         }, 1000);
-
         initAToken();
 
     }

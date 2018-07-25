@@ -93,7 +93,7 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
             }
 
             @Override
-            public void previewSuccess(byte[] datas, Bitmap preBitmap, Bitmap cropBitmap, int prewidth, int preheight, int cropwidth, int cropheight) {
+            public void previewSuccess(byte[] datas, final Bitmap preBitmap, final Bitmap cropBitmap, int prewidth, int preheight, int cropwidth, int cropheight) {
                 if (isPhoto) {
                     LoadingProgressUtils.dismissView();
 

@@ -25,9 +25,12 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.WelcomeActivity;
+import com.example.han.referralproject.application.MyApplication;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -73,6 +76,9 @@ public class AssistiveTouchService extends Service {
     private long lastClickTime = 0;
     private int maxVolume;
     private int currentVolume;
+    private TextView mTvLudashi;
+    private TextView mTvRobot;
+    private String mUserId;
 
 
     // private CheckDoubleClickListener checkDoubleClickListener;
@@ -86,7 +92,7 @@ public class AssistiveTouchService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
+        mUserId = intent.getStringExtra("userId");
         init();
         calculateForMyPhone();
         createAssistiveTouchView();
@@ -116,6 +122,23 @@ public class AssistiveTouchService extends Service {
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
         mImageView1 = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.image_volume);
+        mTvLudashi = (TextView) mInflateAssistiveTouchView.findViewById(R.id.ludashi);
+        mTvRobot = (TextView) mInflateAssistiveTouchView.findViewById(R.id.robot);
+        mTvLudashi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClassName("com.ludashi.benchmarkhd", "com.ludashi.benchmarkhd.MainActivity");
+                startActivity(intent);
+            }
+        });
+        mTvRobot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), WelcomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //初始化音频管理器
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
@@ -229,7 +252,12 @@ public class AssistiveTouchService extends Service {
                         mImageView.setAlpha(0.0f);
                         myAssitiveTouchAnimator(mParams.x, mScreenWidth / 2 - mAssistiveTouchView.getMeasuredWidth() / 2, mParams.y, mScreenHeight / 2 - mAssistiveTouchView.getMeasuredHeight() / 2, true).start();
                         mPopupWindow = new PopupWindow(mInflateAssistiveTouchView, (int) (mScreenWidth * 0.5), (int) (mScreenWidth * 0.25));
-
+                        if (mTvLudashi != null) {
+                            mTvLudashi.setVisibility("123456".equals(mUserId) ? View.VISIBLE : View.GONE);
+                        }
+                        if (mTvRobot != null) {
+                            mTvRobot.setVisibility("123456".equals(mUserId) ? View.VISIBLE : View.GONE);
+                        }
                         mPopupWindow.setFocusable(true);
                         mPopupWindow.setTouchable(true);
                         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());

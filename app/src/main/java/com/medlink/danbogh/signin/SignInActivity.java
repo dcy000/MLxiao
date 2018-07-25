@@ -32,6 +32,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.ICreateGroupListener;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
@@ -39,6 +40,7 @@ import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.facerecognition.IJoinGroupListener;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.new_music.FileUtils;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -51,6 +53,7 @@ import com.medlink.danbogh.utils.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -209,6 +212,7 @@ public class SignInActivity extends BaseActivity {
         if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())) {
             Bundle bundle = new Bundle();
             bundle.putBoolean("isTest",true);
+            MyApplication.getInstance().userId = "123456";
             FaceRecognitionActivity.startActivity(mContext,FaceRecognitionActivity.class, bundle,false);
             finish();
             return;
