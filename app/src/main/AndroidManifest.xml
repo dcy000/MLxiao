@@ -223,13 +223,15 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.HOME" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.HOME" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".Test_mainActivity"
@@ -747,7 +749,7 @@
             android:name=".facerecognition.FaceRecognitionActivity"
             android:label="人脸识别界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".health.firstdetect.HealthFirstDetectActivity"></activity>
+        <activity android:name=".health.firstdetect.HealthFirstDetectActivity" />
         <activity
             android:name=".TestCameraAndRegisterXF"
             android:label="测试相机工具类和注册讯飞"
@@ -765,16 +767,15 @@
             android:label="新的头像注册界面"
             android:screenOrientation="landscape" />
         <activity android:name=".hypertensionmanagement.activity.HypertensionTipActivity">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.HOME" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             <category android:name="android.intent.category.DEFAULT" />
-             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+        <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity"></activity>
     </application>
 
 </manifest>
