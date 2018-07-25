@@ -465,9 +465,7 @@
         <service
             android:name=".floatingball.AssistiveTouchService"
             android:process=":serviceY" />
-
         <service android:name=".floatball.MyService" />
-
 
         <activity
             android:name=".recyclerview.DoctorAlarmActivity"
@@ -567,12 +565,13 @@
         <activity
             android:name=".intelligent_diagnosis.DeleteGroupActivity"
             android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.HOME" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.HOME" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".health.HealthDiaryActivity" />
         <activity
@@ -588,7 +587,7 @@
             <!-- <category android:name="android.intent.category.DEFAULT"/> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".children.study.ChildEduStories2Activity"></activity>
+        <activity android:name=".children.study.ChildEduStories2Activity" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
             android:taskAffinity="com.medlink.fastsignup"
@@ -638,7 +637,6 @@
         <activity
             android:name=".settting.activity.AboutActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".personal.PersonDetailActivity"
             android:screenOrientation="landscape" />
@@ -669,13 +667,15 @@
         <activity
             android:name=".blood_pressure_risk_assessment.HypertensionRiskActivity"
             android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!--<category android:name="android.intent.category.HOME" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.HOME" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".blood_pressure_risk_assessment.PrimaryBloodPressureRiskResultsActivity"
@@ -721,6 +721,11 @@
             android:name=".facerecognition.FaceRecognitionActivity"
             android:label="人脸识别界面"
             android:screenOrientation="landscape" />
+
+        <activity android:name=".health.firstdetect.HealthFirstDetectActivity">
+
+        </activity>
+
         <activity
             android:name=".TestCameraAndRegisterXF"
             android:label="测试相机工具类和注册讯飞"
@@ -736,6 +741,7 @@
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
             android:label="新的头像注册界面"
             android:screenOrientation="landscape"/>
+>>>>>>> 7eb0f9d15aaa998069725a5b2d44ada1500853f4
     </application>
 
 </manifest>

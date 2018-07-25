@@ -485,7 +485,12 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void run() {
-            mCamera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+            try {
+                mCamera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+            } catch (Exception e) {
+                e.printStackTrace();
+                mCamera = null;
+            }
             if (mCamera == null) {
                 handler.sendEmptyMessage(OPEN_CAMERA_ERROR);
                 return;
@@ -565,7 +570,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onAnimationEnd(Animator animation) {
-            if (handler != null)
+            if (handler != null && mCamera != null)
                 handler.sendEmptyMessage(GET_PREVIEW_IMG);
         }
 
@@ -723,6 +728,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     private void initView() {
         Intent intent = getIntent();
         if (intent != null) {
+<<<<<<< HEAD
             Bundle params = intent.getExtras();
             if (params != null) {
                 fromString = params.getString("from");
@@ -731,6 +737,14 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
                 fromType = params.getString("fromType");
             }
         }
+=======
+            isTest = intent.getBooleanExtra("isTest", false);
+            orderid = intent.getStringExtra("orderid");
+            fromString = intent.getStringExtra("from");
+            fromType = intent.getStringExtra("fromType");
+        }
+
+>>>>>>> 267ab5d1083e6a16f7299d31926f5f7a1c35db6c
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
         groupid = LocalShared.getInstance(this).getGroupId();
         currentXfid = LocalShared.getInstance(this).getXunfeiId();

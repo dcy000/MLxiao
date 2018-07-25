@@ -291,8 +291,6 @@
     <string name="out_hospital">出院注意事项</string>
     <string name="in_educate">入 院 教 育</string>
 
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="list_load">下拉刷新/上拉加载</string>
     <string name="header_hint_normal">下拉刷新</string>
     <string name="header_hint_ready">松开刷新数据</string>
@@ -569,6 +567,9 @@
     <string name="tiaoguo">跳&#160;&#160;过</string>
     <string name="offline_doctor">一、联系您所在社区的社区医生或您信任的医生，将“致医生的一封信”交给医生，医生可根据内容提示完成注册。\n二、注册完成后您可以在医生库中搜索医生信息，即可完成签约。\n三、如果您的社区还没有签约医生，你可以拨打我们的客服热线400-007-0079。</string>
     <string name="space">&#12288;</string>
+
     <string name="bluetooth_device_connected">设备已连接</string>
     <string name="bluetooth_device_disconnected">设备已断开</string>
+
+    <string name="health_first_detect_tips">初次见面，我是小E！\n为了更好的您的身体，先来做一个全套体检吧!</string>
 </resources>

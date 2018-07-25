@@ -26,7 +26,7 @@ android {
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -40,10 +40,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
+//            aaptOptions.cruncherEnabled = false
+//            aaptOptions.useNewCruncher = false
         }
 
         debug {
             debuggable true
+//            aaptOptions.cruncherEnabled = false
+//            aaptOptions.useNewCruncher = false
         }
     }
 
@@ -59,6 +63,7 @@ android {
     }
 
     lintOptions {
+        checkReleaseBuilds false
         abortOnError false
     }
 
@@ -110,7 +115,7 @@ dependencies {
     api name: 'vmtools', ext: 'aar'
     api name: 'voicelibrary', ext: 'aar'
     //system
-    testApi rootProject.ext.dependencies["junit"]
+    testImplementation rootProject.ext.dependencies["junit"]
     api rootProject.ext.dependencies["constraint-layout"]
     api rootProject.ext.dependencies["support-v4"]
     api rootProject.ext.dependencies["appcompat-v7"]

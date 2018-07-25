@@ -56,7 +56,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        String curProcessName = ProcessUtils.getCurProcessName(this);
         UtilsManager.init(this);
         UiUtils.init(this, 1920, 1200);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -97,11 +97,16 @@ public class MyApplication extends Application {
         SpeechUtility.createUtility(this, builder.toString());
 
         BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
-        NimInitHelper.getInstance().init(this, true);
+
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
-
+        NimInitHelper.getInstance().init(this, true);
+        //启动音量控制悬浮按钮
+        NimInitHelper.getInstance().init(this, true);
+        if (curProcessName.equals("com.example.han.referralproject:core")) {
+            VolumeControlFloatwindow.init(this.getApplicationContext());
+        }
     }
 
 
@@ -113,13 +118,13 @@ public class MyApplication extends Application {
 //            //启动音量控制悬浮按钮
 //            VolumeControlFloatwindow.init(this.getApplicationContext());
 //        }
-        String curProcessName = ProcessUtils.getCurProcessName(this);
-        if (!TextUtils.isEmpty(curProcessName)) {
-            if (curProcessName.equals("com.example.han.referralproject:pushcore")) {
-                //启动音量控制悬浮按钮
-                VolumeControlFloatwindow.init(this.getApplicationContext());
-            }
-        }
+//        String curProcessName = ProcessUtils.getCurProcessName(this);
+//        if (!TextUtils.isEmpty(curProcessName)) {
+//            if (curProcessName.equals("com.example.han.referralproject:pushcore")) {
+//                //启动音量控制悬浮按钮
+//                VolumeControlFloatwindow.init(this.getApplicationContext());
+//            }
+//        }
     }
 
 

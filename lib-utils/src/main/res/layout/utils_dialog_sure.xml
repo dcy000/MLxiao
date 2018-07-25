@@ -59,11 +59,11 @@
             <TextView
                 android:id="@+id/tv_sure"
                 android:layout_width="0dp"
-                android:layout_height="100pt"
+                android:layout_height="135pt"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="确认"
-                android:textColor="#8c8c8c"
+                android:textColor="#3F86FC"
                 android:textSize="56pt"/>
 
         </LinearLayout>

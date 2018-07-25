@@ -2,7 +2,6 @@ package com.gcml.lib_utils.ui.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +81,7 @@ public class DialogSure extends BaseDialog {
     }
 
     private void initView() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_sure, null);
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.utils_dialog_sure, null);
         mTvSure = dialogView.findViewById(R.id.tv_sure);
         mTvTitle = dialogView.findViewById(R.id.tv_title);
         mTvTitle.setTextIsSelectable(true);
