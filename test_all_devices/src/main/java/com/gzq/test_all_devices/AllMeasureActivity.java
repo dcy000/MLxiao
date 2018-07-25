@@ -15,6 +15,7 @@ import com.gcml.lib_utils.ui.dialog.BaseDialog;
 import com.gcml.lib_utils.ui.dialog.DialogImage;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.qrcode.QRCodeUtils;
+import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.module_blutooth_devices.base.BaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.IPresenter;

@@ -16,13 +16,23 @@ import com.gcml.lib_utils.R;
  * @date 2016/7/19
  * 确认 取消 Dialog
  */
-public class DialogSureCancel extends BaseDialog {
+public class DialogSureCancel extends BaseDialog implements View.OnClickListener {
 
     private ImageView mIvLogo;
     private TextView mTvContent;
     private TextView mTvSure;
     private TextView mTvCancel;
     private TextView mTvTitle;
+    private DialogClickSureListener clickSureListener;
+    private DialogClickCancelListener clickCancelListener;
+
+    public void setOnClickSureListener(DialogClickSureListener clickSureListener) {
+        this.clickSureListener = clickSureListener;
+    }
+
+    public void setOnClickCancelListener(DialogClickCancelListener clickCancelListener) {
+        this.clickCancelListener = clickCancelListener;
+    }
 
     public DialogSureCancel(Context context, int themeResId) {
         super(context, themeResId);
@@ -85,13 +95,14 @@ public class DialogSureCancel extends BaseDialog {
         return mTvCancel;
     }
 
-    public void setSureListener(View.OnClickListener sureListener) {
-        mTvSure.setOnClickListener(sureListener);
-    }
+//    public void setSureListener(View.OnClickListener sureListener) {
+//        mTvSure.setOnClickListener(sureListener);
+//    }
+//
+//    public void setCancelListener(View.OnClickListener cancelListener) {
+//        mTvCancel.setOnClickListener(cancelListener);
+//    }
 
-    public void setCancelListener(View.OnClickListener cancelListener) {
-        mTvCancel.setOnClickListener(cancelListener);
-    }
 
     private void initView() {
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.utils_dialog_sure_false, null);
@@ -102,5 +113,20 @@ public class DialogSureCancel extends BaseDialog {
         mTvContent.setTextIsSelectable(true);
         mTvTitle = (TextView) dialogView.findViewById(R.id.tv_title);
         setContentView(dialogView);
+        mTvSure.setOnClickListener(this);
+        mTvCancel.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.tv_sure && clickSureListener != null) {
+            clickSureListener.clickSure(this);
+        } else if (v.getId() == R.id.tv_cancel) {
+            if (clickCancelListener == null) {
+                dismiss();
+                return;
+            }
+            clickCancelListener.clickCancel(this);
+        }
     }
 }

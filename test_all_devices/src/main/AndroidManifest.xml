@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.gzq.test_all_devices">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -83,9 +84,16 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity
-            android:name=".health_record.HealthRecordActivity"
-            android:screenOrientation="landscape">
+        <!--<activity-->
+            <!--android:name="com.gcml.module_health_record.HealthRecordActivity"-->
+            <!--android:screenOrientation="landscape">-->
+            <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
+                <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+            <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
+        <!--</activity>-->
+        <activity android:name="com.gcml.module_health_record.HealthRecordActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

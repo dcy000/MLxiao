@@ -728,7 +728,6 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     private void initView() {
         Intent intent = getIntent();
         if (intent != null) {
-<<<<<<< HEAD
             Bundle params = intent.getExtras();
             if (params != null) {
                 fromString = params.getString("from");
@@ -737,14 +736,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
                 fromType = params.getString("fromType");
             }
         }
-=======
-            isTest = intent.getBooleanExtra("isTest", false);
-            orderid = intent.getStringExtra("orderid");
-            fromString = intent.getStringExtra("from");
-            fromType = intent.getStringExtra("fromType");
-        }
 
->>>>>>> 267ab5d1083e6a16f7299d31926f5f7a1c35db6c
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
         groupid = LocalShared.getInstance(this).getGroupId();
         currentXfid = LocalShared.getInstance(this).getXunfeiId();

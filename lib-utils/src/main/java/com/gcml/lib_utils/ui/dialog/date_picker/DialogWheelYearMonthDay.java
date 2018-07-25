@@ -15,13 +15,15 @@ import com.gcml.lib_utils.R;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.ui.ScreenUtils;
 import com.gcml.lib_utils.ui.dialog.BaseDialog;
+import com.gcml.lib_utils.ui.dialog.DialogClickCancelListener;
+import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
 
 import java.util.Calendar;
 
 /**
  * @author vondear
  */
-public class DialogWheelYearMonthDay extends BaseDialog {
+public class DialogWheelYearMonthDay extends BaseDialog implements View.OnClickListener {
     private WheelView mYearView;
     private WheelView mMonthView;
     private WheelView mDayView;
@@ -43,6 +45,17 @@ public class DialogWheelYearMonthDay extends BaseDialog {
     private int beginYear = 0;
     private int endYear = 0;
     private int divideYear = endYear - beginYear;
+    private DialogClickSureListener clickSureListener;
+    private DialogClickCancelListener clickCancelListener;
+
+    public void setOnClickSureListener(DialogClickSureListener clickSureListener) {
+        this.clickSureListener = clickSureListener;
+    }
+
+    public void setOnClickCancelListener(DialogClickCancelListener clickCancelListener) {
+        this.clickCancelListener = clickCancelListener;
+    }
+
 
     public DialogWheelYearMonthDay(Context mContext) {
         super(mContext);
@@ -169,20 +182,31 @@ public class DialogWheelYearMonthDay extends BaseDialog {
 
         getLayoutParams().gravity = Gravity.CENTER;
         setContentView(dialogView1);
+
+        mTvSure.setOnClickListener(this);
+        mTvCancle.setOnClickListener(this);
     }
 
     public void setStartYear(int startYear) {
         this.startYear = startYear;
+        build();
     }
 
     public void setStartMonth(int startMonth) {
         this.startMonth = startMonth;
+        build();
     }
 
     public void setStartDay(int startDay) {
         this.startDay = startDay;
+        build();
     }
-
+    public void setStartDate(int startYear,int startMonth,int startDay){
+        this.startYear=startYear;
+        this.startMonth=startMonth;
+        this.startDay=startDay;
+        build();
+    }
     public WheelView getDayView() {
         return mDayView;
     }
@@ -248,6 +272,19 @@ public class DialogWheelYearMonthDay extends BaseDialog {
         day.setCurrentItem(curDay - 1, true);
 
         return maxDays;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.tv_sure && clickSureListener != null) {
+            clickSureListener.clickSure(this);
+        } else if (v.getId() == R.id.tv_cancel) {
+            if (clickCancelListener == null) {
+                dismiss();
+                return;
+            }
+            clickCancelListener.clickCancel(this);
+        }
     }
 
     /**

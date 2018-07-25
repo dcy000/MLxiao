@@ -44,6 +44,7 @@ import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.lib_utils.ui.ScreenUtils;
@@ -79,6 +80,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -264,8 +266,7 @@ public class BaseActivity extends AppCompatActivity {
                 jpushTitle.setText(title);
             }
             jpushText.setText(message);
-            jpushTime.setText(Utils.stampToDate2(System.currentTimeMillis()));
-
+            jpushTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy.MM.dd HH:mm")));
             final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
             final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
             ViewTreeObserver vto = jpushLl.getViewTreeObserver();

@@ -1,5 +1,5 @@
 
-include ':app', ':lib-pay-beecloud', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':voice', ':lib-common', ':unit', ':test_all_devices', ':lib-bluetooth', ':lib-utils',  ':module-control_volume'
+include ':app', ':lib-pay-beecloud', ':module-edu', ':lib-music-player', ':circleprogress', ':wkvideoplayer', ':lib-rulerview', ':lib-video-player', ':voice', ':lib-common', ':unit', ':test_all_devices', ':lib-bluetooth', ':lib-utils',  ':module-control_volume', ':module-health_record'
 include ':expand-textview-library'
 include ':circleindicator'
 include ':lib-bluetooth'

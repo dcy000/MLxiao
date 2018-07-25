@@ -17,12 +17,6 @@ import java.text.SimpleDateFormat;
 public class Utils {
     @SuppressLint("MissingPermission")
     public static String getDeviceId(){
-//        WifiManager wm = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-//        String WLANMAC = wm.getConnectionInfo().getMacAddress();
-
-//        TelephonyManager TelephonyMgr = (TelephonyManager) MyApplication.getInstance().getSystemService(TELEPHONY_SERVICE);
-//        return TelephonyMgr.getDeviceId();
-
         return Settings.System.getString(MyApplication.getInstance().getContentResolver(), Settings.System.ANDROID_ID);
     }
 
@@ -45,49 +39,6 @@ public class Utils {
         return localVersion;
     }
 
-    /*
-    * 将时间戳转换为时间
-    */
-    public static String stampToDate(long s){
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Long time=new Long(s);
-        String d = format.format(time);
-        return d;
-    }
-
-    /**
-     * 时间格式转换
-     * @param s
-     * @return
-     */
-    public static String stampToDate2(long s){
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy.MM.dd HH:mm");
-        Long time=new Long(s);
-        String d = format.format(time);
-        return d;
-    }
-    /**
-     * 时间格式转换
-     * @param s
-     * @return
-     */
-    public static String stampToDate3(long s){
-        SimpleDateFormat format =  new SimpleDateFormat("MM.dd");
-        Long time=new Long(s);
-        String d = format.format(time);
-        return d;
-    }
-    /**
-     * 调节屏幕透明度
-     * @param context
-     * @param bgAlpha
-     */
-    public static void backgroundAlpha(Activity context, float bgAlpha) {
-        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        context.getWindow().setAttributes(lp);
-    }
 
     public static String getChineseNumber(int number) {
         String[] str = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九"};
