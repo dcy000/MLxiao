@@ -775,7 +775,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity" />
+        <activity android:name=".hypertensionmanagement.activity.PressureFlatTipActivity" />
+        <activity android:name=".hypertensionmanagement.activity.PressureNornalTipActivity" />
+        <activity android:name=".hypertensionmanagement.activity.SlowDiseaseManagementActivity"></activity>
     </application>
 
 </manifest>
