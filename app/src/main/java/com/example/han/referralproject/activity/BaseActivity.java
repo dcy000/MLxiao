@@ -57,6 +57,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.SignUp10EatActivity;
 import com.medlink.danbogh.register.SignUp11SmokeActivity;
 import com.medlink.danbogh.register.SignUp12DrinkActivity;
@@ -413,6 +414,11 @@ public class BaseActivity extends AppCompatActivity {
         synthesizerListener1 = new ImpSynthesizerListener();
         synthesizer.startSpeaking(text, synthesizerListener1);
     }
+
+    public void mlSpeak(String text) {
+        MLVoiceSynthetize.startSynthesize(this, text, false);
+    }
+
 
     protected void speak(String text, boolean isDefaultParam) {
         if (TextUtils.isEmpty(text)) {
