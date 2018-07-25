@@ -2,7 +2,6 @@ package com.gcml.lib_utils.ui.dialog;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,20 +15,30 @@ import com.gcml.lib_utils.R;
  * @date 2016/7/19
  * 确认 取消 Dialog
  */
-public class DialogSureCancel extends BaseDialog {
+public class DialogSureCancel extends BaseDialog implements View.OnClickListener {
 
     private ImageView mIvLogo;
     private TextView mTvContent;
     private TextView mTvSure;
     private TextView mTvCancel;
     private TextView mTvTitle;
+    private DialogClickSureListener clickSureListener;
+    private DialogClickCancelListener clickCancelListener;
+
+    public void setOnClickSureListener(DialogClickSureListener clickSureListener) {
+        this.clickSureListener = clickSureListener;
+    }
+
+    public void setOnClickCancelListener(DialogClickCancelListener clickCancelListener) {
+        this.clickCancelListener = clickCancelListener;
+    }
 
     public DialogSureCancel(Context context, int themeResId) {
         super(context, themeResId);
         initView();
     }
 
-    public DialogSureCancel(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
+    public DialogSureCancel(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         initView();
     }
@@ -85,16 +94,17 @@ public class DialogSureCancel extends BaseDialog {
         return mTvCancel;
     }
 
-    public void setSureListener(View.OnClickListener sureListener) {
-        mTvSure.setOnClickListener(sureListener);
-    }
+//    public void setSureListener(View.OnClickListener sureListener) {
+//        mTvSure.setOnClickListener(sureListener);
+//    }
+//
+//    public void setCancelListener(View.OnClickListener cancelListener) {
+//        mTvCancel.setOnClickListener(cancelListener);
+//    }
 
-    public void setCancelListener(View.OnClickListener cancelListener) {
-        mTvCancel.setOnClickListener(cancelListener);
-    }
 
     private void initView() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_sure_false, null);
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.utils_dialog_sure_false, null);
         mIvLogo = (ImageView) dialogView.findViewById(R.id.iv_logo);
         mTvSure = (TextView) dialogView.findViewById(R.id.tv_sure);
         mTvCancel = (TextView) dialogView.findViewById(R.id.tv_cancel);
@@ -102,5 +112,20 @@ public class DialogSureCancel extends BaseDialog {
         mTvContent.setTextIsSelectable(true);
         mTvTitle = (TextView) dialogView.findViewById(R.id.tv_title);
         setContentView(dialogView);
+        mTvSure.setOnClickListener(this);
+        mTvCancel.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.tv_sure && clickSureListener != null) {
+            clickSureListener.clickSure(this);
+        } else if (v.getId() == R.id.tv_cancel) {
+            if (clickCancelListener == null) {
+                dismiss();
+                return;
+            }
+            clickCancelListener.clickCancel(this);
+        }
     }
 }

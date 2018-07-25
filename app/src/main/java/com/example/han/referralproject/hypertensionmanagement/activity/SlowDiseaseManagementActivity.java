@@ -1,12 +1,16 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
+import com.gcml.lib_utils.ui.dialog.BaseDialog;
+import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
 import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.medlink.danbogh.utils.T;
 
@@ -14,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SlowDiseaseManagementActivity extends AppCompatActivity implements TwoChoiceDialog.OnDialogClickListener {
+public class SlowDiseaseManagementActivity extends BaseActivity implements TwoChoiceDialog.OnDialogClickListener {
 
     @BindView(R.id.iv_Hypertension_manage)
     ImageView ivHypertensionManage;
@@ -29,13 +33,21 @@ public class SlowDiseaseManagementActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slow_disease_management);
         ButterKnife.bind(this);
+        initTitle();
+        mlSpeak(CONTENT);
+    }
+
+    private void initTitle() {
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("基 础 信 息 列 表");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setImageResource(R.drawable.white_wifi_3);
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_Hypertension_manage:
-//                hypertensionManage();
                 showDialog();
                 break;
             case R.id.iv_blood_sugar_manage:
@@ -46,18 +58,18 @@ public class SlowDiseaseManagementActivity extends AppCompatActivity implements 
 
     private void hypertensionManage() {
         DialogSureCancel sureCancel = new DialogSureCancel(this);
-        sureCancel.setContent("您当前测量次数未满足非同日3次测量,高血压诊断条件不足,再测2日即可为您开启方案。");
+        sureCancel.setContent(CONTENT);
         sureCancel.setSure("去测量");
         sureCancel.setCancel("下次再说");
-        sureCancel.setSureListener(new View.OnClickListener() {
+        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
             @Override
-            public void onClick(View v) {
-                T.show("");
+            public void clickSure(BaseDialog dialog) {
+
+                dialog.dismiss();
             }
         });
-        sureCancel.setCancelListener(null);
         sureCancel.show();
-        showDialog();
+
     }
 
     private void showDialog() {
