@@ -24,11 +24,11 @@ public class PrimaryHypertensionBean implements Serializable {
     public String hmQuestionnaireAssessId;
     public String hmQuestionnaireId;
     public String hmQuestionnaireName;
-    public int score;
-    public int userId;
+    public int score=0;
+    public String userId;
     public List<AnswerListBean> answerList;
 
-    public static class AnswerListBean {
+    public static class AnswerListBean implements Serializable {
         /**
          * answerName : string
          * hmAnswerId : string

@@ -14,8 +14,9 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,7 +53,8 @@ public class MultipleChoiceFragment extends Fragment {
     @BindView(R.id.grid_view)
     GridView gridView;
     Unbinder unbinder;
-    private List<String> items;
+    public List<String> items;
+    private PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean;
 
 
     @Override
@@ -66,11 +68,10 @@ public class MultipleChoiceFragment extends Fragment {
         View view = View.inflate(getActivity(), R.layout.multiple_choice_fragment, null);
         unbinder = ButterKnife.bind(this, view);
         Bundle arguments = getArguments();
-
         tvTitle.setText(arguments.getString(TIP_CONTENT));
         tvTipContent.setText(arguments.getString(WARM_TIP));
-        this.items = (List<String>) arguments.getSerializable(CONTENT_STRINGS);
-
+        questionBean = (PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean) arguments.getSerializable(CONTENT_STRINGS);
+        items = getStrings(questionBean);
         initGV(arguments);
         return view;
     }
@@ -84,15 +85,23 @@ public class MultipleChoiceFragment extends Fragment {
 
     }
 
-    public static MultipleChoiceFragment getInstance(String tipContent, String warmTip, List<String> items, boolean isMultiple) {
+    public static MultipleChoiceFragment getInstance(String tipContent, String warmTip, PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean, boolean isMultiple) {
         MultipleChoiceFragment fragment = new MultipleChoiceFragment();
         Bundle bundle = new Bundle();
         bundle.putString(TIP_CONTENT, tipContent);
         bundle.putString(WARM_TIP, warmTip);
         bundle.putBoolean(IS_MULTIPLE_CHOOIC, isMultiple);
-        bundle.putSerializable(CONTENT_STRINGS, (Serializable) items);
+        bundle.putSerializable(CONTENT_STRINGS, questionBean);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    private static List<String> getStrings(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean) {
+        List<String> strings = new ArrayList<>();
+        for (int i = 0; i < questionBean.answerList.size(); i++) {
+            strings.add(questionBean.answerList.get(i).answerInfo);
+        }
+        return strings;
     }
 
 
@@ -106,18 +115,21 @@ public class MultipleChoiceFragment extends Fragment {
     public void onViewClicked() {
         SparseBooleanArray checkedItemPositions = gridView.getCheckedItemPositions();
         int count = gridView.getCheckedItemCount();
-        long[] checked = new long[count];
+        int[] checked = new int[count];
         int j = 0;
         for (int i = 0; i < items.size(); i++) {
             if (checkedItemPositions.get(i)) {
                 checked[j] = i;
-                checked[j] += 1;
+//                checked[j] += 1;
                 j++;
             }
         }
 
         if (listener != null) {
-            listener.onNextStep(checked);
+            if (checked.length==0){
+                return;
+            }
+            listener.onNextStep(checked,questionBean);
         }
     }
 
@@ -200,7 +212,7 @@ public class MultipleChoiceFragment extends Fragment {
     };
 
     public interface OnButtonClickListener {
-        void onNextStep(long[] checked);
+        void onNextStep(int[] checked, PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean);
     }
 
     public void setListener(MultipleChoiceFragment.OnButtonClickListener listener) {

@@ -48,6 +48,8 @@ import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1149,4 +1151,27 @@ public class NetworkApi {
                 successCallback,
                 failedCallback);
     }
+
+    /**
+     * 获取原发性高血压问卷
+     */
+    public static final String PRIMARY_HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/primary/";
+
+    public static void getPrimaryHypertensionQuestion(StringCallback callback) {
+        OkGo.<String>get(PRIMARY_HYPERTENSION_URL).
+                execute(callback);
+    }
+
+    /**
+     * 提交原发性高血压问卷
+     */
+    public static final String POST_PRIMARY_HYPERTENSION_URL = BasicUrl + "/api/healthMonitor/questionnaire/hypertension/primary/";
+
+    public static void postPrimaryHypertensionQuestion(String postJson, String userId, StringCallback callback) {
+        OkGo.<String>post(POST_PRIMARY_HYPERTENSION_URL + userId + "/")
+                .params("userId", userId)
+                .upJson(postJson)
+                .execute(callback);
+    }
+
 }
