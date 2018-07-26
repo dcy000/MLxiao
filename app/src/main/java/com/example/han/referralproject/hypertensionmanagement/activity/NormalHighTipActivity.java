@@ -15,6 +15,9 @@ import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNotic
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 心血管评估
+ */
 public class NormalHighTipActivity extends BaseActivity implements WarmNoticeFragment.OnButtonClickListener {
     public static final String CONTENT = " 您好,根据系统中显示的三次数据判定,您的血压疑似在正常高值状态,为给您提供更精确预防高血压方案,以下问题需要您认真作答";
     @BindView(R.id.fl_container)

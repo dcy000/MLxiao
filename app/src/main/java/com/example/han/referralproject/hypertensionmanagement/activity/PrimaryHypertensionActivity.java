@@ -132,8 +132,21 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
                 answerList.get(i).hmAnswerId = answerBean.answerList.get(checked[0]).hmAnswerId;
             }
         }
-
+        //最后一页
+        if (vp.getCurrentItem() + 1 == vp.getAdapter().getCount()) {
+            //跳转逻辑
+            return;
+        }
         vp.setCurrentItem(vp.getCurrentItem() + 1);
+    }
+
+
+    private void postData() {
+        NetworkApi.postPrimaryHypertensionQuestion(new Gson().toJson(postBean), LocalShared.getInstance(this).getUserId() + "", new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+            }
+        });
     }
 
     private List<String> getAnswerNames(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean answerBean, int[] checked) {
@@ -164,4 +177,6 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
             return list.size();
         }
     }
+
+
 }
