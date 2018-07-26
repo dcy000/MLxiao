@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bci_cl_root"
@@ -17,7 +16,7 @@
         android:src="@drawable/bci_bg_flower_up"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/bci_iv_fruit_emitter"
@@ -26,7 +25,7 @@
         android:src="@drawable/bci_ic_fruit_emitter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bci_tv_fruit_indicator"
@@ -36,12 +35,12 @@
         android:background="@drawable/bci_bg_fruit_indicator"
         android:gravity="bottom|center"
         android:paddingBottom="25dp"
-        tools:text="梨子"
         android:textColor="#FFBB36"
         android:textSize="38sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="梨子" />
 
     <ImageView
         android:id="@+id/bci_iv_choose_indicator"
@@ -51,7 +50,7 @@
         android:src="@drawable/bci_ic_choose_indicator"
         app:layout_constraintBottom_toTopOf="@+id/bci_iv_fruit_emitter"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/bci_rv_fruits"
@@ -62,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/bci_iv_fruit_emitter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bci_iv_fruit_emitter"/>
+        app:layout_constraintTop_toTopOf="@+id/bci_iv_fruit_emitter" />
 
 
     <ImageView
@@ -72,17 +71,17 @@
         android:src="@drawable/bci_ic_fruit_basket_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/bci_iv_choose_fruit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:src="@drawable/bci_ic_fruit_pear"/>
+        tools:src="@drawable/bci_ic_fruit_pear" />
 
     <ImageView
         android:id="@+id/bci_iv_fruit_basket_front"
@@ -91,7 +90,7 @@
         android:src="@drawable/bci_ic_fruit_basket_front"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/bci_iv_flower_down"
@@ -101,18 +100,42 @@
         android:src="@drawable/bci_bg_flower_down"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/bci_tv_attention"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:text="0"
         android:textColor="#FF9700"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/bci_pb_attention"
         app:layout_constraintLeft_toLeftOf="@+id/bci_pb_attention"
-        app:layout_constraintRight_toRightOf="@+id/bci_pb_attention"/>
+        app:layout_constraintRight_toRightOf="@+id/bci_pb_attention" />
+
+    <TextView
+        android:id="@+id/bci_tv_blink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="0"
+        android:textColor="#FF9700"
+        android:textSize="35sp"
+        app:layout_constraintLeft_toLeftOf="@+id/bci_pb_attention"
+        app:layout_constraintRight_toRightOf="@+id/bci_pb_attention"
+        app:layout_constraintTop_toBottomOf="@+id/bci_pb_attention" />
+
+    <TextView
+        android:id="@+id/bci_tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="0"
+        android:textColor="#FF9700"
+        android:textSize="35sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ProgressBar
         android:id="@+id/bci_pb_attention"
@@ -125,7 +148,7 @@
         android:progress="25"
         android:progressDrawable="@drawable/bci_pb_attention"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/bci_pb_attention_decorator"
@@ -135,5 +158,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/bci_pb_attention"
         app:layout_constraintLeft_toLeftOf="@+id/bci_pb_attention"
         app:layout_constraintRight_toRightOf="@+id/bci_pb_attention"
-        app:layout_constraintTop_toTopOf="@+id/bci_pb_attention"/>
+        app:layout_constraintTop_toTopOf="@+id/bci_pb_attention" />
 </android.support.constraint.ConstraintLayout>

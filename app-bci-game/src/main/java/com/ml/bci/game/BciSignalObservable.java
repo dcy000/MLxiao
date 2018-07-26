@@ -1,6 +1,7 @@
 package com.ml.bci.game;
 
 import android.database.Observable;
+import android.os.Message;
 
 /**
  * Created by afirez on 2018/6/12.
@@ -8,7 +9,17 @@ import android.database.Observable;
 
 public class BciSignalObservable extends Observable<BciSignalObservable.Observer> {
 
+    public void notifyMessageChanged(Message message) {
+        synchronized (mObservers) {
+            for (Observer observer : mObservers) {
+                observer.onMessageChanged(message);
+            }
+        }
+    }
+
     public interface Observer {
+        void onMessageChanged(Message message);
+
         void onAttentionChanged(int intensity);
 
         void onBlinkChanged(int intensity);

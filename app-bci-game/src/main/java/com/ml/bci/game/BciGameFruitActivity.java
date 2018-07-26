@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import com.ml.bci.game.common.utils.FragmentUtils;
 import com.ml.bci.game.common.widget.recyclerview.AutoScrollHelper;
 import com.ml.bci.game.common.widget.recyclerview.RandomLayoutManager;
+import com.neurosky.thinkgear.TGDevice;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,8 @@ public class BciGameFruitActivity extends AppCompatActivity {
     private RandomLayoutManager mLayoutManager;
 
     private BciDeviceControllerFragment mBciDeviceControllerFragment;
+    private TextView tvBlink;
+    private TextView tvState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,8 @@ public class BciGameFruitActivity extends AppCompatActivity {
         tvFruitIndicator = (TextView) findViewById(R.id.bci_tv_fruit_indicator);
         pbAttention = (ProgressBar) findViewById(R.id.bci_pb_attention);
         tvAttention = (TextView) findViewById(R.id.bci_tv_attention);
+        tvBlink = (TextView) findViewById(R.id.bci_tv_blink);
+        tvState = (TextView) findViewById(R.id.bci_tv_state);
         ivFruitChoose = (ImageView) findViewById(R.id.bci_iv_choose_fruit);
         rvFruits = (RecyclerView) findViewById(R.id.bci_rv_fruits);
 
@@ -131,6 +137,47 @@ public class BciGameFruitActivity extends AppCompatActivity {
         );
         mBciDeviceControllerFragment.register(new BciSignalObservable.Observer() {
             @Override
+            public void onMessageChanged(Message message) {
+                int what = message.what;
+                int arg1 = message.arg1;
+                String state = "";
+                switch (what) {
+                    case TGDevice.MSG_STATE_CHANGE:
+                        switch (arg1) {
+                            case TGDevice.STATE_IDLE:
+                                state = "IDLE";
+                                break;
+                            case TGDevice.STATE_CONNECTING:
+                                state = "CONNECTING";
+                                break;
+                            case TGDevice.STATE_CONNECTED:
+                                state = "CONNECTING";
+                                break;
+                            case TGDevice.STATE_NOT_FOUND:
+                                state = "NOT FOUND";
+                                break;
+                            case TGDevice.STATE_ERR_NO_DEVICE:
+                                state = "NO DEVICE";
+                                break;
+                            case TGDevice.STATE_ERR_BT_OFF:
+                                state = "BT OFF.";
+                                break;
+                            case TGDevice.STATE_DISCONNECTED:
+                                state = "DISCONNECTED.";
+                                break;
+                            default:
+                                state = "" + arg1;
+                                break;
+                        }
+                        break;
+                    case TGDevice.MSG_RAW_DATA:
+                        state = String.valueOf(arg1);
+                        break;
+                }
+                tvState.setText(state);
+            }
+
+            @Override
             public void onAttentionChanged(int intensity) {
                 pbAttention.setProgress(intensity);
                 tvAttention.setText(String.valueOf(intensity));
@@ -142,6 +189,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
 
             @Override
             public void onBlinkChanged(int intensity) {
+                tvBlink.setText("" + intensity);
                 if (intensity > 50) {
                     animateDown();
                 }
@@ -236,10 +284,10 @@ public class BciGameFruitActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         tvFruitIndicator.setText("");
                         ivFruitChoose.setImageDrawable(null);
-                        mBciDeviceControllerFragment.closeDevice();
+//                        mBciDeviceControllerFragment.closeDevice();
                         initFruits();
                         mAdapter.notifyDataSetChanged();
-                        mBciDeviceControllerFragment.connectDevice();
+//                        mBciDeviceControllerFragment.connectDevice();
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

@@ -34,6 +34,8 @@
             android:maxLength="6"
             android:digits="1234567890"
             android:inputType="numberPassword"
+            android:textColor="#333333"
+            android:textColorHint="#99333333"
             android:id="@+id/reset_et_password"
             android:layout_width="400dp"
             android:layout_height="wrap_content"/>

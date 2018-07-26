@@ -1013,8 +1013,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*shizhiyongwan.*")
                     || inSpell.matches(".*shizhi.*meiyou")
                     || inSpell.matches(".*shangcheng")) {
-                Intent intent = new Intent(getApplicationContext(), MarketActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), MarketActivity.class);
+//                startActivity(intent);
 
 
             } else if (inSpell.matches(".*dingdan")) {

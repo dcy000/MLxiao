@@ -3,6 +3,7 @@ package com.ml.bci.game;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
@@ -39,6 +40,11 @@ public class BciGameActivity extends AppCompatActivity {
     private void initAttention() {
         mBciSignalObservable = new BciSignalObservable();
         mBciSignalObservable.registerObserver(new BciSignalObservable.Observer() {
+            @Override
+            public void onMessageChanged(Message message) {
+
+            }
+
             @Override
             public void onAttentionChanged(int intensity) {
                 int width = getResources().getDisplayMetrics().widthPixels;

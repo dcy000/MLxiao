@@ -268,10 +268,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-        UserInfoBean account = MyApplication.getInstance().account;
-        if (account == null || !account.isFullInfo()) {
-            T.show("您的个人资料不完善，可以到个人中心补充哦！");
-        }
+        NetworkApi.getMyBaseData(new NetworkManager.SuccessCallback<UserInfoBean>() {
+            @Override
+            public void onSuccess(UserInfoBean response) {
+                if (response == null || !response.isFullInfo()) {
+                    T.show("您的个人资料不完善，可以到个人中心补充哦！");
+                }
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+
     }
 
 

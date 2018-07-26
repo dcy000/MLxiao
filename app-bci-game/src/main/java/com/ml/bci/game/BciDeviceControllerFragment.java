@@ -89,9 +89,14 @@ public class BciDeviceControllerFragment extends Fragment {
         mBciSignalObservable.notifyAttentionChanged(value);
     }
 
+    private void onMessage(Message message) {
+        mBciSignalObservable.notifyMessageChanged(message);
+    }
+
     private Handler callbackHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
+            onMessage(msg);
             int what = msg.what;
             int arg1 = msg.arg1;
             switch (what) {
