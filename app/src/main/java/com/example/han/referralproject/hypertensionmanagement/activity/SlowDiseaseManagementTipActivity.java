@@ -13,7 +13,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SlowDiseaseManagementTipActivity extends BaseActivity {
-    public static final String CONTENT = "为给您更好健康方案，以下在方案制定过程中，会提示你测量血压，血脂和血糖，以及身高，体重,腰围测量。如咨询的内容非实际情况，或设备不满足，可能无法帮你做精确的健康方案。如需购买设备，请前往商城，如已有设备，直接点击下一步。";
+    public static final String CONTENT = "为给您更好健康方案，以下在方案制定过程中，" +
+            "会提示你测量血压，血脂和血糖，以及身高，体重,腰围测量。如咨询的内容非实际情况，" +
+            "或设备不满足，可能无法帮你做精确的健康方案。如需购买设备，请前往商城，如已有设备，" +
+            "直接点击下一步。";
     @BindView(R.id.tv_content)
     TextView tvContent;
     @BindView(R.id.tv_next_step)

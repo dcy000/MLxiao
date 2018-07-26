@@ -67,8 +67,8 @@ public class TwoChoiceDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.clearcache_reset, container, false);
         unbinder = ButterKnife.bind(this, view);
         tvTitle.setText(this.content);
-        cancel.setText(this.leftText);
-        tvTitle.setText(this.rithtText);
+        confirm.setText(this.leftText);
+        cancel.setText(this.rithtText);
         return view;
     }
 

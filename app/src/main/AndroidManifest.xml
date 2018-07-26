@@ -223,15 +223,13 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Test_mainActivity"
@@ -766,21 +764,14 @@
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
             android:label="新的头像注册界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".hypertensionmanagement.activity.HypertensionTipActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".hypertensionmanagement.activity.HypertensionTipActivity"></activity>
         <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.PressureFlatTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.PressureNornalTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.SlowDiseaseManagementActivity" />
         <activity android:name=".hypertensionmanagement.activity.SlowDiseaseManagementTipActivity" />
-        <activity android:name=".hypertensionmanagement.activity.BasicInformationActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.BasicInformationActivity" />
+        <activity android:name=".hypertensionmanagement.activity.PrimaryHypertensionActivity"></activity>
     </application>
 
 </manifest>

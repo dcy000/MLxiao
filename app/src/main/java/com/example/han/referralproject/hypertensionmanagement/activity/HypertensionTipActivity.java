@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -17,13 +16,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 疑似患有高血压
+ * 原发性高血压
  */
 public class HypertensionTipActivity extends BaseActivity implements WarmNoticeFragment.OnButtonClickListener {
 
     @BindView(R.id.fl_container)
     FrameLayout flContainer;
-    public static final String CONTENT = " 您好，根据系统中显示的3次数据判定,您疑似患有高血压,以下问题需要您认真作答";
+    public static final String CONTENT = "为提供给您更好的高血压管理方案,请认真选择以下问题!";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +54,12 @@ public class HypertensionTipActivity extends BaseActivity implements WarmNoticeF
 
     @Override
     public void onFragmentBtnClick() {
-        Toast.makeText(this, "点击了", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, PrimaryHypertensionActivity.class));
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-        Toast.makeText(this, "时间到了", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, PrimaryHypertensionActivity.class));
     }
 
 
