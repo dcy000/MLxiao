@@ -17,9 +17,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
-import com.example.han.referralproject.hypertensionmanagement.activity.OriginHypertensionTipActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
-import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementTipActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
@@ -35,7 +33,6 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 

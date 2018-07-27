@@ -53,7 +53,8 @@
                 android:gravity="center"
                 android:text="确认"
                 android:textColor="#3F86FC"
-                android:textSize="56pt"/>
+                android:textSize="56pt"
+                android:background="?android:attr/selectableItemBackground"/>
 
             <TextView
                 android:id="@+id/textView10"
@@ -69,7 +70,8 @@
                 android:gravity="center"
                 android:text="取消"
                 android:textColor="#bbbbbb"
-                android:textSize="56pt"/>
+                android:textSize="56pt"
+                android:background="?android:attr/selectableItemBackground"/>
         </LinearLayout>
 
     </LinearLayout>

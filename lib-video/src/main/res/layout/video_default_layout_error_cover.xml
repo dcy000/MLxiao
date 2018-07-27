@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="gone"
-    android:background="#444444">
+    android:visibility="visible"
+    android:background="@drawable/video_default_bg">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
             android:paddingRight="12dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            android:textSize="13sp"
+            android:textSize="28sp"
             android:textColor="#FFFFFF"
             android:text="出错了！"/>
 
@@ -32,9 +32,21 @@
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:background="@drawable/video_default_shape_next"
-            android:textSize="13sp"
+            android:textSize="28sp"
             android:textColor="#FFFFFF"
             android:text="重试"/>
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/jumpToNext"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/video_selector_jump2next"
+        android:gravity="center"
+        android:text="跳   过"
+        android:textColor="#ffffff"
+        android:textSize="28sp" />
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.han.referralproject.intelligent_diagnosis;
+package com.example.han.referralproject.health_manager_program;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -21,6 +21,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
+import com.example.han.referralproject.intelligent_diagnosis.SportPlan;
+import com.example.han.referralproject.intelligent_diagnosis.SportPlanDetailActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.google.gson.Gson;
@@ -38,7 +41,7 @@ import java.util.List;
  * Created by Administrator on 2018/5/16.
  */
 
-public class SportPlanFragment extends Fragment implements View.OnClickListener {
+public  class SportPlanFragment extends Fragment implements View.OnClickListener {
     private View view;
     private TextView intakeSalt;
     private TextView intakeOil;

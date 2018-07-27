@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
-        <bitmap android:src="@drawable/video_default_ic_video_player_btn_play"/>
+        <bitmap android:src="@drawable/video_on_stop"/>
     </item>
     <item>
-        <bitmap android:src="@drawable/video_default_ic_video_player_btn_pause"/>
+        <bitmap android:src="@drawable/video_on_play"/>
     </item>
 </selector>

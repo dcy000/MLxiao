@@ -49,6 +49,7 @@ import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.lib_utils.ui.ScreenUtils;
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.gzq.administrator.lib_common.base.BaseApplication;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -184,6 +185,11 @@ public class BaseActivity extends AppCompatActivity {
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
         mIatPreferences = getSharedPreferences(IatSettings.PREFER_NAME, MODE_PRIVATE);
         weakHandler = new WeakHandler();
+        initSuperApplicationVariable();
+    }
+
+    private void initSuperApplicationVariable() {
+        BaseApplication.getInstance().userId=MyApplication.getInstance().userId;
     }
 
     private boolean checkIgnoreActivity() {

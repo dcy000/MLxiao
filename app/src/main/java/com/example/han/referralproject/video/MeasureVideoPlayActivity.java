@@ -1,10 +1,13 @@
-package com.gzq.test_all_devices;
+package com.example.han.referralproject.video;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,69 +15,86 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.example.han.referralproject.R;
 import com.gcml.lib_video_ksyplayer.DataInter;
 import com.gcml.lib_video_ksyplayer.default_cover.ControllerCover;
+import com.gcml.lib_video_ksyplayer.default_cover.ErrorCover;
 import com.gcml.lib_video_ksyplayer.default_cover.IJump2NextListener;
 import com.gcml.lib_video_ksyplayer.util.PUtil;
 import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
-import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.entity.DataSource;
 import com.kk.taurus.playerbase.event.OnPlayerEventListener;
 import com.kk.taurus.playerbase.receiver.IReceiver;
 import com.kk.taurus.playerbase.receiver.ReceiverGroup;
-import com.kk.taurus.playerbase.render.AspectRatio;
-import com.kk.taurus.playerbase.render.IRender;
 import com.kk.taurus.playerbase.widget.BaseVideoView;
 
-import static com.gcml.lib_video_ksyplayer.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
+import java.io.Serializable;
 
-public class TestVideoActivity extends AppCompatActivity implements OnPlayerEventListener {
+import static com.gcml.lib_video_ksyplayer.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
+import static com.gcml.lib_video_ksyplayer.DataInter.ReceiverKey.KEY_ERROR_COVER;
+
+public class MeasureVideoPlayActivity extends AppCompatActivity implements OnPlayerEventListener, IJump2NextListener {
+    public static final int REQUEST_PALY_VIDEO = 1001;
     private BaseVideoView mVideoView;
     private ReceiverGroup mReceiverGroup;
     private boolean isLandscape;
     private long mDataSourceId;
     private boolean userPause;
+
+    //播放本地资源的时候传resId,url传null;比方网络资源的时候resId传null
+    public static void startActivity(Activity context, Class clazz, Uri uri, String url, String title) {
+        context.startActivityForResult(new Intent(context, clazz)
+                .putExtra("uri", uri)
+                .putExtra("url", url)
+                .putExtra("title", title), REQUEST_PALY_VIDEO);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_video_view);
+        setContentView(R.layout.activity_general_video_view);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
                 , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mVideoView = findViewById(R.id.videoView);
-        initPlay();
+        Intent intent = getIntent();
+        Uri uri = intent.getParcelableExtra("uri");
+        String url = intent.getStringExtra("url");
+        String title = intent.getStringExtra("title");
+        DataSource dataSource=new DataSource();
+        dataSource.setUri(uri);
+        dataSource.setData(url);
+        dataSource.setTitle(title);
+        initPlay(dataSource);
 
 
     }
 
-    private void initPlay() {
+    private void initPlay(DataSource dataSource) {
         updateVideo(true);
         mVideoView.setOnPlayerEventListener(this);
         mVideoView.setEventHandler(mOnEventAssistHandler);
-        mReceiverGroup = ReceiverGroupManager.get().getReceiverGroup(this, null);
-        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_NETWORK_RESOURCE, true);
+        mReceiverGroup = ReceiverGroupManager.get().getMeasureVideoReceiverGroup(this, null);
+        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_NETWORK_RESOURCE, false);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_IS_HAS_NEXT, false);
         mVideoView.setReceiverGroup(mReceiverGroup);
-        DataSource dataSource = new DataSource();
-//        Uri parse = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-//        dataSource.setUri(parse);
-//        dataSource.setUri(parse);
-        dataSource.setData("http://oyptcv2pb.bkt.clouddn.com/abc_1521797390144");
-        dataSource.setTitle("测试");
+//        DataSource dataSource = new DataSource();
+////        Uri parse = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
+////        dataSource.setUri(parse);
+////        dataSource.setUri(parse);
+//        dataSource.setData("http://oyptcv2pb.bkt.clouddn.com/abc_1521797390144");
+//        dataSource.setTitle("测试");
         mVideoView.setDataSource(dataSource);
         mVideoView.start();
 
-        ControllerCover receiver = mReceiverGroup.getReceiver(KEY_CONTROLLER_COVER);
-        receiver.setOnJump2NextListener(new IJump2NextListener() {
-            @Override
-            public void clickJump2Next(View view) {
-                finish();
-            }
-        });
+        ControllerCover controllerCover = mReceiverGroup.getReceiver(KEY_CONTROLLER_COVER);
+        ErrorCover errorCover = mReceiverGroup.getReceiver(KEY_ERROR_COVER);
+        controllerCover.setOnJump2NextListener(this);
+        errorCover.setOnJump2NextListener(this);
+
     }
 
     private DataSource generatorDataSource(long id) {
@@ -176,16 +196,11 @@ public class TestVideoActivity extends AppCompatActivity implements OnPlayerEven
                     mVideoView.stop();
                     break;
                 case DataInter.Event.EVENT_CODE_REQUEST_CLOSE:
-
+                    setResult(RESULT_OK);
                     break;
             }
         }
     };
-
-    private void replay(int msc) {
-        mVideoView.setDataSource(generatorDataSource(mDataSourceId));
-        mVideoView.start(msc);
-    }
 
     @Override
     public void onPlayerEvent(int eventCode, Bundle bundle) {
@@ -193,11 +208,16 @@ public class TestVideoActivity extends AppCompatActivity implements OnPlayerEven
             case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
                 break;
             case OnPlayerEventListener.PLAYER_EVENT_ON_PLAY_COMPLETE:
-
+                setResult(RESULT_OK);
                 break;
             case OnPlayerEventListener.PLAYER_EVENT_ON_RESUME:
                 userPause = false;
                 break;
         }
+    }
+
+    @Override
+    public void clickJump2Next(View view) {
+        finish();
     }
 }

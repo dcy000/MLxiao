@@ -32,11 +32,11 @@ dependencies {
     //file
     api files('libs/pinyin4j-2.5.0.jar')
     //system
-    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
+    androidTestApi rootProject.ext.dependencies["espresso-core"]
     api rootProject.ext.dependencies["constraint-layout"]
-    implementation rootProject.ext.dependencies["support-v4"]
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["cardview-v7"]
     //others
@@ -54,7 +54,7 @@ dependencies {
     //图表库
     api rootProject.ext.dependencies["MPAndroidChart"]
     //语音模块
-    api project(':voice')
+    api project(':lib-voice')
     //高斯模糊
     api 'com.github.mmin18:realtimeblurview:1.1.0'
     //图片加载库

@@ -1,4 +1,4 @@
-package com.example.han.referralproject.intelligent_diagnosis;
+package com.example.han.referralproject.health_manager_program;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
+import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
+import com.example.han.referralproject.intelligent_diagnosis.ThisWeekHealthPlan;
 import com.example.han.referralproject.network.NetworkApi;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -52,7 +55,7 @@ public class ThisWeekHealthPlanFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (view==null) {
+        if (view == null) {
             view = inflater.inflate(R.layout.activity_detection_plan, container, false);
             getData();
             initView(view);
@@ -118,8 +121,8 @@ public class ThisWeekHealthPlanFragment extends Fragment {
             Log.e(TAG, "setUserVisibleHint: ");
             if (data != null) {
                 ((TreatmentPlanActivity) getActivity()).speak("主人，小易为您制定了本周的健康计划。血压" + data.getHypertensionFrequency() + ",血糖" +
-                        data.getDiabetesFrequency() + ",本周体重目标" + String.format("%.2f",data.getWeightTarget()) + "千克，高压目标"
-                        + data.getHighPressureTarget() + ",低压" + data.getLowPressureTarget() + ",血糖目标" + String.format("%.2f",data.getBloodSugarTarget()));
+                        data.getDiabetesFrequency() + ",本周体重目标" + String.format("%.2f", data.getWeightTarget()) + "千克，高压目标"
+                        + data.getHighPressureTarget() + ",低压" + data.getLowPressureTarget() + ",血糖目标" + String.format("%.2f", data.getBloodSugarTarget()));
             }
             if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);

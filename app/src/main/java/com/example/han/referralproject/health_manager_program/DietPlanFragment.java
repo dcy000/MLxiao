@@ -1,4 +1,4 @@
-package com.example.han.referralproject.intelligent_diagnosis;
+package com.example.han.referralproject.health_manager_program;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -21,6 +21,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
+import com.example.han.referralproject.intelligent_diagnosis.DailyRecommendIntake;
+import com.example.han.referralproject.intelligent_diagnosis.FoodMateratilDetail;
+import com.example.han.referralproject.intelligent_diagnosis.FoodMaterialDetailActivity;
+import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.google.gson.Gson;

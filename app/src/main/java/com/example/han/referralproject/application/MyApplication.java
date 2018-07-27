@@ -20,9 +20,14 @@ import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.UiUtils;
+import com.gcml.lib_video_ksyplayer.KSYPlayer;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
+import com.gzq.administrator.lib_common.base.BaseApplication;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.kk.taurus.playerbase.config.PlayerConfig;
+import com.kk.taurus.playerbase.config.PlayerLibrary;
+import com.kk.taurus.playerbase.entity.DecoderPlan;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
@@ -33,18 +38,17 @@ import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
 
 
-public class MyApplication extends Application {
+public class MyApplication extends BaseApplication {
     private static MyApplication mInstance;
     public String userId;
     public String xfid;
     public String telphoneNum;
     public String userName;
-
     public String nimUserId() {
         return "user_" + userId;
     }
-
     public String eqid;
+    public static final int PLAN_ID_KSY = 1;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -88,13 +92,13 @@ public class MyApplication extends Application {
 
         WakeupHelper.init(this);
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("appid=")
-                .append("59196d96")
-                .append(",")
-                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
-
-        SpeechUtility.createUtility(this, builder.toString());
+//        StringBuilder builder = new StringBuilder();
+//        builder.append("appid=")
+//                .append("59196d96")
+//                .append(",")
+//                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
+//
+//        SpeechUtility.createUtility(this, builder.toString());
 
         BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
 
@@ -107,6 +111,14 @@ public class MyApplication extends Application {
         if (curProcessName.equals("com.example.han.referralproject:core")) {
             VolumeControlFloatwindow.init(this.getApplicationContext());
         }
+        initVideoPlay();
+    }
+
+    private void initVideoPlay() {
+        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_KSY, KSYPlayer.class.getName(), "Ksyplayer"));
+        PlayerConfig.setDefaultPlanId(PLAN_ID_KSY);
+        PlayerConfig.setUseDefaultNetworkEventProducer(true);
+        PlayerLibrary.init(this);
     }
 
 

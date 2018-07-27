@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
 import com.github.mikephil.charting.animation.Easing;

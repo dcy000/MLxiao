@@ -30,7 +30,6 @@ import com.gzq.administrator.lib_common.base.BaseFragment;
 import java.util.ArrayList;
 
 public class HealthRecordBloodoxygenFragment extends BaseFragment {
-    private View view;
     private TextView mColor1;
     private TextView mIndicator1;
     private TextView mColor2;
