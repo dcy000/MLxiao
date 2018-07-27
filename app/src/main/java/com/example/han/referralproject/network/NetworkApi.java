@@ -1174,4 +1174,51 @@ public class NetworkApi {
                 .execute(callback);
     }
 
+
+    /**
+     * 高血压-->获取心血管问卷
+     */
+    public static final String HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/heart/";
+
+    public static void getHypertensionQuestion(StringCallback callback) {
+        OkGo.<String>get(HYPERTENSION_URL).
+                execute(callback);
+    }
+
+
+    /**
+     * 高血压-->提交心血管问卷
+     */
+    public static void postHypertensionQuestion(String postJson, String userId, StringCallback callback) {
+        OkGo.<String>post(HYPERTENSION_URL + userId + "/")
+                .params("userId", userId)
+                .upJson(postJson)
+                .execute(callback);
+    }
+
+
+
+
+
+    /**
+     * 正常高值-->高血压风险评估
+     */
+    public static final String NORMALHIGHT_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/risk/";
+
+    public static void getNormalHightQuestion(StringCallback callback) {
+        OkGo.<String>get(NORMALHIGHT_URL).
+                execute(callback);
+    }
+
+
+    /**
+     * 正常高值-->高血压风险评估
+     */
+    public static void postNormalHightQuestion(String postJson, String userId, StringCallback callback) {
+        OkGo.<String>post(NORMALHIGHT_URL + userId + "/")
+                .params("userId", userId)
+                .upJson(postJson)
+                .execute(callback);
+    }
+
 }

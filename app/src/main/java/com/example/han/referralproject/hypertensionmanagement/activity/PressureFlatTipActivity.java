@@ -15,6 +15,9 @@ import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNotic
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ *偏低 生成方案
+ */
 public class PressureFlatTipActivity extends BaseActivity implements WarmNoticeFragment.OnButtonClickListener {
     public static final String CONTENT = "  您好,根据系统中显示的三次数据判定,您血压偏低,现系统正为您生成预防高血压方案";
     @BindView(R.id.fl_container)

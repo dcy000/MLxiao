@@ -764,14 +764,19 @@
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
             android:label="新的头像注册界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".hypertensionmanagement.activity.HypertensionTipActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.OriginHypertensionTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.PressureFlatTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.PressureNornalTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.SlowDiseaseManagementActivity" />
         <activity android:name=".hypertensionmanagement.activity.SlowDiseaseManagementTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.BasicInformationActivity" />
-        <activity android:name=".hypertensionmanagement.activity.PrimaryHypertensionActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.PrimaryHypertensionActivity" />
+        <activity android:name=".hypertensionmanagement.activity.HypertensionTipActivity" />
+        <activity android:name=".hypertensionmanagement.activity.HypertensionActivity" />
+        <activity android:name=".hypertensionmanagement.activity.HasDiseaseOrNotActivity" />
+        <activity android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.NormalHightActivity"></activity>
     </application>
 
 </manifest>

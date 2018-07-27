@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,11 +46,13 @@ public class SlowDiseaseManagementTipActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_next_step:
-
+                startActivity(new Intent(this, BasicInformationActivity.class));
                 break;
             case R.id.tv_to_mall:
-
+// TODO: 2018/7/26 前往商城
                 break;
         }
     }
+
+
 }

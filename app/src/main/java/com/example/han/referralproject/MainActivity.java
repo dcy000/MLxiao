@@ -17,7 +17,9 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
-import com.example.han.referralproject.hypertensionmanagement.activity.HypertensionTipActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.OriginHypertensionTipActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementTipActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
@@ -137,7 +139,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-                startActivity(new Intent(this, HypertensionTipActivity.class));
+                startActivity(new Intent(this, SlowDiseaseManagementActivity.class));
                 //呼叫
 //                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
                 break;

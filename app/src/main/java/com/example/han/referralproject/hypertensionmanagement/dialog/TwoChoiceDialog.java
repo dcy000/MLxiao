@@ -40,7 +40,7 @@ public class TwoChoiceDialog extends DialogFragment {
     public interface OnDialogClickListener {
         void onClickConfirm(String content);
 
-//        void onClickCancel();
+        void onClickCancel();
     }
 
     public void setListener(OnDialogClickListener listener) {
@@ -100,10 +100,10 @@ public class TwoChoiceDialog extends DialogFragment {
     }
 
     private void clickCancel() {
-//        if (listener==null){
-//            return;
-//        }
-//        listener.onClickCancel();
+        if (listener==null){
+            return;
+        }
+        listener.onClickCancel();
 
         dismiss();
     }

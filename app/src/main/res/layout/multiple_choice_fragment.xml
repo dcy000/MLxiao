@@ -27,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_tip_content"
         android:layout_width="1200pt"
         android:layout_height="wrap_content"

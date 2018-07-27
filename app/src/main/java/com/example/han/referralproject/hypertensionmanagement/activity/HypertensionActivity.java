@@ -28,9 +28,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 原发性高血压问卷
+ * 高血压--->心血管风险评估
  */
-public class PrimaryHypertensionActivity extends BaseActivity implements MultipleChoiceFragment.OnButtonClickListener {
+public class HypertensionActivity extends BaseActivity implements MultipleChoiceFragment.OnButtonClickListener {
 
     @BindView(R.id.vp)
     ViewPager vp;
@@ -49,7 +49,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
 
     private void initVP() {
         showLoadingDialog("正在加载...");
-        NetworkApi.getPrimaryHypertensionQuestion(new StringCallback() {
+        NetworkApi.getHypertensionQuestion(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
@@ -61,7 +61,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
                         postBean.equipmentId = Utils.getDeviceId();
                         postBean.hmQuestionnaireId = bean.data.hmQuestionnaireId;
                         postBean.hmQuestionnaireName = bean.data.questionnaireName;
-                        postBean.userId = LocalShared.getInstance(PrimaryHypertensionActivity.this).getUserId();
+                        postBean.userId = LocalShared.getInstance(HypertensionActivity.this).getUserId();
                         postBean.score = 0;
                         postBean.answerList = new ArrayList<>();
                         //给提交的数据赋值===结束
@@ -74,7 +74,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
                                         "请认证阅读",
                                         questionBean,
                                         false);
-                                instance.setListener(PrimaryHypertensionActivity.this);
+                                instance.setListener(HypertensionActivity.this);
                                 fragments.add(instance);
                             } else if ("1".equals(questionType)) {
                                 MultipleChoiceFragment instance = MultipleChoiceFragment.getInstance(
@@ -82,7 +82,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
                                         "请认证阅读",
                                         questionBean,
                                         true);
-                                instance.setListener(PrimaryHypertensionActivity.this);
+                                instance.setListener(HypertensionActivity.this);
                                 fragments.add(instance);
                             }
 
@@ -117,7 +117,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
         mTitleText.setText("基 础 信 息 列 表");
         mRightText.setVisibility(View.GONE);
         mRightView.setImageResource(R.drawable.white_wifi_3);
-        mRightView.setOnClickListener(v -> startActivity(new Intent(PrimaryHypertensionActivity.this, WifiConnectActivity.class)));
+        mRightView.setOnClickListener(v -> startActivity(new Intent(HypertensionActivity.this, WifiConnectActivity.class)));
     }
 
     @Override
@@ -143,11 +143,11 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
 
 
     private void postData() {
-        NetworkApi.postPrimaryHypertensionQuestion(new Gson().toJson(postBean), LocalShared.getInstance(this).getUserId() + "", new StringCallback() {
+        NetworkApi.postHypertensionQuestion(new Gson().toJson(postBean), LocalShared.getInstance(this).getUserId() + "", new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                // TODO: 2018/7/27 --->拿出血压进行血压检准备
-
+                // TODO: 2018/7/26 提交成功 问空腹与否
+                startActivity(new Intent(HypertensionActivity.this, IsEmptyStomachOrNotActivity.class));
             }
         });
     }

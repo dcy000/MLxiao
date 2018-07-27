@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SlowDiseaseManagementActivity extends BaseActivity implements TwoChoiceDialog.OnDialogClickListener {
+public class SlowDiseaseManagementActivity extends BaseActivity {
 
     @BindView(R.id.iv_Hypertension_manage)
     ImageView ivHypertensionManage;
@@ -34,7 +34,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         setContentView(R.layout.activity_slow_disease_management);
         ButterKnife.bind(this);
         initTitle();
-        mlSpeak(CONTENT);
+//        mlSpeak(CONTENT);
     }
 
     private void initTitle() {
@@ -48,7 +48,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_Hypertension_manage:
-                showDialog();
+                // TODO: 2018/7/27 非同日三次 是否满足  接口 2分支 
+                startActivity(new Intent(this, SlowDiseaseManagementTipActivity.class));
                 break;
             case R.id.iv_blood_sugar_manage:
                 T.show("敬请期待");
@@ -56,31 +57,4 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         }
     }
 
-    private void hypertensionManage() {
-        DialogSureCancel sureCancel = new DialogSureCancel(this);
-        sureCancel.setContent(CONTENT);
-        sureCancel.setSure("去测量");
-        sureCancel.setCancel("下次再说");
-        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
-            @Override
-            public void clickSure(BaseDialog dialog) {
-
-                dialog.dismiss();
-            }
-        });
-        sureCancel.show();
-
-    }
-
-    private void showDialog() {
-        TwoChoiceDialog dialog = new TwoChoiceDialog(CONTENT, "去测量", "下次再说");
-        dialog.setListener(this);
-        dialog.show(getFragmentManager(), "tip");
-    }
-
-
-    @Override
-    public void onClickConfirm(String content) {
-// TODO: 2018/7/25 去测量 
-    }
 }
