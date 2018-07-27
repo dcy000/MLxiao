@@ -58,12 +58,8 @@
             android:gravity="center"
             android:text="确认"
             android:textColor="#3F86FC"
-<<<<<<< HEAD
             android:textSize="56pt"
             android:background="?android:attr/selectableItemBackground"/>
-=======
-            android:textSize="56pt" />
->>>>>>> c91cb2fa049e7e70da609d750ffad93bfe3fe371
 
         <TextView
             android:id="@+id/textView10"
@@ -79,11 +75,7 @@
             android:gravity="center"
             android:text="取消"
             android:textColor="#bbbbbb"
-<<<<<<< HEAD
             android:textSize="56pt"
             android:background="?android:attr/selectableItemBackground"/>
-=======
-            android:textSize="56pt" />
->>>>>>> c91cb2fa049e7e70da609d750ffad93bfe3fe371
     </LinearLayout>
 </LinearLayout>

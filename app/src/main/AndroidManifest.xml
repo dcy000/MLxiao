@@ -723,31 +723,12 @@
             android:screenOrientation="landscape" />
         <activity android:name=".health.firstdetect.HealthFirstDetectActivity" />
         <activity
-<<<<<<< HEAD
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
             android:label="新的头像注册界面"
             android:screenOrientation="landscape"/>
         <activity android:name=".video.MeasureVideoPlayActivity"
             android:screenOrientation="landscape"
-            android:label="测量演示视频播放界面">
-
-        </activity>
-=======
-            android:name=".TestCameraAndRegisterXF"
-            android:label="测试相机工具类和注册讯飞"
-            android:screenOrientation="landscape">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity
-            android:name=".facerecognition.RegisterHead2XunfeiActivity"
-            android:label="新的头像注册界面"
-            android:screenOrientation="landscape" />
+            android:label="测量演示视频播放界面"/>
         <activity android:name=".hypertensionmanagement.activity.OriginHypertensionTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.PressureFlatTipActivity" />
@@ -761,7 +742,6 @@
         <activity android:name=".hypertensionmanagement.activity.HasDiseaseOrNotActivity" />
         <activity android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity"></activity>
         <activity android:name=".hypertensionmanagement.activity.NormalHightActivity"></activity>
->>>>>>> c91cb2fa049e7e70da609d750ffad93bfe3fe371
     </application>
 
 </manifest>

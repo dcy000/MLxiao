@@ -109,7 +109,6 @@ dependencies {
     implementation project(':lib-music-player')
     implementation project(':lib-video')
     //aar
-<<<<<<< HEAD
     implementation name: 'mlrobot-release', ext: 'aar'
     implementation name: 'FaceppIDCardUI', ext: 'aar'
     implementation name: 'lib-crash', ext: 'aar'
@@ -117,14 +116,7 @@ dependencies {
     implementation name: 'library', ext: 'aar'
     implementation name: 'vmtools', ext: 'aar'
     implementation name: 'voicelibrary', ext: 'aar'
-=======
-    api name: 'mlrobot-release', ext: 'aar'
-    api name: 'FaceppIDCardUI', ext: 'aar'
-    api name: 'lib-crash', ext: 'aar'
-    api name: 'lib-wheelrecyclerview', ext: 'aar'
-    api name: 'library', ext: 'aar'
-    api name: 'vmtools', ext: 'aar'
-    api name: 'voicelibrary', ext: 'aar'
+
 
     //system
 
@@ -151,31 +143,6 @@ dependencies {
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["cardview-v7"]
     //others
-
-    //    api rootProject.ext.dependencies["multidex"]
-
-    //    api rootProject.ext.dependencies["retrofit"]
-
-    //    api rootProject.ext.dependencies["okhttp3"]
-
-    //    api rootProject.ext.dependencies["picasso"]
-
-    //    api rootProject.ext.dependencies["gson"]
-
-    //    api rootProject.ext.dependencies["retrofit-converter-gson"]
-
-    //    api rootProject.ext.dependencies["butterknife"]
-
-    //    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-
-    //万能适配器
-
-    //    api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-
-    //图标库
-
-    //    api rootProject.ext.dependencies["MPAndroidChart"]
->>>>>>> c91cb2fa049e7e70da609d750ffad93bfe3fe371
     api('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
@@ -209,12 +176,5 @@ dependencies {
     api 'me.songning.CircleView:library:1.0.0'
     //悬浮窗
     api 'com.github.yhaolpz:FloatWindow:1.0.9'
-<<<<<<< HEAD
-=======
-    implementation project(':module-health_record')
-    implementation project(':lib-common')
-    implementation project(':lib-utils')
-    implementation project(':lib-music-player')
->>>>>>> c91cb2fa049e7e70da609d750ffad93bfe3fe371
 
 }
