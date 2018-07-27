@@ -99,5 +99,9 @@
         android:src="@drawable/ic_shop_normal" />
 
 
-
+    <FrameLayout
+        android:id="@+id/fl_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

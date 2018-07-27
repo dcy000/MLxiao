@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 
 import java.util.Calendar;
@@ -88,8 +89,14 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;
 
-
             Intent intent = new Intent();
+            if (R.id.ll_xuetang == v.getId()) {
+                intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
+                intent.putExtra("type", "xuetang");
+                startActivity(intent);
+                return;
+            }
+
 //            switch (v.getId()) {
 //                case R.id.ll_xueya:
 //                    intent.setClass(mContext, DetectActivity.class);
@@ -147,10 +154,10 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_WEIGHT);
                     break;
                 case R.id.ll_xindian:
-                    intent.putExtra(IPresenter.MEASURE_TYPE,IPresenter.MEASURE_ECG);
+                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_ECG);
                     break;
                 case R.id.ll_more://指纹
-                    intent.putExtra(IPresenter.MEASURE_TYPE,IPresenter.CONTROL_FINGERPRINT);
+                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.CONTROL_FINGERPRINT);
                     break;
             }
             startActivity(intent);

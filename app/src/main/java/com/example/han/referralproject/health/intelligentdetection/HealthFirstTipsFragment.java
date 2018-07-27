@@ -1,4 +1,4 @@
-package com.example.han.referralproject.health.firstdetect;
+package com.example.han.referralproject.health.intelligentdetection;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -28,7 +28,7 @@ public class HealthFirstTipsFragment extends Fragment {
         super.onAttach(context);
         try {
             mCallback = ((Callback) context);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }

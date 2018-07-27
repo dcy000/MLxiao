@@ -115,6 +115,7 @@ dependencies {
     api name: 'vmtools', ext: 'aar'
     api name: 'voicelibrary', ext: 'aar'
     //system
+    implementation 'com.android.support:support-v4:27.1.1'
     testImplementation rootProject.ext.dependencies["junit"]
     api rootProject.ext.dependencies["constraint-layout"]
     api rootProject.ext.dependencies["support-v4"]
@@ -170,4 +171,8 @@ dependencies {
     //悬浮窗
     api 'com.github.yhaolpz:FloatWindow:1.0.9'
 
+    implementation rootProject.ext.dependencies["rxandroid2"]
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxandroidble2"]
+    implementation rootProject.ext.dependencies["rxpermissions2"]
 }

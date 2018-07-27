@@ -748,7 +748,7 @@
             android:label="人脸识别界面"
             android:screenOrientation="landscape" />
 
-        <activity android:name=".health.firstdetect.HealthFirstDetectActivity">
+        <activity android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity">
 
         </activity>
 

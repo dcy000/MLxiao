@@ -571,5 +571,8 @@
     <string name="bluetooth_device_connected">设备已连接</string>
     <string name="bluetooth_device_disconnected">设备已断开</string>
 
-    <string name="health_first_detect_tips">初次见面，我是小E！\n为了更好的您的身体，先来做一个全套体检吧!</string>
+    <string name="health_first_detect_tips">初次见面，我是小E！\n为了更好的了解您的身体，先来做一个全套体检吧!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
