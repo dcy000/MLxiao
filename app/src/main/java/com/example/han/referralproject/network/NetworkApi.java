@@ -49,6 +49,8 @@ import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,8 +59,20 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
+<<<<<<< HEAD
     //TODO:IP地址统一到根目录的config.gradle中进行配置
     public static final String BasicUrl= BuildConfig.SERVER_ADDRESS;
+=======
+    //        public static final String BasicUrl = "http://116.62.36.12:8080";//备用服务器
+//    public static final String BasicUrl = "http://118.31.238.207:8080";//正式服务器
+//    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
+//    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
+    //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
+    public static final String BasicUrl = "http://192.168.200.117:8080";//林天聪
+//    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
+
+
+>>>>>>> c91cb2fa049e7e70da609d750ffad93bfe3fe371
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐
@@ -1143,4 +1157,74 @@ public class NetworkApi {
                 successCallback,
                 failedCallback);
     }
+
+    /**
+     * 获取原发性高血压问卷
+     */
+    public static final String PRIMARY_HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/primary/";
+
+    public static void getPrimaryHypertensionQuestion(StringCallback callback) {
+        OkGo.<String>get(PRIMARY_HYPERTENSION_URL).
+                execute(callback);
+    }
+
+    /**
+     * 提交原发性高血压问卷
+     */
+    public static final String POST_PRIMARY_HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/primary/";
+
+    public static void postPrimaryHypertensionQuestion(String postJson, String userId, StringCallback callback) {
+        OkGo.<String>post(POST_PRIMARY_HYPERTENSION_URL + userId + "/")
+                .params("userId", userId)
+                .upJson(postJson)
+                .execute(callback);
+    }
+
+
+    /**
+     * 高血压-->获取心血管问卷
+     */
+    public static final String HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/heart/";
+
+    public static void getHypertensionQuestion(StringCallback callback) {
+        OkGo.<String>get(HYPERTENSION_URL).
+                execute(callback);
+    }
+
+
+    /**
+     * 高血压-->提交心血管问卷
+     */
+    public static void postHypertensionQuestion(String postJson, String userId, StringCallback callback) {
+        OkGo.<String>post(HYPERTENSION_URL + userId + "/")
+                .params("userId", userId)
+                .upJson(postJson)
+                .execute(callback);
+    }
+
+
+
+
+
+    /**
+     * 正常高值-->高血压风险评估
+     */
+    public static final String NORMALHIGHT_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/risk/";
+
+    public static void getNormalHightQuestion(StringCallback callback) {
+        OkGo.<String>get(NORMALHIGHT_URL).
+                execute(callback);
+    }
+
+
+    /**
+     * 正常高值-->高血压风险评估
+     */
+    public static void postNormalHightQuestion(String postJson, String userId, StringCallback callback) {
+        OkGo.<String>post(NORMALHIGHT_URL + userId + "/")
+                .params("userId", userId)
+                .upJson(postJson)
+                .execute(callback);
+    }
+
 }

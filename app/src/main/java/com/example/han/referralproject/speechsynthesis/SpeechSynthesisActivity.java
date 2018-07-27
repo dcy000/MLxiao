@@ -1751,15 +1751,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 }
                 str1 = sb.toString().replace("<USER-NAME>","");
+                defaultToke();
             }
 
             @Override
             public void onError() {
+                defaultToke();
             }
 
             @Override
             public void onComplete() {
-                defaultToke();
+
             }
         });
         return str1;

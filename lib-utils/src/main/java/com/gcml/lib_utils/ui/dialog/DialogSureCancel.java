@@ -2,7 +2,6 @@ package com.gcml.lib_utils.ui.dialog;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +38,7 @@ public class DialogSureCancel extends BaseDialog implements View.OnClickListener
         initView();
     }
 
-    public DialogSureCancel(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
+    public DialogSureCancel(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         initView();
     }

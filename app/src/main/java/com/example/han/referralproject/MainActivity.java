@@ -17,7 +17,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
@@ -33,7 +33,6 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -138,9 +137,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
+                startActivity(new Intent(this, SlowDiseaseManagementActivity.class));
                 //呼叫
 //                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
-                startActivity(new Intent(this, TreatmentPlanActivity.class));
                 break;
         }
     }

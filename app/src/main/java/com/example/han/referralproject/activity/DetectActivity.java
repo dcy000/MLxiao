@@ -31,9 +31,11 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -241,6 +243,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         xueyaResult = mXueyaResults[1];
                     } else {
                         xueyaResult = mXueyaResults[2];
+                    }
+                    if (getIntent().getBooleanExtra("isSkip", false)) {
+                        speak(String.format(getString(R.string.tips_result_xueya), getNew, down, maibo, xueyaResult));
+                        return;
                     }
                     uploadXueyaResult(getNew, down, maibo, xueyaResult, false, null);
                     break;
@@ -541,6 +547,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             } else {
                                 xueyaResult = mXueyaResults[2];
                             }
+                            if (getIntent().getBooleanExtra("isSkip", false)) {
+                                speak(String.format(getString(R.string.tips_result_xueya), notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
+                                return;
+                            }
                             uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, false, null);
 //                            speak(String.format(getString(R.string.tips_result_xueya),
 //                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
@@ -577,7 +587,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 //上传数据到我们的服务器
+                                if (getIntent().getBooleanExtra("isSkip", false)) {
+                                    speak(String.format(getString(R.string.tips_result_xueya), notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
+                                    return;
+                                }
                                 uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, false, null);
+
                             }
                         }
                         break;
@@ -590,6 +605,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             isGetResustFirst = false;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
+                            if (getIntent().getBooleanExtra("isSkip", false)) {
+                                speak("主人,您本次测量的血糖值是"+xuetangResut);
+                                return;
+                            }
                             uploadXuetangResult(xuetangResut, false, null);
                         }
                         break;
@@ -763,9 +782,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         } else if (notifyData[1] == 97) {//胆固醇
             info.cholesterol = String.format("%.2f", afterResult);
             mSanHeYiThreeTv.setText(String.format("%.2f", afterResult));
-            if (result < 3.0)
+            if (afterResult < 3.0)
                 speakFlag = "偏低";
-            else if (result > 6.0)
+            else if (afterResult > 6.0)
                 speakFlag = "偏高";
             else
                 speakFlag = "正常";
@@ -1022,6 +1041,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
+        if (getIntent().getBooleanExtra("isSkip", false)) {
+            mButton1.setVisibility(View.GONE);
+            mButton2.setVisibility(View.GONE);
+
+            setMarginLeft(R.id.xueya_video);
+            setMarginLeft(R.id.xuetang_video);
+        }
+
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1266,6 +1293,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.sanheyi_video).setOnClickListener(this);
         //选择血糖测量的时间
         setXuetangSelectTime();
+    }
+
+    private void setMarginLeft(int resourceId) {
+        @SuppressLint("WrongViewCast") LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) findViewById(resourceId).getLayoutParams();
+        lp.leftMargin = 200;
+        findViewById(resourceId).setLayoutParams(lp);
     }
 
     @Override
