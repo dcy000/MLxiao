@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.gcml.lib_utils.display.ToastUtils;
 
@@ -38,6 +39,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements Fllow
         mTitleText.setText("基 础 信 息 列 表");
         mRightText.setVisibility(View.GONE);
         mRightView.setImageResource(R.drawable.white_wifi_3);
+        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})

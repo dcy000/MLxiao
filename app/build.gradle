@@ -157,7 +157,7 @@ dependencies {
 
     //    api rootProject.ext.dependencies["butterknife"]
 
-    //    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+        annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
     //万能适配器
 
