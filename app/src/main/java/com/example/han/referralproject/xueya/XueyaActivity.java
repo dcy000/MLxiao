@@ -86,7 +86,7 @@ public class XueyaActivity extends BaseActivity {
                         mPb.setVisibility(View.INVISIBLE);
                     }*/
                     sendDataToBLE(DEVICE1_ON);
-//                    Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).showShort();
 
                     break;
                 case 1:
@@ -302,7 +302,7 @@ public class XueyaActivity extends BaseActivity {
                     } else {
                         mBluetoothAdapter.startLeScan(mLeScanCallback);
                         mPb.setVisibility(View.VISIBLE);
-                        Toast.makeText(getApplicationContext(), "请开启设备进行连接", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "请开启设备进行连接", Toast.LENGTH_SHORT).showShort();
                     }
                     try {
                         Thread.sleep(2000);

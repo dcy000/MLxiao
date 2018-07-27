@@ -207,7 +207,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 							NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
 								@Override
 								public void onSuccess(MeasureResult response) {
-									//Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+									//Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
 								}
 							}, new NetworkManager.FailedCallback() {
 								@Override
@@ -476,7 +476,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 //			if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
 //				//判断是否需要 向用户解释，为什么要申请该权限
 //				if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))
-//					Toast.makeText(this,"need to open location info for discovering bluetooth device in android6.0 system，otherwise dont find！", Toast.LENGTH_LONG).show();
+//					Toast.makeText(this,"need to open location info for discovering bluetooth device in android6.0 system，otherwise dont find！", Toast.LENGTH_LONG).showShort();
 //
 //				//请求权限
 //				ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_FINE_LOCATION);

@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.ToolBaseActivity;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.adapter.KeyWordDifineRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.RecognizerListener;
@@ -208,7 +208,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         data.add(bean);
         adapter.notifyDataSetChanged();
         SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
-        ToastUtils.show( "保存:" + recognizerResult + "成功");
+        ToastUtils.showShort( "保存:" + recognizerResult + "成功");
         speak("保存:" + recognizerResult + "关键词成功");
 
 //        flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);
@@ -250,7 +250,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 //            mTitleText.setText("关键字编辑");
 //            //点击编辑回调
 //            for (int i = 0; i < data.size(); i++) {
-//                data.get(i).show = false;
+//                data.get(i).showShort = false;
 //            }
 //            adapter.notifyDataSetChanged();
 //

@@ -16,8 +16,8 @@ import com.example.han.referralproject.children.model.StoryModel;
 import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +86,7 @@ public class ChildEduStories2Activity extends BaseActivity {
             String storiesJson = results.get("resultJson");
             List<StoryModel> models = StoryModel.parseStories(storiesJson);
             if (models == null || models.isEmpty()) {
-                T.show("服务器繁忙");
+                ToastUtils.showShort("服务器繁忙");
                 return;
             }
             mModels.clear();

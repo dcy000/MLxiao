@@ -26,9 +26,9 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.register.ConfirmContractActivity;
-import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
@@ -350,7 +350,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                             }, new NetworkManager.FailedCallback() {
                                 @Override
                                 public void onFailed(String message) {
-                                    T.show("服务器繁忙，请稍后再试");
+                                    ToastUtils.showShort("服务器繁忙，请稍后再试");
                                 }
                             });
                 }

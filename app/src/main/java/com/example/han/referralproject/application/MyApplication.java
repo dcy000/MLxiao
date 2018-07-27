@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
-import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.module_control_volume.VolumeControlFloatwindow;
@@ -25,7 +24,6 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call2.NimInitHelper;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
@@ -69,8 +67,6 @@ public class MyApplication extends Application {
 //        LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
-        ScreenUtils.init(this);
-        com.example.han.referralproject.new_music.ToastUtils.init(this);
         //初始化蓝牙连接库
         BluetoothClientManager.init(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
@@ -82,7 +78,6 @@ public class MyApplication extends Application {
         MobclickAgent.startWithConfigure(umConfig);
         //友盟崩溃信息收集开关
         MobclickAgent.setCatchUncaughtExceptions(!BuildConfig.DEBUG);
-        T.init(this);
         LitePal.initialize(this);
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(this);

@@ -90,7 +90,7 @@ dependencies {
     implementation rootProject.ext.dependencies["retrofit-converter-gson"]
     implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
 
-    api project(':lib-music-player')
+    implementation project(':lib-music-player')
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'me.wcy:lrcview:1.4.2'
 

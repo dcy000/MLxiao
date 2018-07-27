@@ -30,11 +30,12 @@ import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.utils.T;
+import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -207,7 +208,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onSpeakListenerResult(String result) {
         super.onSpeakListenerResult(result);
-        //Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext, result, Toast.LENGTH_SHORT).showShort();
         String inSpell = PinYinUtils.converterToSpell(result);
 
         if (inSpell.matches(REGEX_SET_ALARM)) {
@@ -268,7 +269,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onError() {
-        T.show("初始化AK失败");
+        ToastUtils.showShort("初始化AK失败");
     }
 
     @Override

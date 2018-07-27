@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">test_all_devices</string>
+    <string name="noData">暂无数据</string>
 </resources>

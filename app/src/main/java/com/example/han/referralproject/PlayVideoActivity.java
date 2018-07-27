@@ -13,9 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.android.tedcoder.wkvideoplayer.util.DensityUtil;
 import com.android.tedcoder.wkvideoplayer.view.MediaController;
 import com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer;
+import com.gcml.lib_utils.ui.ScreenUtils;
 
 public class PlayVideoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -126,8 +126,8 @@ public class PlayVideoActivity extends AppCompatActivity implements View.OnClick
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getWindow().getDecorView().invalidate();
-            float height = DensityUtil.getWidthInPx(this);
-            float width = DensityUtil.getHeightInPx(this);
+            float height = ScreenUtils.getScreenH();
+            float width = ScreenUtils.getScreenW();
             mSuperVideoPlayer.getLayoutParams().height = (int) width;
             mSuperVideoPlayer.getLayoutParams().width = (int) height;
         } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -135,8 +135,8 @@ public class PlayVideoActivity extends AppCompatActivity implements View.OnClick
             attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getWindow().setAttributes(attrs);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            float width = DensityUtil.getWidthInPx(this);
-            float height = DensityUtil.dip2px(this, 200.f);
+            float width = ScreenUtils.getScreenW();
+            float height = ScreenUtils.dip2px(200.f);
             mSuperVideoPlayer.getLayoutParams().height = (int) height;
             mSuperVideoPlayer.getLayoutParams().width = (int) width;
         }

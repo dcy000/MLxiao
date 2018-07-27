@@ -18,8 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.hymane.expandtextview.utils.DensityUtils;
+import com.gcml.lib_utils.ui.ScreenUtils;
 
 /**
  * Author   :hymanme
@@ -102,9 +101,9 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
         hintTextColor = a.getColor(R.styleable.ExpandTextView_textHintColor, DEFAULT_HINT_TEXT_COLOR);
         indicateImage = a.getDrawable(R.styleable.ExpandTextView_indicateImage);
         minVisibleLines = a.getInt(R.styleable.ExpandTextView_minVisibleLines, DEFAULT_MIN_LINES);
-        titleTextSize = a.getDimension(R.styleable.ExpandTextView_titleTextSize, DensityUtils.sp2px(mContext, DEFAULT_TITLE_TEXT_SIZE));
-        contentTextSize = a.getDimension(R.styleable.ExpandTextView_contentTextSize, DensityUtils.sp2px(mContext, DEFAULT_CONTENT_TEXT_SIZE));
-        hintTextSize = a.getDimension(R.styleable.ExpandTextView_hintTextSize, DensityUtils.sp2px(mContext, DEFAULT_HINT_TEXT_SIZE));
+        titleTextSize = a.getDimension(R.styleable.ExpandTextView_titleTextSize, ScreenUtils.sp2px( DEFAULT_TITLE_TEXT_SIZE));
+        contentTextSize = a.getDimension(R.styleable.ExpandTextView_contentTextSize, ScreenUtils.sp2px( DEFAULT_CONTENT_TEXT_SIZE));
+        hintTextSize = a.getDimension(R.styleable.ExpandTextView_hintTextSize, ScreenUtils.sp2px(DEFAULT_HINT_TEXT_SIZE));
         animationDuration = a.getInt(R.styleable.ExpandTextView_animationDuration, DEFAULT_ANIMATION_DURATION);
 
         a.recycle();
@@ -242,7 +241,7 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
      * @param titleTextSize sp为单位
      */
     public void setTitleTextSize(float titleTextSize) {
-        this.titleTextSize = DensityUtils.sp2px(mContext, titleTextSize);
+        this.titleTextSize = ScreenUtils.sp2px( titleTextSize);
         mTitleView.setTextSize(titleTextSize);
     }
 
@@ -256,7 +255,7 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
      * @param contentTextSize sp为单位
      */
     public void setContentTextSize(float contentTextSize) {
-        this.contentTextSize = DensityUtils.sp2px(mContext, contentTextSize);
+        this.contentTextSize = ScreenUtils.sp2px( contentTextSize);
         mContentView.setTextSize(contentTextSize);
         copy = null;
         ViewGroup.LayoutParams layoutParams = mContentView.getLayoutParams();
@@ -274,7 +273,7 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
      * @param hintTextSize sp为单位
      */
     public void setHintTextSize(float hintTextSize) {
-        this.hintTextSize = DensityUtils.sp2px(mContext, hintTextSize);
+        this.hintTextSize = ScreenUtils.sp2px( hintTextSize);
         mHintView.setTextSize(hintTextSize);
     }
 
@@ -327,7 +326,7 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
         if (copy == null) {
             copy = new TextView(mContext);
             copy.setTextSize(TypedValue.COMPLEX_UNIT_PX, contentTextSize);
-            copy.setLineSpacing(DensityUtils.dp2px(mContext, 6), 1.0f);
+            copy.setLineSpacing(ScreenUtils.dip2px( 6), 1.0f);
             copy.setLines(minVisibleLines);
         }
         int width = mContentView.getMeasuredWidth();

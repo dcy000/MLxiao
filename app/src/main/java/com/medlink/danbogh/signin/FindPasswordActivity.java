@@ -11,7 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.medlink.danbogh.utils.T;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import butterknife.BindView;
@@ -66,7 +66,7 @@ public class FindPasswordActivity extends BaseActivity {
         final String phone = etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
             speak("主人，请输入正确的手机号码");
-            T.show("主人，请输入正确的手机号码");
+            ToastUtils.showShort("主人，请输入正确的手机号码");
             return;
         }
         showLoadingDialog("加载中...");
@@ -84,7 +84,7 @@ public class FindPasswordActivity extends BaseActivity {
                     @Override
                     public void onFailed(String message) {
                         hideLoadingDialog();
-                        T.show(message);
+                        ToastUtils.showShort(message);
                     }
                 });
     }

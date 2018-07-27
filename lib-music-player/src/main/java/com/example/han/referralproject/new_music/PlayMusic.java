@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
+import com.gcml.lib_utils.network.NetUitls;
+
 
 /**
  * Created by hzwangchenyan on 2017/1/20.
@@ -27,7 +29,8 @@ public abstract class PlayMusic implements IExecutor<Music> {
 
     private void checkNetwork() {
         boolean mobileNetworkPlay = Preferences.enableMobileNetworkPlay();
-        if (NetworkUtils.isActiveNetworkMobile(mActivity) && !mobileNetworkPlay) {
+
+        if (NetUitls.isAvailable() && !mobileNetworkPlay) {
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
             builder.setTitle(R.string.mp_tips);
             builder.setMessage(R.string.mp_play_tips);

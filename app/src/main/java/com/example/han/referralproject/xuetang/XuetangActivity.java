@@ -74,7 +74,7 @@ public class XuetangActivity extends BaseActivity {
                         mPb.setVisibility(View.INVISIBLE);
                     }*/
                     sendDataToBLE(DEVICE1_ON);
-                    //Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "连接完成，请点击测试", Toast.LENGTH_SHORT).showShort();
 
                     break;
                 case 1:

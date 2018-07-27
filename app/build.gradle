@@ -33,19 +33,6 @@ android {
     dataBinding {
         enabled = true
     }
-//    productFlavors {
-//        // Define separate dev and prod product flavors.
-//        dev {
-//            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
-//            // to pre-dex each module and produce an APK that can be tested on
-//            // Android Lollipop without time consuming dex merging processes.
-//            minSdkVersion 19
-//        }
-//        prod {
-//            // The actual minSdkVersion for the application.
-//            minSdkVersion 14
-//        }
-//    }
 
     buildTypes {
         release {
@@ -106,6 +93,7 @@ repositories {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
+
     //lib
     api project(':wkvideoplayer')
     api project(':module-edu')
@@ -117,8 +105,9 @@ dependencies {
     api project(':expand-textview-library')
     api project(':lib-rulerview')
     api project(':circleindicator')
-    api project(':voice')
+//    api project(':voice')
     api project(':module-control_volume')
+
     //aar
     api name: 'mlrobot-release', ext: 'aar'
     api name: 'FaceppIDCardUI', ext: 'aar'
@@ -127,7 +116,23 @@ dependencies {
     api name: 'library', ext: 'aar'
     api name: 'vmtools', ext: 'aar'
     api name: 'voicelibrary', ext: 'aar'
+
     //system
+
+    //    testImplementation rootProject.ext.dependencies["junit"]
+
+    //    api rootProject.ext.dependencies["constraint-layout"]
+
+    //    api rootProject.ext.dependencies["support-v4"]
+
+    //    api rootProject.ext.dependencies["appcompat-v7"]
+
+    //    api rootProject.ext.dependencies["recyclerview-v7"]
+
+    //    api rootProject.ext.dependencies["design"]
+
+    //    api rootProject.ext.dependencies["cardview-v7"]
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation rootProject.ext.dependencies["junit"]
     api rootProject.ext.dependencies["constraint-layout"]
@@ -137,18 +142,30 @@ dependencies {
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["cardview-v7"]
     //others
-    api rootProject.ext.dependencies["multidex"]
-    api rootProject.ext.dependencies["retrofit"]
-    api rootProject.ext.dependencies["okhttp3"]
-    api rootProject.ext.dependencies["picasso"]
-    api rootProject.ext.dependencies["gson"]
-    api rootProject.ext.dependencies["retrofit-converter-gson"]
-    api rootProject.ext.dependencies["butterknife"]
-    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+
+    //    api rootProject.ext.dependencies["multidex"]
+
+    //    api rootProject.ext.dependencies["retrofit"]
+
+    //    api rootProject.ext.dependencies["okhttp3"]
+
+    //    api rootProject.ext.dependencies["picasso"]
+
+    //    api rootProject.ext.dependencies["gson"]
+
+    //    api rootProject.ext.dependencies["retrofit-converter-gson"]
+
+    //    api rootProject.ext.dependencies["butterknife"]
+
+    //    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+
     //万能适配器
-    api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+
+    //    api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+
     //图标库
-    api rootProject.ext.dependencies["MPAndroidChart"]
+
+    //    api rootProject.ext.dependencies["MPAndroidChart"]
     api('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
@@ -160,6 +177,7 @@ dependencies {
     api 'com.tencent.bugly:crashreport_upgrade:1.2.5'
     api 'com.netease.nimlib:basesdk:4.3.0'
     api 'com.netease.nimlib:avchat:4.3.0'
+
     //七牛云
     api 'com.qiniu:qiniu-android-sdk:7.3.+'
     api 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
@@ -173,13 +191,21 @@ dependencies {
     api 'com.nex3z:flow-layout:1.1.0'
     api 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
     api 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+
     //极光推送
     api 'cn.jiguang.sdk:jpush:3.1.1'
+
     // 此处以JPush 3.1.1 版本为例。
     api 'cn.jiguang.sdk:jcore:1.1.9'
-    // 此处以JCore 1.1.9 版本为例。
-    api 'com.github.mmin18:realtimeblurview:1.1.0'
+
     api 'com.umeng.analytics:analytics:6.1.2'
     api 'me.songning.CircleView:library:1.0.0'
+
+    //悬浮窗
+    api 'com.github.yhaolpz:FloatWindow:1.0.9'
+    implementation project(':module-health_record')
+    implementation project(':lib-common')
+    implementation project(':lib-utils')
+    implementation project(':lib-music-player')
 
 }

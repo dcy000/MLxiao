@@ -27,31 +27,39 @@ android {
     }
 
 }
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation rootProject.ext.dependencies["junit"]
-    implementation rootProject.ext.dependencies["constraint-layout"]
+    //file
+    api files('libs/pinyin4j-2.5.0.jar')
+    //system
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
+    api rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["design"]
-    implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
-
-
-    //语音模块
-    implementation project(':voice')
-    //高斯模糊
-    implementation 'com.github.mmin18:realtimeblurview:1.1.0'
-    //http为基础的网络请求框架
-    implementation 'com.lzy.net:okgo:3.0.4'
+    api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["cardview-v7"]
+    //others
+    api rootProject.ext.dependencies["multidex"]
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["retrofit-converter-gson"]
+    api rootProject.ext.dependencies["picasso"]
+    api rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    //万能适配器
+    api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    //okhttp3
+    api rootProject.ext.dependencies["okhttp3"]
     //gson
-    implementation 'com.google.code.gson:gson:2.8.2'
-    //recycleview的万能适配器
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    api rootProject.ext.dependencies["gson"]
+    //图表库
+    api rootProject.ext.dependencies["MPAndroidChart"]
+    //语音模块
+    api project(':voice')
+    //高斯模糊
+    api 'com.github.mmin18:realtimeblurview:1.1.0'
     //图片加载库
     implementation 'com.github.bumptech.glide:glide:4.6.1'
-    //解决方法数64K的办法
-    implementation 'com.android.support:multidex:1.0.0'
+
 }
+

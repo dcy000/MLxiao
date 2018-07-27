@@ -2,6 +2,7 @@ package com.gcml.lib_utils.ui;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -68,6 +69,12 @@ public class ScreenUtils {
         return displayMetrics.heightPixels;
     }
 
+    /**
+     * 得到设备的密度
+     */
+    public static float getScreenDensity() {
+        return getApplication().getResources().getDisplayMetrics().density;
+    }
     /**
      * 获取屏幕内容的实际高度
      *

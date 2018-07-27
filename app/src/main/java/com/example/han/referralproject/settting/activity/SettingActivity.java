@@ -155,7 +155,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
 //                        }
 //                )
 //                .create()
-//                .show();
+//                .showShort();
 //    }
 
 
