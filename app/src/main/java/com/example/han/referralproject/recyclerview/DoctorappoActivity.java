@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,7 +19,6 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
@@ -29,11 +27,11 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang.StringUtils;
@@ -1274,7 +1272,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 //    Logg.e("==============", list.toString());
                 if (list.size() < 3) {
-                    Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class).putExtra("doctorId",doctorId);
+                    Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class).putExtra("doctorId", doctorId);
                     startActivity(intent);
                     finish();
 
@@ -1409,7 +1407,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
-import com.medlink.danbogh.utils.T;
+import com.gcml.lib_utils.display.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +49,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements Fllow
                 showNotSameDayInfoDialog();
                 break;
             case R.id.iv_blood_sugar_manage:
-                T.show("敬请期待");
+                ToastUtils.showShort("敬请期待");
                 break;
         }
     }
@@ -64,6 +64,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements Fllow
     @Override
     public void onClickConfirm() {
         // TODO: 2018/7/27 去测量
-        T.show("去测量");
+        ToastUtils.showShort("去测量");
     }
 }
