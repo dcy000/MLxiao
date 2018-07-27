@@ -19,8 +19,8 @@ import com.example.han.referralproject.physicalexamination.fragment.MonitorItemF
 import com.example.han.referralproject.physicalexamination.util.ConstitutionJudgmentUtil;
 import com.example.han.referralproject.physicalexamination.util.JsonUtil;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
@@ -173,12 +173,12 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
         NetworkApi.getQuestionnaire((sex == null || sex.equals("")) ? sex : "0", new NetworkManager.SuccessCallback<QuestionnaireBean>() {
             @Override
             public void onSuccess(QuestionnaireBean response) {
-                T.show(response.toString());
+                ToastUtils.showShort(response.toString());
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }

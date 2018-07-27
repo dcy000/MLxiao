@@ -14,7 +14,7 @@ import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.health.model.ItemsModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.medlink.danbogh.utils.T;
+import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -163,7 +163,7 @@ public class HealthDiaryActivity extends BaseActivity
                             if (isFinishing() || isDestroyed()) {
                                 return;
                             }
-                            T.show("提交成功");
+                            ToastUtils.showShort("提交成功");
                             showWeekTarget();
                         }
                     }, new NetworkManager.FailedCallback() {
@@ -172,7 +172,7 @@ public class HealthDiaryActivity extends BaseActivity
                             if (isFinishing() || isDestroyed()) {
                                 return;
                             }
-                            T.show(message);
+                            ToastUtils.showShort(message);
                             speak(message);
                         }
                     }

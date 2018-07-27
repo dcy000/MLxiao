@@ -14,7 +14,6 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.register.SelectAdapter;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -177,7 +176,7 @@ public class AlertHeightActivity extends BaseActivity {
     }
 
     private void select(String text) {
-        T.show(text);
+        ToastUtils.showShort(text);
     }
 
     protected int geTip() {
@@ -198,14 +197,14 @@ public class AlertHeightActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object response) {
                         LocalShared.getInstance(AlertHeightActivity.this).setUserHeight(height);
-                        ToastUtils.showShort("修改成功");
+                        com.gcml.lib_utils.display.ToastUtils.showShort("修改成功");
                         speak("主人，您的身高已经修改为" + height + "厘米");
 
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        ToastUtils.showShort(message);
+                        com.gcml.lib_utils.display.ToastUtils.showShort(message);
 //                speak("主人，出了一些小问题，未修改成功");
                     }
                 });

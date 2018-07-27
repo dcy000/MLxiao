@@ -14,7 +14,6 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.regex.Matcher;
@@ -72,7 +71,7 @@ public class SignUp01NameActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
-        T.show("上一步");
+        ToastUtils.showShort("上一步");
         finish();
     }
 
@@ -80,7 +79,7 @@ public class SignUp01NameActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         String name = mEtName.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            T.show(R.string.empty_name);
+            ToastUtils.showShort(R.string.empty_name);
             speak(R.string.empty_name);
             return;
         }
@@ -99,7 +98,7 @@ public class SignUp01NameActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        ToastUtils.showShort(result);
+        com.gcml.lib_utils.display.ToastUtils.showShort(result);
         if (result.matches(REGEX_IN_GO_BACK) && mTvGoBack.isEnabled()) {
             onTvGoBackClicked();
             return;

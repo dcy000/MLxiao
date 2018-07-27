@@ -25,8 +25,8 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.AppraiseActivity;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -90,13 +90,13 @@ public class NimCallActivity extends AppCompatActivity {
                             //有余额
                             launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
                         } else {
-                            T.show("余额不足，请充值后再试");
+                            ToastUtils.showShort("余额不足，请充值后再试");
                         }
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show("服务器繁忙，请稍后再试");
+                        ToastUtils.showShort("服务器繁忙，请稍后再试");
                     }
                 });
     }
@@ -249,7 +249,7 @@ public class NimCallActivity extends AppCompatActivity {
 
 
     private void showProfile(boolean show) {
-        //show avatar
+        //showShort avatar
         ivPeerAvatar.setVisibility(show ? View.VISIBLE : View.GONE);
         tvNickname.setVisibility(show ? View.VISIBLE : View.GONE);
         String peerAccount = NimCallHelper.getInstance().getPeerAccount();
@@ -633,7 +633,7 @@ public class NimCallActivity extends AppCompatActivity {
 //                break;
 //            case AVChatControlCommand.SWITCH_AUDIO_TO_VIDEO_REJECT:
 //                avChatUI.onCallStateChange(CallStateEnum.AUDIO);
-//                Toast.makeText(AVChatActivity.this, R.string.avchat_switch_video_reject, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AVChatActivity.this, R.string.avchat_switch_video_reject, Toast.LENGTH_SHORT).showShort();
 //                break;
 //            case AVChatControlCommand.SWITCH_VIDEO_TO_AUDIO:
 //                onVideoToAudio();
@@ -706,7 +706,7 @@ public class NimCallActivity extends AppCompatActivity {
                 }
                 if (client != null) {
                     String option = ackInfo.getEvent() == AVChatEventType.CALLEE_ONLINE_CLIENT_ACK_AGREE ? "接听！" : "拒绝！";
-                    T.show("通话已在" + client + "端被" + option);
+                    ToastUtils.showShort("通话已在" + client + "端被" + option);
                 }
                 NimCallHelper.getInstance().closeSessions(-1);
             }
@@ -771,7 +771,7 @@ public class NimCallActivity extends AppCompatActivity {
                                 new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
-                                        T.show(minutes + "分钟");
+                                        ToastUtils.showShort(minutes + "分钟");
                                         if (TextUtils.isEmpty(response)) {
                                             return;
                                         }
@@ -787,14 +787,14 @@ public class NimCallActivity extends AppCompatActivity {
                                 }, new NetworkManager.FailedCallback() {
                                     @Override
                                     public void onFailed(String message) {
-                                        T.show(minutes + "分钟, 失败");
+                                        ToastUtils.showShort(minutes + "分钟, 失败");
                                     }
                                 });
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show("请签约医生");
+                        ToastUtils.showShort("请签约医生");
                     }
                 });
             }

@@ -6,4 +6,32 @@
 
     <color name="toolbar_pressed">#33000000</color>
     <!--<color name="toolbar_normal">#00000000</color>-->
+    <!--导航栏的背景颜色-->
+    <color name="toolbar_bg">#3F86FC</color>
+    <!--主推背景色-->
+    <color name="main_bg">#f5f5f5</color>
+    <color name="white">@android:color/white</color>
+    <color name="gray">#bbbbbb</color>
+    <color name="line">#eeeeee</color>
+    <color name="color_9cd793">#9CD793</color>
+    <color name="color_c2364b">#C2364B</color>
+
+    <!--###########################图表配色##################################-->
+    <!--节点外圈的颜色-->
+    <color name="node_color">#3F86FC</color>
+    <!--走势线的颜色-->
+    <color name="line_color">#86B2FF</color>
+    <!--在节点上显示文字的颜色-->
+    <color name="node_text_color">#6D80E2</color>
+    <!--警戒线的颜色-->
+    <color name="picket_line">#FFC0C0</color>
+    <!--MarkView字体的颜色-->
+    <color name="mark_text">#666666</color>
+    <!--两条线的警戒线-->
+    <color name="picket_line1">#3F86FC</color>
+    <color name="picket_line2">#3ACC61</color>
+    <!--第二条线走视线的颜色-->
+    <color name="line2_color">#9CE5B0</color>
+    <!--第二条线的节点颜色-->
+    <color name="node2_color">#3ACC61</color>
 </resources>

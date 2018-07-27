@@ -45,7 +45,7 @@ dependencies {
     api 'com.inuker.bluetooth:library:1.4.0'
     //好糖血糖仪的库
     implementation(name: 'vivachek-ble-sdk-1.0.0', ext: 'aar')
-    api project(':lib-utils')
+    implementation project(':lib-utils')
     //预览PDF的库
     implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
 }

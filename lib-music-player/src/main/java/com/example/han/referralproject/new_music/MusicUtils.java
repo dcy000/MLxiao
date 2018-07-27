@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+import com.gcml.lib_utils.display.ToastUtils;
+
 import java.util.List;
 
 
@@ -109,7 +111,7 @@ public class MusicUtils {
             @Override
             public void onSuccess(SearchMusic response) {
                 if (response == null || response.getSong() == null) {
-                    ToastUtils.show("暂时无法播放");
+                    ToastUtils.showShort("暂时无法播放");
                     return;
                 }
                 List<SearchMusic.Song> songs = response.getSong();
@@ -129,7 +131,7 @@ public class MusicUtils {
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        ToastUtils.show("暂时无法播放");
+                        ToastUtils.showShort("暂时无法播放");
                     }
                 }.execute();
 
@@ -137,7 +139,7 @@ public class MusicUtils {
 
             @Override
             public void onFail(Exception e) {
-                ToastUtils.show("暂时无法播放");
+                ToastUtils.showShort("暂时无法播放");
             }
         });
     }

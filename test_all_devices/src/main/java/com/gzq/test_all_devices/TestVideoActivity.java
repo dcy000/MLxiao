@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.gcml.lib_video_ksyplayer.DataInter;
 import com.gcml.lib_video_ksyplayer.default_cover.ControllerCover;
+import com.gcml.lib_video_ksyplayer.default_cover.IJump2NextListener;
 import com.gcml.lib_video_ksyplayer.util.PUtil;
 import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
 import com.kk.taurus.playerbase.config.PlayerConfig;
@@ -26,6 +27,8 @@ import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 import com.kk.taurus.playerbase.render.AspectRatio;
 import com.kk.taurus.playerbase.render.IRender;
 import com.kk.taurus.playerbase.widget.BaseVideoView;
+
+import static com.gcml.lib_video_ksyplayer.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
 
 public class TestVideoActivity extends AppCompatActivity implements OnPlayerEventListener {
     private BaseVideoView mVideoView;
@@ -64,6 +67,14 @@ public class TestVideoActivity extends AppCompatActivity implements OnPlayerEven
         dataSource.setTitle("测试");
         mVideoView.setDataSource(dataSource);
         mVideoView.start();
+
+        ControllerCover receiver = mReceiverGroup.getReceiver(KEY_CONTROLLER_COVER);
+        receiver.setOnJump2NextListener(new IJump2NextListener() {
+            @Override
+            public void clickJump2Next(View view) {
+                finish();
+            }
+        });
     }
 
     private DataSource generatorDataSource(long id) {
@@ -72,173 +83,6 @@ public class TestVideoActivity extends AppCompatActivity implements OnPlayerEven
         return dataSource;
     }
 
-    /**
-     * 设置视频容器为SurfaceView
-     *
-     * @param view
-     */
-    public void setRenderSurfaceView(View view) {
-        mVideoView.setRenderType(IRender.RENDER_TYPE_SURFACE_VIEW);
-    }
-
-    /**
-     * 设置视频容器为TextureView
-     *
-     * @param view
-     */
-    public void setRenderTextureView(View view) {
-        mVideoView.setRenderType(IRender.RENDER_TYPE_TEXTURE_VIEW);
-    }
-
-    /**
-     * 设置视频有圆角
-     *
-     * @param view
-     */
-    public void onStyleSetRoundRect(View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mVideoView.setRoundRectShape(PUtil.dip2px(this, 25));
-        } else {
-            Toast.makeText(this, "not support", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 设置视频为圆
-     *
-     * @param view
-     */
-    public void onStyleSetOvalRect(View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mVideoView.setOvalRectShape();
-        } else {
-            Toast.makeText(this, "not support", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 恢复视频播放界面
-     *
-     * @param view
-     */
-    public void onShapeStyleReset(View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mVideoView.clearShapeStyle();
-        } else {
-            Toast.makeText(this, "not support", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 视频播放比例16:9
-     *
-     * @param view
-     */
-    public void onAspect16_9(View view) {
-        mVideoView.setAspectRatio(AspectRatio.AspectRatio_16_9);
-    }
-
-    /**
-     * 视频播放比例4:3
-     *
-     * @param view
-     */
-    public void onAspect4_3(View view) {
-        mVideoView.setAspectRatio(AspectRatio.AspectRatio_4_3);
-    }
-
-    /**
-     * 设置视频填充满
-     *
-     * @param view
-     */
-    public void onAspectFill(View view) {
-        mVideoView.setAspectRatio(AspectRatio.AspectRatio_FILL_PARENT);
-    }
-
-    /**
-     * 设置视频填充满父容器
-     *
-     * @param view
-     */
-    public void onAspectFit(View view) {
-        mVideoView.setAspectRatio(AspectRatio.AspectRatio_FIT_PARENT);
-    }
-
-    public void onAspectOrigin(View view) {
-        mVideoView.setAspectRatio(AspectRatio.AspectRatio_ORIGIN);
-    }
-
-    public void onDecoderChangeMediaPlayer(View view) {
-        int curr = mVideoView.getCurrentPosition();
-        if (mVideoView.switchDecoder(PlayerConfig.DEFAULT_PLAN_ID)) {
-            replay(curr);
-        }
-    }
-
-    public void onDecoderChangeIjkPlayer(View view) {
-        int curr = mVideoView.getCurrentPosition();
-//        if (mVideoView.switchDecoder(MyApplication.PLAN_ID_IJK)) {
-//            replay(curr);
-//        }
-    }
-
-    public void onDecoderChangeExoPlayer(View view) {
-        int curr = mVideoView.getCurrentPosition();
-//        if(mVideoView.switchDecoder(App.PLAN_ID_EXO)){
-//            replay(curr);
-//        }
-    }
-
-    /**
-     * 移除控制视图
-     *
-     * @param view
-     */
-    public void removeControllerCover(View view) {
-        mReceiverGroup.removeReceiver(DataInter.ReceiverKey.KEY_CONTROLLER_COVER);
-        Toast.makeText(this, "已移除", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 添加控制视图
-     *
-     * @param view
-     */
-    public void addControllerCover(View view) {
-        IReceiver receiver = mReceiverGroup.getReceiver(DataInter.ReceiverKey.KEY_CONTROLLER_COVER);
-        if (receiver == null) {
-            mReceiverGroup.addReceiver(DataInter.ReceiverKey.KEY_CONTROLLER_COVER, new ControllerCover(this));
-            Toast.makeText(this, "已添加", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 播放倍率
-     *
-     * @param view
-     */
-    public void halfSpeedPlay(View view) {
-        mVideoView.setSpeed(0.5f);
-    }
-
-    /**
-     * 播放倍率
-     *
-     * @param view
-     */
-    public void doubleSpeedPlay(View view) {
-        mVideoView.setSpeed(2f);
-    }
-
-    /**
-     * 播放倍率
-     *
-     * @param view
-     */
-    public void normalSpeedPlay(View view) {
-        mVideoView.setSpeed(1f);
-    }
 
     private void updateVideo(boolean landscape) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mVideoView.getLayoutParams();
@@ -330,6 +174,9 @@ public class TestVideoActivity extends AppCompatActivity implements OnPlayerEven
                     break;
                 case DataInter.Event.EVENT_CODE_ERROR_SHOW:
                     mVideoView.stop();
+                    break;
+                case DataInter.Event.EVENT_CODE_REQUEST_CLOSE:
+
                     break;
             }
         }

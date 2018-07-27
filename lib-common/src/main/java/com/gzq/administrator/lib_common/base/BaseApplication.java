@@ -2,15 +2,10 @@ package com.gzq.administrator.lib_common.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.support.multidex.MultiDex;
-
 import com.gzq.administrator.lib_common.utils.ScreenUtils;
 import com.gzq.administrator.lib_common.utils.ToastTool;
-import com.gzq.administrator.lib_common.utils.UiUtils;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-import com.lzy.okgo.OkGo;
 
 /**
  * Created by gzq on 2018/4/12.
@@ -18,7 +13,7 @@ import com.lzy.okgo.OkGo;
 
 public class BaseApplication extends Application{
     private static BaseApplication mInstance;
-    private static OkGo okGoInstance;
+    public String userId;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -37,32 +32,10 @@ public class BaseApplication extends Application{
                 .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
 
         SpeechUtility.createUtility(this, builder.toString());
-        //初始化网络请求框架
-        okGoInstance=OkGo.getInstance().init(this);
-        //初始化px转pt工具
-        UiUtils.init(this,1920,1200);
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        UiUtils.compatWithOrientation(newConfig);
-    }
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        //解决方法数64K
-        MultiDex.install(this);
-    }
-    public static Context getInstance() {
+    public static BaseApplication getInstance() {
         return mInstance;
     }
 
-    /**
-     * 提供此方法的作用是方便在二次封装的时候进行相关参数的设置，比如是否缓存，缓存时间，请求头
-     * @return
-     */
-    public static OkGo getOkgoInstance(){
-        return okGoInstance;
-    }
 }

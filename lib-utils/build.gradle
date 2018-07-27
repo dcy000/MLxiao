@@ -31,9 +31,11 @@ dependencies {
     implementation rootProject.ext.dependencies["support-core-utils"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
     //日志库
-    api rootProject.ext.dependencies["timber"]
+    implementation rootProject.ext.dependencies["timber"]
     //仿ios加载动画库  https://github.com/Kaopiz/KProgressHUD
     implementation 'com.kaopiz:kprogresshud:1.1.0'
     //Zxing核心包
     implementation 'com.google.zxing:core:3.3.0'
+    //日志库
+    api rootProject.ext.dependencies["timber"]
 }

@@ -159,7 +159,7 @@ public class ConnectActivity extends Activity implements OnClickListener{
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (MyBluetooth.bluStatus == MyBluetooth.BLU_STATUS_CONNECTING) {
 				// Toast.makeText(ConnectActivity.this,
-				// R.string.connect_connecting, Toast.LENGTH_SHORT).show();
+				// R.string.connect_connecting, Toast.LENGTH_SHORT).showShort();
 				return false;
 			} else {
 				sendBroadcast(new Intent(

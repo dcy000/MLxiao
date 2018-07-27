@@ -35,7 +35,7 @@ public class DialogImage extends BaseDialog{
         initView();
     }
     private void initView() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_image, null);
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.utils_dialog_image, null);
         image=dialogView.findViewById(R.id.iv_image);
         description=dialogView.findViewById(R.id.tv_description);
         description.setTextIsSelectable(true);

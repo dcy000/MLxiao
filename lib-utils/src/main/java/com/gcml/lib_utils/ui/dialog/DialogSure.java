@@ -2,7 +2,6 @@ package com.gcml.lib_utils.ui.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +16,17 @@ import com.gcml.lib_utils.R;
  * @date 2016/7/19
  * 确认 弹出框
  */
-public class DialogSure extends BaseDialog {
+public class DialogSure extends BaseDialog implements View.OnClickListener {
 
     private ImageView mIvLogo;
     private TextView mTvTitle;
     private TextView mTvContent;
     private TextView mTvSure;
+    private DialogClickSureListener clickSureListener;
+
+    public void setOnClickSureListener(DialogClickSureListener clickSureListener) {
+        this.clickSureListener = clickSureListener;
+    }
 
     public DialogSure(Context context, int themeResId) {
         super(context, themeResId);
@@ -56,9 +60,9 @@ public class DialogSure extends BaseDialog {
         return mTvSure;
     }
 
-    public void setSureListener(View.OnClickListener listener) {
-        mTvSure.setOnClickListener(listener);
-    }
+//    public void setSureListener(View.OnClickListener listener) {
+//        mTvSure.setOnClickListener(listener);
+//    }
 
     public TextView getContentView() {
         return mTvContent;
@@ -82,7 +86,7 @@ public class DialogSure extends BaseDialog {
     }
 
     private void initView() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_sure, null);
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.utils_dialog_sure, null);
         mTvSure = dialogView.findViewById(R.id.tv_sure);
         mTvTitle = dialogView.findViewById(R.id.tv_title);
         mTvTitle.setTextIsSelectable(true);
@@ -91,5 +95,14 @@ public class DialogSure extends BaseDialog {
         mTvContent.setTextIsSelectable(true);
         mIvLogo = dialogView.findViewById(R.id.iv_logo);
         setContentView(dialogView);
+
+        mTvSure.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.tv_sure && clickSureListener != null) {
+            clickSureListener.clickSure(this);
+        }
     }
 }

@@ -52,4 +52,11 @@ dependencies {
     //悬浮窗
     api 'com.github.yhaolpz:FloatWindow:1.0.9'
     implementation project(':module-control_volume')
+    api rootProject.ext.dependencies["constraint-layout"]
+    api rootProject.ext.dependencies["MPAndroidChart"]
+    api 'com.lzy.net:okgo:3.0.4'
+    api rootProject.ext.dependencies["gson"]
+    implementation project(':module-health_record')
+    implementation project(':lib-utils')
+    implementation project(':lib-common')
 }

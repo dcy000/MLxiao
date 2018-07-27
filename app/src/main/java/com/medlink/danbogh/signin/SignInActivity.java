@@ -47,7 +47,6 @@ import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import org.json.JSONException;
@@ -243,7 +242,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                T.show("手机号或密码错误");
+                ToastUtils.showShort("手机号或密码错误");
             }
         });
     }
@@ -319,7 +318,7 @@ public class SignInActivity extends BaseActivity {
         //获取所有账号
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts == null) {
-            ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
+            com.gcml.lib_utils.display.ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
         }else {
             Bundle bundle=new Bundle();
             bundle.putString("from","Welcome");
@@ -364,7 +363,7 @@ public class SignInActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         String inSpell = PinYinUtils.converterToSpell(result);
 

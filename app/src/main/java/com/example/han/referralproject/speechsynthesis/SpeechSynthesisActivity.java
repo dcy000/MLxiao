@@ -66,6 +66,7 @@ import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.ErrorCode;
@@ -83,7 +84,6 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.music.TheOldMusicActivity;
@@ -439,7 +439,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        T.show(R.string.unable_to_play);
+                        ToastUtils.showShort(R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -654,7 +654,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         printResult(results);
         if (isLast) {
             String result = resultBuffer.toString();
-            T.show(result);
+            ToastUtils.showShort(result);
             String inSpell = PinYinUtils.converterToSpell(result);
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
@@ -983,7 +983,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
-                    T.show("请先查看是否与签约医生签约成功");
+                    ToastUtils.showShort("请先查看是否与签约医生签约成功");
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), DoctorappoActivity.class);
@@ -1094,7 +1094,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }
@@ -1751,15 +1751,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                 }
                 str1 = sb.toString().replace("<USER-NAME>","");
+                defaultToke();
             }
 
             @Override
             public void onError() {
+                defaultToke();
             }
 
             @Override
             public void onComplete() {
-                defaultToke();
+
             }
         });
         return str1;

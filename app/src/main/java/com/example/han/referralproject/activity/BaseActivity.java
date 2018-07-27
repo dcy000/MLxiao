@@ -40,14 +40,16 @@ import com.example.han.referralproject.facerecognition.HeadiconActivity;
 import com.example.han.referralproject.facerecognition.RegisterHead2XunfeiActivity;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.jipush.MyReceiver;
-import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.handler.WeakHandler;
+import com.gcml.lib_utils.ui.ScreenUtils;
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.gzq.administrator.lib_common.base.BaseApplication;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -57,6 +59,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.SignUp10EatActivity;
 import com.medlink.danbogh.register.SignUp11SmokeActivity;
 import com.medlink.danbogh.register.SignUp12DrinkActivity;
@@ -79,12 +82,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class BaseActivity extends AppCompatActivity {
     private static UpdateVolumeRunnable updateVolumeRunnable;
@@ -183,6 +185,11 @@ public class BaseActivity extends AppCompatActivity {
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
         mIatPreferences = getSharedPreferences(IatSettings.PREFER_NAME, MODE_PRIVATE);
         weakHandler = new WeakHandler();
+        initSuperApplicationVariable();
+    }
+
+    private void initSuperApplicationVariable() {
+        BaseApplication.getInstance().userId=MyApplication.getInstance().userId;
     }
 
     private boolean checkIgnoreActivity() {
@@ -266,8 +273,7 @@ public class BaseActivity extends AppCompatActivity {
                 jpushTitle.setText(title);
             }
             jpushText.setText(message);
-            jpushTime.setText(Utils.stampToDate2(System.currentTimeMillis()));
-
+            jpushTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy.MM.dd HH:mm")));
             final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
             final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
             ViewTreeObserver vto = jpushLl.getViewTreeObserver();
@@ -337,11 +343,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected int provideWaveViewWidth() {
-        return ScreenUtils.dp2px(450);
+        return ScreenUtils.dip2px(450);
     }
 
     protected int provideWaveViewHeight() {
-        return ScreenUtils.dp2px(120);
+        return ScreenUtils.dip2px(120);
     }
 
     @Override
@@ -372,8 +378,8 @@ public class BaseActivity extends AppCompatActivity {
             mContentParent = (FrameLayout) findViewById(android.R.id.content);
             voiceLineView = new VoiceLineView(this);
             voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
-            int width = ScreenUtils.dp2px(450);
-            int height = ScreenUtils.dp2px(120);
+            int width = ScreenUtils.dip2px(450);
+            int height = ScreenUtils.dip2px(120);
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
             params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             params.bottomMargin = 20;
@@ -413,6 +419,11 @@ public class BaseActivity extends AppCompatActivity {
         synthesizerListener1 = new ImpSynthesizerListener();
         synthesizer.startSpeaking(text, synthesizerListener1);
     }
+
+    public void mlSpeak(String text) {
+        MLVoiceSynthetize.startSynthesize(this, text, false);
+    }
+
 
     protected void speak(String text, boolean isDefaultParam) {
         if (TextUtils.isEmpty(text)) {
@@ -498,8 +509,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void onSpeakListenerResult(String result) {
-        //Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-//        T.show(result);
+        //Toast.makeText(this, result, Toast.LENGTH_SHORT).showShort();
+//        ToastUtils.showShort(result);
     }
 
     private boolean disableGlobalListen;

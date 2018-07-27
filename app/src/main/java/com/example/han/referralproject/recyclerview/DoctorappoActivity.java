@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,7 +19,6 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
@@ -29,6 +27,7 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -1215,20 +1214,20 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
 
-        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
-            Picasso.with(this)
-                    .load(sharedPreferences1.getString("docter_photo", ""))
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
-                    .into(circleImageView);
-        }
-
-        mTextView3.setText(String.format(getString(R.string.doctor_name), sharedPreferences1.getString("name", "")));
-        mTextView4.setText(String.format(getString(R.string.doctor_zhiji), sharedPreferences1.getString("position", "")));
-        mTextView5.setText(String.format(getString(R.string.doctor_shanchang), sharedPreferences1.getString("feature", "")));
-        mTextView12.setText(String.format(getString(R.string.doctor_shoufei), sharedPreferences1.getString("service_amount", "")));
+//        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
+//            Picasso.with(this)
+//                    .load(sharedPreferences1.getString("docter_photo", ""))
+//                    .placeholder(R.drawable.avatar_placeholder)
+//                    .error(R.drawable.avatar_placeholder)
+//                    .tag(this)
+//                    .fit()
+//                    .into(circleImageView);
+//        }
+//
+//        mTextView3.setText(String.format(getString(R.string.doctor_name), sharedPreferences1.getString("name", "")));
+//        mTextView4.setText(String.format(getString(R.string.doctor_zhiji), sharedPreferences1.getString("position", "")));
+//        mTextView5.setText(String.format(getString(R.string.doctor_shanchang), sharedPreferences1.getString("feature", "")));
+//        mTextView12.setText(String.format(getString(R.string.doctor_shoufei), sharedPreferences1.getString("service_amount", "")));
 
 
         circleImageView.setOnClickListener(new View.OnClickListener() {
@@ -1273,7 +1272,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 //    Logg.e("==============", list.toString());
                 if (list.size() < 3) {
-                    Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class).putExtra("doctorId", doctorId);
                     startActivity(intent);
                     finish();
 
@@ -1347,7 +1346,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        yuYueDoctor();
+//        yuYueDoctor();
+        getDoctorInfo();
     }
 
     public void yuYueDoctor() {
@@ -1378,6 +1378,39 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     }
 
+    public void getDoctorInfo() {
+        showLoadingDialog("");
+        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+            @Override
+            public void onSuccess(Doctor response) {
+                hideLoadingDialog();
+                if (!TextUtils.isEmpty(response.getDocter_photo())) {
+                    Picasso.with(DoctorappoActivity.this)
+                            .load(response.getDocter_photo())
+                            .placeholder(R.drawable.avatar_placeholder)
+                            .error(R.drawable.avatar_placeholder)
+                            .tag(this)
+                            .fit()
+                            .into(circleImageView);
+                }
+                mTextView3.setText(String.format(getString(R.string.doctor_name), response.getDoctername()));
+                mTextView4.setText(String.format(getString(R.string.doctor_zhiji), response.getDuty()));
+                mTextView5.setText(String.format(getString(R.string.doctor_shanchang), response.getDepartment()));
+                mTextView12.setText(String.format(getString(R.string.doctor_shoufei), response.getService_amount()));
+
+                doctorId = response.docterid + "";
+
+                yuYueDoctor();
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                hideLoadingDialog();
+                ToastUtils.showShort(message);
+            }
+        });
+    }
 
     NDialog1 dialog;
     NDialog2 dialog1;

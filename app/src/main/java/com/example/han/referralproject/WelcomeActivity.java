@@ -22,6 +22,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.lib_utils.network.WiFiUtil;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.PermissionListener;
 import com.yhao.floatwindow.Screen;

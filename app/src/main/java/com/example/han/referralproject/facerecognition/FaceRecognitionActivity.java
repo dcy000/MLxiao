@@ -728,10 +728,13 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     private void initView() {
         Intent intent = getIntent();
         if (intent != null) {
-            isTest = intent.getBooleanExtra("isTest", false);
-            orderid = intent.getStringExtra("orderid");
-            fromString = intent.getStringExtra("from");
-            fromType = intent.getStringExtra("fromType");
+            Bundle params = intent.getExtras();
+            if (params != null) {
+                fromString = params.getString("from");
+                isTest = params.getBoolean("isTest", false);
+                orderid = params.getString("orderid");
+                fromType = params.getString("fromType");
+            }
         }
 
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
@@ -804,7 +807,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         isOnPause = false;
-        setDisableGlobalListen(false);
+        setDisableGlobalListen(true);
         setEnableListeningLoop(false);
     }
 

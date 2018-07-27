@@ -14,19 +14,18 @@ import android.widget.TextView;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.medlink.danbogh.register.entity.City;
 import com.medlink.danbogh.register.entity.Province;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
@@ -215,7 +214,7 @@ public class SignUp3AddressActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
-            T.show(R.string.sign_up3_address_tip);
+            ToastUtils.showShort(R.string.sign_up3_address_tip);
             speak(R.string.sign_up3_address_tip);
             return;
         }
@@ -358,7 +357,7 @@ public class SignUp3AddressActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();

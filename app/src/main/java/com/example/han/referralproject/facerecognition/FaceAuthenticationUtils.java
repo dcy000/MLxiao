@@ -8,6 +8,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.lib_utils.data.TimeUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityListener;
 import com.iflytek.cloud.IdentityResult;
@@ -18,6 +19,7 @@ import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.utils.Handlers;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 /**
@@ -272,7 +274,8 @@ public class FaceAuthenticationUtils {
      */
     public void createGroup(String[] xfids) {
         //默认将当前日期作为组名
-        String groupName = "gcml" + Utils.stampToDate3(System.currentTimeMillis());
+        String groupName = "gcml" + TimeUtils.milliseconds2String(System.currentTimeMillis(),
+                new SimpleDateFormat("MM.dd"));
         // sst=add，scope=group，group_name=famil;
         // 设置人脸模型操作参数
         // 清空参数
@@ -315,7 +318,8 @@ public class FaceAuthenticationUtils {
      */
     public void createGroup(String xfid) {
         //默认将当前日期作为组名
-        String groupName = "gcml" + Utils.stampToDate3(System.currentTimeMillis());
+        String groupName = "gcml" + TimeUtils.milliseconds2String(System.currentTimeMillis(),
+                new SimpleDateFormat("MM.dd"));
         // sst=add，scope=group，group_name=famil;
         // 设置人脸模型操作参数
         // 清空参数

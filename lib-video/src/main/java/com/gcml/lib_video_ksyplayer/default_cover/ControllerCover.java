@@ -73,6 +73,7 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
     private boolean mControllerTopEnable;
     private ObjectAnimator mBottomAnimator;
     private ObjectAnimator mTopAnimator;
+    private TextView jump2Next;
 
     public ControllerCover(Context context) {
         super(context);
@@ -94,7 +95,8 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
         mSwitchScreen.setOnClickListener(this);
         mSeekBar = getView().findViewById(R.id.cover_player_controller_seek_bar);
         mSeekBar.setOnSeekBarChangeListener(onSeekBarChangeListener);
-
+        jump2Next = getView().findViewById(R.id.jumpToNext);
+        jump2Next.setOnClickListener(this);
         getGroupValue().registerOnGroupValueUpdateListener(mOnGroupValueUpdateListener);
 
     }
@@ -486,6 +488,17 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
         } else if (i == R.id.cover_player_controller_image_view_switch_screen) {
             notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_TOGGLE_SCREEN, null);
 
+        } else if (i == R.id.jumpToNext) {
+            if (jump2NextListener != null) {
+                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE,null);
+                jump2NextListener.clickJump2Next(view);
+            }
         }
+    }
+
+    public IJump2NextListener jump2NextListener;
+
+    public void setOnJump2NextListener(IJump2NextListener jump2NextListener) {
+        this.jump2NextListener = jump2NextListener;
     }
 }

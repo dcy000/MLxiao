@@ -177,7 +177,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     NetworkInfo info = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
                     NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()){
-                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                         if (isFirstWifi){
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
                                 startActivity(new Intent(mContext, SignInActivity.class));
