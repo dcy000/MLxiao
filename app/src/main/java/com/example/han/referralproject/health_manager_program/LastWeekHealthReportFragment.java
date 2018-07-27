@@ -1,10 +1,13 @@
-package com.example.han.referralproject.intelligent_diagnosis;
+package com.example.han.referralproject.health_manager_program;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
+import com.example.han.referralproject.intelligent_diagnosis.LastWeekAllReport;
+import com.example.han.referralproject.intelligent_diagnosis.SportPlan;
+import com.example.han.referralproject.intelligent_diagnosis.SportPlanDetailActivity;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -27,7 +37,9 @@ import com.megvii.faceppidcardui.imageview.CircleImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/5/15.
@@ -193,4 +205,5 @@ public class LastWeekHealthReportFragment extends Fragment {
             ((ViewGroup) view.getParent()).removeView(view);
         }
     }
+
 }

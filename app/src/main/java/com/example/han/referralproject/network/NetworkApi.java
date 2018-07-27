@@ -4,6 +4,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
@@ -56,15 +57,8 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkApi {
-//            public static final String BasicUrl = "http://116.62.36.12:8080";//备用服务器
-//    public static final String BasicUrl = "http://118.31.238.207:8080";//正式服务器
-//    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
-//    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
-    //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
-//    public static final String BasicUrl = "http://192.168.200.117:8080";//林天聪
-    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
-
-
+    //TODO:IP地址统一到根目录的config.gradle中进行配置
+    public static final String BasicUrl= BuildConfig.SERVER_ADDRESS;
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐

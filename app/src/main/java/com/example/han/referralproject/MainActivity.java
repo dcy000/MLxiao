@@ -17,6 +17,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
@@ -138,7 +139,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.call_family://紧急呼叫家人
                 //呼叫
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+//                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+                startActivity(new Intent(this, TreatmentPlanActivity.class));
                 break;
         }
     }

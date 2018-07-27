@@ -57,4 +57,6 @@ dependencies {
     api 'com.lzy.net:okgo:3.0.4'
     api rootProject.ext.dependencies["gson"]
     implementation project(':module-health_record')
+    implementation project(':lib-utils')
+    implementation project(':lib-common')
 }

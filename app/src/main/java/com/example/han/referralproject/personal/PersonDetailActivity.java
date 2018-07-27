@@ -9,26 +9,22 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.application.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
 
 
     List<Fragment> fragments = new ArrayList<>();
-    @BindView(R.id.vp_content)
-    ViewPager vpContent;
+    private ViewPager vpContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +34,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         initView();
         registerReceiver(wifiChangedReceiver, new IntentFilter(WifiManager.RSSI_CHANGED_ACTION));
     }
+
     private BroadcastReceiver wifiChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -51,6 +48,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
             }
         }
     };
+
     private int obtainWifiInfo() {
         // Wifi的连接速度及信号强度：
         int strength = 0;
@@ -80,6 +78,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         mRightView.setImageResource(R.drawable.icon_wifi);
         mRightView.setOnClickListener(this);
 
+        vpContent = (ViewPager) findViewById(R.id.vp_content);
         PersonDetailFragment detail = new PersonDetailFragment();
         PersonDetail2Fragment detail2 = new PersonDetail2Fragment();
         fragments.add(detail);

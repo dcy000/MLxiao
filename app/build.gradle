@@ -40,14 +40,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
-//            aaptOptions.cruncherEnabled = false
-//            aaptOptions.useNewCruncher = false
+            buildConfigField  ("String","SERVER_ADDRESS",rootProject.ext.produceUrl)
         }
 
         debug {
             debuggable true
-//            aaptOptions.cruncherEnabled = false
-//            aaptOptions.useNewCruncher = false
+            buildConfigField  ("String","SERVER_ADDRESS",rootProject.ext.developUrl)
         }
     }
 
@@ -93,71 +91,31 @@ repositories {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-
     //lib
-    api project(':wkvideoplayer')
-    api project(':module-edu')
-    api project(':lib-video-player')
-    api project(':unit')
-    api(project(':lib-bluetooth')) { exclude group: "com.android.support" }
-    api project(':lib-pay-beecloud')
-    api project(':circleprogress')
-    api project(':expand-textview-library')
-    api project(':lib-rulerview')
-    api project(':circleindicator')
-//    api project(':voice')
-    api project(':module-control_volume')
-
+    implementation project(':wkvideoplayer')
+    implementation project(':module-edu')
+    implementation project(':lib-video-player')
+    implementation project(':unit')
+    implementation(project(':lib-bluetooth')) { exclude group: "com.android.support" }
+    implementation project(':lib-pay-beecloud')
+    implementation project(':circleprogress')
+    implementation project(':expand-textview-library')
+    implementation project(':lib-rulerview')
+    implementation project(':circleindicator')
+    implementation project(':module-control_volume')
+    implementation project(':module-health_record')
+    implementation project(':lib-common')
+    implementation project(':lib-utils')
+    implementation project(':lib-music-player')
+    implementation project(':lib-video')
     //aar
-    api name: 'mlrobot-release', ext: 'aar'
-    api name: 'FaceppIDCardUI', ext: 'aar'
-    api name: 'lib-crash', ext: 'aar'
-    api name: 'lib-wheelrecyclerview', ext: 'aar'
-    api name: 'library', ext: 'aar'
-    api name: 'vmtools', ext: 'aar'
-    api name: 'voicelibrary', ext: 'aar'
-
-    //system
-
-    //    testImplementation rootProject.ext.dependencies["junit"]
-
-    //    api rootProject.ext.dependencies["constraint-layout"]
-
-    //    api rootProject.ext.dependencies["support-v4"]
-
-    //    api rootProject.ext.dependencies["appcompat-v7"]
-
-    //    api rootProject.ext.dependencies["recyclerview-v7"]
-
-    //    api rootProject.ext.dependencies["design"]
-
-    //    api rootProject.ext.dependencies["cardview-v7"]
-
-    //others
-
-    //    api rootProject.ext.dependencies["multidex"]
-
-    //    api rootProject.ext.dependencies["retrofit"]
-
-    //    api rootProject.ext.dependencies["okhttp3"]
-
-    //    api rootProject.ext.dependencies["picasso"]
-
-    //    api rootProject.ext.dependencies["gson"]
-
-    //    api rootProject.ext.dependencies["retrofit-converter-gson"]
-
-    //    api rootProject.ext.dependencies["butterknife"]
-
-    //    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-
-    //万能适配器
-
-    //    api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-
-    //图标库
-
-    //    api rootProject.ext.dependencies["MPAndroidChart"]
+    implementation name: 'mlrobot-release', ext: 'aar'
+    implementation name: 'FaceppIDCardUI', ext: 'aar'
+    implementation name: 'lib-crash', ext: 'aar'
+    implementation name: 'lib-wheelrecyclerview', ext: 'aar'
+    implementation name: 'library', ext: 'aar'
+    implementation name: 'vmtools', ext: 'aar'
+    implementation name: 'voicelibrary', ext: 'aar'
     api('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
@@ -169,7 +127,7 @@ dependencies {
     api 'com.tencent.bugly:crashreport_upgrade:1.2.5'
     api 'com.netease.nimlib:basesdk:4.3.0'
     api 'com.netease.nimlib:avchat:4.3.0'
-
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //七牛云
     api 'com.qiniu:qiniu-android-sdk:7.3.+'
     api 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
@@ -183,20 +141,13 @@ dependencies {
     api 'com.nex3z:flow-layout:1.1.0'
     api 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
     api 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
-
     //极光推送
     api 'cn.jiguang.sdk:jpush:3.1.1'
-
     // 此处以JPush 3.1.1 版本为例。
     api 'cn.jiguang.sdk:jcore:1.1.9'
-
     api 'com.umeng.analytics:analytics:6.1.2'
     api 'me.songning.CircleView:library:1.0.0'
-
     //悬浮窗
     api 'com.github.yhaolpz:FloatWindow:1.0.9'
-    implementation project(':module-health_record')
-    implementation project(':lib-common')
-    implementation project(':lib-utils')
-    implementation project(':lib-music-player')
+
 }

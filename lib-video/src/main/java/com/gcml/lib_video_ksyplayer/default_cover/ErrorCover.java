@@ -33,6 +33,7 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
     private boolean mErrorShow;
 
     private int mCurrPosition;
+    private TextView jump2Next;
 
 
     public ErrorCover(Context context) {
@@ -46,6 +47,8 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
         mInfo = getView().findViewById(R.id.tv_error_info);
         mRetry = getView().findViewById(R.id.tv_retry);
         mRetry.setOnClickListener(this);
+        jump2Next = getView().findViewById(R.id.jumpToNext);
+        jump2Next.setOnClickListener(this);
     }
 
     @Override
@@ -179,6 +182,17 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
         int i = v.getId();
         if (i == R.id.tv_retry) {
             handleStatus();
+        }else if (i==R.id.jumpToNext){
+            if (jump2NextListener != null) {
+                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE,null);
+                jump2NextListener.clickJump2Next(v);
+            }
         }
+    }
+
+    public IJump2NextListener jump2NextListener;
+
+    public void setOnJump2NextListener(IJump2NextListener jump2NextListener) {
+        this.jump2NextListener = jump2NextListener;
     }
 }
