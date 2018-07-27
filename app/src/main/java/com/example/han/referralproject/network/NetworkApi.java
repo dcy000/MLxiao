@@ -1165,7 +1165,7 @@ public class NetworkApi {
     /**
      * 提交原发性高血压问卷
      */
-    public static final String POST_PRIMARY_HYPERTENSION_URL = BasicUrl + "/api/healthMonitor/questionnaire/hypertension/primary/";
+    public static final String POST_PRIMARY_HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/primary/";
 
     public static void postPrimaryHypertensionQuestion(String postJson, String userId, StringCallback callback) {
         OkGo.<String>post(POST_PRIMARY_HYPERTENSION_URL + userId + "/")

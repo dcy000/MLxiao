@@ -7,18 +7,14 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
+import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SlowDiseaseManagementActivity extends BaseActivity {
+public class SlowDiseaseManagementActivity extends BaseActivity implements FllowUpTimesDialog.OnDialogClickListener {
 
     @BindView(R.id.iv_Hypertension_manage)
     ImageView ivHypertensionManage;
@@ -50,6 +46,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity {
             case R.id.iv_Hypertension_manage:
                 // TODO: 2018/7/27 非同日三次 是否满足  接口 2分支 
                 startActivity(new Intent(this, SlowDiseaseManagementTipActivity.class));
+                showNotSameDayInfoDialog();
                 break;
             case R.id.iv_blood_sugar_manage:
                 T.show("敬请期待");
@@ -57,4 +54,16 @@ public class SlowDiseaseManagementActivity extends BaseActivity {
         }
     }
 
+    private void showNotSameDayInfoDialog() {
+        FllowUpTimesDialog dialog = new FllowUpTimesDialog();
+        dialog.setListener(this);
+        dialog.show(getSupportFragmentManager(), "sameTime");
+    }
+
+
+    @Override
+    public void onClickConfirm() {
+        // TODO: 2018/7/27 去测量
+        T.show("去测量");
+    }
 }
