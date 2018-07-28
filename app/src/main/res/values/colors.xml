@@ -66,6 +66,8 @@
     <color name="color_999">#999999</color>
     <color name="color_333">#333333</color>
 
+    <color name="f56c6c">#f56c6c</color>
+
     <color name="colorMultipleChoiceItem">#3F86FC</color>
     <!--<color name="white">#fff</color>-->
 </resources>

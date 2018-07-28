@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.kk.taurus.playerbase.entity.DataSource;
+
 
 import java.util.Calendar;
 
@@ -94,6 +94,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         long currentTime = Calendar.getInstance().getTimeInMillis();
         if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;
+
             Intent intent = new Intent();
             Uri uri;
             switch (v.getId()) {
@@ -178,6 +179,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 //                    intent.putExtra(IPresenter.MEASURE_TYPE,IPresenter.CONTROL_FINGERPRINT);
 //                    break;
 //            }
+
 //            startActivity(intent);
         }
     }

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
@@ -75,6 +74,12 @@ public class HealthDiaryDetailsFragment extends Fragment {
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mOnActionListener = null;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
@@ -98,9 +103,10 @@ public class HealthDiaryDetailsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.health_fragment_diary_details, container, false);
         tvTitle = (TextView) findViewById(R.id.health_diary_tv_title);
         tvCount = (TextView) findViewById(R.id.health_diary_tv_count);
@@ -138,11 +144,32 @@ public class HealthDiaryDetailsFragment extends Fragment {
         return mView;
     }
 
+    public void setValue(float value) {
+        if (rvRuler != null) {
+            rvRuler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mSelectedValue = value;
+                    rvRuler.setValue(mSelectedValue,
+                            mModel.getMinValues()[mModel.getUnitPosition()],
+                            mModel.getMaxValues()[mModel.getUnitPosition()],
+                            mModel.getPerValues()[mModel.getUnitPosition()]
+                    );
+                }
+            });
+        }
+    }
+
     private View.OnClickListener actionOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (mOnActionListener != null) {
-                mOnActionListener.onAction(mModel.getWhat(), mSelectedValue, mModel.getUnitPosition(), null);
+                mOnActionListener.onAction(
+                        mModel.getWhat(),
+                        mSelectedValue,
+                        mModel.getUnitPosition(),
+                        null
+                );
             }
         }
     };

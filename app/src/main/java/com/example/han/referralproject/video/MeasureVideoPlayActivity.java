@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +44,20 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements OnPla
     private boolean userPause;
 
     //播放本地资源的时候传resId,url传null;比方网络资源的时候resId传null
-    public static void startActivity(Activity context, Class clazz, Uri uri, String url, String title) {
-        context.startActivityForResult(new Intent(context, clazz)
-                .putExtra("uri", uri)
-                .putExtra("url", url)
-                .putExtra("title", title), REQUEST_PALY_VIDEO);
+    public static void startActivity(Object host, Class clazz, Uri uri, String url, String title) {
+        if (host instanceof Fragment) {
+            Fragment fragment = (Fragment) host;
+            fragment.startActivityForResult(new Intent(fragment.getContext(), clazz)
+                    .putExtra("uri", uri)
+                    .putExtra("url", url)
+                    .putExtra("title", title), REQUEST_PALY_VIDEO);
+        } else if (host instanceof Activity) {
+            Activity activity = (Activity) host;
+            activity.startActivityForResult(new Intent(activity, clazz)
+                    .putExtra("uri", uri)
+                    .putExtra("url", url)
+                    .putExtra("title", title), REQUEST_PALY_VIDEO);
+        }
     }
 
     @Override
@@ -63,7 +73,7 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements OnPla
         Uri uri = intent.getParcelableExtra("uri");
         String url = intent.getStringExtra("url");
         String title = intent.getStringExtra("title");
-        DataSource dataSource=new DataSource();
+        DataSource dataSource = new DataSource();
         dataSource.setUri(uri);
         dataSource.setData(url);
         dataSource.setTitle(title);
