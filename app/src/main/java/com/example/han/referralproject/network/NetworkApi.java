@@ -60,7 +60,7 @@ import java.util.Map;
 
 public class NetworkApi {
     //TODO:IP地址统一到根目录的config.gradle中进行配置
-    public static final String BasicUrl= BuildConfig.SERVER_ADDRESS;
+    public static final String BasicUrl = BuildConfig.SERVER_ADDRESS;
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐
@@ -1191,9 +1191,6 @@ public class NetworkApi {
     }
 
 
-
-
-
     /**
      * 正常高值-->高血压风险评估
      */
@@ -1214,5 +1211,42 @@ public class NetworkApi {
                 .upJson(postJson)
                 .execute(callback);
     }
+
+
+    /**
+     * 原发性高血压 修改
+     */
+    public static final String POST_ORIGIN_HYPERTENTION = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/primary/";
+
+    public static void postOriginHypertension(String hypertensionPrimaryState, String userId, StringCallback callback) {
+        OkGo.<String>post(POST_ORIGIN_HYPERTENTION + userId + "/")
+                .params("userId", userId)
+                .params("hypertensionPrimaryState", hypertensionPrimaryState)
+                .execute(callback);
+    }
+
+    /**
+     * 靶器官判定
+     */
+    public static final String POST_TARGET_HYPERTENTION = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/target/";
+
+    public static void postTargetHypertension(String hypertensionTarget, String userId, StringCallback callback) {
+        OkGo.<String>post(POST_TARGET_HYPERTENTION + userId + "/")
+                .params("userId", userId)
+                .params("hypertensionTarget", hypertensionTarget)
+                .execute(callback);
+    }
+
+    /**
+     * 获取诊断信息
+     */
+    public static final String GET_DIAGNOSE_INFO = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/";
+
+    public static void getDiagnoseInfo(String userId, StringCallback callback) {
+        OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/")
+                .params("userId", userId)
+                .execute(callback);
+    }
+
 
 }

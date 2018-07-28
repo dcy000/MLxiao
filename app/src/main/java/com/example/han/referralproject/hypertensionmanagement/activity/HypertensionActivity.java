@@ -21,6 +21,9 @@ import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,8 +149,16 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
         NetworkApi.postHypertensionQuestion(new Gson().toJson(postBean), LocalShared.getInstance(this).getUserId() + "", new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                // TODO: 2018/7/26 提交成功 问空腹与否
-                startActivity(new Intent(HypertensionActivity.this, IsEmptyStomachOrNotActivity.class));
+
+                String body = response.body();
+                try {
+                    JSONObject object = new JSONObject(body);
+                    if (object.getBoolean("tag")) {
+                        startActivity(new Intent(HypertensionActivity.this, IsEmptyStomachOrNotActivity.class));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
