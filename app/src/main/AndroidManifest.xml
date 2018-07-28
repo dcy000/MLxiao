@@ -411,9 +411,6 @@
             android:name=".activity.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name="com.medlink.danbogh.register.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -729,6 +726,9 @@
         <activity android:name=".video.MeasureVideoPlayActivity"
             android:screenOrientation="landscape"
             android:label="测量演示视频播放界面"/>
+        <activity android:name="com.gcml.module_health_record.HealthRecordActivity"
+            android:screenOrientation="landscape"
+            android:label="历史测量数据界面"/>
         <activity android:name=".hypertensionmanagement.activity.OriginHypertensionTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.PressureFlatTipActivity" />

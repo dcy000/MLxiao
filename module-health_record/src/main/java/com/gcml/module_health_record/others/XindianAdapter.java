@@ -28,7 +28,7 @@ public class XindianAdapter extends BaseQuickAdapter<ECGHistory, BaseViewHolder>
             helper.setText(R.id.item_tv_message, "心电正常");
         } else
             helper.setText(R.id.item_tv_message, item.ecg);
-        helper.setText(R.id.item_tv_time, TimeUtils.milliseconds2String(Long.parseLong(item.time),
+        helper.setText(R.id.item_tv_time, TimeUtils.milliseconds2String(item.time,
                 new SimpleDateFormat("yyyy-MM-dd HH:mm")));
     }
 }

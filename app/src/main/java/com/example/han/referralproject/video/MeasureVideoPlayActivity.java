@@ -76,17 +76,11 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements OnPla
         updateVideo(true);
         mVideoView.setOnPlayerEventListener(this);
         mVideoView.setEventHandler(mOnEventAssistHandler);
-        mReceiverGroup = ReceiverGroupManager.get().getMeasureVideoReceiverGroup(this, null);
+        mReceiverGroup = ReceiverGroupManager.get().getMeasureVideoReceiverGroup(this,null);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_NETWORK_RESOURCE, false);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_IS_HAS_NEXT, false);
         mVideoView.setReceiverGroup(mReceiverGroup);
-//        DataSource dataSource = new DataSource();
-////        Uri parse = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-////        dataSource.setUri(parse);
-////        dataSource.setUri(parse);
-//        dataSource.setData("http://oyptcv2pb.bkt.clouddn.com/abc_1521797390144");
-//        dataSource.setTitle("测试");
         mVideoView.setDataSource(dataSource);
         mVideoView.start();
 

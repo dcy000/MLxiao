@@ -30,18 +30,18 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/icon_back"
+            android:id="@+id/health_record_icon_back"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/health_record_icon_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/icon_back"
+            android:layout_toRightOf="@+id/health_record_icon_back"
             android:text="健康讲堂"
             android:textColor="@android:color/white"
             android:textSize="30sp" />
@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/health_record_icon_back" />
     </LinearLayout>
 
     <TextView

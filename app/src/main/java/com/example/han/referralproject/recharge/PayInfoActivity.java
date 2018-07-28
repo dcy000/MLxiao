@@ -156,8 +156,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
         speak(getString(R.string.zhanghu_chongzhi));
 
-    /*    mImageView1 = (ImageView) findViewById(R.id.icon_back);
-        mImageView2 = (ImageView) findViewById(R.id.icon_home);
+    /*    mImageView1 = (ImageView) findViewById(R.id.health_record_icon_back);
+        mImageView2 = (ImageView) findViewById(R.id.health_record_icon_home);
 */
         Intent intent = getIntent();
         number = intent.getStringExtra("number");//5000

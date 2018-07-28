@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0pt"
             android:background="@drawable/health_diary_tv_more_items_back"
-            android:drawableLeft="@drawable/icon_back"
+            android:drawableLeft="@drawable/health_record_icon_back"
             android:drawablePadding="20pt"
             android:gravity="center"
             android:paddingLeft="60pt"

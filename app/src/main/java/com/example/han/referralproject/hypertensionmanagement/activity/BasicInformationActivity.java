@@ -95,4 +95,5 @@ public class BasicInformationActivity extends BaseActivity implements TwoChoiceD
         //赞跳高血压界面
         startActivity(new Intent(this, HypertensionTipActivity.class));
     }
+
 }

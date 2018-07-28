@@ -23,7 +23,7 @@
             android:paddingLeft="60pt"
             android:paddingRight="24pt"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/health_record_icon_back" />
 
         <TextView
             android:id="@+id/tv_top_left"
@@ -70,7 +70,7 @@
         android:paddingLeft="120pt"
         android:paddingRight="60pt"
         android:scaleType="centerInside"
-        android:src="@drawable/icon_home"
+        android:src="@drawable/health_record_icon_home"
         android:visibility="visible" />
 
 </RelativeLayout>

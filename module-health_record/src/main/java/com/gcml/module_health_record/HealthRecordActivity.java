@@ -86,6 +86,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.health_recoed_activity_health_record);
         initView();
         initDialog();
     }
