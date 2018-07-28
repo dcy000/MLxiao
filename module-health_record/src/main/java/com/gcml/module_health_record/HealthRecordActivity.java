@@ -10,18 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.qrcode.QRCodeUtils;
 import com.gcml.lib_utils.ui.dialog.BaseDialog;
 import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSure;
-import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
+import com.gcml.lib_utils.ui.dialog.DialogImage;
 import com.gcml.lib_utils.ui.dialog.date_picker.DialogWheelYearMonthDay;
 import com.gcml.module_health_record.fragments.HealthRecordBUAFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodoxygenFragment;
@@ -33,6 +32,7 @@ import com.gcml.module_health_record.fragments.HealthRecordHeartrateFragment;
 import com.gcml.module_health_record.fragments.HealthRecordTemperatureFragment;
 import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
+import com.gzq.administrator.lib_common.base.BaseApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -74,6 +74,9 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     private String temp;
     private String startMillisecond;
     private String endMillisecond;
+    private LinearLayout mLlBack;
+    private TextView mTvTopTitle;
+    private ImageView mIvTopRight;
 
     public static void startActivity(Context context, Class<?> clazz, int position) {
         Intent intent = new Intent();
@@ -196,6 +199,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
     private void initView() {
         mTvRecordQrcode = (TextView) findViewById(R.id.tv_record_qrcode);
+        mTvRecordQrcode.setOnClickListener(this);
         mRgHealthRecord = (RadioGroup) findViewById(R.id.rg_health_record);
         mRgHealthRecord.setOnCheckedChangeListener(this);
         mTvTimeUnit = (TextView) findViewById(R.id.tv_time_unit);
@@ -220,6 +224,12 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         mUnitHalfYearDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_half_year);
         mUnitHalfYearDialoHealthRecordUnitView.setOnClickListener(this);
+        mLlBack = (LinearLayout) findViewById(R.id.ll_back);
+        mLlBack.setOnClickListener(this);
+        mTvTopTitle = (TextView) findViewById(R.id.tv_top_title);
+        mTvTopTitle.setText("历史测量");
+        mIvTopRight = (ImageView) findViewById(R.id.iv_top_right);
+        mIvTopRight.setOnClickListener(this);
 
         Calendar calendar = Calendar.getInstance();
         selectEndYear = calendar.get(Calendar.YEAR);
@@ -401,7 +411,23 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
             baseDialog.dismiss();
             mTvTimeUnit.setText("半年");
 
-        } else {
+        } else if(i==R.id.ll_back){
+            finish();
+        }else if (i==R.id.iv_top_right){
+            try {
+                Class clz = Class.forName("com.example.han.referralproject.MainActivity");
+                startActivity(new Intent(this, clz));
+                finish();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                Log.d("error", e.toString());
+            }
+        }else if(i==R.id.tv_record_qrcode){
+            String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + BaseApplication.getInstance().userId + "&bname=" + BaseApplication.getInstance().userName;
+            DialogImage dialogImage=new DialogImage(this);
+            dialogImage.setImage(QRCodeUtils.creatQRCode(text,600,600));
+            dialogImage.setDescription("扫一扫，下载详细报告");
+            dialogImage.show();
         }
     }
 
