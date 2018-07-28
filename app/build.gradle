@@ -40,12 +40,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
-            buildConfigField  ("String","SERVER_ADDRESS",rootProject.ext.produceUrl)
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
         }
 
         debug {
             debuggable true
-            buildConfigField  ("String","SERVER_ADDRESS",rootProject.ext.developUrl)
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
         }
     }
 
@@ -117,24 +117,8 @@ dependencies {
     implementation name: 'vmtools', ext: 'aar'
     implementation name: 'voicelibrary', ext: 'aar'
 
-
     //system
-
-    //    testImplementation rootProject.ext.dependencies["junit"]
-
-    //    api rootProject.ext.dependencies["constraint-layout"]
-
-    //    api rootProject.ext.dependencies["support-v4"]
-
-    //    api rootProject.ext.dependencies["appcompat-v7"]
-
-    //    api rootProject.ext.dependencies["recyclerview-v7"]
-
-    //    api rootProject.ext.dependencies["design"]
-
-    //    api rootProject.ext.dependencies["cardview-v7"]
-
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support:support-v4:27.1.1'
     testImplementation rootProject.ext.dependencies["junit"]
     api rootProject.ext.dependencies["constraint-layout"]
     api rootProject.ext.dependencies["support-v4"]
@@ -177,4 +161,8 @@ dependencies {
     //悬浮窗
     api 'com.github.yhaolpz:FloatWindow:1.0.9'
 
+    implementation rootProject.ext.dependencies["rxandroid2"]
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxandroidble2"]
+    implementation rootProject.ext.dependencies["rxpermissions2"]
 }

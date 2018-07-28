@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/custom_title_layout"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/video_xuetang1"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/video_xueyas"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/video_xuetang2"
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignStart="@+id/video_xuetang1"
+        android:layout_below="@+id/video_xuetang1"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/video_xueya" />
+
+    <ImageView
+        android:layout_width="550dp"
+        android:layout_height="180dp"
+        android:layout_alignStart="@+id/video_xuetang2"
+        android:layout_below="@+id/video_xuetang2"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/video_xueyass" />
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="320pt"
+        android:layout_height="120pt"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="100pt"
+        android:layout_marginLeft="456pt"
+        android:background="@drawable/health_btn_3f86fc"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#FFFFFF"
+        android:textSize="56pt" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="300dp">
+
+        <TextView
+            android:id="@+id/test_xuetang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="@string/xuetang"
+            android:textSize="45sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_xuetang"
+            android:layout_marginLeft="5sp"
+            android:gravity="center"
+            android:text="@string/xue_tang1"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/tv_xuetang"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/test_xuetang"
+            android:background="@drawable/celiang_shape"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="50sp" />
+    </RelativeLayout>
+</RelativeLayout>

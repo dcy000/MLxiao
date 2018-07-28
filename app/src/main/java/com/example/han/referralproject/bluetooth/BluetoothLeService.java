@@ -269,6 +269,7 @@ public class BluetoothLeService extends Service {
 
 
     public void setCharacteristicNotification(BluetoothGattCharacteristic characteristic, boolean enabled) {
+        Log.d(TAG, "setCharacteristicNotification: " + characteristic.getUuid());
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
