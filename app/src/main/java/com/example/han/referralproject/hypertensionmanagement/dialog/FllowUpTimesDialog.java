@@ -46,6 +46,7 @@ public class FllowUpTimesDialog extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
+
     }
 
     @Nullable

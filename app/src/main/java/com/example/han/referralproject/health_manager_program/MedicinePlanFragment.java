@@ -64,7 +64,7 @@ public class MedicinePlanFragment extends Fragment {
     }
 
     private void getData() {
-        OkGo.<String>get(NetworkApi.Medicine_Program + MyApplication.getInstance().userId + "/")
+        OkGo.<String>get(NetworkApi.Medicine_Program + "100034" + "/")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -92,17 +92,17 @@ public class MedicinePlanFragment extends Fragment {
     }
 
     private void dealData(MedicineBean data) {
-        if (data==null){
+        if (data == null) {
             return;
         }
         mTvTitle.setText(data.getAdvice());
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         mFactorsList.setLayoutManager(gridLayoutManager);
         List<String> drugs = data.getDrugs();
-        mFactorsList.setAdapter(new BaseQuickAdapter<String ,BaseViewHolder>(R.layout.factor_item,drugs) {
+        mFactorsList.setAdapter(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.factor_item, drugs) {
             @Override
             protected void convert(BaseViewHolder baseViewHolder, String s) {
-                baseViewHolder.setText(R.id.text,s);
+                baseViewHolder.setText(R.id.text, s);
             }
         });
     }

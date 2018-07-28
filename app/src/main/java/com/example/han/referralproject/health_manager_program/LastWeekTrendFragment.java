@@ -10,15 +10,23 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
+import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
+import com.google.gson.Gson;
 import com.gzq.administrator.lib_common.base.BaseFragment;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import timber.log.Timber;
 
 public class LastWeekTrendFragment extends BaseFragment {
     private FrameLayout mLastweekTrendFl;
@@ -63,6 +71,24 @@ public class LastWeekTrendFragment extends BaseFragment {
         String endMillisecond = TimeUtils.string2Milliseconds(selectStartYear + "-" + selectStartMonth + "-" +
                 selectStartDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
         getBloodpressureData(startMillisecond, endMillisecond);
+       getResult();
+    }
+
+    private void getResult() {
+        NetworkApi.getDiagnoseInfo(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
+                if (bean != null && bean.tag && bean.data != null) {
+                    mConclusion.setText(bean.data.result);
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                Timber.e(response.body());
+            }
+        });
     }
 
     private void getBloodpressureData(String start, String end) {
